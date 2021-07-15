@@ -81,13 +81,13 @@ function CVAnalysisTypeTabs(props: CVAnalysisTypeTabsProps): JSX.Element {
       <Container className={css.analysisTypeTabs}>
         <Tabs id="AnalysisTypeTabs">
           <Tab
-            id={getString('cv.analysisScreens.analysisTab.metrics')}
-            title={getString('cv.analysisScreens.analysisTab.metrics')}
+            id={getString('pipeline.verification.analysisTab.metrics')}
+            title={getString('pipeline.verification.analysisTab.metrics')}
             panel={metricAnalysisView}
           />
           <Tab
-            id={getString('cv.analysisScreens.analysisTab.logs')}
-            title={getString('cv.analysisScreens.analysisTab.logs')}
+            id={getString('pipeline.verification.analysisTab.logs')}
+            title={getString('pipeline.verification.analysisTab.logs')}
             panel={logAnalysisView}
           />
         </Tabs>

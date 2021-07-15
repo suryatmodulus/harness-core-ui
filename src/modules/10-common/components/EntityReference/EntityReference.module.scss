@@ -51,6 +51,13 @@
     display: flex;
     .search {
       flex: 1;
+      > div {
+        > span {
+          > svg {
+            margin-top: 1px;
+          }
+        }
+      }
     }
   }
   .iconMargin {

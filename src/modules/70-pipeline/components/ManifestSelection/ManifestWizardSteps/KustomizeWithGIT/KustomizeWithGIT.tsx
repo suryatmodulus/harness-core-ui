@@ -384,7 +384,10 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                   addDomId={true}
                   summary={getString('advancedTitle')}
                   details={
-                    <Layout.Horizontal height={90} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+                    <Layout.Horizontal
+                      flex={{ justifyContent: 'flex-start', alignItems: 'center' }}
+                      margin={{ bottom: 'huge' }}
+                    >
                       <FormMultiTypeCheckboxField
                         name="skipResourceVersioning"
                         label={getString('skipResourceVersion')}
@@ -393,7 +396,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
                       />
                       {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
                         <ConfigureOptions
-                          value={formik.values?.skipResourceVersioning ? 'true' : 'false'}
+                          value={(formik.values?.skipResourceVersioning || '') as string}
                           type="String"
                           variableName="skipResourceVersioning"
                           showRequiredField={false}

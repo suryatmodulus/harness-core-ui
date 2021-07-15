@@ -40,7 +40,7 @@ export const SegmentRow: React.FC<SegmentRowProps> = ({ segment, checked, onChec
       </Container>
       <ItemBriefInfo
         name={segment.name}
-        description={((segment as unknown) as { desciption: string }).desciption} // cast util API supports it
+        description={(segment as unknown as { desciption: string }).desciption} // cast util API supports it
         style={{ boxShadow: 'none', flexGrow: 1, paddingLeft: 'var(--spacing-xsmall)' }}
         padding="none"
       />

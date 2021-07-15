@@ -1,0 +1,25 @@
+.tab {
+  :global {
+    span.bp3-icon {
+      margin-right: var(--spacing-small);
+      path {
+        fill: var(--grey-400);
+      }
+    }
+  }
+}
+
+.panelClass {
+  margin-top: 0px;
+  overflow-y: hidden;
+}
+
+.mainContainer {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+
+  .filler {
+    height: 60px;
+    border-bottom: 2px solid var(--grey-200);
+  }
+}

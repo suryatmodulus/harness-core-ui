@@ -1,0 +1,74 @@
+.header {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  & .headerTopRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--spacing-5);
+    margin-bottom: var(--spacing-4);
+  }
+
+  & .titleContainer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: var(--spacing-7);
+    padding: var(--spacing-3) 0;
+  }
+
+  & .title {
+    font-weight: 600;
+    font-size: 20px;
+    color: var(--grey-700);
+  }
+
+  & .pipelineId {
+    font-size: var(--font-size-small);
+    color: var(--grey-600);
+    margin-left: var(--spacing-3);
+  }
+
+  & .tags {
+    margin-left: var(--spacing-5) !important;
+  }
+
+  & .git {
+    margin-left: var(--spacing-5) !important;
+  }
+
+  & .actionsBar {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-small);
+    column-gap: var(--spacing-5);
+
+    & .startTime {
+      display: flex;
+      align-items: center;
+      column-gap: var(--spacing-3);
+    }
+
+    & .startTimeText {
+      color: var(--grey-500);
+    }
+
+    & .duration {
+      font-size: var(--font-size-small);
+      color: var(--grey-800);
+      min-width: 100px;
+      display: inline-flex;
+      align-items: center;
+
+      :global(.bp3-icon) {
+        color: var(--grey-600);
+      }
+    }
+  }
+
+  & .statusLabel {
+    margin-left: var(--spacing-5);
+  }
+}

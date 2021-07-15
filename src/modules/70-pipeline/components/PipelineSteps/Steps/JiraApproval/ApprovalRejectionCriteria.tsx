@@ -177,7 +177,7 @@ export const Conditions = ({
                     <Button
                       minimal
                       disabled={isApprovalStepFieldDisabled(readonly)}
-                      icon="trash"
+                      icon="main-trash"
                       data-testid={`remove-conditions-${i}`}
                       onClick={() => remove(i)}
                     />

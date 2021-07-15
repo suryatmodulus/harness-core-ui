@@ -14,7 +14,7 @@ export const useChangePassword = (): ModalReturn => {
   const [passwordStrengthPolicy, setPasswordStrengthPolicy] = React.useState<PasswordStrengthPolicy>()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog enforceFocus={false} isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         {passwordStrengthPolicy && (
           <ChangePasswordForm hideModal={hideModal} passwordStrengthPolicy={passwordStrengthPolicy} />
         )}

@@ -32,7 +32,7 @@ export const AuditLogsToolbar: React.FC<AuditLogsToolbar> = ({
       {...props}
     >
       <DateRangePickerButton
-        initialButtonText={getString('cf.auditLogs.last7days')}
+        initialButtonText={getString('common.last7days')}
         rightIcon={undefined}
         icon="calendar"
         dateRangePickerProps={{

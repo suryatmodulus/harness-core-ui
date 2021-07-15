@@ -85,10 +85,47 @@
   padding-top: var(--spacing-xsmall);
   padding-left: var(--spacing-small);
   padding-bottom: var(--spacing-xsmall);
-  max-width: fit-content;
+
   :global {
     input[type='text'] {
+      width: 250px;
       background: var(--primary-2);
+    }
+  }
+}
+
+.gitBranchSelectorPopover {
+  :global {
+    width: 250px;
+
+    .bp3-menu {
+      padding: 0;
+      li {
+        height: 32px;
+        cursor: pointer;
+        padding: var(--spacing-xsmall) var(--spacing-small);
+
+        &:hover {
+          background-color: var(--primary-2) !important;
+          color: var(--grey-900) !important;
+        }
+      }
+    }
+
+    .Select--active {
+      background-color: var(--primary-2) !important;
+      color: var(--grey-900) !important;
+    }
+  }
+}
+
+.tooltip {
+  :global {
+    .bp3-popover-arrow-fill {
+      fill: var(--red-100) !important;
+    }
+    .bp3-popover-content {
+      background-color: var(--red-100);
     }
   }
 }

@@ -23,6 +23,7 @@ const RbacMenuItem: React.FC<RbacMenuItemProps> = ({ permission: permissionReque
   if (canDoAction) return <Menu.Item {...restProps} />
   return (
     <Popover
+      openOnTargetFocus={false}
       fill
       usePortal
       interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY}

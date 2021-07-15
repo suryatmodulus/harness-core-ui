@@ -8,6 +8,7 @@ import { useQueryParams } from '@common/hooks'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
 import { Utils } from '@ce/common/Utils'
 // import type { Provider } from '@ce/components/COCreateGateway/models'
+import { GatewayKindType } from '@ce/constants'
 import type { GatewayDetails } from './models'
 
 function getString(val: string | undefined): string {
@@ -44,7 +45,7 @@ export const CECODashboardPage: React.FC = () => {
     idleTimeMins: 15,
     fullfilment: '',
     filter: '',
-    kind: 'instance',
+    kind: GatewayKindType.INSTANCE,
     orgID: getString(orgIdentifier),
     projectID: getString(projectIdentifier),
     accountID: accountId,

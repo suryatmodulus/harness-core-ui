@@ -24,6 +24,7 @@ interface UserGroupRoleAssignmentData {
   userGroup: UserGroupDTO
   roleBindings?: RoleAssignmentMetadataDTO[]
   onSubmit?: () => void
+  onSuccess?: () => void
 }
 
 export interface UserGroupRoleAssignmentValues {
@@ -32,7 +33,7 @@ export interface UserGroupRoleAssignmentValues {
 }
 
 const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => {
-  const { userGroup, roleBindings, onSubmit } = props
+  const { userGroup, roleBindings, onSubmit, onSuccess } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -112,6 +113,7 @@ const UserGroupRoleAssignment: React.FC<UserGroupRoleAssignmentData> = props => 
                 <RoleAssignmentForm
                   noRoleAssignmentsText={getString('rbac.userGroupPage.noRoleAssignmentsText')}
                   formik={formik}
+                  onSuccess={onSuccess}
                 />
                 <Layout.Horizontal>
                   <Button intent="primary" text={getString('save')} type="submit" disabled={saving} />

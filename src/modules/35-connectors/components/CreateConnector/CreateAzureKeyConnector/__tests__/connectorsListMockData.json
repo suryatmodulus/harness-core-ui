@@ -1,0 +1,50 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 2,
+    "pageItemCount": 2,
+    "pageSize": 100,
+    "content": [
+      {
+        "connector": {
+          "name": "vault1",
+          "identifier": "vault1",
+          "description": "",
+          "tags": [],
+          "type": "Vault",
+          "spec": {
+            "vaultUrl": "http://localhost:8200",
+            "renewalIntervalMinutes": 0,
+            "secretEngineName": "secret",
+            "secretEngineVersion": 2,
+            "default": false,
+            "readOnly": false
+          }
+        },
+        "createdAt": 1600688306401,
+        "lastModifiedAt": 1600688306401,
+        "status": null
+      },
+      {
+        "connector": {
+          "name": "Harness Secrets Manager",
+          "identifier": "harnessSecretManager",
+          "description": "Account Level Secret Manager",
+          "tags": [],
+          "type": "Local",
+          "spec": {
+            "default": true
+          }
+        },
+        "createdAt": 1599566027402,
+        "lastModifiedAt": 1599566027402,
+        "status": null
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "54df0eb7-99bf-47bc-8b20-e09fe09d1b7c"
+}

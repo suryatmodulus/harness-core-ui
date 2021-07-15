@@ -13,6 +13,7 @@ export const invitesMockData: ResponsePageInvite = {
         id: '5f773f61cc54a42436326268',
         name: 'example4',
         email: 'example4@email.com',
+        accountIdentifier: 'testAcc',
         roleBindings: [
           {
             roleIdentifier: 'role1',
@@ -29,6 +30,7 @@ export const invitesMockData: ResponsePageInvite = {
         id: '5f773f61cc54a42436326267',
         name: 'example3',
         email: 'example3@email.com',
+        accountIdentifier: 'testAcc',
         roleBindings: [
           {
             roleIdentifier: 'role1',
@@ -45,6 +47,7 @@ export const invitesMockData: ResponsePageInvite = {
         id: '5f773f61cc54a42436326266',
         name: 'example2',
         email: 'example2@email.com',
+        accountIdentifier: 'testAcc',
         roleBindings: [
           {
             roleIdentifier: 'role1',

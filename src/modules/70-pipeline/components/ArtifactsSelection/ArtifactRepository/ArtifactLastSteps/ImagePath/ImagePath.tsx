@@ -23,6 +23,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
+import { getHelpeTextForTags } from '@pipeline/utils/stageHelpers'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -74,7 +75,12 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
     })
   })
 
-  const { data, loading, refetch, error: dockerTagError } = useGetBuildDetailsForDocker({
+  const {
+    data,
+    loading,
+    refetch,
+    error: dockerTagError
+  } = useGetBuildDetailsForDocker({
     queryParams: {
       imagePath: lastImagePath,
       connectorRef: prevStepData?.connectorId?.value
@@ -137,15 +143,19 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
   }
 
   const fetchTags = (imagePath = ''): void => {
-    if (
-      imagePath.length &&
-      lastImagePath !== imagePath &&
-      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
-    ) {
+    if (canFetchTags(imagePath)) {
       setLastImagePath(imagePath)
     }
   }
-
+  const canFetchTags = (imagePath: string): boolean => {
+    return !!(
+      imagePath.length &&
+      getConnectorIdValue().length &&
+      getMultiTypeFromValue(getConnectorIdValue()) === MultiTypeInputType.FIXED &&
+      lastImagePath !== imagePath &&
+      getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED
+    )
+  }
   const getConnectorIdValue = (): string => {
     if (getMultiTypeFromValue(prevStepData?.connectorId) !== MultiTypeInputType.FIXED) {
       return prevStepData?.connectorId
@@ -222,8 +232,8 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
-                  onChange={val => {
-                    setLastImagePath(val as string)
+                  onChange={() => {
+                    tagList.length && setTagList([])
                     formik.values.tagType === 'value' &&
                       getMultiTypeFromValue(formik.values.tag?.value) === MultiTypeInputType.FIXED &&
                       formik.values.tag?.value?.length &&
@@ -261,6 +271,13 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                   <FormInput.MultiTypeInput
                     selectItems={tags}
                     disabled={!formik.values?.imagePath?.length}
+                    helperText={
+                      getMultiTypeFromValue(formik.values?.tag) === MultiTypeInputType.FIXED &&
+                      getHelpeTextForTags(
+                        { imagePath: formik.values?.imagePath, connectorRef: getConnectorIdValue() },
+                        getString
+                      )
+                    }
                     multiTypeInputProps={{
                       expressions,
                       selectProps: {
@@ -269,7 +286,7 @@ export const ImagePath: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProps>
                           <span className={css.padSmall}>
                             <Text lineClamp={1}>
                               {get(dockerTagError, 'data.message', null) ||
-                                getString('pipelineSteps.deploy.errors.notags')}{' '}
+                                getString('pipelineSteps.deploy.errors.notags')}
                             </Text>
                           </span>
                         ),

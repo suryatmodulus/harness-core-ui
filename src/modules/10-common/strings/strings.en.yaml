@@ -11,6 +11,7 @@ duplicateId: 'Duplicate Identifier'
 createPipeline: Create a Pipeline
 production: Production
 addVariable: Add Variable
+advanced: '{{ $.advancedTitle }}'
 editVariable: Edit variable
 editVariableType: Edit variable type
 removeThisVariable: Remove This Variable
@@ -20,7 +21,10 @@ headers: Headers
 durationPrefix: 'Duration: '
 pipelineDetails: Pipeline Details
 accountName: Account Name
+readOnly: Read Only
+editYaml: Edit Yaml
 provisioner: Provisioner
+templates: Templates
 comments: Comments
 updating: 'Updating {{entity}} {{name}}'
 creating: 'Creating {{entity}} {{name}}'
@@ -31,10 +35,18 @@ reject: Reject
 disable: Disable
 remove: Remove
 member: Member
+showMore: Show More
+showLess: Show Less
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
 ID: ID
+instanceValidation:
+  required: Instance is an required field
+  minimumCountInstance: Instances must be greater than or equal to 0
+  maximumCountInstance: Instances must be less than or equal to {{ maximum }}
+  minimumCountPercentage: Percentage must be greater than or equal to 1
+  maximumCountPercentage: Percentage must be less than or equal to 100
 selectStrategy: Select a Strategy
 performAction: Perform Action
 jexlExpression: JEXL Expression
@@ -45,6 +57,25 @@ logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
 execute: Execute
+configureOptions:
+  configureOptions: 'configure options'
+  defaultValue: 'Default value'
+  requiredDuringExecution: 'Required during execution'
+  validation: 'Validation'
+  regex: 'Regex'
+  returnToBasic: 'return to basic'
+  jexlLabel: 'Values ({{ $.common.jexlExpression }})'
+  values: 'Values'
+  enterTags: 'Enter values'
+  validationErrors:
+    regExIsRequired: 'Regex value is required'
+    defaultRegExValid: Default value should validate with regex provided
+    defaultAllowedValid: Default value should be from allowed value
+    regExNotValid: 'Regex value is not valid'
+    jexlExpressionRequired: '{{ $.common.jexlExpression }} is required'
+    minOneAllowedValue: 'Minimum one allowed value'
+  notValidExpression: 'Not a valid input Expression'
+  advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
 namespace: Namespace
 cluster: Cluster
 releaseName: Release name
@@ -87,6 +118,7 @@ projectViewer: Project Viewer
 orgViewer: Organization Viewer
 accViewer: Account Viewer
 plusNumber: + {{number}}
+plusNumberNoSpace: '+{{number}}'
 userGroup: User Group
 userGroups: User Groups
 failureRate: Failure Rate
@@ -179,7 +211,8 @@ gitSync:
   repoDetails: Repo Details
   gitRepositoryDetails: Git Repository Details
   selectBranchLabel: Select a Branch
-  updateResource: 'Update {{resource}}'
+  updateResource: 'Update {{type}} {{name}}'
+  createResource: 'Create {{type}} {{name}}'
   sync: Sync
   syncStartSuccess: 'Sync started for branch {{branch}}'
   syncing:
@@ -233,6 +266,7 @@ git:
   newBranchCommitLabel: Commit to a new branch
   startPRLabel: Start a pull request to merge
   noBranchesFound: No branches found for configured git repository
+  onlyDefaultBranchFound: Cannot find additional branches to raise a pull request.
   validation:
     filePath: '{{$.common.git.filePath}} is required'
     commitMessage: '{{$.common.git.commitMessage}} is required'
@@ -360,6 +394,8 @@ filters:
   noMatchingFilterData: No Results found matching the Filter criteria
   clearFilters: Clear Filters
 in: in
+on: on
+at: at
 moreRefineSearch: '+{{number}} more (refine search)'
 switchAccount: Switch Account
 switchAccountSearch: Search by Account Name
@@ -367,7 +403,7 @@ accountOverview: Account Overview
 accountDetails: Account Details
 addAccountName: Add Account Name
 accountId: Account ID
-harnessClusterHostingAccount: Harness Cluster hosting account
+harnessClusterHostingAccount: Harness Cluster Hosting Account
 defaultExperience: Default Experience
 selectDefaultExperience: Select the default experience to launch after Sign-in
 harnessFirstGeneration: Harness First Generation
@@ -395,6 +431,11 @@ namePlaceholder: Enter Name
 descriptionPlaceholder: Enter Description
 seconds: Seconds
 move: Move
+apikey: API Key
+apiKeys: API Keys
+tokens: Tokens
+lastModifiedTime: Last modified
+expiryDate: Expiration Date
 extendTrial:
   heading: Congrats, your trial is extended
   description: We hope you are enjoying the trial experience at Harness. Your trial is extended for another 14 days.
@@ -408,3 +449,9 @@ extendTrial:
       improve: No, needs ton of improvement
     suggestion: 'What would be helpful for you to have a seamless {{moduleDescription}} experience?'
   doItLater: I’ll do it later
+cgLaunchText: Launch First Generation
+reportName: Report Name
+frequency: 'Frequency'
+last7days: Last 7 days
+instanceLabel: Instances
+reportNameRequired: Report name is required

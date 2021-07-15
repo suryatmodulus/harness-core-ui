@@ -6,8 +6,9 @@ import { Project, useGetProject, useGetCurrentUserInfo, UserInfo, isGitSyncEnabl
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { FeatureFlag } from '@common/featureFlags'
 
-export type FeatureFlagMap = Record<string, boolean>
+export type FeatureFlagMap = Partial<Record<FeatureFlag, boolean>>
 
 /**
  * Application Store - essential application-level states which are shareable
@@ -73,13 +74,14 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
       // don't redirect on local because it goes into infinite loop
       // because there may be no current gen to go to
-      if (!__DEV__ && !featureFlagsMap['NEXT_GEN_ENABLED']) {
-        window.location.href = window.location.pathname.replace(/\/ng\//, '/')
+      if (!__DEV__ && !featureFlagsMap[FeatureFlag.NEXT_GEN_ENABLED]) {
+        const baseUrl = window.location.pathname.replace(/\/ng\//, '/')
+        window.location.href = `${baseUrl}#/account/${accountId}/dashboard`
       }
 
       setState(prevState => ({
         ...prevState,
-        featureFlags: featureFlagsMap
+        featureFlags: featureFlagsMap as FeatureFlagMap
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -87,7 +89,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
   // update gitSyncEnabled when selectedProject changes
   useEffect(() => {
-    if (projectIdentifier && state.featureFlags['GIT_SYNC_NG']) {
+    if (projectIdentifier && state.featureFlags[FeatureFlag.GIT_SYNC_NG]) {
       isGitSyncEnabledPromise({
         queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
       }).then(status => {
@@ -103,7 +105,7 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
       }))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.selectedProject, state.featureFlags['GIT_SYNC_NG'], projectIdentifier, orgIdentifier])
+  }, [state.selectedProject, state.featureFlags[FeatureFlag.GIT_SYNC_NG], projectIdentifier, orgIdentifier])
 
   // set selectedProject when projectDetails are fetched
   useEffect(() => {

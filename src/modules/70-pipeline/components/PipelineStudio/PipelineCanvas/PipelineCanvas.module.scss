@@ -190,3 +190,31 @@
     display: inline-flex;
   }
 }
+
+.runPipelineDialog {
+  position: relative;
+  padding-bottom: 0 !important;
+  background-color: var(--form-bg) !important;
+}
+
+.modal-card {
+  max-height: fit-content;
+  min-height: 150px;
+  height: calc(100% - 48px);
+  min-height: 150px;
+
+  &.bp3-dialog-header {
+    color: var(--grey-700);
+  }
+
+  .modal-content {
+    width: 100%;
+    padding: var(--spacing-large);
+  }
+}
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-small);
+  top: 12px;
+}

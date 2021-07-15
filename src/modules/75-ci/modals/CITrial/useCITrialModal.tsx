@@ -94,7 +94,12 @@ const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.Reac
   })
 
   return (
-    <Dialog isOpen={true} onClose={handleClose} className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}>
+    <Dialog
+      isOpen={true}
+      enforceFocus={false}
+      onClose={handleClose}
+      className={cx(css.dialog, Classes.DIALOG, css.ciTrial)}
+    >
       <CITrial isSelect={isSelect} onSubmit={handleSubmit} closeModal={handleClose} />
       <Button
         aria-label="close modal"

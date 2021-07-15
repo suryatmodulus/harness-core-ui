@@ -98,7 +98,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     autoFocus: true,
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
-    enforceFocus: true,
+    enforceFocus: false,
     style: { width: 1175, minHeight: 640, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
@@ -201,7 +201,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                         {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile, i)}
                         <Button
                           minimal
-                          icon="trash"
+                          icon="main-trash"
                           data-testid={`remove-tfvar-file-${i}`}
                           onClick={() => arrayHelpers.remove(i)}
                         />

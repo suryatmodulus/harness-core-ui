@@ -1,5 +1,5 @@
 import React from 'react'
-import { stringify, parse } from 'yaml'
+import { parse } from 'yaml'
 import { useParams } from 'react-router-dom'
 
 import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
@@ -8,6 +8,7 @@ import { useMutateAsGet } from '@common/hooks'
 import type { UseMutateAsGetReturn } from '@common/hooks/useMutateAsGet'
 import { useCreateVariables } from 'services/pipeline-ng'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 
 export interface PipelineVariablesData {
   variablesPipeline: NgPipeline
@@ -42,7 +43,7 @@ export function PipelineVariablesContextProvider(
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelinePathProps>()
 
   const { data, error, initLoading, loading } = useMutateAsGet(useCreateVariables, {
-    body: (stringify({ pipeline: originalPipeline }) as unknown) as void,
+    body: yamlStringify({ pipeline: originalPipeline }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/yaml'

@@ -25,6 +25,7 @@ import type { GitQueryParams, ProjectPathProps } from '@common/interfaces/RouteI
 
 import { useQueryParams } from '@common/hooks'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
+import { getHelpeTextForTags } from '@pipeline/utils/stageHelpers'
 import { ImagePathProps, ImagePathTypes, TagTypes } from '../../../ArtifactInterface'
 import { ArtifactIdentifierValidation, tagOptions } from '../../../ArtifactHelper'
 import css from '../../ArtifactConnector.module.scss'
@@ -82,7 +83,12 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     region: ''
   })
 
-  const { data: ecrBuildData, loading, refetch, error: ecrTagError } = useGetBuildDetailsForEcr({
+  const {
+    data: ecrBuildData,
+    loading,
+    refetch,
+    error: ecrTagError
+  } = useGetBuildDetailsForEcr({
     queryParams: {
       imagePath: lastQueryData.imagePath,
       connectorRef: prevStepData?.connectorId?.value
@@ -110,6 +116,8 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
     if (
       lastQueryData.region &&
       lastQueryData.imagePath &&
+      getConnectorIdValue().length &&
+      getMultiTypeFromValue(getConnectorIdValue()) === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(lastQueryData.imagePath) === MultiTypeInputType.FIXED &&
       getMultiTypeFromValue(lastQueryData.region) === MultiTypeInputType.FIXED
     ) {
@@ -169,15 +177,18 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
   }
 
   const fetchTags = (imagePath = '', region = ''): void => {
-    if (
+    if (canFetchTags(imagePath, region)) {
+      setLastQueryData({ imagePath, region })
+    }
+  }
+
+  const canFetchTags = (imagePath: string, region: string): boolean =>
+    !!(
       imagePath &&
       getMultiTypeFromValue(imagePath) === MultiTypeInputType.FIXED &&
       region &&
       (lastQueryData.imagePath !== imagePath || lastQueryData.region !== region)
-    ) {
-      setLastQueryData({ imagePath, region })
-    }
-  }
+    )
 
   const getConnectorIdValue = (): string => {
     if (getMultiTypeFromValue(prevStepData?.connectorId) !== MultiTypeInputType.FIXED) {
@@ -262,7 +273,10 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   name="region"
                   selectItems={regions}
                   multiTypeInputProps={{
-                    onChange: () => resetTag(formik),
+                    onChange: () => {
+                      tagList.length && setTagList([])
+                      resetTag(formik)
+                    },
                     selectProps: {
                       defaultSelectedItem: formik.values.region,
                       items: regions
@@ -297,7 +311,10 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   name="imagePath"
                   placeholder={getString('pipeline.artifactsSelection.existingDocker.imageNamePlaceholder')}
                   multiTextInputProps={{ expressions }}
-                  onChange={() => resetTag(formik)}
+                  onChange={() => {
+                    tagList.length && setTagList([])
+                    resetTag(formik)
+                  }}
                 />
                 {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
                   <div className={css.configureOptions}>
@@ -330,6 +347,17 @@ export const ECRArtifact: React.FC<StepProps<ConnectorConfigDTO> & ImagePathProp
                   <FormInput.MultiTypeInput
                     selectItems={tags}
                     disabled={!formik.values?.imagePath?.length}
+                    helperText={
+                      getMultiTypeFromValue(formik.values?.tag) === MultiTypeInputType.FIXED &&
+                      getHelpeTextForTags(
+                        {
+                          imagePath: formik.values?.imagePath,
+                          region: formik.values?.region || '',
+                          connectorRef: getConnectorIdValue()
+                        },
+                        getString
+                      )
+                    }
                     multiTypeInputProps={{
                       expressions,
                       selectProps: {

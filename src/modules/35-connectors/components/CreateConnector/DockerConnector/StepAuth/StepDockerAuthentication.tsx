@@ -57,145 +57,144 @@ const defaultInitialFormData: DockerFormInterface = {
   password: undefined
 }
 
-const StepDockerAuthentication: React.FC<
-  StepProps<StepDockerAuthenticationProps> & DockerAuthenticationProps
-> = props => {
-  const { getString } = useStrings()
-  const { prevStepData, nextStep, accountId } = props
-  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
-  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps> & DockerAuthenticationProps> =
+  props => {
+    const { getString } = useStrings()
+    const { prevStepData, nextStep, accountId } = props
+    const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+    const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 
-  const authOptions: SelectOption[] = [
-    {
-      label: getString('usernamePassword'),
-      value: AuthTypes.USER_PASSWORD
-    },
-    {
-      label: getString('anonymous'),
-      value: AuthTypes.ANNONYMOUS
-    }
-  ]
+    const authOptions: SelectOption[] = [
+      {
+        label: getString('usernamePassword'),
+        value: AuthTypes.USER_PASSWORD
+      },
+      {
+        label: getString('anonymous'),
+        value: AuthTypes.ANNONYMOUS
+      }
+    ]
 
-  const dockerProviderTypeOptions: IOptionProps[] = [
-    {
-      label: getString('connectors.docker.dockerHub'),
-      value: DockerProviderType.DOCKERHUB
-    },
-    {
-      label: getString('connectors.docker.harbour'),
-      value: DockerProviderType.HARBOUR
-    },
-    {
-      label: getString('connectors.docker.quay'),
-      value: DockerProviderType.QUAY
-    },
-    {
-      label: getString('connectors.docker.other'),
-      value: DockerProviderType.OTHER
-    }
-  ]
+    const dockerProviderTypeOptions: IOptionProps[] = [
+      {
+        label: getString('connectors.docker.dockerHub'),
+        value: DockerProviderType.DOCKERHUB
+      },
+      {
+        label: getString('connectors.docker.harbour'),
+        value: DockerProviderType.HARBOUR
+      },
+      {
+        label: getString('connectors.docker.quay'),
+        value: DockerProviderType.QUAY
+      },
+      {
+        label: getString('connectors.docker.other'),
+        value: DockerProviderType.OTHER
+      }
+    ]
 
-  useEffect(() => {
-    if (loadingConnectorSecrets) {
-      if (props.isEditMode) {
-        if (props.connectorInfo) {
-          setupDockerFormData(props.connectorInfo, accountId).then(data => {
-            setInitialValues(data as DockerFormInterface)
+    useEffect(() => {
+      if (loadingConnectorSecrets) {
+        if (props.isEditMode) {
+          if (props.connectorInfo) {
+            setupDockerFormData(props.connectorInfo, accountId).then(data => {
+              setInitialValues(data as DockerFormInterface)
+              setLoadingConnectorSecrets(false)
+            })
+          } else {
             setLoadingConnectorSecrets(false)
-          })
-        } else {
-          setLoadingConnectorSecrets(false)
+          }
         }
       }
+    }, [loadingConnectorSecrets])
+
+    const handleSubmit = (formData: ConnectorConfigDTO) => {
+      nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepDockerAuthenticationProps)
     }
-  }, [loadingConnectorSecrets])
 
-  const handleSubmit = (formData: ConnectorConfigDTO) => {
-    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepDockerAuthenticationProps)
-  }
-
-  return loadingConnectorSecrets ? (
-    <PageSpinner />
-  ) : (
-    <Layout.Vertical height={'inherit'} margin="small">
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('details')}
-      </Text>
-      <Formik
-        initialValues={{
-          ...initialValues,
-          ...prevStepData
-        }}
-        formName="dockerAuthForm"
-        validationSchema={Yup.object().shape({
-          dockerRegistryUrl: Yup.string().trim().required(getString('validation.dockerRegistryUrl')),
-          authType: Yup.string().trim().required(getString('validation.authType')),
-          username: Yup.string().when('authType', {
-            is: val => val === AuthTypes.USER_PASSWORD,
-            then: Yup.string().trim().required(getString('validation.username')),
-            otherwise: Yup.string().nullable()
-          }),
-          password: Yup.object().when('authType', {
-            is: val => val === AuthTypes.USER_PASSWORD,
-            then: Yup.object().required(getString('validation.password')),
-            otherwise: Yup.object().nullable()
-          })
-        })}
-        onSubmit={handleSubmit}
-      >
-        {formikProps => (
-          <Form>
-            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'59%'}>
-              <FormInput.Text
-                name="dockerRegistryUrl"
-                placeholder={getString('UrlLabel')}
-                label={getString('connectors.docker.dockerRegistryURL')}
-              />
-              <Text>{getString('connectors.docker.dockerProvideType')}</Text>
-              <FormInput.RadioGroup
-                className={css.dockerProviderType}
-                inline
-                name="dockerProviderType"
-                radioGroup={{ inline: true }}
-                items={dockerProviderTypeOptions}
-                disabled={false}
-              ></FormInput.RadioGroup>
-              <Container className={css.authHeaderRow}>
-                <Text className={css.authTitle} inline>
-                  {getString('authentication')}
-                </Text>
-                <FormInput.Select
-                  name="authType"
-                  items={authOptions}
-                  disabled={false}
-                  className={commonStyles.authTypeSelectLarge}
+    return loadingConnectorSecrets ? (
+      <PageSpinner />
+    ) : (
+      <Layout.Vertical height={'inherit'} margin="small">
+        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+          {getString('details')}
+        </Text>
+        <Formik
+          initialValues={{
+            ...initialValues,
+            ...prevStepData
+          }}
+          formName="dockerAuthForm"
+          validationSchema={Yup.object().shape({
+            dockerRegistryUrl: Yup.string().trim().required(getString('validation.dockerRegistryUrl')),
+            authType: Yup.string().trim().required(getString('validation.authType')),
+            username: Yup.string().when('authType', {
+              is: val => val === AuthTypes.USER_PASSWORD,
+              then: Yup.string().trim().required(getString('validation.username')),
+              otherwise: Yup.string().nullable()
+            }),
+            password: Yup.object().when('authType', {
+              is: val => val === AuthTypes.USER_PASSWORD,
+              then: Yup.object().required(getString('validation.password')),
+              otherwise: Yup.object().nullable()
+            })
+          })}
+          onSubmit={handleSubmit}
+        >
+          {formikProps => (
+            <Form>
+              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'59%'}>
+                <FormInput.Text
+                  name="dockerRegistryUrl"
+                  placeholder={getString('UrlLabel')}
+                  label={getString('connectors.docker.dockerRegistryURL')}
                 />
-              </Container>
-              {formikProps.values.authType === AuthTypes.USER_PASSWORD ? (
-                <>
-                  <TextReference
-                    name="username"
-                    label={getString('username')}
-                    type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
+                <Text>{getString('connectors.docker.dockerProvideType')}</Text>
+                <FormInput.RadioGroup
+                  className={css.dockerProviderType}
+                  inline
+                  name="dockerProviderType"
+                  radioGroup={{ inline: true }}
+                  items={dockerProviderTypeOptions}
+                  disabled={false}
+                ></FormInput.RadioGroup>
+                <Container className={css.authHeaderRow}>
+                  <Text className={css.authTitle} inline>
+                    {getString('authentication')}
+                  </Text>
+                  <FormInput.Select
+                    name="authType"
+                    items={authOptions}
+                    disabled={false}
+                    className={commonStyles.authTypeSelectLarge}
                   />
-                  <SecretInput name={'password'} label={getString('password')} />
-                </>
-              ) : null}
-            </Layout.Vertical>
-            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-              <Button
-                text={getString('back')}
-                icon="chevron-left"
-                onClick={() => props?.previousStep?.(props?.prevStepData)}
-                data-name="dockerBackButton"
-              />
-              <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
-            </Layout.Horizontal>
-          </Form>
-        )}
-      </Formik>
-    </Layout.Vertical>
-  )
-}
+                </Container>
+                {formikProps.values.authType === AuthTypes.USER_PASSWORD ? (
+                  <>
+                    <TextReference
+                      name="username"
+                      label={getString('username')}
+                      type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
+                    />
+                    <SecretInput name={'password'} label={getString('password')} />
+                  </>
+                ) : null}
+              </Layout.Vertical>
+              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                <Button
+                  text={getString('back')}
+                  icon="chevron-left"
+                  onClick={() => props?.previousStep?.(props?.prevStepData)}
+                  data-name="dockerBackButton"
+                />
+                <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+              </Layout.Horizontal>
+            </Form>
+          )}
+        </Formik>
+      </Layout.Vertical>
+    )
+  }
 
 export default StepDockerAuthentication

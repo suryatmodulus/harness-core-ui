@@ -54,7 +54,7 @@ export function setFormikRef<T = unknown, U = unknown>(ref: StepFormikFowardRef<
     return
   }
 
-  ref.current = (formik as unknown) as FormikProps<T>
+  ref.current = formik as unknown as FormikProps<T>
 }
 
 export abstract class Step<T> {

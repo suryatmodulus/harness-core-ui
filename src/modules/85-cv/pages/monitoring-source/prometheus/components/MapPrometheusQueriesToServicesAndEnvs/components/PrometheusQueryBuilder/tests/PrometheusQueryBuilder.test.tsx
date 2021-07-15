@@ -54,8 +54,8 @@ describe('Unit tests for PrometheusQueryBuilder', () => {
           onUpdateFilter={mockUpdateFilter}
           onRemoveFilter={jest.fn()}
           connectorIdentifier="1234_connector"
-          labelNamesResponse={({ data: MockLabels } as unknown) as ReturnType<typeof useGetLabelNames>}
-          metricNamesResponse={({ data: MockMetricNames } as unknown) as ReturnType<typeof useGetMetricNames>}
+          labelNamesResponse={{ data: MockLabels } as unknown as ReturnType<typeof useGetLabelNames>}
+          metricNamesResponse={{ data: MockMetricNames } as unknown as ReturnType<typeof useGetMetricNames>}
         />
       </TestWrapper>
     )
@@ -101,8 +101,8 @@ describe('Unit tests for PrometheusQueryBuilder', () => {
           onUpdateFilter={jest.fn()}
           onRemoveFilter={mockRemoveFilter}
           connectorIdentifier="1234_connector"
-          labelNamesResponse={({ data: MockLabels } as unknown) as ReturnType<typeof useGetLabelNames>}
-          metricNamesResponse={({ data: MockMetricNames } as unknown) as ReturnType<typeof useGetMetricNames>}
+          labelNamesResponse={{ data: MockLabels } as unknown as ReturnType<typeof useGetLabelNames>}
+          metricNamesResponse={{ data: MockMetricNames } as unknown as ReturnType<typeof useGetMetricNames>}
         />
       </TestWrapper>
     )
@@ -146,9 +146,9 @@ describe('Unit tests for PrometheusQueryBuilder', () => {
           onRemoveFilter={jest.fn()}
           connectorIdentifier="1234_connector"
           labelNamesResponse={
-            ({ error: { data: { message: 'mockLabelError' } } } as unknown) as ReturnType<typeof useGetLabelNames>
+            { error: { data: { message: 'mockLabelError' } } } as unknown as ReturnType<typeof useGetLabelNames>
           }
-          metricNamesResponse={({ data: MockMetricNames } as unknown) as ReturnType<typeof useGetMetricNames>}
+          metricNamesResponse={{ data: MockMetricNames } as unknown as ReturnType<typeof useGetMetricNames>}
         />
       </TestWrapper>
     )
@@ -162,9 +162,9 @@ describe('Unit tests for PrometheusQueryBuilder', () => {
           onUpdateFilter={jest.fn()}
           onRemoveFilter={jest.fn()}
           connectorIdentifier="1234_connector"
-          labelNamesResponse={({ data: MockLabels } as unknown) as ReturnType<typeof useGetLabelNames>}
+          labelNamesResponse={{ data: MockLabels } as unknown as ReturnType<typeof useGetLabelNames>}
           metricNamesResponse={
-            ({ error: { data: { message: 'mockMetricNameError' } } } as unknown) as ReturnType<typeof useGetMetricNames>
+            { error: { data: { message: 'mockMetricNameError' } } } as unknown as ReturnType<typeof useGetMetricNames>
           }
         />
       </TestWrapper>

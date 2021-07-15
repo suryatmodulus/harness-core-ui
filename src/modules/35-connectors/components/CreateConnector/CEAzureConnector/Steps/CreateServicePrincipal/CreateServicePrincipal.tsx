@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useCreateConnector, useUpdateConnector, Failure } from 'services/cd-ng'
-import { useAzureStaticAPI } from 'services/ce/index'
+import { useAzureappclientid } from 'services/ce/index'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
 import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector_new.module.scss'
@@ -68,7 +68,7 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
     }
   }
 
-  const { data, loading } = useAzureStaticAPI({})
+  const { data, loading } = useAzureappclientid({})
   useEffect(() => {
     'SUCCESS' === data?.status && setAppId(data?.data || '')
   }, [loading])

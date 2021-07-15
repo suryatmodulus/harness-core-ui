@@ -44,7 +44,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots Initial Render - Name, I
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -214,7 +214,7 @@ exports[`NameIdDescriptionTags  tests Renders/snapshots On Edit Render - Name, I
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"

@@ -37,8 +37,6 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
-import { MonacoTextField } from '@common/components/MonacoTextField/MonacoTextField'
-
 import { TFMonaco } from './TFMonacoEditor'
 
 import TfVarFileList from './TFVarFileList'
@@ -233,7 +231,6 @@ export default function TerraformEditView(
                               </div>
                             )}
                             <TfVarFileList formik={formik} isReadonly={props.readonly} />
-                            <MonacoTextField name="condition" expressions={expressions} />
                             <div
                               className={cx(
                                 stepCss.formGroup,
@@ -336,6 +333,7 @@ export default function TerraformEditView(
                   {showModal && (
                     <Dialog
                       onClose={() => setShowModal(false)}
+                      enforceFocus={false}
                       className={cx(Classes.DIALOG, 'padded-dialog')}
                       {...modalProps}
                       title={getString('pipelineSteps.configFiles')}

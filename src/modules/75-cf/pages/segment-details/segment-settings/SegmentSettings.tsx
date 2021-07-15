@@ -17,7 +17,11 @@ export const SegmentSettings: React.FC<{ segment?: Segment | undefined | null }>
         <Tabs id="targetSettings">
           <Tab
             id="attributes"
-            title={<Text className={css.tabTitle}>{getString('cf.shared.rules')}</Text>}
+            title={
+              <Text className={css.tabTitle} data-tooltip-id="ff_segmentRules_heading">
+                {getString('cf.shared.rules')}
+              </Text>
+            }
             panel={segment ? <SegmentRules segment={segment} onUpdate={noop} /> : undefined}
           />
           <Tab

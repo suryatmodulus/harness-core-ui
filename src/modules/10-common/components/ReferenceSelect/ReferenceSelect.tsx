@@ -82,6 +82,7 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
       </Button>
       <Dialog
         isOpen={isOpen}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={() => setOpen(false)}

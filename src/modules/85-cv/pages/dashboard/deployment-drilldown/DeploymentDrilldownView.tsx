@@ -7,11 +7,11 @@ import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import VerificationStatusCard from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
 import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
 import VerificationInstanceView, { TabIdentifier } from './VerificationInstanceView'
 import { VerificationInstancePostDeploymentView } from './VerificationInstancePostDeploymentView'
-import VerificationStatusCard from './VerificationStatusCard'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export default function DeploymentDrilldownView(): JSX.Element {

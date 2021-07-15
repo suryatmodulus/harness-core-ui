@@ -1,0 +1,31 @@
+query FetchAllPerspectives {
+  perspectives {
+    sampleViews {
+      id
+      name
+      chartType
+      createdAt
+      viewState
+      lastUpdatedAt
+    }
+    customerViews {
+      id
+      name
+      chartType
+      totalCost
+      viewType
+      viewState
+      createdAt
+      lastUpdatedAt
+      timeRange
+      reportScheduledConfigured
+      dataSources
+      groupBy {
+        fieldId
+        fieldName
+        identifier
+        identifierName
+      }
+    }
+  }
+}

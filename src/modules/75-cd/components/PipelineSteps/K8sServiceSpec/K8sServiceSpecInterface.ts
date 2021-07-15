@@ -13,6 +13,7 @@ export interface KubernetesServiceInputFormProps {
   onUpdate?: ((data: ServiceSpec) => void) | undefined
   stepViewType?: StepViewType
   template?: ServiceSpec
+  allValues?: ServiceSpec
   readonly?: boolean
   factory?: AbstractStepFactory
   path?: string

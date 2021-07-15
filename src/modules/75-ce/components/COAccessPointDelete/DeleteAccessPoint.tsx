@@ -8,6 +8,7 @@ import { useDeleteAccessPoints, DeleteAccessPointPayload } from 'services/lw'
 
 const modalPropsLight: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 500,
     minHeight: 200,

@@ -132,7 +132,12 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         accountId
       }
 
-  const { data: apiData, loading, error, refetch } = getDelegates({
+  const {
+    data: apiData,
+    loading,
+    error,
+    refetch
+  } = getDelegates({
     queryParams
   })
 

@@ -13,6 +13,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 
 describe('Two Factor Authentication', () => {
   test('Redirect to UserProfile', async () => {
@@ -21,7 +22,12 @@ describe('Two Factor Authentication', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <TwoFactorAuthentication twoFactorEnabled={false} onSuccess={refetchAuthSettings} canEdit />
+        <TwoFactorAuthentication
+          twoFactorEnabled={false}
+          onSuccess={refetchAuthSettings}
+          canEdit
+          setUpdating={setUpdating}
+        />
       </TestWrapper>
     )
 
@@ -48,7 +54,7 @@ describe('Two Factor Authentication', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <TwoFactorAuthentication twoFactorEnabled onSuccess={refetchAuthSettings} canEdit />
+          <TwoFactorAuthentication twoFactorEnabled onSuccess={refetchAuthSettings} canEdit setUpdating={setUpdating} />
         </TestWrapper>
       )
 

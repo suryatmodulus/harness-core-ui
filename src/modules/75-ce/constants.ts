@@ -19,6 +19,11 @@ export const allProviders: Provider[] = [
   // }
 ]
 
+export enum PAGE_NAME {
+  PERSPECTIVE_EXPLORER,
+  CREATE_PERSPECTIVE
+}
+
 export enum PROVIDER_TYPES {
   AWS = 'aws',
   AZURE = 'azure',
@@ -40,10 +45,27 @@ export const getGraphQLAPIConfig: (accountId: string) => GetGraphQLAPIConfigRetu
     }
   }
 }
-export const VALID_DOMAIN_REGEX = /((https?):\/\/)?(www.)?[a-z0-9-]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#-]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
+export const VALID_DOMAIN_REGEX =
+  /((https?):\/\/)?(www.)?[a-z0-9-]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#-]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/
 
 export enum ASRuleTabs {
   CONFIGURATION = 'configuration',
   SETUP_ACCESS = 'setupAccess',
   REVIEW = 'review'
+}
+
+export const ConnectorStatus = {
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE'
+}
+
+export enum GatewayKindType {
+  INSTANCE = 'instance',
+  KUBERNETES = 'k8s'
+}
+
+export enum CCM_CHART_TYPES {
+  COLUMN = 'column',
+  AREA = 'area',
+  LINE = 'line'
 }

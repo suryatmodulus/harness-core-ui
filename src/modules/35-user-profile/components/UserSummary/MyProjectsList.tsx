@@ -1,6 +1,7 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Text, Layout, Color, Card, Icon, Container } from '@wings-software/uicore'
+import { PageError } from '@common/components/Page/PageError'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { useGetUserProjectInfo } from 'services/cd-ng'
@@ -10,7 +11,12 @@ const MyProjectsList: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
 
-  const { data: projects, loading } = useGetUserProjectInfo({
+  const {
+    data: projects,
+    loading,
+    error,
+    refetch
+  } = useGetUserProjectInfo({
     queryParams: {
       accountId,
       pageIndex: 0,
@@ -36,9 +42,11 @@ const MyProjectsList: React.FC = () => {
           </Text>
         ) : null}
       </Layout.Horizontal>
-      {projects?.data && !loading ? (
+      {loading ? (
+        <Text color={Color.GREY_600}>{getString('common.loading')}</Text>
+      ) : projects?.data?.content?.length ? (
         <Container className={css.cardContainer}>
-          {projects.data.content?.map(project => {
+          {projects.data.content.map(project => {
             return (
               <Card key={`${project.identifier}-${project.orgIdentifier}`} className={css.card}>
                 <Layout.Vertical flex={{ align: 'center-center' }}>
@@ -61,17 +69,19 @@ const MyProjectsList: React.FC = () => {
               </Card>
             )
           })}
-          {Number(projects.data.totalItems) > Number(projects.data.content?.length) && (
+          {Number(projects.data.totalItems) > Number(projects.data.content.length) && (
             <Text margin={{ top: 'huge' }}>
               {getString('more', {
-                number: Number(projects.data.totalItems) - Number(projects.data.content?.length)
+                number: Number(projects.data.totalItems) - Number(projects.data.content.length)
               })}
             </Text>
           )}
         </Container>
-      ) : !loading ? (
-        <Text color={Color.GREY_700}>{getString('userProfile.noProjects')}</Text>
-      ) : null}
+      ) : projects?.data?.content ? (
+        <Text color={Color.GREY_700}>{getString('noProjects')}</Text>
+      ) : (
+        <PageError message={(error?.data as Error)?.message || error?.message} onClick={() => refetch()} />
+      )}
     </Layout.Vertical>
   )
 }

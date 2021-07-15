@@ -19,7 +19,7 @@ export const useSAMLProviderModal = ({ onSuccess }: Props): UseSAMLProviderRetur
   const [samlProvider, setSamlProvider] = React.useState<SamlSettings>()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen title="" onClose={hideModal} className={cx(Classes.DIALOG, css.dialog)}>
+      <Dialog enforceFocus={false} isOpen title="" onClose={hideModal} className={cx(Classes.DIALOG, css.dialog)}>
         <SAMLProviderForm
           samlProvider={samlProvider}
           onSubmit={() => {

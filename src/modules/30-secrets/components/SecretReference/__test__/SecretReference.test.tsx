@@ -37,7 +37,6 @@ describe('Secret Reference', () => {
     )
     await waitFor(() => getByText(container, 'entityReference.apply'))
     expect(getByText(container, 'account')).toBeTruthy()
-    expect(queryByAttribute('class', container, /secretTypeSelect/)).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
   test('render with spinner', async () => {

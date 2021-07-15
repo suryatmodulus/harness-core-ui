@@ -52,7 +52,8 @@ const getSparklineDefaultOptions = (
   plotOptions: {
     series: {
       animation: false,
-      lineWidth: 2,
+      lineWidth: 1.5,
+      color: 'var(--primary-6)',
       shadow: false,
       marker: {
         enabled: false
@@ -60,7 +61,7 @@ const getSparklineDefaultOptions = (
       enableMouseTracking: false
     }
   },
-  chart: { backgroundColor: '', width: 100, height: 54, margin: [isTitlePresent ? 26 : 10, 10, 10, 10] }
+  chart: { backgroundColor: '', width: 100, height: 54, margin: [isTitlePresent ? 24 : 10, 6, 10, 6] }
 })
 
 const getParsedOptions = (defaultOptions: Highcharts.Options, options: Highcharts.Options): Highcharts.Options =>

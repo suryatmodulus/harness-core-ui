@@ -199,4 +199,26 @@ describe('Testing COGatewayAccess', () => {
       fireEvent.click(downloadBtn)
     })
   })
+
+  test('does not render dns setup screen for k8s rule', async () => {
+    const { container } = render(
+      <TestWrapper path={testpath} pathParams={testparams}>
+        <COGatewayAccess
+          gatewayDetails={{
+            ...initialGatewayDetails,
+            kind: 'k8s',
+            routing: {
+              ...initialGatewayDetails.routing,
+              k8s: { RuleJson: '{"apiVersion":"lightwing.lightwing.io/v1","kind":"AutoStoppingRule"}' }
+            }
+          }}
+          setGatewayDetails={jest.fn()}
+          valid={true}
+          setValidity={jest.fn()}
+        />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot('k8s rule setup access screen')
+  })
 })

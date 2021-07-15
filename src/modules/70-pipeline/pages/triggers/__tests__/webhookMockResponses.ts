@@ -25,7 +25,7 @@ export const GetGitTriggerEventDetailsResponse: UseGetReturnData<ResponseMapStri
         Push: []
       }
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '45939431-731c-4434-89b0-4414ac46d3f7'
   }
 }
@@ -45,12 +45,11 @@ export const GetTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
       targetIdentifier: 'noinputspipeline1',
-      yaml:
-        'trigger:\n    name: All Values\n    identifier: All_Values\n    enabled: true\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: IssueComment\n                spec:\n                    connectorRef: test\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: changedFiles\n                          operator: NotEquals\n                          value: x\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranch\n                        - key: targetBranch\n                          operator: In\n                          value: val1, val2\n                        - key: <+trigger.payload.path>\n                          operator: StartsWith\n                          value: "1"\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: EndsWith\n                          value: release\n                    jexlCondition: jexlCondition\n                    repoName: reponame\n                    actions:\n                        - Create\n                        - Edit\n                        - Delete\n    inputYaml: ""\n',
+      yaml: 'trigger:\n    name: All Values\n    identifier: All_Values\n    enabled: true\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: IssueComment\n                spec:\n                    connectorRef: test\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: changedFiles\n                          operator: NotEquals\n                          value: x\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranch\n                        - key: targetBranch\n                          operator: In\n                          value: val1, val2\n                        - key: <+trigger.payload.path>\n                          operator: StartsWith\n                          value: "1"\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: EndsWith\n                          value: release\n                    jexlCondition: jexlCondition\n                    repoName: reponame\n                    actions:\n                        - Create\n                        - Edit\n                        - Delete\n    inputYaml: ""\n',
       version: 1,
       enabled: true
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
   }
 }
@@ -69,14 +68,182 @@ export const GetTriggerRepoOrgConnectorResponse: UseGetReturnData<ResponseNGTrig
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
       targetIdentifier: 'pipeline1',
-      yaml:
-        'trigger:\n    name: test-github-repo\n    identifier: testgithub\n    enabled: true\n    description: ""\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: pipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: PullRequest\n                spec:\n                    connectorRef: repoconnector\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranchValue\n                        - key: targetBranch\n                          operator: Equals\n                          value: targetBranchValue\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: Equals\n                          value: "123"\n                    jexlCondition: jexlCondition\n                    actions:\n                        - Close\n                        - Edit\n                        - Reopen\n    inputYaml: |\n        pipeline:\n            identifier: pipeline1\n            stages:\n                - stage:\n                      identifier: stage1\n                      type: Deployment\n                      spec:\n                          infrastructure:\n                              environmentRef: ""\n                              infrastructureDefinition:\n                                  type: KubernetesDirect\n                                  spec:\n                                      namespace: ""\n',
+      yaml: 'trigger:\n    name: test-github-repo\n    identifier: testgithub\n    enabled: true\n    description: ""\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: pipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: PullRequest\n                spec:\n                    connectorRef: repoconnector\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranchValue\n                        - key: targetBranch\n                          operator: Equals\n                          value: targetBranchValue\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: Equals\n                          value: "123"\n                    jexlCondition: jexlCondition\n                    actions:\n                        - Close\n                        - Edit\n                        - Reopen\n    inputYaml: |\n        pipeline:\n            identifier: pipeline1\n            stages:\n                - stage:\n                      identifier: stage1\n                      type: Deployment\n                      spec:\n                          infrastructure:\n                              environmentRef: ""\n                              infrastructureDefinition:\n                                  type: KubernetesDirect\n                                  spec:\n                                      namespace: ""\n',
       version: 1,
       enabled: true
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
   }
+}
+
+export const GetCustomTriggerWithVariablesResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      name: 'customtrigger',
+      identifier: 'customtrigger',
+      description: '',
+      type: 'Webhook',
+      accountIdentifier: 'sjmVqavzTuS1segZNyZqbA',
+      orgIdentifier: 'default',
+      projectIdentifier: 'SanityTest_Triggger',
+      targetIdentifier: 'mt',
+      yaml: 'trigger:\n    name: customtrigger\n    identifier: customtrigger\n    enabled: true\n    description: ""\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: SanityTest_Triggger\n    pipelineIdentifier: mt\n    source:\n        type: Webhook\n        spec:\n            type: Custom\n            spec:\n                payloadConditions: []\n                headerConditions: []\n    inputYaml: |\n        pipeline:\n            identifier: mt\n            properties:\n                ci:\n                    codebase:\n                        build:\n                            type: branch\n                            spec:\n                                branch: test\n            stages:\n                - stage:\n                      identifier: Coverage_Report\n                      type: CI\n                      spec:\n                          execution:\n                              steps:\n                                  - step:\n                                        identifier: Jest\n                                        type: Run\n                                        spec:\n                                            command: echo \'from trigger\'\n                          infrastructure:\n                              type: KubernetesDirect\n                              spec:\n                                  namespace: default\n            variables:\n                - name: var1\n                  type: String\n                  value: "123"\n',
+      version: 0,
+      enabled: true
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
+  }
+}
+
+export const PostCreateVariables = {
+  status: 'SUCCESS',
+  data: {
+    yaml: '---\npipeline:\n  name: "MT4L7YXSQmi_27yLRaP1Zg"\n  identifier: "mt"\n  projectIdentifier: "T7tV_aRXQ8G7lcmg4ynwZg"\n  orgIdentifier: "zAJvJXomQ7abyrOBSX7_JA"\n  tags:\n    __uuid: "RDTCeSkBRFS70pfls1Gj_A"\n  properties:\n    ci:\n      codebase:\n        connectorRef: "n0fTxVj7T9m9FQ7ZSEa2Tw"\n        build: "RRfGYgfiRZWdrRXvEg7a_A"\n        __uuid: "LE0Dx8gNS3maiJCMwg_P8Q"\n      __uuid: "mUQ83nCeTOSt5EM1etKqCw"\n    __uuid: "-vcp3lcTTsuzsPKCXVH3Mw"\n  stages:\n  - stage:\n      name: "Glf_lyHLRn6aDslQB2WsrA"\n      identifier: "Coverage_Report"\n      type: "CI"\n      spec:\n        cloneCodebase: "mq06vZp_SCSMGbbfcBAD6A"\n        execution:\n          steps:\n          - step:\n              type: "Run"\n              name: "-KVpswWuRe2PMpQnwGyung"\n              identifier: "Jest"\n              spec:\n                connectorRef: "QZAoLGy_TOOh7UJOFhE-4g"\n                image: "qoZzgFOXTbuwUZFbcm0pkA"\n                command: "Zof5JF9vS9-N0CFrmGkpzg"\n                envVariables:\n                  GIT_BOT_TOKEN: "U3Si4-_QSrWeB-Fa3afCPg"\n                  GIT_EMAIL: "X_WycWqfQTqBSd40EQaECw"\n                  GIT_USER: "9VCyQxg9SZmYL7W4_4JuXQ"\n                  __uuid: "gVu5R7uAT3iDcsHspc5F0w"\n                resources:\n                  limits:\n                    memory: "d9EQ5v8ETX-6u1TWxBu-pg"\n                    cpu: "c-SlorclR8G0_-1y7S8GtQ"\n                    __uuid: "KhKQ4J5kTZmLPYaefaM0FQ"\n                  __uuid: "r9DI9reARKq2BLzS1ayHrA"\n                privileged: "sDfYi0aARhusAeLTLPN4Pw"\n                __uuid: "hosJltu8QRKK9TaE7s5CTg"\n              description: "pNVt7Hy9QXqTpBNAqL6PKA"\n              __uuid: "3phJ5LzuTJa8NmdMlQy2jw"\n            __uuid: "t1qHDMDTQ9KuxVmg-QG-6Q"\n          __uuid: "B2K-1w3nQEKk1qyMfXPFAQ"\n        serviceDependencies: []\n        infrastructure:\n          type: "KubernetesDirect"\n          spec:\n            connectorRef: "2Cushoe8RxmA5CumLBGacg"\n            namespace: "nvdapXFGTo2NkkSX2VchfQ"\n            __uuid: "DDL8c2uxTN-ONW3bTKKcgQ"\n          __uuid: "59bfR6oWRzWrPT5fO6CgqA"\n        __uuid: "EI4QTXvqSheZmc73-zJYPg"\n      when:\n        pipelineStatus: "hZfX2HHSQIOtdMoHjvPOHg"\n        __uuid: "sgTwcwu9Tou22Fu90S4_SA"\n      __uuid: "6ELzeEQfRS2k711rMWalMg"\n    __uuid: "9VR-VkoMTjamsvZhqLt6KQ"\n  variables:\n  - name: "var1"\n    type: "String"\n    value: "U19nOF-TRVqe67HQPxc9WA"\n    __uuid: "Kje5g4QYRIqypH2dnMccNQ"\n  - name: "var2"\n    type: "String"\n    default: "iUITesnwSUWq7eLuU9fsOw"\n    value: "qnk94b-MQoy15lycY3PbJQ"\n    __uuid: "h7qYvGBXTVmHLRhwktR-6Q"\n  - name: "var3withDefault"\n    type: "String"\n    default: "PvLUfdpBQsWNoc3Piam3cQ"\n    value: "-fPxi3wTTrCL-lx1qQ6FNw"\n    __uuid: "UZERAVq8T56f44SZ-eHDug"\n  __uuid: "j0jogMcYSve5XFqwG_BZrA"\n__uuid: "DBcLLYeNSrmwc3j1sM5kDg"\n' as unknown as any,
+    metadataMap: {
+      j0jogMcYSve5XFqwG_BZrA: {
+        yamlProperties: {
+          fqn: 'pipeline',
+          localName: 'pipeline'
+        },
+        yamlOutputProperties: null
+      },
+      MT4L7YXSQmi_27yLRaP1Zg: {
+        yamlProperties: {
+          fqn: 'pipeline.name',
+          localName: 'pipeline.name'
+        },
+        yamlOutputProperties: null
+      },
+      '-fPxi3wTTrCL-lx1qQ6FNw': {
+        yamlProperties: {
+          fqn: 'pipeline.variables.var3withDefault',
+          localName: 'pipeline.variables.var3withDefault'
+        },
+        yamlOutputProperties: null
+      },
+      'qnk94b-MQoy15lycY3PbJQ': {
+        yamlProperties: {
+          fqn: 'pipeline.variables.var2',
+          localName: 'pipeline.variables.var2'
+        },
+        yamlOutputProperties: null
+      },
+      'U19nOF-TRVqe67HQPxc9WA': {
+        yamlProperties: {
+          fqn: 'pipeline.variables.var1',
+          localName: 'pipeline.variables.var1'
+        },
+        yamlOutputProperties: null
+      },
+      'U3Si4-_QSrWeB-Fa3afCPg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.envVariables.GIT_BOT_TOKEN',
+          localName: 'execution.steps.Jest.spec.envVariables.GIT_BOT_TOKEN'
+        },
+        yamlOutputProperties: null
+      },
+      X_WycWqfQTqBSd40EQaECw: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.envVariables.GIT_EMAIL',
+          localName: 'execution.steps.Jest.spec.envVariables.GIT_EMAIL'
+        },
+        yamlOutputProperties: null
+      },
+      'd9EQ5v8ETX-6u1TWxBu-pg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.resources.limits.memory',
+          localName: 'execution.steps.Jest.spec.resources.limits.memory'
+        },
+        yamlOutputProperties: null
+      },
+      '9VCyQxg9SZmYL7W4_4JuXQ': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.envVariables.GIT_USER',
+          localName: 'execution.steps.Jest.spec.envVariables.GIT_USER'
+        },
+        yamlOutputProperties: null
+      },
+      Glf_lyHLRn6aDslQB2WsrA: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.name',
+          localName: 'stage.stages.Coverage_Report.name'
+        },
+        yamlOutputProperties: null
+      },
+      '-KVpswWuRe2PMpQnwGyung': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.name',
+          localName: 'execution.steps.Jest.name'
+        },
+        yamlOutputProperties: null
+      },
+      '6ELzeEQfRS2k711rMWalMg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report',
+          localName: 'stage'
+        },
+        yamlOutputProperties: null
+      },
+      sDfYi0aARhusAeLTLPN4Pw: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.privileged',
+          localName: 'execution.steps.Jest.spec.privileged'
+        },
+        yamlOutputProperties: null
+      },
+      'QZAoLGy_TOOh7UJOFhE-4g': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.connectorRef',
+          localName: 'execution.steps.Jest.spec.connectorRef'
+        },
+        yamlOutputProperties: null
+      },
+      'c-SlorclR8G0_-1y7S8GtQ': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.resources.limits.cpu',
+          localName: 'execution.steps.Jest.spec.resources.limits.cpu'
+        },
+        yamlOutputProperties: null
+      },
+      qoZzgFOXTbuwUZFbcm0pkA: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.image',
+          localName: 'execution.steps.Jest.spec.image'
+        },
+        yamlOutputProperties: null
+      },
+      '3phJ5LzuTJa8NmdMlQy2jw': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest',
+          localName: 'step'
+        },
+        yamlOutputProperties: null
+      },
+      'Zof5JF9vS9-N0CFrmGkpzg': {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.spec.command',
+          localName: 'execution.steps.Jest.spec.command'
+        },
+        yamlOutputProperties: null
+      },
+      pNVt7Hy9QXqTpBNAqL6PKA: {
+        yamlProperties: {
+          fqn: 'pipeline.stages.Coverage_Report.spec.execution.steps.Jest.description',
+          localName: 'execution.steps.Jest.description'
+        },
+        yamlOutputProperties: null
+      }
+    },
+    errorResponses: null
+  },
+  metaData: null,
+  correlationId: '744009cf-bf3a-4db4-b2f4-aae207739d76'
 }
 
 // missing sourceRepo
@@ -96,11 +263,10 @@ export const GetTriggerInvalidYamlResponse: UseGetReturnData<ResponseNGTriggerRe
       projectIdentifier: 'project1',
       targetIdentifier: 'p1',
       enabled: false,
-      yaml:
-        'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: PullRequest\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: Equals\n            value: "123"\n          - key: targetBranch\n            operator: Regex\n            value: Regex\n          - key: abcd\n            operator: In\n            value: abc\n          - key: defg\n            operator: NotIn\n            value: def\n',
+      yaml: 'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: PullRequest\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: Equals\n            value: "123"\n          - key: targetBranch\n            operator: Regex\n            value: Regex\n          - key: abcd\n            operator: In\n            value: abc\n          - key: defg\n            operator: NotIn\n            value: def\n',
       version: 12
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
   }
 }
@@ -120,12 +286,11 @@ export const GetTriggerEmptyActionsResponse: UseGetReturnData<ResponseNGTriggerR
       orgIdentifier: 'default',
       projectIdentifier: 'project1',
       targetIdentifier: 'noinputspipeline1',
-      yaml:
-        'trigger:\n    name: All Values\n    identifier: All_Values\n    enabled: false\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: IssueComment\n                spec:\n                    connectorRef: test\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: changedFiles\n                          operator: NotEquals\n                          value: x\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranch\n                        - key: targetBranch\n                          operator: In\n                          value: val1, val2\n                        - key: <+trigger.payload.path>\n                          operator: StartsWith\n                          value: "1"\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: EndsWith\n                          value: release\n                    jexlCondition: jexlCondition\n                    repoName: reponame\n                    actions: []\n    inputYaml: |\n        pipeline: {}\n',
+      yaml: 'trigger:\n    name: All Values\n    identifier: All_Values\n    enabled: false\n    description: desc\n    tags:\n        tag1: value1\n    orgIdentifier: default\n    projectIdentifier: project1\n    pipelineIdentifier: noinputspipeline1\n    source:\n        type: Webhook\n        spec:\n            type: Github\n            spec:\n                type: IssueComment\n                spec:\n                    connectorRef: test\n                    autoAbortPreviousExecutions: true\n                    payloadConditions:\n                        - key: changedFiles\n                          operator: NotEquals\n                          value: x\n                        - key: sourceBranch\n                          operator: Equals\n                          value: sourceBranch\n                        - key: targetBranch\n                          operator: In\n                          value: val1, val2\n                        - key: <+trigger.payload.path>\n                          operator: StartsWith\n                          value: "1"\n                    headerConditions:\n                        - key: <+trigger.header["key-name"]>\n                          operator: EndsWith\n                          value: release\n                    jexlCondition: jexlCondition\n                    repoName: reponame\n                    actions: []\n    inputYaml: |\n        pipeline: {}\n',
       version: 6,
       enabled: false
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
   }
 }
@@ -144,12 +309,11 @@ export const GetTriggerWithPushEventResponse: UseGetReturnData<ResponseNGTrigger
       orgIdentifier: 'default',
       projectIdentifier: 'mtproject',
       targetIdentifier: 'pipeline1',
-      yaml:
-        'trigger:\n  name: github-connector\n  identifier: githubconnector\n  enabled: true\n  tags: {}\n  target:\n    targetIdentifier: pipeline1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: pipeline1\n          stages:\n            - stage:\n                identifier: stage1\n                spec:\n                  serviceConfig:\n                    serviceRef: ""\n                  infrastructure:\n                    environmentRef: ""\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: mtaccountgithubconnector\n          repoName: repoName\n        event: Push\n        actions: []\n',
+      yaml: 'trigger:\n  name: github-connector\n  identifier: githubconnector\n  enabled: true\n  tags: {}\n  target:\n    targetIdentifier: pipeline1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: pipeline1\n          stages:\n            - stage:\n                identifier: stage1\n                spec:\n                  serviceConfig:\n                    serviceRef: ""\n                  infrastructure:\n                    environmentRef: ""\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: mtaccountgithubconnector\n          repoName: repoName\n        event: Push\n        actions: []\n',
       version: 0,
       enabled: true
     },
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
   }
 }
@@ -165,8 +329,7 @@ export const updateTriggerMockResponse = {
     orgIdentifier: 'default',
     projectIdentifier: 'project1',
     targetIdentifier: 'p1',
-    yaml:
-      'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: PullRequest\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: Equals\n            value: "123"\n          - key: targetBranch\n            operator: Regex\n            value: Regex\n          - key: abcd\n            operator: In\n            value: abc\n          - key: defg\n            operator: NotIn\n            value: def\n',
+    yaml: 'trigger:\n  name: AllValues123\n  identifier: AllValues\n  enabled: false\n  description: desc\n  target:\n    targetIdentifier: p1\n    type: Pipeline\n    spec:\n      runtimeInputYaml: |\n        pipeline:\n          identifier: p1\n          stages:\n            - stage:\n                identifier: stage1\n                type: Deployment\n                spec:\n                  infrastructure:\n                    infrastructureDefinition:\n                      type: KubernetesDirect\n                      spec:\n                        namespace: newNameSpaces\n                        releaseName: "22"\n  source:\n    type: Webhook\n    spec:\n      type: GITHUB\n      spec:\n        gitRepoSpec:\n          identifier: tesa1\n          repoName: triggerNgDemo\n        event: PullRequest\n        actions:\n          - closed\n          - edited\n          - opened\n        payloadConditions:\n          - key: sourceBranch\n            operator: Equals\n            value: "123"\n          - key: targetBranch\n            operator: Regex\n            value: Regex\n          - key: abcd\n            operator: In\n            value: abc\n          - key: defg\n            operator: NotIn\n            value: def\n',
     version: 13
   },
   metaData: null,

@@ -19,5 +19,6 @@ declare const styles: {
   readonly editForm: string
   readonly artifactList: string
   readonly listHeader: string
+  readonly noWrap: string
 }
 export default styles

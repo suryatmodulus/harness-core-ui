@@ -34,6 +34,16 @@ exports[`Sidenav render 1`] = `
     </a>
     <a
       class="link"
+      href="/account/dummy/cv/orgs/dummy/projects/dummy/monitoringservices"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        cv.monitoredServices.title
+      </p>
+    </a>
+    <a
+      class="link"
       href="/account/dummy/cv/orgs/dummy/projects/dummy/admin/setup"
     >
       <p

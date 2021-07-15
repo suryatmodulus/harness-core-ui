@@ -19,6 +19,7 @@ export interface TickerProps {
   verticalAlign?: TickerVerticalAlignment
   size?: number
   tickerContainerStyles?: string
+  tickerValueStyles?: string
 }
 
 export const Ticker: React.FC<TickerProps> = props => {
@@ -31,11 +32,15 @@ export const Ticker: React.FC<TickerProps> = props => {
     size = 6,
     value,
     tickerContainerStyles = '',
+    tickerValueStyles = '',
     children
   } = props
   const iconName = decreaseMode ? 'main-caret-down' : 'main-caret-up'
   return (
-    <div className={cx(css.tickerContainer, { [css.reverseAlignment]: leftAlign }, tickerContainerStyles)}>
+    <div
+      className={cx(css.tickerContainer, { [css.reverseAlignment]: leftAlign }, tickerContainerStyles)}
+      data-test="ticker"
+    >
       {children ? <>{children}</> : <></>}
       <div
         className={cx(
@@ -48,7 +53,9 @@ export const Ticker: React.FC<TickerProps> = props => {
         <div className={css.iconContainer}>
           <Icon name={iconName} color={color} size={size} />
         </div>
-        <div className={css.tickerValue}>{value}</div>
+        <div className={cx(css.tickerValue, tickerValueStyles)} data-test="tickerValue">
+          {value}
+        </div>
       </div>
     </div>
   )

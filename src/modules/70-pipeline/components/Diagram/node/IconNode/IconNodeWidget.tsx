@@ -108,9 +108,9 @@ export const IconNodeWidget: React.FC<IconNodeWidgetProps> = (props): JSX.Elemen
         props.node.setSelected(false)
         props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
       }}
-      onMouseEnter={event => onMouseEnterNode((event as any) as MouseEvent, props.node)}
-      onMouseLeave={event => onMouseLeave((event as any) as MouseEvent)}
-      onMouseOver={event => onMouseOver((event as any) as MouseEvent)}
+      onMouseEnter={event => onMouseEnterNode(event as any as MouseEvent, props.node)}
+      onMouseLeave={event => onMouseLeave(event as any as MouseEvent)}
+      onMouseOver={event => onMouseOver(event as any as MouseEvent)}
     >
       <div
         className={cx(

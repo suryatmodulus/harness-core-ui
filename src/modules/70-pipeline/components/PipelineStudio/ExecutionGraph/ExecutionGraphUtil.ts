@@ -295,6 +295,16 @@ export const getDependenciesState = (services: DependenciesWrapper[], mapState: 
   })
 }
 
+export const applyExistingStates = (newMap: Map<string, StepState>, existingMap: Map<string, StepState>): void => {
+  newMap.forEach((_value, identifier) => {
+    const existingState = existingMap.get(identifier)
+    if (existingState) {
+      //NOTE: reset isSaved
+      newMap.set(identifier, { ...existingState, isSaved: false })
+    }
+  })
+}
+
 export const updateDependenciesState = (services: DependenciesWrapper[], mapState: StepStateMap): void => {
   // we have one service group
   const serviceGroupData = mapState.get(STATIC_SERVICE_GROUP_NAME)

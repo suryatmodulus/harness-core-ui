@@ -56,6 +56,7 @@ const useConfigureNotificationsModal = (
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

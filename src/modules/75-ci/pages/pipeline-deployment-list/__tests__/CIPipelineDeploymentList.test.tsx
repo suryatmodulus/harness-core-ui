@@ -131,7 +131,7 @@ describe('<CIPipelineDeploymentList /> tests', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/ci/orgs/testOrg/projects/test/pipelines/testPip/runpipeline
+        /account/testAcc/ci/orgs/testOrg/projects/test/pipelines/testPip/pipeline-studio/?runPipeline=true
       </div>
     `)
   })

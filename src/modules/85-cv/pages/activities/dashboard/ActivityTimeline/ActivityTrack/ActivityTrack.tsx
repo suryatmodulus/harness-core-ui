@@ -198,11 +198,10 @@ export function ActivityTrack(props: ActivityTrackProps): JSX.Element {
     timelineContainerRef,
     aggregateCoverCard
   } = props
-  const { activityBuckets, timelineHeight } = useMemo(() => placeActivitiesOnTrack(startTime, endTime, activities), [
-    startTime,
-    endTime,
-    activities
-  ])
+  const { activityBuckets, timelineHeight } = useMemo(
+    () => placeActivitiesOnTrack(startTime, endTime, activities),
+    [startTime, endTime, activities]
+  )
 
   return (
     <Container

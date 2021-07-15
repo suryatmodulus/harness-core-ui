@@ -1,0 +1,14 @@
+.main {
+  padding: 0 var(--spacing-large);
+}
+
+.titleHolder {
+  display: flex;
+  align-items: center;
+  margin-top: var(--spacing-large);
+  margin-bottom: var(--spacing-medium);
+
+  .numberOfInputs {
+    margin-left: auto !important;
+  }
+}

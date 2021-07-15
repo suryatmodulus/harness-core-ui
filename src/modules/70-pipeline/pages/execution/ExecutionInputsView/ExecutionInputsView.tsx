@@ -15,9 +15,8 @@ interface ExecutionInputsViewInterface {
 }
 
 export default function ExecutionInputsView(props: ExecutionInputsViewInterface): React.ReactElement {
-  const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, module, executionIdentifier } = useParams<
-    PipelineType<ExecutionPathProps>
-  >()
+  const { projectIdentifier, orgIdentifier, pipelineIdentifier, accountId, module, executionIdentifier } =
+    useParams<PipelineType<ExecutionPathProps>>()
 
   const { pipelineExecutionDetail } = useExecutionContext()
 
@@ -39,7 +38,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
   const [inputSetYaml, setInputSetYaml] = React.useState('')
   React.useEffect(() => {
     if (data) {
-      ;((data as unknown) as Response).text().then(str => {
+      ;(data as unknown as Response).text().then(str => {
         setInputSetYaml(str)
       })
     }

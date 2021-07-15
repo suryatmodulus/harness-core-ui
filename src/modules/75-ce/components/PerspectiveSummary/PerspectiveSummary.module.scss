@@ -1,0 +1,10 @@
+.mainCard {
+  width: 180px;
+  height: 68px;
+
+  &.loadingContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

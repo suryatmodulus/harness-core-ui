@@ -75,7 +75,12 @@ export default function CVServicesPage(): JSX.Element {
   >()
   const history = useHistory()
 
-  const { data: categoryRiskData, error, loading, refetch: refetchCategoryRisk } = useGetCategoryRiskMap({
+  const {
+    data: categoryRiskData,
+    error,
+    loading,
+    refetch: refetchCategoryRisk
+  } = useGetCategoryRiskMap({
     queryParams: {
       orgIdentifier,
       projectIdentifier,

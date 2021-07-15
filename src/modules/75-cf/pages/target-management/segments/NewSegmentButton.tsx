@@ -66,6 +66,7 @@ export const NewSegmentButton: React.FC<NewSegmentButtonProps> = ({
     return (
       <Dialog
         isOpen
+        enforceFocus={false}
         onClose={hideModal}
         title={getString('cf.segments.modalTitle')}
         style={{ padding: 'none' }}

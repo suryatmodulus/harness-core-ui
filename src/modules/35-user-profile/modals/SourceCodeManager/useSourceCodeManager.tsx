@@ -22,6 +22,7 @@ export const useSourceCodeModal = ({ onSuccess, initialValues }: UseSourceCodeMo
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

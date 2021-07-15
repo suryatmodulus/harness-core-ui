@@ -10,6 +10,16 @@ const props = {
   handleSubmit: jest.fn(),
   manifestIdsList: []
 }
+
+const mockBukcets = {
+  resource: { bucket1: 'bucket1', testbucket: 'testbucket' }
+}
+
+jest.mock('services/cd-ng', () => ({
+  useGetGCSBucketList: jest.fn().mockImplementation(() => {
+    return { data: mockBukcets, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
 describe('helm with http tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
@@ -114,18 +124,21 @@ describe('helm with http tests', () => {
   test('submits with the right payload', async () => {
     const initialValues = {
       identifier: '',
-      helmVersion: 'V2',
-      spec: {},
+
       type: ManifestDataType.HelmChart,
       chartName: '',
       chartVersion: '',
-      skipResourceVersioning: false,
-      store: {
-        type: 'Gcs',
-        spec: {
-          connectorRef: 'connectorref',
-          bucketName: 'bucketName',
-          folderPath: 'folderPath'
+
+      spec: {
+        helmVersion: 'V2',
+        skipResourceVersioning: false,
+        store: {
+          type: 'Gcs',
+          spec: {
+            connectorRef: 'connectorref',
+            bucketName: { label: 'testbucket', value: 'testbucket' },
+            folderPath: 'folderPath'
+          }
         }
       },
       commandFlags: [{ commandType: 'Fetch', flag: 'flag', id: 'a1' }]
@@ -140,11 +153,12 @@ describe('helm with http tests', () => {
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
       fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'test-folder ' } })
-      fireEvent.change(queryByNameAttribute('bucketName')!, { target: { value: 'testbucket' } })
+
       fireEvent.change(queryByNameAttribute('chartName')!, { target: { value: 'testchart' } })
       fireEvent.change(queryByNameAttribute('chartVersion')!, { target: { value: 'v1' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
+    expect(container).toMatchSnapshot()
     await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
@@ -153,7 +167,10 @@ describe('helm with http tests', () => {
           spec: {
             store: {
               spec: {
-                bucketName: 'testbucket',
+                bucketName: {
+                  label: 'testbucket',
+                  value: 'testbucket'
+                },
                 connectorRef: '',
                 folderPath: 'test-folder '
               },

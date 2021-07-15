@@ -73,7 +73,7 @@ function K8CanaryDeployWidget(
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            instanceSelection: getInstanceDropdownSchema({ required: true })
+            instanceSelection: getInstanceDropdownSchema({ required: true }, getString)
           }),
           identifier: IdentifierSchema()
         })}
@@ -93,7 +93,7 @@ function K8CanaryDeployWidget(
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInstanceDropdown
                   name={'spec.instanceSelection'}
-                  label={getString('pipelineSteps.instanceLabel')}
+                  label={getString('common.instanceLabel')}
                   readonly={readonly}
                   expressions={expressions}
                 />
@@ -121,6 +121,7 @@ function K8CanaryDeployWidget(
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeDurationField
                   name="timeout"
+                  disabled={readonly}
                   label={getString('pipelineSteps.timeoutLabel')}
                   className={stepCss.duration}
                   multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
@@ -196,11 +197,11 @@ const K8CanaryDeployInputStep: React.FC<K8sCanaryDeployProps> = ({ template, rea
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInstanceDropdown
             expressions={expressions}
-            label={getString('pipelineSteps.instanceLabel')}
+            label={getString('common.instanceLabel')}
             name={`${prefix}spec.instanceSelection`}
             allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
             disabledType
-            disabled={readonly}
+            readonly={readonly}
           />
         </div>
       )}
@@ -224,16 +225,8 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sCanaryDeployData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <K8CanaryDeployInputStep
@@ -323,10 +316,14 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
       getMultiTypeFromValue(template?.spec?.instanceSelection?.spec?.percentage) === MultiTypeInputType.RUNTIME
     ) {
       const instanceSelection = Yup.object().shape({
-        instanceSelection: getInstanceDropdownSchema({
-          required: true,
-          requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
-        })
+        instanceSelection: getInstanceDropdownSchema(
+          {
+            required: true,
+            requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
+          },
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          getString!
+        )
       })
 
       try {

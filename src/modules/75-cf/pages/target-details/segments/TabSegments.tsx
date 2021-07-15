@@ -88,7 +88,11 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
       {/* MANUALLY ADDED / INCLUDE LIST */}
       <Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}>
         <Layout.Horizontal style={{ alignItems: 'center' }}>
-          <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }} padding={{ left: 'small' }}>
+          <Text
+            style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
+            padding={{ left: 'small' }}
+            data-tooltip-id="ff_targetTargetGroups_manuallyAdded"
+          >
             {getString('cf.targetDetail.manuallyAdded')}
           </Text>
           <FlexExpander />
@@ -127,6 +131,7 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
           <Text
             style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
             padding={{ left: 'small', bottom: 'small' }}
+            data-tooltip-id="ff_targetTargetGroups_autoAdded"
           >
             {getString('cf.targetDetail.autoAdded')}
           </Text>
@@ -146,7 +151,11 @@ export const TabSegments: React.FC<{ target?: Target | null }> = ({ target }) =>
       {/* EXCLUSION LIST */}
       <Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}>
         <Layout.Horizontal style={{ alignItems: 'center' }}>
-          <Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }} padding={{ left: 'small' }}>
+          <Text
+            style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
+            padding={{ left: 'small' }}
+            data-tooltip-id="ff_targetTargetGroups_exclusionList"
+          >
             {getString('cf.targetDetail.exclusionList')}
           </Text>
           <FlexExpander />

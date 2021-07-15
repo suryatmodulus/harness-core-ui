@@ -2,6 +2,7 @@ import React from 'react'
 import { Route, useParams, Redirect } from 'react-router-dom'
 
 import Configuration from '@auth-settings/pages/Configuration/Configuration'
+import AccountOverview from '@auth-settings/pages/AccountOverview/AccountOverview'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
@@ -12,6 +13,16 @@ import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import { HomeSideNavProps } from '@common/RouteDestinations'
+
+RbacFactory.registerResourceTypeHandler(ResourceType.ACCOUNT, {
+  icon: 'nav-settings',
+  label: 'rbac.accountSettings.label',
+  category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
+  permissionLabels: {
+    [PermissionIdentifier.VIEW_ACCOUNT]: <String stringID="rbac.permissionLabels.view" />,
+    [PermissionIdentifier.EDIT_ACCOUNT]: <String stringID="edit" />
+  }
+})
 
 RbacFactory.registerResourceTypeHandler(ResourceType.AUTHSETTING, {
   icon: 'nav-settings',
@@ -40,6 +51,9 @@ export default (
       exact
     >
       <Configuration />
+    </RouteWithLayout>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSetup({ ...accountPathProps })} exact>
+      <AccountOverview />
     </RouteWithLayout>
   </>
 )

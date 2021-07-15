@@ -44,6 +44,7 @@ export const useProjectModal = ({
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           if (refreshProjects) {
             onSuccess?.()

@@ -338,5 +338,12 @@ describe('User Profile Page', () => {
       })
 
       expect(queryByText(document.body, 'userProfile.passwordChangedSuccessfully')).toBeTruthy()
+    }),
+    test('No Projects Found', () => {
+      jest.spyOn(cdngServices, 'useGetUserProjectInfo').mockImplementation(() => {
+        return { data: { ...mockMyProfiles, data: { content: [] } } } as any
+      })
+      testSetup()
+      expect(queryByText(document.body, 'noProjects')).toBeTruthy()
     })
 })

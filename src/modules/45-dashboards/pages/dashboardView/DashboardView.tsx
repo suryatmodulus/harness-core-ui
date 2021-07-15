@@ -21,7 +21,11 @@ const DashboardViewPage: React.FC = () => {
   const history = useHistory()
   // const [isDrawerOpen, setDrawerState] = React.useState(false)
 
-  const { mutate: createSignedUrl, loading, error } = useMutate({
+  const {
+    mutate: createSignedUrl,
+    loading,
+    error
+  } = useMutate({
     verb: 'POST',
     path: 'dashboard/signedUrl',
     queryParams: { accountId: accountId, src: `/embed/dashboards-next/${viewId}?embed_domain=` + location?.host }

@@ -392,7 +392,7 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         set(
           errors,
           `manifests[${index}].manifest.spec.store.spec.connectorRef`,
-          getString?.('fieldRequired', { field: 'Artifact Server' })
+          getString?.('fieldRequired', { field: 'connectorRef' })
         )
       }
       if (
@@ -415,6 +415,18 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           errors,
           `manifests[${index}].manifest.spec.store.spec.paths`,
           getString?.('fieldRequired', { field: 'Paths' })
+        )
+      }
+
+      if (
+        isEmpty(manifest?.manifest?.spec?.store?.spec?.bucketName) &&
+        isRequired &&
+        getMultiTypeFromValue(currentManifestTemplate?.bucketName) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `manifests[${index}].manifest.spec.store.spec.bucketName`,
+          getString?.('fieldRequired', { field: 'bucketName' })
         )
       }
     })

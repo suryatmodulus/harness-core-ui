@@ -115,7 +115,7 @@ export const ArtifactConnector: React.FC<StepProps<ConnectorConfigDTO> & Artifac
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
                   <div className={css.configureOptions}>
                     <ConfigureOptions
-                      value={(formik.values.connectorId as unknown) as string}
+                      value={formik.values.connectorId as unknown as string}
                       type={connectorType}
                       variableName="connectorRef"
                       showRequiredField={false}

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Access Control Page render data 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+  >
+    <h2
+      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+      level="2"
+    >
+      accessControl
+    </h2>
+    <div
+      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main TabNavigation--container"
+    >
+      <a
+        class="TabNavigation--tags"
+        href="/account/testAcc/home/setup/access-control/users"
+      >
+        users
+      </a>
+      <a
+        class="TabNavigation--tags"
+        href="/account/testAcc/home/setup/access-control/user-groups"
+      >
+        common.userGroups
+      </a>
+      <a
+        class="TabNavigation--tags"
+        href="/account/testAcc/home/setup/access-control/service-accounts"
+      >
+        rbac.serviceAccounts.label
+      </a>
+      <a
+        class="TabNavigation--tags"
+        href="/account/testAcc/home/setup/access-control/resource-groups"
+      >
+        resourceGroups
+      </a>
+      <a
+        class="TabNavigation--tags"
+        href="/account/testAcc/home/setup/access-control/roles"
+      >
+        roles
+      </a>
+    </div>
+  </div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
+  />
+</div>
+`;

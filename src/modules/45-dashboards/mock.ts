@@ -1,7 +1,4 @@
-import { Colors } from '@blueprintjs/core'
-import { Color } from '@wings-software/uicore'
 import type { ServiceInstanceWidgetProps } from './components/Services/ServiceInstancesWidget/ServiceInstancesWidget'
-import type { MostActiveServicesWidgetProps } from './components/Services/MostActiveServicesWidget/MostActiveServicesWidget'
 import { DeploymentStatus } from './components/Services/ServicesList/ServicesList'
 import type { ServicesListProps } from './components/Services/ServicesList/ServicesList'
 
@@ -14,79 +11,46 @@ export const ServiceInstancesWidgetMock: ServiceInstanceWidgetProps = {
   prodCount: 20
 }
 
-export const MostActiveServicesWidgetMock: MostActiveServicesWidgetProps = {
-  title: 'Most active services',
-  data: [
-    {
-      label: 'Login',
-      value: 23,
-      color: Color.RED_600,
-      change: 5
-    },
-    {
-      label: 'Backend',
-      value: 20,
-      color: Color.RED_500,
-      change: 5
-    },
-    {
-      label: 'Portal',
-      value: 16,
-      color: Color.RED_450,
-      change: 5
-    },
-    {
-      label: 'Test',
-      value: 12,
-      color: Color.ORANGE_500,
-      change: 5
-    },
-    {
-      label: 'Others',
-      value: 8,
-      color: Color.ORANGE_400,
-      change: 5
-    }
-  ]
+export const mostActiveServiceInfo = {
+  data: {
+    workloadDeploymentInfoList: [
+      {
+        serviceName: 'Service1',
+        serviceId: 'Service1Id',
+        totalDeployments: 100,
+        totalSuccess: 37,
+        totalFailure: 63,
+        rateSuccess: 45.4,
+        failureRateChangeRate: 600.2
+      },
+      {
+        serviceName: 'Service2',
+        serviceId: 'Service2Id',
+        totalDeployments: 200,
+        totalSuccess: 137,
+        totalFailure: 163,
+        rateSuccess: 435.4,
+        failureRateChangeRate: 620.2
+      }
+    ]
+  }
 }
 
-export const DeploymentsWidgetMock = {
-  deployments: {
-    value: '211',
-    change: 5
+export const deploymentsInfo = {
+  status: 'SUCCESS',
+  data: {
+    startTime: 1623149323912,
+    endTime: 1625741323912,
+    totalDeployments: 57,
+    failureRate: 24.2,
+    frequency: 324.2,
+    failureRateChangeRate: 45.7,
+    totalDeploymentsChangeRate: 34.4,
+    frequencyChangeRate: 23.2,
+    serviceDeploymentList: [{ time: 1625443200000, deployments: { total: 0, success: 0, failure: 0 } }]
   },
-  failureRate: {
-    value: '15%',
-    change: 5
-  },
-  frequency: {
-    value: '3',
-    change: 5
-  },
-  data: [
-    {
-      name: 'Failed',
-      data: [30, 10, 20, 10, 20, 30, 20, 15, 16, 28],
-      color: Colors.RED5
-    },
-    {
-      name: 'Successful',
-      data: [20, 30, 60, 70, 20, 10, 60, 85, 58, 72],
-      color: Colors.BLUE5
-    }
-  ],
-  dateLabels: [
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020',
-    '01/02/2020',
-    '02/02/2020'
-  ]
+  metaData: null,
+  correlationId: 'deaf3a4d-161b-4d64-a77d-5be92b7cf41b'
 }
 
 export const ServiceListMock: ServicesListProps = {
@@ -120,4 +84,17 @@ export const ServiceListMock: ServicesListProps = {
       status: DeploymentStatus.SUCCESS
     }
   })
+}
+
+export const envBuildInstanceCount = {
+  status: 'SUCCESS',
+  data: {
+    envBuildIdAndInstanceCountInfoList: [
+      {
+        envId: 'env1',
+        envName: 'envName',
+        buildIdAndInstanceCountList: [{ buildId: 'build1', count: 1 }]
+      }
+    ]
+  }
 }

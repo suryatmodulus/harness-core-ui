@@ -32,6 +32,7 @@ const useCreateGitSyncModal = (props: UseCreateGitSyncModalProps): UseCreateGitS
   const [syncRepo, setSyncRepo] = useState<GitSyncConfig | void>()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
+    enforceFocus: false,
     style: {
       width: 1200,
       minHeight: 720,

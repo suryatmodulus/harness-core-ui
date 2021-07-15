@@ -4,7 +4,7 @@ import { Dialog } from '@blueprintjs/core'
 
 import CreateOrSelectSecret from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper, ConnectorInfoDTO } from 'services/cd-ng'
 
 import css from './useCreateOrSelectSecretModal.module.scss'
 
@@ -12,6 +12,7 @@ export interface UseCreateOrSelectSecretModalProps {
   type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
+  connectorTypeContext?: ConnectorInfoDTO['type']
 }
 
 export interface UseCreateOrSelectSecretModalReturn {
@@ -27,6 +28,7 @@ const useCreateOrSelectSecretModal = (
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}
@@ -39,6 +41,7 @@ const useCreateOrSelectSecretModal = (
             props.onSuccess?.(secret)
             hideModal()
           }}
+          connectorTypeContext={props.connectorTypeContext}
         />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>

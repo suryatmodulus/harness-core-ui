@@ -196,6 +196,7 @@ export const useContactSalesModal = ({
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal(), onCloseModal?.()
         }}

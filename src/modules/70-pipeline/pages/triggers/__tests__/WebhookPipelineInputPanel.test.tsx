@@ -7,6 +7,7 @@ import * as pipelineNg from 'services/pipeline-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useStrings } from 'framework/strings'
+import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import {
   GetTemplateFromPipelineResponse,
   GetTemplateStageVariablesFromPipelineResponse,
@@ -21,9 +22,22 @@ import WebhookPipelineInputPanel from '../views/WebhookPipelineInputPanel'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('@common/utils/YamlUtils', () => ({}))
+
+const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
+const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+
 jest.mock('services/cd-ng', () => ({
   useGetEnvironmentList: jest.fn(() => GetEnvironmentList),
-  useGetConnector: jest.fn(() => ConnectorResponse)
+  useGetConnector: jest.fn(() => ConnectorResponse),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
+    return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+  }),
+  useListGitSync: jest.fn().mockImplementation(() => {
+    return { data: gitConfigs, refetch: getListGitSync }
+  }),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: sourceCodeManagers, refetch: jest.fn() }
+  })
 }))
 
 const defaultTriggerConfigDefaultProps = getTriggerConfigDefaultProps({})

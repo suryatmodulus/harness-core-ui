@@ -137,7 +137,7 @@ export function HarnessApprovalTab(props: HarnessApprovalTabProps): React.ReactE
                       />
                       <div className={cx(css.formRow, css.labels)}>
                         <String stringID="variableNameLabel" />
-                        <String stringID="configureOptions.defaultValue" />
+                        <String stringID="common.configureOptions.defaultValue" />
                       </div>
                       {values.approverInputs?.map((row, i) => (
                         <div className={css.formRow} key={i}>

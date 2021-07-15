@@ -40,6 +40,10 @@ $header-height: 80px;
   .pipeline-title {
     display: grid;
     grid-template-columns: 30px 1fr;
+    > span {
+      display: flex;
+      column-gap: var(--spacing-small);
+    }
     .menu {
       position: relative;
       > div {

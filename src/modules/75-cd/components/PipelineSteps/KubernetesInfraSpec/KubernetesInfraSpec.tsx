@@ -8,7 +8,8 @@ import {
   FormInput,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  Icon
+  Icon,
+  Accordion
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -107,11 +108,10 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
         formName="k8InfraSpec"
         validate={value => {
           const data: Partial<K8SDirectInfrastructure> = {
-            namespace: value.namespace,
-            releaseName: value.releaseName,
+            namespace: value.namespace === '' ? undefined : value.namespace,
+            releaseName: value.releaseName === '' ? undefined : value.releaseName,
             connectorRef: undefined,
-            allowSimultaneousDeployments: value.allowSimultaneousDeployments,
-            infrastructureKey: value.infrastructureKey
+            allowSimultaneousDeployments: value.allowSimultaneousDeployments
           }
           if (value.connectorRef) {
             data.connectorRef = (value.connectorRef as any)?.value || value.connectorRef
@@ -192,65 +192,42 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   />
                 )}
               </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" className={css.formRow}>
-                <FormInput.MultiTextInput
-                  name="releaseName"
-                  tooltipProps={{
-                    dataTooltipId: 'k8InfraReleaseName'
-                  }}
-                  className={css.inputWidth}
-                  label={getString('common.releaseName')}
-                  disabled={readonly}
-                  placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
-                  multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+              <Accordion activeId={!isEmpty(formik.errors.releaseName) ? 'advanced' : ''}>
+                <Accordion.Panel
+                  id="advanced"
+                  addDomId={true}
+                  summary={getString('common.advanced')}
+                  details={
+                    <Layout.Horizontal spacing="medium" className={css.formRow}>
+                      <FormInput.MultiTextInput
+                        name="releaseName"
+                        tooltipProps={{
+                          dataTooltipId: 'k8InfraReleaseName'
+                        }}
+                        className={css.inputWidth}
+                        label={getString('common.releaseName')}
+                        disabled={readonly}
+                        placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
+                        multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                      />
+                      {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
+                        <ConfigureOptions
+                          value={formik.values.releaseName as string}
+                          type="String"
+                          variableName="releaseName"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={value => {
+                            formik.setFieldValue('releaseName', value)
+                          }}
+                          isReadonly={readonly}
+                        />
+                      )}
+                    </Layout.Horizontal>
+                  }
                 />
-                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && !readonly && (
-                  <ConfigureOptions
-                    value={formik.values.releaseName as string}
-                    type="String"
-                    variableName="releaseName"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      formik.setFieldValue('releaseName', value)
-                    }}
-                    isReadonly={readonly}
-                  />
-                )}
-              </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" className={css.formRow}>
-                <FormInput.MultiTextInput
-                  name="infrastructureKey"
-                  tooltipProps={{
-                    dataTooltipId: 'k8InfraKey'
-                  }}
-                  className={css.inputWidth}
-                  label={getString('pipeline.infrastructureKey')}
-                  disabled={readonly}
-                  placeholder={getString('cd.steps.common.infrastructureKeyPlaceholder')}
-                  multiTextInputProps={{
-                    expressions,
-                    textProps: { disabled: readonly },
-                    defaultValue:
-                      '<+EnvironmentRef>_<+infrastructure.connectorRef>_<+infra.namespace>_<service.serviceId>'
-                  }}
-                />
-                {getMultiTypeFromValue(formik.values.infrastructureKey) === MultiTypeInputType.RUNTIME && !readonly && (
-                  <ConfigureOptions
-                    value={formik.values.infrastructureKey as string}
-                    type="String"
-                    variableName="infrastructureKey"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      formik.setFieldValue('infrastructureKey', value)
-                    }}
-                    isReadonly={readonly}
-                  />
-                )}
-              </Layout.Horizontal>
+              </Accordion>
 
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormInput.CheckBox

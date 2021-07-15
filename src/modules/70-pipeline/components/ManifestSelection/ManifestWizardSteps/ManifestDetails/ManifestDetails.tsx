@@ -23,11 +23,11 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 import { FormMultiTypeCheckboxField } from '@common/components'
 
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
 import { getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { ManifestDetailDataType } from '../../ManifestInterface'
+import type { ManifestDetailDataType, ManifestTypes } from '../../ManifestInterface'
 import {
   gitFetchTypeList,
   GitFetchTypes,
@@ -36,6 +36,7 @@ import {
   ManifestIdentifierValidation,
   ManifestStoreMap
 } from '../../Manifesthelper'
+import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -43,7 +44,7 @@ interface ManifestDetailsPropType {
   stepName: string
   expressions: string[]
   initialValues: ManifestConfig
-  selectedManifest: string
+  selectedManifest: ManifestTypes
   handleSubmit: (data: ManifestConfigWrapper) => void
   manifestIdsList: Array<string>
   isReadonly?: boolean
@@ -120,7 +121,10 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    if (
+      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
+      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+    ) {
       repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
@@ -175,7 +179,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
     const manifestObj: ManifestConfigWrapper = {
       manifest: {
         identifier: formData.identifier,
-        type: ManifestDataType.K8sManifest,
+        type: selectedManifest,
         spec: {
           store: {
             type: formData?.store,
@@ -231,20 +235,21 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             is: 'Commit',
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
-          paths: Yup.lazy(
-            (value): Yup.Schema<unknown> => {
-              if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
-                return Yup.array().of(
-                  Yup.object().shape({
-                    path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
-                  })
-                )
-              }
-              return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
+          paths: Yup.lazy((value): Yup.Schema<unknown> => {
+            if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
+              return Yup.array().of(
+                Yup.object().shape({
+                  path: Yup.string().min(1).required(getString('pipeline.manifestType.pathRequired'))
+                })
+              )
             }
-          ),
+            return Yup.string().required(getString('pipeline.manifestType.pathRequired'))
+          }),
           repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
-            if (connectionType === GitRepoName.Repo) {
+            if (
+              connectionType === GitRepoName.Repo ||
+              getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+            ) {
               return true
             }
             return !isEmpty(value) && value?.length > 0
@@ -255,7 +260,8 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
+                getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier
@@ -280,42 +286,13 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                 </div>
 
                 {!!(connectionType === GitRepoName.Account && accountUrl) && (
-                  <div className={css.repoName}>
-                    <div
-                      className={cx(css.halfWidth, {
-                        [css.runtimeInput]:
-                          getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME
-                      })}
-                    >
-                      <FormInput.MultiTextInput
-                        multiTextInputProps={{ expressions }}
-                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                        placeholder={getString('pipeline.manifestType.repoNamePlaceholder')}
-                        name="repoName"
-                        className={css.reponameField}
-                      />
-                      {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.RUNTIME && (
-                        <ConfigureOptions
-                          value={formik.values?.repoName as string}
-                          type="String"
-                          variableName="repoName"
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          style={{ marginTop: 10 }}
-                          onChange={value => formik.setFieldValue('repoName', value)}
-                          isReadonly={isReadonly}
-                        />
-                      )}
-                    </div>
-
-                    {getMultiTypeFromValue(formik.values?.repoName) === MultiTypeInputType.FIXED && (
-                      <>
-                        <String stringID="common.git.gitAccountUrl" className={css.accountUrl} />:
-                        <span className={css.repoNameUrl}>{`${accountUrl}`}</span>
-                      </>
-                    )}
-                  </div>
+                  <GitRepositoryName
+                    accountUrl={accountUrl}
+                    expressions={expressions}
+                    fieldValue={formik.values?.repoName}
+                    changeFieldValue={(value: string) => formik.setFieldValue('repoName', value)}
+                    isReadonly={isReadonly}
+                  />
                 )}
                 <Layout.Horizontal flex spacing="huge" margin={{ top: 'small', bottom: 'small' }}>
                   <div className={css.halfWidth}>
@@ -432,7 +409,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 <Text width={12}>{`${index + 1}.`}</Text>
                                 <FormInput.MultiTextInput
                                   label={''}
-                                  placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                                  placeholder={getString('pipeline.manifestType.manifestPathPlaceholder')}
                                   name={`paths[${index}].path`}
                                   style={{ width: 275 }}
                                   multiTextInputProps={{
@@ -442,7 +419,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                                 />
                               </Layout.Horizontal>
                               {formik.values?.paths?.length > 1 && (
-                                <Button minimal icon="minus" onClick={() => arrayHelpers.remove(index)} />
+                                <Button minimal icon="main-trash" onClick={() => arrayHelpers.remove(index)} />
                               )}
                             </Layout.Horizontal>
                           ))}
@@ -483,9 +460,9 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                       summary={getString('advancedTitle')}
                       details={
                         <Layout.Horizontal
-                          height={90}
                           width={'50%'}
-                          flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
+                          flex={{ justifyContent: 'flex-start', alignItems: 'center' }}
+                          margin={{ bottom: 'huge' }}
                         >
                           <FormMultiTypeCheckboxField
                             name="skipResourceVersioning"
@@ -496,7 +473,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           {getMultiTypeFromValue(formik.values?.skipResourceVersioning) ===
                             MultiTypeInputType.RUNTIME && (
                             <ConfigureOptions
-                              value={formik.values?.skipResourceVersioning ? 'true' : 'false'}
+                              value={(formik.values?.skipResourceVersioning || '') as string}
                               type="String"
                               variableName="skipResourceVersioning"
                               showRequiredField={false}

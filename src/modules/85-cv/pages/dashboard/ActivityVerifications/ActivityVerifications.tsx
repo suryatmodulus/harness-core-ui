@@ -5,7 +5,7 @@ import routes from '@common/RouteDefinitions'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
+import CVProgressBar from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
 import VerificationItem from './VerificationItem'
 import css from './ActivityVerifications.module.scss'
 

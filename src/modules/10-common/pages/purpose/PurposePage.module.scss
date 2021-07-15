@@ -35,3 +35,14 @@
     width: auto;
   }
 }
+
+.continueButton {
+  cursor: pointer;
+  background-color: var(--blue-600);
+  width: 100px;
+  border-radius: 4px;
+  line-height: 2.5;
+  text-align: center;
+  color: var(--white) !important;
+  text-decoration: none;
+}

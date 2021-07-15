@@ -16,6 +16,13 @@ jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageServi
   getLanguageService: jest.fn()
 }))
 
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null
+})
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock)
+
 factory.registerStep(new CustomVariables())
 
 const getPipelineContext = (): PipelineContextInterface => ({
@@ -25,6 +32,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     pipelineView: {
       isSplitViewOpen: true,
       isDrawerOpened: false,
+      isYamlEditable: false,
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
     },
@@ -58,6 +66,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSelectedStageId: jest.fn(),
   setSelectedSectionId: jest.fn(),
   setSelectedStepId: jest.fn(),
+  setSelection: jest.fn(),
   getStagePathFromPipeline: jest.fn()
 })
 describe('StepWidget tests', () => {

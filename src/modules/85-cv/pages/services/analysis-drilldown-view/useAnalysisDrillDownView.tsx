@@ -31,7 +31,7 @@ const bpDialogProps: IDialogProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
-  enforceFocus: true,
+  enforceFocus: false,
   title: '',
   className: css.main,
   style: { width: 900, height: 570 }

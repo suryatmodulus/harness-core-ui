@@ -15,6 +15,7 @@ interface TextWithToolTipProps {
   messageText?: string
   showDetails?: boolean
   errors: ServiceError[]
+  indicatorColor?: string // TEMP: to set color for circle icon
 }
 
 const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
@@ -27,7 +28,7 @@ const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
       icon={isSuccess ? 'full-circle' : 'warning-sign'}
       iconProps={{
         size: isSuccess ? 6 : 12,
-        color: isSuccess ? Color.GREEN_500 : Color.RED_500
+        color: props.indicatorColor ? props.indicatorColor : isSuccess ? Color.GREEN_500 : Color.RED_500
       }}
       tooltip={
         <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
@@ -48,7 +49,7 @@ const TextWithToolTip: React.FC<TextWithToolTipProps> = props => {
       }
       tooltipProps={{ isDark: true, position: 'bottom' }}
     >
-      {/*isSuccess ? getString('active').toLowerCase() : null*/}
+      {props.messageText || null}
     </Text>
   )
 }

@@ -1,0 +1,116 @@
+.header {
+  margin-bottom: var(--spacing-xlarge) !important;
+}
+
+.infoSection {
+  padding: var(--spacing-large) var(--spacing-medium) !important;
+  background: #effbff !important;
+  margin-bottom: var(--spacing-medium) !important;
+  --line-height: 1.5;
+  span[data-icon='info'] {
+    svg path {
+      fill: var(--primary-7);
+    }
+    margin-right: var(--spacing-medium);
+  }
+}
+
+.ctaContainer {
+  button[type='button'] {
+    border-radius: 8px;
+    &.borderBtn {
+      color: var(--primary-7) !important;
+      border: 1px solid var(--primary-7) !important;
+    }
+  }
+}
+
+.table {
+  padding: var(--spacing-small) var(--spacing-xlarge);
+  background-color: var(--grey-100);
+
+  :global {
+    [class*='Pagination'] {
+      border: none;
+    }
+  }
+}
+
+.layout {
+  justify-content: flex-end;
+}
+.testBtn {
+  color: var(--primary-7) !important;
+  border-color: var(--primary-7) !important;
+}
+.testConnectionPop {
+  border-radius: 4px;
+  background-color: var(--white) !important;
+  > div > div {
+    display: none;
+  }
+
+  padding: 0 var(--spacing-small) var(--spacing-large) var(--spacing-small);
+}
+
+.identifier {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--grey-400);
+}
+.wrapper {
+  width: 80%;
+  .name {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .flex {
+    display: flex;
+    align-items: center;
+  }
+  span {
+    white-space: nowrap !important;
+  }
+}
+
+.viewDetails {
+  cursor: pointer;
+}
+
+.link {
+  justify-content: flex-start;
+  span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+}
+
+.radioSelector {
+  :global {
+    span.bp3-control-indicator {
+      margin-left: 0 !important;
+    }
+  }
+}
+:global {
+  .connectorDeleteDialog {
+    textarea {
+      max-height: 200px;
+      width: 100%;
+      resize: vertical;
+    }
+  }
+}
+
+.tooltip {
+  max-width: 400px;
+}
+
+.confirmText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

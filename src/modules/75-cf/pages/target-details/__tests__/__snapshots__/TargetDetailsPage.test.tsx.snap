@@ -54,12 +54,46 @@ exports[`TargetDetailPage TargetDetailPage should render data correctly 1`] = `
         <div
           class="StyledProps--font StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="font-size: 20px;"
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
           >
-            t1
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="font-size: 20px;"
+            >
+              t1
+            </p>
+            <span
+              class="StyledProps--font StyledProps--main StyledProps--inline"
+              style="background-color: rgb(239, 251, 255); margin-bottom: 0px; padding: 4px 8px; border-radius: 4px; font-size: 12px; line-height: 15px; color: rgb(34, 34, 42); border: 1px solid #d9dae6;"
+            >
+              t1
+              <button
+                style="background: none; padding: 0px; transform: translateY(-2px); cursor: pointer;"
+                title="clickToCopy"
+              >
+                <span
+                  class="bp3-icon bp3-icon-duplicate StyledProps--main StyledProps--color StyledProps--color-grey350"
+                  icon="duplicate"
+                >
+                  <svg
+                    data-icon="duplicate"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    width="12"
+                  >
+                    <desc>
+                      duplicate
+                    </desc>
+                    <path
+                      d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
           >
@@ -91,6 +125,7 @@ exports[`TargetDetailPage TargetDetailPage should render data correctly 1`] = `
                 height="16"
                 viewBox="0 0 4 16"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   clip-rule="evenodd"
@@ -131,6 +166,7 @@ exports[`TargetDetailPage TargetDetailPage should render data correctly 1`] = `
         >
           <h3
             class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--padding-xxlarge"
+            data-tooltip-id="ff_targetTargetSettings_heading"
             level="3"
             style="font-size: 14px; color: rgb(34, 39, 45); font-weight: 600; padding-bottom: 0px;"
           >
@@ -266,6 +302,7 @@ exports[`TargetDetailPage TargetDetailPage should render data correctly 1`] = `
           >
             <h3
               class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--padding-xxlarge"
+              data-tooltip-id="ff_targetFlagSettings_heading"
               level="3"
               style="font-size: 14px; color: rgb(34, 39, 45); font-weight: 600; align-self: baseline;"
             >
@@ -377,12 +414,46 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
         <div
           class="StyledProps--font StyledProps--main"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="font-size: 20px;"
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
           >
-            t1
-          </p>
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="font-size: 20px;"
+            >
+              t1
+            </p>
+            <span
+              class="StyledProps--font StyledProps--main StyledProps--inline"
+              style="background-color: rgb(239, 251, 255); margin-bottom: 0px; padding: 4px 8px; border-radius: 4px; font-size: 12px; line-height: 15px; color: rgb(34, 34, 42); border: 1px solid #d9dae6;"
+            >
+              t1
+              <button
+                style="background: none; padding: 0px; transform: translateY(-2px); cursor: pointer;"
+                title="clickToCopy"
+              >
+                <span
+                  class="bp3-icon bp3-icon-duplicate StyledProps--main StyledProps--color StyledProps--color-grey350"
+                  icon="duplicate"
+                >
+                  <svg
+                    data-icon="duplicate"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    width="12"
+                  >
+                    <desc>
+                      duplicate
+                    </desc>
+                    <path
+                      d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </div>
           <p
             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--padding-top-xsmall"
           >
@@ -414,6 +485,7 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
                 height="16"
                 viewBox="0 0 4 16"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <path
                   clip-rule="evenodd"
@@ -454,6 +526,7 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
         >
           <h3
             class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--padding-xxlarge"
+            data-tooltip-id="ff_targetTargetSettings_heading"
             level="3"
             style="font-size: 14px; color: rgb(34, 39, 45); font-weight: 600; padding-bottom: 0px;"
           >
@@ -528,6 +601,7 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--padding-left-small"
+                      data-tooltip-id="ff_targetTargetGroups_manuallyAdded"
                       style="color: rgb(79, 81, 98); font-size: 10px; font-weight: bold;"
                     >
                       cf.targetDetail.manuallyAdded
@@ -567,6 +641,7 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
                   >
                     <p
                       class="StyledProps--font StyledProps--main StyledProps--padding-left-small"
+                      data-tooltip-id="ff_targetTargetGroups_exclusionList"
                       style="color: rgb(79, 81, 98); font-size: 10px; font-weight: bold;"
                     >
                       cf.targetDetail.exclusionList
@@ -611,6 +686,7 @@ exports[`TargetDetailPage TargetDetailPage should render its segments 1`] = `
           >
             <h3
               class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--padding-xxlarge"
+              data-tooltip-id="ff_targetFlagSettings_heading"
               level="3"
               style="font-size: 14px; color: rgb(34, 39, 45); font-weight: 600; align-self: baseline;"
             >

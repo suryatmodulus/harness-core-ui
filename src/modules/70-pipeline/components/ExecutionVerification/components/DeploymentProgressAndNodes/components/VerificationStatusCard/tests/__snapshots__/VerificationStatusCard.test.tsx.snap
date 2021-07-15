@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerificationStatusCard matches snapshot when status = ERROR 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-red500 StyledProps--background-red200"
+  >
+    error
+  </div>
+</div>
+`;
+
+exports[`VerificationStatusCard matches snapshot when status = IN_PROGRESS 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-primary2 StyledProps--background-primary6"
+  >
+    inProgress
+  </div>
+</div>
+`;
+
+exports[`VerificationStatusCard matches snapshot when status = VERIFICATION_FAILED 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-red500 StyledProps--background-red200"
+  >
+    failed
+  </div>
+   
+</div>
+`;
+
+exports[`VerificationStatusCard matches snapshot when status = VERIFICATION_PASSED 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main verificationStatusCard StyledProps--color StyledProps--color-green700 StyledProps--background-green350"
+  >
+    passed
+  </div>
+</div>
+`;

@@ -57,7 +57,12 @@ export function MultiTypeDelegateSelector(props: ConnectedMultiTypeDelegateSelec
         expressions={expressions}
         allowableTypes={allowableTypes}
         style={{ flexGrow: 1 }}
-        fixedTypeComponentProps={{ ...inputProps, wrapperClassName: css.wrapper, selectedItems: value }}
+        fixedTypeComponentProps={{
+          ...inputProps,
+          wrapperClassName: css.wrapper,
+          selectedItems: value,
+          readonly: disabled
+        }}
         fixedTypeComponent={DelegateSelectors as any}
         defaultValueToReset={[]}
       />

@@ -89,6 +89,54 @@ type BillingDataDemo {
   starttime: Long
 }
 
+type ClusterData {
+  appId: String
+  appName: String
+  avgCpuUtilization: Float
+  avgMemoryUtilization: Float
+  cloudProvider: String
+  cloudProviderId: String
+  cloudServiceName: String
+  clusterId: String
+  clusterName: String
+  clusterType: String
+  costTrend: Float
+  cpuBillingAmount: Float
+  cpuIdleCost: Float
+  cpuUnallocatedCost: Float
+  efficiencyScore: Int!
+  efficiencyScoreTrendPercentage: Int!
+  envId: String
+  envName: String
+  environment: String
+  id: String
+  idleCost: Float
+  launchType: String
+  maxCpuUtilization: Float
+  maxMemoryUtilization: Float
+  memoryBillingAmount: Float
+  memoryIdleCost: Float
+  memoryUnallocatedCost: Float
+  name: String
+  namespace: String
+  networkCost: Float
+  prevBillingAmount: Float
+  region: String
+  serviceId: String
+  serviceName: String
+  storageActualIdleCost: Float
+  storageCost: Float
+  storageRequest: Float
+  storageUnallocatedCost: Float
+  storageUtilizationValue: Float
+  totalCost: Float
+  trendType: String
+  type: String
+  unallocatedCost: Float
+  workloadName: String
+  workloadType: String
+}
+
 type ContainerHistogramDTO {
   containerName: String
   containerRecommendation: ContainerRecommendation
@@ -113,8 +161,8 @@ type Cost {
 }
 
 type DataPoint {
-  key: Reference
-  value: BigDecimal
+  key: Reference!
+  value: BigDecimal!
 }
 
 type FilterStatsDTO {
@@ -196,22 +244,25 @@ type QLCEView {
 }
 
 type QLCEViewEntityStatsDataPoint {
+  clusterData: ClusterData
+  clusterPerspective: Boolean!
   cost: BigDecimal
   costTrend: BigDecimal
+  id: String
   name: String
 }
 
 type QLCEViewField {
-  fieldId: String
-  fieldName: String
+  fieldId: String!
+  fieldName: String!
   identifier: ViewFieldIdentifier
   identifierName: String
 }
 
 type QLCEViewFieldIdentifierData {
-  identifier: ViewFieldIdentifier
-  identifierName: String
-  values: [QLCEViewField]
+  identifier: ViewFieldIdentifier!
+  identifierName: String!
+  values: [QLCEViewField]!
 }
 
 "Query root"
@@ -335,9 +386,9 @@ type RecommendationsDTO {
 }
 
 type Reference {
-  id: String
-  name: String
-  type: String
+  id: String!
+  name: String!
+  type: String!
 }
 
 type ResourceRequirement {
@@ -349,16 +400,16 @@ type ResourceRequirement {
 }
 
 type StatsInfo {
-  statsDescription: String
-  statsLabel: String
-  statsTrend: BigDecimal
-  statsValue: String
-  value: BigDecimal
+  statsDescription: String!
+  statsLabel: String!
+  statsTrend: BigDecimal!
+  statsValue: String!
+  value: BigDecimal!
 }
 
 type TimeSeriesDataPoints {
-  time: Long
-  values: [DataPoint]
+  time: Long!
+  values: [DataPoint]!
 }
 
 type WorkloadRecommendationDTO {
@@ -409,6 +460,7 @@ enum QLCEViewFilterOperator {
 }
 
 enum QLCEViewSortType {
+  CLUSTER_COST
   COST
   TIME
 }
@@ -420,6 +472,7 @@ enum QLCEViewTimeFilterOperator {
 
 enum QLCEViewTimeGroupType {
   DAY
+  HOUR
   MONTH
   WEEK
 }
@@ -529,20 +582,20 @@ input K8sRecommendationFilterDTOInput {
 }
 
 input QLCEViewAggregationInput {
-  columnName: String
-  operationType: QLCEViewAggregateOperation
+  columnName: String!
+  operationType: QLCEViewAggregateOperation!
 }
 
 input QLCEViewFieldInputInput {
-  fieldId: String
-  fieldName: String
-  identifier: ViewFieldIdentifier
+  fieldId: String!
+  fieldName: String!
+  identifier: ViewFieldIdentifier!
   identifierName: String
 }
 
 input QLCEViewFilterInput {
-  field: QLCEViewFieldInputInput
-  operator: QLCEViewFilterOperator
+  field: QLCEViewFieldInputInput!
+  operator: QLCEViewFilterOperator!
   values: [String]
 }
 
@@ -560,7 +613,7 @@ input QLCEViewGroupByInput {
 
 input QLCEViewMetadataFilterInput {
   isPreview: Boolean!
-  viewId: String
+  viewId: String!
 }
 
 input QLCEViewRuleInput {
@@ -568,18 +621,18 @@ input QLCEViewRuleInput {
 }
 
 input QLCEViewSortCriteriaInput {
-  sortOrder: QLCESortOrder
-  sortType: QLCEViewSortType
+  sortOrder: QLCESortOrder!
+  sortType: QLCEViewSortType!
 }
 
 input QLCEViewTimeFilterInput {
-  field: QLCEViewFieldInputInput
-  operator: QLCEViewTimeFilterOperator
-  value: BigDecimal
+  field: QLCEViewFieldInputInput!
+  operator: QLCEViewTimeFilterOperator!
+  value: BigDecimal!
 }
 
 input QLCEViewTimeTruncGroupByInput {
-  resolution: QLCEViewTimeGroupType
+  resolution: QLCEViewTimeGroupType!
 }
 
 input SortCriteriaInput {

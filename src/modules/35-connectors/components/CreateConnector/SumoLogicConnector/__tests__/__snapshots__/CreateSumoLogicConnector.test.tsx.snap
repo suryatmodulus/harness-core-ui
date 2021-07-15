@@ -114,12 +114,12 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                               class="bp3-menu"
                             >
                               <li
-                                class="Select--menuItem"
+                                class="Select--menuItem Select--active"
                               >
                                 endpoint1
                               </li>
                               <li
-                                class="Select--menuItem Select--active"
+                                class="Select--menuItem"
                               >
                                 endpoint2
                               </li>

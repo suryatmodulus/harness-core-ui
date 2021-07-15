@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import * as Yup from 'yup'
 import {
   StepProps,
@@ -21,7 +21,7 @@ import { ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'se
 import { useStrings } from 'framework/strings'
 import { setupAwsKmsFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { AwsKmsConfigFormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
-import { DelegateSelectors } from '@common/components'
+import { DelegateSelectors, PageSpinner } from '@common/components'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import AwsKmsAccessKeyForm from './AwsKmsAccessKeyForm'
@@ -68,8 +68,9 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
     assumeStsRoleDuration: undefined,
     default: false
   }
+
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
-  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && isEditMode)
+  const [loadingFormData, setLoadingFormData] = useState(isEditMode)
 
   const { mutate: CreateAwsKMSConnector, loading: createLoading } = useCreateConnector({
     queryParams: { accountIdentifier }
@@ -77,6 +78,15 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
   const { mutate: updateSecretManager, loading: updateLoading } = useUpdateConnector({
     queryParams: { accountIdentifier }
   })
+
+  React.useEffect(() => {
+    if (isEditMode && connectorInfo) {
+      setupAwsKmsFormData(connectorInfo, accountIdentifier).then(data => {
+        setInitialValues(data as AwsKmsConfigFormData)
+        setLoadingFormData(false)
+      })
+    }
+  }, [isEditMode, connectorInfo])
 
   const handleSubmit = async (formData: AwsKmsConfigFormData): Promise<void> => {
     modalErrorHandler?.hide()
@@ -87,8 +97,8 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
         cred = {
           type: credTypeValue,
           spec: {
-            accessKey: formData?.accessKey?.trim(),
-            secretKey: formData?.secretKey
+            accessKey: formData?.accessKey?.referenceString,
+            secretKey: formData?.secretKey?.referenceString
           }
         }
       } else if (credTypeValue === CredTypeValues.AssumeIAMRole) {
@@ -123,7 +133,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           type: 'AwsKms',
           spec: {
             credential: cred,
-            kmsArn: formData?.awsArn,
+            kmsArn: formData?.awsArn?.referenceString,
             region: formData?.region as SelectOption,
             default: formData.default
           }
@@ -149,21 +159,6 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
     }
   }
 
-  useEffect(() => {
-    if (loadingConnectorSecrets) {
-      if (isEditMode) {
-        if (connectorInfo) {
-          setupAwsKmsFormData(connectorInfo).then(data => {
-            setInitialValues(data as AwsKmsConfigFormData)
-            setLoadingConnectorSecrets(false)
-          })
-        } else {
-          setLoadingConnectorSecrets(false)
-        }
-      }
-    }
-  }, [loadingConnectorSecrets])
-
   return (
     <Container padding={{ top: 'medium' }} width="64%">
       <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
@@ -176,15 +171,15 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
         initialValues={initialValues}
         formName="awsKmsConfigForm"
         validationSchema={Yup.object().shape({
-          accessKey: Yup.string().when(['credType'], {
+          accessKey: Yup.object().when(['credType'], {
             is: credentials => credentials === credTypeOptions[0].value,
-            then: Yup.string().trim().required(getString('connectors.aws.validation.accessKey'))
+            then: Yup.object().required(getString('connectors.aws.validation.accessKey'))
           }),
-          secretKey: Yup.string().when(['credType'], {
+          secretKey: Yup.object().when(['credType'], {
             is: credentials => credentials === credTypeOptions[0].value,
-            then: Yup.string().trim().required(getString('connectors.aws.validation.secretKeyRef'))
+            then: Yup.object().required(getString('connectors.aws.validation.secretKeyRef'))
           }),
-          awsArn: Yup.string().trim().required(getString('connectors.awsKms.validation.selectAWSArn')),
+          awsArn: Yup.object().required(getString('connectors.awsKms.validation.selectAWSArn')),
           region: Yup.string().trim().required(getString('connectors.awsKms.validation.selectRegion')),
           delegate: Yup.string().when(['credType'], {
             is: credentials => credentials === credTypeOptions[1].value || credentials === credTypeOptions[2].value,
@@ -263,13 +258,14 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
                   intent="primary"
                   rightIcon="chevron-right"
                   text={getString('saveAndContinue')}
-                  disabled={updateLoading || createLoading}
+                  disabled={updateLoading || createLoading || loadingFormData}
                 />
               </Layout.Horizontal>
             </FormikForm>
           )
         }}
       </Formik>
+      {loadingFormData ? <PageSpinner /> : null}
     </Container>
   )
 }

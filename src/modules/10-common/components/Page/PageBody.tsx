@@ -12,6 +12,9 @@ export interface PageBodyProps {
   /** If set to true, spinner should be shown */
   loading?: boolean
 
+  /** message to pass to <PageSpinner/> */
+  loadingMessage?: string
+
   /** If not nullable, show page error */
   error?: string
 
@@ -65,6 +68,7 @@ export interface PageBodyProps {
 export const PageBody: React.FC<PageBodyProps> = ({
   children,
   loading,
+  loadingMessage,
   error,
   retryOnError,
   noData,
@@ -73,7 +77,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
 }) => {
   return (
     <Container className={cx(css.pageBody, filled && css.filled, className)} data-name="page-body">
-      {loading && <PageSpinner />}
+      {loading && <PageSpinner message={loadingMessage} />}
       {!loading && error && <PageError message={error} onClick={retryOnError} />}
       {!loading && !error && noData?.when?.() && (
         <NoDataCard

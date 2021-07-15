@@ -10,15 +10,18 @@ import { useToaster } from '@common/exports'
 import * as cdng from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import * as usePermission from '@rbac/hooks/usePermission'
+import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import {
   GetGitTriggerEventDetailsResponse,
   GetTriggerResponse,
+  PostCreateVariables,
   GetTriggerRepoOrgConnectorResponse,
   GetTriggerInvalidYamlResponse,
   GetTriggerEmptyActionsResponse,
   GetSchemaYaml,
   updateTriggerMockResponseYaml,
-  enabledFalseUpdateTriggerMockResponseYaml
+  enabledFalseUpdateTriggerMockResponseYaml,
+  GetCustomTriggerWithVariablesResponse
 } from './webhookMockResponses'
 
 import {
@@ -32,12 +35,18 @@ import {
   GetMergeInputSetFromPipelineTemplateWithListInputResponse,
   ConnectorResponse,
   RepoConnectorResponse,
-  GetInputSetsResponse
+  GetInputSetsResponse,
+  GetUpdatedTemplateFromPipelineResponse,
+  GetUpdatedPipelineWithVariablesResponse
 } from './sharedMockResponses'
 import TriggersWizardPage from '../TriggersWizardPage'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('@common/utils/YamlUtils', () => ({}))
+jest.mock('react-monaco-editor', () => ({ value, onChange, name }: any) => (
+  <textarea value={value} onChange={e => onChange(e.target.value)} name={name || 'spec.source.spec.script'} />
+))
+
 const params = {
   accountId: 'testAcc',
   orgIdentifier: 'testOrg',
@@ -46,6 +55,19 @@ const params = {
   triggerIdentifier: 'triggerIdentifier',
   module: 'cd'
 }
+
+const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
+const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+
+jest.spyOn(cdng, 'useGetListOfBranchesWithStatus').mockImplementation((): any => {
+  return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+})
+jest.spyOn(cdng, 'useListGitSync').mockImplementation((): any => {
+  return { data: gitConfigs, refetch: getListGitSync, loading: false }
+})
+jest.spyOn(cdng, 'useGetSourceCodeManagers').mockImplementation((): any => {
+  return { data: sourceCodeManagers, refetch: jest.fn(), loading: false }
+})
 
 const mockUpdate = jest.fn().mockReturnValue(Promise.resolve({ data: {}, status: {} }))
 
@@ -66,6 +88,7 @@ describe('TriggersWizardPage Triggers tests', () => {
   describe('Renders/snapshots', () => {
     test('OnEdit Render - GitHub Show all fields filled', async () => {
       jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+
       jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
         return {
           data: GetSchemaYaml as any,
@@ -173,7 +196,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerScheduleResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
@@ -435,7 +458,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerScheduleResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerScheduleResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
@@ -512,7 +535,7 @@ describe('TriggersWizardPage Triggers tests', () => {
         .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
       jest
         .spyOn(pipelineNg, 'useGetTrigger')
-        .mockReturnValue((GetTriggerCronResponse as unknown) as UseGetReturn<any, any, any, any>)
+        .mockReturnValue(GetTriggerCronResponse as unknown as UseGetReturn<any, any, any, any>)
       jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
         mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
       } as UseMutateReturn<any, any, any, any, any>)
@@ -602,6 +625,69 @@ describe('TriggersWizardPage Triggers tests', () => {
 
       expect(document.querySelector('[name="actions"]')).toHaveProperty('disabled', true)
       expect(document.querySelector('[name="anyAction"]')).toHaveProperty('checked', true)
+    })
+
+    test('Existing Trigger has pipeline with updated runtime input and pipeline variables', async () => {
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
+
+      jest
+        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetPipeline')
+        .mockReturnValue(GetUpdatedPipelineWithVariablesResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+        .mockReturnValue(GetUpdatedTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useCreateVariables').mockImplementation(() => ({
+        cancel: jest.fn(),
+        loading: false,
+        error: null,
+        mutate: jest.fn().mockImplementation(() => PostCreateVariables)
+      }))
+      jest
+        .spyOn(pipelineNg, 'useGetTrigger')
+        .mockReturnValue(GetCustomTriggerWithVariablesResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+        mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+
+      const { container, getByText, getByDisplayValue } = render(<WrapperComponent />)
+      await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+      await waitFor(() =>
+        expect(() =>
+          queryByText(
+            document.body,
+            result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          )
+        ).not.toBeNull()
+      )
+      const tab3 = container.querySelector('[data-tab-id="Pipeline Input"]')
+
+      if (!tab3) {
+        throw Error('No Pipeline Input tab')
+      }
+      fireEvent.click(tab3)
+      await waitFor(() => expect(result.current.getString('pipeline.triggers.updateTrigger')).not.toBeNull())
+
+      expect(getByText('var2')).toBeDefined()
+      expect(container).toMatchSnapshot()
+      // snapshot should display new fields var2, var3withDefault, Description
+      // and persist values Namespaec: default, Git Branch: test
+
+      expect(getByDisplayValue('default')).toBeDefined()
+      expect(getByText('var3withDefault')).toBeDefined()
+      // Need to ensure var1: 123 and var3withDefault shows var1 as deafult
     })
   })
 

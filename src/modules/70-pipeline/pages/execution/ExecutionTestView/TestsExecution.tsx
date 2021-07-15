@@ -22,6 +22,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { FeatureFlag } from '@common/featureFlags'
 import { TestsCallgraph } from './TestsCallgraph/TestsCallgraph'
 import { TestsExecutionItem } from './TestsExecutionItem'
 import { SortByKey } from './TestsUtils'
@@ -37,13 +38,14 @@ interface TestsExecutionProps {
 
 export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken }) => {
   const context = useExecutionContext()
-  const callgraphEnabled = useFeatureFlag('TI_CALLGRAPH') || localStorage.TI_CALLGRAPH_ENABLED
+  const callgraphEnabled = useFeatureFlag(FeatureFlag.TI_CALLGRAPH) || localStorage.TI_CALLGRAPH_ENABLED
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
 
   const [showModal, hideModal] = useModalHook(() => (
     <Dialog
       className={css.callgraphDialog}
+      enforceFocus={false}
       title={getString('pipeline.testsReports.callgraphTitle')}
       isCloseButtonShown
       isOpen
@@ -90,7 +92,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
       sortBy
     ]
   )
-  const { data: executionSummary, error, loading, refetch: fetchExecutionSummary } = useTestSuiteSummary({
+  const {
+    data: executionSummary,
+    error,
+    loading,
+    refetch: fetchExecutionSummary
+  } = useTestSuiteSummary({
     queryParams,
     lazy: true,
     requestOptions: {

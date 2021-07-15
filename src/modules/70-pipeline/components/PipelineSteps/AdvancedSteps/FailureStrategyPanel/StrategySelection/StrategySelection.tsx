@@ -152,7 +152,7 @@ export function RetryStep(props: BaseStepProps): React.ReactElement {
                       <Button
                         minimal
                         small
-                        icon="trash"
+                        icon="main-trash"
                         className={css.removeBtn}
                         onClick={handleRemove}
                         data-testid={`remove-retry-interval-${i}`}

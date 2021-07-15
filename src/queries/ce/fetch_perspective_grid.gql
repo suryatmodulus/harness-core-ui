@@ -1,0 +1,71 @@
+query FetchperspectiveGrid(
+  $filters: [QLCEViewFilterWrapperInput]
+  $groupBy: [QLCEViewGroupByInput]
+  $limit: Int
+  $offset: Int
+  $aggregateFunction: [QLCEViewAggregationInput]
+  $isClusterOnly: Boolean!
+) {
+  perspectiveGrid(
+    aggregateFunction: $aggregateFunction
+    filters: $filters
+    groupBy: $groupBy
+    limit: $limit
+    offset: $offset
+    sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
+  ) {
+    data {
+      name
+      id
+      cost
+      costTrend
+      clusterPerspective @include(if: $isClusterOnly)
+      clusterData @include(if: $isClusterOnly) {
+        appId
+        appName
+        avgCpuUtilization
+        avgMemoryUtilization
+        cloudProvider
+        cloudProviderId
+        cloudServiceName
+        clusterId
+        clusterName
+        clusterType
+        costTrend
+        cpuBillingAmount
+        cpuIdleCost
+        cpuUnallocatedCost
+        efficiencyScore
+        efficiencyScoreTrendPercentage
+        envId
+        envName
+        environment
+        id
+        idleCost
+        launchType
+        maxCpuUtilization
+        maxMemoryUtilization
+        memoryBillingAmount
+        memoryIdleCost
+        memoryUnallocatedCost
+        name
+        namespace
+        networkCost
+        prevBillingAmount
+        region
+        serviceId
+        serviceName
+        storageActualIdleCost
+        storageRequest
+        storageUnallocatedCost
+        storageUtilizationValue
+        totalCost
+        trendType
+        type
+        unallocatedCost
+        workloadName
+        workloadType
+      }
+    }
+  }
+}

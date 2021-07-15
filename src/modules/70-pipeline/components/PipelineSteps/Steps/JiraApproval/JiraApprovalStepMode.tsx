@@ -57,9 +57,8 @@ const FormContent = ({
 }: JiraFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [statusList, setStatusList] = useState<JiraStatusNG[]>([])
   const [fieldList, setFieldList] = useState<JiraFieldNG[]>([])
@@ -372,9 +371,8 @@ everything is governed from the parent
 function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepFormikFowardRef<JiraApprovalData>) {
   const { onUpdate, readonly, isNewStep } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,

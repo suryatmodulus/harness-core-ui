@@ -70,7 +70,10 @@ const VariationsList: React.FC<{ featureFlag: Feature; onEditSuccess: () => void
   return (
     <Layout.Vertical padding="large" margin={{ top: 'large' }} className={css.module}>
       <Layout.Horizontal flex={{ align: 'center-center' }} margin={{ bottom: 'medium' }}>
-        <Text style={{ color: '#1C1C28', fontWeight: 600, fontSize: '14px', lineHeight: '22px' }}>
+        <Text
+          style={{ color: '#1C1C28', fontWeight: 600, fontSize: '14px', lineHeight: '22px' }}
+          data-tooltip-id="ff_ffVariations_heading"
+        >
           {getString('cf.shared.variations')}
         </Text>
         <FlexExpander />
@@ -197,7 +200,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
     }
 
     return (
-      <Dialog onClose={hideEditDetailsModal} isOpen={true} title={''}>
+      <Dialog enforceFocus={false} onClose={hideEditDetailsModal} isOpen={true} title={''}>
         <Formik initialValues={initialValues} formName="flagActivationDetails" onSubmit={handleSubmit}>
           {() => (
             <Form>

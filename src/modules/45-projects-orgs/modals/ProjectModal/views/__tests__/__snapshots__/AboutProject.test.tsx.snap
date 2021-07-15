@@ -61,7 +61,7 @@ exports[`About Project test create project  1`] = `
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main"
                     icon="edit"
-                    style="vertical-align: middle;"
+                    style="vertical-align: middle; cursor: pointer;"
                   >
                     <svg
                       data-icon="edit"
@@ -339,11 +339,11 @@ exports[`About Project test create project  1`] = `
             style="width: 50%;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-elevation-0 Card--card projectCard previewProjectCard"
               data-testid="project-card-"
             >
               <div
-                class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
+                class="StyledProps--font StyledProps--main projectInfo previewProjectInfo StyledProps--padding-xlarge"
               >
                 <div
                   class="StyledProps--font StyledProps--main"
@@ -470,6 +470,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 26 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -506,6 +507,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -542,6 +544,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -578,6 +581,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 20 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -614,6 +618,7 @@ exports[`About Project test create project  1`] = `
                       height="20"
                       viewBox="0 0 20 20"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -715,7 +720,7 @@ exports[`About Project test create project  2`] = `
                   <span
                     class="bp3-icon bp3-icon-edit StyledProps--main"
                     icon="edit"
-                    style="vertical-align: middle;"
+                    style="vertical-align: middle; cursor: pointer;"
                   >
                     <svg
                       data-icon="edit"
@@ -990,11 +995,11 @@ exports[`About Project test create project  2`] = `
             style="width: 50%;"
           >
             <div
-              class="bp3-card bp3-elevation-0 Card--card projectCard"
+              class="bp3-card bp3-elevation-0 Card--card projectCard previewProjectCard"
               data-testid="project-card-dummy_name"
             >
               <div
-                class="StyledProps--font StyledProps--main projectInfo StyledProps--padding-xlarge"
+                class="StyledProps--font StyledProps--main projectInfo previewProjectInfo StyledProps--padding-xlarge"
               >
                 <div
                   class="StyledProps--font StyledProps--main"
@@ -1127,6 +1132,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 26 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1163,6 +1169,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1199,6 +1206,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 24 24"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1235,6 +1243,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 20 21"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -1271,6 +1280,7 @@ exports[`About Project test create project  2`] = `
                       height="20"
                       viewBox="0 0 20 20"
                       width="20"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"

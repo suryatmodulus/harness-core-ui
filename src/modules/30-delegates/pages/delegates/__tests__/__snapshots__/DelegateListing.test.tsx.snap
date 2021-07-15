@@ -36,7 +36,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.NEW_DELEGATE
+          delegate.DelegateName
         </span>
       </button>
       <span
@@ -197,6 +197,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
                     height="24"
                     viewBox="0 0 14 14"
                     width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M.8 13l-.8-.4V1.3L.8.9l3 5.8zM3.1 11l1.1 1.6L9 10.3l-1.1-.2zM2.2 2.9l1.2-1.7L9 3.7l-1 .2z"
@@ -378,6 +379,7 @@ exports[`Delegates Listing With Groups render data 1`] = `
                           height="16"
                           viewBox="0 0 4 16"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -464,7 +466,7 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.NEW_DELEGATE
+          delegate.DelegateName
         </span>
       </button>
       <span
@@ -625,6 +627,7 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
                     height="24"
                     viewBox="0 0 14 14"
                     width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M.8 13l-.8-.4V1.3L.8.9l3 5.8zM3.1 11l1.1 1.6L9 10.3l-1.1-.2zM2.2 2.9l1.2-1.7L9 3.7l-1 .2z"
@@ -806,6 +809,7 @@ exports[`Delegates Listing test actions render data and click delete 1`] = `
                           height="16"
                           viewBox="0 0 4 16"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -864,7 +868,7 @@ exports[`Delegates Listing without tags render data 1`] = `
         <span
           class="bp3-button-text"
         >
-          delegate.NEW_DELEGATE
+          delegate.DelegateName
         </span>
       </button>
       <span
@@ -1025,6 +1029,7 @@ exports[`Delegates Listing without tags render data 1`] = `
                     height="24"
                     viewBox="0 0 14 14"
                     width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M.8 13l-.8-.4V1.3L.8.9l3 5.8zM3.1 11l1.1 1.6L9 10.3l-1.1-.2zM2.2 2.9l1.2-1.7L9 3.7l-1 .2z"
@@ -1206,6 +1211,7 @@ exports[`Delegates Listing without tags render data 1`] = `
                           height="16"
                           viewBox="0 0 4 16"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -1264,7 +1270,7 @@ exports[`Feature flag enabled render delegates list and check for activity colum
         <span
           class="bp3-button-text"
         >
-          delegate.NEW_DELEGATE
+          delegate.DelegateName
         </span>
       </button>
       <span
@@ -1425,6 +1431,7 @@ exports[`Feature flag enabled render delegates list and check for activity colum
                     height="24"
                     viewBox="0 0 14 14"
                     width="24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       d="M.8 13l-.8-.4V1.3L.8.9l3 5.8zM3.1 11l1.1 1.6L9 10.3l-1.1-.2zM2.2 2.9l1.2-1.7L9 3.7l-1 .2z"
@@ -1606,6 +1613,7 @@ exports[`Feature flag enabled render delegates list and check for activity colum
                           height="16"
                           viewBox="0 0 4 16"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"

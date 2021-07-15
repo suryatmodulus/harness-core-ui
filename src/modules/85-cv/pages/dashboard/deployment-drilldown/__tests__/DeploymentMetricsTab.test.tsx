@@ -73,10 +73,7 @@ describe('DeploymentMetricsTab', () => {
     expect(container).toMatchSnapshot()
     expect((TimeseriesRow as any).mock.calls[0][0].seriesData[0].series[0].data).toMatchSnapshot()
     expect((TimeseriesRow as any).mock.calls[0][0].seriesData[0].chartOptions.yAxis.tickPositions).toEqual([
-      130,
-      326,
-      522,
-      718
+      130, 326, 522, 718
     ])
   })
 })

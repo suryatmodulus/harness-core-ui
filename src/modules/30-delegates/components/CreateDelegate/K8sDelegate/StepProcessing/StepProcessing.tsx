@@ -21,7 +21,11 @@ const StepProcessing: React.FC<StepProps<StepK8Data>> = props => {
   const [showError, setShowError] = React.useState(false)
   const [isHeartBeatVerified, setVerifyHeartBeat] = React.useState(false)
   const [isDelegateInitialized, setIsDelegateInitialised] = React.useState(false)
-  const { data, loading, refetch: verifyHeartBeat } = useGetDelegatesHeartbeatDetails({
+  const {
+    data,
+    loading,
+    refetch: verifyHeartBeat
+  } = useGetDelegatesHeartbeatDetails({
     queryParams: {
       accountId,
       projectId: projectIdentifier,

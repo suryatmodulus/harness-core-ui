@@ -49,7 +49,11 @@ export const DelegateSelectors = (props: DelegateSelectorsProps): React.ReactEle
     : {
         accountId
       }
-  const { data: apiData, loading, refetch } = getDelegateSelectors({
+  const {
+    data: apiData,
+    loading,
+    refetch
+  } = getDelegateSelectors({
     queryParams
   })
 

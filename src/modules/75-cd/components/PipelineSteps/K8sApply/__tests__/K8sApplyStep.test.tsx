@@ -63,7 +63,7 @@ describe('Test K8sApplyStep', () => {
           spec: {
             skipDryRun: RUNTIME_INPUT_VALUE,
             skipSteadyStateCheck: false,
-            filePaths: ['test-1', 'test-2']
+            filePaths: RUNTIME_INPUT_VALUE
           }
         }}
         allValues={{
@@ -75,7 +75,7 @@ describe('Test K8sApplyStep', () => {
           spec: {
             skipDryRun: RUNTIME_INPUT_VALUE,
             skipSteadyStateCheck: false,
-            filePaths: ['test-1', 'test-2']
+            filePaths: RUNTIME_INPUT_VALUE
           }
         }}
         type={StepType.K8sApply}

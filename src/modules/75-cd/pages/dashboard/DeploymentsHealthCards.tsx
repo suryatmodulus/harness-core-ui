@@ -10,6 +10,7 @@ import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { RangeSelectorWithTitle } from '@pipeline/components/Dashboards/RangeSelector'
 import { roundNumber } from '@pipeline/components/Dashboards/shared'
 import { useGetDeploymentHealth, DeploymentDateAndCount } from 'services/cd-ng'
+import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 import styles from './CDDashboardPage.module.scss'
 
 export interface HealthCardProps {
@@ -26,7 +27,7 @@ export default function DeploymentsHealthCards() {
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
 
-  const { data, loading } = useGetDeploymentHealth({
+  const { data, loading, error } = useGetDeploymentHealth({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -35,6 +36,8 @@ export default function DeploymentsHealthCards() {
       endTime: range[1]
     }
   })
+
+  useErrorHandler(error)
 
   const mapTime = (value: DeploymentDateAndCount) => (value?.time ? moment(value.time).format('YYYY-MM-DD') : '')
 

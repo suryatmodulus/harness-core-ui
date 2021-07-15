@@ -1,0 +1,47 @@
+.main {
+  display: flex;
+  align-items: center;
+  height: var(--spacing-7);
+  column-gap: var(--spacing-3);
+
+  .icon {
+    color: var(--primary-7) !important;
+    margin-right: var(--spacing-4) !important;
+  }
+
+  .sourceTargetArrow {
+    color: var(--grey-600) !important;
+    padding: 0 var(--spacing-xsmall);
+  }
+
+  .ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap !important;
+  }
+
+  .sourceRepo,
+  .sourceBranch,
+  .targetBranch {
+    max-width: 150px;
+    color: var(--primary-7);
+    line-height: 20px;
+  }
+
+  .sourceRepo {
+    margin-right: var(--spacing-4);
+    padding-right: var(--spacing-4);
+    position: relative;
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 2px;
+      right: 0;
+      height: 14px;
+      width: 1px;
+      background-color: var(--primary-3);
+    }
+  }
+}

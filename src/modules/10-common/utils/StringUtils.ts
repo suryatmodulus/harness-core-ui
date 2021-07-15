@@ -1,3 +1,6 @@
+import isUndefined from 'lodash/isUndefined'
+import type { GitSyncEntityDTO } from 'services/cd-ng'
+
 export function getIdentifierFromName(str: string): string {
   return str
     .trim()
@@ -31,7 +34,8 @@ export function pluralize(number: number): string {
   return number > 1 || number === 0 ? 's' : ''
 }
 
-export const regexEmail = /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+export const regexEmail =
+  /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 export const regexName = /^[A-Za-z0-9_-][A-Za-z0-9 _-]*$/
 
@@ -54,4 +58,10 @@ export function sanitizeHTML(str: string): string {
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
     .replace(/\u00a0/g, ' ')
+}
+
+export function getEntityNameFromType(entity: GitSyncEntityDTO['entityType']): string {
+  return !isUndefined(entity)
+    ? (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
+    : ''
 }

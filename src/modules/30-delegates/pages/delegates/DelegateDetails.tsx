@@ -31,7 +31,12 @@ export default function DelegateDetails(): JSX.Element {
 
   const delegate = data?.resource
 
-  const { loading, error, data: profileResponse, refetch } = useGetV2({
+  const {
+    loading,
+    error,
+    data: profileResponse,
+    refetch
+  } = useGetV2({
     delegateProfileId: delegate?.delegateConfigurationId || '',
     queryParams: { accountId }
   })

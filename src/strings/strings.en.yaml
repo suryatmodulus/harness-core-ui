@@ -108,7 +108,6 @@ executionHeaderText: Execution History
 runPipelineText: Run
 rollbackLabel: Rollback
 addStage: Add Stage
-templates: Templates
 rollbackSteps: Rollback Steps
 noConnectorFound: No Connector Found
 noUserGroupsFound: No User Groups found
@@ -626,7 +625,7 @@ resourcePage:
   connectors: '{{$.connectorsLabel}}'
   secrets: '{{$.common.secrets}}'
   delegates: '{{$.delegate.delegates}}'
-  templates: '{{$.templates}}'
+  templates: '{{$.common.templates}}'
   fileStore: File Store
 stepType: 'Step Type'
 scriptType: 'Script Type'
@@ -834,9 +833,6 @@ delegate:
 execution:
   pipelineIdentifierTextCI: '(Build ID: {{runSequence}})' # Text for Pipeline Identifier
   pipelineIdentifierTextCD: '(Execution ID: {{runSequence}})' # Text for Pipeline Identifier
-  latestCommit: 'Latest commit:'
-  latest5Commits: 'Commits (up to 5):'
-  prSymbol: '#'
   triggerType: # text for trigger types
     MANUAL: Manually
     WEBHOOK: Webhook
@@ -1013,7 +1009,6 @@ pipelineSteps:
     m for minutes
     s for seconds
     ms for milliseconds
-  instanceLabel: 'Instances'
   typeName: 'instanceType'
   awsConnectorLabel: AWS Connector
   awsConnectorInfo: AWS connector to use for saving the cache to S3
@@ -1223,23 +1218,6 @@ activityHistory:
   updatedSuccessfully: Updated Successfully
   noData: No Activity Found
 none: 'None'
-configureOptions:
-  configureOptions: 'configure options'
-  defaultValue: 'Default value'
-  requiredDuringExecution: 'Required during execution'
-  validation: 'Validation'
-  regex: 'Regex'
-  returnToBasic: 'return to basic'
-  jexlLabel: 'Values ({{ $.common.jexlExpression }})'
-  values: 'Values'
-  enterTags: 'Enter values'
-  validationErrors:
-    regExIsRequired: 'Regex value is required'
-    regExNotValid: 'Regex value is not valid'
-    jexlExpressionRequired: '{{ $.common.jexlExpression }} is required'
-    minOneAllowedValue: 'Minimum one allowed value'
-  notValidExpression: 'Not a valid input Expression'
-  advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
 
 pipeline-list:
   aboutPipeline: Pipelines define your release process using multiple Workflows and approvals in sequential and/or parallel stages.

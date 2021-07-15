@@ -149,9 +149,8 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     []
   )
 
-  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } = useParams<
-    PipelineType<ExecutionPathProps>
-  >()
+  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } =
+    useParams<PipelineType<ExecutionPathProps>>()
 
   const {
     pipelineStagesMap,

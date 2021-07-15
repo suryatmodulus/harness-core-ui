@@ -17,7 +17,7 @@ interface ModalReturn {
 export const useRestrictEmailDomains = ({ onSuccess, whitelistedDomains }: Props): ModalReturn => {
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog enforceFocus={false} isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         <RestrictEmailDomainsForm
           onSubmit={() => {
             onSuccess()

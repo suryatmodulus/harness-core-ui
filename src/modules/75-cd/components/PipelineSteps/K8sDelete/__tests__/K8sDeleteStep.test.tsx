@@ -53,7 +53,7 @@ describe('Test K8sDeleteStep', () => {
           timeout: '12m',
           spec: {
             deleteResources: {
-              type: 'pipelineSteps.releaseNameValue',
+              type: 'ReleaseName',
 
               spec: {
                 deleteNamespace: true

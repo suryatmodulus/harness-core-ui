@@ -86,7 +86,7 @@ export const mockYamlSnippetResponse = {
   data: {
     status: 'SUCCESS',
     content: [{ name: 'u1', uuid: 'uv1' }],
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     correlationId: 'someId'
   }
 }

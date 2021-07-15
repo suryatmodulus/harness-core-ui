@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Layout, Text, Color, Container, Switch, Collapse, Button } from '@wings-software/uicore'
@@ -16,9 +16,10 @@ interface Props {
   loginSettings: LoginSettings
   refetchAuthSettings: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, canEdit }) => {
+const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, canEdit, setUpdating }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
@@ -39,6 +40,10 @@ const PasswordExpire: React.FC<Props> = ({ loginSettings, refetchAuthSettings, c
       accountIdentifier: accountId
     }
   })
+
+  React.useEffect(() => {
+    setUpdating(updatingLoginSettings)
+  }, [updatingLoginSettings, setUpdating])
 
   const { openDialog: confirmPasswordExpirySettings } = useConfirmationDialog({
     titleText: getString('authSettings.disablePasswordExpiration'),

@@ -167,7 +167,12 @@ export default function CVActivitySourcesPage(): JSX.Element {
     debounce: 0,
     filter: undefined
   })
-  const { data, loading, error, refetch: refetchSources } = useListActivitySources({
+  const {
+    data,
+    loading,
+    error,
+    refetch: refetchSources
+  } = useListActivitySources({
     debounce,
     queryParams: {
       accountId: params.accountId,

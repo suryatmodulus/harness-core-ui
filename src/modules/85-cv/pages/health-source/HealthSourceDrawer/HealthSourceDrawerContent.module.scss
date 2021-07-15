@@ -1,0 +1,10 @@
+.almostFullScreenCloseBtn:global(.bp3-button.bp3-minimal) {
+  position: fixed;
+  left: 300px;
+  top: 0;
+  background: #00ade4 !important;
+  color: var(--white) !important;
+  border-radius: 4px 0 0 4px !important;
+  padding: 0 !important;
+  z-index: 99;
+}

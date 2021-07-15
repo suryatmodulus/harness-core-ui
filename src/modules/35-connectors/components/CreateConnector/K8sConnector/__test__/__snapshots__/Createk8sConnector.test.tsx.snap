@@ -19,6 +19,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -172,7 +173,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -200,7 +201,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormK8sCluster_name"
                           >
                             name
                           </span>
@@ -355,6 +356,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -510,6 +512,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                           height="16"
                           viewBox="0 0 14 14"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -764,6 +767,7 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -884,6 +888,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -1039,6 +1044,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                           height="16"
                           viewBox="0 0 14 14"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -1331,6 +1337,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                 <svg
                                   height="24"
                                   width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <g
                                     fill="none"
@@ -1426,6 +1433,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                 <svg
                                   height="24"
                                   width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <g
                                     fill="none"
@@ -1516,6 +1524,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                                 <svg
                                   height="24"
                                   width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <g
                                     fill="none"
@@ -1704,6 +1713,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -1859,6 +1869,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                           height="16"
                           viewBox="0 0 14 14"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -2021,6 +2032,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -2173,6 +2185,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -2333,7 +2346,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormK8sCluster_name"
                           >
                             name
                           </span>
@@ -2521,6 +2534,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -2676,6 +2690,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                           height="16"
                           viewBox="0 0 14 14"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -2930,6 +2945,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -3082,6 +3098,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"
@@ -3237,6 +3254,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                           height="16"
                           viewBox="0 0 14 14"
                           width="16"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
@@ -3401,6 +3419,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                 <svg
                                   height="24"
                                   width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <g
                                     fill="none"
@@ -3491,6 +3510,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                 <svg
                                   height="24"
                                   width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <g
                                     fill="none"
@@ -3585,6 +3605,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                                 <svg
                                   height="24"
                                   width="24"
+                                  xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <g
                                     fill="none"
@@ -3748,6 +3769,7 @@ exports[`should render form for edit authtype clientKey 1`] = `
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -3900,6 +3922,7 @@ exports[`should render form for edit authtype clientKey 2`] = `
             height="50"
             viewBox="0 0 32 30"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="none"

@@ -48,7 +48,11 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     orgIdentifier: string
     projectIdentifier: string
   }>()
-  const { data: hostedZones, loading: hostedZonesLoading, refetch: loadHostedZones } = useAllHostedZones({
+  const {
+    data: hostedZones,
+    loading: hostedZonesLoading,
+    refetch: loadHostedZones
+  } = useAllHostedZones({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -70,7 +74,11 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
   const { getString } = useStrings()
   const [accessPointStatusInProgress, setaccessPointStatusInProgress] = useState<boolean>(false)
   const [accessPointID, setAccessPointID] = useState<string>()
-  const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
+  const {
+    data: accessPointData,
+    refetch,
+    loading: accessPointStatusLoading
+  } = useGetAccessPoint({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     access_point_id: props.accessPoint.id as string, //eslint-disable-line

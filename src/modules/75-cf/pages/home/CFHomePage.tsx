@@ -20,7 +20,7 @@ import bgImageURL from './ff.svg'
 const CFHomePage: React.FC = () => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
-  const { currentUserInfo } = useAppStore()
+  const { currentUserInfo, selectedProject } = useAppStore()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const { accounts } = currentUserInfo
@@ -84,6 +84,16 @@ const CFHomePage: React.FC = () => {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trial])
+
+  if (selectedProject) {
+    history.replace(
+      routes.toCFFeatureFlags({
+        projectIdentifier: selectedProject.identifier,
+        orgIdentifier: selectedProject.orgIdentifier || '',
+        accountId
+      })
+    )
+  }
 
   if (loading) {
     return <PageSpinner />

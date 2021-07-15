@@ -1,0 +1,28 @@
+.mainCtn {
+  border-left: 10px solid var(--primary-6) !important;
+  border-radius: 10px;
+  padding-bottom: 0 !important;
+
+  :global {
+    .bp3-label {
+      margin-bottom: 10px !important;
+      color: var(--grey-800) !important;
+      font-size: 14px !important;
+    }
+  }
+
+  .cronLabel {
+    margin-bottom: 10px !important;
+    color: var(--grey-800) !important;
+    font-size: 14px !important;
+    font-weight: normal !important;
+  }
+
+  .recipients {
+    margin-bottom: 0 !important;
+    textarea {
+      min-height: 100px !important;
+      min-width: 100% !important;
+    }
+  }
+}

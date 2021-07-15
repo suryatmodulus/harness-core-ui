@@ -48,13 +48,13 @@ export class StepGroupNodeLayerModel<
     })
     this.startNode = new EmptyNodeModel({
       id: options.identifier + '-Start',
-      identifier: options.identifier + '-Start',
+      identifier: options.identifier,
       name: 'Empty',
       hideOutPort: true
     })
     this.endNode = new EmptyNodeModel({
       id: options.identifier + '-End',
-      identifier: options.identifier + '-End',
+      identifier: options.identifier,
       name: 'Empty',
       hideInPort: true,
       hideOutPort: options.hideOutPort

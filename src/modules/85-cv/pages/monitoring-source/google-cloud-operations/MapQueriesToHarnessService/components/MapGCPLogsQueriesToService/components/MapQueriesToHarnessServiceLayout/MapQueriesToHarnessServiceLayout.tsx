@@ -1,4 +1,4 @@
-import { Accordion, Container, Layout, Utils } from '@wings-software/uicore'
+import { Accordion, Layout, Utils } from '@wings-software/uicore'
 import React, { useCallback, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetStackdriverLogSampleData } from 'services/cv'
@@ -10,6 +10,7 @@ import {
 } from '@cv/components/HarnessServiceAndEnvironment/HarnessServiceAndEnvironment'
 import { MapGCPLogsToServiceFieldNames } from '@cv/pages/monitoring-source/google-cloud-operations/MapQueriesToHarnessService/constants'
 import { QueryViewer } from '@cv/components/QueryViewer/QueryViewer'
+import Card from '@cv/components/Card/Card'
 import { MapGCPLogsQueriesToService } from '../../MapGCPLogsQueriesToService'
 import type { MapQueriesToHarnessServiceLayoutProps } from './types'
 import css from './MapQueriesToHarnessServiceLayout.module.scss'
@@ -39,7 +40,11 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
     [accountId, projectIdentifier, orgIdentifier, connectorIdentifier]
   )
 
-  const { mutate: queryStackdriver, loading, error } = useGetStackdriverLogSampleData({
+  const {
+    mutate: queryStackdriver,
+    loading,
+    error
+  } = useGetStackdriverLogSampleData({
     queryParams
   })
 
@@ -61,8 +66,8 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
   }, [])
 
   return (
-    <Container className={css.main}>
-      <Layout.Horizontal className={css.content} spacing="xlarge">
+    <Card>
+      <Layout.Horizontal spacing="xlarge">
         <Accordion activeId="metricToService" className={css.accordian}>
           <Accordion.Panel
             id="metricToService"
@@ -94,6 +99,6 @@ export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarn
           query={query}
         />
       </Layout.Horizontal>
-    </Container>
+    </Card>
   )
 }

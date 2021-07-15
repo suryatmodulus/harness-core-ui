@@ -16,7 +16,6 @@ changeDefaultAccountMessage: Are you sure you want to set your default account t
 twofactorAuth: Two-Factor Authentication
 qrCode: QR Code
 myProjects: My Projects
-noProjects: You have no projects
 myGroups: My Groups
 myTools: My Collaboration Tools
 addSCM: Add a Source Code Manager

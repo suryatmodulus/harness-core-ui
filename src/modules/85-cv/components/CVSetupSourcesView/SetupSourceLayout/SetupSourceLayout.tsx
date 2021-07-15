@@ -1,4 +1,5 @@
 import React from 'react'
+import cx from 'classnames'
 import { Button, Container } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import css from './SetupSourceLayout.module.scss'
@@ -7,6 +8,7 @@ export interface FooterCTAProps {
   onNext?: () => void
   onPrevious?: () => void
   isSubmit?: boolean
+  className?: string
 }
 
 export interface SetupSourceLayoutProps {
@@ -14,13 +16,14 @@ export interface SetupSourceLayoutProps {
   leftPanelContent?: React.ReactNode
   rightPanelContent?: React.ReactNode
   footerCTAProps?: FooterCTAProps
+  centerOnlyLayout?: boolean
 }
 
 export function FooterCTA(props: FooterCTAProps): JSX.Element {
-  const { onNext, onPrevious, isSubmit } = props
+  const { onNext, onPrevious, isSubmit, className } = props
   const { getString } = useStrings()
   return (
-    <Container className={css.footerCta}>
+    <Container className={cx(css.footerCta, className)}>
       {onPrevious && (
         <Button icon="chevron-left" onClick={() => onPrevious()} minimal>
           {getString('previous')}
@@ -36,13 +39,13 @@ export function FooterCTA(props: FooterCTAProps): JSX.Element {
 }
 
 export function SetupSourceLayout(props: SetupSourceLayoutProps): JSX.Element {
-  const { content, leftPanelContent, rightPanelContent, footerCTAProps } = props
+  const { content, leftPanelContent, rightPanelContent, centerOnlyLayout = false, footerCTAProps } = props
   return (
     <Container className={css.main}>
       <Container className={css.contentContainer}>
-        <Container className={css.leftPanel}>{leftPanelContent}</Container>
+        {!centerOnlyLayout && <Container className={css.leftPanel}>{leftPanelContent}</Container>}
         <Container className={css.content}>{content}</Container>
-        <Container className={css.rightPanel}>{rightPanelContent}</Container>
+        {!centerOnlyLayout && <Container className={css.rightPanel}>{rightPanelContent}</Container>}
       </Container>
       {footerCTAProps && <FooterCTA {...footerCTAProps} />}
     </Container>

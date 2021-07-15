@@ -17,16 +17,15 @@ export const EmptyNodeWidget: React.FC<EmptyNodeWidgetProps> = (props): JSX.Elem
   }
   return (
     <div className={css.emptyNode}>
-      {options.showPorts && (
-        <div style={{ visibility: !options.hideInPort ? 'visible' : 'hidden' }} className={css.port}>
-          {props.node.getInPorts().map(port => generatePort(port))}
-        </div>
-      )}
-      {options.showPorts && (
-        <div style={{ visibility: !options.hideOutPort ? 'visible' : 'hidden' }} className={css.port}>
-          {props.node.getOutPorts().map(port => generatePort(port))}
-        </div>
-      )}
+      <div style={{ visibility: options.showPorts && !options.hideInPort ? 'visible' : 'hidden' }} className={css.port}>
+        {props.node.getInPorts().map(port => generatePort(port))}
+      </div>
+      <div
+        style={{ visibility: options.showPorts && !options.hideOutPort ? 'visible' : 'hidden' }}
+        className={css.port}
+      >
+        {props.node.getOutPorts().map(port => generatePort(port))}
+      </div>
     </div>
   )
 }

@@ -15,6 +15,7 @@ export interface UseCreateDelegateModalReturn {
 
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 1200,
     height: 640,

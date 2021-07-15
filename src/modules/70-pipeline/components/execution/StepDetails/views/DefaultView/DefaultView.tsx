@@ -4,7 +4,7 @@ import { Tabs } from '@blueprintjs/core'
 
 import { useStrings } from 'framework/strings'
 import { isExecutionWaitingForIntervention } from '@pipeline/utils/statusHelpers'
-import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFactory/types'
+import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import { StepDetailsTab } from '@pipeline/components/execution/StepDetails/tabs/StepDetailsTab/StepDetailsTab'
 import { InputOutputTab } from '@pipeline/components/execution/StepDetails/tabs/InputOutputTab/InputOutputTab'
 import { ManualInterventionTab } from '@pipeline/components/execution/StepDetails/tabs/ManualInterventionTab/ManualInterventionTab'

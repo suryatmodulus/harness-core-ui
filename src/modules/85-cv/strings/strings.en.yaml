@@ -5,7 +5,6 @@ response: Response
 responseBody: Response Body
 statusCode: Status Code
 failures: Failures
-startedOn: Started On
 initiated: Initiated
 verifications: Verifications
 verificationStatus: Verification Status
@@ -13,12 +12,9 @@ preProductionTests: Pre Production Tests
 postDeployment: Post Deployment
 logCluster: Log Cluster
 logsCluster: Logs Cluster
-showMore: Show More
-showLess: Show Less
-baselineTest: Baseline test
-testsRan: Tests ran
+showMore: '{{ $.common.showMore }}'
+showLess: '{{ $.common.showLess }}'
 queries: Queries
-currentTest: Current test
 timeline: Timeline
 changeTimeline: Change Timeline
 selectedTimeInterval: Selected time interval
@@ -113,9 +109,6 @@ riskCardTooltip:
   header: Performance risk was computed based on metrics from your data providers
   allServicesGreen: all services green
 analysisScreens:
-  analysisTab:
-    metrics: 'Metrics'
-    logs: 'Logs'
   totalClusters: 'TOTAL CLUSTERS:'
 navLinks:
   activities: 'Activities'
@@ -241,6 +234,7 @@ onboarding:
       connectorRef: Connector Selection is required.
       validIdRegex: Identifier can only contain alphanumerics, _ and $.
       product: 'Product selection is required.'
+      source: Source selection is required
 selectCreateService: Select or create a service
 monitoringSources:
   mapMetricsToServices: Map Metric(s) to Harness Services
@@ -528,3 +522,57 @@ cvTrialHomePage:
     description: Take your software build processes to the next level using our Harness Continuous Verification.
     startBtn:
       description: Start 14 day CV Enterprise trial
+monitoredServices:
+  title: Monitored Services
+  filterlabel: 'Environment:'
+  noData: No Monitored Service
+  serviceAndEnvironment: Service And Environment
+  monitoredServiceDetails: Monitored Service Details
+  monitoredServiceName: Monitored service name
+  newMonitoredServices: New Monitored Service
+  addNewMonitoredServices: Add New Monitored Service
+  editMonitoredServices: Edit Monitored Service
+  deleteMonitoredServiceWarning: Are you sure you want to delete Monitored Service
+  deleteMonitoredService: Delete Monitored Service
+  monitoredServiceCreated: Monitoring Service created
+  monitoredServiceUpdated: Monitoring Service updated
+  serviceCount: Showing {{serviceCount}} Services
+  table:
+    serviceName: Service Name
+    lastestHealthTrend: Last 24HR Health Trends
+    serviceHealthScore: service HealthScore
+    healthMonitoring: Health Monitoring
+healthSource:
+  nameLabel: Health Source Name
+  namePlaceholder: Type your health source name
+  featureLabel: Select Feature
+  noData: No Health Sources Present
+  featurePlaceholder: Select your {{ sourceType }} feature
+  environmentLabel: Create or Select Environment(s)
+  serviceLabel: Create or Select a Service
+  addHealthSource: Add New Health Source
+  editHealthSource: Edit Health Source
+  backtoMonitoredService: Back to Monitoring services
+  connectHealthSource: Connect Health Source
+  selectHealthSource: Select health source
+  defineYourSource: Define Your Sources
+  defineHealthSource: Define Health Source
+  customizeHealthSource: Customize Health Source
+  deleteHealthSourceWarning: Are you sure you want to delete Health Source
+  deleteHealthSource: Delete Health Source
+  seriveEnvironmentNote: Service selected is {{service}} and Environment selected is {{environment}}
+  table:
+    serviceMapping: Service Mapping
+    environmentMapping: Environment Mapping
+  connectors:
+    createConnector: Add new {{sourceType}} connector
+    AppDynamics:
+      applicationsAndTiers: Applications & Tiers
+      applicationLabel: Find an AppDynamics application
+      applicationPlaceholder: Type an application name
+      trierLabel: Find an AppDynamics tier
+      tierPlaceholder: Type an tier name
+      metricPackLabel: Select Metric Packs to be monitored
+      validation:
+        application: Please select applications
+        tier: Please select tier

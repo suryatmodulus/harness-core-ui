@@ -87,51 +87,6 @@
   }
 }
 
-.deploymentTypeError {
-  color: #c23030 !important;
-  margin-top: var(--spacing-4) !important;
-}
-
-.deploymentTypeGroups {
-  display: flex;
-
-  .deploymentTypeGroup {
-    &:not(:last-of-type) {
-      margin-right: var(--spacing-xxlarge);
-    }
-  }
-
-  .connectionType {
-    color: #0b0b0d;
-    padding-bottom: var(--spacing-small);
-  }
-}
-
-.changeButton {
-  align-self: flex-end;
-}
-
-.squareCardContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 85px;
-  margin-right: var(--spacing-small);
-}
-
-.squareCard {
-  width: 64px;
-  height: 64px;
-  padding: var(--spacing-small) 0;
-  margin-bottom: var(--spacing-small);
-  display: flex !important;
-  justify-content: center;
-
-  [class*='cardIcon'] svg {
-    margin: 0 !important;
-  }
-}
-
 .create-stage-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -185,5 +140,16 @@
   .subheading {
     color: #6b6d85;
     padding-bottom: var(--spacing-small);
+  }
+}
+
+.thumbnailSelect {
+  &:global(.bp3-form-group) {
+    margin-bottom: 0px;
+  }
+  :global {
+    .bp3-form-helper-text {
+      margin-top: var(--spacing-medium);
+    }
   }
 }

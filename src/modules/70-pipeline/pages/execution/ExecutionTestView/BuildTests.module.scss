@@ -3,6 +3,7 @@
   // height: calc(100vh - 150px);
   overflow: auto;
   padding: var(--spacing-medium);
+  height: calc(100vh - 167px);
 
   .graph {
     --cell-size: 14px;
@@ -352,7 +353,7 @@
       justify-content: center;
       align-items: center;
       display: flex;
-
+      max-width: 910px;
       span {
         display: inline-block;
         padding-left: var(--spacing-xxsmall);
@@ -379,15 +380,6 @@
     &:last-of-type {
       border: none !important;
     }
-  }
-
-  .testSuiteName {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: calc(50% - 375px);
-    white-space: nowrap !important;
-    flex-grow: 1;
   }
 
   .progressBar {

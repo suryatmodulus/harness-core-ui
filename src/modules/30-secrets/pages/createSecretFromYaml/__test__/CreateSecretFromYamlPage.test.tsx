@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { render, fireEvent, act, getByText as getByTextBody, waitFor } from '@testing-library/react'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import routes from '@common/RouteDefinitions'
 import * as mockSchemaData from './schema.json'
 import CreateSecretFromYamlPage from '../CreateSecretFromYamlPage'
 import mockData from '../../secretDetails/__test__/secretDetailsMocks.json'
 
+const yamlStringFn = jest.fn()
+yamlStringFn.mockImplementation(() => 'name: test')
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ bind }: YamlBuilderProps) => {
   useEffect(() => {
     bind?.({
-      getLatestYaml: () => 'name: test',
+      getLatestYaml: () => yamlStringFn(),
       getYAMLValidationErrorMap: () => new Map()
     })
   }, [])
@@ -42,5 +45,35 @@ describe('CreateSecretFromYamlPage', () => {
     act(() => {
       fireEvent.click(getByText('createSecretYAML.create'))
     })
+  })
+  test('cancel with content', async () => {
+    const { getByText } = render(
+      <TestWrapper path="/account/:accountId/resources/create-secret-from-yaml" pathParams={{ accountId: 'dummy' }}>
+        <CreateSecretFromYamlPage mockSchemaData={mockSchemaData as any} />
+      </TestWrapper>
+    )
+
+    act(() => {
+      fireEvent.click(getByText('cancel'))
+    })
+
+    const dialog = findDialogContainer() as HTMLElement
+    await waitFor(() => getByTextBody(dialog, 'continueWithoutSavingText'))
+    expect(dialog).toMatchSnapshot()
+  })
+  const routesToSecretsSpy = jest.spyOn(routes, 'toSecrets')
+  test('cancel without content', async () => {
+    yamlStringFn.mockImplementation(() => '')
+    const { getByText } = render(
+      <TestWrapper path="/account/:accountId/resources/create-secret-from-yaml" pathParams={{ accountId: 'dummy' }}>
+        <CreateSecretFromYamlPage mockSchemaData={'' as any} />
+      </TestWrapper>
+    )
+
+    act(() => {
+      fireEvent.click(getByText('cancel'))
+    })
+
+    expect(routesToSecretsSpy).toHaveBeenCalled()
   })
 })

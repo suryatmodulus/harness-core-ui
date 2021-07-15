@@ -134,6 +134,7 @@ const pipelineContext: PipelineContextInterface = {
   setSelectedStageId: jest.fn(),
   setSelectedStepId: jest.fn(),
   setSelectedSectionId: jest.fn(),
+  setSelection: jest.fn(),
   getStagePathFromPipeline: jest.fn()
 }
 

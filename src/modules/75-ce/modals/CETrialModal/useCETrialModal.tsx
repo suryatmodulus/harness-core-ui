@@ -76,7 +76,12 @@ const useCETrialModal = (props: UseCETrialModalProps): UseCETrialModalReturn => 
     }
 
     return (
-      <Dialog isOpen={true} onClose={closeModal} className={cx(css.dialog, Classes.DIALOG, css.ceTrial)}>
+      <Dialog
+        isOpen={true}
+        enforceFocus={false}
+        onClose={closeModal}
+        className={cx(css.dialog, Classes.DIALOG, css.ceTrial)}
+      >
         <CETrial
           openProjectModal={openProjectModal}
           isProjectSelected={isProjectSelected}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { Color, Layout, Switch, Collapse } from '@wings-software/uicore'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { useStrings } from 'framework/strings'
@@ -20,6 +20,7 @@ interface Props {
   ) => Promise<void>
   updatingAuthMechanism: boolean
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
 const HarnessAccount: React.FC<Props> = ({
@@ -27,7 +28,8 @@ const HarnessAccount: React.FC<Props> = ({
   refetchAuthSettings,
   submitUserPasswordUpdate,
   updatingAuthMechanism,
-  canEdit
+  canEdit,
+  setUpdating
 }) => {
   const { getString } = useStrings()
   const { showWarning } = useToaster()
@@ -99,13 +101,29 @@ const HarnessAccount: React.FC<Props> = ({
     >
       {loginSettings && (
         <Layout.Vertical spacing="medium">
-          <PasswordStrength loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
-          <PasswordExpire loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
-          <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit={canEdit} />
+          <PasswordStrength
+            loginSettings={loginSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit={canEdit}
+            setUpdating={setUpdating}
+          />
+          <PasswordExpire
+            loginSettings={loginSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit={canEdit}
+            setUpdating={setUpdating}
+          />
+          <LockoutPolicy
+            loginSettings={loginSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit={canEdit}
+            setUpdating={setUpdating}
+          />
           <TwoFactorAuthentication
             twoFactorEnabled={!!authSettings.twoFactorEnabled}
             onSuccess={refetchAuthSettings}
             canEdit={canEdit}
+            setUpdating={setUpdating}
           />
         </Layout.Vertical>
       )}

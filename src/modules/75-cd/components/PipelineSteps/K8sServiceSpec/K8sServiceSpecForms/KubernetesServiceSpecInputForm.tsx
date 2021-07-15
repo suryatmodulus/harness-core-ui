@@ -13,24 +13,24 @@ import {
   SelectOption
 } from '@wings-software/uicore'
 
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Tooltip, Menu } from '@blueprintjs/core'
 import memoize from 'lodash-es/memoize'
 import { connect } from 'formik'
 import { cloneDeep } from 'lodash-es'
-import { useGetPipeline } from 'services/pipeline-ng'
 import List from '@common/components/List/List'
 import type { PipelineType, InputSetPathProps, GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import {
-  NgPipeline,
   ConnectorInfoDTO,
   GitConfigDTO,
   useGetBuildDetailsForDockerWithYaml,
   useGetBuildDetailsForGcrWithYaml,
-  useGetBuildDetailsForEcrWithYaml
+  useGetBuildDetailsForEcrWithYaml,
+  useGetGCSBucketList,
+  useGetBucketListForS3
 } from 'services/cd-ng'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { ArtifactToConnectorMap, ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
@@ -47,6 +47,7 @@ import type { ManifestStores } from '@pipeline/components/ManifestSelection/Mani
 import {
   GitRepoName,
   ManifestDataType,
+  ManifestStoreMap,
   ManifestToConnectorMap
 } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -56,8 +57,9 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import type { KubernetesServiceInputFormProps, LastQueryData } from '../K8sServiceSpecInterface'
-import { clearRuntimeInputValue, getNonRuntimeFields, getStagePathByIdentifier } from '../K8sServiceSpecHelper'
+import { clearRuntimeInputValue, getNonRuntimeFields } from '../K8sServiceSpecHelper'
 import ExperimentalInput from './ExperimentalInput'
 import css from '../K8sServiceSpec.module.scss'
 
@@ -65,6 +67,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   template,
   path,
   factory,
+  allValues,
   initialValues,
   onUpdate,
   readonly = false,
@@ -78,20 +81,22 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   >()
   const { repoIdentifier, branch: branchParam } = useQueryParams<GitQueryParams>()
 
-  const [pipeline, setPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
   const [tagListMap, setTagListMap] = React.useState<{ [key: string]: Record<string, any>[] | Record<string, any> }>({
     sidecars: [],
     primary: {}
   })
   const [lastQueryData, setLastQueryData] = React.useState<LastQueryData>({})
+  const [gcsBucketQueryData, setGcsBucketQueryData] = React.useState<{ connectorRef: string }>({
+    connectorRef: ''
+  })
+  const [s3BucketData, setS3BucketQueryData] = React.useState<{ connectorRef: string; region: string }>({
+    connectorRef: '',
+    region: ''
+  })
 
   const { expressions } = useVariablesExpression()
-
-  const stagePath = pipeline ? getStagePathByIdentifier(stageIdentifier, pipeline?.pipeline) : ''
   const isPropagatedStage = path?.includes('serviceConfig.stageOverrides')
-  const artifacts = isPropagatedStage
-    ? get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.stageOverrides.artifacts`, {})
-    : get(pipeline, `pipeline.${stagePath}.stage.spec.serviceConfig.serviceDefinition.spec.artifacts`, {})
+  const artifacts = allValues?.artifacts || {}
 
   const getFqnPath = useCallback((): string => {
     let lastQueryDataPath
@@ -105,11 +110,6 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     }
     return `pipeline.stages.${stageIdentifier}.spec.serviceConfig.serviceDefinition.spec.artifacts.${lastQueryDataPath}.spec.tag`
   }, [lastQueryData])
-
-  const { data: pipelineResponse } = useGetPipeline({
-    pipelineIdentifier,
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
-  })
 
   const yamlData = clearRuntimeInputValue(
     cloneDeep(
@@ -127,7 +127,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     refetch: refetchDockerBuildData,
     error: dockerError
   } = useMutateAsGet(useGetBuildDetailsForDockerWithYaml, {
-    body: (stringify({ ...yamlData }) as unknown) as void,
+    body: yamlStringify({ ...yamlData }) as unknown as void,
     requestOptions: {
       headers: {
         'content-type': 'application/json'
@@ -147,71 +147,117 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     lazy: true
   })
 
-  const { data: gcrdata, loading: gcrLoading, refetch: refetchGcrBuildData, error: gcrError } = useMutateAsGet(
-    useGetBuildDetailsForGcrWithYaml,
-    {
-      body: (stringify({ ...yamlData }) as unknown) as void,
-      requestOptions: {
-        headers: {
-          'content-type': 'application/json'
-        }
-      },
-      queryParams: {
-        imagePath: lastQueryData.imagePath || '',
-        connectorRef: lastQueryData.connectorRef || '',
-        pipelineIdentifier,
-        fqnPath: getFqnPath(),
-        registryHostname: lastQueryData.registryHostname || '',
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        repoIdentifier,
-        branch: branchParam
-      },
-      lazy: true
-    }
-  )
+  const {
+    data: gcrdata,
+    loading: gcrLoading,
+    refetch: refetchGcrBuildData,
+    error: gcrError
+  } = useMutateAsGet(useGetBuildDetailsForGcrWithYaml, {
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier,
+      fqnPath: getFqnPath(),
+      registryHostname: lastQueryData.registryHostname || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
 
-  const { data: ecrdata, loading: ecrLoading, refetch: refetchEcrBuildData, error: ecrError } = useMutateAsGet(
-    useGetBuildDetailsForEcrWithYaml,
-    {
-      body: (stringify({ ...yamlData }) as unknown) as void,
-      requestOptions: {
-        headers: {
-          'content-type': 'application/json'
-        }
-      },
-      queryParams: {
-        imagePath: lastQueryData.imagePath || '',
-        connectorRef: lastQueryData.connectorRef || '',
-        pipelineIdentifier,
-        fqnPath: getFqnPath(),
-        region: lastQueryData.region || '',
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier,
-        repoIdentifier,
-        branch: branchParam
-      },
-      lazy: true
-    }
-  )
+  const {
+    data: ecrdata,
+    loading: ecrLoading,
+    refetch: refetchEcrBuildData,
+    error: ecrError
+  } = useMutateAsGet(useGetBuildDetailsForEcrWithYaml, {
+    body: yamlStringify({ ...yamlData }) as unknown as void,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    },
+    queryParams: {
+      imagePath: lastQueryData.imagePath || '',
+      connectorRef: lastQueryData.connectorRef || '',
+      pipelineIdentifier,
+      fqnPath: getFqnPath(),
+      region: lastQueryData.region || '',
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      repoIdentifier,
+      branch: branchParam
+    },
+    lazy: true
+  })
 
   const { data: regionData } = useListAwsRegions({
     queryParams: {
       accountId
     }
   })
+
+  /* s3 bucket related code */
+  const {
+    data: s3BucketList,
+    loading: s3bucketdataLoading,
+    refetch: refetchS3Buckets
+  } = useGetBucketListForS3({
+    queryParams: {
+      connectorRef: s3BucketData?.connectorRef,
+      region: s3BucketData?.region,
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    lazy: true
+  })
+
   React.useEffect(() => {
-    if (pipelineResponse?.data?.yamlPipeline) {
-      setPipeline(parse(pipelineResponse?.data?.yamlPipeline))
+    if (s3BucketData?.connectorRef) {
+      refetchS3Buckets()
     }
-  }, [pipelineResponse?.data?.yamlPipeline])
+  }, [s3BucketData])
+
+  const s3BucketOptions = Object.keys(s3BucketList || {}).map(item => ({
+    label: item,
+    value: item
+  }))
+  /* s3 bucket related code */
+
+  const {
+    data: bucketData,
+    loading,
+    refetch: refetchBuckets
+  } = useGetGCSBucketList({
+    queryParams: {
+      connectorRef: gcsBucketQueryData?.connectorRef,
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    lazy: true
+  })
+
+  React.useEffect(() => {
+    if (gcsBucketQueryData?.connectorRef) {
+      refetchBuckets()
+    }
+  }, [gcsBucketQueryData])
 
   useDeepCompareEffect(() => {
     if (gcrError || dockerError || ecrError) {
-      const stageName = get(pipeline, `pipeline.${stagePath}.stage.name`, '')
-      showError(`Stage ${stageName}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')
+      showError(`Stage ${stageIdentifier}: ${getString('errorTag')}`, undefined, 'cd.tag.fetch.error')
       return
     }
     if (Array.isArray(dockerdata?.data?.buildDetailsList)) {
@@ -365,6 +411,11 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     value: region.value,
     label: region.name
   }))
+
+  const bucketOptions = Object.keys(bucketData || {}).map(item => ({
+    label: item,
+    value: item
+  }))
   const resetTags = (tagPath: string): void => {
     const tagValue = get(formik.values, tagPath, '')
     getMultiTypeFromValue(tagValue) === MultiTypeInputType.FIXED &&
@@ -385,16 +436,14 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                 {getString('primaryArtifactText')}
                 {!isEmpty(
                   JSON.parse(
-                    getNonRuntimeFields(
-                      get(pipeline, `${path}.artifacts.primary.spec`),
-                      get(template, 'artifacts.primary.spec')
-                    )
+                    getNonRuntimeFields(get(artifacts, `primary.spec`), get(template, 'artifacts.primary.spec'))
                   )
                 ) && (
                   <Tooltip
                     position="top"
+                    className={css.artifactInfoTooltip}
                     content={getNonRuntimeFields(
-                      get(pipeline, `${path}.artifacts.primary.spec`),
+                      get(artifacts, `primary.spec`),
                       get(template, 'artifacts.primary.spec')
                     )}
                   >
@@ -424,7 +473,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                     }}
                     onChange={() => resetTags(`${path}.artifacts.primary.spec.tag`)}
                     className={css.connectorMargin}
-                    type={ArtifactToConnectorMap[artifacts?.primary?.type] as ConnectorInfoDTO['type']}
+                    type={ArtifactToConnectorMap[artifacts?.primary?.type || ''] as ConnectorInfoDTO['type']}
                     gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
                   />
                 )}
@@ -483,7 +532,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                 {getMultiTypeFromValue(template?.artifacts?.primary?.spec?.tag) === MultiTypeInputType.RUNTIME && (
                   <ExperimentalInput
                     formik={formik}
-                    disabled={readonly || isTagSelectionDisabled(artifacts?.primary?.type)}
+                    disabled={readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')}
                     selectItems={
                       dockerLoading || gcrLoading || ecrLoading
                         ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
@@ -516,7 +565,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                             ? artifacts?.primary?.spec?.registryHostname
                             : initialValues.artifacts?.primary?.spec?.registryHostname
                         const tagsPath = `primary`
-                        !isTagSelectionDisabled(artifacts?.primary?.type) &&
+                        !isTagSelectionDisabled(artifacts?.primary?.type || '') &&
                           fetchTags({
                             path: tagsPath,
                             imagePath,
@@ -532,7 +581,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                             ? [{ label: 'Loading Tags...', value: 'Loading Tags...' }]
                             : getSelectItems('primary'),
                         usePortal: true,
-                        addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type)),
+                        addClearBtn: !(readonly || isTagSelectionDisabled(artifacts?.primary?.type || '')),
                         noResults: (
                           <Text lineClamp={1}>
                             {get(ecrError || gcrError || dockerError, 'data.message', null) ||
@@ -585,15 +634,16 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                       {!isEmpty(
                         JSON.parse(
                           getNonRuntimeFields(
-                            get(pipeline, `${path}.artifacts.sidecars[${index}].sidecar.spec`),
+                            get(artifacts, `sidecars[${index}].sidecar.spec`),
                             get(template, 'artifacts.primary.spec')
                           )
                         )
                       ) && (
                         <Tooltip
                           position="top"
+                          className={css.artifactInfoTooltip}
                           content={getNonRuntimeFields(
-                            get(pipeline, `${path}.artifacts.sidecars[${index}].sidecar.spec`),
+                            get(artifacts, `sidecars[${index}].sidecar.spec`),
                             get(template, `artifacts.sidecars[${index}].sidecar.spec`)
                           )}
                         >
@@ -619,7 +669,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         onChange={() => resetTags(`${path}.artifacts.sidecars.[${index}].sidecar.spec.tag`)}
                         type={
                           ArtifactToConnectorMap[
-                            artifacts?.sidecars?.[index]?.sidecar?.type
+                            artifacts?.sidecars?.[index]?.sidecar?.type || ''
                           ] as ConnectorInfoDTO['type']
                         }
                         gitScope={{ repo: repoIdentifier || '', branch: branchParam, getDefaultFromOtherRepo: true }}
@@ -682,7 +732,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                         formik={formik}
                         useValue
                         disabled={
-                          readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type, index)
+                          readonly || isTagSelectionDisabled(artifacts?.sidecars?.[index]?.sidecar?.type || '', index)
                         }
                         selectItems={
                           dockerLoading || gcrLoading || ecrLoading
@@ -724,7 +774,10 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                                 ? artifacts?.sidecars?.[sidecarIndex]?.sidecar?.spec?.registryHostname
                                 : currentSidecarSpec?.registryHostname
                             const tagsPath = `sidecars[${sidecarIndex}]`
-                            !isTagSelectionDisabled(artifacts?.sidecars?.[sidecarIndex]?.sidecar?.type, sidecarIndex) &&
+                            !isTagSelectionDisabled(
+                              artifacts?.sidecars?.[sidecarIndex]?.sidecar?.type || '',
+                              sidecarIndex
+                            ) &&
                               fetchTags({
                                 path: tagsPath,
                                 imagePath: imagePathCurrent,
@@ -793,6 +846,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
                   spec: {
                     skipResourceVersioning = '',
                     chartName = '',
+                    chartVersion = '',
                     store: {
                       spec: {
                         branch = '',
@@ -811,154 +865,304 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
               }: any,
               index: number
             ) => {
+              const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
               return (
-                <Layout.Vertical key={identifier} className={css.inputWidth}>
+                <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
                   <Text className={css.inputheader}>{identifier}</Text>
                   {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
-                    <FormMultiTypeConnectorField
-                      disabled={readonly}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
-                      selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
-                      label={getString('pipeline.manifestType.selectManifestStore')}
-                      placeholder={''}
-                      setRefValue
-                      multiTypeProps={{
-                        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-                        expressions
-                      }}
-                      accountIdentifier={accountId}
-                      projectIdentifier={projectIdentifier}
-                      orgIdentifier={orgIdentifier}
-                      type={ManifestToConnectorMap[type as ManifestStores]}
-                      onChange={(selected, _itemType, multiType) => {
-                        const item = (selected as unknown) as { record?: GitConfigDTO; scope: Scope }
-                        if (multiType === MultiTypeInputType.FIXED) {
-                          if (item.record?.spec?.connectionType === GitRepoName.Repo) {
-                            setShowRepoName(false)
-                          } else {
-                            setShowRepoName(true)
+                    <div className={css.verticalSpacingInput}>
+                      <FormMultiTypeConnectorField
+                        disabled={readonly}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                        selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`, '')}
+                        label={getString('connector')}
+                        placeholder={''}
+                        setRefValue
+                        multiTypeProps={{
+                          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                          expressions
+                        }}
+                        width={370}
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        type={ManifestToConnectorMap[type as ManifestStores]}
+                        onChange={(selected, _itemType, multiType) => {
+                          const item = selected as unknown as { record?: GitConfigDTO; scope: Scope }
+                          if (multiType === MultiTypeInputType.FIXED) {
+                            if (
+                              item?.record?.spec?.connectionType === GitRepoName.Repo ||
+                              item?.record?.spec?.type === GitRepoName.Repo
+                            ) {
+                              setShowRepoName(false)
+                            } else {
+                              setShowRepoName(true)
+                            }
                           }
-                        }
-                      }}
-                      gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                    />
-                  )}
-                  {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      disabled={readonly}
-                      className={css.inputWidth}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
-                    />
-                  )}
-                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME && (
-                    <List
-                      label={
-                        manifestType === ManifestDataType.K8sManifest
-                          ? getString('fileFolderPathText')
-                          : getString('common.git.filePath')
-                      }
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                      placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                      disabled={readonly}
-                      style={{ marginBottom: 'var(--spacing-small)' }}
-                      expressions={expressions}
-                      isNameOfArrayType
-                    />
+                        }}
+                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                      />
+                    </div>
                   )}
                   {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME && showRepoName && (
-                    <FormInput.MultiTextInput
-                      disabled={readonly}
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      className={css.inputWidth}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
-                    />
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        disabled={readonly}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        className={css.inputWidth}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
+                      />
+                    </div>
                   )}
+                  {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.deploy.inputSet.branch')}
+                        disabled={readonly}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
+                      />
+                    </div>
+                  )}
+
                   {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      disabled={readonly}
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.commitIdValue')}
-                      className={css.inputWidth}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
-                    />
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        disabled={readonly}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.commitIdValue')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
+                      />
+                    </div>
                   )}
 
                   {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME && (
-                    <ExperimentalInput
-                      formik={formik}
-                      multiTypeInputProps={{
-                        selectProps: {
-                          usePortal: true,
-                          addClearBtn: true && !readonly,
-                          items: regions
-                        },
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      useValue
-                      disabled={readonly}
-                      selectItems={regions}
-                      label={getString('regionLabel')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
-                    />
+                    <div className={css.verticalSpacingInput}>
+                      <ExperimentalInput
+                        formik={formik}
+                        multiTypeInputProps={{
+                          selectProps: {
+                            usePortal: true,
+                            addClearBtn: true && !readonly,
+                            items: regions
+                          },
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        useValue
+                        disabled={readonly}
+                        selectItems={regions}
+                        label={getString('regionLabel')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
+                      />
+                    </div>
                   )}
 
-                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={readonly}
-                      label={getString('pipeline.manifestType.bucketName')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                    />
-                  )}
+                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME &&
+                    (type === ManifestStoreMap.Gcs ? (
+                      getMultiTypeFromValue(
+                        initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                      ) === MultiTypeInputType.FIXED ? (
+                        <div className={css.verticalSpacingInput}>
+                          <ExperimentalInput
+                            formik={formik}
+                            multiTypeInputProps={{
+                              onFocus: () => {
+                                if (
+                                  getMultiTypeFromValue(filteredManifest?.manifest?.spec?.store?.spec?.connectorRef) ===
+                                  MultiTypeInputType.FIXED
+                                ) {
+                                  setGcsBucketQueryData({
+                                    connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef
+                                  })
+                                } else {
+                                  if (!bucketOptions.length) {
+                                    setGcsBucketQueryData({
+                                      connectorRef:
+                                        initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                                    })
+                                  }
+                                }
+                              },
+                              selectProps: {
+                                usePortal: true,
+                                addClearBtn: true && !readonly,
+                                items: loading
+                                  ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
+                                  : bucketOptions,
+                                allowCreatingNewItems: true
+                              },
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            useValue
+                            disabled={readonly}
+                            selectItems={bucketOptions}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      ) : (
+                        <div className={css.verticalSpacingInput}>
+                          <FormInput.MultiTextInput
+                            multiTextInputProps={{
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            disabled={readonly}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      )
+                    ) : type === ManifestStoreMap.S3 ? (
+                      getMultiTypeFromValue(connectorRef) === MultiTypeInputType.FIXED &&
+                      getMultiTypeFromValue(region) !== MultiTypeInputType.FIXED ? (
+                        <div className={css.verticalSpacingInput}>
+                          <ExperimentalInput
+                            formik={formik}
+                            multiTypeInputProps={{
+                              onFocus: () => {
+                                setS3BucketQueryData({
+                                  connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef,
+                                  region: initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.region
+                                })
+                              },
+                              selectProps: {
+                                usePortal: true,
+                                addClearBtn: true && !readonly,
+                                items: s3bucketdataLoading
+                                  ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
+                                  : s3BucketOptions,
+
+                                allowCreatingNewItems: true
+                              },
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            useValue
+                            disabled={readonly}
+                            selectItems={s3BucketOptions}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      ) : (
+                        <div className={css.verticalSpacingInput}>
+                          <FormInput.MultiTextInput
+                            multiTextInputProps={{
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            disabled={readonly}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          />
+                        </div>
+                      )
+                    ) : null)}
+
                   {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={readonly}
-                      label={getString('chartPath')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
-                    />
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('chartPath')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
+                      />
+                    </div>
                   )}
+
                   {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME && (
-                    <FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={readonly}
-                      label={getString('pipeline.manifestType.http.chartName')}
-                      name={`${path}.manifests[${index}].manifest.spec.chartName`}
-                    />
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('pipeline.manifestType.http.chartName')}
+                        name={`${path}.manifests[${index}].manifest.spec.chartName`}
+                      />
+                    </div>
                   )}
+                  {getMultiTypeFromValue(chartVersion) === MultiTypeInputType.RUNTIME && (
+                    <div className={css.verticalSpacingInput}>
+                      <FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={readonly}
+                        label={getString('pipeline.manifestType.http.chartVersion')}
+                        name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
+                      />
+                    </div>
+                  )}
+
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
+                    manifestType !== ManifestDataType.OpenshiftTemplate && (
+                      <div className={css.verticalSpacingInput}>
+                        <List
+                          labelClassName={css.listLabel}
+                          label={
+                            manifestType === ManifestDataType.K8sManifest
+                              ? getString('fileFolderPathText')
+                              : getString('common.git.filePath')
+                          }
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                          disabled={readonly}
+                          style={{ marginBottom: 'var(--spacing-small)' }}
+                          expressions={expressions}
+                          isNameOfArrayType
+                        />
+                      </div>
+                    )}
+
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &&
+                    manifestType === ManifestDataType.OpenshiftTemplate && (
+                      <div className={css.verticalSpacingInput}>
+                        <FormInput.MultiTextInput
+                          multiTextInputProps={{
+                            expressions,
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          }}
+                          label={getString('pipeline.manifestType.osTemplatePath')}
+                          placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
+                          disabled={readonly}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
+                        />
+                      </div>
+                    )}
                   {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
-                    <FormMultiTypeCheckboxField
-                      multiTypeTextbox={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      className={css.inputWidth}
-                      name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
-                      label={getString('skipResourceVersion')}
-                      setToFalseWhenEmpty={true}
-                    />
+                    <div className={css.verticalSpacingInput}>
+                      <FormMultiTypeCheckboxField
+                        multiTypeTextbox={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
+                        label={getString('skipResourceVersion')}
+                        setToFalseWhenEmpty={true}
+                      />
+                    </div>
                   )}
                 </Layout.Vertical>
               )
@@ -972,7 +1176,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
 
           <div className={css.nestedAccordions}>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
-              factory={(factory as unknown) as AbstractStepFactory}
+              factory={factory as unknown as AbstractStepFactory}
               initialValues={{
                 variables: (initialValues.variables || []) as AllNGVariables[],
                 canAddVariable: true
@@ -981,13 +1185,13 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
               stepViewType={StepViewType.InputSet}
               onUpdate={({ variables }: CustomVariablesData) => {
                 onUpdate?.({
-                  ...pipeline,
                   variables: variables as any
                 })
               }}
               customStepProps={{
                 template: { variables: (template?.variables || []) as AllNGVariables[] },
-                path
+                path,
+                allValues: { variables: (allValues?.variables || []) as AllNGVariables[] }
               }}
               readonly={readonly}
             />

@@ -334,3 +334,11 @@
     }
   }
 }
+
+.yamlEditorContainer {
+  :global {
+    .react-monaco-editor-container .monaco-editor .monaco-scrollable-element .scrollbar .slider {
+      display: none;
+    }
+  }
+}

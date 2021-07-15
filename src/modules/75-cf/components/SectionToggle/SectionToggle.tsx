@@ -13,9 +13,22 @@ const SectionToggle = (): ReactElement => {
   const { getString } = useStrings()
   const { activeEnvironment } = useQueryParams<{ activeEnvironment: string }>()
 
-  const Item = ({ link, text }: { link: string; text: keyof StringsMap }): ReactElement => (
+  const Item = ({
+    link,
+    text,
+    tooltipId
+  }: {
+    link: string
+    text: keyof StringsMap
+    tooltipId: string
+  }): ReactElement => (
     <li className={css.item}>
-      <NavLink to={`${link}?activeEnvironment=${activeEnvironment}`} className={css.link} activeClassName={css.active}>
+      <NavLink
+        to={`${link}?activeEnvironment=${activeEnvironment}`}
+        className={css.link}
+        activeClassName={css.active}
+        data-tooltip-id={tooltipId}
+      >
         {getString(text)}
       </NavLink>
     </li>
@@ -23,8 +36,8 @@ const SectionToggle = (): ReactElement => {
 
   return (
     <ul className={css.wrapper} data-testid="CFSectionToggle">
-      <Item link={routes.toCFTargets(params)} text="cf.shared.targets" />
-      <Item link={routes.toCFSegments(params)} text="cf.shared.segments" />
+      <Item link={routes.toCFTargets(params)} text="cf.shared.targets" tooltipId="ff_targets_heading" />
+      <Item link={routes.toCFSegments(params)} text="cf.shared.segments" tooltipId="ff_segments_heading" />
     </ul>
   )
 }

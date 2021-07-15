@@ -1,0 +1,56 @@
+.main {
+  display: flex;
+  align-items: center;
+  flex: 0 1 auto;
+
+  .servicesIcon {
+    margin-left: var(--spacing-4) !important;
+  }
+
+  .servicesList {
+    display: flex;
+    align-items: center;
+    margin-left: var(--spacing-3);
+  }
+
+  .serviceWrapper {
+    display: flex;
+    align-items: center;
+    &:not(:last-child):after {
+      content: ',';
+      margin-right: 0.33em;
+    }
+  }
+
+  .serviceName {
+    font-size: var(--font-size-small);
+    color: var(--grey-800);
+    cursor: pointer;
+  }
+
+  .count {
+    text-decoration: underline;
+  }
+
+  .environments {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-small);
+    color: var(--grey-800);
+    margin-left: var(--spacing-7);
+    cursor: pointer;
+
+    .envIcon {
+      margin-right: var(--spacing-3) !important;
+    }
+
+    p {
+      color: var(--grey-800) !important;
+      font-size: var(--font-size-small) !important;
+    }
+  }
+}
+
+.servicesTable {
+  font-size: var(--font-size-small) !important;
+}

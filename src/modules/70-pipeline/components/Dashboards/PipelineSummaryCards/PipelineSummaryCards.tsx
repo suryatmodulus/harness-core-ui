@@ -6,16 +6,15 @@ import { useGetPipelinedHealth } from 'services/pipeline-ng'
 import type { PipelineType, ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { SummaryCard } from '../CIDashboardSummaryCards/CIDashboardSummaryCards'
 import { RangeSelectorWithTitle } from '../RangeSelector'
-import { roundNumber, formatDuration } from '../shared'
+import { roundNumber, formatDuration, useErrorHandler } from '../shared'
 import styles from './PipelineSummaryCards.module.scss'
 
 export default function PipelineSummaryCards() {
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
-    PipelineType<ExecutionPathProps>
-  >()
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } =
+    useParams<PipelineType<ExecutionPathProps>>()
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
-  const { data, loading } = useGetPipelinedHealth({
+  const { data, loading, error } = useGetPipelinedHealth({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -26,6 +25,8 @@ export default function PipelineSummaryCards() {
       moduleInfo: module
     }
   })
+
+  useErrorHandler(error)
 
   return (
     <Container>

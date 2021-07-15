@@ -55,7 +55,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 jest.mock('services/ce', () => ({
-  useAwsUrlTemplate: jest.fn().mockImplementation(() => ({
+  useAwsaccountconnectiondetail: jest.fn().mockImplementation(() => ({
     status: 'SUCCESS',
     data: {
       externalId: 'harness:108817434118:kmpySmUISimoRrJL6NL73w',

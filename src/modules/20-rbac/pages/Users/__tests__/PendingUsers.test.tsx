@@ -73,7 +73,7 @@ describe('UsersPage Test', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText('newUser'))
+    await waitFor(() => getAllByText('rbac.user'))
   })
   test('Switch to Pending Users', async () => {
     expect(container).toMatchSnapshot()

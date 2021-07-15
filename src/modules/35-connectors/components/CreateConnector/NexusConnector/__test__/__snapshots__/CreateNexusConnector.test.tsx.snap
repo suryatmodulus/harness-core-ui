@@ -19,6 +19,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
             height="40"
             viewBox="0 0 14 14"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M13.5 3.1c.2.2.3.4.3.7-.1.4-.3.5-.7.5H1c-.2 0-.3 0-.5-.1-.3-.2-.4-.5-.3-.8.1-.2.3-.4.5-.4.3 0 .6-.1.9-.1h1.3c3.3.1 6.7 0 10 .1.3-.1.5-.1.6.1z"
@@ -178,7 +179,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -206,7 +207,7 @@ exports[`Create Nexus connector Wizard Should render form 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormNexus_name"
                           >
                             name
                           </span>
@@ -361,6 +362,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
             height="40"
             viewBox="0 0 14 14"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M13.5 3.1c.2.2.3.4.3.7-.1.4-.3.5-.7.5H1c-.2 0-.3 0-.5-.1-.3-.2-.4-.5-.3-.8.1-.2.3-.4.5-.4.3 0 .6-.1.9-.1h1.3c3.3.1 6.7 0 10 .1.3-.1.5-.1.6.1z"
@@ -809,6 +811,7 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -934,6 +937,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
             height="40"
             viewBox="0 0 14 14"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M13.5 3.1c.2.2.3.4.3.7-.1.4-.3.5-.7.5H1c-.2 0-.3 0-.5-.1-.3-.2-.4-.5-.3-.8.1-.2.3-.4.5-.4.3 0 .6-.1.9-.1h1.3c3.3.1 6.7 0 10 .1.3-.1.5-.1.6.1z"
@@ -1100,7 +1104,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormNexus_name"
                           >
                             name
                           </span>
@@ -1253,6 +1257,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
             height="40"
             viewBox="0 0 14 14"
             width="40"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M13.5 3.1c.2.2.3.4.3.7-.1.4-.3.5-.7.5H1c-.2 0-.3 0-.5-.1-.3-.2-.4-.5-.3-.8.1-.2.3-.4.5-.4.3 0 .6-.1.9-.1h1.3c3.3.1 6.7 0 10 .1.3-.1.5-.1.6.1z"
@@ -1686,6 +1691,7 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"

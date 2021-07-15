@@ -19,7 +19,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   const { getString } = useStrings()
 
   const remoteRender = (varFile: TerraformVarFileWrapper): React.ReactElement => {
-    const remoteVarFile = (varFile?.varFile as unknown) as RemoteTerraformVarFileSpec
+    const remoteVarFile = varFile?.varFile as unknown as RemoteTerraformVarFileSpec
     return (
       <>
         <Text className={css.branch}>{remoteVarFile.store?.spec?.branch}</Text>
@@ -35,7 +35,7 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
   }
 
   const inlineRender = (varFile: TerraformVarFileWrapper): React.ReactElement => {
-    const inlineVar = (varFile?.varFile as unknown) as InlineTerraformVarFileSpec
+    const inlineVar = varFile?.varFile as unknown as InlineTerraformVarFileSpec
     return (
       <Layout.Horizontal className={css.path}>
         {inlineVar?.type === getString('inline') && <Icon name="Inline" />}
@@ -55,7 +55,12 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
                   <Layout.Horizontal className={css.tfContainer}>
                     {varFile?.varFile?.type === TerraformStoreTypes.Remote && remoteRender(varFile)}
                     {varFile?.varFile?.type === TerraformStoreTypes.Inline && inlineRender(varFile)}
-                    <Button minimal icon="trash" data-testid={`remove-tfvar-file-${i}`} onClick={() => remove(i)} />
+                    <Button
+                      minimal
+                      icon="main-trash"
+                      data-testid={`remove-tfvar-file-${i}`}
+                      onClick={() => remove(i)}
+                    />
                   </Layout.Horizontal>
                 </div>
               )

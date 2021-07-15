@@ -1,5 +1,3 @@
-import { formatJSON } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
-
 type GCOLogsHighchartsOptionAndRecords = {
   records: string[]
 }
@@ -20,4 +18,14 @@ export function transformGCOLogsSampleData(sampleData?: GCOLogsSampleData[]): GC
   }
 
   return transformedValue
+}
+
+export function formatJSON(val?: string | Record<string, unknown>): string | undefined {
+  try {
+    if (!val) return
+    const res = typeof val === 'string' ? JSON.parse(val) : val
+    return JSON.stringify(res, null, 2)
+  } catch (e) {
+    return
+  }
 }

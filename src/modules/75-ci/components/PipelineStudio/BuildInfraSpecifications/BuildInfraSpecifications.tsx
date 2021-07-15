@@ -7,8 +7,9 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { produce } from 'immer'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useStrings } from 'framework/strings'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -18,18 +19,9 @@ import {
   getFlattenedStages
 } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
-import {
-  ConnectorReferenceField,
-  ConnectorReferenceFieldProps
-} from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import {
-  getIdentifierFromValue,
-  getScopeFromDTO,
-  getScopeFromValue
-} from '@common/components/EntityReference/EntityReference'
 import type { MultiTypeMapType, MultiTypeMapUIType, MapType } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { useGitScope } from '@ci/services/CIUtils'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import css from './BuildInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -74,8 +66,10 @@ const validationSchema = yup.object().shape({
 })
 
 interface Values {
-  connectorRef?: ConnectorReferenceFieldProps['selected'] | string
+  connectorRef?: string
   namespace?: string
+  serviceAccountName?: string
+  initTimeout?: string
   useFromStage?: string
   annotations?: MultiTypeMapUIType
   labels?: MultiTypeMapUIType
@@ -132,22 +126,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     })
   }
 
-  const connectorId = getIdentifierFromValue((stage?.stage?.spec?.infrastructure?.spec?.connectorRef as string) || '')
-  const initialScope = getScopeFromValue((stage?.stage?.spec?.infrastructure?.spec?.connectorRef as string) || '')
-
-  const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorId,
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
-      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined,
-      ...(gitScope?.repo && gitScope.branch
-        ? { repoIdentifier: gitScope.repo, branch: gitScope.branch, getDefaultFromOtherRepo: true }
-        : {})
-    },
-    lazy: true,
-    debounce: 300
-  })
+  const connectorId = (stage?.stage?.spec?.infrastructure?.spec?.connectorRef as string) || ''
 
   const getInitialValues = useMemo((): Values => {
     if (stage?.stage?.spec?.infrastructure) {
@@ -155,17 +134,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         return {
           useFromStage: stage?.stage?.spec?.infrastructure?.useFromStage
         }
-      } else if (connector?.data?.connector) {
-        const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
+      } else if (!isEmpty(connectorId)) {
         return {
-          connectorRef: {
-            label: connector?.data?.connector.name || '',
-            value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-            scope: scope,
-            live: connector?.data?.status?.status === 'SUCCESS',
-            connector: connector?.data?.connector
-          },
+          connectorRef: stage?.stage?.spec?.infrastructure?.spec?.connectorRef,
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
+          serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
+          initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
           annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
           labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
         }
@@ -173,6 +147,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         return {
           connectorRef: undefined,
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
+          serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
+          initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
           annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
           labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
         }
@@ -185,16 +161,11 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
         labels: ''
       }
     }
-  }, [connector, stage])
-
-  React.useEffect(() => {
-    if (!isEmpty(stage?.stage?.spec?.infrastructure?.spec?.connectorRef)) {
-      refetch()
-    }
-  }, [stage?.stage?.spec?.infrastructure?.spec?.connectorRef])
+  }, [stage])
 
   const handleValidate = (values: any): void => {
     if (stage) {
+      const errors: { [key: string]: string } = {}
       const stageData = produce(stage, draft => {
         if (currentMode === Modes.Propagate && values.useFromStage) {
           draft.stage.spec.infrastructure = {
@@ -204,12 +175,19 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           const filteredLabels = getMapValues(
             Array.isArray(values.labels) ? values.labels.filter((val: any) => testLabelKey(val.key)) : values.labels
           )
+          try {
+            getDurationValidationSchema().validateSync(values.initTimeout)
+          } catch (e) {
+            errors.initTimeout = e.message
+          }
           draft.stage.spec.infrastructure = {
             type: 'KubernetesDirect',
             spec: {
               // Avoid accidental overrides for connectorRef
               connectorRef: values?.connectorRef?.value ?? draft.stage.spec.infrastructure?.spec?.connectorRef,
               namespace: values.namespace,
+              serviceAccountName: values.serviceAccountName,
+              initTimeout: errors.initTimeout ? undefined : values.initTimeout,
               annotations: getMapValues(values.annotations),
               labels: !isEmpty(filteredLabels) ? filteredLabels : undefined
             }
@@ -231,7 +209,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           acc[`labels[${index}].key`] = curr.key + ' is not allowed.'
         }
         return acc
-      }, {})
+      }, errors)
     }
   }
 
@@ -239,14 +217,13 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     <div className={css.wrapper}>
       <div className={css.contentSection} ref={scrollRef}>
         <Formik
-          enableReinitialize
           initialValues={getInitialValues}
           validationSchema={validationSchema}
           validate={handleValidate}
           formName="ciBuildInfra"
           onSubmit={values => logger.info(JSON.stringify(values))}
         >
-          {({ values: formValues, setFieldValue }) => (
+          {({ setFieldValue }) => (
             <Layout.Vertical>
               <div className={css.tabHeading} id="infrastructureDefinition">
                 {getString('pipelineSteps.build.infraSpecifications.whereToRun')}
@@ -367,23 +344,15 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         <Text font="small" margin={{ bottom: 'xsmall' }}>
                           {getString('connectors.title.k8sCluster')}
                         </Text>
-                        <ConnectorReferenceField
+                        <FormMultiTypeConnectorField
                           width={300}
                           name="connectorRef"
-                          selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
                           label={''}
-                          placeholder={loading ? getString('loading') : getString('select')}
-                          disabled={loading || isReadonly}
+                          placeholder={getString('select')}
+                          disabled={isReadonly}
                           accountIdentifier={accountId}
                           projectIdentifier={projectIdentifier}
                           orgIdentifier={orgIdentifier}
-                          onChange={(value, scope) => {
-                            setFieldValue('connectorRef', {
-                              label: value.name || '',
-                              value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
-                              scope: scope
-                            })
-                          }}
                           gitScope={gitScope}
                         />
                         <Text font="small" margin={{ bottom: 'xsmall' }}>
@@ -404,6 +373,34 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             multiTextInputProps={{ disabled: isReadonly }}
                           />
                         </div>
+                        <FormInput.MultiTextInput
+                          label={getString('pipeline.infraSpecifications.serviceAccountName')}
+                          name="serviceAccountName"
+                          placeholder={getString('pipeline.infraSpecifications.serviceAccountNamePlaceholder')}
+                          style={{
+                            width: 300,
+                            marginTop: 'var(--spacing-small)',
+                            marginBottom: 'var(--spacing-xsmall)'
+                          }}
+                          multiTextInputProps={{ disabled: isReadonly }}
+                        />
+                        <FormMultiTypeDurationField
+                          name="initTimeout"
+                          multiTypeDurationProps={{ expressions }}
+                          label={
+                            <Text flex={{ justifyContent: 'start' }} font="small">
+                              {getString('pipeline.infraSpecifications.initTimeout')}
+                              <Button
+                                icon="question"
+                                minimal
+                                tooltip={getString('pipelineSteps.timeoutInfo')}
+                                iconProps={{ size: 14 }}
+                              />
+                            </Text>
+                          }
+                          disabled={isReadonly}
+                          style={{ width: 300 }}
+                        />
                         <MultiTypeMap
                           style={{ marginTop: 'var(--spacing-medium)' }}
                           appearance="minimal"
@@ -442,27 +439,15 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                 ) : (
                   <>
                     <Card disabled={isReadonly} className={cx(css.sectionCard)}>
-                      <ConnectorReferenceField
+                      <FormMultiTypeConnectorField
                         width={300}
                         name="connectorRef"
-                        selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
                         label={getString('connectors.title.k8sCluster')}
-                        placeholder={
-                          loading
-                            ? getString('loading')
-                            : getString('pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder')
-                        }
-                        disabled={loading || isReadonly}
+                        placeholder={getString('pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder')}
+                        disabled={isReadonly}
                         accountIdentifier={accountId}
                         projectIdentifier={projectIdentifier}
                         orgIdentifier={orgIdentifier}
-                        onChange={(value, scope) => {
-                          setFieldValue('connectorRef', {
-                            label: value.name || '',
-                            value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${value.identifier}`,
-                            scope: scope
-                          })
-                        }}
                         gitScope={gitScope}
                       />
                       <Text margin={{ bottom: 'xsmall' }}>
@@ -494,6 +479,30 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                         summary={getString('advancedTitle')}
                         details={
                           <Card disabled={isReadonly} className={css.sectionCard}>
+                            <FormInput.MultiTextInput
+                              label={getString('pipeline.infraSpecifications.serviceAccountName')}
+                              name="serviceAccountName"
+                              placeholder={getString('pipeline.infraSpecifications.serviceAccountNamePlaceholder')}
+                              style={{ width: 300 }}
+                              multiTextInputProps={{ disabled: isReadonly }}
+                            />
+                            <FormMultiTypeDurationField
+                              name="initTimeout"
+                              multiTypeDurationProps={{ expressions }}
+                              label={
+                                <Text flex={{ justifyContent: 'start' }} font="small">
+                                  {getString('pipeline.infraSpecifications.initTimeout')}
+                                  <Button
+                                    icon="question"
+                                    minimal
+                                    tooltip={getString('pipelineSteps.timeoutInfo')}
+                                    iconProps={{ size: 14 }}
+                                  />
+                                </Text>
+                              }
+                              disabled={isReadonly}
+                              style={{ width: 300 }}
+                            />
                             <MultiTypeMap
                               style={{ marginTop: 'var(--spacing-medium)' }}
                               appearance={'minimal'}

@@ -14,6 +14,7 @@ export interface DashboardListProps<T extends Record<string, any>> {
   data: T[]
   totalItems?: number
   totalPages?: number
+  onRowClick: (data: T) => void
 }
 
 const HeaderFilterComponent: React.FC<Record<string, any>> = () => {
@@ -46,7 +47,8 @@ export const DashboardList = <T extends Record<string, any>>(props: DashboardLis
     columns,
     data,
     totalItems = 1,
-    totalPages = -1
+    totalPages = -1,
+    onRowClick
   } = props
   return (
     <Layout.Vertical>
@@ -70,6 +72,7 @@ export const DashboardList = <T extends Record<string, any>>(props: DashboardLis
             /**/
           }
         }}
+        onRowClick={onRowClick}
       />
     </Layout.Vertical>
   )

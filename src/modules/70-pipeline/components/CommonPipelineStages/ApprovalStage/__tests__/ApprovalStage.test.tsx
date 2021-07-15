@@ -133,7 +133,11 @@ describe('Jira Approval Stage minimal view', () => {
     act(() => {
       fireEvent.change(nameInput!, { target: { value: 'stagename' } })
     })
+
     expect(props.stageProps?.onChange).toBeCalledTimes(4)
+    act(() => {
+      fireEvent.click(getByText('Change'))
+    })
     act(() => {
       fireEvent.click(getByText('Jira'))
     })

@@ -18,6 +18,7 @@ const useCreateDelegateModal = (
 ): UseCreateDelegateModalReturn => {
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
+    enforceFocus: false,
     style: {
       width: 1268,
       height: 786,

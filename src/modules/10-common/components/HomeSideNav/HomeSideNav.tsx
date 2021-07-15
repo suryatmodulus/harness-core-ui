@@ -8,6 +8,8 @@ import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useStrings } from 'framework/strings'
 import AccountSetupMenu from '@common/navigation/AccountSetupMenu/AccountSetupMenu'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { returnLaunchUrl } from '@common/utils/routeUtils'
+import { LaunchButton } from '../LaunchButton/LaunchButton'
 
 export default function HomeSideNav(): React.ReactElement {
   const params = useParams<AccountPathProps>()
@@ -20,6 +22,10 @@ export default function HomeSideNav(): React.ReactElement {
       <SidebarLink label={getString('projectsText')} to={routes.toProjects(params)} />
       {NG_DASHBOARDS && <SidebarLink label={getString('common.dashboards')} to={routes.toCustomDasboard(params)} />}
       <AccountSetupMenu />
+      <LaunchButton
+        launchButtonText={getString('common.cgLaunchText')}
+        redirectUrl={returnLaunchUrl(`#/account/${params.accountId}/dashboard`)}
+      />
     </Layout.Vertical>
   )
 }

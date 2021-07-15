@@ -38,7 +38,7 @@ const confirmDialogProps: IDialogProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
-  enforceFocus: true,
+  enforceFocus: false,
   style: { width: 500, minHeight: 200 }
 }
 

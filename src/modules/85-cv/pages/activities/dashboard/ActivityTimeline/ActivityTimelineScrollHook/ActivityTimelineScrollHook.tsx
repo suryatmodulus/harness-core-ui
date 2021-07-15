@@ -50,9 +50,10 @@ function computeTimestampThresholds(
 export default function useActivityTimelineScrollHook(input: ActivityTimelineScrollHookInput) {
   const { timelineContainerRef, timelineScrubberLaneRef, timelineStartTime, timelineEndTime, scrubberRef } = input
   const { timelineHeight, totalTimeDifference } = computeTimelineHeight(timelineStartTime, timelineEndTime)
-  const scrubberLaneHeight = useMemo(() => computeElementBorderBoxHeight(timelineScrubberLaneRef), [
-    timelineScrubberLaneRef
-  ])
+  const scrubberLaneHeight = useMemo(
+    () => computeElementBorderBoxHeight(timelineScrubberLaneRef),
+    [timelineScrubberLaneRef]
+  )
   const scrollThresholds = useMemo(
     () => computeTimestampThresholds(timelineStartTime, timelineEndTime, totalTimeDifference, timelineHeight),
     [timelineStartTime, timelineEndTime, timelineHeight, totalTimeDifference]

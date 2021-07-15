@@ -33,6 +33,8 @@ export interface ConnectorSelectionProps {
   connectToMonitoringSourceText?: string
   firstTimeSetupText?: string
   onSuccess?: UseCreateConnectorModalProps['onSuccess']
+  isNewConnectorLabelVisible?: boolean
+  width?: number
 }
 
 export interface SelectOrCreateConnectorProps extends ConnectorSelectionProps {
@@ -71,13 +73,20 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
     createConnectorText,
     onSuccess,
     value,
-    disableConnector
+    disableConnector,
+    isNewConnectorLabelVisible,
+    width
   } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { openConnectorModal } = useCreateConnectorModal({ onSuccess })
   const { getString } = useStrings()
   const { showError } = useToaster()
-  const { data, loading, error, refetch: fetchConnector } = useGetConnector({
+  const {
+    data,
+    loading,
+    error,
+    refetch: fetchConnector
+  } = useGetConnector({
     identifier: getIdentifierFromValue(value?.value as string) || '',
     queryParams: getQueryParamsBasedOnScope((value?.value as string) || '', {
       projectIdentifier,
@@ -119,24 +128,26 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
       <>
         <FormMultiTypeConnectorField
           name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
-          label=""
+          label={''}
           placeholder={getString('connectors.selectConnector')}
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={300}
-          isNewConnectorLabelVisible={false}
+          width={width || 300}
+          isNewConnectorLabelVisible={!!isNewConnectorLabelVisible}
           type={connectorType}
           className={css.connectorReference}
           enableConfigureOptions={false}
         />
-        <Link
-          withoutHref
-          onClick={() => openConnectorModal(false, connectorType || ('' as ConnectorInfoDTO['type']), undefined)}
-          height="30px"
-        >
-          {createConnectorText}
-        </Link>
+        {!isNewConnectorLabelVisible && (
+          <Link
+            withoutHref
+            onClick={() => openConnectorModal(false, connectorType || ('' as ConnectorInfoDTO['type']), undefined)}
+            height="30px"
+          >
+            {createConnectorText}
+          </Link>
+        )}
       </>
     )
   }

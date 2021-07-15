@@ -10,36 +10,40 @@ import type {
   PipelineType
 } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { useQueryParams } from '@common/hooks'
+import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { FeatureFlag } from '@common/featureFlags'
 import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineStagesUtils'
 import css from './CFPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
   const history = useHistory()
   const handleRunPipeline = (): void => {
     history.push(
-      routes.toRunPipeline({
+      routes.toPipelineStudio({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         module,
         branch,
-        repoIdentifier
+        repoIdentifier,
+        runPipeline: true
       })
     )
   }
-  const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
+  const isApprovalStageEnabled = useFeatureFlag(FeatureFlag.NG_HARNESS_APPROVAL)
+  const isCDEnabled = useFeatureFlag(FeatureFlag.CDNG_ENABLED)
+  const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
+  const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = useLicenseStore()
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -49,9 +53,9 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         getCFPipelineStages(
           args,
           getString,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CD') > -1,
-          true,
+          CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCIEnabled,
+          isCDEnabled,
+          FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCFEnabled,
           isApprovalStageEnabled
         )
       }

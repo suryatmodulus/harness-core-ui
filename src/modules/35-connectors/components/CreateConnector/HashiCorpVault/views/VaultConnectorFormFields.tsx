@@ -11,10 +11,11 @@ import {
   useGetMetadata,
   VaultConnectorDTO
 } from 'services/cd-ng'
-import { useToaster } from '@common/exports'
 import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/exports'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { shouldShowError } from '@common/utils/errorUtils'
+import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { VaultConfigFormData } from './VaultConfigForm'
 
 const accessTypeOptions: IOptionProps[] = [
@@ -44,15 +45,14 @@ interface VaultConnectorFormFieldsProps {
   isEditing?: boolean
   identifier: string
   accessType?: VaultConnectorDTO['accessType']
-  onMetadataLoadingStateChange: (val: boolean) => void
+  loadingFormData?: boolean
 }
 
 const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
   formik,
   identifier,
   isEditing,
-  accessType,
-  onMetadataLoadingStateChange
+  loadingFormData
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
@@ -74,10 +74,10 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
             formData.accessType === 'APP_ROLE'
               ? ({
                   appRoleId: formData.appRoleId,
-                  secretId: formData.secretId
+                  secretId: formData.secretId?.referenceString
                 } as VaultAppRoleCredentialDTO)
               : ({
-                  authToken: formData.authToken
+                  authToken: formData.authToken?.referenceString
                 } as VaultAuthTokenCredentialDTO)
         } as VaultMetadataRequestSpecDTO
       })
@@ -98,25 +98,39 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
     }
   }
   const isFetchDisabled = (formData: VaultConfigFormData): boolean => {
+    if (isEditing && (loading || loadingFormData)) return true
     if (!formData.vaultUrl?.trim()) return true
     switch (formData.accessType) {
       case 'APP_ROLE':
-        if (!formData.appRoleId?.trim() || !formData.secretId?.trim()) return true
+        if (!formData.appRoleId?.trim() || !formData.secretId?.referenceString || !formData.secretId?.identifier)
+          return true
         break
       case 'TOKEN':
-        if (!formData.authToken?.trim()) return true
+        if (!formData.authToken?.referenceString || !formData.authToken?.identifier) return true
         break
     }
     return false
   }
 
   React.useEffect(() => {
-    if (isEditing && formik.values.engineType === 'fetch') handleFetchEngines(formik.values)
-  }, [isEditing])
+    if (isEditing && formik.values.engineType === 'fetch' && !loadingFormData) {
+      handleFetchEngines(formik.values)
+    }
+  }, [isEditing, loadingFormData])
 
   React.useEffect(() => {
-    onMetadataLoadingStateChange(loading)
-  }, [loading])
+    if (
+      isEditing &&
+      formik.values.engineType === 'fetch' &&
+      !loadingFormData &&
+      formik.values.secretEngine &&
+      loading
+    ) {
+      setSecretEngineOptions([
+        { label: formik.values.secretEngine?.split('@@@')[0], value: formik.values.secretEngine }
+      ])
+    }
+  }, [isEditing, loadingFormData, loading])
 
   return (
     <>
@@ -129,22 +143,16 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
         items={accessTypeOptions}
       />
       {formik?.values['accessType'] === 'APP_ROLE' ? (
-        <Layout.Horizontal spacing="medium">
+        <>
           <FormInput.Text name="appRoleId" label={getString('connectors.hashiCorpVault.appRoleId')} />
-          <FormInput.Text
+          <SecretInput
             name="secretId"
             label={getString('connectors.hashiCorpVault.secretId')}
-            placeholder={isEditing && accessType === 'APP_ROLE' ? getString('encrypted') : ''}
-            inputGroup={{ type: 'password' }}
+            connectorTypeContext={'Vault'}
           />
-        </Layout.Horizontal>
+        </>
       ) : (
-        <FormInput.Text
-          name="authToken"
-          label={getString('token')}
-          inputGroup={{ type: 'password' }}
-          placeholder={isEditing && accessType === 'TOKEN' ? getString('encrypted') : ''}
-        />
+        <SecretInput name="authToken" label={getString('token')} connectorTypeContext={'Vault'} />
       )}
       <FormInput.RadioGroup
         name="engineType"
@@ -157,13 +165,14 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({
           <FormInput.Select
             name="secretEngine"
             items={secretEngineOptions}
-            disabled={secretEngineOptions.length === 0}
+            disabled={secretEngineOptions.length === 0 || loading}
           />
           <Button
             intent="primary"
             text="Fetch Engines"
             onClick={() => handleFetchEngines(formik.values)}
-            disabled={isEditing ? false : isFetchDisabled(formik.values)}
+            disabled={isFetchDisabled(formik.values)}
+            loading={loading}
           />
         </Layout.Horizontal>
       ) : null}

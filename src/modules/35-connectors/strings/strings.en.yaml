@@ -43,13 +43,14 @@ encryptedAPIKeyLabel: Encrypted API Key
 encryptedAPIKeyValidation: Encrypted API Key is required.
 tenantId: Tenant ID
 tenantIdRequired: Tenant ID is required
-reportNameRequired: Report name is required
+reportNameRequired: '{{ $.common.reportNameRequired }}'
 connectorAlreadyExist: Connector already exists for the cloud account
 loginToMasterAccount: and login to your master account
 roleARN: Create Cross Account Role
 ifReq: if required.
 selectConnector: Select Connector
-apiKey: API Key
+apiKey: '{{$.common.apikey}}'
+delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
 title:
   k8sCluster: 'Kubernetes Cluster'
   gcpConnector: 'Google Cloud Provider'
@@ -133,7 +134,7 @@ jira:
   jiraUrl: 'Jira URL'
 k8:
   delegateOutClusterInfo: 'Specify master URL and credentials'
-  delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
+  delegateInClusterInfo: '{{ $.connectors.delegateInClusterInfo }}'
   masterUrlLabel: 'Master URL'
   serviceAccountToken: 'Service Account Token'
   serviceAccountKey: 'Service Account Key'
@@ -167,7 +168,7 @@ hashiCorpVault:
   engineName: 'Secret Engine Name'
   engineVersion: 'Secret Engine Version'
   renewal: 'Renewal Interval (minutes)'
-  readOnly: 'Read Only'
+  readOnly: '{{$.common.readOnly}}'
   readOnlyVault: 'Read-only Vault'
   default: 'Default'
   defaultVault: 'Use as Default Secrets Manager'
@@ -177,7 +178,7 @@ artifactory:
   artifactoryServerUrl: 'Artifactory Repository URL'
 GCP:
   delegateOutClusterInfo: 'Specify credentials here'
-  delegateInClusterInfo: 'Specify credentials in harness-delegate.yaml files on your Harness Delegates'
+  delegateInClusterInfo: '{{ $.connectors.delegateInClusterInfo }}'
 ECR:
   name: ECR
   fullName: ECR Container Registry
@@ -256,10 +257,11 @@ sumologic:
   encryptedAccessKeyValidation: SumoLogic Access Key is required.
 cdng:
   jobName: Job Name
+  continousVerificationType: Continous Verification Type
   deploymentTag: Deployment Tag
   defineVerificationJob: Define Verification Job
   baseline: Baseline
-  trafficsplit: Traffic Split
+  trafficsplit: Traffic Split (OPTIONAL)
   continousVerificationStep: Verify Step Details
   displayName: Display Name
   createCVJob: Please create a verification job
@@ -267,11 +269,29 @@ cdng:
   noJobsConfigured: No verification jobs are configured.
   selectTheJobNameFirst: Please select the job name first by clicking on Define Verification Job Panel
   error: Something went wrong , please try again by clicking on CV step again
+  monitoredService:
+    label: Monitored Service
+    fetchingMonitoredService: Fetching Monitored service ...
+    fetchingMonitoredServiceError: Failed to fetch monitored service . Please try again by reopening the Verify Step
+    autoCreateMonitoredService: Click to autocreate a monitored service
+    monitoredServiceText: A monitored service for the
+  runTimeMonitoredService:
+    pleaseSpecify: Please specify
+    toFetchMonitoredService: to fetch the monitored service.
+    fetchingMonitoredServiceError: Failed to fetch monitored service . Please try again by re-running the Pipeline
+    noMonitoringSercvicePresent: No Monitored Service is present for selected service and environment. Verify step will be skipped.
+    noHealthSourcePresent: No Health source is present . Verify step will be skipped.
+  healthSources:
+    label: Health Sources
+    noHealthSourcesDefined: No health sources have been defined. To complete the verification, you would need at least one healthsource added.
   validations:
     deploymentTagRequired: Deployment Tag is required
     jobNameRequired: Job name is required
     durationRequired: Duration is required
     sensitivityRequired: Sensitivity is required
+    verificationTypeRequired: Verification type is required
+    monitoringServiceRequired: Monitoring Service is required
+    healthSourceRequired: At least one health source is required
   verificationSensitivityLabel:
     high: High
     medium: Medium
@@ -431,7 +451,7 @@ ceAzure:
     subscriptionId: Storage Account Subscription ID
     containerName: Storage Container
     directoryName: Storage Directory
-    reportName: Report Name
+    reportName: '{{ $.common.reportName }}'
     extension:
       createBillingExportGuide: How to Create a Billing Export?
       step0: After logging into Azure billing export

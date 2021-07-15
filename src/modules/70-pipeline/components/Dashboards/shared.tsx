@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import moment from 'moment'
+import type { GetDataError } from 'restful-react'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import { useToaster } from '@common/components/Toaster/useToaster'
+import type { Failure, Error } from 'services/cd-ng'
 
 export function roundNumber(value?: number, precision = 2) {
   if (typeof value !== 'number') {
@@ -82,6 +85,33 @@ export function diffStartAndEndTime(startTime?: number, endTime?: number): strin
       return `${moment(endTime).diff(startTime, 'hours')}h`
     }
   }
+}
+
+export function useErrorHandler(error: GetDataError<Failure | Error> | null, timeout?: number, key?: string) {
+  const toaster = useToaster()
+  useEffect(() => {
+    const errorMsg = (error?.data as any)?.message || error?.message
+    if (errorMsg) {
+      if (!(toaster as any)?.state?.toasts?.find((t: any) => t.message === errorMsg)) {
+        toaster.showError(errorMsg, timeout, key)
+      }
+    }
+  }, [error])
+}
+
+export function useRefetchCall(refetch: () => Promise<any>, loading: boolean, pollInterval = 10000) {
+  const [fetching, setFetching] = useState(false)
+  useEffect(() => {
+    let timeoutId = 0
+    if (!loading) {
+      timeoutId = window.setTimeout(() => {
+        setFetching(true)
+        refetch().finally(() => setFetching(false))
+      }, pollInterval)
+    }
+    return () => clearTimeout(timeoutId)
+  }, [loading])
+  return fetching
 }
 
 export const FailedStatus: Partial<Record<ExecutionStatus, ExecutionStatus>> = {

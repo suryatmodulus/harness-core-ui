@@ -3,7 +3,6 @@ import { Drawer, IDrawerProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import cx from 'classnames'
 import { MonacoDiffEditor } from 'react-monaco-editor'
-import { stringify } from 'yaml'
 import { Layout, Container, Text, Color, Button, useToggle, Heading } from '@wings-software/uicore'
 import {
   CF_LOCAL_STORAGE_ENV_KEY,
@@ -20,6 +19,7 @@ import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerS
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { AuditTrail, Feature, useGetOSById } from 'services/cf'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { translateEvents } from './AuditLogsUtils'
 import css from './EventSummary.module.scss'
 
@@ -62,7 +62,12 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
   const [showDiff, toggleShowDiff] = useToggle(false)
   const { objectBefore, objectAfter } = data
   const isNewObject = objectBefore === ADIT_LOG_EMPTY_ENTRY_ID
-  const { data: diffData, loading, error, refetch } = useGetOSById({
+  const {
+    data: diffData,
+    loading,
+    error,
+    refetch
+  } = useGetOSById({
     identifiers: isNewObject ? [objectAfter] : [objectBefore, objectAfter],
     lazy: !showDiff
   })
@@ -92,10 +97,10 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
     const _after = get(diffData, `data.objectsnapshots[${isNewObject ? 0 : 1}].value`)
 
     if (_before) {
-      setValueBefore(stringify(_before))
+      setValueBefore(yamlStringify(_before))
     }
     if (_after) {
-      setValueAfter(stringify(_after))
+      setValueAfter(yamlStringify(_after))
     }
   }, [diffData, isNewObject])
 
@@ -163,9 +168,11 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
                     options={DIFF_VIEWER_OPTIONS}
                     editorDidMount={editor => {
                       setTimeout(() => {
-                        ;((editor as unknown) as {
-                          setSelection: (param: Record<string, number>) => void
-                        }).setSelection({
+                        ;(
+                          editor as unknown as {
+                            setSelection: (param: Record<string, number>) => void
+                          }
+                        ).setSelection({
                           startLineNumber: 0,
                           startColumn: 0,
                           endLineNumber: 0,

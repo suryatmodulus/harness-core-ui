@@ -16,7 +16,7 @@ export interface StrategyStepsListProps {
 }
 
 export function StrategyStepsList(props: StrategyStepsListProps): React.ReactElement {
-  const { name, allowedStrategies, onChange } = props
+  const { name, allowedStrategies, onChange, disabled } = props
   const { getString } = useStrings()
 
   const items: ThumbnailSelectProps['items'] = React.useMemo(() => {
@@ -28,5 +28,13 @@ export function StrategyStepsList(props: StrategyStepsListProps): React.ReactEle
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allowedStrategies])
 
-  return <ThumbnailSelect name={name} items={items} thumbnailClassName={css.thumbnail} onChange={onChange} />
+  return (
+    <ThumbnailSelect
+      name={name}
+      items={items}
+      thumbnailClassName={css.thumbnail}
+      isReadonly={disabled}
+      onChange={onChange}
+    />
+  )
 }

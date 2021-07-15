@@ -105,8 +105,7 @@ jest.mock('@cv/pages/monitoring-source/SelectMetricPack/SelectMetricPack', () =>
             {
               name: 'Calls per Minute',
               type: 'THROUGHPUT',
-              path:
-                'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Calls per Minute',
+              path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Calls per Minute',
               validationPath: 'Overall Application Performance|__tier_name__|Calls per Minute',
               thresholds: [],
               included: true
@@ -206,8 +205,7 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
               {
                 included: true,
                 name: 'Calls per Minute',
-                path:
-                  'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Calls per Minute',
+                path: 'Business Transaction Performance|Business Transactions|__tier_name__|__metric_filter__|Calls per Minute',
                 thresholds: [],
                 type: 'THROUGHPUT',
                 validationPath: 'Overall Application Performance|__tier_name__|Calls per Minute'
@@ -223,8 +221,7 @@ describe('Unit tests for MapNewRelicAppsToServiceAndEnvs', () => {
               {
                 included: true,
                 name: 'Errors per Minute',
-                path:
-                  'SELECT count(`apm.service.transaction.error.count`) FROM Metric FACET transactionName TIMESERIES',
+                path: 'SELECT count(`apm.service.transaction.error.count`) FROM Metric FACET transactionName TIMESERIES',
                 thresholds: [],
                 type: 'ERROR',
                 validationPath: 'Overall Application Performance|__tier_name__|Errors per Minute'

@@ -19,7 +19,7 @@ export interface AccessControl {
 
 export interface Principal {
   identifier: string
-  type: 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE'
+  type: 'USER' | 'USER_GROUP' | 'API_KEY' | 'SERVICE_ACCOUNT'
 }
 
 export interface ResourceScope {

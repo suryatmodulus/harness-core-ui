@@ -159,7 +159,7 @@ export const mockConnectorResponse: UseGetMockData<ResponseConnectorResponse> = 
   data: {
     correlationId: '',
     status: 'SUCCESS',
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     data: {
       connector: { name: 'c1', identifier: 'cid1', type: 'Jira', spec: {} }
     }
@@ -169,7 +169,7 @@ export const mockConnectorResponse: UseGetMockData<ResponseConnectorResponse> = 
 export const mockConnectorsResponse: ResponsePageConnectorResponse = {
   correlationId: 'someid',
   status: 'SUCCESS',
-  metaData: (null as unknown) as undefined,
+  metaData: null as unknown as undefined,
   data: {
     content: [
       { connector: { name: 'c1', identifier: 'cid1', type: 'Jira', spec: {} } },
@@ -186,7 +186,7 @@ export const mockProjectsResponse: UseGetMockData<ResponseListJiraProjectBasicNG
   data: {
     correlationId: '',
     status: 'SUCCESS',
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     data: [
       {
         id: 'pid1',
@@ -215,7 +215,7 @@ export const mockProjectMetadataResponse: UseGetMockData<ResponseJiraIssueCreate
   data: {
     correlationId: '',
     status: 'SUCCESS',
-    metaData: (null as unknown) as undefined,
+    metaData: null as unknown as undefined,
     data: {
       projects: {
         pid1: {

@@ -20,6 +20,7 @@ declare const styles: {
   readonly searchContainer: string
   readonly loadingSearchContainer: string
   readonly checkbox: string
+  readonly inputSetGitDetails: string
   readonly list: string
   readonly multiple: string
   readonly item: string

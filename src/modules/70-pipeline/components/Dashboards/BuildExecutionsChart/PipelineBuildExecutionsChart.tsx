@@ -4,15 +4,15 @@ import type { PipelineType, ExecutionPathProps } from '@common/interfaces/RouteI
 import { useStrings } from 'framework/strings'
 import { ExecutionsChart } from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
 import { useGetPipelineExecution } from 'services/pipeline-ng'
+import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 
 export default function PipelineBuildExecutionsChart() {
   const { getString } = useStrings()
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
-    PipelineType<ExecutionPathProps>
-  >()
+  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } =
+    useParams<PipelineType<ExecutionPathProps>>()
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
 
-  const { data, loading } = useGetPipelineExecution({
+  const { data, loading, error } = useGetPipelineExecution({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -23,6 +23,8 @@ export default function PipelineBuildExecutionsChart() {
       moduleInfo: module
     }
   })
+
+  useErrorHandler(error)
 
   const chartData = useMemo(() => {
     if (data?.data?.pipelineExecutionInfoList?.length) {

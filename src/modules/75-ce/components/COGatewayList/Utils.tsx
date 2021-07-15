@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
 import {
+  CreatedStatusIndicator,
   RunningStatusIndicator,
   StoppedStatusIndicator
 } from '@ce/common/InstanceStatusIndicator/InstanceStatusIndicator'
@@ -22,7 +23,8 @@ export function getInstancesLink(resources: AllResourcesOfAccountResponse): stri
 }
 const gatewayStateMap: { [key: string]: JSX.Element } = {
   down: <StoppedStatusIndicator />,
-  active: <RunningStatusIndicator />
+  active: <RunningStatusIndicator />,
+  created: <CreatedStatusIndicator />
 }
 
 export function getStateTag(state: string): JSX.Element {

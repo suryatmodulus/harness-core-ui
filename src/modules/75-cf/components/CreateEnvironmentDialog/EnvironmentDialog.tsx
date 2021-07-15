@@ -100,7 +100,7 @@ const EnvironmentDialog: React.FC<EnvironmentDialogProps> = ({ disabled, onCreat
 
   const [openModal, hideModal] = useModalHook(() => {
     return (
-      <Dialog isOpen onClose={hideModal} className={css.dialog}>
+      <Dialog enforceFocus={false} isOpen onClose={hideModal} className={css.dialog}>
         <Formik initialValues={initialValues} formName="cfEnvDialog" onSubmit={handleSubmit} onReset={hideModal}>
           {formikProps => {
             return (

@@ -91,8 +91,6 @@ export interface AsyncExecutableResponse {
   initialized?: boolean
   logKeysCount?: number
   logKeysList?: string[]
-  mode?: 'RUNNING_MODE' | 'APPROVAL_WAITING_MODE' | 'RESOURCE_WAITING_MODE' | 'UNRECOGNIZED'
-  modeValue?: number
   parserForType?: ParserAsyncExecutableResponse
   serializedSize?: number
   unitsCount?: number
@@ -112,8 +110,6 @@ export interface AsyncExecutableResponseOrBuilder {
   initialized?: boolean
   logKeysCount?: number
   logKeysList?: string[]
-  mode?: 'RUNNING_MODE' | 'APPROVAL_WAITING_MODE' | 'RESOURCE_WAITING_MODE' | 'UNRECOGNIZED'
-  modeValue?: number
   unitsCount?: number
   unitsList?: string[]
   unknownFields?: UnknownFieldSet
@@ -218,6 +214,8 @@ export interface CcmConnectorFilter {
   azureSubscriptionId?: string
   azureTenantId?: string
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  gcpProjectId?: string
+  k8sConnectorRef?: string
 }
 
 export interface Child {
@@ -1043,7 +1041,10 @@ export interface ExecutionTriggerInfo {
   descriptorForType?: Descriptor
   initializationErrorString?: string
   initialized?: boolean
+  isRerun?: boolean
   parserForType?: ParserExecutionTriggerInfo
+  rerunInfo?: RerunInfo
+  rerunInfoOrBuilder?: RerunInfoOrBuilder
   serializedSize?: number
   triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
   triggerTypeValue?: number
@@ -1060,6 +1061,9 @@ export interface ExecutionTriggerInfoOrBuilder {
   descriptorForType?: Descriptor
   initializationErrorString?: string
   initialized?: boolean
+  isRerun?: boolean
+  rerunInfo?: RerunInfo
+  rerunInfoOrBuilder?: RerunInfoOrBuilder
   triggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
   triggerTypeValue?: number
   triggeredBy?: TriggeredBy
@@ -2422,6 +2426,10 @@ export interface ParserOneofOptions {
   [key: string]: any
 }
 
+export interface ParserRerunInfo {
+  [key: string]: any
+}
+
 export interface ParserRetryInterruptConfig {
   [key: string]: any
 }
@@ -2731,6 +2739,46 @@ export interface PreFlightResolution {
 export interface Principal {
   identifier: string
   type: 'USER' | 'SYSTEM' | 'API_KEY'
+}
+
+export interface RerunInfo {
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+  defaultInstanceForType?: RerunInfo
+  descriptorForType?: Descriptor
+  initializationErrorString?: string
+  initialized?: boolean
+  parserForType?: ParserRerunInfo
+  prevExecutionId?: string
+  prevExecutionIdBytes?: ByteString
+  prevTriggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
+  prevTriggerTypeValue?: number
+  rootExecutionId?: string
+  rootExecutionIdBytes?: ByteString
+  rootTriggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
+  rootTriggerTypeValue?: number
+  serializedSize?: number
+  unknownFields?: UnknownFieldSet
+}
+
+export interface RerunInfoOrBuilder {
+  allFields?: {
+    [key: string]: { [key: string]: any }
+  }
+  defaultInstanceForType?: Message
+  descriptorForType?: Descriptor
+  initializationErrorString?: string
+  initialized?: boolean
+  prevExecutionId?: string
+  prevExecutionIdBytes?: ByteString
+  prevTriggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
+  prevTriggerTypeValue?: number
+  rootExecutionId?: string
+  rootExecutionIdBytes?: ByteString
+  rootTriggerType?: 'NOOP' | 'MANUAL' | 'WEBHOOK' | 'WEBHOOK_CUSTOM' | 'SCHEDULER_CRON' | 'UNRECOGNIZED'
+  rootTriggerTypeValue?: number
+  unknownFields?: UnknownFieldSet
 }
 
 export interface ResourceConstraintExecutionInfo {
@@ -4070,6 +4118,8 @@ export type FilterPropertiesRequestBody = FilterProperties
 export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
 export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
+
+export type WebhookEndpointBodyRequestBody = string
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval'
@@ -6944,6 +6994,7 @@ export interface GetPipelineListQueryParams {
   branch?: string
   repoIdentifier?: string
   getDefaultFromOtherRepo?: boolean
+  getDistinctFromBranches?: boolean
 }
 
 export type GetPipelineListProps = Omit<
@@ -8284,6 +8335,73 @@ export const getBitbucketTriggerEventsPromise = (
     signal
   )
 
+export interface CustomWebhookEndpointQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier?: string
+  triggerIdentifier?: string
+}
+
+export type CustomWebhookEndpointProps = Omit<
+  MutateProps<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * accept custom webhook event
+ */
+export const CustomWebhookEndpoint = (props: CustomWebhookEndpointProps) => (
+  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
+    verb="POST"
+    path={`/webhook/custom`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseCustomWebhookEndpointProps = Omit<
+  UseMutateProps<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    WebhookEndpointBodyRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * accept custom webhook event
+ */
+export const useCustomWebhookEndpoint = (props: UseCustomWebhookEndpointProps) =>
+  useMutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    `/webhook/custom`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
+
+/**
+ * accept custom webhook event
+ */
+export const customWebhookEndpointPromise = (
+  props: MutateUsingFetchProps<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    WebhookEndpointBodyRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    WebhookEndpointBodyRequestBody,
+    void
+  >('POST', getConfig('pipeline/api'), `/webhook/custom`, props, signal)
+
 export type GetGitTriggerEventDetailsProps = Omit<
   GetProps<ResponseMapStringMapStringListString, Failure | Error, void, void>,
   'path'
@@ -8593,7 +8711,7 @@ export interface WebhookEndpointQueryParams {
 }
 
 export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -8601,7 +8719,7 @@ export type WebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
@@ -8610,7 +8728,7 @@ export const WebhookEndpoint = (props: WebhookEndpointProps) => (
 )
 
 export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
+  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -8618,19 +8736,26 @@ export type UseWebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>('POST', `/webhook/trigger`, {
-    base: getConfig('pipeline/api'),
-    ...props
-  })
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+    'POST',
+    `/webhook/trigger`,
+    { base: getConfig('pipeline/api'), ...props }
+  )
 
 /**
  * accept webhook event
  */
 export const webhookEndpointPromise = (
-  props: MutateUsingFetchProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>,
+  props: MutateUsingFetchProps<
+    ResponseString,
+    Failure | Error,
+    WebhookEndpointQueryParams,
+    WebhookEndpointBodyRequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, string, void>(
+  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
     'POST',
     getConfig('pipeline/api'),
     `/webhook/trigger`,

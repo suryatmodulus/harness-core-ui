@@ -118,12 +118,6 @@ describe('Create Secret Manager Wizard', () => {
       },
       {
         container,
-        type: InputTypes.TEXTFIELD,
-        fieldId: 'authToken',
-        value: 'password'
-      },
-      {
-        container,
         type: InputTypes.RADIOS,
         fieldId: 'engineType',
         value: 'manual'
@@ -185,12 +179,6 @@ describe('Create Secret Manager Wizard', () => {
           type: InputTypes.RADIOS,
           fieldId: 'engineType',
           value: 'manual'
-        },
-        {
-          container,
-          type: InputTypes.TEXTFIELD,
-          fieldId: 'authToken',
-          value: 'password'
         }
       ])
       await act(async () => {

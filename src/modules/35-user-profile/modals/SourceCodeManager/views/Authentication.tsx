@@ -13,6 +13,9 @@ interface AuthenticationData {
   authOptions: SelectOption[]
 }
 
+const allowSelection = false
+const privateSecret = true
+
 const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions }) => {
   const { getString } = useStrings()
 
@@ -31,8 +34,15 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
               name="username"
               label={getString('username')}
               type={formikProps.values.username ? formikProps.values.username.type : ValueType.TEXT}
+              allowSelection={allowSelection}
+              privateSecret={privateSecret}
             />
-            <SecretInput name="password" label={getString('password')} />
+            <SecretInput
+              name="password"
+              label={getString('password')}
+              allowSelection={allowSelection}
+              privateSecret={privateSecret}
+            />
           </>
         ) : null}
         {formikProps.values.authType === AuthTypes.USERNAME_TOKEN ? (
@@ -41,8 +51,15 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
               name="username"
               label={getString('username')}
               type={formikProps.values.username ? formikProps.values.username.type : ValueType.TEXT}
+              allowSelection={allowSelection}
+              privateSecret={privateSecret}
             />
-            <SecretInput name="accessToken" label={getString('personalAccessToken')} />
+            <SecretInput
+              name="accessToken"
+              label={getString('personalAccessToken')}
+              allowSelection={allowSelection}
+              privateSecret={privateSecret}
+            />
           </>
         ) : null}
         {formikProps.values.authType === AuthTypes.SSH_KEY ? (
@@ -57,8 +74,15 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
               name="accessKey"
               label={getString('common.accessKey')}
               type={formikProps.values.authType || ValueType.TEXT}
+              allowSelection={allowSelection}
+              privateSecret={privateSecret}
             />
-            <SecretInput name="secretKey" label={getString('common.secretKey')} />
+            <SecretInput
+              name="secretKey"
+              label={getString('common.secretKey')}
+              allowSelection={allowSelection}
+              privateSecret={privateSecret}
+            />
           </>
         ) : null}
       </Container>

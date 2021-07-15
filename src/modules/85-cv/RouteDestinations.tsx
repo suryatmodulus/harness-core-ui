@@ -17,7 +17,8 @@ import {
   userGroupPathProps,
   userPathProps,
   orgPathProps,
-  modulePathProps
+  modulePathProps,
+  serviceAccountProps
 } from '@common/utils/routeUtils'
 import type { AccountPathProps, ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
@@ -27,6 +28,8 @@ import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
 import CVServicesPage from '@cv/pages/services/CVServicesPage'
+import CVMonitoringServicesPage from '@cv/pages/monitored-service/CVMonitoringServicesPage'
+import AddAndUpdateMonitoredServicePage from '@cv/pages/monitored-service/AddAndUpdateMonitoredServicePage'
 import ActivitySourceSetup from '@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
 import CVSetupPage from '@cv/pages/admin/setup/CVSetupPage'
@@ -56,6 +59,8 @@ import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
 import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import CVVerificationJobsPage from './pages/admin/verification-jobs/CVVerificationJobsPage'
 import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
 import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
@@ -156,6 +161,23 @@ export default (
       path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
     >
       <CVServicesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps })}
+    >
+      <CVMonitoringServicesPage />
+    </RouteWithLayout>
+    <RouteWithLayout
+      exact
+      sidebarProps={CVSideNavProps}
+      path={[
+        routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
+        routes.toCVAddMonitoringServicesEdit({ ...accountPathProps, ...projectPathProps, identifier: ':identifier' })
+      ]}
+    >
+      <AddAndUpdateMonitoredServicePage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -416,6 +438,24 @@ export default (
       exact
     >
       <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={routes.toServiceAccounts({ ...projectPathProps, ...cvModuleParams })}
+      exact
+    >
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CVSideNavProps}
+      path={routes.toServiceAccountDetails({ ...projectPathProps, ...cvModuleParams, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

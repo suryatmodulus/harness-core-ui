@@ -1,15 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 
-import {
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  FormInput,
-  FormikForm,
-  Text,
-  Color,
-  Label
-} from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, FormInput, FormikForm, Text } from '@wings-software/uicore'
 
 import { get, isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -78,21 +70,22 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             selected={get(initialValues, 'spec.configuration.secretManagerRef', '')}
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
-            width={400}
+            width={445}
             multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
             category={'SECRET_MANAGER'}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}spec.configuration.secretManagerRef`}
             placeholder={getString('select')}
             disabled={readonly}
+            setRefValue
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}
-      {inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.connectorRef && (
-        <Label style={{ color: Color.GREY_900 }}>{getString('cd.configurationFile')}</Label>
-      )}
       <ConfigInputs {...props} />
-      {inputSetData?.template?.spec?.configuration?.varFiles?.length && <TfVarFiles {...props} />}
+      {inputSetData?.template?.spec?.configuration?.varFiles &&
+      inputSetData?.template?.spec?.configuration?.varFiles?.length > 0 ? (
+        <TfVarFiles {...props} />
+      ) : null}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.backendConfig?.spec?.content) ===
         MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
@@ -118,6 +111,7 @@ export default function TfPlanInputStep(props: TerraformPlanProps): React.ReactE
             disabled={readonly}
             style={{ marginBottom: 'var(--spacing-small)' }}
             expressions={expressions}
+            isNameOfArrayType
           />
         </div>
       )}

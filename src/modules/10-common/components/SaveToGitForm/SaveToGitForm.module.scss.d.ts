@@ -12,5 +12,7 @@ declare const styles: {
   readonly branchInput: string
   readonly formButton: string
   readonly branchSelector: string
+  readonly gitBranchSelectorPopover: string
+  readonly tooltip: string
 }
 export default styles

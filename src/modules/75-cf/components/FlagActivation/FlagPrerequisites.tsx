@@ -69,7 +69,12 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
     }),
     [searchTerm]
   )
-  const { data: searchedFeatures, loading, error, refetch: fetchFlags } = useGetAllFeatures({
+  const {
+    data: searchedFeatures,
+    loading,
+    error,
+    refetch: fetchFlags
+  } = useGetAllFeatures({
     lazy: true,
     queryParams
   })
@@ -183,7 +188,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
     }
 
     return (
-      <Dialog title={title} onClose={hideModalPrerequisites} isOpen={true}>
+      <Dialog enforceFocus={false} title={title} onClose={hideModalPrerequisites} isOpen={true}>
         <Layout.Vertical padding={{ left: 'large', right: 'medium' }}>
           <Text margin={{ top: 'medium', bottom: 'xlarge' }}>
             {getString('cf.addPrerequisites.addPrerequisitesDesc')}
@@ -286,6 +291,7 @@ export const FlagPrerequisites: React.FC<FlagPrerequisitesProps> = props => {
         lineHeight: '20px',
         paddingLeft: 'var(--spacing-small)'
       }}
+      data-tooltip-id="ff_ffPrerequisites_heading"
     >
       {getString('cf.shared.prerequisites')}
       <span style={{ fontSize: '12px', fontWeight: 400, display: 'inline-block', marginLeft: 'var(--spacing-xsmall)' }}>

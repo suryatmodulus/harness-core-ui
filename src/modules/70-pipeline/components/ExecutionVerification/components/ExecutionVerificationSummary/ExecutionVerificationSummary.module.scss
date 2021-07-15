@@ -1,0 +1,18 @@
+.main {
+  height: 100% !important;
+  position: relative;
+  padding: var(--spacing-small) var(--spacing-large) !important;
+
+  .details {
+    height: 100% !important;
+    width: 100% !important;
+    height: 45% !important;
+  }
+
+  .loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

@@ -70,12 +70,20 @@ const OrganizationsPage: React.FC = () => {
         loading={loading}
         error={(error?.data as Error)?.message || error?.message}
         retryOnError={() => refetch()}
-        noData={{
-          when: () => !data?.data?.content?.length,
-          icon: 'nav-dashboard',
-          message: getString('projectsOrgs.noDataMessage'),
-          button: newOrgButton()
-        }}
+        noData={
+          !searchParam
+            ? {
+                when: () => !data?.data?.content?.length,
+                icon: 'nav-dashboard',
+                message: getString('projectsOrgs.noDataMessage'),
+                button: newOrgButton()
+              }
+            : {
+                when: () => !data?.data?.content?.length,
+                icon: 'nav-dashboard',
+                message: getString('projectsOrgs.noOrganizations')
+              }
+        }
         className={css.orgPage}
       >
         <Container className={css.masonry}>

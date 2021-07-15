@@ -24,7 +24,7 @@ const DialogOptions: IDialogProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
-  enforceFocus: true,
+  enforceFocus: false,
   style: { width: 500 }
 }
 

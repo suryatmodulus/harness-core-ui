@@ -22,6 +22,7 @@ export const useUserProfile = ({ onSuccess }: UseUserProfileProps): UseUserProfi
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

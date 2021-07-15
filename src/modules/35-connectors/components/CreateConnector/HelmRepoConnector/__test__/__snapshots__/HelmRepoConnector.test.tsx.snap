@@ -19,6 +19,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
             height="50"
             viewBox="0 0 14 14"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#277a9e"
@@ -165,7 +166,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -193,7 +194,7 @@ exports[`Create Helm Connector  Wizard Should render form 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormHttpHelmRepo_name"
                           >
                             name
                           </span>
@@ -348,6 +349,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
             height="50"
             viewBox="0 0 14 14"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#277a9e"
@@ -694,6 +696,7 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                             <svg
                               height="24"
                               width="24"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <g
                                 fill="none"
@@ -813,6 +816,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
             height="50"
             viewBox="0 0 14 14"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#277a9e"
@@ -966,7 +970,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormHttpHelmRepo_name"
                           >
                             name
                           </span>
@@ -1119,6 +1123,7 @@ exports[`Create Helm Connector  Wizard Should render form for editing provider t
             height="50"
             viewBox="0 0 14 14"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#277a9e"

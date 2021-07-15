@@ -16,11 +16,12 @@ export interface InputSetGitQueryParams extends GitQueryParams {
   inputSetBranch?: EntityGitDetails['branch']
   inputSetRepoIdentifier?: EntityGitDetails['repoIdentifier']
 }
-export interface PipelineStudioQueryParams extends GitQueryParams {
+export interface PipelineStudioQueryParams extends GitQueryParams, RunPipelineQueryParams {
   stageId?: string
   stepId?: string
 }
 export interface RunPipelineQueryParams extends GitQueryParams, InputSetGitQueryParams {
+  runPipeline?: boolean
   executionId?: string
   inputSetType?: string
   inputSetLabel?: string
@@ -96,6 +97,10 @@ export interface CVDataSourceTypePathProps {
   dataSourceType: string
 }
 
+export interface ServicePathProps {
+  serviceId: string
+}
+
 export type Module =
   | 'ci'
   | 'cd'
@@ -131,6 +136,10 @@ export interface UserGroupPathProps {
 
 export interface UserPathProps {
   userIdentifier: string
+}
+
+export interface ServiceAccountPathProps {
+  serviceAccountIdentifier: string
 }
 
 export interface ModuleCardPathParams {

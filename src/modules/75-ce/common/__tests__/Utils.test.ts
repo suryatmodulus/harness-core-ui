@@ -31,4 +31,19 @@ describe('Tests for utils methods', () => {
     expect(randomTwo.length).toEqual(12)
     expect(randomOne).not.toEqual(randomTwo)
   })
+
+  test('should return default healthcheck object', () => {
+    const receivedObj = Utils.getDefaultRuleHealthCheck()
+    expect(receivedObj).toEqual({
+      protocol: 'http',
+      path: '/',
+      port: 80,
+      timeout: 30
+    })
+  })
+
+  test('should return hyphen separated string', () => {
+    const str = Utils.getHyphenSpacedString('some random string in here')
+    expect(str.split('-').length).toEqual(5)
+  })
 })

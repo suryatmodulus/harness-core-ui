@@ -595,21 +595,28 @@ export const setupArtifactoryFormData = async (
   return formData
 }
 
-export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO): Promise<FormData> => {
-  const formData = {
-    accessKey: connectorInfo?.spec?.credential?.spec?.accessKey,
-    secretKey: connectorInfo?.spec?.credential?.spec?.secretKey,
-    awsArn: connectorInfo?.spec?.kmsArn,
-    region: connectorInfo.spec?.region,
-    credType: connectorInfo.spec?.credential?.type,
-    delegate: connectorInfo.spec?.credential?.spec?.delegateSelectors,
-    roleArn: connectorInfo.spec?.credential?.spec?.roleArn,
-    externalName: connectorInfo.spec?.credential?.spec?.externalName,
-    assumeStsRoleDuration: connectorInfo.spec?.credential?.spec?.assumeStsRoleDuration,
-    default: (connectorInfo.spec as AwsKmsConnectorDTO)?.default
+export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const connectorInfoSpec = connectorInfo?.spec
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
   }
-
-  return formData
+  const accessKey = await setSecretField(connectorInfoSpec?.credential?.spec?.accessKey, scopeQueryParams)
+  const secretKey = await setSecretField(connectorInfoSpec?.credential?.spec?.secretKey, scopeQueryParams)
+  const awsArn = await setSecretField(connectorInfoSpec?.kmsArn, scopeQueryParams)
+  return {
+    accessKey: accessKey || undefined,
+    secretKey: secretKey || undefined,
+    awsArn: awsArn || undefined,
+    region: connectorInfoSpec?.region || undefined,
+    credType: connectorInfoSpec?.credential?.type,
+    delegate: connectorInfoSpec?.credential?.spec?.delegateSelectors || undefined,
+    roleArn: connectorInfoSpec?.credential?.spec?.roleArn || undefined,
+    externalName: connectorInfoSpec?.credential?.spec?.externalName || undefined,
+    assumeStsRoleDuration: connectorInfoSpec?.credential?.spec?.assumeStsRoleDuration || undefined,
+    default: (connectorInfoSpec as AwsKmsConnectorDTO)?.default || false
+  }
 }
 
 export const buildAWSPayload = (formData: FormData) => {
@@ -1086,14 +1093,50 @@ export const buildDynatracePayload = (formData: FormData) => {
   }
 }
 
-export const setupAzureKeyVaultFormData = (connectorInfo: ConnectorInfoDTO) => {
+export const setupAzureKeyVaultFormData = async (
+  connectorInfo: ConnectorInfoDTO,
+  accountId: string
+): Promise<FormData> => {
+  const connectorInfoSpec = connectorInfo?.spec
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+  const secretKey = await setSecretField(connectorInfoSpec?.secretKey, scopeQueryParams)
   return {
-    clientId: connectorInfo?.spec?.clientId,
-    secretKey: connectorInfo?.spec?.secretKey,
-    tenantId: connectorInfo?.spec?.tenantId,
-    vaultName: connectorInfo?.spec?.vaultName,
-    subscription: connectorInfo?.spec?.subscription,
-    default: connectorInfo?.spec?.default
+    clientId: connectorInfoSpec?.clientId || undefined,
+    secretKey: secretKey || undefined,
+    tenantId: connectorInfoSpec?.tenantId || undefined,
+    vaultName: connectorInfoSpec?.vaultName || undefined,
+    subscription: connectorInfoSpec?.subscription || undefined,
+    default: connectorInfoSpec?.default || false
+  }
+}
+
+export const setupVaultFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const connectorInfoSpec = connectorInfo?.spec
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+  const secretId = await setSecretField(connectorInfoSpec?.secretId, scopeQueryParams)
+  const authToken = await setSecretField(connectorInfoSpec?.authToken, scopeQueryParams)
+  return {
+    vaultUrl: connectorInfoSpec?.vaultUrl || '',
+    basePath: connectorInfoSpec?.basePath || '',
+    readOnly: connectorInfoSpec?.readOnly || false,
+    default: connectorInfoSpec?.default || false,
+    accessType: connectorInfoSpec?.accessType || 'APP_ROLE',
+    appRoleId: connectorInfoSpec?.appRoleId || '',
+    secretId: secretId || undefined,
+    authToken: authToken || undefined,
+    secretEngine: `${connectorInfoSpec?.secretEngineName || ''}@@@${connectorInfoSpec?.secretEngineVersion}` || '',
+    engineType: connectorInfoSpec?.secretEngineManuallyConfigured ? 'manual' : 'fetch',
+    secretEngineName: connectorInfoSpec?.secretEngineName || '',
+    secretEngineVersion: connectorInfoSpec?.secretEngineVersion || 2,
+    renewalIntervalMinutes: connectorInfoSpec?.renewalIntervalMinutes || 10
   }
 }
 
@@ -1409,4 +1452,9 @@ export const saveCurrentStepData = <T>(getCurrentStepData: StepProps<T>['getCurr
       return values
     }
   }
+}
+
+export const isSMConnector = (type?: ConnectorInfoDTO['type']): boolean | undefined => {
+  if (!type) return
+  return (['AwsKms', 'AzureKeyVault', 'Vault'] as ConnectorInfoDTO['type'][]).includes(type)
 }

@@ -16,6 +16,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const refetchAuthSettings = jest.fn()
+const setUpdating = jest.fn()
 
 const disabledLockoutPolicy = {
   ...loginSettings,
@@ -32,7 +33,12 @@ describe('LockoutPolicy', () => {
         path={routes.toAuthenticationSettings({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
       >
-        <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+        <LockoutPolicy
+          loginSettings={loginSettings}
+          refetchAuthSettings={refetchAuthSettings}
+          canEdit
+          setUpdating={setUpdating}
+        />
       </TestWrapper>
     )
 
@@ -60,7 +66,12 @@ describe('LockoutPolicy', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <LockoutPolicy loginSettings={disabledLockoutPolicy} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <LockoutPolicy
+            loginSettings={disabledLockoutPolicy}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -86,7 +97,12 @@ describe('LockoutPolicy', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <LockoutPolicy loginSettings={disabledLockoutPolicy} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <LockoutPolicy
+            loginSettings={disabledLockoutPolicy}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 
@@ -115,7 +131,12 @@ describe('LockoutPolicy', () => {
           path={routes.toAuthenticationSettings({ ...accountPathProps })}
           pathParams={{ accountId: 'testAcc' }}
         >
-          <LockoutPolicy loginSettings={loginSettings} refetchAuthSettings={refetchAuthSettings} canEdit />
+          <LockoutPolicy
+            loginSettings={loginSettings}
+            refetchAuthSettings={refetchAuthSettings}
+            canEdit
+            setUpdating={setUpdating}
+          />
         </TestWrapper>
       )
 

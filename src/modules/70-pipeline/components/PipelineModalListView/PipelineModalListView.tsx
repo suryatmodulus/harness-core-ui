@@ -40,7 +40,11 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
 
   const [data, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
 
-  const { loading, mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const {
+    loading,
+    mutate: reloadPipelines,
+    cancel
+  } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,

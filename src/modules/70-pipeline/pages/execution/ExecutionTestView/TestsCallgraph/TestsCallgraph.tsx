@@ -53,8 +53,14 @@ const staticGraphOptions: Highcharts.Options = {
       pointerEvents: 'auto'
     },
     formatter: function (this: any) {
-      const { id, type, package: from_package, class: from_class, method, params } = this.point.options
-        .custom as CallgraphNodeSimple
+      const {
+        id,
+        type,
+        package: from_package,
+        class: from_class,
+        method,
+        params
+      } = this.point.options.custom as CallgraphNodeSimple
       return `
 <div class="wrapper">
   <div class="tint tint-${type.toLowerCase()}">

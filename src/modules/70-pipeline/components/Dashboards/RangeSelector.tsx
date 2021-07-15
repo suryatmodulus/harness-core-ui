@@ -1,5 +1,5 @@
-import React from 'react'
-import { Select, SelectOption, Text, Container } from '@wings-software/uicore'
+import React, { useState } from 'react'
+import { SelectV2, SelectOption, Text, Container } from '@wings-software/uicore'
 import styles from './RangeSelector.module.scss'
 
 export const rangeOptions = [
@@ -18,16 +18,22 @@ export interface RangeSelectorWithTitleProps extends RangeSelectorProps {
 }
 
 export default function RangeSelector({ defaultOption = rangeOptions[0], onRangeSelected }: RangeSelectorProps) {
+  const [option, setOption] = useState(defaultOption)
   return (
-    <Select
+    <SelectV2
       className={styles.rangeSelector}
-      defaultSelectedItem={defaultOption}
       items={rangeOptions}
-      onChange={option => {
+      filterable={false}
+      onChange={opt => {
+        setOption(opt)
         const now = Date.now()
-        onRangeSelected?.([now - (option.value as number) * 24 * 60 * 60 * 1000, now])
+        onRangeSelected?.([now - (opt.value as number) * 24 * 60 * 60 * 1000, now])
       }}
-    />
+    >
+      <Text font={{ size: 'xsmall' }} padding={{ top: 'xsmall', bottom: 'xsmall' }} rightIcon="chevron-down">
+        {option.label}
+      </Text>
+    </SelectV2>
   )
 }
 

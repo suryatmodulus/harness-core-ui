@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Text, FormInput, MultiTypeInputType, getMultiTypeFromValue, SelectOption } from '@wings-software/uicore'
 import cx from 'classnames'
-import { cloneDeep, get } from 'lodash-es'
+import { get, isUndefined } from 'lodash-es'
 import { connect } from 'formik'
 import { String } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
@@ -24,6 +24,7 @@ export interface CustomVariableInputSetExtraProps {
   domId?: string
   template?: CustomVariablesData
   path?: string
+  allValues?: CustomVariablesData
 }
 export interface CustomVariableInputSetProps extends CustomVariableInputSetExtraProps {
   initialValues: CustomVariablesData
@@ -41,7 +42,8 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
     variableNamePrefix = '',
     domId,
     inputSetData,
-    formik
+    formik,
+    allValues
   } = props
   const basePath = path?.length ? `${path}.` : ''
   const { expressions } = useVariablesExpression()
@@ -50,17 +52,22 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
   const { executionIdentifier, triggerIdentifier } = useParams<Record<string, string>>()
 
   React.useEffect(() => {
-    if ((!executionIdentifier && !executionId) || triggerIdentifier === 'new') {
-      const providedValues = get(formik.values, basePath)
-      let updatedVariables: AllNGVariables[] = cloneDeep(initialValues.variables) || []
-      updatedVariables =
+    if (
+      (isUndefined(executionIdentifier) && isUndefined(executionId) && isUndefined(triggerIdentifier)) ||
+      triggerIdentifier === 'new'
+    ) {
+      const VariablesFromFormik = get(formik?.values, `${basePath}variables`, [])
+      const updatedVariables =
         template?.variables?.map((templateVariable: AllNGVariables, index: number) => {
-          const pipelineVariable = updatedVariables.find(
+          const pipelineVariable = allValues?.variables?.find(
             (variable: AllNGVariables) => variable.name === templateVariable.name
           ) as AllNGVariables
-          const { default: defaultValue = '', ...restVar } = pipelineVariable || {}
-          restVar.value = providedValues?.variables?.[index]?.value || defaultValue
-          return restVar
+
+          return {
+            name: pipelineVariable.name,
+            type: pipelineVariable.type,
+            value: VariablesFromFormik?.[index]?.value || pipelineVariable?.default || ''
+          }
         }) || []
       formik.setFieldValue(`${basePath}variables`, updatedVariables)
     }
@@ -102,6 +109,7 @@ function CustomVariableInputSetBasic(props: CustomVariableInputSetProps): React.
                   expressions={expressions}
                   allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
                   name={`${basePath}variables[${index}].value`}
+                  disabled={inputSetData?.readonly}
                   label=""
                 />
               ) : (

@@ -1,8 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup'
-import cx from 'classnames'
 import { Formik } from 'formik'
-import { Button, Card, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
+import { Button, Color, Container, FormikForm, Intent, Text } from '@wings-software/uicore'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -76,18 +75,20 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
 
             <NameIdDescriptionTags formikProps={formikProps} />
 
-            <Text color={Color.BLACK_100} font={{ size: 'medium' }}>
+            <Text
+              color={Color.BLACK_100}
+              font={{ size: 'normal' }}
+              tooltipProps={{ dataTooltipId: 'approvalTypeHeading' }}
+            >
               {getString('approvalStage.approvalTypeHeading')}
             </Text>
-            <Card className={cx(css.sectionCard, css.shadow)}>
-              <ApprovalTypeCards formikProps={formikProps} />
-            </Card>
+            <ApprovalTypeCards formikProps={formikProps} />
+
             <Button
               type="submit"
               intent="primary"
               text={getString('pipelineSteps.build.create.setupStage')}
               margin={{ top: 'small' }}
-              className={css.button}
             />
           </FormikForm>
         )}

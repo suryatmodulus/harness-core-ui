@@ -29,6 +29,7 @@ exports[`TrialLicenseBanner should render banner and provide feedback button if 
               height="18"
               viewBox="0 0 12 12"
               width="18"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 clip-rule="evenodd"
@@ -117,6 +118,7 @@ exports[`TrialLicenseBanner should render expired banner BUT NO extend trial but
               height="18"
               viewBox="0 0 12 12"
               width="18"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 clip-rule="evenodd"
@@ -195,6 +197,7 @@ exports[`TrialLicenseBanner should render expired banner and extend trial button
               height="18"
               viewBox="0 0 12 12"
               width="18"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 clip-rule="evenodd"

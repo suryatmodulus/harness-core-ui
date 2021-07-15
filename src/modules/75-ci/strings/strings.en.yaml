@@ -1,5 +1,7 @@
 continuous: '{{$.common.purpose.ci.continuous}}'
 learnMore: Learn more about Continuous Integration
+prSymbol: '#'
+moreCommitsLabel: 'More commits'
 ciTrialHomePage:
   startTrial:
     description: '{{ $.ci.dashboard.subHeading }}'
@@ -23,7 +25,7 @@ newConnectorButton: '{{ $.newConnector }}'
 connectors: '{{ $.connectorsLabel }}'
 secrets: '{{ $.common.secrets }}'
 delegates: '{{ $.delegate.delegates }}'
-templates: '{{ $.templates }}'
+templates: '{{ $.common.templates }}'
 fileStore: '{{ $.resourcePage.fileStore }}'
 titleSettings: 'GENERAL SETTINGS'
 titleGovernance: 'GOVERNANCE'

@@ -155,6 +155,7 @@ export const EditVariationsModal: React.FC<EditVariationsModalProps> = ({
       <Dialog
         isOpen
         onClose={hideModal}
+        enforceFocus={false}
         title={
           <Text
             style={{

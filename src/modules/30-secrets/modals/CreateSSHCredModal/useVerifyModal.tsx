@@ -18,7 +18,7 @@ export const useVerifyModal = (): UseVerifyModalReturn => {
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} onClose={hideModal} className={cx(Classes.DIALOG, css.verifyDialog)}>
+      <Dialog enforceFocus={false} isOpen={true} onClose={hideModal} className={cx(Classes.DIALOG, css.verifyDialog)}>
         <Text margin={{ bottom: 'xlarge' }} font={{ size: 'medium' }} color={Color.BLACK}>
           {getString('secrets.createSSHCredWizard.btnVerifyConnection')}
         </Text>

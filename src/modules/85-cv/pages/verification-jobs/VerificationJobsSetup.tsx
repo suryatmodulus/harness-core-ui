@@ -26,7 +26,7 @@ interface VerificationJobsData {
   identifier: string
   type: string
 }
-interface ConfigureVerificationJobProps {
+interface ConfigureFieldsProps {
   currentData: any
   onPrevious: () => void
   onNext: (data: any) => void
@@ -99,7 +99,7 @@ export function getRuntimeValueOrSelectOptionForTrafficSplit(
   return getRuntimeValueOrSelectOption(val)
 }
 
-const ConfigureVerificationJob: React.FC<ConfigureVerificationJobProps> = props => {
+const ConfigureFields: React.FC<ConfigureFieldsProps> = props => {
   switch (props.currentData.type) {
     case VerificationJobType.TEST:
       return <TestVerificationJob stepData={props.currentData} onNext={props.onNext} onPrevious={props.onPrevious} />
@@ -219,7 +219,7 @@ const VerificationJobsSetup = (): JSX.Element => {
                 id: 2,
                 title: getString('cv.verificationJobs.configure.tabName'),
                 component: (
-                  <ConfigureVerificationJob
+                  <ConfigureFields
                     onPrevious={tabInfo.onPrevious}
                     currentData={currentData}
                     onNext={data => {

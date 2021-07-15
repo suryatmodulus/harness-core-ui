@@ -21,9 +21,10 @@ export enum InviteType {
 interface RoleAssignmentFormProps {
   noRoleAssignmentsText: string
   formik: FormikProps<UserRoleAssignmentValues | UserGroupRoleAssignmentValues>
+  onSuccess?: () => void
 }
 
-const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmentsText, formik }) => {
+const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmentsText, formik, onSuccess }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
@@ -74,17 +75,23 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
     [resourceGroupList]
   )
 
-  const handleRoleAssignmentDelete = async (identifier: string): Promise<void> => {
+  const handleRoleAssignmentDelete = async (identifier: string): Promise<boolean> => {
     try {
       const deleted = await deleteRoleAssignment(identifier, {
         headers: { 'content-type': 'application/json' }
       })
-      if (deleted) showSuccess(getString('rbac.roleAssignment.deleteSuccess'))
-      else showError(getString('rbac.roleAssignment.deleteFailure'))
+      if (deleted) {
+        showSuccess(getString('rbac.roleAssignment.deleteSuccess'))
+        onSuccess?.()
+        return true
+      } else {
+        showError(getString('rbac.roleAssignment.deleteFailure'))
+      }
     } catch (err) {
       /* istanbul ignore next */
       showError(err.data?.message || err.message)
     }
+    return false
   }
 
   return (
@@ -95,9 +102,12 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
         placeholder={noRoleAssignmentsText}
         insertRowAtBeginning={false}
         isDeleteOfRowAllowed={row => !(row as Assignment).role.managedRoleAssignment}
-        onDeleteOfRow={(row, rowIndex) => {
+        onDeleteOfRow={async (row, rowIndex) => {
           const assignment = (row as Assignment).role.assignmentIdentifier
-          if (assignment) handleRoleAssignmentDelete(assignment)
+          if (assignment) {
+            const deleted = await handleRoleAssignmentDelete(assignment)
+            if (!deleted) return false
+          }
           if (defaultRoleRows.has(rowIndex)) {
             setDefaultRoleRows(
               produce(defaultRoleRows, draft => {
@@ -105,6 +115,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
               })
             )
           }
+          return true
         }}
         containerProps={{ className: css.containerProps }}
         fields={[

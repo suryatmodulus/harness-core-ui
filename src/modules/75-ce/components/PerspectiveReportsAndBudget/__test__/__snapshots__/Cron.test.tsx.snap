@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test cases for Cron component should be able to render the cron component with a given cron expression 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main cron"
+  >
+    <div
+      class="bp3-popover-wrapper Select--main bp3-fill"
+    >
+      <div
+        class="bp3-popover-target"
+      >
+        <div
+          class="bp3-input-group"
+        >
+          <input
+            autocomplete="off"
+            class="bp3-input"
+            placeholder="Search..."
+            style="padding-right: 0px;"
+            type="text"
+            value="Yearly"
+          />
+          <span
+            class="bp3-input-action"
+          >
+            <span
+              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+              icon="caret-down"
+            >
+              <svg
+                data-icon="caret-down"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+              >
+                <desc>
+                  caret-down
+                </desc>
+                <path
+                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="comps"
+    >
+      <span
+        class="StyledProps--font StyledProps--main StyledProps--inline"
+      >
+        common.in
+         
+      </span>
+      <div
+        class="bp3-popover-wrapper selectBox Select--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              placeholder="Search..."
+              style="padding-right: 0px;"
+              type="text"
+              value="May"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <span
+        class="StyledProps--font StyledProps--main StyledProps--inline"
+      >
+        common.on
+         
+      </span>
+      <div
+        class="bp3-popover-wrapper selectBox Select--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              placeholder="Search..."
+              style="padding-right: 0px;"
+              type="text"
+              value="11th"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <span
+        class="StyledProps--font StyledProps--main StyledProps--inline"
+      >
+        common.at
+         
+      </span>
+      <div
+        class="bp3-popover-wrapper selectBox Select--main bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              placeholder="Search..."
+              style="padding-right: 0px;"
+              type="text"
+              value="10:30 AM"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

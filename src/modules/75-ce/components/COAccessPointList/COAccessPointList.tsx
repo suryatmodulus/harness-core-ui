@@ -20,12 +20,14 @@ import Table from '@common/components/Table/Table'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { PROVIDER_TYPES } from '@ce/constants'
 import { useStrings } from 'framework/strings'
 // import CreateAccessPointWizard from '../COGatewayAccess/CreateAccessPointWizard'
 import DeleteAccessPoint from '../COAccessPointDelete/DeleteAccessPoint'
 import { getRelativeTime } from '../COGatewayList/Utils'
 // import LoadBalancerDnsConfig from '../COGatewayAccess/LoadBalancerDnsConfig'
 import useCreateAccessPointDialog from './COCreateAccessPointDialog'
+import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
 import css from './COAcessPointList.module.scss'
 
 function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
@@ -126,7 +128,11 @@ const COLoadBalancerList: React.FC = () => {
     )
   }
   function RulesCell(tableProps: CellProps<AccessPoint>): JSX.Element {
-    const { data: details, error: detailsError, loading: detailsLoading } = useAccessPointRules({
+    const {
+      data: details,
+      error: detailsError,
+      loading: detailsLoading
+    } = useAccessPointRules({
       org_id: orgIdentifier, // eslint-disable-line
       project_id: projectIdentifier, // eslint-disable-line
       access_point_id: tableProps.row.original.id as string, // eslint-disable-line
@@ -203,6 +209,17 @@ const COLoadBalancerList: React.FC = () => {
   //     </Layout.Horizontal>
   //   )
   // }
+
+  const StatusCell = ({ row }: CellProps<AccessPoint>) => {
+    return (
+      <TextWithToolTip
+        messageText={row.original.status}
+        errors={row.original.type === PROVIDER_TYPES.AZURE ? [{ error: row.original.metadata?.error }] : []}
+        status={row.original.status === 'errored' ? textWithToolTipStatus.ERROR : textWithToolTipStatus.SUCCESS}
+        indicatorColor={row.original.status === 'submitted' ? Color.YELLOW_500 : undefined}
+      />
+    )
+  }
 
   const { data, error, loading, refetch } = useAllAccessPoints({
     org_id: orgIdentifier, // eslint-disable-line
@@ -301,7 +318,7 @@ const COLoadBalancerList: React.FC = () => {
                       Cell: CheckBoxCell
                     },
                     {
-                      accessor: 'host_name',
+                      accessor: 'name',
                       Header: getString('name').toUpperCase(),
                       width: '20%',
                       Cell: NameCell
@@ -315,12 +332,12 @@ const COLoadBalancerList: React.FC = () => {
                     {
                       accessor: 'id',
                       Header: getString('ce.co.accessPoint.dnsProvider').toUpperCase(),
-                      width: '15%',
+                      width: '10%',
                       Cell: DNSCell,
                       disableSortBy: true
                     },
                     {
-                      accessor: 'name',
+                      accessor: 'host_name',
                       Header: getString('ce.co.accessPoint.asssociatedRules').toUpperCase(),
                       width: '15%',
                       Cell: RulesCell
@@ -328,8 +345,14 @@ const COLoadBalancerList: React.FC = () => {
                     {
                       accessor: 'status',
                       Header: getString('ce.co.accessPoint.lastActivity').toUpperCase(),
-                      width: '20%',
+                      width: '15%',
                       Cell: ActivityCell
+                    },
+                    {
+                      accessor: row => row.status,
+                      Header: getString('ce.co.accessPoint.status').toUpperCase(),
+                      Cell: StatusCell,
+                      width: '15%'
                     }
                     // {
                     //   id: 'menu',

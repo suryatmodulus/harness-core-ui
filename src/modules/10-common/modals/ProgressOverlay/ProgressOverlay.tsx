@@ -13,7 +13,7 @@ const LONG_DURATION = 3000
 
 export interface Stage {
   status: StepStatus
-  intermediateLabel: string
+  intermediateLabel: string | React.ReactElement
   finalLabel?: string
 }
 
@@ -60,9 +60,7 @@ export const ProgressOverlay: React.FC<ProgressOverlay> = ({
     return (
       <>
         {iconRender}
-        <Text className={css.branchName} title={intermediateLabel}>
-          {intermediateLabel}
-        </Text>
+        <Text className={css.branchName}>{intermediateLabel}</Text>
       </>
     )
   }

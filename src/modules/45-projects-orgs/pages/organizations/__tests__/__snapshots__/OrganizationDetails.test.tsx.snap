@@ -83,6 +83,7 @@ exports[`Organization Details Render 1`] = `
             height="30"
             viewBox="0 0 22 22"
             width="30"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"

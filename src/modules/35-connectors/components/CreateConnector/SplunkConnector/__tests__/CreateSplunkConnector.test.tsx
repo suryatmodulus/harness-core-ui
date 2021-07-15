@@ -120,7 +120,7 @@ describe('Unit tests for createAppdConnector', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'splunkConnector',
               identifier: 'accountSplunkConnector',
               description: '',
@@ -133,7 +133,7 @@ describe('Unit tests for createAppdConnector', () => {
               tags: {},
               type: 'Splunk',
               delegateSelectors: []
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>
@@ -194,7 +194,7 @@ describe('Unit tests for createAppdConnector', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'dasdadasdasda',
               identifier: 'dasdadasdasda',
               description: '',
@@ -208,7 +208,7 @@ describe('Unit tests for createAppdConnector', () => {
                 username: 'splunkUsername',
                 delegateSelectors: []
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>

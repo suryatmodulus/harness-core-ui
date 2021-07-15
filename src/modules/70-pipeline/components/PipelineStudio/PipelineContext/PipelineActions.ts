@@ -78,6 +78,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
 }
 export interface PipelineViewData {
   isSplitViewOpen: boolean
+  isYamlEditable: boolean
   splitViewData: {
     type?: SplitViewTypes
   }
@@ -180,6 +181,7 @@ export const initialState: PipelineReducerState = {
   pipelineView: {
     isSplitViewOpen: false,
     isDrawerOpened: false,
+    isYamlEditable: false,
     splitViewData: {},
     drawerData: {
       type: DrawerTypes.AddStep

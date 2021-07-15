@@ -217,7 +217,7 @@ const ClauseRow: React.FC<ClauseRowProps> = props => {
               onBlur: onSelectEvent,
               onKeyUp: event => {
                 if (event.keyCode === 13) {
-                  onSelectEvent((event as unknown) as InputEventType)
+                  onSelectEvent(event as unknown as InputEventType)
                 }
               }
             }}
@@ -699,7 +699,7 @@ const ServingCardRow: React.FC<ServingCardRowProps> = ({
     }
 
     return (
-      <Dialog isOpen onClose={handleClose} title={`Serve ${variation} to the following`}>
+      <Dialog enforceFocus={false} isOpen onClose={handleClose} title={`Serve ${variation} to the following`}>
         <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'medium' }}>
           {loading ? (
             <Spinner size={24} />
@@ -945,7 +945,9 @@ const CustomRulesView: React.FC<CustomRulesViewProps> = ({
 
   return (
     <>
-      <Text className={cx(css.ruleTitle, css.custom)}>{getString('cf.featureFlags.rules.customRules')}</Text>
+      <Text className={cx(css.ruleTitle, css.custom)} data-tooltip-id="ff_ffCustomRules_heading">
+        {getString('cf.featureFlags.rules.customRules')}
+      </Text>
       <Layout.Vertical>
         {servings.length > 0 && (
           <Layout.Horizontal spacing="small">

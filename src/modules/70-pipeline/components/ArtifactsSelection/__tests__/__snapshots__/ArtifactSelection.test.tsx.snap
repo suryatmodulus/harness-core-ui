@@ -64,6 +64,8 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   stroke-linejoin="round"
                   viewBox="0 0 85 85"
                   width="18"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
                 >
                   <style>
                     .ecr-step_svg__B{stroke:none}.ecr-step_svg__C{fill:#f58536}
@@ -192,9 +194,13 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               >
-                &lt;+input&gt;
+                <span
+                  class="noWrap"
+                >
+                  &lt;+input&gt;
+                </span>
               </p>
             </div>
             <div
@@ -208,6 +214,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   height="16"
                   viewBox="0 0 12 12"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     fill="none"
@@ -236,6 +243,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   height="25"
                   viewBox="0 0 22 22"
                   width="25"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     opacity="0.6"
@@ -313,6 +321,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                   height="18"
                   viewBox="0 0 14 10"
                   width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -356,9 +365,13 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
             >
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1; width: 400px;"
+                style="--text-line-clamp: 1; width: 340px;"
               >
-                &lt;+input&gt;
+                <span
+                  class="noWrap"
+                >
+                  &lt;+input&gt;
+                </span>
               </p>
             </div>
             <span>
@@ -373,6 +386,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     height="16"
                     viewBox="0 0 12 12"
                     width="16"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <g
                       fill="none"
@@ -401,6 +415,7 @@ exports[`ArtifactsSelection tests artifact list renders with proper payload 1`] 
                     height="25"
                     viewBox="0 0 22 22"
                     width="25"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <g
                       opacity="0.6"
@@ -524,6 +539,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                   height="18"
                   viewBox="0 0 14 12"
                   width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <mask
                     height="8.5"
@@ -618,8 +634,12 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
-              />
+                style="--text-line-clamp: 1; width: 340px;"
+              >
+                <span
+                  class="noWrap"
+                />
+              </p>
             </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-center"
@@ -632,6 +652,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                   height="16"
                   viewBox="0 0 12 12"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     fill="none"
@@ -660,6 +681,7 @@ exports[`ArtifactsSelection tests delete artifact list works correctly 1`] = `
                   height="25"
                   viewBox="0 0 22 22"
                   width="25"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     opacity="0.6"
@@ -782,6 +804,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                   height="18"
                   viewBox="0 0 14 12"
                   width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <mask
                     height="8.5"
@@ -876,8 +899,12 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
-              />
+                style="--text-line-clamp: 1; width: 340px;"
+              >
+                <span
+                  class="noWrap"
+                />
+              </p>
             </div>
             <div
               class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main actionGrid StyledProps--flex StyledProps--flex-justifyContent-flex-end StyledProps--flex-alignItems-center"
@@ -890,6 +917,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                   height="16"
                   viewBox="0 0 12 12"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     fill="none"
@@ -918,6 +946,7 @@ exports[`ArtifactsSelection tests edit artifact list works correctly 1`] = `
                   height="25"
                   viewBox="0 0 22 22"
                   width="25"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     opacity="0.6"
@@ -1040,6 +1069,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
                   height="18"
                   viewBox="0 0 14 12"
                   width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <mask
                     height="8.5"
@@ -1134,8 +1164,12 @@ exports[`ArtifactsSelection tests renders Artifact Listview with connectors Data
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
-              />
+                style="--text-line-clamp: 1; width: 340px;"
+              >
+                <span
+                  class="noWrap"
+                />
+              </p>
             </div>
           </section>
         </section>
@@ -1217,6 +1251,7 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
                   height="18"
                   viewBox="0 0 14 10"
                   width="18"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
@@ -1258,8 +1293,12 @@ exports[`ArtifactsSelection tests renders Artifact Listview without crashing 1`]
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
-              />
+                style="--text-line-clamp: 1; width: 340px;"
+              >
+                <span
+                  class="noWrap"
+                />
+              </p>
             </div>
           </section>
         </section>
@@ -1429,9 +1468,13 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
             <div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
-                style="--text-line-clamp: 1;"
+                style="--text-line-clamp: 1; width: 340px;"
               >
-                &lt;+input&gt;
+                <span
+                  class="noWrap"
+                >
+                  &lt;+input&gt;
+                </span>
               </p>
             </div>
             <div
@@ -1445,6 +1488,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   height="16"
                   viewBox="0 0 12 12"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     fill="none"
@@ -1473,6 +1517,7 @@ exports[`ArtifactsSelection tests renders without crashing 1`] = `
                   height="25"
                   viewBox="0 0 22 22"
                   width="25"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     opacity="0.6"

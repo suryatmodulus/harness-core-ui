@@ -183,21 +183,21 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
   const sourceRepoParam = '&sourceRepo='
   const triggerType = searchStr.replace(`?${triggerTypeParam}`, '')
   if (triggerType.includes(TriggerTypes.WEBHOOK)) {
-    const sourceRepo = (searchStr.substring(
+    const sourceRepo = searchStr.substring(
       searchStr.lastIndexOf(sourceRepoParam) + sourceRepoParam.length
-    ) as unknown) as string
+    ) as unknown as string
     return {
-      triggerType: (searchStr.substring(
+      triggerType: searchStr.substring(
         searchStr.lastIndexOf(triggerTypeParam) + triggerTypeParam.length,
         searchStr.lastIndexOf(sourceRepoParam)
-      ) as unknown) as NGTriggerSourceV2['type'],
+      ) as unknown as NGTriggerSourceV2['type'],
       sourceRepo
     }
     // }
   } else {
     // SCHEDULED | unfound page
     return {
-      triggerType: (triggerType as unknown) as NGTriggerSourceV2['type']
+      triggerType: triggerType as unknown as NGTriggerSourceV2['type']
     }
   }
 }
@@ -205,8 +205,9 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
 export const isUndefinedOrEmptyString = (str: string | undefined): boolean => isUndefined(str) || str?.trim() === ''
 
 const isRowUnfilled = (payloadCondition: AddConditionInterface): boolean => {
-  const truthyValuesLength = Object.values(payloadCondition).filter(val => isUndefinedOrEmptyString(val?.trim?.()))
-    ?.length
+  const truthyValuesLength = Object.values(payloadCondition).filter(val =>
+    isUndefinedOrEmptyString(val?.trim?.())
+  )?.length
   return truthyValuesLength > 0 && truthyValuesLength < 3
 }
 

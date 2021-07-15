@@ -39,6 +39,7 @@ export function TFBackendConfigMonaco(props: TFMonacoProps): React.ReactElement 
         lazy
         isOpen={isFullScreen}
         isCloseButtonShown
+        enforceFocus={false}
         canOutsideClickClose={false}
         onClose={() => setFullScreen(false)}
         title={props.title}

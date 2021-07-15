@@ -9,10 +9,11 @@ import SaveToGitForm, {
   SaveToGitFormInterface
 } from '@common/components/SaveToGitForm/SaveToGitForm'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { getEntityNameFromType } from '@common/utils/StringUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import { EntityGitDetails, ResponseMessage, useCreatePR } from 'services/cd-ng'
-import { useStrings } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 import { ProgressOverlay, StepStatus } from '../ProgressOverlay/ProgressOverlay'
 import { useGitDiffEditorDialog } from '../GitDiffEditor/useGitDiffEditorDialog'
 import css from './useSaveToGitDialog.module.scss'
@@ -56,6 +57,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
   const { getString } = useStrings()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
+    enforceFocus: false,
     style: {
       width: 720,
       minHeight: 540,
@@ -69,45 +71,63 @@ export function useSaveToGitDialog<T = Record<string, string>>(
 
   /* Progress dialog states */
   const [prCreateStatus, setPRCreateStatus] = useState<StepStatus>()
-  const [prMetaData, setPRMetaData] = useState<
-    Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>
-  >()
+  const [prMetaData, setPRMetaData] =
+    useState<Pick<SaveToGitFormInterface, 'branch' | 'targetBranch' | 'isNewBranch'>>()
   const [nextCallback, setNextCallback] = useState<UseSaveSuccessResponse['nextCallback']>()
   /* TODO Don't see proper types for this new errors format, replace Record<string, any> with more stricter type when available */
   const [error, setError] = useState<Record<string, any>>({})
   const [createUpdateStatus, setCreateUpdateStatus] = useState<StepStatus>()
   const { mutate: createPullRequest, loading: creatingPR } = useCreatePR({})
-  let entity = resource.type || ''
-  entity = (entity.endsWith('s') ? entity.substring(0, entity.length - 1) : entity).toLowerCase()
 
   /* Stages for an entity updated/created and/or saved to git */
   const entityCreateUpdateStage = {
     status: createUpdateStatus,
-    intermediateLabel: isEditMode
-      ? getString('common.updating', { name: resource.name, entity })
-      : getString('common.creating', { name: resource.name, entity }),
+    intermediateLabel: (
+      <String
+        stringID={isEditMode ? 'common.updating' : 'common.creating'}
+        vars={{ name: resource.name, entity: getEntityNameFromType(resource.type) }}
+      />
+    ),
     finalLabel: getErrorInfoFromErrorObject(error)
   }
   const fromBranch = prMetaData?.branch || ''
   const toBranch = prMetaData?.targetBranch || ''
   const setupBranchStage = {
     status: createUpdateStatus,
-    intermediateLabel: getString('common.gitSync.settingUpNewBranch', {
-      branch: fromBranch
-    })
+    intermediateLabel: (
+      <String
+        stringID="common.gitSync.settingUpNewBranch"
+        vars={{
+          branch: fromBranch
+        }}
+        useRichText
+      />
+    )
   }
   const pushingChangesToBranch = {
     status: createUpdateStatus,
-    intermediateLabel: getString('common.gitSync.pushingChangestoBranch', {
-      branch: fromBranch
-    })
+    intermediateLabel: (
+      <String
+        stringID="common.gitSync.pushingChangestoBranch"
+        vars={{
+          branch: fromBranch
+        }}
+        useRichText
+      />
+    )
   }
   const createPRStage = {
     status: prCreateStatus,
-    intermediateLabel: getString('common.gitSync.creatingPR', {
-      fromBranch,
-      toBranch
-    }),
+    intermediateLabel: (
+      <String
+        stringID="common.gitSync.creatingPR"
+        vars={{
+          fromBranch,
+          toBranch
+        }}
+        useRichText
+      />
+    ),
     finalLabel: getString('common.gitSync.unableToCreatePR')
   }
 
@@ -137,6 +157,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
           paddingBottom: 0,
           maxHeight: 500
         }}
+        enforceFocus={false}
       >
         <ProgressOverlay
           preFirstStage={prMetaData?.isNewBranch ? setupBranchStage : undefined}
@@ -159,6 +180,7 @@ export function useSaveToGitDialog<T = Record<string, string>>(
     return (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         className={Classes.DIALOG}
         style={{
           minWidth: 600,
@@ -199,21 +221,16 @@ export function useSaveToGitDialog<T = Record<string, string>>(
         if (response.status === 'SUCCESS') {
           if (data?.createPr) {
             try {
-              const _response = await createPullRequest(
-                {
-                  sourceBranch: data?.branch || '',
-                  targetBranch: data?.targetBranch || '',
-                  title: data?.commitMsg || ''
-                },
-                {
-                  queryParams: {
-                    accountIdentifier: accountId,
-                    orgIdentifier,
-                    projectIdentifier,
-                    yamlGitConfigIdentifier: data?.repoIdentifier || ''
-                  }
-                }
-              )
+              const _response = await createPullRequest({
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier,
+                sourceBranch: data?.branch || '',
+                targetBranch: data?.targetBranch || '',
+                title: data?.commitMsg || '',
+                useUserFromToken: true,
+                yamlGitConfigRef: data?.repoIdentifier || ''
+              })
               setPRCreateStatus(_response?.status)
             } catch (e) {
               setPRCreateStatus('ERROR')

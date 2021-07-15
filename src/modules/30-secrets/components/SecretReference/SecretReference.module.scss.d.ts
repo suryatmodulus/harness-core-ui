@@ -7,8 +7,7 @@ declare const styles: {
   readonly secretIcon: string
   readonly iconCheck: string
   readonly iconChecked: string
-  readonly selectBox: string
-  readonly text: string
-  readonly secretTypeSelect: string
+  readonly popoverWidth: string
+  readonly selectButton: string
 }
 export default styles

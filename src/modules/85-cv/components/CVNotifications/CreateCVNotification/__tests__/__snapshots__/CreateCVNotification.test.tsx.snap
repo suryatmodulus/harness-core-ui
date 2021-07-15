@@ -118,7 +118,7 @@ exports[`Create CV Notification Rule should render 1`] = `
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
-                        style="vertical-align: middle;"
+                        style="vertical-align: middle; cursor: pointer;"
                       >
                         <svg
                           data-icon="edit"
@@ -381,7 +381,7 @@ exports[`Create CV Notification Rule should render 2`] = `
                       <span
                         class="bp3-icon bp3-icon-edit StyledProps--main"
                         icon="edit"
-                        style="vertical-align: middle;"
+                        style="vertical-align: middle; cursor: pointer;"
                       >
                         <svg
                           data-icon="edit"

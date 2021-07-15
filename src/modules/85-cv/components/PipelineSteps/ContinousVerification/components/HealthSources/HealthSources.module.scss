@@ -1,0 +1,29 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table {
+  [role='row'] {
+    padding-top: var(--spacing-xsmall);
+    padding-bottom: var(--spacing-xsmall);
+    padding-right: var(--spacing-medium) !important;
+    padding-left: var(--spacing-medium) !important;
+    border-radius: 4px;
+  }
+}
+
+.link {
+  cursor: pointer;
+}
+
+.healthsourcetype {
+  padding-left: var(--spacing-medium);
+  padding-right: var(--spacing-medium);
+}
+
+.healthsourcename {
+  display: flex;
+  flex-direction: row;
+}

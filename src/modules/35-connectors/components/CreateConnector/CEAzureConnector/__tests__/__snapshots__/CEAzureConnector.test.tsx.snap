@@ -25,6 +25,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                 height="40"
                 viewBox="0 0 14 12"
                 width="40"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#2075b7"
@@ -261,6 +262,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                                         height="12"
                                         viewBox="0 0 12 12"
                                         width="12"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
                                           clip-rule="evenodd"
@@ -329,6 +331,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                                         height="12"
                                         viewBox="0 0 12 12"
                                         width="12"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
                                           clip-rule="evenodd"
@@ -398,6 +401,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                                         height="12"
                                         viewBox="0 0 12 12"
                                         width="12"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
                                           clip-rule="evenodd"
@@ -466,6 +470,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                                         height="12"
                                         viewBox="0 0 12 12"
                                         width="12"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
                                           clip-rule="evenodd"
@@ -534,6 +539,7 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                                         height="12"
                                         viewBox="0 0 12 12"
                                         width="12"
+                                        xmlns="http://www.w3.org/2000/svg"
                                       >
                                         <path
                                           clip-rule="evenodd"
@@ -817,6 +823,7 @@ exports[`Create Azure connector Wizard should render existing billing exports fo
                 height="40"
                 viewBox="0 0 14 12"
                 width="40"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#2075b7"
@@ -1239,6 +1246,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                 height="40"
                 viewBox="0 0 14 12"
                 width="40"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#2075b7"
@@ -1438,6 +1446,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                 fill="none"
                                 height="32"
                                 width="32"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   d="M0 24.99h3.99V0H0v24.99zm7.98 0h3.99V7.403H7.98V24.99zm7.98-10.181v10.18h3.99V14.81h-3.99z"
@@ -1510,6 +1519,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                                 height="32"
                                 viewBox="0 0 18 18"
                                 width="32"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   clip-rule="evenodd"
@@ -1650,6 +1660,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                 height="40"
                 viewBox="0 0 14 12"
                 width="40"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#2075b7"
@@ -1858,6 +1869,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                             height="16"
                             viewBox="0 0 8 9"
                             width="16"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               clip-rule="evenodd"
@@ -1906,6 +1918,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                             height="16"
                             viewBox="0 0 8 9"
                             width="16"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               clip-rule="evenodd"
@@ -1954,6 +1967,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                             height="16"
                             viewBox="0 0 8 9"
                             width="16"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
                             <path
                               clip-rule="evenodd"
@@ -2064,6 +2078,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                 height="40"
                 viewBox="0 0 14 12"
                 width="40"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#2075b7"
@@ -2384,6 +2399,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                 height="40"
                 viewBox="0 0 14 12"
                 width="40"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#2075b7"
@@ -2541,7 +2557,7 @@ exports[`Create Azure connector Wizard should render overview step 1`] = `
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -2802,6 +2818,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                 height="40"
                 viewBox="0 0 14 12"
                 width="40"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="#2075b7"
@@ -2961,7 +2978,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                           <span
                             class="bp3-icon bp3-icon-edit StyledProps--main"
                             icon="edit"
-                            style="vertical-align: middle;"
+                            style="vertical-align: middle; cursor: pointer;"
                           >
                             <svg
                               data-icon="edit"
@@ -3168,6 +3185,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                               height="18"
                               viewBox="0 0 13 13"
                               width="18"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
                                 clip-rule="evenodd"
@@ -3193,6 +3211,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                                 height="16"
                                 viewBox="0 0 12 12"
                                 width="16"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   clip-rule="evenodd"

@@ -25,7 +25,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(
-          (TriggerTypes.WEBHOOK as unknown) as NGTriggerSourceV2['type'],
+          TriggerTypes.WEBHOOK as unknown as NGTriggerSourceV2['type'],
           result.current.getString
         )}
         onSubmit={jest.fn()}

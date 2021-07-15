@@ -19,7 +19,7 @@ export const useLockoutPolicyModal = ({ onSuccess, loginSettings }: Props): Moda
   const [editing, setEditing] = React.useState(false)
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog isOpen enforceFocus={false} title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         <LockoutPolicyForm
           onSubmit={() => {
             onSuccess()

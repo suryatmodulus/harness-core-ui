@@ -429,7 +429,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         disabled={loadingBranchList}
                         items={branchSelectOptions}
                         label={getString('gitsync.selectDefaultBranch')}
-                        usePortal={true}
+                        selectProps={{ usePortal: true, popoverClassName: css.gitBranchSelectorPopover }}
                       />
                       {loadingBranchList ? (
                         <Layout.Horizontal spacing="small" flex padding={{ top: 'xsmall', left: 'xsmall' }}>

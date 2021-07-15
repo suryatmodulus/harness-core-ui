@@ -205,7 +205,7 @@ describe('Unit tests for createNewRelicConnector', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               accountId: 'dummyAccountId',
               newRelicAccountId: NewRelicAccountId,
               orgIdentifier: 'dummyOrgId',
@@ -216,7 +216,7 @@ describe('Unit tests for createNewRelicConnector', () => {
                 label: 'endpoint2',
                 value: 'endpoint2'
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>
@@ -280,7 +280,7 @@ describe('Unit tests for createNewRelicConnector', () => {
           isEditMode={false}
           setIsEditMode={noop}
           connectorInfo={
-            ({
+            {
               name: 'dasdadasdasda',
               identifier: 'dasdadasdasda',
               description: '',
@@ -294,7 +294,7 @@ describe('Unit tests for createNewRelicConnector', () => {
                 newRelicAccountId: NewRelicAccountId,
                 delegateSelectors: []
               }
-            } as unknown) as ConnectorInfoDTO
+            } as unknown as ConnectorInfoDTO
           }
         />
       </TestWrapper>

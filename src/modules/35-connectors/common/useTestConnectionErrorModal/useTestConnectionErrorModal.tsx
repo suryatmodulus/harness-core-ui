@@ -18,6 +18,7 @@ export interface UseTestConnectionErrorModalReturn {
 }
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 750,
     borderLeft: 0,

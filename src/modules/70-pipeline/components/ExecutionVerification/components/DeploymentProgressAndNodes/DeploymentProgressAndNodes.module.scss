@@ -1,0 +1,19 @@
+.main {
+  border-radius: 2px;
+  margin-bottom: var(--spacing-small) !important;
+  height: 130px !important;
+
+  .durationAndStatus {
+    margin-bottom: var(--spacing-small) !important;
+    display: flex;
+    justify-content: space-between;
+
+    > div:last-child {
+      align-self: center;
+    }
+  }
+
+  .progressBar {
+    margin-bottom: var(--spacing-large) !important;
+  }
+}

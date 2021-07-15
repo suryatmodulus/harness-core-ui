@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import YAML from 'yaml'
-import { Layout, Card, Text, Accordion, Color } from '@wings-software/uicore'
+import { Layout, Card, Text, Accordion, Color, Container } from '@wings-software/uicore'
 import { get, isEmpty, isNil, omit, debounce, set } from 'lodash-es'
 import cx from 'classnames'
 import produce from 'immer'
@@ -24,20 +24,18 @@ import { String, useStrings } from 'framework/strings'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
-import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectDeployementType'
+import SelectDeploymentType from '@cd/components/PipelineStudio/DeployInfraSpecifications/SelectInfrastructureType'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './DeployInfraSpecifications.module.scss'
 
-// TODO: Add key once we have default value
-const DEFAULT_INFRA_KEY = ''
-
+const DEFAULT_RELEASE_NAME = 'release-<+INFRA_KEY>'
 export default function DeployInfraSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
-  const isProvisionerEnabled = useFeatureFlag('NG_PROVISIONERS')
-  const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] = React.useState<
-    Infrastructure
-  >({})
+  const isProvisionerEnabled = useFeatureFlag(FeatureFlag.NG_PROVISIONERS)
+  const [initialInfrastructureDefinitionValues, setInitialInfrastructureDefinitionValues] =
+    React.useState<Infrastructure>({})
   const [selectedDeploymentType, setSelectedDeploymentType] = React.useState<string | undefined>()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
   const { getString } = useStrings()
@@ -96,8 +94,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     spec['infrastructure'] = {
       environmentRef: '',
       infrastructureDefinition: {},
-      allowSimultaneousDeployments: false,
-      infrastructureKey: DEFAULT_INFRA_KEY
+      allowSimultaneousDeployments: false
     }
   }
 
@@ -118,10 +115,9 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         infrastructure.infrastructureDefinition = {
           ...infrastructure.infrastructureDefinition,
           type,
-          spec: omit(extendedSpec, 'allowSimultaneousDeployments', 'infrastructureKey')
+          spec: omit(extendedSpec, 'allowSimultaneousDeployments')
         }
         infrastructure.allowSimultaneousDeployments = extendedSpec.allowSimultaneousDeployments ?? false
-        infrastructure.infrastructureKey = extendedSpec.infrastructureKey ?? DEFAULT_INFRA_KEY
       })
       debounceUpdateStage(stageData?.stage)
     }
@@ -225,24 +221,22 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
     const infrastructure = get(stageData, 'stage.spec.infrastructure.infrastructureDefinition', null)
     const type = infrastructure?.type || deploymentType
     const allowSimultaneousDeployments = get(stageData, 'stage.spec.infrastructure.allowSimultaneousDeployments', false)
-    const infrastructureKey = get(stageData, 'stage.spec.infrastructure.infrastructureKey', DEFAULT_INFRA_KEY)
     switch (type) {
       case 'KubernetesDirect': {
         const connectorRef = infrastructure?.spec?.connectorRef
         const namespace = infrastructure?.spec?.namespace
-        const releaseName = infrastructure?.spec?.releaseName
+        const releaseName = infrastructure?.spec?.releaseName ?? DEFAULT_RELEASE_NAME
         return {
           connectorRef,
           namespace,
           releaseName,
-          allowSimultaneousDeployments,
-          infrastructureKey
+          allowSimultaneousDeployments
         }
       }
       case 'KubernetesGcp': {
         const connectorRef = infrastructure?.spec?.connectorRef
         const namespace = infrastructure?.spec?.namespace
-        const releaseName = infrastructure?.spec?.releaseName
+        const releaseName = infrastructure?.spec?.releaseName ?? DEFAULT_RELEASE_NAME
         const cluster = infrastructure?.spec?.cluster
 
         return {
@@ -250,8 +244,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
           namespace,
           releaseName,
           cluster,
-          allowSimultaneousDeployments,
-          infrastructureKey
+          allowSimultaneousDeployments
         }
       }
       default: {
@@ -277,8 +270,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   connectorRef: value.connectorRef,
                   namespace: value.namespace,
                   releaseName: value.releaseName,
-                  allowSimultaneousDeployments: value.allowSimultaneousDeployments,
-                  infrastructureKey: value.infrastructureKey
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
                 'KubernetesDirect'
               )
@@ -302,8 +294,7 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
                   cluster: value.cluster,
                   namespace: value.namespace,
                   releaseName: value.releaseName,
-                  allowSimultaneousDeployments: value.allowSimultaneousDeployments,
-                  infrastructureKey: value.infrastructureKey
+                  allowSimultaneousDeployments: value.allowSimultaneousDeployments
                 },
                 'KubernetesGcp'
               )
@@ -361,44 +352,50 @@ export default function DeployInfraSpecifications(props: React.PropsWithChildren
         </div>
         <SelectDeploymentType
           isReadonly={isReadonly}
-          selectedDeploymentType={selectedDeploymentType}
+          selectedInfrastructureType={selectedDeploymentType}
           onChange={deploymentType => {
             setSelectedDeploymentType(deploymentType)
             resetInfrastructureDefinition(deploymentType)
           }}
         />
         {!!selectedDeploymentType && isProvisionerEnabled ? (
-          <Accordion className={css.sectionCard} activeId="dynamicProvisioning">
+          <Accordion className={css.tabHeading} activeId="dynamicProvisioning">
             <Accordion.Panel
               id="dynamicProvisioning"
               addDomId={true}
               summary={'Dynamic provisioning'}
               details={
-                <StepWidget<InfraProvisioningData>
-                  factory={factory}
-                  readonly={isReadonly}
-                  key={stage?.stage?.identifier}
-                  initialValues={getProvisionerData(stage || {})}
-                  type={StepType.InfraProvisioning}
-                  stepViewType={StepViewType.Edit}
-                  onUpdate={(value: InfraProvisioningData) => {
-                    if (stage) {
-                      const stageData = produce(stage, draft => {
-                        set(draft, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', value.provisioner)
-                        cleanUpEmptyProvisioner(draft)
-                      })
-                      debounceUpdateStage(stageData.stage)
-                    }
-                    setProvisionerEnabled(value.provisionerEnabled)
-                  }}
-                />
+                <Container padding="medium" style={{ backgroundColor: 'var(--white)' }} className={css.sectionCard}>
+                  <StepWidget<InfraProvisioningData>
+                    factory={factory}
+                    readonly={isReadonly}
+                    key={stage?.stage?.identifier}
+                    initialValues={getProvisionerData(stage || {})}
+                    type={StepType.InfraProvisioning}
+                    stepViewType={StepViewType.Edit}
+                    onUpdate={(value: InfraProvisioningData) => {
+                      if (stage) {
+                        const stageData = produce(stage, draft => {
+                          set(
+                            draft,
+                            'stage.spec.infrastructure.infrastructureDefinition.provisioner',
+                            value.provisioner
+                          )
+                          cleanUpEmptyProvisioner(draft)
+                        })
+                        debounceUpdateStage(stageData.stage)
+                      }
+                      setProvisionerEnabled(value.provisionerEnabled)
+                    }}
+                  />
+                </Container>
               }
             />
           </Accordion>
         ) : null}
 
         {selectedDeploymentType ? (
-          <Card className={css.sectionCard} id="clusterDetails">
+          <Card className={cx(css.sectionCard, css.shadow)} id="clusterDetails">
             <Text style={{ fontWeight: 600, fontSize: 16 }} color={Color.GREY_700} margin={{ bottom: 'medium' }}>
               {getString('cd.steps.common.clusterDetails')}
             </Text>

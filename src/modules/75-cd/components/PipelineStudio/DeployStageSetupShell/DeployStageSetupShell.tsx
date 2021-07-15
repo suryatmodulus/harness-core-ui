@@ -46,7 +46,6 @@ export default function DeployStageSetupShell(): JSX.Element {
 
   const {
     state: {
-      pipeline,
       originalPipeline,
       pipelineView,
       selectionState: { selectedStageId, selectedStepId }
@@ -96,9 +95,10 @@ export default function DeployStageSetupShell(): JSX.Element {
     }
   }, [selectedTabId])
 
+  const { stage: data } = getStageFromPipeline(selectedStageId || '')
+
   React.useEffect(() => {
     if (selectedTabId === DeployTabs.EXECUTION) {
-      const { stage: data } = getStageFromPipeline(selectedStageId || '')
       if (data?.stage) {
         if (!data?.stage?.spec?.execution) {
           const stageType = data?.stage?.type
@@ -129,7 +129,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pipeline, selectedTabId, selectedStageId])
+  }, [data, selectedTabId, selectedStageId])
 
   const selectedStage = selectedStageId ? getStageFromPipeline(selectedStageId).stage : undefined
   const originalStage = selectedStageId ? getStageFromPipeline(selectedStageId, originalPipeline).stage : undefined

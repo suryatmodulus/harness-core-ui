@@ -22,7 +22,9 @@ import type {
   RolePathProps,
   ResourceGroupPathProps,
   UserGroupPathProps,
-  UserPathProps
+  UserPathProps,
+  ServiceAccountPathProps,
+  ServicePathProps
 } from '@common/interfaces/RouteInterfaces'
 
 export const accountPathProps: AccountPathProps = {
@@ -82,6 +84,10 @@ export const userPathProps: UserPathProps = {
   userIdentifier: ':userIdentifier'
 }
 
+export const serviceAccountProps: ServiceAccountPathProps = {
+  serviceAccountIdentifier: ':serviceAccountIdentifier'
+}
+
 export const resourceGroupPathProps: ResourceGroupPathProps = {
   resourceGroupIdentifier: ':resourceGroupIdentifier'
 }
@@ -127,6 +133,10 @@ export const targetPathProps: TargetPathProps = {
   targetIdentifier: ':targetIdentifier'
 }
 
+export const servicePathProps: ServicePathProps = {
+  serviceId: ':serviceId'
+}
+
 export function withAccountId<T>(fn: (args: T) => string) {
   return (params: T & { accountId: string }): string => {
     const path = fn(params)
@@ -147,7 +157,7 @@ export function withProjectIdentifier<T>(fn: (args: T) => string) {
   return (params: T & { projectIdentifier: string }): string => {
     const path = fn(params)
 
-    return `/orgs/${params.projectIdentifier}/${path.replace(/^\//, '')}`
+    return `/projects/${params.projectIdentifier}/${path.replace(/^\//, '')}`
   }
 }
 
@@ -183,3 +193,5 @@ export const validateReturnUrl = (url: string): boolean => {
   }
   return false
 }
+
+export const returnLaunchUrl = (url: string): string => `${window.location.pathname.replace(/\/ng\//, '/')}${url}`

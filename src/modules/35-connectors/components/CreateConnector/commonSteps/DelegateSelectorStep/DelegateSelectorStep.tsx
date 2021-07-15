@@ -100,9 +100,11 @@ const NoMatchingDelegateWarning: React.FC<{ delegatesFound: DelegatesFoundState 
 const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSelectorProps> = props => {
   const { showSuccess, showError } = useToaster()
   const { prevStepData, nextStep, buildPayload, customHandleCreate, customHandleUpdate, connectorInfo } = props
-  const { accountId, projectIdentifier: projectIdentifierFromUrl, orgIdentifier: orgIdentifierFromUrl } = useParams<
-    any
-  >()
+  const {
+    accountId,
+    projectIdentifier: projectIdentifierFromUrl,
+    orgIdentifier: orgIdentifierFromUrl
+  } = useParams<any>()
   let gitDetails = props.gitDetails
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl

@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react'
-import type { CellProps } from 'react-table'
-import { debounce as _debounce, isEmpty as _isEmpty, get as _get } from 'lodash-es'
+import React, { useState, useEffect, useRef, useLayoutEffect, useMemo } from 'react'
+import type { CellProps, Renderer } from 'react-table'
+import { debounce as _debounce, isEmpty as _isEmpty, get as _get, omit as _omit } from 'lodash-es'
 import { Dialog, Drawer, IDialogProps } from '@blueprintjs/core'
 import {
   Formik,
@@ -25,6 +25,7 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import type { FormikContext } from 'formik'
+import ReactTimeago from 'react-timeago'
 import { RadioGroup, Radio } from '@blueprintjs/core'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { useToaster } from '@common/exports'
@@ -43,8 +44,14 @@ import {
   useGetServices,
   useSecurityGroupsOfInstances
 } from 'services/lw'
-import { useStrings } from 'framework/strings'
+import { String, StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { TagsPopover } from '@common/components'
+import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
+import { Connectors } from '@connectors/constants'
+import { FeatureFlag } from '@common/featureFlags'
+import { ConnectorInfoDTO, ConnectorResponse, useGetConnectorListV2 } from 'services/cd-ng'
 import CORoutingTable from './CORoutingTable'
 import COHealthCheckTable from './COHealthCheckTable'
 import odIcon from './images/ondemandIcon.svg'
@@ -53,6 +60,9 @@ import CORuleDendencySelector from './CORuleDependencySelector'
 import COGatewayConfigStep from './COGatewayConfigStep'
 import COAsgSelector from '../COAsgSelector'
 // import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
+import COK8sClusterSelector from '../COK8sClusterSelector/COK8sClusterSelector'
+import KubernetesRuleYamlEditor from './KubernetesRuleYamlEditor'
+import { getK8sIngressTemplate } from './GetK8sYamlSchema'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigProps {
@@ -90,16 +100,24 @@ const portProtocolMap: { [key: number]: string } = {
 
 enum RESOURCES {
   INSTANCES = 'INSTANCES',
-  ASG = 'ASG'
+  ASG = 'ASG',
+  KUBERNETES = 'KUBERNETES'
 }
 
 const managedResources = [
   { label: 'Instances', value: RESOURCES.INSTANCES, providers: ['aws', 'azure'] },
-  { label: 'Auto scaling groups', value: RESOURCES.ASG, providers: ['aws'] }
+  { label: 'Auto scaling groups', value: RESOURCES.ASG, providers: ['aws'] },
+  {
+    label: 'Kubernetes Cluster',
+    value: RESOURCES.KUBERNETES,
+    providers: ['aws', 'azure'],
+    ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
+  }
 ]
 
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 1000,
     minHeight: 350,
@@ -112,11 +130,16 @@ const modalProps: IDialogProps = {
 
 const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configStep4']
 
+const DEFAULT_TOTAL_STEP_COUNT = 4
+const MODIFIED_TOTAL_STEP_COUNT = 3
+
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
+  const isKubernetesEnabled = useFeatureFlag(FeatureFlag.CE_AS_KUBERNETES_ENABLED)
   const isAwsProvider = Utils.isProviderAws(props.gatewayDetails.provider)
   const isAzureProvider = Utils.isProviderAzure(props.gatewayDetails.provider)
+  const [featureFlagsMap] = useState<Record<string, boolean>>({ CE_AS_KUBERNETES_ENABLED: isKubernetesEnabled })
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
@@ -134,11 +157,16 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
   const [serviceDependencies, setServiceDependencies] = useState<ServiceDep[]>(props.gatewayDetails.deps || [])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
+  const [totalStepsCount, setTotalStepsCount] = useState<number>(DEFAULT_TOTAL_STEP_COUNT)
+  const [allConnectors, setAllConnectors] = useState<ConnectorResponse[]>([])
+  const [connectorsToShow, setConnectorsToShow] = useState<ConnectorResponse[]>([])
   const [selectedResource, setSelectedResource] = useState<RESOURCES | null>(
     !_isEmpty(props.gatewayDetails.selectedInstances)
       ? RESOURCES.INSTANCES
       : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group)
       ? RESOURCES.ASG
+      : !_isEmpty(props.gatewayDetails.routing?.k8s?.RuleJson)
+      ? RESOURCES.KUBERNETES
       : null
   )
   const [selectedInstanceType, setSelectedInstanceType] = useState<CardData | null>(
@@ -155,8 +183,15 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.gatewayDetails.routing?.instance?.scale_group
   )
 
+  const [selectedConnector, setSelectedConnector] = useState<ConnectorResponse | undefined>()
+  const [yamlData, setYamlData] = useState<Record<any, any>>(
+    props.gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(props.gatewayDetails.routing.k8s.RuleJson) : undefined
+  )
+
+  const isK8sSelected = selectedResource === RESOURCES.KUBERNETES
+
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
   function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
     return (
       <Text lineClamp={3} color={Color.BLACK}>
@@ -209,7 +244,21 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     }
   })
 
-  const { data, error } = useGetServices({
+  const defaultQueryParams = useMemo(
+    () => ({
+      accountIdentifier: accountId,
+      searchTerm: '',
+      pageIndex: 0,
+      pageSize: 100
+    }),
+    [accountId]
+  )
+
+  const { mutate: fetchConnectors, loading: loadingConnectors } = useGetConnectorListV2({
+    queryParams: defaultQueryParams
+  })
+
+  const { data: servicesData, error } = useGetServices({
     org_id: orgIdentifier, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
@@ -265,6 +314,18 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     setAsgToShow(filteredScalingGroups)
   }
 
+  const handleConnectorsSearch = (text: string) => {
+    if (!text) {
+      setConnectorsToShow(allConnectors)
+      return
+    }
+    text = text.toLowerCase()
+    const filteredConnectors = allConnectors.filter(item =>
+      (item.connector as ConnectorInfoDTO).name?.toLowerCase().includes(text)
+    )
+    setConnectorsToShow(filteredConnectors)
+  }
+
   const [openAsgModal, closeAsgModal] = useModalHook(() => {
     return (
       <Dialog {...modalProps}>
@@ -297,6 +358,41 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       </Dialog>
     )
   }, [allAsg, asgToShow, selectedAsg, loadingFetchASGs])
+
+  const [openClusterModal, closeClusterModal] = useModalHook(() => {
+    return (
+      <Dialog {...modalProps}>
+        <COK8sClusterSelector
+          loading={loadingConnectors}
+          clusters={connectorsToShow}
+          search={handleConnectorsSearch}
+          selectedCluster={selectedConnector}
+          refetchConnectors={fetchAndSetConnectors}
+          onClusterAddSuccess={cluster => {
+            const updatedGatewayDetails: GatewayDetails = {
+              ...props.gatewayDetails,
+              metadata: { ...props.gatewayDetails.metadata, kubernetes_connector_id: cluster.connector?.identifier }
+            }
+            props.setGatewayDetails(updatedGatewayDetails)
+            setSelectedConnector(cluster)
+            handleConnectorsSearch('')
+            closeClusterModal()
+          }}
+        />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            handleConnectorsSearch('')
+            closeClusterModal()
+          }}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-cluster-modal'}
+        />
+      </Dialog>
+    )
+  }, [allConnectors, connectorsToShow, selectedConnector, loadingConnectors])
 
   useLayoutEffect(() => {
     const observeScrollHandler = _debounce(() => {
@@ -344,6 +440,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     const updatedGatewayDetails = { ...props.gatewayDetails, healthCheck: healthCheckPattern }
     props.setGatewayDetails(updatedGatewayDetails)
   }, [healthCheckPattern])
+
   const refreshInstances = async (): Promise<void> => {
     try {
       const result = await getInstances(
@@ -393,6 +490,61 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       showError(err.data?.message || err.message, undefined, 'ce.fetchAndSetAsgItems.error')
     }
   }
+
+  const fetchAndSetConnectors = async () => {
+    try {
+      const { data: connectorResponse } = await fetchConnectors({
+        filterType: 'Connector',
+        types: [Connectors.CE_KUBERNETES]
+      })
+      const content = connectorResponse?.content || []
+      if (!_isEmpty(content)) {
+        setAllConnectors(content)
+        setConnectorsToShow(content)
+        const prevSelectedConnector = content.find(
+          _item => _item.connector?.identifier === props.gatewayDetails.metadata.kubernetes_connector_id
+        )
+        prevSelectedConnector && setSelectedConnector(prevSelectedConnector)
+      }
+    } catch (e) {
+      showError(e.data?.message || e.message)
+    }
+  }
+
+  const updateNameInYaml = React.useCallback(
+    _debounce((_nameString: string) => {
+      // updated only in case of k8s
+      if (isK8sSelected) {
+        const yamlRuleName = yamlData?.metadata?.name
+        const updatedName = yamlRuleName && Utils.getHyphenSpacedString(_nameString)
+        if (updatedName && yamlRuleName !== updatedName) {
+          const updatedYaml = {
+            ...yamlData,
+            metadata: {
+              ...yamlData.metadata,
+              name: updatedName,
+              annotations: {
+                ...yamlData.metadata.annotations,
+                'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${orgIdentifier}-${projectIdentifier}-${updatedName}";`
+              }
+            }
+          }
+          setYamlData(updatedYaml)
+          const updatedGatewayDetails: GatewayDetails = {
+            ...props.gatewayDetails,
+            name: _nameString,
+            routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(updatedYaml) } }
+          }
+          props.setGatewayDetails(updatedGatewayDetails)
+        }
+      }
+    }, 500),
+    [isK8sSelected, yamlData]
+  )
+
+  useEffect(() => {
+    updateNameInYaml(gatewayName)
+  }, [gatewayName])
 
   const { mutate: getSecurityGroups, loading } = useSecurityGroupsOfInstances({
     org_id: orgIdentifier, // eslint-disable-line
@@ -457,14 +609,15 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
 
   function isValid(): boolean {
     return (
-      (selectedInstances.length > 0 || !_isEmpty(selectedAsg)) &&
-      routingRecords.length > 0 &&
+      (selectedInstances.length > 0 || !_isEmpty(selectedAsg) || !_isEmpty(selectedConnector)) &&
+      (selectedResource !== RESOURCES.KUBERNETES ? routingRecords.length > 0 : true) &&
       gatewayName != '' &&
       idleTime >= 5 &&
       (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true) &&
       (!_isEmpty(serviceDependencies)
         ? serviceDependencies.every(_dep => !isNaN(_dep.dep_id) && !isNaN(_dep.delay_secs))
-        : true)
+        : true) &&
+      (selectedResource === RESOURCES.KUBERNETES ? !_isEmpty(yamlData) : true)
     )
   }
 
@@ -476,29 +629,69 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     props.setGatewayDetails(updatedGatewayDetails)
   }
 
+  const resetSelectedAsgDetails = () => {
+    setRoutingRecords([])
+    setSelectedAsg(undefined)
+    const updatedGatewayDetails = { ...props.gatewayDetails }
+    delete updatedGatewayDetails.routing.instance.scale_group
+    props.setGatewayDetails(updatedGatewayDetails)
+  }
+
   const clearResourceDetailsFromGateway = (resourceType: RESOURCES) => {
     if (resourceType) {
-      const updatedGatewayDetails = { ...props.gatewayDetails }
       switch (resourceType) {
         case RESOURCES.INSTANCES:
+          // set total no. of steps to default (4)
+          if (totalStepsCount !== DEFAULT_TOTAL_STEP_COUNT) {
+            setTotalStepsCount(DEFAULT_TOTAL_STEP_COUNT)
+          }
           // remove details related to AsG
-          if (!_isEmpty(updatedGatewayDetails.routing.instance.scale_group)) {
-            setRoutingRecords([])
-            setSelectedAsg(undefined)
-            delete updatedGatewayDetails.routing.instance.scale_group
-            props.setGatewayDetails(updatedGatewayDetails)
+          if (!_isEmpty(props.gatewayDetails.routing.instance.scale_group)) {
+            resetSelectedAsgDetails()
+          }
+          if (!_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id)) {
+            resetKubernetesConnectorDetails()
           }
           break
         case RESOURCES.ASG:
+          // set total no. of steps to default (4)
+          if (totalStepsCount !== DEFAULT_TOTAL_STEP_COUNT) {
+            setTotalStepsCount(DEFAULT_TOTAL_STEP_COUNT)
+          }
           // remove details related to instances
-          if (!_isEmpty(updatedGatewayDetails.selectedInstances)) {
+          if (!_isEmpty(props.gatewayDetails.selectedInstances)) {
             resetSelectedInstancesDetails()
+          }
+          if (!_isEmpty(props.gatewayDetails.metadata.kubernetes_connector_id)) {
+            resetKubernetesConnectorDetails()
+          }
+          break
+        case RESOURCES.KUBERNETES:
+          // set total no. of steps to modified (3)
+          setTotalStepsCount(MODIFIED_TOTAL_STEP_COUNT)
+          if (!_isEmpty(props.gatewayDetails.selectedInstances)) {
+            resetSelectedInstancesDetails()
+          }
+          if (!_isEmpty(props.gatewayDetails.routing.instance.scale_group)) {
+            resetSelectedAsgDetails()
           }
           break
         default:
           return
       }
     }
+  }
+
+  const resetKubernetesConnectorDetails = () => {
+    setSelectedConnector(undefined)
+    const updatedRouting = _omit(props.gatewayDetails.routing, 'k8s')
+    const updatedMetadata = _omit(props.gatewayDetails.metadata, 'kubernetes_connector_id')
+    const updatedGatewayDetails: GatewayDetails = {
+      ...props.gatewayDetails,
+      routing: updatedRouting,
+      metadata: updatedMetadata
+    }
+    props.setGatewayDetails(updatedGatewayDetails)
   }
 
   useEffect(() => {
@@ -523,6 +716,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     if (!props.gatewayDetails.provider) return
     refreshInstances()
     isAwsProvider && fetchAndSetAsgItems()
+    isKubernetesEnabled && fetchAndSetConnectors()
   }, [props.gatewayDetails.provider])
   useEffect(() => {
     if (isValid()) {
@@ -530,7 +724,18 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     } else {
       props.setValidity(false)
     }
-  }, [selectedInstances, routingRecords, gatewayName, idleTime, fullfilment, selectedAsg, serviceDependencies])
+  }, [
+    selectedInstances,
+    routingRecords,
+    gatewayName,
+    idleTime,
+    fullfilment,
+    selectedAsg,
+    serviceDependencies,
+    yamlData,
+    selectedResource,
+    selectedConnector
+  ])
   function handleSearch(text: string): void {
     if (!text) {
       setFilteredInstances(allInstances)
@@ -637,11 +842,154 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     setHealthCheck(toggleStatus)
   }
 
-  const step4Title = isAwsProvider
-    ? `${getString('ce.co.gatewayReview.routing')}, ${getString('ce.co.gatewayConfig.healthCheck')} and ${getString(
-        'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
-      )}`
-    : `${getString('ce.co.gatewayReview.routing')} and ${getString('ce.co.gatewayConfig.healthCheck')}`
+  const step4Title =
+    selectedResource === RESOURCES.KUBERNETES
+      ? `${getString('ce.co.gatewayReview.routing')} and ${getString(
+          'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
+        )}`
+      : `${getString('ce.co.gatewayReview.routing')}, ${getString('ce.co.gatewayConfig.healthCheck')} and ${getString(
+          'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
+        )}`
+
+  const getSelectedResourceText = (resource: string) => {
+    switch (resource) {
+      case RESOURCES.INSTANCES:
+        return getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance')
+      case RESOURCES.ASG:
+        return getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg')
+      case RESOURCES.KUBERNETES:
+        return getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.kubernetes')
+      default:
+        return ''
+    }
+  }
+
+  const getSelectedResourceModalCta = (resource: string) => {
+    switch (resource) {
+      case RESOURCES.INSTANCES:
+        return `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance')}`
+      case RESOURCES.ASG:
+        return `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg')}`
+      case RESOURCES.KUBERNETES:
+        return `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.kubernetes')}`
+      default:
+        return ''
+    }
+  }
+
+  const openSelectedResourceModal = () => {
+    switch (selectedResource?.valueOf()) {
+      case RESOURCES.INSTANCES:
+        openInstancesModal()
+        break
+      case RESOURCES.ASG:
+        openAsgModal()
+        break
+      case RESOURCES.KUBERNETES:
+        openClusterModal()
+        break
+    }
+  }
+
+  /* Move to common file */
+  const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+    const data = row.original
+    const tags = data.connector?.tags || {}
+    return (
+      <Layout.Horizontal spacing="small">
+        <div>
+          <Layout.Horizontal spacing="small">
+            <div color={Color.BLACK} title={data.connector?.name}>
+              {data.connector?.name}
+            </div>
+            {tags && Object.keys(tags).length ? <TagsPopover tags={tags} /> : null}
+          </Layout.Horizontal>
+          <div title={data.connector?.identifier}>{data.connector?.identifier}</div>
+        </div>
+      </Layout.Horizontal>
+    )
+  }
+
+  const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+    const data = row.original
+
+    return data.connector ? (
+      <div>
+        <div color={Color.BLACK}>{getK8DisplaySummary(data.connector)}</div>
+      </div>
+    ) : null
+  }
+
+  const getConnectorDisplaySummaryLabel = (titleStringId: StringKeys, Element: JSX.Element): JSX.Element | string => {
+    return (
+      <div>
+        {titleStringId ? (
+          <Text inline color={Color.BLACK}>
+            <String stringID={titleStringId} />:
+          </Text>
+        ) : null}
+        {Element}
+      </div>
+    )
+  }
+
+  const displayDelegatesTagsSummary = (delegateSelectors: []): JSX.Element => {
+    return (
+      <div>
+        <Text inline color={Color.BLACK}>
+          <String stringID={'delegate.delegateTags'} />:
+        </Text>
+        <Text inline margin={{ left: 'xsmall' }} color={Color.GREY_400}>
+          {delegateSelectors?.join?.(', ')}
+        </Text>
+      </div>
+    )
+  }
+
+  const getK8DisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
+    return connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
+      ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
+      : getConnectorDisplaySummaryLabel('UrlLabel', <Text>{connector?.spec?.credential?.spec?.masterUrl}</Text>)
+  }
+
+  const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+    const data = row.original
+    return (
+      <Layout.Horizontal spacing="small">
+        <Icon name="activity" />
+        {data.activityDetails?.lastActivityTime ? <ReactTimeago date={data.activityDetails?.lastActivityTime} /> : null}
+      </Layout.Horizontal>
+    )
+  }
+  const RenderColumnLastUpdated: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
+    const data = row.original
+    return (
+      <Layout.Horizontal spacing="small">
+        {data.lastModifiedAt ? <ReactTimeago date={data.lastModifiedAt} /> : null}
+      </Layout.Horizontal>
+    )
+  }
+
+  const handleYamlSave = (_data: Record<any, any>) => {
+    setYamlData(_data)
+    const updatedGatewayDetails: GatewayDetails = {
+      ...props.gatewayDetails,
+      routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(_data) } }
+    }
+    props.setGatewayDetails(updatedGatewayDetails)
+    showSuccess(getString('ce.savedYamlSuccess'))
+  }
+
+  const isFFEnabledForResource = (flags: string[] | undefined) => {
+    let enableStatus = true
+    if (!flags || _isEmpty(flags)) return enableStatus
+    flags.forEach(_flag => {
+      if (!featureFlagsMap[_flag]) {
+        enableStatus = false
+      }
+    })
+    return enableStatus
+  }
 
   return (
     <Layout.Vertical ref={configContEl} className={css.page}>
@@ -682,7 +1030,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             count={1}
             title={getString('ce.co.autoStoppingRule.configuration.step1.title')}
             subTitle={getString('ce.co.autoStoppingRule.configuration.step1.subTitle')}
-            totalStepsCount={4}
+            totalStepsCount={totalStepsCount}
             id={CONFIG_STEP_IDS[0]}
           >
             <Layout.Horizontal>
@@ -752,7 +1100,13 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   </FormikForm>
                 )}
                 validationSchema={Yup.object().shape({
-                  gatewayName: Yup.string().trim().required('Rule Name is required field'),
+                  gatewayName: Yup.string()
+                    .trim()
+                    .required('Rule Name is required field')
+                    .matches(
+                      isK8sSelected ? /[a-z0-9]([-a-z0-9]*[a-z0-9])?/ : /.*/,
+                      'Name should not contain special characters'
+                    ),
                   idleTime: Yup.number().typeError('Idle time must be a number').required('Idle Time is required field')
                 })}
               ></Formik>
@@ -764,7 +1118,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
             title={getString('ce.co.autoStoppingRule.configuration.step2.title')}
             onInfoIconClick={() => setDrawerOpen(true)}
             subTitle={getString('ce.co.autoStoppingRule.configuration.step2.subTitle')}
-            totalStepsCount={4}
+            totalStepsCount={totalStepsCount}
             id={CONFIG_STEP_IDS[1]}
           >
             <Layout.Vertical className={css.step2Container}>
@@ -777,7 +1131,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                 className={css.radioGroup}
               >
                 {managedResources
-                  .filter(resource => resource.providers.includes(props.gatewayDetails.provider.value))
+                  .filter(
+                    resource =>
+                      resource.providers.includes(props.gatewayDetails.provider.value) &&
+                      isFFEnabledForResource(resource.ffDependencies)
+                  )
                   .map(resourceItem => {
                     return <Radio key={resourceItem.value} label={resourceItem.label} value={resourceItem.value} />
                   })}
@@ -785,17 +1143,10 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
               {!_isEmpty(selectedResource) && (
                 <Layout.Vertical style={{ marginBottom: 20 }}>
                   <Text style={{ fontSize: 14, color: '#9293AB', marginBottom: 10 }}>
-                    {selectedResource?.valueOf() === RESOURCES.INSTANCES
-                      ? getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.instance')
-                      : getString('ce.co.autoStoppingRule.configuration.step2.additionalResourceInfo.asg')}
+                    {getSelectedResourceText(selectedResource?.valueOf() as string)}
                   </Text>
-                  <Text
-                    style={{ cursor: 'pointer', color: '#0278D5' }}
-                    onClick={selectedResource?.valueOf() === RESOURCES.INSTANCES ? openInstancesModal : openAsgModal}
-                  >
-                    {selectedResource?.valueOf() === RESOURCES.INSTANCES
-                      ? `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.instance')}`
-                      : `+ ${getString('ce.co.autoStoppingRule.configuration.step2.addResourceCta.asg')}`}
+                  <Text style={{ cursor: 'pointer', color: '#0278D5' }} onClick={openSelectedResourceModal}>
+                    {getSelectedResourceModalCta(selectedResource?.valueOf() as string)}
                   </Text>
                 </Layout.Vertical>
               )}
@@ -886,147 +1237,192 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                   ]}
                 />
               )}
+              {!_isEmpty(selectedConnector) && (
+                <Table<ConnectorResponse>
+                  data={[selectedConnector as ConnectorResponse]}
+                  bpTableProps={{}}
+                  columns={[
+                    {
+                      Header: getString('connector').toUpperCase(),
+                      accessor: row => row.connector?.name,
+                      id: 'name',
+                      width: '20%',
+                      Cell: RenderColumnConnector
+                    },
+                    {
+                      Header: getString('details').toUpperCase(),
+                      accessor: row => row.connector?.description,
+                      id: 'details',
+                      width: '20%',
+                      Cell: RenderColumnDetails
+                    },
+                    {
+                      Header: getString('lastActivity').toUpperCase(),
+                      accessor: 'activityDetails',
+                      id: 'activity',
+                      width: '20%',
+                      Cell: RenderColumnActivity
+                    },
+                    // {
+                    //   Header: getString('connectivityStatus').toUpperCase(),
+                    //   accessor: 'status',
+                    //   id: 'status',
+                    //   width: '15%',
+                    //   Cell: RenderColumnStatus
+                    // },
+                    {
+                      Header: getString('lastUpdated').toUpperCase(),
+                      accessor: 'lastModifiedAt',
+                      id: 'lastModifiedAt',
+                      width: '20%',
+                      Cell: RenderColumnLastUpdated
+                    }
+                  ]}
+                />
+              )}
             </Layout.Vertical>
           </COGatewayConfigStep>
-          <COGatewayConfigStep
-            count={3}
-            title={
-              selectedAsg
-                ? getString('ce.co.autoStoppingRule.configuration.step3.asgTitle')
-                : getString('ce.co.autoStoppingRule.configuration.step3.title')
-            }
-            onInfoIconClick={() => setDrawerOpen(true)}
-            subTitle={
-              selectedAsg
-                ? getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')
-                : getString('ce.co.autoStoppingRule.configuration.step3.subTitle')
-            }
-            totalStepsCount={4}
-            id={CONFIG_STEP_IDS[2]}
-          >
-            {!selectedAsg && (
-              <div>
-                <CardSelect
-                  data={instanceTypeCardData.filter(_instanceType =>
-                    _instanceType.providers?.includes(props.gatewayDetails.provider.value)
-                  )}
-                  className={css.instanceTypeViewGrid}
-                  onChange={item => {
-                    setSelectedInstanceType(item)
-                    props.gatewayDetails.fullfilment = (item as CardData).value
-                    props.setGatewayDetails(props.gatewayDetails)
-                    setFullfilment((item as CardData).value)
-                    trackEvent('SelectedInstanceType', { value: item?.value || '' })
-                  }}
-                  renderItem={(item, _) => (
-                    <Layout.Vertical spacing="large">
-                      <img src={(item as CardData).icon} alt="" aria-hidden />
-                    </Layout.Vertical>
-                  )}
-                  selected={selectedInstanceType}
-                  cornerSelected={true}
-                ></CardSelect>
-                <div className={css.instanceTypeNameGrid}>
-                  {instanceTypeCardData
-                    .filter(_instanceType => _instanceType.providers?.includes(props.gatewayDetails.provider.value))
-                    .map(_item => {
-                      return (
-                        <Text font={{ align: 'center' }} style={{ fontSize: 12 }} key={_item.text}>
-                          {_item.text}
-                        </Text>
-                      )
-                    })}
-                </div>
-              </div>
-            )}
-            {selectedAsg && (
-              <Layout.Horizontal className={css.asgInstanceSelectionContianer}>
-                <div className={css.asgInstanceDetails}>
-                  <Text className={css.asgDetailRow}>
-                    <span>Desired capacity: </span>
-                    <span>{selectedAsg.desired}</span>
-                  </Text>
-                  <Text className={css.asgDetailRow}>
-                    <span>Min capacity: </span>
-                    <span>{selectedAsg.min}</span>
-                  </Text>
-                  <Text className={css.asgDetailRow}>
-                    <span>Max capacity: </span>
-                    <span>{selectedAsg.max}</span>
-                  </Text>
-                </div>
-                <div className={css.asgInstanceFormContainer}>
-                  <Formik
-                    initialValues={{
-                      odInstance: props.gatewayDetails.routing.instance.scale_group?.on_demand || selectedAsg.desired,
-                      spotInstance: _get(props.gatewayDetails.routing.instance.scale_group, 'spot', 0)
-                    }}
-                    formName="odInstance"
-                    onSubmit={_ => {}} // eslint-disable-line
-                    render={formik => (
-                      <FormikForm>
-                        <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
-                          <Layout.Vertical className={css.instanceTypeInput}>
-                            <FormInput.Text
-                              name={'odInstance'}
-                              inputGroup={{ type: 'number', pattern: '[0-9]*' }}
-                              label={
-                                <Layout.Horizontal>
-                                  <img src={odIcon} />
-                                  <Text>On-Demand</Text>
-                                </Layout.Horizontal>
-                              }
-                              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                handleAsgInstancesChange(formik, e.target.value, 'OD')
-                              }
-                            />
-                          </Layout.Vertical>
-                          <Layout.Vertical className={css.instanceTypeInput}>
-                            <FormInput.Text
-                              name={'spotInstance'}
-                              inputGroup={{ type: 'number', pattern: '[0-9]*' }}
-                              disabled={!selectedAsg?.mixed_instance}
-                              helperText={
-                                !selectedAsg?.mixed_instance &&
-                                getString('ce.co.autoStoppingRule.configuration.step3.policyNotEnabled')
-                              }
-                              label={
-                                <Layout.Horizontal>
-                                  <img src={spotIcon} />
-                                  <Text>Spot</Text>
-                                </Layout.Horizontal>
-                              }
-                              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                                handleAsgInstancesChange(formik, e.target.value, 'SPOT')
-                              }
-                            />
-                          </Layout.Vertical>
-                        </Layout.Horizontal>
-                      </FormikForm>
+          {selectedResource !== RESOURCES.KUBERNETES && (
+            <COGatewayConfigStep
+              count={3}
+              title={
+                selectedAsg
+                  ? getString('ce.co.autoStoppingRule.configuration.step3.asgTitle')
+                  : getString('ce.co.autoStoppingRule.configuration.step3.title')
+              }
+              onInfoIconClick={() => setDrawerOpen(true)}
+              subTitle={
+                selectedAsg
+                  ? getString('ce.co.autoStoppingRule.configuration.step3.asgSubTitle')
+                  : getString('ce.co.autoStoppingRule.configuration.step3.subTitle')
+              }
+              totalStepsCount={totalStepsCount}
+              id={CONFIG_STEP_IDS[2]}
+            >
+              {!selectedAsg && (
+                <Layout.Vertical>
+                  <CardSelect
+                    data={instanceTypeCardData.filter(_instanceType =>
+                      _instanceType.providers?.includes(props.gatewayDetails.provider.value)
                     )}
-                    validationSchema={Yup.object().shape({
-                      odInstance: Yup.number()
-                        .required()
-                        .positive()
-                        .min(0)
-                        .max(selectedAsg.max as number),
-                      spotInstance: Yup.number()
-                        .positive()
-                        .min(0)
-                        .max(selectedAsg.max as number)
-                    })}
-                  ></Formik>
-                </div>
-              </Layout.Horizontal>
-            )}
-          </COGatewayConfigStep>
+                    className={css.instanceTypeViewGrid}
+                    onChange={item => {
+                      setSelectedInstanceType(item)
+                      props.gatewayDetails.fullfilment = (item as CardData).value
+                      props.setGatewayDetails(props.gatewayDetails)
+                      setFullfilment((item as CardData).value)
+                      trackEvent('SelectedInstanceType', { value: item?.value || '' })
+                    }}
+                    renderItem={(item, _) => (
+                      <Layout.Vertical spacing="large">
+                        <img src={(item as CardData).icon} alt="" aria-hidden />
+                      </Layout.Vertical>
+                    )}
+                    selected={selectedInstanceType}
+                    cornerSelected={true}
+                  ></CardSelect>
+                  <Layout.Horizontal spacing="small" className={css.instanceTypeNameGrid}>
+                    {instanceTypeCardData
+                      .filter(_instanceType => _instanceType.providers?.includes(props.gatewayDetails.provider.value))
+                      .map(_item => {
+                        return (
+                          <Text font={{ align: 'center' }} style={{ fontSize: 12 }} key={_item.text}>
+                            {_item.text}
+                          </Text>
+                        )
+                      })}
+                  </Layout.Horizontal>
+                </Layout.Vertical>
+              )}
+              {selectedAsg && (
+                <Layout.Horizontal className={css.asgInstanceSelectionContianer}>
+                  <div className={css.asgInstanceDetails}>
+                    <Text className={css.asgDetailRow}>
+                      <span>Desired capacity: </span>
+                      <span>{selectedAsg.desired}</span>
+                    </Text>
+                    <Text className={css.asgDetailRow}>
+                      <span>Min capacity: </span>
+                      <span>{selectedAsg.min}</span>
+                    </Text>
+                    <Text className={css.asgDetailRow}>
+                      <span>Max capacity: </span>
+                      <span>{selectedAsg.max}</span>
+                    </Text>
+                  </div>
+                  <div className={css.asgInstanceFormContainer}>
+                    <Formik
+                      initialValues={{
+                        odInstance: props.gatewayDetails.routing.instance.scale_group?.on_demand || selectedAsg.desired,
+                        spotInstance: _get(props.gatewayDetails.routing.instance.scale_group, 'spot', 0)
+                      }}
+                      formName="odInstance"
+                      onSubmit={_ => {}} // eslint-disable-line
+                      render={formik => (
+                        <FormikForm>
+                          <Layout.Horizontal style={{ justifyContent: 'space-between' }}>
+                            <Layout.Vertical className={css.instanceTypeInput}>
+                              <FormInput.Text
+                                name={'odInstance'}
+                                inputGroup={{ type: 'number', pattern: '[0-9]*' }}
+                                label={
+                                  <Layout.Horizontal>
+                                    <img src={odIcon} />
+                                    <Text>On-Demand</Text>
+                                  </Layout.Horizontal>
+                                }
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                  handleAsgInstancesChange(formik, e.target.value, 'OD')
+                                }
+                              />
+                            </Layout.Vertical>
+                            <Layout.Vertical className={css.instanceTypeInput}>
+                              <FormInput.Text
+                                name={'spotInstance'}
+                                inputGroup={{ type: 'number', pattern: '[0-9]*' }}
+                                disabled={!selectedAsg?.mixed_instance}
+                                helperText={
+                                  !selectedAsg?.mixed_instance &&
+                                  getString('ce.co.autoStoppingRule.configuration.step3.policyNotEnabled')
+                                }
+                                label={
+                                  <Layout.Horizontal>
+                                    <img src={spotIcon} />
+                                    <Text>Spot</Text>
+                                  </Layout.Horizontal>
+                                }
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                                  handleAsgInstancesChange(formik, e.target.value, 'SPOT')
+                                }
+                              />
+                            </Layout.Vertical>
+                          </Layout.Horizontal>
+                        </FormikForm>
+                      )}
+                      validationSchema={Yup.object().shape({
+                        odInstance: Yup.number()
+                          .required()
+                          .positive()
+                          .min(0)
+                          .max(selectedAsg.max as number),
+                        spotInstance: Yup.number()
+                          .positive()
+                          .min(0)
+                          .max(selectedAsg.max as number)
+                      })}
+                    ></Formik>
+                  </div>
+                </Layout.Horizontal>
+              )}
+            </COGatewayConfigStep>
+          )}
           <COGatewayConfigStep
-            count={4}
+            count={isK8sSelected ? MODIFIED_TOTAL_STEP_COUNT : DEFAULT_TOTAL_STEP_COUNT}
             title={`${getString('ce.co.autoStoppingRule.configuration.step4.setup')} ${step4Title}`}
-            totalStepsCount={4}
+            totalStepsCount={totalStepsCount}
             id={CONFIG_STEP_IDS[3]}
           >
-            {selectedInstances.length || !_isEmpty(selectedAsg) ? (
+            {selectedInstances.length || !_isEmpty(selectedAsg) || !_isEmpty(selectedConnector) ? (
               <Container style={{ justifyContent: 'center', maxWidth: '947px' }}>
                 <Container className={css.configTab}>
                   <Tabs
@@ -1039,59 +1435,80 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       title="Routing"
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB' }}>
-                          <Layout.Vertical spacing="large">
-                            {!selectedAsg && loading ? (
-                              <Icon
-                                name="spinner"
-                                size={24}
-                                color="blue500"
-                                style={{ alignSelf: 'center', marginTop: '10px' }}
-                              />
-                            ) : (
-                              <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
-                            )}
-                            <Container className={css.rowItem}>
-                              <Text
-                                onClick={() => {
-                                  addPort()
-                                }}
-                              >
-                                {getString('ce.co.gatewayConfig.addPortLabel')}
-                              </Text>
-                            </Container>
-                          </Layout.Vertical>
-                        </Container>
-                      }
-                    />
-                    <Tab
-                      id="healthcheck"
-                      title="Health check"
-                      panel={
-                        <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
-                          <Layout.Vertical spacing="large" padding="large">
-                            <Switch
-                              label={getString('ce.co.gatewayConfig.healthCheck')}
-                              className={css.switchFont}
-                              onChange={e => {
-                                handleHealthCheckToggle(e.currentTarget.checked)
-                              }}
-                              checked={healthCheck}
+                          {!isK8sSelected && (
+                            <Layout.Vertical spacing="large">
+                              {!selectedAsg && loading ? (
+                                <Icon
+                                  name="spinner"
+                                  size={24}
+                                  color="blue500"
+                                  style={{ alignSelf: 'center', marginTop: '10px' }}
+                                />
+                              ) : (
+                                <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
+                              )}
+                              <Container className={css.rowItem}>
+                                <Text
+                                  onClick={() => {
+                                    addPort()
+                                  }}
+                                >
+                                  {getString('ce.co.gatewayConfig.addPortLabel')}
+                                </Text>
+                              </Container>
+                            </Layout.Vertical>
+                          )}
+                          {isK8sSelected && (
+                            <KubernetesRuleYamlEditor
+                              existingData={
+                                yamlData ||
+                                getK8sIngressTemplate({
+                                  name: props.gatewayDetails.name,
+                                  idleTime: props.gatewayDetails.idleTimeMins,
+                                  cloudConnectorId: props.gatewayDetails.cloudAccount.id,
+                                  orgId: orgIdentifier,
+                                  projectId: projectIdentifier
+                                })
+                              }
+                              handleSave={handleYamlSave}
                             />
-                            {healthCheck ? (
-                              <COHealthCheckTable pattern={healthCheckPattern} updatePattern={setHealthCheckPattern} />
-                            ) : null}
-                          </Layout.Vertical>
+                          )}
                         </Container>
                       }
                     />
-                    {isAwsProvider && (
+                    {selectedResource !== RESOURCES.KUBERNETES && (
                       <Tab
-                        id="advanced"
-                        title="Advanced Configuration"
+                        id="healthcheck"
+                        title="Health check"
                         panel={
-                          <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
-                            <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
-                              {/* <Switch
+                          <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
+                            <Layout.Vertical spacing="large" padding="large">
+                              <Switch
+                                label={getString('ce.co.gatewayConfig.healthCheck')}
+                                className={css.switchFont}
+                                onChange={e => {
+                                  handleHealthCheckToggle(e.currentTarget.checked)
+                                }}
+                                checked={healthCheck}
+                              />
+                              {healthCheck && (
+                                <COHealthCheckTable
+                                  pattern={healthCheckPattern}
+                                  updatePattern={setHealthCheckPattern}
+                                />
+                              )}
+                            </Layout.Vertical>
+                          </Container>
+                        }
+                      />
+                    )}
+                    <Tab
+                      id="advanced"
+                      title="Advanced Configuration"
+                      panel={
+                        <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                          <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
+                            {/* <Switch
                               label={getString('ce.co.gatewayConfig.allowTraffic')}
                               width="50%"
                               className={css.switchFont}
@@ -1113,29 +1530,28 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                 props.setGatewayDetails(props.gatewayDetails)
                               }}
                             /> */}
-                              {serviceDependencies && serviceDependencies.length ? (
-                                <CORuleDendencySelector
-                                  deps={serviceDependencies}
-                                  setDeps={setServiceDependencies}
-                                  service_id={props.gatewayDetails.id}
-                                  allServices={data?.response as Service[]}
-                                ></CORuleDendencySelector>
-                              ) : null}
-                              <Container>
-                                <Text
-                                  onClick={() => {
-                                    addDependency()
-                                  }}
-                                  style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
-                                >
-                                  {'+ add dependency'}
-                                </Text>
-                              </Container>
-                            </Layout.Vertical>
-                          </Container>
-                        }
-                      />
-                    )}
+                            {serviceDependencies && serviceDependencies.length ? (
+                              <CORuleDendencySelector
+                                deps={serviceDependencies}
+                                setDeps={setServiceDependencies}
+                                service_id={props.gatewayDetails.id}
+                                allServices={servicesData?.response as Service[]}
+                              ></CORuleDendencySelector>
+                            ) : null}
+                            <Container>
+                              <Text
+                                onClick={() => {
+                                  addDependency()
+                                }}
+                                style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
+                              >
+                                {'+ add dependency'}
+                              </Text>
+                            </Container>
+                          </Layout.Vertical>
+                        </Container>
+                      }
+                    />
                   </Tabs>
                 </Container>
               </Container>

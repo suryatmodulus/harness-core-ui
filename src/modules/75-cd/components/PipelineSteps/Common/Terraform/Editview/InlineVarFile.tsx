@@ -42,6 +42,7 @@ const InlineVarFile = (props: InlineVarFileProps) => {
   return (
     <Dialog
       isOpen={true}
+      enforceFocus={false}
       title="Add Inline Terraform Var File"
       isCloseButtonShown
       onClose={onClose}

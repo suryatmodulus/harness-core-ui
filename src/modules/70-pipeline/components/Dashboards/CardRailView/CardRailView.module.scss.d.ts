@@ -10,5 +10,6 @@ declare const styles: {
   readonly emptyViewItem: string
   readonly emptyViewCard: string
   readonly showMoreLink: string
+  readonly pendingBuildIcon: string
 }
 export default styles

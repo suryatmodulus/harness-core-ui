@@ -1,19 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import cx from 'classnames'
-import { ExpandingSearchInput, Icon, Text } from '@wings-software/uicore'
+import { ExpandingSearchInput, ExpandingSearchInputHandle, Icon, Text } from '@wings-software/uicore'
 import type { GroupedVirtuosoHandle, VirtuosoHandle } from 'react-virtuoso'
 
 import { String } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useStrings } from 'framework/strings'
+import { useGlobalEventListener } from '@common/hooks'
 
 import { useLogsContent } from './useLogsContent'
 import { GroupedLogsWithRef as GroupedLogs } from './components/GroupedLogs'
 import { SingleSectionLogsWithRef as SingleSectionLogs } from './components/SingleSectionLogs'
 import css from './LogsContent.module.scss'
-
-// const worker = new Worker(new URL('./logparser.worker', import.meta.url))
 
 export interface LogsContentProps {
   mode: 'step-details' | 'console-view'
@@ -24,17 +23,12 @@ export interface LogsContentProps {
 
 export function LogsContent(props: LogsContentProps): React.ReactElement {
   const { mode, toConsoleView = '', errorMessage, isWarning } = props
-  const {
-    pipelineStagesMap,
-    selectedStageId,
-    allNodeMap,
-    selectedStepId,
-    pipelineExecutionDetail,
-    queryParams
-  } = useExecutionContext()
+  const { pipelineStagesMap, selectedStageId, allNodeMap, selectedStepId, pipelineExecutionDetail, queryParams } =
+    useExecutionContext()
   const { state, actions } = useLogsContent()
   const { getString } = useStrings()
   const { linesWithResults, currentIndex } = state.searchData
+  const searchRef = React.useRef<ExpandingSearchInputHandle>()
 
   const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
 
@@ -70,13 +64,41 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex])
 
+  function handleKeyDown(e: React.KeyboardEvent<HTMLElement>): void {
+    if (e.key === 'ArrowUp') {
+      e.preventDefault()
+      actions.goToPrevSearchResult()
+    } else if (e.key === 'ArrowDown') {
+      e.preventDefault()
+      actions.goToNextSearchResult()
+    }
+  }
+
+  useGlobalEventListener('keydown', e => {
+    const isMetaKey = navigator.userAgent.includes('Mac') ? e.metaKey : e.ctrlKey
+
+    if (e.key === 'f' && isMetaKey && searchRef.current) {
+      e.preventDefault()
+      searchRef.current.focus()
+    }
+  })
+
+  function handleSearchChange(term: string): void {
+    if (term) {
+      actions.search(term)
+    } else {
+      actions.resetSearch()
+    }
+  }
+
   return (
     <div className={cx(css.main, { [css.hasErrorMessage]: !!errorMessage })} data-mode={mode}>
       <div className={css.header}>
         <String tagName="div" stringID={mode === 'console-view' ? 'execution.consoleLogs' : 'execution.stepLogs'} />
-        <div className={css.rhs}>
+        <div className={css.rhs} onKeyDown={handleKeyDown}>
           <ExpandingSearchInput
-            onChange={actions.search}
+            onChange={handleSearchChange}
+            ref={searchRef}
             showPrevNextButtons
             flip
             className={css.search}

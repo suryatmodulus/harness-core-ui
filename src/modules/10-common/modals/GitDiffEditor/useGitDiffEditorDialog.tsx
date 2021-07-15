@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import { omit } from 'lodash-es'
-import { stringify, parse } from 'yaml'
+import { parse } from 'yaml'
 import {
   useModalHook,
   Button,
@@ -20,6 +20,7 @@ import { EntityGitDetails, useGetFileContent } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { sanitize } from '@common/utils/JSONUtils'
 
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import css from './useGitDiffEditorDialog.module.scss'
 
 export interface UseGitDiffEditorDialogProps<T> {
@@ -47,6 +48,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   const [remoteVersion, setRemoteVersion] = useState<string>('')
   const defaultModalProps: IDialogProps = {
     isOpen: true,
+    enforceFocus: false,
     style: {
       minWidth: 500,
       minHeight: 170,
@@ -63,7 +65,12 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
     projectIdentifier,
     orgIdentifier
   }
-  const { data, loading, refetch: fetchRemoteFileContent, error } = useGetFileContent({
+  const {
+    data,
+    loading,
+    refetch: fetchRemoteFileContent,
+    error
+  } = useGetFileContent({
     queryParams: {
       ...commonParams,
       yamlGitConfigIdentifier: '',
@@ -76,7 +83,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   React.useEffect(() => {
     try {
       if (data?.data?.content) {
-        setRemoteVersion(stringify(sanitize(parse(data.data.content)), FORMATTING_OPTIONS))
+        setRemoteVersion(yamlStringify(sanitize(parse(data.data.content)), FORMATTING_OPTIONS))
       }
     } catch (e) {
       //ignore error
@@ -86,8 +93,9 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
   React.useEffect(() => {
     if (showGitDiff) {
       const { isOpen, style } = defaultModalProps
-      const expandedModalProps = {
+      const expandedModalProps: IDialogProps = {
         isOpen,
+        enforceFocus: false,
         style: Object.assign(omit(style, 'minHeight'), { width: 'calc(100vw - 100px)', height: 'calc(100vh - 100px)' })
       }
       setModalProps(expandedModalProps)
@@ -162,7 +170,7 @@ export function useGitDiffEditorDialog<T>(props: UseGitDiffEditorDialogProps<T>)
         }
       })
       try {
-        setEntityAsYaml(stringify(sanitize(_entity), FORMATTING_OPTIONS))
+        setEntityAsYaml(yamlStringify(sanitize(_entity), FORMATTING_OPTIONS))
       } catch (e) {
         //ignore error
       }

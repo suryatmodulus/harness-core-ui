@@ -81,7 +81,7 @@ export default function OptionalConfiguration(props: {
                       />
                       <Button
                         minimal
-                        icon="trash"
+                        icon="main-trash"
                         data-testid={`remove-header-${i}`}
                         onClick={() => remove(i)}
                         disabled={readonly}
@@ -137,7 +137,7 @@ export default function OptionalConfiguration(props: {
                         />
                         <Button
                           minimal
-                          icon="trash"
+                          icon="main-trash"
                           data-testid={`remove-response-mapping-${i}`}
                           onClick={() => remove(i)}
                           disabled={readonly}

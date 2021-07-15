@@ -28,6 +28,7 @@ export const useOrganizationModal = ({ onSuccess }: UseOrganizationModalArgs): U
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           setView(Views.CREATE)
           hideModal()

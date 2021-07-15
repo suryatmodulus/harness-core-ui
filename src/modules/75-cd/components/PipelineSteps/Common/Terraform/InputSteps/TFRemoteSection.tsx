@@ -12,7 +12,6 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
-import { Connectors } from '@connectors/constants'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 
 import type { TerraformData, TerraformProps } from '../TerraformInterfaces'
@@ -40,7 +39,9 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
   return (
     <>
       <Container flex width={120}>
-        <Text font={{ weight: 'bold' }}>{getString('cd.varFile')}:</Text>
+        <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
+          {getString('cd.varFile')}:
+        </Text>
         {remoteVar?.varFile?.identifier}
       </Container>
 
@@ -55,12 +56,13 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
           multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={400}
-          type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
+          width={445}
+          type={[remoteVar?.varFile?.spec?.store?.type]}
           name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.connectorRef`}
           label={getString('connector')}
           placeholder={getString('select')}
           disabled={readonly}
+          setRefValue
           gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
         />
       )}
@@ -90,12 +92,15 @@ export default function TFRemoteSection<T extends TerraformData = TerraformData>
         </div>
       )}
       {getMultiTypeFromValue(remoteVar?.varFile?.spec?.store?.spec?.paths) === MultiTypeInputType.RUNTIME && (
-        <List
-          label={getString('filePaths')}
-          name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.paths`}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <List
+            label={getString('filePaths')}
+            name={`${path}.spec.configuration.spec.varFiles[${index}].varFile.spec.store.spec.paths`}
+            disabled={readonly}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            isNameOfArrayType
+          />
+        </div>
       )}
     </>
   )

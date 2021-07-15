@@ -171,6 +171,7 @@ export const pendingUserMock: ResponsePageInvite = {
         id: 'id1',
         name: 'Admin_123_123',
         email: 'admin@harness.io',
+        accountIdentifier: 'testAcc',
         roleBindings: [
           {
             roleIdentifier: '_account_viewer',
@@ -187,6 +188,7 @@ export const pendingUserMock: ResponsePageInvite = {
         id: 'id2',
         name: 'default',
         email: 'default@harness.io',
+        accountIdentifier: 'testAcc',
         roleBindings: [
           {
             roleIdentifier: 'New_Role',
@@ -209,7 +211,7 @@ export const activeUserMock: ResponsePageUserAggregate = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,
-    totalItems: 1,
+    totalItems: 2,
     pageItemCount: 1,
     pageSize: 10,
     content: [
@@ -217,7 +219,36 @@ export const activeUserMock: ResponsePageUserAggregate = {
         user: {
           name: 'abc',
           email: 'abc@harness.io',
-          uuid: '123'
+          uuid: '123',
+          locked: false
+        },
+        roleAssignmentMetadata: [
+          {
+            identifier: 'role_assignment_vawmAV0YuQ9HlxmljpAu',
+            roleIdentifier: '_account_admin',
+            roleName: 'Account Admin',
+            resourceGroupIdentifier: '_all_resources',
+            resourceGroupName: 'All Resources',
+            managedRole: true,
+            managedRoleAssignment: false
+          },
+          {
+            identifier: 'role_assignment_obm6QvdxtfqrlDzug31t',
+            roleIdentifier: '_account_viewer',
+            roleName: 'Account Viewer',
+            resourceGroupIdentifier: '_all_resources',
+            resourceGroupName: 'All Resources',
+            managedRole: true,
+            managedRoleAssignment: true
+          }
+        ]
+      },
+      {
+        user: {
+          name: 'abc2',
+          email: 'abc2@harness.io',
+          uuid: 'locked',
+          locked: true
         },
         roleAssignmentMetadata: [
           {

@@ -153,7 +153,7 @@ export const TFVarStore: React.FC<StepProps<any> & TFVarStoreProps> = ({ nextSte
                   /* istanbul ignore next */
                   onClick={() => {
                     /* istanbul ignore next */
-                    nextStep?.(formik.values)
+                    nextStep?.({ ...formik.values, selectedType })
                   }}
                   className={css.saveBtn}
                   disabled={

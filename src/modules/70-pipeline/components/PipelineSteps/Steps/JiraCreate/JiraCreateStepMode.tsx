@@ -80,9 +80,8 @@ const FormContent = ({
 }: JiraCreateFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
@@ -202,6 +201,7 @@ const FormContent = ({
     return (
       <Dialog
         className={css.addFieldsModal}
+        enforceFocus={false}
         isOpen
         onClose={hideDynamicFieldsModal}
         title={getString('pipeline.jiraCreateStep.addFields')}
@@ -530,7 +530,7 @@ const FormContent = ({
                             />
                             <Button
                               minimal
-                              icon="trash"
+                              icon="main-trash"
                               disabled={isApprovalStepFieldDisabled(readonly)}
                               data-testid={`remove-fieldList-${i}`}
                               onClick={() => remove(i)}
@@ -581,9 +581,8 @@ const FormContent = ({
 function JiraCreateStepMode(props: JiraCreateStepModeProps, formikRef: StepFormikFowardRef<JiraCreateData>) {
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,

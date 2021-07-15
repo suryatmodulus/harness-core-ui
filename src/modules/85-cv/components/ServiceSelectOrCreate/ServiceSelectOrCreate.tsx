@@ -69,7 +69,7 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
       autoFocus
       canEscapeKeyClose
       canOutsideClickClose
-      enforceFocus
+      enforceFocus={false}
       onClose={hideModal}
       style={{ width: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }}
     >

@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react'
-import { Text, Layout, Button, Popover, Avatar } from '@wings-software/uicore'
+import { Text, Layout, Button, Popover, Avatar, Color, Icon } from '@wings-software/uicore'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position, Menu } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
@@ -9,7 +9,8 @@ import {
   useGetAggregatedUsers,
   UserGroupDTO,
   UserMetadataDTO,
-  RoleAssignmentMetadataDTO
+  RoleAssignmentMetadataDTO,
+  useUnlockUser
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
@@ -36,7 +37,9 @@ interface ActiveUserListViewProps {
 }
 
 const RenderColumnUser: Renderer<CellProps<UserAggregate>> = ({ row }) => {
-  const data = row.original
+  const data = row.original.user
+  const { getString } = useStrings()
+
   return (
     <Layout.Horizontal
       spacing="small"
@@ -44,8 +47,29 @@ const RenderColumnUser: Renderer<CellProps<UserAggregate>> = ({ row }) => {
       flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
       padding={{ right: 'small' }}
     >
-      <Avatar name={data.user.name || data.user?.email} email={data.user?.email} hoverCard={false} />
-      <Text lineClamp={1}>{data.user?.name}</Text>
+      {data.locked ? (
+        <Icon
+          name="lock"
+          border
+          className={css.lockIcon}
+          width={32}
+          height={32}
+          color={Color.WHITE}
+          background={Color.GREY_300}
+          flex={{ align: 'center-center' }}
+          margin={{ left: 'xsmall', right: 'xsmall' }}
+        />
+      ) : (
+        <Avatar name={data.name || data.email} email={data.email} hoverCard={false} />
+      )}
+      <Layout.Vertical width={'100%'}>
+        <Text lineClamp={1}>{data.name}</Text>
+        {data.locked ? (
+          <Text font={'small'} color={Color.GREY_400}>
+            {getString('rbac.usersPage.lockedOutLabel')}
+          </Text>
+        ) : null}
+      </Layout.Vertical>
     </Layout.Horizontal>
   )
 }
@@ -106,8 +130,16 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
       projectIdentifier
     }
   })
+  const { mutate: unlockUser } = useUnlockUser({
+    userId: data.uuid,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
 
-  const { openDialog } = useConfirmationDialog({
+  const { openDialog: openDeleteDialog } = useConfirmationDialog({
     contentText: getString('rbac.usersPage.deleteConfirmation', { name: data?.name }),
     titleText: getString('rbac.usersPage.deleteTitle'),
     confirmButtonText: getString('delete'),
@@ -117,6 +149,24 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
         try {
           const deleted = await deleteUser(data.uuid)
           deleted && showSuccess(getString('rbac.usersPage.deleteSuccessMessage', { name: data?.name }))
+          ;(column as any).refetchActiveUsers?.()
+        } catch (err) {
+          showError(err?.data?.message || err?.message)
+        }
+      }
+    }
+  })
+
+  const { openDialog: openUnlockDialog } = useConfirmationDialog({
+    contentText: getString('rbac.usersPage.unlockConfirmation', { name: data?.name }),
+    titleText: getString('rbac.usersPage.unlockTitle'),
+    confirmButtonText: getString('confirm'),
+    cancelButtonText: getString('cancel'),
+    onCloseDialog: async didConfirm => {
+      if (didConfirm && data) {
+        try {
+          const unlocked = await unlockUser()
+          unlocked && showSuccess(getString('rbac.usersPage.unlockSuccessMessage', { name: data?.name }))
           ;(column as any).refetchActiveUsers?.()
         } catch (err) {
           showError(err?.data?.message || err?.message)
@@ -136,12 +186,6 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
       resourceIdentifier: data.uuid
     },
     permission: PermissionIdentifier.MANAGE_USER
-  }
-
-  const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
-    e.stopPropagation()
-    setMenuOpen(false)
-    openDialog()
   }
 
   return (
@@ -165,7 +209,28 @@ const RenderColumnMenu: Renderer<CellProps<UserAggregate>> = ({ row, column }) =
           }}
         />
         <Menu>
-          <RbacMenuItem icon="trash" text={getString('delete')} onClick={handleDelete} permission={permissionRequest} />
+          {data.locked ? (
+            <RbacMenuItem
+              icon="unlock"
+              text={getString('rbac.usersPage.unlockTitle')}
+              onClick={e => {
+                e.stopPropagation()
+                setMenuOpen(false)
+                openUnlockDialog()
+              }}
+              permission={permissionRequest}
+            />
+          ) : null}
+          <RbacMenuItem
+            icon="trash"
+            text={getString('delete')}
+            onClick={e => {
+              e.stopPropagation()
+              setMenuOpen(false)
+              openDeleteDialog()
+            }}
+            permission={permissionRequest}
+          />
         </Menu>
       </Popover>
     </Layout.Horizontal>
@@ -248,7 +313,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
               message: getString('rbac.usersPage.noDataDescription'),
               button: (
                 <RbacButton
-                  text={getString('newUser')}
+                  text={getString('rbac.user')}
                   intent="primary"
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}

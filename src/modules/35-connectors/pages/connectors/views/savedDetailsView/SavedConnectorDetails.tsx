@@ -334,14 +334,6 @@ const getAwsKmsSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
       value: data.credential?.type
     },
     {
-      label: 'connectors.awsKms.accessKeyLabel',
-      value: data.credential?.spec?.accessKey
-    },
-    {
-      label: 'connectors.awsKms.arnLabel',
-      value: data.kmsArn
-    },
-    {
       label: 'regionLabel',
       value: data.region
     },

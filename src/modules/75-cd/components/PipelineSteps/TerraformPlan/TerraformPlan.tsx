@@ -188,18 +188,9 @@ function TerraformPlanWidget(
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormMultiTypeConnectorField
-                  label={
-                    <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
-                      {getString('connectors.title.secretManager')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('connectors.title.secretManager')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
+                  label={getString('connectors.title.secretManager')}
                   category={'SECRET_MANAGER'}
+                  setRefValue
                   width={280}
                   name="spec.configuration.secretManagerRef"
                   placeholder={getString('select')}
@@ -356,6 +347,7 @@ function TerraformPlanWidget(
             {showModal && (
               <Dialog
                 onClose={() => setShowModal(false)}
+                enforceFocus={false}
                 className={cx(Classes.DIALOG, 'padded-dialog')}
                 {...modalProps}
                 title={getString('pipelineSteps.configFiles')}
@@ -375,7 +367,9 @@ function TerraformPlanWidget(
                     }
 
                     const valObj = cloneDeep(formik.values)
+                    configObject.store.type = configObject?.store?.spec?.connectorRef?.connector?.type || 'Git'
                     set(valObj, 'spec.configuration.configFiles', { ...configObject })
+
                     formik.setValues(valObj)
 
                     setShowModal(false)
@@ -475,7 +469,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
         ...data.spec,
         configuration: {
           ...data.spec?.configuration,
-          secretManagerRef: data.spec?.configuration.secretManagerRef || '',
+          secretManagerRef: data.spec?.configuration?.secretManagerRef || '',
           configFiles: data.spec?.configuration?.configFiles || {},
           command: data.spec?.configuration?.command || 'Apply',
           targets: !isTargetRunTime
@@ -510,8 +504,8 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
         <TerraformInputStep
-          initialValues={initialValues}
-          onUpdate={onUpdate}
+          initialValues={this.getInitialValues(initialValues)}
+          onUpdate={data => onUpdate?.(this.processFormData(data))}
           stepViewType={stepViewType}
           readonly={inputSetData?.readonly}
           inputSetData={inputSetData}

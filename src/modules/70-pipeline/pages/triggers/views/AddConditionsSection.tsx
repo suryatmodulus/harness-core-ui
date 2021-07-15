@@ -97,7 +97,7 @@ export const AddConditionsSection: React.FC<AddConditionsSectionPropsInterface> 
                   data-name="main-delete"
                   size={14}
                   color={Color.GREY_500}
-                  name="main-delete"
+                  name="main-trash"
                   onClick={() => {
                     const newAddConditions = [...addConditions]
                     newAddConditions.splice(index, 1)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Color, Card, Avatar } from '@wings-software/uicore'
+import { Text, Layout, Color, Card, Avatar, Icon } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { useGetAggregatedUser } from 'services/cd-ng'
@@ -19,9 +19,8 @@ import css from './UserDetails.module.scss'
 
 const UserDetails: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module, userIdentifier } = useParams<
-    PipelineType<ProjectPathProps & UserPathProps>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, module, userIdentifier } =
+    useParams<PipelineType<ProjectPathProps & UserPathProps>>()
 
   const { data, loading, error, refetch } = useGetAggregatedUser({
     userId: userIdentifier,
@@ -67,11 +66,32 @@ const UserDetails: React.FC = () => {
               ]}
             />
             <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
-              <Avatar name={user.name || user.email} email={user.email} size="large" hoverCard={false} />
+              {user.locked ? (
+                <Icon
+                  name="lock"
+                  border
+                  className={css.lockIcon}
+                  width={72}
+                  height={72}
+                  size={32}
+                  color={Color.WHITE}
+                  background={Color.GREY_300}
+                  flex={{ align: 'center-center' }}
+                  margin={{ left: 'xsmall', right: 'xsmall' }}
+                />
+              ) : (
+                <Avatar name={user.name || user.email} email={user.email} size="large" hoverCard={false} />
+              )}
+
               <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
-                <Text color={Color.BLACK} font="medium">
-                  {user.name}
-                </Text>
+                <Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="xsmall">
+                  <Text color={Color.BLACK} font="medium">
+                    {user.name}
+                  </Text>
+                  {user.locked ? (
+                    <Text color={Color.GREY_400}>{getString('rbac.usersPage.lockedOutLabel')}</Text>
+                  ) : null}
+                </Layout.Horizontal>
                 <Text>{user.email}</Text>
               </Layout.Vertical>
             </Layout.Horizontal>

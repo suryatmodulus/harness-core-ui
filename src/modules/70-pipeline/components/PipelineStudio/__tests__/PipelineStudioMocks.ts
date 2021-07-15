@@ -111,8 +111,7 @@ export const ExecutionResponse = {
 
 export const YamlResponse = {
   status: 'SUCCESS',
-  data:
-    'execution:\n  steps:\n    - step:\n        name: "Rollout Deployment"\n        identifier: rolloutDeployment\n        type: K8sRollingDeploy\n        spec:\n          timeout: 10m\n          skipDryRun: false\n  rollbackSteps:\n    - step:\n        name: "Rollback Rollout Deployment"\n        identifier: rollbackRolloutDeployment\n        type: K8sRollingRollback\n        spec:\n          timeout: 10m',
+  data: 'execution:\n  steps:\n    - step:\n        name: "Rollout Deployment"\n        identifier: rolloutDeployment\n        type: K8sRollingDeploy\n        spec:\n          timeout: 10m\n          skipDryRun: false\n  rollbackSteps:\n    - step:\n        name: "Rollback Rollout Deployment"\n        identifier: rollbackRolloutDeployment\n        type: K8sRollingRollback\n        spec:\n          timeout: 10m',
   metaData: null,
   correlationId: '311c0c61-8164-406a-b277-5064a56cba3f'
 }

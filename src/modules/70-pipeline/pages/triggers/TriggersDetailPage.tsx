@@ -2,7 +2,7 @@ import { Button, Card, Color, Container, Icon, Layout, Switch, Text } from '@win
 import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { isEmpty } from 'lodash-es'
-import { parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 import { Page, useToaster } from '@common/exports'
 import {
   NGTriggerConfigV2,
@@ -25,6 +25,7 @@ import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useQueryParams } from '@common/hooks'
 import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { TriggerBreadcrumbs } from '../trigger-details/TriggerDetails'
 import { getTriggerIcon, getEnabledStatusTriggerValues } from './utils/TriggersListUtils'
 import { clearNullUndefined, ResponseStatus } from './utils/TriggersWizardPageUtils'
@@ -60,7 +61,11 @@ export default function TriggersDetailPage(): JSX.Element {
     }>
   >()
 
-  const { data: triggerResponse, refetch: refetchTrigger, loading: loadingTrigger } = useGetTriggerDetails({
+  const {
+    data: triggerResponse,
+    refetch: refetchTrigger,
+    loading: loadingTrigger
+  } = useGetTriggerDetails({
     triggerIdentifier,
     queryParams: {
       accountIdentifier: accountId,
@@ -216,7 +221,7 @@ export default function TriggersDetailPage(): JSX.Element {
                         }
                         try {
                           const { status, data } = await updateTrigger(
-                            stringify({ trigger: clearNullUndefined(values) }) as any
+                            yamlStringify({ trigger: clearNullUndefined(values) }) as any
                           )
                           if (status === ResponseStatus.SUCCESS) {
                             showSuccess(

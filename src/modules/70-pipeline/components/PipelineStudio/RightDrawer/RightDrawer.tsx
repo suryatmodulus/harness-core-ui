@@ -1,7 +1,7 @@
 import React, { SyntheticEvent } from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
 import { Button, Icon, Text, Color } from '@wings-software/uicore'
-import { cloneDeep, get, isEmpty, isNil, set, isArray, mergeWith } from 'lodash-es'
+import { cloneDeep, get, isEmpty, isNil, set } from 'lodash-es'
 import cx from 'classnames'
 
 import produce from 'immer'
@@ -63,7 +63,7 @@ const checkDuplicateStep = (
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
-      pipelineView: { drawerData, isDrawerOpened },
+      pipelineView: { drawerData, isDrawerOpened, isSplitViewOpen },
       pipelineView,
       selectionState: { selectedStageId, selectedStepId }
     },
@@ -143,7 +143,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    if (selectedStepId && selectedStage && !pipelineView.isDrawerOpened) {
+    if (selectedStepId && selectedStage && !pipelineView.isDrawerOpened && isSplitViewOpen) {
       let step: ExecutionWrapper | undefined
       let drawerType = DrawerTypes.StepConfig
       // 1. search for step in execution
@@ -187,7 +187,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         })
       }
     }
-  }, [selectedStepId, selectedStage])
+  }, [selectedStepId, selectedStage, isSplitViewOpen])
 
   const updateStepWithinStage = (
     execution: ExecutionElementConfig,
@@ -235,7 +235,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (item.when && item.tab === TabTypes.Advanced) node.when = item.when
         if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
         // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
-        if (Array.isArray(item.failureStrategies) && item.failureStrategies.length > 0) {
+        if (Array.isArray(item.failureStrategies)) {
           node.failureStrategies = item.failureStrategies
         }
         if (item.delegateSelectors && item.tab === TabTypes.Advanced) {
@@ -257,7 +257,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         }
 
         if (item.spec && item.tab !== TabTypes.Advanced) {
-          mergeNodeSpec(node.spec, item.spec)
+          node.spec = { ...item.spec }
         }
       })
       if (data?.stepConfig?.node?.identifier) {
@@ -304,8 +304,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   }
 
   const onServiceDependencySubmit = async (item: ExecutionWrapper): Promise<void> => {
-    if (data?.stepConfig?.addOrEdit === 'add' && selectedStageId) {
-      const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
+    const { stage: pipelineStage } = (selectedStageId && cloneDeep(getStageFromPipeline(selectedStageId))) || {}
+    if (data?.stepConfig?.addOrEdit === 'add' && pipelineStage) {
       const newServiceData = {
         identifier: item.identifier,
         name: item.name,
@@ -313,19 +313,21 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         ...(item.description && { description: item.description }),
         spec: item.spec
       }
-      addService(pipelineStage?.stage.spec.serviceDependencies, newServiceData)
-      await updateStage(pipelineStage?.stage)
+      if (!pipelineStage.stage.spec.serviceDependencies?.length) {
+        pipelineStage.stage.spec.serviceDependencies = []
+      }
+      addService(pipelineStage.stage.spec.serviceDependencies, newServiceData)
+      await updateStage(pipelineStage.stage)
       updatePipelineView({
         ...pipelineView,
         isDrawerOpened: false,
         drawerData: { type: DrawerTypes.ConfigureService }
       })
       data.stepConfig?.onUpdate?.(newServiceData)
-    } else if (data?.stepConfig?.addOrEdit === 'edit' && selectedStageId) {
-      const { stage: pipelineStage } = cloneDeep(getStageFromPipeline(selectedStageId))
+    } else if (data?.stepConfig?.addOrEdit === 'edit' && pipelineStage) {
       const node = data?.stepConfig?.node
       if (node) {
-        const serviceDependency = pipelineStage?.stage.spec.serviceDependencies.find(
+        const serviceDependency = pipelineStage.stage.spec.serviceDependencies.find(
           // NOTE: "node.identifier" is used as item.identifier may contain changed identifier
           (dep: ExecutionWrapper) => dep.identifier === node.identifier
         )
@@ -333,11 +335,11 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         if (item.identifier) serviceDependency.identifier = item.identifier
         if (item.name) serviceDependency.name = item.name
         if (item.description) serviceDependency.description = item.description
-        if (item.spec) mergeNodeSpec(serviceDependency.spec, item.spec)
+        if (item.spec) serviceDependency.spec = item.spec
         // Delete values if they were already added and now removed
         if (node.description && !item.description) delete node.description
 
-        await updateStage(pipelineStage?.stage)
+        await updateStage(pipelineStage.stage)
       }
       updatePipelineView({
         ...pipelineView,
@@ -443,6 +445,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                   identifier: generateRandomString(item.name),
                   spec: {}
                 }
+              }
+              if (pipelineStage && !pipelineStage.stage.spec) {
+                pipelineStage.stage.spec = {}
               }
               if (pipelineStage && isNil(pipelineStage.stage.spec.execution)) {
                 if (paletteData.isRollback) {
@@ -608,15 +613,4 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       )}
     </Drawer>
   )
-}
-
-function mergeNodeSpecCustomizer(oldVal: any, newVal: any): any {
-  if (isArray(oldVal) || isArray(newVal)) {
-    return isArray(newVal) ? newVal.slice(0) : undefined
-  }
-  return undefined
-}
-
-function mergeNodeSpec(oldNodeSpec: any, newNodeSpec: any): any {
-  return mergeWith(oldNodeSpec, newNodeSpec, mergeNodeSpecCustomizer)
 }

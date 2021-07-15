@@ -82,7 +82,8 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
             getString('validation.timeout10SecMinimum')
           ),
           spec: Yup.object().shape({
-            instanceSelection: getInstanceDropdownSchema({ required: true })
+            instanceSelection: getInstanceDropdownSchema({ required: true }, getString),
+            workload: Yup.string().required(getString('cd.workloadRequired'))
           }),
           identifier: IdentifierSchema()
         })}
@@ -103,7 +104,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInstanceDropdown
                     name={'spec.instanceSelection'}
-                    label={getString('pipelineSteps.instanceLabel')}
+                    label={getString('common.instanceLabel')}
                     readonly={readonly}
                     expressions={expressions}
                   />
@@ -137,7 +138,6 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   <FormInput.MultiTextInput
                     label={getString('pipelineSteps.workload')}
                     name={'spec.workload'}
-                    isOptional={true}
                     disabled={readonly}
                     multiTextInputProps={{ expressions, disabled: readonly }}
                   />
@@ -162,6 +162,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
+                    disabled={readonly}
                     multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
@@ -239,12 +240,12 @@ const K8ScaleInputStep: React.FC<K8sScaleProps> = ({ template, readonly, path })
         ) === MultiTypeInputType.RUNTIME) && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInstanceDropdown
-            label={getString('pipelineSteps.instanceLabel')}
+            label={getString('common.instanceLabel')}
             name={`${prefix}spec.instanceSelection`}
             expressions={expressions}
             allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
             disabledType
-            disabled={readonly}
+            readonly={readonly}
           />
         </div>
       )}
@@ -272,16 +273,8 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sScaleData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (
@@ -377,10 +370,14 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
       ) === MultiTypeInputType.RUNTIME
     ) {
       const instanceSelection = Yup.object().shape({
-        instanceSelection: getInstanceDropdownSchema({
-          required: isRequired,
-          requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
-        })
+        instanceSelection: getInstanceDropdownSchema(
+          {
+            required: isRequired,
+            requiredErrorMessage: getString?.('fieldRequired', { field: 'Instance' })
+          },
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          getString!
+        )
       })
 
       try {

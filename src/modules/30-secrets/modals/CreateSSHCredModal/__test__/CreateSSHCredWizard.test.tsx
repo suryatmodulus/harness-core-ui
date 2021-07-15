@@ -52,8 +52,7 @@ describe('Create SSH Cred Wizard', () => {
     // match step 1
     expect(container).toMatchSnapshot()
 
-    fireEvent.click(getAllByText('+ Description')[0])
-    fireEvent.click(getAllByText('+ Tags')[0])
+    fireEvent.click(container?.querySelectorAll('[icon="edit"]')[1]!)
 
     // fill step 1
     fillAtForm([

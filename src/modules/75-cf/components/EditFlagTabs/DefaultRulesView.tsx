@@ -52,7 +52,9 @@ export const DefaultRulesView: React.FC<DefaultRulesProps> = ({
 
   return (
     <>
-      <Text className={css.ruleTitle}>{getString('cf.featureFlags.rules.defaultRules')}</Text>
+      <Text className={css.ruleTitle} data-tooltip-id="ff_ffDefaultRules_heading">
+        {getString('cf.featureFlags.rules.defaultRules')}
+      </Text>
       <Container className={css.rulesContainer}>
         <Layout.Horizontal margin={{ bottom: 'medium' }} style={{ alignItems: 'center' }}>
           <Text

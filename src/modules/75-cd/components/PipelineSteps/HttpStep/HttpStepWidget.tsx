@@ -47,16 +47,14 @@ export function HttpStepWidget(
         name: NameSchema({ requiredErrorMsg: getString('pipelineSteps.stepNameRequired') }),
         timeout: getDurationValidationSchema({ minimum: '10s' }).required(getString('validation.timeout10SecMinimum')),
         spec: Yup.object().shape({
-          url: Yup.lazy(
-            (value): Yup.Schema<unknown> => {
-              if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
-                return Yup.string()
-                  .required(getString('common.validation.urlIsRequired'))
-                  .url(getString('validation.urlIsNotValid'))
-              }
-              return Yup.string().required(getString('common.validation.urlIsRequired'))
+          url: Yup.lazy((value): Yup.Schema<unknown> => {
+            if (getMultiTypeFromValue(value as any) === MultiTypeInputType.FIXED) {
+              return Yup.string()
+                .required(getString('common.validation.urlIsRequired'))
+                .url(getString('validation.urlIsNotValid'))
             }
-          ),
+            return Yup.string().required(getString('common.validation.urlIsRequired'))
+          }),
           method: Yup.mixed().required(getString('pipelineSteps.methodIsRequired')),
           headers: Yup.array().of(
             Yup.object().shape({

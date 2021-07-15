@@ -93,18 +93,18 @@ describe('Azure Access Point Form', () => {
     expect(resourceGroupDropdown.value).toBe('ap-southeast-1')
 
     // certificates dropdown
-    const certificatesDropdown = container.querySelector('input[name="certificate"]') as HTMLInputElement
-    const certificatesCaret = container
-      .querySelector(`input[name="certificate"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
-    await waitFor(() => {
-      fireEvent.click(certificatesCaret!)
-    })
-    const certificateToSelect = await findByText(container, '*.lightwingtest.com')
-    act(() => {
-      fireEvent.click(certificateToSelect)
-    })
-    expect(certificatesDropdown.value).toBe('*.lightwingtest.com')
+    // const certificatesDropdown = container.querySelector('input[name="certificate"]') as HTMLInputElement
+    // const certificatesCaret = container
+    //   .querySelector(`input[name="certificate"] + [class*="bp3-input-action"]`)
+    //   ?.querySelector('[data-icon="caret-down"]')
+    // await waitFor(() => {
+    //   fireEvent.click(certificatesCaret!)
+    // })
+    // const certificateToSelect = await findByText(container, '*.lightwingtest.com')
+    // act(() => {
+    //   fireEvent.click(certificateToSelect)
+    // })
+    // expect(certificatesDropdown.value).toBe('*.lightwingtest.com')
 
     // vpc dropdown
     const vpcDropdown = container.querySelector('input[name="virtualNetwork"]') as HTMLInputElement
@@ -119,5 +119,22 @@ describe('Azure Access Point Form', () => {
       fireEvent.click(vpcToSelect)
     })
     expect(vpcDropdown.value).toBe('testvpn')
+  })
+
+  test('form in edit mode', () => {
+    const { container } = render(
+      <TestWrapper>
+        <AzureAccessPointForm
+          cloudAccountId={'cloudAccountId'}
+          onSave={jest.fn()}
+          handlePreviousClick={jest.fn()}
+          lbCreationInProgress={false}
+          handleFormSubmit={jest.fn()}
+          loadBalancer={initialLoadBalancer}
+          isCreateMode={false}
+        />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
   })
 })

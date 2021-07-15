@@ -24,6 +24,7 @@ export const useUserGroupModal = ({ onSuccess }: UseUserGroupModalProps): UseUse
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

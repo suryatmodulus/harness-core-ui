@@ -12,14 +12,20 @@ import {
   Color,
   SelectOption
 } from '@wings-software/uicore'
+import { useParams } from 'react-router-dom'
+
 import { Form } from 'formik'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { get } from 'lodash-es'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { useStrings } from 'framework/strings'
-import type { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper } from 'services/cd-ng'
+import { ConnectorConfigDTO, ManifestConfig, ManifestConfigWrapper, useGetGCSBucketList } from 'services/cd-ng'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useToaster } from '@common/components'
+
+import { getErrorInfoFromErrorObject } from '@common/utils/errorUtils'
 import type { CommandFlags, HelmWithGcsDataType } from '../../ManifestInterface'
 import HelmAdvancedStepSection from '../HelmAdvancedStepSection'
 
@@ -56,8 +62,39 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
   isReadonly = false
 }) => {
   const { getString } = useStrings()
+  const { showError } = useToaster()
   const isActiveAdvancedStep: boolean = initialValues?.spec?.skipResourceVersioning || initialValues?.spec?.commandFlags
   const [selectedHelmVersion, setHelmVersion] = useState(initialValues?.spec?.helmVersion ?? 'V2')
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
+
+  const {
+    data: bucketData,
+    error,
+    loading,
+    refetch: refetchBuckets
+  } = useGetGCSBucketList({
+    lazy: true,
+    debounce: 300
+  })
+
+  React.useEffect(() => {
+    if (prevStepData?.connectorRef && getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.FIXED) {
+      refetchBuckets({
+        queryParams: {
+          accountIdentifier: accountId,
+          projectIdentifier,
+          orgIdentifier,
+          connectorRef: prevStepData?.connectorRef?.value
+        }
+      })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prevStepData?.connectorRef])
+
+  const bucketOptions = Object.keys(bucketData || {}).map(item => ({
+    label: item,
+    value: item
+  }))
 
   const getInitialValues = (): HelmWithGcsDataType => {
     const specValues = get(initialValues, 'spec.store.spec', null)
@@ -111,17 +148,21 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
       }
     }
     if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-        commandType: (commandFlag.commandType as SelectOption)?.value as string,
-        flag: commandFlag.flag
-      }))
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
+        commandFlag.commandType && commandFlag.flag
+          ? {
+              commandType: (commandFlag.commandType as SelectOption)?.value as string,
+              flag: commandFlag.flag
+            }
+          : {}
+      )
     }
 
     handleSubmit(manifestObj)
   }
-
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.manifestStore}>
+      {error && showError(getErrorInfoFromErrorObject(error as any))}
       <Text font="large" color={Color.GREY_800}>
         {stepName}
       </Text>
@@ -140,7 +181,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: val => val?.length,
+                is: val => val?.value !== undefined,
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })
@@ -171,32 +212,70 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                     placeholder={getString('pipeline.manifestType.manifestPlaceholder')}
                   />
                 </div>
-                <div
-                  className={cx(helmcss.halfWidth, {
-                    [helmcss.runtimeInput]:
-                      getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME
-                  })}
-                >
-                  <FormInput.MultiTextInput
-                    label={getString('pipeline.manifestType.bucketName')}
-                    placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
-                    name="bucketName"
-                    multiTextInputProps={{ expressions }}
-                  />
-                  {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      style={{ alignSelf: 'center' }}
-                      value={formik.values?.bucketName as string}
-                      type="String"
-                      variableName="bucketName"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => formik.setFieldValue('bucketName', value)}
-                      isReadonly={isReadonly}
+                {getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED && (
+                  <div
+                    className={cx(helmcss.halfWidth, {
+                      [helmcss.runtimeInput]:
+                        getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME
+                    })}
+                  >
+                    <FormInput.MultiTextInput
+                      label={getString('pipeline.manifestType.bucketName')}
+                      placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                      name="bucketName"
+                      multiTextInputProps={{ expressions }}
                     />
-                  )}
-                </div>
+                    {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.bucketName as string}
+                        type="String"
+                        variableName="bucketName"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('bucketName', value)}
+                        isReadonly={isReadonly}
+                      />
+                    )}
+                  </div>
+                )}
+                {getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.FIXED && (
+                  <div
+                    className={cx(helmcss.halfWidth, {
+                      [helmcss.runtimeInput]:
+                        getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME
+                    })}
+                  >
+                    <FormInput.MultiTypeInput
+                      selectItems={bucketOptions}
+                      disabled={loading}
+                      useValue
+                      label={getString('pipeline.manifestType.bucketName')}
+                      placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                      name="bucketName"
+                      multiTypeInputProps={{
+                        selectProps: {
+                          items: bucketOptions,
+                          allowCreatingNewItems: true
+                        }
+                      }}
+                    />
+                    {getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.bucketName as string}
+                        type="String"
+                        variableName="bucketName"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => formik.setFieldValue('bucketName', value)}
+                        isReadonly={isReadonly}
+                      />
+                    )}
+                  </div>
+                )}
               </Layout.Horizontal>
               <Layout.Horizontal flex spacing="huge">
                 <div

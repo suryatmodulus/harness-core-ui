@@ -108,14 +108,14 @@ describe('Unit tests for CVAnalysisTabs', () => {
       )}`
     )
     expect(defaultTab.getAttribute('aria-expanded')).toEqual('true')
-    getByText(result.current.getString('cv.analysisScreens.analysisTab.metrics'))
-    getByText(result.current.getString('cv.analysisScreens.analysisTab.logs'))
+    getByText(result.current.getString('pipeline.verification.analysisTab.metrics'))
+    getByText(result.current.getString('pipeline.verification.analysisTab.logs'))
 
     // click on stack driver
     const stackDriver = getByText('Google Cloud Operations')
     fireEvent.click(stackDriver)
     await waitFor(() => expect(stackDriver.getAttribute('aria-expanded')).toEqual('true'))
-    getByText(result.current.getString('cv.analysisScreens.analysisTab.metrics'))
+    getByText(result.current.getString('pipeline.verification.analysisTab.metrics'))
 
     // click on splunk
     const splunk = getByText('Splunk')

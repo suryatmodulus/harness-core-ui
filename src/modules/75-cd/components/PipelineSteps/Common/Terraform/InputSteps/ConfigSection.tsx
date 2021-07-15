@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 
-import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, FormInput, Label, Color } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -21,8 +21,8 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
 ): React.ReactElement {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-
   const { inputSetData, readonly, initialValues, path } = props
+  const config = inputSetData?.template?.spec?.configuration
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -33,8 +33,16 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
 
   return (
     <>
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.workspace) ===
-        MultiTypeInputType.RUNTIME && (
+      {(config?.spec?.configFiles?.store?.spec?.connectorRef ||
+        config?.spec?.workspace ||
+        config?.spec?.configFiles?.store?.spec?.branch ||
+        config?.spec?.configFiles?.store?.spec?.commitId ||
+        config?.spec?.configFiles?.store?.spec?.folderPath) && (
+        <Label style={{ color: Color.GREY_900, paddingBottom: 'var(--spacing-medium)' }}>
+          {getString('cd.configurationFile')}
+        </Label>
+      )}
+      {getMultiTypeFromValue(config?.spec?.workspace) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             name={`${path}.spec.configuration.spec.workspace`}
@@ -47,9 +55,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
           />
         </div>
       )}
-      {getMultiTypeFromValue(
-        inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef
-      ) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(config?.spec?.configFiles?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormMultiTypeConnectorField
             accountIdentifier={accountId}
@@ -57,19 +63,19 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
             projectIdentifier={projectIdentifier}
             orgIdentifier={orgIdentifier}
             multiTypeProps={{ allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED], expressions }}
-            width={400}
+            width={445}
             type={[Connectors.GIT, Connectors.GITHUB, Connectors.GITLAB, Connectors.BITBUCKET]}
             name={`${path}.spec.configuration.spec.configFiles.store.spec.connectorRef`}
             label={getString('connector')}
             placeholder={getString('select')}
             disabled={readonly}
+            setRefValue
             gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
           />
         </div>
       )}
 
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.branch) ===
-        MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(config?.spec?.configFiles?.store?.spec?.branch) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipelineSteps.deploy.inputSet.branch')}
@@ -84,8 +90,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
         </div>
       )}
 
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.commitId) ===
-        MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(config?.spec?.configFiles?.store?.spec?.commitId) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('pipeline.manifestType.commitId')}
@@ -100,9 +105,7 @@ export default function ConfigSection<T extends TerraformData = TerraformData>(
         </div>
       )}
 
-      {getMultiTypeFromValue(
-        inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath
-      ) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(config?.spec?.configFiles?.store?.spec?.folderPath) === MultiTypeInputType.RUNTIME && (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
             label={getString('cd.folderPath')}

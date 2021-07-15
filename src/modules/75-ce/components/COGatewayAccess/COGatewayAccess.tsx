@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab, Button } from '@wings-software/uicore'
+import { Heading, Container, Layout, Checkbox, Icon, Tabs, Tab, Button, Text } from '@wings-software/uicore'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -37,6 +37,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const selectTab = (tabId: string) => {
     setSelectedTabId(tabId)
   }
+  const isK8sRule = !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)
 
   useEffect(() => {
     let validStatus = false
@@ -63,6 +64,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       }
     } else {
       validStatus =
+        isK8sRule ||
         accessDetails.ipaddress.selected ||
         accessDetails.ssh.selected ||
         accessDetails.backgroundTasks.selected ||
@@ -105,6 +107,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     if (selectedTabId != '') helpTextBase = `${helpTextBase}-${selectedTabId}`
     setSelectedHelpText(helpTextBase)
   }, [selectedTabId])
+
   return (
     <Container className={css.page}>
       {/* <COFixedDrawer
@@ -160,37 +163,39 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             {getString('ce.co.gatewayAccess.subtitle')}
           </Heading>
         </Layout.Vertical>
-        <Layout.Vertical spacing="small" padding="medium">
-          <Layout.Horizontal spacing="small">
-            <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>
-              {getString('ce.co.gatewayAccess.accessDescription')}
-            </Heading>
-            <Icon name="info" style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}></Icon>
-          </Layout.Horizontal>
-          <Layout.Horizontal spacing="xxxlarge">
-            <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-small)' }}>
-              <Checkbox
-                id="DNSLink"
-                label="DNS Link"
-                onChange={val => {
-                  accessDetails.dnsLink.selected = val.currentTarget.checked
-                  setAccessDetails(Object.assign({}, accessDetails))
-                }}
-                className={css.checkbox}
-                defaultChecked={accessDetails.dnsLink.selected}
-              />
-              <Checkbox
-                label="SSH / RDP"
-                id="ssh"
-                onChange={val => {
-                  accessDetails.ssh.selected = val.currentTarget.checked
-                  setAccessDetails(Object.assign({}, accessDetails))
-                }}
-                className={css.checkbox}
-                defaultChecked={accessDetails.ssh.selected}
-              />
-            </Layout.Vertical>
-            {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
+        {isK8sRule && <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequired')}</Text>}
+        {!isK8sRule && (
+          <Layout.Vertical spacing="small" padding="medium">
+            <Layout.Horizontal spacing="small">
+              <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>
+                {getString('ce.co.gatewayAccess.accessDescription')}
+              </Heading>
+              <Icon name="info" style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}></Icon>
+            </Layout.Horizontal>
+            <Layout.Horizontal spacing="xxxlarge">
+              <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-small)' }}>
+                <Checkbox
+                  id="DNSLink"
+                  label="DNS Link"
+                  onChange={val => {
+                    accessDetails.dnsLink.selected = val.currentTarget.checked
+                    setAccessDetails(Object.assign({}, accessDetails))
+                  }}
+                  className={css.checkbox}
+                  defaultChecked={accessDetails.dnsLink.selected}
+                />
+                <Checkbox
+                  label="SSH / RDP"
+                  id="ssh"
+                  onChange={val => {
+                    accessDetails.ssh.selected = val.currentTarget.checked
+                    setAccessDetails(Object.assign({}, accessDetails))
+                  }}
+                  className={css.checkbox}
+                  defaultChecked={accessDetails.ssh.selected}
+                />
+              </Layout.Vertical>
+              {/* <Layout.Vertical spacing="medium" style={{ paddingLeft: 'var(--spacing-xxlarge)' }}>
               <Checkbox
                 label="Background Tasks"
                 className={css.checkbox}
@@ -210,8 +215,9 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                 }}
               />
             </Layout.Vertical> */}
-          </Layout.Horizontal>
-        </Layout.Vertical>
+            </Layout.Horizontal>
+          </Layout.Vertical>
+        )}
         <Container className={css.setupTab}>
           <Tabs id="setupTabs" selectedTabId={selectedTabId} onChange={selectTab}>
             {accessDetails.dnsLink.selected ? (

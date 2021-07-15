@@ -123,7 +123,7 @@ export default function OptionalConfiguration(props: {
                         </FormGroup>
                         <Button
                           minimal
-                          icon="cross"
+                          icon="main-trash"
                           data-testid={`remove-environmentVar-${i}`}
                           onClick={() => remove(i)}
                           disabled={readonly}
@@ -185,7 +185,7 @@ export default function OptionalConfiguration(props: {
                         label=""
                         disabled={readonly}
                       />
-                      <Button minimal icon="cross" onClick={() => remove(i)} disabled={readonly} />
+                      <Button minimal icon="main-trash" onClick={() => remove(i)} disabled={readonly} />
                     </div>
                   ))}
                   <Button

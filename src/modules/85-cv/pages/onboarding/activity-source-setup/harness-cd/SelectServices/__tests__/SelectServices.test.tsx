@@ -39,7 +39,7 @@ describe('Select Services', () => {
     const useCreateServiceSpy = jest.spyOn(cdService, 'useCreateService')
     const useGetListServicesSpy = jest.spyOn(portalService, 'useGetListServices')
 
-    useGetServiceListForProjectSpy.mockReturnValue((mockServices as unknown) as UseGetReturn<any, any, any, any>)
+    useGetServiceListForProjectSpy.mockReturnValue(mockServices as unknown as UseGetReturn<any, any, any, any>)
     useCreateServiceSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<any, any, any, any, any>)
     useGetListServicesSpy.mockReturnValue({ data: mockServiceCD, refetch: jest.fn() as unknown } as UseGetReturn<
       any,
@@ -64,7 +64,7 @@ describe('Select Services', () => {
     const useCreateServiceSpy = jest.spyOn(cdService, 'useCreateService')
     const useGetListServicesSpy = jest.spyOn(portalService, 'useGetListServices')
 
-    useGetServiceListForProjectSpy.mockReturnValue((mockServices as unknown) as UseGetReturn<any, any, any, any>)
+    useGetServiceListForProjectSpy.mockReturnValue(mockServices as unknown as UseGetReturn<any, any, any, any>)
     useCreateServiceSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<any, any, any, any, any>)
     useGetListServicesSpy.mockReturnValue({ data: mockServiceCD, refetch: jest.fn() as unknown } as UseGetReturn<
       any,
@@ -117,7 +117,7 @@ describe('Select Services', () => {
     const useCreateServiceSpy = jest.spyOn(cdService, 'useCreateService')
     const useGetListServicesSpy = jest.spyOn(portalService, 'useGetListServices')
 
-    useGetServiceListForProjectSpy.mockReturnValue((mockServices as unknown) as UseGetReturn<any, any, any, any>)
+    useGetServiceListForProjectSpy.mockReturnValue(mockServices as unknown as UseGetReturn<any, any, any, any>)
     useCreateServiceSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<any, any, any, any, any>)
     useGetListServicesSpy.mockReturnValue({ data: mockServiceCD, refetch: jest.fn() as unknown } as UseGetReturn<
       any,
@@ -204,7 +204,7 @@ describe('Select Services', () => {
     const useCreateServiceSpy = jest.spyOn(cdService, 'useCreateService')
     const useGetListServicesSpy = jest.spyOn(portalService, 'useGetListServices')
 
-    useGetServiceListForProjectSpy.mockReturnValue((mockServices as unknown) as UseGetReturn<any, any, any, any>)
+    useGetServiceListForProjectSpy.mockReturnValue(mockServices as unknown as UseGetReturn<any, any, any, any>)
     useCreateServiceSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<any, any, any, any, any>)
     useGetListServicesSpy.mockReturnValue({ data: mockServiceCD, refetch: jest.fn() as unknown } as UseGetReturn<
       any,
@@ -279,7 +279,7 @@ describe('Select Services', () => {
     const useCreateServiceSpy = jest.spyOn(cdService, 'useCreateService')
     const useGetListServicesSpy = jest.spyOn(portalService, 'useGetListServices')
 
-    useGetServiceListForProjectSpy.mockReturnValue((mockServices as unknown) as UseGetReturn<any, any, any, any>)
+    useGetServiceListForProjectSpy.mockReturnValue(mockServices as unknown as UseGetReturn<any, any, any, any>)
     useCreateServiceSpy.mockReturnValue({ mutate: jest.fn() as unknown } as UseMutateReturn<any, any, any, any, any>)
     useGetListServicesSpy.mockReturnValue({ data: mockServiceCD, refetch: jest.fn() as unknown } as UseGetReturn<
       any,

@@ -32,7 +32,7 @@ jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve('')) as unknown
-const useDownloadYamlSpy = jest.spyOn(ccmService, 'useDownloadYaml') as any
+const useDownloadYamlSpy = jest.spyOn(ccmService, 'useGetCostOptimisationYamlTemplate') as any
 useDownloadYamlSpy.mockReturnValue({ mutate: mockMutateFn } as UseMutateReturn<any, any, any, any, any>)
 
 describe('Create CE K8s Connector Wizard', () => {

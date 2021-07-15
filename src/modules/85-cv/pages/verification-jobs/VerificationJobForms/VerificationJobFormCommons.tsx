@@ -151,10 +151,18 @@ export const useVerificationJobFormSubmit = (props?: UseVerificationFormSubmitPr
   const history = useHistory()
   const { showError } = useToaster()
   const isEditMode = Boolean(verificationId)
-  const { mutate: createVJ, error: ecvj, loading: lcvj } = useCreateVerificationJob({
+  const {
+    mutate: createVJ,
+    error: ecvj,
+    loading: lcvj
+  } = useCreateVerificationJob({
     queryParams: { accountId }
   })
-  const { mutate: updateVJ, error: euvj, loading: luvj } = useUpdateVerificationJob({
+  const {
+    mutate: updateVJ,
+    error: euvj,
+    loading: luvj
+  } = useUpdateVerificationJob({
     identifier: verificationId,
     queryParams: { accountId }
   })

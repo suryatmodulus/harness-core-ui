@@ -1,6 +1,16 @@
 import React, { useState, useMemo, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Button, Text, Layout, SelectOption, ExpandingSearchInput, Color, Container } from '@wings-software/uicore'
+import {
+  Button,
+  Text,
+  Layout,
+  SelectOption,
+  ExpandingSearchInput,
+  Color,
+  Container,
+  GridListToggle,
+  Views
+} from '@wings-software/uicore'
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
@@ -18,7 +28,6 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
-import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import css from './ProjectsPage.module.scss'
@@ -135,6 +144,7 @@ const ProjectsListPage: React.FC = () => {
       <Layout.Horizontal spacing="large" className={css.header}>
         <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
         <CustomSelect
+          disabled={loading}
           items={organizations}
           filterable={false}
           itemRenderer={(item, { handleClick }) => (
@@ -154,6 +164,7 @@ const ProjectsListPage: React.FC = () => {
             inline
             round
             rightIcon="chevron-down"
+            disabled={loading}
             className={css.orgSelect}
             text={
               <Layout.Horizontal spacing="xsmall">
@@ -173,25 +184,7 @@ const ProjectsListPage: React.FC = () => {
           }}
           className={css.search}
         />
-
-        <Layout.Horizontal>
-          <Button
-            minimal
-            icon="grid-view"
-            intent={view === Views.GRID ? 'primary' : 'none'}
-            onClick={() => {
-              setView(Views.GRID)
-            }}
-          />
-          <Button
-            minimal
-            icon="list"
-            intent={view === Views.LIST ? 'primary' : 'none'}
-            onClick={() => {
-              setView(Views.LIST)
-            }}
-          />
-        </Layout.Horizontal>
+        <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
       </Layout.Horizontal>
 
       <Page.Body

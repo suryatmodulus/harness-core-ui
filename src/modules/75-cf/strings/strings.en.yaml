@@ -165,7 +165,7 @@ featureFlags:
   flagWillTurnOff: Turn flag off for this environment upon save
   targeting: Targeting
   activity: '{{ $.activity }}'
-  results: Results (Last 7 Days)
+  results: Results
   makeSure: Make sure your code is deployed
   rules:
     editRules: Edit Rules
@@ -210,7 +210,6 @@ featureFlags:
   metrics:
     title: 'Metrics '
     noMetrics: No Evaluations
-    last7Days: For the last 7 days
     evaluations: '{{ count }} evaluations'
     evaluationStatistics: Evaluation Statistics
     flagEvaluations: Flag Evaluations ({{ count }})
@@ -234,7 +233,7 @@ targets:
   addTargets: + Add Target(s)
   noTargetFound: 'No target found in this environment. Click the button above to create target(s).'
   noSegmentFound: 'No target group found in this environment. Click the button above to create a target group.'
-  uploadHeadline: Please upload a CSV file according to our <a href="https://docs.harness.io" target="_blank" rel="noreferrer">template</a>.
+  uploadHeadline: Please upload a CSV file according to our <a href="https://ngdocs.harness.io/article/dbk9uoaid3-add-targets#step_upload_a_list_of_targets" target="_blank" rel="noreferrer">template</a>.
   uploadHelp: 'Target CSV entry format: Name,Identifier'
   uploadYourFile: Click to upload your file
   uploadStats: <strong>Targets</strong> ({{ count }})
@@ -320,7 +319,6 @@ environments:
 auditLogs:
   title: Audit Logs
   summaryHeading: 'Module: Feature Flags • Project: {{project}} • Environment: {{environment}}'
-  last7days: Last 7 days
   searchPlaceholder: Search Activity
   viewEventSummary: View Event Summary
   timePST: 'TIME (PST)'
@@ -397,11 +395,11 @@ onboarding:
   waitForConnect: Waiting for SDK...{{ message }}
   allSet: Congratulations! You’re all set!
   tryTarget: Try out our robust <a href='{{ link }}'>targeting rules for this flag</a> for more granular rollouts.
-  backToStart: Back to Start Guide
-  title: Feature Flags Quick Guide
+  backToStart: Back to Quick Start Guide
+  title: Feature Flags Quick Start Guide
   subTitle: Everything you need to know in less than 15 minutes.
   upAndRunning: Get a flag up and running in 3 steps
-  tryItOut: Try it Out
+  tryItOut: '{{ $.getStarted }}'
   createAFlag: '1. Create a Flag'
   setUpApp: '2. Set Up Your Application'
   testYourFlag: '3. Test Your Flag'

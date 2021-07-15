@@ -132,16 +132,8 @@ export class RestoreCacheS3Step extends PipelineStep<RestoreCacheS3StepData> {
   }
 
   renderStep(props: StepProps<RestoreCacheS3StepData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (

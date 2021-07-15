@@ -11,30 +11,16 @@ import {
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { shouldShowError } from '@common/utils/errorUtils'
-import { setupAzureKeyVaultFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { AzureKeyVaultFormData } from './AzureKeyVaultForm'
 interface AzureKeyVaultFormFieldsProps {
   formik: FormikContext<AzureKeyVaultFormData>
-  isEditing?: boolean
   identifier: string
+  isEditing?: boolean
   modalErrorHandler?: ModalErrorHandlerBinding
   connectorInfo?: ConnectorInfoDTO | void
   mock?: SelectOption
-}
-
-const hasFormChanged = (connectorInfo: ConnectorInfoDTO | void, values: AzureKeyVaultFormData) => {
-  const connector = (connectorInfo && setupAzureKeyVaultFormData(connectorInfo)) || ({} as AzureKeyVaultFormData)
-  if (
-    connector.clientId === values.clientId &&
-    connector.secretKey === values.secretKey &&
-    connector.tenantId === values.tenantId &&
-    connector.vaultName === values.vaultName &&
-    connector.subscription === values.subscription &&
-    connector.default === values.default
-  ) {
-    return false
-  }
-  return true
+  loadingFormData?: boolean
 }
 
 const AzureKeyVaultFormFields: React.FC<AzureKeyVaultFormFieldsProps> = ({
@@ -43,20 +29,27 @@ const AzureKeyVaultFormFields: React.FC<AzureKeyVaultFormFieldsProps> = ({
   identifier,
   modalErrorHandler,
   connectorInfo,
-  mock
+  mock,
+  loadingFormData
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [vaultNameOptions, setVaultNameOptions] = useState<SelectOption[]>([])
-  const { mutate: getMetadata } = useGetMetadata({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: getMetadata, loading } = useGetMetadata({
+    queryParams: { accountIdentifier: accountId }
+  })
 
   React.useEffect(() => {
-    if (isEditing && formik.values.vaultName) {
-      if (!hasFormChanged(connectorInfo, formik.values)) {
-        setVaultNameOptions([{ label: formik.values.vaultName, value: formik.values.vaultName }])
-      }
+    if (isEditing && !loadingFormData) {
+      handleFetchEngines(formik.values)
     }
-  }, [isEditing, formik.values])
+  }, [isEditing, loadingFormData])
+
+  React.useEffect(() => {
+    if (isEditing && !loadingFormData && formik.values.vaultName && loading) {
+      setVaultNameOptions([{ label: formik.values.vaultName, value: formik.values.vaultName }])
+    }
+  }, [isEditing, loadingFormData, loading])
 
   React.useEffect(() => {
     if (mock) {
@@ -77,7 +70,7 @@ const AzureKeyVaultFormFields: React.FC<AzureKeyVaultFormFieldsProps> = ({
           clientId: formData.clientId?.trim(),
           tenantId: formData.tenantId?.trim(),
           subscription: formData.subscription?.trim(),
-          secretKey: formData.secretKey?.trim()
+          secretKey: (connectorInfo as any)?.spec?.secretKey || formData.secretKey?.referenceString
         } as AzureKeyVaultMetadataRequestSpecDTO
       })
       setVaultNameOptions(
@@ -99,7 +92,9 @@ const AzureKeyVaultFormFields: React.FC<AzureKeyVaultFormFieldsProps> = ({
       !formData.clientId?.trim() ||
       !formData.tenantId?.trim() ||
       !formData.subscription?.trim() ||
-      !formData.secretKey?.trim()
+      !formData.secretKey?.referenceString ||
+      loading ||
+      loadingFormData
     )
       return true
     return false
@@ -110,18 +105,13 @@ const AzureKeyVaultFormFields: React.FC<AzureKeyVaultFormFieldsProps> = ({
       <FormInput.Text name="clientId" label={getString('common.clientId')} />
       <FormInput.Text name="tenantId" label={getString('connectors.azureKeyVault.labels.tenantId')} />
       <FormInput.Text name="subscription" label={getString('connectors.azureKeyVault.labels.subscription')} />
-      <FormInput.Text
-        name="secretKey"
-        label={getString('keyLabel')}
-        inputGroup={{ type: 'password' }}
-        placeholder={isEditing ? getString('encrypted') : ''}
-      />
+      <SecretInput name="secretKey" label={getString('keyLabel')} connectorTypeContext={'AzureKeyVault'} />
       <Layout.Horizontal spacing="medium" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
         <FormInput.Select
           name="vaultName"
           label={getString('connectors.azureKeyVault.labels.vaultName')}
           items={vaultNameOptions}
-          disabled={vaultNameOptions.length === 0}
+          disabled={vaultNameOptions.length === 0 || loading}
         />
         <Button
           margin={{ top: 'xsmall' }}
@@ -129,6 +119,7 @@ const AzureKeyVaultFormFields: React.FC<AzureKeyVaultFormFieldsProps> = ({
           text={getString('connectors.azureKeyVault.labels.fetchVault')}
           onClick={() => handleFetchEngines(formik.values)}
           disabled={isFetchDisabled(formik.values)}
+          loading={loading}
         />
       </Layout.Horizontal>
       <FormInput.CheckBox

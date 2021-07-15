@@ -23,7 +23,7 @@ jest.mock('services/pipeline-ng', () => ({
     return { mutate: jest.fn(() => Promise.resolve(mocks)), cancel: jest.fn(), loading: false }
   })
 }))
-const TEST_PATH = routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
+const TEST_PATH = routes.toPipelineStudio({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
 
 describe('PipelineModal List View', () => {
   test('render list view', async () => {

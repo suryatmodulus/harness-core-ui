@@ -19,6 +19,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
             height="37"
             viewBox="0 0 14 13"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 12.9L9.6 5H4.4z"
@@ -199,7 +200,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -227,7 +228,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormGitlab_name"
                           >
                             name
                           </span>
@@ -387,6 +388,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
             height="37"
             viewBox="0 0 14 13"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 12.9L9.6 5H4.4z"
@@ -686,6 +688,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -832,6 +835,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
             height="37"
             viewBox="0 0 14 13"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 12.9L9.6 5H4.4z"
@@ -1131,6 +1135,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -1282,6 +1287,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
             height="37"
             viewBox="0 0 14 13"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 12.9L9.6 5H4.4z"
@@ -1581,6 +1587,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -1727,6 +1734,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
             height="37"
             viewBox="0 0 14 13"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 12.9L9.6 5H4.4z"
@@ -2026,6 +2034,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -2177,6 +2186,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
             height="37"
             viewBox="0 0 14 13"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 12.9L9.6 5H4.4z"
@@ -2544,6 +2554,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -2722,6 +2733,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
             height="37"
             viewBox="0 0 14 13"
             width="37"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M7 12.9L9.6 5H4.4z"
@@ -2940,6 +2952,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -3130,6 +3143,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"

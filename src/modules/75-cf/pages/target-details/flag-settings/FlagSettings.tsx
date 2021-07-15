@@ -143,7 +143,9 @@ export const FlagSettings: React.FC<{ target?: Target | undefined | null }> = ({
           background: '#fcfdfd'
         }}
       >
-        <DetailHeading style={{ alignSelf: 'baseline' }}>{getString('cf.targetDetail.flagSetting')}</DetailHeading>
+        <DetailHeading style={{ alignSelf: 'baseline' }} data-tooltip-id="ff_targetFlagSettings_heading">
+          {getString('cf.targetDetail.flagSetting')}
+        </DetailHeading>
         <FlexExpander />
         <Container height={35} style={{ alignSelf: 'baseline' }}>
           <ExpandingSearchInput

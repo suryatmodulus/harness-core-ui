@@ -1,0 +1,11 @@
+.header {
+  padding: var(--spacing-medium) var(--spacing-large) !important;
+  border-bottom: 1px solid var(--grey-200);
+  background: var(--white) !important;
+
+  .search {
+    & > input:focus {
+      width: 300px !important;
+    }
+  }
+}

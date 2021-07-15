@@ -22,6 +22,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
           height="25"
           viewBox="0 0 24 24"
           width="25"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             clip-rule="evenodd"
@@ -82,6 +83,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
               fill="none"
               height="40"
               width="40"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M0 24.99h3.99V0H0v24.99zm7.98 0h3.99V7.403H7.98V24.99zm7.98-10.181v10.18h3.99V14.81h-3.99z"
@@ -146,6 +148,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
               fill="none"
               height="40"
               width="40"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M31.217 12.9l-3.772-.466a9.684 9.684 0 00-1.055-2.362l2.312-2.805a.417.417 0 00-.042-.58l-2.686-2.492a.5.5 0 00-.624-.038l-3.024 2.145a11.331 11.331 0 00-2.545-.98l-.503-3.499a.465.465 0 00-.471-.383h-3.8a.464.464 0 00-.47.383l-.503 3.5c-.9.226-1.754.558-2.545.979L8.465 4.156a.501.501 0 00-.624.039L5.155 6.687a.417.417 0 00-.042.58l2.313 2.805a9.679 9.679 0 00-1.056 2.361l-3.772.467a.454.454 0 00-.412.437v3.525c0 .22.176.408.412.437l3.771.466a9.678 9.678 0 001.056 2.362l-2.312 2.806a.417.417 0 00.041.579l2.687 2.492c.092.086.213.13.336.13.101 0 .203-.03.288-.091l3.024-2.146c.791.42 1.645.752 2.545.98l.503 3.499c.031.22.233.383.47.383h3.8c.238 0 .44-.163.47-.383l.503-3.499a11.33 11.33 0 002.546-.98l3.023 2.146c.086.061.188.09.289.09a.494.494 0 00.336-.128l2.686-2.493a.417.417 0 00.042-.579l-2.312-2.805a9.682 9.682 0 001.055-2.362l3.772-.467a.454.454 0 00.412-.437v-3.525a.453.453 0 00-.412-.437zm-14.31 6.165c-2.36 0-4.274-1.775-4.274-3.965s1.914-3.966 4.274-3.966c2.361 0 4.274 1.775 4.274 3.966 0 2.19-1.913 3.965-4.274 3.965z"
@@ -196,6 +199,7 @@ exports[`StartTrialModalContent Rendering test that adding a source query param 
           height="25"
           viewBox="0 0 14 14"
           width="25"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <g
             fill="none"
@@ -261,6 +265,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
           height="25"
           viewBox="0 0 24 24"
           width="25"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             clip-rule="evenodd"
@@ -321,6 +326,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
               fill="none"
               height="40"
               width="40"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M0 24.99h3.99V0H0v24.99zm7.98 0h3.99V7.403H7.98V24.99zm7.98-10.181v10.18h3.99V14.81h-3.99z"
@@ -385,6 +391,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
               fill="none"
               height="40"
               width="40"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M31.217 12.9l-3.772-.466a9.684 9.684 0 00-1.055-2.362l2.312-2.805a.417.417 0 00-.042-.58l-2.686-2.492a.5.5 0 00-.624-.038l-3.024 2.145a11.331 11.331 0 00-2.545-.98l-.503-3.499a.465.465 0 00-.471-.383h-3.8a.464.464 0 00-.47.383l-.503 3.5c-.9.226-1.754.558-2.545.979L8.465 4.156a.501.501 0 00-.624.039L5.155 6.687a.417.417 0 00-.042.58l2.313 2.805a9.679 9.679 0 00-1.056 2.361l-3.772.467a.454.454 0 00-.412.437v3.525c0 .22.176.408.412.437l3.771.466a9.678 9.678 0 001.056 2.362l-2.312 2.806a.417.417 0 00.041.579l2.687 2.492c.092.086.213.13.336.13.101 0 .203-.03.288-.091l3.024-2.146c.791.42 1.645.752 2.545.98l.503 3.499c.031.22.233.383.47.383h3.8c.238 0 .44-.163.47-.383l.503-3.499a11.33 11.33 0 002.546-.98l3.023 2.146c.086.061.188.09.289.09a.494.494 0 00.336-.128l2.686-2.493a.417.417 0 00.042-.579l-2.312-2.805a9.682 9.682 0 001.055-2.362l3.772-.467a.454.454 0 00.412-.437v-3.525a.453.453 0 00-.412-.437zm-14.31 6.165c-2.36 0-4.274-1.775-4.274-3.965s1.914-3.966 4.274-3.966c2.361 0 4.274 1.775 4.274 3.966 0 2.19-1.913 3.965-4.274 3.965z"
@@ -435,6 +442,7 @@ exports[`StartTrialModalContent Rendering test that the warning container render
           height="25"
           viewBox="0 0 14 14"
           width="25"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <g
             fill="none"
@@ -500,6 +508,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
           height="25"
           viewBox="0 0 24 24"
           width="25"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             clip-rule="evenodd"
@@ -560,6 +569,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
               fill="none"
               height="40"
               width="40"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M0 24.99h3.99V0H0v24.99zm7.98 0h3.99V7.403H7.98V24.99zm7.98-10.181v10.18h3.99V14.81h-3.99z"
@@ -624,6 +634,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
               fill="none"
               height="40"
               width="40"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M31.217 12.9l-3.772-.466a9.684 9.684 0 00-1.055-2.362l2.312-2.805a.417.417 0 00-.042-.58l-2.686-2.492a.5.5 0 00-.624-.038l-3.024 2.145a11.331 11.331 0 00-2.545-.98l-.503-3.499a.465.465 0 00-.471-.383h-3.8a.464.464 0 00-.47.383l-.503 3.5c-.9.226-1.754.558-2.545.979L8.465 4.156a.501.501 0 00-.624.039L5.155 6.687a.417.417 0 00-.042.58l2.313 2.805a9.679 9.679 0 00-1.056 2.361l-3.772.467a.454.454 0 00-.412.437v3.525c0 .22.176.408.412.437l3.771.466a9.678 9.678 0 001.056 2.362l-2.312 2.806a.417.417 0 00.041.579l2.687 2.492c.092.086.213.13.336.13.101 0 .203-.03.288-.091l3.024-2.146c.791.42 1.645.752 2.545.98l.503 3.499c.031.22.233.383.47.383h3.8c.238 0 .44-.163.47-.383l.503-3.499a11.33 11.33 0 002.546-.98l3.023 2.146c.086.061.188.09.289.09a.494.494 0 00.336-.128l2.686-2.493a.417.417 0 00.042-.579l-2.312-2.805a9.682 9.682 0 001.055-2.362l3.772-.467a.454.454 0 00.412-.437v-3.525a.453.453 0 00-.412-.437zm-14.31 6.165c-2.36 0-4.274-1.775-4.274-3.965s1.914-3.966 4.274-3.966c2.361 0 4.274 1.775 4.274 3.966 0 2.19-1.913 3.965-4.274 3.965z"
@@ -674,6 +685,7 @@ exports[`StartTrialModalContent Rendering that the content renders 1`] = `
           height="25"
           viewBox="0 0 14 14"
           width="25"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <g
             fill="none"

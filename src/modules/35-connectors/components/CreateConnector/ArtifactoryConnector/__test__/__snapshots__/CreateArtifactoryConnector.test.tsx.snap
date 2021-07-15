@@ -19,6 +19,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
             height="45"
             viewBox="0 0 12 14"
             width="45"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#619d42"
@@ -371,6 +372,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -523,6 +525,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
             height="45"
             viewBox="0 0 12 14"
             width="45"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#619d42"
@@ -669,7 +672,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -697,7 +700,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormArtifactory_name"
                           >
                             name
                           </span>
@@ -852,6 +855,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
             height="45"
             viewBox="0 0 12 14"
             width="45"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#619d42"
@@ -1214,6 +1218,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"

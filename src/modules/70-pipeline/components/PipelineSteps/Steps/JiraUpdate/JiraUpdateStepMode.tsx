@@ -59,9 +59,8 @@ const FormContent = ({
 }: JiraUpdateFormContentInterface) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
 
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
@@ -134,6 +133,7 @@ const FormContent = ({
         className={css.addFieldsModal}
         isOpen
         onClose={hideDynamicFieldsModal}
+        enforceFocus={false}
         title={getString('pipeline.jiraCreateStep.addFields')}
       >
         <JiraDynamicFieldsSelector
@@ -369,7 +369,7 @@ const FormContent = ({
                             />
                             <Button
                               minimal
-                              icon="trash"
+                              icon="main-trash"
                               data-testid={`remove-fieldList-${i}`}
                               onClick={() => remove(i)}
                               disabled={isApprovalStepFieldDisabled(readonly)}
@@ -394,9 +394,8 @@ const FormContent = ({
 function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormikFowardRef<JiraUpdateData>) {
   const { onUpdate, isNewStep, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
     accountIdentifier: accountId,

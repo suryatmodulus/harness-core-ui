@@ -22,6 +22,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
     pipelineView: {
       isSplitViewOpen: true,
       isDrawerOpened: false,
+      isYamlEditable: false,
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
     },
@@ -55,6 +56,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setSelectedStageId: jest.fn(),
   setSelectedStepId: jest.fn(),
   setSelectedSectionId: jest.fn(),
+  setSelection: jest.fn(),
   getStagePathFromPipeline: jest.fn()
 })
 

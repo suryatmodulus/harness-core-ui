@@ -263,7 +263,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           // })
 
           // NOTE: workaround solution to show out port
-          if (outLinesStatus.displayLines) {
+          if (outLinesStatus.displayLines && !verticalStepGroup) {
             makeVisibleOutPortOnEmptyNode(emptyNodeId)
           }
 

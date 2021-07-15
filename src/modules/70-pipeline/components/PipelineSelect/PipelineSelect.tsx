@@ -27,7 +27,11 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
   const [query, setQuery] = React.useState('')
   const [data, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
 
-  const { loading, mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const {
+    loading,
+    mutate: reloadPipelines,
+    cancel
+  } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,

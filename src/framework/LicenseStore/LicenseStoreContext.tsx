@@ -126,21 +126,18 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
       }
     })
 
-    // Only update the store if the user has been created via NG
-    if (Object.keys(licenses).length > 0) {
-      const CIModuleLicenseData = licenses['CI']
-      const FFModuleLicenseData = licenses['CF']
+    const CIModuleLicenseData = licenses['CI']
+    const FFModuleLicenseData = licenses['CF']
 
-      const updatedCILicenseState: LICENSE_STATE_VALUES = getLicenseState(CIModuleLicenseData?.expiryTime)
-      const updatedFFLicenseState: LICENSE_STATE_VALUES = getLicenseState(FFModuleLicenseData?.expiryTime)
+    const updatedCILicenseState: LICENSE_STATE_VALUES = getLicenseState(CIModuleLicenseData?.expiryTime)
+    const updatedFFLicenseState: LICENSE_STATE_VALUES = getLicenseState(FFModuleLicenseData?.expiryTime)
 
-      setState(prevState => ({
-        ...prevState,
-        licenseInformation: licenses,
-        CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedCILicenseState,
-        FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedFFLicenseState
-      }))
-    }
+    setState(prevState => ({
+      ...prevState,
+      licenseInformation: licenses,
+      CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedCILicenseState,
+      FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedFFLicenseState
+    }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.data?.allModuleLicenses, shouldLicensesBeDisabled])
 

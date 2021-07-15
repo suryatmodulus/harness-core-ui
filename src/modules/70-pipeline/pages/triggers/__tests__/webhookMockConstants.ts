@@ -116,7 +116,8 @@ export const pipelineInputInitialValues = {
           }
         }
       }
-    ]
+    ],
+    variables: [{ name: 'newVar', type: 'String', value: '<+input>', default: 'defaultValue' }]
   },
   pipeline: {
     identifier: 'p1',
@@ -138,7 +139,8 @@ export const pipelineInputInitialValues = {
           }
         }
       }
-    ]
+    ],
+    variables: [{ name: 'newVar', type: 'String', value: '' }]
   },
   sourceRepo: 'GITHUB',
   triggerType: 'Webhook'

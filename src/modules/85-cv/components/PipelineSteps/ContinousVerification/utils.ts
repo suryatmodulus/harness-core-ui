@@ -1,5 +1,5 @@
 import { getMultiTypeFromValue, MultiTypeInputType, RUNTIME_INPUT_VALUE, SelectOption } from '@wings-software/uicore'
-import { isEmpty, isNil, omitBy, set } from 'lodash-es'
+import { isEmpty, isNull, isUndefined, omit, omitBy, set } from 'lodash-es'
 import { yupToFormErrors } from 'formik'
 import * as Yup from 'yup'
 import type { UseStringsReturn } from 'framework/strings'
@@ -18,8 +18,8 @@ import {
  * @param field
  * @returns boolean
  */
-export function checkIfRunTimeInput(field: string | SelectOption | undefined): boolean {
-  return getMultiTypeFromValue(field) === MultiTypeInputType.RUNTIME
+export function checkIfRunTimeInput(field: string | SelectOption | number | undefined): boolean {
+  return getMultiTypeFromValue(field as string) === MultiTypeInputType.RUNTIME
 }
 
 /**
@@ -86,8 +86,20 @@ export function validateTimeout(
  * @param specInfo
  * @returns spec
  */
-export function getSpecYamlData(specInfo: spec | undefined): spec {
-  const validspec = omitBy(specInfo, isNil)
+export function getSpecYamlData(specInfo?: spec, type?: string): spec {
+  let validspec = omitBy(specInfo, v => isUndefined(v) || isNull(v) || v === '')
+
+  switch (type) {
+    case 'LoadTest':
+      validspec = omit(validspec, ['trafficsplit'])
+      break
+    case 'Bluegreen':
+    case 'Canary':
+      validspec = omit(validspec, ['baseline'])
+      break
+    default:
+      break
+  }
 
   Object.keys(validspec).map((key: string) => {
     //TODO logic in if block will be removed once backend api is fixed : https://harness.atlassian.net/browse/CVNG-2481

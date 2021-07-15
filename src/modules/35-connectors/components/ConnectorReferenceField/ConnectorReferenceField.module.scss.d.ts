@@ -10,6 +10,7 @@ declare const styles: {
   readonly gitText: string
   readonly iconCheck: string
   readonly iconChecked: string
+  readonly connectorLabel: string
   readonly status: string
   readonly redStatus: string
   readonly greenStatus: string

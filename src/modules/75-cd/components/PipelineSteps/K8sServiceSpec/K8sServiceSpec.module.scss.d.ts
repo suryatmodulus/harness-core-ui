@@ -25,11 +25,16 @@ declare const styles: {
   readonly header: string
   readonly subheading: string
   readonly inputheader: string
+  readonly artifactInfoTooltip: string
   readonly manifestVariablesTable: string
   readonly skipVersioning: string
   readonly width50: string
   readonly width25: string
   readonly serviceSection: string
   readonly connectorMargin: string
+  readonly layoutVerticalSpacing: string
+  readonly verticalSpacingInput: string
+  readonly listLabel: string
+  readonly width400: string
 }
 export default styles

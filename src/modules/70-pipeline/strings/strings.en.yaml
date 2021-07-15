@@ -7,7 +7,6 @@ serviceDependenciesText: Service Dependencies
 stepLabel: '{{name}} (ID: {{identifier}})'
 enableVerificationOptions: Enable verification options
 closeStepConfig: Step Config
-infrastructureKey: 'Infrastructure Key'
 stepConfigHasChanges: Form has some unsaved changed, Do you want to apply the changes?
 clickHere: Click here
 stepDetails: Step details
@@ -26,6 +25,8 @@ runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+startedOn: Started On
+outOf: Out Of
 approvalStage:
   settingUpStage: Getting stage data
 filters:
@@ -150,6 +151,7 @@ manifestType:
   specifyManifestStore: 'Specify {{ $.manifestsText }} {{$.store}}'
   selectManifestStore: '{{$.select}} {{ $.manifestsText }} {{$.store}}'
   helmSkipResourceVersion: By selecting this option, Harness will no longer version ConfigMaps and Secrets for this Service.
+  manifestPathPlaceholder: Enter File/Folder Path
   pluginPathHelperText: Enter the path to the dedicated directory for the plugin on the Delegate host(s). For example, '$HOME/plugin'. The default directory is named $XDG_CONFIG_HOME/kustomize/plugin and its value is $HOME/.config
   kustomizePathHelperText: Enter the path from the root of the Source Provider repo to the folder containing kustomization.yaml
   helmCommandFlags: By Default, Harness versions ConfigMaps and Secrets that are deployed into the Kubernetes Cluster.
@@ -524,6 +526,7 @@ testsReports:
   executionOverview: Test Execution Overview
   numberOfSelectedTests: 'Selected Tests'
   totalDuration: Total Duration
+  testDuration: Test Duration
   timeSaved: Time Saved
   totalExecutedTest: Total Executed Tests
   selectionBreakdown: Test Selection Breakdown
@@ -581,6 +584,10 @@ aboutYourStage:
   stageNamePlaceholder: Enter Stage Name
 infraSpecifications:
   namespacePlaceholder: Enter Namespace
+  serviceAccountName: Service Account Name
+  serviceAccountNamePlaceholder: Enter Service Account Name
+  initTimeout: Init Timeout
+  initTimeoutPlaceholder: Enter Init Timeout
 imagePathLabel: Image Path
 artifactsSelection:
   artifactDetails: Artifact Details
@@ -610,3 +617,21 @@ variable:
 moveStage:
   title: 'Move Pipeline Stage'
   description: 'Propagation is set up between this stage and another stage. Moving the parent/child stage out of sequence resets any propagated settings to their defaults. Do you want to continue?'
+verification:
+  currentTest: Current test
+  testsRan: Tests ran
+  baselineTest: Baseline test
+  metricsInViolation: Metrics in violation
+  logClustersInViolation: Log Clusters in violation
+  metricViewPlaceholder: Filter for a metric or transaction
+  anomalousMetrics: Anomalous Metrics
+  anomalousLogClusters: Anomalous Log Clusters
+  healthSourcePlaceholder: Filter by Health Source
+  refreshViewForNewData: Latest incoming data available.
+  toGetLatest: to get latest
+  noMetrics: No Metrics or Transactions
+  waitForAnalysis: Please wait a few moments for analysis to begin...
+  analysisTab:
+    metrics: 'Metrics'
+    logs: 'Logs'
+tagDependencyRequired: required to fetch the tags

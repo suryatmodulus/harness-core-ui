@@ -152,7 +152,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
               spec: {
                 store: {
                   /* istanbul ignore next */
-                  type: payload.connectorRef?.connector?.type,
+                  type: payload.connectorRef?.connector?.type || prevStepData?.selectedType,
                   spec: {
                     ...payload.varFile.spec?.store?.spec,
                     connectorRef: payload.connectorRef
@@ -319,7 +319,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                                     />
                                     <Button
                                       minimal
-                                      icon="trash"
+                                      icon="main-trash"
                                       data-testid={`remove-header-${index}`}
                                       onClick={() => arrayHelpers.remove(index)}
                                     />

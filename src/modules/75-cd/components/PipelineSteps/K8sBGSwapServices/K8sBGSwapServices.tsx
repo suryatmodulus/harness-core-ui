@@ -98,6 +98,7 @@ function K8sBGSwapWidget(
                     name="timeout"
                     label={getString('pipelineSteps.timeoutLabel')}
                     className={stepCss.duration}
+                    disabled={readonly}
                     multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
                   />
                   {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
@@ -165,16 +166,8 @@ export class K8sBGSwapServices extends PipelineStep<K8sBGSwapServicesData> {
     this._hasDelegateSelectionVisible = true
   }
   renderStep(props: StepProps<K8sBGSwapServicesData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (

@@ -38,6 +38,7 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           setFlagTypeClicked(false)
           hideModal()

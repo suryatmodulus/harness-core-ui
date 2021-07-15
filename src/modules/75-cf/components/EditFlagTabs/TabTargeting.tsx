@@ -68,7 +68,7 @@ const TabTargeting: React.FC<TabTargetingProps> = props => {
   }, [editing, isEditRulesOn])
 
   const [, hideTargetModal] = useModalHook(() => (
-    <Dialog onClose={hideTargetModal} title="" isOpen={true}>
+    <Dialog enforceFocus={false} onClose={hideTargetModal} title="" isOpen={true}>
       <Layout.Vertical>
         <Text>{getString('cf.featureFlags.rules.serveToFollowing')}</Text>
 

@@ -107,8 +107,7 @@ const RenderColumnFlag: React.FC<RenderColumnFlagProps> = ({ cell: { row, column
           dangerouslySetInnerHTML={{
             __html: getString(status ? 'cf.featureFlags.turnOffMessage' : 'cf.featureFlags.turnOnMessage', {
               name: data.name,
-              env:
-                ((column as unknown) as { activeEnvironment?: EnvironmentResponseDTO })?.activeEnvironment?.name || ''
+              env: (column as unknown as { activeEnvironment?: EnvironmentResponseDTO })?.activeEnvironment?.name || ''
             })
           }}
         />
@@ -332,7 +331,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
       org: orgIdentifier
     } as DeleteFeatureFlagQueryParams
   })
-  const refetch = ((column as unknown) as { refetch: () => void }).refetch
+  const refetch = (column as unknown as { refetch: () => void }).refetch
   const deleteFlag = useConfirmAction({
     title: getString('cf.featureFlags.deleteFlag'),
     confirmText: getString('delete'),
@@ -424,9 +423,13 @@ const FeatureFlagsPage: React.FC = () => {
     }),
     [projectIdentifier, activeEnvironment, accountId, orgIdentifier, pageNumber, searchTerm] // eslint-disable-line react-hooks/exhaustive-deps
   )
-  const { data, loading: flagsLoading, error: flagsError, refetch } = useGetAllFeatures({
+  const {
+    data,
+    loading: flagsLoading,
+    error: flagsError,
+    refetch
+  } = useGetAllFeatures({
     lazy: true,
-    debounce: true,
     queryParams
   })
   const {
@@ -442,7 +445,7 @@ const FeatureFlagsPage: React.FC = () => {
       refetch({ queryParams: { ...queryParams, environment: _environment.identifier as string } })
     },
     onEmpty: () => {
-      refetch({ queryParams: { ...queryParams, environment: (undefined as unknown) as string } })
+      refetch({ queryParams: { ...queryParams, environment: undefined as unknown as string } })
     }
   })
   const [features, setFeatures] = useState<Features | null>()
@@ -478,9 +481,9 @@ const FeatureFlagsPage: React.FC = () => {
                   const feature = features?.features?.find(f => f.identifier === cell.row.original.identifier)
                   if (feature) {
                     if (feature.envProperties) {
-                      feature.envProperties.state = (status
-                        ? FeatureFlagActivationStatus.ON
-                        : FeatureFlagActivationStatus.OFF) as FeatureState
+                      feature.envProperties.state = (
+                        status ? FeatureFlagActivationStatus.ON : FeatureFlagActivationStatus.OFF
+                      ) as FeatureState
                     }
                     feature.modifiedAt = Date.now()
                     setFeatures({ ...features } as Features)
@@ -505,7 +508,7 @@ const FeatureFlagsPage: React.FC = () => {
           return (
             <FlagStatus
               status={cell.row.original.status?.status as FeatureFlagStatus}
-              lastAccess={(cell.row.original.status?.lastAccess as unknown) as number}
+              lastAccess={cell.row.original.status?.lastAccess as unknown as number}
             />
           )
         }
@@ -558,7 +561,9 @@ const FeatureFlagsPage: React.FC = () => {
   const title = getString('featureFlagsText')
   const header = (
     <Layout.Horizontal flex={{ align: 'center-center' }} style={{ flexGrow: 1 }} padding={{ right: 'xlarge' }}>
-      <ListingPageTitle style={{ borderBottom: 'none' }}>{title}</ListingPageTitle>
+      <ListingPageTitle style={{ borderBottom: 'none' }} data-tooltip-id="ff_ffListing_heading">
+        {title}
+      </ListingPageTitle>
       <FlexExpander />
       {!!environments?.length && <CFEnvironmentSelect component={<EnvironmentSelect />} />}
     </Layout.Horizontal>

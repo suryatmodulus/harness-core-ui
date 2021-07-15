@@ -61,6 +61,7 @@ exports[`<ExecutionFilters /> test snapshot testing 1`] = `
           height="22"
           viewBox="0 0 24 24"
           width="22"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <mask
             fill="#fff"
@@ -180,6 +181,7 @@ exports[`<ExecutionFilters /> test snapshot testing for opened filter drawer 1`]
                       height="25"
                       viewBox="0 0 24 24"
                       width="25"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <mask
                         fill="#fff"

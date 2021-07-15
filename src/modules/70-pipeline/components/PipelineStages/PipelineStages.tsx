@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDeepCompareEffect } from '@common/hooks'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { AddStageView } from './views/AddStageView'
 import type { PipelineStageProps } from './PipelineStage'
 
@@ -10,7 +11,7 @@ export interface PipelineStagesProps<T = Record<string, unknown>> {
   isParallel?: boolean
   getNewStageFromType?: (type: string, clearDefaultValues?: boolean) => T
   stageProps?: T
-  onSelectStage?: (stageType: string, stage?: T) => void
+  onSelectStage?: (stageType: string, stage?: T, pipeline?: PipelineInfoConfig) => void
   showSelectMenu?: boolean
 }
 
@@ -100,8 +101,8 @@ export function PipelineStages<T = Record<string, unknown>>({
             minimal: true,
             stageProps: {
               data: getNewStageFromType?.(type, true),
-              onSubmit: (stageData: T) => {
-                onSelectStage?.(type, stageData)
+              onSubmit: (stageData: T, _id?: string, pipeline?: PipelineInfoConfig) => {
+                onSelectStage?.(type, stageData, pipeline)
               }
             }
           })}

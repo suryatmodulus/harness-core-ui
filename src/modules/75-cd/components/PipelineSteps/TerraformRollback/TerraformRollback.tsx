@@ -152,18 +152,22 @@ const TerraformRollbackInputStep: React.FC<TerraformRollbackProps> = ({ inputSet
   return (
     <>
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
-        <DurationInputFieldForInputSet
-          label={getString('pipelineSteps.timeoutLabel')}
-          name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <DurationInputFieldForInputSet
+            label={getString('pipelineSteps.timeoutLabel')}
+            name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
+            disabled={readonly}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name="spec.provisionerIdentifier"
-          label={getString('pipelineSteps.provisionerIdentifier')}
-          disabled={readonly}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.Text
+            name="spec.provisionerIdentifier"
+            label={getString('pipelineSteps.provisionerIdentifier')}
+            disabled={readonly}
+          />
+        </div>
       )}
     </>
   )

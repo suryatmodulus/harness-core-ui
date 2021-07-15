@@ -78,7 +78,12 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
       }),
       [queryString, sortOrder, sortByField, pageNumber]
     )
-    const { data, loading: loadingSegments, error, refetch } = useGetAllFeatures({
+    const {
+      data,
+      loading: loadingSegments,
+      error,
+      refetch
+    } = useGetAllFeatures({
       queryParams,
       lazy: true
     })
@@ -128,6 +133,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
     return (
       <Dialog
         isOpen
+        enforceFocus={false}
         onClose={hideModal}
         title={
           <Text
@@ -138,6 +144,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
               lineHeight: '20px',
               padding: 'var(--spacing-large) 0 0 var(--spacing-small)'
             }}
+            data-tooltip-id="ff_segmentAddToFlagModal_heading"
           >
             {modalTitle}
           </Text>

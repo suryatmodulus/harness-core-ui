@@ -1,17 +1,9 @@
 import React from 'react'
-import {
-  Label,
-  FormInput,
-  getMultiTypeFromValue,
-  MultiTypeInputType,
-  Icon,
-  Layout,
-  Text,
-  Button
-} from '@wings-software/uicore'
+import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, Button } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type {
   DeploymentStageConfig,
   ServiceSpec,
@@ -153,6 +145,7 @@ function ExecutionWrapperInputSetForm(props: {
               path={`${path}[${index}].step`}
               readonly={readonly}
               onUpdate={data => {
+                /* istanbul ignore next */
                 if (initialValues) {
                   if (!initialValues.step) {
                     initialValues.step = {
@@ -182,7 +175,7 @@ function ExecutionWrapperInputSetForm(props: {
             />
           ) : null
         } else if (item.parallel) {
-          return ((item.parallel as unknown) as StepElement[]).map((nodep: ExecutionWrapper, indexp) => {
+          return (item.parallel as unknown as StepElement[]).map((nodep: ExecutionWrapper, indexp) => {
             if (nodep.step) {
               const originalStep = getStepFromStage(nodep.step?.identifier || '', allValues)
               const initialValues = getStepFromStage(nodep.step?.identifier || '', values)
@@ -352,12 +345,20 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                     : `${path}.serviceConfig.serviceDefinition.spec`
                 }
                 readonly={readonly}
-                customStepProps={{ stageIdentifier }}
+                customStepProps={{
+                  stageIdentifier,
+                  allValues:
+                    isPropagating && deploymentStageInputSet
+                      ? deploymentStage?.serviceConfig?.stageOverrides
+                      : deploymentStage?.serviceConfig.serviceDefinition?.spec
+                }}
                 onUpdate={(data: any) => {
+                  /* istanbul ignore next */
                   if (deploymentStageInputSet?.serviceConfig?.serviceDefinition?.spec) {
                     deploymentStageInputSet.serviceConfig.serviceDefinition.spec = data
                     formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
                   }
+                  /* istanbul ignore next */
                   if (deploymentStageInputSet?.serviceConfig?.stageOverrides && isPropagating) {
                     deploymentStageInputSet.serviceConfig.stageOverrides = data
                     formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
@@ -374,8 +375,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
           <div className={css.inputheader}>{getString('infrastructureText')}</div>
 
           <div className={css.nestedAccordions}>
-            {(deploymentStageTemplate.infrastructure as any)?.spec?.namespace && (
-              /* istanbul ignore next */ <FormInput.MultiTextInput
+            {(deploymentStageTemplate.infrastructure as any).spec?.namespace && (
+              <FormInput.MultiTextInput
                 label={
                   <Text flex font="small" margin={{ bottom: 'xsmall' }}>
                     {getString('pipelineSteps.build.infraSpecifications.namespace')}
@@ -395,6 +396,38 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 disabled={readonly}
               />
             )}
+            {(deploymentStageTemplate.infrastructure as any).spec?.serviceAccountName && (
+              <FormInput.MultiTextInput
+                label={getString('pipeline.infraSpecifications.serviceAccountName')}
+                name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.serviceAccountName`}
+                multiTextInputProps={{
+                  expressions,
+                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                }}
+                disabled={readonly}
+              />
+            )}
+            {(deploymentStageTemplate.infrastructure as any).spec?.initTimeout && (
+              <FormMultiTypeDurationField
+                label={
+                  <Text flex={{ justifyContent: 'start' }} font="small">
+                    {getString('pipeline.infraSpecifications.initTimeout')}
+                    <Button
+                      icon="question"
+                      minimal
+                      tooltip={getString('pipelineSteps.timeoutInfo')}
+                      iconProps={{ size: 14 }}
+                    />
+                  </Text>
+                }
+                name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.initTimeout`}
+                multiTypeDurationProps={{
+                  expressions,
+                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                }}
+                disabled={readonly}
+              />
+            )}
             {deploymentStageTemplate.infrastructure?.environmentRef && (
               /* istanbul ignore next */ <StepWidget<PipelineInfrastructure>
                 factory={factory}
@@ -407,7 +440,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
               />
             )}
             {deploymentStageTemplate.infrastructure.infrastructureDefinition && (
-              <StepWidget<Infrastructure>
+              /* istanbul ignore next */ <StepWidget<Infrastructure>
                 factory={factory}
                 template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
                 initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
@@ -421,6 +454,7 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 path={`${path}.infrastructure.infrastructureDefinition.spec`}
                 readonly={readonly}
                 onUpdate={data => {
+                  /* istanbul ignore next */
                   if (deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec) {
                     deploymentStageInputSet.infrastructure.infrastructureDefinition.spec = data
                     formik?.setValues(set(formik?.values, path, deploymentStageInputSet))
@@ -429,25 +463,12 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 stepViewType={StepViewType.InputSet}
               />
             )}
-            {getMultiTypeFromValue(deploymentStageTemplate?.infrastructure?.infrastructureKey) ===
-              MultiTypeInputType.RUNTIME && (
-              /* istanbul ignore next */ <FormInput.MultiTextInput
-                multiTextInputProps={{
-                  allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-                  expressions
-                }}
-                name={`${path}.infrastructure.infrastructureKey`}
-                label={getString('pipeline.infrastructureKey')}
-                disabled={readonly}
-                className={cx(css.inputWidth, css.noMarginLeft)}
-              />
-            )}
           </div>
         </div>
       )}
 
       {deploymentStageTemplate.infrastructure?.infrastructureDefinition?.provisioner && (
-        <div
+        /* istanbul ignore next */ <div
           id={`Stage.${stageIdentifier}.infrastructure.infrastructureDefinition?.provisioner`}
           className={cx(css.accordionSummary)}
         >

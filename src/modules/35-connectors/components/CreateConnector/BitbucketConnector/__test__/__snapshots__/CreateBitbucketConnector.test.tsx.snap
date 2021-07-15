@@ -20,6 +20,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
             height="50"
             viewBox="0 0 20 18"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
@@ -176,7 +177,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                         <span
                           class="bp3-icon bp3-icon-edit StyledProps--main"
                           icon="edit"
-                          style="vertical-align: middle;"
+                          style="vertical-align: middle; cursor: pointer;"
                         >
                           <svg
                             data-icon="edit"
@@ -204,7 +205,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                         >
                           <span
                             class="Tooltip--acenter"
-                            data-tooltip-id="connectorDetailsStepForm_name"
+                            data-tooltip-id="connectorDetailsStepFormBitbucket_name"
                           >
                             name
                           </span>
@@ -365,6 +366,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
             height="50"
             viewBox="0 0 20 18"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
@@ -640,6 +642,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -787,6 +790,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
             height="50"
             viewBox="0 0 20 18"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
@@ -1062,6 +1066,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step one 
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -1214,6 +1219,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
             height="50"
             viewBox="0 0 20 18"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
@@ -1489,6 +1495,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -1636,6 +1643,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
             height="50"
             viewBox="0 0 20 18"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
@@ -1911,6 +1919,7 @@ exports[`Create Bitbucketconnector Wizard Creating Bitbucket connector step two 
                           height="10"
                           viewBox="0 0 12 12"
                           width="10"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
                             clip-rule="evenodd"
@@ -2063,6 +2072,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
             height="50"
             viewBox="0 0 20 18"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
@@ -2406,6 +2416,7 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -2585,6 +2596,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
             height="50"
             viewBox="0 0 20 18"
             width="50"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
               d="M.65 0a.646.646 0 00-.495.218.622.622 0 00-.147.512l2.72 16.224c.07.41.43.71.853.714h13.05a.638.638 0 00.64-.528L19.991.733a.621.621 0 00-.142-.51A.646.646 0 0019.36 0H.65zm11.453 11.725H7.938L6.81 5.94h6.302l-1.009 5.785z"
@@ -2928,6 +2940,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"
@@ -3209,6 +3222,7 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                               <svg
                                 height="24"
                                 width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
                                   fill="none"

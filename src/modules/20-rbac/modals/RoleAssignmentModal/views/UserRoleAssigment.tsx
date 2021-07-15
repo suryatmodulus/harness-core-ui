@@ -33,6 +33,7 @@ interface UserRoleAssignmentData {
   roleBindings?: RoleAssignmentMetadataDTO[]
   user?: UserMetadataDTO
   onSubmit?: () => void
+  onSuccess?: () => void
   isInvite?: boolean
 }
 
@@ -57,7 +58,7 @@ export interface UserRoleAssignmentValues {
 }
 
 const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
-  const { user, roleBindings, onSubmit, isInvite } = props
+  const { user, roleBindings, onSubmit, isInvite, onSuccess } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
   const [query, setQuery] = useState<string>()
@@ -219,7 +220,11 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
                   }}
                   disabled={!isInvite}
                 />
-                <RoleAssignmentForm noRoleAssignmentsText={getString('rbac.usersPage.noDataText')} formik={formik} />
+                <RoleAssignmentForm
+                  noRoleAssignmentsText={getString('rbac.usersPage.noDataText')}
+                  formik={formik}
+                  onSuccess={onSuccess}
+                />
                 <Layout.Horizontal>
                   <Button intent="primary" text={getString('save')} type="submit" disabled={saving || sending} />
                 </Layout.Horizontal>

@@ -1,3 +1,4 @@
+gridColumnSelector: 'Columns'
 continuous: '{{$.common.purpose.ce.continuous}}'
 homepage:
   slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
@@ -58,9 +59,11 @@ co:
         additionalResourceInfo:
           instance: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule.'
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
+          kubernetes: 'Add a cluster to be managed by the AutoStopping Rule.'
         addResourceCta:
           instance: 'Add an instance'
           asg: 'Add a auto-scaling group'
+          kubernetes: 'Add a cluster'
       step3:
         title: 'Choose to convert the selected instance(s) to spot or remain on-demand. '
         asgTitle: 'Choose the on-demand vs spot ratio for your Auto Scaling group'
@@ -76,6 +79,7 @@ co:
       configDetails: 'Configuration Details'
     setupAccess:
       pageName: 'Setup Access'
+      noSetupRequired: No need to setup access for kubernetes rule. Please move to Review step.
       customDomain:
         helpText: 'Specify the URL used to access the resources(Optional)'
         noHostedZones: 'Custom domain does not match to any of the existing domains'
@@ -84,6 +88,7 @@ co:
       selectAppGateway: 'Select Application Gateway'
       selectLbHelpText: 'The rule requires a Load balancer to direct traffic/shut down appropriate instances. Multiple instances and rules can use a single Load balancer. It identifies instances based on hostnames and directs the HTTP traffic appropriately.'
       chooseLbText: '- Choose from existing Load balancers -'
+      erroredAccessPointSelectionText: 'Access point in error state can not be selected'
       helpText:
         dns:
           info: 'Select DNS Link if the instances managed by this AutoStopping Rule are currently accessed by a URL.'
@@ -142,6 +147,7 @@ co:
     newAppGateway: 'New Application Gateway'
     dnsProvider: 'DNS Provider'
     asssociatedRules: 'Associated Rules'
+    status: 'status'
     lastActivity: 'last activity'
     mapDomain: 'Map the domain'
     error: 'Could not create access point'
@@ -366,3 +372,82 @@ recommendation:
     memoryLabel: 'MEMORY'
     memoryLabelRegular: 'Memory'
     memoryUsagePlaceholder: 'Memory usage(GBs)'
+savedYamlSuccess: YAML validated successfully
+uploadCertiHeader: Upload a new certificate for the Application Load Balancer
+perspectives:
+  save: Save Perspective
+  validations:
+    invalidEmails: Invalid email address(es)
+    emailRequired: Please provide at least 1 recipient's email address
+    reportNameRequired: '{{ $.common.reportNameRequired }}'
+  searchPerspectives: Search perspectives
+  timeRangeConstants:
+    last7Days: 'Last 7 Days'
+    thisMonth: 'This Month'
+    last30Days: 'Last 30 Days'
+    thisQuarter: 'This Quarter'
+    thisYear: 'This Year'
+    lastMonth: '{{$.common.datePickerShortcuts.LastMonth}}'
+    lastQuarter: 'Last Quarter'
+    lastYear: 'Last Year'
+    last3Months: 'Last 3 Months'
+    last6Months: 'Last 6 Months'
+    last12Months: 'Last 12 Months'
+  timeRange:
+    relativeDates: 'Relative dates'
+    calendarMonths: 'Calendar months'
+    recommended: 'Recommended'
+    selectCustomRange: 'Select custom range'
+  timeAggregation:
+    daily: '{{$.pipeline.triggers.schedulePanel.dailyTabTitle}}'
+    monthly: '{{$.pipeline.triggers.schedulePanel.monthlyTabTitle}}'
+  createPerspective:
+    title: 'Perspective Builder'
+    nameLabel: 'Enter a name for the view*'
+    name: 'Perspective name'
+    proTipText: 'Pro tip: Create custom fields for advanced filtering. Apart from the given fields, you can
+      create your own custom fields'
+    createCustomField: 'Create a custom field'
+    learnMoreCustomField: 'Learn more about custom fields'
+    nextButton: '{{$.next}}'
+    prevButton: '{{$.previous}}'
+    validationErrors:
+      nameError: '{{$.common.validation.nameIsRequired}}'
+      ruleError: 'values length should be greater than 1'
+    filters:
+      operator: '{{$.pipeline.triggers.conditionsPanel.operator}}'
+      searchText: 'Search Here'
+      selectValues: 'Select Values'
+      rulesTitle: 'Rules for Perspective'
+      rulesText1: 'Data that matches ANY of the rules will be added to the perspective.'
+      rulesText2: 'But it has to match ALL of the conditions within a rule.'
+      addRuleText: 'Add rule'
+      selectOperator: 'SELECT OPERATOR'
+      selectValuesText: 'SELECT VALUES'
+    preview:
+      groupBy: 'Group By'
+      title: '{{$.executionStrategy.preview}}'
+    operatorLabels:
+      in: 'IN'
+      notIn: 'NOT IN'
+      opNull: 'NULL'
+      opNotNull: 'NOT NULL'
+  reports:
+    title: Report Schedules
+    desc: Reports can send a cost report to specified users at the specified frequency.
+    msg: You have not created any yet.
+    createNew: '+ create new Report schedule'
+    reportName: '{{ $.common.reportName }}'
+    frequency: '{{ $.common.frequency }}'
+    recipients: Reciepients
+    cronLabel: Add a report schedule
+    emailPlaceholder: Please provide a comma separated list of recipients' email addresses
+    recipientLabel: Send report to
+  budgets:
+    title: Budget
+    desc: Budget can help you recieve alerts when the spend exceeds or is about to exceed a specified threshold so that it can be prevented.
+    createNew: + create new Budget
+    amount: Budgeted amount
+    alerts: Alert at
+    actualCost: Cost till date
+    lastMonthCost: Last month's spend

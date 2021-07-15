@@ -20,6 +20,7 @@ exports[`ContextMenuActions matches snapshot 1`] = `
             height="16"
             viewBox="0 0 13 3"
             width="16"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <g
               fill="#4d5969"

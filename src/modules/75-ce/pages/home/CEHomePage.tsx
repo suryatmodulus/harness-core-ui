@@ -29,7 +29,11 @@ const CEHomePage: React.FC = () => {
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
-  const { data: projectListData, loading: getProjectListLoading, error: getProjectListError } = useGetProjectList({
+  const {
+    data: projectListData,
+    loading: getProjectListLoading,
+    error: getProjectListError
+  } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId
     },

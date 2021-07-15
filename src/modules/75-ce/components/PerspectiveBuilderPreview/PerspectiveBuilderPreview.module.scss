@@ -1,0 +1,37 @@
+.groupByLabel {
+  max-height: 420px;
+  overflow-y: auto;
+  max-width: 480px;
+}
+
+.groupBySelect {
+  padding: var(--spacing-xsmall) var(--spacing-small) var(--spacing-xsmall) var(--spacing-small) !important;
+  border-radius: 4px;
+  max-width: 200px;
+  overflow: hidden;
+  margin-top: var(--spacing-xsmall) !important;
+  cursor: pointer;
+
+  &.groupBySelectLoading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+  }
+}
+
+.previewMainContainer {
+  overflow-y: auto;
+}
+
+.menuItem {
+  padding: var(--spacing-small);
+  &:hover {
+    background: var(--primary-1) !important;
+    color: var(--black) !important;
+  }
+  &:active {
+    background: var(--primary-7) !important;
+    color: var(--white) !important;
+  }
+}

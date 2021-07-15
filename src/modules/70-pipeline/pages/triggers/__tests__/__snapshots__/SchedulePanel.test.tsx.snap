@@ -258,7 +258,7 @@ exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Hourly select
                                   class="bp3-menu"
                                 >
                                   <li
-                                    class="Select--menuItem"
+                                    class="Select--menuItem Select--active"
                                   >
                                     00
                                   </li>
@@ -273,7 +273,7 @@ exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Hourly select
                                     02
                                   </li>
                                   <li
-                                    class="Select--menuItem Select--active"
+                                    class="Select--menuItem"
                                   >
                                     03
                                   </li>
@@ -971,7 +971,7 @@ exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Minutes selec
                                     class="bp3-menu"
                                   >
                                     <li
-                                      class="Select--menuItem"
+                                      class="Select--menuItem Select--active"
                                     >
                                       5
                                     </li>
@@ -991,7 +991,7 @@ exports[`SchedulePanel Triggers tests Interactivity: Schedule Tabs Minutes selec
                                       20
                                     </li>
                                     <li
-                                      class="Select--menuItem Select--active"
+                                      class="Select--menuItem"
                                     >
                                       30
                                     </li>

@@ -5,7 +5,6 @@ import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, orgPathProps, withAccountId } from '@common/utils/routeUtils'
 
-import AccountOverview from '@common/pages/AccountOverview/AccountOverview'
 import GovernancePage from '@common/pages/governance/GovernancePage'
 import type { SidebarContext } from './navigation/SidebarProvider'
 import type { AccountPathProps } from './interfaces/RouteInterfaces'
@@ -32,9 +31,6 @@ export default (
     <Route exact path={[justAccountPath({ ...accountPathProps }), routes.toHome({ ...accountPathProps })]}>
       <RedirectToHome />
     </Route>
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSetup({ ...accountPathProps })} exact>
-      <AccountOverview />
-    </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={HomeSideNavProps}
       path={[

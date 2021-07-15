@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  min-width: 47%;
+  margin: var(--spacing-small) !important;
+}

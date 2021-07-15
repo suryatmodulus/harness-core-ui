@@ -33,7 +33,11 @@ interface ActivityGraphProps {
 const ActivityGraph: React.FC<ActivityGraphProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
-  const { data: activitySummary, refetch: refetchActivitySummary, loading } = useGetActivitiesSummary({
+  const {
+    data: activitySummary,
+    refetch: refetchActivitySummary,
+    loading
+  } = useGetActivitiesSummary({
     queryParams: {
       referredEntityType: props.referredEntityType,
       identifier: props.entityIdentifier,

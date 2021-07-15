@@ -183,7 +183,32 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
           timeout: getDurationValidationSchema({ minimum: '10s' }).required(
             getString('validation.timeout10SecMinimum')
           ),
-          identifier: IdentifierSchema()
+          identifier: IdentifierSchema(),
+          spec: Yup.object().shape({
+            deleteResources: Yup.object().shape({
+              spec: Yup.object()
+                .when('type', {
+                  is: DeleteSpecConstant.ResourceName,
+                  then: Yup.object().shape({
+                    resourceNames: Yup.array(
+                      Yup.object().shape({
+                        value: Yup.string().required(getString('cd.resourceCannotBeEmpty'))
+                      })
+                    )
+                  })
+                })
+                .when('type', {
+                  is: DeleteSpecConstant.ManifestPath,
+                  then: Yup.object().shape({
+                    manifestPaths: Yup.array(
+                      Yup.object().shape({
+                        value: Yup.string().required(getString('cd.manifestPathsCannotBeEmpty'))
+                      })
+                    )
+                  })
+                })
+            })
+          })
         })}
       >
         {(formikProps: FormikProps<K8sDeleteData>) => {
@@ -204,6 +229,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                     label={getString('pipelineSteps.deleteResourcesBy')}
                     name="spec.deleteResources.type"
                     items={accessTypeOptions}
+                    disabled={isDisabled}
                     radioGroup={{ inline: true, disabled: isDisabled }}
                     onChange={e => {
                       const currentValue = e.currentTarget?.value
@@ -232,13 +258,14 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                   placeholder={getString('pipelineSteps.deleteResourcesPlaceHolder')}
                                   name={`spec.deleteResources.spec.resourceNames[${index}].value`}
                                   style={{ width: '430px' }}
+                                  disabled={isDisabled}
                                   multiTextInputProps={{ expressions, textProps: { disabled: isDisabled } }}
                                 />
                                 {/* istanbul ignore next */}
                                 {formikProps.values?.spec?.deleteResources?.spec?.resourceNames && (
                                   <Button
                                     minimal
-                                    icon="minus"
+                                    icon="main-trash"
                                     onClick={() => {
                                       /* istanbul ignore next */
                                       arrayHelpers.remove(index)
@@ -274,7 +301,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                       name="spec.deleteResources.spec.deleteNamespace"
                       label={getString('pipelineSteps.deleteNamespace')}
                       style={{ paddingLeft: 'var(--spacing-small)', fontSize: 'var(--font-size-small)' }}
-                      multiTypeTextbox={{ expressions }}
+                      multiTypeTextbox={{ expressions, disabled: isDisabled }}
                       disabled={isDisabled}
                     />
                   </div>
@@ -299,6 +326,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                   placeholder={getString('pipelineSteps.manifestPathsPlaceHolder')}
                                   name={`spec.deleteResources.spec.manifestPaths[${index}].value`}
                                   style={{ width: '430px' }}
+                                  disabled={isDisabled}
                                   multiTextInputProps={{
                                     expressions,
                                     allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
@@ -310,7 +338,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                                 {formikProps.values?.spec?.deleteResources?.spec?.manifestPaths && (
                                   <Button
                                     minimal
-                                    icon="minus"
+                                    icon="main-trash"
                                     onClick={() => arrayHelpers.remove(index)}
                                     disabled={isDisabled}
                                   />
@@ -337,6 +365,7 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                   <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                     <FormMultiTypeDurationField
                       name="timeout"
+                      disabled={isDisabled}
                       label={getString('pipelineSteps.timeoutLabel')}
                       multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: isDisabled }}
                     />
@@ -424,16 +453,8 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
   renderStep(props: StepProps<any>): JSX.Element {
     /* istanbul ignore next */
 
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      isNewStep,
-      readonly
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       /* istanbul ignore next */
@@ -531,7 +552,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
           }
         }
       }
-    } else {
+    } else if (initialValues.spec?.deleteResources?.type === DeleteSpecConstant.ReleaseName) {
       return {
         ...initialValues,
         spec: {
@@ -540,6 +561,23 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
             spec: {
               deleteNamespace: initialValues.spec?.deleteResources?.spec?.deleteNamespace || false
             }
+          }
+        }
+      }
+    }
+
+    return {
+      ...initialValues,
+      spec: {
+        deleteResources: {
+          type: DeleteSpecConstant.ResourceName,
+          spec: {
+            resourceNames: initialValues.spec?.deleteResources?.spec?.resourceNames?.length
+              ? (initialValues.spec?.deleteResources?.spec?.resourceNames).map((item: any) => ({
+                  value: item,
+                  id: uuid()
+                }))
+              : [{ value: '', id: uuid() }]
           }
         }
       }

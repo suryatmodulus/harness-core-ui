@@ -72,7 +72,11 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
   const [unSyncedSelectedBranch, setUnSyncedSelectedBranch] = React.useState<BranchSelectOption | null>(null)
   const [searchTerm, setSearchTerm] = React.useState<string>('')
 
-  const { data: response, loading, refetch: getListOfBranchesWithStatus } = useGetListOfBranchesWithStatus({
+  const {
+    data: response,
+    loading,
+    refetch: getListOfBranchesWithStatus
+  } = useGetListOfBranchesWithStatus({
     lazy: true,
     debounce: 500
   })
@@ -167,6 +171,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
     () => (
       <Dialog
         isOpen={!!unSyncedSelectedBranch?.value}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
           setUnSyncedSelectedBranch(null)

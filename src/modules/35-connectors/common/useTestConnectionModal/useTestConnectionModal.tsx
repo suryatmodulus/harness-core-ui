@@ -16,6 +16,7 @@ export interface UseTestConnectionModalReturn {
 }
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 850,
     minHeight: 345,

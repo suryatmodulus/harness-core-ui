@@ -101,7 +101,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ url: DynatraceURL + '/', apiTokenRef: ApiToken } as unknown) as ConnectorInfoDTO}
+          connectorInfo={{ url: DynatraceURL + '/', apiTokenRef: ApiToken } as unknown as ConnectorInfoDTO}
         />
       </TestWrapper>
     )
@@ -139,7 +139,7 @@ describe('Unit tests for CreateDynatraceConnector', () => {
           onSuccess={noop}
           isEditMode={false}
           setIsEditMode={noop}
-          connectorInfo={({ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown) as ConnectorInfoDTO}
+          connectorInfo={{ spec: { url: DynatraceURL, apiTokenRef: ApiToken } } as unknown as ConnectorInfoDTO}
         />
       </TestWrapper>
     )

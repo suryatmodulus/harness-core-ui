@@ -6,23 +6,23 @@ import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 
 export default function CIPipelineDeploymentList(): React.ReactElement {
-  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId, module } = useParams<
-    PipelineType<PipelinePathProps>
-  >()
+  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId, module } =
+    useParams<PipelineType<PipelinePathProps>>()
 
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
   const history = useHistory()
   const onRunPipeline = (): void => {
     history.push(
-      routes.toRunPipeline({
+      routes.toPipelineStudio({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         module,
         branch,
-        repoIdentifier
+        repoIdentifier,
+        runPipeline: true
       })
     )
   }

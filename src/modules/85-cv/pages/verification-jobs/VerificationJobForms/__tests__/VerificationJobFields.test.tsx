@@ -152,7 +152,7 @@ describe('Monitoring Sources component with no monitoring source', () => {
             name: '',
             identifier: '',
             spec: {
-              verificationJobRef: 'string',
+              monitoredServiceRef: 'string',
               type: 'string',
               spec: undefined
             }

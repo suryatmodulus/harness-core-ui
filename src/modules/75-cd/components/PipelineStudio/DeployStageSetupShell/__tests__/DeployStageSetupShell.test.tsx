@@ -19,6 +19,13 @@ jest.mock('services/cd-ng', () => ({
   useGetServiceListForProject: jest.fn().mockImplementation(() => ({ loading: false, data: {}, refetch: jest.fn() }))
 }))
 
+const intersectionObserverMock = () => ({
+  observe: () => null,
+  unobserve: () => null
+})
+
+window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock)
+
 window.HTMLElement.prototype.scrollTo = jest.fn()
 
 describe('DeployStageSetupShell tests', () => {

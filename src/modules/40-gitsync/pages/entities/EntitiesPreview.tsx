@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Color, Layout, Text } from '@wings-software/uicore'
+import { Container, Color, Layout, Text, Card } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
-import { Spinner } from '@blueprintjs/core'
+
 import {
   GitSyncEntityListDTO,
   GitSyncEntityDTO,
-  useListGitSyncEntitiesSummaryForRepoAndTypes,
+  useListGitSyncEntitiesSummaryForRepoAndBranch,
   GitSyncConfig,
-  GitSyncRepoFiles,
   GitEntityFilterProperties,
   ListGitSyncEntitiesByTypePathParams
 } from 'services/cd-ng'
@@ -16,6 +15,7 @@ import Table from '@common/components/Table/Table'
 import { useStrings } from 'framework/strings'
 import { Entities } from '@common/interfaces/GitSyncInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { PageSpinner } from '@common/components'
 import { getEntityHeaderText, getTableColumns } from './EntityHelper'
 import EntitiesListing from './EntitiesListing'
 import css from './GitSyncEntityTab.module.scss'
@@ -26,7 +26,7 @@ interface EntityListViewProps {
 }
 
 interface EntitiesPreviewProps {
-  selectedProduct: GitEntityFilterProperties['moduleType']
+  branch: string
   repo: GitSyncConfig
 }
 
@@ -42,7 +42,7 @@ export const EntityListView: React.FC<EntityListViewProps> = props => {
 
   return (
     <>
-      {props.hideHeaders ? <Text margin={{ left: 'xxxlarge' }}>{getEntityHeaderText(data)}</Text> : null}
+      {props.hideHeaders ? getEntityHeaderText(data) : null}
       <Table<GitSyncEntityDTO> className={css.table} columns={getTableColumns()} data={data.gitSyncEntities || []} />
     </>
   )
@@ -50,21 +50,18 @@ export const EntityListView: React.FC<EntityListViewProps> = props => {
 
 const EntitiesTypeContainer: React.FC<EntitiesTypeContainerProps> = props => {
   const [selectedEntity, setSelectedEntity] = useState('')
-  const { entityList, repo, selectedProduct } = props
+  const { entityList, repo, branch } = props
   const { getString } = useStrings()
 
   return React.useMemo(
     () => (
-      <Container className={css.entityTypeContainer}>
-        <Text margin="large" font={{ size: 'medium', weight: 'bold' }} color={Color.GREY_900}>
-          {getEntityHeaderText(entityList)}
-        </Text>
+      <Card>
+        {getEntityHeaderText(entityList)}
         {selectedEntity ? (
           <EntitiesListing
-            selectedProduct={selectedProduct}
             entityType={selectedEntity as ListGitSyncEntitiesByTypePathParams['entityType']}
             gitSyncConfigId={repo.identifier}
-            branch={repo.branch}
+            branch={branch || repo.branch}
             backToSummary={() => {
               setSelectedEntity('')
             }}
@@ -75,7 +72,7 @@ const EntitiesTypeContainer: React.FC<EntitiesTypeContainerProps> = props => {
 
         {!selectedEntity && entityList?.count && entityList.count > previewListSize ? (
           <Text
-            color={Color.BLUE_500}
+            color={Color.PRIMARY_7}
             padding={{ left: 'huge', bottom: 'large' }}
             style={{ cursor: 'pointer' }}
             onClick={() => {
@@ -85,7 +82,7 @@ const EntitiesTypeContainer: React.FC<EntitiesTypeContainerProps> = props => {
             {getString('gitsync.seeMore')}
           </Text>
         ) : null}
-      </Container>
+      </Card>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [entityList, selectedEntity]
@@ -94,46 +91,46 @@ const EntitiesTypeContainer: React.FC<EntitiesTypeContainerProps> = props => {
 
 const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const [repoFileList, setRepoFileList] = useState<GitSyncRepoFiles[]>([])
+  const [repoFileList, setRepoFileList] = useState<GitSyncEntityListDTO[]>([])
   const { getString } = useStrings()
 
   const defaultFilterProps = {
-    moduleType: props.selectedProduct,
-    gitSyncConfigIdentifiers: [props.repo.identifier] as GitEntityFilterProperties['gitSyncConfigIdentifiers'],
     searchTerm: '',
     entityTypes: Object.values(Entities) as GitEntityFilterProperties['entityTypes']
   }
 
-  const { mutate: fetchEntities, loading: loadingEntityList } = useListGitSyncEntitiesSummaryForRepoAndTypes({
+  const { mutate: fetchEntities, loading: loadingEntityList } = useListGitSyncEntitiesSummaryForRepoAndBranch({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
+      gitSyncConfigId: props.repo.identifier,
       size: previewListSize
-    }
+    },
+    branch: props.branch
   })
 
   useEffect(() => {
     fetchEntities(defaultFilterProps).then(response => {
-      setRepoFileList(response?.data?.gitSyncRepoFilesList || [])
+      setRepoFileList(response?.data || [])
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [props?.branch])
 
   return React.useMemo(
     () =>
       loadingEntityList ? (
-        <Spinner />
+        <PageSpinner />
       ) : (
         <Container padding="small">
           <Layout.Vertical spacing="small">
             {repoFileList?.length > 0
-              ? repoFileList?.[0]?.gitSyncEntityLists?.map?.((entityList: GitSyncEntityListDTO) => {
+              ? repoFileList?.map?.((entityList: GitSyncEntityListDTO) => {
                   return (
                     <EntitiesTypeContainer
                       key={entityList.entityType || ''}
                       entityList={entityList}
-                      {...pick(props, ['selectedProduct', 'repo'])}
+                      {...pick(props, ['repo', 'branch'])}
                     ></EntitiesTypeContainer>
                   )
                 })
@@ -142,7 +139,7 @@ const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
         </Container>
       ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [repoFileList]
+    [repoFileList, loadingEntityList]
   )
 }
 

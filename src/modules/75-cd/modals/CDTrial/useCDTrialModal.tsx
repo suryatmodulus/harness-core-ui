@@ -135,6 +135,7 @@ const CDTrial: React.FC<CDTrialProps> = ({ trialType, actionProps }) => {
 const CDTrialDialog = ({ actionProps, trialType }: CDTrialProps): React.ReactElement => (
   <Dialog
     isOpen={true}
+    enforceFocus={false}
     onClose={(actionProps as PipelineProps).onCloseModal}
     className={cx(css.dialog, Classes.DIALOG, css.cdTrial)}
   >

@@ -266,6 +266,7 @@
   font-weight: 600;
 }
 .section-card {
+  min-width: 400px;
   width: 100%;
   margin-bottom: 20px;
   background-color: var(--white);
@@ -292,4 +293,9 @@
 .accordionTitle {
   background-color: transparent;
   max-width: 1024px;
+}
+
+.stageTypeThumbnail {
+  margin: var(--spacing-medium) 0;
+  min-width: 400px;
 }

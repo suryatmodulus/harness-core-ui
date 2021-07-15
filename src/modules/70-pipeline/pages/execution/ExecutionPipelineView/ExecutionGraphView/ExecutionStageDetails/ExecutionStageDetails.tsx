@@ -59,7 +59,11 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
 
   const { executionIdentifier, accountId } = useParams<ExecutionPathProps>()
   const stage = pipelineStagesMap.get(selectedStageId)
-  const { data: barrierInfo, loading: barrierInfoLoading, refetch: refetchBarrierInfo } = useGetBarrierInfo({
+  const {
+    data: barrierInfo,
+    loading: barrierInfoLoading,
+    refetch: refetchBarrierInfo
+  } = useGetBarrierInfo({
     lazy: true
   })
   const {

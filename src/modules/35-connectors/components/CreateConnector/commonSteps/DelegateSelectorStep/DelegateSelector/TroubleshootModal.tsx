@@ -13,6 +13,7 @@ export const useTroubleshootModal = (): UseTroubleshootModalReturn => {
     return (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

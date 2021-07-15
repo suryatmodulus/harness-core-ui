@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, queryByAttribute, fireEvent, act, wait } from '@testing-library/react'
+import { render, queryByAttribute, fireEvent, act, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import HelmWithS3 from '../HelmWithS3'
@@ -15,18 +15,26 @@ const mockRegions = {
   resource: [{ name: 'region1', value: 'region1' }]
 }
 
+const mockBuckets = {
+  resource: [{ name: 'test-bucket', value: 'test-bucket' }]
+}
+
 jest.mock('services/portal', () => ({
   useListAwsRegions: jest.fn().mockImplementation(() => {
     return { data: mockRegions, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetBucketListForS3: jest.fn().mockImplementation(() => {
+    return { data: mockBuckets, refetch: jest.fn(), error: null, loading: false }
   })
 }))
-describe('helm with http tests', () => {
+
+describe('helm with S3 tests', () => {
   test(`renders without crashing`, () => {
     const initialValues = {
       identifier: 'test',
       spec: {},
       type: ManifestDataType.HelmChart,
-      bucketName: 'test-bucket',
+      bucketName: { label: 'test-bucket', value: 'test-bucket' },
       region: { name: '', value: '' },
       folderPath: 'testfolder',
       helmVersion: 'V2',
@@ -45,7 +53,7 @@ describe('helm with http tests', () => {
   test('expand advanced section', () => {
     const initialValues = {
       identifier: 'test',
-      bucketName: 'test-bucket',
+      bucketName: { label: 'test-bucket', value: 'test-bucket' },
       spec: {},
       type: ManifestDataType.HelmChart,
       region: { name: '', value: '' },
@@ -115,13 +123,12 @@ describe('helm with http tests', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     await act(async () => {
       fireEvent.change(queryByNameAttribute('identifier')!, { target: { value: 'testidentifier' } })
-      fireEvent.change(queryByNameAttribute('bucketName')!, { target: { value: 'testbucket' } })
       fireEvent.change(queryByNameAttribute('folderPath')!, { target: { value: 'testFolder' } })
       fireEvent.change(queryByNameAttribute('chartName')!, { target: { value: 'testchart' } })
       fireEvent.change(queryByNameAttribute('chartVersion')!, { target: { value: 'v1' } })
     })
     fireEvent.click(container.querySelector('button[type="submit"]')!)
-    await wait(() => {
+    await waitFor(() => {
       expect(props.handleSubmit).toHaveBeenCalledWith({
         manifest: {
           identifier: 'testidentifier',
@@ -129,7 +136,7 @@ describe('helm with http tests', () => {
           spec: {
             store: {
               spec: {
-                bucketName: 'testbucket',
+                bucketName: '',
                 connectorRef: '',
                 folderPath: 'testFolder',
                 region: {

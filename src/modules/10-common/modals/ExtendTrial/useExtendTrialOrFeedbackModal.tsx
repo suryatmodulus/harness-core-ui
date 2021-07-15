@@ -96,7 +96,12 @@ export const useExtendTrialOrFeedbackModal = (
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} onClose={onCloseModal} className={cx(css.dialog, Classes.DIALOG, css.feedback)}>
+      <Dialog
+        enforceFocus={false}
+        isOpen={true}
+        onClose={onCloseModal}
+        className={cx(css.dialog, Classes.DIALOG, css.feedback)}
+      >
         <ExtendTrialOrFeedbackDialog {...props} onCloseModal={onCloseModal} />
         <Button
           aria-label="close modal"

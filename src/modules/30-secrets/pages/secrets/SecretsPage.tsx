@@ -35,7 +35,12 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
   const [openPopOver, setOpenPopOver] = useState<boolean>(false)
   useDocumentTitle(getString('common.secrets'))
 
-  const { data: secretsResponse, loading, error, refetch } = useListSecretsV2({
+  const {
+    data: secretsResponse,
+    loading,
+    error,
+    refetch
+  } = useListSecretsV2({
     queryParams: {
       accountIdentifier: accountId,
       searchTerm,
@@ -67,7 +72,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
           <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
             <RbacButton
               intent="primary"
-              text={getString('createSecretYAML.newSecret')}
+              text={getString('secretType')}
               icon="plus"
               rightIcon="chevron-down"
               permission={{

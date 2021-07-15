@@ -29,7 +29,9 @@ import type {
   GitQueryParams,
   ModuleHomeParams,
   InputSetGitQueryParams,
-  ModuleCardPathParams
+  ModuleCardPathParams,
+  ServiceAccountPathProps,
+  ServicePathProps
 } from '@common/interfaces/RouteInterfaces'
 
 const CV_HOME = `/cv/home`
@@ -213,6 +215,37 @@ const routes = {
   toAccessControl: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
       const path = `access-control`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toServiceAccounts: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `access-control/service-accounts`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
+  toServiceAccountDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      serviceAccountIdentifier,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & ServiceAccountPathProps>) => {
+      const path = `access-control/service-accounts/${serviceAccountIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -449,7 +482,7 @@ const routes = {
       accountId: _accountId,
       module,
       ...rest
-    }: PipelineType<PipelinePathProps> & PipelineStudioQueryParams) => {
+    }: PipelineType<PipelinePathProps> & PipelineStudioQueryParams & RunPipelineQueryParams) => {
       const queryString = qs.stringify(rest, { skipNulls: true })
       if (queryString.length > 0) {
         return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/pipeline-studio/?${queryString}`
@@ -466,26 +499,13 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
   ),
+  toServiceDetails: withAccountId(
+    ({ orgIdentifier, projectIdentifier, serviceId, module }: PipelineType<ProjectPathProps & ServicePathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/services/${serviceId}`
+  ),
   toPipelineDetail: withAccountId(
     ({ orgIdentifier, projectIdentifier, pipelineIdentifier, module }: PipelineType<PipelinePathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}`
-  ),
-  toRunPipeline: withAccountId(
-    ({
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      accountId: _accountId,
-      module,
-      ...rest
-    }: PipelineType<PipelinePathProps> & RunPipelineQueryParams) => {
-      const queryString = qs.stringify(rest, { skipNulls: true })
-      if (queryString.length > 0) {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/runpipeline?${queryString}`
-      } else {
-        return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/runpipeline`
-      }
-    }
   ),
   toInputSetList: withAccountId(
     ({
@@ -668,7 +688,8 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
-
+  /********************************************************************************************************************/
+  toTemplatesListing: withAccountId(({ orgIdentifier }: OrgPathProps) => `/orgs/${orgIdentifier}/templates`),
   /********************************************************************************************************************/
   toCI: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),
@@ -884,6 +905,18 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
   ),
+  toCVMonitoringServices: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
+  ),
+  toCVAddMonitoringServicesSetup: withAccountId(
+    ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { identifier: string }>) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/setup`
+  ),
+  toCVAddMonitoringServicesEdit: withAccountId(
+    ({ projectIdentifier, orgIdentifier, identifier }: Partial<ProjectPathProps & { identifier: string }>) =>
+      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
+  ),
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
@@ -1016,6 +1049,14 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
   ),
+  toPerspectiveDetails: withAccountId(
+    ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
+      `/ce/perspective/${perspectiveId}/name/${perspectiveName}`
+  ),
+  toCECreatePerspective: withAccountId(
+    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspective/${perspectiveId}/create`
+  ),
+  toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/home/dashboards'),

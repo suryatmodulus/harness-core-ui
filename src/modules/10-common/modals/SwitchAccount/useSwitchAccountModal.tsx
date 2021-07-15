@@ -26,6 +26,7 @@ const useSwitchAccountModal = (props: SwitchAccountModalProps): ModalReturn => {
     () => (
       <Dialog
         isOpen
+        enforceFocus={false}
         title={
           <Layout.Horizontal spacing="small" className={css.alignCenter}>
             <Text color={Color.BLACK} font={{ size: 'medium' }}>

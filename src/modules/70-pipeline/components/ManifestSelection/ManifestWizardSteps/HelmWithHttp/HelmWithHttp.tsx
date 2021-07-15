@@ -109,10 +109,14 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
       }
     }
     if (formData?.commandFlags.length && formData?.commandFlags[0].commandType) {
-      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) => ({
-        commandType: (commandFlag.commandType as SelectOption)?.value as string,
-        flag: commandFlag.flag
-      }))
+      ;(manifestObj?.manifest?.spec as any).commandFlags = formData?.commandFlags.map((commandFlag: CommandFlags) =>
+        commandFlag.commandType && commandFlag.flag
+          ? {
+              commandType: (commandFlag.commandType as SelectOption)?.value as string,
+              flag: commandFlag.flag
+            }
+          : {}
+      )
     }
 
     handleSubmit(manifestObj)
@@ -132,7 +136,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
-                is: val => val?.length,
+                is: val => val?.value !== undefined,
                 then: Yup.string().required(getString('pipeline.manifestType.commandFlagRequired'))
               })
             })

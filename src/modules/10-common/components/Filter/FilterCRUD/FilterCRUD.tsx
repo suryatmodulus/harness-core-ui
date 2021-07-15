@@ -206,7 +206,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
     autoFocus: true,
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
-    enforceFocus: true,
+    enforceFocus: false,
     style: { width: 500, height: 200 }
   }
 

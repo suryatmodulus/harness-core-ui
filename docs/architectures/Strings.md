@@ -95,3 +95,9 @@ const { getString } = useStrings()
 <div>{getString("myKey")}</div> // Hello World!
 <div>{getString("myKey2")}</div> // {{ $.hello }} World Again
 ```
+
+### Things to remember
+
+- Duplicate strings values are not allowed.
+- You can run `yarn strings` locally to check any issues with strings.
+- Always commit any changes to `src/stringTypes.ts`.

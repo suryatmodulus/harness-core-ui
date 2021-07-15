@@ -46,7 +46,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
         </div>
       )}
       {getMultiTypeFromValue(inputSetData?.template?.timeout) === MultiTypeInputType.RUNTIME && (
-        <div className={cx(stepCss.formGroup, stepCss.md)}>
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
           <FormMultiTypeDurationField
             label={getString('pipelineSteps.timeoutLabel')}
             name={`${isEmpty(inputSetData?.path) ? '' : `${inputSetData?.path}.`}timeout`}
@@ -60,18 +60,17 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
           />
         </div>
       )}
-      {inputSetData?.template?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef && (
-        <Label style={{ color: Color.GREY_900 }}>{getString('cd.configurationFile')}</Label>
-      )}
       <ConfigInputs {...props} />
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.length && (
-        <Label style={{ color: Color.GREY_900 }}>{getString('cd.terraformVarFiles')}</Label>
+        <Label style={{ color: Color.GREY_900, paddingBottom: 'var(--spacing-medium)' }}>
+          {getString('cd.terraformVarFiles')}
+        </Label>
       )}
       {inputSetData?.template?.spec?.configuration?.spec?.varFiles?.map((varFile: any, index) => {
         if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {
           return (
-            <>
-              <Container flex width={120}>
+            <React.Fragment key={`${path}.spec.configuration.spec.varFiles[${index}]`}>
+              <Container flex width={120} padding={{ bottom: 'small' }}>
                 <Text font={{ weight: 'bold' }}>{getString('cd.varFile')}:</Text>
                 {varFile?.varFile?.identifier}
               </Container>
@@ -88,7 +87,7 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
                   />
                 </div>
               )}
-            </>
+            </React.Fragment>
           )
         } else if (varFile.varFile?.type === TerraformStoreTypes.Remote) {
           return <TFRemoteSection remoteVar={varFile} index={index} {...props} />
@@ -97,20 +96,25 @@ export default function TerraformInputStep<T extends TerraformData = TerraformDa
 
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.backendConfig?.spec?.content) ===
         MultiTypeInputType.RUNTIME && (
-        <FormInput.TextArea
-          name={`${path}.spec.configuration.spec.backendConfig.spec.content`}
-          label={getString('cd.backEndConfig')}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.TextArea
+            name={`${path}.spec.configuration.spec.backendConfig.spec.content`}
+            label={getString('cd.backEndConfig')}
+          />
+        </div>
       )}
       {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.spec?.targets as string) ===
         MultiTypeInputType.RUNTIME && (
-        <List
-          name={`${path}.spec.configuration.spec.targets`}
-          label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
-          disabled={readonly}
-          style={{ marginBottom: 'var(--spacing-small)' }}
-          expressions={expressions}
-        />
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <List
+            name={`${path}.spec.configuration.spec.targets`}
+            label={<Text style={{ display: 'flex', alignItems: 'center' }}>{getString('pipeline.targets.title')}</Text>}
+            disabled={readonly}
+            style={{ marginBottom: 'var(--spacing-small)' }}
+            expressions={expressions}
+            isNameOfArrayType
+          />
+        </div>
       )}
     </FormikForm>
   )

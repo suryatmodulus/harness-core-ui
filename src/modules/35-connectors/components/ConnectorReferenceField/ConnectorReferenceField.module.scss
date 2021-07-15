@@ -55,7 +55,9 @@
     }
   }
 }
-
+.connector-label {
+  padding-bottom: var(--spacing-small);
+}
 .status {
   align-items: center;
   display: flex;

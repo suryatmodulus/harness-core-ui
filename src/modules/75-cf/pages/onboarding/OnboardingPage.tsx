@@ -35,7 +35,10 @@ export const OnboardingPage = () => {
         </Text>
       </Heading>
       <Container margin={{ top: 'xxxlarge' }}>
-        <Container style={{ display: 'grid', justifyContent: 'center', padding: '60px 0' }}>
+        <Container
+          style={{ display: 'grid', justifyContent: 'center', padding: '0' }}
+          className={css.basicImageContainer}
+        >
           <img src={theBasicsImage} width={1154} height={425} title={getString('featureFlagsText')} />
         </Container>
       </Container>
@@ -44,10 +47,14 @@ export const OnboardingPage = () => {
         <Heading level={2} className={css.h2}>
           {getString('cf.onboarding.upAndRunning')}
         </Heading>
-        <Container style={{ display: 'grid', justifyContent: 'center', padding: '60px 0 70px' }}>
+        <Container
+          style={{ display: 'grid', justifyContent: 'center', padding: '20px 0 40px' }}
+          className={css.stepImageContainer}
+        >
           <img
             src={upAndRunningImage}
             style={{ transform: 'scale(1.15)' }}
+            className={css.stepsImage}
             width={1162}
             height={125}
             title={getString('featureFlagsText')}
@@ -61,6 +68,7 @@ export const OnboardingPage = () => {
           text={getString('cf.onboarding.tryItOut')}
           large
           style={{ fontWeight: 700 }}
+          width={350}
           onClick={() => {
             history.push(routes.toCFOnboardingDetail({ accountId, orgIdentifier, projectIdentifier }))
           }}

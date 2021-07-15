@@ -171,9 +171,9 @@ export function PrometheusFilterSelector(props: PrometheusFilterSelectorProps): 
         setCurrentSelectedKey(options[options.length - 1].value as string)
       }}
       tagInputProps={
-        ({
+        {
           onRemove: (_: any, index: number) => onRemoveFilter(index)
-        } as unknown) as ITagInputProps
+        } as unknown as ITagInputProps
       }
       multiSelectProps={{
         allowCreatingNewItems: false,

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Card, Switch, Text, Color, Button } from '@wings-software/uicore'
 import { TagInput } from '@blueprintjs/core'
@@ -14,9 +14,10 @@ interface Props {
   whitelistedDomains: string[]
   refetchAuthSettings: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuthSettings, canEdit }) => {
+const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuthSettings, canEdit, setUpdating }) => {
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const { accountId } = useParams<AccountPathProps>()
@@ -27,6 +28,10 @@ const RestrictEmailDomains: React.FC<Props> = ({ whitelistedDomains, refetchAuth
       accountIdentifier: accountId
     }
   })
+
+  React.useEffect(() => {
+    setUpdating(updatingWhitelistedDomains)
+  }, [updatingWhitelistedDomains, setUpdating])
 
   const onSuccess = (): void => {
     refetchAuthSettings()

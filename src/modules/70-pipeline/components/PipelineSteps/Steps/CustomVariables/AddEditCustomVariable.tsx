@@ -44,6 +44,7 @@ export default function AddEditCustomVariable(props: AddEditCustomVariableProps)
     <Dialog
       className={'padded-dialog'}
       isOpen={!!selectedVariable}
+      enforceFocus={false}
       title={isEdit ? getString('common.editVariable') : getString('common.addVariable')}
       onClose={closeModal}
     >

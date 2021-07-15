@@ -62,7 +62,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
         />
         {getMultiTypeFromValue(formik.values?.skipResourceVersioning) === MultiTypeInputType.RUNTIME && (
           <ConfigureOptions
-            value={((formik.values?.skipResourceVersioning || '') as unknown) as string}
+            value={(formik.values?.skipResourceVersioning || '') as unknown as string}
             type="String"
             variableName="skipResourceVersioning"
             showRequiredField={false}
@@ -127,13 +127,34 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                           name={`commandFlags[${index}].flag`}
                           multiTextInputProps={{
                             expressions,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            allowableTypes: [
+                              MultiTypeInputType.FIXED,
+                              MultiTypeInputType.EXPRESSION,
+                              MultiTypeInputType.RUNTIME
+                            ]
                           }}
                         />
+                        {getMultiTypeFromValue(formik.values?.commandFlags?.[index]?.flag) ===
+                          MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={(formik.values?.commandFlags?.[index].flag || '') as unknown as string}
+                            type="String"
+                            variableName={`CommandFlag-${index}`}
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value =>
+                              formik.setFieldValue(`formik.values?.commandFlags?.[${index}].flag`, value)
+                            }
+                            style={{ alignSelf: 'center' }}
+                            className={cx(css.addmarginTop)}
+                            isReadonly={isReadonly}
+                          />
+                        )}
                         {index !== 0 && (
                           <Button
                             minimal
-                            icon="trash"
+                            icon="main-trash"
                             className={cx({
                               [helmcss.delBtn]: index === 0
                             })}

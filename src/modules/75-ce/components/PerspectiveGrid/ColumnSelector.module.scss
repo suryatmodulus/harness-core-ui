@@ -1,0 +1,41 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  position: relative;
+
+  .selectBtn {
+    background-color: var(--grey-100);
+    width: 110px;
+    height: 32px;
+    border-radius: 4px;
+    color: var(--grey-700);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin: var(--spacing-small) var(--spacing-medium) 0 0;
+
+    & > span {
+      padding: 5px;
+    }
+  }
+
+  .dropDown {
+    max-height: 250px;
+    overflow: auto;
+    position: absolute;
+    top: 45px;
+    border-radius: 4px;
+    z-index: 10000;
+    width: 250px;
+    background: var(--grey-50);
+    border: 1px solid var(--grey-100);
+    padding: 10px 25px 10px 50px;
+    box-shadow: 0px 1px rgb(40 41 61 / 8%), 0px 0.5px 2px rgb(96 97 112 / 16%);
+
+    .columnInfo {
+      margin: var(--spacing-xsmall) 0;
+    }
+  }
+}

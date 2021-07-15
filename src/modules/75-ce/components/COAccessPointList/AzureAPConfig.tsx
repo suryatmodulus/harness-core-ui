@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useParams } from 'react-router'
 import { Heading } from '@wings-software/uicore'
-import { AccessPoint, useCreateAccessPoint, useGetAccessPoint } from 'services/lw'
-import { useStrings } from 'framework/strings'
+import { AccessPoint, useCreateAccessPoint } from 'services/lw'
+// import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/exports'
 import AzureAccessPointForm, { AzureApFormVal } from './AzureAccessPointForm'
 import AzureApDnsMapping, { AzureDnsFormVal } from './AzureDnsMapping'
@@ -23,29 +23,30 @@ enum FormStep {
 
 const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
   const { loadBalancer, cloudAccountId, createMode = false, onSave } = props
-  const { getString } = useStrings()
+  // const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const lastStep = useRef(FormStep.SECOND)
   const [currentStep, setCurrentStep] = useState<FormStep>(FormStep.FIRST)
   const [newAp, setNewAp] = useState<AccessPoint>(loadBalancer)
-  const [loadBalancerId, setLoadBalancerId] = useState<string>()
+  // const [loadBalancerId, setLoadBalancerId] = useState<string>()
   const [lbCreationInProgress, setLbCreationInProgress] = useState<boolean>(false)
 
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { orgIdentifier, projectIdentifier } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
     accountId: string
   }>()
 
-  const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    access_point_id: loadBalancerId as string, //eslint-disable-line
-    queryParams: {
-      accountIdentifier: accountId
-    },
-    lazy: true
-  })
+  /*Remove commented code after PR is done*/
+  // const { data: accessPointData, refetch, loading: accessPointStatusLoading } = useGetAccessPoint({
+  //   org_id: orgIdentifier, // eslint-disable-line
+  //   project_id: projectIdentifier, // eslint-disable-line
+  //   access_point_id: loadBalancerId as string, //eslint-disable-line
+  //   queryParams: {
+  //     accountIdentifier: accountId
+  //   },
+  //   lazy: true
+  // })
 
   const { mutate: createLoadBalancer } = useCreateAccessPoint({
     org_id: orgIdentifier, // eslint-disable-line
@@ -70,40 +71,43 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
     moveForward()
   }
 
-  useEffect(() => {
-    if (lbCreationInProgress && loadBalancerId) {
-      if (!accessPointStatusLoading) {
-        if (accessPointData?.response?.status == 'errored') {
-          setLbCreationInProgress(false)
-          showError(
-            getString('ce.co.accessPoint.error') + '\n' + accessPointData.response.metadata?.error,
-            undefined,
-            'ce.ap.data.error'
-          )
-        } else if (accessPointData?.response?.status == 'created') {
-          setLbCreationInProgress(false)
-          // props.setAccessPoint(accessPointData?.response as AccessPoint)
-          showSuccess(getString('ce.co.accessPoint.success'))
-          props.onSave?.(accessPointData.response)
-          props.onClose?.()
-        } else {
-          const timerId = window.setTimeout(() => {
-            refetch()
-          }, 1000)
-          return () => {
-            window.clearTimeout(timerId)
-          }
-        }
-      }
-    }
-  }, [accessPointData, refetch, accessPointStatusLoading, loadBalancerId])
+  // useEffect(() => {
+  //   if (lbCreationInProgress && loadBalancerId) {
+  //     if (!accessPointStatusLoading) {
+  //       if (accessPointData?.response?.status == 'errored') {
+  //         setLbCreationInProgress(false)
+  //         showError(
+  //           getString('ce.co.accessPoint.error') + '\n' + accessPointData.response.metadata?.error,
+  //           undefined,
+  //           'ce.ap.data.error'
+  //         )
+  //       } else if (accessPointData?.response?.status == 'created') {
+  //         setLbCreationInProgress(false)
+  //         // props.setAccessPoint(accessPointData?.response as AccessPoint)
+  //         showSuccess(getString('ce.co.accessPoint.success'))
+  //         props.onSave?.(accessPointData.response)
+  //         props.onClose?.()
+  //       } else {
+  //         const timerId = window.setTimeout(() => {
+  //           refetch()
+  //         }, 1000)
+  //         return () => {
+  //           window.clearTimeout(timerId)
+  //         }
+  //       }
+  //     }
+  //   }
+  // }, [accessPointData, refetch, accessPointStatusLoading, loadBalancerId])
 
   const saveLb = async (lbToSave: AccessPoint): Promise<void> => {
     setLbCreationInProgress(true)
     try {
       const result = await createLoadBalancer(lbToSave) // eslint-disable-line
       if (result.response) {
-        setLoadBalancerId(result.response.id as string)
+        // setLoadBalancerId(result.response.id as string)
+        showSuccess('Load Balancer creation request is submitted and will be created in some time.')
+        props.onSave?.(result.response)
+        props.onClose?.()
       }
     } catch (e) {
       setLbCreationInProgress(false)
@@ -118,7 +122,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
       project_id: projectIdentifier,
       cloud_account_id: props.cloudAccountId,
       region: val.region,
-      subnets: [val.subnet],
+      subnets: val.subnet ? [val.subnet] : [],
       vpc: val.virtualNetwork,
       metadata: {
         ...newAp.metadata,
@@ -126,7 +130,9 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
         fe_ip_id: val.ip,
         size: val.sku,
         subnet_id: val.subnet,
-        certificate_id: val.certificate
+        ...(val.newCertificate ? { certificate: val.newCertificate } : { certificate_id: val.certificate }),
+        subnet_name: val.subnet_name,
+        fe_ip_name: val.fe_ip_name
       }
     })
   }
@@ -145,7 +151,9 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
         fe_ip_id: values.ip,
         size: values.sku,
         subnet_id: values.subnet,
-        certificate_id: values.certificate
+        ...(values.newCertificate ? { certificate: values.newCertificate } : { certificate_id: values.certificate }),
+        subnet_name: values.subnet_name,
+        fe_ip_name: values.fe_ip_name
       }
     }))
     moveBackward()

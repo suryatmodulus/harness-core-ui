@@ -27,7 +27,12 @@ const FeatureFlagsDetailPage: React.FC = () => {
     org: orgIdentifier
   } as GetFeatureFlagQueryParams
 
-  const { data: featureFlag, loading, error, refetch } = useGetFeatureFlag({
+  const {
+    data: featureFlag,
+    loading,
+    error,
+    refetch
+  } = useGetFeatureFlag({
     identifier: featureFlagIdentifier as string,
     queryParams
   })

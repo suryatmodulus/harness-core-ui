@@ -8,7 +8,7 @@ import type { ExecutionNode } from 'services/pipeline-ng'
 import { useGetApprovalInstance, ResponseApprovalInstanceResponse } from 'services/pipeline-ng'
 import { isExecutionWaiting } from '@pipeline/utils/statusHelpers'
 import { PageError } from '@common/components/Page/PageError'
-import type { StepDetailProps } from '@pipeline/factories/ExecutionStepDetailsFactory/types'
+import type { StepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 import { PipelineDetailsTab } from '@pipeline/components/execution/StepDetails/tabs/PipelineDetailsTab/PipelineDetailsTab'
 import { InputOutputTab } from '@pipeline/components/execution/StepDetails/tabs/InputOutputTab/InputOutputTab'
 
@@ -34,7 +34,12 @@ export function JiraApprovalView(props: JiraApprovalViewProps): React.ReactEleme
   const approvalInstanceId = get(step, 'executableResponses[0].async.callbackIds[0]') || ''
   const isWaiting = isExecutionWaiting(step.status)
   const { getString } = useStrings()
-  const { data, loading: loadingApprovalData, error, refetch } = useGetApprovalInstance({
+  const {
+    data,
+    loading: loadingApprovalData,
+    error,
+    refetch
+  } = useGetApprovalInstance({
     approvalInstanceId,
     mock
   })

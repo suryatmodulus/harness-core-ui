@@ -27,6 +27,8 @@ interface TextReferenceProps {
   label?: string
   className?: string
   type?: string
+  allowSelection?: boolean
+  privateSecret?: boolean
 }
 
 interface FormikTextReference extends TextReferenceProps {
@@ -43,7 +45,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { showError } = useToaster()
 
-  const { formik, name } = props
+  const { formik, name, allowSelection, privateSecret } = props
   const hasError = errorCheck(props.name, formik)
 
   useEffect(() => {
@@ -135,7 +137,7 @@ const TextReference: React.FC<FormikTextReference> = props => {
           />
         ) : (
           <Container className={css.secretField}>
-            <SecretInput name={`${name}secretField`} />
+            <SecretInput name={`${name}secretField`} allowSelection={allowSelection} privateSecret={privateSecret} />
           </Container>
         )}
       </Layout.Vertical>

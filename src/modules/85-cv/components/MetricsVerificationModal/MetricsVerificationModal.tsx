@@ -46,7 +46,7 @@ const modalPropsLight: IDialogProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
-  enforceFocus: true,
+  enforceFocus: false,
   className: Classes.DIALOG,
   style: { width: 900, height: 570 }
 }
@@ -167,12 +167,14 @@ function MetricPackValidationResult(props: MetricPackValidationResultProps): JSX
 function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
   const { onHide, verificationData = [], guid, verificationType } = props
   const errorMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'FAILED'), [verificationData])
-  const noDataMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'NO_DATA'), [
-    verificationData
-  ])
-  const successMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'SUCCESS'), [
-    verificationData
-  ])
+  const noDataMetrics = useMemo(
+    () => filterForMetricPacksByMetricStatus(verificationData, 'NO_DATA'),
+    [verificationData]
+  )
+  const successMetrics = useMemo(
+    () => filterForMetricPacksByMetricStatus(verificationData, 'SUCCESS'),
+    [verificationData]
+  )
   const [{ displayCallLog }, setCallLogDisplay] = useState({
     displayCallLog: false
   })

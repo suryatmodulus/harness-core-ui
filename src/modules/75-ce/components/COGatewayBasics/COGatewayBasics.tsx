@@ -64,7 +64,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           break
         case 'CEAzure':
           openAzureConnectorModal(false, Connectors.CE_AZURE, {
-            connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+            connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
           })
           break
         default:
@@ -103,7 +103,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
             openConnectorModal(false, 'CEAws')
           } else {
             openAzureConnectorModal(false, Connectors.CE_AZURE, {
-              connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+              connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
             })
           }
           trackEvent('MadeNewConnector', {})
@@ -122,7 +122,7 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           <span
             onClick={() => {
               openAzureConnectorModal(false, Connectors.CEAWS, {
-                connectorInfo: ({ orgIdentifier: '', projectIdentifier: '' } as unknown) as ConnectorInfoDTO
+                connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
               })
             }}
             style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}

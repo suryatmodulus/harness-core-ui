@@ -88,6 +88,7 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
     return (
       <Dialog
         isOpen
+        enforceFocus={false}
         onClose={hideModal}
         title={
           <Text

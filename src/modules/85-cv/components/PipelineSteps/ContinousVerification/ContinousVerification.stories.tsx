@@ -1,11 +1,11 @@
 import React from 'react'
 import type { Meta, Story } from '@storybook/react'
 import { Card, RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import { stringify } from 'yaml'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { StepWidgetProps } from '@pipeline/components/AbstractSteps/StepWidget'
 import { factory, TestStepWidget } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { ContinousVerificationStep } from './ContinousVerificationStep'
 factory.registerStep(new ContinousVerificationStep())
 
@@ -38,7 +38,7 @@ export const ContinousVerification: Story<Omit<StepWidgetProps, 'factory'>> = ar
         <TestStepWidget {...args} onUpdate={setValue} />
       </Card>
       <Card>
-        <pre>{stringify(value)}</pre>
+        <pre>{yamlStringify(value)}</pre>
       </Card>
     </div>
   )

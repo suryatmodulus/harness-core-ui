@@ -25,6 +25,9 @@ export default function VisualYamlToggle(props: VisualYamlToggleInterface): JSX.
         data-name="visual-btn"
         className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
         onClick={() => {
+          if (selectedView === SelectedView.VISUAL) {
+            return
+          }
           beforeOnChange(SelectedView.VISUAL, setSelectedView)
         }}
         tabIndex={0}

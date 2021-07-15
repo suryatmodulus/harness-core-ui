@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { AppStoreContext, FeatureFlagMap } from 'framework/AppStore/AppStoreContext'
+import type { FeatureFlag } from '@common/featureFlags'
 
 /**
  * Usage if you need a single flag:
@@ -12,9 +13,9 @@ import { AppStoreContext, FeatureFlagMap } from 'framework/AppStore/AppStoreCont
  *
  */
 
-export function useFeatureFlag(flag: string): boolean {
+export function useFeatureFlag(flag: FeatureFlag): boolean {
   const { featureFlags } = useContext(AppStoreContext)
-  return featureFlags[flag]
+  return !!featureFlags[flag]
 }
 
 export function useFeatureFlags(): FeatureFlagMap {

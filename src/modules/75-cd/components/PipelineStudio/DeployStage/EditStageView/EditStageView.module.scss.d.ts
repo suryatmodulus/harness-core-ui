@@ -46,5 +46,6 @@ declare const styles: {
   readonly nopadleft: string
   readonly helpDrawer: string
   readonly accordionTitle: string
+  readonly stageTypeThumbnail: string
 }
 export default styles

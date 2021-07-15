@@ -17,7 +17,9 @@ export const TargetSettings: React.FC<{ target?: Target | undefined | null }> = 
       style={{ background: '#F8FAFB', overflow: 'auto', minWidth: '480px' }}
       className={css.targetSettings}
     >
-      <DetailHeading style={{ paddingBottom: 0 }}>{getString('cf.targetDetail.targetSetting')}</DetailHeading>
+      <DetailHeading style={{ paddingBottom: 0 }} data-tooltip-id="ff_targetTargetSettings_heading">
+        {getString('cf.targetDetail.targetSetting')}
+      </DetailHeading>
       <Container className={css.tabContainer}>
         <Tabs id="targetSettings">
           <Tab

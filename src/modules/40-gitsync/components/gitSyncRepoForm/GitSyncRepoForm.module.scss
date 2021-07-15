@@ -38,28 +38,54 @@
     }
 
     :global {
-      .bp3-input-group,
-      .bp3-menu {
+      .bp3-input-group {
         width: 350px !important;
       }
     }
+
+    .formButton {
+      padding: 0 var(--spacing-large) !important;
+    }
   }
 
-  .formButton {
-    padding: 0 var(--spacing-large) !important;
+  .helpText {
+    border-radius: 8px;
+  }
+
+  .noSpacing {
+    margin-bottom: 0 !important;
+  }
+
+  .placeholder {
+    input::placeholder {
+      text-align: right;
+    }
   }
 }
 
-.helpText {
-  border-radius: 8px;
-}
+.gitBranchSelectorPopover {
+  width: 350px !important;
+  max-height: 400px;
+  overflow: auto;
 
-.noSpacing {
-  margin-bottom: 0 !important;
-}
+  :global {
+    .bp3-menu {
+      padding: 0;
+      li {
+        height: 32px;
+        cursor: pointer;
+        padding: var(--spacing-xsmall) var(--spacing-small);
 
-.placeholder {
-  input::placeholder {
-    text-align: right;
+        &:hover {
+          background-color: var(--primary-2) !important;
+          color: var(--grey-900) !important;
+        }
+      }
+    }
+
+    .Select--active {
+      background-color: var(--primary-2) !important;
+      color: var(--grey-900) !important;
+    }
   }
 }

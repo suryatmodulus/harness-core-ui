@@ -37,5 +37,6 @@ declare const styles: {
   readonly asgDetailRow: string
   readonly asgInstanceFormContainer: string
   readonly instanceTypeInput: string
+  readonly yamlEditorContainer: string
 }
 export default styles

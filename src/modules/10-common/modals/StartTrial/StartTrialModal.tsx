@@ -23,6 +23,7 @@ const useStartTrialModal = (props: UseProjectModalProps): UseStartTrialModalRetu
     return (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

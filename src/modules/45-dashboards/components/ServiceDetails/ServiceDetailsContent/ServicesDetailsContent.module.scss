@@ -1,0 +1,10 @@
+.fullWidth {
+  flex-grow: 1;
+  .card {
+    display: flex !important;
+    width: 100%;
+    height: 280px;
+    padding-top: var(--spacing-medium) !important;
+    padding-bottom: var(--spacing-small) !important;
+  }
+}

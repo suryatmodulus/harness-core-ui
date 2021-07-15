@@ -29,6 +29,5 @@ declare const styles: {
   readonly seriesRow: string
   readonly frequencyChart: string
   readonly frequencyChartContent: string
-  readonly verificationStatusCard: string
 }
 export default styles

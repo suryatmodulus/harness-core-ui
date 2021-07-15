@@ -377,7 +377,6 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   }
 
   const connectorValue = values?.spec?.configuration?.configFiles?.store?.spec?.connectorRef as any
-  const secretManager = values?.spec?.configuration?.secretManagerRef as any
 
   const configObject: TerraformPlanExecutionData = {
     command: values?.spec?.configuration?.command,
@@ -434,9 +433,7 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
 
   if (values?.spec?.configuration?.secretManagerRef) {
     configObject['secretManagerRef'] = values?.spec?.configuration?.secretManagerRef
-      ? getMultiTypeFromValue(values?.spec?.configuration?.secretManagerRef) === MultiTypeInputType.RUNTIME
-        ? values?.spec?.configuration?.secretManagerRef
-        : secretManager?.value
+      ? values?.spec?.configuration?.secretManagerRef
       : ''
   }
 

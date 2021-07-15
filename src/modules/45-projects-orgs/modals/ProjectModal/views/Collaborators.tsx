@@ -78,7 +78,11 @@ const Collaborators: React.FC<CollaboratorModalData> = props => {
     debounce: 300
   })
 
-  const { data: inviteData, loading: inviteLoading, refetch: reloadInvites } = useGetInvites({
+  const {
+    data: inviteData,
+    loading: inviteLoading,
+    refetch: reloadInvites
+  } = useGetInvites({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,

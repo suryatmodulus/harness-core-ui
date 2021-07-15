@@ -14,7 +14,8 @@ import {
   userGroupPathProps,
   secretPathProps,
   userPathProps,
-  connectorPathProps
+  connectorPathProps,
+  serviceAccountProps
 } from '@common/utils/routeUtils'
 
 import ProjectsPage from '@projects-orgs/pages/projects/ProjectsPage'
@@ -58,6 +59,8 @@ import { HomeSideNavProps } from '@common/RouteDestinations'
 import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
@@ -382,6 +385,20 @@ export default (
       <UserGroupDetails />
     </RouteWithLayout>
 
+    <RouteWithLayout sidebarProps={OrgsSideNavProps} path={routes.toServiceAccounts({ ...orgPathProps })} exact>
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={OrgsSideNavProps}
+      path={routes.toServiceAccountDetails({ ...orgPathProps, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
+    </RouteWithLayout>
+
     <RouteWithLayout sidebarProps={OrgsSideNavProps} path={[routes.toResourceGroups({ ...orgPathProps })]} exact>
       <AccessControlPage>
         <ResourceGroups />
@@ -455,6 +472,24 @@ export default (
       exact
     >
       <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toServiceAccounts({ ...projectPathProps })}
+      exact
+    >
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={ProjectDetailsSideNavProps}
+      path={routes.toServiceAccountDetails({ ...projectPathProps, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

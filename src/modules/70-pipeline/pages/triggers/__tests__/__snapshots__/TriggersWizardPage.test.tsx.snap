@@ -1,5 +1,1111 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pipeline with updated runtime input and pipeline variables 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
+  >
+    
+    <section
+      class="wizardShell tabs"
+    >
+      <section
+        class="extendedNav"
+      >
+        <div
+          class="sideItems"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            style="align-items: baseline;"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+              level="2"
+            >
+              Trigger: customtrigger
+            </h2>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              enabledLabel
+            </p>
+            <label
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+            >
+              <input
+                checked=""
+                data-name="enabled-switch"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              
+            </label>
+          </div>
+        </div>
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
+          >
+            yaml
+          </div>
+        </div>
+        <div
+          class="sideItems"
+        />
+      </section>
+      <div
+        class="headerLine"
+      />
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
+      >
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Trigger Configuration"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Trigger Configuration"
+                    id="bp3-tab-title_Wizard_Trigger Configuration"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      1. 
+                      pipeline.triggers.triggerConfigurationLabel
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Conditions"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Conditions"
+                    id="bp3-tab-title_Wizard_Conditions"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      2. 
+                      conditions
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Pipeline Input"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="Pipeline Input"
+                    id="bp3-tab-title_Wizard_Pipeline Input"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      3. 
+                      pipeline.triggers.pipelineInputLabel
+                    </span>
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_Wizard_Pipeline Input"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_Wizard_Pipeline Input"
+                  role="tabpanel"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookPipelineInputContainer StyledProps--padding-none"
+                  >
+                    <div
+                      class="inputsetGrid"
+                    >
+                      <div
+                        class="inputSetContent"
+                      >
+                        <div
+                          class="pipelineInputRow"
+                        >
+                          <h2
+                            class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+                            level="2"
+                          >
+                            pipeline.triggers.pipelineInputLabel
+                          </h2>
+                          <span
+                            class="bp3-popover-wrapper isPopoverParent"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <div
+                                class="renderSelectedValue inputSetSelectedValue"
+                              >
+                                <button
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  type="button"
+                                >
+                                  <span
+                                    class="bp3-icon bp3-icon-small-plus StyledProps--main"
+                                    icon="small-plus"
+                                  >
+                                    <svg
+                                      data-icon="small-plus"
+                                      height="16"
+                                      viewBox="0 0 16 16"
+                                      width="16"
+                                    >
+                                      <desc>
+                                        small-plus
+                                      </desc>
+                                      <path
+                                        d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                                        fill-rule="evenodd"
+                                      />
+                                    </svg>
+                                  </span>
+                                  <span
+                                    class="bp3-button-text"
+                                  >
+                                    pipeline.inputSets.selectPlaceholder
+                                  </span>
+                                </button>
+                              </div>
+                            </span>
+                          </span>
+                        </div>
+                        <div
+                          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-xlarge"
+                        >
+                          <div
+                            class="subheading"
+                          >
+                            customVariables.pipelineVariablesTitle
+                          </div>
+                          <div
+                            class="customVariablesInputSets customVariables"
+                          >
+                            <div
+                              class="variableListTable"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                var1
+                              </p>
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                String
+                              </p>
+                              <div
+                                class="valueRow"
+                              >
+                                <div
+                                  class="bp3-form-group variableInput"
+                                >
+                                  
+                                  <div
+                                    class="bp3-form-content"
+                                  >
+                                    <div
+                                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                    >
+                                      <div
+                                        class="bp3-input-group MultiTypeInput--input"
+                                      >
+                                        <input
+                                          autocomplete="off"
+                                          class="bp3-input"
+                                          name="pipeline.variables[0].value"
+                                          type="text"
+                                          value="123"
+                                        />
+                                      </div>
+                                      <span
+                                        class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                                      >
+                                        <span
+                                          class="bp3-popover-target"
+                                        >
+                                          <button
+                                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                                          >
+                                            <span
+                                              class="bp3-icon StyledProps--main"
+                                              data-icon="fixed-input"
+                                            >
+                                              <svg
+                                                height="12"
+                                                viewBox="0 0 9 9"
+                                                width="12"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                                  fill="currentColor"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </button>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="variableListTable"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                var2
+                              </p>
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                String
+                              </p>
+                              <div
+                                class="valueRow"
+                              >
+                                <div
+                                  class="bp3-form-group variableInput"
+                                >
+                                  
+                                  <div
+                                    class="bp3-form-content"
+                                  >
+                                    <div
+                                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                    >
+                                      <div
+                                        class="bp3-input-group MultiTypeInput--input"
+                                      >
+                                        <input
+                                          autocomplete="off"
+                                          class="bp3-input"
+                                          name="pipeline.variables[1].value"
+                                          type="text"
+                                          value="1"
+                                        />
+                                      </div>
+                                      <span
+                                        class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                                      >
+                                        <span
+                                          class="bp3-popover-target"
+                                        >
+                                          <button
+                                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                                          >
+                                            <span
+                                              class="bp3-icon StyledProps--main"
+                                              data-icon="fixed-input"
+                                            >
+                                              <svg
+                                                height="12"
+                                                viewBox="0 0 9 9"
+                                                width="12"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                                  fill="currentColor"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </button>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="variableListTable"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                var3withDefault
+                              </p>
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                              >
+                                String
+                              </p>
+                              <div
+                                class="valueRow"
+                              >
+                                <div
+                                  class="bp3-form-group variableInput"
+                                >
+                                  
+                                  <div
+                                    class="bp3-form-content"
+                                  >
+                                    <div
+                                      class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                    >
+                                      <div
+                                        class="bp3-popover-wrapper MultiTypeInput--select MultiTypeInput--fixedValueInput Select--main bp3-fill"
+                                      >
+                                        <div
+                                          class="bp3-popover-target"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              autocomplete="off"
+                                              class="bp3-input"
+                                              name="pipeline.variables[2].value"
+                                              placeholder="Search..."
+                                              style="padding-right: 0px;"
+                                              type="text"
+                                              value="val1"
+                                            />
+                                            <span
+                                              class="bp3-input-action"
+                                            >
+                                              <span
+                                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                                icon="chevron-down"
+                                              >
+                                                <svg
+                                                  data-icon="chevron-down"
+                                                  height="14"
+                                                  viewBox="0 0 16 16"
+                                                  width="14"
+                                                >
+                                                  <desc>
+                                                    chevron-down
+                                                  </desc>
+                                                  <path
+                                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                                    fill-rule="evenodd"
+                                                  />
+                                                </svg>
+                                              </span>
+                                            </span>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <span
+                                        class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                                      >
+                                        <span
+                                          class="bp3-popover-target"
+                                        >
+                                          <button
+                                            class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                                          >
+                                            <span
+                                              class="bp3-icon StyledProps--main"
+                                              data-icon="fixed-input"
+                                            >
+                                              <svg
+                                                height="12"
+                                                viewBox="0 0 9 9"
+                                                width="12"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                              >
+                                                <path
+                                                  d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                                  fill="currentColor"
+                                                />
+                                              </svg>
+                                            </span>
+                                          </button>
+                                        </span>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="subheading"
+                          >
+                            ciCodebase
+                          </div>
+                          <div
+                            class="container"
+                          >
+                            <div
+                              class="bp3-form-group"
+                              style="margin-bottom: 0px;"
+                            >
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <div>
+                                  <label
+                                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                                  >
+                                    <input
+                                      checked=""
+                                      name="pipeline.properties.ci.codebase.build.type"
+                                      type="radio"
+                                      value="branch"
+                                    />
+                                    <span
+                                      class="bp3-control-indicator"
+                                    />
+                                    gitBranch
+                                  </label>
+                                  <label
+                                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                                  >
+                                    <input
+                                      name="pipeline.properties.ci.codebase.build.type"
+                                      type="radio"
+                                      value="tag"
+                                    />
+                                    <span
+                                      class="bp3-control-indicator"
+                                    />
+                                    gitTag
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-form-group"
+                              style="margin-bottom: 0px;"
+                            >
+                              <label
+                                class="bp3-label"
+                                for="pipeline.properties.ci.codebase.build.spec.branch"
+                              >
+                                <span
+                                  class="Tooltip--acenter"
+                                  data-tooltip-id="wizardForm_pipeline.properties.ci.codebase.build.spec.branch"
+                                >
+                                  gitBranch
+                                </span>
+                                 
+                                <span
+                                  class="bp3-text-muted"
+                                />
+                              </label>
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <div
+                                  class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                >
+                                  <div
+                                    class="bp3-input-group MultiTypeInput--input"
+                                  >
+                                    <input
+                                      autocomplete="off"
+                                      class="bp3-input"
+                                      name="pipeline.properties.ci.codebase.build.spec.branch"
+                                      type="text"
+                                      value="test"
+                                    />
+                                  </div>
+                                  <span
+                                    class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                                  >
+                                    <span
+                                      class="bp3-popover-target"
+                                    >
+                                      <button
+                                        class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                                      >
+                                        <span
+                                          class="bp3-icon StyledProps--main"
+                                          data-icon="fixed-input"
+                                        >
+                                          <svg
+                                            height="12"
+                                            viewBox="0 0 9 9"
+                                            width="12"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                              fill="currentColor"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </button>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="Layout--vertical StyledProps--main"
+                          >
+                            <div
+                              id="Stage.Coverage_Report"
+                            >
+                              <div
+                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+                              >
+                                <p
+                                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
+                                >
+                                  Stage: 
+                                  adwaitUser
+                                </p>
+                              </div>
+                              <div
+                                class="topAccordion"
+                              >
+                                <div
+                                  class="accordionSummary"
+                                  id="Stage.Coverage_Report.Infrastructure"
+                                >
+                                  <div
+                                    class="inputheader"
+                                  >
+                                    infrastructureText
+                                  </div>
+                                  <div
+                                    class="nestedAccordions"
+                                  >
+                                    <div
+                                      class="bp3-form-group"
+                                    >
+                                      <label
+                                        class="bp3-label"
+                                        for="pipeline.stages[0].stage.spec.infrastructure.spec.namespace"
+                                      >
+                                        <span
+                                          class="Tooltip--acenter"
+                                          data-tooltip-id="wizardForm_pipeline.stages[0].stage.spec.infrastructure.spec.namespace"
+                                        >
+                                          <p
+                                            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--font-small StyledProps--margin-bottom-xsmall"
+                                          >
+                                            pipelineSteps.build.infraSpecifications.namespace
+                                            <span
+                                              class="bp3-popover-wrapper"
+                                            >
+                                              <span
+                                                class="bp3-popover-target"
+                                              >
+                                                <button
+                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                  tabindex="0"
+                                                  type="button"
+                                                >
+                                                  <span
+                                                    class="bp3-icon StyledProps--main"
+                                                    data-icon="question"
+                                                  >
+                                                    <svg
+                                                      height="14"
+                                                      viewBox="0 0 14 14"
+                                                      width="14"
+                                                    >
+                                                      <path
+                                                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                                                        fill="#9AA5B5"
+                                                      />
+                                                    </svg>
+                                                  </span>
+                                                </button>
+                                              </span>
+                                            </span>
+                                          </p>
+                                        </span>
+                                         
+                                        <span
+                                          class="bp3-text-muted"
+                                        />
+                                      </label>
+                                      <div
+                                        class="bp3-form-content"
+                                      >
+                                        <div
+                                          class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group MultiTypeInput--input"
+                                          >
+                                            <input
+                                              autocomplete="off"
+                                              class="bp3-input"
+                                              name="pipeline.stages[0].stage.spec.infrastructure.spec.namespace"
+                                              type="text"
+                                              value="default"
+                                            />
+                                          </div>
+                                          <span
+                                            class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                                          >
+                                            <span
+                                              class="bp3-popover-target"
+                                            >
+                                              <button
+                                                class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                                              >
+                                                <span
+                                                  class="bp3-icon StyledProps--main"
+                                                  data-icon="fixed-input"
+                                                >
+                                                  <svg
+                                                    height="12"
+                                                    viewBox="0 0 9 9"
+                                                    width="12"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                  >
+                                                    <path
+                                                      d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                                      fill="currentColor"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </button>
+                                            </span>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="accordionSummary"
+                                  id="Stage.Coverage_Report.Execution"
+                                >
+                                  <div
+                                    class="inputheader"
+                                  >
+                                    executionText
+                                  </div>
+                                  <div
+                                    class="nestedAccordions"
+                                  >
+                                    <div
+                                      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+                                    >
+                                      <label
+                                        class="Label--main"
+                                      >
+                                        <span
+                                          class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                                          data-icon="run-step"
+                                        >
+                                          <svg
+                                            fill="none"
+                                            height="16"
+                                            viewBox="0 0 32 29"
+                                            width="16"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                          >
+                                            <path
+                                              d="M5.053 0h21.894A5.046 5.046 0 0132 5.053v18.526a5.046 5.046 0 01-5.053 5.053H5.053A5.046 5.046 0 010 23.579V5.053A5.046 5.046 0 015.053 0zm0 1.684a3.378 3.378 0 00-3.369 3.369h28.632a3.378 3.378 0 00-3.369-3.369H5.053zM1.684 23.58a3.378 3.378 0 003.369 3.368h21.894a3.378 3.378 0 003.369-3.368V6.737H1.684v16.842zm23.58 0h-8.422v-1.684h8.421v1.684zM6.736 10.947l1.196-1.195 7.073 7.09-7.073 7.09-1.196-1.195 5.895-5.895-5.895-5.895z"
+                                              fill="#4F5162"
+                                            />
+                                          </svg>
+                                        </span>
+                                        pipeline.execution.stepTitlePrefix
+                                        pipeline.stepLabel
+                                      </label>
+                                      <div>
+                                        <form
+                                          class="FormikForm--main removeBpPopoverWrapperTopMargin"
+                                        >
+                                          <div>
+                                            <div
+                                              class="bp3-form-group"
+                                              data-id="pipeline.stages[0].stage.spec.execution.steps[0].step.description-0"
+                                            >
+                                              <label
+                                                class="bp3-label"
+                                                for="pipeline.stages[0].stage.spec.execution.steps[0].step.description"
+                                              >
+                                                description
+                                                 
+                                                <span
+                                                  class="bp3-text-muted"
+                                                />
+                                              </label>
+                                              <div
+                                                class="bp3-form-content"
+                                              >
+                                                <div
+                                                  style="display: flex; align-items: center;"
+                                                >
+                                                  <div
+                                                    class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                                                    style="flex-grow: 1;"
+                                                  >
+                                                    <textarea
+                                                      class="bp3-input input"
+                                                      name="pipeline.stages[0].stage.spec.execution.steps[0].step.description"
+                                                    />
+                                                    <span
+                                                      class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                                                    >
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <button
+                                                          class="MultiTypeInput--btn MultiTypeInput--FIXED multiBtn"
+                                                        >
+                                                          <span
+                                                            class="bp3-icon StyledProps--main"
+                                                            data-icon="fixed-input"
+                                                          >
+                                                            <svg
+                                                              height="12"
+                                                              viewBox="0 0 9 9"
+                                                              width="12"
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                              <path
+                                                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                                                fill="currentColor"
+                                                              />
+                                                            </svg>
+                                                          </span>
+                                                        </button>
+                                                      </span>
+                                                    </span>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div
+                                              class="bp3-form-group"
+                                              data-id="pipeline.stages[0].stage.spec.execution.steps[0].step.spec.command-1"
+                                            >
+                                              <label
+                                                class="bp3-label"
+                                                for="pipeline.stages[0].stage.spec.execution.steps[0].step.spec.command"
+                                              >
+                                                <div
+                                                  class="formLabel"
+                                                >
+                                                  <p
+                                                    class="StyledProps--font StyledProps--main"
+                                                    style="display: flex; align-items: center;"
+                                                  >
+                                                    commandLabel
+                                                    <span
+                                                      class="bp3-popover-wrapper"
+                                                    >
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <button
+                                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                          tabindex="0"
+                                                          type="button"
+                                                        >
+                                                          <span
+                                                            class="bp3-icon StyledProps--main"
+                                                            data-icon="question"
+                                                          >
+                                                            <svg
+                                                              height="14"
+                                                              viewBox="0 0 14 14"
+                                                              width="14"
+                                                            >
+                                                              <path
+                                                                d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                                                                fill="#9AA5B5"
+                                                              />
+                                                            </svg>
+                                                          </span>
+                                                        </button>
+                                                      </span>
+                                                    </span>
+                                                  </p>
+                                                  <div
+                                                    class="bp3-popover-wrapper typeSelectorWrapper"
+                                                  >
+                                                    <div
+                                                      class="bp3-popover-target typeSelector"
+                                                    >
+                                                      <button
+                                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                        type="button"
+                                                      >
+                                                        <span
+                                                          class="bp3-button-text"
+                                                        >
+                                                          <span
+                                                            class="bp3-icon StyledProps--main icon fixed"
+                                                            data-icon="fixed-input"
+                                                          >
+                                                            <svg
+                                                              height="12"
+                                                              viewBox="0 0 9 9"
+                                                              width="12"
+                                                              xmlns="http://www.w3.org/2000/svg"
+                                                            >
+                                                              <path
+                                                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                                                fill="currentColor"
+                                                              />
+                                                            </svg>
+                                                          </span>
+                                                          <span
+                                                            class="btnText"
+                                                          >
+                                                            inputTypes.FIXED
+                                                          </span>
+                                                        </span>
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                 
+                                                <span
+                                                  class="bp3-text-muted"
+                                                />
+                                              </label>
+                                              <div
+                                                class="bp3-form-content"
+                                              >
+                                                <div
+                                                  class="monacoWrapper"
+                                                >
+                                                  <textarea
+                                                    name="pipeline.stages[0].stage.spec.execution.steps[0].step.spec.command"
+                                                  >
+                                                    echo 'from trigger'
+                                                  </textarea>
+                                                  <button
+                                                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                                                    type="button"
+                                                  >
+                                                    <span
+                                                      class="bp3-icon bp3-icon-fullscreen StyledProps--main"
+                                                      icon="fullscreen"
+                                                    >
+                                                      <svg
+                                                        data-icon="fullscreen"
+                                                        height="10"
+                                                        viewBox="0 0 16 16"
+                                                        width="10"
+                                                      >
+                                                        <desc>
+                                                          fullscreen
+                                                        </desc>
+                                                        <path
+                                                          d="M3.41 2H5c.55 0 1-.45 1-1s-.45-1-1-1H1C.45 0 0 .45 0 1v4c0 .55.45 1 1 1s1-.45 1-1V3.41L5.29 6.7c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L3.41 2zM6 9c-.28 0-.53.11-.71.29L2 12.59V11c0-.55-.45-1-1-1s-1 .45-1 1v4c0 .55.45 1 1 1h4c.55 0 1-.45 1-1s-.45-1-1-1H3.41l3.29-3.29c.19-.18.3-.43.3-.71 0-.55-.45-1-1-1zm9 1c-.55 0-1 .45-1 1v1.59L10.71 9.3A.965.965 0 0010 9a1.003 1.003 0 00-.71 1.71l3.3 3.29H11c-.55 0-1 .45-1 1s.45 1 1 1h4c.55 0 1-.45 1-1v-4c0-.55-.45-1-1-1zm0-10h-4c-.55 0-1 .45-1 1s.45 1 1 1h1.59l-3.3 3.29a1.003 1.003 0 001.42 1.42L14 3.41V5c0 .55.45 1 1 1s1-.45 1-1V1c0-.55-.45-1-1-1z"
+                                                          fill-rule="evenodd"
+                                                        />
+                                                      </svg>
+                                                    </span>
+                                                  </button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </form>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                    icon="chevron-left"
+                  >
+                    <svg
+                      data-icon="chevron-left"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-left
+                      </desc>
+                      <path
+                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    back
+                  </span>
+                </button>
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    pipeline.triggers.updateTrigger
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <p
+                  class="StyledProps--font StyledProps--main cancel"
+                >
+                  cancel
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="footerLine"
+      />
+    </section>
+  </div>
+</div>
+`;
+
 exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - GitHub Show all fields filled 1`] = `
 <div>
   <div

@@ -161,168 +161,167 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = f
   )
 }
 
-const StepGithubAuthentication: React.FC<
-  StepProps<StepGithubAuthenticationProps> & GithubAuthenticationProps
-> = props => {
-  const { getString } = useStrings()
-  const { prevStepData, nextStep, accountId } = props
-  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
-  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps> & GithubAuthenticationProps> =
+  props => {
+    const { getString } = useStrings()
+    const { prevStepData, nextStep, accountId } = props
+    const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+    const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
 
-  const authOptions: Array<SelectOption> = [
-    {
-      label: getString('usernamePassword'),
-      value: GitAuthTypes.USER_PASSWORD
-    },
-    {
-      label: getString('usernameToken'),
-      value: GitAuthTypes.USER_TOKEN
-    }
-  ]
+    const authOptions: Array<SelectOption> = [
+      {
+        label: getString('usernamePassword'),
+        value: GitAuthTypes.USER_PASSWORD
+      },
+      {
+        label: getString('usernameToken'),
+        value: GitAuthTypes.USER_TOKEN
+      }
+    ]
 
-  useEffect(() => {
-    if (loadingConnectorSecrets) {
-      if (props.isEditMode) {
-        if (props.connectorInfo) {
-          setupGithubFormData(props.connectorInfo, accountId).then(data => {
-            setInitialValues(data as GithubFormInterface)
+    useEffect(() => {
+      if (loadingConnectorSecrets) {
+        if (props.isEditMode) {
+          if (props.connectorInfo) {
+            setupGithubFormData(props.connectorInfo, accountId).then(data => {
+              setInitialValues(data as GithubFormInterface)
+              setLoadingConnectorSecrets(false)
+            })
+          } else {
             setLoadingConnectorSecrets(false)
-          })
-        } else {
-          setLoadingConnectorSecrets(false)
+          }
         }
       }
+    }, [loadingConnectorSecrets])
+
+    const handleSubmit = (formData: ConnectorConfigDTO) => {
+      nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepGithubAuthenticationProps)
     }
-  }, [loadingConnectorSecrets])
 
-  const handleSubmit = (formData: ConnectorConfigDTO) => {
-    nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepGithubAuthenticationProps)
-  }
+    return loadingConnectorSecrets ? (
+      <PageSpinner />
+    ) : (
+      <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
+        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+          {getString('credentials')}
+        </Text>
 
-  return loadingConnectorSecrets ? (
-    <PageSpinner />
-  ) : (
-    <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('credentials')}
-      </Text>
-
-      <Formik
-        initialValues={{
-          ...initialValues,
-          ...prevStepData
-        }}
-        formName="stepGithubAuthForm"
-        validationSchema={Yup.object().shape({
-          username: Yup.string()
-            .nullable()
-            .when('connectionType', {
+        <Formik
+          initialValues={{
+            ...initialValues,
+            ...prevStepData
+          }}
+          formName="stepGithubAuthForm"
+          validationSchema={Yup.object().shape({
+            username: Yup.string()
+              .nullable()
+              .when('connectionType', {
+                is: val => val === GitConnectionType.HTTP,
+                then: Yup.string().trim().required(getString('validation.username'))
+              }),
+            authType: Yup.string().when('connectionType', {
               is: val => val === GitConnectionType.HTTP,
-              then: Yup.string().trim().required(getString('validation.username'))
+              then: Yup.string().trim().required(getString('validation.authType'))
             }),
-          authType: Yup.string().when('connectionType', {
-            is: val => val === GitConnectionType.HTTP,
-            then: Yup.string().trim().required(getString('validation.authType'))
-          }),
-          sshKey: Yup.object().when('connectionType', {
-            is: val => val === GitConnectionType.SSH,
-            then: Yup.object().required(getString('validation.sshKey')),
-            otherwise: Yup.object().nullable()
-          }),
-          password: Yup.object().when(['connectionType', 'authType'], {
-            is: (connectionType, authType) =>
-              connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_PASSWORD,
-            then: Yup.object().required(getString('validation.password')),
-            otherwise: Yup.object().nullable()
-          }),
-          accessToken: Yup.object().when(['connectionType', 'authType'], {
-            is: (connectionType, authType) =>
-              connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_TOKEN,
+            sshKey: Yup.object().when('connectionType', {
+              is: val => val === GitConnectionType.SSH,
+              then: Yup.object().required(getString('validation.sshKey')),
+              otherwise: Yup.object().nullable()
+            }),
+            password: Yup.object().when(['connectionType', 'authType'], {
+              is: (connectionType, authType) =>
+                connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_PASSWORD,
+              then: Yup.object().required(getString('validation.password')),
+              otherwise: Yup.object().nullable()
+            }),
+            accessToken: Yup.object().when(['connectionType', 'authType'], {
+              is: (connectionType, authType) =>
+                connectionType === GitConnectionType.HTTP && authType === GitAuthTypes.USER_TOKEN,
 
-            then: Yup.object().required(getString('validation.accessToken')),
-            otherwise: Yup.object().nullable()
-          }),
-          apiAccessToken: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
-            is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.TOKEN,
-            then: Yup.object().required(getString('validation.accessToken')),
-            otherwise: Yup.object().nullable()
-          }),
-          privateKey: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
-            is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
-            then: Yup.object().required(getString('validation.privateKey')),
-            otherwise: Yup.object().nullable()
-          }),
-          apiAuthType: Yup.string().when('enableAPIAccess', {
-            is: val => val,
-            then: Yup.string().trim().required(getString('validation.authType'))
-          }),
-          installationId: Yup.string().when(['enableAPIAccess', 'apiAuthType'], {
-            is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
-            then: Yup.string().trim().required(getString('validation.installationId'))
-          }),
-          applicationId: Yup.string().when(['enableAPIAccess', 'apiAuthType'], {
-            is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
-            then: Yup.string().trim().required(getString('validation.applicationId'))
-          })
-        })}
-        onSubmit={handleSubmit}
-      >
-        {formikProps => {
-          saveCurrentStepData<ConnectorInfoDTO>(
-            props.getCurrentStepData,
-            (formikProps.values as unknown) as ConnectorInfoDTO
-          )
-          return (
-            <Form>
-              <Container className={css.stepFormWrapper}>
-                {formikProps.values.connectionType === GitConnectionType.SSH ? (
-                  <Container width={'52%'}>
-                    <Text font={{ weight: 'bold' }} className={css.authTitle}>
-                      {getString('authentication')}
-                    </Text>
-                    <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
-                  </Container>
-                ) : (
-                  <Container width={'52%'}>
-                    <Container className={css.authHeaderRow}>
-                      <Text className={css.authTitle} inline>
+              then: Yup.object().required(getString('validation.accessToken')),
+              otherwise: Yup.object().nullable()
+            }),
+            apiAccessToken: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
+              is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.TOKEN,
+              then: Yup.object().required(getString('validation.accessToken')),
+              otherwise: Yup.object().nullable()
+            }),
+            privateKey: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
+              is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
+              then: Yup.object().required(getString('validation.privateKey')),
+              otherwise: Yup.object().nullable()
+            }),
+            apiAuthType: Yup.string().when('enableAPIAccess', {
+              is: val => val,
+              then: Yup.string().trim().required(getString('validation.authType'))
+            }),
+            installationId: Yup.string().when(['enableAPIAccess', 'apiAuthType'], {
+              is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
+              then: Yup.string().trim().required(getString('validation.installationId'))
+            }),
+            applicationId: Yup.string().when(['enableAPIAccess', 'apiAuthType'], {
+              is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
+              then: Yup.string().trim().required(getString('validation.applicationId'))
+            })
+          })}
+          onSubmit={handleSubmit}
+        >
+          {formikProps => {
+            saveCurrentStepData<ConnectorInfoDTO>(
+              props.getCurrentStepData,
+              formikProps.values as unknown as ConnectorInfoDTO
+            )
+            return (
+              <Form>
+                <Container className={css.stepFormWrapper}>
+                  {formikProps.values.connectionType === GitConnectionType.SSH ? (
+                    <Container width={'52%'}>
+                      <Text font={{ weight: 'bold' }} className={css.authTitle}>
                         {getString('authentication')}
                       </Text>
-                      <FormInput.Select
-                        name="authType"
-                        items={authOptions}
-                        disabled={false}
-                        className={commonStyles.authTypeSelect}
-                      />
+                      <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
                     </Container>
+                  ) : (
+                    <Container width={'52%'}>
+                      <Container className={css.authHeaderRow}>
+                        <Text className={css.authTitle} inline>
+                          {getString('authentication')}
+                        </Text>
+                        <FormInput.Select
+                          name="authType"
+                          items={authOptions}
+                          disabled={false}
+                          className={commonStyles.authTypeSelect}
+                        />
+                      </Container>
 
-                    <RenderGithubAuthForm {...formikProps} />
-                  </Container>
-                )}
+                      <RenderGithubAuthForm {...formikProps} />
+                    </Container>
+                  )}
 
-                <FormInput.CheckBox
-                  name="enableAPIAccess"
-                  label={getString('common.git.enableAPIAccess')}
-                  padding={{ left: 'xxlarge' }}
-                />
-                {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
-              </Container>
+                  <FormInput.CheckBox
+                    name="enableAPIAccess"
+                    label={getString('common.git.enableAPIAccess')}
+                    padding={{ left: 'xxlarge' }}
+                  />
+                  {formikProps.values.enableAPIAccess ? <RenderAPIAccessFormWrapper {...formikProps} /> : null}
+                </Container>
 
-              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-                <Button
-                  text={getString('back')}
-                  icon="chevron-left"
-                  onClick={() => props?.previousStep?.(props?.prevStepData)}
-                  data-name="githubBackButton"
-                />
-                <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
-              </Layout.Horizontal>
-            </Form>
-          )
-        }}
-      </Formik>
-    </Layout.Vertical>
-  )
-}
+                <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                  <Button
+                    text={getString('back')}
+                    icon="chevron-left"
+                    onClick={() => props?.previousStep?.(props?.prevStepData)}
+                    data-name="githubBackButton"
+                  />
+                  <Button type="submit" intent="primary" text={getString('continue')} rightIcon="chevron-right" />
+                </Layout.Horizontal>
+              </Form>
+            )
+          }}
+        </Formik>
+      </Layout.Vertical>
+    )
+  }
 
 export default StepGithubAuthentication

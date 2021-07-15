@@ -1,0 +1,43 @@
+.pullRequestInfo {
+  position: relative;
+  padding-left: var(--spacing-7);
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-3);
+
+  &.minimal {
+    padding-left: var(--spacing-0);
+  }
+
+  p {
+    font-size: var(--font-size-small) !important;
+    color: var(--grey-900) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+
+  .icon {
+    position: absolute;
+    left: 0;
+    top: 2px;
+  }
+
+  .prNumber {
+    color: var(--primary-7);
+    font-size: var(--font-size-small);
+  }
+
+  .pullRequestStatus {
+    display: flex;
+    align-items: center;
+    background-color: var(--grey-100);
+    height: var(--spacing-5);
+    border: 1px solid var(--grey-400);
+    color: var(--grey-800);
+    border-radius: 6px;
+    font-size: var(--font-size-xsmall);
+    padding: 0 var(--spacing-3);
+    text-transform: uppercase;
+  }
+}

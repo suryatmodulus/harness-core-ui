@@ -1,0 +1,86 @@
+import { Accordion, Layout, Utils } from '@wings-software/uicore'
+import React, { useCallback, useMemo, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useGetStackdriverLogSampleData } from 'services/cv'
+import { useStrings } from 'framework/strings'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { MapGCPLogsToServiceFieldNames } from '@cv/pages/monitoring-source/google-cloud-operations/MapQueriesToHarnessService/constants'
+import { QueryViewer } from '@cv/components/QueryViewer/QueryViewer'
+import Card from '@cv/components/Card/Card'
+import { MapGCPLogsQueriesToService } from '../../MapGCPLogsQueriesToService'
+import type { MapQueriesToHarnessServiceLayoutProps } from './types'
+import css from './MapQueriesToHarnessServiceLayout.module.scss'
+
+export default function MapQueriesToHarnessServiceLayout(props: MapQueriesToHarnessServiceLayoutProps): JSX.Element {
+  const { formikProps, connectorIdentifier, onChange } = props
+  const [records, setRecords] = useState<Record<string, any>[]>([])
+  const [isQueryExecuted, setIsQueryExecuted] = useState(false)
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
+  const { getString } = useStrings()
+  const values = formikProps?.values
+
+  const query = useMemo(() => (values?.query?.length ? values.query : ''), [values])
+  const sampleRecord = useMemo(() => (records?.length ? records[0] : null), [records])
+  const queryParams = useMemo(
+    () => ({
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
+      tracingId: Utils.randomId(),
+      connectorIdentifier: connectorIdentifier as string
+    }),
+    [accountId, projectIdentifier, orgIdentifier, connectorIdentifier]
+  )
+  const {
+    mutate: queryStackdriver,
+    loading,
+    error
+  } = useGetStackdriverLogSampleData({
+    queryParams
+  })
+
+  const fetchStackDriverRecords = useCallback(async () => {
+    const recordsData = await queryStackdriver({ query }, { queryParams: { ...queryParams } })
+    setRecords(recordsData?.data as Record<string, any>[])
+    setIsQueryExecuted(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [query])
+
+  const postFetchingRecords = useCallback(() => {
+    // resetting values of service and message indentifier once fetch records button is clicked.
+    onChange(MapGCPLogsToServiceFieldNames.MESSAGE_IDENTIFIER, '')
+    onChange(MapGCPLogsToServiceFieldNames.SERVICE_INSTANCE, '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <Card>
+      <Layout.Horizontal spacing="xlarge">
+        <Accordion activeId="metricToService" className={css.accordian}>
+          <Accordion.Panel
+            id="metricToService"
+            summary={getString('cv.monitoringSources.mapQueriesToServices')}
+            details={
+              <MapGCPLogsQueriesToService
+                sampleRecord={sampleRecord}
+                isQueryExecuted={isQueryExecuted}
+                onChange={onChange}
+                loading={loading}
+              />
+            }
+          />
+        </Accordion>
+        <QueryViewer
+          isQueryExecuted={isQueryExecuted}
+          className={css.validationContainer}
+          records={records}
+          fetchRecords={fetchStackDriverRecords}
+          postFetchingRecords={postFetchingRecords}
+          loading={loading}
+          error={error}
+          query={query}
+        />
+      </Layout.Horizontal>
+    </Card>
+  )
+}

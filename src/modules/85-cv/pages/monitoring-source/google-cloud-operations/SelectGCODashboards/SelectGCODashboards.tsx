@@ -87,7 +87,12 @@ export function SelectGCODashboards(props: SelectDashboardProps): JSX.Element {
     }),
     [filteredDashboard, propsData?.connectorRef?.value, pageOffset, accountId, projectIdentifier, orgIdentifier]
   )
-  const { data, loading, error, refetch: refetchDashboards } = useGetStackdriverDashboards({
+  const {
+    data,
+    loading,
+    error,
+    refetch: refetchDashboards
+  } = useGetStackdriverDashboards({
     queryParams
   })
   const [selectedDashboards, setSelectedDashboards] = useState<Map<string, StackdriverDashboardDTO>>(

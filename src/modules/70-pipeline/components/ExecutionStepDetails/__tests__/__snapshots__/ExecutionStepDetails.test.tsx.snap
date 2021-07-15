@@ -37,6 +37,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   transform="translate(0 .423) scale(.21167)"
@@ -75,6 +76,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="none"
@@ -343,6 +345,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   transform="translate(0 .423) scale(.21167)"
@@ -381,6 +384,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="none"
@@ -682,6 +686,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   transform="translate(0 .423) scale(.21167)"
@@ -720,6 +725,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="none"
@@ -1020,6 +1026,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   transform="translate(0 .423) scale(.21167)"
@@ -1058,6 +1065,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="none"
@@ -1219,6 +1227,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   transform="translate(0 .423) scale(.21167)"
@@ -1257,6 +1266,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 height="16"
                 viewBox="0 0 4.233 4.233"
                 width="16"
+                xmlns="http://www.w3.org/2000/svg"
               >
                 <g
                   fill="none"

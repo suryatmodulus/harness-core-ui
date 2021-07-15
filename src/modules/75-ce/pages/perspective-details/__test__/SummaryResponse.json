@@ -1,0 +1,15 @@
+{
+  "data": {
+    "perspectiveTrendStats": {
+      "cost": {
+        "statsDescription": "of Jun 25 - Jun 29",
+        "statsLabel": "Total Cost",
+        "statsTrend": -28.63,
+        "statsValue": "$42,852.63",
+        "value": 42852.63,
+        "__typename": "StatsInfo"
+      },
+      "__typename": "PerspectiveTrendStats"
+    }
+  }
+}

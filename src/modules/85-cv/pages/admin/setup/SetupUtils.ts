@@ -1,8 +1,11 @@
-export const getIconBySourceType = (type: string) => {
+import type { IconName } from '@wings-software/uicore'
+
+export const getIconBySourceType = (type: string): IconName => {
   switch (type) {
     case 'KUBERNETES':
       return 'service-kubernetes'
     case 'APP_DYNAMICS':
+    case 'AppDynamics':
       return 'service-appdynamics'
     case 'HARNESS_CD10':
       return 'harness'
@@ -20,10 +23,12 @@ export const getIconBySourceType = (type: string) => {
       return 'lab-test'
     case 'PROMETHEUS':
       return 'service-prometheus'
+    //TODO one type will be removed once it is full deprecated from backend.
     case 'STACKDRIVER_LOG':
+    case 'StackdriverLog':
       return 'service-stackdriver'
     default:
-      return ''
+      return 'placeholder'
   }
 }
 

@@ -34,7 +34,8 @@ import {
   getDefaultStepGroupState,
   getDefaultDependencyServiceState,
   updateStepsState,
-  updateDependenciesState
+  updateDependenciesState,
+  applyExistingStates
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -546,7 +547,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     stepsData: state.isRollback ? state.stepsData.rollbackSteps || [] : state.stepsData.steps || [],
     stepStates: state.states,
     hasDependencies,
-    servicesData: state.dependenciesData,
+    servicesData: state.dependenciesData || [],
     factory: stepsFactory,
     listeners: {
       nodeListeners,
@@ -564,37 +565,35 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   engine.setModel(model)
 
   useEffect(() => {
-    if (stageCloneRef.current) {
-      if (stageCloneRef.current?.stage?.spec?.execution) {
-        const newStateMap = new Map<string, StepState>()
-        getStepsState(stageCloneRef.current.stage.spec.execution, newStateMap)
-        if (hasDependencies && stageCloneRef.current?.stage?.spec?.serviceDependencies) {
-          getDependenciesState(stageCloneRef.current.stage.spec.serviceDependencies, newStateMap)
-          if (originalStage?.stage?.spec?.serviceDependencies) {
-            updateDependenciesState(originalStage.stage.spec.serviceDependencies, newStateMap)
-          }
+    if (stageCloneRef.current?.stage?.spec?.execution) {
+      const newStateMap = new Map<string, StepState>()
+      getStepsState(stageCloneRef.current.stage.spec.execution, newStateMap)
+      applyExistingStates(newStateMap, state.states)
+      if (hasDependencies && stageCloneRef.current?.stage?.spec?.serviceDependencies) {
+        getDependenciesState(stageCloneRef.current.stage.spec.serviceDependencies, newStateMap)
+        applyExistingStates(newStateMap, state.states)
+        if (originalStage?.stage?.spec?.serviceDependencies) {
+          updateDependenciesState(originalStage.stage.spec.serviceDependencies, newStateMap)
         }
-        if (originalStage?.stage?.spec?.execution) {
-          updateStepsState(originalStage.stage.spec.execution, newStateMap)
-        }
-
-        setState(prevState => ({
-          ...prevState,
-          states: newStateMap
-        }))
       }
+      if (originalStage?.stage?.spec?.execution) {
+        updateStepsState(originalStage.stage.spec.execution, newStateMap)
+      }
+
+      setState(prevState => ({
+        ...prevState,
+        states: newStateMap
+      }))
     }
-  }, [originalStage, ref])
+  }, [originalStage, stage, ref])
 
   useEffect(() => {
-    if (stageCloneRef.current) {
-      if (stageCloneRef.current?.stage?.spec?.execution) {
-        setState(prevState => ({
-          ...prevState,
-          stepsData: stageCloneRef.current.stage.spec.execution,
-          dependenciesData: stageCloneRef.current.stage.spec.serviceDependencies
-        }))
-      }
+    if (stageCloneRef.current?.stage?.spec?.execution) {
+      setState(prevState => ({
+        ...prevState,
+        stepsData: stageCloneRef.current.stage.spec.execution,
+        dependenciesData: stageCloneRef.current.stage.spec.serviceDependencies
+      }))
     }
   }, [stage, ref])
 

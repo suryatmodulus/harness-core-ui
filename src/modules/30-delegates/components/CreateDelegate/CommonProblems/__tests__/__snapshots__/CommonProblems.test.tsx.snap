@@ -18,6 +18,7 @@ exports[`Create Common Problems Tab render data 1`] = `
           height="18"
           viewBox="0 0 60 60"
           width="18"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <circle
             cx="30"
@@ -83,6 +84,7 @@ exports[`Create Common Problems Tab render data 1`] = `
                   height="20"
                   viewBox="0 0 8 9"
                   width="20"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -142,6 +144,7 @@ exports[`Create Common Problems Tab render data 1`] = `
                   height="20"
                   viewBox="0 0 8 9"
                   width="20"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"
@@ -212,6 +215,7 @@ exports[`Create Common Problems Tab render data 1`] = `
                   height="20"
                   viewBox="0 0 8 9"
                   width="20"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     clip-rule="evenodd"

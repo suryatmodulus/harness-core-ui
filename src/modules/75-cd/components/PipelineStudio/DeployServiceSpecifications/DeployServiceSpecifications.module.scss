@@ -165,32 +165,21 @@
   }
 }
 
-.squareCardContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 85px;
-  margin-right: var(--spacing-small);
-}
-
-.squareCard {
-  width: 64px;
-  height: 64px;
-  padding: var(--spacing-small) 0;
-  margin-bottom: var(--spacing-small);
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-
-  [class*='cardIcon'] svg {
-    margin: 0 !important;
-  }
-}
-
 .useoverrideCheckbox {
   padding: 0 var(--spacing-xxlarge) var(--spacing-large) var(--spacing-xxlarge);
   label {
     position: relative;
     left: 35px;
+  }
+}
+
+.thumbnailSelect {
+  &:global(.bp3-form-group) {
+    margin-bottom: 0px;
+  }
+  :global {
+    .bp3-form-helper-text {
+      margin-top: var(--spacing-medium);
+    }
   }
 }

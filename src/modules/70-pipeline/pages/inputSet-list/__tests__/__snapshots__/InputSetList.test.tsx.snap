@@ -154,6 +154,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   width="30"
                   x="0"
                   xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
                   y="0"
                 >
                   <style>
@@ -224,6 +225,8 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
                 >
                   <defs>
                     <path
@@ -317,6 +320,7 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   height="30"
                   viewBox="0 0 18 16"
                   width="30"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
                   <g
                     fill="#22272D"
@@ -378,6 +382,8 @@ exports[`Input Set List tests render Input Set List view 1`] = `
                   height="16"
                   viewBox="0 0 16 16"
                   width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                  xmlns:xlink="http://www.w3.org/1999/xlink"
                 >
                   <defs>
                     <path

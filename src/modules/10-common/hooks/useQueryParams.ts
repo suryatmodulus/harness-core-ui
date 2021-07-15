@@ -20,5 +20,5 @@ export function useQueryParams<T = unknown>(options?: UseQueryParamsOptions<T>):
     return params
   }, [search, options, options?.processQueryParams])
 
-  return (queryParams as unknown) as T
+  return queryParams as unknown as T
 }

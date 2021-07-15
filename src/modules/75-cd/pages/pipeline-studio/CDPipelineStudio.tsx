@@ -12,18 +12,18 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineStagesUtils'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
 import type { NgPipeline } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
+import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { FeatureFlag } from '@common/featureFlags'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier, module } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
 
   const { branch, repoIdentifier } = useQueryParams<GitQueryParams>()
 
@@ -44,20 +44,23 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   const getOtherModal = modal === 'trial' ? getTrialPipelineCreateForm : undefined
   const handleRunPipeline = (): void => {
     history.push(
-      routes.toRunPipeline({
+      routes.toPipelineStudio({
         accountId,
         orgIdentifier,
         projectIdentifier,
         pipelineIdentifier,
         module,
         branch,
-        repoIdentifier
+        repoIdentifier,
+        runPipeline: true
       })
     )
   }
-  const { selectedProject } = useAppStore()
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = useLicenseStore()
+  const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
+  const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
   const { getString } = useStrings()
-  const isApprovalStageEnabled = useFeatureFlag('NG_HARNESS_APPROVAL')
+  const isApprovalStageEnabled = useFeatureFlag(FeatureFlag.NG_HARNESS_APPROVAL)
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -67,9 +70,9 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
         getCDPipelineStages(
           args,
           getString,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CI') > -1,
+          CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCIEnabled,
           true,
-          selectedProject?.modules && selectedProject.modules.indexOf?.('CF') > -1,
+          FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCFEnabled,
           isApprovalStageEnabled
         )
       }

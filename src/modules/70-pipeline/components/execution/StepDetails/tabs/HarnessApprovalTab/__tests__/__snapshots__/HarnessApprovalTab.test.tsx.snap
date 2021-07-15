@@ -674,7 +674,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status shows form if user is autho
           variableNameLabel
         </span>
         <span>
-          configureOptions.defaultValue
+          common.configureOptions.defaultValue
         </span>
       </div>
       <div

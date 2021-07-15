@@ -11,6 +11,7 @@ import type {
 
 import { String } from 'framework/strings'
 import type { NgPipeline } from 'services/cd-ng'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { PipelineContext } from './PipelineContext/PipelineContext'
 import { PipelineSchemaContextProvider } from './PipelineSchema/PipelineSchemaContext'
@@ -100,15 +101,17 @@ export class PipelineStudio extends React.Component<PipelineStudioProps, Pipelin
     } = this.props
     return (
       <PipelineSchemaContextProvider>
-        <div className={cx(css.container, className)}>
-          <PipelineCanvas
-            toPipelineStudio={routePipelineStudio}
-            toPipelineDetail={routePipelineDetail}
-            toPipelineList={routePipelineList}
-            toPipelineProject={routePipelineProject}
-            getOtherModal={getOtherModal}
-          />
-        </div>
+        <GitSyncStoreProvider>
+          <div className={cx(css.container, className)}>
+            <PipelineCanvas
+              toPipelineStudio={routePipelineStudio}
+              toPipelineDetail={routePipelineDetail}
+              toPipelineList={routePipelineList}
+              toPipelineProject={routePipelineProject}
+              getOtherModal={getOtherModal}
+            />
+          </div>
+        </GitSyncStoreProvider>
       </PipelineSchemaContextProvider>
     )
   }

@@ -20,23 +20,15 @@ import type { JiraUpdateDeploymentModeFormContentInterface, JiraUpdateDeployment
 import css from '../JiraCreate/JiraCreate.module.scss'
 
 const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterface) => {
-  const {
-    inputSetData,
-    onUpdate,
-    initialValues,
-    statusResponse,
-    fetchingStatuses,
-    refetchStatuses,
-    statusFetchError
-  } = formContentProps
+  const { inputSetData, onUpdate, initialValues, statusResponse, fetchingStatuses, refetchStatuses, statusFetchError } =
+    formContentProps
   const template = inputSetData?.template
   const path = inputSetData?.path
   const prefix = isEmpty(path) ? '' : `${path}.`
   const readonly = inputSetData?.readonly
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
 
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {
@@ -171,9 +163,8 @@ const FormContent = (formContentProps: JiraUpdateDeploymentModeFormContentInterf
 }
 
 export default function JiraUpdateDeploymentMode(props: JiraUpdateDeploymentModeProps): JSX.Element {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps & GitQueryParams>>()
 
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const commonParams = {

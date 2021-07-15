@@ -38,9 +38,8 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   const [selectedBranch, setSelectedBranch] = React.useState<string>('')
   const [branchSelectOptions, setBranchSelectOptions] = React.useState<SelectOption[]>([])
   const [searchTerm, setSearchTerm] = React.useState<string>('')
-  const { connectorId, accountId, orgIdentifier, projectIdentifier, module } = useParams<
-    PipelineType<ProjectPathProps & ConnectorPathProps>
-  >()
+  const { connectorId, accountId, orgIdentifier, projectIdentifier, module } =
+    useParams<PipelineType<ProjectPathProps & ConnectorPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<EntityGitDetails>()
 
   const { data: orgData } = useGetOrganizationAggregateDTO({
@@ -56,7 +55,12 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
     projectIdentifier: projectIdentifier as string
   }
 
-  const { loading, data: connectorData, refetch, error } = useGetConnector({
+  const {
+    loading,
+    data: connectorData,
+    refetch,
+    error
+  } = useGetConnector({
     identifier: connectorId as string,
     queryParams: repoIdentifier && branch ? { ...defaultQueryParam, repoIdentifier, branch } : defaultQueryParam,
     mock: props.mockData
@@ -82,10 +86,8 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   })
 
   useEffect(() => {
-    const repoId = connectorData?.data?.gitDetails?.repoIdentifier
+    const repoId = connectorData?.data?.gitDetails?.repoIdentifier || data?.gitDetails?.repoIdentifier
     if (repoId) {
-      // connector fetch API is called after every branch change and Test connection
-      // Avoid fetching branchList on each connector response, once branchList is fetched, fetch only on searchTerm change
       getListOfBranchesWithStatus({
         queryParams: {
           accountIdentifier: accountId,
@@ -120,7 +122,7 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
   useDocumentTitle([connectorName || connectorData?.data?.connector?.name || '', getString('connectorsLabel')])
 
   const categories: Categories = {
-    connection: getString('connection'),
+    connection: getString('overview'),
     refrencedBy: getString('refrencedBy'),
     activityHistory: getString('activityHistoryLabel')
   }
@@ -191,12 +193,12 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
               )
             }}
           />
-          {loading ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
+          {loadingBranchList ? <Icon margin={{ top: 'xsmall' }} name="spinner" /> : null}
         </Layout.Horizontal>
       </Layout.Horizontal>
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [branchSelectOptions])
+  }, [branchSelectOptions, selectedBranch, loadingBranchList])
 
   const renderTitle = useMemo(
     () => (
@@ -205,23 +207,25 @@ const ConnectorDetailsPage: React.FC<{ mockData?: any }> = props => {
         <Layout.Horizontal spacing="small">
           <Icon
             margin={{ left: 'xsmall', right: 'xsmall' }}
-            name={getIconByType(connectorData?.data?.connector?.type)}
+            name={getIconByType(connectorData?.data?.connector?.type || data?.connector?.type)}
             size={35}
           ></Icon>
           <Container>
             <Text color={Color.GREY_800} font={{ size: 'medium', weight: 'bold' }}>
-              {connectorData?.data?.gitDetails?.objectId ? connectorName : connectorData?.data?.connector?.name}
+              {connectorData?.data?.connector?.name || connectorName}
             </Text>
             <Layout.Horizontal spacing="small">
-              <Text color={Color.GREY_400}>{connectorData?.data?.connector?.identifier}</Text>
-              {gitDetails?.objectId ? RenderGitDetails : null}
+              <Text color={Color.GREY_400}>
+                {connectorData?.data?.connector?.identifier || data?.connector?.identifier}
+              </Text>
+              {activeCategory === 0 && gitDetails?.objectId ? RenderGitDetails : null}
             </Layout.Horizontal>
           </Container>
         </Layout.Horizontal>
       </Layout.Vertical>
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [orgData, connectorData, branchSelectOptions]
+    [orgData, connectorData, branchSelectOptions, activeCategory, selectedBranch, loadingBranchList]
   )
 
   const getPageBody = (): React.ReactElement => {

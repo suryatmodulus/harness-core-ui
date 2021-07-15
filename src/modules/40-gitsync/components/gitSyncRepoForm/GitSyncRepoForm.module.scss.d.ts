@@ -12,5 +12,6 @@ declare const styles: {
   readonly helpText: string
   readonly noSpacing: string
   readonly placeholder: string
+  readonly gitBranchSelectorPopover: string
 }
 export default styles

@@ -73,8 +73,8 @@ export const DependencyBase = (
       validate={valuesToValidate => {
         return validate(valuesToValidate, editViewValidateFieldsConfig, {
           initialValues,
-          steps: currentStage?.stage?.spec?.execution?.steps || {},
-          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || {},
+          steps: currentStage?.stage?.spec?.execution?.steps || [],
+          serviceDependencies: currentStage?.stage?.spec?.serviceDependencies || [],
           type: StepType.Dependency,
           getString
         })

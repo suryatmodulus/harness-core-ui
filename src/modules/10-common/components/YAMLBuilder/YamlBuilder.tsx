@@ -18,7 +18,7 @@ import SplitPane from 'react-split-pane'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import cx from 'classnames'
-import { scalarOptions, stringify, defaultOptions } from 'yaml'
+import { scalarOptions, defaultOptions } from 'yaml'
 import { Tag, Icon, Container } from '@wings-software/uicore'
 import type {
   YamlBuilderProps,
@@ -56,6 +56,7 @@ import {
   MAX_ERR_MSSG_LENGTH
 } from './YAMLBuilderConstants'
 import CopyToClipboard from '../CopyToClipBoard/CopyToClipBoard'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 
 // Please do not remove this, read this https://eemeli.org/yaml/#scalar-options
 scalarOptions.str.fold.lineWidth = 100000
@@ -124,7 +125,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
   const [currentYaml, setCurrentYaml] = useState<string>('')
   const [currentJSON, setCurrentJSON] = useState<object>()
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<number, string> | undefined>()
-  const [dynamicWidth, setDynamicWidth] = useState<number>(2 * MIN_SNIPPET_SECTION_WIDTH)
+  const { innerWidth } = window
+  const [dynamicWidth, setDynamicWidth] = useState<number>(innerWidth - 2 * MIN_SNIPPET_SECTION_WIDTH)
 
   const editorRef = useRef<ReactMonacoEditor>(null)
   const yamlRef = useRef<string | undefined>('')
@@ -167,7 +169,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     try {
       const sanitizedJSONObj = jsonObj ? sanitize(jsonObj, yamlSanityConfig) : null
       if (sanitizedJSONObj && Object.keys(sanitizedJSONObj).length > 0) {
-        const yamlEqOfJSON = stringify(sanitizedJSONObj)
+        const yamlEqOfJSON = yamlStringify(sanitizedJSONObj)
         const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
         setCurrentYaml(sanitizedYAML)
         yamlRef.current = sanitizedYAML
@@ -537,12 +539,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
       {showSnippetSection ? (
         <SplitPane
           split="vertical"
-          defaultSize={dynamicWidth}
-          minSize={2 * MIN_SNIPPET_SECTION_WIDTH}
           className={css.splitPanel}
           onChange={handleResize}
           maxSize={-1 * MIN_SNIPPET_SECTION_WIDTH}
           style={{ height: height ?? DEFAULT_EDITOR_HEIGHT }}
+          pane1Style={{ minWidth: MIN_SNIPPET_SECTION_WIDTH, width: dynamicWidth }}
+          pane2Style={{ minWidth: MIN_SNIPPET_SECTION_WIDTH }}
         >
           <div className={css.editor}>
             {renderHeader()}

@@ -134,7 +134,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
       })
 
       if (!isEqual(prevStageData, newStageData)) {
-        updateStage((newStageData as unknown) as StageElementConfig)
+        updateStage(newStageData as unknown as StageElementConfig)
       }
     }
   }

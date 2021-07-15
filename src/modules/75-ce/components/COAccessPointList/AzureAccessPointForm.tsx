@@ -1,8 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
+import cx from 'classnames'
 import { isEmpty as _isEmpty } from 'lodash-es'
-import { Button, Container, Formik, FormikForm, FormInput, Icon, Layout, SelectOption } from '@wings-software/uicore'
+import {
+  Button,
+  Color,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Icon,
+  Layout,
+  SelectOption,
+  Text,
+  useModalHook
+} from '@wings-software/uicore'
+import { Dialog } from '@blueprintjs/core'
+import { useToaster } from '@common/exports'
 import {
   AccessPoint,
   useAllRegions,
@@ -10,18 +25,23 @@ import {
   useAllVPCs,
   useAllSubnets,
   useAllPublicIps,
-  useAllCertificates
+  useAllCertificates,
+  CertificateData
 } from 'services/lw'
+import CertificateUpload from './CertificateUploadScreen'
 import css from '../COGatewayAccess/COGatewayAccess.module.scss'
 
 export interface AzureApFormVal {
-  ip: string
+  ip?: string
   region: string
   resourceGroup: string
   sku: string
-  subnet: string
+  subnet?: string
   virtualNetwork: string
   certificate: string
+  newCertificate?: CertificateData
+  fe_ip_name?: string
+  subnet_name?: string
 }
 
 interface AzureAccessPointFormProps {
@@ -48,6 +68,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     orgIdentifier: string
     projectIdentifier: string
   }>()
+  const { showSuccess } = useToaster()
 
   const [regionsOptions, setRegionsOptions] = useState<SelectOption[]>([])
   const [resourceGroupsOptions, setResourceGroupsOptions] = useState<SelectOption[]>([])
@@ -58,6 +79,17 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
   const [selectedRegion, setSelectedRegion] = useState<SelectOption>()
   const [selectedVpc, setSelectedVpc] = useState<SelectOption>()
   const [selectedResourceGroup, setSelectedResourceGroup] = useState<SelectOption>()
+  const [newCertificate, setNewCertificate] = useState<CertificateData | undefined>(loadBalancer.metadata?.certificate)
+  const [newFrontendIp, setNewFrontendIp] = useState<SelectOption | undefined>(
+    loadBalancer.metadata?.fe_ip_name
+      ? { label: loadBalancer.metadata.fe_ip_name, value: loadBalancer.metadata.fe_ip_name }
+      : undefined
+  )
+  const [newSubnet, setNewSubnet] = useState<SelectOption | undefined>(
+    loadBalancer.metadata?.subnet_name
+      ? { label: loadBalancer.metadata.subnet_name, value: loadBalancer.metadata.subnet_name }
+      : undefined
+  )
 
   const { data: regions, loading: regionsLoading } = useAllRegions({
     org_id: orgIdentifier, // eslint-disable-line
@@ -69,7 +101,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     }
   })
 
-  const { data: resourceGroups, loading: resourceGroupsLoading } = useAllResourceGroups({
+  const {
+    data: resourceGroups,
+    loading: resourceGroupsLoading,
+    refetch: refetchResourceGroups
+  } = useAllResourceGroups({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -79,7 +115,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     }
   })
 
-  const { data: vpcs, loading: vpcsLoading, refetch: vpcsReload } = useAllVPCs({
+  const {
+    data: vpcs,
+    loading: vpcsLoading,
+    refetch: vpcsReload
+  } = useAllVPCs({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -92,7 +132,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     lazy: true
   })
 
-  const { data: subnets, loading: subnetsLoading, refetch: subnetsReload } = useAllSubnets({
+  const {
+    data: subnets,
+    loading: subnetsLoading,
+    refetch: subnetsReload
+  } = useAllSubnets({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -106,7 +150,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     lazy: true
   })
 
-  const { data: publicIps, loading: publicIpsLoading, refetch: publicIpsReload } = useAllPublicIps({
+  const {
+    data: publicIps,
+    loading: publicIpsLoading,
+    refetch: publicIpsReload
+  } = useAllPublicIps({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -120,7 +168,11 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     lazy: true
   })
 
-  const { data: certificates, loading: certificatesLoading, refetch: certificatesReload } = useAllCertificates({
+  const {
+    data: certificates,
+    loading: certificatesLoading,
+    refetch: certificatesReload
+  } = useAllCertificates({
     org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     project_id: projectIdentifier, // eslint-disable-line
@@ -256,32 +308,98 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     }
   }, [selectedRegion, selectedResourceGroup, selectedVpc])
 
+  const [openUploadCertiModal, closeUploadCertiModal] = useModalHook(() => {
+    return (
+      <Dialog
+        onClose={closeUploadCertiModal}
+        isOpen={true}
+        style={{
+          width: 650,
+          padding: 40,
+          position: 'relative',
+          minHeight: 300
+        }}
+        enforceFocus={false}
+      >
+        <CertificateUpload
+          onSubmit={_certificateDetails => {
+            showSuccess(`Added ${_certificateDetails.name} successfully`)
+            setNewCertificate(_certificateDetails)
+            closeUploadCertiModal()
+          }}
+        />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={closeUploadCertiModal}
+          style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-large)' }}
+          data-testid={'close-certi-upload-modal'}
+        />
+      </Dialog>
+    )
+  })
+
   const isFormValid = (validStatus: boolean) => {
     return (
       validStatus ||
       (loadBalancer.region &&
         loadBalancer.vpc &&
         loadBalancer.metadata?.resource_group &&
-        loadBalancer.metadata.subnet_id &&
-        loadBalancer.metadata.fe_ip_id &&
+        (loadBalancer.metadata.subnet_id || loadBalancer.metadata.subnet_name) &&
+        (loadBalancer.metadata.fe_ip_id || loadBalancer.metadata.fe_ip_name) &&
         loadBalancer.metadata.size)
     )
   }
+
+  const isNewSubnetAdded = (subnetVal?: string) => {
+    return _isEmpty(subnetsOptions.find(option => option.value === subnetVal))
+  }
+
+  const isNewFeIpAdded = (feIpVal?: string) => {
+    return _isEmpty(publicIpsOptions.find(option => option.value === feIpVal))
+  }
+
+  const getValuesToSave = (values: AzureApFormVal): AzureApFormVal => {
+    return {
+      ...values,
+      newCertificate,
+      ...(isNewSubnetAdded(values.subnet)
+        ? { subnet_name: values.subnet as string, subnet: undefined }
+        : { subnet_name: undefined, subnet: values.subnet }),
+      ...(isNewFeIpAdded(values.ip)
+        ? { fe_ip_name: values.ip as string, ip: undefined }
+        : { fe_ip_name: undefined, ip: values.ip })
+    }
+  }
+
+  const handleSubmit = (values: AzureApFormVal) => {
+    props.handleFormSubmit(getValuesToSave(values))
+  }
+
+  const handleBackClick = (values: AzureApFormVal) => {
+    props.handlePreviousClick(getValuesToSave(values))
+  }
+
+  const renderRefreshButton = (cb: () => any, enforceRefresh?: boolean) =>
+    (isCreateMode || enforceRefresh) && (
+      <Button intent="none" text="Refresh" onClick={_ => cb()} minimal icon="refresh" />
+    )
 
   return (
     <Container>
       <Formik
         initialValues={{
-          ip: loadBalancer.metadata?.fe_ip_id || '',
+          ip: newFrontendIp ? (newFrontendIp.value as string) : loadBalancer.metadata?.fe_ip_id || '',
           region: loadBalancer.region || '',
           resourceGroup: loadBalancer.metadata?.resource_group || '',
           sku: loadBalancer.metadata?.size || '',
-          subnet: loadBalancer.metadata?.subnet_id || '',
+          subnet: newSubnet ? (newSubnet.value as string) : loadBalancer.metadata?.subnet_id || '',
           virtualNetwork: loadBalancer.vpc || '',
           certificate: loadBalancer.metadata?.certificate_id || ''
         }}
         formName="azureAccessPt"
-        onSubmit={props.handleFormSubmit}
+        onSubmit={handleSubmit}
         validationSchema={Yup.object().shape({
           ip: Yup.string().required(),
           region: Yup.string().required(),
@@ -293,7 +411,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
       >
         {({ submitForm, isValid, values }) => (
           <FormikForm>
-            <Layout.Horizontal className={css.formFieldRow}>
+            <div className={css.formFieldRow}>
               <FormInput.Select
                 label={'Region*'}
                 placeholder={'Select region'}
@@ -304,6 +422,8 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 }}
                 disabled={!isCreateMode || (!_isEmpty(values.region) ? false : regionsLoading)}
               />
+            </div>
+            <div className={cx(css.formFieldRow, css.flexRow)}>
               <FormInput.Select
                 label={'Resource Group*'}
                 placeholder={'Select resource group'}
@@ -314,19 +434,49 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                   setSelectedResourceGroup(resourceItem)
                 }}
               />
-            </Layout.Horizontal>
-            <Layout.Horizontal className={css.formFieldRow}>
-              <FormInput.Select
-                label={'Certificate'}
-                placeholder={'Select certificate'}
-                name={'certificate'}
-                items={certificatesOptions}
-                disabled={
-                  !_isEmpty(values.certificate)
-                    ? false
-                    : certificatesLoading || !selectedRegion || !selectedResourceGroup
-                }
-              />
+              {renderRefreshButton(refetchResourceGroups)}
+            </div>
+            <div className={css.formFieldRow}>
+              {!isCreateMode && (
+                <div className={css.flexRow}>
+                  <FormInput.Select
+                    label={'Certificate (optional)'}
+                    placeholder={'Select certificate'}
+                    name={'certificate'}
+                    selectProps={{
+                      allowCreatingNewItems: true
+                    }}
+                    items={certificatesOptions}
+                    disabled={
+                      !_isEmpty(values.certificate)
+                        ? false
+                        : certificatesLoading || !selectedRegion || !selectedResourceGroup
+                    }
+                  />
+                  {renderRefreshButton(certificatesReload, true)}
+                </div>
+              )}
+              {isCreateMode && <label className={css.certiLabel}>{'Certificate (optional)'}</label>}
+              <div className={css.uploadCtaContainer}>
+                <span onClick={openUploadCertiModal} className={css.uploadText}>
+                  + Upload a certificate
+                </span>
+                {newCertificate && (
+                  <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+                    <Text>
+                      <Icon name={'command-artifact-check'} /> {newCertificate?.name}
+                    </Text>
+                    <Icon
+                      name={'trash'}
+                      color={Color.RED_700}
+                      onClick={() => setNewCertificate(undefined)}
+                      title={'delete'}
+                    />
+                  </Layout.Horizontal>
+                )}
+              </div>
+            </div>
+            <div className={cx(css.formFieldRow, css.flexRow)}>
               <FormInput.Select
                 label={'Virtual Network*'}
                 placeholder={'Select virtual network'}
@@ -337,20 +487,34 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                   setSelectedVpc(vpcItem)
                 }}
               />
-            </Layout.Horizontal>
-            <Layout.Horizontal className={css.formFieldRow}>
+              {renderRefreshButton(vpcsReload)}
+            </div>
+            <div className={cx(css.formFieldRow, css.flexRow)}>
               <FormInput.Select
                 label={'Subnet*'}
                 placeholder={'Select subnet'}
                 name="subnet"
                 items={subnetsOptions}
+                value={newSubnet}
+                onChange={_subnet => setNewSubnet(_subnet)}
+                selectProps={{
+                  allowCreatingNewItems: true
+                }}
                 disabled={!isCreateMode || (!_isEmpty(values.subnet) ? false : subnetsLoading || !selectedVpc)}
               />
+              {renderRefreshButton(subnetsReload)}
+            </div>
+            <div className={cx(css.formFieldRow, css.flexRow)}>
               <FormInput.Select
                 label={'Frontend IP*'}
                 placeholder={'Select IP'}
                 name="ip"
                 items={publicIpsOptions}
+                selectProps={{
+                  allowCreatingNewItems: true
+                }}
+                value={newFrontendIp}
+                onChange={_ip => setNewFrontendIp(_ip)}
                 disabled={
                   !isCreateMode ||
                   (!_isEmpty(values.ip)
@@ -358,8 +522,9 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                     : publicIpsLoading || !selectedRegion || !selectedVpc || !selectedResourceGroup)
                 }
               />
-            </Layout.Horizontal>
-            <Layout.Horizontal className={css.formFieldRow}>
+              {renderRefreshButton(publicIpsReload)}
+            </div>
+            <div className={css.formFieldRow}>
               <FormInput.Select
                 label={'SKU*'}
                 placeholder={'Select SKU'}
@@ -367,9 +532,9 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
                 items={SKUItems}
                 disabled={!isCreateMode}
               />
-            </Layout.Horizontal>
+            </div>
             <Layout.Horizontal style={{ marginTop: 100 }}>
-              <Button minimal icon={'chevron-left'} onClick={() => props.handlePreviousClick(values)}>
+              <Button minimal icon={'chevron-left'} onClick={() => handleBackClick(values)}>
                 Back
               </Button>
               {!lbCreationInProgress && (

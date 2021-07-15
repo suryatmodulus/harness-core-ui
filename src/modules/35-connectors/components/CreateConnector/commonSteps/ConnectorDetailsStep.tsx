@@ -24,8 +24,8 @@ import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { saveCurrentStepData } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { getHeadingIdByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectorDetailsStep.module.scss'
 
@@ -40,6 +40,7 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   connectorInfo?: ConnectorInfoDTO | void
   gitDetails?: IGitContextFormProps
   mock?: ResponseBoolean
+  disableGitSync?: boolean
 }
 
 type Params = {
@@ -49,9 +50,11 @@ type Params = {
 }
 
 const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
-  const { prevStepData, nextStep } = props
+  const { prevStepData, nextStep, disableGitSync } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<Params>()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled: gitSyncAppStoreEnabled } = useAppStore()
+  const isGitSyncEnabled = gitSyncAppStoreEnabled && !disableGitSync
+
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [loading, setLoading] = useState(false)
@@ -123,7 +126,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           onSubmit={formData => {
             handleSubmit(formData)
           }}
-          formName="connectorDetailsStepForm"
+          formName={`connectorDetailsStepForm${props.type}`}
           validationSchema={Yup.object().shape({
             name: NameSchema(),
             identifier: IdentifierSchema()
@@ -137,7 +140,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           {formikProps => {
             saveCurrentStepData<ConnectorInfoDTO>(
               props.getCurrentStepData,
-              (formikProps.values as unknown) as ConnectorInfoDTO
+              formikProps.values as unknown as ConnectorInfoDTO
             )
             return (
               <FormikForm>

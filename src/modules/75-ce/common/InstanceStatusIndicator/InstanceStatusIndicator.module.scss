@@ -1,13 +1,16 @@
 .instanceStatusIndicator {
+  display: flex;
+  align-items: center;
   span {
-    margin-right: 5px;
+    margin-right: 5px !important;
     :global {
       svg[data-icon='stop'] {
         path {
           fill: #da291d;
         }
       }
-      svg[data-icon='play'] {
+      svg[data-icon='play'],
+      svg[data-icon='full-circle'] {
         path {
           fill: #42ab45;
         }

@@ -196,6 +196,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -283,6 +284,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -370,6 +372,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -457,6 +460,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -544,6 +548,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -631,6 +636,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -718,6 +724,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -805,6 +812,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
@@ -949,6 +957,7 @@ exports[`Resource Groups Page render data 1`] = `
                       height="16"
                       viewBox="0 0 4 16"
                       width="16"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"

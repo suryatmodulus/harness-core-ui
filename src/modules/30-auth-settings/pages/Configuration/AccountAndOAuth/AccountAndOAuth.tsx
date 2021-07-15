@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 import { Radio, Container, Color, Layout, Collapse, Text } from '@wings-software/uicore'
@@ -18,9 +18,10 @@ interface Props {
   authSettings: AuthenticationSettingsResponse
   refetchAuthSettings: () => void
   canEdit: boolean
+  setUpdating: Dispatch<SetStateAction<boolean>>
 }
 
-const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit }) => {
+const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, canEdit, setUpdating }) => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { showSuccess, showError } = useToaster()
@@ -29,6 +30,10 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, c
     /* istanbul ignore next */ authSettings.authenticationMechanism === AuthenticationMechanisms.OAUTH
 
   const { mutate: updateAuthMechanism, loading: updatingAuthMechanism } = useUpdateAuthMechanism({})
+
+  React.useEffect(() => {
+    setUpdating(updatingAuthMechanism)
+  }, [updatingAuthMechanism, setUpdating])
 
   const submitUserPasswordUpdate = async (
     authenticationMechanism: keyof typeof AuthenticationMechanisms,
@@ -110,11 +115,13 @@ const AccountAndOAuth: React.FC<Props> = ({ authSettings, refetchAuthSettings, c
             submitUserPasswordUpdate={submitUserPasswordUpdate}
             updatingAuthMechanism={updatingAuthMechanism}
             canEdit={canEdit}
+            setUpdating={setUpdating}
           />
           <PublicOAuthProviders
             authSettings={authSettings}
             refetchAuthSettings={refetchAuthSettings}
             canEdit={canEdit}
+            setUpdating={setUpdating}
           />
           <Container height={10} />
         </Layout.Vertical>

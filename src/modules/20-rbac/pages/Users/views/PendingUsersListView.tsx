@@ -256,7 +256,7 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
               message: getString('rbac.usersPage.noDataDescription'),
               button: (
                 <RbacButton
-                  text={getString('newUser')}
+                  text={getString('rbac.user')}
                   intent="primary"
                   icon="plus"
                   onClick={() => openRoleAssignmentModal()}

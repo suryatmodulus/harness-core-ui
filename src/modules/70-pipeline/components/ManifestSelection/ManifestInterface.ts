@@ -45,6 +45,7 @@ export interface ManifestListViewProps {
 export interface ManifestStepInitData {
   connectorRef: string | undefined | ConnectorSelectedValue
   store: ConnectorInfoDTO['type'] | string
+  selectedManifest: ManifestTypes
 }
 export interface ManifestDetailDataType {
   identifier: string
@@ -62,7 +63,7 @@ export interface ManifestLastStepProps {
   stepName: string
   initialValues: ManifestConfig
   handleSubmit: (data: ManifestConfigWrapper) => void
-  selectedManifest: string
+  selectedManifest: ManifestTypes
   manifestIdsList: Array<string>
   isReadonly?: boolean
 }
@@ -103,8 +104,8 @@ export interface HelmWithGcsDataType {
 }
 export interface HelmWithS3DataType extends HelmWithHTTPDataType {
   folderPath: string
-  region: any
-  bucketName: string
+  region: SelectOption | string
+  bucketName: SelectOption | string
 }
 
 export interface OpenShiftTemplateGITDataType {
@@ -132,5 +133,5 @@ export interface OpenShiftParamDataType {
   commitId?: string | undefined
   repoName?: string
   gitFetchType?: 'Branch' | 'Commit'
-  paths: string[]
+  paths: string[] | any
 }

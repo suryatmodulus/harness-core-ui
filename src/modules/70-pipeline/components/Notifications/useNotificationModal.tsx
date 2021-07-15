@@ -48,6 +48,7 @@ export const useNotificationModal = ({
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           setView(Views.CREATE)
           hideModal()

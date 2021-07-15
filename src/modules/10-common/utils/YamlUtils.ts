@@ -3,7 +3,7 @@
 import * as yamlLanguageService from '@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService'
 import { isEmpty } from 'lodash-es'
 import { TextDocument, Diagnostic } from 'vscode-languageserver-types'
-import { Options, parse, stringify } from 'yaml'
+import { parse } from 'yaml'
 
 const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 
@@ -101,9 +101,7 @@ async function validateJSONWithSchema(
   }
 
   try {
-    const yamlEqOfJSON = stringify(jsonObj, {
-      simpleKeys: true
-    } as Options)
+    const yamlEqOfJSON = yamlStringify(jsonObj)
     const lineContents = yamlEqOfJSON.split(/\r?\n/)
     const validationErrors = await validateYAMLWithSchema(yamlEqOfJSON, getSchemaWithLanguageSettings(schema))
     validationErrors.map(error => {

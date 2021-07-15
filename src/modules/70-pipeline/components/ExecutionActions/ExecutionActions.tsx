@@ -69,7 +69,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
 
   const reRunPipeline = (): void => {
     history.push(
-      `${routes.toRunPipeline({
+      `${routes.toPipelineStudio({
         accountId,
         orgIdentifier,
         projectIdentifier,
@@ -77,6 +77,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         module,
         branch,
         repoIdentifier,
+        runPipeline: true,
         executionId: executionIdentifier
       })}`
     )

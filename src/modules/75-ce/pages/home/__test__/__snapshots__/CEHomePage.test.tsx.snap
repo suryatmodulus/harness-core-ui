@@ -17,6 +17,7 @@ exports[`CEHomePage snapshot test should display a loading spinner if the module
           height="32"
           viewBox="0 0 128 128"
           width="32"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <g>
             <path
@@ -96,6 +97,7 @@ exports[`CEHomePage snapshot test should display a loading spinner if the projec
           height="32"
           viewBox="0 0 128 128"
           width="32"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <g>
             <path
@@ -166,7 +168,7 @@ exports[`CEHomePage snapshot test should move to trial in progress page when que
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -229,7 +231,7 @@ exports[`CEHomePage snapshot test should render HomePageTemplate when return suc
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
@@ -388,7 +390,7 @@ exports[`CEHomePage snapshot test shouldn't show the trial home pagers if the us
   >
     <div
       class="StyledProps--font StyledProps--main container"
-      style="--image-url: url(test-file-stub);"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
       <div
         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

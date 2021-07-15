@@ -1,5 +1,5 @@
 .rangeSelector {
-  width: 150px !important;
+  width: fit-content !important;
   :global {
     .bp3-input {
       border: none !important;
@@ -21,7 +21,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--spacing-xsmall) !important;
-  p {
+  > p {
     font-size: var(--ci-font-size-normal) !important;
     font-weight: 500 !important;
   }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -8,7 +8,6 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useGetBuilds, useGetRepositoryBuild } from 'services/ci'
 import { useStrings } from 'framework/strings'
-import { useToaster } from '@common/components/Toaster/useToaster'
 import CIDashboardSummaryCards from '@pipeline/components/Dashboards/CIDashboardSummaryCards/CIDashboardSummaryCards'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import FailedBuildCard from '@pipeline/components/Dashboards/BuildCards/FailedBuildCard'
@@ -16,19 +15,18 @@ import ActiveBuildCard from '@pipeline/components/Dashboards/BuildCards/ActiveBu
 import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
-import { ActiveStatus, FailedStatus } from '@pipeline/components/Dashboards/shared'
+import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import styles from './CIDashboardPage.module.scss'
 
 export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const history = useHistory()
-  const { showError } = useToaster()
   const { selectedProject } = useAppStore()
   const { getString } = useStrings()
   const project = selectedProject
   const [repositoriesRange, setRepositoriesRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
 
-  const { data, loading, error } = useGetBuilds({
+  const { data, loading, error, refetch } = useGetBuilds({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -36,7 +34,12 @@ export const CIDashboardPage: React.FC = () => {
     }
   })
 
-  const { data: repositoriesData, loading: loadingRepositories, error: repoError } = useGetRepositoryBuild({
+  const {
+    data: repositoriesData,
+    loading: loadingRepositories,
+    error: repoError,
+    refetch: refetchRepos
+  } = useGetRepositoryBuild({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -46,38 +49,33 @@ export const CIDashboardPage: React.FC = () => {
     }
   })
 
-  useEffect(() => {
-    error?.message && showError(error?.message, undefined, 'ci.get.build.error')
-  }, [error?.message])
+  const refetchingBuilds = useRefetchCall(refetch, loading)
+  const refetchingRepos = useRefetchCall(refetchRepos, loadingRepositories)
 
-  useEffect(() => {
-    repoError?.message && showError(repoError?.message, undefined, 'ci.get.repo.error')
-  }, [repoError?.message])
+  useErrorHandler(error, undefined, 'ci.get.build.error')
+  useErrorHandler(repoError, undefined, 'ci.get.repo.error')
 
   return (
     <>
-      <Page.Header
-        title={
-          <Container>
-            <Breadcrumbs
-              links={[
-                {
-                  label: project?.name || '',
-                  url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'ci' })
-                },
-                {
-                  label: getString('overview'),
-                  url: ''
-                }
-              ]}
-            />
-            <Text font={{ size: 'medium', weight: 'bold' }} margin={{ top: 'xsmall' }}>
-              {getString('overview')}
-            </Text>
-          </Container>
-        }
-      />
-      <Page.Body loading={loading && loadingRepositories}>
+      <div className={styles.header}>
+        <Breadcrumbs
+          links={[
+            {
+              label: project?.name || '',
+              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module: 'ci' })
+            },
+            {
+              label: getString('overview'),
+              url: ''
+            }
+          ]}
+        />
+        <h2>{getString('overview')}</h2>
+      </div>
+      <Page.Body
+        className={styles.content}
+        loading={loading && !refetchingBuilds && loadingRepositories && !refetchingRepos}
+      >
         <Container className={styles.page} padding="large">
           <CIDashboardSummaryCards />
           <Container className={styles.executionsWrapper}>
@@ -85,7 +83,7 @@ export const CIDashboardPage: React.FC = () => {
           </Container>
           <CardRailView
             contentType="REPOSITORY"
-            isLoading={loadingRepositories}
+            isLoading={loadingRepositories && !refetchingRepos}
             titleSideContent={<RangeSelector onRangeSelected={setRepositoriesRange} />}
           >
             {repositoriesData?.data?.repositoryInfo?.map((repo, index) => (
@@ -107,7 +105,7 @@ export const CIDashboardPage: React.FC = () => {
           </CardRailView>
           <CardRailView
             contentType="FAILED_BUILD"
-            isLoading={loading}
+            isLoading={loading && !refetchingBuilds}
             titleSideContent={
               !!data?.data?.failed?.length && <Text font={{ size: 'small' }}>Top {data?.data?.failed?.length}</Text>
             }
@@ -134,7 +132,7 @@ export const CIDashboardPage: React.FC = () => {
           </CardRailView>
           <CardRailView
             contentType="ACTIVE_BUILD"
-            isLoading={loading}
+            isLoading={loading && !refetchingBuilds}
             titleSideContent={
               !!data?.data?.active?.length && <Text font={{ size: 'small' }}>Top {data?.data?.active?.length}</Text>
             }

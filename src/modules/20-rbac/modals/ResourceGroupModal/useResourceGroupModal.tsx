@@ -22,6 +22,7 @@ export const useResourceGroupModal = ({ onSuccess }: UseResourceGroupModalProps)
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         title={
           resourceGroupData
             ? getString('resourceGroup.updateResourceGroupDialogTitle')

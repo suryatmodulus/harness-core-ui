@@ -56,7 +56,7 @@ exports[`CreatePipelineForm Rendering should closeModal when click Setup Later 1
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -289,7 +289,7 @@ exports[`CreatePipelineForm Rendering should render CreatePipelineForm 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"
@@ -522,7 +522,7 @@ exports[`CreatePipelineForm Rendering should validate inputs 1`] = `
               <span
                 class="bp3-icon bp3-icon-edit StyledProps--main"
                 icon="edit"
-                style="vertical-align: middle;"
+                style="vertical-align: middle; cursor: pointer;"
               >
                 <svg
                   data-icon="edit"

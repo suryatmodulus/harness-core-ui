@@ -7,6 +7,7 @@ import css from './useErrorModalHook.module.scss'
 
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 750,
     minHeight: 350,

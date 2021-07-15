@@ -105,7 +105,6 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  style={{ marginBottom: 10 }}
                   multiTypeProps={{ expressions }}
                 />
 
@@ -238,7 +237,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
                     type="submit"
                     disabled={!formik?.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.connectorRef}
                   />
-                  <Button text={getString('cancel')} onClick={props.onHide} />
+                  <Button padding={{ left: 'medium' }} text={getString('cancel')} onClick={props.onHide} />
                 </Container>
               </Form>
             </Layout.Vertical>

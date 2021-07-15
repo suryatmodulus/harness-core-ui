@@ -73,7 +73,7 @@ describe('Open shift params with git tests', () => {
                 branch: 'testBranch',
                 connectorRef: undefined,
                 gitFetchType: 'Branch',
-                paths: [],
+                paths: [''],
                 repoName: 'repo-name'
               },
               type: 'Git'

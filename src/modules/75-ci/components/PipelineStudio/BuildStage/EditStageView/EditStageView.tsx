@@ -41,7 +41,7 @@ import css from './EditStageView.module.scss'
 
 export interface EditStageView {
   data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
+  onSubmit?: (values: StageElementWrapper, identifier: string, pipeline?: PipelineInfoConfig) => void
   onChange?: (values: StageElementWrapper) => void
 }
 
@@ -62,7 +62,6 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
 
   const {
     state: { pipeline },
-    updatePipeline,
     isReadonly
   } = React.useContext(PipelineContext)
 
@@ -85,7 +84,11 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const connectorId = getIdentifierFromValue((codebase?.connectorRef as string) || '')
   const initialScope = getScopeFromValue((codebase?.connectorRef as string) || '')
 
-  const { data: connector, loading, refetch } = useGetConnector({
+  const {
+    data: connector,
+    loading,
+    refetch
+  } = useGetConnector({
     identifier: connectorId,
     queryParams: {
       accountIdentifier: accountId,
@@ -149,8 +152,9 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const handleSubmit = (values: Values): void => {
     if (data) {
       // TODO: Add Codebase verification
+      let pipelineData: PipelineInfoConfig | undefined = undefined
       if (values.cloneCodebase && values.connectorRef) {
-        const pipelineData = produce(pipeline, draft => {
+        pipelineData = produce(pipeline, draft => {
           set(draft, 'properties.ci.codebase', {
             connectorRef: typeof values.connectorRef === 'string' ? values.connectorRef : values.connectorRef?.value,
             ...(values.repoName && { repoName: values.repoName }),
@@ -162,17 +166,18 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
             delete (draft as PipelineInfoConfig)?.properties?.ci?.codebase?.repoName
           }
         })
-        updatePipeline(pipelineData)
       }
-
       data.stage.identifier = values.identifier
       data.stage.name = values.name
 
       if (values.description) data.stage.description = values.description
       if (!data.stage.spec) data.stage.spec = {}
       data.stage.spec.cloneCodebase = values.cloneCodebase
-
-      onSubmit?.(data, values.identifier)
+      if (pipelineData) {
+        onSubmit?.(data, values.identifier, pipelineData)
+      } else {
+        onSubmit?.(data, values.identifier)
+      }
     }
   }
 

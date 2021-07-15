@@ -26,6 +26,7 @@ const useAddResourceModal = (props: UseAddResourceModalProps): UseAddResourceMod
         onClose={() => {
           hideModal()
         }}
+        enforceFocus={false}
         className={cx(css.dialog, Classes.DIALOG)}
       >
         {resource && (

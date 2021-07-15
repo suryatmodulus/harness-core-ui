@@ -84,7 +84,7 @@ function WrapperComponent(props: { initialValues: any }): JSX.Element {
         enableReinitialize={true}
         initialValues={initialValues}
         validationSchema={getValidationSchema(
-          (TriggerTypes.SCHEDULE as unknown) as NGTriggerSourceV2['type'],
+          TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type'],
           result.current.getString
         )}
         onSubmit={jest.fn()}

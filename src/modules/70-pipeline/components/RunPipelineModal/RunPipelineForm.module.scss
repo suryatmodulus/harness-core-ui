@@ -1,0 +1,148 @@
+.optionBtns {
+  display: flex;
+  align-items: center;
+  margin: 0 250px;
+}
+
+.run-form {
+  min-height: initial;
+  .editor {
+    width: 100%;
+    // max height is same as the height in visual view
+    max-height: 65vh !important;
+    padding-top: var(--spacing-medium);
+    padding-bottom: var(--spacing-medium);
+  }
+  .content {
+    min-height: calc(100vh - 187px);
+    overflow: auto;
+    display: block;
+    max-height: calc(100vh - 187px);
+
+    & > form {
+      width: 100%;
+    }
+  }
+  .pipelineHeader {
+    height: 62px;
+    width: 100% !important;
+    display: inline-block !important;
+  }
+
+  .radio-group {
+    padding-left: 24px !important;
+  }
+
+  .radio {
+    padding-left: 32px !important;
+  }
+
+  .divider {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--spacing-3);
+  }
+
+  .footer {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    width: 100%;
+  }
+
+  [class*='OverlaySpinner--overlaySpinner'] {
+    min-height: calc(100% - var(--page-header-height, 64px));
+    overflow: hidden;
+  }
+}
+
+.preFlightCheckModal {
+  width: 900px;
+  padding: var(--spacing-large);
+}
+
+.runFormExecutionView {
+  .content {
+    min-height: calc(100vh - 220px);
+    overflow: auto;
+    display: block;
+    max-height: calc(100vh - 220px);
+  }
+
+  [class*='OverlaySpinner--overlaySpinner'] {
+    min-height: calc(100% - var(--page-header-height, 64px));
+    overflow: hidden;
+  }
+}
+
+.run-modal-header {
+  min-height: var(--spacing-8);
+  display: flex;
+  padding: var(--spacing-medium) var(--spacing-large);
+}
+
+.run-modal-sub-heading {
+  justify-content: space-between !important;
+  align-items: center;
+}
+
+.run-modal-header-title {
+  display: flex;
+  align-items: center;
+}
+
+.run-modal-form-content {
+  max-height: 65vh !important;
+  min-height: 30vh;
+  overflow-x: hidden;
+  overflow: auto !important;
+  border-top: 1px solid var(--grey-200);
+}
+
+.runModalFormContentExecutionView {
+  max-height: 85vh !important;
+  min-height: 200px;
+  overflow-x: hidden;
+  overflow: auto !important;
+  background-color: var(--form-bg);
+}
+
+.no-pipeline-input-set-form {
+  padding-top: var(--spacing-medium);
+}
+
+.help-section {
+  display: flex;
+  flex-direction: row;
+}
+
+.help-icon {
+  padding-right: var(--spacing-3) !important;
+}
+
+.inputSetsUpdatingSpinner {
+  transform: scale(0.6);
+}
+
+.valueProviderRadio {
+  padding: var(--spacing-small) var(--spacing-xlarge) var(--spacing-small) var(--spacing-huge) !important;
+  border: 1px solid var(--grey-200);
+  border-radius: 4px;
+  background-color: white;
+}
+
+.selectedValueProvider {
+  border-color: var(--primary-7);
+  background-color: var(--primary-2) !important;
+  color: var(--form-body-text);
+}
+
+.actionButtons {
+  margin-top: 0 !important;
+}
+
+.secondaryButton {
+  margin-left: var(--spacing-medium) !important;
+}
+
+.footerCheckbox {
+  border-radius: 4px;
+  font-size: var(--font-size-small) !important;
+}

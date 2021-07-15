@@ -40,6 +40,7 @@ const CreateAzureKeyVaultConnector: React.FC<CreateAzureKeyVaultConnectorProps> 
         isEditMode={props.isEditMode}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
+        disableGitSync={true}
       />
       <AzureKeyVaultForm
         {...props}

@@ -91,7 +91,7 @@ export const editViewValidateFieldsConfig = [
   {
     name: 'spec.repo',
     type: ValidationFieldTypes.Text,
-    label: 'dockerRegistry',
+    label: 'connectors.docker.dockerRepository',
     isRequired: true
   },
   {

@@ -263,7 +263,12 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   >()
 
   const { showError } = useToaster()
-  const { data: environmentsResponse, loading, error, refetch } = useGetEnvironmentList({
+  const {
+    data: environmentsResponse,
+    loading,
+    error,
+    refetch
+  } = useGetEnvironmentList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
@@ -277,6 +282,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}
@@ -489,7 +495,11 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
     data: { name: '', identifier: '' }
   })
   const { expressions } = useVariablesExpression()
-  const { data: environmentsResponse, error, refetch } = useGetEnvironmentList({
+  const {
+    data: environmentsResponse,
+    error,
+    refetch
+  } = useGetEnvironmentList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -504,6 +514,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}

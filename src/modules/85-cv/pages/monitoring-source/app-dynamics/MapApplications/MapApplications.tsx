@@ -121,7 +121,11 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     }
   })
 
-  const { data: metricPacks, refetch: refetchMetricPacks, error: metricPackError } = useGetMetricPacks({
+  const {
+    data: metricPacks,
+    refetch: refetchMetricPacks,
+    error: metricPackError
+  } = useGetMetricPacks({
     queryParams: {
       accountId,
       orgIdentifier,
@@ -153,7 +157,12 @@ export default function MapApplications({ stepData, onCompleteStep, onPrevious }
     return statuses
   }, [state, errors])
 
-  const { data: tiers, loading: loadingTiers, refetch: loadTiers, error: tiersError } = useGetAppDynamicsTiers({
+  const {
+    data: tiers,
+    loading: loadingTiers,
+    refetch: loadTiers,
+    error: tiersError
+  } = useGetAppDynamicsTiers({
     resolve: response => {
       if (Number.isInteger(response?.data?.totalItems)) {
         setState(old => ({

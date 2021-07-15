@@ -31,6 +31,7 @@ exports[`SegmentsPage No data view should be rendered 1`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_targets_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
           >
             cf.shared.targets
@@ -41,6 +42,7 @@ exports[`SegmentsPage No data view should be rendered 1`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_segments_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
           >
             cf.shared.segments
@@ -195,6 +197,7 @@ exports[`SegmentsPage No environment view should be rendered 1`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_targets_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
           >
             cf.shared.targets
@@ -205,6 +208,7 @@ exports[`SegmentsPage No environment view should be rendered 1`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_segments_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
           >
             cf.shared.segments
@@ -304,6 +308,7 @@ exports[`SegmentsPage No environment view should be rendered 2`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_targets_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
           >
             cf.shared.targets
@@ -314,6 +319,7 @@ exports[`SegmentsPage No environment view should be rendered 2`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_segments_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
           >
             cf.shared.segments
@@ -413,6 +419,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_targets_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/targets?activeEnvironment=undefined"
           >
             cf.shared.targets
@@ -423,6 +430,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
         >
           <a
             class="link"
+            data-tooltip-id="ff_segments_heading"
             href="/account/dummy/cf/orgs/dummy/projects/dummy/target-management/target-groups?activeEnvironment=undefined"
           >
             cf.shared.segments
@@ -638,6 +646,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
                               height="16"
                               viewBox="0 0 4 16"
                               width="16"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
                                 clip-rule="evenodd"

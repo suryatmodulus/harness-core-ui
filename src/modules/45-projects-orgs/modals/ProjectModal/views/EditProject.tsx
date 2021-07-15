@@ -26,7 +26,12 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
   const projectIdentifier = isStep ? prevStepData?.identifier : identifier
   const organizationIdentifier = isStep ? prevStepData?.orgIdentifier : orgIdentifier
 
-  const { data: projectData, loading, response, error } = useGetProject({
+  const {
+    data: projectData,
+    loading,
+    response,
+    error
+  } = useGetProject({
     identifier: projectIdentifier || /* istanbul ignore next */ '',
     queryParams: {
       accountIdentifier: accountId,

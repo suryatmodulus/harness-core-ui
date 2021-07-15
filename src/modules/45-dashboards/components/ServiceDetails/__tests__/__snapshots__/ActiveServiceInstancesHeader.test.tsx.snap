@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActiveServiceInstancesHeader should render ActiveServiceInstancesHeader 1`] = `
+<div>
+  <div
+    class="Layout--horizontal StyledProps--main activeServiceInstancesHeader StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--padding-bottom-small"
+  >
+    <p
+      class="StyledProps--font StyledProps--main instanceCount StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-right-large"
+    >
+      0
+    </p>
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+      style="height: 100%;"
+    >
+      <div
+        class="Layout--vertical StyledProps--main pieChartLabelContainerStyles StyledProps--flex StyledProps--flex-alignItems-flex-end StyledProps--padding-top-xsmall StyledProps--padding-bottom-xsmall StyledProps--padding-right-large"
+        style="height: 100%;"
+      >
+        <p
+          class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
+        >
+          dashboards.serviceDashboard.nonProd (0)
+        </p>
+        <p
+          class="StyledProps--font StyledProps--main pieChartLabelStyles StyledProps--font-size-xsmall StyledProps--color StyledProps--color-grey500"
+        >
+          dashboards.serviceDashboard.prod (0)
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

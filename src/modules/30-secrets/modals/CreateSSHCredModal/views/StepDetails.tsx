@@ -2,8 +2,7 @@ import React from 'react'
 import { Button, Text, Color, StepProps, FormikForm, Formik, Container, Layout } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { SecretDTOV2 } from 'services/cd-ng'
-
-import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { NameIdDescriptionTags } from '@common/components'
 import { StringUtils } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
@@ -52,7 +51,7 @@ const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj> & SSHCredSharedObj> =
           return (
             <FormikForm>
               <Container className={css.formData}>
-                <AddDescriptionAndKVTagsWithIdentifier
+                <NameIdDescriptionTags
                   formikProps={formikProps}
                   identifierProps={{
                     inputName: 'name',

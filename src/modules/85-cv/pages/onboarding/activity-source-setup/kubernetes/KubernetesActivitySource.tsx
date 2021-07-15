@@ -69,7 +69,11 @@ export function KubernetesActivitySource(): JSX.Element {
   })
   const { getString } = useStrings()
   const params = useParams<ProjectPathProps & { activitySourceId: string }>()
-  const { loading, error, refetch: fetchKubernetesSource } = useGetActivitySource({
+  const {
+    loading,
+    error,
+    refetch: fetchKubernetesSource
+  } = useGetActivitySource({
     lazy: true,
     resolve: function (activitySource: ResponseActivitySourceDTO) {
       setCurrentData(transformApiData(activitySource?.data as KubernetesActivitySourceDTO))

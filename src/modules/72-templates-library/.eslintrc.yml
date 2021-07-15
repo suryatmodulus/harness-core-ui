@@ -1,0 +1,22 @@
+rules:
+  no-restricted-imports:
+    - error
+    - patterns:
+        - lodash.*
+        - modules/75-cd/*
+        - modules/75-ce/*
+        - modules/75-cf/*
+        - modules/75-ci/*
+        - modules/85-cv/*
+        - '@cd/*'
+        - '@ce/*'
+        - '@cf/*'
+        - '@ci/*'
+        - '@cv/*'
+      paths:
+        - lodash
+        - name: yaml
+          importNames:
+            - stringify
+          message: Please use yamlStringify from @common/utils/YamlHelperMethods instead
+            of this

@@ -24,5 +24,10 @@ declare const styles: {
   readonly repoDetails: string
   readonly branchDetails: string
   readonly branchSelector: string
+  readonly runPipelineDialog: string
+  readonly modalCard: string
+  readonly bp3DialogHeader: string
+  readonly modalContent: string
+  readonly crossIcon: string
 }
 export default styles

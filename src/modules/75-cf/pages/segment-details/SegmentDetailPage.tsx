@@ -33,7 +33,12 @@ export const SegmentDetailPage: React.FC = () => {
   const { showError, clear } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier, segmentIdentifier } = useParams<Record<string, string>>()
   const { activeEnvironment, withActiveEnvironment } = useActiveEnvironment()
-  const { data: segment, loading: segmentLoading, refetch, error: segmentError } = useGetSegment({
+  const {
+    data: segment,
+    loading: segmentLoading,
+    refetch,
+    error: segmentError
+  } = useGetSegment({
     identifier: segmentIdentifier,
     queryParams: {
       account: accountId,
@@ -43,7 +48,12 @@ export const SegmentDetailPage: React.FC = () => {
       environment: activeEnvironment
     } as GetSegmentQueryParams
   })
-  const { loading: envLoading, data: envData, error: envError, refetch: envRefetch } = useSyncedEnvironment({
+  const {
+    loading: envLoading,
+    data: envData,
+    error: envError,
+    refetch: envRefetch
+  } = useSyncedEnvironment({
     accountId,
     orgIdentifier,
     projectIdentifier,
@@ -148,10 +158,11 @@ export const SegmentDetailPage: React.FC = () => {
       breadcrumbs={breadcrumbs}
       title={segment?.name}
       titleIcon={<Avatar name={segment?.name} size="medium" {...DISABLE_AVATAR_PROPS} className={css.avatar} />}
-      subTittle={getString('cf.targetDetail.createdOnDate', {
+      subTitle={getString('cf.targetDetail.createdOnDate', {
         date: formatDate(segment?.createdAt as number),
         time: formatTime(segment?.createdAt as number)
       })}
+      identifier={segment?.identifier}
       headerExtras={
         <>
           <Container style={{ position: 'absolute', top: '15px', right: '25px' }}>

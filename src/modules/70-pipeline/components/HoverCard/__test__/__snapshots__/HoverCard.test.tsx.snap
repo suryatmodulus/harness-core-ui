@@ -16,8 +16,8 @@ exports[`ConditionalExecution matches snapshot with failure 1`] = `
           style="flex: 1;"
         >
           <p
-            class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
-            style="font-size: 14px;"
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--font-size-normal StyledProps--color StyledProps--color-black"
+            style="--text-line-clamp: 1; width: 300px;"
           />
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"

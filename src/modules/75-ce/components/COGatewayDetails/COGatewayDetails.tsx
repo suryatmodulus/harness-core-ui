@@ -13,7 +13,7 @@ import { useStrings } from 'framework/strings'
 import { useSaveService, Service, useAttachTags, RoutingData } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { Utils } from '@ce/common/Utils'
-import { ASRuleTabs } from '@ce/constants'
+import { ASRuleTabs, GatewayKindType } from '@ce/constants'
 import { GatewayContextProvider } from '@ce/context/GatewayContext'
 import css from './COGatewayDetails.module.scss'
 
@@ -27,7 +27,7 @@ interface COGatewayDetailsProps {
 const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
   const history = useHistory()
   const { getString } = useStrings()
-  const { showError } = useToaster()
+  const { showError, showSuccess } = useToaster()
   const [selectedTabId, setSelectedTabId] = useState<string>(props.activeTab ?? ASRuleTabs.CONFIGURATION)
   const [validConfig, setValidConfig] = useState<boolean>(false)
   const [validAccessSetup, setValidAccessSetup] = useState<boolean>(false)
@@ -77,8 +77,11 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     try {
       setSaveInProgress(true)
       const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
+      const isK8sRule = !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)
       const routing: RoutingData = { ports: props.gatewayDetails.routing.ports, lb: undefined }
-      if (hasInstances) {
+      if (isK8sRule) {
+        routing.k8s = props.gatewayDetails.routing.k8s
+      } else if (hasInstances) {
         await setInstancesFilterTags(tagValue)
         routing.instance = {
           filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
@@ -95,8 +98,8 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         org_id: orgIdentifier, // eslint-disable-line
         project_id: projectIdentifier, // eslint-disable-line
         account_identifier: accountId, // eslint-disable-line
-        fulfilment: props.gatewayDetails.fullfilment,
-        kind: 'instance',
+        fulfilment: isK8sRule ? 'kubernetes' : props.gatewayDetails.fullfilment || 'ondemand',
+        kind: isK8sRule ? GatewayKindType.KUBERNETES : GatewayKindType.INSTANCE,
         cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
         idle_time_mins: props.gatewayDetails.idleTimeMins, // eslint-disable-line
         custom_domains: props.gatewayDetails.customDomains ? props.gatewayDetails.customDomains : [], // eslint-disable-line
@@ -117,6 +120,11 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       }
       const result = await saveGateway({ service: gateway, deps: props.gatewayDetails.deps, apply_now: false }) // eslint-disable-line
       if (result.response) {
+        // Rule creation is halted until the access point creation takes place successfully.
+        // Informing the user regarding the same
+        if (props.gatewayDetails.accessPointData?.status === 'submitted') {
+          showSuccess('Rule will take effect once the load balancer creation is successful!!')
+        }
         history.push(
           routes.toCECORules({
             orgIdentifier: orgIdentifier as string,

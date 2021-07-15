@@ -166,7 +166,6 @@
     }
   }
   .formFieldRow {
-    align-items: center;
     margin-bottom: var(--spacing-large) !important;
     > div {
       width: var(--form-width);
@@ -177,6 +176,35 @@
         width: 100% !important;
       }
     }
+    .uploadCtaContainer {
+      .uploadText {
+        text-decoration: underline;
+        cursor: pointer;
+        color: var(--primary-7);
+        margin-right: 10px;
+      }
+      svg path {
+        fill: var(--green-500);
+      }
+      > div {
+        margin-top: 10px;
+        span[icon='trash'] {
+          cursor: pointer;
+        }
+      }
+    }
+    .certiLabel {
+      color: var(--grey-500);
+      font-size: 13px;
+      margin-bottom: 5px;
+      margin-top: 0;
+      display: block;
+      width: var(--form-width);
+    }
+  }
+  .flexRow {
+    display: flex;
+    align-items: center;
   }
   .radioBtn {
     padding-left: 24px !important;

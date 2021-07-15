@@ -12,7 +12,7 @@ import { CF_DEFAULT_PAGE_SIZE } from '@cf/utils/CFUtils'
 import { EnvironmentType } from '@common/constants/EnvironmentType'
 import { useConfirmAction } from '@common/hooks/useConfirmAction'
 import { useEnvStrings } from '@cf/hooks/environment'
-import { ListingPageTemplate } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
+import { ListingPageTemplate, ListingPageTitle } from '@cf/components/ListingPageTemplate/ListingPageTemplate'
 import EnvironmentDialog from '@cf/components/CreateEnvironmentDialog/EnvironmentDialog'
 import routes from '@common/RouteDefinitions'
 import { NoEnvironment } from '@cf/components/NoEnvironment/NoEnvironment'
@@ -159,7 +159,12 @@ const EnvironmentsPage: React.FC = () => {
       page
     }
   }, [accountId, orgIdentifier, projectIdentifier, page])
-  const { data: envData, loading, error, refetch } = useGetEnvironmentListForProject({
+  const {
+    data: envData,
+    loading,
+    error,
+    refetch
+  } = useGetEnvironmentListForProject({
     queryParams
   })
   const { mutate: deleteEnvironment } = useDeleteEnvironmentV2({
@@ -227,21 +232,28 @@ const EnvironmentsPage: React.FC = () => {
   return (
     <ListingPageTemplate
       pageTitle={title}
-      header={title}
+      header={
+        <ListingPageTitle style={{ borderBottom: 'none' }} data-tooltip-id="ff_env_heading">
+          {title}
+        </ListingPageTitle>
+      }
+      headerStyle={{ display: 'flex' }}
       toolbar={
         hasEnvs && (
           <Layout.Horizontal>
             <EnvironmentDialog
               disabled={loading}
               onCreate={response => {
-                history.push(
-                  routes.toCFEnvironmentDetails({
-                    environmentIdentifier: response?.data?.identifier as string,
-                    projectIdentifier,
-                    orgIdentifier,
-                    accountId
-                  })
-                )
+                setTimeout(() => {
+                  history.push(
+                    routes.toCFEnvironmentDetails({
+                      environmentIdentifier: response?.data?.identifier as string,
+                      projectIdentifier,
+                      orgIdentifier,
+                      accountId
+                    })
+                  )
+                }, 1000)
               }}
             />
           </Layout.Horizontal>
@@ -262,14 +274,16 @@ const EnvironmentsPage: React.FC = () => {
             <Container flex={{ align: 'center-center' }} height="100%">
               <NoEnvironment
                 onCreated={response =>
-                  history.push(
-                    routes.toCFEnvironmentDetails({
-                      environmentIdentifier: response?.data?.identifier as string,
-                      projectIdentifier,
-                      orgIdentifier,
-                      accountId
-                    })
-                  )
+                  setTimeout(() => {
+                    history.push(
+                      routes.toCFEnvironmentDetails({
+                        environmentIdentifier: response?.data?.identifier as string,
+                        projectIdentifier,
+                        orgIdentifier,
+                        accountId
+                      })
+                    )
+                  }, 1000)
                 }
               />
             </Container>

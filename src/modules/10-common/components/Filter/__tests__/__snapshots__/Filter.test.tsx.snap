@@ -94,6 +94,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                           height="25"
                           viewBox="0 0 24 24"
                           width="25"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
                           <mask
                             fill="#fff"

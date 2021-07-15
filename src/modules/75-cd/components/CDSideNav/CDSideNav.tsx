@@ -9,8 +9,11 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useStrings } from 'framework/strings'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMenu'
+import { returnLaunchUrl } from '@common/utils/routeUtils'
+import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
 
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
@@ -20,6 +23,7 @@ export default function CDSideNav(): React.ReactElement {
   const module = 'cd'
   const { updateAppStore } = useAppStore()
   const { SERVICE_DASHBOARD_NG, CD_OVERVIEW_PAGE } = useFeatureFlags()
+  const { getString } = useStrings()
 
   return (
     <Layout.Vertical spacing="small">
@@ -41,7 +45,7 @@ export default function CDSideNav(): React.ReactElement {
             history.push(
               routes.toCDProjectOverview({
                 projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
+                orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
                 accountId,
                 module
               })
@@ -58,6 +62,10 @@ export default function CDSideNav(): React.ReactElement {
           <ProjectSetupMenu module={module} />
         </React.Fragment>
       ) : null}
+      <LaunchButton
+        launchButtonText={getString('cd.cdLaunchText')}
+        redirectUrl={returnLaunchUrl(`#/account/${params.accountId}/dashboard`)}
+      />
     </Layout.Vertical>
   )
 }

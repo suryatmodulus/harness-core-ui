@@ -5,7 +5,7 @@ import type { PipelineExecutionFilterProperties, FilterDTO } from 'services/pipe
 import { EXECUTION_STATUS } from '@pipeline/utils/statusHelpers'
 import type { FilterDataInterface, FilterInterface } from '@common/components/Filter/Constants'
 import { StringUtils } from '@common/exports'
-import type { CIBuildResponseDTO } from '@pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionDetails/Types/types'
+import type { CIBuildResponseDTO } from 'services/ci'
 import type { FilterProperties } from 'services/cd-ng'
 import { isObjectEmpty, removeNullAndEmpty } from '@common/components/Filter/utils/FilterUtils'
 

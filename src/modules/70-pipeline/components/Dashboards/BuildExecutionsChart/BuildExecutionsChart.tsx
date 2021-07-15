@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom'
 import { useGetBuildExecution } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import { useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import { RangeSelectorWithTitle } from '../RangeSelector'
 import styles from './BuildExecutionsChart.module.scss'
 
@@ -31,7 +32,7 @@ export default function BuildExecutionsChart() {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
 
-  const { data, loading } = useGetBuildExecution({
+  const { data, loading, error, refetch } = useGetBuildExecution({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -40,6 +41,9 @@ export default function BuildExecutionsChart() {
       endTime: range[1]
     }
   })
+
+  useErrorHandler(error)
+  const refetching = useRefetchCall(refetch, loading)
 
   const chartData = useMemo(() => {
     if (data?.data?.buildExecutionInfoList?.length) {
@@ -55,7 +59,7 @@ export default function BuildExecutionsChart() {
     <ExecutionsChart
       titleText={getString('pipeline.dashboards.buildExecutions')}
       data={chartData}
-      loading={loading}
+      loading={loading && !refetching}
       range={range}
       onRangeChange={setRange}
       yAxisTitle="# of builds"

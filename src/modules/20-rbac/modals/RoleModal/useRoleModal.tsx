@@ -23,6 +23,7 @@ export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalRetu
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

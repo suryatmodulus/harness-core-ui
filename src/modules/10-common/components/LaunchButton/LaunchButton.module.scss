@@ -1,0 +1,14 @@
+.launchButtonPosition {
+  background: transparent;
+  font-size: 11px;
+  z-index: 1;
+  position: absolute;
+  bottom: 75px;
+  border-radius: 5px;
+  border: 1px solid var(--primary-7);
+  color: var(--primary-7);
+  max-height: 32px;
+  margin: var(--spacing-medium);
+  padding: var(--spacing-small);
+  cursor: pointer;
+}

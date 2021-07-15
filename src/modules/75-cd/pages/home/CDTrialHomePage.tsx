@@ -17,7 +17,11 @@ const CDTrialHomePage: React.FC = () => {
   const { source } = useQueryParams<{ source?: string }>()
   const { accountId } = useParams<ProjectPathProps>()
 
-  const { error, mutate: startTrial, loading } = useStartTrialLicense({
+  const {
+    error,
+    mutate: startTrial,
+    loading
+  } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }

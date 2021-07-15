@@ -66,9 +66,9 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
               <Text font={{ size: 'small' }}>{getString('projectLabel')}</Text>
               <Text
                 lineClamp={1}
-                width={100}
                 color={selectedProject ? Color.WHITE : Color.GREY_400}
                 font={{ size: 'normal' }}
+                width={115}
               >
                 {selectedProject ? selectedProject.name : getString('selectProject')}
               </Text>

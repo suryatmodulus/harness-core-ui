@@ -7,6 +7,7 @@ import type { ConnectionMetadata, GatewayDetails, InstanceDetails } from '@ce/co
 import { Utils } from '@ce/common/Utils'
 import type { HealthCheck, PortConfig, ServiceDep } from 'services/lw'
 import { getFulfilmentIcon } from '../COGatewayList/Utils'
+import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
 import css from './COGatewayReview.module.scss'
 
 interface COGatewayReviewProps {
@@ -55,6 +56,7 @@ const ReviewDetailsSection: React.FC<ReviewDetailsSectionProps> = props => {
 }
 
 const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
+  const isK8sRule = !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)
   return (
     <Layout.Vertical padding="large" className={css.page}>
       <Text className={css.reviewHeading}>Cloud account details</Text>
@@ -86,79 +88,81 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           </Layout.Horizontal>
         </Layout.Vertical>
       </ReviewDetailsSection>
-      <ReviewDetailsSection
-        isEditable
-        onEdit={() => props.onEdit({ id: 'configuration', metaData: { activeStepCount: 2 } })}
-      >
-        <Heading level={2}>Instance details</Heading>
-        {!!props.gatewayDetails.selectedInstances.length && (
-          <>
-            <Text style={{ margin: '20px 0 10px' }}>Instances</Text>
-            <Table<InstanceDetails>
-              data={props.gatewayDetails.selectedInstances}
-              bpTableProps={{}}
-              className={css.instanceTable}
-              columns={[
-                {
-                  accessor: 'name',
-                  Header: 'NAME AND ID',
-                  width: '16.5%',
-                  Cell: NameCell
-                },
-                {
-                  accessor: 'ipv4',
-                  Header: 'IP ADDRESS',
-                  width: '16.5%',
-                  Cell: TableCell,
-                  disableSortBy: true
-                },
-                {
-                  accessor: 'region',
-                  Header: 'REGION',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'type',
-                  Header: 'TYPE',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'tags',
-                  Header: 'TAGS',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'launch_time',
-                  Header: 'LAUNCH TIME',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'status',
-                  Header: 'STATUS',
-                  width: '16.5%',
-                  Cell: TableCell
-                }
-              ]}
-            />
-          </>
-        )}
-        <Layout.Horizontal spacing={'large'} className={css.equalSpacing} style={{ marginTop: 20 }}>
-          <Text>Instance fulfilment</Text>
-          <Layout.Horizontal spacing={'small'}>
-            <img
-              className={css.fulFilmentIcon}
-              src={getFulfilmentIcon(props.gatewayDetails.fullfilment)}
-              alt=""
-              aria-hidden
-            />
-            <Text>{props.gatewayDetails.fullfilment}</Text>
+      {!isK8sRule && (
+        <ReviewDetailsSection
+          isEditable
+          onEdit={() => props.onEdit({ id: 'configuration', metaData: { activeStepCount: 2 } })}
+        >
+          <Heading level={2}>Instance details</Heading>
+          {!!props.gatewayDetails.selectedInstances.length && (
+            <>
+              <Text style={{ margin: '20px 0 10px' }}>Instances</Text>
+              <Table<InstanceDetails>
+                data={props.gatewayDetails.selectedInstances}
+                bpTableProps={{}}
+                className={css.instanceTable}
+                columns={[
+                  {
+                    accessor: 'name',
+                    Header: 'NAME AND ID',
+                    width: '16.5%',
+                    Cell: NameCell
+                  },
+                  {
+                    accessor: 'ipv4',
+                    Header: 'IP ADDRESS',
+                    width: '16.5%',
+                    Cell: TableCell,
+                    disableSortBy: true
+                  },
+                  {
+                    accessor: 'region',
+                    Header: 'REGION',
+                    width: '16.5%',
+                    Cell: TableCell
+                  },
+                  {
+                    accessor: 'type',
+                    Header: 'TYPE',
+                    width: '16.5%',
+                    Cell: TableCell
+                  },
+                  {
+                    accessor: 'tags',
+                    Header: 'TAGS',
+                    width: '16.5%',
+                    Cell: TableCell
+                  },
+                  {
+                    accessor: 'launch_time',
+                    Header: 'LAUNCH TIME',
+                    width: '16.5%',
+                    Cell: TableCell
+                  },
+                  {
+                    accessor: 'status',
+                    Header: 'STATUS',
+                    width: '16.5%',
+                    Cell: TableCell
+                  }
+                ]}
+              />
+            </>
+          )}
+          <Layout.Horizontal spacing={'large'} className={css.equalSpacing} style={{ marginTop: 20 }}>
+            <Text>Instance fulfilment</Text>
+            <Layout.Horizontal spacing={'small'}>
+              <img
+                className={css.fulFilmentIcon}
+                src={getFulfilmentIcon(props.gatewayDetails.fullfilment)}
+                alt=""
+                aria-hidden
+              />
+              <Text>{props.gatewayDetails.fullfilment}</Text>
+            </Layout.Horizontal>
           </Layout.Horizontal>
-        </Layout.Horizontal>
-      </ReviewDetailsSection>
+        </ReviewDetailsSection>
+      )}
       {props.gatewayDetails.routing && (
         <ReviewDetailsSection
           isEditable
@@ -167,65 +171,75 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           }
         >
           <Heading level={2}>Routing</Heading>
-          <Table<PortConfig>
-            data={props.gatewayDetails.routing.ports}
-            className={css.instanceTable}
-            bpTableProps={{}}
-            columns={[
-              {
-                accessor: 'protocol',
-                Header: 'LISTEN PROTOCOL',
-                width: '16.5%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'port',
-                Header: 'LISTEN PORT',
-                width: '16.5%',
-                Cell: TableCell,
-                disableSortBy: true
-              },
-              {
-                accessor: 'action',
-                Header: 'ACTION',
-                width: '16.5%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'target_protocol',
-                Header: 'TARGET PROTOCOL',
-                width: '16.5%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'target_port',
-                Header: 'TARGET PORT',
-                width: '16.5%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'redirect_url',
-                Header: 'REDIRECT URL',
-                width: '16.5%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'server_name',
-                Header: 'SERVER NAME',
-                width: '16.5%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'routing_rules',
-                Header: 'PATH MATCH',
-                width: '16.5%',
-                Cell: PathCell
-              }
-            ]}
-          />
+          {isK8sRule && (
+            <Layout.Vertical style={{ marginTop: 20 }}>
+              <KubernetesRuleYamlEditor
+                existingData={JSON.parse(props.gatewayDetails.routing.k8s?.RuleJson || '{}')}
+                mode={'read'}
+              />
+            </Layout.Vertical>
+          )}
+          {!isK8sRule && (
+            <Table<PortConfig>
+              data={props.gatewayDetails.routing.ports}
+              className={css.instanceTable}
+              bpTableProps={{}}
+              columns={[
+                {
+                  accessor: 'protocol',
+                  Header: 'LISTEN PROTOCOL',
+                  width: '16.5%',
+                  Cell: TableCell
+                },
+                {
+                  accessor: 'port',
+                  Header: 'LISTEN PORT',
+                  width: '16.5%',
+                  Cell: TableCell,
+                  disableSortBy: true
+                },
+                {
+                  accessor: 'action',
+                  Header: 'ACTION',
+                  width: '16.5%',
+                  Cell: TableCell
+                },
+                {
+                  accessor: 'target_protocol',
+                  Header: 'TARGET PROTOCOL',
+                  width: '16.5%',
+                  Cell: TableCell
+                },
+                {
+                  accessor: 'target_port',
+                  Header: 'TARGET PORT',
+                  width: '16.5%',
+                  Cell: TableCell
+                },
+                {
+                  accessor: 'redirect_url',
+                  Header: 'REDIRECT URL',
+                  width: '16.5%',
+                  Cell: TableCell
+                },
+                {
+                  accessor: 'server_name',
+                  Header: 'SERVER NAME',
+                  width: '16.5%',
+                  Cell: TableCell
+                },
+                {
+                  accessor: 'routing_rules',
+                  Header: 'PATH MATCH',
+                  width: '16.5%',
+                  Cell: PathCell
+                }
+              ]}
+            />
+          )}
         </ReviewDetailsSection>
       )}
-      {!_isEmpty(props.gatewayDetails.healthCheck) && (
+      {!_isEmpty(props.gatewayDetails.healthCheck) && !isK8sRule && (
         <ReviewDetailsSection
           isEditable
           onEdit={() =>
@@ -303,39 +317,42 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           )}
         </ReviewDetailsSection>
       )}
-      <Text className={css.reviewHeading}>Setup Access details</Text>
-      <ReviewDetailsSection isEditable onEdit={() => props.onEdit({ id: 'setupAccess' })}>
-        <Heading level={2}>DNS Link mapping</Heading>
-        <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
-          {!_isEmpty(props.gatewayDetails.customDomains) && (
+      {!isK8sRule && <Text className={css.reviewHeading}>Setup Access details</Text>}
+      {!isK8sRule && (
+        <ReviewDetailsSection isEditable onEdit={() => props.onEdit({ id: 'setupAccess' })}>
+          <Heading level={2}>DNS Link mapping</Heading>
+          <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
+            {!_isEmpty(props.gatewayDetails.customDomains) && (
+              <Layout.Horizontal
+                spacing={'large'}
+                padding={{ bottom: 'medium' }}
+                className={cx(css.equalSpacing, css.borderSpacing)}
+              >
+                <Text>Custom domain</Text>
+                <Text>{props.gatewayDetails.customDomains?.join(',')}</Text>
+              </Layout.Horizontal>
+            )}
             <Layout.Horizontal
               spacing={'large'}
               padding={{ bottom: 'medium' }}
               className={cx(css.equalSpacing, css.borderSpacing)}
             >
-              <Text>Custom domain</Text>
-              <Text>{props.gatewayDetails.customDomains?.join(',')}</Text>
+              <Text>Is it publicly accessible?</Text>
+              <Text>
+                {(props.gatewayDetails.metadata.access_details as ConnectionMetadata).dnsLink.public || 'Yes'}
+              </Text>
             </Layout.Horizontal>
-          )}
-          <Layout.Horizontal
-            spacing={'large'}
-            padding={{ bottom: 'medium' }}
-            className={cx(css.equalSpacing, css.borderSpacing)}
-          >
-            <Text>Is it publicly accessible?</Text>
-            <Text>{(props.gatewayDetails.metadata.access_details as ConnectionMetadata).dnsLink.public || 'Yes'}</Text>
-          </Layout.Horizontal>
-          {_isEmpty(props.gatewayDetails.customDomains) && props.gatewayDetails.hostName && (
-            <Layout.Horizontal
-              spacing={'large'}
-              padding={{ bottom: 'medium' }}
-              className={cx(css.equalSpacing, css.borderSpacing)}
-            >
-              <Text>Auto generated URL</Text>
-              <Text>{props.gatewayDetails.hostName}</Text>
-            </Layout.Horizontal>
-          )}
-          {/* <Layout.Horizontal
+            {_isEmpty(props.gatewayDetails.customDomains) && props.gatewayDetails.hostName && (
+              <Layout.Horizontal
+                spacing={'large'}
+                padding={{ bottom: 'medium' }}
+                className={cx(css.equalSpacing, css.borderSpacing)}
+              >
+                <Text>Auto generated URL</Text>
+                <Text>{props.gatewayDetails.hostName}</Text>
+              </Layout.Horizontal>
+            )}
+            {/* <Layout.Horizontal
             spacing={'large'}
             padding={{ bottom: 'medium' }}
             className={cx(css.equalSpacing, css.borderSpacing)}
@@ -351,8 +368,9 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
             <Text>Custom Domain mapping status</Text>
             <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
           </Layout.Horizontal> */}
-        </Layout.Vertical>
-      </ReviewDetailsSection>
+          </Layout.Vertical>
+        </ReviewDetailsSection>
+      )}
     </Layout.Vertical>
   )
 }

@@ -10,19 +10,21 @@ steps:
     clusterDetails: Cluster Details
     selectOrEnterClusterPlaceholder: Select or add cluster
     releaseNamePlaceholder: Enter Release Name
-    infrastructureKeyPlaceholder: Enter Infrastructure Key
   kubernetesGcpStep:
     stepName: Specify your GCP Connector
 folderPath: Folder Path
 filePathPlaceholder: 'Enter path within manifest folder'
+resourceCannotBeEmpty: 'Resource cannot be empty'
+manifestPathsCannotBeEmpty: 'Manifest Paths cannot be empty'
 scriptRequired: Script is a required field
+workloadRequired: Workload is a required field
 stepName: Step Name
 serviceCreated: Service created successfully
 serviceUpdated: Service updated successfully
 environmentCreated: Environment created successfully
 environmentUpdated: Environment updated successfully
 namespaceValidation: Namespace must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
-releaseNameValidation: Releasename must consist of lower case alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. 'example.com')
+releaseNameValidation: Release name must consist of lowercase alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. http://example.com). Harness evaluates the release name using the regex [a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*
 cdTrialHomePage:
   startTrial:
     description: Take your software build processes to the next level using our Harness Continuous Delivery.
@@ -54,5 +56,7 @@ pipelineSteps:
   serviceTab:
     propateStage: Stage is required
     overrideChanges: Override artifacts, manifests, service variables for this stage
+    deploymentTypeRequired: Deployment type selection is required
   infraTab:
     deploymentType: Infrastructure type selection is required
+cdLaunchText: Launch CD First Generation

@@ -13,10 +13,8 @@ export interface ContinousVerificationVariableStepProps {
 export interface spec {
   sensitivity?: SelectOption | string
   duration?: SelectOption | string
-  trafficsplit?: SelectOption | string
+  trafficsplit?: SelectOption | string | number
   baseline?: SelectOption | string
-  serviceRef?: string
-  envRef?: string
   deploymentTag?: string
   [x: string]: any
 }
@@ -24,8 +22,11 @@ export interface spec {
 export interface ContinousVerificationData extends StepElementConfig {
   failureStrategies: AllFailureStrategyConfig[]
   spec: {
-    verificationJobRef?: SelectOption | string
+    monitoredServiceRef?: string
     type?: string
+    healthSources?: {
+      identifier: string
+    }[]
     spec?: spec
   }
 }

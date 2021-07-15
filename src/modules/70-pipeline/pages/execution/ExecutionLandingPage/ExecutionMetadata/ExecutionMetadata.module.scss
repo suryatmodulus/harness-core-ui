@@ -1,114 +1,22 @@
-@import '../../ExecutionVars';
-
 .main {
-  height: $details-height;
   overflow: hidden;
-  box-shadow: inset var(--grey-200) 0 -2px 0;
-  padding: 0 var(--spacing-medium) 0 var(--spacing-xxlarge);
   display: flex;
   align-items: center;
+  height: var(--spacing-6);
+  margin-top: var(--spacing-4);
+  column-gap: 45px;
 
-  > div {
-    margin-right: 30px;
-
-    &:last-child {
-      margin-right: 0px;
-    }
-  }
-
-  .commitMessageValue,
-  .pullRequestValue {
+  .trigger {
     display: flex;
     align-items: center;
 
-    > * + * {
-      margin-left: var(--spacing-small) !important;
-    }
-  }
-
-  .pullRequestMessage {
-    display: block;
-    max-width: 250px;
-  }
-  .triggerValue {
-    display: flex;
-    flex-direction: row;
-    .triggerType {
-      display: flex;
-      align-items: center;
-
-      &::before {
-        content: '';
-        display: inline-block;
-        width: 1px;
-        background: var(--grey-400);
-        height: calc(var(--font-size-small) + 2px);
-        margin: 0 0.5em;
-      }
-    }
-  }
-
-  .pullRequestStatus {
-    font-size: var(--font-size-small);
-    font-weight: 500;
-    background: var(--grey-200);
-    color: var(--grey-700);
-    padding: 3px var(--spacing-small);
-    border-radius: 100px;
-    text-transform: uppercase;
-  }
-
-  .pullRequestLink {
-    white-space: nowrap !important;
-  }
-
-  .commitMessage {
-    max-width: 250px;
-  }
-
-  .serviceName {
-    color: var(--primary-7);
-    cursor: pointer;
-  }
-
-  .ellipsis {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap !important;
-  }
-
-  .moreBox {
-    display: inline-flex;
-    padding: 0px 1px;
-    color: var(--grey-500);
-    border-radius: 3px !important;
-    border: 1px solid var(--grey-500) !important;
-
-    // icon
-    > span {
-      margin: 1px !important;
-    }
-  }
-
-  .services-wrapper {
-    display: flex;
-  }
-
-  .services {
-    display: inline-block;
-    cursor: pointer;
-
-    & :global(.bp3-popover-target) {
-      display: inline-block;
+    .triggerIcon {
+      margin-right: var(--spacing-3);
     }
 
-    &:not(:last-child)::after {
-      content: ',';
-      margin-right: 2px;
+    .triggerText {
+      color: var(--primary-7);
+      font-size: var(--font-size-small);
     }
   }
-}
-
-.services-table {
-  font-size: var(--font-size-small) !important;
 }

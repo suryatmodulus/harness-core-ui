@@ -131,7 +131,11 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
                   disabled={isHarnessManaged}
                   permission={{
                     ...permissionRequest,
-                    permission: PermissionIdentifier.DELETE_ORG
+                    permission: PermissionIdentifier.DELETE_ORG,
+                    resourceScope: {
+                      accountIdentifier: accountId,
+                      orgIdentifier: data.identifier
+                    }
                   }}
                 />
               </Menu>

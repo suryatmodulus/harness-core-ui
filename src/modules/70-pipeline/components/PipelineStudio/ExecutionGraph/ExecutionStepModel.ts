@@ -218,9 +218,11 @@ export class ExecutionStepModel extends DiagramModel {
     }
   }
 
-  renderGraphStepNodes(
-    props: RenderGraphStepNodesProps
-  ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
+  renderGraphStepNodes(props: RenderGraphStepNodesProps): {
+    startX: number
+    startY: number
+    prevNodes?: DefaultNodeModel[]
+  } {
     const {
       node,
       factory,

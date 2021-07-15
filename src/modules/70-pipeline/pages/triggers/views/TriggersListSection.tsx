@@ -2,7 +2,6 @@ import React from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { stringify } from 'yaml'
 import { Button, Color, Layout, Popover, Text, Icon, Switch, Container, SparkChart } from '@wings-software/uicore'
 import copy from 'clipboard-copy'
 import { Classes, Menu, Position } from '@blueprintjs/core'
@@ -17,6 +16,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
+import { yamlStringify } from '@common/utils/YamlHelperMethods'
 import { getTriggerIcon, GitSourceProviders, getEnabledStatusTriggerValues } from '../utils/TriggersListUtils'
 import { TriggerTypes, clearNullUndefined, ResponseStatus } from '../utils/TriggersWizardPageUtils'
 
@@ -400,7 +400,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
         label=""
         className={column.isTriggerRbacDisabled ? css.disabledOption : ''}
         checked={data.enabled}
-        disabled={updateTriggerLoading}
+        disabled={updateTriggerLoading || column.isTriggerRbacDisabled}
         onChange={async () => {
           if (column.isTriggerRbacDisabled) {
             return
@@ -416,7 +416,7 @@ const RenderColumnEnable: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
           }
           try {
             const { status, data: dataResponse } = await updateTrigger(
-              stringify({ trigger: clearNullUndefined(values) }) as any
+              yamlStringify({ trigger: clearNullUndefined(values) }) as any
             )
             if (status === ResponseStatus.SUCCESS && dataResponse) {
               column.showSuccess(

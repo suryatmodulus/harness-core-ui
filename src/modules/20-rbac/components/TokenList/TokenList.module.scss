@@ -1,0 +1,14 @@
+.wordBreak {
+  word-break: break-all;
+}
+
+.tableList {
+  width: 100%;
+  [role='row'] {
+    border-bottom: 1px solid var(--grey-200) !important;
+  }
+  [role='cell'] {
+    border-bottom: inherit !important;
+    vertical-align: middle;
+  }
+}

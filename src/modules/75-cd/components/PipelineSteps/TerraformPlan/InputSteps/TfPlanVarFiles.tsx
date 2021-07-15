@@ -26,12 +26,14 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
 
   return (
     <>
-      <Label style={{ color: Color.GREY_900 }}>{getString('cd.terraformVarFiles')}</Label>
+      <Label style={{ color: Color.GREY_900, paddingBottom: 'var(--spacing-medium)' }}>
+        {getString('cd.terraformVarFiles')}
+      </Label>
       {inputSetData?.template?.spec?.configuration?.varFiles?.map((varFile: any, index) => {
         if (varFile?.varFile?.type === TerraformStoreTypes.Inline) {
           return (
-            <>
-              <Container flex width={150}>
+            <React.Fragment key={`${path}.spec.configuration.varFiles[${index}]`}>
+              <Container flex width={150} padding={{ bottom: 'small' }}>
                 <Text font={{ weight: 'bold' }}>{getString('cd.varFile')}:</Text>
                 {varFile?.varFile?.identifier}
               </Container>
@@ -47,7 +49,7 @@ export default function TfVarFile(props: TerraformPlanProps): React.ReactElement
                   />
                 </div>
               )}
-            </>
+            </React.Fragment>
           )
         } else if (varFile.varFile?.type === TerraformStoreTypes.Remote) {
           return <RemoteVarSection remoteVar={varFile} index={index} {...props} />

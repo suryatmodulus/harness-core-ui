@@ -56,7 +56,7 @@ const PurposeList: React.FC = () => {
     module: 'cd'
   }
   const CVNG_OPTIONS: PurposeType = {
-    enabled: CVNG_ENABLED,
+    enabled: !!CVNG_ENABLED,
     title: getString('common.purpose.cv.verification'),
     icon: 'cv-main',
     description: getString('common.purpose.cv.subtitle'),
@@ -64,7 +64,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CING_OPTIONS: PurposeType = {
-    enabled: CING_ENABLED,
+    enabled: !!CING_ENABLED,
     title: getString('common.purpose.ci.integration'),
     icon: 'ci-main',
     description: getString('common.purpose.ci.subtitle'),
@@ -80,7 +80,7 @@ const PurposeList: React.FC = () => {
   }
 
   const CFNG_OPTIONS: PurposeType = {
-    enabled: CFNG_ENABLED,
+    enabled: !!CFNG_ENABLED,
     title: getString('common.purpose.cf.flags'),
     icon: 'cf-main',
     description: getString('common.purpose.cf.subtitle'),
@@ -112,14 +112,7 @@ const PurposeList: React.FC = () => {
     if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
       return (
         <Link
-          style={{
-            backgroundColor: 'var(--blue-600)',
-            width: 100,
-            borderRadius: 4,
-            lineHeight: 2.5,
-            textAlign: 'center',
-            color: Color.WHITE
-          }}
+          className={css.continueButton}
           onClick={() => {
             handleUpdateDefaultExperience()
             trackEvent(PurposeActions.ModuleContinue, { category: Category.SIGNUP, module: module })
@@ -132,20 +125,22 @@ const PurposeList: React.FC = () => {
     }
 
     return (
-      <a
-        style={{
-          backgroundColor: 'var(--blue-600)',
-          width: 100,
-          borderRadius: 4,
-          lineHeight: 2.5,
-          textAlign: 'center',
-          color: Color.WHITE
+      <div
+        className={css.continueButton}
+        onClick={async () => {
+          await updateDefaultExperience({
+            defaultExperience: !selectedInfoCard || selectedInfoCard?.isNgRoute ? Experiences.NG : Experiences.CG
+          })
+
+          const route = selectedInfoCard.route?.()
+
+          if (route) {
+            window.location.href = route
+          }
         }}
-        onClick={handleUpdateDefaultExperience}
-        href={selectedInfoCard.route?.()}
       >
         {getString('continue')}
-      </a>
+      </div>
     )
   }
 
@@ -261,8 +256,12 @@ export const PurposePage: React.FC = () => {
   useTelemetry({ pageName: PageNames.Purpose, category: Category.SIGNUP })
 
   return (
-    <Container className={css.purposePageContainer} padding="xxxlarge" flex={{ alignItems: 'start' }} height="100%">
-      <Layout.Vertical padding="xxlarge" spacing="large" width="100%" height="100%">
+    <Container
+      className={css.purposePageContainer}
+      padding={{ left: 'xxxlarge', top: 'xxxlarge' }}
+      flex={{ alignItems: 'start' }}
+    >
+      <Layout.Vertical padding={{ left: 'xxlarge', top: 'xxlarge' }} spacing="large" width="100%">
         <HarnessLogo height={30} style={{ alignSelf: 'start' }} />
         <Heading color={Color.BLACK} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
           {getString('common.purpose.welcome')}

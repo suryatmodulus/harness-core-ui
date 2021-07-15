@@ -26,7 +26,7 @@ const provisionerTypes: { name: string; icon: IconName; enabled: boolean }[] = [
   },
   {
     name: ProvisionerTypes.Script,
-    icon: 'command-shell-script',
+    icon: 'script',
     enabled: false
   }
 ]
@@ -45,7 +45,12 @@ const useChooseProvisioner = (props: ChooseProvisionerProps) => {
     canOutsideClickClose: true
   }
   const ProvDialog = () => (
-    <Dialog onClose={hideModal} className={cx(Classes.DIALOG, css.chooseProvisionerDialog)} {...modalProps}>
+    <Dialog
+      onClose={hideModal}
+      enforceFocus={false}
+      className={cx(Classes.DIALOG, css.chooseProvisionerDialog)}
+      {...modalProps}
+    >
       <Layout.Vertical spacing="large">
         <div className={css.provisionerText}>{getString('cd.chooseProvisionerText')}</div>
         <Layout.Horizontal height={120}>

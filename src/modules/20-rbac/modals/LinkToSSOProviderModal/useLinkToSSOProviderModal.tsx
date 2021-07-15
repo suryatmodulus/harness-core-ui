@@ -26,6 +26,7 @@ export const useLinkToSSOProviderModal = ({
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         onClose={() => {
           hideModal()
         }}

@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  align-items: center;
+  column-gap: var(--spacing-3);
+
+  p {
+    font-size: var(--font-size-small) !important;
+    color: var(--grey-900) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+}

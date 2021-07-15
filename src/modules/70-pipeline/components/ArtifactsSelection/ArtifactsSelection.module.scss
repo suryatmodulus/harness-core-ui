@@ -21,6 +21,8 @@
     color: var(--primary-7) !important;
   }
   .actionGrid {
+    align-items: center;
+    justify-content: flex-end;
     .cloneIcon {
       -webkit-transform: scaleX(-1) !important;
       transform: scaleX(-1) !important;
@@ -97,4 +99,8 @@
     border-bottom: solid 1px #d9dae5;
     padding-bottom: var(--spacing-medium);
   }
+}
+
+.noWrap {
+  white-space: nowrap;
 }

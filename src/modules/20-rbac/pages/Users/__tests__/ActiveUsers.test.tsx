@@ -12,8 +12,13 @@ import UsersPage from '../UsersPage'
 jest.useFakeTimers()
 
 const deleteActiveUser = jest.fn()
+const unlockActiveUser = jest.fn()
 const deleteActiveUserMock = (): ResponseBoolean => {
   deleteActiveUser()
+  return mockResponse
+}
+const unlockActiveUserMock = (): ResponseBoolean => {
+  unlockActiveUser()
   return mockResponse
 }
 
@@ -51,6 +56,7 @@ jest.mock('@common/hooks/useMutateAsGet', () => ({
 
 jest.mock('services/cd-ng', () => ({
   useRemoveUser: jest.fn().mockImplementation(() => ({ mutate: deleteActiveUserMock })),
+  useUnlockUser: jest.fn().mockImplementation(() => ({ mutate: unlockActiveUserMock })),
   useSendInvite: jest.fn().mockImplementation(() => ({ mutate: createUserMock })),
   useGetCurrentGenUsers: jest.fn().mockImplementation(() => {
     return { data: usersMockData, refetch: jest.fn(), error: null }
@@ -71,49 +77,65 @@ describe('UsersPage Test', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText('newUser'))
+    await waitFor(() => getAllByText('rbac.user'))
   })
   test('render data', () => {
     expect(container).toMatchSnapshot()
-  }),
-    test('Delete Active User', async () => {
-      deleteActiveUser.mockReset()
-      const menu = container.querySelector(`[data-testid="menu-${activeUserMock.data?.content?.[0].user.uuid}"]`)
-      fireEvent.click(menu!)
-      const popover = findPopoverContainer()
-      const deleteMenu = getByText(popover as HTMLElement, 'delete')
-      await act(async () => {
-        fireEvent.click(deleteMenu!)
-        await waitFor(() => getByText(document.body, 'rbac.usersPage.deleteTitle'))
-        const form = findDialogContainer()
-        expect(form).toBeTruthy()
-        const deleteBtn = queryByText(form as HTMLElement, 'delete')
-        fireEvent.click(deleteBtn!)
-        expect(deleteActiveUser).toBeCalled()
-      })
-    }),
-    test('Add Roles', async () => {
-      createRole.mockReset()
-      const addRole = container.querySelector(`[data-testid="addRole-${activeUserMock.data?.content?.[0].user.uuid}"]`)
-      expect(addRole).toBeTruthy()
-      act(() => {
-        fireEvent.click(addRole!)
-      })
+  })
+  test('Delete Active User', async () => {
+    deleteActiveUser.mockReset()
+    const menu = container.querySelector(`[data-testid="menu-${activeUserMock.data?.content?.[0].user.uuid}"]`)
+    fireEvent.click(menu!)
+    const popover = findPopoverContainer()
+    const deleteMenu = getByText(popover as HTMLElement, 'delete')
+    await act(async () => {
+      fireEvent.click(deleteMenu)
+      await waitFor(() => getByText(document.body, 'rbac.usersPage.deleteTitle'))
       const form = findDialogContainer()
       expect(form).toBeTruthy()
-
-      const addButton = form?.querySelector('button[data-id="btn-add"]')
-
-      expect(addButton).toBeTruthy()
-
-      act(() => {
-        fireEvent.click(addButton!)
-      })
-
-      await act(async () => {
-        clickSubmit(form!)
-      })
-
-      expect(form).toMatchSnapshot()
+      const deleteBtn = queryByText(form as HTMLElement, 'delete')
+      fireEvent.click(deleteBtn!)
+      expect(deleteActiveUser).toBeCalled()
     })
+  })
+  test('Add Roles', async () => {
+    createRole.mockReset()
+    const addRole = container.querySelector(`[data-testid="addRole-${activeUserMock.data?.content?.[0].user.uuid}"]`)
+    expect(addRole).toBeTruthy()
+    act(() => {
+      fireEvent.click(addRole!)
+    })
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
+
+    const addButton = form?.querySelector('button[data-id="btn-add"]')
+
+    expect(addButton).toBeTruthy()
+
+    act(() => {
+      fireEvent.click(addButton!)
+    })
+
+    await act(async () => {
+      clickSubmit(form!)
+    })
+
+    expect(form).toMatchSnapshot()
+  })
+  test('Unlock Active User', async () => {
+    unlockActiveUser.mockReset()
+    const menu = container.querySelector(`[data-testid="menu-${activeUserMock.data?.content?.[1].user.uuid}"]`)
+    fireEvent.click(menu!)
+    const popover = findPopoverContainer()
+    const unlockMenu = getByText(popover as HTMLElement, 'rbac.usersPage.unlockTitle')
+    await act(async () => {
+      fireEvent.click(unlockMenu)
+      await waitFor(() => getByText(document.body, 'rbac.usersPage.unlockTitle'))
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+      const confirmBtn = queryByText(form as HTMLElement, 'confirm')
+      fireEvent.click(confirmBtn!)
+      expect(unlockActiveUser).toBeCalled()
+    })
+  })
 })

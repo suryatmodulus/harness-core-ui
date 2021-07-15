@@ -1,0 +1,36 @@
+.sectionCard {
+  margin-bottom: var(--spacing-large);
+  &.shadow {
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+  }
+  background-color: var(--white);
+}
+
+.drawerlink {
+  margin-top: var(--spacing-small);
+  border-bottom: 1px solid var(--grey-100);
+  padding: var(--spacing-small);
+}
+
+.tableWrapper {
+  div[role='row'] {
+    box-shadow: none;
+    border-radius: 0;
+    border-bottom: 1px solid var(--grey-100);
+  }
+}
+
+.noData {
+  div {
+    top: 45%;
+    position: relative;
+    height: 150px !important;
+  }
+}
+
+.tableTitle {
+  font-size: var(--font-medium) !important;
+  color: var(--black) !important;
+  margin: var(--spacing-small) !important;
+  font-weight: bold !important;
+}

@@ -1,3 +1,48 @@
+token:
+  createLabel: New Token
+  editLabel: Edit Token
+  rotateLabel: Rotate Token
+  forToken: For Token
+  form:
+    createSuccess: Token '{{name}}' created successfully
+    editSuccess: Token '{{name}}' edited successfully
+    rotateSuccess: Token rotated successfully
+    setexpiryTo: Set Current Token Expiration Date
+    expiry: Set Expiration Date
+    expiryDate: Expiration Date (mm/dd/yyyy)
+    tokenMessage: Your new token has been generated. Please make sure to copy and store your token value somewhere safe, you won't be able to see it again.
+    rotateTokenExpiryMessage: If the Expiration Date is not set, the current token will expire immediately and will no longer be valid.
+  confirmDelete: Are you sure you want to delete the Token '{{name}}'
+  confirmDeleteTitle: Delete Token
+  successMessage: Token '{{name}}' deleted successfully
+  scheduledToExpire: Scheduled to expire
+apiKey:
+  createLabel: New API Key
+  editLabel: Edit API Key
+  form:
+    createSuccess: API Key '{{name}}' created successfully
+    editSuccess: API Key '{{name}}' edited successfully
+  confirmDelete: Are you sure you want to delete the API Key '{{name}}'
+  confirmDeleteTitle: Delete API Key
+  successMessage: API Key '{{name}}' deleted successfully
+serviceAccounts:
+  label: Service Accounts
+  email: '@service.harness.io'
+  search: Search by Name or Identifier
+  noServiceAccounts: No Service Accounts found
+  newServiceAccount: New Service Account
+  noDataDescription: There are no service accounts in this scope. Click on the button below to start adding them.
+  form:
+    editServiceAccount: Edit Service Account
+    noDataText: There are no roles assigned to this Service Account, Click on Add to start assigning roles
+    createSuccess: Service Account '{{name}}' created successfully
+    editSuccess: Service Account '{{name}}' edited successfully
+  confirmDelete: Are you sure you want to delete the Service Account '{{name}}'
+  confirmDeleteTitle: Delete Service Account
+  successMessage: Service Account '{{name}}' deleted successfully
+accountSettings:
+  label: Account Settings
+
 permissionLabels:
   createEdit: Create / Edit
   create: '{{ $.create }}'
@@ -66,6 +111,10 @@ usersPage:
   deleteSuccessMessage: User '{{name}}' deleted successfully
   noDataDescription: There are no users in this scope. Click on the button below to start adding them.
   noUsersFound: No Users found
+  unlockTitle: Unlock user
+  unlockConfirmation: Are you sure you want to unlock the user '{{name}}?'
+  unlockSuccessMessage: User '{{name}}' unlocked successfully
+  lockedOutLabel: (Locked out)
 userDetails:
   noMembersMessage: There are no members added to this User Group
   userGroup:
@@ -93,3 +142,6 @@ project: project
 org: organization
 account: account
 accountScope: Account scope
+user: User
+generateToken: Generate Token
+myApiKeys: My {{$.common.apiKeys}}

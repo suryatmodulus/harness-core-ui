@@ -15,6 +15,7 @@ exports[`BuildLoadingState snapshot test should render properly 1`] = `
         height="100"
         viewBox="0 0 86 71"
         width="100"
+        xmlns="http://www.w3.org/2000/svg"
       >
         <path
           d="M74.284 15.238H11.428a5.714 5.714 0 00-5.714 5.714v40a5.714 5.714 0 005.714 5.714h62.856a5.714 5.714 0 005.714-5.714v-40a5.714 5.714 0 00-5.714-5.714z"

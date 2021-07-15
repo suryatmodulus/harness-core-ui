@@ -117,7 +117,7 @@ export function useTimeseriesDetailsModal(transactionName: React.ReactNode, metr
         autoFocus
         canEscapeKeyClose
         canOutsideClickClose
-        enforceFocus
+        enforceFocus={false}
         onClose={hideModal}
         style={{ width: '80vw', borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }}
       >

@@ -699,6 +699,7 @@ exports[`Instance Selector Modal should show loader while loading data 1`] = `
               height="24"
               viewBox="0 0 36 36"
               width="24"
+              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 d="M18 2.084a15.915 15.915 0 010 31.831 15.915 15.915 0 010-31.83"

@@ -18,7 +18,13 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
 
   const { expressions } = useVariablesExpression()
 
-  const { accountId, projectIdentifier, orgIdentifier, repoIdentifier: repo = '', branch } = useParams<
+  const {
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    repoIdentifier: repo = '',
+    branch
+  } = useParams<
     {
       projectIdentifier: string
       orgIdentifier: string

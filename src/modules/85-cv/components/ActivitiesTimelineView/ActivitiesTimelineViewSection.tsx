@@ -38,7 +38,12 @@ export default function ActivitesTimelineViewSection({
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
-  const { data, refetch: getActivities, loading, error } = useListActivitiesForDashboard({
+  const {
+    data,
+    refetch: getActivities,
+    loading,
+    error
+  } = useListActivitiesForDashboard({
     lazy: true,
     resolve: (res: RestResponseListActivityDashboardDTO) => {
       if (res) {

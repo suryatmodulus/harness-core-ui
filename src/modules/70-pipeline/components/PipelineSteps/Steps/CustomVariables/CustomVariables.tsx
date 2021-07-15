@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconName, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
-import { get, set, isEmpty, isNil, isNaN } from 'lodash-es'
+import { get, set, isEmpty, isNil } from 'lodash-es'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import type { FormikErrors } from 'formik'
@@ -96,7 +96,7 @@ export class CustomVariables extends Step<CustomVariablesData> {
       if (
         isRequired &&
         ((isEmpty(variable.value) && variable.type !== 'Number') ||
-          (variable.type === 'Number' && (isNil(variable.value) || isNaN(variable.value)))) &&
+          (variable.type === 'Number' && isEmpty(variable.value))) &&
         getMultiTypeFromValue(currentVariableTemplate) === MultiTypeInputType.RUNTIME
       ) {
         set(errors, `variables[${index}].value`, getString?.('fieldRequired', { field: 'Value' }))
@@ -177,13 +177,13 @@ export class CustomVariables extends Step<CustomVariablesData> {
         name: row.name,
         type: row.type,
         ...(!isNil(row.default)
-          ? { default: row.type === 'Number' ? parseFloat((row.default as unknown) as string) : row.default }
+          ? { default: row.type === 'Number' ? parseFloat(row.default as unknown as string) : row.default }
           : {}),
         value:
           row.type === 'Number' &&
-          getMultiTypeFromValue((row.value as unknown) as string) === MultiTypeInputType.FIXED &&
+          getMultiTypeFromValue(row.value as unknown as string) === MultiTypeInputType.FIXED &&
           row.value
-            ? parseFloat((row.value as unknown) as string)
+            ? parseFloat(row.value as unknown as string)
             : row.value
       })) as AllNGVariables[]
     }

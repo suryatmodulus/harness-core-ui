@@ -225,7 +225,12 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   >()
 
   const { showError } = useToaster()
-  const { data: serviceResponse, error, refetch, loading } = useGetServiceList({
+  const {
+    data: serviceResponse,
+    error,
+    refetch,
+    loading
+  } = useGetServiceList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
@@ -238,6 +243,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}
@@ -445,7 +451,11 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
 
   const { showError, clear } = useToaster()
   const { expressions } = useVariablesExpression()
-  const { data: serviceResponse, error, refetch } = useGetServiceList({
+  const {
+    data: serviceResponse,
+    error,
+    refetch
+  } = useGetServiceList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -490,6 +500,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
     () => (
       <Dialog
         isOpen={true}
+        enforceFocus={false}
         canEscapeKeyClose
         canOutsideClickClose
         onClose={onClose}

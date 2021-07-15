@@ -1,5 +1,6 @@
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
-interface PipelineSelectionState {
+
+export interface PipelineSelectionState {
   stageId?: string | null
   stepId?: string | null
   sectionId?: string | null

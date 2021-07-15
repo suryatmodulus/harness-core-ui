@@ -8,7 +8,7 @@ import * as Yup from 'yup'
 
 import { TestWrapper } from '@common/utils/testUtils'
 import { StageType } from '@pipeline/utils/stageHelpers'
-import type { StepMode as Modes } from '@pipeline/utils/stepUtils'
+import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import FailureStrategyPanel, { AllFailureStrategyConfig } from './FailureStrategyPanel'
 import { getFailureStrategiesValidationSchema } from './validation'
 
@@ -64,5 +64,6 @@ export const Basic: Story<BasicArgs> = args => {
 Basic.args = {
   data: {
     failureStrategies: []
-  }
+  },
+  mode: Modes.STEP
 }

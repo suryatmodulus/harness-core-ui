@@ -46,9 +46,8 @@ function transformDSResponse(dsConfig: any) {
 }
 
 const AppDMonitoringSource = ({ dsConfig }: { dsConfig?: DSConfig | null }) => {
-  const { currentData, setCurrentData, onNext, onPrevious, currentTab, maxEnabledTab } = useCVTabsHook<
-    AppDMonitoringSourceDataType
-  >({ totalTabs: 4 })
+  const { currentData, setCurrentData, onNext, onPrevious, currentTab, maxEnabledTab } =
+    useCVTabsHook<AppDMonitoringSourceDataType>({ totalTabs: 4 })
   const { getString } = useStrings()
 
   useEffect(() => {

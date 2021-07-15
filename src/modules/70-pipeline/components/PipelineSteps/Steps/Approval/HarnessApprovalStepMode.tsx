@@ -266,7 +266,7 @@ const FormContent = ({
                         <>
                           <div className={css.headerRow}>
                             <String className={css.label} stringID="variableNameLabel" />
-                            <String className={css.label} stringID="configureOptions.defaultValue" />
+                            <String className={css.label} stringID="common.configureOptions.defaultValue" />
                           </div>
                           {(formik.values.spec.approverInputs as ApproverInputsSubmitCallInterface[]).map(
                             (_unused: ApproverInputsSubmitCallInterface, i: number) => (
@@ -288,7 +288,7 @@ const FormContent = ({
                                 />
                                 <Button
                                   minimal
-                                  icon="trash"
+                                  icon="main-trash"
                                   data-testid={`remove-approverInputs-${i}`}
                                   disabled={isApprovalStepFieldDisabled(readonly)}
                                   onClick={() => remove(i)}
@@ -330,11 +330,14 @@ function HarnessApprovalStepMode(
 ) {
   const { onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
 
-  const { data: userGroupsResponse, loading: fetchingUserGroups, error: userGroupsFetchError } = useGetUserGroupList({
+  const {
+    data: userGroupsResponse,
+    loading: fetchingUserGroups,
+    error: userGroupsFetchError
+  } = useGetUserGroupList({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier,

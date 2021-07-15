@@ -19,7 +19,9 @@ import {
   delegatePathProps,
   delegateConfigProps,
   userPathProps,
-  userGroupPathProps
+  userGroupPathProps,
+  serviceAccountProps,
+  servicePathProps
 } from '@common/utils/routeUtils'
 import type {
   PipelinePathProps,
@@ -62,11 +64,11 @@ import CDPipelineDeploymentList from '@cd/pages/pipeline-deployment-list/CDPipel
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSetForm'
-import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
 import ServiceDetailPage from '@dashboards/pages/ServiceDetailPage/ServiceDetailPage'
+import ServiceDetails from '@dashboards/components/ServiceDetails/ServiceDetails'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'
@@ -83,7 +85,23 @@ import GitSyncEntityTab from '@gitsync/pages/entities/GitSyncEntityTab'
 import BuildTests from '@pipeline/pages/execution/ExecutionTestView/BuildTests'
 import UserDetails from '@rbac/pages/UserDetails/UserDetails'
 import UserGroupDetails from '@rbac/pages/UserGroupDetails/UserGroupDetails'
+import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
+import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
+import executionFactory from '@pipeline/factories/ExecutionFactory'
+import { StageType } from '@pipeline/utils/stageHelpers'
+
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
+import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
+import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
+
+executionFactory.registerCardInfo(StageType.DEPLOY, {
+  icon: 'cd-main',
+  component: CDExecutionCardSummary
+})
+
+executionFactory.registerSummary(StageType.DEPLOY, {
+  component: CDExecutionSummary
+})
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
@@ -92,9 +110,8 @@ const RedirectToAccessControlHome = (): React.ReactElement => {
 }
 
 const RedirectToGitSyncHome = (): React.ReactElement => {
-  const { accountId, projectIdentifier, orgIdentifier, module } = useParams<
-    PipelineType<ProjectPathProps & ModulePathParams>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier, module } =
+    useParams<PipelineType<ProjectPathProps & ModulePathParams>>()
 
   return <Redirect to={routes.toGitSyncReposAdmin({ projectIdentifier, accountId, orgIdentifier, module })} />
 }
@@ -205,13 +222,14 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
-      path={routes.toRunPipeline({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
+      path={routes.toServiceDetails({
+        ...accountPathProps,
+        ...projectPathProps,
+        ...pipelineModuleParams,
+        ...servicePathProps
+      })}
     >
-      <PipelineDetails>
-        <CDPipelineStudio />
-
-        <RunPipelineModal />
-      </PipelineDetails>
+      <ServiceDetails />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
@@ -527,6 +545,24 @@ export default (
       exact
     >
       <UserGroupDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toServiceAccounts({ ...projectPathProps, ...pipelineModuleParams })}
+      exact
+    >
+      <AccessControlPage>
+        <ServiceAccountsPage />
+      </AccessControlPage>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={CDSideNavProps}
+      path={routes.toServiceAccountDetails({ ...projectPathProps, ...pipelineModuleParams, ...serviceAccountProps })}
+      exact
+    >
+      <ServiceAccountDetails />
     </RouteWithLayout>
 
     <RouteWithLayout

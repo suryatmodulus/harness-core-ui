@@ -31,9 +31,8 @@ const SelectFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
     selectedIssueTypeKey: selectedIssueTypeKeyInit
   } = props
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,
@@ -191,7 +190,12 @@ const ProvideFieldList = (props: JiraDynamicFieldsSelectorContentInterface) => {
                             expressions
                           }}
                         />
-                        <Button minimal icon="trash" data-testid={`remove-fieldList-${i}`} onClick={() => remove(i)} />
+                        <Button
+                          minimal
+                          icon="main-trash"
+                          data-testid={`remove-fieldList-${i}`}
+                          onClick={() => remove(i)}
+                        />
                       </div>
                     ))}
                     <Button
@@ -251,9 +255,8 @@ const Content = (props: JiraDynamicFieldsSelectorContentInterface) => {
 }
 
 export const JiraDynamicFieldsSelector = (props: JiraDynamicFieldsSelectorInterface) => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<
-    PipelineType<PipelinePathProps & AccountPathProps>
-  >()
+  const { accountId, projectIdentifier, orgIdentifier } =
+    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const commonParams = {
     accountIdentifier: accountId,
     projectIdentifier,

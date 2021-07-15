@@ -5,5 +5,6 @@ declare const styles: {
   readonly invitation: string
   readonly roleButton: string
   readonly overflow: string
+  readonly lockIcon: string
 }
 export default styles

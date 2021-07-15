@@ -28,6 +28,10 @@ declare const styles: {
   readonly othersHelpTextContainer: string
   readonly helpTextHeader: string
   readonly formFieldRow: string
+  readonly uploadCtaContainer: string
+  readonly uploadText: string
+  readonly certiLabel: string
+  readonly flexRow: string
   readonly radioBtn: string
   readonly saveBtn: string
   readonly sshSetupContainer: string

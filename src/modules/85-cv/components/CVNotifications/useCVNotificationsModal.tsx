@@ -17,6 +17,7 @@ export interface UseCVNotificationsModalProps {
 }
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     minWidth: 1000,
     minHeight: 530,

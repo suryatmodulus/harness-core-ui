@@ -22,6 +22,7 @@ export default function DeploymentsList(): React.ReactElement {
 
   const runPipelineDialogProps: IDialogProps = {
     isOpen: true,
+    enforceFocus: false,
     style: { minWidth: 800, minHeight: 280, backgroundColor: 'var(--grey-50)' }
   }
 

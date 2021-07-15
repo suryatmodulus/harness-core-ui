@@ -172,7 +172,7 @@ describe('Test DeployService Step', () => {
     fireEvent.click(
       document.body
         .querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)
-        ?.querySelector('[data-icon="caret-down"]')!
+        ?.querySelector('[data-icon="chevron-down"]')!
     )
     fireEvent.click(getByText(document.body, 'QA asd TEst'))
 
@@ -209,7 +209,7 @@ describe('Test DeployService Step', () => {
     fireEvent.click(
       document.body
         .querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)
-        ?.querySelector('[data-icon="caret-down"]')!
+        ?.querySelector('[data-icon="chevron-down"]')!
     )
     fireEvent.click(getByText(document.body, 'QA asd TEst'))
 
@@ -237,7 +237,7 @@ describe('Test DeployService Step', () => {
     fireEvent.click(
       document.body
         .querySelector(`[name="serviceRef"] + [class*="bp3-input-action"]`)
-        ?.querySelector('[data-icon="caret-down"]')!
+        ?.querySelector('[data-icon="chevron-down"]')!
     )
     fireEvent.click(getByText(document.body, 'QA asd TEst'))
     await act(async () => {

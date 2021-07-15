@@ -9,7 +9,7 @@ import { useGetBuildHealth } from 'services/ci'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { RangeSelectorWithTitle } from '../RangeSelector'
-import { roundNumber, formatDuration } from '../shared'
+import { roundNumber, formatDuration, useErrorHandler, useRefetchCall } from '../shared'
 import styles from './CIDashboardSummaryCards.module.scss'
 
 export interface SummaryCardProps {
@@ -28,7 +28,7 @@ export default function CIDashboardSummaryCards() {
   const [range, setRange] = useState([Date.now() - 30 * 24 * 60 * 60000, Date.now()])
   const [chartOptions, setChartOptions] = useState<any>(null)
 
-  const { data, loading } = useGetBuildHealth({
+  const { data, loading, error, refetch } = useGetBuildHealth({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -37,6 +37,10 @@ export default function CIDashboardSummaryCards() {
       endTime: range[1]
     }
   })
+
+  useErrorHandler(error)
+  const refetching = useRefetchCall(refetch, loading)
+  const showLoader = loading && !refetching
 
   useEffect(() => {
     const success = data?.data?.builds?.success?.count
@@ -71,7 +75,7 @@ export default function CIDashboardSummaryCards() {
           text={data?.data?.builds?.total?.count}
           subContent={chartOptions && <HighchartsReact highcharts={Highcharts} options={chartOptions} />}
           rate={data?.data?.builds?.total?.rate}
-          isLoading={loading}
+          isLoading={showLoader}
           neutralColor
         />
         {/* <SummaryCard title={getString('pipeline.dashboards.testCycleTimeSaved')} /> */}
@@ -79,13 +83,13 @@ export default function CIDashboardSummaryCards() {
           title={getString('pipeline.dashboards.successfulBuilds')}
           text={data?.data?.builds?.success?.count}
           rate={data?.data?.builds?.success?.rate}
-          isLoading={loading}
+          isLoading={showLoader}
         />
         <SummaryCard
           title={getString('pipeline.dashboards.failedBuilds')}
           text={data?.data?.builds?.failed?.count}
           rate={data?.data?.builds?.failed?.rate}
-          isLoading={loading}
+          isLoading={showLoader}
         />
       </Container>
     </Container>

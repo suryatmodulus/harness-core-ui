@@ -408,7 +408,11 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
     )
   }
 
-  const { loading: isFetchingFilters, data: fetchedFilterResponse, refetch: refetchFilterList } = useGetFilterList({
+  const {
+    loading: isFetchingFilters,
+    data: fetchedFilterResponse,
+    refetch: refetchFilterList
+  } = useGetFilterList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
@@ -631,7 +635,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           <Layout.Horizontal spacing="small">
             <RbacButton
               intent="primary"
-              text={getString('newConnector')}
+              text={getString('connector')}
               icon="plus"
               permission={{
                 permission: PermissionIdentifier.UPDATE_CONNECTOR,

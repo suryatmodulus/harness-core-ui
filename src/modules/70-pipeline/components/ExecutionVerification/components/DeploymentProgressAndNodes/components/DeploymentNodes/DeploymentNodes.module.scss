@@ -1,0 +1,48 @@
+.main {
+  position: relative;
+  height: 100% !important;
+  width: 100% !important;
+
+  .hexagonContainer {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: inline-block;
+    box-sizing: border-box;
+    background-color: var(--grey-300) !important;
+    -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+    clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+
+    .nodeHealthPopover {
+      position: relative;
+      top: 0.5px;
+      left: 0.5px;
+
+      .hexagon {
+        background-color: var(--grey-100) !important;
+        -webkit-clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+        clip-path: polygon(25% 5%, 75% 5%, 100% 50%, 75% 95%, 25% 95%, 0% 50%);
+      }
+
+      .selected {
+        background-color: var(--primary-6) !important;
+      }
+
+      .nodeHealth {
+        position: relative;
+        bottom: 15px;
+        left: 8px;
+        border-radius: 2px;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.nodeHealthPopoverContent {
+  display: flex;
+  padding: var(--spacing-medium) !important;
+  align-items: baseline;
+  > div:first-child {
+    margin-right: var(--spacing-small) !important;
+  }
+}

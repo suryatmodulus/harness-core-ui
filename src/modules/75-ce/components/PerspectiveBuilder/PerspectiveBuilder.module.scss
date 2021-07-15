@@ -1,0 +1,31 @@
+.mainContainer {
+  display: grid;
+  height: 100%;
+
+  .formContainer {
+    height: calc(100vh - 124px);
+    display: flex;
+
+    .innerContainer {
+      height: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      .builderContainer {
+        overflow-y: auto;
+      }
+    }
+  }
+
+  .proTipContainer {
+    border-radius: 8px;
+  }
+
+  .perspectiveNameInput {
+    width: 240px;
+  }
+
+  .linkText {
+    cursor: pointer;
+  }
+}

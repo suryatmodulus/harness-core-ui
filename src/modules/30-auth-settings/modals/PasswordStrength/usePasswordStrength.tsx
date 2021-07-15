@@ -19,7 +19,7 @@ export const usePasswordStrengthModal = ({ onSuccess, loginSettings }: Props): M
   const [editing, setEditing] = React.useState(false)
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog enforceFocus={false} isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         <PasswordStrengthForm
           onSubmit={() => {
             onSuccess()

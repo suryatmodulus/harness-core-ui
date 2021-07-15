@@ -137,10 +137,10 @@ const ActivityList: React.FC<ActivityListProps> = props => {
     [props.activityList?.data?.content, props.showOtherActivity]
   )
 
-  const connectivity = useMemo(() => (props.showConnectivityChecks ? props.connectivitySummary?.data || null : null), [
-    props.connectivitySummary?.data,
-    props.showConnectivityChecks
-  ])
+  const connectivity = useMemo(
+    () => (props.showConnectivityChecks ? props.connectivitySummary?.data || null : null),
+    [props.connectivitySummary?.data, props.showConnectivityChecks]
+  )
 
   let dataArray
   if (props.showConnectivityChecks && props.connectivitySummary?.data && connectivity?.failureCount) {

@@ -8,6 +8,7 @@ import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -21,6 +22,7 @@ export default function CFSideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
   const { NG_RBAC_ENABLED } = useFeatureFlags()
+  const { trial } = useQueryParams<{ trial?: boolean }>()
 
   return (
     <Layout.Vertical spacing="small">
@@ -28,13 +30,25 @@ export default function CFSideNav(): React.ReactElement {
         moduleFilter={ModuleName.CF}
         onSelect={data => {
           updateAppStore({ selectedProject: data })
-          history.push(
-            routes.toCFFeatureFlags({
-              projectIdentifier: data.identifier,
-              orgIdentifier: data.orgIdentifier || '',
-              accountId
+
+          if (trial) {
+            // if select from trial page, forward user to get started page
+            history.push({
+              pathname: routes.toCFOnboarding({
+                orgIdentifier: data?.orgIdentifier || '',
+                projectIdentifier: data?.identifier || '',
+                accountId
+              })
             })
-          )
+          } else {
+            history.push(
+              routes.toCFFeatureFlags({
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier || '',
+                accountId
+              })
+            )
+          }
         }}
       />
       {projectIdentifier && orgIdentifier ? (

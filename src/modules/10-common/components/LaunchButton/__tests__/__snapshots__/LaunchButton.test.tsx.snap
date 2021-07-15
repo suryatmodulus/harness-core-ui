@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Launch Button test Launch button render  1`] = `
+<div>
+  <button
+    class="launchButtonPosition"
+    type="button"
+  >
+    Launch Next Generation
+  </button>
+</div>
+`;

@@ -36,6 +36,8 @@ allowpaths:
   - /activity/recent-activity-verifications
   - /activity/{activityId}/activity-risks
   - /activity/{activityId}/deployment-activity-summary
+  - /activity/{activityId}/deployment-timeseries-data
+  - /activity/{activityId}/datasource-types
   - /activity/list
   - /setup/status
   - /kubernetes/namespaces
@@ -68,6 +70,12 @@ allowpaths:
   - /prometheus/metric-list
   - /prometheus/sample-data
   - /sumologic/endpoints
+  - /monitored-service
+  - /monitored-service/{identifier}
+  - /monitored-service/environments
+  - /monitored-service/create-default
+  - /monitored-service/service-environment
+  - /monitored-service/{identifier}/health-monitoring-flag
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

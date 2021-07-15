@@ -1,0 +1,117 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 4,
+    "pageItemCount": 1,
+    "pageSize": 5,
+    "content": [
+      {
+        "entityType": "Connectors",
+        "count": 4,
+        "gitSyncEntities": [
+          {
+            "entityName": "inline45",
+            "entityType": "Connectors",
+            "entityIdentifier": "inline45",
+            "gitConnectorId": "ValidGitRepo",
+            "repoUrl": "https://github.com/wings-software/sunnykesh-gitSync",
+            "branch": "gitSync",
+            "folderPath": "second/.harness/",
+            "entityGitPath": "abc.yaml",
+            "repoProviderType": "github",
+            "entityReference": {
+              "scope": "project",
+              "identifier": "inline45",
+              "accountIdentifier": "dummy",
+              "orgIdentifier": "default",
+              "projectIdentifier": "DevX",
+              "metadata": {},
+              "repoIdentifier": null,
+              "branch": null,
+              "isDefault": null,
+              "default": null
+            },
+            "accountId": "dummy"
+          },
+          {
+            "entityName": "dailyTestOne",
+            "entityType": "Connectors",
+            "entityIdentifier": "dailyTestOne",
+            "gitConnectorId": "ValidGitRepo",
+            "repoUrl": "https://github.com/wings-software/sunnykesh-gitSync",
+            "branch": "gitSync",
+            "folderPath": "second/.harness/",
+            "entityGitPath": "dailyTestOne.yaml",
+            "repoProviderType": "github",
+            "entityReference": {
+              "scope": "project",
+              "identifier": "dailyTestOne",
+              "accountIdentifier": "dummy",
+              "orgIdentifier": "default",
+              "projectIdentifier": "DevX",
+              "metadata": {},
+              "repoIdentifier": null,
+              "branch": null,
+              "isDefault": null,
+              "default": null
+            },
+            "accountId": "dummy"
+          },
+          {
+            "entityName": "asasas",
+            "entityType": "Connectors",
+            "entityIdentifier": "asasas",
+            "gitConnectorId": "ValidGitRepo",
+            "repoUrl": "https://github.com/wings-software/sunnykesh-gitSync",
+            "branch": "gitSync",
+            "folderPath": "second/.harness/",
+            "entityGitPath": "asasasas.yaml",
+            "repoProviderType": "github",
+            "entityReference": {
+              "scope": "project",
+              "identifier": "asasas",
+              "accountIdentifier": "dummy",
+              "orgIdentifier": "default",
+              "projectIdentifier": "DevX",
+              "metadata": {},
+              "repoIdentifier": null,
+              "branch": null,
+              "isDefault": null,
+              "default": null
+            },
+            "accountId": "dummy"
+          },
+          {
+            "entityName": "saassas",
+            "entityType": "Connectors",
+            "entityIdentifier": "saassas",
+            "gitConnectorId": "ValidGitRepo",
+            "repoUrl": "https://github.com/wings-software/sunnykesh-gitSync",
+            "branch": "gitSync",
+            "folderPath": "second/.harness/",
+            "entityGitPath": "aa/s/ssas.yaml",
+            "repoProviderType": "github",
+            "entityReference": {
+              "scope": "project",
+              "identifier": "saassas",
+              "accountIdentifier": "dummy",
+              "orgIdentifier": "default",
+              "projectIdentifier": "DevX",
+              "metadata": {},
+              "repoIdentifier": null,
+              "branch": null,
+              "isDefault": null,
+              "default": null
+            },
+            "accountId": "dummy"
+          }
+        ]
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "correlationId"
+}

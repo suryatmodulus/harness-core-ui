@@ -163,180 +163,126 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
                 class="bp3-card bp3-elevation-0 Card--card sectionCard shadow"
               >
                 <div
-                  class="tabSubHeading ng-tooltip-native"
+                  class="Text--withDocsTooltip"
                   data-tooltip-id="whatToDeploy"
-                  id="whatToDeploy"
                 >
-                  whatToDeploy
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-size-normal"
+                  >
+                    whatToDeploy
+                  </p>
                 </div>
                 <div
-                  class="grid"
+                  class="bp3-form-group stageTypeThumbnail"
+                  data-id="serviceType-1"
                 >
                   <div
-                    class=""
-                    data-index="0"
+                    class="bp3-form-content"
                   >
                     <div
-                      class="squareCardContainer"
+                      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                     >
-                      <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card squareCard Card--selected Card--interactive"
-                        tabindex="0"
+                      <label
+                        class="Thumbnail--squareCardContainer"
                       >
-                        <span
-                          class="Card--corner"
+                        <div
+                          class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
                         >
                           <span
-                            class="Card--badge"
-                          />
+                            class="Card--corner"
+                          >
+                            <span
+                              class="Card--badge"
+                            />
+                            <span
+                              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
+                              icon="tick"
+                            >
+                              <svg
+                                data-icon="tick"
+                                height="9"
+                                viewBox="0 0 16 16"
+                                width="9"
+                              >
+                                <desc>
+                                  tick
+                                </desc>
+                                <path
+                                  d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
                           <span
-                            class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
-                            icon="tick"
+                            class="bp3-icon StyledProps--main"
+                            data-icon="service"
                           >
                             <svg
-                              data-icon="tick"
-                              height="9"
-                              viewBox="0 0 16 16"
-                              width="9"
+                              height="26"
+                              viewBox="0 0 16 14"
+                              width="26"
+                              xmlns="http://www.w3.org/2000/svg"
                             >
-                              <desc>
-                                tick
-                              </desc>
                               <path
-                                d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                                fill-rule="evenodd"
+                                d="M8.04 4.695a2.345 2.345 0 100 4.69 2.345 2.345 0 000-4.69zm0 .67a1.675 1.675 0 110 3.35 1.675 1.675 0 010-3.35zM10.398.731H5.64c-.819 0-1.578.427-2.003 1.126L1.052 6.104a2.345 2.345 0 00.055 2.525l2.529 3.774a2.345 2.345 0 001.948 1.04h4.87c.772 0 1.493-.38 1.931-1.014l2.604-3.776c.531-.77.554-1.783.056-2.576l-2.66-4.246a2.345 2.345 0 00-1.987-1.1zm-4.757.67h4.757c.577 0 1.113.297 1.419.786l2.66 4.246c.356.566.34 1.29-.04 1.84l-2.603 3.775a1.675 1.675 0 01-1.38.724h-4.87c-.559 0-1.08-.278-1.392-.742L1.663 8.256a1.675 1.675 0 01-.039-1.804L4.21 2.205c.304-.5.846-.804 1.43-.804h.001z"
+                                fill="#25A6F7"
                               />
                             </svg>
                           </span>
-                        </span>
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="service"
-                          style="height: 26px;"
+                        </div>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
+                          style="text-align: center;"
                         >
-                          <svg
-                            height="26"
-                            viewBox="0 0 16 14"
-                            width="26"
-                          >
-                            <path
-                              d="M8.04 4.695a2.345 2.345 0 100 4.69 2.345 2.345 0 000-4.69zm0 .67a1.675 1.675 0 110 3.35 1.675 1.675 0 010-3.35zM10.398.731H5.64c-.819 0-1.578.427-2.003 1.126L1.052 6.104a2.345 2.345 0 00.055 2.525l2.529 3.774a2.345 2.345 0 001.948 1.04h4.87c.772 0 1.493-.38 1.931-1.014l2.604-3.776c.531-.77.554-1.783.056-2.576l-2.66-4.246a2.345 2.345 0 00-1.987-1.1zm-4.757.67h4.757c.577 0 1.113.297 1.419.786l2.66 4.246c.356.566.34 1.29-.04 1.84l-2.603 3.775a1.675 1.675 0 01-1.38.724h-4.87c-.559 0-1.08-.278-1.392-.742L1.663 8.256a1.675 1.675 0 01-.039-1.804L4.21 2.205c.304-.5.846-.804 1.43-.804h.001z"
-                              fill="#25A6F7"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="font-size: 12px; text-align: center;"
-                      >
-                        service
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class=""
-                    data-index="1"
-                  >
-                    <div
-                      class="squareCardContainer"
-                    >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card squareCard Card--disabled"
+                          service
+                        </p>
+                        <input
+                          checked=""
+                          name="serviceType"
+                          type="checkbox"
+                          value="service"
+                        />
+                      </label>
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        data-testid="thumbnail-select-change"
+                        type="button"
                       >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="multi-service"
-                          style="height: 26px;"
+                          class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey450"
+                          data-icon="Edit"
                         >
                           <svg
-                            height="26"
-                            viewBox="0 0 16 13"
-                            width="26"
+                            height="10"
+                            viewBox="0 0 12 12"
+                            width="10"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <path
-                              d="M9.548 1.606a1.587 1.587 0 00-2.645.006l-.23.348a1.863 1.863 0 00-3.105-.006L1.354 5.276a2 2 0 000 2.218l2.234 3.352a1.856 1.856 0 003.085.007l.213.316a1.602 1.602 0 002.662-.006 1.594 1.594 0 002.653 0l2.445-3.67a2 2 0 000-2.217L12.2 1.606a1.594 1.594 0 00-2.653 0zm-4.422 9.955l-3.45-5.176 3.45-5.177 3.449 5.177-3.45 5.176zm3.095 0l-1.017-1.504 2.432-3.672-2.432-3.628 1.017-1.505 3.45 5.177-3.45 5.132zm1.857-1.194l2.653-3.982-2.653-3.982.796-1.195 3.45 5.177-3.45 5.176-.796-1.194zm-5.04-5.68c-.204 0-.407.07-.61.21l.035.052a1.938 1.938 0 00-.304 2.927c.292.309.585.463.878.463.469 0 .937-.395 1.406-1.186a1.634 1.634 0 00-1.406-2.466zm.663.926c.39.487.39 1.18 0 1.667a.854.854 0 01-1.334 0 1.334 1.334 0 010-1.667.854.854 0 011.334 0z"
-                              fill="#25A6F7"
-                            />
+                            <g
+                              fill="none"
+                              fill-rule="evenodd"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
                           </svg>
                         </span>
-                      </div>
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="font-size: 12px; text-align: center;"
-                      >
-                        multipleService
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class=""
-                    data-index="2"
-                  >
-                    <div
-                      class="squareCardContainer"
-                    >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card squareCard Card--disabled"
-                      >
                         <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="functions"
-                          style="height: 26px;"
+                          class="bp3-button-text"
                         >
-                          <svg
-                            height="26"
-                            viewBox="0 0 15 14"
-                            width="26"
-                          >
-                            <path
-                              d="M4.64.866H3.214A2.352 2.352 0 00.862 3.217v1.427a2.352 2.352 0 002.352 2.351H4.64a2.352 2.352 0 002.352-2.351V3.217A2.352 2.352 0 004.64.866zm1.255 3.778c0 .691-.563 1.254-1.255 1.254H3.214A1.256 1.256 0 011.96 4.644V3.217c0-.691.562-1.254 1.254-1.254H4.64c.692 0 1.255.563 1.255 1.254v1.427zm5.8-3.778H10.27a2.352 2.352 0 00-2.351 2.351v1.427a2.352 2.352 0 002.351 2.351h1.427a2.352 2.352 0 002.351-2.351V3.217A2.352 2.352 0 0011.696.866zm1.255 3.778c0 .691-.563 1.254-1.254 1.254h-1.427a1.256 1.256 0 01-1.254-1.254V3.217c0-.691.563-1.254 1.254-1.254h1.427c.691 0 1.254.563 1.254 1.254v1.427zM4.64 7.773H3.214a2.352 2.352 0 00-2.352 2.351v1.427a2.352 2.352 0 002.352 2.352H4.64a2.352 2.352 0 002.352-2.352v-1.427A2.352 2.352 0 004.64 7.773zm1.255 3.778c0 .691-.563 1.254-1.255 1.254H3.214a1.256 1.256 0 01-1.254-1.254v-1.427c0-.691.562-1.254 1.254-1.254H4.64c.692 0 1.255.563 1.255 1.254v1.427zm8.294-1.984a.549.549 0 01-.549.549H8.466a.549.549 0 010-1.098h5.174a.55.55 0 01.549.549zm0 3.397a.549.549 0 01-.549.549H8.466a.549.549 0 110-1.098h5.174a.55.55 0 01.549.549z"
-                              fill="#25A6F7"
-                            />
-                          </svg>
+                          Change
                         </span>
-                      </div>
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="font-size: 12px; text-align: center;"
-                      >
-                        functions
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class=""
-                    data-index="3"
-                  >
-                    <div
-                      class="squareCardContainer"
-                    >
-                      <div
-                        class="bp3-card bp3-elevation-0 Card--card squareCard Card--disabled"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="other-workload"
-                          style="height: 26px;"
-                        >
-                          <svg
-                            height="26"
-                            viewBox="0 0 16 4"
-                            width="26"
-                          >
-                            <path
-                              d="M2.72.08C1.664.08.8.944.8 2s.864 1.92 1.92 1.92S4.64 3.056 4.64 2 3.776.08 2.72.08zm0 3.2c-.704 0-1.28-.576-1.28-1.28 0-.704.576-1.28 1.28-1.28C3.424.72 4 1.296 4 2c0 .704-.576 1.28-1.28 1.28zM13.28.08c-1.056 0-1.92.864-1.92 1.92s.864 1.92 1.92 1.92S15.2 3.056 15.2 2 14.336.08 13.28.08zm0 3.2C12.576 3.28 12 2.704 12 2c0-.704.576-1.28 1.28-1.28.704 0 1.28.576 1.28 1.28 0 .704-.576 1.28-1.28 1.28zM8 .08C6.944.08 6.08.944 6.08 2S6.944 3.92 8 3.92 9.92 3.056 9.92 2 9.056.08 8 .08zm0 3.2c-.704 0-1.28-.576-1.28-1.28 0-.704.576-1.28 1.28-1.28.704 0 1.28.576 1.28 1.28 0 .704-.576 1.28-1.28 1.28z"
-                              fill="#25A6F7"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <p
-                        class="StyledProps--font StyledProps--main"
-                        style="font-size: 12px; text-align: center;"
-                      >
-                        otherWorkloads
-                      </p>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -365,7 +311,7 @@ exports[`StepWidget tests renders DeployStageSpecifications without crashing  1`
           <div
             class="Accordion--label"
           >
-            Advanced
+            common.advanced
           </div>
         </div>
         <div

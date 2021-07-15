@@ -26,7 +26,311 @@ exports[`stageinputset tests initial render 1`] = `
     </div>
     <div
       class="nestedAccordions"
-    />
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="stages[1].stage.spec.infrastructure.spec.namespace"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--font-small StyledProps--margin-bottom-xsmall"
+          >
+            pipelineSteps.build.infraSpecifications.namespace
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <div
+              class="bp3-input-group MultiTypeInput--input"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="stages[1].stage.spec.infrastructure.spec.namespace"
+                type="text"
+                value=""
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="stages[1].stage.spec.infrastructure.spec.serviceAccountName"
+        >
+          pipeline.infraSpecifications.serviceAccountName
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <div
+              class="bp3-input-group MultiTypeInput--input"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="stages[1].stage.spec.infrastructure.spec.serviceAccountName"
+                type="text"
+                value=""
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="stages[1].stage.spec.infrastructure.spec.initTimeout"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-start StyledProps--font-small"
+          >
+            pipeline.infraSpecifications.initTimeout
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            style="display: flex; align-items: center;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+              style="flex-grow: 1;"
+            >
+              <div
+                class="bp3-input-group bp3-fill"
+              >
+                <input
+                  class="bp3-input"
+                  name="stages[1].stage.spec.infrastructure.spec.initTimeout"
+                  placeholder="Enter w/d/h/m/s/ms"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <span
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="fixed-input"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="accordionSummary"
+    id="Stage.undefined.ServiceDependencies"
+  >
+    <div
+      class="inputheader"
+    >
+      pipeline.serviceDependenciesText
+    </div>
+    <div
+      class="nestedAccordions"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+      >
+        <label
+          class="Label--main"
+        >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+            data-icon="dependency-step"
+          >
+            <svg
+              fill="none"
+              height="16"
+              viewBox="0 0 32 32"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 9.59A4.795 4.795 0 1016 0a4.795 4.795 0 000 9.59zM4.795 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59zm12.819-20.196c-.507.138-1.06.185-1.614.185-.553 0-1.107-.047-1.614-.185v5.81L9.36 21.625a7.448 7.448 0 011.937 2.536L16 20.473l4.703 3.735a7.448 7.448 0 011.937-2.537l-5.026-4.011v-5.856zM27.204 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59z"
+                fill="#004BA4"
+              />
+            </svg>
+          </span>
+          pipeline.serviceDependencyText
+          : 
+          pipeline.stepLabel
+        </label>
+        <div>
+          <form
+            class="FormikForm--main removeBpPopoverWrapperTopMargin"
+          >
+            <div />
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
   <div
     class="accordionSummary"
@@ -39,7 +343,417 @@ exports[`stageinputset tests initial render 1`] = `
     </div>
     <div
       class="nestedAccordions"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+      >
+        <label
+          class="Label--main"
+        >
+          <span
+            class="bp3-icon bp3-icon-disable StyledProps--main StyledProps--padding-right-small"
+            icon="disable"
+          >
+            <svg
+              data-icon="disable"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                disable
+              </desc>
+              <path
+                d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm-6 8c0-3.31 2.69-6 6-6 1.3 0 2.49.42 3.47 1.12l-8.35 8.35c-.7-.98-1.12-2.17-1.12-3.47zm6 6c-1.3 0-2.49-.42-3.47-1.12l8.35-8.35c.7.98 1.12 2.17 1.12 3.47 0 3.32-2.68 6-6 6z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          pipeline.execution.stepTitlePrefix
+          pipeline.stepLabel
+        </label>
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`stageinputset tests initial render2 1`] = `
+<div>
+  <div
+    class="accordionSummary"
+    id="Stage.undefined.Service"
+  >
+    <div
+      class="inputheader"
+    >
+      service
+    </div>
+    <div
+      class="nestedAccordions"
     />
+  </div>
+  <div
+    class="accordionSummary"
+    id="Stage.undefined.Infrastructure"
+  >
+    <div
+      class="inputheader"
+    >
+      infrastructureText
+    </div>
+    <div
+      class="nestedAccordions"
+    >
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="stages[1].stage.spec.infrastructure.spec.namespace"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--font-small StyledProps--margin-bottom-xsmall"
+          >
+            pipelineSteps.build.infraSpecifications.namespace
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <div
+              class="bp3-input-group MultiTypeInput--input"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="stages[1].stage.spec.infrastructure.spec.namespace"
+                type="text"
+                value=""
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="stages[1].stage.spec.infrastructure.spec.serviceAccountName"
+        >
+          pipeline.infraSpecifications.serviceAccountName
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+          >
+            <div
+              class="bp3-input-group MultiTypeInput--input"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="stages[1].stage.spec.infrastructure.spec.serviceAccountName"
+                type="text"
+                value=""
+              />
+            </div>
+            <span
+              class="bp3-popover-wrapper MultiTypeInput--wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="fixed-input"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 9 9"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="bp3-form-group"
+      >
+        <label
+          class="bp3-label"
+          for="stages[1].stage.spec.infrastructure.spec.initTimeout"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-start StyledProps--font-small"
+          >
+            pipeline.infraSpecifications.initTimeout
+            <span
+              class="bp3-popover-wrapper"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="question"
+                  >
+                    <svg
+                      height="14"
+                      viewBox="0 0 14 14"
+                      width="14"
+                    >
+                      <path
+                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                        fill="#9AA5B5"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </p>
+           
+          <span
+            class="bp3-text-muted"
+          />
+        </label>
+        <div
+          class="bp3-form-content"
+        >
+          <div
+            style="display: flex; align-items: center;"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+              style="flex-grow: 1;"
+            >
+              <div
+                class="bp3-input-group bp3-fill"
+              >
+                <input
+                  class="bp3-input"
+                  name="stages[1].stage.spec.infrastructure.spec.initTimeout"
+                  placeholder="Enter w/d/h/m/s/ms"
+                  type="text"
+                  value=""
+                />
+              </div>
+              <span
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="fixed-input"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="accordionSummary"
+    id="Stage.undefined.ServiceDependencies"
+  >
+    <div
+      class="inputheader"
+    >
+      pipeline.serviceDependenciesText
+    </div>
+    <div
+      class="nestedAccordions"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+      >
+        <label
+          class="Label--main"
+        >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+            data-icon="dependency-step"
+          >
+            <svg
+              fill="none"
+              height="16"
+              viewBox="0 0 32 32"
+              width="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M16 9.59A4.795 4.795 0 1016 0a4.795 4.795 0 000 9.59zM4.795 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59zm12.819-20.196c-.507.138-1.06.185-1.614.185-.553 0-1.107-.047-1.614-.185v5.81L9.36 21.625a7.448 7.448 0 011.937 2.536L16 20.473l4.703 3.735a7.448 7.448 0 011.937-2.537l-5.026-4.011v-5.856zM27.204 32a4.795 4.795 0 100-9.59 4.795 4.795 0 000 9.59z"
+                fill="#004BA4"
+              />
+            </svg>
+          </span>
+          pipeline.serviceDependencyText
+          : 
+          pipeline.stepLabel
+        </label>
+        <div>
+          <form
+            class="FormikForm--main removeBpPopoverWrapperTopMargin"
+          >
+            <div />
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="accordionSummary"
+    id="Stage.undefined.Execution"
+  >
+    <div
+      class="inputheader"
+    >
+      executionText
+    </div>
+    <div
+      class="nestedAccordions"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-medium"
+      >
+        <label
+          class="Label--main"
+        >
+          <span
+            class="bp3-icon bp3-icon-disable StyledProps--main StyledProps--padding-right-small"
+            icon="disable"
+          >
+            <svg
+              data-icon="disable"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                disable
+              </desc>
+              <path
+                d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm-6 8c0-3.31 2.69-6 6-6 1.3 0 2.49.42 3.47 1.12l-8.35 8.35c-.7-.98-1.12-2.17-1.12-3.47zm6 6c-1.3 0-2.49-.42-3.47-1.12l8.35-8.35c.7.98 1.12 2.17 1.12 3.47 0 3.32-2.68 6-6 6z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          pipeline.execution.stepTitlePrefix
+          pipeline.stepLabel
+        </label>
+        <div />
+      </div>
+    </div>
   </div>
 </div>
 `;

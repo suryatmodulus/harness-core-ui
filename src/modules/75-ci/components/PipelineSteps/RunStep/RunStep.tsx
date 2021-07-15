@@ -160,16 +160,8 @@ export class RunStep extends PipelineStep<RunStepData> {
   }
 
   renderStep(props: StepProps<RunStepData>): JSX.Element {
-    const {
-      initialValues,
-      onUpdate,
-      stepViewType,
-      inputSetData,
-      formikRef,
-      customStepProps,
-      readonly,
-      isNewStep
-    } = props
+    const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, readonly, isNewStep } =
+      props
 
     if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
       return (

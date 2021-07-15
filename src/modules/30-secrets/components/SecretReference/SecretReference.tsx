@@ -1,5 +1,7 @@
 import React from 'react'
-import { Icon, Select, SelectOption, Label } from '@wings-software/uicore'
+import { Icon, SelectOption, Text, Button, Container } from '@wings-software/uicore'
+import { Select } from '@blueprintjs/select'
+import { MenuItem } from '@blueprintjs/core'
 import cx from 'classnames'
 import {
   ListSecretsV2QueryParams,
@@ -7,7 +9,8 @@ import {
   listSecretsV2Promise,
   SecretDTOV2,
   SecretTextSpecDTO,
-  ResponsePageSecretResponseWrapper
+  ResponsePageSecretResponseWrapper,
+  ConnectorInfoDTO
 } from 'services/cd-ng'
 import { EntityReference } from '@common/exports'
 import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
@@ -15,6 +18,7 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
 import css from './SecretReference.module.scss'
 
+const CustomSelect = Select.ofType<SelectOption>()
 export interface SecretRef extends SecretDTOV2 {
   scope: Scope
 }
@@ -27,6 +31,7 @@ export interface SecretReferenceProps {
   defaultScope?: Scope
   type?: ListSecretsV2QueryParams['type']
   mock?: ResponsePageSecretResponseWrapper
+  connectorTypeContext?: ConnectorInfoDTO['type']
 }
 
 const fetchRecords = (
@@ -37,15 +42,23 @@ const fetchRecords = (
   accountIdentifier: string,
   projectIdentifier?: string,
   orgIdentifier?: string,
-  mock?: ResponsePageSecretResponseWrapper
+  mock?: ResponsePageSecretResponseWrapper,
+  connectorTypeContext?: ConnectorInfoDTO['type']
 ): void => {
+  const secretManagerTypes: ConnectorInfoDTO['type'][] = ['AwsKms', 'AzureKeyVault', 'Vault']
+  let sourceCategory: ListSecretsV2QueryParams['source_category'] | undefined
+  if (connectorTypeContext && secretManagerTypes.includes(connectorTypeContext)) {
+    sourceCategory = 'SECRET_MANAGER'
+  }
+
   listSecretsV2Promise({
     queryParams: {
       accountIdentifier,
       type,
       searchTerm: search?.trim(),
       projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
-      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined
+      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined,
+      source_category: sourceCategory
     },
     mock
   })
@@ -71,7 +84,7 @@ const fetchRecords = (
 }
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type, mock } = props
+  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type, mock, connectorTypeContext } = props
   const { getString } = useStrings()
 
   const secretTypeOptions: SelectOption[] = [
@@ -87,16 +100,29 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
   const [secretType, setSecretType] = React.useState<SelectOption>(secretTypeOptions[0])
 
   const selectTypeDropdown = (
-    <div className={css.selectBox}>
-      <Label className={css.text}>{getString('secret.labelSecretType')}</Label>
-      <Select
-        className={css.secretTypeSelect}
+    <Container flex={{ alignItems: 'baseline' }}>
+      <Text margin={{ left: 'medium', right: 'xsmall' }}>{getString('secret.labelSecretType')}</Text>
+      <CustomSelect
         items={secretTypeOptions}
-        disabled={false}
-        value={secretType}
-        onChange={secretOption => setSecretType(secretOption)}
-      />
-    </div>
+        filterable={false}
+        itemRenderer={(item, { handleClick }) => (
+          <MenuItem className={css.popoverWidth} key={item.value as string} text={item.label} onClick={handleClick} />
+        )}
+        onItemSelect={item => {
+          setSecretType(item)
+        }}
+        popoverProps={{ minimal: true, popoverClassName: css.popoverWidth }}
+      >
+        <Button
+          className={css.selectButton}
+          width={60}
+          inline
+          minimal
+          rightIcon="chevron-down"
+          text={secretType.label}
+        />
+      </CustomSelect>
+    </Container>
   )
   return (
     <EntityReference<SecretRef>
@@ -108,7 +134,17 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       recordClassName={css.listItem}
       fetchRecords={(scope, search = '', done) => {
         const selectedType = type || (secretType?.value as SecretDTOV2['type'])
-        fetchRecords(scope, search, done, selectedType, accountIdentifier, projectIdentifier, orgIdentifier, mock)
+        fetchRecords(
+          scope,
+          search,
+          done,
+          selectedType,
+          accountIdentifier,
+          projectIdentifier,
+          orgIdentifier,
+          mock,
+          connectorTypeContext
+        )
       }}
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}

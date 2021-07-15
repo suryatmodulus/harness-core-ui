@@ -43,7 +43,7 @@ export default function VerificationStatusBar({
             getString,
             remainingTimeMs
           )}`}</Text>
-          <Text style={{ fontSize: 12 }}>{`${getString('cv.startedOn')}: ${moment(startTime).format(
+          <Text style={{ fontSize: 12 }}>{`${getString('pipeline.startedOn')}: ${moment(startTime).format(
             'MMM D, h:mm:ss a'
           )}`}</Text>
         </Container>

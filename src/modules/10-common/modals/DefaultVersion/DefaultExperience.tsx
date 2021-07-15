@@ -44,7 +44,7 @@ export const useDefaultExperienceModal = ({ defaultExperience, refetchAcct }: Pr
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen title="" onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog isOpen title="" onClose={hideModal} enforceFocus={false} className={cx(css.dialog, Classes.DIALOG)}>
         <DefaultExperienceForm
           onSubmit={handleSubmit}
           loading={loading}

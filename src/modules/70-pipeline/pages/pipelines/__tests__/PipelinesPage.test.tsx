@@ -12,11 +12,15 @@ import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
 import { projectPathProps, accountPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
+import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import CDPipelinesPage from '../PipelinesPage'
 import filters from './mocks/filters.json'
 import services from './mocks/services.json'
 import environments from './mocks/environments.json'
 import pipelines from './mocks/pipelines.json'
+
+const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
+const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
 
 jest.mock('services/cd-ng', () => ({
   useGetServiceListForProject: jest
@@ -27,8 +31,27 @@ jest.mock('services/cd-ng', () => ({
     .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
   getListOfBranchesByGitConfigPromise: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: [], refetch: jest.fn() }))
+    .mockImplementation(() => ({ loading: false, data: [], refetch: jest.fn() })),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
+    return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+  }),
+  useListGitSync: jest.fn().mockImplementation(() => {
+    return { data: gitConfigs, refetch: getListGitSync }
+  }),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: sourceCodeManagers, refetch: jest.fn() }
+  })
 }))
+
+// jest.spyOn(cdng, 'useGetListOfBranchesWithStatus').mockImplementation((): any => {
+//   return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+// })
+// jest.spyOn(cdng, 'useListGitSync').mockImplementation((): any => {
+//   return { data: gitConfigs, refetch: getListGitSync, loading: false }
+// })
+// jest.spyOn(cdng, 'useGetSourceCodeManagers').mockImplementation((): any => {
+//   return { data: sourceCodeManagers, refetch: jest.fn(), loading: false }
+// })
 
 jest.mock('@common/utils/dateUtils', () => ({
   formatDatetoLocale: (x: number) => x

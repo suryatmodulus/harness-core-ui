@@ -183,7 +183,7 @@ export default function FailureStrategyPanel(props: FailureStrategyPanelProps): 
                 </div>
                 {hasFailureStrategies && !isDefaultStageStrategy ? (
                   <Button
-                    icon="trash"
+                    icon="main-trash"
                     minimal
                     small
                     disabled={isReadonly}

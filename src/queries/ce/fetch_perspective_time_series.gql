@@ -1,0 +1,26 @@
+query FetchPerspectiveTimeSeries(
+  $filters: [QLCEViewFilterWrapperInput]
+  $groupBy: [QLCEViewGroupByInput]
+  $limit: Int
+) {
+  perspectiveTimeSeriesStats(
+    filters: $filters
+    groupBy: $groupBy
+    limit: $limit
+    includeOthers: false
+    aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
+    sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
+  ) {
+    stats {
+      values {
+        key {
+          id
+          name
+          type
+        }
+        value
+      }
+      time
+    }
+  }
+}

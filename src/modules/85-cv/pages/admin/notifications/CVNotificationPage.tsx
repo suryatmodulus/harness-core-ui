@@ -18,7 +18,12 @@ const CVNotificationPage: React.FC = () => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
   const { getString } = useStrings()
 
-  const { data, loading, error, refetch: reloadAlertList } = useRetrieveAlert({
+  const {
+    data,
+    loading,
+    error,
+    refetch: reloadAlertList
+  } = useRetrieveAlert({
     queryParams: {
       accountId,
       projectIdentifier,

@@ -27,7 +27,7 @@ exports[`side nav tests side nav renders without error when no project is select
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 100px;"
+              style="--text-line-clamp: 1; width: 115px;"
             >
               selectProject
             </p>
@@ -78,6 +78,12 @@ exports[`side nav tests side nav renders without error when no project is select
     >
       pickProject
     </div>
+    <button
+      class="launchButtonPosition"
+      type="button"
+    >
+      common.ce.visibilityLaunchButton
+    </button>
   </div>
 </div>
 `;
@@ -109,7 +115,7 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 100px;"
+              style="--text-line-clamp: 1; width: 115px;"
             >
               selectProject
             </p>
@@ -181,6 +187,12 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
         ce.co.accessPoint.loadbalancer
       </p>
     </a>
+    <button
+      class="launchButtonPosition"
+      type="button"
+    >
+      common.ce.visibilityLaunchButton
+    </button>
   </div>
 </div>
 `;
@@ -212,7 +224,7 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
             </p>
             <p
               class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 100px;"
+              style="--text-line-clamp: 1; width: 115px;"
             >
               selectProject
             </p>
@@ -284,6 +296,12 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
         ce.co.accessPoint.loadbalancer
       </p>
     </a>
+    <button
+      class="launchButtonPosition"
+      type="button"
+    >
+      common.ce.visibilityLaunchButton
+    </button>
   </div>
 </div>
 `;

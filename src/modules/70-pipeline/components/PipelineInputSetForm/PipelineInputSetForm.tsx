@@ -66,7 +66,7 @@ function StageForm({
             </Text>
             <div className={css.nestedAccordions}>
               <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
-                factory={(factory as unknown) as AbstractStepFactory}
+                factory={factory as unknown as AbstractStepFactory}
                 initialValues={{
                   variables: (allValues?.stage?.variables || []) as AllNGVariables[],
                   canAddVariable: true
@@ -76,7 +76,8 @@ function StageForm({
                 stepViewType={StepViewType.InputSet}
                 customStepProps={{
                   template: { variables: template?.stage?.variables as AllNGVariables[] },
-                  path
+                  path,
+                  allValues: { variables: (allValues?.stage?.variables || []) as AllNGVariables[] }
                 }}
               />
             </div>
@@ -111,7 +112,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
           <>
             <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
-              factory={(factory as unknown) as AbstractStepFactory}
+              factory={factory as unknown as AbstractStepFactory}
               initialValues={{
                 variables: (originalPipeline.variables || []) as AllNGVariables[],
                 canAddVariable: true
@@ -121,13 +122,14 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
               stepViewType={StepViewType.InputSet}
               customStepProps={{
                 template: { variables: (template?.variables || []) as AllNGVariables[] },
-                path
+                path,
+                allValues: { variables: (originalPipeline?.variables || []) as AllNGVariables[] }
               }}
             />
           </>
         )}
         {isCloneCodebaseEnabledAtLeastAtOneStage &&
-          getMultiTypeFromValue((template?.properties?.ci?.codebase?.build as unknown) as string) ===
+          getMultiTypeFromValue(template?.properties?.ci?.codebase?.build as unknown as string) ===
             MultiTypeInputType.RUNTIME && (
             <>
               <div className={css.subheading}>{getString('ciCodebase')}</div>
@@ -150,7 +152,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                 </Layout.Vertical>
               )
             } else if (stageObj.parallel) {
-              return ((stageObj.parallel as unknown) as StageElementWrapperConfig[]).map((stageP, indexp) => {
+              return (stageObj.parallel as unknown as StageElementWrapperConfig[]).map((stageP, indexp) => {
                 const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
                 return (
                   <Layout.Vertical key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>

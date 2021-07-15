@@ -16,10 +16,10 @@ import {
 } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
-import VerificationStatusCard from '@cv/pages/dashboard/deployment-drilldown/VerificationStatusCard'
+import VerificationStatusCard from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/VerificationStatusCard/VerificationStatusCard'
+import { DeploymentProgressAndNodes } from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import { VerificationActivityRiskCardWithApi } from '../VerificationActivityRiskCard/VerificationActivityRiskCard'
 import type { EventData } from '../ActivitiesTimelineView/ActivitiesTimelineView'
-import { DeploymentProgressAndNodes } from '../DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import css from './EventDetailsForChange.module.scss'
 
 type SummaryCardInfo = {
@@ -186,9 +186,12 @@ function KubernetesEventsList(props: EventsListProps): JSX.Element {
 
 function KubernetesContent(props: KubernetesContentProps): JSX.Element {
   const { selectedActivityId, displayJSON, onViewJSONClick } = props
-  const { projectIdentifier, orgIdentifier, accountId, activityId: routeActivityId } = useParams<
-    ProjectPathProps & { activityId?: string }
-  >()
+  const {
+    projectIdentifier,
+    orgIdentifier,
+    accountId,
+    activityId: routeActivityId
+  } = useParams<ProjectPathProps & { activityId?: string }>()
   const { loading, data, error, refetch } = useGetEventDetails({
     queryParams: { projectIdentifier, orgIdentifier, accountId, activityId: selectedActivityId }
   })

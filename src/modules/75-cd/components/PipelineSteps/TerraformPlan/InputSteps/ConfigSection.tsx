@@ -1,7 +1,8 @@
 import React from 'react'
+import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 
-import { getMultiTypeFromValue, MultiTypeInputType, FormInput } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType, FormInput, Label, Color } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
 import {
@@ -19,10 +20,12 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import type { Connector, TerraformPlanProps } from '../../Common/Terraform/TerraformInterfaces'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export default function ConfigSection(props: TerraformPlanProps): React.ReactElement {
   const { getString } = useStrings()
   const { inputSetData, readonly, initialValues } = props
+  const config = inputSetData?.template?.spec?.configuration
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -33,7 +36,11 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
   const connectorRef = getIdentifierFromValue(connectorValue?.value || '')
   const initialScope = getScopeFromValue(connectorValue?.value || '')
 
-  const { data: connector, loading, refetch } = useGetConnector({
+  const {
+    data: connector,
+    loading,
+    refetch
+  } = useGetConnector({
     identifier: connectorRef,
     queryParams: {
       accountIdentifier: accountId,
@@ -47,8 +54,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
 
   React.useEffect(() => {
     if (
-      getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
-        MultiTypeInputType.RUNTIME &&
+      getMultiTypeFromValue(config?.configFiles?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &&
       getMultiTypeFromValue(connectorValue.value) !== MultiTypeInputType.RUNTIME
     ) {
       refetch()
@@ -59,8 +65,7 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
 
   if (
     connector?.data?.connector &&
-    getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
-      MultiTypeInputType.RUNTIME &&
+    getMultiTypeFromValue(config?.configFiles?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &&
     getMultiTypeFromValue(connectorValue.value) === MultiTypeInputType.FIXED
   ) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
@@ -74,63 +79,69 @@ export default function ConfigSection(props: TerraformPlanProps): React.ReactEle
   }
   return (
     <>
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.workspace) === MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name="spec.configuration.spec.workspace"
-          label={getString('pipelineSteps.workspace')}
-          disabled={readonly}
-        />
+      {(config?.configFiles?.store?.spec?.connectorRef ||
+        config?.workspace ||
+        config?.configFiles?.store?.spec?.branch ||
+        config?.configFiles?.store?.spec?.commitId ||
+        config?.configFiles?.store?.spec?.folderPath) && (
+        <Label style={{ color: Color.GREY_900, paddingBottom: 'var(--spacing-medium)' }}>
+          {getString('cd.configurationFile')}
+        </Label>
       )}
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.connectorRef) ===
-        MultiTypeInputType.RUNTIME && (
-        <ConnectorReferenceField
-          accountIdentifier={accountId}
-          selected={connectorSelected}
-          projectIdentifier={projectIdentifier}
-          orgIdentifier={orgIdentifier}
-          width={400}
-          name="spec.configuration.spec.configFiles.store.spec.connectorRef"
-          label={getString('connectors.title.gitConnector')}
-          placeholder={getString('select')}
-          disabled={readonly || loading}
-          gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
-        />
+      {getMultiTypeFromValue(config?.workspace) === MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.Text
+            name="spec.configuration.spec.workspace"
+            label={getString('pipelineSteps.workspace')}
+            disabled={readonly}
+          />
+        </div>
       )}
-
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.branch) ===
-        MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.branch"
-          placeholder={getString('pipeline.manifestType.branchPlaceholder')}
-          disabled={readonly}
-        />
-      )}
-
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
-        MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.commitId"
-          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-          disabled={readonly}
-        />
+      {getMultiTypeFromValue(config?.configFiles?.store?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <ConnectorReferenceField
+            accountIdentifier={accountId}
+            selected={connectorSelected}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            width={445}
+            name="spec.configuration.spec.configFiles.store.spec.connectorRef"
+            label={getString('connectors.title.gitConnector')}
+            placeholder={getString('select')}
+            disabled={readonly || loading}
+            gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
+          />
+        </div>
       )}
 
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.commitId) ===
-        MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.commitId"
-          placeholder={getString('pipeline.manifestType.commitPlaceholder')}
-          disabled={readonly}
-        />
+      {getMultiTypeFromValue(config?.configFiles?.store?.spec?.branch) === MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.Text
+            name="spec.configuration.spec.configFiles.store.spec.branch"
+            placeholder={getString('pipeline.manifestType.branchPlaceholder')}
+            disabled={readonly}
+          />
+        </div>
       )}
 
-      {getMultiTypeFromValue(inputSetData?.template?.spec?.configuration?.configFiles?.store?.spec?.folderPath) ===
-        MultiTypeInputType.RUNTIME && (
-        <FormInput.Text
-          name="spec.configuration.spec.configFiles.store.spec.folderPath"
-          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-          disabled={readonly}
-        />
+      {getMultiTypeFromValue(config?.configFiles?.store?.spec?.commitId) === MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.Text
+            name="spec.configuration.spec.configFiles.store.spec.commitId"
+            placeholder={getString('pipeline.manifestType.commitPlaceholder')}
+            disabled={readonly}
+          />
+        </div>
+      )}
+
+      {getMultiTypeFromValue(config?.configFiles?.store?.spec?.folderPath) === MultiTypeInputType.RUNTIME && (
+        <div className={cx(stepCss.formGroup, stepCss.md)}>
+          <FormInput.Text
+            name="spec.configuration.spec.configFiles.store.spec.folderPath"
+            placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+            disabled={readonly}
+          />
+        </div>
       )}
     </>
   )

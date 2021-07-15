@@ -1,7 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useContext } from 'react'
 import { noop } from 'lodash-es'
+import type { DateRange } from '@blueprintjs/datetime'
 import type { Module } from '@common/interfaces/RouteInterfaces'
-import { TIME_RANGE_ENUMS } from '@dashboards/components/TimeRangeSelector/TimeRangeSelector'
 
 export enum Views {
   LIST,
@@ -28,23 +28,38 @@ export const ServiceStoreContext = createContext({
 export const useServiceStore = (): ServiceStore => useContext(ServiceStoreContext)
 
 export const DeploymentsTimeRangeContext = createContext<{
-  timeRange: TIME_RANGE_ENUMS
-  setTimeRange: (timeRange: TIME_RANGE_ENUMS) => void
+  timeRange: { range: DateRange; label: string } | null
+  setTimeRange: (timeRange: { range: DateRange; label: string }) => void
 }>({
-  timeRange: TIME_RANGE_ENUMS.SIX_MONTHS,
+  timeRange: null,
   setTimeRange: noop
 })
 
-export const numberFormatter = (value: number): string => {
-  const options = [
+export interface NumberFormatterOptions {
+  truncate?: boolean
+}
+
+export const numberFormatter: (value?: number, options?: NumberFormatterOptions) => string = (
+  value?: number,
+  options = { truncate: true }
+) => {
+  if (value === undefined) {
+    return ''
+  }
+  const truncateOptions = [
     { value: 1000000, suffix: 'm' },
     { value: 1000, suffix: 'k' }
   ]
-  for (const option of options) {
-    if (value >= option.value) {
-      const truncatedValue = (value / option.value).toFixed(1)
-      return `${truncatedValue}${option.suffix}`
+  if (options.truncate) {
+    for (const truncateOption of truncateOptions) {
+      if (value >= truncateOption.value) {
+        const truncatedValue = value / truncateOption.value
+        if (truncatedValue % 1 !== 0) {
+          return `${truncatedValue.toFixed(1)}${truncateOption.suffix}`
+        }
+        return `${truncatedValue}${truncateOption.suffix}`
+      }
     }
   }
-  return `${value}`
+  return `${value % 1 === 0 ? value : value.toFixed(1)}`
 }

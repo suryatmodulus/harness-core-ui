@@ -1,0 +1,13 @@
+.main {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  overflow: hidden;
+  column-gap: var(--spacing-4);
+
+  .icon {
+    margin-right: var(--spacing-2) !important;
+    display: flex;
+    align-items: center;
+  }
+}

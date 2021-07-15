@@ -115,6 +115,7 @@ export function ShellScriptMonaco(props: ConnectedShellScriptMonacoProps): React
       {isFullScreen ? <div className={css.monacoWrapper} /> : editor}
       <Dialog
         lazy
+        enforceFocus={false}
         isOpen={isFullScreen}
         isCloseButtonShown
         canOutsideClickClose={false}

@@ -21,6 +21,7 @@ export interface UseCreateConnectorMultiTypeModalReturn {
 
 const modalProps: IDialogProps = {
   isOpen: true,
+  enforceFocus: false,
   style: {
     width: 1175,
     minHeight: 640,

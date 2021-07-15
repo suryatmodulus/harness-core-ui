@@ -19,6 +19,11 @@ export interface TableProps<Data extends Record<string, any>> {
   hideHeaders?: boolean
   pagination?: PaginationProps
   onRowClick?: (data: Data, index: number) => void
+  /**
+   * Removes the "card" UI from rows
+   * @default false
+   */
+  minimal?: boolean
 }
 
 const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React.ReactElement => {
@@ -44,13 +49,16 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
               // react key is not needed since it's generated/added by `react-table`
               // via the getHeaderGroupProps() function
               // eslint-disable-next-line react/jsx-key
-              <div {...headerGroup.getHeaderGroupProps()} className={cx(css.header)}>
+              <div
+                {...headerGroup.getHeaderGroupProps()}
+                className={cx(css.header, { [css.minimal]: !!props.minimal })}
+              >
                 {headerGroup.headers.map(header => {
                   return (
                     // eslint-disable-next-line react/jsx-key
                     <div
                       {...header.getHeaderProps(sortable ? header.getSortByToggleProps() : void 0)}
-                      className={css.cell}
+                      className={cx(css.cell, { [css.sortable]: sortable })}
                       style={{ width: header.width }}
                     >
                       {header.render('Header')}
@@ -80,7 +88,11 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
             // eslint-disable-next-line react/jsx-key
             <div
               {...row.getRowProps()}
-              className={cx(css.row, css.card, { [css.clickable]: !!props.onRowClick })}
+              className={cx(css.row, {
+                [css.card]: !props.minimal,
+                [css.clickable]: !!props.onRowClick,
+                [css.minimal]: !!props.minimal
+              })}
               onClick={() => {
                 props.onRowClick?.(row.original, row.index)
               }}

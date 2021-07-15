@@ -48,7 +48,7 @@ export interface AccessPoint {
   project_id?: string
   region?: string
   security_groups?: string[]
-  status?: string
+  status?: 'created' | 'submitted' | 'errored'
   subnets?: string[]
   type?: string
   vpc?: string
@@ -70,6 +70,7 @@ export interface AccessPointCoresResponse {
 export interface AccessPointMeta {
   albArn?: string
   app_gateway_id?: string
+  certificate?: CertificateData
   certificate_id?: string
   dns?: {
     others?: string
@@ -79,10 +80,12 @@ export interface AccessPointMeta {
   }
   error?: string
   fe_ip_id?: string
+  fe_ip_name?: string
   resource_group?: string
   security_groups?: string[]
   size?: string
   subnet_id?: string
+  subnet_name?: string
 }
 
 export interface Account {
@@ -175,6 +178,12 @@ export interface CFTResponse {
 export interface Certificate {
   id?: string
   name?: string
+}
+
+export interface CertificateData {
+  content?: string
+  name?: string
+  password?: string
 }
 
 export interface CreateAccessPointResponse {
@@ -338,6 +347,9 @@ export interface ResourcesResponse {
 
 export interface RoutingData {
   instance?: InstanceBasedRoutingData
+  k8s?: {
+    RuleJson?: string
+  }
   lb?: string
   ports?: PortConfig[]
 }
@@ -383,6 +395,7 @@ export interface Service {
   org_id: string
   project_id?: string
   routing?: RoutingData
+  status?: string
 }
 
 export interface ServiceDefinitionByIDResponse {
@@ -438,6 +451,7 @@ export interface ServiceMetadata {
     type?: string
   }
   custom_domain_providers?: { [key: string]: any }
+  kubernetes_connector_id?: string
   service_errors?: ServiceError[]
   target_group_details?: { [key: string]: any }
 }

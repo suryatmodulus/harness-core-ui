@@ -69,6 +69,16 @@
 }
 .nested-accordions {
   box-shadow: none !important;
+
+  // PIP-25
+  :global {
+    .customVariables {
+      padding-left: 0;
+      padding-right: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
 }
 
 .accordionSummary {

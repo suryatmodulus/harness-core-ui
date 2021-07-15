@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { CellProps, Column, Renderer } from 'react-table'
-import { Color, Layout, Text, Button } from '@wings-software/uicore'
+import { Color, Layout, Text, Button, Container } from '@wings-software/uicore'
 import { Classes, Menu, Popover, Position } from '@blueprintjs/core'
+import { PageError } from '@common/components/Page/PageError'
 import { Table, useToaster } from '@common/components'
 import { useMutateAsGet } from '@common/hooks'
 import type { PipelineType, ProjectPathProps, UserPathProps } from '@common/interfaces/RouteInterfaces'
@@ -93,11 +94,15 @@ const ResourceGroupColumnMenu: Renderer<CellProps<UserGroupDTO>> = ({ row, colum
 }
 
 const UserGroupTable: React.FC = () => {
-  const { accountId, orgIdentifier, projectIdentifier, userIdentifier } = useParams<
-    PipelineType<ProjectPathProps & UserPathProps>
-  >()
+  const { accountId, orgIdentifier, projectIdentifier, userIdentifier } =
+    useParams<PipelineType<ProjectPathProps & UserPathProps>>()
   const { getString } = useStrings()
-  const { data: userGroupData, refetch } = useMutateAsGet(useGetBatchUserGroupList, {
+  const {
+    data: userGroupData,
+    loading,
+    error,
+    refetch
+  } = useMutateAsGet(useGetBatchUserGroupList, {
     body: {
       accountIdentifier: accountId,
       orgIdentifier,
@@ -130,18 +135,24 @@ const UserGroupTable: React.FC = () => {
   )
 
   return (
-    <>
+    <Container margin={{ bottom: 'medium' }}>
       <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ bottom: 'medium' }}>
         {getString('common.userGroups')}
       </Text>
-      {userGroupData?.data?.length ? (
+      {loading ? (
+        <Text color={Color.GREY_600}>{getString('common.loading')}</Text>
+      ) : userGroupData?.data?.length ? (
         <Table<UserGroupDTO> hideHeaders={true} data={userGroupData.data} columns={columns} />
-      ) : null}
+      ) : userGroupData?.data ? (
+        <Text color={Color.GREY_600}>{getString('rbac.userGroupPage.noUserGroups')}</Text>
+      ) : (
+        <PageError message={(error?.data as Error)?.message || error?.message} onClick={() => refetch()} />
+      )}
       {/* ENABLE WHEN READY */}
       {/* <Layout.Horizontal>
         <Button minimal text={getString('rbac.userDetails.userGroup.addToGroup')} intent="primary" />
       </Layout.Horizontal> */}
-    </>
+    </Container>
   )
 }
 

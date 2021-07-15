@@ -50,7 +50,6 @@ const EntityUsage: React.FC<EntityUsageProps> = props => {
           <Container>
             <Layout.Horizontal spacing="small">
               <ExpandingSearchInput
-                placeholder={getString('projectSelector.placeholder')}
                 onChange={text => {
                   setPage(0)
                   setSearchTerm(text.trim())

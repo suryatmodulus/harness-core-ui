@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.33% </span>
+                <span class="strong">41.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/24</span>
+                <span class='fraction'>10/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">36.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/44</span>
+                <span class='fraction'>16/44</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">8.7% </span>
+                <span class="strong">43.48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/23</span>
+                <span class='fraction'>10/23</span>
             </div>
         
             
@@ -103,17 +103,17 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">94x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -123,10 +123,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">94x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -147,17 +147,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { PipelineInfoConfig, StageElementWrapper } from 'services/cd-ng'
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >getStageFromPipeline(</span>
+export function getStageFromPipeline(
   stageId: string,
   localPipeline: PipelineInfoConfig
 ): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } {
-  let stage: StageElementWrapper | undefined = <span class="cstat-no" title="statement not covered" >undefined</span>
-  let parent: StageElementWrapper | undefined = <span class="cstat-no" title="statement not covered" >undefined</span>
-<span class="cstat-no" title="statement not covered" >  if (localPipeline?.stages) {</span>
-<span class="cstat-no" title="statement not covered" >    localPipeline.stages?.some?.(<span class="fstat-no" title="function not covered" >item </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (item?.stage &amp;&amp; item.stage.identifier === stageId) {</span>
-<span class="cstat-no" title="statement not covered" >        stage = item</span>
-<span class="cstat-no" title="statement not covered" >        return true</span>
+  let stage: StageElementWrapper | undefined = undefined
+  let parent: StageElementWrapper | undefined = undefined
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (localPipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages) {
+    localPipeline.stages<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome<span class="branch-0 cbranch-no" title="branch not covered" >?.(i</span>tem =&gt; {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (item<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage &amp;&amp; item.stage.identifier === stageId) {
+        stage = item
+        return true
       } else <span class="cstat-no" title="statement not covered" >if (item?.parallel) {</span>
 <span class="cstat-no" title="statement not covered" >        stage = getStageFromPipeline(stageId, { stages: item.parallel } as unknown as PipelineInfoConfig).stage</span>
 <span class="cstat-no" title="statement not covered" >        if (stage) {</span>
@@ -167,7 +167,7 @@ export function <span class="fstat-no" title="function not covered" >getStageFro
       }
     })
   }
-<span class="cstat-no" title="statement not covered" >  return { stage, parent }</span>
+  return { stage, parent }
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >getStagePathFromPipeline(</span>stageId: string, prefix: string, pipeline: PipelineInfoConfig): string {
@@ -196,7 +196,7 @@ export function <span class="fstat-no" title="function not covered" >getStagePat
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 14 2021 20:54:43 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 06:08:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

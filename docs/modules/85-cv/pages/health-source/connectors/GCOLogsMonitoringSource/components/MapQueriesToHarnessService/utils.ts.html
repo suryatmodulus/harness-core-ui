@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.89% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">89.29% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>40/56</span>
+                <span class='fraction'>50/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.89% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/19</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -154,23 +154,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
@@ -227,29 +227,29 @@ type UpdateSelectedQueriesMap = {
   formikProps: FormikProps&lt;MapGCOLogsQueryToService | undefined&gt;
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >updateSelectedMetricsMap(</span>{
+export function updateSelectedMetricsMap({
   updatedMetric,
   oldMetric,
   mappedMetrics,
   formikProps
 }: UpdateSelectedQueriesMap): any {
-  const updatedMap = <span class="cstat-no" title="statement not covered" >new Map(mappedMetrics)</span>
+  const updatedMap = new Map(mappedMetrics)
 &nbsp;
   // in the case where user updates query name, update the key for current value
-<span class="cstat-no" title="statement not covered" >  if (oldMetric !== formikProps.values?.metricName) {</span>
-<span class="cstat-no" title="statement not covered" >    updatedMap.delete(oldMetric)</span>
+  if (oldMetric !== formikProps.values<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricName) {
+    updatedMap.delete(oldMetric)
   }
 &nbsp;
   // if newly created query create form object
-<span class="cstat-no" title="statement not covered" >  if (!updatedMap.has(updatedMetric)) {</span>
-<span class="cstat-no" title="statement not covered" >    updatedMap.set(updatedMetric, { ...initialFormData, metricName: updatedMetric })</span>
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (!updatedMap.has(updatedMetric)) {
+    updatedMap.set(updatedMetric, { ...initialFormData, metricName: updatedMetric })
   }
 &nbsp;
   // update map with current form data
-<span class="cstat-no" title="statement not covered" >  if (formikProps.values?.metricName) {</span>
-<span class="cstat-no" title="statement not covered" >    updatedMap.set(formikProps.values.metricName, formikProps.values as MapGCOLogsQueryToService)</span>
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (formikProps.values<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricName) {
+    updatedMap.set(formikProps.values.metricName, formikProps.values as MapGCOLogsQueryToService)
   }
-<span class="cstat-no" title="statement not covered" >  return { selectedMetric: updatedMetric, mappedMetrics: updatedMap }</span>
+  return { selectedMetric: updatedMetric, mappedMetrics: updatedMap }
 }
 &nbsp;
 export function validateMappings(
@@ -301,7 +301,7 @@ export function validateMappings(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 14 2021 20:54:43 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 06:08:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

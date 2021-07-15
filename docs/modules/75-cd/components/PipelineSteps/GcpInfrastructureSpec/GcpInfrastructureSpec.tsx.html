@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.14% </span>
+                <span class="strong">75.27% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>272/362</span>
+                <span class='fraction'>274/364</span>
             </div>
         
             
@@ -848,9 +848,20 @@
 <a name='L789'></a><a href='#L789'>789</a>
 <a name='L790'></a><a href='#L790'>790</a>
 <a name='L791'></a><a href='#L791'>791</a>
-<a name='L792'></a><a href='#L792'>792</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L792'></a><a href='#L792'>792</a>
+<a name='L793'></a><a href='#L793'>793</a>
+<a name='L794'></a><a href='#L794'>794</a>
+<a name='L795'></a><a href='#L795'>795</a>
+<a name='L796'></a><a href='#L796'>796</a>
+<a name='L797'></a><a href='#L797'>797</a>
+<a name='L798'></a><a href='#L798'>798</a>
+<a name='L799'></a><a href='#L799'>799</a>
+<a name='L800'></a><a href='#L800'>800</a>
+<a name='L801'></a><a href='#L801'>801</a>
+<a name='L802'></a><a href='#L802'>802</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1217,7 +1228,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1651,7 +1671,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Icon,
-  SelectOption
+  SelectOption,
+  Accordion
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -1987,33 +2008,42 @@ const GcpInfrastructureSpecEditable: React.FC&lt;GcpInfrastructureSpecEditablePr
                   /&gt;
                 )}
               &lt;/Layout.Horizontal&gt;
-              &lt;Layout.Horizontal className={css.formRow} spacing="medium"&gt;
-                &lt;FormInput.MultiTextInput
-                  name="releaseName"
-                  tooltipProps={{
-                    dataTooltipId: 'gcpInfraReleasename'
-                  }}
-                  className={css.inputWidth}
-                  label={getString('common.releaseName')}
-                  placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
-                  multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
-                  disabled={readonly}
+              &lt;Accordion activeId={!isEmpty(formik.errors.releaseName) ? 'advanced' : ''}&gt;
+                &lt;Accordion.Panel
+                  id="advanced"
+                  addDomId={true}
+                  summary={getString('common.advanced')}
+                  details={
+                    &lt;Layout.Horizontal className={css.formRow} spacing="medium"&gt;
+                      &lt;FormInput.MultiTextInput
+                        name="releaseName"
+                        tooltipProps={{
+                          dataTooltipId: 'gcpInfraReleasename'
+                        }}
+                        className={css.inputWidth}
+                        label={getString('common.releaseName')}
+                        placeholder={getString('cd.steps.common.releaseNamePlaceholder')}
+                        multiTextInputProps={{ expressions, textProps: { disabled: readonly } }}
+                        disabled={readonly}
+                      /&gt;
+                      {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME &amp;&amp; !readonly &amp;&amp; (
+                        &lt;ConfigureOptions
+                          value={formik.values.releaseName as string}
+                          type="String"
+                          variableName="releaseName"
+                          showRequiredField={false}
+                          showDefaultField={false}
+                          showAdvanced={true}
+                          onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                            formik.setFieldValue('releaseName', value)</span>
+                          }}
+                          isReadonly={readonly}
+                        /&gt;
+                      )}
+                    &lt;/Layout.Horizontal&gt;
+                  }
                 /&gt;
-                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME &amp;&amp; !readonly &amp;&amp; (
-                  &lt;ConfigureOptions
-                    value={formik.values.releaseName as string}
-                    type="String"
-                    variableName="releaseName"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                      formik.setFieldValue('releaseName', value)</span>
-                    }}
-                    isReadonly={readonly}
-                  /&gt;
-                )}
-              &lt;/Layout.Horizontal&gt;
+              &lt;/Accordion&gt;
               &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
                 &lt;FormInput.CheckBox
                   className={css.simultaneousDeployment}
@@ -2437,7 +2467,7 @@ export class GcpInfrastructureSpec extends PipelineStep&lt;GcpInfrastructureSpec
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 15 2021 06:08:13 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 15 2021 07:09:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

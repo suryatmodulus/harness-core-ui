@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/14</span>
+                <span class='fraction'>15/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.58% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>59/124</span>
+                <span class='fraction'>102/136</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/13</span>
+                <span class='fraction'>13/14</span>
             </div>
         
             
@@ -81,7 +81,9 @@
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -98,14 +100,15 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
+import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { NgPipeline } from 'services/cd-ng'
 import type { serviceAndEnvData } from '../types'
 &nbsp;
@@ -113,19 +116,19 @@ export const getInfraAndServiceData = (
   pipeline: { pipeline: NgPipeline } | undefined,
   formik: any
 ): serviceAndEnvData =&gt; {
-  const currentStageFromPipeline = pipeline?.pipeline?.stages?.find(
-    (el: any) =&gt; el<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
+  const stageFromPipelineHavingVerify = pipeline?.pipeline?.stages?.find(
+    (el: any) =&gt; !!el<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>xecution<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>teps<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind((step: any) =&gt; step<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tep<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype === StepType.Verify)
   )
   const currentStageFromForm = formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages<span class="branch-1 cbranch-no" title="branch not covered" >?.find(</span>
-<span class="fstat-no" title="function not covered" >    (e</span>l: any) =&gt; <span class="cstat-no" title="statement not covered" >el?.stage?.identifier === formik?.values?.identifier</span>
+<span class="fstat-no" title="function not covered" >    (e</span>l: any) =&gt; <span class="cstat-no" title="statement not covered" >el?.stage?.identifier === stageFromPipelineHavingVerify?.stage?.identifier</span>
   )
-  let serviceIdentifierData = <span class="branch-1 cbranch-no" title="branch not covered" >currentStageFromPipeline?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceRef</span>
-  let envIdentifierData = <span class="branch-1 cbranch-no" title="branch not covered" >currentStageFromPipeline?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.infrastructure<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.environmentRef</span>
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (serviceIdentifierData === RUNTIME_INPUT_VALUE) {
-<span class="cstat-no" title="statement not covered" >    serviceIdentifierData = currentStageFromForm?.stage?.spec?.serviceConfig?.serviceRef</span>
+  let serviceIdentifierData = stageFromPipelineHavingVerify?.stage?.spec?.serviceConfig?.serviceRef
+  let envIdentifierData = stageFromPipelineHavingVerify?.stage?.spec?.infrastructure?.environmentRef
+  if (serviceIdentifierData === RUNTIME_INPUT_VALUE) {
+    serviceIdentifierData = <span class="branch-1 cbranch-no" title="branch not covered" >currentStageFromForm?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceRef</span>
   }
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (envIdentifierData === RUNTIME_INPUT_VALUE) {
-<span class="cstat-no" title="statement not covered" >    envIdentifierData = currentStageFromForm?.stage?.spec?.infrastructure?.environmentRef</span>
+  if (envIdentifierData === RUNTIME_INPUT_VALUE) {
+    envIdentifierData = <span class="branch-1 cbranch-no" title="branch not covered" >currentStageFromForm?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.infrastructure<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.environmentRef</span>
   }
   return { serviceIdentifierData, envIdentifierData }
 }
@@ -136,7 +139,7 @@ export const getInfraAndServiceData = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 16 2021 03:55:12 GMT+0000 (Greenwich Mean Time)
+                at Sun Jul 18 2021 13:04:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../prettify.js"></script>

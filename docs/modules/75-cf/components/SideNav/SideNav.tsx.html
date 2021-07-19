@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">84.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>24/28</span>
+                <span class='fraction'>22/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.18% </span>
+                <span class="strong">15% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/22</span>
+                <span class='fraction'>3/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">84.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/28</span>
+                <span class='fraction'>22/26</span>
             </div>
         
             
@@ -138,11 +138,7 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a>
-<a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -156,10 +152,8 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -186,8 +180,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,7 +232,6 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './SideNav.module.scss'
 &nbsp;
 export default function CFSideNav(): React.ReactElement {
@@ -250,7 +241,6 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
-  const { NG_RBAC_ENABLED } = useFeatureFlags()
   const { trial } = useQueryParams&lt;{ trial?: boolean }&gt;()
 &nbsp;
   return (
@@ -297,16 +287,14 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFOnboarding(params))}
           /&gt;
 &nbsp;
-          {NG_RBAC_ENABLED &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >            &lt;NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}&gt;</span>
-              &lt;Layout.Vertical spacing="small"&gt;
-                &lt;SidebarLink
-                  to={routes.toAccessControl({ ...params, module: 'cf' })}
-                  label={getString('accessControl')}
-                /&gt;
-              &lt;/Layout.Vertical&gt;
-            &lt;/NavExpandable&gt;
-          )}
+          &lt;NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}&gt;
+            &lt;Layout.Vertical spacing="small"&gt;
+              &lt;SidebarLink
+                to={routes.toAccessControl({ ...params, module: 'cf' })}
+                label={getString('accessControl')}
+              /&gt;
+            &lt;/Layout.Vertical&gt;
+          &lt;/NavExpandable&gt;
         &lt;/React.Fragment&gt;
       ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
     &lt;/Layout.Vertical&gt;
@@ -319,7 +307,7 @@ export default function CFSideNav(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 19 2021 04:05:08 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 19 2021 05:16:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

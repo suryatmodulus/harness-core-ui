@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
+                <span class="strong">94.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/21</span>
+                <span class='fraction'>18/19</span>
             </div>
         
             
@@ -137,17 +137,13 @@
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a>
-<a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L81'></a><a href='#L81'>81</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -161,7 +157,6 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -193,14 +188,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,7 +224,6 @@ import { useHistory, useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './OrgNavCardRenderer.module.scss'
 &nbsp;
 interface OrgNavCardProps {
@@ -242,7 +235,6 @@ interface OrgNavCardProps {
 &nbsp;
 const OrgNavCardRenderer: React.FC = () =&gt; {
   const { orgIdentifier, accountId } = useParams&lt;OrgPathProps&gt;()
-  const { NG_RBAC_ENABLED } = useFeatureFlags()
   const history = useHistory()
   const { getString } = useStrings()
 &nbsp;
@@ -269,21 +261,20 @@ const OrgNavCardRenderer: React.FC = () =&gt; {
       // }
     ]
 &nbsp;
-    NG_RBAC_ENABLED &amp;&amp;
-<span class="branch-1 cbranch-no" title="branch not covered" >      options.push({</span>
-        icon: 'resources-icon',
-        title: getString('accessControl'),
-        description: getString('orgDetails.accessControlDescription'),
-        route: routes.toAccessControl({ orgIdentifier, accountId })
-      })
+    options.push({
+      icon: 'resources-icon',
+      title: getString('accessControl'),
+      description: getString('orgDetails.accessControlDescription'),
+      route: routes.toAccessControl({ orgIdentifier, accountId })
+    })
 &nbsp;
     return options
   }
 &nbsp;
   return (
     &lt;Layout.Horizontal spacing="medium" padding="huge"&gt;
-      {getOptions().map(<span class="fstat-no" title="function not covered" >option </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >        &lt;Card</span>
+      {getOptions().map(option =&gt; (
+        &lt;Card
           key={option.title}
           className={css.card}
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
@@ -313,7 +304,7 @@ export default OrgNavCardRenderer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 19 2021 04:05:08 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 19 2021 05:16:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -1,0 +1,15 @@
+.link {
+  display: flex;
+  align-items: center;
+  padding-left: var(--spacing-small);
+  color: var(--primary-7) !important;
+  width: fit-content;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}

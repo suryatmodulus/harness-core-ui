@@ -1080,6 +1080,10 @@ const routes = {
       `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
   toCEOverview: withAccountId(() => '/ce/overview'),
+  toCEPerspectiveDashboard: withAccountId(
+    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/perspective`
+  ),
   /********************************************************************************************************************/
   toCustomDashboard: withAccountId(() => '/dashboards'),
   toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`)

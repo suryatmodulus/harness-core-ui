@@ -15,8 +15,10 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
+import useCreateConnector from '@ce/components/CreateConnector/CreateConnector'
 import CETrialHomePage from './CETrialHomePage'
 import bgImageURL from './ce-homepage-bg.svg'
+import bgImage from './images/cehomebg.svg'
 
 const CEHomePage: React.FC = () => {
   const { getString } = useStrings()
@@ -28,6 +30,8 @@ const CEHomePage: React.FC = () => {
 
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
+
+  const { openModal } = useCreateConnector()
 
   const {
     data: projectListData,
@@ -147,11 +151,18 @@ const CEHomePage: React.FC = () => {
 
   return (
     <HomePageTemplate
-      title={getString('ce.continuous')}
-      bgImageUrl={bgImageURL}
+      title={getString('ce.ccm')}
+      bgImageUrl={bgImage}
       subTitle={getString('ce.homepage.slogan')}
       documentText={getString('ce.learnMore')}
       trialBannerProps={trialBannerProps}
+      ctaProps={{
+        text: getString('ce.trialCta'),
+        onClick: () => {
+          openModal()
+        }
+      }}
+      disableAdditionalCta={true}
     />
   )
 }

@@ -2234,6 +2234,7 @@ export interface StringsMap {
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.workloadRequired': string
+  'ce.ccm': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
@@ -2612,6 +2613,8 @@ export interface StringsMap {
   'ce.recommendation.recommendationChart.noOfSamples': string
   'ce.recommendation.sideNavText': string
   'ce.savedYamlSuccess': string
+  'ce.sideNav.perspective': string
+  'ce.trialCta': string
   'ce.uploadCertiHeader': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string

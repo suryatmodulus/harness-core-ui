@@ -1,7 +1,9 @@
 gridColumnSelector: 'Columns'
 continuous: '{{$.common.purpose.ce.continuous}}'
+ccm: 'Cloud Cost Management'
+trialCta: 'Start 14 day CCM trial'
 homepage:
-  slogan: 'Take your Cloud Cost management to the next level using our Harness Continuous Efficiency.'
+  slogan: 'Your Harness journey begins with the creation of a Project. A Project lets you map users, resources into an end to end deployment pipeline workflow. Get started by creating your first Project below.'
 co:
   cloudProviders:
     aws: aws
@@ -481,6 +483,10 @@ perspectives:
       percent: % of Budget
       createAlert: '+ add new alert'
       emailPlaceholder: Enter emails
+      amount: Budgeted amount
+      alerts: Alert at
+      actualCost: Cost till date
+      lastMonthCost: Last month's spend
 overview:
   title: '{{ $.overview }}'
   seeAll: See all
@@ -500,3 +506,5 @@ overview:
     efficiencyScore: Cost Efficiency score
     topClusters: Top spending clusters
     topRecommendation: Top 20 Recommendations
+sideNav:
+  perspective: 'Perspective'

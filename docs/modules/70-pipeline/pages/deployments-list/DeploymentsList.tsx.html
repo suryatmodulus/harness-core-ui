@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>0/22</span>
             </div>
         
             
@@ -121,7 +121,12 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -135,20 +140,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -157,9 +155,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,6 +208,7 @@
 <span class="cstat-no" title="statement not covered" >import routes from '@common/RouteDefinitions'</span>
 <span class="cstat-no" title="statement not covered" >import PipelineModalListView from '@pipeline/components/PipelineModalListView/PipelineModalListView'</span>
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+<span class="cstat-no" title="statement not covered" >import { Page } from '@common/exports'</span>
 <span class="cstat-no" title="statement not covered" >import css from './DeploymentsList.module.scss'</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export default function <span class="fstat-no" title="function not covered" >D</span>eploymentsList(</span>): React.ReactElement {
@@ -225,24 +236,28 @@ import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInt
   const textIdentifier = <span class="cstat-no" title="statement not covered" >module === 'ci' ? 'buildsText' : 'deploymentsText'</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div className={css.main}&gt;
-      &lt;div className={css.header}&gt;
-        &lt;Breadcrumbs
-          links={[
-            {
-              label: project?.name || '',
-              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
-            },
-            {
-              label: getString(module === 'ci' ? 'buildsText' : 'deploymentsText'),
-              url: ''
-            }
-          ]}
-        /&gt;
-        &lt;div className="ng-tooltip-native"&gt;
-          &lt;h2 data-tooltip-id={textIdentifier}&gt;{getString(textIdentifier)}&lt;/h2&gt;
-          &lt;HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} /&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
+      &lt;Page.Header
+        title={
+          &lt;div className="ng-tooltip-native"&gt;
+            &lt;h2 data-tooltip-id={textIdentifier}&gt;{getString(textIdentifier)}&lt;/h2&gt;
+            &lt;HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} /&gt;
+          &lt;/div&gt;
+        }
+        breadcrumbs={
+          &lt;Breadcrumbs
+            links={[
+              {
+                label: project?.name || '',
+                url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
+              },
+              {
+                label: getString(module === 'ci' ? 'buildsText' : 'deploymentsText'),
+                url: ''
+              }
+            ]}
+          /&gt;
+        }
+      &gt;&lt;/Page.Header&gt;
       &lt;div className={css.content}&gt;
         &lt;PipelineDeploymentList onRunPipeline={openModal} /&gt;
       &lt;/div&gt;
@@ -256,7 +271,7 @@ import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 19 2021 08:51:41 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 19 2021 09:36:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

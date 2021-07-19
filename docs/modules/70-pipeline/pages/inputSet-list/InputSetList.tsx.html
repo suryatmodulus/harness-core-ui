@@ -295,9 +295,7 @@
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
 <a name='L238'></a><a href='#L238'>238</a>
-<a name='L239'></a><a href='#L239'>239</a>
-<a name='L240'></a><a href='#L240'>240</a>
-<a name='L241'></a><a href='#L241'>241</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L239'></a><a href='#L239'>239</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -447,7 +445,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -456,7 +453,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -678,66 +674,64 @@ const InputSetList: React.FC = (): JSX.Element =&gt; {
 &nbsp;
   return (
     &lt;&gt;
-      &lt;Page.Header
-        title={
-          &lt;Layout.Horizontal&gt;
-            &lt;Popover
-              minimal
-              content={
-                &lt;Menu className={css.menuList}&gt;
-                  &lt;MenuItem
-                    text={getString('inputSets.inputSetLabel')}
-                    onClick={() =&gt; {
-                      goToInputSetForm()
-                    }}
-                  /&gt;
-                  &lt;MenuItem
-                    text={getString('inputSets.overlayInputSet')}
-                    onClick={() =&gt; {
-                      setSelectedInputSet({ identifier: '', repoIdentifier, branch })
-                      showOverlayInputSetForm()
-                    }}
-                  /&gt;
-                &lt;/Menu&gt;
-              }
-              position={Position.BOTTOM}
-              disabled={!canUpdateInputSet || !pipelineHasRuntimeInputs}
-            &gt;
-              &lt;RbacButton
-                text={getString('inputSets.newInputSet')}
-                rightIcon="caret-down"
-                intent="primary"
-                permission={{
-                  resource: {
-                    resourceType: ResourceType.PIPELINE,
-                    resourceIdentifier: pipelineIdentifier
-                  },
-                  permission: PermissionIdentifier.EDIT_PIPELINE
-                }}
-                disabled={!pipelineHasRuntimeInputs}
-                tooltip={
-                  !pipelineHasRuntimeInputs ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                    &lt;Text padding="medium"&gt;{getString('pipeline.inputSets.noRuntimeInputsCurrently')}&lt;/Text&gt;</span>
-                  ) : undefined
-                }
-              /&gt;
-            &lt;/Popover&gt;
-          &lt;/Layout.Horizontal&gt;
-        }
-        toolbar={
-          &lt;Layout.Horizontal spacing="small"&gt;
-            &lt;TextInput
-              leftIcon="search"
-              placeholder={getString('inputSets.searchInputSet')}
-              className={css.search}
-              value={searchParam}
-              onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
-                setSearchParam(e.target.value.trim())
+      &lt;Page.SubHeader&gt;
+        &lt;Layout.Horizontal&gt;
+          &lt;Popover
+            minimal
+            content={
+              &lt;Menu className={css.menuList}&gt;
+                &lt;MenuItem
+                  text={getString('inputSets.inputSetLabel')}
+                  onClick={() =&gt; {
+                    goToInputSetForm()
+                  }}
+                /&gt;
+                &lt;MenuItem
+                  text={getString('inputSets.overlayInputSet')}
+                  onClick={() =&gt; {
+                    setSelectedInputSet({ identifier: '', repoIdentifier, branch })
+                    showOverlayInputSetForm()
+                  }}
+                /&gt;
+              &lt;/Menu&gt;
+            }
+            position={Position.BOTTOM}
+            disabled={!canUpdateInputSet || !pipelineHasRuntimeInputs}
+          &gt;
+            &lt;RbacButton
+              text={getString('inputSets.newInputSet')}
+              rightIcon="caret-down"
+              intent="primary"
+              permission={{
+                resource: {
+                  resourceType: ResourceType.PIPELINE,
+                  resourceIdentifier: pipelineIdentifier
+                },
+                permission: PermissionIdentifier.EDIT_PIPELINE
               }}
+              disabled={!pipelineHasRuntimeInputs}
+              tooltip={
+                !pipelineHasRuntimeInputs ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                  &lt;Text padding="medium"&gt;{getString('pipeline.inputSets.noRuntimeInputsCurrently')}&lt;/Text&gt;</span>
+                ) : undefined
+              }
             /&gt;
-          &lt;/Layout.Horizontal&gt;
-        }
-      /&gt;
+          &lt;/Popover&gt;
+        &lt;/Layout.Horizontal&gt;
+&nbsp;
+        &lt;Layout.Horizontal spacing="small"&gt;
+          &lt;TextInput
+            leftIcon="search"
+            placeholder={getString('inputSets.searchInputSet')}
+            className={css.search}
+            value={searchParam}
+            onChange={(e: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+              setSearchParam(e.target.value.trim())
+            }}
+          /&gt;
+        &lt;/Layout.Horizontal&gt;
+      &lt;/Page.SubHeader&gt;
+&nbsp;
       &lt;Page.Body
         loading={loading}
         error={<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >error?.m</span>essage}</span>
@@ -784,7 +778,7 @@ export default InputSetList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 19 2021 08:51:41 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 19 2021 09:36:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

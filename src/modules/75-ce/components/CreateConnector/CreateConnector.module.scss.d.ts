@@ -9,5 +9,9 @@ declare const styles: {
   readonly selectProviderLabel: string
   readonly nextButton: string
   readonly carouselSection: string
+  readonly featuresCarousel: string
+  readonly featureSlide: string
+  readonly title: string
+  readonly imgContainer: string
 }
 export default styles

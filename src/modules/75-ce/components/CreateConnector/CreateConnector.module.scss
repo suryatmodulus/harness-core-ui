@@ -56,5 +56,37 @@
     flex: 1;
     background: #f3f3fa !important;
     padding: var(--spacing-xxxlarge) !important;
+
+    .featuresCarousel {
+      position: relative;
+      height: 100%;
+      :global {
+        .Carousel--carouselLeft,
+        .Carousel--carouselRight {
+          opacity: 0;
+          pointer-events: none;
+        }
+        .Carousel--carouselIndicators {
+          position: absolute;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+      .featureSlide {
+        .title {
+          color: var(--grey-600);
+          padding-bottom: 10px;
+          border-bottom: 1px solid #d9dae6;
+        }
+        .imgContainer {
+          padding: 20px 0;
+          img {
+            width: 320px;
+            height: 170px;
+          }
+        }
+      }
+    }
   }
 }

@@ -1,10 +1,23 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Dialog, IconName, IDialogProps } from '@blueprintjs/core/lib/esm/components'
-import { Button, CardSelect, Container, Heading, Icon, Layout, Text, useModalHook } from '@wings-software/uicore'
+import {
+  Button,
+  CardSelect,
+  Carousel,
+  Container,
+  Heading,
+  Icon,
+  Layout,
+  Text,
+  useModalHook
+} from '@wings-software/uicore'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import AutoStoppingImage from './images/autoStopping.svg'
+import BudgetsImage from './images/budgets-anomalies.svg'
+import PerspectiveImage from './images/Perspectives.svg'
 import css from './CreateConnector.module.scss'
 
 // interface useCreateConnectorProps {}
@@ -66,6 +79,62 @@ const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selecte
   )
 }
 
+const FeaturesCarousel = () => {
+  const data = useMemo(
+    () => [
+      {
+        title: 'Create Cost perspectives',
+        description:
+          'Create visualisations of relevant data to specific teams, groups, departments, BUs, LOBs cost-centers etc. This provides relevant data to specific teams for decentralized cost management.',
+        ctaLink: '',
+        imgSrc: PerspectiveImage
+      },
+      {
+        title: 'Set Budgets and receive Alerts on anomalies and overspend',
+        description:
+          'Once a perspective is created you can schedule <b>reports</b>, create budgets, configure <b>anomaly alerts</b>, get <b>recommendations</b> to improve save costs for a decentralised cost management.',
+        ctaLink: '',
+        imgSrc: BudgetsImage
+      },
+      {
+        title: 'Create AutoStopping rules',
+        description:
+          'AutoStopping Rules dynamically make sure that your non-production workloads are running (and costing you) only when you’re using them, and never when they are idle.',
+        ctaLink: '',
+        imgSrc: AutoStoppingImage
+      }
+    ],
+    []
+  )
+
+  const [activeSlide, setActiveSlide] = useState<number>(1)
+
+  useEffect(() => {
+    const id = setTimeout(() => {
+      setActiveSlide(prevActiveSlide => (prevActiveSlide === data.length ? 1 : prevActiveSlide + 1))
+    }, 20000)
+    return () => {
+      clearTimeout(id)
+    }
+  }, [activeSlide])
+
+  return (
+    <Carousel defaultSlide={activeSlide} onChange={setActiveSlide} className={css.featuresCarousel}>
+      {data.map(item => {
+        return (
+          <div key={item.title} className={css.featureSlide}>
+            <div className={css.title}>{item.title}</div>
+            <div className={css.imgContainer}>
+              <img src={item.imgSrc} alt={item.title} />
+            </div>
+            <p dangerouslySetInnerHTML={{ __html: item.description }} />
+          </div>
+        )
+      })}
+    </Carousel>
+  )
+}
+
 const useCreateConnector = () => {
   const [selectedProvider, setSelectedProvider] = useState<string>()
 
@@ -121,7 +190,9 @@ const useCreateConnector = () => {
               className={css.nextButton}
             />
           </Container>
-          <Container className={css.carouselSection}>Carousel</Container>
+          <Container className={css.carouselSection}>
+            <FeaturesCarousel />
+          </Container>
         </Layout.Horizontal>
         <Button
           minimal

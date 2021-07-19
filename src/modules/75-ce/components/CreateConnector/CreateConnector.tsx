@@ -5,6 +5,7 @@ import {
   Button,
   CardSelect,
   Carousel,
+  Color,
   Container,
   Heading,
   Icon,
@@ -77,6 +78,57 @@ const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selecte
       </div>
     </div>
   )
+}
+
+export const useCreateConnectorMinimal = () => {
+  const { openConnectorModal } = useCreateConnectorModal({
+    onSuccess: () => {
+      // handleConnectorCreationSuccess(data?.connector)
+    }
+  })
+
+  const handleConnectorCreation = (selectedProvider: string) => {
+    let connectorType
+    switch (selectedProvider) {
+      case 'AWS':
+        connectorType = Connectors.CEAWS
+        break
+      case 'GCP':
+        connectorType = Connectors.CE_GCP
+        break
+      case 'Azure':
+        connectorType = Connectors.CE_AZURE
+        break
+      case 'Kubernetes':
+        connectorType = Connectors.CE_KUBERNETES
+        break
+    }
+
+    if (connectorType) {
+      openConnectorModal(false, connectorType, {
+        connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
+      })
+    }
+  }
+
+  const [showModal] = useModalHook(() => {
+    return (
+      <Dialog isOpen={true} style={{ width: 450, padding: 40 }} enforceFocus={false}>
+        <Text color={Color.GREY_700} font={{ weight: 'bold', size: 'normal' }} style={{ marginBottom: 10 }}>
+          You have not added any connectors yet.
+        </Text>
+        <Text color={Color.GREY_700} font={{ weight: 'bold', size: 'normal' }} style={{ marginBottom: 20 }}>
+          Create one to plug in your data and start exploring Cloud cost Management and everything it has to offer!
+        </Text>
+        <Text font={{ size: 'normal' }} style={{ marginBottom: 10 }}>
+          Choose your cloud Provider
+        </Text>
+        <CloudProviderList onChange={handleConnectorCreation} />
+      </Dialog>
+    )
+  }, [])
+
+  return { openModal: showModal }
 }
 
 const FeaturesCarousel = () => {

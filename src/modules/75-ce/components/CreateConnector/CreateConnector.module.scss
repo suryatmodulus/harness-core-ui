@@ -16,7 +16,7 @@
   .textList {
     display: grid;
     grid-template-columns: repeat(4, $itemDimension);
-    grid-template-rows: $itemDimension;
+    // grid-template-rows: $itemDimension;
     column-gap: var(--spacing-medium);
     text-align: center;
     margin-top: var(--spacing-medium);
@@ -54,7 +54,7 @@
   }
   .carouselSection {
     flex: 1;
-    background: #f3f3fa !important;
+    background: rgba(#f3f3fa, 0.3) !important;
     padding: var(--spacing-xxxlarge) !important;
 
     .featuresCarousel {

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/70-pipeline/components/ArtifactsSelection/ConnectorRefSteps/ConnectorRefSteps.tsx</title>
+    <title>Code coverage report for modules/70-pipeline/components/ArtifactsSelection/ArtifactWizard/ArtifactWizard.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/components/ArtifactsSelection/ConnectorRefSteps</a> ConnectorRefSteps.tsx</h1>
+        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/components/ArtifactsSelection/ArtifactWizard</a> ArtifactWizard.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">95.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>20/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.77% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/26</span>
+                <span class='fraction'>25/30</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">95.24% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/19</span>
+                <span class='fraction'>20/21</span>
             </div>
         
             
@@ -147,7 +147,13 @@
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
 <a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
@@ -192,24 +198,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -231,7 +243,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,20 +252,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { StepWizard, StepProps, Icon } from '@wings-software/uicore'
 import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
-import { String, useStrings } from 'framework/strings'
+import { String, StringKeys, useStrings } from 'framework/strings'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { ArtifactoryRepoType } from '../ArtifactRepository/ArtifactoryRepoType'
 import { ArtifactConnector } from '../ArtifactRepository/ArtifactConnector'
 import type { InitialArtifactDataType, ConnectorRefLabelType, ArtifactType } from '../ArtifactInterface'
 import { ArtifactTitleIdByType } from '../ArtifactHelper'
-import css from './ConnectorRefSteps.module.scss'
+import css from './ArtifactWizard.module.scss'
 &nbsp;
 interface StepChangeData&lt;SharedObject&gt; {
   prevStep?: number
   nextStep?: number
   prevStepData: SharedObject
 }
-interface ConnectorRefStepsProps {
+interface ArtifactWizardProps {
   handleViewChange: (isConnectorView: boolean) =&gt; void
   artifactInitialValue: InitialArtifactDataType
   types: Array&lt;ArtifactType&gt;
@@ -261,14 +273,14 @@ interface ConnectorRefStepsProps {
   newConnectorSteps?: any
   expressions: string[]
   labels: ConnectorRefLabelType
-  selectedArtifact: ArtifactType
-  changeArtifactType: (data: ArtifactType) =&gt; void
+  selectedArtifact: ArtifactType | null
+  changeArtifactType: (data: ArtifactType | null) =&gt; void
   newConnectorView: boolean
-  iconsProps: IconProps
+  iconsProps: IconProps | undefined
   isReadonly: boolean
 }
 &nbsp;
-const ConnectorRefSteps: React.FC&lt;ConnectorRefStepsProps&gt; = ({
+const ArtifactWizard: React.FC&lt;ArtifactWizardProps&gt; = ({
   types,
   labels,
   expressions,
@@ -290,14 +302,20 @@ const ConnectorRefSteps: React.FC&lt;ConnectorRefStepsProps&gt; = ({
     }
   }
 &nbsp;
-  const renderSubtitle = (): JSX.Element =&gt; {
-    const stringId = ArtifactTitleIdByType[selectedArtifact]
-    return (
-      &lt;div className={css.subtitle} style={{ display: 'flex' }}&gt;
-        &lt;Icon size={26} {...iconsProps} /&gt;
-        &lt;String style={{ alignSelf: 'center', marginLeft: 'var(--spacing-small)' }} stringID={stringId} /&gt;
-      &lt;/div&gt;
-    )
+  const renderSubtitle = (): JSX.Element | undefined =&gt; {
+    const stringId = selectedArtifact &amp;&amp; ArtifactTitleIdByType[selectedArtifact]
+    if (selectedArtifact) {
+      return (
+        &lt;div className={css.subtitle} style={{ display: 'flex' }}&gt;
+          &lt;Icon size={26} {...(iconsProps as IconProps)} /&gt;
+          &lt;String
+            style={{ alignSelf: 'center', marginLeft: 'var(--spacing-small)' }}
+            stringID={stringId as StringKeys}
+          /&gt;
+        &lt;/div&gt;
+      )
+    }
+    return undefined
   }
   return (
     &lt;StepWizard className={css.existingDocker} subtitle={renderSubtitle()} onStepChange={onStepChange}&gt;
@@ -326,7 +344,7 @@ const ConnectorRefSteps: React.FC&lt;ConnectorRefStepsProps&gt; = ({
   )
 }
 &nbsp;
-export default ConnectorRefSteps
+export default ArtifactWizard
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -334,7 +352,7 @@ export default ConnectorRefSteps
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 19 2021 00:34:33 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 19 2021 04:05:08 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

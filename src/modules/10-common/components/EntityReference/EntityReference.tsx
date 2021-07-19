@@ -1,6 +1,18 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import cx from 'classnames'
-import { Container, TextInput, Button, Layout, Text, Tabs, Tab, Icon, IconName, Color } from '@wings-software/uicore'
+import {
+  Container,
+  TextInput,
+  Button,
+  Layout,
+  Text,
+  Tabs,
+  Tab,
+  Icon,
+  IconName,
+  Color,
+  Checkbox
+} from '@wings-software/uicore'
 import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
 import { PageError } from '@common/components/Page/PageError'
@@ -48,6 +60,7 @@ export type EntityReferenceResponse<T> = {
 }
 
 export interface EntityReferenceProps<T> {
+  // TODO: handle this in userGroupsReference
   onSelect: (reference: T, scope: Scope) => void
   fetchRecords: (
     scope: Scope,
@@ -62,6 +75,9 @@ export interface EntityReferenceProps<T> {
   orgIdentifier?: string
   defaultScope?: Scope
   searchInlineComponent?: JSX.Element
+  allowMultiSelect?: boolean
+  selectedItems?: T[]
+  onMultiSelect?: (reference: T[], scope: Scope) => void
 }
 
 function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
@@ -84,7 +100,11 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     recordRender,
     recordClassName = '',
     noRecordsText = getString('entityReference.noRecordFound'),
-    searchInlineComponent
+    searchInlineComponent,
+    allowMultiSelect = false
+    // TODO: make this possible currently not used
+    // selectedItems
+    // onMultiSelect
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [selectedScope, setSelectedScope] = useState<Scope>(
@@ -94,6 +114,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
   const [selectedRecord, setSelectedRecord] = useState<T>()
+  const [checkedItems, setCheckedItems] = useState<T[]>()
 
   React.useEffect(() => {
     setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
@@ -148,33 +169,79 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
 
   const defaultTab = projectIdentifier ? TAB_ID.PROJECT : orgIdentifier ? TAB_ID.ORGANIZATION : TAB_ID.ACCOUNT
 
-  const renderedList = loading ? (
-    <Container flex={{ align: 'center-center' }} padding="small">
-      <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
-    </Container>
-  ) : error ? (
-    <Container>
-      <PageError message={error} onClick={fetchData} />
-    </Container>
-  ) : data.length ? (
-    <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
-      {data.map((item: EntityReferenceResponse<T>) => (
-        <div
-          key={item.identifier}
-          className={cx(css.listItem, recordClassName, {
-            [css.selectedItem]: selectedRecord === item.record
-          })}
-          onClick={() => setSelectedRecord(selectedRecord === item.record ? undefined : item.record)}
-        >
-          {recordRender({ item, selectedScope, selected: selectedRecord === item.record })}
+  const onCheckboxChange = (checked: boolean, item: T) => {
+    const tempCheckedItems: T[] = [...((checkedItems as T[]) || [])]
+    if (checked) {
+      tempCheckedItems.push(item)
+    } else {
+      tempCheckedItems.splice(tempCheckedItems.indexOf(item), 1)
+    }
+    setCheckedItems(tempCheckedItems.length ? tempCheckedItems : undefined)
+  }
+
+  // TODO: test for error and no data state
+  let renderedList = <></>
+  if (loading) {
+    renderedList = (
+      <Container flex={{ align: 'center-center' }} padding="small">
+        <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
+      </Container>
+    )
+  }
+  if (!loading && error) {
+    renderedList = (
+      <Container>
+        <PageError message={error} onClick={fetchData} />
+      </Container>
+    )
+  }
+  if (!loading && !error && data.length) {
+    if (!allowMultiSelect) {
+      renderedList = (
+        <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
+          {data.map((item: EntityReferenceResponse<T>) => (
+            <div
+              key={item.identifier}
+              className={cx(css.listItem, recordClassName, {
+                [css.selectedItem]: selectedRecord === item.record
+              })}
+              onClick={() => setSelectedRecord(selectedRecord === item.record ? undefined : item.record)}
+            >
+              {recordRender({ item, selectedScope, selected: selectedRecord === item.record })}
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
-  ) : (
-    <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
-      <Text>{noRecordsText}</Text>
-    </Container>
-  )
+      )
+    } else {
+      renderedList = (
+        <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
+          {data.map((item: EntityReferenceResponse<T>) => (
+            <Layout.Horizontal
+              key={item.identifier}
+              className={cx(css.listItem, recordClassName, {
+                [css.selectedItem]: checkedItems?.includes(item.record)
+              })}
+              flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+            >
+              <Checkbox
+                onChange={e => onCheckboxChange((e.target as any).checked, item.record)}
+                className={css.checkbox}
+                large
+              />
+              {recordRender({ item, selectedScope, selected: checkedItems?.includes(item.record) })}
+            </Layout.Horizontal>
+          ))}
+        </div>
+      )
+    }
+  }
+  if (!loading && !error && !data.length) {
+    renderedList = (
+      <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
+        <Text>{noRecordsText}</Text>
+      </Container>
+    )
+  }
 
   const renderTab = (
     show: boolean,

@@ -69,7 +69,7 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
       onSelect={() => {
         // TODO: no_op
       }}
-      onMultySelect={() => {
+      onMultiSelect={() => {
         // TODO
       }}
       defaultScope={scope}

@@ -11,5 +11,6 @@ declare const styles: {
   readonly search: string
   readonly iconMargin: string
   readonly applyButton: string
+  readonly checkbox: string
 }
 export default styles

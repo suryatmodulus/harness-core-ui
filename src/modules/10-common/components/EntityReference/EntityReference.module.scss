@@ -66,4 +66,15 @@
   .applyButton {
     margin-right: var(--spacing-small) !important;
   }
+
+  .checkbox {
+    margin-left: var(--spacing-small) !important;
+    :global {
+      .bp3-control-indicator,
+      .bp3-control-indicator::before {
+        width: var(--spacing-medium) !important;
+        height: var(--spacing-medium) !important;
+      }
+    }
+  }
 }

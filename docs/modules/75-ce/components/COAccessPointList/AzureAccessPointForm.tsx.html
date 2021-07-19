@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.05% </span>
+                <span class="strong">77.24% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>94/122</span>
+                <span class='fraction'>95/123</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.75% </span>
+                <span class="strong">74.76% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>302/404</span>
+                <span class='fraction'>308/412</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.74% </span>
+                <span class="strong">81.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/115</span>
+                <span class='fraction'>95/116</span>
             </div>
         
             
@@ -613,7 +613,24 @@
 <a name='L554'></a><a href='#L554'>554</a>
 <a name='L555'></a><a href='#L555'>555</a>
 <a name='L556'></a><a href='#L556'>556</a>
-<a name='L557'></a><a href='#L557'>557</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<a name='L557'></a><a href='#L557'>557</a>
+<a name='L558'></a><a href='#L558'>558</a>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a>
+<a name='L562'></a><a href='#L562'>562</a>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a>
+<a name='L569'></a><a href='#L569'>569</a>
+<a name='L570'></a><a href='#L570'>570</a>
+<a name='L571'></a><a href='#L571'>571</a>
+<a name='L572'></a><a href='#L572'>572</a>
+<a name='L573'></a><a href='#L573'>573</a>
+<a name='L574'></a><a href='#L574'>574</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -669,12 +686,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -1025,6 +1045,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1149,6 +1171,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1213,6 +1247,7 @@ export interface AzureApFormVal {
   newCertificate?: CertificateData
   fe_ip_name?: string
   subnet_name?: string
+  func_region: string
 }
 &nbsp;
 interface AzureAccessPointFormProps {
@@ -1231,6 +1266,8 @@ const SKUItems: SelectOption[] = [
   { label: 'SKU 1, Large', value: 'sku1_large' },
   { label: 'SKU2', value: 'sku2' }
 ]
+&nbsp;
+const DEFAULT_FUNC_REGION = 'westus2'
 &nbsp;
 const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&gt; {
   const { cloudAccountId, lbCreationInProgress, loadBalancer, isCreateMode } = props
@@ -1567,7 +1604,8 @@ const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&
           sku: loadBalancer.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ize || '',
           subnet: newSubnet ? (<span class="branch-0 cbranch-no" title="branch not covered" >newSubnet.value as string) </span>: loadBalancer.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ubnet_id || '',
           virtualNetwork: loadBalancer.vpc || '',
-          certificate: loadBalancer.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ertificate_id || ''
+          certificate: loadBalancer.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ertificate_id || '',
+          func_region: loadBalancer.metadata<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>unc_region || DEFAULT_FUNC_REGION
         }}
         formName="azureAccessPt"
         onSubmit={handleSubmit}
@@ -1577,7 +1615,8 @@ const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&
           resourceGroup: Yup.string().required(),
           sku: Yup.string().required(),
           subnet: Yup.string().required(),
-          virtualNetwork: Yup.string().required()
+          virtualNetwork: Yup.string().required(),
+          func_region: Yup.string().required()
         })}
       &gt;
         {({ submitForm, isValid, values }) =&gt; (
@@ -1704,6 +1743,18 @@ const AzureAccessPointForm: React.FC&lt;AzureAccessPointFormProps&gt; = props =&
                 disabled={!isCreateMode}
               /&gt;
             &lt;/div&gt;
+            &lt;div className={css.formFieldRow}&gt;
+              &lt;FormInput.Select
+                label={'Azure Function Region*'}
+                placeholder={'Select region'}
+                name="func_region"
+                items={regionsOptions}
+                // onChange={regionItem =&gt; {
+                //   setSelectedRegion(regionItem)
+                // }}
+                disabled={!_isEmpty(values.func_region) ? false : <span class="branch-1 cbranch-no" title="branch not covered" >regionsLoading}</span>
+              /&gt;
+            &lt;/div&gt;
             &lt;Layout.Horizontal style={{ marginTop: 100 }}&gt;
               &lt;Button minimal icon={'chevron-left'} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >handleBackClick(values)}</span>&gt;
                 Back
@@ -1732,7 +1783,7 @@ export default AzureAccessPointForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jul 18 2021 13:04:07 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 19 2021 00:34:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

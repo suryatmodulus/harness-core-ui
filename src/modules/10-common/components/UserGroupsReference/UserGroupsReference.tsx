@@ -43,10 +43,23 @@ const fetchRecords = (
         const userGroupsAggregate = responseData.data.content
         const response: EntityReferenceResponse<UserGroupsRef>[] = []
         userGroupsAggregate.forEach(aggregate => {
+          /* UserMetadataDTO always returns 6 latest added users,
+           * so we need to check if the users in UserGroupDTO and UserMetadataDTO lengths don't match,
+           * and add the missing ones, just for count sake, if so
+           */
+          const usersMeta = [...((aggregate.users as UserMetadataDTO[]) || [])]
+          const userUuids = [...((aggregate.userGroupDTO.users as string[]) || [])]
+          if (usersMeta.length !== userUuids.length) {
+            userUuids.forEach(el => {
+              if (usersMeta.findIndex(_el => _el.uuid === el) === -1) {
+                usersMeta.push({ name: el, email: el, uuid: el })
+              }
+            })
+          }
           response.push({
             name: aggregate.userGroupDTO.name || '',
             identifier: aggregate.userGroupDTO.identifier || '',
-            record: { ...aggregate.userGroupDTO, users: aggregate.users as UserMetadataDTO[] }
+            record: { ...aggregate.userGroupDTO, users: usersMeta }
           })
         })
         done(response)

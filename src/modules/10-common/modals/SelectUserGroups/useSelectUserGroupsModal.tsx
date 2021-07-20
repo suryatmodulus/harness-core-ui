@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useModalHook, Button } from '@wings-software/uicore'
+import { useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import type { UserGroupDTO } from 'services/cd-ng'
 import type { Scope } from '@common/interfaces/SecretsInterface'
@@ -38,8 +38,8 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
             props.onSuccess?.(userGroups)
             hideModal()
           }}
+          onCancel={() => hideModal()}
         />
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
     [selectedUserGroups, scope]

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Container, Layout, Color, AvatarGroup } from '@wings-software/uicore'
+import { Text, Container, Layout, Color, AvatarGroup, Icon } from '@wings-software/uicore'
 import { Failure, UserGroupDTO, getUserGroupAggregateListPromise, UserMetadataDTO } from 'services/cd-ng'
 import { EntityReference } from '@common/exports'
 import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
@@ -67,10 +67,16 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
   return (
     <EntityReference<UserGroupsRef>
       onSelect={() => {
-        // TODO: no_op
+        // not needed in multiSelect but is required by EntityReference
       }}
-      onMultiSelect={() => {
-        // TODO
+      onMultiSelect={data => {
+        const groupsDTO = data.map(group => {
+          const mappedUserIds = group.users.map(user => {
+            return user.uuid
+          })
+          return { ...group, users: mappedUserIds }
+        })
+        props.onSelect(groupsDTO)
       }}
       defaultScope={scope}
       fetchRecords={(fetchScope, search = '', done) => {
@@ -90,10 +96,18 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
         return (
           <Container flex={{ justifyContent: 'space-between' }} width={'100%'}>
             <Layout.Vertical>
-              <Text color={selected ? Color.BLUE_500 : Color.BLACK}>{item.name}</Text>
+              <Text font={{ weight: 'semi-bold' }} color={selected ? Color.BLUE_600 : Color.BLACK}>
+                {item.name}
+              </Text>
               <Text font={{ size: 'small' }}>{item.record.identifier}</Text>
             </Layout.Vertical>
             <AvatarGroup avatars={avatars} restrictLengthTo={6} />
+            {avatars.length > 6 ? (
+              <Text>
+                <Icon name={'plus'} />
+                {avatars.length - 6}
+              </Text>
+            ) : null}
           </Container>
         )
       }}

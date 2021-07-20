@@ -101,10 +101,10 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     recordClassName = '',
     noRecordsText = getString('entityReference.noRecordFound'),
     searchInlineComponent,
-    allowMultiSelect = false
+    allowMultiSelect = false,
     // TODO: make this possible currently not used
     // selectedItems
-    // onMultiSelect
+    onMultiSelect
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [selectedScope, setSelectedScope] = useState<Scope>(
@@ -264,10 +264,16 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     ) : null
   }
 
+  const onSelect = allowMultiSelect
+    ? () => onMultiSelect?.(checkedItems as T[], selectedScope)
+    : () => props.onSelect(selectedRecord as T, selectedScope)
+
+  const disabled = allowMultiSelect ? !checkedItems : !selectedRecord
+
   return (
     <Container className={cx(css.container, className)}>
       <Layout.Vertical spacing="medium">
-        <div className={css.searchBox}>
+        <div className={cx(css.searchBox, { [css.searchBoxMultiSelect]: allowMultiSelect })}>
           <TextInput
             wrapperClassName={css.search}
             placeholder={getString('search')}
@@ -290,8 +296,8 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
         <Button
           intent="primary"
           text={getString('entityReference.apply')}
-          onClick={() => props.onSelect(selectedRecord as T, selectedScope)}
-          disabled={!selectedRecord}
+          onClick={onSelect}
+          disabled={disabled}
           className={cx(css.applyButton, Classes.POPOVER_DISMISS)}
         />
       </Layout.Horizontal>

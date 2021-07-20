@@ -30,15 +30,9 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
   const userGroupsReference: UserGroupDTO[] = formik.values[name]
 
   const { openSelectUserGroupsModal } = useSelectUserGroupsModal({
-    onSuccess: () => {
-      // onSuccess: formData => {
-      // const secret: SecretReference = {
-      //   ...pick(formData, 'identifier', 'name', 'orgIdentifier', 'projectIdentifier'),
-      //   referenceString: getReference(getScopeFromDTO(formData), formData.identifier) as string
-      // }
-      // formik.setFieldValue(name, secret)
-      const userGroups: UserGroupDTO[] = []
-      onSuccess?.(userGroups)
+    onSuccess: data => {
+      formik.setFieldValue(name, data)
+      onSuccess?.(data)
     }
   })
 

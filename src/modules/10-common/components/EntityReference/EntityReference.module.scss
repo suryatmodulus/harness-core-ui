@@ -49,6 +49,9 @@
   }
   .searchBox {
     display: flex;
+    &MultiSelect {
+      margin-top: var(--spacing-small);
+    }
     .search {
       flex: 1;
       > div {

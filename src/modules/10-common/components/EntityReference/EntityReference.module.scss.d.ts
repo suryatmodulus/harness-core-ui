@@ -8,6 +8,7 @@ declare const styles: {
   readonly listItem: string
   readonly selectedItem: string
   readonly searchBox: string
+  readonly searchBoxMultiSelect: string
   readonly search: string
   readonly iconMargin: string
   readonly applyButton: string

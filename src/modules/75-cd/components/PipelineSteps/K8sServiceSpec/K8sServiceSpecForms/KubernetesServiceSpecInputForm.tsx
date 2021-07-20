@@ -378,7 +378,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
     label: region.name
   }))
 
-  const bucketOptions = Object.keys(bucketData || {}).map(item => ({
+  const bucketOptions = Object.keys(bucketData?.data || {}).map(item => ({
     label: item,
     value: item
   }))

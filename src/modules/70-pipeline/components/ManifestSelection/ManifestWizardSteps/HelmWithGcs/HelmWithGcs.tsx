@@ -91,7 +91,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prevStepData?.connectorRef])
 
-  const bucketOptions = Object.keys(bucketData || {}).map(item => ({
+  const bucketOptions = Object.keys(bucketData?.data || {}).map(item => ({
     label: item,
     value: item
   }))

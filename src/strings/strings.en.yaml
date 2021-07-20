@@ -1268,6 +1268,7 @@ configuration: Configuration
 entityReference:
   noRecordFound: 'No Record Found'
   apply: 'Apply Selected'
+  totalSelected: 'Total Selected'
 
 characters: 'characters'
 uppercase: 'uppercase'

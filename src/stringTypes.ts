@@ -4588,6 +4588,10 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
+  'entityReference.totalSelected': string
+  /**
+   * @deprecated migrate this string to module level file
+   */
   entryPointInfo: string
   /**
    * @deprecated migrate this string to module level file

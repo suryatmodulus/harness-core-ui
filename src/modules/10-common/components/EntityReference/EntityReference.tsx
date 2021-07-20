@@ -13,7 +13,6 @@ import {
   Color,
   Checkbox
 } from '@wings-software/uicore'
-import { Classes } from '@blueprintjs/core'
 import { debounce, isEmpty } from 'lodash-es'
 import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -68,6 +67,7 @@ export interface EntityReferenceProps<T> {
     done: (records: EntityReferenceResponse<T>[]) => void
   ) => void
   recordRender: (args: { item: EntityReferenceResponse<T>; selectedScope: Scope; selected?: boolean }) => JSX.Element
+  onCancel?: () => void
   recordClassName?: string
   className?: string
   projectIdentifier?: string
@@ -98,6 +98,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     fetchRecords,
     className = '',
     recordRender,
+    onCancel,
     recordClassName = '',
     noRecordsText = getString('entityReference.noRecordFound'),
     searchInlineComponent,
@@ -250,14 +251,32 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     icon: IconName,
     title: StringKeys
   ): React.ReactElement | null => {
+    const multiSelectCount =
+      allowMultiSelect && checkedItems?.length ? (
+        <Text
+          inline
+          height={19}
+          margin={{ left: 'small' }}
+          padding={{ left: 'xsmall', right: 'xsmall' }}
+          flex={{ align: 'center-center' }}
+          background={Color.BLUE_600}
+          color={Color.WHITE}
+          border={{ radius: 100 }}
+        >
+          {checkedItems.length}
+        </Text>
+      ) : null
     return show ? (
       <Tab
         id={id}
         title={
-          <Text onClick={() => onScopeChange(scope)} padding={'medium'}>
-            <Icon name={icon} {...iconProps} className={css.iconMargin} />
-            {getString(title)}
-          </Text>
+          <Layout.Horizontal flex={{ alignItems: 'center' }}>
+            <Text onClick={() => onScopeChange(scope)} padding={'medium'}>
+              <Icon name={icon} {...iconProps} className={css.iconMargin} />
+              {getString(title)}
+            </Text>
+            {multiSelectCount}
+          </Layout.Horizontal>
         }
         panel={renderedList}
       />
@@ -273,7 +292,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   return (
     <Container className={cx(css.container, className)}>
       <Layout.Vertical spacing="medium">
-        <div className={cx(css.searchBox, { [css.searchBoxMultiSelect]: allowMultiSelect })}>
+        <div className={css.searchBox}>
           <TextInput
             wrapperClassName={css.search}
             placeholder={getString('search')}
@@ -285,21 +304,33 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
           {searchInlineComponent}
         </div>
       </Layout.Vertical>
-      <div className={css.tabsContainer}>
+      <div className={cx(css.tabsContainer, { [css.tabWidth]: allowMultiSelect })}>
         <Tabs id={'selectScope'} vertical defaultSelectedTabId={defaultTab}>
           {renderTab(!!projectIdentifier, TAB_ID.PROJECT, Scope.PROJECT, 'cube', 'projectLabel')}
           {renderTab(!!orgIdentifier, TAB_ID.ORGANIZATION, Scope.ORG, 'diagram-tree', 'orgLabel')}
           {renderTab(true, TAB_ID.ACCOUNT, Scope.ACCOUNT, 'layers', 'account')}
         </Tabs>
       </div>
-      <Layout.Horizontal>
-        <Button
-          intent="primary"
-          text={getString('entityReference.apply')}
-          onClick={onSelect}
-          disabled={disabled}
-          className={cx(css.applyButton, Classes.POPOVER_DISMISS)}
-        />
+      <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+        <Layout.Horizontal spacing="medium">
+          <Button intent="primary" text={getString('entityReference.apply')} onClick={onSelect} disabled={disabled} />
+          {allowMultiSelect ? <Button onClick={onCancel} text={getString('cancel')} /> : null}
+        </Layout.Horizontal>
+        {allowMultiSelect ? (
+          <Layout.Horizontal spacing={'small'}>
+            <Text inline>{getString('entityReference.totalSelected')}</Text>
+            <Text
+              inline
+              padding={{ left: 'xsmall', right: 'xsmall' }}
+              flex={{ align: 'center-center' }}
+              background={Color.BLUE_600}
+              color={Color.WHITE}
+              border={{ radius: 100 }}
+            >
+              {checkedItems?.length || 0}
+            </Text>
+          </Layout.Horizontal>
+        ) : null}
       </Layout.Horizontal>
     </Container>
   )

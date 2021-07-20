@@ -49,9 +49,6 @@
   }
   .searchBox {
     display: flex;
-    &MultiSelect {
-      margin-top: var(--spacing-small);
-    }
     .search {
       flex: 1;
       > div {
@@ -66,9 +63,6 @@
   .iconMargin {
     margin-right: var(--spacing-xsmall) !important;
   }
-  .applyButton {
-    margin-right: var(--spacing-small) !important;
-  }
 
   .checkbox {
     margin-left: var(--spacing-small) !important;
@@ -77,6 +71,16 @@
       .bp3-control-indicator::before {
         width: var(--spacing-medium) !important;
         height: var(--spacing-medium) !important;
+      }
+    }
+  }
+  .tabWidth {
+    :global {
+      .bp3-tab {
+        width: 180px !important;
+      }
+      bp3-tab-indicator-wrapper {
+        width: 180px !important;
       }
     }
   }

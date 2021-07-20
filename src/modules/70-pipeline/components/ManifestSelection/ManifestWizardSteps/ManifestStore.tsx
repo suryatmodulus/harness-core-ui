@@ -86,10 +86,10 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
 
     if (prevStepData?.connectorRef) {
       initValues.connectorRef = prevStepData?.connectorRef
+      if (selectedManifest !== initValues.store) {
+        initValues.connectorRef = ''
+      }
       handleStoreChange(selectedManifest)
-    }
-    if (selectedManifest !== initValues.store) {
-      initValues.connectorRef = ''
     }
     return initValues
   }, [selectedManifest])

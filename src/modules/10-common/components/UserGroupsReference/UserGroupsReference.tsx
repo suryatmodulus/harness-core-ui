@@ -1,12 +1,13 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Text, Container, Layout, Color, AvatarGroup, Icon } from '@wings-software/uicore'
+import { Text, Container, Layout, Color, AvatarGroup } from '@wings-software/uicore'
 import { Failure, UserGroupDTO, getUserGroupAggregateListPromise, UserMetadataDTO } from 'services/cd-ng'
 import { EntityReference } from '@common/exports'
 import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
+import css from './UserGroupsReference.module.scss'
 
 export interface UserGroupsRef extends Omit<UserGroupDTO, 'users'> {
   users: UserMetadataDTO[]
@@ -14,9 +15,10 @@ export interface UserGroupsRef extends Omit<UserGroupDTO, 'users'> {
 
 export interface UserGroupsReferenceProps {
   onSelect: (userGroups: UserGroupDTO[]) => void
+  onCancel: () => void
   userGroups?: UserGroupDTO[]
   scope?: Scope
-  mock?: any[]
+  mock?: UserGroupDTO[]
 }
 
 // TODO: modify to fetch groups based on scope
@@ -58,7 +60,7 @@ const fetchRecords = (
 }
 
 const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
-  const { scope = Scope.ACCOUNT } = props
+  const { scope = Scope.ACCOUNT, onCancel, onSelect } = props
   // const { mock, scope = Scope.ACCOUNT, userGroups } = props
   const { getString } = useStrings()
   // TODO: check if this is ok. Can user group have different project and org id`s from the pages params?
@@ -66,9 +68,11 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
 
   return (
     <EntityReference<UserGroupsRef>
+      className={css.main}
       onSelect={() => {
         // not needed in multiSelect but is required by EntityReference
       }}
+      onCancel={onCancel}
       onMultiSelect={data => {
         const groupsDTO = data.map(group => {
           const mappedUserIds = group.users.map(user => {
@@ -76,7 +80,7 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
           })
           return { ...group, users: mappedUserIds }
         })
-        props.onSelect(groupsDTO)
+        onSelect(groupsDTO)
       }}
       defaultScope={scope}
       fetchRecords={(fetchScope, search = '', done) => {
@@ -85,7 +89,7 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
       }}
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}
-      noRecordsText={getString('secret.noSecretsFound')}
+      noRecordsText={getString('noData')}
       // selectedItems={userGroups}
       allowMultiSelect
       recordRender={({ item, selected }) => {
@@ -96,18 +100,19 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
         return (
           <Container flex={{ justifyContent: 'space-between' }} width={'100%'}>
             <Layout.Vertical>
-              <Text font={{ weight: 'semi-bold' }} color={selected ? Color.BLUE_600 : Color.BLACK}>
+              <Text
+                width={160}
+                lineClamp={1}
+                font={{ weight: 'semi-bold' }}
+                color={selected ? Color.BLUE_600 : Color.BLACK}
+              >
                 {item.name}
               </Text>
-              <Text font={{ size: 'small' }}>{item.record.identifier}</Text>
+              <Text width={160} lineClamp={1} font={{ size: 'small' }}>
+                {item.record.identifier}
+              </Text>
             </Layout.Vertical>
             <AvatarGroup avatars={avatars} restrictLengthTo={6} />
-            {avatars.length > 6 ? (
-              <Text>
-                <Icon name={'plus'} />
-                {avatars.length - 6}
-              </Text>
-            ) : null}
           </Container>
         )
       }}

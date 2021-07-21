@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.05% </span>
+                <span class="strong">64.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>121/186</span>
+                <span class='fraction'>120/185</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.82% </span>
+                <span class="strong">39.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>131/329</span>
+                <span class='fraction'>128/325</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.05% </span>
+                <span class="strong">64.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>121/186</span>
+                <span class='fraction'>120/185</span>
             </div>
         
             
@@ -736,23 +736,7 @@
 <a name='L677'></a><a href='#L677'>677</a>
 <a name='L678'></a><a href='#L678'>678</a>
 <a name='L679'></a><a href='#L679'>679</a>
-<a name='L680'></a><a href='#L680'>680</a>
-<a name='L681'></a><a href='#L681'>681</a>
-<a name='L682'></a><a href='#L682'>682</a>
-<a name='L683'></a><a href='#L683'>683</a>
-<a name='L684'></a><a href='#L684'>684</a>
-<a name='L685'></a><a href='#L685'>685</a>
-<a name='L686'></a><a href='#L686'>686</a>
-<a name='L687'></a><a href='#L687'>687</a>
-<a name='L688'></a><a href='#L688'>688</a>
-<a name='L689'></a><a href='#L689'>689</a>
-<a name='L690'></a><a href='#L690'>690</a>
-<a name='L691'></a><a href='#L691'>691</a>
-<a name='L692'></a><a href='#L692'>692</a>
-<a name='L693'></a><a href='#L693'>693</a>
-<a name='L694'></a><a href='#L694'>694</a>
-<a name='L695'></a><a href='#L695'>695</a>
-<a name='L696'></a><a href='#L696'>696</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L680'></a><a href='#L680'>680</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -891,7 +875,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">65x</span>
@@ -1273,21 +1256,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1586,7 +1554,6 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
     }&gt;
   &gt;()
 &nbsp;
-  const project = selectedProject
   const isCDEnabled = (selectedProject<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>odules &amp;&amp; selectedProject.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ndexOf('CD') &gt; -1) || <span class="branch-2 cbranch-no" title="branch not covered" >false</span>
   const isCIEnabled = (selectedProject<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>odules &amp;&amp; selectedProject.modules<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ndexOf('CI') &gt; -1) || <span class="branch-2 cbranch-no" title="branch not covered" >false</span>
   const isCIModule = module === 'ci'
@@ -1959,22 +1926,7 @@ const PipelinesPage: React.FC&lt;CDPipelinesPageProps&gt; = ({ mockData }) =&gt;
             &lt;HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} /&gt;
           &lt;/div&gt;
         }
-        breadcrumbs={
-          &lt;NGBreadcrumbs
-            links={[
-              {
-                url: routes.toProjectOverview({
-                  orgIdentifier,
-                  projectIdentifier,
-                  accountId,
-                  module
-                }),
-                label: project<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame as string
-              },
-              { url: '#', label: getString('pipelines') }
-            ]}
-          /&gt;
-        }
+        breadcrumbs={&lt;NGBreadcrumbs links={[]} /&gt;}
       &gt;&lt;/Page.Header&gt;
       {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) &amp;&amp; (
         &lt;Page.SubHeader&gt;
@@ -2149,7 +2101,7 @@ export default PipelinesPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 16:12:27 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 17:49:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

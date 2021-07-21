@@ -458,3 +458,4 @@ frequency: 'Frequency'
 last7days: Last 7 days
 instanceLabel: Instances
 reportNameRequired: Report name is required
+selectUserGroups: Select User Group(s)

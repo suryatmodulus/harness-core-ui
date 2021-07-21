@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { useModalHook } from '@wings-software/uicore'
+import { useModalHook, Button, Text, Color } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import type { UserGroupDTO } from 'services/cd-ng'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsReference from '@common/components/UserGroupsReference/UserGroupsReference'
+import { useStrings } from 'framework/strings'
 import css from './useSelectUserGroupsModal.module.scss'
 
 export interface UseSelectUserGroupsModalProps {
@@ -17,6 +18,7 @@ export interface UseSelectUserGroupsModalReturn {
 }
 
 const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSelectUserGroupsModalReturn => {
+  const { getString } = useStrings()
   const [selectedUserGroups, setSelectedUserGroups] = useState<UserGroupDTO[]>()
   const [scope, setScope] = useState<Scope>()
   const [showModal, hideModal] = useModalHook(
@@ -29,6 +31,9 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
         }}
         className={css.dialog}
       >
+        <Text color={Color.BLACK} padding={{ top: 'medium', left: 'small' }}>
+          {getString('common.selectUserGroups')}
+        </Text>
         <UserGroupsReference
           {...props}
           scope={scope}
@@ -38,8 +43,8 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
             props.onSuccess?.(userGroups)
             hideModal()
           }}
-          onCancel={() => hideModal()}
         />
+        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
     [selectedUserGroups, scope]

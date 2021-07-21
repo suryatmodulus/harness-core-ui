@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.36% </span>
+                <span class="strong">73.02% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/56</span>
+                <span class='fraction'>46/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.86% </span>
+                <span class="strong">30.06% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>52/145</span>
+                <span class='fraction'>52/173</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">74.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>45/55</span>
+                <span class='fraction'>46/62</span>
             </div>
         
             
@@ -291,7 +291,24 @@
 <a name='L232'></a><a href='#L232'>232</a>
 <a name='L233'></a><a href='#L233'>233</a>
 <a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -359,6 +376,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -431,6 +449,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -471,6 +496,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -593,6 +627,7 @@ const OverviewStep: React.FC&lt;OverviewProps&gt; = props =&gt; {
   const [existingConnectorName, setExistingConnectorName] = useState&lt;string&gt;('')
   const [modalErrorHandler, setModalErrorHandler] = useState&lt;ModalErrorHandlerBinding | undefined&gt;()
   const [isLoading, setIsLoading] = useState&lt;boolean&gt;(false)
+  const [featureText, setFeatureText] = useState&lt;string&gt;('')
 &nbsp;
   const defaultQueryParams: GetConnectorListV2QueryParams = {
     pageIndex: 0,
@@ -666,6 +701,13 @@ const OverviewStep: React.FC&lt;OverviewProps&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >          setAwsAccountID(formData?.awsAccountId)</span>
 <span class="cstat-no" title="statement not covered" >          setIsUniqueConnnector(false)</span>
 <span class="cstat-no" title="statement not covered" >          setExistingConnectorName(response?.data?.content?.[0]?.connector?.name || '')</span>
+          const featuresEnabled = <span class="cstat-no" title="statement not covered" >response?.data?.content?.[0]?.connector?.spec?.featuresEnabled || []</span>
+          let newFeatureText = <span class="cstat-no" title="statement not covered" >featuresEnabled.join(' and ')</span>
+<span class="cstat-no" title="statement not covered" >          if (featuresEnabled.length &gt; 2) {</span>
+<span class="cstat-no" title="statement not covered" >            featuresEnabled.push(`and ${featuresEnabled.pop()}`)</span>
+<span class="cstat-no" title="statement not covered" >            newFeatureText = featuresEnabled.join(', ')</span>
+          }
+<span class="cstat-no" title="statement not covered" >          setFeatureText(newFeatureText)</span>
         }
       } else {
 <span class="cstat-no" title="statement not covered" >        throw response as Failure</span>
@@ -707,11 +749,17 @@ const OverviewStep: React.FC&lt;OverviewProps&gt; = props =&gt; {
             &lt;FormikForm&gt;
               &lt;ModalErrorHandler bind={setModalErrorHandler} /&gt;
               &lt;Container className={css.main}&gt;
-                &lt;FormInput.InputWithIdentifier
-                  inputLabel={getString('connectors.name')}
-                  isIdentifierEditable={!isEditMode}
+                &lt;div style={{ width: '65%' }}&gt;
+                  &lt;FormInput.InputWithIdentifier
+                    inputLabel={getString('connectors.name')}
+                    isIdentifierEditable={!isEditMode}
+                  /&gt;
+                &lt;/div&gt;
+                &lt;FormInput.Text
+                  className={css.dataFields}
+                  name={'awsAccountId'}
+                  label={getString('connectors.ceAws.overview.awsAccountId')}
                 /&gt;
-                &lt;FormInput.Text name={'awsAccountId'} label={getString('connectors.ceAws.overview.awsAccountId')} /&gt;
                 &lt;Description /&gt;
                 &lt;Tags /&gt;
               &lt;/Container&gt;
@@ -720,20 +768,23 @@ const OverviewStep: React.FC&lt;OverviewProps&gt; = props =&gt; {
                   &lt;Layout.Vertical spacing="large"&gt;
                     &lt;div style={{ color: 'red' }}&gt;
                       &lt;Icon name="circle-cross" color="red700" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
-                      {getString('connectors.ceAws.overview.alreadyExist')}
+                      &lt;span style={{ fontSize: 'var(--font-size-normal)' }}&gt;
+                        {getString('connectors.ceAws.overview.alreadyExist')}
+                      &lt;/span&gt;
                     &lt;/div&gt;
                     &lt;div&gt;
                       &lt;Icon name="info" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
                       {getString('connectors.ceAws.overview.alreadyExistInfo', {
                         awsAccountID,
-                        existingConnectorName
+                        existingConnectorName,
+                        featureText
                       })}
                     &lt;/div&gt;
                     &lt;div&gt;
                       &lt;Icon name="lightbulb" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
                       {getString('connectors.ceAws.overview.trySuggestion')}
                       &lt;div&gt;
-                        {getString('connectors.ceAws.overview.alreadyExist')} &lt;a&gt;{existingConnectorName}&lt;/a&gt;{' '}
+                        {getString('connectors.ceAws.overview.editConnector')} &lt;a&gt;{existingConnectorName}&lt;/a&gt;{' '}
                         {getString('connectors.ceAws.overview.ifReq')}
                       &lt;/div&gt;
                     &lt;/div&gt;
@@ -766,7 +817,7 @@ export default OverviewStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 12:04:56 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 13:11:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

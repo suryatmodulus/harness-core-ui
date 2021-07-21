@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>9/9</span>
             </div>
         
             
@@ -103,11 +103,28 @@
 <a name='L44'></a><a href='#L44'>44</a>
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
-<a name='L47'></a><a href='#L47'>47</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,48 +165,73 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Container } from '@wings-software/uicore'
-import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { Container, Heading } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import css from '../CreateCeAwsConnector.module.scss'
 &nbsp;
-const CrossAccountRoleExtension = () =&gt; {
+const CrossAccountRoleExtension = (props: { previewTemplateLink?: string }) =&gt; {
+  const { getString } = useStrings()
+  const { previewTemplateLink } = props
   return (
     &lt;Container className={css.extention}&gt;
-      &lt;span&gt;
-        &lt;h2&gt;Create cross-account IAM role using AWS CloudFormation template&lt;/h2&gt;
-        &lt;div className={css.listPoints}&gt;
-          &lt;p&gt;Login to your master account to launch template and create stack. &lt;/p&gt;
-          &lt;ol&gt;
+      &lt;Heading level={2} className={css.header}&gt;
+        {getString('connectors.ceAws.crossAccountRoleExtention.heading')}
+      &lt;/Heading&gt;
+      &lt;p&gt;{getString('connectors.ceAws.crossAccountRoleExtention.subHeading')}&lt;/p&gt;
+      &lt;ol&gt;
+        &lt;li&gt;
+          {getString('connectors.ceAws.crossAccountRoleExtention.step1.p1')}
+          &lt;a href={previewTemplateLink || ''} target="_blank" rel="noreferrer"&gt;
+            {getString('connectors.ceAws.crossAccountRoleExtention.step1.p2')}
+          &lt;/a&gt;{' '}
+          {getString('connectors.ceAws.crossAccountRoleExtention.step1.p3')}
+        &lt;/li&gt;
+        &lt;li&gt;
+          {getString('connectors.ceAws.crossAccountRoleExtention.step2.heading')}
+          &lt;ul&gt;
+            &lt;li&gt;{getString('connectors.ceAws.crossAccountRoleExtention.step2.subStep1')}&lt;/li&gt;
             &lt;li&gt;
-              You can &lt;a&gt;Preview Template&lt;/a&gt; to understand all the permissions involved
+              {getString('connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p1')}
+              &lt;span className={css.gray}&gt;
+                {getString('connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p2')}
+              &lt;/span&gt;
             &lt;/li&gt;
-            &lt;li&gt;
-              Review and Lauch Harness specified AWS CloudFormation template on AWS console
-              &lt;ul&gt;
-                &lt;li&gt;Click on the checkbox to acknowledge the IAM role creation.&lt;/li&gt;
-                &lt;li&gt;
-                  Click on &lt;span className={css.gray}&gt;Create stack&lt;/span&gt;
-                &lt;/li&gt;
-              &lt;/ul&gt;
-            &lt;/li&gt;
-            &lt;li&gt;
-              On stack details page click on &lt;span className={css.gray}&gt;Outputs&lt;/span&gt; tab and copy{' '}
-              &lt;span className={css.gray}&gt;IAM ARN&lt;/span&gt;.
-            &lt;/li&gt;
-            &lt;li&gt;Provide that IAM ARN in Harness UI.&lt;/li&gt;
-            &lt;li&gt;External ID is a random unique value to provide additional secure authentication.&lt;/li&gt;
-          &lt;/ol&gt;
-          &lt;span&gt;
-            More help:
-            &lt;ul&gt;
-              &lt;li&gt;
-                &lt;a&gt;Harness Documentation&lt;/a&gt;
-              &lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/span&gt;
-        &lt;/div&gt;
-      &lt;/span&gt;
+          &lt;/ul&gt;
+        &lt;/li&gt;
+        &lt;li&gt;
+          {getString('connectors.ceAws.crossAccountRoleExtention.step3.p1')}{' '}
+          &lt;span className={css.gray}&gt;{getString('connectors.ceAws.crossAccountRoleExtention.step3.p2')}&lt;/span&gt;{' '}
+          {getString('connectors.ceAws.crossAccountRoleExtention.step3.p3')}
+          &lt;span className={css.gray}&gt;{getString('connectors.ceAws.crossAccountRoleExtention.step3.p4')}&lt;/span&gt;.
+        &lt;/li&gt;
+        &lt;li&gt;{getString('connectors.ceAws.crossAccountRoleExtention.step4')}&lt;/li&gt;
+        &lt;li&gt;{getString('connectors.ceAws.crossAccountRoleExtention.step5')}&lt;/li&gt;
+      &lt;/ol&gt;
+      &lt;p&gt;{getString('connectors.ceAws.curExtention.moreHelp.heading')}&lt;/p&gt;
+      &lt;ul&gt;
+        &lt;li&gt;
+          &lt;a
+            href="https://docs.harness.io/article/5ql31pdjcm-enable-continuous-efficiency-for-aws"
+            target="_blank"
+            rel="noreferrer"
+          &gt;
+            {getString('connectors.ceAws.curExtention.moreHelp.step2')}
+          &lt;/a&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
     &lt;/Container&gt;
   )
 }
@@ -202,7 +244,7 @@ export default CrossAccountRoleExtension
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 12:04:56 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 13:11:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.84% </span>
+                <span class="strong">87.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/38</span>
+                <span class='fraction'>34/39</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.89% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/36</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
@@ -219,7 +219,12 @@
 <a name='L160'></a><a href='#L160'>160</a>
 <a name='L161'></a><a href='#L161'>161</a>
 <a name='L162'></a><a href='#L162'>162</a>
-<a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -236,8 +241,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
@@ -306,7 +312,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -391,15 +401,16 @@ import {
   Heading,
   Layout,
   StepProps,
-  Icon,
-  FormInput
+  FormInput,
+  Text
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { AwsCurAttributes, CEAwsConnector } from 'services/cd-ng'
-import { DialogExtensionContext } from '../DialogExtention'
+import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
+import LabelWithTooltip from '@connectors/common/LabelWithTooltip/LabelWithTooltip'
+import CostUsageReportExtention from './CostUsageReportExtenstion'
 import CostUsageReportExisting from './CostUsageReportExisting'
 import type { CEAwsConnectorDTO } from './OverviewStep'
-import TextInputWithToolTip from '../TextInputWithToolTip'
 import css from '../CreateCeAwsConnector.module.scss'
 &nbsp;
 const CostUsageStep: React.FC&lt;StepProps&lt;CEAwsConnectorDTO&gt;&gt; = props =&gt; {
@@ -442,37 +453,41 @@ const CostUsageStep: React.FC&lt;StepProps&lt;CEAwsConnectorDTO&gt;&gt; = props 
   }
 &nbsp;
   useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (!isExistingCostUsageReport) triggerExtension('CostUsageEx')
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!isExistingCostUsageReport) triggerExtension(&lt;CostUsageReportExtention /&gt;)
   }, [isExistingCostUsageReport])
 &nbsp;
   return (
-    &lt;Layout.Vertical className={css.stepContainer} spacing="medium"&gt;
+    &lt;Layout.Vertical className={css.stepContainer}&gt;
       &lt;Heading level={2} className={css.header}&gt;
         {getString('connectors.ceAws.cur.heading')}
       &lt;/Heading&gt;
-      &lt;div style={{ paddingBottom: 10 }}&gt;{getString('connectors.ceAws.cur.subheading')}&lt;/div&gt;
+      &lt;Text className={css.subHeader}&gt;{getString('connectors.ceAws.cur.subheading')}&lt;/Text&gt;
 &nbsp;
       {!isExistingCostUsageReport &amp;&amp; (
         &lt;div&gt;
-          &lt;div style={{ display: 'flex' }}&gt;
-            &lt;Icon name="info-sign" color="primary5" style={{ paddingRight: 5 }}&gt;&lt;/Icon&gt;
-            &lt;div style={{ paddingRight: 10, color: '#0278D5' }}&gt;
-              {getString('connectors.ceAws.cur.followInstruction')}
-            &lt;/div&gt;
-          &lt;/div&gt;
-          &lt;Container style={{ paddingBottom: 10, paddingTop: 10 }}&gt;
-            &lt;Layout.Vertical style={{ width: 500 }}&gt;
-              &lt;div style={{ display: 'flex', justifyContent: 'center' }}&gt;
-                &lt;Button
-                  className={css.launchTemplateBut}
-                  text={getString('connectors.ceAws.cur.launchTemplate')}
-                  rightIcon="chevron-right"
-                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                    window.open('https://console.aws.amazon.com/console/home')</span>
-                  }}
-                /&gt;
-              &lt;/div&gt;
-              &lt;div style={{ textAlign: 'center' }}&gt;{getString('connectors.ceAws.cur.login')}&lt;/div&gt;
+          &lt;Text
+            font="small"
+            className={css.info}
+            color="primary7"
+            inline
+            icon="info-sign"
+            iconProps={{ size: 15, color: 'primary7', margin: { right: 'xsmall' } }}
+          &gt;
+            {getString('connectors.ceAws.cur.followInstruction')}
+          &lt;/Text&gt;
+          &lt;Container padding={{ bottom: 35 }}&gt;
+            &lt;Layout.Vertical style={{ width: '65%' }}&gt;
+              &lt;Button
+                className={css.launchTemplateBut}
+                text={getString('connectors.ceAws.cur.launchTemplate')}
+                rightIcon="chevron-right"
+                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                  window.open('https://console.aws.amazon.com/billing/home?#/reports')</span>
+                }}
+              /&gt;
+              &lt;Text font="small" style={{ textAlign: 'center' }}&gt;
+                {getString('connectors.ceAws.cur.login')}
+              &lt;/Text&gt;
             &lt;/Layout.Vertical&gt;
           &lt;/Container&gt;
         &lt;/div&gt;
@@ -510,9 +525,9 @@ const CostUsageStep: React.FC&lt;StepProps&lt;CEAwsConnectorDTO&gt;&gt; = props 
                   &lt;FormInput.Text
                     name={'reportName'}
                     label={
-                      &lt;TextInputWithToolTip
+                      &lt;LabelWithTooltip
                         label={getString('connectors.ceAws.cur.reportName')}
-                        extentionName="CostUsageEx"
+                        extentionComponent={CostUsageReportExtention}
                       /&gt;
                     }
                     className={css.dataFields}
@@ -520,9 +535,9 @@ const CostUsageStep: React.FC&lt;StepProps&lt;CEAwsConnectorDTO&gt;&gt; = props 
                   &lt;FormInput.Text
                     name={'s3BucketName'}
                     label={
-                      &lt;TextInputWithToolTip
+                      &lt;LabelWithTooltip
                         label={getString('connectors.ceAws.cur.bucketName')}
-                        extentionName="CostUsageEx"
+                        extentionComponent={CostUsageReportExtention}
                       /&gt;
                     }
                     className={css.dataFields}
@@ -550,7 +565,7 @@ export default CostUsageStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 12:04:56 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 13:11:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

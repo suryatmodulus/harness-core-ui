@@ -9,10 +9,11 @@ interface GridProps<T extends Record<string, unknown>> {
   columns: Column<T>[]
   data: T[]
   showPagination?: boolean
+  onRowClick?: (value: string) => void
 }
 
 const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Element => {
-  const { showPagination = true } = props
+  const { showPagination = true, onRowClick } = props
   const defaultColumn = React.useMemo(
     () => ({
       minWidth: 150,
@@ -61,7 +62,15 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Eleme
           {page.map((row, idx) => {
             prepareRow(row)
             return (
-              <div {...row.getRowProps()} className={css.tr} key={idx}>
+              <div
+                {...row.getRowProps()}
+                className={cx(css.tr, { [css.clickableTr]: onRowClick })}
+                key={idx}
+                onClick={() => {
+                  // console.log(row)
+                  onRowClick && onRowClick(row.values.name)
+                }}
+              >
                 {row.cells.map((cell, id) => (
                   <div {...cell.getCellProps()} className={cx(css.td, (cell.column as any).className)} key={id}>
                     <div className={css.cellValue}>{cell.render('Cell')}</div>

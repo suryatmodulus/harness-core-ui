@@ -11,6 +11,10 @@
           border-bottom: 0;
         }
       }
+
+      &.clickableTr {
+        cursor: pointer;
+      }
     }
 
     .th,

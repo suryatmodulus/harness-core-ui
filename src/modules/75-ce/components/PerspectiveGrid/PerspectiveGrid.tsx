@@ -18,6 +18,7 @@ interface PerspectiveGridProps {
   showPagination?: boolean
   gridData: Maybe<Maybe<QlceViewEntityStatsDataPoint>[]> | undefined
   gridFetching: boolean
+  onRowClick?: (value: string) => void
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -27,7 +28,8 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     groupBy,
     showColumnSelector,
     gridData: response,
-    gridFetching: fetching
+    gridFetching: fetching,
+    onRowClick
   } = props
 
   const gridColumns = getGridColumnsByGroupBy(groupBy)
@@ -76,6 +78,7 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
       )}
       <Grid<GridData>
         data={gridData}
+        onRowClick={onRowClick}
         columns={
           props.tempGridColumns
             ? (PERSPECTIVE_PREVIEW_COLS as Column<GridData>[])

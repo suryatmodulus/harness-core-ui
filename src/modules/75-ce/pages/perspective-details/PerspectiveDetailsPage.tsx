@@ -249,6 +249,7 @@ const PerspectiveDetailsPage: React.FC = () => {
             columnSequence={columnSequence}
             setColumnSequence={colSeq => setColumnSequence(colSeq)}
             groupBy={groupBy}
+            onRowClick={setFilterUsingChartClick}
           />
         </Container>
       </PageBody>

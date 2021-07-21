@@ -5,6 +5,7 @@ declare const styles: {
   readonly table: string
   readonly tr: string
   readonly td: string
+  readonly clickableTr: string
   readonly th: string
   readonly cellValue: string
   readonly sticky: string

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.3% </span>
+                <span class="strong">49.35% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>79/154</span>
+                <span class='fraction'>76/154</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">38.19% </span>
+                <span class="strong">35.19% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>165/432</span>
+                <span class='fraction'>152/432</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.32% </span>
+                <span class="strong">49.34% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>78/152</span>
+                <span class='fraction'>75/152</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -477,15 +477,7 @@
 <a name='L418'></a><a href='#L418'>418</a>
 <a name='L419'></a><a href='#L419'>419</a>
 <a name='L420'></a><a href='#L420'>420</a>
-<a name='L421'></a><a href='#L421'>421</a>
-<a name='L422'></a><a href='#L422'>422</a>
-<a name='L423'></a><a href='#L423'>423</a>
-<a name='L424'></a><a href='#L424'>424</a>
-<a name='L425'></a><a href='#L425'>425</a>
-<a name='L426'></a><a href='#L426'>426</a>
-<a name='L427'></a><a href='#L427'>427</a>
-<a name='L428'></a><a href='#L428'>428</a>
-<a name='L429'></a><a href='#L429'>429</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L421'></a><a href='#L421'>421</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -586,21 +578,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -625,14 +617,6 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -991,7 +975,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 &nbsp;
   React.useEffect(() =&gt; {
     if (stages &amp;&amp; stages.length &gt; 0) {
-      const currentStageType = stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage?.type
+      const currentStageType = stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.type</span>
       stages.forEach((item, index) =&gt; {
         <span class="missing-if-branch" title="if path not taken" >I</span>if (
           index &lt; stageIndex &amp;&amp;
@@ -1005,7 +989,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
         }
       })
     }
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(parentStage) &amp;&amp; stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage?.spec?.serviceConfig?.useFromStage<span class="branch-1 cbranch-no" title="branch not covered" >?.stage)</span> {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (isEmpty(parentStage) &amp;&amp; stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.useFromStage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.stage)</span> {
       const parentStageName = <span class="cstat-no" title="statement not covered" >stage?.stage?.spec?.serviceConfig?.useFromStage?.stage</span>
       const { index } = <span class="cstat-no" title="statement not covered" >getStageIndexFromPipeline(pipeline, parentStageName)</span>
 <span class="cstat-no" title="statement not covered" >      setParentStage(stages[index])</span>
@@ -1013,14 +997,14 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   }, [stages])
 &nbsp;
   React.useEffect(() =&gt; {
-    if (stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage) {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (!stage.stage.spec) {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage) {
+<span class="cstat-no" title="statement not covered" >      if (!stage.stage.spec) {</span>
 <span class="cstat-no" title="statement not covered" >        stage.stage.spec = {}</span>
       }
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (
-        !stage.stage.spec.serviceConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDefinition &amp;&amp;
-<span class="branch-1 cbranch-no" title="branch not covered" >        setupModeType === setupMode.DIFFERENT </span>&amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >        !stage.stage.spec.serviceConfig?.useFromStage?.stage</span>
+<span class="cstat-no" title="statement not covered" >      if (</span>
+        !stage.stage.spec.serviceConfig?.serviceDefinition &amp;&amp;
+        setupModeType === setupMode.DIFFERENT &amp;&amp;
+        !stage.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
 <span class="cstat-no" title="statement not covered" >        setDefaultServiceSchema()</span>
 <span class="cstat-no" title="statement not covered" >        setSelectedPropagatedState({</span>
@@ -1028,11 +1012,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           value: ''
         })
 <span class="cstat-no" title="statement not covered" >        setSetupMode(setupMode.DIFFERENT)</span>
-      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (
+      } else <span class="cstat-no" title="statement not covered" >if (</span>
         setupModeType === setupMode.PROPAGATE &amp;&amp;
-<span class="branch-1 cbranch-no" title="branch not covered" >        stageIndex &gt; 0 </span>&amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >        !stage.stage.spec.serviceConfig?.serviceDefinition &amp;&amp;</span>
-<span class="branch-3 cbranch-no" title="branch not covered" >        !stage.stage.spec.serviceConfig?.useFromStage?.stage</span>
+        stageIndex &gt; 0 &amp;&amp;
+        !stage.stage.spec.serviceConfig?.serviceDefinition &amp;&amp;
+        !stage.stage.spec.serviceConfig?.useFromStage?.stage
       ) {
         const stageData = <span class="cstat-no" title="statement not covered" >produce(stage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          draft.stage.spec = {</span>
@@ -1059,15 +1043,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           serviceDefinition: {
             type: 'Kubernetes',
             spec: {
-              artifacts: {
-                // primary: null,
-                sidecars: []
-              },
-              manifests: [],
-              // variables: [],
-              artifactOverrideSets: [],
-              manifestOverrideSets: []
-              // variableOverrideSets: []
+              variables: []
             }
           }
         }
@@ -1348,7 +1324,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 05:39:59 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 07:35:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

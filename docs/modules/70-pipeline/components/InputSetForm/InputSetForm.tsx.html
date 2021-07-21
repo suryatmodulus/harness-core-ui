@@ -711,7 +711,8 @@
 <a name='L652'></a><a href='#L652'>652</a>
 <a name='L653'></a><a href='#L653'>653</a>
 <a name='L654'></a><a href='#L654'>654</a>
-<a name='L655'></a><a href='#L655'>655</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1301,6 +1302,7 @@
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1956,57 +1958,58 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
 &nbsp;
   return (
     &lt;React.Fragment&gt;
-      &lt;PageHeader
-        title={
-          &lt;Layout.Horizontal&gt;
-            &lt;Text font="medium"&gt;
-              {isEdit
-                ? getString('inputSets.editTitle', { name: inputSet.name })
-                : getString('inputSets.newInputSetLabel')}
-            &lt;/Text&gt;
-            {isGitSyncEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isEdit </span>&amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >              &lt;GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} /&gt;</span>
-            )}
-            &lt;div className={css.optionBtns}&gt;
-              &lt;VisualYamlToggle
-                initialSelectedView={selectedView}
-                beforeOnChange={(nextMode, callback) =&gt; {
-                  handleModeSwitch(nextMode)
-                  callback(nextMode)
-                }}
-              &gt;&lt;/VisualYamlToggle&gt;
-            &lt;/div&gt;
-          &lt;/Layout.Horizontal&gt;
-        }
-        breadcrumbs={
-          &lt;Breadcrumbs
-            links={[
-              {
-                url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
-                label: project<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame as string
-              },
-              {
-                url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
-                label: getString('pipelines')
-              },
-              {
-                url: routes.toInputSetList({
-                  orgIdentifier,
-                  projectIdentifier,
-                  accountId,
-                  pipelineIdentifier,
-                  module,
-                  branch: pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch,</span>
-                  repoIdentifier: pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier</span>
-                }),
-                label: parse(pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlPipeline || <span class="branch-1 cbranch-no" title="branch not covered" >'')<span class="branch-0 cbranch-no" title="branch not covered" ></span>?.p</span>ipeline.name || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-              },
-              { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
-            ]}
-          /&gt;
-        }
-      /&gt;
-&nbsp;
+      &lt;GitSyncStoreProvider&gt;
+        &lt;PageHeader
+          title={
+            &lt;Layout.Horizontal&gt;
+              &lt;Text font="medium"&gt;
+                {isEdit
+                  ? getString('inputSets.editTitle', { name: inputSet.name })
+                  : getString('inputSets.newInputSetLabel')}
+              &lt;/Text&gt;
+              {isGitSyncEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isEdit </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >                &lt;GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} /&gt;</span>
+              )}
+              &lt;div className={css.optionBtns}&gt;
+                &lt;VisualYamlToggle
+                  initialSelectedView={selectedView}
+                  beforeOnChange={(nextMode, callback) =&gt; {
+                    handleModeSwitch(nextMode)
+                    callback(nextMode)
+                  }}
+                &gt;&lt;/VisualYamlToggle&gt;
+              &lt;/div&gt;
+            &lt;/Layout.Horizontal&gt;
+          }
+          breadcrumbs={
+            &lt;Breadcrumbs
+              links={[
+                {
+                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
+                  label: project<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame as string
+                },
+                {
+                  url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
+                  label: getString('pipelines')
+                },
+                {
+                  url: routes.toInputSetList({
+                    orgIdentifier,
+                    projectIdentifier,
+                    accountId,
+                    pipelineIdentifier,
+                    module,
+                    branch: pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch,</span>
+                    repoIdentifier: pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier</span>
+                  }),
+                  label: parse(pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlPipeline || <span class="branch-1 cbranch-no" title="branch not covered" >'')<span class="branch-0 cbranch-no" title="branch not covered" ></span>?.p</span>ipeline.name || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+                },
+                { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
+              ]}
+            /&gt;
+          }
+        /&gt;
+      &lt;/GitSyncStoreProvider&gt;
       &lt;PageBody loading={loading}&gt;{children}&lt;/PageBody&gt;
     &lt;/React.Fragment&gt;
   )
@@ -2026,7 +2029,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 03:37:52 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 04:46:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

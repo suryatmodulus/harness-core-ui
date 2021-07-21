@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.07% </span>
+                <span class="strong">74.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/54</span>
+                <span class='fraction'>41/55</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.07% </span>
+                <span class="strong">74.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/54</span>
+                <span class='fraction'>41/55</span>
             </div>
         
             
@@ -308,7 +308,11 @@
 <a name='L249'></a><a href='#L249'>249</a>
 <a name='L250'></a><a href='#L250'>250</a>
 <a name='L251'></a><a href='#L251'>251</a>
-<a name='L252'></a><a href='#L252'>252</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -481,6 +485,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -571,6 +577,7 @@ import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import type { GitQueryParams, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
@@ -733,79 +740,81 @@ export default function PipelineDetails({ children }: React.PropsWithChildren&lt
 &nbsp;
   return (
     &lt;&gt;
-      &lt;Page.Header
-        title={
-          &lt;&gt;
-            &lt;Layout.Horizontal spacing="xsmall"&gt;
-              &lt;Breadcrumbs links={getBreadCrumbs()} /&gt;
-              {repoIdentifier &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isPipelineStudioRoute </span>&amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >                &lt;GitPopover data={{ repoIdentifier, branch }} iconProps={{ margin: { left: 'small' } }} /&gt;</span>
+      &lt;GitSyncStoreProvider&gt;
+        &lt;Page.Header
+          title={
+            &lt;&gt;
+              &lt;Layout.Horizontal spacing="xsmall"&gt;
+                &lt;Breadcrumbs links={getBreadCrumbs()} /&gt;
+                {repoIdentifier &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isPipelineStudioRoute </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >                  &lt;GitPopover data={{ repoIdentifier, branch }} iconProps={{ margin: { left: 'small' } }} /&gt;</span>
+                )}
+              &lt;/Layout.Horizontal&gt;
+              {isPipelineStudioRoute &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                &lt;String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" /&gt;</span>
               )}
-            &lt;/Layout.Horizontal&gt;
-            {isPipelineStudioRoute &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;String tagName="div" className={css.pipelineStudioTitle} stringID="pipelineStudio" /&gt;</span>
-            )}
-          &lt;/&gt;
-        }
-        toolbar={
-          &lt;TabNavigation
-            size={'small'}
-            links={[
-              {
-                label: getString('pipelineStudio'),
-                to: routes.toPipelineStudio({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                })
-              },
-              {
-                label: getString('inputSetsText'),
-                to: routes.toInputSetList({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                }),
-                disabled: pipelineIdentifier === DefaultNewPipelineId
-              },
-              {
-                label: getString('pipeline.triggers.triggersLabel'),
-                to: routes.toTriggersPage({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                }),
-                disabled: pipelineIdentifier === DefaultNewPipelineId
-              },
-              {
-                label: getString('executionHeaderText'),
-                to: routes.toPipelineDeploymentList({
-                  orgIdentifier,
-                  projectIdentifier,
-                  pipelineIdentifier,
-                  accountId,
-                  module,
-                  repoIdentifier,
-                  branch
-                }),
-                disabled: pipelineIdentifier === DefaultNewPipelineId
-              }
-            ]}
-          /&gt;
-        }
-      /&gt;
+            &lt;/&gt;
+          }
+          toolbar={
+            &lt;TabNavigation
+              size={'small'}
+              links={[
+                {
+                  label: getString('pipelineStudio'),
+                  to: routes.toPipelineStudio({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  })
+                },
+                {
+                  label: getString('inputSetsText'),
+                  to: routes.toInputSetList({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  }),
+                  disabled: pipelineIdentifier === DefaultNewPipelineId
+                },
+                {
+                  label: getString('pipeline.triggers.triggersLabel'),
+                  to: routes.toTriggersPage({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  }),
+                  disabled: pipelineIdentifier === DefaultNewPipelineId
+                },
+                {
+                  label: getString('executionHeaderText'),
+                  to: routes.toPipelineDeploymentList({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId,
+                    module,
+                    repoIdentifier,
+                    branch
+                  }),
+                  disabled: pipelineIdentifier === DefaultNewPipelineId
+                }
+              ]}
+            /&gt;
+          }
+        /&gt;
+      &lt;/GitSyncStoreProvider&gt;
       &lt;Page.Body&gt;{children}&lt;/Page.Body&gt;
     &lt;/&gt;
   )
@@ -817,7 +826,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren&lt
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 03:37:52 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 04:46:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

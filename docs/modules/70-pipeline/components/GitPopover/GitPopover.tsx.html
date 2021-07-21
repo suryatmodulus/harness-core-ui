@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>15/19</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/15</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -140,14 +140,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -182,12 +179,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { IPopoverProps, PopoverInteractionKind } from '@blueprintjs/core'
@@ -197,7 +197,7 @@ import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
-import { GitSyncStoreProvider, useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 &nbsp;
 export interface GitPopoverProps {
   data: EntityGitDetails
@@ -210,50 +210,50 @@ export function RenderGitPopover(props: GitPopoverProps): React.ReactElement | n
   const { data, iconProps, popoverProps } = props
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!data.repoIdentifier) {
-<span class="cstat-no" title="statement not covered" >    return null</span>
+  const gitPopover = React.useCallback(() =&gt; {
+    return (
+      &lt;Popover interactionKind={PopoverInteractionKind.HOVER} {...popoverProps}&gt;
+        &lt;Icon name={'service-github'} color={Color.GREY_500} {...iconProps} size={<span class="branch-1 cbranch-no" title="branch not covered" >iconProps?.size </span>|| 16} /&gt;
+        &lt;Layout.Vertical padding={{ top: 'large', bottom: 'large', left: 'xlarge', right: 'xlarge' }}&gt;
+          &lt;Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}&gt;
+            {getString('pipeline.gitDetails').toUpperCase()}
+          &lt;/Text&gt;
+          &lt;Layout.Vertical spacing="large"&gt;
+            &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
+              {getString('repository')}
+            &lt;/Text&gt;
+            &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
+              &lt;Icon name="repository" size={16} color={Color.GREY_700} /&gt;
+              &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
+                {(!loadingRepos &amp;&amp; getRepoDetailsByIndentifier(data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoIdentifier, gitSyncRepos)?.name) || ''}
+              &lt;/Text&gt;
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Layout.Vertical&gt;
+          &lt;Layout.Vertical spacing="large"&gt;
+            &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
+              {getString('pipelineSteps.deploy.inputSet.branch')}
+            &lt;/Text&gt;
+            &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
+              &lt;Icon name="git-new-branch" size={14} color={Color.GREY_700} /&gt;
+              &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
+                {data.branch}
+              &lt;/Text&gt;
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Layout.Vertical&gt;
+        &lt;/Layout.Vertical&gt;
+      &lt;/Popover&gt;
+    )
+  }, [gitSyncRepos, data, loadingRepos, iconProps, popoverProps])
+&nbsp;
+  if (!data.repoIdentifier) {
+    return null
   }
 &nbsp;
-  return (
-    &lt;Popover interactionKind={PopoverInteractionKind.HOVER} {...popoverProps}&gt;
-      &lt;Icon name={'service-github'} color={Color.GREY_500} {...iconProps} size={<span class="branch-1 cbranch-no" title="branch not covered" >iconProps?.size </span>|| 16} /&gt;
-      &lt;Layout.Vertical padding={{ top: 'large', bottom: 'large', left: 'xlarge', right: 'xlarge' }}&gt;
-        &lt;Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}&gt;
-          {getString('pipeline.gitDetails').toUpperCase()}
-        &lt;/Text&gt;
-        &lt;Layout.Vertical spacing="large"&gt;
-          &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
-            {getString('repository')}
-          &lt;/Text&gt;
-          &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
-            &lt;Icon name="repository" size={16} color={Color.GREY_700} /&gt;
-            &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
-              {(!loadingRepos &amp;&amp; getRepoDetailsByIndentifier(data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>epoIdentifier, gitSyncRepos)<span class="branch-1 cbranch-no" title="branch not covered" >?.name)</span> || ''}
-            &lt;/Text&gt;
-          &lt;/Layout.Horizontal&gt;
-        &lt;/Layout.Vertical&gt;
-        &lt;Layout.Vertical spacing="large"&gt;
-          &lt;Text font={{ size: 'small' }} color={Color.GREY_400}&gt;
-            {getString('pipelineSteps.deploy.inputSet.branch')}
-          &lt;/Text&gt;
-          &lt;Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}&gt;
-            &lt;Icon name="git-new-branch" size={14} color={Color.GREY_700} /&gt;
-            &lt;Text font={{ size: 'small' }} color={Color.GREY_800}&gt;
-              {data.branch}
-            &lt;/Text&gt;
-          &lt;/Layout.Horizontal&gt;
-        &lt;/Layout.Vertical&gt;
-      &lt;/Layout.Vertical&gt;
-    &lt;/Popover&gt;
-  )
+  return &lt;&gt;{gitPopover()}&lt;/&gt;
 }
 &nbsp;
 export default function GitPopover(props: GitPopoverProps): React.ReactElement | null {
-  return (
-    &lt;GitSyncStoreProvider&gt;
-      &lt;RenderGitPopover {...props} /&gt;
-    &lt;/GitSyncStoreProvider&gt;
-  )
+  return &lt;RenderGitPopover {...props} /&gt;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -262,7 +262,7 @@ export default function GitPopover(props: GitPopoverProps): React.ReactElement |
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 03:37:52 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 04:46:14 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">83.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/42</span>
+                <span class='fraction'>36/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.84% </span>
+                <span class="strong">44.15% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>210/479</span>
+                <span class='fraction'>215/487</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.93% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/41</span>
+                <span class='fraction'>35/42</span>
             </div>
         
             
@@ -665,7 +665,23 @@
 <a name='L606'></a><a href='#L606'>606</a>
 <a name='L607'></a><a href='#L607'>607</a>
 <a name='L608'></a><a href='#L608'>608</a>
-<a name='L609'></a><a href='#L609'>609</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L609'></a><a href='#L609'>609</a>
+<a name='L610'></a><a href='#L610'>610</a>
+<a name='L611'></a><a href='#L611'>611</a>
+<a name='L612'></a><a href='#L612'>612</a>
+<a name='L613'></a><a href='#L613'>613</a>
+<a name='L614'></a><a href='#L614'>614</a>
+<a name='L615'></a><a href='#L615'>615</a>
+<a name='L616'></a><a href='#L616'>616</a>
+<a name='L617'></a><a href='#L617'>617</a>
+<a name='L618'></a><a href='#L618'>618</a>
+<a name='L619'></a><a href='#L619'>619</a>
+<a name='L620'></a><a href='#L620'>620</a>
+<a name='L621'></a><a href='#L621'>621</a>
+<a name='L622'></a><a href='#L622'>622</a>
+<a name='L623'></a><a href='#L623'>623</a>
+<a name='L624'></a><a href='#L624'>624</a>
+<a name='L625'></a><a href='#L625'>625</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -682,6 +698,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -1205,6 +1222,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1291,6 +1323,7 @@ import type {
   StageOverridesConfig
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
@@ -1682,6 +1715,21 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
                 disabled={readonly}
               /&gt;
             )}
+            {(deploymentStageTemplate.infrastructure as any).spec?.runAsUser &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;MultiTypeTextField</span>
+                label={&lt;Text margin={{ bottom: 'xsmall' }}&gt;{getString('pipeline.stepCommonFields.runAsUser')}&lt;/Text&gt;}
+                name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.runAsUser`}
+                style={{ marginBottom: 'var(--spacing-xsmall)' }}
+                multiTextInputProps={{
+                  multiTextInputProps: {
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  },
+                  disabled: readonly,
+                  placeholder: '1000'
+                }}
+              /&gt;
+            )}
             {(deploymentStageTemplate.infrastructure as any).spec?.initTimeout &amp;&amp; (
               &lt;FormMultiTypeDurationField
                 label={
@@ -1888,7 +1936,7 @@ export const StageInputSetForm = connect(StageInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 14:22:52 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 16:12:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

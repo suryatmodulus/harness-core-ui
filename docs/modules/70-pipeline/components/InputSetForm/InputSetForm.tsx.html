@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.71% </span>
+                <span class="strong">86.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>137/158</span>
+                <span class='fraction'>136/157</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.17% </span>
+                <span class="strong">57.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>203/349</span>
+                <span class='fraction'>198/343</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.01% </span>
+                <span class="strong">86.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>134/154</span>
+                <span class='fraction'>133/153</span>
             </div>
         
             
@@ -722,10 +722,22 @@
 <a name='L663'></a><a href='#L663'>663</a>
 <a name='L664'></a><a href='#L664'>664</a>
 <a name='L665'></a><a href='#L665'>665</a>
-<a name='L666'></a><a href='#L666'>666</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -759,8 +771,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1319,7 +1331,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
-<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1341,11 +1352,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1390,7 +1396,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import * as Yup from 'yup'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import { Button, Container, Formik, FormikForm, Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
+import {
+  Button,
+  Container,
+  Formik,
+  FormikForm,
+  Layout,
+  NestedAccordionProvider,
+  Heading,
+  Color
+} from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { FormikErrors } from 'formik'
@@ -1413,12 +1428,11 @@ import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interf
 import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
-import { AppStoreContext, useAppStore } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -1431,6 +1445,7 @@ import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlTogg
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -1983,7 +1998,6 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams&lt;
     PipelineType&lt;InputSetPathProps&gt; &amp; { accountId: string }
   &gt;()
-  const { selectedProject: project } = useAppStore()
   const { getString } = useStrings()
 &nbsp;
   return (
@@ -1992,11 +2006,11 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
         &lt;PageHeader
           title={
             &lt;Layout.Horizontal&gt;
-              &lt;Text font="medium"&gt;
+              &lt;Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }}&gt;
                 {isEdit
                   ? getString('inputSets.editTitle', { name: inputSet.name })
                   : getString('inputSets.newInputSetLabel')}
-              &lt;/Text&gt;
+              &lt;/Heading&gt;
               {isGitSyncEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isEdit </span>&amp;&amp; (
 <span class="branch-2 cbranch-no" title="branch not covered" >                &lt;GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} /&gt;</span>
               )}
@@ -2012,12 +2026,8 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
             &lt;/Layout.Horizontal&gt;
           }
           breadcrumbs={
-            &lt;Breadcrumbs
+            &lt;NGBreadcrumbs
               links={[
-                {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: project<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame as string
-                },
                 {
                   url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: getString('pipelines')
@@ -2033,8 +2043,7 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                     repoIdentifier: pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier</span>
                   }),
                   label: parse(pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlPipeline || <span class="branch-1 cbranch-no" title="branch not covered" >'')<span class="branch-0 cbranch-no" title="branch not covered" ></span>?.p</span>ipeline.name || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-                },
-                { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
+                }
               ]}
             /&gt;
           }
@@ -2059,7 +2068,7 @@ export const EnhancedInputSetForm: React.FC&lt;InputSetFormProps&gt; = props =&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 21 2021 14:22:52 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 21 2021 16:12:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

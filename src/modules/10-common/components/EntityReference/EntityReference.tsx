@@ -117,9 +117,11 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [selectedRecord, setSelectedRecord] = useState<T>()
   const [checkedItems, setCheckedItems] = useState<T[]>()
 
-  React.useEffect(() => {
-    setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
-  }, [projectIdentifier, orgIdentifier])
+  // TODO: check why is this here. Will we ever pass orgIdentifier or projectIdentifier after initial mount?
+  // Keeping this will set selectedScope to proj if those values are there, regardless of the scope selected
+  // React.useEffect(() => {
+  //   setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
+  // }, [projectIdentifier, orgIdentifier])
 
   const delayedFetchRecords = useRef(
     debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {
@@ -168,7 +170,12 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     ACCOUNT = 'account'
   }
 
-  const defaultTab = projectIdentifier ? TAB_ID.PROJECT : orgIdentifier ? TAB_ID.ORGANIZATION : TAB_ID.ACCOUNT
+  // TODO: this doesnt seem ok. Why would we set the default tab based on the identifiers instead of the defaultScope
+  // and doesnt orgIdentifier takes president over projectIdentifier?
+  // const defaultTab = projectIdentifier ? TAB_ID.PROJECT : orgIdentifier ? TAB_ID.ORGANIZATION : TAB_ID.ACCOUNT
+
+  const defaultTab =
+    defaultScope === Scope.ORG ? TAB_ID.ORGANIZATION : defaultScope === Scope.PROJECT ? TAB_ID.PROJECT : TAB_ID.ACCOUNT
 
   const onCheckboxChange = (checked: boolean, item: T) => {
     const tempCheckedItems: T[] = [...((checkedItems as T[]) || [])]

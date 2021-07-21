@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Text, Container, Layout, Color, AvatarGroup } from '@wings-software/uicore'
 import { Failure, UserGroupDTO, getUserGroupAggregateListPromise, UserMetadataDTO } from 'services/cd-ng'
@@ -15,13 +15,11 @@ export interface UserGroupsRef extends Omit<UserGroupDTO, 'users'> {
 
 export interface UserGroupsReferenceProps {
   onSelect: (userGroups: UserGroupDTO[]) => void
-  onCancel: () => void
   userGroups?: UserGroupDTO[]
   scope?: Scope
   mock?: UserGroupDTO[]
 }
 
-// TODO: modify to fetch groups based on scope
 const fetchRecords = (
   scope: Scope,
   search: string | undefined,
@@ -72,12 +70,17 @@ const fetchRecords = (
     })
 }
 
-const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
-  const { scope = Scope.ACCOUNT, onCancel, onSelect } = props
-  // const { mock, scope = Scope.ACCOUNT, userGroups } = props
+const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
+  const { scope = Scope.ACCOUNT, onSelect, userGroups } = props
   const { getString } = useStrings()
-  // TODO: check if this is ok. Can user group have different project and org id`s from the pages params?
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const [userGroupIds, setUserGroupIds] = useState<string[]>()
+
+  useEffect(() => {
+    if (userGroups) {
+      setUserGroupIds(userGroups.map(el => el.identifier))
+    }
+  }, [userGroups])
 
   return (
     <EntityReference<UserGroupsRef>
@@ -85,7 +88,6 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
       onSelect={() => {
         // not needed in multiSelect but is required by EntityReference
       }}
-      onCancel={onCancel}
       onMultiSelect={data => {
         const groupsDTO = data.map(group => {
           const mappedUserIds = group.users.map(user => {
@@ -98,12 +100,11 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
       defaultScope={scope}
       fetchRecords={(fetchScope, search = '', done) => {
         fetchRecords(fetchScope, search, done, accountIdentifier, projectIdentifier, orgIdentifier)
-        // fetchRecords(fetchScope, search, done, accountIdentifier, projectIdentifier, orgIdentifier, mock)
       }}
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}
       noRecordsText={getString('noData')}
-      // selectedItems={userGroups}
+      selectedItemsIdentifiers={userGroupIds}
       allowMultiSelect
       recordRender={({ item, selected }) => {
         const avatars =
@@ -133,4 +134,4 @@ const SecretReference: React.FC<UserGroupsReferenceProps> = props => {
   )
 }
 
-export default SecretReference
+export default UserGroupsReference

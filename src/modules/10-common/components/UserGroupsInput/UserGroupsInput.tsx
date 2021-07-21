@@ -8,6 +8,7 @@ import { FormGroup, Intent } from '@blueprintjs/core'
 import type { UserGroupDTO } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import useSelectUserGroupsModal from '@common/modals/SelectUserGroups/useSelectUserGroupsModal'
+import { useStrings } from 'framework/strings'
 import css from './UserGroupsInput.module.scss'
 
 export interface UserGroupsInputProps {
@@ -23,10 +24,8 @@ interface FormikUserGroupsInput extends UserGroupsInputProps {
 }
 
 const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
-  //   const { getString } = useStrings()
-  //   const { accountId } = useParams<AccountPathProps>()
+  const { getString } = useStrings()
   const { formik, label, name, onSuccess, placeholder } = props
-  //   const { formik, label, name, onSuccess, userGroupsMockData, placeholder } = props
   const userGroupsReference: UserGroupDTO[] = formik.values[name]
 
   const { openSelectUserGroupsModal } = useSelectUserGroupsModal({
@@ -72,7 +71,7 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
             <Container
               padding={{ top: 'xsmall', right: 'small', bottom: 'xsmall', left: 'small' }}
               width={'30%'}
-              background={Color.BLUE_100}
+              background={Color.PRIMARY_2}
               key={scope.name}
               onClick={() => {
                 openSelectUserGroupsModal(userGroupsReference, scope.name)
@@ -81,8 +80,11 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
               className={css.pointer}
             >
               <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text color={Color.BLACK}>{scope.name.toUpperCase()}</Text>
+                <Text font={{ size: 'small' }} color={Color.BLACK}>
+                  {scope.name.toUpperCase()}
+                </Text>
                 <Text
+                  font={{ size: 'small' }}
                   padding={{ left: 'xsmall', right: 'xsmall' }}
                   flex={{ align: 'center-center' }}
                   background={Color.BLUE_600}
@@ -124,7 +126,7 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
                 flex={{ alignItems: 'center', justifyContent: 'flex-start', inline: false }}
                 padding="xsmall"
               >
-                {placeholder || 'TODO: Select User Group(s) default placeholder'}
+                {placeholder || getString('select')}
               </Text>
             </Link>
           )}

@@ -13,7 +13,7 @@ import {
   Color,
   Checkbox
 } from '@wings-software/uicore'
-import { debounce, isEmpty } from 'lodash-es'
+import { debounce, isEmpty, isEqual } from 'lodash-es'
 import { PageError } from '@common/components/Page/PageError'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { useStrings } from 'framework/strings'
@@ -59,7 +59,6 @@ export type EntityReferenceResponse<T> = {
 }
 
 export interface EntityReferenceProps<T> {
-  // TODO: handle this in userGroupsReference
   onSelect: (reference: T, scope: Scope) => void
   fetchRecords: (
     scope: Scope,
@@ -67,7 +66,6 @@ export interface EntityReferenceProps<T> {
     done: (records: EntityReferenceResponse<T>[]) => void
   ) => void
   recordRender: (args: { item: EntityReferenceResponse<T>; selectedScope: Scope; selected?: boolean }) => JSX.Element
-  onCancel?: () => void
   recordClassName?: string
   className?: string
   projectIdentifier?: string
@@ -76,7 +74,7 @@ export interface EntityReferenceProps<T> {
   defaultScope?: Scope
   searchInlineComponent?: JSX.Element
   allowMultiSelect?: boolean
-  selectedItems?: T[]
+  selectedItemsIdentifiers?: string[]
   onMultiSelect?: (reference: T[], scope: Scope) => void
 }
 
@@ -98,13 +96,11 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     fetchRecords,
     className = '',
     recordRender,
-    onCancel,
     recordClassName = '',
     noRecordsText = getString('entityReference.noRecordFound'),
     searchInlineComponent,
     allowMultiSelect = false,
-    // TODO: make this possible currently not used
-    // selectedItems
+    selectedItemsIdentifiers,
     onMultiSelect
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
@@ -115,13 +111,21 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
   const [selectedRecord, setSelectedRecord] = useState<T>()
+  const [renderedList, setRenderedList] = useState<JSX.Element>()
+
   const [checkedItems, setCheckedItems] = useState<T[]>()
 
-  // TODO: check why is this here. Will we ever pass orgIdentifier or projectIdentifier after initial mount?
-  // Keeping this will set selectedScope to proj if those values are there, regardless of the scope selected
-  // React.useEffect(() => {
-  //   setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
-  // }, [projectIdentifier, orgIdentifier])
+  useEffect(() => {
+    if (selectedItemsIdentifiers && data) {
+      const items = selectedItemsIdentifiers.map(uuid => {
+        const item = data.find(el => el.identifier === uuid)?.record
+        if (item) {
+          return item
+        }
+      })
+      setCheckedItems(items as T[])
+    }
+  }, [selectedItemsIdentifiers, data])
 
   const delayedFetchRecords = useRef(
     debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {
@@ -170,87 +174,97 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     ACCOUNT = 'account'
   }
 
-  // TODO: this doesnt seem ok. Why would we set the default tab based on the identifiers instead of the defaultScope
-  // and doesnt orgIdentifier takes president over projectIdentifier?
-  // const defaultTab = projectIdentifier ? TAB_ID.PROJECT : orgIdentifier ? TAB_ID.ORGANIZATION : TAB_ID.ACCOUNT
-
   const defaultTab =
-    defaultScope === Scope.ORG ? TAB_ID.ORGANIZATION : defaultScope === Scope.PROJECT ? TAB_ID.PROJECT : TAB_ID.ACCOUNT
+    selectedScope === Scope.ORG
+      ? TAB_ID.ORGANIZATION
+      : selectedScope === Scope.PROJECT
+      ? TAB_ID.PROJECT
+      : TAB_ID.ACCOUNT
 
   const onCheckboxChange = (checked: boolean, item: T) => {
     const tempCheckedItems: T[] = [...((checkedItems as T[]) || [])]
     if (checked) {
       tempCheckedItems.push(item)
     } else {
-      tempCheckedItems.splice(tempCheckedItems.indexOf(item), 1)
+      tempCheckedItems.splice(
+        tempCheckedItems.findIndex(el => isEqual(el, item)),
+        1
+      )
     }
     setCheckedItems(tempCheckedItems.length ? tempCheckedItems : undefined)
   }
 
-  // TODO: test for error and no data state
-  let renderedList = <></>
-  if (loading) {
-    renderedList = (
-      <Container flex={{ align: 'center-center' }} padding="small">
-        <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
-      </Container>
-    )
-  }
-  if (!loading && error) {
-    renderedList = (
-      <Container>
-        <PageError message={error} onClick={fetchData} />
-      </Container>
-    )
-  }
-  if (!loading && !error && data.length) {
-    if (!allowMultiSelect) {
-      renderedList = (
-        <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
-          {data.map((item: EntityReferenceResponse<T>) => (
-            <div
-              key={item.identifier}
-              className={cx(css.listItem, recordClassName, {
-                [css.selectedItem]: selectedRecord === item.record
-              })}
-              onClick={() => setSelectedRecord(selectedRecord === item.record ? undefined : item.record)}
-            >
-              {recordRender({ item, selectedScope, selected: selectedRecord === item.record })}
-            </div>
-          ))}
-        </div>
-      )
-    } else {
-      renderedList = (
-        <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
-          {data.map((item: EntityReferenceResponse<T>) => (
-            <Layout.Horizontal
-              key={item.identifier}
-              className={cx(css.listItem, recordClassName, {
-                [css.selectedItem]: checkedItems?.includes(item.record)
-              })}
-              flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
-            >
-              <Checkbox
-                onChange={e => onCheckboxChange((e.target as any).checked, item.record)}
-                className={css.checkbox}
-                large
-              />
-              {recordRender({ item, selectedScope, selected: checkedItems?.includes(item.record) })}
-            </Layout.Horizontal>
-          ))}
-        </div>
+  useEffect(() => {
+    let renderedListTemp
+    if (loading) {
+      renderedListTemp = (
+        <Container flex={{ align: 'center-center' }} padding="small">
+          <Icon name="spinner" size={24} color={Color.PRIMARY_7} />
+        </Container>
       )
     }
-  }
-  if (!loading && !error && !data.length) {
-    renderedList = (
-      <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
-        <Text>{noRecordsText}</Text>
-      </Container>
-    )
-  }
+    if (!loading && error) {
+      renderedListTemp = (
+        <Container>
+          <PageError message={error} onClick={fetchData} />
+        </Container>
+      )
+    }
+    if (!loading && !error && data.length) {
+      if (!allowMultiSelect) {
+        renderedListTemp = (
+          <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
+            {data.map((item: EntityReferenceResponse<T>) => (
+              <div
+                key={item.identifier}
+                className={cx(css.listItem, recordClassName, {
+                  [css.selectedItem]: selectedRecord === item.record
+                })}
+                onClick={() => setSelectedRecord(selectedRecord === item.record ? undefined : item.record)}
+              >
+                {recordRender({ item, selectedScope, selected: selectedRecord === item.record })}
+              </div>
+            ))}
+          </div>
+        )
+      } else {
+        renderedListTemp = (
+          <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
+            {data.map((item: EntityReferenceResponse<T>) => {
+              const checked = !!checkedItems?.find(el => isEqual(el, item.record))
+              return (
+                <Layout.Horizontal
+                  key={item.identifier}
+                  className={cx(css.listItem, recordClassName, {
+                    [css.selectedItem]: checked
+                  })}
+                  flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+                >
+                  <Checkbox
+                    onChange={e => onCheckboxChange((e.target as any).checked, item.record)}
+                    className={css.checkbox}
+                    checked={checked}
+                    large
+                  />
+                  {recordRender({ item, selectedScope, selected: checked })}
+                </Layout.Horizontal>
+              )
+            })}
+          </div>
+        )
+      }
+    }
+    if (!loading && !error && !data.length) {
+      renderedListTemp = (
+        <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
+          <Text>{noRecordsText}</Text>
+        </Container>
+      )
+    }
+    setRenderedList(renderedListTemp)
+  }, [selectedScope, loading, error, data, checkedItems, selectedRecord])
 
+  // TODO: add optional tabRenderer prop to EntityRef and render this
   const renderTab = (
     show: boolean,
     id: string,
@@ -277,8 +291,8 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       <Tab
         id={id}
         title={
-          <Layout.Horizontal flex={{ alignItems: 'center' }}>
-            <Text onClick={() => onScopeChange(scope)} padding={'medium'}>
+          <Layout.Horizontal onClick={() => onScopeChange(scope)} padding={'medium'} flex={{ alignItems: 'center' }}>
+            <Text>
               <Icon name={icon} {...iconProps} className={css.iconMargin} />
               {getString(title)}
             </Text>
@@ -321,7 +335,6 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
         <Layout.Horizontal spacing="medium">
           <Button intent="primary" text={getString('entityReference.apply')} onClick={onSelect} disabled={disabled} />
-          {allowMultiSelect ? <Button onClick={onCancel} text={getString('cancel')} /> : null}
         </Layout.Horizontal>
         {allowMultiSelect ? (
           <Layout.Horizontal spacing={'small'}>

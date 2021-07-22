@@ -6,6 +6,29 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
+export const CcmMetaDataDocument = gql`
+  query CCMMetaData {
+    ccmMetaData {
+      k8sClusterConnectorPresent
+      cloudDataPresent
+      awsConnectorsPresent
+      gcpConnectorsPresent
+      azureConnectorsPresent
+      applicationDataPresent
+      inventoryDataPresent
+      clusterDataPresent
+      isSampleClusterPresent
+      defaultAzurePerspectiveId
+      defaultAwsPerspectiveId
+      defaultGcpPerspectiveId
+      defaultClusterPerspectiveId
+    }
+  }
+`
+
+export function useCcmMetaDataQuery(options: Omit<Urql.UseQueryArgs<CcmMetaDataQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<CcmMetaDataQuery>({ query: CcmMetaDataDocument, ...options })
+}
 export const FetchAllPerspectivesDocument = gql`
   query FetchAllPerspectives {
     perspectives {
@@ -626,6 +649,28 @@ export function useFetchWorkloadTimeSeriesQuery(
 ) {
   return Urql.useQuery<FetchWorkloadTimeSeriesQuery>({ query: FetchWorkloadTimeSeriesDocument, ...options })
 }
+export type CcmMetaDataQueryVariables = Exact<{ [key: string]: never }>
+
+export type CcmMetaDataQuery = {
+  __typename?: 'Query'
+  ccmMetaData: Maybe<{
+    __typename?: 'CCMMetaData'
+    k8sClusterConnectorPresent: boolean
+    cloudDataPresent: boolean
+    awsConnectorsPresent: boolean
+    gcpConnectorsPresent: boolean
+    azureConnectorsPresent: boolean
+    applicationDataPresent: boolean
+    inventoryDataPresent: boolean
+    clusterDataPresent: boolean
+    isSampleClusterPresent: boolean
+    defaultAzurePerspectiveId: Maybe<string>
+    defaultAwsPerspectiveId: Maybe<string>
+    defaultGcpPerspectiveId: Maybe<string>
+    defaultClusterPerspectiveId: Maybe<string>
+  }>
+}
+
 export type FetchAllPerspectivesQueryVariables = Exact<{ [key: string]: never }>
 
 export type FetchAllPerspectivesQuery = {

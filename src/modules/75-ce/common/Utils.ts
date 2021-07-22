@@ -1,4 +1,5 @@
 import type { Provider } from '@ce/components/COCreateGateway/models'
+import type { CcmMetaData } from 'services/ce/services'
 import type { HealthCheck, PortConfig } from 'services/lw'
 
 export class Utils {
@@ -47,4 +48,13 @@ export class Utils {
     })
 
   static getHyphenSpacedString = (str: string) => (str || '').trim().split(' ').join('-')
+
+  static accountHasConnectors = (data: CcmMetaData): boolean => {
+    return (
+      data.awsConnectorsPresent ||
+      data.azureConnectorsPresent ||
+      data.gcpConnectorsPresent ||
+      data.k8sClusterConnectorPresent
+    )
+  }
 }

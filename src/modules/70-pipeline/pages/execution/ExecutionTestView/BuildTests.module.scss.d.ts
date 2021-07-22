@@ -40,6 +40,7 @@ declare const styles: {
   readonly expanded: string
   readonly headingContainer: string
   readonly testSuiteHeading: string
+  readonly splitview: string
   readonly withSeparator: string
   readonly progressBar: string
   readonly testSuiteTable: string

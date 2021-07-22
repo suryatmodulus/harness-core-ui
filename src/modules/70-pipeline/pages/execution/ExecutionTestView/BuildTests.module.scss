@@ -368,6 +368,10 @@
     }
   }
 
+  .splitview {
+    max-width: 455px !important;
+  }
+
   .withSeparator {
     border-right: 0.5px solid #d9dae6;
     padding-right: var(--spacing-large) !important;

@@ -34,9 +34,10 @@ interface TestsExecutionProps {
   stageId: string
   stepId: string
   serviceToken: string
+  splitview?: boolean
 }
 
-export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken }) => {
+export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken, splitview }) => {
   const context = useExecutionContext()
   const callgraphEnabled = useFeatureFlag(FeatureFlag.TI_CALLGRAPH) || localStorage.TI_CALLGRAPH_ENABLED
   const { getString } = useStrings()
@@ -244,6 +245,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                     onExpand={() => {
                       setExpandedIndex(expandedIndex !== index ? index : undefined)
                     }}
+                    splitview={splitview}
                   />
                 ))}
               </Layout.Vertical>

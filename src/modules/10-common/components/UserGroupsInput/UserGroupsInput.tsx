@@ -60,20 +60,20 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
     let projectCount = 0
     let orgCount = 0
     userGroupsReference.forEach(group => {
-      group.orgIdentifier && orgCount++
-      group.projectIdentifier && !group.orgIdentifier && projectCount++
+      group.orgIdentifier && !group.projectIdentifier && orgCount++
+      group.projectIdentifier && group.orgIdentifier && projectCount++
       group.accountIdentifier && !group.projectIdentifier && !group.orgIdentifier && accCount++
     })
-    if (accCount || projectCount || orgCount) {
+    if (accCount || orgCount || projectCount) {
       mappedUserGroups = []
-      if (accCount) {
-        mappedUserGroups.push({ name: Scope.ACCOUNT, userGroupsCount: accCount })
-      }
       if (projectCount) {
         mappedUserGroups.push({ name: Scope.PROJECT, userGroupsCount: projectCount })
       }
       if (orgCount) {
         mappedUserGroups.push({ name: Scope.ORG, userGroupsCount: orgCount })
+      }
+      if (accCount) {
+        mappedUserGroups.push({ name: Scope.ACCOUNT, userGroupsCount: accCount })
       }
     }
 

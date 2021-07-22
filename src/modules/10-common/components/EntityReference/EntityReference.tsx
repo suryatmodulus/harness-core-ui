@@ -64,9 +64,9 @@ export type ScopeAndUuid = {
 }
 
 type CheckedItems<T> = {
-  [Scope.ACCOUNT]: T[]
   [Scope.PROJECT]: T[]
   [Scope.ORG]: T[]
+  [Scope.ACCOUNT]: T[]
   total: number
 }
 
@@ -91,10 +91,10 @@ export interface EntityReferenceProps<T> {
 }
 
 export function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
-  if (!isEmpty(orgIdentifier)) {
-    return Scope.ORG
-  } else if (!isEmpty(projectIdentifier)) {
+  if (!isEmpty(projectIdentifier)) {
     return Scope.PROJECT
+  } else if (!isEmpty(orgIdentifier)) {
+    return Scope.ORG
   }
   return Scope.ACCOUNT
 }
@@ -126,16 +126,16 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [renderedList, setRenderedList] = useState<JSX.Element>()
 
   const [checkedItems, setCheckedItems] = useState<CheckedItems<T>>({
-    [Scope.ACCOUNT]: [],
     [Scope.PROJECT]: [],
     [Scope.ORG]: [],
+    [Scope.ACCOUNT]: [],
     total: 0
   })
 
   useEffect(() => {
     // TODO: something is wrong here. check!
     if (selectedItemsUuidAndScope && data) {
-      const tempCheckedItems: CheckedItems<T> = { [Scope.ACCOUNT]: [], [Scope.PROJECT]: [], [Scope.ORG]: [], total: 0 }
+      const tempCheckedItems: CheckedItems<T> = { [Scope.PROJECT]: [], [Scope.ORG]: [], [Scope.ACCOUNT]: [], total: 0 }
       selectedItemsUuidAndScope.forEach(el => {
         const item = data.find(_el => _el.identifier === el.uuid)?.record
         if (item) {
@@ -338,9 +338,9 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const onSelect = allowMultiSelect
     ? () => {
         const allCheckedItems: T[] = [
-          ...checkedItems[Scope.ACCOUNT],
           ...checkedItems[Scope.PROJECT],
-          ...checkedItems[Scope.ORG]
+          ...checkedItems[Scope.ORG],
+          ...checkedItems[Scope.ACCOUNT]
         ]
         onMultiSelect?.(allCheckedItems, selectedScope)
       }

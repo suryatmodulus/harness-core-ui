@@ -80,6 +80,16 @@ export interface FlatOnEditValuesInterface {
   expression?: string
 }
 
+export interface FlatValidArtifactFormikValuesInterface {
+  name: string
+  identifier: string
+  description?: string
+  enabled?: boolean
+  headerConditions?: AddConditionInterface[]
+  pipeline: NgPipeline
+  triggerType: NGTriggerSourceV2['type']
+}
+
 export interface FlatValidWebhookFormikValuesInterface {
   name: string
   identifier: string

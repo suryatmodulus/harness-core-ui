@@ -25,7 +25,7 @@ interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
 }
 // This is temporary feature flag for NewArtifact Trigger
-const NG_NEWARTIFACT_TRIGGER = (false && window.location.href.includes('localhost')) || false
+const NG_NEWARTIFACT_TRIGGER = (true && window.location.href.includes('localhost')) || false
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
   const { onNewTriggerClick, repoIdentifier, branch } = props
 

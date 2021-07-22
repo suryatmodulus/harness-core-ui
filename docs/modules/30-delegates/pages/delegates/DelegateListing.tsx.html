@@ -1175,8 +1175,8 @@ import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import {
   GetDelegatesStatusV2QueryParams,
-  useDeleteDelegateGroup,
-  useGetDelegateGroupsV2,
+  useDeleteDelegateGroupByIdentifier,
+  useGetDelegateGroupsNGV2,
   DelegateGroupDetails,
   DelegateInsightsBarDetails
 } from 'services/portal'
@@ -1334,15 +1334,15 @@ const RenderActivityColumn: Renderer&lt;CellProps&lt;DelegateGroupDetails&gt;&gt
 &nbsp;
 const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) =&gt; {
   const { row } = cell
-  const groupId = row.original.groupId
+  const delegateGroupIdentifier = row.original.delegateGroupIdentifier
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;Record&lt;string, string&gt;&gt;()
-  const { mutate: deleteDelegate } = useDeleteDelegateGroup({
+  const { mutate: deleteDelegate } = useDeleteDelegateGroupByIdentifier({
     queryParams: { accountId: accountId }
   })
-  const { mutate: forceDeleteDelegate } = useDeleteDelegateGroup({
+  const { mutate: forceDeleteDelegate } = useDeleteDelegateGroupByIdentifier({
     queryParams: { accountId: accountId, forceDelete: true }
   })
   const { openDialog } = useConfirmationDialog({
@@ -1353,8 +1353,8 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
     onCloseDialog: <span class="fstat-no" title="function not covered" >async </span>(isConfirmed: boolean) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (isConfirmed) {</span>
 <span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >          if (groupId) {</span>
-            const deleted = <span class="cstat-no" title="statement not covered" >await deleteDelegate(groupId)</span>
+<span class="cstat-no" title="statement not covered" >          if (delegateGroupIdentifier) {</span>
+            const deleted = <span class="cstat-no" title="statement not covered" >await deleteDelegate(delegateGroupIdentifier)</span>
 <span class="cstat-no" title="statement not covered" >            if (deleted) {</span>
 <span class="cstat-no" title="statement not covered" >              showSuccess(getString('delegates.delegateDeleted', { name: row.original.groupName }))</span>
             }
@@ -1379,8 +1379,8 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
     onCloseDialog: <span class="fstat-no" title="function not covered" >async </span>(isConfirmed: boolean) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (isConfirmed) {</span>
 <span class="cstat-no" title="statement not covered" >        try {</span>
-<span class="cstat-no" title="statement not covered" >          if (groupId) {</span>
-            const deleted = <span class="cstat-no" title="statement not covered" >await forceDeleteDelegate(groupId)</span>
+<span class="cstat-no" title="statement not covered" >          if (delegateGroupIdentifier) {</span>
+            const deleted = <span class="cstat-no" title="statement not covered" >await forceDeleteDelegate(delegateGroupIdentifier)</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            if (deleted) {</span>
 <span class="cstat-no" title="statement not covered" >              showSuccess(getString('delegates.delegateForceDeleted', { name: row.original.groupName }))</span>
@@ -1427,7 +1427,7 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
               },
               resource: {
                 resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: row.original.groupId
+                resourceIdentifier: row.original.delegateGroupIdentifier
               },
               permission: PermissionIdentifier.VIEW_DELEGATE
             }}
@@ -1443,7 +1443,7 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
               },
               resource: {
                 resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: row.original.groupId
+                resourceIdentifier: row.original.delegateGroupIdentifier
               },
               permission: PermissionIdentifier.DELETE_DELEGATE
             }}
@@ -1460,7 +1460,7 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
               },
               resource: {
                 resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: groupId
+                resourceIdentifier: delegateGroupIdentifier
               },
               permission: PermissionIdentifier.DELETE_DELEGATE
             }}
@@ -1504,7 +1504,7 @@ export const DelegateListing: React.FC = () =&gt; {
     projectId: projectIdentifier,
     module
   } as GetDelegatesStatusV2QueryParams
-  const { data, loading, error, refetch } = useGetDelegateGroupsV2({ queryParams })
+  const { data, loading, error, refetch } = useGetDelegateGroupsNGV2({ queryParams })
   const { openDelegateModal } = useCreateDelegateModal()
   const delegates = get(data, 'resource.delegateGroupDetails', [])
   const filteredDelegates = searchParam
@@ -1635,7 +1635,7 @@ export const DelegateListing: React.FC = () =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (canAccessDelegate) {
       const params = {
         accountId,
-        delegateId: item.groupId as string
+        delegateIdentifier: item.delegateGroupIdentifier as string
       }
       <span class="missing-if-branch" title="if path not taken" >I</span>if (orgIdentifier) {
 <span class="cstat-no" title="statement not covered" >        set(params, 'orgIdentifier', orgIdentifier)</span>
@@ -1708,7 +1708,7 @@ export default DelegateListing
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 16:36:53 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 16:58:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

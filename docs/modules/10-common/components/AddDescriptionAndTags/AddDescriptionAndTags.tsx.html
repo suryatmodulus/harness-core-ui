@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.48% </span>
+                <span class="strong">75.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/58</span>
+                <span class='fraction'>44/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.84% </span>
+                <span class="strong">58.95% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>73/95</span>
+                <span class='fraction'>56/95</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.26% </span>
+                <span class="strong">69.57% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>18/23</span>
+                <span class='fraction'>16/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">75.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>48/57</span>
+                <span class='fraction'>43/57</span>
             </div>
         
             
@@ -434,9 +434,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">291x</span>
-<span class="cline-any cline-yes">291x</span>
-<span class="cline-any cline-yes">288x</span>
+<span class="cline-any cline-yes">306x</span>
+<span class="cline-any cline-yes">306x</span>
+<span class="cline-any cline-yes">303x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -445,10 +445,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">96x</span>
-<span class="cline-any cline-yes">96x</span>
-<span class="cline-any cline-yes">96x</span>
-<span class="cline-any cline-yes">96x</span>
+<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-yes">111x</span>
+<span class="cline-any cline-yes">111x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -561,17 +561,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -608,8 +608,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">92x</span>
-<span class="cline-any cline-yes">92x</span>
+<span class="cline-any cline-yes">107x</span>
+<span class="cline-any cline-yes">107x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -847,18 +847,18 @@ export function AddDescriptionAndKVTags(props: DescriptionAndKVTagsInputProps): 
   )
 }
 &nbsp;
-export function AddDescription(props: DescriptionAndKVTagsInputProps): JSX.Element {
-  const { formComponent, className, formikProps } = props
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(
-<span class="branch-1 cbranch-no" title="branch not covered" >    formikProps?.values.description </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >formikProps.values.description.length &gt; 0</span>
+export function <span class="fstat-no" title="function not covered" >AddDescription(</span>props: DescriptionAndKVTagsInputProps): JSX.Element {
+  const { formComponent, className, formikProps } = <span class="cstat-no" title="statement not covered" >props</span>
+  const [isDescriptionOpen, setIsDescriptionOpen] = <span class="cstat-no" title="statement not covered" >useState(</span>
+    formikProps?.values.description &amp;&amp; formikProps.values.description.length &gt; 0
   )
 &nbsp;
-  React.useEffect(() =&gt; {
-    setIsDescriptionOpen(<span class="branch-1 cbranch-no" title="branch not covered" >formikProps?.values.description </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >formikProps.values.description.length &gt; 0)</span>
+<span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    setIsDescriptionOpen(formikProps?.values.description &amp;&amp; formikProps.values.description.length &gt; 0)</span>
 &nbsp;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [<span class="branch-1 cbranch-no" title="branch not covered" >formikProps?.values<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.description]</span>)
-  return (
+  }, [formikProps?.values?.description])
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Container className={cx(css.main, className)}&gt;
       &lt;Container className={css.connectorFormNameWrapper}&gt;
         &lt;Container className={css.connectorFormNameElm}&gt;{formComponent}&lt;/Container&gt;
@@ -875,7 +875,7 @@ export function AddDescription(props: DescriptionAndKVTagsInputProps): JSX.Eleme
 &nbsp;
       &lt;Container className={css.connectorFormElm}&gt;
         {isDescriptionOpen &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;FormInput.TextArea</span>
+          &lt;FormInput.TextArea
             className={css.expandedDescription}
             name="description"
             label={
@@ -925,7 +925,7 @@ export function <span class="fstat-no" title="function not covered" >AddDescript
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 16:36:53 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 16:58:44 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

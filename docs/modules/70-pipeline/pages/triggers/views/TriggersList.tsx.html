@@ -260,7 +260,27 @@
 <a name='L201'></a><a href='#L201'>201</a>
 <a name='L202'></a><a href='#L202'>202</a>
 <a name='L203'></a><a href='#L203'>203</a>
-<a name='L204'></a><a href='#L204'>204</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L204'></a><a href='#L204'>204</a>
+<a name='L205'></a><a href='#L205'>205</a>
+<a name='L206'></a><a href='#L206'>206</a>
+<a name='L207'></a><a href='#L207'>207</a>
+<a name='L208'></a><a href='#L208'>208</a>
+<a name='L209'></a><a href='#L209'>209</a>
+<a name='L210'></a><a href='#L210'>210</a>
+<a name='L211'></a><a href='#L211'>211</a>
+<a name='L212'></a><a href='#L212'>212</a>
+<a name='L213'></a><a href='#L213'>213</a>
+<a name='L214'></a><a href='#L214'>214</a>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -320,6 +340,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -524,6 +564,26 @@ export default function TriggersList(props: TriggersListPropsInterface &amp; Git
   const triggerList = triggerListResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent || <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
   const history = useHistory()
 &nbsp;
+  /*
+    this is used temporarily for mocking newArtifact trigger data
+  */
+&nbsp;
+  // if (NG_NEWARTIFACT_TRIGGER) {
+  //   triggerList?.push({
+  //     name: 'test-newartifact-trigger',
+  //     description: "",
+  //     enabled: true,
+  //     executions: [0, 0, 0, 0, 0, 0, 0],
+  //     identifier: "testnewArtifactTrigger",
+  //     tags: {},
+  //     type: "NewArtifact",
+  //     webhookDetails: { webhookSecret: 'test', webhookSourceRepo: "NewArtifact" },
+  //     webhookUrl: "http://localhost:12001/api/webhook/custom?accountIdentifier=kmpySmUISimoRrJL6NL73w&amp;orgIdentifier=default&amp;projectIdentifier=test&amp;pipelineIdentifier=K8sRolling&amp;triggerIdentifier=testcustomtrigger",
+  //     yaml: "trigger:\n    name: test-custom-trigger\n    identifier: testcustomtrigger\n    enabled: true\n    description: \"\"\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: test\n    pipelineIdentifier: K8sRolling\n    source:\n        type: Webhook\n        spec:\n            type: Custom\n            spec:\n                payloadConditions: []\n                headerConditions:\n                    - key: test\n                      operator: NotEquals\n                      value: \"123\"\n                jexlCondition: test\n    inputYaml: |\n        pipeline:\n            identifier: K8sRolling\n            stages:\n                - stage:\n                      identifier: stagea\n                      type: Deployment\n                      spec:\n                          serviceConfig:\n                              serviceDefinition:\n                                  type: Kubernetes\n                                  spec:\n                                      manifests:\n                                          - manifest:\n                                                identifier: dsfsf\n                                                type: Kustomize\n                                                spec:\n                                                    store:\n                                                        type: Git\n                                                        spec:\n                                                            folderPath: sdsf\n                                                            repoName: test\n                                          - manifest:\n                                                identifier: dsfsdf\n                                                type: Kustomize\n                                                spec:\n                                                    store:\n                                                        type: Git\n                                                        spec:\n                                                            folderPath: sdfd\n                                                    pluginPath: dsfd\n                          infrastructure:\n                              infrastructureDefinition:\n                                  type: KubernetesDirect\n                                  spec:\n                                      namespace: sdfds\n                                      releaseName: sdfds\n                              infrastructureKey: \"\"\n"
+&nbsp;
+  //   })
+  // }
+&nbsp;
   const [isEditable] = usePermission(
     {
       resourceScope: {
@@ -673,7 +733,7 @@ export default function TriggersList(props: TriggersListPropsInterface &amp; Git
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 16:58:44 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 19:59:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

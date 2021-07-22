@@ -467,6 +467,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       identifier,
       description = '',
       headerConditions = [],
+      tags = {},
       pipeline: pipelineRuntimeInput,
       triggerType: formikValueTriggerType
     } = val
@@ -478,6 +479,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       identifier,
       enabled: enabledStatus,
       description,
+      tags,
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,

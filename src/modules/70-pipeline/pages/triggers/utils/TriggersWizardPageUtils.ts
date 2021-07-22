@@ -84,6 +84,9 @@ export interface FlatValidArtifactFormikValuesInterface {
   name: string
   identifier: string
   description?: string
+  tags?: {
+    [key: string]: string
+  }
   enabled?: boolean
   headerConditions?: AddConditionInterface[]
   pipeline: NgPipeline

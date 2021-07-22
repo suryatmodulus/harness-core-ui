@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Text, Container, Layout, Color, AvatarGroup } from '@wings-software/uicore'
 import { Failure, UserGroupDTO, getUserGroupAggregateListPromise, UserMetadataDTO } from 'services/cd-ng'
 import { EntityReference } from '@common/exports'
-import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
+import type { EntityReferenceResponse, ScopeAndUuid } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -15,7 +15,7 @@ export interface UserGroupsRef extends Omit<UserGroupDTO, 'users'> {
 
 export interface UserGroupsReferenceProps {
   onSelect: (userGroups: UserGroupDTO[]) => void
-  userGroups?: UserGroupDTO[]
+  userGroupsScopeAndUuid?: ScopeAndUuid[]
   scope?: Scope
   mock?: UserGroupDTO[]
 }
@@ -71,16 +71,9 @@ const fetchRecords = (
 }
 
 const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
-  const { scope = Scope.ACCOUNT, onSelect, userGroups } = props
+  const { scope = Scope.ACCOUNT, onSelect, userGroupsScopeAndUuid } = props
   const { getString } = useStrings()
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const [userGroupIds, setUserGroupIds] = useState<string[]>()
-
-  useEffect(() => {
-    if (userGroups) {
-      setUserGroupIds(userGroups.map(el => el.identifier))
-    }
-  }, [userGroups])
 
   return (
     <EntityReference<UserGroupsRef>
@@ -89,7 +82,7 @@ const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
         // not needed in multiSelect but is required by EntityReference
       }}
       onMultiSelect={data => {
-        const groupsDTO = data.map(group => {
+        const groupsDTO: UserGroupDTO[] = data.map(group => {
           const mappedUserIds = group.users.map(user => {
             return user.uuid
           })
@@ -104,7 +97,7 @@ const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}
       noRecordsText={getString('noData')}
-      selectedItemsIdentifiers={userGroupIds}
+      selectedItemsUuidAndScope={userGroupsScopeAndUuid}
       allowMultiSelect
       recordRender={({ item, selected }) => {
         const avatars =

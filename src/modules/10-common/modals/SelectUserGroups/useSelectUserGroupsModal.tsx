@@ -4,6 +4,7 @@ import { Dialog } from '@blueprintjs/core'
 import type { UserGroupDTO } from 'services/cd-ng'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsReference from '@common/components/UserGroupsReference/UserGroupsReference'
+import type { ScopeAndUuid } from '@common/components/EntityReference/EntityReference'
 import { useStrings } from 'framework/strings'
 import css from './useSelectUserGroupsModal.module.scss'
 
@@ -13,14 +14,15 @@ export interface UseSelectUserGroupsModalProps {
 }
 
 export interface UseSelectUserGroupsModalReturn {
-  openSelectUserGroupsModal: (selectedUserGroups?: UserGroupDTO[], scope?: Scope) => void
+  openSelectUserGroupsModal: (selectedUserGroups?: ScopeAndUuid[], scope?: Scope) => void
   closeSelectUserGroupsModal: () => void
 }
 
 const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSelectUserGroupsModalReturn => {
   const { getString } = useStrings()
-  const [selectedUserGroups, setSelectedUserGroups] = useState<UserGroupDTO[]>()
+  const [selectedUserGroups, setSelectedUserGroups] = useState<ScopeAndUuid[]>()
   const [scope, setScope] = useState<Scope>()
+
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -37,7 +39,7 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
         <UserGroupsReference
           {...props}
           scope={scope}
-          userGroups={selectedUserGroups}
+          userGroupsScopeAndUuid={selectedUserGroups}
           mock={props.secretsListMockData}
           onSelect={userGroups => {
             props.onSuccess?.(userGroups)
@@ -51,7 +53,7 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
   )
 
   return {
-    openSelectUserGroupsModal: (_selectedUserGroups: UserGroupDTO[] | undefined, _scope: Scope | undefined) => {
+    openSelectUserGroupsModal: (_selectedUserGroups: ScopeAndUuid[] | undefined, _scope: Scope | undefined) => {
       setSelectedUserGroups(_selectedUserGroups)
       setScope(_scope)
       showModal()

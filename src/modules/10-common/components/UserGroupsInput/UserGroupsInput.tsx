@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect, FormikContext } from 'formik'
 import { Layout, Container, Text, Color } from '@wings-software/uicore'
@@ -9,6 +9,7 @@ import type { UserGroupDTO } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import useSelectUserGroupsModal from '@common/modals/SelectUserGroups/useSelectUserGroupsModal'
 import { useStrings } from 'framework/strings'
+import { ScopeAndUuid, getDefaultScope } from '@common/components/EntityReference/EntityReference'
 import css from './UserGroupsInput.module.scss'
 
 export interface UserGroupsInputProps {
@@ -40,27 +41,39 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
       get(formik?.errors, name) &&
       !isPlainObject(get(formik?.errors, name))) as boolean
 
-  let mappedUserGroups: { name: Scope; userGroups: UserGroupDTO[] }[] | undefined = undefined
+  const [userGroupsScopeAndUuid, setUserGroupsScopeAndUuid] = useState<ScopeAndUuid[]>()
+
+  useEffect(() => {
+    if (userGroupsReference) {
+      setUserGroupsScopeAndUuid(
+        userGroupsReference.map(el => {
+          return { scope: getDefaultScope(el.orgIdentifier, el.projectIdentifier), uuid: el.identifier }
+        })
+      )
+    }
+  }, [userGroupsReference])
+
+  let mappedUserGroups: { name: Scope; userGroupsCount: number }[] | undefined = undefined
   let inputItems = null
   if (userGroupsReference && userGroupsReference.length > 0) {
-    const accArray: UserGroupDTO[] = []
-    const projectArray: UserGroupDTO[] = []
-    const orgArray: UserGroupDTO[] = []
+    let accCount = 0
+    let projectCount = 0
+    let orgCount = 0
     userGroupsReference.forEach(group => {
-      group.orgIdentifier && orgArray.push(group)
-      group.projectIdentifier && !group.orgIdentifier && projectArray.push(group)
-      group.accountIdentifier && !group.projectIdentifier && !group.orgIdentifier && accArray.push(group)
+      group.orgIdentifier && orgCount++
+      group.projectIdentifier && !group.orgIdentifier && projectCount++
+      group.accountIdentifier && !group.projectIdentifier && !group.orgIdentifier && accCount++
     })
-    if (accArray.length || projectArray.length || projectArray.length) {
+    if (accCount || projectCount || orgCount) {
       mappedUserGroups = []
-      if (accArray.length) {
-        mappedUserGroups.push({ name: Scope.ACCOUNT, userGroups: accArray })
+      if (accCount) {
+        mappedUserGroups.push({ name: Scope.ACCOUNT, userGroupsCount: accCount })
       }
-      if (projectArray.length) {
-        mappedUserGroups.push({ name: Scope.PROJECT, userGroups: projectArray })
+      if (projectCount) {
+        mappedUserGroups.push({ name: Scope.PROJECT, userGroupsCount: projectCount })
       }
-      if (projectArray.length) {
-        mappedUserGroups.push({ name: Scope.ORG, userGroups: orgArray })
+      if (orgCount) {
+        mappedUserGroups.push({ name: Scope.ORG, userGroupsCount: orgCount })
       }
     }
 
@@ -74,7 +87,7 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
               background={Color.PRIMARY_2}
               key={scope.name}
               onClick={() => {
-                openSelectUserGroupsModal(userGroupsReference, scope.name)
+                openSelectUserGroupsModal(userGroupsScopeAndUuid, scope.name)
               }}
               border={{ radius: 100 }}
               className={css.pointer}
@@ -91,7 +104,7 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
                   color={Color.WHITE}
                   border={{ radius: 100 }}
                 >
-                  {scope.userGroups.length}
+                  {scope.userGroupsCount}
                 </Text>
               </Layout.Horizontal>
             </Container>

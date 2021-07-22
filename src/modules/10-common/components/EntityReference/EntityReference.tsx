@@ -58,6 +58,17 @@ export type EntityReferenceResponse<T> = {
   record: T
 }
 
+export type ScopeAndUuid = {
+  scope: Scope
+  uuid: string
+}
+
+type CheckedItems<T> = {
+  [Scope.ACCOUNT]: T[]
+  [Scope.PROJECT]: T[]
+  [Scope.ORG]: T[]
+}
+
 export interface EntityReferenceProps<T> {
   onSelect: (reference: T, scope: Scope) => void
   fetchRecords: (
@@ -74,11 +85,11 @@ export interface EntityReferenceProps<T> {
   defaultScope?: Scope
   searchInlineComponent?: JSX.Element
   allowMultiSelect?: boolean
-  selectedItemsIdentifiers?: string[]
+  selectedItemsUuidAndScope?: ScopeAndUuid[]
   onMultiSelect?: (reference: T[], scope: Scope) => void
 }
 
-function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
+export function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
   if (!isEmpty(projectIdentifier)) {
     return Scope.PROJECT
   } else if (!isEmpty(orgIdentifier)) {
@@ -100,7 +111,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     noRecordsText = getString('entityReference.noRecordFound'),
     searchInlineComponent,
     allowMultiSelect = false,
-    selectedItemsIdentifiers,
+    selectedItemsUuidAndScope,
     onMultiSelect
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
@@ -113,19 +124,25 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [selectedRecord, setSelectedRecord] = useState<T>()
   const [renderedList, setRenderedList] = useState<JSX.Element>()
 
-  const [checkedItems, setCheckedItems] = useState<T[]>()
+  const [checkedItems, setCheckedItems] = useState<CheckedItems<T>>({
+    [Scope.ACCOUNT]: [],
+    [Scope.PROJECT]: [],
+    [Scope.ORG]: []
+  })
 
   useEffect(() => {
-    if (selectedItemsIdentifiers && data) {
-      const items = selectedItemsIdentifiers.map(uuid => {
-        const item = data.find(el => el.identifier === uuid)?.record
+    // TODO: something is wrong here. check!
+    if (selectedItemsUuidAndScope && data) {
+      const tempCheckedItems: CheckedItems<T> = { ...checkedItems }
+      selectedItemsUuidAndScope.forEach(el => {
+        const item = data.find(_el => _el.identifier === el.uuid)?.record
         if (item) {
-          return item
+          tempCheckedItems[el.scope].push(item)
         }
       })
-      setCheckedItems(items as T[])
+      setCheckedItems(tempCheckedItems)
     }
-  }, [selectedItemsIdentifiers, data])
+  }, [selectedItemsUuidAndScope, data])
 
   const delayedFetchRecords = useRef(
     debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {
@@ -182,7 +199,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       : TAB_ID.ACCOUNT
 
   const onCheckboxChange = (checked: boolean, item: T) => {
-    const tempCheckedItems: T[] = [...((checkedItems as T[]) || [])]
+    const tempCheckedItems: T[] = [...((checkedItems[selectedScope] as T[]) || [])]
     if (checked) {
       tempCheckedItems.push(item)
     } else {
@@ -191,7 +208,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
         1
       )
     }
-    setCheckedItems(tempCheckedItems.length ? tempCheckedItems : undefined)
+    setCheckedItems({ ...checkedItems, [selectedScope]: tempCheckedItems.length ? tempCheckedItems : [] })
   }
 
   useEffect(() => {
@@ -231,7 +248,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
         renderedListTemp = (
           <div className={cx(css.referenceList, { [css.referenceListOverflow]: data.length > 5 })}>
             {data.map((item: EntityReferenceResponse<T>) => {
-              const checked = !!checkedItems?.find(el => isEqual(el, item.record))
+              const checked = !!checkedItems[selectedScope]?.find(el => isEqual(el, item.record))
               return (
                 <Layout.Horizontal
                   key={item.identifier}
@@ -264,7 +281,6 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     setRenderedList(renderedListTemp)
   }, [selectedScope, loading, error, data, checkedItems, selectedRecord])
 
-  // TODO: add optional tabRenderer prop to EntityRef and render this
   const renderTab = (
     show: boolean,
     id: string,
@@ -273,7 +289,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     title: StringKeys
   ): React.ReactElement | null => {
     const multiSelectCount =
-      allowMultiSelect && checkedItems?.length ? (
+      allowMultiSelect && checkedItems[scope]?.length ? (
         <Text
           inline
           height={19}
@@ -284,7 +300,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
           color={Color.WHITE}
           border={{ radius: 100 }}
         >
-          {checkedItems.length}
+          {checkedItems[scope].length}
         </Text>
       ) : null
     return show ? (
@@ -305,7 +321,14 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   }
 
   const onSelect = allowMultiSelect
-    ? () => onMultiSelect?.(checkedItems as T[], selectedScope)
+    ? () => {
+        const allCheckedItems: T[] = [
+          ...checkedItems[Scope.ACCOUNT],
+          ...checkedItems[Scope.PROJECT],
+          ...checkedItems[Scope.ORG]
+        ]
+        onMultiSelect?.(allCheckedItems, selectedScope)
+      }
     : () => props.onSelect(selectedRecord as T, selectedScope)
 
   const disabled = allowMultiSelect ? !checkedItems : !selectedRecord
@@ -347,7 +370,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
               color={Color.WHITE}
               border={{ radius: 100 }}
             >
-              {checkedItems?.length || 0}
+              {[...checkedItems[Scope.ACCOUNT], ...checkedItems[Scope.PROJECT], ...checkedItems[Scope.ORG]].length}
             </Text>
           </Layout.Horizontal>
         ) : null}

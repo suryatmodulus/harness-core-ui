@@ -22,7 +22,6 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
   const { getString } = useStrings()
   const [selectedUserGroups, setSelectedUserGroups] = useState<ScopeAndUuid[]>()
   const [scope, setScope] = useState<Scope>()
-
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog

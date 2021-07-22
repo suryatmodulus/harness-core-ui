@@ -67,6 +67,7 @@ type CheckedItems<T> = {
   [Scope.ACCOUNT]: T[]
   [Scope.PROJECT]: T[]
   [Scope.ORG]: T[]
+  total: number
 }
 
 export interface EntityReferenceProps<T> {
@@ -90,10 +91,10 @@ export interface EntityReferenceProps<T> {
 }
 
 export function getDefaultScope(orgIdentifier?: string, projectIdentifier?: string): Scope {
-  if (!isEmpty(projectIdentifier)) {
-    return Scope.PROJECT
-  } else if (!isEmpty(orgIdentifier)) {
+  if (!isEmpty(orgIdentifier)) {
     return Scope.ORG
+  } else if (!isEmpty(projectIdentifier)) {
+    return Scope.PROJECT
   }
   return Scope.ACCOUNT
 }
@@ -127,23 +128,27 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [checkedItems, setCheckedItems] = useState<CheckedItems<T>>({
     [Scope.ACCOUNT]: [],
     [Scope.PROJECT]: [],
-    [Scope.ORG]: []
+    [Scope.ORG]: [],
+    total: 0
   })
 
   useEffect(() => {
     // TODO: something is wrong here. check!
     if (selectedItemsUuidAndScope && data) {
-      const tempCheckedItems: CheckedItems<T> = { ...checkedItems }
+      const tempCheckedItems: CheckedItems<T> = { [Scope.ACCOUNT]: [], [Scope.PROJECT]: [], [Scope.ORG]: [], total: 0 }
       selectedItemsUuidAndScope.forEach(el => {
         const item = data.find(_el => _el.identifier === el.uuid)?.record
         if (item) {
           tempCheckedItems[el.scope].push(item)
+          tempCheckedItems.total++
         }
       })
+      if (selectedItemsUuidAndScope.length !== tempCheckedItems.total) {
+        tempCheckedItems.total = selectedItemsUuidAndScope.length
+      }
       setCheckedItems(tempCheckedItems)
     }
   }, [selectedItemsUuidAndScope, data])
-
   const delayedFetchRecords = useRef(
     debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {
       setLoading(true)
@@ -199,7 +204,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       : TAB_ID.ACCOUNT
 
   const onCheckboxChange = (checked: boolean, item: T) => {
-    const tempCheckedItems: T[] = [...((checkedItems[selectedScope] as T[]) || [])]
+    const tempCheckedItems: T[] = [...(checkedItems[selectedScope] || [])]
     if (checked) {
       tempCheckedItems.push(item)
     } else {
@@ -208,7 +213,11 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
         1
       )
     }
-    setCheckedItems({ ...checkedItems, [selectedScope]: tempCheckedItems.length ? tempCheckedItems : [] })
+    setCheckedItems({
+      ...checkedItems,
+      [selectedScope]: tempCheckedItems.length ? tempCheckedItems : [],
+      total: checked ? checkedItems.total++ : checkedItems.total--
+    })
   }
 
   useEffect(() => {
@@ -288,8 +297,13 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     icon: IconName,
     title: StringKeys
   ): React.ReactElement | null => {
-    const multiSelectCount =
-      allowMultiSelect && checkedItems[scope]?.length ? (
+    const scopeCount = { [Scope.ACCOUNT]: 0, [Scope.PROJECT]: 0, [Scope.ORG]: 0 }
+    let multiSelectCount = null
+    if (allowMultiSelect && (selectedItemsUuidAndScope?.length || checkedItems[scope]?.length)) {
+      ;(selectedItemsUuidAndScope || []).forEach(el => {
+        scopeCount[el.scope]++
+      })
+      multiSelectCount = (
         <Text
           inline
           height={19}
@@ -300,9 +314,10 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
           color={Color.WHITE}
           border={{ radius: 100 }}
         >
-          {checkedItems[scope].length}
+          {scopeCount[scope] || checkedItems[scope].length}
         </Text>
-      ) : null
+      )
+    }
     return show ? (
       <Tab
         id={id}
@@ -370,7 +385,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
               color={Color.WHITE}
               border={{ radius: 100 }}
             >
-              {[...checkedItems[Scope.ACCOUNT], ...checkedItems[Scope.PROJECT], ...checkedItems[Scope.ORG]].length}
+              {checkedItems.total}
             </Text>
           </Layout.Horizontal>
         ) : null}

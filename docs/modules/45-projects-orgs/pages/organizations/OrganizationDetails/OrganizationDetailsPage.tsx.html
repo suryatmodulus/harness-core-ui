@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.67% </span>
+                <span class="strong">96.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/30</span>
+                <span class='fraction'>30/31</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.15% </span>
+                <span class="strong">73.21% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>37/52</span>
+                <span class='fraction'>41/56</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.67% </span>
+                <span class="strong">96.77% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>29/30</span>
+                <span class='fraction'>30/31</span>
             </div>
         
             
@@ -184,7 +184,15 @@
 <a name='L125'></a><a href='#L125'>125</a>
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L128'></a><a href='#L128'>128</a>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -196,6 +204,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -231,6 +240,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -326,6 +342,7 @@ import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './OrganizationDetailsPage.module.scss'
 &nbsp;
 const OrganizationDetailsPage: React.FC = () =&gt; {
@@ -361,24 +378,31 @@ const OrganizationDetailsPage: React.FC = () =&gt; {
     &lt;&gt;
       &lt;Page.Header
         size="xlarge"
+        breadcrumbs={
+          &lt;NGBreadcrumbs
+            links={[
+              {
+                url: routes.toOrganizations({ accountId }),
+                label: getString('orgsText')
+              }
+            ]}
+          /&gt;
+        }
         title={
-          &lt;Layout.Vertical spacing="small" padding="medium" className={css.title}&gt;
-            &lt;Layout.Horizontal&gt;
-              &lt;Link to={routes.toOrganizations({ accountId })}&gt;
-                &lt;Text font="small" color={Color.BLUE_600}&gt;
-                  {getString('projectsOrgs.manage')}
-                &lt;/Text&gt;
-              &lt;/Link&gt;
-            &lt;/Layout.Horizontal&gt;
+          &lt;Layout.Vertical spacing="small" className={css.title}&gt;
             &lt;Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}&gt;
               {organization.name}
             &lt;/Text&gt;
-            &lt;Text font="small" lineClamp={2}&gt;
-              {organization.description}
-            &lt;/Text&gt;
-            &lt;Layout.Horizontal padding={{ top: 'small' }}&gt;
-              &lt;TagsRenderer tags={organization.tags || <span class="branch-1 cbranch-no" title="branch not covered" >{}}</span> length={6} /&gt;
-            &lt;/Layout.Horizontal&gt;
+            {organization.description &amp;&amp; (
+              &lt;Text font="small" lineClamp={2}&gt;
+                {organization.description}
+              &lt;/Text&gt;
+            )}
+            {organization.tags &amp;&amp; (
+              &lt;Layout.Horizontal padding={{ top: 'small' }}&gt;
+                &lt;TagsRenderer tags={organization.tags || <span class="branch-1 cbranch-no" title="branch not covered" >{}}</span> length={6} /&gt;
+              &lt;/Layout.Horizontal&gt;
+            )}
           &lt;/Layout.Vertical&gt;
         }
         content={
@@ -445,7 +469,7 @@ export default OrganizationDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

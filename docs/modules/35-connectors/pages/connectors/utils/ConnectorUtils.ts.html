@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.84% </span>
+                <span class="strong">64.74% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>225/347</span>
+                <span class='fraction'>224/346</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.49% </span>
+                <span class="strong">52.46% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>834/1589</span>
+                <span class='fraction'>833/1588</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.07% </span>
+                <span class="strong">59.93% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>179/298</span>
+                <span class='fraction'>178/297</span>
             </div>
         
             
@@ -1515,9 +1515,7 @@
 <a name='L1456'></a><a href='#L1456'>1456</a>
 <a name='L1457'></a><a href='#L1457'>1457</a>
 <a name='L1458'></a><a href='#L1458'>1458</a>
-<a name='L1459'></a><a href='#L1459'>1459</a>
-<a name='L1460'></a><a href='#L1460'>1460</a>
-<a name='L1461'></a><a href='#L1461'>1461</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">131x</span>
+<a name='L1459'></a><a href='#L1459'>1459</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">131x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">131x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2827,8 +2825,6 @@
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -2865,7 +2861,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">131x</span>
@@ -4286,13 +4282,11 @@ export const getReferredEntityLabelByType = <span class="fstat-no" title="functi
 export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']) {
   const { getString } = useStrings()
   switch (type) {
-    case Connectors.KUBERNETES_CLUSTER:
-      return getString('connectors.testConnectionStep.validationText.k8s')
     case Connectors.DOCKER:
       return getString('connectors.testConnectionStep.validationText.docker')
     case Connectors.AWS:
       return getString('connectors.testConnectionStep.validationText.aws')
-<span class="branch-3 cbranch-no" title="branch not covered" >    case Connectors.Jira:</span>
+<span class="branch-2 cbranch-no" title="branch not covered" >    case Connectors.Jira:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.jira')</span>
     case Connectors.NEXUS:
       return getString('connectors.testConnectionStep.validationText.nexus')
@@ -4300,29 +4294,29 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.artifactory')
     case Connectors.GCP:
       return getString('connectors.testConnectionStep.validationText.gcp')
-<span class="branch-7 cbranch-no" title="branch not covered" >    case 'Gcr':</span>
+<span class="branch-6 cbranch-no" title="branch not covered" >    case 'Gcr':</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.gcr')</span>
-<span class="branch-8 cbranch-no" title="branch not covered" >    case Connectors.APP_DYNAMICS:</span>
+<span class="branch-7 cbranch-no" title="branch not covered" >    case Connectors.APP_DYNAMICS:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.appD')</span>
-<span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
+<span class="branch-8 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.splunk')</span>
-<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.VAULT:</span>
+<span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.vault')</span>
-<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
+<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.bitbucket')</span>
-<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
+<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.gitlab')</span>
-<span class="branch-13 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
+<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.github')</span>
     case Connectors.GIT:
       return getString('connectors.testConnectionStep.validationText.git')
-<span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
+<span class="branch-14 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.azure')</span>
-<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
+<span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.datadog')</span>
-<span class="branch-17 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
+<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.sumologic')</span>
-<span class="branch-18 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE_KEY_VAULT:</span>
+<span class="branch-17 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.azureKeyVault')</span>
     default:
       return ''
@@ -4444,7 +4438,7 @@ export const isSMConnector = (type?: ConnectorInfoDTO['type']): boolean | undefi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

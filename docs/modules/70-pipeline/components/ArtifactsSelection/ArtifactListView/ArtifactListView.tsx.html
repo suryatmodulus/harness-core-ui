@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">82.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>130/156</span>
+                <span class='fraction'>129/156</span>
             </div>
         
             
@@ -257,14 +257,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">19x</span>
-<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -404,7 +404,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Layout, Text, Icon, Color, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Layout, Text, Icon, Color, getMultiTypeFromValue, MultiTypeInputType, Button } from '@wings-software/uicore'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
 import { getConnectorNameFromValue, getStatus } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -440,7 +440,7 @@ const ArtifactListView: React.FC&lt;ArtifactListViewProps&gt; = ({
   return (
     &lt;Layout.Vertical style={{ width: '100%' }}&gt;
       &lt;Layout.Vertical spacing="small" style={{ flexShrink: 'initial' }}&gt;
-        {!!(sideCarArtifact?.length || primaryArtifact?.type) &amp;&amp; (
+        {!!(sideCarArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || primaryArtifact?.type) &amp;&amp; (
           &lt;div className={cx(css.artifactList, css.listHeader)}&gt;
             &lt;span className={css.tableHeader}&gt;&lt;/span&gt;
             &lt;span className={css.tableHeader}&gt;{getString('artifactRepository')}&lt;/span&gt;
@@ -479,12 +479,12 @@ const ArtifactListView: React.FC&lt;ArtifactListViewProps&gt; = ({
                     flex={{ justifyContent: 'flex-end', alignItems: 'center' }}
                     className={css.actionGrid}
                   &gt;
-                    &lt;Icon
-                      name="Edit"
-                      size={16}
+                    &lt;Button
+                      icon="edit"
+                      minimal
                       onClick={() =&gt; editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
                     /&gt;
-                    &lt;Icon name="bin-main" size={25} onClick={removePrimary} /&gt;
+                    &lt;Button minimal icon="main-trash" onClick={removePrimary} /&gt;
                   &lt;/Layout.Horizontal&gt;
                 )}
               &lt;/section&gt;
@@ -536,14 +536,14 @@ const ArtifactListView: React.FC&lt;ArtifactListViewProps&gt; = ({
                     {overrideSetIdentifier<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength === 0 &amp;&amp; !isReadonly &amp;&amp; (
                       &lt;span&gt;
                         &lt;Layout.Horizontal spacing="medium" className={css.actionGrid}&gt;
-                          &lt;Icon
-                            name="Edit"
-                            size={16}
+                          &lt;Button
+                            icon="edit"
+                            minimal
                             onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                              editArtifact(ModalViewFor.SIDECAR, sidecar?.type as ArtifactType, index)</span>
                             }}
                           /&gt;
-                          &lt;Icon name="bin-main" size={25} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >removeSidecar(index)}</span> /&gt;
+                          &lt;Button icon="main-trash" minimal onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >removeSidecar(index)}</span> /&gt;
                         &lt;/Layout.Horizontal&gt;
                       &lt;/span&gt;
                     )}
@@ -583,7 +583,7 @@ export default ArtifactListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

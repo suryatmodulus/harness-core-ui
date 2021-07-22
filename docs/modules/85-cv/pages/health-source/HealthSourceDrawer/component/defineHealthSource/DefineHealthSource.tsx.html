@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.36% </span>
+                <span class="strong">76.72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>82/106</span>
+                <span class='fraction'>89/116</span>
             </div>
         
             
@@ -222,8 +222,32 @@
 <a name='L163'></a><a href='#L163'>163</a>
 <a name='L164'></a><a href='#L164'>164</a>
 <a name='L165'></a><a href='#L165'>165</a>
-<a name='L166'></a><a href='#L166'>166</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -351,6 +375,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -388,7 +414,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useContext, useMemo } from 'react'
-import { Container, Card, Formik, FormikForm, FormInput, Text, IconName, Layout, Icon } from '@wings-software/uicore'
+import {
+  Color,
+  Container,
+  Card,
+  Formik,
+  FormikForm,
+  FormInput,
+  Text,
+  IconName,
+  Layout,
+  Icon
+} from '@wings-software/uicore'
 import cx from 'classnames'
 import {
   ConnectorSelection,
@@ -440,7 +477,7 @@ function DefineHealthSource(): JSX.Element {
             &lt;FormikForm className={css.formFullheight}&gt;
               &lt;CardWithOuterTitle title={getString('cv.healthSource.defineHealthSource')}&gt;
                 &lt;&gt;
-                  &lt;Text color={'black'} font={'small'} margin={{ bottom: 'large' }}&gt;
+                  &lt;Text color={Color.BLACK} font={'small'} margin={{ bottom: 'large' }}&gt;
                     {getString('cv.healthSource.selectHealthSource')}
                   &lt;/Text&gt;
                   &lt;FormInput.CustomRender
@@ -482,7 +519,7 @@ function DefineHealthSource(): JSX.Element {
                       )
                     }}
                   /&gt;
-                  &lt;Container margin={{ bottom: 'large' }} width={'400px'} color={'black'}&gt;
+                  &lt;Container margin={{ bottom: 'large' }} width={'400px'} color={Color.BLACK}&gt;
                     &lt;FormInput.InputWithIdentifier
                       isIdentifierEditable={!isEdit}
                       inputName="healthSourceName"
@@ -493,10 +530,10 @@ function DefineHealthSource(): JSX.Element {
                       idName="healthSourceIdentifier"
                     /&gt;
                   &lt;/Container&gt;
-                  &lt;Text font={'small'} color={'black'}&gt;
+                  &lt;Text font={'small'} color={Color.BLACK}&gt;
                     {getString('cv.healthSource.seriveEnvironmentNote', {
-                      service: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceName,
-                      environment: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentName
+                      service: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceRef,
+                      environment: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef
                     })}
                   &lt;/Text&gt;
                 &lt;/&gt;
@@ -504,14 +541,16 @@ function DefineHealthSource(): JSX.Element {
               &lt;CardWithOuterTitle title={getString('cv.healthSource.connectHealthSource')}&gt;
                 &lt;&gt;
                   &lt;Container margin={{ bottom: 'large' }} width={'400px'}&gt;
-                    &lt;Text color={'black'} font={'small'} margin={{ bottom: 'small' }}&gt;
+                    &lt;Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}&gt;
                       {getString('connectors.selectConnector')}
                     &lt;/Text&gt;
                     &lt;div className={css.connectorField}&gt;
                       &lt;ConnectorSelection
                         width={400}
                         connectorType={formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType}
-                        disableConnector={!!formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef?.value &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isEdit}</span>
+                        disableConnector={
+                          isEdit ? !!formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isEdit </span>: !formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType
+                        }
                         createConnectorText={getString('cv.healthSource.connectors.createConnector', {
                           sourceType: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ourceType
                         })}
@@ -526,7 +565,7 @@ function DefineHealthSource(): JSX.Element {
                     &lt;/div&gt;
                   &lt;/Container&gt;
                   &lt;Container margin={{ bottom: 'large' }} width={'400px'}&gt;
-                    &lt;Text color={'black'} font={'small'} margin={{ bottom: 'small' }}&gt;
+                    &lt;Text color={Color.BLACK} font={'small'} margin={{ bottom: 'small' }}&gt;
                       {getString('cv.healthSource.featureLabel')}
                     &lt;/Text&gt;
                     &lt;FormInput.Select
@@ -559,7 +598,7 @@ export default DefineHealthSource
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

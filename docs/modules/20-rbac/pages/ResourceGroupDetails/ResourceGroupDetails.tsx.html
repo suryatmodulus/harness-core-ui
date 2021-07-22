@@ -394,14 +394,11 @@
 <a name='L335'></a><a href='#L335'>335</a>
 <a name='L336'></a><a href='#L336'>336</a>
 <a name='L337'></a><a href='#L337'>337</a>
-<a name='L338'></a><a href='#L338'>338</a>
-<a name='L339'></a><a href='#L339'>339</a>
-<a name='L340'></a><a href='#L340'>340</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L338'></a><a href='#L338'>338</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -428,8 +425,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -669,8 +667,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -740,8 +736,7 @@ import { Text, Layout, Container, Color } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
-import type { ResourceGroupDetailsPathProps } from '@common/interfaces/RouteInterfaces'
-&nbsp;
+import type { ModulePathParams, ResourceGroupDetailsPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import ResourceTypeList from '@rbac/components/ResourceTypeList/ResourceTypeList'
 import {
@@ -756,7 +751,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -767,8 +762,9 @@ import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 &nbsp;
 const ResourceGroupDetails: React.FC = () =&gt; {
-  const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier } =
-    useParams&lt;ResourceGroupDetailsPathProps&gt;()
+  const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier, module } = useParams&lt;
+    ResourceGroupDetailsPathProps &amp; ModulePathParams
+  &gt;()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const [isUpdated, setIsUpdated] = useState&lt;boolean&gt;(false)
@@ -928,36 +924,34 @@ const ResourceGroupDetails: React.FC = () =&gt; {
       &lt;Page.Header
         size="xlarge"
         className={css.headerContainer}
+        breadcrumbs={
+          &lt;NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('resourceGroups')
+              }
+            ]}
+          /&gt;
+        }
         title={
-          &lt;Layout.Vertical spacing="small"&gt;
-            &lt;Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier }),
-                  label: getString('resourceGroups')
-                },
-                {
-                  url: '#',
-                  label: resourceGroup.name || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-                }
-              ]}
-            /&gt;
-            &lt;Layout.Horizontal spacing="medium" flex={{ justifyContent: 'flex-start', alignItems: 'center' }}&gt;
-              &lt;div style={{ backgroundColor: resourceGroup.color }} className={css.colorDiv}&gt;&lt;/div&gt;
-              &lt;Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall"&gt;
-                &lt;Text font="medium" lineClamp={1} color={Color.BLACK} width={700}&gt;
-                  {resourceGroup.name}
-                &lt;/Text&gt;
-                &lt;Text lineClamp={1} color={Color.GREY_400} width={700}&gt;
+          &lt;Layout.Horizontal spacing="medium" flex={{ justifyContent: 'flex-start', alignItems: 'center' }}&gt;
+            &lt;div style={{ backgroundColor: resourceGroup.color }} className={css.colorDiv}&gt;&lt;/div&gt;
+            &lt;Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall"&gt;
+              &lt;Text font="medium" lineClamp={1} color={Color.BLACK} width={700}&gt;
+                {resourceGroup.name}
+              &lt;/Text&gt;
+              {resourceGroup.description &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                &lt;Text lineClamp={1} color={Color.GREY_400} width={700}&gt;</span>
                   {resourceGroup.description}
                 &lt;/Text&gt;
-              &lt;/Layout.Vertical&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Vertical&gt;
+              )}
+            &lt;/Layout.Vertical&gt;
+          &lt;/Layout.Horizontal&gt;
         }
         toolbar={
           &lt;Layout.Horizontal flex&gt;
@@ -1081,7 +1075,7 @@ export default ResourceGroupDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

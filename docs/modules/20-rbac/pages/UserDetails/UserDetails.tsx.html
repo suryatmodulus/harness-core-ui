@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.27% </span>
+                <span class="strong">52.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>23/44</span>
+                <span class='fraction'>22/42</span>
             </div>
         
             
@@ -186,13 +186,7 @@
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
 <a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a>
-<a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a>
-<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L130'></a><a href='#L130'>130</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -306,12 +300,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,7 +322,7 @@ import { useStrings } from 'framework/strings'
 import { useGetAggregatedUser } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
@@ -376,55 +364,49 @@ const UserDetails: React.FC = () =&gt; {
       &lt;Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          &lt;NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('users')
+              }
+            ]}
+          /&gt;
+        }
         title={
-          &lt;Layout.Vertical&gt;
-            &lt;Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('users')
-                },
-                {
-                  url: '#',
-                  label: user.name || <span class="branch-1 cbranch-no" title="branch not covered" >user.email</span>
-                }
-              ]}
-            /&gt;
-            &lt;Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium"&gt;
-              {user.locked ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Icon</span>
-                  name="lock"
-                  border
-                  className={css.lockIcon}
-                  width={72}
-                  height={72}
-                  size={32}
-                  color={Color.WHITE}
-                  background={Color.GREY_300}
-                  flex={{ align: 'center-center' }}
-                  margin={{ left: 'xsmall', right: 'xsmall' }}
-                /&gt;
-              ) : (
-                &lt;Avatar name={user.name || <span class="branch-1 cbranch-no" title="branch not covered" >user.email}</span> email={user.email} size="large" hoverCard={false} /&gt;
-              )}
+          &lt;Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium"&gt;
+            {user.locked ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Icon</span>
+                name="lock"
+                border
+                className={css.lockIcon}
+                width={72}
+                height={72}
+                size={32}
+                color={Color.WHITE}
+                background={Color.GREY_300}
+                flex={{ align: 'center-center' }}
+                margin={{ left: 'xsmall', right: 'xsmall' }}
+              /&gt;
+            ) : (
+              &lt;Avatar name={user.name || <span class="branch-1 cbranch-no" title="branch not covered" >user.email}</span> email={user.email} size="large" hoverCard={false} /&gt;
+            )}
 &nbsp;
-              &lt;Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall"&gt;
-                &lt;Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="xsmall"&gt;
-                  &lt;Text color={Color.BLACK} font="medium"&gt;
-                    {user.name}
-                  &lt;/Text&gt;
-                  {user.locked ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                    &lt;Text color={Color.GREY_400}&gt;{getString('rbac.usersPage.lockedOutLabel')}&lt;/Text&gt;</span>
-                  ) : null}
-                &lt;/Layout.Horizontal&gt;
-                &lt;Text&gt;{user.email}&lt;/Text&gt;
-              &lt;/Layout.Vertical&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Vertical&gt;
+            &lt;Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall"&gt;
+              &lt;Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="xsmall"&gt;
+                &lt;Text color={Color.BLACK} font="medium"&gt;
+                  {user.name}
+                &lt;/Text&gt;
+                {user.locked ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;Text color={Color.GREY_400}&gt;{getString('rbac.usersPage.lockedOutLabel')}&lt;/Text&gt; </span>: null}
+              &lt;/Layout.Horizontal&gt;
+              &lt;Text&gt;{user.email}&lt;/Text&gt;
+            &lt;/Layout.Vertical&gt;
+          &lt;/Layout.Horizontal&gt;
         }
       /&gt;
       &lt;Page.Body className={css.body}&gt;
@@ -469,7 +451,7 @@ export default UserDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

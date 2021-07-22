@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.53% </span>
+                <span class="strong">72.34% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>98/137</span>
+                <span class='fraction'>102/141</span>
             </div>
         
             
@@ -331,12 +331,8 @@
 <a name='L272'></a><a href='#L272'>272</a>
 <a name='L273'></a><a href='#L273'>273</a>
 <a name='L274'></a><a href='#L274'>274</a>
-<a name='L275'></a><a href='#L275'>275</a>
-<a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L275'></a><a href='#L275'>275</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -531,8 +527,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
@@ -613,7 +607,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
 import { Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
-&nbsp;
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
@@ -629,7 +622,7 @@ import {
   useUpdateRole,
   useGetPermissionResourceTypesList
 } from 'services/rbac'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
@@ -750,37 +743,35 @@ const RoleDetails: React.FC = () =&gt; {
       &lt;Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          &lt;NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('roles')
+              }
+            ]}
+          /&gt;
+        }
         title={
-          &lt;Layout.Vertical&gt;
-            &lt;Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('roles')
-                },
-                {
-                  url: '#',
-                  label: role.name
-                }
-              ]}
-            /&gt;
-            &lt;Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium"&gt;
-              &lt;Icon name={getRoleIcon(role.identifier)} size={40} /&gt;
-              &lt;Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall" className={css.details}&gt;
-                &lt;Text color={Color.BLACK} font="medium"&gt;
-                  {role.name}
-                &lt;/Text&gt;
-                &lt;Text lineClamp={2}&gt;{role.description}&lt;/Text&gt;
+          &lt;Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium"&gt;
+            &lt;Icon name={getRoleIcon(role.identifier)} size={40} /&gt;
+            &lt;Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall" className={css.details}&gt;
+              &lt;Text color={Color.BLACK} font="medium"&gt;
+                {role.name}
+              &lt;/Text&gt;
+              {role.description &amp;&amp; &lt;Text lineClamp={2}&gt;{role.description}&lt;/Text&gt;}
+              {role.tags &amp;&amp; (
                 &lt;Layout.Horizontal padding={{ top: 'small' }}&gt;
                   &lt;TagsRenderer tags={role.tags || /* istanbul ignore next */ {}} length={6} /&gt;
                 &lt;/Layout.Horizontal&gt;
-              &lt;/Layout.Vertical&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Vertical&gt;
+              )}
+            &lt;/Layout.Vertical&gt;
+          &lt;/Layout.Horizontal&gt;
         }
         toolbar={
           &lt;Layout.Horizontal flex&gt;
@@ -895,7 +886,7 @@ export default RoleDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

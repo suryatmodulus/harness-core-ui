@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.89% </span>
+                <span class="strong">59.02% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>33/57</span>
+                <span class='fraction'>36/61</span>
             </div>
         
             
@@ -247,11 +247,7 @@
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L191'></a><a href='#L191'>191</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -310,10 +306,6 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -455,7 +447,7 @@ import { useGetUserGroupAggregate, UserGroupAggregateDTO } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
@@ -508,35 +500,31 @@ const UserGroupDetails: React.FC = () =&gt; {
       &lt;Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          &lt;NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('common.userGroups')
+              }
+            ]}
+          /&gt;
+        }
         title={
-          &lt;Layout.Vertical&gt;
-            &lt;Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('common.userGroups')
-                },
-                {
-                  url: '#',
-                  label: userGroup.name
-                }
-              ]}
-            /&gt;
-            &lt;Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium"&gt;
-              &lt;Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall"&gt;
-                &lt;Text color={Color.BLACK} font="medium"&gt;
-                  {userGroup.name}
-                &lt;/Text&gt;
-                &lt;Text&gt;{userGroup.description}&lt;/Text&gt;
-                &lt;Layout.Horizontal padding={{ top: 'small' }}&gt;
-                  &lt;TagsRenderer tags={userGroup.tags || /* istanbul ignore next */ {}} length={6} /&gt;
-                &lt;/Layout.Horizontal&gt;
-              &lt;/Layout.Vertical&gt;
-            &lt;/Layout.Horizontal&gt;
+          &lt;Layout.Vertical spacing="xsmall"&gt;
+            &lt;Text color={Color.BLACK} font="medium"&gt;
+              {userGroup.name}
+            &lt;/Text&gt;
+            {userGroup.description &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Text&gt;{userGroup.description}&lt;/Text&gt;}</span>
+            {userGroup.tags &amp;&amp; (
+              &lt;Layout.Horizontal padding={{ top: 'small' }}&gt;
+                &lt;TagsRenderer tags={userGroup.tags || /* istanbul ignore next */ {}} length={6} /&gt;
+              &lt;/Layout.Horizontal&gt;
+            )}
           &lt;/Layout.Vertical&gt;
         }
         toolbar={
@@ -646,7 +634,7 @@ export default UserGroupDetails
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

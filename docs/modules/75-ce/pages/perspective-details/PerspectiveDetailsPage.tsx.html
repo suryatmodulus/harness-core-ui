@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.8% </span>
+                <span class="strong">91.94% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/61</span>
+                <span class='fraction'>57/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.26% </span>
+                <span class="strong">65.35% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>62/95</span>
+                <span class='fraction'>66/101</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>56/60</span>
+                <span class='fraction'>57/61</span>
             </div>
         
             
@@ -316,7 +316,17 @@
 <a name='L257'></a><a href='#L257'>257</a>
 <a name='L258'></a><a href='#L258'>258</a>
 <a name='L259'></a><a href='#L259'>259</a>
-<a name='L260'></a><a href='#L260'>260</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L260'></a><a href='#L260'>260</a>
+<a name='L261'></a><a href='#L261'>261</a>
+<a name='L262'></a><a href='#L262'>262</a>
+<a name='L263'></a><a href='#L263'>263</a>
+<a name='L264'></a><a href='#L264'>264</a>
+<a name='L265'></a><a href='#L265'>265</a>
+<a name='L266'></a><a href='#L266'>266</a>
+<a name='L267'></a><a href='#L267'>267</a>
+<a name='L268'></a><a href='#L268'>268</a>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -324,6 +334,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -362,6 +373,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -565,6 +578,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -591,7 +611,8 @@ import {
   QlceViewFieldInputInput,
   useFetchperspectiveGridQuery,
   ViewChartType,
-  ViewTimeRangeType
+  ViewTimeRangeType,
+  ViewType
 } from 'services/ce/services'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageSpinner } from '@common/components'
@@ -619,9 +640,11 @@ interface PerspectiveParams {
   perspectiveName: string
 }
 &nbsp;
-const PerspectiveHeader: React.FC&lt;{ title: string }&gt; = ({ title }) =&gt; {
+const PerspectiveHeader: React.FC&lt;{ title: string; viewType: string }&gt; = ({ title, viewType }) =&gt; {
   const { perspectiveId, accountId } = useParams&lt;{ perspectiveId: string; accountId: string }&gt;()
   const history = useHistory()
+&nbsp;
+  const isDefaultPerspective = viewType === ViewType.Default
 &nbsp;
   const goToEditPerspective: () =&gt; void = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    history.push(</span>
@@ -635,11 +658,11 @@ const PerspectiveHeader: React.FC&lt;{ title: string }&gt; = ({ title }) =&gt; {
   return (
     &lt;Layout.Horizontal
       spacing="medium"
-      width="100%"
       style={{
         alignItems: 'center'
       }}
       flex={true}
+      className={css.perspectiveHeader}
     &gt;
       &lt;Container
         style={{
@@ -663,7 +686,7 @@ const PerspectiveHeader: React.FC&lt;{ title: string }&gt; = ({ title }) =&gt; {
         &lt;/Heading&gt;
       &lt;/Container&gt;
 &nbsp;
-      &lt;Button text="Edit" icon="edit" intent="primary" onClick={goToEditPerspective} /&gt;
+      &lt;Button disabled={isDefaultPerspective} text="Edit" icon="edit" intent="primary" onClick={goToEditPerspective} /&gt;
       &lt;Button text="Share" /&gt;
     &lt;/Layout.Horizontal&gt;
   )
@@ -779,7 +802,14 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
 &nbsp;
   return (
     &lt;&gt;
-      &lt;PageHeader title={&lt;PerspectiveHeader title={perspectiveData<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >perspectiveId}</span> /&gt;} /&gt;
+      &lt;PageHeader
+        title={
+          &lt;PerspectiveHeader
+            title={perspectiveData<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame || <span class="branch-1 cbranch-no" title="branch not covered" >perspectiveId}</span>
+            viewType={perspectiveData<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewType || <span class="branch-1 cbranch-no" title="branch not covered" >ViewType.Default}</span>
+          /&gt;
+        }
+      /&gt;
       &lt;PageBody&gt;
         {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
         &lt;PersepectiveExplorerFilters
@@ -789,7 +819,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
           aggregation={aggregation}
           setTimeRange={setTimeRange}
         /&gt;
-        &lt;PerspectiveSummary data={summaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTrendStats} fetching={summaryFetching} /&gt;
+        &lt;PerspectiveSummary data={summaryData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTrendStats as any} fetching={summaryFetching} /&gt;
         &lt;Container margin="xlarge" background="white" className={css.chartGridContainer}&gt;
           &lt;Container padding="small"&gt;
             &lt;PerspectiveExplorerGroupBy
@@ -810,7 +840,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
                 columnSequence={columnSequence}
                 setFilterUsingChartClick={setFilterUsingChartClick}
                 fetching={chartFetching}
-                data={chartData.perspectiveTimeSeriesStats}
+                data={chartData.perspectiveTimeSeriesStats as any}
                 aggregation={aggregation}
                 xAxisPointCount={chartData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>erspectiveTimeSeriesStats.stats<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength || <span class="branch-1 cbranch-no" title="branch not covered" >DAYS_FOR_TICK_INTERVAL + 1}</span>
               /&gt;
@@ -841,7 +871,7 @@ export default PerspectiveDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 04:21:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 22 2021 09:12:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

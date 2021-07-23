@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.74% </span>
+                <span class="strong">42.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/27</span>
+                <span class='fraction'>12/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.74% </span>
+                <span class="strong">42.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/27</span>
+                <span class='fraction'>12/28</span>
             </div>
         
             
@@ -144,21 +144,27 @@
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -192,29 +198,31 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,11 +243,13 @@
 import React from 'react'
 import cx from 'classnames'
 import { produce } from 'immer'
+import { set } from 'lodash-es'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
 import { useStrings } from 'framework/strings'
+import type { ApprovalStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './ApprovalAdvancedSpecifications.module.scss'
 &nbsp;
 export interface AdvancedSpecifications {
@@ -256,7 +266,7 @@ const ApprovalAdvancedSpecifications: React.FC&lt;AdvancedSpecifications&gt; = <
     getStageFromPipeline,
     updateStage
   } = <span class="cstat-no" title="statement not covered" >React.useContext(PipelineContext)</span>
-  const { stage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(selectedStageId || '')</span>
+  const { stage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline&lt;ApprovalStageElementConfig&gt;(selectedStageId || '')</span>
 &nbsp;
   const formikRef = <span class="cstat-no" title="statement not covered" >React.useRef&lt;StepFormikRef | null&gt;(null)</span>
   const scrollRef = <span class="cstat-no" title="statement not covered" >React.useRef&lt;HTMLDivElement | null&gt;(null)</span>
@@ -277,9 +287,10 @@ const ApprovalAdvancedSpecifications: React.FC&lt;AdvancedSpecifications&gt; = <
                       const { stage: pipelineStage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(selectedStageId || '')</span>
 <span class="cstat-no" title="statement not covered" >                      if (pipelineStage &amp;&amp; pipelineStage.stage) {</span>
                         const stageData = <span class="cstat-no" title="statement not covered" >produce(pipelineStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                          draft.stage.when = when</span>
+<span class="cstat-no" title="statement not covered" >                          set(draft, 'stage.when', when)</span>
                         })
-<span class="cstat-no" title="statement not covered" >                        updateStage(stageData.stage)</span>
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+<span class="cstat-no" title="statement not covered" >                        updateStage(stageData.stage!)</span>
                       }
                     }}
                   /&gt;
@@ -301,9 +312,10 @@ const ApprovalAdvancedSpecifications: React.FC&lt;AdvancedSpecifications&gt; = <
                     const { stage: pipelineStage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(selectedStageId || '')</span>
 <span class="cstat-no" title="statement not covered" >                    if (pipelineStage &amp;&amp; pipelineStage.stage) {</span>
                       const stageData = <span class="cstat-no" title="statement not covered" >produce(pipelineStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >                        draft.stage.failureStrategies = failureStrategies</span>
+<span class="cstat-no" title="statement not covered" >                        set(draft, 'stage.failureStrategies', failureStrategies)</span>
                       })
-<span class="cstat-no" title="statement not covered" >                      updateStage(stageData.stage)</span>
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+<span class="cstat-no" title="statement not covered" >                      updateStage(stageData.stage!)</span>
                     }
                   }}
                 /&gt;
@@ -325,7 +337,7 @@ export default ApprovalAdvancedSpecifications
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

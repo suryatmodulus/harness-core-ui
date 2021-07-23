@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.75% </span>
+                <span class="strong">30.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/63</span>
+                <span class='fraction'>20/65</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/73</span>
+                <span class='fraction'>0/75</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.15% </span>
+                <span class="strong">30.16% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/61</span>
+                <span class='fraction'>19/63</span>
             </div>
         
             
@@ -274,7 +274,8 @@
 <a name='L215'></a><a href='#L215'>215</a>
 <a name='L216'></a><a href='#L216'>216</a>
 <a name='L217'></a><a href='#L217'>217</a>
-<a name='L218'></a><a href='#L218'>218</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -436,7 +437,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -445,8 +445,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -502,7 +504,7 @@ import {
   DeploymentStageConfig,
   GetExecutionStrategyYamlQueryParams,
   StageElementConfig,
-  StageElementWrapperConfig,
+  StageElementWrapperConfigConfig,
   useGetExecutionStrategyList,
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
@@ -516,7 +518,7 @@ import Default from './images/BlankCanvas.png'
 import css from './ExecutionStrategy.module.scss'
 &nbsp;
 export interface ExecutionStrategyProps {
-  selectedStage: Record&lt;string, any&gt;
+  selectedStage: StageElementWrapperConfigConfig
 }
 &nbsp;
 const iconMap: { [key: string]: IconName } = {
@@ -587,7 +589,7 @@ export const ExecutionStrategy: React.FC&lt;ExecutionStrategyProps&gt; = <span c
 <span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (yamlSnippet?.data) {</span>
 <span class="cstat-no" title="statement not covered" >      updateStage(</span>
-        produce&lt;StageElementWrapperConfig&gt;(selectedStage, <span class="fstat-no" title="function not covered" >(d</span>raft: StageElementWrapperConfig) =&gt; {
+        produce(selectedStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
           const jsonFromYaml = <span class="cstat-no" title="statement not covered" >YAML.parse(yamlSnippet?.data || '') as StageElementConfig</span>
 <span class="cstat-no" title="statement not covered" >          if (draft.stage &amp;&amp; draft.stage.spec) {</span>
 <span class="cstat-no" title="statement not covered" >            draft.stage.failureStrategies = jsonFromYaml.failureStrategies</span>
@@ -601,7 +603,7 @@ export const ExecutionStrategy: React.FC&lt;ExecutionStrategyProps&gt; = <span c
 &nbsp;
   const cancelSelection = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(): void =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    updateStage(</span>
-      produce&lt;StageElementWrapperConfig&gt;(selectedStage, <span class="fstat-no" title="function not covered" >(d</span>raft: StageElementWrapperConfig) =&gt; {
+      produce(selectedStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
         const jsonFromYaml = <span class="cstat-no" title="statement not covered" >YAML.parse(yamlSnippet?.data || '') as StageElementConfig</span>
 <span class="cstat-no" title="statement not covered" >        if (draft.stage &amp;&amp; draft.stage.spec) {</span>
 <span class="cstat-no" title="statement not covered" >          draft.stage.failureStrategies = jsonFromYaml.failureStrategies</span>
@@ -652,23 +654,24 @@ export const ExecutionStrategy: React.FC&lt;ExecutionStrategyProps&gt; = <span c
             text={getString('filters.apply')}
             className={css.selectBtn}
             onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >              return updateStage(</span>
-                produce&lt;StageElementWrapperConfig&gt;(selectedStage, <span class="fstat-no" title="function not covered" >(d</span>raft: StageElementWrapperConfig) =&gt; {
-                  const jsonFromYaml = <span class="cstat-no" title="statement not covered" >YAML.parse(yamlSnippet?.data || '') as StageElementConfig</span>
-<span class="cstat-no" title="statement not covered" >                  if (draft.stage &amp;&amp; draft.stage.spec) {</span>
-<span class="cstat-no" title="statement not covered" >                    draft.stage.failureStrategies = jsonFromYaml.failureStrategies</span>
-                    ;(<span class="cstat-no" title="statement not covered" >draft.stage.spec as DeploymentStageConfig).execution = (</span>
-                      jsonFromYaml.spec as DeploymentStageConfig
-                    )?.execution ?? { steps: [], rollbackSteps: [] }
-                  }
-                }).stage as StageElementConfig
-              ).then(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                updatePipelineView({</span>
-                  ...pipelineView,
-                  isDrawerOpened: false,
-                  drawerData: { type: DrawerTypes.ExecutionStrategy }
+              const newStage = <span class="cstat-no" title="statement not covered" >produce(selectedStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
+                const jsonFromYaml = <span class="cstat-no" title="statement not covered" >YAML.parse(yamlSnippet?.data || '') as StageElementConfig</span>
+<span class="cstat-no" title="statement not covered" >                if (draft.stage &amp;&amp; draft.stage.spec) {</span>
+<span class="cstat-no" title="statement not covered" >                  draft.stage.failureStrategies = jsonFromYaml.failureStrategies</span>
+                  ;(<span class="cstat-no" title="statement not covered" >draft.stage.spec as DeploymentStageConfig).execution = (jsonFromYaml.spec as DeploymentStageConfig)</span>
+                    ?.execution ?? { steps: [], rollbackSteps: [] }
+                }
+              }).stage
+&nbsp;
+<span class="cstat-no" title="statement not covered" >              if (newStage) {</span>
+<span class="cstat-no" title="statement not covered" >                return updateStage(newStage).then(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                  updatePipelineView({</span>
+                    ...pipelineView,
+                    isDrawerOpened: false,
+                    drawerData: { type: DrawerTypes.ExecutionStrategy }
+                  })
                 })
-              })
+              }
             }}
             disabled={isSubmitDisabled}
           /&gt;
@@ -715,7 +718,7 @@ export const ExecutionStrategy: React.FC&lt;ExecutionStrategyProps&gt; = <span c
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

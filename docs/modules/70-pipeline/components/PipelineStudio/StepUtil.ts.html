@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.14% </span>
+                <span class="strong">22.44% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>155/700</span>
+                <span class='fraction'>158/704</span>
             </div>
         
             
@@ -483,11 +483,7 @@
 <a name='L424'></a><a href='#L424'>424</a>
 <a name='L425'></a><a href='#L425'>425</a>
 <a name='L426'></a><a href='#L426'>426</a>
-<a name='L427'></a><a href='#L427'>427</a>
-<a name='L428'></a><a href='#L428'>428</a>
-<a name='L429'></a><a href='#L429'>429</a>
-<a name='L430'></a><a href='#L430'>430</a>
-<a name='L431'></a><a href='#L431'>431</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L427'></a><a href='#L427'>427</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -495,10 +491,6 @@
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -926,16 +918,12 @@ import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
 import get from 'lodash-es/get'
 import type {
-  NgPipeline,
   StageElementConfig,
-  StageElementWrapper,
   ExecutionWrapperConfig,
-  StepElement,
-  ExecutionWrapper,
   PipelineInfoConfig,
-  StageElementWrapperConfig,
   DeploymentStageConfig,
-  Infrastructure
+  Infrastructure,
+  StageElementWrapperConfigConfig
 } from 'services/cd-ng'
 &nbsp;
 import type { UseStringsReturn } from 'framework/strings'
@@ -947,7 +935,7 @@ import '@cd/components/PipelineSteps'
 import '@ci/components/PipelineSteps'
 import type { StepViewType } from '../AbstractSteps/Step'
 &nbsp;
-export const clearRuntimeInput = (template: NgPipeline): NgPipeline =&gt; {
+export const clearRuntimeInput = (template: PipelineInfoConfig): PipelineInfoConfig =&gt; {
   return JSON.parse(
     JSON.stringify(template || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.replace(/"&lt;\+input&gt;.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
   )
@@ -961,7 +949,7 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
     } else <span class="cstat-no" title="statement not covered" >if (item.stepGroup?.identifier === stepId) {</span>
 <span class="cstat-no" title="statement not covered" >      responseStep = item</span>
     } else <span class="cstat-no" title="statement not covered" >if (item.parallel) {</span>
-<span class="cstat-no" title="statement not covered" >      return (item.parallel as unknown as StepElement[]).forEach(<span class="fstat-no" title="function not covered" >(n</span>ode: ExecutionWrapper) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      return item.parallel.forEach(<span class="fstat-no" title="function not covered" >node </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (node.step?.identifier === stepId || node.stepGroup?.identifier === stepId) {</span>
 <span class="cstat-no" title="statement not covered" >          responseStep = node</span>
         }
@@ -974,14 +962,14 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
 export function getStageFromPipeline(
   stageId: string,
   pipeline?: PipelineInfoConfig
-): StageElementWrapperConfig | undefined {
+): StageElementWrapperConfigConfig | undefined {
   <span class="missing-if-branch" title="else path not taken" >E</span>if (pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages) {
-    let responseStage: StageElementWrapperConfig | undefined = undefined
+    let responseStage: StageElementWrapperConfigConfig | undefined = undefined
     pipeline.stages.forEach(item =&gt; {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (item.stage &amp;&amp; item.stage.identifier === stageId) {
         responseStage = item
       } else <span class="cstat-no" title="statement not covered" >if (item.parallel) {</span>
-<span class="cstat-no" title="statement not covered" >        return (item.parallel as unknown as StageElementWrapperConfig[]).forEach(<span class="fstat-no" title="function not covered" >node </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return item.parallel.forEach(<span class="fstat-no" title="function not covered" >node </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          if (node.stage?.identifier === stageId) {</span>
 <span class="cstat-no" title="statement not covered" >            responseStage = node</span>
           }
@@ -1023,13 +1011,13 @@ const validateStep = <span class="fstat-no" title="function not covered" >({</sp
 <span class="cstat-no" title="statement not covered" >        set(errors, `steps[${index}].step`, errorResponse)</span>
       }
     } else <span class="cstat-no" title="statement not covered" >if (stepObj.parallel) {</span>
-      ;(<span class="cstat-no" title="statement not covered" >stepObj.parallel as unknown as StepElement[]).forEach(<span class="fstat-no" title="function not covered" >(s</span>tepParallel, indexP) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      stepObj.parallel.forEach(<span class="fstat-no" title="function not covered" >(s</span>tepParallel, indexP) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (stepParallel.step) {</span>
           const originalStep = <span class="cstat-no" title="statement not covered" >getStepFromStage(stepParallel.step.identifier || '', originalSteps)</span>
           const pipelineStep = <span class="cstat-no" title="statement not covered" >factory.getStep(originalStep?.step?.type)</span>
           const errorResponse = <span class="cstat-no" title="statement not covered" >pipelineStep?.validateInputSet({</span>
             data: stepParallel.step,
-            template: (template?.[index]?.parallel as unknown as StepElement[])?.[indexP]?.step,
+            template: template?.[index]?.parallel?.[indexP]?.step,
             getString,
             viewType
           })
@@ -1072,7 +1060,7 @@ const validateStep = <span class="fstat-no" title="function not covered" >({</sp
 &nbsp;
 interface ValidateStageProps {
   stage: StageElementConfig
-  template: StageElementConfig
+  template?: StageElementConfig
   viewType: StepViewType
   originalStage?: StageElementConfig
   getString?: UseStringsReturn['getString']
@@ -1090,7 +1078,7 @@ const validateStage = ({
   // Validation for infrastructure namespace
   // For CD spec is DeploymentStageConfig
   const stageConfig = stage.spec as DeploymentStageConfig | undefined
-  const templateStageConfig = template.spec as DeploymentStageConfig | undefined
+  const templateStageConfig = template<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as DeploymentStageConfig | undefined
   const originalStageConfig = originalStage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as DeploymentStageConfig | undefined
   <span class="missing-if-branch" title="if path not taken" >I</span>if (
     isEmpty((stageConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nfrastructure as Infrastructure)<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-1 cbranch-no" title="branch not covered" >?.namespace)</span> &amp;&amp;
@@ -1208,10 +1196,10 @@ const validateStage = ({
 }
 &nbsp;
 interface ValidatePipelineProps {
-  pipeline: NgPipeline
-  template: NgPipeline
+  pipeline: PipelineInfoConfig
+  template: PipelineInfoConfig
   viewType: StepViewType
-  originalPipeline?: NgPipeline
+  originalPipeline?: PipelineInfoConfig
   getString?: UseStringsReturn['getString']
   path?: string
 }
@@ -1223,7 +1211,7 @@ export const validatePipeline = ({
   viewType,
   getString,
   path
-}: ValidatePipelineProps): FormikErrors&lt;NgPipeline&gt; =&gt; {
+}: ValidatePipelineProps): FormikErrors&lt;PipelineInfoConfig&gt; =&gt; {
   const errors = {}
 &nbsp;
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tages<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ome(stage =&gt;
@@ -1292,7 +1280,7 @@ export const validatePipeline = ({
       }
     }
     <span class="missing-if-branch" title="if path not taken" >I</span>if (stageObj.parallel) {
-<span class="cstat-no" title="statement not covered" >      stageObj.parallel.forEach(<span class="fstat-no" title="function not covered" >(s</span>tageP: StageElementWrapper, indexP: number) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      stageObj.parallel.forEach(<span class="fstat-no" title="function not covered" >(s</span>tageP, indexP: number) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (stageP.stage) {</span>
           const originalStage = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(stageP.stage.identifier, originalPipeline)</span>
           const errorsResponse = <span class="cstat-no" title="statement not covered" >validateStage({</span>
@@ -1354,7 +1342,7 @@ export const getErrorsList = memoize((errors: any): { errorStrings: string[]; er
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

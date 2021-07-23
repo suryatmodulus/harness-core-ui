@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.95% </span>
+                <span class="strong">51.32% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/77</span>
+                <span class='fraction'>39/76</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.68% </span>
+                <span class="strong">36.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>72/177</span>
+                <span class='fraction'>73/200</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.95% </span>
+                <span class="strong">51.32% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/77</span>
+                <span class='fraction'>39/76</span>
             </div>
         
             
@@ -237,22 +237,13 @@
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-yes">13x</span>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -263,13 +254,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,6 +273,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -357,6 +360,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -419,8 +425,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Layout, Text } from '@wings-software/uicore'
-import get from 'lodash-es/get'
-import isEmpty from 'lodash-es/isEmpty'
+import { defaultTo, set, get, isEmpty } from 'lodash-es'
 &nbsp;
 import type { AllNGVariables as Variable } from '@pipeline/utils/types'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -433,6 +438,7 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 &nbsp;
 import { useStrings } from 'framework/strings'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepViewType } from '../AbstractSteps/Step'
@@ -470,7 +476,7 @@ export default function WorkflowVariables({
   } = React.useContext(PipelineContext)
   const { getString } = useStrings()
 &nbsp;
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline&lt;DeploymentStageElementConfig&gt;(selectedStageId || '')
   const serviceConfig = stage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig </span>|| {}
   const parentStage = serviceConfig.useFromStage<span class="branch-1 cbranch-no" title="branch not covered" >?.stage</span>
   const { variablesPipeline, metadataMap } = usePipelineVariables()
@@ -485,8 +491,8 @@ export default function WorkflowVariables({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serviceConfig.useFromStage<span class="branch-1 cbranch-no" title="branch not covered" >?.stage,</span> pipeline])
 &nbsp;
-  const stageSpec = serviceConfig.serviceDefinition<span class="branch-1 cbranch-no" title="branch not covered" >?.spec</span>
-  const predefinedSetsPath = serviceConfig.stageOverrides
+  const stageSpec = defaultTo(serviceConfig.serviceDefinition<span class="branch-1 cbranch-no" title="branch not covered" >?.spec,</span> {})
+  const predefinedSetsPath = defaultTo(serviceConfig.stageOverrides, {})
   const updateVariables = <span class="fstat-no" title="function not covered" >(v</span>ars: Variable[]): void =&gt; {
 <span class="cstat-no" title="statement not covered" >    if (stageSpec || predefinedSetsPath) {</span>
 <span class="cstat-no" title="statement not covered" >      if (isPropagating) {</span>
@@ -501,10 +507,10 @@ export default function WorkflowVariables({
 <span class="cstat-no" title="statement not covered" >          stageSpec.variables = vars</span>
         }
       } else {
-        const overrideSets = <span class="cstat-no" title="statement not covered" >stageSpec.variableOverrideSets</span>
-<span class="cstat-no" title="statement not covered" >        overrideSets.map(<span class="fstat-no" title="function not covered" >(v</span>ariableSet: { overrideSet: { identifier: string; variables: any } }) =&gt; {</span>
+        const overrideSets = <span class="cstat-no" title="statement not covered" >stageSpec.variableOverrideSets || []</span>
+<span class="cstat-no" title="statement not covered" >        overrideSets.map(<span class="fstat-no" title="function not covered" >variableSet </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          if (variableSet?.overrideSet?.identifier === identifierName) {</span>
-<span class="cstat-no" title="statement not covered" >            variableSet.overrideSet.variables = vars</span>
+<span class="cstat-no" title="statement not covered" >            set(variableSet, 'overrideSet.variables', vars)</span>
           }
         })
       }
@@ -514,54 +520,57 @@ export default function WorkflowVariables({
 &nbsp;
   const getInitialValues = (): Variable[] =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (isPropagating) {
-<span class="cstat-no" title="statement not covered" >      return get(predefinedSetsPath, 'variables', [])</span>
+<span class="cstat-no" title="statement not covered" >      return get(predefinedSetsPath, 'variables', []) as Variable[]</span>
     }
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!isForOverrideSets) {
       <span class="missing-if-branch" title="if path not taken" >I</span>if (isForPredefinedSets) {
-<span class="cstat-no" title="statement not covered" >        return predefinedSetsPath?.variables || []</span>
+<span class="cstat-no" title="statement not covered" >        return (predefinedSetsPath?.variables || []) as Variable[]</span>
       }
-      return <span class="branch-1 cbranch-no" title="branch not covered" >stageSpec?.variables </span>|| []
+      return (stageSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables || []) as Variable[]
     }
 <span class="cstat-no" title="statement not covered" >    if (isForPredefinedSets) {</span>
-<span class="cstat-no" title="statement not covered" >      return predefinedSetsPath?.variables || []</span>
+<span class="cstat-no" title="statement not covered" >      return (predefinedSetsPath?.variables || []) as Variable[]</span>
     }
     const overrideSets = <span class="cstat-no" title="statement not covered" >stageSpec.variableOverrideSets</span>
-<span class="cstat-no" title="statement not covered" >    return overrideSets</span>
-      .map(<span class="fstat-no" title="function not covered" >(v</span>ariableSet: { overrideSet: { identifier: string; variables: Variable[] } }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return (overrideSets</span>
+      ?.map(<span class="fstat-no" title="function not covered" >variableSet </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >        if (variableSet?.overrideSet?.identifier === identifierName) {</span>
-<span class="cstat-no" title="statement not covered" >          return variableSet.overrideSet.variables</span>
+<span class="cstat-no" title="statement not covered" >          return variableSet.overrideSet?.variables</span>
         }
       })
-      .filter(<span class="fstat-no" title="function not covered" >(x</span>: { overrideSet: { identifier: string; variables: Variable[] } }) =&gt; <span class="cstat-no" title="statement not covered" >x !== undefined)</span>[0]
+      .filter(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x !== undefined)</span>[0] || []) as Variable[]
   }
 &nbsp;
   const getYamlPropertiesForVariables = (): Variable[] =&gt; {
-    const { stage: variablesStage } = getStageFromPipeline(parentStage || selectedStageId, variablesPipeline)
+    const { stage: variablesStage } = getStageFromPipeline&lt;DeploymentStageElementConfig&gt;(
+      parentStage || selectedStageId || '',
+      variablesPipeline
+    )
     const variablesServiceConfig = variablesStage?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig </span>|| {}
     const variablesStageSpec = variablesServiceConfig.serviceDefinition<span class="branch-1 cbranch-no" title="branch not covered" >?.spec</span>
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (isPropagating) {
-<span class="cstat-no" title="statement not covered" >      return get(predefinedSetsPath, 'variables', [])</span>
+<span class="cstat-no" title="statement not covered" >      return get(predefinedSetsPath, 'variables', []) as Variable[]</span>
     }
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!isForOverrideSets) {
       <span class="missing-if-branch" title="if path not taken" >I</span>if (isForPredefinedSets) {
-<span class="cstat-no" title="statement not covered" >        return predefinedSetsPath?.variables || []</span>
+<span class="cstat-no" title="statement not covered" >        return (predefinedSetsPath?.variables || []) as Variable[]</span>
       }
-      return <span class="branch-1 cbranch-no" title="branch not covered" >variablesStageSpec?.variables </span>|| []
+      return (<span class="branch-1 cbranch-no" title="branch not covered" >variablesStageSpec?.variables </span>|| []) as Variable[]
     }
 <span class="cstat-no" title="statement not covered" >    if (isForPredefinedSets) {</span>
-<span class="cstat-no" title="statement not covered" >      return variablesServiceConfig?.stageOverrides?.variables || []</span>
+<span class="cstat-no" title="statement not covered" >      return (variablesServiceConfig?.stageOverrides?.variables || []) as Variable[]</span>
     }
 &nbsp;
     const overrideSets = <span class="cstat-no" title="statement not covered" >variablesStageSpec?.variableOverrideSets</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return overrideSets</span>
-      .map(<span class="fstat-no" title="function not covered" >(v</span>ariableSet: { overrideSet: { identifier: string; variables: Variable[] } }) =&gt; {
+<span class="cstat-no" title="statement not covered" >    return (overrideSets</span>
+      ?.map(<span class="fstat-no" title="function not covered" >variableSet </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >        if (variableSet?.overrideSet?.identifier === identifierName) {</span>
-<span class="cstat-no" title="statement not covered" >          return variableSet.overrideSet.variables</span>
+<span class="cstat-no" title="statement not covered" >          return variableSet.overrideSet?.variables</span>
         }
       })
-      .filter(<span class="fstat-no" title="function not covered" >(x</span>: { overrideSet: { identifier: string; variables: Variable[] } }) =&gt; <span class="cstat-no" title="statement not covered" >x !== undefined)</span>[0]
+      .filter(<span class="fstat-no" title="function not covered" >x </span>=&gt; <span class="cstat-no" title="statement not covered" >x !== undefined)</span>[0] || []) as Variable[]
   }
 &nbsp;
   return (
@@ -604,7 +613,7 @@ export default function WorkflowVariables({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

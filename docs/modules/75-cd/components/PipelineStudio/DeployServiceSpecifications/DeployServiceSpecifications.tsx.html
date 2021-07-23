@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.19% </span>
+                <span class="strong">32.58% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>152/432</span>
+                <span class='fraction'>159/488</span>
             </div>
         
             
@@ -477,7 +477,8 @@
 <a name='L418'></a><a href='#L418'>418</a>
 <a name='L419'></a><a href='#L419'>419</a>
 <a name='L420'></a><a href='#L420'>420</a>
-<a name='L421'></a><a href='#L421'>421</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L421'></a><a href='#L421'>421</a>
+<a name='L422'></a><a href='#L422'>422</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -505,6 +506,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -925,6 +927,7 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './DeployServiceSpecifications.module.scss'
 &nbsp;
 export default function DeployServiceSpecifications(props: React.PropsWithChildren&lt;unknown&gt;): JSX.Element {
@@ -954,11 +957,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 &nbsp;
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = React.useCallback(
-    debounce((stage: StageElementConfig) =&gt; updateStage(stage), 300),
+    debounce((stage?: StageElementConfig) =&gt; (stage ? updateStage(stage) : <span class="branch-1 cbranch-no" title="branch not covered" >Promise.resolve())</span>, 300),
     [updateStage]
   )
 &nbsp;
-  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
+  const { stage = {} } = getStageFromPipeline&lt;DeploymentStageElementConfig&gt;(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const [parentStage, setParentStage] = React.useState&lt;{
@@ -983,8 +986,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 <span class="branch-2 cbranch-no" title="branch not covered" >          !get(item.stage, `spec.serviceConfig.useFromStage.stage`)</span>
         ) {
 <span class="cstat-no" title="statement not covered" >          previousStageList.push({</span>
-            label: `Previous Stage ${item.stage.name} [${item.stage.identifier}]`,
-            value: item.stage.identifier
+            label: `Previous Stage ${item.stage?.name} [${item.stage?.identifier}]`,
+            value: item.stage?.identifier || ''
           })
         }
       })
@@ -999,12 +1002,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage) {
 <span class="cstat-no" title="statement not covered" >      if (!stage.stage.spec) {</span>
-<span class="cstat-no" title="statement not covered" >        stage.stage.spec = {}</span>
+<span class="cstat-no" title="statement not covered" >        stage.stage.spec = {} as any</span>
       }
 <span class="cstat-no" title="statement not covered" >      if (</span>
-        !stage.stage.spec.serviceConfig?.serviceDefinition &amp;&amp;
+        !stage.stage.spec?.serviceConfig?.serviceDefinition &amp;&amp;
         setupModeType === setupMode.DIFFERENT &amp;&amp;
-        !stage.stage.spec.serviceConfig?.useFromStage?.stage
+        !stage.stage.spec?.serviceConfig?.useFromStage?.stage
       ) {
 <span class="cstat-no" title="statement not covered" >        setDefaultServiceSchema()</span>
 <span class="cstat-no" title="statement not covered" >        setSelectedPropagatedState({</span>
@@ -1015,18 +1018,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       } else <span class="cstat-no" title="statement not covered" >if (</span>
         setupModeType === setupMode.PROPAGATE &amp;&amp;
         stageIndex &gt; 0 &amp;&amp;
-        !stage.stage.spec.serviceConfig?.serviceDefinition &amp;&amp;
-        !stage.stage.spec.serviceConfig?.useFromStage?.stage
+        !stage.stage.spec?.serviceConfig?.serviceDefinition &amp;&amp;
+        !stage.stage.spec?.serviceConfig?.useFromStage?.stage
       ) {
         const stageData = <span class="cstat-no" title="statement not covered" >produce(stage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          draft.stage.spec = {</span>
+<span class="cstat-no" title="statement not covered" >          set(draft, 'stage.spec', {</span>
             serviceConfig: {
               useFromStage: {
                 stage: null
               },
               stageOverrides: {}
             }
-          }
+          })
         })
 <span class="cstat-no" title="statement not covered" >        debounceUpdateStage(stageData.stage)</span>
 <span class="cstat-no" title="statement not covered" >        setSetupMode(setupMode.PROPAGATE)</span>
@@ -1036,8 +1039,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 &nbsp;
   const setDefaultServiceSchema = <span class="fstat-no" title="function not covered" >(): Promise&lt;void&gt; =</span>&gt; {
     const stageData = <span class="cstat-no" title="statement not covered" >produce(stage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      draft.stage.spec = {</span>
-        ...stage.stage.spec,
+<span class="cstat-no" title="statement not covered" >      set(draft, 'stage.spec', {</span>
+        ...stage.stage?.spec,
         serviceConfig: {
           serviceRef: '',
           serviceDefinition: {
@@ -1047,7 +1050,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             }
           }
         }
-      }
+      })
     })
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return debounceUpdateStage(stageData.stage)</span>
@@ -1055,10 +1058,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 &nbsp;
   const setStageOverrideSchema = <span class="fstat-no" title="function not covered" >(): Promise&lt;void&gt; =</span>&gt; {
     const stageData = <span class="cstat-no" title="statement not covered" >produce(stage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      draft.stage.spec = {</span>
-        ...stage.stage.spec,
+<span class="cstat-no" title="statement not covered" >      set(draft, 'stage.spec', {</span>
+        ...stage.stage?.spec,
         serviceConfig: {
-          ...stage?.stage?.spec.serviceConfig,
+          ...stage?.stage?.spec?.serviceConfig,
           stageOverrides: {
             artifacts: {
               // primary: null,
@@ -1068,9 +1071,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             variables: []
           }
         }
-      }
-<span class="cstat-no" title="statement not covered" >      if (draft.stage.spec?.serviceConfig.serviceDefinition) {</span>
-        delete <span class="cstat-no" title="statement not covered" >draft.stage.spec?.serviceConfig.serviceDefinition</span>
+      })
+<span class="cstat-no" title="statement not covered" >      if (draft.stage?.spec?.serviceConfig.serviceDefinition) {</span>
+<span class="cstat-no" title="statement not covered" >        delete draft.stage.spec.serviceConfig.serviceDefinition</span>
       }
     })
 &nbsp;
@@ -1099,11 +1102,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     const stageData = produce(stage, draft =&gt; {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (
         !draft<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDefinition<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.type </span>&amp;&amp;
-        !draft<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.useFromStage</span>
+        !draft<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.useFromStage</span>
       ) {
         set(draft, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       }
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (!draft<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDefinition &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!stage?.stage?.spec.serviceConfig?.useFromStage) {</span>
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!draft<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDefinition &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!stage?.stage?.spec?.serviceConfig?.useFromStage) {</span>
 <span class="cstat-no" title="statement not covered" >        set(draft, 'stage.spec.serviceConfig.serviceDefinition', {})</span>
       }
     })
@@ -1129,7 +1132,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   React.useEffect(() =&gt; {
     const useFromStage = stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.useFromStage</span>
     const stageOverrides = stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.stageOverrides</span>
-    const serviceDefinition = stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDefinition</span>
+    const serviceDefinition = stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceConfig<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.serviceDefinition</span>
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (useFromStage) {
 <span class="cstat-no" title="statement not covered" >      setSetupMode(setupMode.PROPAGATE)</span>
@@ -1324,7 +1327,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

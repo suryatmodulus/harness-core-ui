@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.26% </span>
+                <span class="strong">10.17% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>12/117</span>
+                <span class='fraction'>12/118</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/178</span>
+                <span class='fraction'>0/216</span>
             </div>
         
             
@@ -443,7 +443,8 @@
 <a name='L384'></a><a href='#L384'>384</a>
 <a name='L385'></a><a href='#L385'>385</a>
 <a name='L386'></a><a href='#L386'>386</a>
-<a name='L387'></a><a href='#L387'>387</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -462,6 +463,7 @@
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -848,6 +850,7 @@ import { Classes, Position } from '@blueprintjs/core'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './OverrideSetsInputSelector.module.scss'
 &nbsp;
 type InputSetValue = SelectOption | SelectOption[]
@@ -913,40 +916,40 @@ export const OverrideSetsInputSelector: React.FC&lt;InputSetSelectorProps&gt; = 
     getStageFromPipeline
   } = <span class="cstat-no" title="statement not covered" >React.useContext(PipelineContext)</span>
 &nbsp;
-  const { stage: currentStage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(selectedStageId || '')</span>
+  const { stage: currentStage } = <span class="cstat-no" title="statement not covered" >getStageFromPipeline&lt;DeploymentStageElementConfig&gt;(selectedStageId || '')</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
     const useFromStage = <span class="cstat-no" title="statement not covered" >currentStage?.stage?.spec?.serviceConfig?.useFromStage?.stage</span>
-<span class="cstat-no" title="statement not covered" >    setUseFromStage(useFromStage)</span>
-  }, [currentStage?.stage?.spec?.serviceConfig?.stageOverrides?.useFromStage])
+<span class="cstat-no" title="statement not covered" >    if (useFromStage) <span class="cstat-no" title="statement not covered" >setUseFromStage(useFromStage)</span></span>
+  }, [(currentStage?.stage?.spec?.serviceConfig?.stageOverrides as any)?.useFromStage])
 &nbsp;
-  const { stage: useFromStageObj = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(useFromStageId || '')</span>
+  const { stage: useFromStageObj = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = <span class="cstat-no" title="statement not covered" >getStageFromPipeline&lt;DeploymentStageElementConfig&gt;(useFromStageId || '')</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
     const spec = <span class="cstat-no" title="statement not covered" >useFromStageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec</span>
 <span class="cstat-no" title="statement not covered" >    if (spec) {</span>
       const _overrideSets: { name: string; identifier: string }[] = <span class="cstat-no" title="statement not covered" >[]</span>
 <span class="cstat-no" title="statement not covered" >      if (context === 'ARTIFACT') {</span>
-<span class="cstat-no" title="statement not covered" >        spec.artifactOverrideSets?.map(<span class="fstat-no" title="function not covered" >(o</span>verrideSets: { overrideSet: { identifier: string } }) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        spec.artifactOverrideSets?.map(<span class="fstat-no" title="function not covered" >overrideSets </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          _overrideSets.push({</span>
-            name: overrideSets.overrideSet.identifier,
-            identifier: overrideSets.overrideSet.identifier
+            name: overrideSets.overrideSet?.identifier || '',
+            identifier: overrideSets.overrideSet?.identifier || ''
           })
         })
       }
 <span class="cstat-no" title="statement not covered" >      if (context === 'MANIFEST') {</span>
-<span class="cstat-no" title="statement not covered" >        spec.manifestOverrideSets?.map(<span class="fstat-no" title="function not covered" >(o</span>verrideSets: { overrideSet: { identifier: string } }) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        spec.manifestOverrideSets?.map(<span class="fstat-no" title="function not covered" >overrideSets </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          _overrideSets.push({</span>
-            name: overrideSets.overrideSet.identifier,
-            identifier: overrideSets.overrideSet.identifier
+            name: overrideSets.overrideSet?.identifier || '',
+            identifier: overrideSets.overrideSet?.identifier || ''
           })
         })
       }
 <span class="cstat-no" title="statement not covered" >      if (context === 'VARIABLES') {</span>
-<span class="cstat-no" title="statement not covered" >        spec.variableOverrideSets?.map(<span class="fstat-no" title="function not covered" >(o</span>verrideSets: { overrideSet: { identifier: string } }) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        spec.variableOverrideSets?.map(<span class="fstat-no" title="function not covered" >overrideSets </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          _overrideSets.push({</span>
-            name: overrideSets.overrideSet.identifier,
-            identifier: overrideSets.overrideSet.identifier
+            name: overrideSets.overrideSet?.identifier || '',
+            identifier: overrideSets.overrideSet?.identifier || ''
           })
         })
       }
@@ -1222,7 +1225,7 @@ export const OverrideSetsInputSelector: React.FC&lt;InputSetSelectorProps&gt; = 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

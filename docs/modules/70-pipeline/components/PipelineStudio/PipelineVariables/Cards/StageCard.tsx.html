@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.41% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>27/34</span>
+                <span class='fraction'>20/28</span>
             </div>
         
             
@@ -375,10 +375,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import produce from 'immer'
-import { set } from 'lodash-es'
+import { defaultTo, set } from 'lodash-es'
 import { Text, Color, NestedAccordionPanel } from '@wings-software/uicore'
 &nbsp;
-import type { StageElement, DeploymentStage, StageElementConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, StageElementConfig } from 'services/cd-ng'
 import type {
   CustomVariablesData,
   CustomVariableEditableExtraProps
@@ -398,8 +398,8 @@ import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 &nbsp;
 export interface StageCardProps {
-  stage: StageElement
-  originalStage: StageElement
+  stage: StageElementConfig
+  originalStage: StageElementConfig
   metadataMap: PipelineVariablesData['metadataMap']
   readonly?: boolean
 }
@@ -408,8 +408,8 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
   const { stage, originalStage, metadataMap, readonly } = props
   const { updateStage, stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
-  const stageSpec = stage.spec as DeploymentStage
-  const originalSpec = originalStage.spec as DeploymentStage
+  const stageSpec = stage.spec as DeploymentStageConfig
+  const originalSpec = originalStage.spec as DeploymentStageConfig
 &nbsp;
   return (
     &lt;NestedAccordionPanel
@@ -433,21 +433,21 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
               &lt;StepWidget&lt;CustomVariablesData, CustomVariableEditableExtraProps&gt;
                 factory={stepsFactory}
                 initialValues={{
-                  variables: ((originalStage as DeploymentStage).variables || []) as AllNGVariables[],
+                  variables: defaultTo(originalStage.variables, []) as AllNGVariables[],
                   canAddVariable: true
                 }}
                 readonly={readonly}
                 type={StepType.CustomVariable}
                 stepViewType={StepViewType.InputVariable}
                 onUpdate={<span class="fstat-no" title="function not covered" >({</span> variables }: CustomVariablesData) =&gt; {
-<span class="cstat-no" title="statement not covered" >                  updateStage({ ...originalStage, variables } as StageElementConfig)</span>
+<span class="cstat-no" title="statement not covered" >                  updateStage({ ...originalStage, variables })</span>
                 }}
                 customStepProps={{
                   variableNamePrefix: `${originalStage.identifier}.variables.`,
                   domId: `Stage.${originalStage.identifier}.Variables-panel`,
                   className: css.customVariables,
                   heading: &lt;b&gt;{getString('customVariables.title')}&lt;/b&gt;,
-                  yamlProperties: ((stage as DeploymentStage).variables as AllNGVariables[])?.map?.(
+                  yamlProperties: (defaultTo(stage.variables, []) as AllNGVariables[]).map<span class="branch-0 cbranch-no" title="branch not covered" >?.(</span>
                     variable =&gt;
                       metadataMap[variable.value || /* istanbul ignore next */ '']<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlProperties ||
                       /* istanbul ignore next */ {}
@@ -476,7 +476,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
 <span class="cstat-no" title="statement not covered" >                            if (serviceSpec.variables) {</span>
 <span class="cstat-no" title="statement not covered" >                              set(draft, 'spec.serviceConfig.serviceDefinition.spec.variables', serviceSpec.variables)</span>
                             }
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                     /&gt;
@@ -492,14 +492,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
 <span class="cstat-no" title="statement not covered" >                        updateStage(</span>
                           produce(originalStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                            set(draft, 'spec.infrastructure', infrastructure)</span>
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                       onUpdateInfrastructureProvisioner={<span class="fstat-no" title="function not covered" >provisioner </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                        updateStage(</span>
                           produce(originalStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                            set(draft, 'spec.infrastructure.infrastructureDefinition.provisioner', provisioner)</span>
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                     /&gt;
@@ -517,7 +517,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
 <span class="cstat-no" title="statement not covered" >                        updateStage(</span>
                           produce(originalStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                            set(draft, 'spec.execution', execution)</span>
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                     /&gt;
@@ -538,7 +538,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

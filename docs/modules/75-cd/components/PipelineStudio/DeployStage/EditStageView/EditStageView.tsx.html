@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.96% </span>
+                <span class="strong">47.59% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>58/129</span>
+                <span class='fraction'>69/145</span>
             </div>
         
             
@@ -341,7 +341,9 @@
 <a name='L282'></a><a href='#L282'>282</a>
 <a name='L283'></a><a href='#L283'>283</a>
 <a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a>
+<a name='L287'></a><a href='#L287'>287</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -360,7 +362,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -382,6 +383,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -599,6 +602,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -644,7 +648,6 @@ import * as Yup from 'yup'
 import produce from 'immer'
 import { omit, set } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -666,17 +669,19 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { StringNGVariable } from 'services/cd-ng'
 import css from './EditStageView.module.scss'
 &nbsp;
-export interface EditStageView {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) =&gt; void
-  onChange?: (values: StageElementWrapper) =&gt; void
+export interface EditStageViewProps {
+  data?: StageElementWrapper&lt;DeploymentStageElementConfig&gt;
+  onSubmit?: (values: StageElementWrapper&lt;DeploymentStageElementConfig&gt;, identifier?: string) =&gt; void
+  onChange?: (values: DeploymentStageElementConfig) =&gt; void
   context?: string
   isReadonly: boolean
 }
 &nbsp;
-export const EditStageView: React.FC&lt;EditStageView&gt; = ({
+export const EditStageView: React.FC&lt;EditStageViewProps&gt; = ({
   data,
   onSubmit,
   context,
@@ -719,7 +724,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
   const { stepsFactory, getStageFromPipeline } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef&lt;HTMLDivElement | null&gt;(null)
-  const allNGVariables = ((<span class="branch-1 cbranch-no" title="branch not covered" >data?.stage as StageElementConfig)<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.variables </span>|| []) as AllNGVariables[]
+  const allNGVariables = (<span class="branch-1 cbranch-no" title="branch not covered" >data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.variables </span>|| []) as AllNGVariables[]
   const { errorMap } = useValidationErrors()
   const { subscribeForm, unSubscribeForm, submitFormsForTab } = React.useContext(StageErrorContext)
 &nbsp;
@@ -767,9 +772,9 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
           &lt;Container&gt;
             &lt;Formik
               initialValues={{
-                identifier: <span class="branch-1 cbranch-no" title="branch not covered" >data?.stage.identifier,</span>
-                name: <span class="branch-1 cbranch-no" title="branch not covered" >data?.stage.name,</span>
-                description: <span class="branch-1 cbranch-no" title="branch not covered" >data?.stage.description,</span>
+                identifier: <span class="branch-1 cbranch-no" title="branch not covered" >data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.identifier,</span>
+                name: <span class="branch-1 cbranch-no" title="branch not covered" >data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.name,</span>
+                description: <span class="branch-1 cbranch-no" title="branch not covered" >data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.description,</span>
                 tags: <span class="branch-1 cbranch-no" title="branch not covered" >data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.tags </span>|| {},
                 serviceType: newStageData[0].value
               }}
@@ -778,10 +783,10 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
 <span class="cstat-no" title="statement not covered" >                if (data) {</span>
                   const newData = <span class="cstat-no" title="statement not covered" >produce(data, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >                    if (draft.stage) {</span>
-<span class="cstat-no" title="statement not covered" >                      draft.stage.identifier = values.identifier</span>
-<span class="cstat-no" title="statement not covered" >                      draft.stage.name = values.name</span>
-<span class="cstat-no" title="statement not covered" >                      draft.stage.description = values.description</span>
-<span class="cstat-no" title="statement not covered" >                      draft.stage.tags = values.tags || {}</span>
+<span class="cstat-no" title="statement not covered" >                      set(draft, 'stage.identifier', values.identifier)</span>
+<span class="cstat-no" title="statement not covered" >                      set(draft, 'stage.name', values.name)</span>
+<span class="cstat-no" title="statement not covered" >                      set(draft, 'stage.description', values.description)</span>
+<span class="cstat-no" title="statement not covered" >                      set(draft, 'stage.tags', values.tags || {})</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >                      if (!draft.stage.spec?.serviceConfig) {</span>
 <span class="cstat-no" title="statement not covered" >                        set(draft, 'stage.spec.serviceConfig', {})</span>
@@ -798,11 +803,11 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
               }}
               validate={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
                 const errors: { name?: string } = <span class="cstat-no" title="statement not covered" >{}</span>
-<span class="cstat-no" title="statement not covered" >                if (isDuplicateStageId(values.identifier, stages, !!context)) {</span>
+<span class="cstat-no" title="statement not covered" >                if (isDuplicateStageId(values.identifier || '', stages, !!context)) {</span>
 <span class="cstat-no" title="statement not covered" >                  errors.name = getString('validation.identifierDuplicate')</span>
                 }
 <span class="cstat-no" title="statement not covered" >                if (context &amp;&amp; data) {</span>
-<span class="cstat-no" title="statement not covered" >                  onChange?.(omit(values, 'serviceType'))</span>
+<span class="cstat-no" title="statement not covered" >                  onChange?.(omit(values as unknown as DeploymentStageElementConfig, 'serviceType'))</span>
                 }
 <span class="cstat-no" title="statement not covered" >                return errors</span>
               }}
@@ -882,16 +887,17 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
                           type={StepType.CustomVariable}
                           stepViewType={StepViewType.StageVariable}
                           onUpdate={<span class="fstat-no" title="function not covered" >({</span> variables }: CustomVariablesData) =&gt; {
-<span class="cstat-no" title="statement not covered" >                            onChange?.({ ...data?.stage, variables } as StageElementConfig)</span>
+<span class="cstat-no" title="statement not covered" >                            onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })</span>
                           }}
                           customStepProps={{
                             tabName: DeployTabs.OVERVIEW,
                             yamlProperties:
                               getStageFromPipeline(
-<span class="branch-1 cbranch-no" title="branch not covered" >                                data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.identifier,</span>
+<span class="branch-1 cbranch-no" title="branch not covered" >                                data?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.identifier </span>|| '',
                                 variablesPipeline
                               )<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-1 cbranch-no" title="branch not covered" >?.stage<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.variables<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.map<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.(</span>
-<span class="fstat-no" title="function not covered" >                                (v</span>ariable: AllNGVariables) =&gt; <span class="cstat-no" title="statement not covered" >metadataMap[variable.value || '']?.yamlProperties || {}</span>
+<span class="fstat-no" title="function not covered" >                                variable </span>=&gt;
+<span class="cstat-no" title="statement not covered" >                                  metadataMap[(variable as StringNGVariable).value || '']?.yamlProperties || {}</span>
                               ) || [],
                             enableValidation: true
                           }}
@@ -916,7 +922,7 @@ export const EditStageView: React.FC&lt;EditStageView&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

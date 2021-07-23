@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">22.86% </span>
+                <span class="strong">25.68% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>16/70</span>
+                <span class='fraction'>19/74</span>
             </div>
         
             
@@ -246,15 +246,7 @@
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
 <a name='L189'></a><a href='#L189'>189</a>
-<a name='L190'></a><a href='#L190'>190</a>
-<a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a>
-<a name='L195'></a><a href='#L195'>195</a>
-<a name='L196'></a><a href='#L196'>196</a>
-<a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -263,20 +255,11 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -337,6 +320,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -458,13 +442,8 @@ import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
-import type {
-  ApprovalStageConfig,
-  StageElementConfig,
-  StageElementWrapper,
-  StageElementWrapperConfig
-} from 'services/cd-ng'
+import { GetInitialStageYamlSnippetQueryParams, useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
+import type { ApprovalStageConfig, StageElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
@@ -473,10 +452,6 @@ import css from './ApprovalStageSetupShellMode.module.scss'
 &nbsp;
 interface ApprovalStageElementConfig extends StageElementConfig {
   approvalType?: string
-}
-&nbsp;
-interface ApprovalStageElementWrapperConfig extends StageElementWrapperConfig {
-  stage?: ApprovalStageElementConfig
 }
 &nbsp;
 export const ApprovalStageSetupShellMode: React.FC = () =&gt; {
@@ -498,7 +473,7 @@ export const ApprovalStageSetupShellMode: React.FC = () =&gt; {
   } = React.useContext(PipelineContext)
 &nbsp;
   const [loadGraph, setLoadGraph] = React.useState(false)
-  const { stage: selectedStage = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = getStageFromPipeline(selectedStageId) as StageElementWrapper
+  const { stage: selectedStage = <span class="branch-0 cbranch-no" title="branch not covered" >{} </span>} = getStageFromPipeline&lt;ApprovalStageElementConfig&gt;(selectedStageId)
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedStepId) {
@@ -506,7 +481,7 @@ export const ApprovalStageSetupShellMode: React.FC = () =&gt; {
     }
   }, [selectedStepId])
 &nbsp;
-  const ActionButtons = () =&gt; {
+  const ActionButtons = (): React.ReactElement =&gt; {
     return (
       &lt;Layout.Horizontal spacing="medium" padding="medium" className={css.footer}&gt;
         &lt;Button
@@ -535,7 +510,8 @@ export const ApprovalStageSetupShellMode: React.FC = () =&gt; {
 &nbsp;
   const { data: yamlSnippet } = useGetInitialStageYamlSnippet({
     queryParams: {
-      approvalType: selectedStage.stage.approvalType || StepType.HarnessApproval
+      approvalType: (selectedStage.stage<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>pprovalType ||
+        StepType.HarnessApproval) as GetInitialStageYamlSnippetQueryParams['approvalType']
     }
   })
 &nbsp;
@@ -545,7 +521,7 @@ export const ApprovalStageSetupShellMode: React.FC = () =&gt; {
       // The last part of condition is important, as we only need to add the YAML snippet the first time in the step.
 <span class="cstat-no" title="statement not covered" >      if (!selectedStage?.stage?.spec?.execution) {</span>
 <span class="cstat-no" title="statement not covered" >        updateStage(</span>
-          produce&lt;StageElementWrapperConfig&gt;(selectedStage, <span class="fstat-no" title="function not covered" >(d</span>raft: ApprovalStageElementWrapperConfig) =&gt; {
+          produce(selectedStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
             const jsonFromYaml = <span class="cstat-no" title="statement not covered" >YAML.parse(yamlSnippet?.data || '') as ApprovalStageElementConfig</span>
 <span class="cstat-no" title="statement not covered" >            if (draft.stage &amp;&amp; draft.stage.spec) {</span>
 <span class="cstat-no" title="statement not covered" >              draft.stage.failureStrategies = jsonFromYaml.failureStrategies</span>
@@ -655,7 +631,7 @@ export const ApprovalStageSetupShellMode: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

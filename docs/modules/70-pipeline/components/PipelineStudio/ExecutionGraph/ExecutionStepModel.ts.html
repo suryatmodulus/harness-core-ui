@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.18% </span>
+                <span class="strong">2.97% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>9/283</span>
+                <span class='fraction'>9/303</span>
             </div>
         
             
@@ -721,16 +721,11 @@
 <a name='L662'></a><a href='#L662'>662</a>
 <a name='L663'></a><a href='#L663'>663</a>
 <a name='L664'></a><a href='#L664'>664</a>
-<a name='L665'></a><a href='#L665'>665</a>
-<a name='L666'></a><a href='#L666'>666</a>
-<a name='L667'></a><a href='#L667'>667</a>
-<a name='L668'></a><a href='#L668'>668</a>
-<a name='L669'></a><a href='#L669'>669</a>
-<a name='L670'></a><a href='#L670'>670</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L665'></a><a href='#L665'>665</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1021,9 +1016,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1156,7 +1148,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1172,7 +1163,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1396,11 +1386,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isEmpty } from 'lodash-es'
-import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 &nbsp;
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseStringsReturn } from 'framework/strings'
+import type { ExecutionWrapperConfig } from 'services/cd-ng'
 import {
   DiagramModel,
   CreateNewModel,
@@ -1432,7 +1422,7 @@ export interface GridStyleInterface {
 }
 &nbsp;
 export interface AddUpdateGraphProps {
-  stepsData: ExecutionWrapper[]
+  stepsData: ExecutionWrapperConfig[]
   stepStates: StepStateMap
   hasDependencies: boolean
   servicesData: DependenciesWrapper[]
@@ -1446,7 +1436,7 @@ export interface AddUpdateGraphProps {
 }
 &nbsp;
 export interface RenderGraphStepNodesProps {
-  node: ExecutionWrapper
+  node: ExecutionWrapperConfig
   startX: number
   startY: number
   factory: AbstractStepFactory
@@ -1649,7 +1639,6 @@ export class ExecutionStepModel extends DiagramModel {
               canDelete: !isReadonly,
               draggable: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
@@ -1665,7 +1654,6 @@ export class ExecutionStepModel extends DiagramModel {
               allowAdd: allowAdd === true &amp;&amp; !isReadonly,
               canDelete: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
@@ -1683,7 +1671,6 @@ export class ExecutionStepModel extends DiagramModel {
               icon: factory.getStepIcon(stepType),
               allowAdd: allowAdd === true &amp;&amp; !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
@@ -1716,7 +1703,7 @@ export class ExecutionStepModel extends DiagramModel {
           const emptyNode = <span class="cstat-no" title="statement not covered" >new EmptyNodeModel({</span>
             identifier: node.parallel[0].step
               ? `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
-              : `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stepGroup.identifier}${EmptyNodeSeparator}`,
+              : `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`,
             name: 'Empty',
             hideOutPort: true
           })
@@ -1737,8 +1724,8 @@ export class ExecutionStepModel extends DiagramModel {
         }
         const prevNodesAr: DefaultNodeModel[] = <span class="cstat-no" title="statement not covered" >[]</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        node.parallel.forEach(<span class="fstat-no" title="function not covered" >(n</span>odeP: ExecutionWrapper, index: number) =&gt; {</span>
-          const isLastNode = <span class="cstat-no" title="statement not covered" >node.parallel.length === index + 1</span>
+<span class="cstat-no" title="statement not covered" >        node.parallel.forEach(<span class="fstat-no" title="function not covered" >(n</span>odeP, index: number) =&gt; {</span>
+          const isLastNode = <span class="cstat-no" title="statement not covered" >node.parallel?.length === index + 1</span>
           const resp = <span class="cstat-no" title="statement not covered" >this.renderGraphStepNodes({</span>
             node: nodeP,
             startX: newX,
@@ -1767,7 +1754,7 @@ export class ExecutionStepModel extends DiagramModel {
           const emptyNodeEnd = <span class="cstat-no" title="statement not covered" >new EmptyNodeModel({</span>
             identifier: node.parallel[0].step
               ? `${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
-              : `${EmptyNodeSeparator}${node.parallel[0].stepGroup.identifier}${EmptyNodeSeparator}`,
+              : `${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`,
             name: 'Empty',
             hideInPort: true
           })
@@ -1813,12 +1800,11 @@ export class ExecutionStepModel extends DiagramModel {
 <span class="cstat-no" title="statement not covered" >        startX += this.gapX</span>
         const nodeRender = <span class="cstat-no" title="statement not covered" >new DefaultNodeModel({</span>
           identifier: node.stepGroup.identifier,
-          name: node.stepGroup.name,
+          name: node.stepGroup.name || '',
           icon: factory.getStepIcon('StepGroup'),
           secondaryIcon: 'plus',
           draggable: !isReadonly,
           canDelete: !isReadonly,
-          skipCondition: node.stepGroup.skipCondition,
           conditionalExecutionEnabled: node.stepGroup.when
             ? node.stepGroup.when?.stageStatus !== 'Success' || !!node.stepGroup.when?.condition?.trim()
             : false,
@@ -1844,7 +1830,6 @@ export class ExecutionStepModel extends DiagramModel {
           identifier: node.stepGroup.identifier,
           childrenDistance: this.gapY,
           label: node.stepGroup.name,
-          skipCondition: node.stepGroup.skipCondition,
           conditionalExecutionEnabled: node.stepGroup.when
             ? node.stepGroup.when?.stageStatus !== 'Success' || !!node.stepGroup.when?.condition?.trim()
             : false,
@@ -1883,7 +1868,7 @@ export class ExecutionStepModel extends DiagramModel {
         }
         // Check if step group has nodes
 <span class="cstat-no" title="statement not covered" >        if (steps?.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >          steps.forEach(<span class="fstat-no" title="function not covered" >(n</span>odeP: ExecutionElement, index: number) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          steps.forEach(<span class="fstat-no" title="function not covered" >(n</span>odeP, index: number) =&gt; {</span>
             const resp = <span class="cstat-no" title="statement not covered" >this.renderGraphStepNodes({</span>
               node: nodeP,
               startX,
@@ -1926,7 +1911,7 @@ export class ExecutionStepModel extends DiagramModel {
 <span class="cstat-no" title="statement not covered" >            this.connectedParentToNode(</span>
               stepGroupLayer.endNode,
               prevNode,
-              node.stepGroup.steps?.length &gt; 0 &amp;&amp; !isReadonly,
+              (node.stepGroup?.steps?.length || 0) &gt; 0 &amp;&amp; !isReadonly,
               4,
               'var(--pipeline-grey-border)'
             )
@@ -1997,7 +1982,7 @@ export class ExecutionStepModel extends DiagramModel {
       }
     }
 &nbsp;
-    stepsData.forEach(<span class="fstat-no" title="function not covered" >(n</span>ode: ExecutionWrapper, index: number) =&gt; {
+    stepsData.forEach(<span class="fstat-no" title="function not covered" >(n</span>ode, index: number) =&gt; {
       const resp = <span class="cstat-no" title="statement not covered" >this.renderGraphStepNodes({</span>
         node,
         startX,
@@ -2071,7 +2056,7 @@ export class ExecutionStepModel extends DiagramModel {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

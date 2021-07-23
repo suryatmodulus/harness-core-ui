@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0.34% </span>
+                <span class="strong">0.31% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>2/595</span>
+                <span class='fraction'>2/637</span>
             </div>
         
             
@@ -892,7 +892,11 @@
 <a name='L833'></a><a href='#L833'>833</a>
 <a name='L834'></a><a href='#L834'>834</a>
 <a name='L835'></a><a href='#L835'>835</a>
-<a name='L836'></a><a href='#L836'>836</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L836'></a><a href='#L836'>836</a>
+<a name='L837'></a><a href='#L837'>837</a>
+<a name='L838'></a><a href='#L838'>838</a>
+<a name='L839'></a><a href='#L839'>839</a>
+<a name='L840'></a><a href='#L840'>840</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -911,24 +915,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -951,6 +939,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1227,6 +1232,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1406,6 +1412,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1571,6 +1578,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1735,7 +1743,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import SplitPane from 'react-split-pane'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import type { StageElementWrapper, NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfigConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { useConfirmationDialog } from '@common/exports'
 import { CanvasButtons } from '@pipeline/components/CanvasButtons/CanvasButtons'
@@ -1746,6 +1754,7 @@ import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
 import { useGlobalEventListener } from '@common/hooks'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import {
   CanvasWidget,
   createEngine,
@@ -1801,13 +1810,13 @@ const DEFAULT_MOVE_STAGE_DETAILS: MoveStageDetailsType = {
   direction: MoveDirection.AHEAD,
   event: undefined
 }
-const initializeStageStateMap = <span class="fstat-no" title="function not covered" >(p</span>ipeline: NgPipeline, mapState: StageStateMap): void =&gt; {
+const initializeStageStateMap = <span class="fstat-no" title="function not covered" >(p</span>ipeline: PipelineInfoConfig, mapState: StageStateMap): void =&gt; {
   /* istanbul ignore else */ <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (pipeline?.stages) {</span>
-<span class="cstat-no" title="statement not covered" >    pipeline.stages.forEach?.(<span class="fstat-no" title="function not covered" >(n</span>ode: StageElementWrapper) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >    pipeline.stages.forEach?.(<span class="fstat-no" title="function not covered" >node </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (node?.stage &amp;&amp; node.stage.name !== EmptyStageName) {</span>
 <span class="cstat-no" title="statement not covered" >        mapState.set(node.stage.identifier, { isConfigured: true, stage: node })</span>
       } /* istanbul ignore else */ else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (node?.parallel) {</span>
-<span class="cstat-no" title="statement not covered" >        node.parallel.forEach?.(<span class="fstat-no" title="function not covered" >(p</span>arallelNode: StageElementWrapper) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        node.parallel.forEach?.(<span class="fstat-no" title="function not covered" >parallelNode </span>=&gt; {</span>
           /* istanbul ignore else */ <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (parallelNode.stage &amp;&amp; parallelNode.stage.name !== EmptyStageName) {</span>
 <span class="cstat-no" title="statement not covered" >            mapState.set(parallelNode.stage.identifier, { isConfigured: true, stage: parallelNode })</span>
           }
@@ -1836,18 +1845,18 @@ export const renderPopover = <span class="fstat-no" title="function not covered"
     const stageData = <span class="cstat-no" title="statement not covered" >{</span>
       stage: {
         ...data.stage,
-        identifier: data?.stage.name === EmptyStageName ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: /* istanbul ignore next */ data.stage.identifier,
-        name: data?.stage.name === EmptyStageName ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: /* istanbul ignore next */ data.stage.name
+        identifier: data?.stage?.name === EmptyStageName ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: /* istanbul ignore next */ data.stage?.identifier,
+        name: data?.stage?.name === EmptyStageName ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: /* istanbul ignore next */ data.stage?.name
       }
     }
 <span class="cstat-no" title="statement not covered" >    return renderPipelineStage({</span>
       minimal: true,
-      stageType: data.stage.type,
+      stageType: data.stage?.type,
       stageProps: {
         data: stageData,
-        onSubmit: <span class="fstat-no" title="function not covered" >(v</span>alues: StageElementWrapper, identifier: string) =&gt; {
+        onSubmit: <span class="fstat-no" title="function not covered" >(v</span>alues: StageElementWrapperConfigConfig, identifier: string) =&gt; {
 <span class="cstat-no" title="statement not covered" >          data.stage = {</span>
-            ...values.stage
+            ...(values.stage as StageElementConfig)
           }
 <span class="cstat-no" title="statement not covered" >          onSubmitPrimaryData?.(values, identifier)</span>
         }
@@ -1862,7 +1871,7 @@ export const renderPopover = <span class="fstat-no" title="function not covered"
         onClick={onClickGroupStage}
       /&gt;
     )
-  } else <span class="cstat-no" title="statement not covered" >if (isHoverView &amp;&amp; !!data?.stage.when) {</span>
+  } else <span class="cstat-no" title="statement not covered" >if (isHoverView &amp;&amp; !!data?.stage?.when) {</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
       &lt;HoverCard&gt;
         &lt;ConditionalExecutionTooltip
@@ -1876,7 +1885,7 @@ export const renderPopover = <span class="fstat-no" title="function not covered"
 <span class="cstat-no" title="statement not covered" >  return renderPipelineStage({</span>
     isParallel,
     showSelectMenu: true,
-    getNewStageFromType,
+    getNewStageFromType: getNewStageFromType as any,
     onSelectStage: <span class="fstat-no" title="function not covered" >(t</span>ype, stage, pipelineTemp) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (stage) {</span>
 <span class="cstat-no" title="statement not covered" >        addStage?.(stage, isParallel, event, undefined, true, pipelineTemp)</span>
@@ -2036,8 +2045,8 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
 <span class="cstat-no" title="statement not covered" >    engine.repaintCanvas()</span>
 <span class="cstat-no" title="statement not covered" >    updatePipeline({ ...(pipelineTemp || {}), ...pipeline }).then(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      if (openSetupAfterAdd) {</span>
-<span class="cstat-no" title="statement not covered" >        setSelectionRef.current({ stageId: newStage.stage.identifier })</span>
-<span class="cstat-no" title="statement not covered" >        moveStageToFocusDelayed(engine, newStage.stage.identifier, true, false)</span>
+<span class="cstat-no" title="statement not covered" >        setSelectionRef.current({ stageId: newStage.stage?.identifier })</span>
+<span class="cstat-no" title="statement not covered" >        moveStageToFocusDelayed(engine, newStage.stage?.identifier || '', true, false)</span>
       }
     })
   }
@@ -2060,6 +2069,7 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
         splitViewData: {}
       })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedStageId, isSplitViewOpen])
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
@@ -2071,7 +2081,7 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
   }, [isInitialized, pipeline, isSplitViewOpen])
 &nbsp;
   // updates stages when stage is dragged to add stage link
-  const updateStageOnAddLink = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>vent: any, dropNode: StageElementWrapper, current: any): void =&gt; {</span>
+  const updateStageOnAddLink = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(e</span>vent: any, dropNode: StageElementWrapper | undefined, current: any): void =&gt; {</span>
     // Check Drop Node and Current node should not be same
 <span class="cstat-no" title="statement not covered" >    if (event.node.identifier !== event.entity.getIdentifier()) {</span>
       const isRemove = <span class="cstat-no" title="statement not covered" >removeNodeFromPipeline(getStageFromPipeline(event.node.identifier), pipeline, stageMap, false)</span>
@@ -2155,7 +2165,7 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
                   data,
                   onSubmitPrimaryData: <span class="fstat-no" title="function not covered" >(n</span>ode, identifier) =&gt; {
 <span class="cstat-no" title="statement not covered" >                    updatePipeline(pipeline)</span>
-<span class="cstat-no" title="statement not covered" >                    stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })</span>
+<span class="cstat-no" title="statement not covered" >                    stageMap.set(node.stage?.identifier || '', { isConfigured: true, stage: node })</span>
 <span class="cstat-no" title="statement not covered" >                    dynamicPopoverHandler.hide()</span>
 <span class="cstat-no" title="statement not covered" >                    resetDiagram(engine)</span>
 <span class="cstat-no" title="statement not covered" >                    setSelectionRef.current({ stageId: identifier })</span>
@@ -2171,9 +2181,9 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
 <span class="cstat-no" title="statement not covered" >              moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)</span>
             }
           } /* istanbul ignore else */ else <span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span>if (!isSplitViewOpen) {</span>
-<span class="cstat-no" title="statement not covered" >            if (stageMap.has(data?.stage?.identifier)) {</span>
+<span class="cstat-no" title="statement not covered" >            if (stageMap.has(data?.stage?.identifier || '')) {</span>
 <span class="cstat-no" title="statement not covered" >              setSelectionRef.current({ stageId: data?.stage?.identifier })</span>
-<span class="cstat-no" title="statement not covered" >              moveStageToFocusDelayed(engine, data?.stage?.identifier, true, false)</span>
+<span class="cstat-no" title="statement not covered" >              moveStageToFocusDelayed(engine, data?.stage?.identifier || '', true, false)</span>
             } else {
               // TODO: check if this is unused code
 <span class="cstat-no" title="statement not covered" >              dynamicPopoverHandler?.show(</span>
@@ -2183,7 +2193,7 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
                   data,
                   onSubmitPrimaryData: <span class="fstat-no" title="function not covered" >(n</span>ode, identifier) =&gt; {
 <span class="cstat-no" title="statement not covered" >                    updatePipeline(pipeline)</span>
-<span class="cstat-no" title="statement not covered" >                    stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })</span>
+<span class="cstat-no" title="statement not covered" >                    stageMap.set(node.stage?.identifier || '', { isConfigured: true, stage: node })</span>
 <span class="cstat-no" title="statement not covered" >                    dynamicPopoverHandler.hide()</span>
 <span class="cstat-no" title="statement not covered" >                    resetDiagram(engine)</span>
 <span class="cstat-no" title="statement not covered" >                    setSelectionRef.current({ stageId: identifier })</span>
@@ -2239,8 +2249,9 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
 <span class="cstat-no" title="statement not covered" >      if (event.node?.identifier) {</span>
         const dropNode = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(event.node.identifier).stage</span>
         const current = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(eventTemp.entity.getIdentifier())</span>
-        const dependentStages = <span class="cstat-no" title="statement not covered" >getDependantStages(pipeline, dropNode as StageElementWrapper)</span>
-        const parentStageId = <span class="cstat-no" title="statement not covered" >dropNode?.stage?.spec?.serviceConfig?.useFromStage?.stage</span>
+        const dependentStages = <span class="cstat-no" title="statement not covered" >getDependantStages(pipeline, dropNode)</span>
+        const parentStageId = <span class="cstat-no" title="statement not covered" >(dropNode?.stage as DeploymentStageElementConfig)?.spec?.serviceConfig?.useFromStage</span>
+          ?.stage
 <span class="cstat-no" title="statement not covered" >        if (parentStageId?.length) {</span>
           const { stageIndex } = <span class="cstat-no" title="statement not covered" >getStageIndexByIdentifier(pipeline, current?.stage?.stage?.identifier)</span>
 &nbsp;
@@ -2294,7 +2305,7 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
 <span class="cstat-no" title="statement not covered" >            return</span>
           }
         }
-<span class="cstat-no" title="statement not covered" >        updateStageOnAddLink(event, dropNode as StageElementWrapper, current)</span>
+<span class="cstat-no" title="statement not covered" >        updateStageOnAddLink(event, dropNode, current)</span>
       }
     },
     [Event.MouseEnterNode]: <span class="fstat-no" title="function not covered" >(e</span>vent: any) =&gt; {
@@ -2325,7 +2336,7 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
     ...DEFAULT_MOVE_STAGE_DETAILS
   })
 &nbsp;
-  const resetPipelineStages = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tages: StageElementWrapper[]): void =&gt; {</span>
+  const resetPipelineStages = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(s</span>tages: StageElementWrapperConfigConfig[]): void =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    updatePipeline({</span>
       ...pipeline,
       stages
@@ -2405,8 +2416,9 @@ const StageBuilder: React.FC&lt;unknown&gt; = <span class="fstat-no" title="func
 <span class="cstat-no" title="statement not covered" >      eventTemp.stopPropagation()</span>
 <span class="cstat-no" title="statement not covered" >      if (event.node?.identifier) {</span>
         const dropNode = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(event.node.identifier).stage</span>
-        const parentStageName = <span class="cstat-no" title="statement not covered" >dropNode?.stage?.spec?.serviceConfig?.useFromStage?.stage</span>
-        const dependentStages = <span class="cstat-no" title="statement not covered" >getDependantStages(pipeline, dropNode as StageElementWrapper)</span>
+        const parentStageName = <span class="cstat-no" title="statement not covered" >(dropNode?.stage as DeploymentStageElementConfig)?.spec?.serviceConfig?.useFromStage</span>
+          ?.stage
+        const dependentStages = <span class="cstat-no" title="statement not covered" >getDependantStages(pipeline, dropNode)</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        if (parentStageName?.length) {</span>
           const node = <span class="cstat-no" title="statement not covered" >event.entity.getTargetPort().getNode() as DefaultNodeModel</span>
@@ -2569,7 +2581,7 @@ export default StageBuilder
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

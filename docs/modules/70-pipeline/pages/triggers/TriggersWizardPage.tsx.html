@@ -1242,7 +1242,9 @@
 <a name='L1183'></a><a href='#L1183'>1183</a>
 <a name='L1184'></a><a href='#L1184'>1184</a>
 <a name='L1185'></a><a href='#L1185'>1185</a>
-<a name='L1186'></a><a href='#L1186'>1186</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1186'></a><a href='#L1186'>1186</a>
+<a name='L1187'></a><a href='#L1187'>1187</a>
+<a name='L1188'></a><a href='#L1188'>1188</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1484,6 +1486,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">78x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">78x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -2440,7 +2444,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { connectorUrlType } from '@connectors/constants'
 import routes from '@common/RouteDefinitions'
 import {
-  NgPipeline,
+  PipelineInfoConfig,
   useGetConnector,
   GetConnectorQueryParams,
   getConnectorListV2Promise,
@@ -2615,7 +2619,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
 &nbsp;
   const [enabledStatus, setEnabledStatus] = useState&lt;boolean&gt;(true)
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState&lt;string&gt;('')
-  const [currentPipeline, setCurrentPipeline] = useState&lt;{ pipeline?: NgPipeline } | undefined&gt;(undefined)
+  const [currentPipeline, setCurrentPipeline] = useState&lt;{ pipeline?: PipelineInfoConfig } | undefined&gt;(undefined)
   const [wizardKey, setWizardKey] = useState&lt;number&gt;(0)
   const [mergedPipelineKey, setMergedPipelineKey] = useState&lt;number&gt;(0)
 &nbsp;
@@ -2623,8 +2627,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
     | FlatOnEditValuesInterface
     | {
         triggerType: NGTriggerSourceV2['type']
-        pipeline?: NgPipeline | Record&lt;string, never&gt;
-        originalPipeline?: NgPipeline
+        pipeline?: PipelineInfoConfig | Record&lt;string, never&gt;
+        originalPipeline?: PipelineInfoConfig
         identifier?: string
         connectorRef?: { identifier?: string; scope?: string }
       }
@@ -2645,13 +2649,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         onEditInitialValues.pipeline || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
       )
       const newPipeline = clearRuntimeInput(newOnEditPipeline)
-      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as NgPipeline })
+      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as PipelineInfoConfig })
       setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
       setMergedPipelineKey(1)
     } else <span class="missing-if-branch" title="else path not taken" >E</span>if (template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml) {
       setCurrentPipeline(
         merge(clearRuntimeInput(parse(template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>), currentPipeline || {}) as {
-          pipeline: NgPipeline
+          pipeline: PipelineInfoConfig
         }
       )
     }
@@ -2668,7 +2672,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 &nbsp;
-  const originalPipeline: NgPipeline | undefined = parse((pipelineResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlPipeline as any) || <span class="branch-1 cbranch-no" title="branch not covered" >'')<span class="branch-0 cbranch-no" title="branch not covered" ></span>?.p</span>ipeline
+  const originalPipeline: PipelineInfoConfig | undefined = parse(
+    (pipelineResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlPipeline as any) || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+  )<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipeline
 &nbsp;
   useEffect(() =&gt; {
     if (triggerResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>aml &amp;&amp; triggerResponse.data.type === TriggerTypes.WEBHOOK) {
@@ -3619,7 +3625,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

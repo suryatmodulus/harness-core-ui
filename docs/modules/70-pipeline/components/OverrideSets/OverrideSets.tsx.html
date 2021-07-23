@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">52.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>72/135</span>
+                <span class='fraction'>70/133</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.33% </span>
+                <span class="strong">52.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>72/135</span>
+                <span class='fraction'>70/133</span>
             </div>
         
             
@@ -566,7 +566,18 @@
 <a name='L507'></a><a href='#L507'>507</a>
 <a name='L508'></a><a href='#L508'>508</a>
 <a name='L509'></a><a href='#L509'>509</a>
-<a name='L510'></a><a href='#L510'>510</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a>
+<a name='L518'></a><a href='#L518'>518</a>
+<a name='L519'></a><a href='#L519'>519</a>
+<a name='L520'></a><a href='#L520'>520</a>
+<a name='L521'></a><a href='#L521'>521</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -588,8 +599,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -845,14 +855,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1091,14 +1113,13 @@ import {
 } from '@wings-software/uicore'
 import { Form, FieldArray, FieldArrayRenderProps } from 'formik'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import get from 'lodash-es/get'
-import setData from 'lodash-es/set'
-import isEmpty from 'lodash-es/isEmpty'
+import { get, isEmpty, set } from 'lodash-es'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -1133,7 +1154,7 @@ export default function OverrideSets({
     updatePipeline,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline&lt;DeploymentStageElementConfig&gt;(selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const serviceDefPath = 'stage.spec.serviceConfig.serviceDefinition.spec'
   const artifactTab = getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
@@ -1169,7 +1190,7 @@ export default function OverrideSets({
         }
       }
       artifactOverrideSets.push(artifactOverrideSetsStruct)
-      setData(stage as any, serviceDefPath + '.artifactOverrideSets', artifactOverrideSets)
+      set(stage as any, serviceDefPath + '.artifactOverrideSets', artifactOverrideSets)
     }
     if (selectedTab === OverrideSetsType.Manifests) {
       const manifestOverrideSets = get(stage, serviceDefPath + '.manifestOverrideSets', [])
@@ -1180,7 +1201,7 @@ export default function OverrideSets({
         }
       }
       manifestOverrideSets.push(manifestOverrideSetStruct)
-      setData(stage as any, serviceDefPath + '.manifestOverrideSets', manifestOverrideSets)
+      set(stage as any, serviceDefPath + '.manifestOverrideSets', manifestOverrideSets)
     }
     <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedTab === variableTab) {
       const variableOverrideSets = <span class="cstat-no" title="statement not covered" >get(stage, serviceDefPath + '.variableOverrideSets', [])</span>
@@ -1191,7 +1212,7 @@ export default function OverrideSets({
         }
       }
 <span class="cstat-no" title="statement not covered" >      variableOverrideSets.push(variableOverrideSetsStruct)</span>
-<span class="cstat-no" title="statement not covered" >      setData(stage as any, serviceDefPath + '.variableOverrideSets', variableOverrideSets)</span>
+<span class="cstat-no" title="statement not covered" >      set(stage as any, serviceDefPath + '.variableOverrideSets', variableOverrideSets)</span>
     }
     updatePipeline(pipeline)
   }
@@ -1353,15 +1374,27 @@ export default function OverrideSets({
                   }}
                   validate={<span class="fstat-no" title="function not covered" >({</span> selectedOverrideSets }: { selectedOverrideSets: string[] }) =&gt; {
 <span class="cstat-no" title="statement not covered" >                    if (selectedTab === artifactTab &amp;&amp; stage) {</span>
-<span class="cstat-no" title="statement not covered" >                      stage.stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets = selectedOverrideSets</span>
+<span class="cstat-no" title="statement not covered" >                      set(</span>
+                        stage,
+                        'stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets',
+                        selectedOverrideSets
+                      )
 <span class="cstat-no" title="statement not covered" >                      return updatePipeline(pipeline)</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    if (selectedTab === manifestTab &amp;&amp; stage) {</span>
-<span class="cstat-no" title="statement not covered" >                      stage.stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets = selectedOverrideSets</span>
+<span class="cstat-no" title="statement not covered" >                      set(</span>
+                        stage,
+                        'stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets',
+                        selectedOverrideSets
+                      )
 <span class="cstat-no" title="statement not covered" >                      return updatePipeline(pipeline)</span>
                     }
 <span class="cstat-no" title="statement not covered" >                    if (selectedTab === variableTab &amp;&amp; stage) {</span>
-<span class="cstat-no" title="statement not covered" >                      stage.stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets = selectedOverrideSets</span>
+<span class="cstat-no" title="statement not covered" >                      set(</span>
+                        stage,
+                        'stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets',
+                        selectedOverrideSets
+                      )
 <span class="cstat-no" title="statement not covered" >                      return updatePipeline(pipeline)</span>
                     }
                   }}
@@ -1387,9 +1420,9 @@ export default function OverrideSets({
                                   /&gt;
                                 )}
                               &lt;/span&gt;
-                              {formik.values?.selectedOverrideSets?.map(<span class="fstat-no" title="function not covered" >(s</span>et: string, index: number) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
+                              {formik.values?.selectedOverrideSets?.map(<span class="fstat-no" title="function not covered" >(o</span>Set: string, index: number) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
                                 &lt;Layout.Horizontal
-                                  key={`${set}_${index}`}
+                                  key={`${oSet}_${index}`}
                                   flex={{ distribution: 'space-between' }}
                                   style={{ alignItems: 'end' }}
                                 &gt;
@@ -1400,7 +1433,7 @@ export default function OverrideSets({
                                     onDragStart={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                                      onDragStart(event, index)</span>
                                     }}
-                                    data-testid={set}
+                                    data-testid={oSet}
                                     onDragEnd={onDragEnd}
                                     onDragOver={onDragOver}
                                     onDragLeave={onDragLeave}
@@ -1420,7 +1453,7 @@ export default function OverrideSets({
                                         /&gt;
                                       &lt;/div&gt;
                                       &lt;div className={css.artifactsTabs}&gt;
-                                        {set &amp;&amp; selectedTab === artifactTab &amp;&amp; (
+                                        {oSet &amp;&amp; selectedTab === artifactTab &amp;&amp; (
                                           &lt;ArtifactsSelection
                                             isForOverrideSets={!isPropagating}
                                             isForPredefinedSets={false}
@@ -1432,7 +1465,7 @@ export default function OverrideSets({
                                             )}
                                           /&gt;
                                         )}
-                                        {set &amp;&amp; selectedTab === manifestTab &amp;&amp; (
+                                        {oSet &amp;&amp; selectedTab === manifestTab &amp;&amp; (
                                           &lt;ManifestSelection
                                             isForOverrideSets={!isPropagating}
                                             isForPredefinedSets={false}
@@ -1444,7 +1477,7 @@ export default function OverrideSets({
                                             )}
                                           /&gt;
                                         )}
-                                        {set &amp;&amp; selectedTab === variableTab &amp;&amp; (
+                                        {oSet &amp;&amp; selectedTab === variableTab &amp;&amp; (
                                           &lt;WorkflowVariables
                                             factory={factory}
                                             isForOverrideSets={!isPropagating}
@@ -1591,7 +1624,7 @@ export default function OverrideSets({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

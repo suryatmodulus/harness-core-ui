@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">82.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/76</span>
+                <span class='fraction'>64/78</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.78% </span>
+                <span class="strong">58.36% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>164/279</span>
+                <span class='fraction'>164/281</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">82.05% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/76</span>
+                <span class='fraction'>64/78</span>
             </div>
         
             
@@ -416,13 +416,21 @@
 <a name='L357'></a><a href='#L357'>357</a>
 <a name='L358'></a><a href='#L358'>358</a>
 <a name='L359'></a><a href='#L359'>359</a>
-<a name='L360'></a><a href='#L360'>360</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -437,6 +445,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -497,11 +507,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -667,7 +683,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -676,6 +691,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -781,7 +799,6 @@ import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import ExecutionGraph, {
@@ -796,6 +813,8 @@ import {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
@@ -844,7 +863,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   } = React.useContext(PipelineContext)
 &nbsp;
   const stagePath = getStagePathFromPipeline(selectedStageId || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span> 'pipeline.stages')
-  const [stageData, setStageData] = React.useState&lt;StageElementWrapper | undefined&gt;()
+  const [stageData, setStageData] = React.useState&lt;BuildStageElementConfig | undefined&gt;()
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedStepId) {
@@ -855,27 +874,33 @@ export default function BuildStageSetupShell(): JSX.Element {
   React.useEffect(() =&gt; {
     // @TODO: add CI Codebase field check if Clone Codebase is checked
     // once it is added to BuildStageSpecifications (CI-757)
-    const specifications = stageData?.name &amp;&amp; stageData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
-    const infra =
-      (stageData?.spec?.infrastructure<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >stageData?.spec?.infrastructure?.spec?.namespace)</span> ||
-      stageData?.spec?.infrastructure<span class="branch-1 cbranch-no" title="branch not covered" >?.useFromStage</span>
+    const specifications = !!(stageData?.name &amp;&amp; stageData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier)
+    const infra = !!(
+      ((stageData?.spec?.infrastructure as K8sDirectInfraYaml)<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef </span>&amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >        (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace)</span> ||
+      (stageData?.spec?.infrastructure as UseFromStageInfraYaml)<span class="branch-1 cbranch-no" title="branch not covered" >?.useFromStage</span>
+    )
     const execution = !!stageData?.spec?.execution<span class="branch-1 cbranch-no" title="branch not covered" >?.steps<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.length</span>
     setFilledUpStages({ specifications, infra, execution })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     stageData?.name,
     stageData?.identifier,
-    stageData?.spec?.infrastructure<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef,</span>
-    stageData?.spec?.infrastructure<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.namespace,</span>
-    stageData?.spec?.infrastructure<span class="branch-1 cbranch-no" title="branch not covered" >?.useFromStage,</span>
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as K8sDirectInfraYaml)<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.connectorRef,</span>
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as K8sDirectInfraYaml)<span class="branch-1 cbranch-no" title="branch not covered" >?.spec<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.namespace,</span>
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as UseFromStageInfraYaml)<span class="branch-1 cbranch-no" title="branch not covered" >?.useFromStage,</span>
     stageData?.spec?.execution<span class="branch-1 cbranch-no" title="branch not covered" >?.steps<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.length</span>
   ])
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedStageId &amp;&amp; isSplitViewOpen) {
-      const { stage } = cloneDeep(getStageFromPipeline(selectedStageId))
+      const { stage } = cloneDeep(getStageFromPipeline&lt;BuildStageElementConfig&gt;(selectedStageId))
       const key = Object.keys(stage || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>[0]
-      if (key &amp;&amp; stage &amp;&amp; !isEqual(stage[key], stageData)) {
-        setStageData(stage[key])
+      if (key &amp;&amp; stage &amp;&amp; !isEqual(stage[key as 'stage'], stageData)) {
+        setStageData(stage[key as 'stage'])
       }
     }
     <span class="missing-if-branch" title="if path not taken" >I</span>if (stageNames.indexOf(selectedStageId) !== -1) {
@@ -897,8 +922,8 @@ export default function BuildStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 &nbsp;
   const executionRef = React.useRef&lt;ExecutionGraphRefObj | null&gt;(null)
-  const selectedStage = getStageFromPipeline(selectedStageId).stage
-  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
+  const selectedStage = getStageFromPipeline&lt;BuildStageElementConfig&gt;(selectedStageId).stage
+  const originalStage = getStageFromPipeline&lt;BuildStageElementConfig&gt;(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
   const executionHasWarning = !filledUpStages.execution
 &nbsp;
@@ -1023,19 +1048,21 @@ export default function BuildStageSetupShell(): JSX.Element {
               stage={selectedStageClone}
               originalStage={originalStage}
               ref={executionRef}
-              updateStage={<span class="fstat-no" title="function not covered" >(n</span>ewStageData: StageElementWrapper) =&gt; {
-<span class="cstat-no" title="statement not covered" >                updateStage(</span>
-                  produce(newStageData, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
-                    // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
-<span class="cstat-no" title="statement not covered" >                    if (draft?.stage?.spec?.execution?.rollbackSteps) {</span>
-<span class="cstat-no" title="statement not covered" >                      delete draft.stage.spec.execution.rollbackSteps</span>
-                    }
-                    // delete serviceDependencies if its empty array (as serviceDependencies is optional)
-<span class="cstat-no" title="statement not covered" >                    if (draft?.stage?.spec?.serviceDependencies &amp;&amp; isEmpty(draft?.stage?.spec?.serviceDependencies)) {</span>
-<span class="cstat-no" title="statement not covered" >                      delete draft.stage.spec.serviceDependencies</span>
-                    }
-                  }).stage
-                )
+              updateStage={<span class="fstat-no" title="function not covered" >newStageData </span>=&gt; {
+                const newData = <span class="cstat-no" title="statement not covered" >produce(newStageData, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
+                  // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
+<span class="cstat-no" title="statement not covered" >                  if (draft?.stage?.spec?.execution?.rollbackSteps) {</span>
+<span class="cstat-no" title="statement not covered" >                    delete draft.stage.spec.execution.rollbackSteps</span>
+                  }
+                  // delete serviceDependencies if its empty array (as serviceDependencies is optional)
+<span class="cstat-no" title="statement not covered" >                  if (draft?.stage?.spec?.serviceDependencies &amp;&amp; isEmpty(draft?.stage?.spec?.serviceDependencies)) {</span>
+<span class="cstat-no" title="statement not covered" >                    delete draft.stage.spec.serviceDependencies</span>
+                  }
+                })
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                if (newData.stage) {</span>
+<span class="cstat-no" title="statement not covered" >                  updateStage(newData.stage)</span>
+                }
               }}
               // Check and update the correct stage path here
               pathToStage={`${stagePath}.stage.spec.execution`}
@@ -1091,7 +1118,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                     type: event.stepType === StepType.STEP ? <span class="branch-0 cbranch-no" title="branch not covered" >DrawerTypes.StepConfig </span>: DrawerTypes.ConfigureService,
                     data: {
                       stepConfig: {
-                        node: event.node,
+                        node: event.node as any,
                         stepsMap: event.stepsMap,
                         onUpdate: executionRef.current<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tepGroupUpdated,</span>
                         isStepGroup: event.isStepGroup,
@@ -1141,7 +1168,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.76% </span>
+                <span class="strong">74.19% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>50/66</span>
+                <span class='fraction'>46/62</span>
             </div>
         
             
@@ -208,7 +208,10 @@
 <a name='L149'></a><a href='#L149'>149</a>
 <a name='L150'></a><a href='#L150'>150</a>
 <a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L152'></a><a href='#L152'>152</a>
+<a name='L153'></a><a href='#L153'>153</a>
+<a name='L154'></a><a href='#L154'>154</a>
+<a name='L155'></a><a href='#L155'>155</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -216,18 +219,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,13 +369,18 @@
 import type { FormikProps } from 'formik'
 import { Formik, FormikForm, Accordion, AccordionHandle } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 &nbsp;
 import { useStrings } from 'framework/strings'
-import { AdvancedPanels, StepCommandsProps } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import {
+  AdvancedPanels,
+  StepCommandsProps,
+  Values
+} from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
+import type { StepElementConfig } from 'services/cd-ng'
 &nbsp;
 import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 import FailureStrategyPanel, { AllFailureStrategyConfig } from './FailureStrategyPanel/FailureStrategyPanel'
@@ -378,10 +389,8 @@ import { StepType } from '../PipelineStepInterface'
 import ConditionalExecutionPanel from './ConditionalExecutionPanel/ConditionalExecutionPanel'
 import css from './AdvancedSteps.module.scss'
 &nbsp;
-export interface FormValues {
+export type FormValues = Pick&lt;Values, 'delegateSelectors' | 'when'&gt; &amp; {
   failureStrategies: AllFailureStrategyConfig[]
-  delegateSelectors: string[]
-  when: any
 }
 &nbsp;
 export interface AdvancedStepsProps extends StepCommandsProps {
@@ -395,8 +404,8 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
   return (
     &lt;Formik&lt;FormValues&gt;
       initialValues={{
-        failureStrategies: step.failureStrategies || [],
-        delegateSelectors: step.spec<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateSelectors </span>|| [],
+        failureStrategies: defaultTo(step.failureStrategies, []) as AllFailureStrategyConfig[],
+        delegateSelectors: defaultTo((step as StepElementConfig).spec<span class="branch-1 cbranch-no" title="branch not covered" >?.delegateSelectors,</span> []),
         when: step.when
       }}
       onSubmit={data =&gt; {
@@ -431,7 +440,7 @@ export function AdvancedTabForm(props: AdvancedTabFormProps): React.ReactElement
     isReadonly,
     stageType
   } = props
-  const stepType = isStepGroup ? <span class="branch-0 cbranch-no" title="branch not covered" >StepType.StepGroup </span>: step.type
+  const stepType = isStepGroup ? <span class="branch-0 cbranch-no" title="branch not covered" >StepType.StepGroup </span>: (step as StepElementConfig).type
   const accordionRef = React.useRef&lt;AccordionHandle&gt;({} as AccordionHandle)
   const { getString } = useStrings()
 &nbsp;
@@ -517,7 +526,7 @@ export const AdvancedStepsWithRef = React.forwardRef(AdvancedSteps)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

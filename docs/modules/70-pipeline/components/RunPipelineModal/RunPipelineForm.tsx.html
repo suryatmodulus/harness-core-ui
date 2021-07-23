@@ -2244,7 +2244,7 @@ import { pick, merge, isEmpty, isEqual, omit } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
-import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
+import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
   usePostPipelineExecuteWithInputSetYaml,
@@ -2315,8 +2315,8 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 }
 &nbsp;
 interface SaveAsInputSetProps {
-  pipeline?: NgPipeline
-  currentPipeline?: { pipeline?: NgPipeline }
+  pipeline?: PipelineInfoConfig
+  currentPipeline?: { pipeline?: PipelineInfoConfig }
   template: ResponseInputSetTemplateResponse | null
   values: Values
   accountId: string
@@ -2544,7 +2544,7 @@ function RunPipelineFormBasic({
   const [notifyOnlyMe, setNotifyOnlyMe] = React.useState&lt;boolean&gt;(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState&lt;InputSetSelectorProps['value']&gt;(inputSetSelected)
   const [formErrors, setFormErrors] = React.useState&lt;FormikErrors&lt;InputSetDTO&gt;&gt;({})
-  const [currentPipeline, setCurrentPipeline] = React.useState&lt;{ pipeline?: NgPipeline } | undefined&gt;(
+  const [currentPipeline, setCurrentPipeline] = React.useState&lt;{ pipeline?: PipelineInfoConfig } | undefined&gt;(
     inputSetYAML ? <span class="branch-0 cbranch-no" title="branch not covered" >parse(inputSetYAML) </span>: undefined
   )
   const { showError, showSuccess, showWarning } = useToaster()
@@ -2684,7 +2684,7 @@ function RunPipelineFormBasic({
 &nbsp;
   React.useEffect(() =&gt; {
     const toBeUpdated = merge(parse(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >template?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.inputSetTemplateYaml </span>|| ''), currentPipeline || {}) as {
-      pipeline: NgPipeline
+      pipeline: PipelineInfoConfig
     }
     setCurrentPipeline(toBeUpdated)
   }, [<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >template?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.inputSetTemplateYaml]</span>)
@@ -2695,7 +2695,7 @@ function RunPipelineFormBasic({
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >template?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.inputSetTemplateYaml)</span> {
-      const parsedTemplate = <span class="cstat-no" title="statement not covered" >parse(template?.data?.inputSetTemplateYaml) as { pipeline: NgPipeline }</span>
+      const parsedTemplate = <span class="cstat-no" title="statement not covered" >parse(template?.data?.inputSetTemplateYaml) as { pipeline: PipelineInfoConfig }</span>
 <span class="cstat-no" title="statement not covered" >      if ((selectedInputSets &amp;&amp; selectedInputSets.length &gt; 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {</span>
         const fetchData = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >async </span>(): Promise&lt;void&gt; =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >          try {</span>
@@ -2704,7 +2704,7 @@ function RunPipelineFormBasic({
             })
 <span class="cstat-no" title="statement not covered" >            if (data?.data?.pipelineYaml) {</span>
               const inputSetPortion = <span class="cstat-no" title="statement not covered" >parse(data.data.pipelineYaml) as {</span>
-                pipeline: NgPipeline
+                pipeline: PipelineInfoConfig
               }
               const toBeUpdated = <span class="cstat-no" title="statement not covered" >mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)</span>
 <span class="cstat-no" title="statement not covered" >              setCurrentPipeline(toBeUpdated)</span>
@@ -2730,7 +2730,7 @@ function RunPipelineFormBasic({
 <span class="cstat-no" title="statement not covered" >          if (data?.data?.inputSetYaml) {</span>
 <span class="cstat-no" title="statement not covered" >            if (selectedInputSets[0].type === 'INPUT_SET') {</span>
               const inputSetPortion = <span class="cstat-no" title="statement not covered" >pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {</span>
-                pipeline: NgPipeline
+                pipeline: PipelineInfoConfig
               }
               const toBeUpdated = <span class="cstat-no" title="statement not covered" >mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)</span>
 <span class="cstat-no" title="statement not covered" >              setCurrentPipeline(toBeUpdated)</span>
@@ -2770,9 +2770,9 @@ function RunPipelineFormBasic({
     }
   })
 &nbsp;
-  const pipeline: NgPipeline | undefined = parse(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >pipelineResponse?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.yamlPipeline </span>|| '')<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.p</span>ipeline</span>
+  const pipeline: PipelineInfoConfig | undefined = parse(<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >pipelineResponse?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.yamlPipeline </span>|| '')<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.p</span>ipeline</span>
 &nbsp;
-  const valuesPipelineRef = useRef&lt;NgPipeline&gt;()
+  const valuesPipelineRef = useRef&lt;PipelineInfoConfig&gt;()
 &nbsp;
   const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    return (</span>
@@ -2802,7 +2802,7 @@ function RunPipelineFormBasic({
   }, [])
 &nbsp;
   const handleRunPipeline = React.useCallback(
-<span class="fstat-no" title="function not covered" >    async </span>(valuesPipeline?: NgPipeline, forceSkipFlightCheck = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> =&gt; {
+<span class="fstat-no" title="function not covered" >    async </span>(valuesPipeline?: PipelineInfoConfig, forceSkipFlightCheck = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (Object.keys(formErrors).length) {</span>
 <span class="cstat-no" title="statement not covered" >        return</span>
       }
@@ -2872,7 +2872,7 @@ function RunPipelineFormBasic({
   const handleModeSwitch = useCallback(
 <span class="fstat-no" title="function not covered" >    (v</span>iew: SelectedView) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (view === SelectedView.VISUAL) {</span>
-        const presentPipeline = <span class="cstat-no" title="statement not covered" >parse(yamlHandler?.getLatestYaml() || '') as { pipeline: NgPipeline }</span>
+        const presentPipeline = <span class="cstat-no" title="statement not covered" >parse(yamlHandler?.getLatestYaml() || '') as { pipeline: PipelineInfoConfig }</span>
 <span class="cstat-no" title="statement not covered" >        setCurrentPipeline(presentPipeline)</span>
       }
 <span class="cstat-no" title="statement not covered" >      setSelectedView(view)</span>
@@ -2886,7 +2886,7 @@ function RunPipelineFormBasic({
         const Interval = <span class="cstat-no" title="statement not covered" >window.setInterval(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
           const parsedYaml = <span class="cstat-no" title="statement not covered" >parse(yamlHandler.getLatestYaml() || '')</span>
 <span class="cstat-no" title="statement not covered" >          if (!isEqual(lastYaml, parsedYaml)) {</span>
-<span class="cstat-no" title="statement not covered" >            setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })</span>
+<span class="cstat-no" title="statement not covered" >            setCurrentPipeline(parsedYaml as { pipeline: PipelineInfoConfig })</span>
 <span class="cstat-no" title="statement not covered" >            setLastYaml(parsedYaml)</span>
           }
         }, POLL_INTERVAL)
@@ -2964,15 +2964,15 @@ function RunPipelineFormBasic({
 &nbsp;
   const child = (
     &lt;&gt;
-      &lt;Formik
+      &lt;Formik&lt;Values&gt;
         initialValues={
-          pipeline &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >currentPipeline </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >template?.data?.inputSetTemplateYaml</span>
+          (pipeline &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >currentPipeline </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >template?.data?.inputSetTemplateYaml</span>
             ? <span class="branch-0 cbranch-no" title="branch not covered" >currentPipeline?.pipeline</span>
               ? clearRuntimeInput(currentPipeline.pipeline)
               : {}
             : currentPipeline?.pipeline
             ? <span class="branch-0 cbranch-no" title="branch not covered" >clearRuntimeInput(currentPipeline.pipeline)</span>
-            : {}
+            : {}) as Values
         }
         formName="runPipeline"
         onSubmit={<span class="fstat-no" title="function not covered" >values </span>=&gt; {
@@ -2982,14 +2982,14 @@ function RunPipelineFormBasic({
         validate={<span class="fstat-no" title="function not covered" >async </span>values =&gt; {
           let errors: FormikErrors&lt;InputSetDTO&gt; = <span class="cstat-no" title="statement not covered" >formErrors</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >          setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })</span>
+<span class="cstat-no" title="statement not covered" >          setCurrentPipeline({ ...currentPipeline, pipeline: values as PipelineInfoConfig })</span>
 &nbsp;
           function <span class="fstat-no" title="function not covered" >validateErrors(</span>): Promise&lt;FormikErrors&lt;InputSetDTO&gt;&gt; {
 <span class="cstat-no" title="statement not covered" >            return new Promise(<span class="fstat-no" title="function not covered" >resolve </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >              setTimeout(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
                 const validatedErrors =
                   (<span class="cstat-no" title="statement not covered" >validatePipeline({</span>
-                    pipeline: values as NgPipeline,
+                    pipeline: values as PipelineInfoConfig,
                     template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
                     originalPipeline: pipeline,
                     getString,
@@ -3280,7 +3280,7 @@ function RunPipelineFormBasic({
 &nbsp;
 export interface RunPipelineFormWrapperProps extends PipelineType&lt;PipelinePathProps&gt; {
   children: React.ReactNode
-  pipeline?: NgPipeline
+  pipeline?: PipelineInfoConfig
 }
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >RunPipelineFormWrapper(</span>props: RunPipelineFormWrapperProps): React.ReactElement {
@@ -3307,7 +3307,7 @@ export const RunPipelineForm: React.FC&lt;RunPipelineFormProps &amp; InputSetGit
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 23 2021 08:57:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 10:53:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.65% </span>
+                <span class="strong">87.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>71/81</span>
+                <span class='fraction'>72/82</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.34% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>69/79</span>
+                <span class='fraction'>70/80</span>
             </div>
         
             
@@ -359,31 +359,8 @@
 <a name='L300'></a><a href='#L300'>300</a>
 <a name='L301'></a><a href='#L301'>301</a>
 <a name='L302'></a><a href='#L302'>302</a>
-<a name='L303'></a><a href='#L303'>303</a>
-<a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a>
-<a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a>
-<a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a>
-<a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a>
-<a name='L312'></a><a href='#L312'>312</a>
-<a name='L313'></a><a href='#L313'>313</a>
-<a name='L314'></a><a href='#L314'>314</a>
-<a name='L315'></a><a href='#L315'>315</a>
-<a name='L316'></a><a href='#L316'>316</a>
-<a name='L317'></a><a href='#L317'>317</a>
-<a name='L318'></a><a href='#L318'>318</a>
-<a name='L319'></a><a href='#L319'>319</a>
-<a name='L320'></a><a href='#L320'>320</a>
-<a name='L321'></a><a href='#L321'>321</a>
-<a name='L322'></a><a href='#L322'>322</a>
-<a name='L323'></a><a href='#L323'>323</a>
-<a name='L324'></a><a href='#L324'>324</a>
-<a name='L325'></a><a href='#L325'>325</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">98x</span>
+<a name='L303'></a><a href='#L303'>303</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-yes">98x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,6 +386,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-yes">98x</span>
@@ -674,28 +652,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -716,8 +672,7 @@ import {
   FormikForm,
   Container,
   Heading,
-  FormInput,
-  Text
+  FormInput
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import { isEmpty, pick, get, omit } from 'lodash-es'
@@ -739,6 +694,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import ShowConnectorError from '../ShowConnectorError'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 &nbsp;
 export type DetailsForm = Pick&lt;ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'&gt; &amp; GitContextProps
@@ -981,42 +937,20 @@ const ExistingConnectorMessage = (props: ConnectorResponse) =&gt; {
   }
 &nbsp;
   return (
-    &lt;div className={css.connectorExistBox}&gt;
-      &lt;Layout.Vertical spacing="medium"&gt;
-        &lt;Text
-          inline
-          icon="circle-cross"
-          iconProps={{ size: 18, color: 'red700', padding: { right: 'small' } }}
-          color="red700"
-        &gt;
-          {getString('connectors.ceAzure.overview.alreadyExist')}
-        &lt;/Text&gt;
-        &lt;Container&gt;
-          &lt;Text inline font={'small'} icon="info" iconProps={{ size: 16, padding: { right: 'small' } }} color="grey700"&gt;
-            {getString('connectors.ceAzure.overview.existingConnectorInfo', {
-              accountId,
-              name,
-              featureText
-            })}
-          &lt;/Text&gt;
-        &lt;/Container&gt;
-        &lt;Container&gt;
-          &lt;Text
-            inline
-            font={{ size: 'small', weight: 'semi-bold' }}
-            icon="lightbulb"
-            iconProps={{ size: 16, padding: { right: 'small' } }}
-            color="grey700"
-          &gt;
-            {getString('connectors.ceAzure.overview.trySuggestion')}
-          &lt;/Text&gt;
-          &lt;Text padding={{ left: 'xlarge' }} color="grey700" font={'small'}&gt;
-            {getString('connectors.ceAzure.overview.editConnector')} &lt;a href="#"&gt;{name}&lt;/a&gt;{' '}
-            {getString('connectors.ceAzure.overview.required')}
-          &lt;/Text&gt;
-        &lt;/Container&gt;
-      &lt;/Layout.Vertical&gt;
-    &lt;/div&gt;
+    &lt;ShowConnectorError
+      title={getString('connectors.ceAzure.overview.alreadyExist')}
+      reason={getString('connectors.ceAzure.overview.existingConnectorInfo', {
+        accountId,
+        name,
+        featureText
+      })}
+      suggestion={
+        &lt;&gt;
+          {getString('connectors.ceAzure.overview.editConnector')} &lt;a href="#"&gt;{name}&lt;/a&gt;{' '}
+          {getString('connectors.ceAzure.overview.required')}
+        &lt;/&gt;
+      }
+    /&gt;
   )
 }
 &nbsp;
@@ -1036,7 +970,7 @@ export default Overview
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 22 2021 23:46:24 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 23 2021 05:00:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

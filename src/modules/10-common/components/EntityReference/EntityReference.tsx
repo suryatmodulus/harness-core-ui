@@ -133,7 +133,6 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   })
 
   useEffect(() => {
-    // TODO: something is wrong here. check!
     if (selectedItemsUuidAndScope && data) {
       const tempCheckedItems: CheckedItems<T> = { [Scope.PROJECT]: [], [Scope.ORG]: [], [Scope.ACCOUNT]: [], total: 0 }
       selectedItemsUuidAndScope.forEach(el => {
@@ -213,10 +212,11 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
         1
       )
     }
+    const total = checked ? checkedItems.total++ : checkedItems.total--
     setCheckedItems({
       ...checkedItems,
       [selectedScope]: tempCheckedItems.length ? tempCheckedItems : [],
-      total: checked ? checkedItems.total++ : checkedItems.total--
+      total
     })
   }
 
@@ -288,7 +288,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
       )
     }
     setRenderedList(renderedListTemp)
-  }, [selectedScope, loading, error, data, checkedItems, selectedRecord])
+  }, [selectedScope, loading, error, data, checkedItems, checkedItems.total, selectedRecord])
 
   const renderTab = (
     show: boolean,

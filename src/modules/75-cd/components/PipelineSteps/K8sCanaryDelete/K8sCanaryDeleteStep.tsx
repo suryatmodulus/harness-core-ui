@@ -59,7 +59,7 @@ function K8sCanaryDeleteWidget(
     <>
       <Formik<K8sCanaryDeleteStepData>
         onSubmit={(values: K8sCanaryDeleteStepData) => {
-          onUpdate?.({ ...values, spec: { skipDryRun: false } })
+          onUpdate?.({ ...values, spec: { skipDryRun: false, ...values?.spec } })
         }}
         formName="k*CanaryDelete"
         initialValues={initialValues}

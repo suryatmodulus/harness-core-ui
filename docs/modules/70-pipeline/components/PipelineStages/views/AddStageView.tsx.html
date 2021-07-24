@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -126,7 +126,15 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -152,12 +160,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,6 +170,12 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,7 +195,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -196,7 +212,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Card, Icon } from '@wings-software/uicore'
+import { Card, Icon, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { PipelineStageProps } from '../PipelineStage'
@@ -219,47 +235,55 @@ export const AddStageView: React.FC&lt;AddStageViewProps&gt; = <span class="fsta
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div className={cx(css.createNewContent, { [css.parallel]: isParallel })}&gt;
-      &lt;div className={css.createNewCards}&gt;
-        {stages.map(<span class="fstat-no" title="function not covered" >stage </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >          &lt;React.Fragment key={stage.type}&gt;</span>
-            {stage.isHidden !== true &amp;&amp; (!stage.isApproval || !isParallel) ? (
-              &lt;div&gt;
-                &lt;Card
-                  data-testid={`stage-${stage.type}`}
-                  onMouseOver={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >!stage.isDisabled &amp;&amp; selectedType?.type !== stage.type &amp;&amp; setSelectedType(stage)}</span>
-                  onMouseLeave={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setSelectedType(undefined)}</span>
-                  interactive={true}
-                  disabled={stage.isDisabled}
-                  className={cx(css.cardNew)}
-                  onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                    if (stage.isDisabled) {</span>
-<span class="cstat-no" title="statement not covered" >                      e.stopPropagation()</span>
-                    } else {
-<span class="cstat-no" title="statement not covered" >                      callback(stage.type)</span>
-                    }
-                  }}
-                &gt;
-                  &lt;Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} /&gt;
-                &lt;/Card&gt;
-                &lt;div className={cx(css.cardTitle, { [css.selected]: selectedType?.type === stage.type })}&gt;
-                  {stage.name}
+      &lt;div className={css.stageTypeSection}&gt;
+        &lt;div className={css.stageTitle}&gt;{getString('pipeline.addStage.title')}&lt;/div&gt;
+        &lt;div className={css.createNewCards}&gt;
+          {stages.map(<span class="fstat-no" title="function not covered" >stage </span>=&gt; (
+<span class="cstat-no" title="statement not covered" >            &lt;React.Fragment key={stage.type}&gt;</span>
+              {stage.isHidden !== true &amp;&amp; (!stage.isApproval || !isParallel) ? (
+                &lt;div&gt;
+                  &lt;Card
+                    data-testid={`stage-${stage.type}`}
+                    onMouseOver={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >!stage.isDisabled &amp;&amp; selectedType?.type !== stage.type &amp;&amp; setSelectedType(stage)}</span>
+                    onMouseLeave={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setSelectedType(undefined)}</span>
+                    interactive={true}
+                    disabled={stage.isDisabled}
+                    className={cx(css.cardNew)}
+                    onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      if (stage.isDisabled) {</span>
+<span class="cstat-no" title="statement not covered" >                        e.stopPropagation()</span>
+                      } else {
+<span class="cstat-no" title="statement not covered" >                        callback(stage.type)</span>
+                      }
+                    }}
+                  &gt;
+                    &lt;Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} /&gt;
+                  &lt;/Card&gt;
+                  &lt;div className={cx(css.cardTitle, { [css.selected]: selectedType?.type === stage.type })}&gt;
+                    {stage.name}
+                  &lt;/div&gt;
                 &lt;/div&gt;
-              &lt;/div&gt;
-            ) : null}
-          &lt;/React.Fragment&gt;
-        ))}
+              ) : null}
+            &lt;/React.Fragment&gt;
+          ))}
+        &lt;/div&gt;
       &lt;/div&gt;
-      &lt;div className={css.createNewMessage}&gt;
+      &lt;div style={{ margin: 'auto' }}&gt;
         &lt;Icon
           name="main-close"
-          size={10}
+          size={12}
           className={css.closeIcon}
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >window.dispatchEvent(new CustomEvent('CLOSE_CREATE_STAGE_POPOVER'))}</span>
         /&gt;
-        &lt;div className={css.stageTitle}&gt;{selectedType?.title || getString('pipeline.addStage.title')}&lt;/div&gt;
-        &lt;div className={css.stageDescription}&gt;
-          {selectedType?.description || getString('pipeline.addStage.description')}
-        &lt;/div&gt;
+        &lt;Layout.Vertical margin={{ top: 'xxlarge', bottom: 'xxlarge', right: 'medium', left: 'medium' }}&gt;
+          &lt;Layout.Horizontal margin={{ bottom: 'xxlarge', top: 'large' }} flex={{ justifyContent: 'center' }}&gt;
+            &lt;Icon name="add-stage" size={74} /&gt;
+          &lt;/Layout.Horizontal&gt;
+          &lt;div className={css.stageDescription}&gt;
+            {selectedType?.description || getString('pipeline.addStage.description')}
+          &lt;/div&gt;
+          {/* &lt;div className={css.stageTitle}&gt;{selectedType?.title || getString('pipeline.addStage.title')}&lt;/div&gt; */}
+        &lt;/Layout.Vertical&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   )
@@ -271,7 +295,7 @@ export const AddStageView: React.FC&lt;AddStageViewProps&gt; = <span class="fsta
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Jul 24 2021 03:50:55 GMT+0000 (Greenwich Mean Time)
+                at Sat Jul 24 2021 05:23:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -1008,34 +1008,18 @@ const routes = {
       : routes.toCEDashboard(params as AccountPathProps),
   toCEDashboard: withAccountId(() => `/ce`),
   toCEHome: withAccountId(() => '/ce/home'),
-  toCEProject: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}`
-  ),
-  toCEProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
-  ),
-  toCECODashboard: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
-  ),
-  toCECOCreateGateway: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules/create`
-  ),
+  // toCEProject: withAccountId(
+  //   ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+  //     `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+  // ),
+  toCEProjectOverview: withAccountId(() => `/ce/dashboard`),
+  toCECODashboard: withAccountId(() => `/ce/dashboard`),
+  toCECOCreateGateway: withAccountId(() => `/ce/autostopping-rules/create`),
   toCECOEditGateway: withAccountId(
-    ({ orgIdentifier, projectIdentifier, gatewayIdentifier }: ProjectPathProps & { gatewayIdentifier: string }) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules/edit/${gatewayIdentifier}`
+    ({ gatewayIdentifier }: { gatewayIdentifier: string }) => `/ce/autostopping-rules/edit/${gatewayIdentifier}`
   ),
-  toCECOAccessPoints: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/access-points`
-  ),
-  toCECORules: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
-  ),
+  toCECOAccessPoints: withAccountId(() => `/ce/access-points`),
+  toCECORules: withAccountId(() => `/ce/autostopping-rules`),
   toCERecommendations: withAccountId(() => `/ce/recommendations`),
   toCERecommendationDetails: withAccountId(
     ({ recommendation }: { recommendation: string }) => `/ce/recommendations/${recommendation}/details`

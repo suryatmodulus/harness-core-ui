@@ -41,7 +41,7 @@ interface Props extends StepProps<any> {
 }
 
 const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
@@ -62,9 +62,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
   const { nextStep } = props
 
   const { data: regions, loading: regionsLoading } = useAllRegions({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
       accountIdentifier: accountId
@@ -75,9 +73,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     loading: vpcsLoading,
     refetch: vpcsReload
   } = useAllVPCs({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: selectedRegion,
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
@@ -86,9 +82,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     lazy: true
   })
   const { data: apCoresResponse, refetch: apCoresReload } = useAccessPointResources({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: selectedRegion,
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
@@ -101,9 +95,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     loading: certificatesLoading,
     refetch: certificatesReload
   } = useAllCertificates({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
       region: selectedRegion,
@@ -116,9 +108,7 @@ const CreateTunnelStep: React.FC<StepProps<any> & Props> = props => {
     loading: sgsLoading,
     refetch: sgsReload
   } = useAllSecurityGroups({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: selectedRegion,
       vpc_id: selectedVpc as string, // eslint-disable-line

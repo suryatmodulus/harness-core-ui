@@ -112,8 +112,6 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCECORules({
-        projectIdentifier: project.identifier,
-        orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
         accountId
       })
     )

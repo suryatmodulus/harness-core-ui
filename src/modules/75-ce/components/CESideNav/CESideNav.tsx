@@ -44,8 +44,6 @@ export default function CESideNav(): React.ReactElement {
           } else {
             history.push(
               routes.toCECORules({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '',
                 accountId
               })
             )
@@ -54,13 +52,10 @@ export default function CESideNav(): React.ReactElement {
       />
       {projectIdentifier && orgIdentifier ? (
         <React.Fragment>
-          <SidebarLink
-            label={getString('ce.co.breadCrumb.rules')}
-            to={routes.toCECORules({ accountId, projectIdentifier, orgIdentifier })}
-          />
+          <SidebarLink label={getString('ce.co.breadCrumb.rules')} to={routes.toCECORules({ accountId })} />
           <SidebarLink
             label={getString('ce.co.accessPoint.loadbalancers')}
-            to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
+            to={routes.toCECOAccessPoints({ accountId })}
           />
         </React.Fragment>
       ) : null}

@@ -28,11 +28,10 @@ interface DeleteAccessPointProps {
 const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
-  const { accessPoints, orgID, projectID, accountId, refresh } = props
+  const { accessPoints, accountId, refresh } = props
   const [modalState, setModalState] = useState(false)
   const { mutate: deleteAccessPoints, loading } = useDeleteAccessPoints({
-    org_id: orgID, // eslint-disable-line
-    project_id: projectID, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     }

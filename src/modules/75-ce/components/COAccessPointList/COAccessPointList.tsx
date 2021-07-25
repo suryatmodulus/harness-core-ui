@@ -99,9 +99,7 @@ const COLoadBalancerList: React.FC = () => {
 
   function ActivityCell(tableProps: CellProps<AccessPoint>): JSX.Element {
     const { data: details, error: detailsError } = useAccessPointActivity({
-      org_id: orgIdentifier, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      access_point_id: tableProps.row.original.id as string, // eslint-disable-line
+      lb_id: tableProps.row.original.id as string, // eslint-disable-line
       account_id: accountId, // eslint-disable-line
       queryParams: {
         accountIdentifier: accountId
@@ -133,9 +131,7 @@ const COLoadBalancerList: React.FC = () => {
       error: detailsError,
       loading: detailsLoading
     } = useAccessPointRules({
-      org_id: orgIdentifier, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      access_point_id: tableProps.row.original.id as string, // eslint-disable-line
+      lb_id: tableProps.row.original.id as string, // eslint-disable-line
       account_id: accountId, // eslint-disable-line
       queryParams: {
         accountIdentifier: accountId
@@ -222,8 +218,6 @@ const COLoadBalancerList: React.FC = () => {
   }
 
   const { data, error, loading, refetch } = useAllAccessPoints({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       accountIdentifier: accountId
@@ -250,7 +244,7 @@ const COLoadBalancerList: React.FC = () => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECOAccessPoints({ orgIdentifier, projectIdentifier, accountId }),
+            url: routes.toCECOAccessPoints({ accountId }),
             label: getString('ce.co.accessPoint.loadbalancers')
           }
         ]}

@@ -78,9 +78,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     loading: hostedZonesLoading,
     refetch: loadHostedZones
   } = useAllHostedZones({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       region: 'us-east-1',
@@ -167,8 +165,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     loading: accessPointsLoading,
     refetch: refetchAccessPoints
   } = useListAccessPoints({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: getAccessPointFetchQueryParams()
   })
@@ -178,9 +174,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     loading: apCoresLoading,
     refetch: apCoresRefetch
   } = useAccessPointResources({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: props.gatewayDetails.selectedInstances?.length
         ? props.gatewayDetails.selectedInstances[0].region

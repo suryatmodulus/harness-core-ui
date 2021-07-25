@@ -22,9 +22,8 @@ export const CECOEditGatewayPage: React.FC = () => {
   >()
 
   const { data, loading } = useRouteDetails({
-    org_id: orgIdentifier,
-    project_id: projectIdentifier,
-    service_id: gatewayIdentifier as unknown as number,
+    account_id: accountId,
+    rule_id: gatewayIdentifier as unknown as number,
     queryParams: {
       accountIdentifier: accountId
     }
@@ -34,9 +33,8 @@ export const CECOEditGatewayPage: React.FC = () => {
     loading: resourcesLoading,
     refetch: fetchResources
   } = useAllServiceResources({
-    org_id: orgIdentifier,
-    project_id: projectIdentifier,
-    service_id: gatewayIdentifier as unknown as number,
+    account_id: accountId,
+    rule_id: gatewayIdentifier as unknown as number,
     debounce: 300,
     lazy: true
   })
@@ -89,7 +87,7 @@ export const CECOEditGatewayPage: React.FC = () => {
       id: service.id,
       name: service.name,
       idleTimeMins: service.idle_time_mins as number,
-      fullfilment: service.fulfilment,
+      fullfilment: service.fulfilment as string,
       filter: service.routing?.instance?.filter_text as string,
       kind: service.kind,
       healthCheck: service.health_check as HealthCheck,

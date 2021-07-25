@@ -18,12 +18,11 @@ interface UseToggleAutostoppingRuleReturn {
 }
 
 const useToggleRuleState = (props: UseToggleAutostoppingRuleProps): UseToggleAutostoppingRuleReturn => {
-  const { orgIdentifier, projectIdentifier, serviceData, accountId } = props
+  const { serviceData, accountId } = props
   const { getString } = useStrings()
   const { mutate: toggleAutoStoppingRule } = useToggleAutostoppingRule({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    service_id: (serviceData.id as number).toString(), // eslint-disable-line
+    account_id: accountId,
+    rule_id: (serviceData.id as number).toString(), // eslint-disable-line
     queryParams: {
       accountIdentifier: accountId,
       disable: !serviceData.disabled

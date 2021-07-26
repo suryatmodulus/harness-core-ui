@@ -35,7 +35,6 @@ import { useGatewayContext } from '@ce/context/GatewayContext'
 import { useToaster } from '@common/exports'
 import CreateAccessPointWizard from './CreateAccessPointWizard'
 import type { ConnectionMetadata, CustomDomainDetails, GatewayDetails } from '../COCreateGateway/models'
-import { cleanupForHostName } from '../COGatewayList/Utils'
 import { Utils } from '../../common/Utils'
 import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
@@ -138,9 +137,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   )
   const [selectedLoadBalancer, setSelectedLoadBalancer] = useState<AccessPointCore>()
   const [isCreateMode, setIsCreateMode] = useState<boolean>(false)
-  const [generatedHostName, setGeneratedHostName] = useState<string>(
-    (props.gatewayDetails.hostName as string) || getString('ce.co.dnsSetup.autoURL')
-  )
+
   const [accessPoint, setAccessPoint] = useState<AccessPoint>()
   const [selectedApCore, setSelectedApCore] = useState<SelectOption>()
 
@@ -184,14 +181,6 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       accountIdentifier: accountId
     }
   })
-
-  function generateHostName(val: string): string {
-    return val
-      ? `${cleanupForHostName(orgIdentifier)}-${cleanupForHostName(
-          props.gatewayDetails.name
-        )}.${val}`.toLocaleLowerCase()
-      : ''
-  }
 
   useEffect(() => {
     if (accessPoints?.response?.length == 0) {
@@ -372,7 +361,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
       accessPointData: accessPoint
     }
     props.setGatewayDetails(updatedGatewayDetails)
-    setGeneratedHostName(generateHostName(accessPoint.host_name as string))
+    // setGeneratedHostName(generateHostName(accessPoint.host_name as string))
   }, [accessPoint])
 
   const createApDetailsFromLoadBalancer = (currLoadBalancer: AccessPointCore): AccessPoint => {
@@ -419,11 +408,11 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
     const updatedGatewayDetails = {
       ...props.gatewayDetails,
       accessPointID: _accessPointDetails?.id || '',
-      accessPointData: _accessPointDetails,
-      hostName: generateHostName(_accessPointDetails?.host_name || '')
+      accessPointData: _accessPointDetails
+      // hostName: generateHostName(_accessPointDetails?.host_name || '')
     }
     props.setGatewayDetails(updatedGatewayDetails)
-    setGeneratedHostName(updatedGatewayDetails.hostName || getString('ce.co.dnsSetup.autoURL'))
+    // setGeneratedHostName(updatedGatewayDetails.hostName || getString('ce.co.dnsSetup.autoURL'))
   }
 
   const isValidLoadBalancer = (lb: AccessPointCore) => {
@@ -586,7 +575,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     checked={formik.values.usingCustomDomain == 'no'}
                   />
                   <Layout.Vertical spacing="xsmall">
-                    <Text
+                    {/* <Text
                       style={{
                         fontSize: 'var(--font-size-normal)',
                         fontWeight: 500,
@@ -595,7 +584,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       }}
                     >
                       {generatedHostName}
-                    </Text>
+                    </Text> */}
                     <Text
                       color={Color.GREY_500}
                       style={{

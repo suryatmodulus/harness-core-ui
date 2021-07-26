@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">49.18% </span>
+                <span class="strong">49.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/61</span>
+                <span class='fraction'>31/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.41% </span>
+                <span class="strong">18% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/49</span>
+                <span class='fraction'>9/50</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/60</span>
+                <span class='fraction'>31/62</span>
             </div>
         
             
@@ -246,7 +246,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">387x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,12 +255,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
 <span class="cline-any cline-yes">39x</span>
@@ -296,6 +295,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -387,7 +387,7 @@ export interface DynamicPopoverHandlerBinding&lt;T&gt; {
   show: (
     ref: Element | PopperJS.VirtualElement | string,
     data?: T,
-    options?: { darkMode?: boolean; useArrows?: boolean; fixedPosition?: boolean },
+    options?: { darkMode?: boolean; useArrows?: boolean; fixedPosition?: boolean; placement?: PopperJS.Placement },
     onHideCallBack?: () =&gt; void
   ) =&gt; void
   hide: () =&gt; void
@@ -401,7 +401,6 @@ export interface DynamicPopoverProps&lt;T&gt; {
   fixedPosition?: boolean
   bind: (dynamicPopoverHandler: DynamicPopoverHandlerBinding&lt;T&gt;) =&gt; void
   closeOnMouseOut?: boolean
-  placement?: PopperJS.Placement
 }
 &nbsp;
 export function DynamicPopover&lt;T&gt;(props: DynamicPopoverProps&lt;T&gt;): JSX.Element {
@@ -412,8 +411,7 @@ export function DynamicPopover&lt;T&gt;(props: DynamicPopoverProps&lt;T&gt;): JS
     darkMode = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span>
     useArrows = true,
     fixedPosition = false,
-    closeOnMouseOut,
-    placement = 'auto'
+    closeOnMouseOut
   } = props
   const [darkModeState, setDarkMode] = useState&lt;boolean&gt;(darkMode)
   const [useArrowsState, setArrowVisibility] = useState&lt;boolean&gt;(useArrows)
@@ -425,6 +423,7 @@ export function DynamicPopover&lt;T&gt;(props: DynamicPopoverProps&lt;T&gt;): JS
   const [referenceElement, setReferenceElement] = useState&lt;Element | PopperJS.VirtualElement | null&gt;(null)
   const [visible, setVisibility] = useState&lt;boolean&gt;(false)
   const [hideCallback, setHideCallBack] = useState&lt;() =&gt; void | undefined&gt;()
+  const [placement, setPlacement] = useState&lt;PopperJS.Placement&gt;('auto')
   const timerRef = React.useRef&lt;number | null&gt;(null)
   const mouseInRef = React.useRef&lt;boolean&gt;(false)
 &nbsp;
@@ -457,6 +456,7 @@ export function DynamicPopover&lt;T&gt;(props: DynamicPopoverProps&lt;T&gt;): JS
 <span class="cstat-no" title="statement not covered" >            typeof options.darkMode === 'boolean' &amp;&amp; setDarkMode(options.darkMode)</span>
 <span class="cstat-no" title="statement not covered" >            typeof options.useArrows === 'boolean' &amp;&amp; setArrowVisibility(options.useArrows)</span>
 <span class="cstat-no" title="statement not covered" >            typeof options.fixedPosition === 'boolean' &amp;&amp; setFixedPosition(options.fixedPosition)</span>
+<span class="cstat-no" title="statement not covered" >            options.placement ? setPlacement(options.placement) : setPlacement('auto')</span>
           }
 <span class="cstat-no" title="statement not covered" >          setHideCallBack(<span class="fstat-no" title="function not covered" >prev </span>=&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            prev?.()</span>
@@ -535,7 +535,7 @@ export function DynamicPopover&lt;T&gt;(props: DynamicPopoverProps&lt;T&gt;): JS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 06:00:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 07:37:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

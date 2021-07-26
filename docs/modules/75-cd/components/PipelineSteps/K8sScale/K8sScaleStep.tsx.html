@@ -469,7 +469,9 @@
 <a name='L410'></a><a href='#L410'>410</a>
 <a name='L411'></a><a href='#L411'>411</a>
 <a name='L412'></a><a href='#L412'>412</a>
-<a name='L413'></a><a href='#L413'>413</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L413'></a><a href='#L413'>413</a>
+<a name='L414'></a><a href='#L414'>414</a>
+<a name='L415'></a><a href='#L415'>415</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -589,6 +591,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -623,29 +650,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -977,13 +981,38 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
           return (
             &lt;&gt;
               &lt;Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}&gt;
-                &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+                &lt;div className={cx(stepCss.formGroup, stepCss.lg)}&gt;
                   &lt;FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
                     inputGroupProps={{ disabled: readonly }}
                   /&gt;
                 &lt;/div&gt;
+                &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
+                  &lt;FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    className={stepCss.duration}
+                    disabled={readonly}
+                    multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
+                  /&gt;
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                        setFieldValue('timeout', value)</span>
+                      }}
+                      isReadonly={readonly}
+                    /&gt;
+                  )}
+                &lt;/div&gt;
+&nbsp;
+                &lt;div className={stepCss.noLookDivider} /&gt;
                 &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                   &lt;FormInstanceDropdown
                     name={'spec.instanceSelection'}
@@ -1040,29 +1069,6 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   )}
                 &lt;/div&gt;
 &nbsp;
-                &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
-                  &lt;FormMultiTypeDurationField
-                    name="timeout"
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    className={stepCss.duration}
-                    disabled={readonly}
-                    multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
-                  /&gt;
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                        setFieldValue('timeout', value)</span>
-                      }}
-                      isReadonly={readonly}
-                    /&gt;
-                  )}
-                &lt;/div&gt;
                 &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                   &lt;FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
@@ -1300,7 +1306,7 @@ export class K8sScaleStep extends PipelineStep&lt;K8sScaleData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 06:00:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 07:37:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

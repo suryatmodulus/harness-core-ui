@@ -417,7 +417,8 @@
 <a name='L358'></a><a href='#L358'>358</a>
 <a name='L359'></a><a href='#L359'>359</a>
 <a name='L360'></a><a href='#L360'>360</a>
-<a name='L361'></a><a href='#L361'>361</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -526,10 +527,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -554,7 +551,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -862,13 +864,37 @@ function K8CanaryDeployWidget(
           setFormikRef(formikRef, formik)
           return (
             &lt;Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}&gt;
-              &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+              &lt;div className={cx(stepCss.formGroup, stepCss.lg)}&gt;
                 &lt;FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
                   isIdentifierEditable={isNewStep}
                   inputGroupProps={{ disabled: readonly }}
                 /&gt;
               &lt;/div&gt;
+              &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
+                &lt;FormMultiTypeDurationField
+                  name="timeout"
+                  disabled={readonly}
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  className={stepCss.duration}
+                  multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
+                /&gt;
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;ConfigureOptions</span>
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      setFieldValue('timeout', value)</span>
+                    }}
+                    isReadonly={readonly}
+                  /&gt;
+                )}
+              &lt;/div&gt;
+              &lt;div className={stepCss.noLookDivider} /&gt;
               &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                 &lt;FormInstanceDropdown
                   name={'spec.instanceSelection'}
@@ -897,29 +923,6 @@ function K8CanaryDeployWidget(
                 )}
               &lt;/div&gt;
 &nbsp;
-              &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
-                &lt;FormMultiTypeDurationField
-                  name="timeout"
-                  disabled={readonly}
-                  label={getString('pipelineSteps.timeoutLabel')}
-                  className={stepCss.duration}
-                  multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
-                /&gt;
-                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;ConfigureOptions</span>
-                    value={values.timeout as string}
-                    type="String"
-                    variableName="step.timeout"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                      setFieldValue('timeout', value)</span>
-                    }}
-                    isReadonly={readonly}
-                  /&gt;
-                )}
-              &lt;/div&gt;
               &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
                 &lt;FormMultiTypeCheckboxField
                   name="spec.skipDryRun"
@@ -1144,7 +1147,7 @@ export class K8sCanaryDeployStep extends PipelineStep&lt;K8sCanaryDeployData&gt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 06:00:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 07:37:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/19</span>
+                <span class='fraction'>16/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.95% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/19</span>
+                <span class='fraction'>16/20</span>
             </div>
         
             
@@ -185,7 +185,14 @@
 <a name='L126'></a><a href='#L126'>126</a>
 <a name='L127'></a><a href='#L127'>127</a>
 <a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L129'></a><a href='#L129'>129</a>
+<a name='L130'></a><a href='#L130'>130</a>
+<a name='L131'></a><a href='#L131'>131</a>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
@@ -197,6 +204,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
@@ -222,6 +230,8 @@
 <span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -266,7 +276,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -325,6 +339,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 &nbsp;
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { HttpStepFormData } from './types'
+import css from './HttpStep.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 export const httpStepType: SelectOption[] = [
@@ -351,13 +366,38 @@ export default function HttpStepBase(props: {
 &nbsp;
   return (
     &lt;div className={stepCss.stepPanel}&gt;
-      &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+      &lt;div className={cx(stepCss.formGroup, stepCss.lg)}&gt;
         &lt;FormInput.InputWithIdentifier
-          isIdentifierEditable={isNewStep &amp;&amp; !readonly}
           inputLabel={getString('name')}
-          inputGroupProps={{ disabled: readonly }}
+          isIdentifierEditable={isNewStep &amp;&amp; !readonly}
+          inputGroupProps={{
+            disabled: readonly
+          }}
         /&gt;
       &lt;/div&gt;
+      &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
+        &lt;FormMultiTypeDurationField
+          name="timeout"
+          label={getString('pipelineSteps.timeoutLabel')}
+          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+          disabled={readonly}
+        /&gt;
+        {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;ConfigureOptions</span>
+            value={formValues.timeout || ''}
+            type="String"
+            variableName="timeout"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >setFieldValue('timeout', value)}</span>
+            isReadonly={readonly}
+          /&gt;
+        )}
+      &lt;/div&gt;
+&nbsp;
+      &lt;div className={stepCss.noLookDivider} /&gt;
+&nbsp;
       &lt;div className={stepCss.formGroup}&gt;
         &lt;FormInput.MultiTextInput
           name="spec.url"
@@ -403,6 +443,7 @@ export default function HttpStepBase(props: {
         &lt;FormMultiTypeTextAreaField
           name="spec.requestBody"
           label={getString('requestBodyLabel')}
+          className={css.requestBody}
           multiTypeTextArea={{ enableConfigureOptions: false, expressions, disabled: readonly }}
         /&gt;
         {getMultiTypeFromValue(formValues.spec.requestBody) === MultiTypeInputType.RUNTIME &amp;&amp; (
@@ -418,26 +459,6 @@ export default function HttpStepBase(props: {
           /&gt;
         )}
       &lt;/div&gt;
-      &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
-        &lt;FormMultiTypeDurationField
-          name="timeout"
-          label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
-          disabled={readonly}
-        /&gt;
-        {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;ConfigureOptions</span>
-            value={formValues.timeout || ''}
-            type="String"
-            variableName="timeout"
-            showRequiredField={false}
-            showDefaultField={false}
-            showAdvanced={true}
-            onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; <span class="cstat-no" title="statement not covered" >setFieldValue('timeout', value)}</span>
-            isReadonly={readonly}
-          /&gt;
-        )}
-      &lt;/div&gt;
     &lt;/div&gt;
   )
 }
@@ -448,7 +469,7 @@ export default function HttpStepBase(props: {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 06:00:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 07:37:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

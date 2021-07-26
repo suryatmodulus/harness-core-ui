@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/19</span>
+                <span class='fraction'>18/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">59.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/30</span>
+                <span class='fraction'>31/52</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/3</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/19</span>
+                <span class='fraction'>18/21</span>
             </div>
         
             
@@ -127,10 +127,7 @@
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
 <a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,18 +164,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -203,11 +196,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 &nbsp;
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useGetInputsetYaml } from 'services/pipeline-ng'
+import { useGetInputsetYamlV2 } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import type { ResponseJsonNode } from 'services/cd-ng'
@@ -225,7 +219,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
 &nbsp;
   const { pipelineExecutionDetail } = useExecutionContext()
 &nbsp;
-  const { data, loading } = useGetInputsetYaml({
+  const { data, loading } = useGetInputsetYamlV2({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
@@ -240,20 +234,16 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
     }
   })
 &nbsp;
-  const [inputSetYaml, setInputSetYaml] = React.useState('')
-  React.useEffect(() =&gt; {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (data) {
-      ;(<span class="cstat-no" title="statement not covered" >data as unknown as Response).text().then(<span class="fstat-no" title="function not covered" >str </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        setInputSetYaml(str)</span>
-      })
+  const [inputSetYaml, setInputSetYaml] = useState('')
+  const [inputSetTemplateYaml, setInputSetTemplateYaml] = useState('')
+  useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >data?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.inputSetYaml)</span> {
+<span class="cstat-no" title="statement not covered" >      setInputSetYaml(data.data?.inputSetYaml)</span>
+    }
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >data?.d</span>ata<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.inputSetTemplateYaml)</span> {
+<span class="cstat-no" title="statement not covered" >      setInputSetTemplateYaml(data.data.inputSetTemplateYaml)</span>
     }
   }, [data])
-&nbsp;
-  // React.useEffect(() =&gt; {
-  //   if (query.executionId &amp;&amp; query.executionId !== null) {
-  //     refetch()
-  //   }
-  // }, [query.executionId])
 &nbsp;
   <span class="missing-if-branch" title="if path not taken" >I</span>if (loading) {
 <span class="cstat-no" title="statement not covered" >    return &lt;PageSpinner /&gt;</span>
@@ -272,6 +262,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
         branch={<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >pipelineExecutionDetail?.p</span>ipelineExecutionSummary<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.gitDetails<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.branch}</span>
         repoIdentifier={<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >pipelineExecutionDetail?.p</span>ipelineExecutionSummary<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.gitDetails<span class="branch-1 cbranch-no" title="branch not covered" >?</span>.repoIdentifier}</span>
         mockData={props.mockData}
+        executionInputSetTemplateYaml={inputSetTemplateYaml}
       /&gt;
     &lt;/div&gt;
   )
@@ -283,7 +274,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 06:00:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 07:37:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

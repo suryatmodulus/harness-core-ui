@@ -878,7 +878,8 @@
 <a name='L819'></a><a href='#L819'>819</a>
 <a name='L820'></a><a href='#L820'>820</a>
 <a name='L821'></a><a href='#L821'>821</a>
-<a name='L822'></a><a href='#L822'>822</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L822'></a><a href='#L822'>822</a>
+<a name='L823'></a><a href='#L823'>823</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1122,6 +1123,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1263,30 +1289,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1928,13 +1930,38 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
           return (
             &lt;&gt;
               &lt;Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}&gt;
-                &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+                &lt;div className={cx(stepCss.formGroup, stepCss.lg)}&gt;
                   &lt;FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
                     inputGroupProps={{ disabled: isDisabled }}
                   /&gt;
                 &lt;/div&gt;
+                &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
+                  &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
+                    &lt;FormMultiTypeDurationField
+                      name="timeout"
+                      disabled={isDisabled}
+                      label={getString('pipelineSteps.timeoutLabel')}
+                      multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: isDisabled }}
+                    /&gt;
+                    {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;ConfigureOptions</span>
+                        value={values.timeout as string}
+                        type="String"
+                        variableName="step.timeout"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                          formikProps.setFieldValue('timeout', value)</span>
+                        }}
+                        isReadonly={isDisabled}
+                      /&gt;
+                    )}
+                  &lt;/Layout.Horizontal&gt;
+                &lt;/div&gt;
+                &lt;div className={stepCss.noLookDivider} /&gt;
                 &lt;div className={stepCss.formGroup}&gt;
                   &lt;FormInput.RadioGroup
                     label={getString('pipelineSteps.deleteResourcesBy')}
@@ -2090,30 +2117,6 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                     &lt;/MultiTypeFieldSelector&gt;
                   &lt;/div&gt;
                 )}
-                &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
-                  &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
-                    &lt;FormMultiTypeDurationField
-                      name="timeout"
-                      disabled={isDisabled}
-                      label={getString('pipelineSteps.timeoutLabel')}
-                      multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: isDisabled }}
-                    /&gt;
-                    {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                      &lt;ConfigureOptions</span>
-                        value={values.timeout as string}
-                        type="String"
-                        variableName="step.timeout"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                          formikProps.setFieldValue('timeout', value)</span>
-                        }}
-                        isReadonly={isDisabled}
-                      /&gt;
-                    )}
-                  &lt;/Layout.Horizontal&gt;
-                &lt;/div&gt;
               &lt;/Layout.Vertical&gt;
 &nbsp;
               {formikProps<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eleteResources<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype === DeleteSpecConstant.ReleaseName &amp;&amp;
@@ -2527,7 +2530,7 @@ export class K8sDeleteStep extends PipelineStep&lt;K8sDeleteFormData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 06:00:38 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 07:37:39 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

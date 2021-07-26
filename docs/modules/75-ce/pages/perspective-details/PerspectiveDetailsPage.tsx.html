@@ -330,7 +330,11 @@
 <a name='L271'></a><a href='#L271'>271</a>
 <a name='L272'></a><a href='#L272'>272</a>
 <a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -366,6 +370,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -432,7 +441,6 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -638,7 +646,12 @@ import {
   DEFAULT_GROUP_BY
 } from '@ce/utils/perspectiveUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
-import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
+import {
+  DATE_RANGE_SHORTCUTS,
+  getGMTStartDateTime,
+  getGMTEndDateTime,
+  CE_DATE_FORMAT_INTERNAL
+} from '@ce/utils/momentUtils'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import css from './PerspectiveDetailsPage.module.scss'
@@ -707,7 +720,6 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
       perspectiveId: perspectiveId
-      // TODO: accountIdentifier: accountId
     }
   })
 &nbsp;
@@ -723,9 +735,9 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
   const [groupBy, setGroupBy] = useState&lt;QlceViewFieldInputInput&gt;(DEFAULT_GROUP_BY)
   const [filters, setFilters] = useState&lt;QlceViewFilterInput[]&gt;([])
   const [columnSequence, setColumnSequence] = useState&lt;string[]&gt;([])
-  const [timeRange, setTimeRange] = useState&lt;{ to: number; from: number }&gt;({
-    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].valueOf(),
-    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].valueOf()
+  const [timeRange, setTimeRange] = useState&lt;{ to: string; from: string }&gt;({
+    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
+    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
 &nbsp;
   const timeRangeMapper: Record&lt;string, moment.Moment[]&gt; = {
@@ -752,8 +764,8 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
 <span class="branch-2 cbranch-no" title="branch not covered" >        DATE_RANGE_SHORTCUTS.LAST_7_DAYS</span>
 &nbsp;
       setTimeRange({
-        to: dateRange[1].valueOf(),
-        from: dateRange[0].valueOf()
+        to: dateRange[1].format(CE_DATE_FORMAT_INTERNAL),
+        from: dateRange[0].format(CE_DATE_FORMAT_INTERNAL)
       })
     }
   }, [perspectiveData])
@@ -773,7 +785,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
     variables: {
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ],
       limit: 12,
@@ -785,7 +797,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
     variables: {
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ]
     }
@@ -796,7 +808,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
       aggregateFunction: isClusterOnly ? <span class="branch-0 cbranch-no" title="branch not covered" >AGGREGATE_FUNCTION.CLUSTER </span>: AGGREGATE_FUNCTION.DEFAULT,
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ],
       isClusterOnly: isClusterOnly,
@@ -883,7 +895,7 @@ export default PerspectiveDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 12:19:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 16:05:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

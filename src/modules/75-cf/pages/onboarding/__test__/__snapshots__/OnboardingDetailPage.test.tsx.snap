@@ -802,7 +802,7 @@ exports[`OnboardingDetailPage SetUpYourApplicationView 1`] = `
         >
           <a
             class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
-            href="https://docs.harness.io"
+            href="https://ngdocs.harness.io"
             rel="noreferrer noopener"
             role="button"
             tabindex="0"
@@ -1352,7 +1352,7 @@ exports[`OnboardingDetailPage TestYourFlagViewView 1`] = `
           >
             <a
               class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
-              href="https://docs.harness.io"
+              href="https://ngdocs.harness.io"
               rel="noreferrer noopener"
               role="button"
               tabindex="0"

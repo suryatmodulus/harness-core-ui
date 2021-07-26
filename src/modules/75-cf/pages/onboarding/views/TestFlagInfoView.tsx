@@ -30,7 +30,7 @@ export const TestFlagInfoView: React.FC = () => {
             {getString('cf.onboarding.help.test.text2')}
           </Text>
           <Container margin={{ top: 'medium' }}>
-            <Link href="https://docs.harness.io" target="_blank" text={getString('cf.onboarding.help.test.readmore')} />
+            <Link href="https://ngdocs.harness.io" target="_blank" text={getString('cf.onboarding.help.test.readmore')} />
           </Container>
         </Container>
       </Layout.Vertical>

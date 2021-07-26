@@ -105,7 +105,7 @@ const Stepk8ReviewScript: React.FC<StepProps<StepK8Data>> = props => {
             <Text lineClamp={3} width={514} font="small">
               {getString('delegate.reviewScript.descriptionProxySettings')}
               <Link
-                href="https://docs.harness.io/article/pfim3oig7o-configure-delegate-proxy-settings"
+                href="https://ngdocs.harness.io/article/5ww21ewdt8"
                 color={Color.GREY_800}
                 font={{ size: 'normal' }}
                 target="_blank"

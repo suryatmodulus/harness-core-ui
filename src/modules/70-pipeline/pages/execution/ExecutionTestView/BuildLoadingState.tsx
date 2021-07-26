@@ -16,7 +16,7 @@ export const BuildLoadingState: React.FC = () => {
       <Text padding={{ top: 'xsmall', bottom: 'large' }}>
         {getString('pipeline.testsReports.willBeDisplayedIfAvailable')}
       </Text>
-      <Link target="_blank" href="https://docs.harness.io">
+      <Link target="_blank" href="https://ngdocs.harness.io">
         {getString('pipeline.testsReports.learnMore')}
       </Link>
     </Layout.Vertical>

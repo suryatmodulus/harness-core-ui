@@ -33,7 +33,7 @@ export const SetUpAppInfoView: React.FC = () => {
         <Text style={{ lineHeight: '20px', color: '#6B6D85' }}>{getString('cf.onboarding.help.text2')}</Text>
 
         <Container>
-          <Link href="https://docs.harness.io" target="_blank" text={getString('cf.onboarding.help.getStarted')} />
+          <Link href="https://ngdocs.harness.io" target="_blank" text={getString('cf.onboarding.help.getStarted')} />
         </Container>
       </Layout.Vertical>
     </Container>

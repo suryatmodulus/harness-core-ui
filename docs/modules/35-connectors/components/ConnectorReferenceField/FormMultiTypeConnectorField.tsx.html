@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.91% </span>
+                <span class="strong">68.09% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/89</span>
+                <span class='fraction'>64/94</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.25% </span>
+                <span class="strong">55.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>189/319</span>
+                <span class='fraction'>191/343</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">30% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/9</span>
+                <span class='fraction'>3/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.59% </span>
+                <span class="strong">67.74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/88</span>
+                <span class='fraction'>63/93</span>
             </div>
         
             
@@ -415,7 +415,27 @@
 <a name='L356'></a><a href='#L356'>356</a>
 <a name='L357'></a><a href='#L357'>357</a>
 <a name='L358'></a><a href='#L358'>358</a>
-<a name='L359'></a><a href='#L359'>359</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">73x</span>
+<a name='L359'></a><a href='#L359'>359</a>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a>
+<a name='L375'></a><a href='#L375'>375</a>
+<a name='L376'></a><a href='#L376'>376</a>
+<a name='L377'></a><a href='#L377'>377</a>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-yes">73x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -477,7 +497,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">73x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -617,6 +639,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">362x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -830,6 +870,7 @@ export interface MultiTypeConnectorFieldProps extends Omit&lt;ConnectorReference
   setRefValue?: boolean
   style?: React.CSSProperties
   tooltipProps?: DataTooltipInterface
+  onSuccess?: (data: ConnectorConfigDTO) =&gt; void
 }
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
@@ -856,6 +897,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     style,
     gitScope,
     multiTypeProps = {},
+    onSuccess,
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
@@ -975,7 +1017,25 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   }
 &nbsp;
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: onConnectorCreateSuccess,
+    onSuccess: props.onSuccess
+      ? <span class="fstat-no" title="function not covered" >(d</span>ata?: ConnectorConfigDTO) =&gt; {
+<span class="cstat-no" title="statement not covered" >          if (data) {</span>
+            const scope = <span class="cstat-no" title="statement not covered" >getScopeFromDTO&lt;ConnectorConfigDTO&gt;(data.connector)</span>
+            const val = <span class="cstat-no" title="statement not covered" >{</span>
+              label: data.connector.name,
+              value:
+                scope === Scope.ORG || scope === Scope.ACCOUNT
+                  ? `${scope}.${data.connector.identifier}`
+                  : data.connector.identifier,
+              scope,
+              connector: data.connector,
+              live: data?.status?.status === 'SUCCESS'
+            }
+<span class="cstat-no" title="statement not covered" >            setSelectedValue(val)</span>
+<span class="cstat-no" title="statement not covered" >            props?.onSuccess?.(data)</span>
+          }
+        }
+      : onConnectorCreateSuccess,
     onClose: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >      setInlineSelection({</span>
         selected: inlineSelection.selected,
@@ -1138,7 +1198,7 @@ export const FormMultiTypeConnectorField = connect(MultiTypeConnectorField)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 10:08:20 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 10:50:43 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

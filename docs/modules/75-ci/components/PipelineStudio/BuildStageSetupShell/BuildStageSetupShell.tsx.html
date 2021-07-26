@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.05% </span>
+                <span class="strong">83.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>64/78</span>
+                <span class='fraction'>66/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.36% </span>
+                <span class="strong">58.06% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>164/281</span>
+                <span class='fraction'>162/279</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/14</span>
+                <span class='fraction'>11/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.05% </span>
+                <span class="strong">83.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>64/78</span>
+                <span class='fraction'>66/79</span>
             </div>
         
             
@@ -445,8 +445,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -469,7 +471,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -528,20 +529,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
@@ -604,8 +606,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -813,11 +813,13 @@ import {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
+import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildStageSetupShell.module.scss'
 &nbsp;
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
@@ -837,8 +839,7 @@ interface StagesFilledStateFlags {
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
 &nbsp;
-  const stageNames: string[] = [getString('overview'), getString('ci.infraLabel'), getString('ci.executionLabel')]
-  const [selectedTabId, setSelectedTabId] = React.useState&lt;string&gt;(getString('overview'))
+  const [selectedTabId, setSelectedTabId] = React.useState&lt;BuildTabs&gt;(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState&lt;StagesFilledStateFlags&gt;({
     specifications: false,
     infra: false,
@@ -867,7 +868,7 @@ export default function BuildStageSetupShell(): JSX.Element {
 &nbsp;
   React.useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedStepId) {
-<span class="cstat-no" title="statement not covered" >      setSelectedTabId(getString('ci.executionLabel'))</span>
+<span class="cstat-no" title="statement not covered" >      setSelectedTabId(BuildTabs.EXECUTION)</span>
     }
   }, [selectedStepId])
 &nbsp;
@@ -899,17 +900,18 @@ export default function BuildStageSetupShell(): JSX.Element {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedStageId &amp;&amp; isSplitViewOpen) {
       const { stage } = cloneDeep(getStageFromPipeline&lt;BuildStageElementConfig&gt;(selectedStageId))
       const key = Object.keys(stage || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>[0]
-      if (key &amp;&amp; stage &amp;&amp; !isEqual(stage[key as 'stage'], stageData)) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (key &amp;&amp; stage &amp;&amp; !isEqual(stage[key as 'stage'], stageData)) {
         setStageData(stage[key as 'stage'])
       }
     }
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (stageNames.indexOf(selectedStageId) !== -1) {
-<span class="cstat-no" title="statement not covered" >      setSelectedTabId(selectedStageId)</span>
-    }
-  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
+  }, [selectedStageId, pipeline, isSplitViewOpen])
 &nbsp;
-  const handleTabChange = (data: string) =&gt; {
-    setSelectedTabId(data)
+  const { checkErrorsForTab } = React.useContext(StageErrorContext)
+&nbsp;
+  const handleTabChange = (data: BuildTabs) =&gt; {
+    checkErrorsForTab(selectedTabId).then(_ =&gt; {
+      setSelectedTabId(data)
+    })
   }
 &nbsp;
   React.useEffect(() =&gt; {
@@ -943,18 +945,18 @@ export default function BuildStageSetupShell(): JSX.Element {
       &lt;Button
         text={getString('ci.previous')}
         icon="chevron-left"
-        disabled={selectedTabId === getString('overview')}
+        disabled={selectedTabId === BuildTabs.OVERVIEW}
         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt;
-<span class="cstat-no" title="statement not covered" >          setSelectedTabId(</span>
-            selectedTabId === getString('ci.advancedLabel')
-              ? getString('ci.executionLabel')
-              : selectedTabId === getString('ci.executionLabel')
-              ? getString('ci.infraLabel')
-              : getString('overview')
+<span class="cstat-no" title="statement not covered" >          handleTabChange(</span>
+            selectedTabId === BuildTabs.ADVANCED
+              ? BuildTabs.EXECUTION
+              : selectedTabId === BuildTabs.EXECUTION
+              ? BuildTabs.INFRASTRUCTURE
+              : BuildTabs.OVERVIEW
           )
         }
       /&gt;
-      {selectedTabId === getString('ci.advancedLabel') ? (
+      {selectedTabId === BuildTabs.ADVANCED ? (
         &lt;Button
           text="Done"
           intent="primary"
@@ -964,16 +966,14 @@ export default function BuildStageSetupShell(): JSX.Element {
         /&gt;
       ) : (
         &lt;Button
-          text={selectedTabId === getString('ci.executionLabel') ? getString('ci.save') : getString('ci.next')}
+          text={selectedTabId === BuildTabs.EXECUTION ? getString('ci.save') : getString('ci.next')}
           intent="primary"
           rightIcon="chevron-right"
           onClick={() =&gt; {
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedTabId === getString('ci.executionLabel')) {
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (selectedTabId === BuildTabs.EXECUTION) {
 <span class="cstat-no" title="statement not covered" >              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })</span>
             } else {
-              setSelectedTabId(
-                selectedTabId === getString('overview') ? getString('ci.infraLabel') : <span class="branch-1 cbranch-no" title="branch not covered" >getString('ci.executionLabel')</span>
-              )
+              handleTabChange(selectedTabId === BuildTabs.OVERVIEW ? BuildTabs.INFRASTRUCTURE : <span class="branch-1 cbranch-no" title="branch not covered" >BuildTabs.EXECUTION)</span>
             }
           }}
         /&gt;
@@ -985,7 +985,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     &lt;section className={css.setupShell} ref={layoutRef} key={selectedStageId}&gt;
       &lt;Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}&gt;
         &lt;Tab
-          id={getString('overview')}
+          id={BuildTabs.OVERVIEW}
           panel={&lt;BuildStageSpecifications&gt;{navBtns}&lt;/BuildStageSpecifications&gt;}
           title={
             &lt;span className={css.tab}&gt;
@@ -1004,7 +1004,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         /&gt;
         &lt;Tab
-          id={getString('ci.infraLabel')}
+          id={BuildTabs.INFRASTRUCTURE}
           title={
             &lt;span className={css.tab}&gt;
               &lt;Icon
@@ -1027,7 +1027,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         /&gt;
         &lt;Tab
-          id={getString('ci.executionLabel')}
+          id={BuildTabs.EXECUTION}
           title={
             &lt;span className={css.tab}&gt;
               &lt;Icon
@@ -1147,7 +1147,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         /&gt;
         &lt;Tab
-          id={getString('ci.advancedLabel')}
+          id={BuildTabs.ADVANCED}
           title={
             &lt;span className={css.tab}&gt;
               &lt;Icon name="advanced" height={20} size={20} /&gt;
@@ -1168,7 +1168,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 10:50:43 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 12:19:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

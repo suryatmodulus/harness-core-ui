@@ -15,7 +15,7 @@ import { returnLaunchUrl } from '@common/utils/routeUtils'
 import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
 
 export default function CESideNav(): React.ReactElement {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
+  const { accountId, projectIdentifier, pipelineIdentifier } = useParams<PipelinePathProps>()
   const routeMatch = useRouteMatch()
   const history = useHistory()
   const { currentUserInfo, updateAppStore } = useAppStore()
@@ -50,15 +50,17 @@ export default function CESideNav(): React.ReactElement {
           }
         }}
       />
-      {projectIdentifier && orgIdentifier ? (
-        <React.Fragment>
-          <SidebarLink label={getString('ce.co.breadCrumb.rules')} to={routes.toCECORules({ accountId })} />
-          <SidebarLink
-            label={getString('ce.co.accessPoint.loadbalancers')}
-            to={routes.toCECOAccessPoints({ accountId })}
-          />
-        </React.Fragment>
-      ) : null}
+      <React.Fragment>
+        <SidebarLink label={getString('ce.co.breadCrumb.rules')} to={routes.toCECORules({ accountId })} />
+        <SidebarLink
+          label={getString('ce.co.accessPoint.loadbalancer')}
+          to={routes.toCECOAccessPoints({ accountId })}
+        />
+        <SidebarLink
+          label={getString('ce.co.accessPoint.loadbalancers')}
+          to={routes.toCECOAccessPoints({ accountId })}
+        />
+      </React.Fragment>
       {localStorage.CE_DEV ? (
         <>
           <SidebarLink

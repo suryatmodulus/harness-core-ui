@@ -19,7 +19,7 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
           cv.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cv.dashboard.subHeading
         </p>

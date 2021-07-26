@@ -239,10 +239,10 @@ exports[`CEHomePage snapshot test should render HomePageTemplate when return suc
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.continuous
+          ce.ccm
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           ce.homepage.slogan
         </p>
@@ -263,17 +263,11 @@ exports[`CEHomePage snapshot test should render HomePageTemplate when return suc
         <div
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
-          <a
-            class="createBtn"
-            href="/account/123/home/projects"
+          <div
+            class="createBtn linkCursor"
           >
-            createProject
-          </a>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
-          >
-            orSelectExisting
-          </p>
+            ce.trialCta
+          </div>
           <span
             style="flex-grow: 1;"
           />
@@ -398,10 +392,10 @@ exports[`CEHomePage snapshot test shouldn't show the trial home pagers if the us
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.continuous
+          ce.ccm
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           ce.homepage.slogan
         </p>
@@ -422,17 +416,11 @@ exports[`CEHomePage snapshot test shouldn't show the trial home pagers if the us
         <div
           class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
-          <a
-            class="createBtn"
-            href="/account/123/home/projects"
+          <div
+            class="createBtn linkCursor"
           >
-            createProject
-          </a>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--color StyledProps--color-black"
-          >
-            orSelectExisting
-          </p>
+            ce.trialCta
+          </div>
           <span
             style="flex-grow: 1;"
           />

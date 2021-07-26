@@ -82,7 +82,7 @@ exports[`CDHomePage snapshot test should pop up select pipeline CD Trial modal i
           cd.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cd.dashboard.subHeading
         </p>
@@ -143,7 +143,7 @@ exports[`CDHomePage snapshot test should pop up select project CD Trial modal if
           cd.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cd.dashboard.subHeading
         </p>
@@ -204,7 +204,7 @@ exports[`CDHomePage snapshot test should render HomePageTemplate when return suc
           cd.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cd.dashboard.subHeading
         </p>

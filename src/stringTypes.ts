@@ -2471,7 +2471,10 @@ export interface StringsMap {
   'ce.overview.title': string
   'ce.overview.totalCost': string
   'ce.overview.workload': string
+  'ce.perspectives.budgets.actualCost': string
   'ce.perspectives.budgets.actualSpend': string
+  'ce.perspectives.budgets.alerts': string
+  'ce.perspectives.budgets.amount': string
   'ce.perspectives.budgets.configureAlerts.actual': string
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
@@ -2485,6 +2488,7 @@ export interface StringsMap {
   'ce.perspectives.budgets.createNew': string
   'ce.perspectives.budgets.desc': string
   'ce.perspectives.budgets.forecastedCost': string
+  'ce.perspectives.budgets.lastMonthCost': string
   'ce.perspectives.budgets.sendAlerts': string
   'ce.perspectives.budgets.setBudgetAmount.budgetType': string
   'ce.perspectives.budgets.setBudgetAmount.lastMonthCost': string

@@ -72,6 +72,46 @@ exports[`side nav tests side nav renders without error when no project is select
     >
       pickProject
     </div>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/undefined/projects/undefined/overview"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/undefined/projects/undefined/perspective"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.sideNav.perspective
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/undefined/projects/undefined/autostopping-rules"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.co.breadCrumb.rules
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/undefined/projects/undefined/access-points"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.co.accessPoint.loadbalancers
+      </p>
+    </a>
     <button
       class="launchButtonPosition"
       type="button"
@@ -154,6 +194,26 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
     >
       pickProject
     </div>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/overview"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/perspective"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.sideNav.perspective
+      </p>
+    </a>
     <a
       class="link"
       href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
@@ -257,6 +317,26 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
     >
       pickProject
     </div>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/overview"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/perspective"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.sideNav.perspective
+      </p>
+    </a>
     <a
       aria-current="page"
       class="link selected"

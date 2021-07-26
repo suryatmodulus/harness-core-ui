@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useMemo } from 'react'
-import { Dialog, IconName, IDialogProps } from '@blueprintjs/core/lib/esm/components'
+import { Dialog, IconName, IDialogProps } from '@blueprintjs/core'
 import {
   Button,
   CardSelect,

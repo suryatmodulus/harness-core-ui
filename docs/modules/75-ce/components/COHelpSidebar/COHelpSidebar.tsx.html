@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.07% </span>
+                <span class="strong">70.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/27</span>
+                <span class='fraction'>17/24</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.07% </span>
+                <span class="strong">70.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/27</span>
+                <span class='fraction'>17/24</span>
             </div>
         
             
@@ -357,21 +357,15 @@
 <a name='L298'></a><a href='#L298'>298</a>
 <a name='L299'></a><a href='#L299'>299</a>
 <a name='L300'></a><a href='#L300'>300</a>
-<a name='L301'></a><a href='#L301'>301</a>
-<a name='L302'></a><a href='#L302'>302</a>
-<a name='L303'></a><a href='#L303'>303</a>
-<a name='L304'></a><a href='#L304'>304</a>
-<a name='L305'></a><a href='#L305'>305</a>
-<a name='L306'></a><a href='#L306'>306</a>
-<a name='L307'></a><a href='#L307'>307</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L301'></a><a href='#L301'>301</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -416,15 +410,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -675,9 +663,9 @@ import { useStrings } from 'framework/strings'
 import idleTimeIMG from './images/idleTime.svg'
 import spotVSODIMG from './images/spotOD.svg'
 import ssh from './images/ssh.svg'
-import rdp from './images/rdp.svg'
-import bgTasks from './images/bgTasks.svg'
-import ip from './images/ip.svg'
+// import rdp from './images/rdp.svg'
+// import bgTasks from './images/bgTasks.svg'
+// import ip from './images/ip.svg'
 import dnsLink from './images/dnsLink.svg'
 import providerSelector from './images/providerSelector.svg'
 &nbsp;
@@ -717,11 +705,6 @@ const ConfigStepTwoContent = <span class="fstat-no" title="function not covered"
       &lt;/Text&gt;
       &lt;Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}&gt;
         {getString('ce.co.autoStoppingRule.helpText.step2.description.heading')}
-        &lt;br /&gt;
-        &lt;ol type={'1'}&gt;
-          &lt;li&gt;{getString('ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms')}&lt;/li&gt;
-          &lt;li&gt;{getString('ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg')}&lt;/li&gt;
-        &lt;/ol&gt;
       &lt;/Text&gt;
     &lt;/&gt;
   )
@@ -736,9 +719,8 @@ const ConfigStepThreeContent = <span class="fstat-no" title="function not covere
       &lt;/Text&gt;
       &lt;img src={spotVSODIMG} alt="" aria-hidden /&gt;
       &lt;Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}&gt;
-        {getString('ce.co.autoStoppingRule.helpText.step3.description.heading')}
-        &lt;br /&gt;
         {getString('ce.co.autoStoppingRule.helpText.step3.description.info')}
+        &lt;br /&gt;
         &lt;br /&gt;
         {getString('ce.co.autoStoppingRule.helpText.step3.description.additionalInfo')}
       &lt;/Text&gt;
@@ -781,7 +763,7 @@ const COHelpSidebar: React.FC&lt;COHelpSidebarProps&gt; = props =&gt; {
                 {getString('ce.co.autoStoppingRule.setupAccess.helpText.ssh.info')}
               &lt;/Text&gt;
             &lt;/Layout.Horizontal&gt;
-            &lt;Layout.Horizontal spacing="large" padding="medium"&gt;
+            {/* &lt;Layout.Horizontal spacing="large" padding="medium"&gt;
               &lt;img src={rdp} alt="" aria-hidden /&gt;
               &lt;Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}&gt;
                 {getString('ce.co.autoStoppingRule.setupAccess.helpText.rdp.info')}
@@ -798,7 +780,7 @@ const COHelpSidebar: React.FC&lt;COHelpSidebarProps&gt; = props =&gt; {
               &lt;Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}&gt;
                 {getString('ce.co.autoStoppingRule.setupAccess.helpText.ip.info')}
               &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
+            &lt;/Layout.Horizontal&gt; */}
             {/* &lt;Text
               style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
             &gt;
@@ -982,7 +964,7 @@ export default COHelpSidebar
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 07:37:39 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 08:24:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

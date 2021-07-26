@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.12% </span>
+                <span class="strong">65.2% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>280/430</span>
+                <span class='fraction'>281/431</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.8% </span>
+                <span class="strong">46.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>249/532</span>
+                <span class='fraction'>250/533</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.18% </span>
+                <span class="strong">65.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>277/425</span>
+                <span class='fraction'>278/426</span>
             </div>
         
             
@@ -1624,7 +1624,17 @@
 <a name='L1565'></a><a href='#L1565'>1565</a>
 <a name='L1566'></a><a href='#L1566'>1566</a>
 <a name='L1567'></a><a href='#L1567'>1567</a>
-<a name='L1568'></a><a href='#L1568'>1568</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L1568'></a><a href='#L1568'>1568</a>
+<a name='L1569'></a><a href='#L1569'>1569</a>
+<a name='L1570'></a><a href='#L1570'>1570</a>
+<a name='L1571'></a><a href='#L1571'>1571</a>
+<a name='L1572'></a><a href='#L1572'>1572</a>
+<a name='L1573'></a><a href='#L1573'>1573</a>
+<a name='L1574'></a><a href='#L1574'>1574</a>
+<a name='L1575'></a><a href='#L1575'>1575</a>
+<a name='L1576'></a><a href='#L1576'>1576</a>
+<a name='L1577'></a><a href='#L1577'>1577</a>
+<a name='L1578'></a><a href='#L1578'>1578</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1758,6 +1768,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">51x</span>
@@ -2235,6 +2250,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2719,6 +2735,10 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3326,6 +3346,11 @@ const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configSte
 const DEFAULT_TOTAL_STEP_COUNT = 4
 const MODIFIED_TOTAL_STEP_COUNT = 3
 &nbsp;
+const IDLE_TIME_CONSTRAINTS = {
+  MIN: 5,
+  MAX: 480
+}
+&nbsp;
 const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
@@ -3805,7 +3830,8 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
       (selectedInstances.length &gt; 0 || !_isEmpty(selectedAsg) || !_isEmpty(selectedConnector)) &amp;&amp;
       (selectedResource !== RESOURCES.KUBERNETES ? routingRecords.length &gt; 0 : <span class="branch-1 cbranch-no" title="branch not covered" >true)</span> &amp;&amp;
       gatewayName != '' &amp;&amp;
-      idleTime &gt;= 5 &amp;&amp;
+      idleTime &gt;= IDLE_TIME_CONSTRAINTS.MIN &amp;&amp;
+      idleTime &lt;= IDLE_TIME_CONSTRAINTS.MAX &amp;&amp;
       (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true) &amp;&amp;
       (!_isEmpty(serviceDependencies)
         ? <span class="branch-0 cbranch-no" title="branch not covered" >serviceDependencies.every(<span class="fstat-no" title="function not covered" >_dep </span>=&gt; <span class="cstat-no" title="statement not covered" >!isNaN(_dep.dep_id) &amp;&amp; !isNaN(_dep.delay_secs))</span></span>
@@ -4300,7 +4326,11 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
                       isK8sSelected ? /[a-z0-9]([-a-z0-9]*[a-z0-9])?/ : /.*/,
                       'Name should not contain special characters'
                     ),
-                  idleTime: Yup.number().typeError('Idle time must be a number').required('Idle Time is required field')
+                  idleTime: Yup.number()
+                    .min(IDLE_TIME_CONSTRAINTS.MIN)
+                    .max(IDLE_TIME_CONSTRAINTS.MAX)
+                    .typeError('Idle time must be a number')
+                    .required('Idle Time is required field')
                 })}
               &gt;&lt;/Formik&gt;
               {/* &lt;/Layout.Vertical&gt; */}
@@ -4765,7 +4795,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Jul 25 2021 04:35:41 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 02:02:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

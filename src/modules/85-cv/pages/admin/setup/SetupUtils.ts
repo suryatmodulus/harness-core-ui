@@ -12,6 +12,7 @@ export const getIconBySourceType = (type: string): IconName => {
     case 'STACKDRIVER':
       return 'service-stackdriver'
     case 'NEW_RELIC':
+    case 'NewRelic':
       return 'service-newrelic'
     case 'HEALTH':
       return 'health'

@@ -30,7 +30,7 @@ const DelegateResourceRenderer: React.FC<RbacResourceRendererProps> = ({
   const delegateGroupDetails: DelegateGroupDetails[] = get(data, 'resource.delegateGroupDetails', [])
 
   const filteredDelegateGroupDetails = delegateGroupDetails.filter(group =>
-    identifiers.includes(get(group, 'groupId', ''))
+    identifiers.includes(get(group, 'delegateGroupIdentifier', ''))
   )
 
   return filteredDelegateGroupDetails && !loading ? (
@@ -56,7 +56,9 @@ const DelegateResourceRenderer: React.FC<RbacResourceRendererProps> = ({
                 icon="trash"
                 minimal
                 onClick={() => {
-                  onResourceSelectionChange(resourceType, false, [get(element, 'row.original.groupId', '')])
+                  onResourceSelectionChange(resourceType, false, [
+                    get(element, 'row.original.delegateGroupIdentifier', '')
+                  ])
                 }}
               />
             )

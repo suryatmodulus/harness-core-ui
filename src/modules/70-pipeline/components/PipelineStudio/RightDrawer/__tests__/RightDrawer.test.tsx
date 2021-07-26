@@ -7,6 +7,7 @@ import stateMock from './stateMock'
 import type { PipelineSelectionState } from '../../PipelineQueryParamState/usePipelineQueryParam'
 
 jest.mock('../../StepCommands/StepCommands', () => ({
+  // eslint-disable-next-line react/display-name
   StepCommandsWithRef: React.forwardRef((props: any, ref) => {
     React.useImperativeHandle(ref, () => ({
       submitForm: () =>
@@ -40,6 +41,7 @@ jest.mock('../../StepCommands/StepCommands', () => ({
 
 jest.mock('@blueprintjs/core', () => ({
   ...(jest.requireActual('@blueprintjs/core') as any),
+  // eslint-disable-next-line react/display-name
   Drawer: ({ children, title }: any) => (
     <div className="drawer-mock">
       {title}
@@ -90,11 +92,12 @@ describe('Right Drawer tests', () => {
           updateGitDetails: () => new Promise<void>(() => undefined),
           setView: () => void 0,
           runPipeline: () => undefined,
+          // eslint-disable-next-line react/display-name
           renderPipelineStage: () => <div />,
           fetchPipeline: () => new Promise<void>(() => undefined),
           updatePipelineView: () => undefined,
           updateStage: udpateStageMock,
-          getStageFromPipeline: () => ({ stage: stateMock.pipeline.stages[0], parent: undefined }),
+          getStageFromPipeline: () => ({ stage: stateMock.pipeline.stages[0] as any, parent: undefined }),
           setYamlHandler: () => undefined,
           updatePipeline: () => new Promise<void>(() => undefined),
           pipelineSaved: () => undefined,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
+import { Card, Text, Layout, Container } from '@wings-software/uicore'
 import { useHistory, useLocation } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 
@@ -17,9 +17,16 @@ interface RecommendationListProps {
   setFilters: React.Dispatch<React.SetStateAction<Record<string, string[]>>>
   filters: Record<string, string[]>
   setCostFilters: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  costFilters: Record<string, number>
 }
 
-const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters, setFilters, setCostFilters }) => {
+const RecommendationsList: React.FC<RecommendationListProps> = ({
+  data,
+  filters,
+  setFilters,
+  setCostFilters,
+  costFilters
+}) => {
   const history = useHistory()
   const { pathname } = useLocation()
   const { getString } = useStrings()
@@ -69,7 +76,12 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters,
       <Layout.Vertical spacing="large">
         <Layout.Horizontal>
           <Text style={{ flex: 1 }}>{getString('ce.recommendation.listPage.recommnedationBreakdown')}</Text>
-          <RecommendationFilters setCostFilters={setCostFilters} setFilters={setFilters} filters={filters} />
+          <RecommendationFilters
+            costFilters={costFilters}
+            setCostFilters={setCostFilters}
+            setFilters={setFilters}
+            filters={filters}
+          />
         </Layout.Horizontal>
 
         <Table<RecommendationItemDto>
@@ -127,8 +139,15 @@ const RecommendationList: React.FC = () => {
   // const [limit, setLimit] = useState<number>(100)
 
   const [result] = useRecommendationsQuery({
-    requestPolicy: 'network-only',
-    variables: { filters: { ...filters, offset: 0, limit: 100, ...costFilters } as K8sRecommendationFilterDtoInput }
+    variables: {
+      filters: {
+        ...filters,
+        offset: 0,
+        limit: 100,
+        ...costFilters,
+        resourceTypes: ['WORKLOAD']
+      } as K8sRecommendationFilterDtoInput
+    }
   })
 
   const { data, fetching } = result
@@ -144,7 +163,7 @@ const RecommendationList: React.FC = () => {
     <>
       <Page.Header title="Recommendations"></Page.Header>
       <Page.Body loading={fetching}>
-        <Container padding="xlarge" background={Color.WHITE} height="100%">
+        <Container padding="xlarge" height="100%">
           {recommendationItems.length ? (
             <Layout.Vertical spacing="large">
               <Layout.Horizontal spacing="medium">
@@ -164,6 +183,7 @@ const RecommendationList: React.FC = () => {
                 setFilters={setFilters}
                 filters={filters}
                 setCostFilters={setCostFilters}
+                costFilters={costFilters}
                 data={recommendationItems as Array<RecommendationItemDto>}
               />
             </Layout.Vertical>

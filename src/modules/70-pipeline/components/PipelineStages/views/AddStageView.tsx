@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from '@wings-software/uicore'
+import { Card, Icon, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { PipelineStageProps } from '../PipelineStage'
@@ -22,47 +22,58 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
 
   return (
     <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
-      <div className={css.createNewCards}>
-        {stages.map(stage => (
-          <React.Fragment key={stage.type}>
-            {stage.isHidden !== true && (!stage.isApproval || !isParallel) ? (
-              <div>
-                <Card
-                  data-testid={`stage-${stage.type}`}
-                  onMouseOver={() => !stage.isDisabled && selectedType?.type !== stage.type && setSelectedType(stage)}
-                  onMouseLeave={() => setSelectedType(undefined)}
-                  interactive={true}
-                  disabled={stage.isDisabled}
-                  className={cx(css.cardNew)}
-                  onClick={e => {
-                    if (stage.isDisabled) {
-                      e.stopPropagation()
-                    } else {
-                      callback(stage.type)
-                    }
-                  }}
-                >
-                  <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
-                </Card>
-                <div className={cx(css.cardTitle, { [css.selected]: selectedType?.type === stage.type })}>
-                  {stage.name}
+      <div className={css.stageTypeSection}>
+        <div className={css.stageTitle}>{getString('pipeline.addStage.title')}</div>
+        <div className={css.createNewCards}>
+          {stages.map(stage => (
+            <React.Fragment key={stage.type}>
+              {stage.isHidden !== true && (!stage.isApproval || !isParallel) ? (
+                <div>
+                  <Card
+                    data-testid={`stage-${stage.type}`}
+                    onMouseOver={() => !stage.isDisabled && selectedType?.type !== stage.type && setSelectedType(stage)}
+                    onMouseLeave={() => setSelectedType(undefined)}
+                    interactive={true}
+                    disabled={stage.isDisabled}
+                    className={cx(css.cardNew)}
+                    onClick={e => {
+                      if (stage.isDisabled) {
+                        e.stopPropagation()
+                      } else {
+                        callback(stage.type)
+                      }
+                    }}
+                  >
+                    <Icon name={stage.icon} size={24} {...stage.iconsProps} style={stage.iconsStyle} />
+                  </Card>
+                  <div className={cx(css.cardTitle, { [css.selected]: selectedType?.type === stage.type })}>
+                    {stage.name}
+                  </div>
                 </div>
-              </div>
-            ) : null}
-          </React.Fragment>
-        ))}
+              ) : null}
+            </React.Fragment>
+          ))}
+        </div>
       </div>
-      <div className={css.createNewMessage}>
+      <div style={{ margin: 'auto' }}>
         <Icon
           name="main-close"
-          size={10}
+          size={12}
           className={css.closeIcon}
           onClick={() => window.dispatchEvent(new CustomEvent('CLOSE_CREATE_STAGE_POPOVER'))}
         />
-        <div className={css.stageTitle}>{selectedType?.title || getString('pipeline.addStage.title')}</div>
-        <div className={css.stageDescription}>
-          {selectedType?.description || getString('pipeline.addStage.description')}
-        </div>
+        <Layout.Vertical margin={{ top: 'xxlarge', bottom: 'xxlarge', right: 'medium', left: 'medium' }}>
+          <Layout.Horizontal margin={{ bottom: 'medium', top: 'large' }} flex={{ justifyContent: 'center' }}>
+            {selectedType?.title ? (
+              <div className={css.hoverTitle}> {selectedType?.title}</div>
+            ) : (
+              <Icon name="add-stage" size={74} />
+            )}
+          </Layout.Horizontal>
+          <div className={css.stageDescription}>
+            {selectedType?.description || getString('pipeline.addStage.description')}
+          </div>
+        </Layout.Vertical>
       </div>
     </div>
   )

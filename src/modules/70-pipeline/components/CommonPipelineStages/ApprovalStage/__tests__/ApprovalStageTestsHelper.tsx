@@ -14,7 +14,7 @@ export const getPropsForMinimalStage = (): PipelineStagesProps<ApprovalStageMini
       stage: {
         identifier: '',
         name: ''
-      }
+      } as any
     },
     onSubmit: jest.fn(),
     onChange: jest.fn()

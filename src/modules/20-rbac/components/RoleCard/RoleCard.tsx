@@ -44,8 +44,8 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
   }
 
   const { openDialog: openDeleteDialog } = useConfirmationDialog({
-    contentText: getString('roleCard.confirmDelete', { name: role.name }),
-    titleText: getString('roleCard.confirmDeleteTitle'),
+    contentText: getString('rbac.roleCard.confirmDelete', { name: role.name }),
+    titleText: getString('rbac.roleCard.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
     intent: Intent.WARNING,
@@ -54,7 +54,7 @@ const RoleCard: React.FC<RoleCardProps> = ({ data, reloadRoles, editRoleModal })
         try {
           const deleted = await deleteRole(role.identifier, { headers: { 'content-type': 'application/json' } })
           /* istanbul ignore else */ if (deleted) {
-            showSuccess(getString('roleCard.successMessage', { name: role.name }))
+            showSuccess(getString('rbac.roleCard.successMessage', { name: role.name }))
             reloadRoles?.()
           } else {
             showError(getString('deleteError'))

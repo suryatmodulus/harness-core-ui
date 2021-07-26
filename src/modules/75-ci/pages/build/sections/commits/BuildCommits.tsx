@@ -6,7 +6,7 @@ import { Card, Container, Text, Icon, Avatar, Color } from '@wings-software/uico
 import { useToaster } from '@common/exports'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { getShortCommitId, getTimeAgo } from '@ci/services/CIUtils'
-import type { CIBuildCommit, CIBuildResponseDTO } from 'services/ci'
+import type { CIBuildCommit, CIWebhookInfoDTO } from 'services/ci'
 import { useStrings } from 'framework/strings'
 import css from './BuildCommits.module.scss'
 
@@ -41,7 +41,7 @@ const BuildCommits: React.FC = () => {
   const ciData = get(
     context,
     'pipelineExecutionDetail.pipelineExecutionSummary.moduleInfo.ci.ciExecutionInfoDTO'
-  ) as CIBuildResponseDTO
+  ) as CIWebhookInfoDTO
   const buildCommits = ciData?.branch?.commits?.length ? ciData.branch.commits : ciData?.pullRequest?.commits
   const commitAuthor = ciData?.author
   buildCommits?.forEach((commit: CIBuildCommit) => {

@@ -105,12 +105,13 @@ enum RESOURCES {
 }
 
 const managedResources = [
-  { label: 'Instances', value: RESOURCES.INSTANCES, providers: ['aws', 'azure'] },
+  { label: 'EC2 VM(s)', value: RESOURCES.INSTANCES, providers: ['aws'] },
+  { label: 'VM(s)', value: RESOURCES.INSTANCES, providers: ['azure'] },
   { label: 'Auto scaling groups', value: RESOURCES.ASG, providers: ['aws'] },
   {
     label: 'Kubernetes Cluster',
     value: RESOURCES.KUBERNETES,
-    providers: ['aws', 'azure'],
+    providers: ['aws'],
     ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
   }
 ]
@@ -132,6 +133,11 @@ const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configSte
 
 const DEFAULT_TOTAL_STEP_COUNT = 4
 const MODIFIED_TOTAL_STEP_COUNT = 3
+
+const IDLE_TIME_CONSTRAINTS = {
+  MIN: 5,
+  MAX: 480
+}
 
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
@@ -612,7 +618,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       (selectedInstances.length > 0 || !_isEmpty(selectedAsg) || !_isEmpty(selectedConnector)) &&
       (selectedResource !== RESOURCES.KUBERNETES ? routingRecords.length > 0 : true) &&
       gatewayName != '' &&
-      idleTime >= 5 &&
+      idleTime >= IDLE_TIME_CONSTRAINTS.MIN &&
+      idleTime <= IDLE_TIME_CONSTRAINTS.MAX &&
       (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true) &&
       (!_isEmpty(serviceDependencies)
         ? serviceDependencies.every(_dep => !isNaN(_dep.dep_id) && !isNaN(_dep.delay_secs))
@@ -1107,7 +1114,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       isK8sSelected ? /[a-z0-9]([-a-z0-9]*[a-z0-9])?/ : /.*/,
                       'Name should not contain special characters'
                     ),
-                  idleTime: Yup.number().typeError('Idle time must be a number').required('Idle Time is required field')
+                  idleTime: Yup.number()
+                    .min(IDLE_TIME_CONSTRAINTS.MIN)
+                    .max(IDLE_TIME_CONSTRAINTS.MAX)
+                    .typeError('Idle time must be a number')
+                    .required('Idle Time is required field')
                 })}
               ></Formik>
               {/* </Layout.Vertical> */}
@@ -1435,6 +1446,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       title="Routing"
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB' }}>
+                          <Text className={css.titleHelpTextDescription}>
+                            {getString('ce.co.gatewayConfig.routingDescription')}
+                          </Text>
                           {!isK8sSelected && (
                             <Layout.Vertical spacing="large">
                               {!selectedAsg && loading ? (
@@ -1470,6 +1484,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                   projectId: projectIdentifier
                                 })
                               }
+                              fileName={gatewayName && `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
                               handleSave={handleYamlSave}
                             />
                           )}
@@ -1482,6 +1497,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                         title="Health check"
                         panel={
                           <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
+                            <Text className={css.titleHelpTextDescription}>
+                              {getString('ce.co.gatewayConfig.healthCheckDescription')}
+                            </Text>
                             <Layout.Vertical spacing="large" padding="large">
                               <Switch
                                 label={getString('ce.co.gatewayConfig.healthCheck')}
@@ -1507,6 +1525,9 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       title="Advanced Configuration"
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
+                          <Text className={css.titleHelpTextDescription}>
+                            {getString('ce.co.gatewayConfig.advancedConfigDescription')}
+                          </Text>
                           <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
                             {/* <Switch
                               label={getString('ce.co.gatewayConfig.allowTraffic')}

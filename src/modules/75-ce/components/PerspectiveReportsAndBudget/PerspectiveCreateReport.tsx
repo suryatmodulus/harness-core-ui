@@ -35,8 +35,8 @@ const useCreateReportModal = ({ onSuccess, onError }: CreateReportModalProps) =>
   const [isEditMode, setIsEditMode] = useState(false)
   const [report, setReport] = useState<CEReportSchedule>()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
-  const { mutate: createReport } = useCreateReportSetting({ accountId }) // TODO: queryParams: { accountIdentifier: accountId }
-  const { mutate: updateReport } = useUpdateReportSetting({ accountId }) // TODO: queryParams: { accountIdentifier: accountId }
+  const { mutate: createReport } = useCreateReportSetting({ accountIdentifier: accountId })
+  const { mutate: updateReport } = useUpdateReportSetting({ accountIdentifier: accountId })
   const modalPropsLight: IDialogProps = {
     isOpen: true,
     usePortal: true,

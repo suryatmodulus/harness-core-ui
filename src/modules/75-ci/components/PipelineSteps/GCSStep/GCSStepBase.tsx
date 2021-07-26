@@ -25,6 +25,7 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './GCSStepFunctionConfigs'
 import type { GCSStepData, GCSStepDataUI, GCSStepProps } from './GCSStep'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -50,7 +51,7 @@ export const GCSStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

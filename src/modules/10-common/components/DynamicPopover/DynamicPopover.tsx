@@ -14,7 +14,7 @@ export interface DynamicPopoverHandlerBinding<T> {
   show: (
     ref: Element | PopperJS.VirtualElement | string,
     data?: T,
-    options?: { darkMode?: boolean; useArrows?: boolean; fixedPosition?: boolean },
+    options?: { darkMode?: boolean; useArrows?: boolean; fixedPosition?: boolean; placement?: PopperJS.Placement },
     onHideCallBack?: () => void
   ) => void
   hide: () => void
@@ -28,7 +28,6 @@ export interface DynamicPopoverProps<T> {
   fixedPosition?: boolean
   bind: (dynamicPopoverHandler: DynamicPopoverHandlerBinding<T>) => void
   closeOnMouseOut?: boolean
-  placement?: PopperJS.Placement
 }
 
 export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
@@ -39,8 +38,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
     darkMode = false,
     useArrows = true,
     fixedPosition = false,
-    closeOnMouseOut,
-    placement = 'auto'
+    closeOnMouseOut
   } = props
   const [darkModeState, setDarkMode] = useState<boolean>(darkMode)
   const [useArrowsState, setArrowVisibility] = useState<boolean>(useArrows)
@@ -52,6 +50,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
   const [referenceElement, setReferenceElement] = useState<Element | PopperJS.VirtualElement | null>(null)
   const [visible, setVisibility] = useState<boolean>(false)
   const [hideCallback, setHideCallBack] = useState<() => void | undefined>()
+  const [placement, setPlacement] = useState<PopperJS.Placement>('auto')
   const timerRef = React.useRef<number | null>(null)
   const mouseInRef = React.useRef<boolean>(false)
 
@@ -84,6 +83,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
             typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
             typeof options.useArrows === 'boolean' && setArrowVisibility(options.useArrows)
             typeof options.fixedPosition === 'boolean' && setFixedPosition(options.fixedPosition)
+            options.placement ? setPlacement(options.placement) : setPlacement('auto')
           }
           setHideCallBack(prev => {
             prev?.()

@@ -36,20 +36,6 @@
     }
   }
 
-  .conditionsRow {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    div {
-      padding: 0 var(--padding-large);
-      width: 250px;
-    }
-  }
-
-  .payloadConditions {
-    padding-top: var(--spacing-large);
-  }
-
   .footer {
     position: fixed;
     bottom: 0px;
@@ -57,13 +43,6 @@
     background-color: var(--white);
     z-index: 1;
     box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
-  }
-
-  .fieldWarning {
-    background-color: #f2f2f2 !important;
-    width: 324px !important;
-    padding: var(--spacing-small) !important;
-    justify-content: space-between;
   }
 
   .checkbox {

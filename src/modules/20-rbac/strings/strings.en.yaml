@@ -68,7 +68,7 @@ userGroupPage:
   addUsers: Add Users
   noRoleAssignmentsText: There are no roles assigned to this User Group, Click on Add to start assigning roles
   search: Search User Groups by name or email
-  confirmDelete: Are you sure you want to delete the User Group '{{name}}'
+  confirmDelete: Deleting the user group '{{name}}' would mean that you are also deleting all the role bindings associated with it. Are you sure you want to delete the user group?
   confirmDeleteTitle: Delete User Group
   successMessage: User Group '{{name}}' deleted successfully
   noUserGroups: No User Groups
@@ -145,3 +145,36 @@ accountScope: Account scope
 user: User
 generateToken: Generate Token
 myApiKeys: My {{$.common.apiKeys}}
+roleForm:
+  createSuccess: Role created successfully
+  updateSuccess: Role updated successfully
+roleDetails:
+  permissionUpdatedSuccess: Permissions updated successfully
+  updateRolePermissions: Update Role permissions
+  noDataText: You have no Roles. Click the button below to create a new one.
+roleCard:
+  confirmDelete: Deleting the role '{{name}}' would mean that you are also deleting all the role bindings it is associated with. Are you sure you want to delete the role?
+  confirmDeleteTitle: 'Delete Role'
+  successMessage: Role '{{name}}' is deleted successfully
+addResourceModal:
+  selectedText: Selected {{name}} ({{number}})
+resourceGroup:
+  newResourceGroup: 'New Resource Group'
+  updateResourceGroupDialogTitle: 'Update Resource Group'
+  color: '{{ $.color}}'
+  dragAndDropData: Please select or drag and drop the type of resources, you would like to add to your group.
+  resourceGroupColumn: 'Resource Group'
+  summary: '{{ $.summary }}'
+  createSuccess: 'Resource Group created successfully'
+  updateSuccess: 'Resource Group updated successfully'
+  confirmDelete: Deleting the resource group '{{name}}' would mean that you are also deleting all the role bindings it is associated with. Are you sure you want to delete the resource group?
+  confirmDeleteTitle: 'Delete Resource Group'
+  deletedMessage: 'Resource Group {{name}} deleted'
+  limitAccess: 'To limit access to specific set of {{name}} add to this list'
+  selectResourceGroup: 'Select Resource Group'
+  add: '+ Add {{name}}'
+  all: 'All {{name}}'
+  noResourceGroupTypes: 'No Resource Group types available'
+  builtInResourceGroup: 'Built in resource-group'
+  noResourceGroup: 'No Resource Group available'
+  noResourceGroupFound: 'No Resource Group Found'

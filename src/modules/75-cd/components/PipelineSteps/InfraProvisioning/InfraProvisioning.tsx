@@ -2,20 +2,14 @@ import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors } from 'formik'
 import type { StepViewType, StepProps } from '@pipeline/components/AbstractSteps/Step'
-import type { ExecutionWrapper } from 'services/cd-ng'
+import type { ExecutionElementConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { InfraProvisioningBaseWithRef } from './InfraProvisioningBase'
 
 export interface InfraProvisioningData {
-  provisioner: {
-    steps?: ExecutionWrapper[]
-    rollbackSteps?: ExecutionWrapper[]
-  }
-  originalProvisioner?: {
-    steps?: ExecutionWrapper[]
-    rollbackSteps?: ExecutionWrapper[]
-  }
+  provisioner: ExecutionElementConfig
+  originalProvisioner?: Partial<ExecutionElementConfig>
   provisionerEnabled: boolean
   provisionerSnippetLoading?: boolean
 }
@@ -24,10 +18,7 @@ export interface InfraProvisioningDataUI extends Omit<InfraProvisioningData, 'pr
   provisioner: {
     stage: {
       spec: {
-        execution: {
-          steps?: ExecutionWrapper[]
-          rollbackSteps?: ExecutionWrapper[]
-        }
+        execution: ExecutionElementConfig
       }
     }
   }

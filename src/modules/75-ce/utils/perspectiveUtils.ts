@@ -82,6 +82,13 @@ export const DEFAULT_GROUP_BY = {
   identifierName: ViewFieldIdentifier.Common
 }
 
+export const GROUP_BY_POD = {
+  fieldId: 'instanceId',
+  fieldName: 'Pod',
+  identifier: ViewFieldIdentifier.Cluster,
+  identifierName: ViewFieldIdentifier.Cluster
+}
+
 export const generateId: (length: number) => string = length => {
   let result = ''
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'

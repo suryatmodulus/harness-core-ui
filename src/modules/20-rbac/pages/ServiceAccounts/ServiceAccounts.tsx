@@ -12,7 +12,6 @@ import ServiceAccountsListView from '@rbac/pages/ServiceAccounts/views/ServiceAc
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
-import css from './ServiceAccounts.module.scss'
 
 const ServiceAccountsPage: React.FC = () => {
   const { getString } = useStrings()
@@ -57,11 +56,11 @@ const ServiceAccountsPage: React.FC = () => {
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
+              flip
               placeholder={getString('rbac.serviceAccounts.search')}
               onChange={text => {
                 setsearchTerm(text.trim())
               }}
-              className={css.search}
               width={350}
             />
           </Layout.Horizontal>

@@ -225,7 +225,7 @@ describe('Auto stopping Rule creation Tests', () => {
       </TestWrapper>
     )
 
-    const instanceRadio = getByLabelText('Instances')
+    const instanceRadio = getByLabelText('EC2 VM(s)')
     expect(instanceRadio).toBeDefined()
     act(() => {
       fireEvent.click(instanceRadio)

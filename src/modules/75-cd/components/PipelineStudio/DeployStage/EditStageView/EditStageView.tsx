@@ -17,7 +17,6 @@ import * as Yup from 'yup'
 import produce from 'immer'
 import { omit, set } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import type { StageElementWrapper, StageElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -39,17 +38,19 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import DeployServiceErrors from '@cd/components/PipelineStudio/DeployServiceSpecifications/DeployServiceErrors'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { StringNGVariable } from 'services/cd-ng'
 import css from './EditStageView.module.scss'
 
-export interface EditStageView {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
-  onChange?: (values: StageElementWrapper) => void
+export interface EditStageViewProps {
+  data?: StageElementWrapper<DeploymentStageElementConfig>
+  onSubmit?: (values: StageElementWrapper<DeploymentStageElementConfig>, identifier?: string) => void
+  onChange?: (values: DeploymentStageElementConfig) => void
   context?: string
   isReadonly: boolean
 }
 
-export const EditStageView: React.FC<EditStageView> = ({
+export const EditStageView: React.FC<EditStageViewProps> = ({
   data,
   onSubmit,
   context,
@@ -92,7 +93,7 @@ export const EditStageView: React.FC<EditStageView> = ({
   const { stepsFactory, getStageFromPipeline } = usePipelineContext()
   const { variablesPipeline, metadataMap } = usePipelineVariables()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
-  const allNGVariables = ((data?.stage as StageElementConfig)?.variables || []) as AllNGVariables[]
+  const allNGVariables = (data?.stage?.variables || []) as AllNGVariables[]
   const { errorMap } = useValidationErrors()
   const { subscribeForm, unSubscribeForm, submitFormsForTab } = React.useContext(StageErrorContext)
 
@@ -140,9 +141,9 @@ export const EditStageView: React.FC<EditStageView> = ({
           <Container>
             <Formik
               initialValues={{
-                identifier: data?.stage.identifier,
-                name: data?.stage.name,
-                description: data?.stage.description,
+                identifier: data?.stage?.identifier,
+                name: data?.stage?.name,
+                description: data?.stage?.description,
                 tags: data?.stage?.tags || {},
                 serviceType: newStageData[0].value
               }}
@@ -151,10 +152,10 @@ export const EditStageView: React.FC<EditStageView> = ({
                 if (data) {
                   const newData = produce(data, draft => {
                     if (draft.stage) {
-                      draft.stage.identifier = values.identifier
-                      draft.stage.name = values.name
-                      draft.stage.description = values.description
-                      draft.stage.tags = values.tags || {}
+                      set(draft, 'stage.identifier', values.identifier)
+                      set(draft, 'stage.name', values.name)
+                      set(draft, 'stage.description', values.description)
+                      set(draft, 'stage.tags', values.tags || {})
 
                       if (!draft.stage.spec?.serviceConfig) {
                         set(draft, 'stage.spec.serviceConfig', {})
@@ -171,11 +172,11 @@ export const EditStageView: React.FC<EditStageView> = ({
               }}
               validate={values => {
                 const errors: { name?: string } = {}
-                if (isDuplicateStageId(values.identifier, stages, !!context)) {
+                if (isDuplicateStageId(values.identifier || '', stages, !!context)) {
                   errors.name = getString('validation.identifierDuplicate')
                 }
                 if (context && data) {
-                  onChange?.(omit(values, 'serviceType'))
+                  onChange?.(omit(values as unknown as DeploymentStageElementConfig, 'serviceType'))
                 }
                 return errors
               }}
@@ -255,16 +256,17 @@ export const EditStageView: React.FC<EditStageView> = ({
                           type={StepType.CustomVariable}
                           stepViewType={StepViewType.StageVariable}
                           onUpdate={({ variables }: CustomVariablesData) => {
-                            onChange?.({ ...data?.stage, variables } as StageElementConfig)
+                            onChange?.({ ...(data?.stage as DeploymentStageElementConfig), variables })
                           }}
                           customStepProps={{
                             tabName: DeployTabs.OVERVIEW,
                             yamlProperties:
                               getStageFromPipeline(
-                                data?.stage?.identifier,
+                                data?.stage?.identifier || '',
                                 variablesPipeline
                               )?.stage?.stage?.variables?.map?.(
-                                (variable: AllNGVariables) => metadataMap[variable.value || '']?.yamlProperties || {}
+                                variable =>
+                                  metadataMap[(variable as StringNGVariable).value || '']?.yamlProperties || {}
                               ) || [],
                             enableValidation: true
                           }}

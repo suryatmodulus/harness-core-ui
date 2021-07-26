@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion, Button } from '@wings-software/uicore'
-import { isEmpty, isUndefined } from 'lodash-es'
+import { isEmpty, isUndefined, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { produce } from 'immer'
@@ -22,6 +22,8 @@ import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeTe
 import type { MultiTypeMapType, MultiTypeMapUIType, MapType } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { useGitScope } from '@ci/services/CIUtils'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import css from './BuildInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -119,21 +121,29 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
-  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
+  const { stage = {} } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const [currentMode, setCurrentMode] = React.useState(() =>
-    stage?.stage?.spec?.infrastructure?.useFromStage ? Modes.Propagate : Modes.NewConfiguration
+    (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
+      ? Modes.Propagate
+      : Modes.NewConfiguration
   )
 
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
-  const { stage: propagatedStage = {} } = getStageFromPipeline(stage?.stage?.spec?.infrastructure?.useFromStage || '')
+  const { stage: propagatedStage = {} } = getStageFromPipeline<BuildStageElementConfig>(
+    (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage || ''
+  )
 
   const otherBuildStagesWithInfraConfigurationOptions: { label: string; value: string }[] = []
 
   if (stages && stages.length > 0) {
     stages.forEach((item, index) => {
-      if (index < stageIndex && item.stage.type === 'CI' && item.stage.spec.infrastructure?.spec) {
+      if (
+        index < stageIndex &&
+        item.stage?.type === 'CI' &&
+        ((item.stage as BuildStageElementConfig)?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+      ) {
         otherBuildStagesWithInfraConfigurationOptions.push({
           label: `Stage ${item.stage.name}`,
           value: item.stage.identifier
@@ -142,33 +152,37 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
     })
   }
 
-  const connectorId = (stage?.stage?.spec?.infrastructure?.spec?.connectorRef as string) || ''
+  const connectorId = ((stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef as string) || ''
 
   const getInitialValues = useMemo((): Values => {
     if (stage?.stage?.spec?.infrastructure) {
-      if (stage?.stage?.spec?.infrastructure?.useFromStage) {
+      if ((stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage) {
         return {
-          useFromStage: stage?.stage?.spec?.infrastructure?.useFromStage
+          useFromStage: (stage?.stage?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
         }
       } else if (!isEmpty(connectorId)) {
         return {
-          connectorRef: stage?.stage?.spec?.infrastructure?.spec?.connectorRef,
-          namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
-          serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
-          runAsUser: stage?.stage?.spec?.infrastructure?.spec?.runAsUser,
-          initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
-          annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
-          labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
+          connectorRef: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
+          namespace: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
+          serviceAccountName: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.serviceAccountName,
+          runAsUser: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.runAsUser as unknown as string,
+          initTimeout: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.initTimeout,
+          annotations: getInitialMapValues(
+            (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.annotations || {}
+          ),
+          labels: getInitialMapValues((stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels || {})
         }
       } else {
         return {
           connectorRef: undefined,
-          namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace,
-          serviceAccountName: stage?.stage?.spec?.infrastructure?.spec?.serviceAccountName,
-          runAsUser: stage?.stage?.spec?.infrastructure?.spec?.runAsUser,
-          initTimeout: stage?.stage?.spec?.infrastructure?.spec?.initTimeout,
-          annotations: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.annotations),
-          labels: getInitialMapValues(stage?.stage?.spec?.infrastructure?.spec?.labels)
+          namespace: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
+          serviceAccountName: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.serviceAccountName,
+          runAsUser: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.runAsUser as unknown as string,
+          initTimeout: (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.initTimeout,
+          annotations: getInitialMapValues(
+            (stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.annotations || {}
+          ),
+          labels: getInitialMapValues((stage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels || {})
         }
       }
     } else {
@@ -186,9 +200,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
       const errors: { [key: string]: string } = {}
       const stageData = produce(stage, draft => {
         if (currentMode === Modes.Propagate && values.useFromStage) {
-          draft.stage.spec.infrastructure = {
+          set(draft, 'stage.spec.infrastructure', {
             useFromStage: values.useFromStage
-          }
+          })
         } else {
           const filteredLabels = getMapValues(
             Array.isArray(values.labels) ? values.labels.filter((val: any) => testLabelKey(val.key)) : values.labels
@@ -198,11 +212,13 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           } catch (e) {
             errors.initTimeout = e.message
           }
-          draft.stage.spec.infrastructure = {
+          set(draft, 'stage.spec.infrastructure', {
             type: 'KubernetesDirect',
             spec: {
               // Avoid accidental overrides for connectorRef
-              connectorRef: values?.connectorRef?.value ?? draft.stage.spec.infrastructure?.spec?.connectorRef,
+              connectorRef:
+                values?.connectorRef?.value ??
+                (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
               namespace: values.namespace,
               serviceAccountName: values.serviceAccountName,
               runAsUser: values.runAsUser,
@@ -210,18 +226,21 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
               annotations: getMapValues(values.annotations),
               labels: !isEmpty(filteredLabels) ? filteredLabels : undefined
             }
-          }
+          })
+
           if (
             !values.annotations ||
             !values.annotations.length ||
             (values.annotations.length === 1 && !values.annotations[0].key)
           ) {
-            delete draft.stage.spec.infrastructure.spec.annotations
+            delete (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml).spec.annotations
           }
         }
       })
 
-      updateStage(stageData.stage)
+      if (stageData.stage) {
+        updateStage(stageData.stage)
+      }
 
       return values.labels.reduce((acc: Record<string, string>, curr: any, index: number) => {
         if (!testLabelKey(curr.key)) {
@@ -264,70 +283,74 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           items={otherBuildStagesWithInfraConfigurationOptions}
                           disabled={isReadonly}
                         />
-                        {propagatedStage?.stage?.spec?.infrastructure?.spec?.connectorRef && (
+                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef && (
                           <>
                             <Text font="small" margin={{ top: 'large', bottom: 'xsmall' }}>
                               {getString('connectors.title.k8sCluster')}
                             </Text>
                             <Text font="normal" color="black" margin={{ bottom: 'medium' }}>
-                              {propagatedStage?.stage?.spec?.infrastructure?.spec?.connectorRef}
+                              {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef}
                             </Text>
                           </>
                         )}
-                        {propagatedStage?.stage?.spec?.infrastructure?.spec?.namespace && (
+                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace && (
                           <>
                             <Text font="small" margin={{ bottom: 'xsmall' }}>
                               {getString('pipelineSteps.build.infraSpecifications.namespace')}
                             </Text>
                             <Text font="normal" color="black" margin={{ bottom: 'medium' }}>
-                              {propagatedStage?.stage?.spec?.infrastructure?.spec?.namespace}
+                              {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace}
                             </Text>
                           </>
                         )}
-                        {propagatedStage?.stage?.spec?.infrastructure?.spec?.annotations && (
+                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.annotations && (
                           <>
                             <Text font="small" margin={{ bottom: 'xsmall' }}>
                               {getString('ci.annotations')}
                             </Text>
-                            {typeof propagatedStage?.stage?.spec?.infrastructure?.spec?.annotations === 'string' ? (
+                            {typeof (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                              ?.annotations === 'string' ? (
                               <Text font="normal" color="black">
-                                {propagatedStage.stage.spec.infrastructure.spec.annotations}
+                                {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec.annotations}
                               </Text>
                             ) : (
                               <ul className={css.plainList}>
-                                {Object.entries(propagatedStage.stage.spec.infrastructure.spec.annotations).map(
-                                  (entry, idx) => (
-                                    <li key={idx}>
-                                      <Text font="normal" color="black">
-                                        {entry[0]}:{entry[1]}
-                                      </Text>
-                                    </li>
-                                  )
-                                )}
+                                {Object.entries(
+                                  (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                                    ?.annotations || {}
+                                ).map((entry, idx) => (
+                                  <li key={idx}>
+                                    <Text font="normal" color="black">
+                                      {entry[0]}:{entry[1]}
+                                    </Text>
+                                  </li>
+                                ))}
                               </ul>
                             )}
                           </>
                         )}
-                        {propagatedStage?.stage?.spec?.infrastructure?.spec?.labels && (
+                        {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels && (
                           <>
                             <Text font="small" margin={{ bottom: 'xsmall' }}>
                               {getString('ci.labels')}
                             </Text>
-                            {typeof propagatedStage?.stage?.spec?.infrastructure?.spec?.labels === 'string' ? (
+                            {typeof (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec
+                              ?.labels === 'string' ? (
                               <Text font="normal" color="black">
-                                {propagatedStage.stage.spec.infrastructure.spec.labels}
+                                {(propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels}
                               </Text>
                             ) : (
                               <ul className={css.plainList}>
-                                {Object.entries(propagatedStage.stage.spec.infrastructure.spec.labels).map(
-                                  (entry, idx) => (
-                                    <li key={idx}>
-                                      <Text font="normal" color="black">
-                                        {entry[0]}:{entry[1]}
-                                      </Text>
-                                    </li>
-                                  )
-                                )}
+                                {Object.entries(
+                                  (propagatedStage?.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.labels ||
+                                    {}
+                                ).map((entry, idx) => (
+                                  <li key={idx}>
+                                    <Text font="normal" color="black">
+                                      {entry[0]}:{entry[1]}
+                                    </Text>
+                                  </li>
+                                ))}
                               </ul>
                             )}
                           </>
@@ -342,7 +365,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
 
                           if (currentMode === Modes.Propagate) {
                             const newStageData = produce(stage, draft => {
-                              draft.stage.spec.infrastructure = {
+                              set(draft, 'stage.spec.infrastructure', {
                                 type: 'KubernetesDirect',
                                 spec: {
                                   connectorRef: '',
@@ -350,10 +373,13 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                   annotations: {},
                                   labels: {}
                                 }
-                              }
+                              })
                             })
                             setFieldValue('useFromStage', undefined)
-                            updateStage(newStageData.stage)
+
+                            if (newStageData.stage) {
+                              updateStage(newStageData.stage)
+                            }
                           }
                         }}
                       >

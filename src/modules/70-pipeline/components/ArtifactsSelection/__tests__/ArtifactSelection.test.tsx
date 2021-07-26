@@ -9,6 +9,7 @@ import ArtifactsSelection from '../ArtifactsSelection'
 import pipelineContextMock from './pipelineContext.json'
 import connectorsData from './connectors_mock.json'
 import ArtifactListView from '../ArtifactListView/ArtifactListView'
+import type { ArtifactListViewProps } from '../ArtifactInterface'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
@@ -20,7 +21,7 @@ const getContextValue = (): PipelineContextInterface => {
     })
   } as any
 }
-const fetchConnectors = () => Promise.resolve({})
+const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 
 jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
@@ -122,14 +123,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`renders Artifact Listview without crashing`, () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -149,14 +149,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`renders Artifact Listview with connectors Data`, () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -175,8 +174,7 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`artifact list renders with proper payload`, async () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         type: 'Ecr' as 'DockerRegistry' | 'Gcr' | 'Ecr',
         spec: {
@@ -199,7 +197,7 @@ describe('ArtifactsSelection tests', () => {
           }
         }
       ],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -226,14 +224,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`delete artifact list works correctly`, async () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -260,14 +257,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`edit artifact list works correctly`, async () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),

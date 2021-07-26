@@ -14,6 +14,7 @@ import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable'
 import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { MonitoredServiceProps } from './MonitoredService.types'
 import { getNewSpecs } from './MonitoredService.utils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -35,13 +36,15 @@ export default function MonitoredService({
     },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const selectedStage = getStageFromPipeline(selectedStageId as string)?.stage
+  const selectedStage = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId as string)?.stage
   const environmentIdentifier =
     selectedStage?.stage?.spec?.infrastructure?.environment?.identifier ||
-    selectedStage?.stage?.spec?.infrastructure?.environmentRef
+    selectedStage?.stage?.spec?.infrastructure?.environmentRef ||
+    ''
   const serviceIdentifier =
     selectedStage?.stage?.spec?.serviceConfig?.service?.identifier ||
-    selectedStage?.stage?.spec?.serviceConfig?.serviceRef
+    selectedStage?.stage?.spec?.serviceConfig?.serviceRef ||
+    ''
 
   const createServiceQueryParams = useMemo(
     () => ({
@@ -153,8 +156,8 @@ export default function MonitoredService({
             shouldRenderAtVerifyStep={true}
             value={healthSourcesList}
             onSuccess={onSuccess}
-            serviceRef={serviceIdentifier}
-            environmentRef={environmentIdentifier}
+            serviceRef={serviceIdentifier || ''}
+            environmentRef={environmentIdentifier || ''}
             monitoredServiceRef={monitoredService}
             breadCrumbRoute={{ routeTitle: getString('connectors.cdng.monitoredService.backToVerifyStep') }}
           />

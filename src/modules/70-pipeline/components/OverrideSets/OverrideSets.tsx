@@ -14,14 +14,13 @@ import {
 } from '@wings-software/uicore'
 import { Form, FieldArray, FieldArrayRenderProps } from 'formik'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import get from 'lodash-es/get'
-import setData from 'lodash-es/set'
-import isEmpty from 'lodash-es/isEmpty'
+import { get, isEmpty, set } from 'lodash-es'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import WorkflowVariables from '@pipeline/components/WorkflowVariablesSelection/WorkflowVariables'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -56,7 +55,7 @@ export default function OverrideSets({
     updatePipeline,
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const serviceDefPath = 'stage.spec.serviceConfig.serviceDefinition.spec'
   const artifactTab = getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')
@@ -92,7 +91,7 @@ export default function OverrideSets({
         }
       }
       artifactOverrideSets.push(artifactOverrideSetsStruct)
-      setData(stage as any, serviceDefPath + '.artifactOverrideSets', artifactOverrideSets)
+      set(stage as any, serviceDefPath + '.artifactOverrideSets', artifactOverrideSets)
     }
     if (selectedTab === OverrideSetsType.Manifests) {
       const manifestOverrideSets = get(stage, serviceDefPath + '.manifestOverrideSets', [])
@@ -103,7 +102,7 @@ export default function OverrideSets({
         }
       }
       manifestOverrideSets.push(manifestOverrideSetStruct)
-      setData(stage as any, serviceDefPath + '.manifestOverrideSets', manifestOverrideSets)
+      set(stage as any, serviceDefPath + '.manifestOverrideSets', manifestOverrideSets)
     }
     if (selectedTab === variableTab) {
       const variableOverrideSets = get(stage, serviceDefPath + '.variableOverrideSets', [])
@@ -114,7 +113,7 @@ export default function OverrideSets({
         }
       }
       variableOverrideSets.push(variableOverrideSetsStruct)
-      setData(stage as any, serviceDefPath + '.variableOverrideSets', variableOverrideSets)
+      set(stage as any, serviceDefPath + '.variableOverrideSets', variableOverrideSets)
     }
     updatePipeline(pipeline)
   }
@@ -276,15 +275,27 @@ export default function OverrideSets({
                   }}
                   validate={({ selectedOverrideSets }: { selectedOverrideSets: string[] }) => {
                     if (selectedTab === artifactTab && stage) {
-                      stage.stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets = selectedOverrideSets
+                      set(
+                        stage,
+                        'stage.spec.serviceConfig.stageOverrides.useArtifactOverrideSets',
+                        selectedOverrideSets
+                      )
                       return updatePipeline(pipeline)
                     }
                     if (selectedTab === manifestTab && stage) {
-                      stage.stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets = selectedOverrideSets
+                      set(
+                        stage,
+                        'stage.spec.serviceConfig.stageOverrides.useManifestOverrideSets',
+                        selectedOverrideSets
+                      )
                       return updatePipeline(pipeline)
                     }
                     if (selectedTab === variableTab && stage) {
-                      stage.stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets = selectedOverrideSets
+                      set(
+                        stage,
+                        'stage.spec.serviceConfig.stageOverrides.useVariableOverrideSets',
+                        selectedOverrideSets
+                      )
                       return updatePipeline(pipeline)
                     }
                   }}
@@ -310,9 +321,9 @@ export default function OverrideSets({
                                   />
                                 )}
                               </span>
-                              {formik.values?.selectedOverrideSets?.map((set: string, index: number) => (
+                              {formik.values?.selectedOverrideSets?.map((oSet: string, index: number) => (
                                 <Layout.Horizontal
-                                  key={`${set}_${index}`}
+                                  key={`${oSet}_${index}`}
                                   flex={{ distribution: 'space-between' }}
                                   style={{ alignItems: 'end' }}
                                 >
@@ -323,7 +334,7 @@ export default function OverrideSets({
                                     onDragStart={event => {
                                       onDragStart(event, index)
                                     }}
-                                    data-testid={set}
+                                    data-testid={oSet}
                                     onDragEnd={onDragEnd}
                                     onDragOver={onDragOver}
                                     onDragLeave={onDragLeave}
@@ -343,7 +354,7 @@ export default function OverrideSets({
                                         />
                                       </div>
                                       <div className={css.artifactsTabs}>
-                                        {set && selectedTab === artifactTab && (
+                                        {oSet && selectedTab === artifactTab && (
                                           <ArtifactsSelection
                                             isForOverrideSets={!isPropagating}
                                             isForPredefinedSets={false}
@@ -355,7 +366,7 @@ export default function OverrideSets({
                                             )}
                                           />
                                         )}
-                                        {set && selectedTab === manifestTab && (
+                                        {oSet && selectedTab === manifestTab && (
                                           <ManifestSelection
                                             isForOverrideSets={!isPropagating}
                                             isForPredefinedSets={false}
@@ -367,7 +378,7 @@ export default function OverrideSets({
                                             )}
                                           />
                                         )}
-                                        {set && selectedTab === variableTab && (
+                                        {oSet && selectedTab === variableTab && (
                                           <WorkflowVariables
                                             factory={factory}
                                             isForOverrideSets={!isPropagating}

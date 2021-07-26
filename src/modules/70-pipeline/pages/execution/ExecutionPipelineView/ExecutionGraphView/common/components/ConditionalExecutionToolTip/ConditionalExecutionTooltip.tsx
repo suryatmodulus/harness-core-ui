@@ -4,14 +4,15 @@ import { useStrings } from 'framework/strings'
 import {
   ModeEntityNameMap,
   ParentModeEntityNameMap,
-  PipelineOrStageStatus
+  PipelineOrStageStatus,
+  WhenConditionStatus
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import type { ResolvedVariableInterface } from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 
 export interface ConditionalExecutionTooltipProps {
   mode: Modes
-  status: PipelineOrStageStatus
+  status?: WhenConditionStatus
   condition?: string
   resolvedVariables?: ResolvedVariableInterface[]
 }
@@ -23,7 +24,7 @@ const statusMapping: any = {
 }
 
 export default function ConditionalExecutionTooltip(props: ConditionalExecutionTooltipProps): React.ReactElement {
-  const { mode, status, condition, resolvedVariables } = props
+  const { mode, status = PipelineOrStageStatus.All, condition, resolvedVariables } = props
   const { getString } = useStrings()
   return (
     <Layout.Horizontal

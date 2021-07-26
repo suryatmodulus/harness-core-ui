@@ -270,6 +270,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                           <span
                             class="bp3-icon bp3-icon-ban-circle StyledProps--main pushdown7 StyledProps--color StyledProps--color-grey200"
                             icon="ban-circle"
+                            style="cursor: pointer;"
                           >
                             <svg
                               data-icon="ban-circle"

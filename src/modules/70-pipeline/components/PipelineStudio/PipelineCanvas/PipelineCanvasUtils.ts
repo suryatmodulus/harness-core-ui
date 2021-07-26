@@ -5,8 +5,7 @@ import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDraw
 // import { getConfig } from 'services/config'
 // import { Failure, GetStepsQueryParams, ResponseStepCategory, UseGetStepsProps } from 'services/cd-ng'
 // import { Failure, GetStepsQueryParams, ResponseStepCategory, useGetSteps, UseGetStepsProps } from 'services/cd-ng'
-import type { StepCategory } from 'services/cd-ng'
-import type { StageElementWrapper } from 'services/cd-ng'
+import type { StageElementWrapperConfigConfig, StepCategory } from 'services/cd-ng'
 import { deployStageSteps } from './mock'
 // import { buildStageSteps, deployStageSteps } from './mock'
 
@@ -89,7 +88,7 @@ export const getAddDrawerMap = (drawerMap: any, stageType: string): AddDrawerMap
 //     mock: { data: (buildStageSteps as unknown) as ResponseStepCategory }
 //   })
 
-export const getCategoryItems = (_stageType: string, _selectedStage: StageElementWrapper | undefined) => {
+export const getCategoryItems = (_stageType: string, _selectedStage: StageElementWrapperConfigConfig | undefined) => {
   //   const serviceDefinitionType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
   //   this was successful
   const { data } = deployStageSteps

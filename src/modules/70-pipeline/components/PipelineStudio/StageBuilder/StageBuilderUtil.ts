@@ -1,9 +1,14 @@
-import { flatMap, findIndex, cloneDeep } from 'lodash-es'
+import { flatMap, findIndex, cloneDeep, set } from 'lodash-es'
 import { Color } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import produce from 'immer'
-import type { StageElementWrapper, NgPipeline, PageConnectorResponse, PipelineInfoConfig } from 'services/cd-ng'
+import type {
+  StageElementWrapperConfigConfig,
+  PageConnectorResponse,
+  PipelineInfoConfig,
+  DeploymentStageConfig
+} from 'services/cd-ng'
 import type * as Diagram from '@pipeline/components/Diagram'
 import {
   getIdentifierFromValue,
@@ -11,39 +16,43 @@ import {
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
 import type { StageType } from '@pipeline/utils/stageHelpers'
+import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../PipelineContext/helpers'
 
 export interface StageState {
   isConfigured: boolean
-  stage: StageElementWrapper
+  stage: StageElementWrapperConfigConfig
 }
 
 export interface PopoverData {
-  data?: StageElementWrapper
+  data?: StageElementWrapperConfigConfig
   isStageView: boolean
-  groupStages?: StageElementWrapper[]
+  groupStages?: StageElementWrapperConfigConfig[]
   isGroupStage?: boolean
   stagesMap: StagesMap
   groupSelectedStageId?: string
   isParallel?: boolean
   event?: Diagram.DefaultNodeEvent
   addStage?: (
-    newStage: StageElementWrapper,
+    newStage: StageElementWrapperConfigConfig,
     isParallel?: boolean,
     event?: Diagram.DefaultNodeEvent,
     insertAt?: number,
     openSetupAfterAdd?: boolean,
     pipeline?: PipelineInfoConfig
   ) => void
-  onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
+  onSubmitPrimaryData?: (values: StageElementWrapperConfigConfig, identifier: string) => void
   onClickGroupStage?: (stageId: string, type: StageType) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
   isHoverView?: boolean
 }
 
-export const getStageIndexByIdentifier = (pipeline: NgPipeline, identifier: string) => {
+export const getStageIndexByIdentifier = (
+  pipeline: PipelineInfoConfig,
+  identifier?: string
+): { stageIndex: number; parallelStageIndex: number } => {
   const stageDetails = { stageIndex: -1, parallelStageIndex: -1 }
   if (pipeline?.stages) {
     for (const [index, stage] of pipeline.stages.entries()) {
@@ -52,7 +61,7 @@ export const getStageIndexByIdentifier = (pipeline: NgPipeline, identifier: stri
         break
       }
       if (stage?.parallel) {
-        const targetStageIndex = stage.parallel.findIndex((pstage: any) => pstage.stage.identifier === identifier)
+        const targetStageIndex = stage.parallel.findIndex(pstage => pstage.stage?.identifier === identifier)
         if (targetStageIndex > -1) {
           stageDetails.stageIndex = index
           stageDetails.parallelStageIndex = targetStageIndex
@@ -64,7 +73,7 @@ export const getStageIndexByIdentifier = (pipeline: NgPipeline, identifier: stri
   return stageDetails
 }
 
-export const getNewStageFromType = (type: string, clearDefaultValues = false): StageElementWrapper => {
+export const getNewStageFromType = (type: string, clearDefaultValues = false): StageElementWrapperConfigConfig => {
   // TODO: replace string with type
   if (type === 'ci') {
     return {
@@ -76,7 +85,7 @@ export const getNewStageFromType = (type: string, clearDefaultValues = false): S
         spec: {
           serviceDependencies: [],
           execution: {}
-        }
+        } as any
       }
     }
   }
@@ -128,22 +137,22 @@ export const getStatus = (
   return { status, color }
 }
 
-export const getStageIndexFromPipeline = (data: StageElementWrapper, identifier: string): { index: number } => {
+export const getStageIndexFromPipeline = (data: PipelineInfoConfig, identifier?: string): { index: number } => {
   let _index = 0
 
   const { stages } = getFlattenedStages(data)
 
-  _index = findIndex(stages, o => o.stage.identifier === identifier)
+  _index = findIndex(stages, o => o.stage?.identifier === identifier)
   return { index: _index }
 }
 
 export const getFlattenedStages = (
-  data: StageElementWrapper
+  data: Partial<PipelineInfoConfig>
 ): {
-  stages: StageElementWrapper[]
+  stages: StageElementWrapperConfigConfig[]
 } => {
   let stages = []
-  stages = flatMap(data.stages, (n: StageElementWrapper) => {
+  stages = flatMap(data.stages || [], (n: StageElementWrapperConfigConfig) => {
     const k = []
     if (n.parallel) {
       k.push(...n['parallel'])
@@ -155,11 +164,9 @@ export const getFlattenedStages = (
   return { stages }
 }
 
-export const mayBeStripCIProps = (pipeline: StageElementWrapper): boolean => {
+export const mayBeStripCIProps = (pipeline: PipelineInfoConfig): boolean => {
   // no CI stages exist
-  const areCIStagesAbsent = pipeline?.stages?.every(
-    (stage: StageElementWrapper) => (stage as StageElementWrapper).stage?.type !== 'CI'
-  )
+  const areCIStagesAbsent = pipeline?.stages?.every(stage => stage.stage?.type !== 'CI')
   if (areCIStagesAbsent) {
     const props = Object.keys(pipeline.properties || {})
     // figure out if only properties that are left is related to ci
@@ -169,7 +176,7 @@ export const mayBeStripCIProps = (pipeline: StageElementWrapper): boolean => {
     }
     // otherwise figure out if properties object has a ci prop
     const hasCI = props.some(prop => prop === 'ci')
-    if (hasCI) {
+    if (hasCI && pipeline.properties?.ci) {
       return delete pipeline.properties.ci
     }
   }
@@ -177,8 +184,8 @@ export const mayBeStripCIProps = (pipeline: StageElementWrapper): boolean => {
 }
 
 export const removeNodeFromPipeline = (
-  nodeResponse: { stage?: StageElementWrapper; parent?: StageElementWrapper },
-  data: NgPipeline | StageElementWrapper,
+  nodeResponse: { stage?: StageElementWrapperConfigConfig; parent?: StageElementWrapperConfigConfig },
+  data: PipelineInfoConfig,
   stageMap: Map<string, StageState>,
   updateStateMap = true
 ): boolean => {
@@ -188,11 +195,14 @@ export const removeNodeFromPipeline = (
     if (index > -1) {
       data?.stages?.splice(index, 1)
       if (updateStateMap) {
-        stageMap.delete(node.stage.identifier)
+        stageMap.delete(node.stage?.identifier || '')
 
-        data.stages?.map((currentStage: StageState) => {
-          if (currentStage.stage?.spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {
-            currentStage.stage.spec.serviceConfig = {}
+        data.stages?.map(currentStage => {
+          if (
+            (currentStage.stage?.spec as DeploymentStageConfig)?.serviceConfig?.useFromStage?.stage ===
+            node?.stage?.identifier
+          ) {
+            ;(currentStage.stage?.spec as DeploymentStageConfig).serviceConfig = {}
           }
         })
       }
@@ -212,20 +222,22 @@ export const removeNodeFromPipeline = (
             data?.stages?.splice(oneStageParallel, 1, parent.parallel[0])
           }
         }
-        updateStateMap && stageMap.delete(node.stage.identifier)
+        updateStateMap && stageMap.delete(node.stage?.identifier || '')
         return true
       }
     }
   }
   return false
 }
-export const getDependantStages = (pipeline: NgPipeline | StageElementWrapper, node: StageElementWrapper): string[] => {
+export const getDependantStages = (pipeline: PipelineInfoConfig, node?: StageElementWrapper): string[] => {
   const dependantStages: string[] = []
   const flattenedStages = getFlattenedStages(pipeline).stages
 
-  flattenedStages?.forEach((currentStage: StageElementWrapper) => {
-    if (currentStage.stage?.spec?.serviceConfig?.useFromStage?.stage === node?.stage?.identifier) {
-      dependantStages.push(currentStage.stage.name)
+  flattenedStages?.forEach(currentStage => {
+    if (
+      (currentStage.stage?.spec as DeploymentStageConfig).serviceConfig?.useFromStage?.stage === node?.stage?.identifier
+    ) {
+      dependantStages.push(currentStage.stage?.name || '')
     }
   })
   return dependantStages
@@ -236,14 +248,18 @@ export const resetDiagram = (engine: DiagramEngine): void => {
   engine.repaintCanvas()
 }
 
-export const isDuplicateStageId = (id: string, stages: StageElementWrapper[], updateMode?: boolean): boolean => {
+export const isDuplicateStageId = (
+  id: string,
+  stages: StageElementWrapperConfigConfig[],
+  updateMode?: boolean
+): boolean => {
   const flattenedStages = getFlattenedStages({
     stages
   })
-  if (!updateMode) return flattenedStages.stages?.some(({ stage }) => stage.identifier === id)
+  if (!updateMode) return flattenedStages.stages?.some(({ stage }) => stage?.identifier === id)
   let duplicatesCount = 0
   for (const stage of flattenedStages.stages) {
-    if (stage.identifier === id) {
+    if (stage.stage?.identifier === id) {
       duplicatesCount++
     }
   }
@@ -264,7 +280,10 @@ export const getConnectorNameFromValue = (
   return connectorName
 }
 
-export const resetServiceSelectionForStages = (stages: string[] = [], pipeline: NgPipeline): StageElementWrapper[] => {
+export const resetServiceSelectionForStages = (
+  stages: string[] = [],
+  pipeline: PipelineInfoConfig
+): StageElementWrapperConfigConfig[] => {
   const stagesCopy = cloneDeep(pipeline.stages) || []
   stages.forEach(stageId => {
     const { stage, parent = null } = getStageFromPipeline(stageId, pipeline)
@@ -274,8 +293,8 @@ export const resetServiceSelectionForStages = (stages: string[] = [], pipeline: 
 
     if (parent) {
       const { parallelStageIndex, stageIndex: parentStageIndex } = getStageIndexByIdentifier(pipeline, stageId)
-      const updatedStage = resetStageServiceSpec(stagesCopy[parentStageIndex].parallel[parallelStageIndex])
-      stagesCopy[parentStageIndex].parallel[parallelStageIndex] = updatedStage
+      const updatedStage = resetStageServiceSpec(stagesCopy?.[parentStageIndex]?.parallel?.[parallelStageIndex] || {})
+      set(stagesCopy, [parentStageIndex, 'parallel', parallelStageIndex], updatedStage)
       return
     }
     let stageIndex = pipeline.stages?.indexOf(stage)
@@ -289,7 +308,7 @@ export const resetServiceSelectionForStages = (stages: string[] = [], pipeline: 
 export const getAffectedDependentStages = (
   dependentStages: string[] = [],
   dropIndex: number,
-  pipeline: NgPipeline,
+  pipeline: PipelineInfoConfig,
   parallelStageIndex = -1
 ): string[] => {
   const affectedStages: Set<string> = new Set()
@@ -299,8 +318,8 @@ export const getAffectedDependentStages = (
       return false
     }
     if (parent) {
-      parent?.parallel.forEach((pStageId: StageElementWrapper, index: number) => {
-        const stageIndex = dependentStages.indexOf(pStageId?.stage?.identifier)
+      parent?.parallel?.forEach((pStageId: StageElementWrapperConfigConfig, index: number) => {
+        const stageIndex = dependentStages.indexOf(pStageId?.stage?.identifier || '')
         if (parallelStageIndex !== -1) {
           stageIndex > -1 && index <= parallelStageIndex && affectedStages.add(stageId)
         } else {
@@ -319,9 +338,9 @@ export const getAffectedDependentStages = (
   return [...affectedStages]
 }
 
-export const resetStageServiceSpec = (stage: StageElementWrapper): StageElementWrapper =>
+export const resetStageServiceSpec = (stage: StageElementWrapperConfigConfig): StageElementWrapperConfigConfig =>
   produce(stage, draft => {
-    ;(draft.stage as any).spec.serviceConfig = {
+    ;(draft.stage?.spec as DeploymentStageConfig).serviceConfig = {
       serviceRef: '',
       serviceDefinition: {
         type: 'Kubernetes',

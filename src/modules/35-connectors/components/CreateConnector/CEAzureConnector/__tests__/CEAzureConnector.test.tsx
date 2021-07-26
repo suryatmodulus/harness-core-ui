@@ -11,8 +11,7 @@ import {
   useUpdateConnector
 } from 'services/cd-ng'
 import { useAzureappclientid } from 'services/ce'
-// CreateAzureConnector will eventually be a default export after we get rid of the old flow
-import { CreateAzureConnector } from '../CreateCeAzureConnector'
+import CreateAzureConnector from '../CreateCeAzureConnector'
 
 const commonProps = {
   accountId: 'dummy',
@@ -296,7 +295,6 @@ describe('Create Azure connector Wizard', () => {
     })
 
     // Choose requirement page is rendered
-    expect(getByText('connectors.ceAzure.chooseRequirements.visibilityCardDesc')).toBeDefined()
     expect(getByText('connectors.ceAzure.chooseRequirements.optimizationCardDesc')).toBeDefined()
     expect(container).toMatchSnapshot()
 

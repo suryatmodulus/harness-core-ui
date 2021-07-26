@@ -47,3 +47,7 @@ export enum TimeRangeType {
   'LAST_7' = 'LAST_7',
   'LAST_30' = 'LAST_30'
 }
+
+export enum CCM_PAGE_TYPE {
+  WORKLOAD = 'WORKLOAD'
+}

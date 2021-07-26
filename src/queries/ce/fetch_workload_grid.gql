@@ -1,0 +1,74 @@
+query FetchWorkloadGrid($filters: [QLCEViewFilterWrapperInput]) {
+  perspectiveGrid(
+    filters: $filters
+    aggregateFunction: [
+      { operationType: SUM, columnName: "networkcost" }
+      { operationType: SUM, columnName: "storageActualIdleCost" }
+      { operationType: SUM, columnName: "cost" }
+      { operationType: SUM, columnName: "memoryBillingAmount" }
+      { operationType: SUM, columnName: "cpuBillingAmount" }
+      { operationType: SUM, columnName: "storageCost" }
+      { operationType: SUM, columnName: "unallocatedcost" }
+      { operationType: SUM, columnName: "storageUnallocatedCost" }
+      { operationType: SUM, columnName: "memoryUnallocatedCost" }
+      { operationType: SUM, columnName: "cpuUnallocatedCost" }
+      { operationType: SUM, columnName: "idleCost" }
+      { operationType: SUM, columnName: "memoryIdleCost" }
+      { operationType: SUM, columnName: "cpuIdleCost" }
+      { operationType: SUM, columnName: "systemcost" }
+      { operationType: MAX, columnName: "storageUtilizationValue" }
+      { operationType: MAX, columnName: "storageRequest" }
+    ]
+    sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
+    groupBy: { entityGroupBy: { fieldId: "instanceId", fieldName: "Pod", identifier: CLUSTER } }
+    limit: 100
+    offset: 0
+  ) {
+    data {
+      id
+      name
+      cost
+      costTrend
+      clusterData: instanceDetails {
+        name
+        id
+        nodeId
+        namespace
+        workload
+        clusterName
+        clusterId
+        node
+        nodePoolName
+        cloudProviderInstanceId
+        podCapacity
+        totalCost
+        idleCost
+        systemCost
+        networkCost
+        unallocatedCost
+        cpuAllocatable
+        memoryAllocatable
+        cpuRequested
+        memoryRequested
+        cpuUnitPrice
+        memoryUnitPrice
+        instanceCategory
+        machineType
+        createTime
+        deleteTime
+        qosClass
+        memoryBillingAmount
+        cpuBillingAmount
+        storageUnallocatedCost
+        memoryUnallocatedCost
+        cpuUnallocatedCost
+        memoryIdleCost
+        cpuIdleCost
+        storageCost
+        storageActualIdleCost
+        storageUtilizationValue
+        storageRequest
+      }
+    }
+  }
+}

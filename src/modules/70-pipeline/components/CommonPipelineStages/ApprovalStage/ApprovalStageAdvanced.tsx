@@ -2,11 +2,13 @@ import { Card, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import { produce } from 'immer'
+import { set } from 'lodash-es'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
 import { useStrings } from 'framework/strings'
+import type { ApprovalStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './ApprovalAdvancedSpecifications.module.scss'
 
 export interface AdvancedSpecifications {
@@ -23,7 +25,7 @@ const ApprovalAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ chil
     getStageFromPipeline,
     updateStage
   } = React.useContext(PipelineContext)
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<ApprovalStageElementConfig>(selectedStageId || '')
 
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
@@ -44,9 +46,10 @@ const ApprovalAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ chil
                       const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                       if (pipelineStage && pipelineStage.stage) {
                         const stageData = produce(pipelineStage, draft => {
-                          draft.stage.when = when
+                          set(draft, 'stage.when', when)
                         })
-                        updateStage(stageData.stage)
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                        updateStage(stageData.stage!)
                       }
                     }}
                   />
@@ -68,9 +71,10 @@ const ApprovalAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ chil
                     const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                     if (pipelineStage && pipelineStage.stage) {
                       const stageData = produce(pipelineStage, draft => {
-                        draft.stage.failureStrategies = failureStrategies
+                        set(draft, 'stage.failureStrategies', failureStrategies)
                       })
-                      updateStage(stageData.stage)
+                      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                      updateStage(stageData.stage!)
                     }
                   }}
                 />

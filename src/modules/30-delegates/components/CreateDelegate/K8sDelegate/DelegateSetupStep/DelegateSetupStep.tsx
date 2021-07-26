@@ -32,7 +32,7 @@ import { useToaster } from '@common/exports'
 
 import type { StepK8Data } from '@delegates/DelegateInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { AddDescription } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 
 import { DelegateSize } from '@delegates/constants'
 import css from './DelegateSetupStep.module.scss'
@@ -233,11 +233,13 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
             return (
               <FormikForm>
                 <Container className={css.delegateForm}>
-                  <Layout.Horizontal style={{ height: '500px' }}>
-                    <Layout.Vertical style={{ width: '50%' }}>
+                  <Layout.Horizontal className={css.baseContainer}>
+                    <Layout.Vertical className={css.leftPanel}>
                       <div className={css.formGroup}>
-                        <AddDescription
-                          formComponent={<FormInput.Text name="name" label={getString('delegate.delegateName')} />}
+                        <AddDescriptionAndTagsWithIdentifier
+                          identifierProps={{
+                            inputLabel: getString('delegate.delegateName')
+                          }}
                         />
                       </div>
                       {delegateSizeMappings && (

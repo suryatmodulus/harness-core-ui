@@ -3,7 +3,7 @@ import { first } from 'lodash-es'
 import { Icon } from '@wings-software/uicore'
 
 import type { ExecutionSummaryProps } from '@pipeline/factories/ExecutionFactory/types'
-import type { CIBuildResponseDTO } from 'services/ci'
+import type { CIWebhookInfoDTO } from 'services/ci'
 
 import { LastCommit } from '../CommitsInfo/CommitsInfo'
 import { BranchBadge } from '../BranchBadge/BranchBadge'
@@ -14,7 +14,7 @@ import css from './CIExecutionSummary.module.scss'
 
 export function CIExecutionSummary(props: ExecutionSummaryProps): React.ReactElement {
   const { data } = props
-  const buildData = data?.ciExecutionInfoDTO as CIBuildResponseDTO
+  const buildData = data?.ciExecutionInfoDTO as CIWebhookInfoDTO
   const branchName = data?.branch as string
   const tagName = data?.tag
   const repoName = data?.repoName

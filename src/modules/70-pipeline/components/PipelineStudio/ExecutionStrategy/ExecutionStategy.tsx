@@ -9,7 +9,7 @@ import {
   DeploymentStageConfig,
   GetExecutionStrategyYamlQueryParams,
   StageElementConfig,
-  StageElementWrapperConfig,
+  StageElementWrapperConfigConfig,
   useGetExecutionStrategyList,
   useGetExecutionStrategyYaml
 } from 'services/cd-ng'
@@ -23,7 +23,7 @@ import Default from './images/BlankCanvas.png'
 import css from './ExecutionStrategy.module.scss'
 
 export interface ExecutionStrategyProps {
-  selectedStage: Record<string, any>
+  selectedStage: StageElementWrapperConfigConfig
 }
 
 const iconMap: { [key: string]: IconName } = {
@@ -94,7 +94,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   useEffect(() => {
     if (yamlSnippet?.data) {
       updateStage(
-        produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
+        produce(selectedStage, draft => {
           const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
           if (draft.stage && draft.stage.spec) {
             draft.stage.failureStrategies = jsonFromYaml.failureStrategies
@@ -108,7 +108,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
 
   const cancelSelection = (): void => {
     updateStage(
-      produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
+      produce(selectedStage, draft => {
         const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
         if (draft.stage && draft.stage.spec) {
           draft.stage.failureStrategies = jsonFromYaml.failureStrategies
@@ -159,23 +159,24 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
             text={getString('filters.apply')}
             className={css.selectBtn}
             onClick={() => {
-              return updateStage(
-                produce<StageElementWrapperConfig>(selectedStage, (draft: StageElementWrapperConfig) => {
-                  const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
-                  if (draft.stage && draft.stage.spec) {
-                    draft.stage.failureStrategies = jsonFromYaml.failureStrategies
-                    ;(draft.stage.spec as DeploymentStageConfig).execution = (
-                      jsonFromYaml.spec as DeploymentStageConfig
-                    )?.execution ?? { steps: [], rollbackSteps: [] }
-                  }
-                }).stage as StageElementConfig
-              ).then(() => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: false,
-                  drawerData: { type: DrawerTypes.ExecutionStrategy }
+              const newStage = produce(selectedStage, draft => {
+                const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as StageElementConfig
+                if (draft.stage && draft.stage.spec) {
+                  draft.stage.failureStrategies = jsonFromYaml.failureStrategies
+                  ;(draft.stage.spec as DeploymentStageConfig).execution = (jsonFromYaml.spec as DeploymentStageConfig)
+                    ?.execution ?? { steps: [], rollbackSteps: [] }
+                }
+              }).stage
+
+              if (newStage) {
+                return updateStage(newStage).then(() => {
+                  updatePipelineView({
+                    ...pipelineView,
+                    isDrawerOpened: false,
+                    drawerData: { type: DrawerTypes.ExecutionStrategy }
+                  })
                 })
-              })
+              }
             }}
             disabled={isSubmitDisabled}
           />

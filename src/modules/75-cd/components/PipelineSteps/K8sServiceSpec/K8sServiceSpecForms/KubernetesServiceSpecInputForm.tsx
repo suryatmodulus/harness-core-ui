@@ -430,7 +430,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
             {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.artifacts')}{' '}
           </div>
 
-          <div className={css.nestedAccordions}>
+          <div className={cx(css.nestedAccordions, css.artifactsAccordion)}>
             {template?.artifacts?.primary && (
               <Text className={css.inputheader}>
                 {getString('primaryArtifactText')}

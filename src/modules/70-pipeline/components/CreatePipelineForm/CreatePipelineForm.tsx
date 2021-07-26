@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { DEFAULT_COLOR } from '@common/constants/Utils'
 import { useStrings } from 'framework/strings'
 import type { EntityGitDetails } from 'services/pipeline-ng'
@@ -13,7 +13,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 
 interface CreatePipelineFormProps {
-  handleSubmit: (value: NgPipeline, gitDetail: EntityGitDetails) => void
+  handleSubmit: (value: PipelineInfoConfig, gitDetail: EntityGitDetails) => void
   closeModal?: () => void
   learnMoreUrl?: string
 }

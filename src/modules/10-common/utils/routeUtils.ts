@@ -93,7 +93,7 @@ export const resourceGroupPathProps: ResourceGroupPathProps = {
 }
 
 export const delegatePathProps: DelegatePathProps = {
-  delegateId: ':delegateId'
+  delegateIdentifier: ':delegateIdentifier'
 }
 
 export const delegateConfigProps: DelegateConfigProps = {

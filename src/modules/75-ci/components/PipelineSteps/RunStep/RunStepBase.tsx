@@ -36,6 +36,7 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { RunStepProps, RunStepData, RunStepDataUI } from './RunStep'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunStepFunctionConfigs'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -61,7 +62,7 @@ export const RunStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   return (
     <Formik

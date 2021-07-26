@@ -12,7 +12,6 @@ export const EmailVerificationBanner = (): React.ReactElement => {
   const { getString } = useStrings()
   const { currentUserInfo } = useAppStore()
   const { mutate: resendEmail, loading } = useResendVerifyEmail({
-    userId: currentUserInfo.uuid || '',
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })
   const { showError } = useToaster()

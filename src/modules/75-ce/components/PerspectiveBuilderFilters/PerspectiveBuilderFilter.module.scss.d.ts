@@ -11,7 +11,12 @@ declare const styles: {
   readonly operandContainer: string
   readonly mainContainer: string
   readonly valueContainer: string
+  readonly searchBoxContainer: string
+  readonly searchCheckBox: string
+  readonly fetchingMoreLoader: string
   readonly checkbox: string
+  readonly labelItem: string
   readonly valueFetching: string
+  readonly groupByLabel: string
 }
 export default styles

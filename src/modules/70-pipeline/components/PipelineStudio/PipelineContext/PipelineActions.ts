@@ -1,10 +1,11 @@
 import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
-import type { ExecutionWrapper, YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
+import type { YamlSnippetMetaData, PipelineInfoConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type * as Diagram from '@pipeline/components/Diagram'
 import type { EntityGitDetails } from 'services/pipeline-ng'
-import type { DependenciesWrapper, StepState } from '../ExecutionGraph/ExecutionGraphUtil'
+import type { DependencyElement } from 'services/ci'
+import type { StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
 
 export enum PipelineActions {
@@ -60,17 +61,17 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
     paletteData?: {
       isRollback: boolean
       isParallelNodeClicked: boolean
-      onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      onUpdate?: (stepOrGroup: StepElementConfig | StepGroupElementConfig | DependencyElement) => void
       entity: Diagram.DefaultNodeModel
       stepsMap: Map<string, StepState>
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
     stepConfig?: {
-      node: ExecutionWrapper | DependenciesWrapper
+      node: StepElementConfig | StepGroupElementConfig | DependencyElement
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
       stepsMap: Map<string, StepState>
-      onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      onUpdate?: (stepOrGroup: StepElementConfig | StepGroupElementConfig | DependencyElement) => void
       isUnderStepGroup?: boolean
       hiddenAdvancedPanels?: AdvancedPanels[]
     }

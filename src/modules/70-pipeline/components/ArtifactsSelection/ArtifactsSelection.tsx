@@ -31,6 +31,7 @@ import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connector
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
 import { useQueryParams } from '@common/hooks'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
@@ -116,7 +117,7 @@ export default function ArtifactsSelection({
       .filter((x: { overrideSet: { identifier: string; artifacts: [] } }) => x !== undefined)[0]
   }
 
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 
   const getArtifactsPath = (): any => {
     if (isForOverrideSets) {

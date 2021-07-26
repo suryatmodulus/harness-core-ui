@@ -45,7 +45,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -74,7 +74,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -109,6 +109,12 @@
         "produces": ["application/json"],
         "parameters": [
           {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -140,7 +146,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -171,7 +177,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -194,7 +200,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -227,7 +233,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -245,36 +251,6 @@
             "schema": {
               "$ref": "#/definitions/RestResponseListBudget"
             }
-          }
-        }
-      }
-    },
-    "/yaml/cloudCostK8sClusterSetup": {
-      "post": {
-        "tags": ["yaml"],
-        "summary": "get k8s cluster setup yaml based on features enabled",
-        "description": "",
-        "operationId": "cloudCostK8sClusterSetup",
-        "produces": ["application/json"],
-        "parameters": [
-          {
-            "name": "accountId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "$ref": "#/definitions/K8sClusterSetupRequest"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
           }
         }
       }
@@ -312,6 +288,36 @@
           }
         },
         "deprecated": true
+      }
+    },
+    "/yaml/cloudCostK8sClusterSetup": {
+      "post": {
+        "tags": ["yaml"],
+        "summary": "get k8s cluster setup yaml based on features enabled",
+        "description": "",
+        "operationId": "cloudCostK8sClusterSetup",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/K8sClusterSetupRequest"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
       }
     },
     "/connector/azureappclientid": {
@@ -451,7 +457,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -476,7 +482,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -505,7 +511,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -536,7 +542,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -567,7 +573,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -606,7 +612,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -630,7 +636,7 @@
         }
       }
     },
-    "/perspectiveReport/{accountId}": {
+    "/perspectiveReport/{accountIdentifier}": {
       "get": {
         "tags": ["perspectiveReport"],
         "summary": "Get perspective reports",
@@ -651,7 +657,7 @@
             "type": "string"
           },
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "path",
             "required": true,
             "type": "string"
@@ -674,7 +680,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "path",
             "required": true,
             "type": "string"
@@ -705,7 +711,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "path",
             "required": true,
             "type": "string"
@@ -748,7 +754,7 @@
             "type": "string"
           },
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "path",
             "required": true,
             "type": "string"
@@ -773,7 +779,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -802,7 +808,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -839,7 +845,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -870,7 +876,7 @@
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1025,9 +1031,6 @@
       "type": "object",
       "discriminator": "type",
       "properties": {
-        "budgetScopeType": {
-          "type": "string"
-        },
         "entityIds": {
           "type": "array",
           "items": {
@@ -1039,6 +1042,9 @@
           "items": {
             "type": "string"
           }
+        },
+        "budgetScopeType": {
+          "type": "string"
         }
       }
     },
@@ -1337,6 +1343,7 @@
             "CONNECTOR_VALIDATION_EXCEPTION",
             "TIMESCALE_NOT_AVAILABLE",
             "MIGRATION_EXCEPTION",
+            "REQUEST_PROCESSING_INTERRUPTED",
             "GCP_SECRET_MANAGER_OPERATION_ERROR",
             "GCP_SECRET_OPERATION_ERROR",
             "GIT_OPERATION_ERROR",
@@ -1799,7 +1806,7 @@
         },
         "viewType": {
           "type": "string",
-          "enum": ["SAMPLE", "CUSTOMER", "DEFAULT_AZURE"]
+          "enum": ["SAMPLE", "CUSTOMER", "DEFAULT_AZURE", "DEFAULT"]
         },
         "viewState": {
           "type": "string",

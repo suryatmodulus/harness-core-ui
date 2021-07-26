@@ -38,5 +38,6 @@ declare const styles: {
   readonly asgInstanceFormContainer: string
   readonly instanceTypeInput: string
   readonly yamlEditorContainer: string
+  readonly titleHelpTextDescription: string
 }
 export default styles

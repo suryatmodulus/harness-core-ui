@@ -114,8 +114,8 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
 
 const useFetchReports = (accountId: string, perspectiveId: string) => {
   const { data, loading, refetch } = useGetReportSetting({
-    accountId,
-    queryParams: { perspectiveId } // TODO: accountIdentifier: accountId
+    accountIdentifier: accountId,
+    queryParams: { perspectiveId }
   })
   return { reports: data?.resource || [], loading, refetch }
 }
@@ -191,7 +191,7 @@ const ScheduledReports: React.FC = () => {
 
 const useFetchBudget = (accountId: string, perspectiveId: string) => {
   const { data, loading, refetch } = useListBudgetsForPerspective({
-    queryParams: { accountId: accountId, perspectiveId: perspectiveId } // TODO: accountIdentifier: accountId
+    queryParams: { accountIdentifier: accountId, perspectiveId: perspectiveId }
   })
   return { budgets: data?.resource || [], loading, refetch }
 }
@@ -199,9 +199,14 @@ const useFetchBudget = (accountId: string, perspectiveId: string) => {
 const Budgets = (): JSX.Element => {
   const { getString } = useStrings()
   const { accountId, perspectiveId } = useParams<UrlParams>()
-  const { mutate: deleteBudget } = useDeleteBudget({ queryParams: { accountId } })
+  const { mutate: deleteBudget } = useDeleteBudget({ queryParams: { accountIdentifier: accountId } })
   const { budgets, loading, refetch } = useFetchBudget(accountId, perspectiveId)
-  const { openModal } = useBudgetModal({ onSuccess: () => refetch() })
+  const { openModal, hideModal } = useBudgetModal({
+    onSuccess: () => {
+      hideModal()
+      refetch()
+    }
+  })
 
   const budget = budgets[0] || {}
   const { budgetAmount, alertThresholds = [] } = budget

@@ -46,7 +46,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
             {getString(label)}
           </Text>
           <Radio
-            label={getString('resourceGroup.all', { name: getString(label) })}
+            label={getString('rbac.resourceGroup.all', { name: getString(label) })}
             checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
             className={css.radioBtn}
             onChange={e => onResourceSelectionChange(resourceType, e.currentTarget.checked)}
@@ -54,7 +54,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
           {addResourceModalBody && (
             <>
               <Text color={Color.GREY_400} className={css.limitAccessCell}>
-                {getString('resourceGroup.limitAccess', { name: getString(label) })}
+                {getString('rbac.resourceGroup.limitAccess', { name: getString(label) })}
               </Text>
               <Button
                 intent="primary"
@@ -65,7 +65,7 @@ const ResourcesCard: React.FC<ResourcesCardProps> = ({
                   openAddResourceModal(resourceType, Array.isArray(resourceValues) ? resourceValues : [])
                 }}
               >
-                {getString('resourceGroup.add', { name: getString(label) })}
+                {getString('rbac.resourceGroup.add', { name: getString(label) })}
               </Button>
             </>
           )}

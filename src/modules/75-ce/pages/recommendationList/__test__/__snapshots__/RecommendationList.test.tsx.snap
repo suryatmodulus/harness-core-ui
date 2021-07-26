@@ -21,7 +21,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
     data-name="page-body"
   >
     <div
-      class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--background-white"
+      class="StyledProps--font StyledProps--main StyledProps--padding-xlarge"
       style="height: 100%;"
     >
       <div

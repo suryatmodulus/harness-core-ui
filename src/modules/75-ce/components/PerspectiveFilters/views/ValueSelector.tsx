@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Layout, Text, TextInput, Checkbox, Icon } from '@wings-software/uicore'
+import { Container, Layout, Text, Icon } from '@wings-software/uicore'
 import { RadioGroup, Radio } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
+import MultiValueSelectorComponent from '@ce/components/MultiValueSelectorComponent/MultiValueSelectorComponent'
 import {
   QlceViewFilterOperator,
   useFetchPerspectiveFiltersValueQuery,
   QlceViewFilterWrapperInput
 } from 'services/ce/services'
+import { getTimeFilters, getViewFilterForId } from '@ce/utils/perspectiveUtils'
 import type { ProviderType } from '../FilterPill'
 import css from './views.module.scss'
+
+const LIMIT = 100
 
 interface OperatorSelectorProps {
   operator: QlceViewFilterOperator
@@ -124,6 +128,10 @@ interface ValueSelectorProps {
   provider: ProviderType
   isLabelOrTag: boolean
   setService: React.Dispatch<React.SetStateAction<ProviderType | null>>
+  timeRange: {
+    to: number
+    from: number
+  }
 }
 
 const ValueSelector: React.FC<ValueSelectorProps> = ({
@@ -134,16 +142,28 @@ const ValueSelector: React.FC<ValueSelectorProps> = ({
   provider,
   service,
   isLabelOrTag,
-  setService
+  setService,
+  timeRange
 }) => {
-  const { getString } = useStrings()
+  const [pageInfo, setPageInfo] = useState<{
+    filtersValuesData: string[]
+    loadMore: boolean
+    page: number
+    searchValue: string
+  }>({
+    filtersValuesData: [],
+    loadMore: true,
+    page: 1,
+    searchValue: ''
+  })
 
   const { perspectiveId } = useParams<{ perspectiveId: string }>()
 
   const [result] = useFetchPerspectiveFiltersValueQuery({
     variables: {
       filters: [
-        { viewMetadataFilter: { viewId: perspectiveId, isPreview: false } } as QlceViewFilterWrapperInput,
+        getViewFilterForId(perspectiveId),
+        ...getTimeFilters(timeRange.from, timeRange.to),
         {
           idFilter: {
             field: {
@@ -153,18 +173,39 @@ const ValueSelector: React.FC<ValueSelectorProps> = ({
               identifierName: provider?.name
             },
             operator: QlceViewFilterOperator.In,
-            values: ['']
+            values: [pageInfo.searchValue]
           }
         } as QlceViewFilterWrapperInput
       ],
-      offset: 0,
-      limit: 100
+      offset: (pageInfo.page - 1) * LIMIT,
+      limit: LIMIT
     }
   })
 
   const { data, fetching } = result
 
   const valuesList = (data?.perspectiveFilters?.values || []).filter(x => x) as string[]
+
+  useEffect(() => {
+    if (data?.perspectiveFilters?.values) {
+      const moreItemsPresent = data.perspectiveFilters.values.length === LIMIT
+      const filteredVal = data.perspectiveFilters.values.filter(e => e) as string[]
+      setPageInfo(prevInfo => ({
+        ...prevInfo,
+        loadMore: moreItemsPresent,
+        filtersValuesData: [...prevInfo.filtersValuesData, ...filteredVal]
+      }))
+    }
+  }, [data?.perspectiveFilters?.values])
+
+  const onInputChange: (val: string) => void = val => {
+    setPageInfo({
+      filtersValuesData: [],
+      loadMore: true,
+      page: 1,
+      searchValue: val
+    })
+  }
 
   return (
     <Container>
@@ -177,50 +218,22 @@ const ValueSelector: React.FC<ValueSelectorProps> = ({
           <OperatorSelector setOperator={setOperator} operator={operator} setValues={setValues} />
           {[QlceViewFilterOperator.In, QlceViewFilterOperator.NotIn].includes(operator) && (
             <Container
-              padding="medium"
               background="blue50"
               className={cx(css.valueSelectorContainer, { [css.loadingContainer]: fetching })}
             >
-              {fetching ? (
-                <Icon name="spinner" color="blue500" size={30} />
-              ) : (
-                <>
-                  <Text>{getString('ce.perspectives.createPerspective.filters.selectValuesText')}</Text>
-                  <Layout.Horizontal
-                    margin={{
-                      left: 'xlarge'
-                    }}
-                    style={{
-                      alignItems: 'center'
-                    }}
-                  >
-                    <Checkbox />
-                    <TextInput className={css.searchInput} placeholder="Search Value" />
-                  </Layout.Horizontal>
-                  {
-                    <Container
-                      padding={{
-                        left: 'xlarge'
-                      }}
-                      className={css.valueListContainer}
-                    >
-                      {valuesList.map(val => {
-                        return (
-                          <Checkbox
-                            key={val}
-                            label={val}
-                            className={css.checkbox}
-                            checked={values[val]}
-                            onChange={() => {
-                              setValues(oldValue => ({ ...oldValue, [val]: !oldValue[val] }))
-                            }}
-                          />
-                        )
-                      })}
-                    </Container>
+              <MultiValueSelectorComponent
+                fetching={!pageInfo.filtersValuesData.length && fetching}
+                valueList={pageInfo.filtersValuesData}
+                shouldFetchMore={pageInfo.loadMore}
+                setSelectedValues={setValues}
+                selectedValues={values}
+                fetchMore={e => {
+                  if (e === pageInfo.page * LIMIT - 1) {
+                    setPageInfo(prevInfo => ({ ...prevInfo, page: prevInfo.page + 1 }))
                   }
-                </>
-              )}
+                }}
+                onInputChange={onInputChange}
+              />
             </Container>
           )}
         </Layout.Horizontal>

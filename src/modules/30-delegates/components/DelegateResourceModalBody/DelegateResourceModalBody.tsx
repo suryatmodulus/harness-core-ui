@@ -31,7 +31,7 @@ const DelegateResourceModalBody: React.FC<RbacResourceModalProps> = ({
   const { data, loading } = useGetDelegateGroupsV2({ queryParams })
 
   const delegateDataContent = data?.resource?.delegateGroupDetails?.map(dataContent => ({
-    identifier: dataContent.groupId,
+    identifier: dataContent.delegateGroupIdentifier,
     ...dataContent
   }))
 

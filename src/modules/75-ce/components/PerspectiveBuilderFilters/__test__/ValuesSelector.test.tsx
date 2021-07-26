@@ -61,7 +61,7 @@ describe('test cases for filter values selector', () => {
   test('should be able to render ValuesSelector', async () => {
     const { container, getByPlaceholderText } = render(
       <TestWrapper>
-        <ValuesSelectors {...mockData} />
+        <ValuesSelectors onInputChange={jest.fn()} {...mockData} />
       </TestWrapper>
     )
     expect(container.querySelector('[class*="operandSelectorContainer"]')).not.toBeNull()

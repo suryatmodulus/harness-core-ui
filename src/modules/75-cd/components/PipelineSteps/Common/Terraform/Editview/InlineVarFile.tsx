@@ -6,7 +6,6 @@ import {
   FormInput,
   Formik,
   MultiTypeInputType,
-  ExpressionInput,
   getMultiTypeFromValue,
   FormikForm
 } from '@wings-software/uicore'
@@ -89,10 +88,10 @@ const InlineVarFile = (props: InlineVarFileProps) => {
                     expressionRender={() => {
                       /* istanbul ignore next */
                       return (
-                        <ExpressionInput
-                          value={formikProps.values?.varFile?.spec?.content}
+                        <TFMonaco
                           name="varFile.spec.content"
-                          onChange={value => formikProps.setFieldValue('varFile.spec.content', value)}
+                          formik={formikProps}
+                          title={getString('pipelineSteps.content')}
                         />
                       )
                     }}

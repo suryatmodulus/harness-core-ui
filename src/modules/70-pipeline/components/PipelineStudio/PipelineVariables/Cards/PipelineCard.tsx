@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card } from '@wings-software/uicore'
 
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -18,11 +18,11 @@ import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
 export interface PipelineCardProps {
-  variablePipeline: NgPipeline
-  pipeline: NgPipeline
+  variablePipeline: PipelineInfoConfig
+  pipeline: PipelineInfoConfig
   stepsFactory: AbstractStepFactory
   metadataMap: PipelineVariablesData['metadataMap']
-  updatePipeline(pipeline: NgPipeline): void
+  updatePipeline(pipeline: PipelineInfoConfig): void
   readonly?: boolean
 }
 

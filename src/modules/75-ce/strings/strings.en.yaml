@@ -20,14 +20,11 @@ co:
     helpText:
       step1:
         title: 'Idle Time'
-        description:
-          'Set the number of minutes you want AutoStopping to wait before optimizing idle instances. AutoStopping
-          will shut down (for on-demand) or snapshot and terminate (for spot) the instances after the idle time
-          period has elapsed.'
+        description: 'Set the number of minutes you want AutoStopping to wait before optimizing idle instances. AutoStopping will shut down (for on-demand) or snapshot and terminate (for spot) instances after the idle time period has elapsed.'
       step2:
         title: 'Resources managed the the AutoStopping Rule'
         description:
-          heading: "Select the cloud resources that you want this rule to manage. AutoStopping will monitor these resources and stop them when they are idle beyond the configured 'Idle Time'."
+          heading: "Select the cloud resources that you want this AutoStopping Rule to manage. AutoStopping will monitor usage on these resources and stop them when they are idle beyond the configured 'Idle Time'. An AutoStopping Rule can be created for single or multiple VMs, an Auto Scaling group or a Kubernetes Cluster. Dependencies across multiple AutoStopping Rules can also be set under Advanced Configuration in Step 4."
           resourceList:
             vms: 'VM(s)'
             asg: 'Auto scaling groups'
@@ -35,9 +32,8 @@ co:
       step3:
         title: 'Choose instance fulfilment'
         description:
-          heading: 'Your Linux on t3.2xlarge instance in US East (N. Virginia) region costs $240 on-demand and $72 on spot. That’s 70% savings!'
-          info: 'With On-Demand Instances, you pay for compute capacity by the second with no long-term commitments. You have full control over its lifecycle—you decide when to launch, stop, hibernate, start, reboot, or terminate it.'
-          additionalInfo: 'A Spot Instance is an unused EC2 instance that is available for less than the On-Demand price. Because Spot Instances enable you to request unused EC2 instances at steep discounts, you can lower your Amazon EC2 costs significantly.'
+          info: 'With on-demand instances, you pay for computing capacity based on usage with no long-term commitments. AutoStopping will ensure that your on-demand resource is only running when in use, and stopped whenever idle so that you are only being charged for active usage of the resource.'
+          additionalInfo: 'Further, AutoStopping also has a second (optional) level of optimization with orchestrated spot instances. A spot instance is an unused cloud excess capacity that is available for up to 90% cheaper rates than the On-Demand resources. This can lower your Amazon EC2 costs significantly. Typically, the limitation of spot instances is the lack of availability guarantees from the cloud provider as they may be taken away with just a 2-minute notice. However, AutoStopping has full spot orchestration built-in. Whenever there is a spot interruption, AutoStopping will automatically provision a new spot instance in its place. If there is no spot capacity available, it will fall back to on-demand to maintain availability. It will also continue to poll the spot market and perform a reverse fall-back from on-demand back to spot whenever spot capacity is available again. This is continuous cost optimization that enables you to leverage spot pricing seamlessly at every opportunity in a fully automated experience.'
       readMore: 'Read More...'
     providerSelector:
       description: 'Select the cloud account type'
@@ -55,7 +51,7 @@ co:
         idleTimeInputPlaceholder: 'Enter idle time'
       step2:
         title: 'Resources to be managed by the AutoStopping rules'
-        subTitle: 'You can manage multiple instances or an Auto Scaling group using AutoStopping rule.'
+        subTitle: "Select the resources that you want this AutoStopping rule to manage. AutoStopping will monitor these resources and stop them when they are idle beyond the configured 'Idle Time'."
         additionalResourceInfo:
           instance: 'Add an instance to be managed by the AutoStopping Rule. You can choose to add multiple instances to a single Rule.'
           asg: 'Add an ASG to be managed by the AutoStopping Rule. You can choose only one ASG to a single Rule'
@@ -91,7 +87,7 @@ co:
       erroredAccessPointSelectionText: 'Access point in error state can not be selected'
       helpText:
         dns:
-          info: 'Select DNS Link if the instances managed by this AutoStopping Rule are currently accessed by a URL.'
+          info: 'Select DNS Link if the underlying application running on the resources managed by this AutoStopping Rule is currently accessed by an HTTP or HTTPS URL.'
           setup:
             title: 'To create a DNS Link, you need to:'
             step1:
@@ -113,7 +109,7 @@ co:
               step3: 'Save your settings. It may take a full day for the settings to propagate across the global
                 Domain Name System.'
         ssh:
-          info: 'A description of how SSH is used to access the Rule securely over an unsecured network.'
+          info: 'Select SSH/RDP if the underlying application running on the resources managed by this AutoStopping Rule is currently accessed via SSH or RDP.'
           setup:
             title: 'To SSH into instances, you need to:'
             download: 'Download CLI'
@@ -198,9 +194,9 @@ co:
     separated values into Custom domain field to support multiple URLs.'
   gatewayAccess:
     subtitle: 'Now that you have configured the Rule, choose how you would like to access the resources managed by this rule.'
-    accessDescription: 'Select how you would like to access the resources managed by this Rule'
+    accessDescription: 'Choose how you would like to access the underlying application running on the resources managed by this Rule.'
     dnsLink: 'DNS Link'
-    dnsLinkHeader: 'A DNS Link lets you access the resources managed by this Rule using a URL'
+    dnsLinkHeader: 'Setup access via DNS Link (HTTP or HTTPS URL) to the underlying application running on the resources managed by this AutoStopping Rule.'
     sshRdp: 'SSH / RDP'
     ip: 'IP Address'
     rdp: 'RDP'
@@ -245,6 +241,9 @@ co:
     name: '{{$.ce.co.gatewayReview.nameYourGateway}}'
     addSchedule: '+ add schedule'
     scheduleDescription: 'Set an automated schedule for uptime or downtime of all the resources that match your filter criteria.'
+    routingDescription: 'This is the load balancer routing configuration for the underlying application that is running on the cloud resources managed by this AutoStopping Rule.'
+    healthCheckDescription: 'Set a health check for the underlying application that is running on the cloud resources managed by this AutoStopping Rule. The load balancer configured above periodically sends requests, per the settings below, to the application to test their status. If your application does not support health checks, or if there is no application running, you may disable the health check.'
+    advancedConfigDescription: 'Set dependencies between two or more AutoStopping Rules when you want one Rule to make one or more other Rules active based on the traffic that it receives. For example, for an application server dependant on a database server, you would create two Rules managing each of the two servers, and then set the Rule managing the application server to be dependant on the Rule managing the database server.'
 learnMore: Learn more about Continuous Efficiency
 ceTrialHomePage:
   startTrial:
@@ -375,6 +374,19 @@ recommendation:
 savedYamlSuccess: YAML validated successfully
 uploadCertiHeader: Upload a new certificate for the Application Load Balancer
 perspectives:
+  sideNavText: 'Perspectives'
+  workloadDetails:
+    aggregation:
+      text: 'Aggregation:'
+      timeWeighted: 'Time-weighted'
+      absolute: 'Absolute'
+    workloadDetailsText: 'WORKLOAD DETAILS'
+    costDetailsText: 'COST DETAILS'
+    fieldNames:
+      workload: '{{ $.pipelineSteps.workload }}'
+      namespace: '{{ $.common.namespace }}'
+      workloadType: Workload Type
+      clusterName: '{{ $.common.cluster }}'
   save: Save Perspective
   validations:
     invalidEmails: Invalid email address(es)

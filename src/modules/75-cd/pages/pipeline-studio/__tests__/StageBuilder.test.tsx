@@ -9,6 +9,7 @@ import {
   act
 } from '@testing-library/react'
 import { deleteDB } from 'idb'
+import environments from '@cd/components/PipelineSteps/DeployEnvStep/__tests__/mock.json'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import routes from '@common/RouteDefinitions'
@@ -22,7 +23,6 @@ import {
 } from '@pipeline/components/PipelineStudio/__tests__/PipelineStudioMocks'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
 import services from '@cd/components/PipelineSteps/DeployServiceStep/__tests__/serviceMock'
-import environments from '@cd/components/PipelineSteps/DeployEnvStep/__tests__/mock.json'
 // eslint-disable-next-line no-restricted-imports
 import '@cd/components/PipelineStudio/DeployStage'
 // eslint-disable-next-line no-restricted-imports

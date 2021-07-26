@@ -92,7 +92,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup md"
+        class="formGroup lg"
       >
         <div
           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -249,6 +249,9 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
         </div>
       </div>
       <div
+        class="noLookDivider"
+      />
+      <div
         class="formGroup sm"
       >
         <div
@@ -332,7 +335,7 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup md"
+        class="formGroup lg"
       >
         <div
           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -486,6 +489,9 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="noLookDivider"
+      />
       <div
         class="formGroup sm"
       >

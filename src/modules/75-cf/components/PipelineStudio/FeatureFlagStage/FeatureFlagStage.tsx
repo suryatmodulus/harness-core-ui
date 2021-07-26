@@ -1,13 +1,9 @@
 import React from 'react'
 import { PipelineStage } from '@pipeline/components/PipelineStages/PipelineStage'
-import type { StageElementWrapper } from 'services/cd-ng'
-import { FeatureAddEditStageView } from './FeatureAddStageView/FeatureAddStageView'
+import { FeatureAddEditStageView, FeatureAddEditStageViewProps } from './FeatureAddStageView/FeatureAddStageView'
 import FeatureStageSetupShell from '../FeatureStageSetupShell/FeatureStageSetupShell'
 
-interface DeployStageProps {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
-}
+type DeployStageProps = Omit<FeatureAddEditStageViewProps, 'onChange'>
 
 export class FeatureFlagStage extends PipelineStage<DeployStageProps> {
   render(): JSX.Element {

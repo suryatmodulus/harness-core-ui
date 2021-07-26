@@ -6,6 +6,7 @@ import { GCOProduct } from '@cv/pages/monitoring-source/google-cloud-operations/
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
+import { NewRelicProductNames } from './DefineHealthSource.constant'
 
 export const validate = (isEdit: boolean, getString: UseStringsReturn['getString']) => {
   return Yup.object().shape({
@@ -50,6 +51,13 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
         {
           label: PrometheusProductNames.APM,
           value: getString('connectors.prometheusLabel')
+        }
+      ]
+    case Connectors.NEW_RELIC:
+      return [
+        {
+          value: NewRelicProductNames.APM,
+          label: getString('connectors.newRelic.products.fullStackObservability')
         }
       ]
     default:

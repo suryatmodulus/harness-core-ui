@@ -1,5 +1,5 @@
 import { RUNTIME_INPUT_VALUE } from '@wings-software/uicore'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { WebhookTriggerConfigPanelPropsInterface } from '../views/WebhookTriggerConfigPanel'
 
 export const originalPipeline = {
@@ -84,7 +84,7 @@ export const getTriggerConfigInitialValues = ({
   identifier: string
   sourceRepo: string
   triggerType: string
-  originalPipeline: NgPipeline
+  originalPipeline: PipelineInfoConfig
   secureToken?: string
 } => ({
   identifier: '',

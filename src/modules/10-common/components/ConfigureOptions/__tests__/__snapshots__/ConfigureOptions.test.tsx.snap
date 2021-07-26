@@ -814,7 +814,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                           autocomplete="off"
                           class="bp3-input-ghost bp3-multi-select-tag-input-input"
                           name="allowedValues"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           value=""
                         />
                       </div>

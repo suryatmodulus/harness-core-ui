@@ -36,13 +36,6 @@ const ServiceCount = styled(Text)`
 
 const PageBody = styled(Page.Body)`
   margin: var(--spacing-xxxlarge) !important;
-
-  div[role='row'] {
-    margin-top: var(--spacing-large);
-    div[role='cell']:not(:first-of-type) {
-      padding-left: var(--spacing-large);
-    }
-  }
 `
 
 function CVMonitoredServiceListingPage(): JSX.Element {
@@ -102,7 +95,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   const RenderEditDelete: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowdata = row?.original
     return (
-      <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
+      <Layout.Horizontal flex={{ justifyContent: 'space-around' }}>
         <ToggleMonitoring identifier={rowdata?.identifier as string} enable={!!rowdata?.healthMonitoringEnabled} />
         <ContextMenuActions
           titleText={getString('cv.monitoredServices.deleteMonitoredService')}
@@ -128,10 +121,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     return (
       <Layout.Vertical>
         <Text color={Color.PRIMARY_7} font={{ align: 'left', size: 'normal' }}>
-          {rowData.serviceRef}
+          {rowData.serviceName}
         </Text>
         <Text color={Color.PRIMARY_7} margin={{ bottom: 'small' }} font={{ align: 'left', size: 'xsmall' }}>
-          {rowData.environmentRef}
+          {rowData.environmentName}
         </Text>
       </Layout.Vertical>
     )
@@ -246,12 +239,12 @@ function CVMonitoredServiceListingPage(): JSX.Element {
               },
               {
                 Header: getString('cv.monitoredServices.table.serviceHealthScore'),
-                width: '20%',
+                width: '18%',
                 Cell: RenderHealthScore
               },
               {
                 Header: getString('tagLabel'),
-                width: '10%',
+                width: '12%',
                 Cell: RenderTags
               },
               {

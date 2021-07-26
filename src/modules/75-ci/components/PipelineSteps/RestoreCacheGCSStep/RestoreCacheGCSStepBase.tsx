@@ -27,6 +27,7 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RestoreCacheGCSStepFunctionConfigs'
 import type {
   RestoreCacheGCSStepData,
@@ -56,7 +57,7 @@ export const RestoreCacheGCSStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const archiveFormatOptions = [
     { label: 'Tar', value: 'Tar' },

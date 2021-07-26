@@ -36,6 +36,7 @@ import {
   getFormValuesInCorrectFormat
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { RunTestsStepProps, RunTestsStepData, RunTestsStepDataUI } from './RunTestsStep'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './RunTestsStepFunctionConfigs'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -62,7 +63,7 @@ export const RunTestsStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const buildToolOptions = [
     { label: 'Bazel', value: 'bazel' },

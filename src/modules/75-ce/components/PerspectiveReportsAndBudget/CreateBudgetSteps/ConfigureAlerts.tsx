@@ -52,7 +52,7 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
 
   const { mutate: updateBudget } = useUpdateBudget({ id: budget?.uuid || '' })
   const { mutate: createBudget } = useCreateBudget({
-    queryParams: { accountId: accountId } // TODO: accountIdentifier: accountId
+    queryParams: { accountIdentifier: accountId }
   })
 
   const getInitialValues = () => {
@@ -77,6 +77,7 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
 
     try {
       await (isEditMode ? updateBudget(payload as Budget) : createBudget(payload as Budget))
+      props.onSuccess()
     } catch (e) {
       setError(true)
       modalErrorHandler?.showDanger(e.message)
@@ -257,7 +258,14 @@ const Threshold = (props: ThresholdProps): JSX.Element => {
         // onAdd={values => {}}
         values={value.emailAddresses || []}
       />
-      <Icon color="grey200" size={18} name="ban-circle" className={css.pushdown7} onClick={onDelete} />
+      <Icon
+        color="grey200"
+        size={18}
+        name="ban-circle"
+        className={css.pushdown7}
+        onClick={onDelete}
+        style={{ cursor: 'pointer' }}
+      />
     </div>
   )
 }

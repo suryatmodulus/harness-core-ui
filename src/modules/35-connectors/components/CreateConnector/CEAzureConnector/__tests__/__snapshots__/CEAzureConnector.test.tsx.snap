@@ -196,6 +196,22 @@ exports[`Create Azure connector Wizard should render create new billing exports 
                   type="submit"
                 >
                   <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
+                    data-icon="main-share"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 14 14"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                  <span
                     class="bp3-button-text"
                   >
                     connectors.ceAzure.billing.launchAzureConsole
@@ -1393,11 +1409,6 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
               level="2"
             >
               connectors.ceAzure.chooseRequirements.heading
-               -
-               
-              <span>
-                connectors.ceAzure.chooseRequirements.subText
-              </span>
             </h2>
             <p
               class="StyledProps--font StyledProps--main infobox"
@@ -1412,10 +1423,6 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                 level="3"
               >
                 connectors.ceAzure.chooseRequirements.featureDesc
-                 
-                <i>
-                  (optional)
-                </i>
               </h3>
               <div
                 class="OverlaySpinner--overlaySpinner"
@@ -1430,78 +1437,6 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                       <div
                         class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
                         data-index="0"
-                        tabindex="0"
-                      >
-                        <div
-                          class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                          >
-                            <span
-                              class="bp3-icon StyledProps--main"
-                              data-icon="ce-visibility"
-                            >
-                              <svg
-                                fill="none"
-                                height="32"
-                                width="32"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M0 24.99h3.99V0H0v24.99zm7.98 0h3.99V7.403H7.98V24.99zm7.98-10.181v10.18h3.99V14.81h-3.99z"
-                                  fill="#0278D5"
-                                  opacity="0.3"
-                                />
-                                <g
-                                  clip-path="url(#ce-visibility_svg__clip0)"
-                                >
-                                  <path
-                                    d="M30.014 27.178l-4.198-3.895c1.008-1.409 1.598-3.096 1.598-4.91 0-4.914-4.31-8.912-9.606-8.912-5.297 0-9.606 3.998-9.606 8.912 0 4.915 4.31 8.913 9.606 8.913 1.955 0 3.773-.547 5.292-1.482l4.196 3.895c.376.348.984.348 1.359 0l1.358-1.26a.846.846 0 000-1.26zm-19.89-8.805c0-3.93 3.447-7.13 7.684-7.13s7.684 3.2 7.684 7.13c0 3.932-3.447 7.13-7.684 7.13s-7.685-3.198-7.685-7.13z"
-                                    fill="#0278D5"
-                                  />
-                                </g>
-                                <defs>
-                                  <clippath
-                                    id="ce-visibility_svg__clip0"
-                                  >
-                                    <path
-                                      d="M0 0h23.054v21.39H0z"
-                                      fill="#fff"
-                                      transform="translate(8.202 9.46)"
-                                    />
-                                  </clippath>
-                                </defs>
-                              </svg>
-                            </span>
-                            <div
-                              class="StyledProps--font StyledProps--main"
-                            >
-                              <p
-                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-                                style="font-size: 9px; font-weight: 600;"
-                              >
-                                COST
-                              </p>
-                              <p
-                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-                                style="font-size: 16px; font-weight: 500;"
-                              >
-                                common.ce.visibility
-                              </p>
-                            </div>
-                          </div>
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--font-small"
-                            style="line-height: 20px;"
-                          >
-                            connectors.ceAzure.chooseRequirements.visibilityCardDesc
-                          </p>
-                        </div>
-                      </div>
-                      <div
-                        class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                        data-index="1"
                         tabindex="0"
                       >
                         <div
@@ -1897,7 +1832,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                   class="StyledProps--font StyledProps--main command"
                 >
                   <pre>
-                    \`SCOPE=az storage account show --name &lt;insert_storage_account_name&gt; --query "id" | xargs\`
+                    SCOPE=\`az storage account show --name &lt;insert_storage_account_name&gt; --query "id" | xargs\`
                   </pre>
                   <span
                     class="bp3-popover-wrapper"
@@ -1947,6 +1882,55 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                 >
                   <pre>
                     az role assignment create --assignee   --role 'Storage Blob Data Reader' --scope $SCOPE
+                  </pre>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class=""
+                        tabindex="0"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main copyIcon"
+                          data-icon="copy-alt"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 8 9"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+                style="margin-bottom: 20px;"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  # Role assignment for enabling CCM Optimisation
+                </p>
+                <div
+                  class="StyledProps--font StyledProps--main command"
+                >
+                  <pre>
+                    az role assignment create --assignee-object-id  --role 'Contributor' --scope /subscriptions/20d6a917-99fa-4b1b-9b2e-a3d624e9dcf0
                   </pre>
                   <span
                     class="bp3-popover-wrapper"
@@ -2254,7 +2238,7 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
         >
            
           <div
-            class="Layout--vertical StyledProps--main stepContainer"
+            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main stepContainer"
           >
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main header"
@@ -2334,6 +2318,64 @@ exports[`Create Azure connector Wizard should render feature cards, render servi
                   >
                     connectors.ceAzure.testConnection.verifyExport
                   </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="connectorErrorBox"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+              >
+                <span
+                  class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-red700"
+                  style="display: inline-flex; align-items: center;"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--color StyledProps--color-red700"
+                    data-icon="circle-cross"
+                  >
+                    <svg
+                      height="18"
+                      viewBox="0 0 13 13"
+                      width="18"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  Connector authentication failed
+                </span>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                >
+                  <span
+                    class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="display: inline-flex; align-items: center;"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-small"
+                      data-icon="info"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 12 12"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          clip-rule="evenodd"
+                          d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    Something went wrong
+                  </span>
                 </div>
               </div>
             </div>
@@ -3168,7 +3210,7 @@ exports[`Create Azure connector Wizard should throw an error when connectors alr
                       </div>
                     </div>
                     <div
-                      class="connectorExistBox"
+                      class="connectorErrorBox"
                     >
                       <div
                         class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"

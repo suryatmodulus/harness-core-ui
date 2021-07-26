@@ -26,6 +26,7 @@ import {
 } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './JFrogArtifactoryStepFunctionConfigs'
 import type {
   JFrogArtifactoryStepProps,
@@ -55,7 +56,7 @@ export const JFrogArtifactoryStepBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

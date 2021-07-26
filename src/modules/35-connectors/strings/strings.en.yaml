@@ -389,12 +389,10 @@ ceAws:
     reportName: 'Cost and Usage Report Name'
     bucketName: 'Cost and Usage S3 bucket Name'
     validation:
-      reportRequired: '{{ $.connectors.reportNameRequired }}'
+      reportRequired: '{{ $.common.reportNameRequired }}'
       bucketRequired: 'Bucket name is required'
   curExising:
-    subHeading:
-      'A billing report already exists for this AWS account. Click on “Continue” to use this Cost and Usage Report
-      for the connector. If not, you can choose to create a new Cost and Usage Report.'
+    subHeading: 'The following Cost and Usage Reports exist in your Harness account. If the AWS Account ID you entered is covered by any of the below, then click “Continue” to proceed. If not, click on "Create new Cost and Usage Report.'
     accountID: 'Account ID '
   curExtention:
     heading: 'How to Create Cost and Usage Report?'
@@ -439,7 +437,7 @@ ceAws:
       step4: 'Billing and Cost Management Policy Examples'
   crossAccountRoleStep1:
     heading: 'Create Cross Account Role - '
-    choosePermissions: '{{ $.connectors.ceAzure.chooseRequirements.subText }}'
+    choosePermissions: '{{ $.connectors.ceAzure.chooseRequirements.heading }}'
     subHeading:
       'Harness uses the secure cross-account role to access your AWS account. The role includes a restricted policy to
       access the cost and usage reports and resources for the sole purpose of cost analysis and cost optimization'
@@ -480,7 +478,7 @@ ceAws:
       p1: 'On stack details page click on '
       p2: 'Outputs'
       p3: 'tab and copy '
-      p4: 'IAM ARN'
+      p4: 'CrossAccountRoleArn'
     step4: 'Provide that IAM ARN in Harness UI.'
     step5: 'External ID is a random unique value to provide additional secure authentication.'
   testConnection:
@@ -510,7 +508,7 @@ ceAzure:
     heading: '{{ $.connectors.ceAzure.steps.billingExports }}'
     subHeading: Billing export is used to get insights into your cloud infrastructure and Azure services such as Storage account, Virtual machines, Containers etc.
     instruction: Please follow the instructions to provide access to the Billing export for the specified tenant ID
-    login: '{{ $.connectors.loginToMasterAccount }}'
+    login: 'and login to your Azure account'
     launchAzureConsole: Launch Azure Billing Exports
     tooltipInstruction: Provided in the delivery options when the template is opened in the Azure console
     tooltipBtn: '{{ $.connectors.showInstructions }}'
@@ -546,15 +544,14 @@ ceAzure:
       createExport: Creating a Billing Export
       soon: coming soon
   existingExports:
-    instruction: 'A billing export already exists for this Azure account. Click on "Create new Billing Export" if you wish to create a new billing export.'
+    instruction: 'The following Billing Exports exist in your Harness account. If the Azure Subscription ID you entered is covered by any of the below, then click "Continue" to proceed. If not, click on "Create new Billing Export.'
     createNewExportBtn: '+ Create new Billing Export'
     subscriptionId: Subscription ID
     tenantId: '{{ $.connectors.tenantId }}'
   chooseRequirements:
-    heading: '{{ $.connectors.roleARN }}'
-    subText: Choose Permissions
+    heading: Choose Required Permissions
     subHeading: Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a service principal for this app in your Azure account and assign read permissions on that particular storage account.
-    featureDesc: Select the Cloud Cost Management features you would like to use on the Azure account. Each requires specific permissions to the cross account role
+    featureDesc: Select the Cloud Cost Management features you would like to use on the Azure account.
     visibilityCardDesc: Cost insights, anomaly detection, service insights, creating budgets perspectives and alerts, utilised/wasted resources in clusters.
     optimizationCardDesc: Detection of orphaned resources, recommendations to save costs, scaling/tearing down, turning off in non-work hours, reserving instances.
   servicePrincipal:
@@ -568,7 +565,7 @@ ceAzure:
     storageAccountName: Storage account name is required
     directoryName: Directory name is required
     containerName: Container name is required
-    reportName: '{{ $.connectors.reportNameRequired }}'
+    reportName: '{{ $.common.reportNameRequired }}'
     subscriptionId: Subscription ID is required
     tenantId: '{{ $.connectors.tenantIdRequired }}'
 ceGcp:

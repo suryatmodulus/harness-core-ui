@@ -4,7 +4,7 @@ import { Text, Color } from '@wings-software/uicore'
 import get from 'lodash-es/get'
 import type { UseStringsReturn } from 'framework/strings'
 
-import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementConfig } from 'services/cd-ng'
 
 export interface NodeClasses {
   primary?: string
@@ -13,7 +13,7 @@ export interface NodeClasses {
 }
 
 const getStageTree = (
-  stage: StageElement,
+  stage: StageElementConfig,
   classes: NodeClasses = {},
   getString: UseStringsReturn['getString'],
   {
@@ -179,7 +179,7 @@ const getStageTree = (
 }
 
 export const getPipelineTree = (
-  pipeline: NgPipeline,
+  pipeline: PipelineInfoConfig,
   classes: NodeClasses = {},
   getString: UseStringsReturn['getString'],
   options: { hideNonRuntimeFields?: boolean; template?: { stages: [{ stage: Record<string, never> }] } } = {}
@@ -238,7 +238,7 @@ export const getPipelineTree = (
     }
     pipeline.stages.forEach((data, index) => {
       if (data.parallel && data.parallel.length > 0) {
-        data.parallel.forEach((nodeP: StageElementWrapper) => {
+        data.parallel.forEach(nodeP => {
           nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage, classes, getString))
         })
       } /* istanbul ignore else */ else if (

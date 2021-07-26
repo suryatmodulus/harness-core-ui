@@ -164,11 +164,12 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main builderContainer StyledProps--padding-left-large StyledProps--padding-right-xxlarge StyledProps--padding-bottom-xxlarge StyledProps--padding-top-xxlarge"
                       style="height: 100%;"
                     >
-                      <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                      <h5
+                        class="StyledProps--font StyledProps--font-h5 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-large"
+                        level="5"
                       >
                         ce.perspectives.createPerspective.title
-                      </p>
+                      </h5>
                       <div
                         class="Layout--horizontal StyledProps--main"
                       >
@@ -675,40 +676,6 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                         style="flex-grow: 1;"
                       />
                       <div
-                        class="StyledProps--font StyledProps--main proTipContainer StyledProps--padding-medium StyledProps--background-grey100"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
-                        >
-                          <img
-                            src="test-file-stub"
-                          />
-                          <div
-                            class="StyledProps--font StyledProps--main"
-                          >
-                            <p
-                              class="StyledProps--font StyledProps--main StyledProps--font-small"
-                            >
-                              ce.perspectives.createPerspective.proTipText
-                            </p>
-                            <div
-                              class="Layout--horizontal Layout--layout-spacing-xlarge StyledProps--main StyledProps--margin-top-medium"
-                            >
-                              <p
-                                class="StyledProps--font StyledProps--main linkText StyledProps--font-small StyledProps--color StyledProps--color-primary7"
-                              >
-                                ce.perspectives.createPerspective.createCustomField
-                              </p>
-                              <p
-                                class="StyledProps--font StyledProps--main linkText StyledProps--font-small StyledProps--color StyledProps--color-primary7"
-                              >
-                                ce.perspectives.createPerspective.learnMoreCustomField
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
                         class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-top-medium"
                       >
                         <button
@@ -876,6 +843,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                               </svg>
                             </span>
                           </div>
+                          <div />
                         </div>
                         <div
                           class="StyledProps--font StyledProps--main"

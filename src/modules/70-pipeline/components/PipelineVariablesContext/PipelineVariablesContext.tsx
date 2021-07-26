@@ -2,7 +2,7 @@ import React from 'react'
 import { parse } from 'yaml'
 import { useParams } from 'react-router-dom'
 
-import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { VariableMergeServiceResponse, Failure } from 'services/pipeline-ng'
 import { useMutateAsGet } from '@common/hooks'
 import type { UseMutateAsGetReturn } from '@common/hooks/useMutateAsGet'
@@ -11,7 +11,7 @@ import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
 
 export interface PipelineVariablesData {
-  variablesPipeline: NgPipeline
+  variablesPipeline: PipelineInfoConfig
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   error?: UseMutateAsGetReturn<Failure | Error>['error'] | null
   initLoading: boolean

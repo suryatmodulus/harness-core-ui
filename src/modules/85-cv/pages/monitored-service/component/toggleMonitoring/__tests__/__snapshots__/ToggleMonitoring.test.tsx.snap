@@ -3,8 +3,7 @@
 exports[`ToggleMonitoring Validate toggle is working 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main StyledProps--flex"
-    style="width: 120px;"
+    class="StyledProps--font StyledProps--main"
   >
     <label
       class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
@@ -16,11 +15,6 @@ exports[`ToggleMonitoring Validate toggle is working 1`] = `
         class="bp3-control-indicator"
       />
     </label>
-    <p
-      class="StyledProps--font StyledProps--main"
-    >
-      common.disable
-    </p>
   </div>
 </div>
 `;

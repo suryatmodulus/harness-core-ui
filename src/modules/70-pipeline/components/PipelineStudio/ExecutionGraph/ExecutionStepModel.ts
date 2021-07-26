@@ -1,9 +1,9 @@
 import { isEmpty } from 'lodash-es'
-import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 
 import { ExecutionPipelineNodeType } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { UseStringsReturn } from 'framework/strings'
+import type { ExecutionWrapperConfig } from 'services/cd-ng'
 import {
   DiagramModel,
   CreateNewModel,
@@ -35,7 +35,7 @@ export interface GridStyleInterface {
 }
 
 export interface AddUpdateGraphProps {
-  stepsData: ExecutionWrapper[]
+  stepsData: ExecutionWrapperConfig[]
   stepStates: StepStateMap
   hasDependencies: boolean
   servicesData: DependenciesWrapper[]
@@ -49,7 +49,7 @@ export interface AddUpdateGraphProps {
 }
 
 export interface RenderGraphStepNodesProps {
-  node: ExecutionWrapper
+  node: ExecutionWrapperConfig
   startX: number
   startY: number
   factory: AbstractStepFactory
@@ -252,7 +252,6 @@ export class ExecutionStepModel extends DiagramModel {
               canDelete: !isReadonly,
               draggable: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
@@ -268,7 +267,6 @@ export class ExecutionStepModel extends DiagramModel {
               allowAdd: allowAdd === true && !isReadonly,
               canDelete: !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
@@ -286,7 +284,6 @@ export class ExecutionStepModel extends DiagramModel {
               icon: factory.getStepIcon(stepType),
               allowAdd: allowAdd === true && !isReadonly,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
-              skipCondition: node.step.skipCondition,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
@@ -319,7 +316,7 @@ export class ExecutionStepModel extends DiagramModel {
           const emptyNode = new EmptyNodeModel({
             identifier: node.parallel[0].step
               ? `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
-              : `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stepGroup.identifier}${EmptyNodeSeparator}`,
+              : `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`,
             name: 'Empty',
             hideOutPort: true
           })
@@ -340,8 +337,8 @@ export class ExecutionStepModel extends DiagramModel {
         }
         const prevNodesAr: DefaultNodeModel[] = []
 
-        node.parallel.forEach((nodeP: ExecutionWrapper, index: number) => {
-          const isLastNode = node.parallel.length === index + 1
+        node.parallel.forEach((nodeP, index: number) => {
+          const isLastNode = node.parallel?.length === index + 1
           const resp = this.renderGraphStepNodes({
             node: nodeP,
             startX: newX,
@@ -370,7 +367,7 @@ export class ExecutionStepModel extends DiagramModel {
           const emptyNodeEnd = new EmptyNodeModel({
             identifier: node.parallel[0].step
               ? `${EmptyNodeSeparator}${node.parallel[0].step.identifier}${EmptyNodeSeparator}`
-              : `${EmptyNodeSeparator}${node.parallel[0].stepGroup.identifier}${EmptyNodeSeparator}`,
+              : `${EmptyNodeSeparator}${node.parallel[0].stepGroup?.identifier}${EmptyNodeSeparator}`,
             name: 'Empty',
             hideInPort: true
           })
@@ -416,12 +413,11 @@ export class ExecutionStepModel extends DiagramModel {
         startX += this.gapX
         const nodeRender = new DefaultNodeModel({
           identifier: node.stepGroup.identifier,
-          name: node.stepGroup.name,
+          name: node.stepGroup.name || '',
           icon: factory.getStepIcon('StepGroup'),
           secondaryIcon: 'plus',
           draggable: !isReadonly,
           canDelete: !isReadonly,
-          skipCondition: node.stepGroup.skipCondition,
           conditionalExecutionEnabled: node.stepGroup.when
             ? node.stepGroup.when?.stageStatus !== 'Success' || !!node.stepGroup.when?.condition?.trim()
             : false,
@@ -447,7 +443,6 @@ export class ExecutionStepModel extends DiagramModel {
           identifier: node.stepGroup.identifier,
           childrenDistance: this.gapY,
           label: node.stepGroup.name,
-          skipCondition: node.stepGroup.skipCondition,
           conditionalExecutionEnabled: node.stepGroup.when
             ? node.stepGroup.when?.stageStatus !== 'Success' || !!node.stepGroup.when?.condition?.trim()
             : false,
@@ -486,7 +481,7 @@ export class ExecutionStepModel extends DiagramModel {
         }
         // Check if step group has nodes
         if (steps?.length > 0) {
-          steps.forEach((nodeP: ExecutionElement, index: number) => {
+          steps.forEach((nodeP, index: number) => {
             const resp = this.renderGraphStepNodes({
               node: nodeP,
               startX,
@@ -529,7 +524,7 @@ export class ExecutionStepModel extends DiagramModel {
             this.connectedParentToNode(
               stepGroupLayer.endNode,
               prevNode,
-              node.stepGroup.steps?.length > 0 && !isReadonly,
+              (node.stepGroup?.steps?.length || 0) > 0 && !isReadonly,
               4,
               'var(--pipeline-grey-border)'
             )
@@ -600,7 +595,7 @@ export class ExecutionStepModel extends DiagramModel {
       }
     }
 
-    stepsData.forEach((node: ExecutionWrapper, index: number) => {
+    stepsData.forEach((node, index: number) => {
       const resp = this.renderGraphStepNodes({
         node,
         startX,

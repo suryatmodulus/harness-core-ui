@@ -6,7 +6,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -162,6 +162,9 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="noLookDivider"
+    />
     <div
       class="formGroup md"
     >
@@ -1048,7 +1051,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -1204,6 +1207,9 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
         </div>
       </div>
     </div>
+    <div
+      class="noLookDivider"
+    />
     <div
       class="formGroup md"
     >
@@ -2090,7 +2096,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2246,6 +2252,9 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         </div>
       </div>
     </div>
+    <div
+      class="noLookDivider"
+    />
     <div
       class="formGroup md"
     >
@@ -2397,7 +2406,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2554,6 +2563,9 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
       </div>
     </div>
     <div
+      class="noLookDivider"
+    />
+    <div
       class="formGroup md"
     >
       <div
@@ -2704,7 +2716,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2858,6 +2870,9 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
         </div>
       </div>
     </div>
+    <div
+      class="noLookDivider"
+    />
     <div
       class="formGroup md"
     >

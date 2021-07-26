@@ -173,6 +173,7 @@ const FilterRef = <T, U extends FilterInterface>(props: FilterProps<T, U>, filte
                         formValues: formik.values
                       } as FilterDataInterface<T, U>)
                     }}
+                    isLeftFilterDirty={formik.dirty}
                     initialValues={{ name, filterVisibility, identifier } as U}
                     onClose={onClose}
                     onDelete={onDelete}

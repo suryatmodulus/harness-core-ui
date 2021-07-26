@@ -59,16 +59,19 @@ export default function CESideNav(): React.ReactElement {
             to={routes.toCECORules({ accountId, projectIdentifier, orgIdentifier })}
           />
           <SidebarLink
-            label={getString('ce.co.accessPoint.loadbalancer')}
+            label={getString('ce.co.accessPoint.loadbalancers')}
             to={routes.toCECOAccessPoints({ accountId, projectIdentifier, orgIdentifier })}
           />
-          {localStorage.RECOMMENDATIONS ? (
-            <SidebarLink
-              label={getString('ce.recommendation.sideNavText')}
-              to={routes.toCERecommendations({ accountId, projectIdentifier, orgIdentifier })}
-            />
-          ) : null}
         </React.Fragment>
+      ) : null}
+      {localStorage.CE_DEV ? (
+        <>
+          <SidebarLink
+            label={getString('ce.recommendation.sideNavText')}
+            to={routes.toCERecommendations({ accountId })}
+          />
+          <SidebarLink label={getString('ce.perspectives.sideNavText')} to={routes.toCEPerspectives({ accountId })} />
+        </>
       ) : null}
       <LaunchButton
         launchButtonText={getString('common.ce.visibilityLaunchButton')}

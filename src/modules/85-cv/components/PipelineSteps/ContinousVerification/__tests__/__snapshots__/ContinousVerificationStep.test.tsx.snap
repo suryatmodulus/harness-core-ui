@@ -756,7 +756,7 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
             >
               
                     connectors.cdng.monitoredService.monitoredServiceText
-                    undefined and undefined
+                     and 
                   
             </div>
           </div>
@@ -1220,7 +1220,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
             >
               
                     connectors.cdng.monitoredService.monitoredServiceText
-                    undefined and undefined
+                     and 
                   
             </div>
           </div>
@@ -2104,7 +2104,7 @@ exports[`Test ContinousVerificationStep Step should render editView when current
             >
               
                     connectors.cdng.monitoredService.monitoredServiceText
-                    undefined and undefined
+                     and 
                   
             </div>
           </div>

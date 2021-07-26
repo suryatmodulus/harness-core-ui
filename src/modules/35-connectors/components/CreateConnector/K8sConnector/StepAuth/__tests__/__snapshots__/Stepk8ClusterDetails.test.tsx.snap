@@ -317,7 +317,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
                             createOrSelectSecret
@@ -752,7 +752,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
                             createOrSelectSecret
@@ -1192,7 +1192,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
                             createOrSelectSecret
@@ -1597,7 +1597,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
                             secret.configureSecret
@@ -1616,7 +1616,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                           class="bp3-button-text"
                         >
                           <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                             icon="edit"
                           >
                             <svg
@@ -1937,7 +1937,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
                             secret.configureSecret
@@ -1956,7 +1956,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                           class="bp3-button-text"
                         >
                           <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                            class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                             icon="edit"
                           >
                             <svg
@@ -2651,7 +2651,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               secret.configureSecret
@@ -2670,7 +2670,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="bp3-button-text"
                           >
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                               icon="edit"
                             >
                               <svg
@@ -2747,7 +2747,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               secret.configureSecret
@@ -2766,7 +2766,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="bp3-button-text"
                           >
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                               icon="edit"
                             >
                               <svg
@@ -2838,7 +2838,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               secret.configureSecret
@@ -2857,7 +2857,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                             class="bp3-button-text"
                           >
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                               icon="edit"
                             >
                               <svg

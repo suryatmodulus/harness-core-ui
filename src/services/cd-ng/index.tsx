@@ -53,6 +53,7 @@ export interface Account {
 }
 
 export interface AccountDTO {
+  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
   cluster?: string
   companyName?: string
   defaultExperience?: 'NG' | 'CG'
@@ -1079,15 +1080,6 @@ export interface DeploymentInfo {
   rate?: number
 }
 
-export type DeploymentStage = StageType & {
-  execution?: ExecutionElement
-  infrastructure?: PipelineInfrastructure
-  metadata?: string
-  serviceConfig?: ServiceConfig
-  skipCondition?: string
-  variables?: NGVariable[]
-}
-
 export type DeploymentStageConfig = StageInfoConfig & {
   execution: ExecutionElementConfig
   infrastructure: PipelineInfrastructure
@@ -1595,6 +1587,7 @@ export interface Error {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1649,12 +1642,6 @@ export interface ExecutionDeploymentInfo {
   executionDeploymentList?: ExecutionDeployment[]
 }
 
-export interface ExecutionElement {
-  metadata?: string
-  rollbackSteps?: ExecutionWrapper[]
-  steps?: ExecutionWrapper[]
-}
-
 export interface ExecutionElementConfig {
   rollbackSteps?: ExecutionWrapperConfig[]
   steps: ExecutionWrapperConfig[]
@@ -1664,10 +1651,6 @@ export interface ExecutionTarget {
   connectorRef?: string
   host?: string
   workingDirectory?: string
-}
-
-export interface ExecutionWrapper {
-  [key: string]: any
 }
 
 export interface ExecutionWrapperConfig {
@@ -1931,6 +1914,7 @@ export interface Failure {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2603,69 +2587,9 @@ export type InlineTerraformVarFileSpec = TerraformVarFileSpec & {
   content?: string
 }
 
-export interface InputSetConfig {
-  description?: string
-  identifier: string
-  name?: string
-  pipeline: NgPipeline
-  tags?: {
-    [key: string]: string
-  }
-}
-
-export interface InputSetError {
-  fieldName?: string
-  identifierOfErrorSource?: string
-  message?: string
-}
-
-export interface InputSetErrorResponse {
-  errors?: InputSetError[]
-}
-
-export interface InputSetErrorWrapper {
-  errorPipelineYaml?: string
-  uuidToErrorResponseMap?: {
-    [key: string]: InputSetErrorResponse
-  }
-}
-
 export type InputSetReference = EntityReference & {
   isDefault?: boolean
   pipelineIdentifier?: string
-}
-
-export interface InputSetResponse {
-  accountId?: string
-  description?: string
-  errorResponse?: boolean
-  identifier?: string
-  inputSetErrorWrapper?: InputSetErrorWrapper
-  inputSetYaml?: string
-  name?: string
-  orgIdentifier?: string
-  pipelineIdentifier?: string
-  projectIdentifier?: string
-  tags?: {
-    [key: string]: string
-  }
-  version?: number
-}
-
-export interface InputSetSummaryResponse {
-  description?: string
-  identifier?: string
-  inputSetType?: 'INPUT_SET' | 'OVERLAY_INPUT_SET'
-  name?: string
-  pipelineIdentifier?: string
-  tags?: {
-    [key: string]: string
-  }
-  version?: number
-}
-
-export interface InputSetTemplateResponse {
-  inputSetTemplateYaml?: string
 }
 
 export interface InputSetValidator {
@@ -3166,16 +3090,6 @@ export type MarkAsSuccessFailureActionConfig = FailureStrategyActionConfig & {
   type: 'MarkAsSuccess'
 }
 
-export interface MergeInputSetRequest {
-  inputSetReferences?: string[]
-}
-
-export interface MergeInputSetResponse {
-  errorResponse?: boolean
-  inputSetErrorWrapper?: InputSetErrorWrapper
-  pipelineYaml?: string
-}
-
 export type MicrosoftTeamsConfig = NotificationSettingConfig & {
   microsoftTeamsWebhookUrl?: string
 }
@@ -3258,19 +3172,6 @@ export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
   passwordRef: string
   username?: string
   usernameRef?: string
-}
-
-export interface NgPipeline {
-  ciCodebase?: CodeBase
-  description?: string
-  identifier: string
-  metadata?: string
-  name: string
-  stages?: StageElementWrapper[]
-  tags?: {
-    [key: string]: string
-  }
-  variables?: NGVariable[]
 }
 
 export interface NotificationChannelWrapper {
@@ -3384,36 +3285,6 @@ export interface OrganizationResponse {
   harnessManaged?: boolean
   lastModifiedAt?: number
   organization: Organization
-}
-
-export interface OverlayInputSetConfig {
-  description?: string
-  identifier?: string
-  inputSetReferences?: string[]
-  name?: string
-  tags?: {
-    [key: string]: string
-  }
-}
-
-export interface OverlayInputSetResponse {
-  accountId?: string
-  description?: string
-  errorResponse?: boolean
-  identifier?: string
-  inputSetReferences?: string[]
-  invalidInputSetReferences?: {
-    [key: string]: string
-  }
-  name?: string
-  orgIdentifier?: string
-  overlayInputSetYaml?: string
-  pipelineIdentifier?: string
-  projectIdentifier?: string
-  tags?: {
-    [key: string]: string
-  }
-  version?: number
 }
 
 export interface Page {
@@ -3530,16 +3401,6 @@ export interface PageGitBranchDTO {
 
 export interface PageGitSyncEntityListDTO {
   content?: GitSyncEntityListDTO[]
-  empty?: boolean
-  pageIndex?: number
-  pageItemCount?: number
-  pageSize?: number
-  totalItems?: number
-  totalPages?: number
-}
-
-export interface PageInputSetSummaryResponse {
-  content?: InputSetSummaryResponse[]
   empty?: boolean
   pageIndex?: number
   pageItemCount?: number
@@ -3725,17 +3586,7 @@ export type PagerDutyConfigDTO = NotificationSettingConfigDTO & {
   pagerDutyKey: string
 }
 
-export type ParallelStageElement = StageElementWrapper & {
-  metadata?: string
-  sections: StageElementWrapper[]
-}
-
-export type ParallelStageElementConfig = StageElementWrapperConfig[]
-
-export type ParallelStepElement = ExecutionWrapper & {
-  metadata?: string
-  sections: ExecutionWrapper[]
-}
+export type ParallelStageElementConfig = StageElementWrapperConfigConfig[]
 
 export type ParallelStepElementConfig = ExecutionWrapperConfig[]
 
@@ -3847,7 +3698,7 @@ export interface PipelineInfoConfig {
   orgIdentifier?: string
   projectIdentifier?: string
   properties?: NGProperties
-  stages?: StageElementWrapperConfig[]
+  stages?: StageElementWrapperConfigConfig[]
   tags?: {
     [key: string]: string
   }
@@ -4235,20 +4086,6 @@ export interface ResponseHealthDeploymentDashboard {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseInputSetResponse {
-  correlationId?: string
-  data?: InputSetResponse
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseInputSetTemplateResponse {
-  correlationId?: string
-  data?: InputSetTemplateResponse
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponseInstanceCountDetailsByEnvTypeBase {
   correlationId?: string
   data?: InstanceCountDetailsByEnvTypeBase
@@ -4465,13 +4302,6 @@ export interface ResponseMapStringString {
   data?: {
     [key: string]: string
   }
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseMergeInputSetResponse {
-  correlationId?: string
-  data?: MergeInputSetResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4731,6 +4561,7 @@ export interface ResponseMessage {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -4806,13 +4637,6 @@ export interface ResponseOrganizationResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseOverlayInputSetResponse {
-  correlationId?: string
-  data?: OverlayInputSetResponse
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
 export interface ResponsePageActivity {
   correlationId?: string
   data?: PageActivity
@@ -4872,13 +4696,6 @@ export interface ResponsePageFilterDTO {
 export interface ResponsePageGitSyncEntityListDTO {
   correlationId?: string
   data?: PageGitSyncEntityListDTO
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponsePageInputSetSummaryResponse {
-  correlationId?: string
-  data?: PageInputSetSummaryResponse
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5765,6 +5582,7 @@ export interface SidecarArtifactWrapper {
 
 export interface SignupDTO {
   email?: string
+  intent?: string
   password?: string
   utmInfo?: UtmInfo
 }
@@ -5818,17 +5636,6 @@ export interface StackTraceElement {
   nativeMethod?: boolean
 }
 
-export type StageElement = StageElementWrapper & {
-  description?: string
-  failureStrategies: FailureStrategyConfig[]
-  identifier: string
-  metadata?: string
-  name?: string
-  skipCondition?: string
-  spec?: StageType
-  type?: string
-}
-
 export interface StageElementConfig {
   description?: string
   failureStrategies?: FailureStrategyConfig[]
@@ -5843,11 +5650,7 @@ export interface StageElementConfig {
   when?: StageWhenCondition
 }
 
-export interface StageElementWrapper {
-  [key: string]: any
-}
-
-export interface StageElementWrapperConfig {
+export interface StageElementWrapperConfigConfig {
   parallel?: ParallelStageElementConfig
   stage?: StageElementConfig
 }
@@ -5867,10 +5670,6 @@ export interface StageOverridesConfig {
 
 export type StageRollbackFailureActionConfig = FailureStrategyActionConfig & {
   type: 'StageRollback'
-}
-
-export interface StageType {
-  identifier: string
 }
 
 export interface StageWhenCondition {
@@ -5916,16 +5715,6 @@ export interface StepData {
     | 'Placeholder'
 }
 
-export type StepElement = ExecutionWrapper & {
-  failureStrategies?: FailureStrategyConfig[]
-  identifier: string
-  metadata?: string
-  name?: string
-  skipCondition?: string
-  spec?: StepSpecType
-  type?: string
-}
-
 export interface StepElementConfig {
   description?: string
   failureStrategies?: FailureStrategyConfig[]
@@ -5935,15 +5724,6 @@ export interface StepElementConfig {
   timeout?: string
   type: string
   when?: StepWhenCondition
-}
-
-export type StepGroupElement = ExecutionWrapper & {
-  failureStrategies?: FailureStrategyConfig[]
-  identifier: string
-  metadata?: string
-  name?: string
-  rollbackSteps?: ExecutionWrapper[]
-  steps: ExecutionWrapper[]
 }
 
 export interface StepGroupElementConfig {
@@ -6030,7 +5810,7 @@ export interface TerraformBackendConfigSpec {
 }
 
 export interface TerraformConfigFilesWrapper {
-  store?: StoreConfigWrapper
+  store: StoreConfigWrapper
 }
 
 export type TerraformDestroyStepInfo = StepSpecType & {
@@ -6280,6 +6060,7 @@ export interface UserInfo {
   defaultAccountId?: string
   email?: string
   emailVerified?: boolean
+  intent?: string
   locked?: boolean
   name?: string
   token?: string
@@ -6449,11 +6230,7 @@ export type GitSyncConfigRequestBody = GitSyncConfig
 
 export type GitSyncSettingsDTORequestBody = GitSyncSettingsDTO
 
-export type InputSetConfigRequestBody = InputSetConfig
-
 export type OrganizationRequestRequestBody = OrganizationRequest
-
-export type OverlayInputSetConfigRequestBody = OverlayInputSetConfig
 
 export type ProjectRequestRequestBody = ProjectRequest
 
@@ -14431,786 +14208,6 @@ export const getNGManagerHealthStatusPromise = (
   signal?: RequestInit['signal']
 ) => getUsingFetch<ResponseString, unknown, void, void>(getConfig('ng/api'), `/health`, props, signal)
 
-export interface GetInputSetsListForPipelineQueryParams {
-  pageIndex?: number
-  pageSize?: number
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  inputSetType?: 'ALL' | 'INPUT_SET' | 'OVERLAY_INPUT_SET'
-  searchTerm?: string
-  sortOrders?: string[]
-}
-
-export type GetInputSetsListForPipelineProps = Omit<
-  GetProps<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Gets InputSets list for a pipeline
- */
-export const GetInputSetsListForPipeline = (props: GetInputSetsListForPipelineProps) => (
-  <Get<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>
-    path={`/inputSets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetInputSetsListForPipelineProps = Omit<
-  UseGetProps<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Gets InputSets list for a pipeline
- */
-export const useGetInputSetsListForPipeline = (props: UseGetInputSetsListForPipelineProps) =>
-  useGet<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>(
-    `/inputSets`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets InputSets list for a pipeline
- */
-export const getInputSetsListForPipelinePromise = (
-  props: GetUsingFetchProps<
-    ResponsePageInputSetSummaryResponse,
-    Failure | Error,
-    GetInputSetsListForPipelineQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>(
-    getConfig('ng/api'),
-    `/inputSets`,
-    props,
-    signal
-  )
-
-export interface CreateInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-}
-
-export type CreateInputSetForPipelineProps = Omit<
-  MutateProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    CreateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create an InputSet For Pipeline
- */
-export const CreateInputSetForPipeline = (props: CreateInputSetForPipelineProps) => (
-  <Mutate<
-    ResponseInputSetResponse,
-    Failure | Error,
-    CreateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/inputSets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseCreateInputSetForPipelineProps = Omit<
-  UseMutateProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    CreateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create an InputSet For Pipeline
- */
-export const useCreateInputSetForPipeline = (props: UseCreateInputSetForPipelineProps) =>
-  useMutate<
-    ResponseInputSetResponse,
-    Failure | Error,
-    CreateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    void
-  >('POST', `/inputSets`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Create an InputSet For Pipeline
- */
-export const createInputSetForPipelinePromise = (
-  props: MutateUsingFetchProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    CreateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseInputSetResponse,
-    Failure | Error,
-    CreateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/inputSets`, props, signal)
-
-export interface GetMergeInputSetFromPipelineTemplateWithListInputQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  useFQNIfError?: boolean
-}
-
-export type GetMergeInputSetFromPipelineTemplateWithListInputProps = Omit<
-  MutateProps<
-    ResponseMergeInputSetResponse,
-    Failure | Error,
-    GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Merges given input sets list on pipeline and return input set template format of applied pipeline
- */
-export const GetMergeInputSetFromPipelineTemplateWithListInput = (
-  props: GetMergeInputSetFromPipelineTemplateWithListInputProps
-) => (
-  <Mutate<
-    ResponseMergeInputSetResponse,
-    Failure | Error,
-    GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
-    void
-  >
-    verb="POST"
-    path={`/inputSets/merge`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetMergeInputSetFromPipelineTemplateWithListInputProps = Omit<
-  UseMutateProps<
-    ResponseMergeInputSetResponse,
-    Failure | Error,
-    GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Merges given input sets list on pipeline and return input set template format of applied pipeline
- */
-export const useGetMergeInputSetFromPipelineTemplateWithListInput = (
-  props: UseGetMergeInputSetFromPipelineTemplateWithListInputProps
-) =>
-  useMutate<
-    ResponseMergeInputSetResponse,
-    Failure | Error,
-    GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
-    void
-  >('POST', `/inputSets/merge`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Merges given input sets list on pipeline and return input set template format of applied pipeline
- */
-export const getMergeInputSetFromPipelineTemplateWithListInputPromise = (
-  props: MutateUsingFetchProps<
-    ResponseMergeInputSetResponse,
-    Failure | Error,
-    GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseMergeInputSetResponse,
-    Failure | Error,
-    GetMergeInputSetFromPipelineTemplateWithListInputQueryParams,
-    MergeInputSetRequest,
-    void
-  >('POST', getConfig('ng/api'), `/inputSets/merge`, props, signal)
-
-export interface CreateOverlayInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-}
-
-export type CreateOverlayInputSetForPipelineProps = Omit<
-  MutateProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    CreateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create an Overlay InputSet For Pipeline
- */
-export const CreateOverlayInputSetForPipeline = (props: CreateOverlayInputSetForPipelineProps) => (
-  <Mutate<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    CreateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    void
-  >
-    verb="POST"
-    path={`/inputSets/overlay`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseCreateOverlayInputSetForPipelineProps = Omit<
-  UseMutateProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    CreateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create an Overlay InputSet For Pipeline
- */
-export const useCreateOverlayInputSetForPipeline = (props: UseCreateOverlayInputSetForPipelineProps) =>
-  useMutate<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    CreateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    void
-  >('POST', `/inputSets/overlay`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Create an Overlay InputSet For Pipeline
- */
-export const createOverlayInputSetForPipelinePromise = (
-  props: MutateUsingFetchProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    CreateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    CreateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/inputSets/overlay`, props, signal)
-
-export interface GetOverlayInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  deleted?: boolean
-}
-
-export interface GetOverlayInputSetForPipelinePathParams {
-  inputSetIdentifier: string
-}
-
-export type GetOverlayInputSetForPipelineProps = Omit<
-  GetProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    GetOverlayInputSetForPipelineQueryParams,
-    GetOverlayInputSetForPipelinePathParams
-  >,
-  'path'
-> &
-  GetOverlayInputSetForPipelinePathParams
-
-/**
- * Gets an Overlay InputSet by identifier
- */
-export const GetOverlayInputSetForPipeline = ({ inputSetIdentifier, ...props }: GetOverlayInputSetForPipelineProps) => (
-  <Get<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    GetOverlayInputSetForPipelineQueryParams,
-    GetOverlayInputSetForPipelinePathParams
-  >
-    path={`/inputSets/overlay/${inputSetIdentifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetOverlayInputSetForPipelineProps = Omit<
-  UseGetProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    GetOverlayInputSetForPipelineQueryParams,
-    GetOverlayInputSetForPipelinePathParams
-  >,
-  'path'
-> &
-  GetOverlayInputSetForPipelinePathParams
-
-/**
- * Gets an Overlay InputSet by identifier
- */
-export const useGetOverlayInputSetForPipeline = ({
-  inputSetIdentifier,
-  ...props
-}: UseGetOverlayInputSetForPipelineProps) =>
-  useGet<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    GetOverlayInputSetForPipelineQueryParams,
-    GetOverlayInputSetForPipelinePathParams
-  >(
-    (paramsInPath: GetOverlayInputSetForPipelinePathParams) => `/inputSets/overlay/${paramsInPath.inputSetIdentifier}`,
-    { base: getConfig('ng/api'), pathParams: { inputSetIdentifier }, ...props }
-  )
-
-/**
- * Gets an Overlay InputSet by identifier
- */
-export const getOverlayInputSetForPipelinePromise = (
-  {
-    inputSetIdentifier,
-    ...props
-  }: GetUsingFetchProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    GetOverlayInputSetForPipelineQueryParams,
-    GetOverlayInputSetForPipelinePathParams
-  > & { inputSetIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    GetOverlayInputSetForPipelineQueryParams,
-    GetOverlayInputSetForPipelinePathParams
-  >(getConfig('ng/api'), `/inputSets/overlay/${inputSetIdentifier}`, props, signal)
-
-export interface UpdateOverlayInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-}
-
-export interface UpdateOverlayInputSetForPipelinePathParams {
-  inputSetIdentifier: string
-}
-
-export type UpdateOverlayInputSetForPipelineProps = Omit<
-  MutateProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    UpdateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    UpdateOverlayInputSetForPipelinePathParams
-  >,
-  'path' | 'verb'
-> &
-  UpdateOverlayInputSetForPipelinePathParams
-
-/**
- * Update an Overlay InputSet by identifier
- */
-export const UpdateOverlayInputSetForPipeline = ({
-  inputSetIdentifier,
-  ...props
-}: UpdateOverlayInputSetForPipelineProps) => (
-  <Mutate<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    UpdateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    UpdateOverlayInputSetForPipelinePathParams
-  >
-    verb="PUT"
-    path={`/inputSets/overlay/${inputSetIdentifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateOverlayInputSetForPipelineProps = Omit<
-  UseMutateProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    UpdateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    UpdateOverlayInputSetForPipelinePathParams
-  >,
-  'path' | 'verb'
-> &
-  UpdateOverlayInputSetForPipelinePathParams
-
-/**
- * Update an Overlay InputSet by identifier
- */
-export const useUpdateOverlayInputSetForPipeline = ({
-  inputSetIdentifier,
-  ...props
-}: UseUpdateOverlayInputSetForPipelineProps) =>
-  useMutate<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    UpdateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    UpdateOverlayInputSetForPipelinePathParams
-  >(
-    'PUT',
-    (paramsInPath: UpdateOverlayInputSetForPipelinePathParams) =>
-      `/inputSets/overlay/${paramsInPath.inputSetIdentifier}`,
-    { base: getConfig('ng/api'), pathParams: { inputSetIdentifier }, ...props }
-  )
-
-/**
- * Update an Overlay InputSet by identifier
- */
-export const updateOverlayInputSetForPipelinePromise = (
-  {
-    inputSetIdentifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    UpdateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    UpdateOverlayInputSetForPipelinePathParams
-  > & { inputSetIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseOverlayInputSetResponse,
-    Failure | Error,
-    UpdateOverlayInputSetForPipelineQueryParams,
-    OverlayInputSetConfigRequestBody,
-    UpdateOverlayInputSetForPipelinePathParams
-  >('PUT', getConfig('ng/api'), `/inputSets/overlay/${inputSetIdentifier}`, props, signal)
-
-export interface GetTemplateFromPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-}
-
-export type GetTemplateFromPipelineProps = Omit<
-  GetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Get template from a pipeline yaml
- */
-export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => (
-  <Get<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>
-    path={`/inputSets/template`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetTemplateFromPipelineProps = Omit<
-  UseGetProps<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>,
-  'path'
->
-
-/**
- * Get template from a pipeline yaml
- */
-export const useGetTemplateFromPipeline = (props: UseGetTemplateFromPipelineProps) =>
-  useGet<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
-    `/inputSets/template`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Get template from a pipeline yaml
- */
-export const getTemplateFromPipelinePromise = (
-  props: GetUsingFetchProps<
-    ResponseInputSetTemplateResponse,
-    Failure | Error,
-    GetTemplateFromPipelineQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>(
-    getConfig('ng/api'),
-    `/inputSets/template`,
-    props,
-    signal
-  )
-
-export interface DeleteInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-}
-
-export type DeleteInputSetForPipelineProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete an inputSet by identifier
- */
-export const DeleteInputSetForPipeline = (props: DeleteInputSetForPipelineProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>
-    verb="DELETE"
-    path={`/inputSets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteInputSetForPipelineProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete an inputSet by identifier
- */
-export const useDeleteInputSetForPipeline = (props: UseDeleteInputSetForPipelineProps) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>(
-    'DELETE',
-    `/inputSets`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Delete an inputSet by identifier
- */
-export const deleteInputSetForPipelinePromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/inputSets`,
-    props,
-    signal
-  )
-
-export interface GetInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  deleted?: boolean
-}
-
-export interface GetInputSetForPipelinePathParams {
-  inputSetIdentifier: string
-}
-
-export type GetInputSetForPipelineProps = Omit<
-  GetProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    GetInputSetForPipelineQueryParams,
-    GetInputSetForPipelinePathParams
-  >,
-  'path'
-> &
-  GetInputSetForPipelinePathParams
-
-/**
- * Gets an InputSet by identifier
- */
-export const GetInputSetForPipeline = ({ inputSetIdentifier, ...props }: GetInputSetForPipelineProps) => (
-  <Get<ResponseInputSetResponse, Failure | Error, GetInputSetForPipelineQueryParams, GetInputSetForPipelinePathParams>
-    path={`/inputSets/${inputSetIdentifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetInputSetForPipelineProps = Omit<
-  UseGetProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    GetInputSetForPipelineQueryParams,
-    GetInputSetForPipelinePathParams
-  >,
-  'path'
-> &
-  GetInputSetForPipelinePathParams
-
-/**
- * Gets an InputSet by identifier
- */
-export const useGetInputSetForPipeline = ({ inputSetIdentifier, ...props }: UseGetInputSetForPipelineProps) =>
-  useGet<
-    ResponseInputSetResponse,
-    Failure | Error,
-    GetInputSetForPipelineQueryParams,
-    GetInputSetForPipelinePathParams
-  >((paramsInPath: GetInputSetForPipelinePathParams) => `/inputSets/${paramsInPath.inputSetIdentifier}`, {
-    base: getConfig('ng/api'),
-    pathParams: { inputSetIdentifier },
-    ...props
-  })
-
-/**
- * Gets an InputSet by identifier
- */
-export const getInputSetForPipelinePromise = (
-  {
-    inputSetIdentifier,
-    ...props
-  }: GetUsingFetchProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    GetInputSetForPipelineQueryParams,
-    GetInputSetForPipelinePathParams
-  > & { inputSetIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    ResponseInputSetResponse,
-    Failure | Error,
-    GetInputSetForPipelineQueryParams,
-    GetInputSetForPipelinePathParams
-  >(getConfig('ng/api'), `/inputSets/${inputSetIdentifier}`, props, signal)
-
-export interface UpdateInputSetForPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-}
-
-export interface UpdateInputSetForPipelinePathParams {
-  inputSetIdentifier: string
-}
-
-export type UpdateInputSetForPipelineProps = Omit<
-  MutateProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    UpdateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    UpdateInputSetForPipelinePathParams
-  >,
-  'path' | 'verb'
-> &
-  UpdateInputSetForPipelinePathParams
-
-/**
- * Update an InputSet by identifier
- */
-export const UpdateInputSetForPipeline = ({ inputSetIdentifier, ...props }: UpdateInputSetForPipelineProps) => (
-  <Mutate<
-    ResponseInputSetResponse,
-    Failure | Error,
-    UpdateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    UpdateInputSetForPipelinePathParams
-  >
-    verb="PUT"
-    path={`/inputSets/${inputSetIdentifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateInputSetForPipelineProps = Omit<
-  UseMutateProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    UpdateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    UpdateInputSetForPipelinePathParams
-  >,
-  'path' | 'verb'
-> &
-  UpdateInputSetForPipelinePathParams
-
-/**
- * Update an InputSet by identifier
- */
-export const useUpdateInputSetForPipeline = ({ inputSetIdentifier, ...props }: UseUpdateInputSetForPipelineProps) =>
-  useMutate<
-    ResponseInputSetResponse,
-    Failure | Error,
-    UpdateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    UpdateInputSetForPipelinePathParams
-  >('PUT', (paramsInPath: UpdateInputSetForPipelinePathParams) => `/inputSets/${paramsInPath.inputSetIdentifier}`, {
-    base: getConfig('ng/api'),
-    pathParams: { inputSetIdentifier },
-    ...props
-  })
-
-/**
- * Update an InputSet by identifier
- */
-export const updateInputSetForPipelinePromise = (
-  {
-    inputSetIdentifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseInputSetResponse,
-    Failure | Error,
-    UpdateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    UpdateInputSetForPipelinePathParams
-  > & { inputSetIdentifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseInputSetResponse,
-    Failure | Error,
-    UpdateInputSetForPipelineQueryParams,
-    InputSetConfigRequestBody,
-    UpdateInputSetForPipelinePathParams
-  >('PUT', getConfig('ng/api'), `/inputSets/${inputSetIdentifier}`, props, signal)
-
 export interface GetInvitesQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -19190,12 +18187,12 @@ export interface SignupQueryParams {
 }
 
 export type SignupProps = Omit<
-  MutateProps<RestResponseUserInfo, Failure | Error, SignupQueryParams, SignupDTO, void>,
+  MutateProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>,
   'path' | 'verb'
 >
 
 export const Signup = (props: SignupProps) => (
-  <Mutate<RestResponseUserInfo, Failure | Error, SignupQueryParams, SignupDTO, void>
+  <Mutate<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>
     verb="POST"
     path={`/signup`}
     base={getConfig('ng/api')}
@@ -19204,24 +18201,73 @@ export const Signup = (props: SignupProps) => (
 )
 
 export type UseSignupProps = Omit<
-  UseMutateProps<RestResponseUserInfo, Failure | Error, SignupQueryParams, SignupDTO, void>,
+  UseMutateProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>,
   'path' | 'verb'
 >
 
 export const useSignup = (props: UseSignupProps) =>
-  useMutate<RestResponseUserInfo, Failure | Error, SignupQueryParams, SignupDTO, void>('POST', `/signup`, {
+  useMutate<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>('POST', `/signup`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const signupPromise = (
-  props: MutateUsingFetchProps<RestResponseUserInfo, Failure | Error, SignupQueryParams, SignupDTO, void>,
+  props: MutateUsingFetchProps<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseUserInfo, Failure | Error, SignupQueryParams, SignupDTO, void>(
+  mutateUsingFetch<RestResponseVoid, Failure | Error, SignupQueryParams, SignupDTO, void>(
     'POST',
     getConfig('ng/api'),
     `/signup`,
+    props,
+    signal
+  )
+
+export interface CompleteSignupInvitePathParams {
+  token: string
+}
+
+export type CompleteSignupInviteProps = Omit<
+  MutateProps<RestResponseUserInfo, Failure | Error, void, void, CompleteSignupInvitePathParams>,
+  'path' | 'verb'
+> &
+  CompleteSignupInvitePathParams
+
+export const CompleteSignupInvite = ({ token, ...props }: CompleteSignupInviteProps) => (
+  <Mutate<RestResponseUserInfo, Failure | Error, void, void, CompleteSignupInvitePathParams>
+    verb="PUT"
+    path={`/signup/complete/${token}`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCompleteSignupInviteProps = Omit<
+  UseMutateProps<RestResponseUserInfo, Failure | Error, void, void, CompleteSignupInvitePathParams>,
+  'path' | 'verb'
+> &
+  CompleteSignupInvitePathParams
+
+export const useCompleteSignupInvite = ({ token, ...props }: UseCompleteSignupInviteProps) =>
+  useMutate<RestResponseUserInfo, Failure | Error, void, void, CompleteSignupInvitePathParams>(
+    'PUT',
+    (paramsInPath: CompleteSignupInvitePathParams) => `/signup/complete/${paramsInPath.token}`,
+    { base: getConfig('ng/api'), pathParams: { token }, ...props }
+  )
+
+export const completeSignupInvitePromise = (
+  {
+    token,
+    ...props
+  }: MutateUsingFetchProps<RestResponseUserInfo, Failure | Error, void, void, CompleteSignupInvitePathParams> & {
+    token: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<RestResponseUserInfo, Failure | Error, void, void, CompleteSignupInvitePathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/signup/complete/${token}`,
     props,
     signal
   )
@@ -19259,6 +18305,57 @@ export const signupOAuthPromise = (
     'POST',
     getConfig('ng/api'),
     `/signup/oauth`,
+    props,
+    signal
+  )
+
+export interface ResendVerifyEmailQueryParams {
+  email: string
+}
+
+export type ResendVerifyEmailProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, ResendVerifyEmailQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Resend user verification email
+ */
+export const ResendVerifyEmail = (props: ResendVerifyEmailProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, ResendVerifyEmailQueryParams, void, void>
+    verb="POST"
+    path={`/signup/verify-notification`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseResendVerifyEmailProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, ResendVerifyEmailQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Resend user verification email
+ */
+export const useResendVerifyEmail = (props: UseResendVerifyEmailProps) =>
+  useMutate<ResponseBoolean, Failure | Error, ResendVerifyEmailQueryParams, void, void>(
+    'POST',
+    `/signup/verify-notification`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Resend user verification email
+ */
+export const resendVerifyEmailPromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, ResendVerifyEmailQueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, ResendVerifyEmailQueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/signup/verify-notification`,
     props,
     signal
   )
@@ -19308,64 +18405,6 @@ export const verifyTokenPromise = (
     'POST',
     getConfig('ng/api'),
     `/signup/verify/${token}`,
-    props,
-    signal
-  )
-
-export interface ResendVerifyEmailPathParams {
-  userId: string
-}
-
-export type ResendVerifyEmailProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, void, void, ResendVerifyEmailPathParams>,
-  'path' | 'verb'
-> &
-  ResendVerifyEmailPathParams
-
-/**
- * Resend user verification email
- */
-export const ResendVerifyEmail = ({ userId, ...props }: ResendVerifyEmailProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, void, void, ResendVerifyEmailPathParams>
-    verb="POST"
-    path={`/signup/${userId}/verify-notification`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseResendVerifyEmailProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, void, void, ResendVerifyEmailPathParams>,
-  'path' | 'verb'
-> &
-  ResendVerifyEmailPathParams
-
-/**
- * Resend user verification email
- */
-export const useResendVerifyEmail = ({ userId, ...props }: UseResendVerifyEmailProps) =>
-  useMutate<ResponseBoolean, Failure | Error, void, void, ResendVerifyEmailPathParams>(
-    'POST',
-    (paramsInPath: ResendVerifyEmailPathParams) => `/signup/${paramsInPath.userId}/verify-notification`,
-    { base: getConfig('ng/api'), pathParams: { userId }, ...props }
-  )
-
-/**
- * Resend user verification email
- */
-export const resendVerifyEmailPromise = (
-  {
-    userId,
-    ...props
-  }: MutateUsingFetchProps<ResponseBoolean, Failure | Error, void, void, ResendVerifyEmailPathParams> & {
-    userId: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, void, void, ResendVerifyEmailPathParams>(
-    'POST',
-    getConfig('ng/api'),
-    `/signup/${userId}/verify-notification`,
     props,
     signal
   )

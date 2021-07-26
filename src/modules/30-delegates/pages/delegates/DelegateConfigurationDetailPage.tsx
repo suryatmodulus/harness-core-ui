@@ -240,6 +240,11 @@ export default function DelegateProfileDetails(): JSX.Element {
                     }
                   />
 
+                  <SectionLabelValuePair
+                    label={getString('delegates.delegateIdentifier')}
+                    value={profile?.identifier}
+                  />
+
                   {/* Description */}
                   {!editMode && profile?.description && (
                     <SectionLabelValuePair label={getString('description')} value={formData.description} />

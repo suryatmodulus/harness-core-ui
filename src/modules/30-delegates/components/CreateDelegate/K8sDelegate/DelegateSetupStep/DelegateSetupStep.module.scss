@@ -1,3 +1,11 @@
+.baseContainer {
+  height: 500px;
+}
+.leftPanel {
+  overflow-y: auto;
+  width: '50%';
+}
+
 .delegateSizeWrapper {
   margin-bottom: var(--spacing-small) !important;
   :global {

@@ -227,13 +227,38 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
                     inputGroupProps={{ disabled: isDisabled }}
                   />
                 </div>
+                <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                    <FormMultiTypeDurationField
+                      name="timeout"
+                      disabled={isDisabled}
+                      label={getString('pipelineSteps.timeoutLabel')}
+                      multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: isDisabled }}
+                    />
+                    {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        value={values.timeout as string}
+                        type="String"
+                        variableName="step.timeout"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value => {
+                          formikProps.setFieldValue('timeout', value)
+                        }}
+                        isReadonly={isDisabled}
+                      />
+                    )}
+                  </Layout.Horizontal>
+                </div>
+                <div className={stepCss.noLookDivider} />
                 <div className={stepCss.formGroup}>
                   <FormInput.RadioGroup
                     label={getString('pipelineSteps.deleteResourcesBy')}
@@ -389,30 +414,6 @@ function K8sDeleteDeployWidget(props: K8sDeleteProps, formikRef: StepFormikFowar
                     </MultiTypeFieldSelector>
                   </div>
                 )}
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                    <FormMultiTypeDurationField
-                      name="timeout"
-                      disabled={isDisabled}
-                      label={getString('pipelineSteps.timeoutLabel')}
-                      multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: isDisabled }}
-                    />
-                    {getMultiTypeFromValue(formikProps.values.timeout) === MultiTypeInputType.RUNTIME && (
-                      <ConfigureOptions
-                        value={values.timeout as string}
-                        type="String"
-                        variableName="step.timeout"
-                        showRequiredField={false}
-                        showDefaultField={false}
-                        showAdvanced={true}
-                        onChange={value => {
-                          formikProps.setFieldValue('timeout', value)
-                        }}
-                        isReadonly={isDisabled}
-                      />
-                    )}
-                  </Layout.Horizontal>
-                </div>
               </Layout.Vertical>
 
               {formikProps?.values?.spec?.deleteResources?.type === DeleteSpecConstant.ReleaseName &&
@@ -664,6 +665,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...initialValues,
         spec: {
+          ...initialValues.spec,
           deleteResources: {
             type: DeleteSpecConstant.ResourceName,
             spec: {
@@ -685,6 +687,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...initialValues,
         spec: {
+          ...initialValues.spec,
           deleteResources: {
             type: DeleteSpecConstant.ManifestPath,
             spec: {
@@ -706,6 +709,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...initialValues,
         spec: {
+          ...initialValues.spec,
           deleteResources: {
             type: DeleteSpecConstant.ReleaseName,
             spec: {
@@ -719,6 +723,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
     return {
       ...initialValues,
       spec: {
+        ...initialValues.spec,
         deleteResources: {
           type: DeleteSpecConstant.ResourceName,
           spec: {
@@ -747,6 +752,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...data,
         spec: {
+          ...data.spec,
           deleteResources: {
             type: DeleteSpecConstant.ResourceName,
             spec: {
@@ -765,6 +771,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
       return {
         ...data,
         spec: {
+          ...data.spec,
           deleteResources: {
             type: DeleteSpecConstant.ManifestPath,
             spec: {
@@ -784,6 +791,7 @@ export class K8sDeleteStep extends PipelineStep<K8sDeleteFormData> {
     return {
       ...data,
       spec: {
+        ...data.spec,
         deleteResources: {
           type: DeleteSpecConstant.ReleaseName,
           spec: {

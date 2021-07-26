@@ -29,6 +29,7 @@ import RecommendationDetailsPage from './pages/recommendationDetails/Recommendat
 import PerspectiveDetailsPage from './pages/perspective-details/PerspectiveDetailsPage'
 import CreatePerspectivePage from './pages/perspective-builder/CreatePerspectivePage'
 import PerspectiveListPage from './pages/perspective-list/PerspectiveListPage'
+import WorkloadDetailsPage from './pages/workload-details/WorkloadDetailsPage'
 
 const RedirectToCEHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -200,6 +201,18 @@ const CERoutes: React.FC = () => {
           exact
         >
           <PerspectiveListPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toWorkloadDetails({
+            ...accountPathProps,
+            clusterName: ':clusterName',
+            namespace: ':namespace',
+            workloadName: ':workloadName'
+          })}
+          exact
+        >
+          <WorkloadDetailsPage />
         </RouteWithLayout>
         <Route path="*">
           <NotFoundPage />

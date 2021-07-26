@@ -10,7 +10,7 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 
 import { String } from 'framework/strings'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { PipelineContext } from './PipelineContext/PipelineContext'
@@ -25,7 +25,10 @@ export interface PipelineStudioProps {
   routePipelineDetail: PathFn<PipelineType<PipelinePathProps>>
   routePipelineList: PathFn<PipelineType<ProjectPathProps>>
   routePipelineProject: PathFn<PipelineType<ProjectPathProps>>
-  getOtherModal?: (onSubmit: (values: NgPipeline) => void, onClose: () => void) => React.ReactElement<OtherModalProps>
+  getOtherModal?: (
+    onSubmit: (values: PipelineInfoConfig) => void,
+    onClose: () => void
+  ) => React.ReactElement<OtherModalProps>
 }
 
 interface PipelineStudioState {
@@ -33,8 +36,8 @@ interface PipelineStudioState {
 }
 
 interface OtherModalProps {
-  onSubmit?: (values: NgPipeline) => void
-  initialValues?: NgPipeline
+  onSubmit?: (values: PipelineInfoConfig) => void
+  initialValues?: PipelineInfoConfig
   onClose?: () => void
 }
 export class PipelineStudio extends React.Component<PipelineStudioProps, PipelineStudioState> {

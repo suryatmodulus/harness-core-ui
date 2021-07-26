@@ -11642,6 +11642,132 @@
         }
       }
     },
+    "/setup/delegates/ng/v2/{identifier}": {
+      "get": {
+        "tags": ["setupdelegatesngv2"],
+        "operationId": "get_1",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseDelegateGroupDetails"
+            }
+          }
+        }
+      }
+    },
+    "/setup/delegates/ng/v2": {
+      "get": {
+        "tags": ["setupdelegatesngv2"],
+        "operationId": "list_1",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseDelegateGroupListing"
+            }
+          }
+        }
+      }
+    },
+    "/setup/delegates/v3/groups/{identifier}": {
+      "delete": {
+        "tags": ["setupdelegatesv3"],
+        "operationId": "deleteDelegateGroup_1",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "forceDelete",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "headers": {},
+            "schema": {
+              "$ref": "#/definitions/RestResponseVoid"
+            }
+          }
+        }
+      }
+    },
     "/setup/delegates/groups/{delegateGroupId}": {
       "delete": {
         "tags": ["setupdelegates"],
@@ -67502,6 +67628,9 @@
       "type": "object",
       "properties": {
         "groupId": {
+          "type": "string"
+        },
+        "delegateGroupIdentifier": {
           "type": "string"
         },
         "delegateType": {

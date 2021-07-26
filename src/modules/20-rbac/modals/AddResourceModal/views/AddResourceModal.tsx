@@ -36,7 +36,7 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
             }}
           />
           <Text color={Color.BLUE_500}>
-            {getString('addResourceModal.selectedText', {
+            {getString('rbac.addResourceModal.selectedText', {
               name: getString(resourceHandler.label),
               number: selectedItems.length
             })}

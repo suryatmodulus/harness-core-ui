@@ -2,7 +2,6 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
-import type { StageElementWrapper } from 'services/cd-ng'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -247,8 +246,8 @@ export default function DeployStageSetupShell(): JSX.Element {
               pathToStage={`${stagePath}.stage.spec.execution`}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
-              updateStage={(stageData: StageElementWrapper) => {
-                updateStage(stageData.stage)
+              updateStage={stageData => {
+                if (stageData.stage) updateStage(stageData.stage)
               }}
               onAddStep={(event: ExecutionGraphAddStepEvent) => {
                 updatePipelineView({
@@ -278,7 +277,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                     type: DrawerTypes.StepConfig,
                     data: {
                       stepConfig: {
-                        node: event.node,
+                        node: event.node as any,
                         stepsMap: event.stepsMap,
                         onUpdate: executionRef.current?.stepGroupUpdated,
                         isStepGroup: event.isStepGroup,

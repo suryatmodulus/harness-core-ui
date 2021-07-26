@@ -26,6 +26,7 @@ import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
 import SelectDeploymentType from '@cd/components/PipelineStudio/DeployServiceSpecifications/SelectDeploymentType'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './DeployServiceSpecifications.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
@@ -55,11 +56,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const debounceUpdateStage = React.useCallback(
-    debounce((stage: StageElementConfig) => updateStage(stage), 300),
+    debounce((stage?: StageElementConfig) => (stage ? updateStage(stage) : Promise.resolve()), 300),
     [updateStage]
   )
 
-  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
+  const { stage = {} } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const { index: stageIndex } = getStageIndexFromPipeline(pipeline, selectedStageId || '')
   const { stages } = getFlattenedStages(pipeline)
   const [parentStage, setParentStage] = React.useState<{
@@ -84,8 +85,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           !get(item.stage, `spec.serviceConfig.useFromStage.stage`)
         ) {
           previousStageList.push({
-            label: `Previous Stage ${item.stage.name} [${item.stage.identifier}]`,
-            value: item.stage.identifier
+            label: `Previous Stage ${item.stage?.name} [${item.stage?.identifier}]`,
+            value: item.stage?.identifier || ''
           })
         }
       })
@@ -100,12 +101,12 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   React.useEffect(() => {
     if (stage?.stage) {
       if (!stage.stage.spec) {
-        stage.stage.spec = {}
+        stage.stage.spec = {} as any
       }
       if (
-        !stage.stage.spec.serviceConfig?.serviceDefinition &&
+        !stage.stage.spec?.serviceConfig?.serviceDefinition &&
         setupModeType === setupMode.DIFFERENT &&
-        !stage.stage.spec.serviceConfig?.useFromStage?.stage
+        !stage.stage.spec?.serviceConfig?.useFromStage?.stage
       ) {
         setDefaultServiceSchema()
         setSelectedPropagatedState({
@@ -116,18 +117,18 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       } else if (
         setupModeType === setupMode.PROPAGATE &&
         stageIndex > 0 &&
-        !stage.stage.spec.serviceConfig?.serviceDefinition &&
-        !stage.stage.spec.serviceConfig?.useFromStage?.stage
+        !stage.stage.spec?.serviceConfig?.serviceDefinition &&
+        !stage.stage.spec?.serviceConfig?.useFromStage?.stage
       ) {
         const stageData = produce(stage, draft => {
-          draft.stage.spec = {
+          set(draft, 'stage.spec', {
             serviceConfig: {
               useFromStage: {
                 stage: null
               },
               stageOverrides: {}
             }
-          }
+          })
         })
         debounceUpdateStage(stageData.stage)
         setSetupMode(setupMode.PROPAGATE)
@@ -137,8 +138,8 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   const setDefaultServiceSchema = (): Promise<void> => {
     const stageData = produce(stage, draft => {
-      draft.stage.spec = {
-        ...stage.stage.spec,
+      set(draft, 'stage.spec', {
+        ...stage.stage?.spec,
         serviceConfig: {
           serviceRef: '',
           serviceDefinition: {
@@ -148,7 +149,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             }
           }
         }
-      }
+      })
     })
 
     return debounceUpdateStage(stageData.stage)
@@ -156,10 +157,10 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
 
   const setStageOverrideSchema = (): Promise<void> => {
     const stageData = produce(stage, draft => {
-      draft.stage.spec = {
-        ...stage.stage.spec,
+      set(draft, 'stage.spec', {
+        ...stage.stage?.spec,
         serviceConfig: {
-          ...stage?.stage?.spec.serviceConfig,
+          ...stage?.stage?.spec?.serviceConfig,
           stageOverrides: {
             artifacts: {
               // primary: null,
@@ -169,9 +170,9 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
             variables: []
           }
         }
-      }
-      if (draft.stage.spec?.serviceConfig.serviceDefinition) {
-        delete draft.stage.spec?.serviceConfig.serviceDefinition
+      })
+      if (draft.stage?.spec?.serviceConfig.serviceDefinition) {
+        delete draft.stage.spec.serviceConfig.serviceDefinition
       }
     })
 
@@ -200,11 +201,11 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     const stageData = produce(stage, draft => {
       if (
         !draft?.stage?.spec?.serviceConfig?.serviceDefinition?.type &&
-        !draft?.stage?.spec.serviceConfig?.useFromStage
+        !draft?.stage?.spec?.serviceConfig?.useFromStage
       ) {
         set(draft, 'stage.spec.serviceConfig.serviceDefinition.type', 'Kubernetes')
       }
-      if (!draft?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec.serviceConfig?.useFromStage) {
+      if (!draft?.stage?.spec?.serviceConfig?.serviceDefinition && !stage?.stage?.spec?.serviceConfig?.useFromStage) {
         set(draft, 'stage.spec.serviceConfig.serviceDefinition', {})
       }
     })
@@ -230,7 +231,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   React.useEffect(() => {
     const useFromStage = stage?.stage?.spec?.serviceConfig?.useFromStage
     const stageOverrides = stage?.stage?.spec?.serviceConfig?.stageOverrides
-    const serviceDefinition = stage?.stage?.spec.serviceConfig?.serviceDefinition
+    const serviceDefinition = stage?.stage?.spec?.serviceConfig?.serviceDefinition
 
     if (useFromStage) {
       setSetupMode(setupMode.PROPAGATE)

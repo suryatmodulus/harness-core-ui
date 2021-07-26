@@ -6,13 +6,15 @@ import cx from 'classnames'
 
 import produce from 'immer'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import type { ExecutionElementConfig, ExecutionWrapper, StepElementConfig } from 'services/cd-ng'
+import type { ExecutionElementConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { DependencyElement } from 'services/ci'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
-import { TabTypes } from '../StepCommands/StepCommandTypes'
+import { TabTypes, Values } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addService, addStepOrGroup, generateRandomString, getStepFromId } from '../ExecutionGraph/ExecutionGraphUtil'
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
@@ -41,7 +43,7 @@ const checkDuplicateStep = (
   data: DrawerData['data'],
   getString: UseStringsReturn['getString']
 ): boolean => {
-  const values = formikRef.current?.getValues()
+  const values = formikRef.current?.getValues() as Values
   if (values && data?.stepConfig?.stepsMap && formikRef.current?.setFieldError) {
     const stepsMap = data.stepConfig.stepsMap
     let duplicate = false
@@ -79,7 +81,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const { stage: selectedStage } = getStageFromPipeline(selectedStageId || '')
   const stageType = selectedStage?.stage?.type
 
-  let stepData = data?.stepConfig?.node?.type ? stepsFactory.getStepData(data?.stepConfig?.node?.type) : null
+  let stepData = (data?.stepConfig?.node as StepElementConfig)?.type
+    ? stepsFactory.getStepData((data?.stepConfig?.node as StepElementConfig)?.type)
+    : null
   const formikRef = React.useRef<StepFormikRef | null>(null)
   const { getString } = useStrings()
   const isAlmostFullscreen = AlmostFullScreenDrawers.includes(type) || ConfigureStepScreenDrawers.includes(type)
@@ -88,7 +92,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     stepData = stepsFactory.getStepData(StepType.StepGroup)
   }
 
-  const applyChanges = async () => {
+  const applyChanges = async (): Promise<void> => {
     if (checkDuplicateStep(formikRef, data, getString)) {
       return
     }
@@ -106,7 +110,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       setSelectedStepId(undefined)
     }
   }
-  const discardChanges = () => {
+  const discardChanges = (): void => {
     updatePipelineView({
       ...pipelineView,
       isDrawerOpened: false,
@@ -144,7 +148,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
   React.useEffect(() => {
     if (selectedStepId && selectedStage && !pipelineView.isDrawerOpened && isSplitViewOpen) {
-      let step: ExecutionWrapper | undefined
+      let step
       let drawerType = DrawerTypes.StepConfig
       // 1. search for step in execution
       const execStep = getStepFromId(selectedStage?.stage?.spec?.execution, selectedStepId, false, false)
@@ -152,7 +156,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       if (!step) {
         drawerType = DrawerTypes.ConfigureService
         // 2. search for step in serviceDependencies
-        const depStep = selectedStage?.stage?.spec?.serviceDependencies?.find(
+        const depStep = (selectedStage?.stage as BuildStageElementConfig)?.spec?.serviceDependencies?.find(
           (item: any) => item.identifier === selectedStepId
         )
         step = depStep
@@ -167,7 +171,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             type: drawerType,
             data: {
               stepConfig: {
-                node: step,
+                node: step as any,
                 stepsMap: data?.paletteData?.stepsMap || data?.stepConfig?.stepsMap || new Map(),
                 onUpdate: data?.paletteData?.onUpdate,
                 isStepGroup: false,
@@ -192,7 +196,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   const updateStepWithinStage = (
     execution: ExecutionElementConfig,
     processingNodeIdentifier: string,
-    processedNode: ExecutionWrapper
+    processedNode: StepElementConfig
   ): void => {
     // Finds the step in the stage, and updates with the processed node
     execution?.steps?.forEach(stepWithinStage => {
@@ -205,12 +209,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         }
       } else if (stepWithinStage.parallel) {
         // If stage has a parallel steps, loop over and update the matching identifier with node
-        stepWithinStage.parallel.forEach((parallelStep: ExecutionWrapper) => {
+        stepWithinStage.parallel.forEach(parallelStep => {
           if (parallelStep?.stepGroup?.identifier === processingNodeIdentifier) {
             parallelStep.stepGroup = processedNode as any
           } else if (parallelStep.step?.identifier === processingNodeIdentifier) {
             parallelStep.step = processedNode
-          } else {
+          } else if (parallelStep?.stepGroup) {
             updateStepWithinStage(parallelStep?.stepGroup, processingNodeIdentifier, processedNode)
           }
         })
@@ -224,16 +228,17 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
-  const onSubmitStep = async (item: ExecutionWrapper, drawerType: DrawerTypes): Promise<void> => {
+  const onSubmitStep = async (item: Partial<Values>, drawerType: DrawerTypes): Promise<void> => {
     if (data?.stepConfig?.node) {
-      const processNode = produce<ExecutionWrapper>(data.stepConfig.node, node => {
+      const processNode = produce(data.stepConfig.node as StepElementConfig, node => {
         // Add/replace values only if they are presented
         if (item.name && item.tab !== TabTypes.Advanced) node.name = item.name
         if (item.identifier && item.tab !== TabTypes.Advanced) node.identifier = item.identifier
-        if (item.description && item.tab !== TabTypes.Advanced) node.description = item.description
-        if (item.skipCondition && item.tab === TabTypes.Advanced) node.skipCondition = item.skipCondition
+        if ((item as StepElementConfig).description && item.tab !== TabTypes.Advanced)
+          node.description = (item as StepElementConfig).description
         if (item.when && item.tab === TabTypes.Advanced) node.when = item.when
-        if (item.timeout && item.tab !== TabTypes.Advanced) node.timeout = item.timeout
+        if ((item as StepElementConfig).timeout && item.tab !== TabTypes.Advanced)
+          node.timeout = (item as StepElementConfig).timeout
         // default strategies can be present without having the need to click on Advanced Tab. For eg. in CV step.
         if (Array.isArray(item.failureStrategies)) {
           node.failureStrategies = item.failureStrategies
@@ -243,9 +248,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         }
 
         // Delete values if they were already added and now removed
-        if (node.timeout && !item.timeout && item.tab !== TabTypes.Advanced) delete node.timeout
-        if (node.description && !item.description && item.tab !== TabTypes.Advanced) delete node.description
-        if (node.skipCondition && !item.skipCondition && item.tab === TabTypes.Advanced) delete node.skipCondition
+        if (node.timeout && !(item as StepElementConfig).timeout && item.tab !== TabTypes.Advanced) delete node.timeout
+        if (node.description && !(item as StepElementConfig).description && item.tab !== TabTypes.Advanced)
+          delete node.description
         if (node.failureStrategies && !item.failureStrategies && item.tab === TabTypes.Advanced)
           delete node.failureStrategies
         if (
@@ -256,15 +261,19 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           delete node.spec.delegateSelectors
         }
 
-        if (item.spec && item.tab !== TabTypes.Advanced) {
-          node.spec = { ...item.spec }
+        if ((item as StepElementConfig).spec && item.tab !== TabTypes.Advanced) {
+          node.spec = { ...(item as StepElementConfig).spec }
         }
       })
       if (data?.stepConfig?.node?.identifier) {
+        const provisioner = (selectedStage?.stage as DeploymentStageElementConfig)?.spec?.infrastructure
+          ?.infrastructureDefinition?.provisioner
         if (drawerType === DrawerTypes.StepConfig && selectedStage?.stage?.spec?.execution) {
           const processingNodeIdentifier = data?.stepConfig?.node?.identifier
           const stageData = produce(selectedStage, draft => {
-            updateStepWithinStage(draft.stage.spec.execution, processingNodeIdentifier, processNode)
+            if (draft.stage?.spec?.execution) {
+              updateStepWithinStage(draft.stage.spec.execution, processingNodeIdentifier, processNode)
+            }
           })
           // update view data before updating pipeline because its async
           updatePipelineView(
@@ -272,20 +281,19 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               set(draft, 'drawerData.data.stepConfig.node', processNode)
             })
           )
-          await updateStage(stageData.stage)
+
+          if (stageData.stage) {
+            await updateStage(stageData.stage)
+          }
 
           data?.stepConfig?.onUpdate?.(processNode)
-        } else if (
-          drawerType === DrawerTypes.ProvisionerStepConfig &&
-          selectedStage?.stage?.spec?.infrastructure?.infrastructureDefinition?.provisioner
-        ) {
+        } else if (drawerType === DrawerTypes.ProvisionerStepConfig && provisioner) {
           const processingNodeIdentifier = data?.stepConfig?.node?.identifier
-          updateStepWithinStage(
-            selectedStage.stage.spec.infrastructure.infrastructureDefinition.provisioner,
-            processingNodeIdentifier,
-            processNode
-          )
-          await updateStage(selectedStage.stage)
+          updateStepWithinStage(provisioner, processingNodeIdentifier, processNode)
+
+          if (selectedStage?.stage) {
+            await updateStage(selectedStage.stage)
+          }
           data?.stepConfig?.onUpdate?.(processNode)
         }
       }
@@ -303,21 +311,23 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     }
   }
 
-  const onServiceDependencySubmit = async (item: ExecutionWrapper): Promise<void> => {
+  const onServiceDependencySubmit = async (item: Partial<Values>): Promise<void> => {
     const { stage: pipelineStage } = (selectedStageId && cloneDeep(getStageFromPipeline(selectedStageId))) || {}
     if (data?.stepConfig?.addOrEdit === 'add' && pipelineStage) {
-      const newServiceData = {
-        identifier: item.identifier,
+      const newServiceData: DependencyElement = {
+        identifier: item.identifier || '',
         name: item.name,
         type: StepType.Dependency,
-        ...(item.description && { description: item.description }),
-        spec: item.spec
+        ...((item as StepElementConfig).description && { description: (item as StepElementConfig).description }),
+        spec: (item as StepElementConfig).spec
       }
-      if (!pipelineStage.stage.spec.serviceDependencies?.length) {
-        pipelineStage.stage.spec.serviceDependencies = []
+      if (!(pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies?.length) {
+        set(pipelineStage, 'stage.spec.serviceDependencies', [])
       }
-      addService(pipelineStage.stage.spec.serviceDependencies, newServiceData)
-      await updateStage(pipelineStage.stage)
+      addService((pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies || [], newServiceData)
+      if (pipelineStage.stage) {
+        await updateStage(pipelineStage.stage)
+      }
       updatePipelineView({
         ...pipelineView,
         isDrawerOpened: false,
@@ -325,21 +335,27 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       })
       data.stepConfig?.onUpdate?.(newServiceData)
     } else if (data?.stepConfig?.addOrEdit === 'edit' && pipelineStage) {
-      const node = data?.stepConfig?.node
+      const node = data?.stepConfig?.node as DependencyElement
       if (node) {
-        const serviceDependency = pipelineStage.stage.spec.serviceDependencies.find(
+        const serviceDependency = (pipelineStage.stage as BuildStageElementConfig)?.spec?.serviceDependencies?.find(
           // NOTE: "node.identifier" is used as item.identifier may contain changed identifier
-          (dep: ExecutionWrapper) => dep.identifier === node.identifier
+          dep => dep.identifier === node.identifier
         )
 
-        if (item.identifier) serviceDependency.identifier = item.identifier
-        if (item.name) serviceDependency.name = item.name
-        if (item.description) serviceDependency.description = item.description
-        if (item.spec) serviceDependency.spec = item.spec
-        // Delete values if they were already added and now removed
-        if (node.description && !item.description) delete node.description
+        if (serviceDependency) {
+          if (item.identifier) serviceDependency.identifier = item.identifier
+          if (item.name) serviceDependency.name = item.name
+          if ((item as StepElementConfig).description)
+            serviceDependency.description = (item as StepElementConfig).description
+          if ((item as StepElementConfig).spec) serviceDependency.spec = (item as StepElementConfig).spec
+        }
 
-        await updateStage(pipelineStage.stage)
+        // Delete values if they were already added and now removed
+        if (node.description && !(item as StepElementConfig).description) delete node.description
+
+        if (pipelineStage.stage) {
+          await updateStage(pipelineStage.stage)
+        }
       }
       updatePipelineView({
         ...pipelineView,
@@ -416,7 +432,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       ) : null}
       {type === DrawerTypes.StepConfig && data?.stepConfig?.node && (
         <StepCommands
-          step={data.stepConfig.node}
+          step={data.stepConfig.node as StepElementConfig | StepGroupElementConfig}
           isReadonly={isReadonly}
           ref={formikRef}
           checkDuplicateStep={checkDuplicateStep.bind(null, formikRef, data, getString)}
@@ -426,7 +442,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
-          stageType={stageType}
+          stageType={stageType as StageType}
         />
       )}
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
@@ -446,29 +462,28 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                   spec: {}
                 }
               }
-              if (pipelineStage && !pipelineStage.stage.spec) {
-                pipelineStage.stage.spec = {}
+              if (pipelineStage && !pipelineStage.stage?.spec) {
+                set(pipelineStage, 'stage.spec', {})
               }
-              if (pipelineStage && isNil(pipelineStage.stage.spec.execution)) {
+              if (pipelineStage && isNil(pipelineStage.stage?.spec?.execution)) {
                 if (paletteData.isRollback) {
-                  pipelineStage.stage.spec.execution = {
-                    rollbackSteps: []
-                  }
+                  set(pipelineStage, 'stage.spec.execution', { rollbackSteps: [] })
                 } else {
-                  pipelineStage.stage.spec.execution = {
-                    steps: []
-                  }
+                  set(pipelineStage, 'stage.spec.execution', { steps: [] })
                 }
               }
               data?.paletteData?.onUpdate?.(newStepData.step)
               addStepOrGroup(
                 paletteData.entity,
-                pipelineStage?.stage.spec.execution,
+                pipelineStage?.stage?.spec?.execution as any,
                 newStepData,
                 paletteData.isParallelNodeClicked,
                 paletteData.isRollback
               )
-              await updateStage(pipelineStage?.stage)
+
+              if (pipelineStage?.stage) {
+                await updateStage(pipelineStage?.stage)
+              }
               updatePipelineView({
                 ...pipelineView,
                 isDrawerOpened: true,
@@ -509,7 +524,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           key={`step-form-${data.stepConfig.node.identifier}`}
-          step={data.stepConfig.node}
+          step={data.stepConfig.node as StepElementConfig}
           isReadonly={isReadonly}
           ref={formikRef}
           isNewStep={!data.stepConfig.stepsMap.get(data.stepConfig.node.identifier)?.isSaved}
@@ -517,7 +532,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={onServiceDependencySubmit}
           isStepGroup={false}
           withoutTabs
-          stageType={stageType}
+          stageType={stageType as StageType}
         />
       )}
 
@@ -542,8 +557,11 @@ export const RightDrawer: React.FC = (): JSX.Element => {
 
               data?.paletteData?.onUpdate?.(newStepData.step)
 
-              if (!get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner')) {
-                set(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner', {
+              if (
+                pipelineStage &&
+                !get(pipelineStage?.stage, 'spec.infrastructure.infrastructureDefinition.provisioner')
+              ) {
+                set(pipelineStage, 'stage.spec.infrastructure.infrastructureDefinition.provisioner', {
                   steps: [],
                   rollbackSteps: []
                 })
@@ -562,7 +580,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 paletteData.isRollback
               )
 
-              await updateStage(pipelineStage?.stage)
+              if (pipelineStage?.stage) {
+                await updateStage(pipelineStage?.stage)
+              }
 
               updatePipelineView({
                 ...pipelineView,
@@ -598,7 +618,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.ProvisionerStepConfig && data?.stepConfig?.node && (
         <StepCommands
           key={`step-form-${data.stepConfig.node.identifier}`}
-          step={data.stepConfig.node}
+          step={data.stepConfig.node as StepElementConfig}
           ref={formikRef}
           isReadonly={isReadonly}
           checkDuplicateStep={checkDuplicateStep.bind(null, formikRef, data, getString)}
@@ -608,7 +628,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           onChange={value => onSubmitStep(value, DrawerTypes.ProvisionerStepConfig)}
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
-          stageType={stageType}
+          stageType={stageType as StageType}
         />
       )}
     </Drawer>

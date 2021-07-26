@@ -59,7 +59,7 @@ function K8sCanaryDeleteWidget(
     <>
       <Formik<K8sCanaryDeleteStepData>
         onSubmit={(values: K8sCanaryDeleteStepData) => {
-          onUpdate?.({ ...values, spec: { skipDryRun: false } })
+          onUpdate?.({ ...values, spec: { skipDryRun: false, ...values?.spec } })
         }}
         formName="k*CanaryDelete"
         initialValues={initialValues}
@@ -76,7 +76,7 @@ function K8sCanaryDeleteWidget(
           setFormikRef(formikRef, formik)
           return (
             <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
                   isIdentifierEditable={isNewStep}

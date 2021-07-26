@@ -574,6 +574,8 @@ healthSource:
     environmentMapping: Environment Mapping
   connectors:
     createConnector: Add new {{sourceType}} connector
+    NewRelic:
+      applicationLabel: Find an NewRelic application
     AppDynamics:
       applicationsAndTiers: Applications & Tiers
       applicationLabel: Find an AppDynamics application

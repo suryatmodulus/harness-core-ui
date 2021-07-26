@@ -1,9 +1,9 @@
-import type { NgPipeline, StageElementWrapper, CIProperties } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { InputSetErrorResponse } from 'services/pipeline-ng'
 import { getStageFromPipeline } from '../PipelineStudio/PipelineContext/helpers'
 
 interface NgPipelineTemplate {
-  pipeline: NgPipeline & { properties?: { ci?: CIProperties } }
+  pipeline: PipelineInfoConfig
 }
 
 export const mergeTemplateWithInputSetData = (
@@ -11,16 +11,16 @@ export const mergeTemplateWithInputSetData = (
   inputSetPortion: NgPipelineTemplate
 ): NgPipelineTemplate => {
   // Replace all the matching stages in parsedTemplate with the stages received in input set portion
-  const mergedStages = templatePipeline.pipeline.stages?.map((stage: StageElementWrapper) => {
+  const mergedStages = templatePipeline.pipeline.stages?.map(stage => {
     if (stage.parallel) {
       /*
       This stage is parallel. Now loop over all the children stages, and check if any of them match in input set portion
       We update all the parallel stages with the ones matching in the input set portion
       and then finally return the new 'updatedParallelStages' object
       */
-      const updatedParallelStages = stage.parallel.map((parallelStage: StageElementWrapper) => {
+      const updatedParallelStages = stage.parallel.map(parallelStage => {
         // looping over each parallel stage
-        const parallelStageId = parallelStage.stage.identifier
+        const parallelStageId = parallelStage.stage?.identifier || ''
         // if the ID of any parallel stage matches in input set portion, replace the original stage with the matched
         const matchedStageInInputSet = getStageFromPipeline(parallelStageId, inputSetPortion.pipeline)
         if (matchedStageInInputSet.stage) {
@@ -38,7 +38,7 @@ export const mergeTemplateWithInputSetData = (
     This block will be executed if there are no parallel stages.
     Simply loop over the stages and keep matching and replacing
     */
-    const stageIdToBeMatched = stage.stage?.identifier
+    const stageIdToBeMatched = stage.stage?.identifier || ''
     const matchedStageInInputSet = getStageFromPipeline(stageIdToBeMatched, inputSetPortion.pipeline)
     if (matchedStageInInputSet.stage) {
       return matchedStageInInputSet.stage
@@ -57,7 +57,7 @@ export const mergeTemplateWithInputSetData = (
   /*
   Below portion adds variables to the pipeline.
   If your input sets has variables, use them.
-    
+
   Eventually in run pipeline form -
   If input sets are selected, we will supply the variables from 'toBeUpdated' pipleine
   This is why 'toBeUpdated' pipeline should have the variables

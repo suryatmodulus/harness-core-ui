@@ -809,6 +809,9 @@ export interface Error {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1358,6 +1361,9 @@ export interface Failure {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1745,6 +1751,7 @@ export interface InputSetResponse {
   identifier?: string
   inputSetErrorWrapper?: InputSetErrorWrapper
   inputSetYaml?: string
+  invalid?: boolean
   name?: string
   orgIdentifier?: string
   pipelineIdentifier?: string
@@ -1770,6 +1777,7 @@ export interface InputSetSummaryResponse {
 
 export interface InputSetTemplateResponse {
   inputSetTemplateYaml?: string
+  inputSetYaml?: string
 }
 
 export interface InterruptConfig {
@@ -2195,6 +2203,7 @@ export interface OverlayInputSetResponse {
   gitDetails?: EntityGitDetails
   identifier?: string
   inputSetReferences?: string[]
+  invalid?: boolean
   invalidInputSetReferences?: {
     [key: string]: string
   }
@@ -2738,7 +2747,7 @@ export interface PreFlightResolution {
 
 export interface Principal {
   identifier: string
-  type: 'USER' | 'SYSTEM' | 'API_KEY'
+  type: 'USER' | 'SYSTEM' | 'API_KEY' | 'SERVICE_ACCOUNT'
 }
 
 export interface RerunInfo {
@@ -3286,6 +3295,9 @@ export interface ResponseMessage {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -6929,6 +6941,81 @@ export const getInputsetYamlPromise = (
     props,
     signal
   )
+
+export interface GetInputsetYamlV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  resolveExpressions?: boolean
+}
+
+export interface GetInputsetYamlV2PathParams {
+  planExecutionId: string
+}
+
+export type GetInputsetYamlV2Props = Omit<
+  GetProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  >,
+  'path'
+> &
+  GetInputsetYamlV2PathParams
+
+/**
+ * Gets  inputsetYaml
+ */
+export const GetInputsetYamlV2 = ({ planExecutionId, ...props }: GetInputsetYamlV2Props) => (
+  <Get<ResponseInputSetTemplateResponse, Failure | Error, GetInputsetYamlV2QueryParams, GetInputsetYamlV2PathParams>
+    path={`/pipelines/execution/${planExecutionId}/inputsetV2`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetInputsetYamlV2Props = Omit<
+  UseGetProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  >,
+  'path'
+> &
+  GetInputsetYamlV2PathParams
+
+/**
+ * Gets  inputsetYaml
+ */
+export const useGetInputsetYamlV2 = ({ planExecutionId, ...props }: UseGetInputsetYamlV2Props) =>
+  useGet<ResponseInputSetTemplateResponse, Failure | Error, GetInputsetYamlV2QueryParams, GetInputsetYamlV2PathParams>(
+    (paramsInPath: GetInputsetYamlV2PathParams) => `/pipelines/execution/${paramsInPath.planExecutionId}/inputsetV2`,
+    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
+  )
+
+/**
+ * Gets  inputsetYaml
+ */
+export const getInputsetYamlV2Promise = (
+  {
+    planExecutionId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  >(getConfig('pipeline/api'), `/pipelines/execution/${planExecutionId}/inputsetV2`, props, signal)
 
 export interface GetExecutionNodeQueryParams {
   accountIdentifier: string

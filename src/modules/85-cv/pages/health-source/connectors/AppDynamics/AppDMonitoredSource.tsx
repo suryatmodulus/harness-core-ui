@@ -30,15 +30,15 @@ import DrawerFooter from '@cv/pages/health-source/common/DrawerFooter/DrawerFoot
 import MetricsVerificationModal from '@cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import {
-  createAppDPayload,
   getOptions,
-  validateTier,
+  createPayloadByConnectorType,
+  getInputGroupProps,
   renderValidationStatus,
-  getAppDMetric,
-  getInputGroupProps
-} from './AppDMonitoredSource.utils'
-import { ValidationStatus } from './AppDMonitoredSource.constant'
-import { HealthSoureSupportedConnectorTypes } from '../connectors.util'
+  getMetricData,
+  validateMetrics
+} from '../MonitoredServiceConnector.utils'
+import { ValidationStatus } from '../MonitoredServiceConnector.constants'
+import { HealthSoureSupportedConnectorTypes } from '../MonitoredServiceConnector.constants'
 import css from './AppDMonitoredSource.module.scss'
 
 export default function AppDMonitoredSource({
@@ -125,15 +125,19 @@ export default function AppDMonitoredSource({
       oldMap.set(tierName, guid)
       return new Map(oldMap)
     })
-    const { validationStatus, validationResult } = await validateTier(filteredMetricPack || [], {
-      accountId,
-      appName: appName,
-      tierName: tierName,
-      connectorIdentifier: connectorIdentifier,
-      orgIdentifier,
-      projectIdentifier,
-      requestGuid: guid
-    })
+    const { validationStatus, validationResult } = await validateMetrics(
+      filteredMetricPack || [],
+      {
+        accountId,
+        appName: appName,
+        tierName: tierName,
+        connectorIdentifier: connectorIdentifier,
+        orgIdentifier,
+        projectIdentifier,
+        requestGuid: guid
+      },
+      HealthSoureSupportedConnectorTypes.APP_DYNAMICS
+    )
     setAppDValidation({
       status: validationStatus as string,
       result: validationResult as AppdynamicsValidationResponse[]
@@ -147,16 +151,22 @@ export default function AppDMonitoredSource({
   }
 
   const applicationOptions: SelectOption[] = useMemo(
-    () => getOptions(applicationLoading, applicationsData?.data?.content, getString),
+    () =>
+      getOptions(
+        applicationLoading,
+        applicationsData?.data?.content,
+        HealthSoureSupportedConnectorTypes.APP_DYNAMICS,
+        getString
+      ),
     [applicationsData?.data?.content]
   )
 
   const tierOptions: SelectOption[] = useMemo(
-    () => getOptions(tierLoading, tierData?.data?.content, getString),
+    () => getOptions(tierLoading, tierData?.data?.content, HealthSoureSupportedConnectorTypes.APP_DYNAMICS, getString),
     [tierData?.data?.content]
   )
-  const metricAppD: { [key: string]: any } = useMemo(
-    () => getAppDMetric(data?.isEdit, data?.metricPacks, metricPacks?.resource as MetricPackDTO[]),
+  const metricData: { [key: string]: any } = useMemo(
+    () => getMetricData(data?.isEdit, data?.metricPacks, metricPacks?.resource as MetricPackDTO[]),
     [data?.metricPacks, metricPacks?.resource]
   )
 
@@ -164,12 +174,12 @@ export default function AppDMonitoredSource({
     ...data,
     appdApplication: data?.applicationName || '',
     appDTier: data?.tierName || '',
-    metricAppD
+    metricData
   }
 
   useEffect(() => {
     if (data.isEdit && appDValidation.status !== ValidationStatus.IN_PROGRESS) {
-      onValidate(data?.applicationName, data?.tierName, metricAppD)
+      onValidate(data?.applicationName, data?.tierName, metricData)
     }
   }, [tierLoading, data.isEdit])
 
@@ -185,7 +195,7 @@ export default function AppDMonitoredSource({
       })}
       initialValues={initPayload}
       onSubmit={async values => {
-        const appDPayload = createAppDPayload(values)
+        const appDPayload = createPayloadByConnectorType(values, HealthSoureSupportedConnectorTypes.APP_DYNAMICS) // createAppDPayload(values)
         await onSubmit(values, appDPayload)
       }}
     >
@@ -247,7 +257,7 @@ export default function AppDMonitoredSource({
                       }
                       onChange={async item => {
                         formik.setFieldValue('appDTier', item.label)
-                        await onValidate(formik.values.appdApplication, item.value as string, formik.values.metricAppD)
+                        await onValidate(formik.values.appdApplication, item.value as string, formik.values.metricData)
                       }}
                       items={tierOptions}
                       label={getString('cv.healthSource.connectors.AppDynamics.trierLabel')}
@@ -267,7 +277,7 @@ export default function AppDMonitoredSource({
                         onValidate(
                           formik?.values?.appdApplication,
                           formik?.values?.appDTier,
-                          formik?.values?.metricAppD
+                          formik?.values?.metricData
                         )
                     )}
                 </Container>
@@ -280,18 +290,18 @@ export default function AppDMonitoredSource({
                   <Container className={css.metricPack}>
                     {metricPacks?.resource?.map(mp => (
                       <FormInput.CheckBox
-                        name={`metricAppD.${mp.identifier}`}
+                        name={`metricData.${mp.identifier}`}
                         key={mp.identifier}
                         label={mp.identifier || ''}
                         onChange={async val => {
-                          const metricData = {
-                            ...formik?.values?.metricAppD,
+                          const metricValue = {
+                            ...formik?.values?.metricData,
                             [mp.identifier as string]: val.currentTarget.checked
                           }
                           await onValidate(
                             formik?.values?.appdApplication,
                             formik?.values?.appDTier as string,
-                            metricData
+                            metricValue
                           )
                         }}
                       />

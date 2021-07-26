@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, FormikForm, Container, Text, FormInput, Layout, FlexExpander, Button } from '@wings-software/uicore'
+import { Formik, FormikForm, Container, FormInput, Layout, FlexExpander, Button, Heading } from '@wings-software/uicore'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -13,11 +13,12 @@ import {
 } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
 import type { ViewIdCondition } from 'services/ce/'
+import { useToaster } from '@common/components'
 import { DEFAULT_GROUP_BY } from '@ce/utils/perspectiveUtils'
 import { PageSpinner } from '@common/components'
 import PerspectiveFilters from '../PerspectiveFilters'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
-import ProTipIcon from './images/pro-tip.svg'
+// import ProTipIcon from './images/pro-tip.svg'
 import css from './PerspectiveBuilder.module.scss'
 
 export const CREATE_CALL_OBJECT = {
@@ -40,17 +41,17 @@ export interface PerspectiveFormValues {
   }
 }
 
-const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => void }> = props => {
+const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: (resource: CEView) => void }> = props => {
   const { getString } = useStrings()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
   const history = useHistory()
+  const { showError } = useToaster()
 
   const { perspectiveData } = props
 
   const { mutate: createView, loading } = useUpdatePerspective({
     queryParams: {
-      accountId: accountId
-      // TODO: accountIdentifier: accountId
+      accountIdentifier: accountId
     }
   })
 
@@ -81,36 +82,17 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
       apiObject['viewRules'] = []
     }
 
-    await createView(apiObject as CEView)
-
-    props.onNext()
-
-    // const { status } = res
-    // if (status === 200) {
-    //   const apiRes = res.response as any
-    // const viewId = apiRes.uuid
-    // const viewName = apiRes.name
-    // const groupBy = apiRes.viewVisualization.groupBy
-    // const timeRange = apiRes.viewTimeRange.viewTimeRangeType
-    // const chartType = apiRes.viewVisualization.chartType
-
-    // router.push({
-    //   pathname: path.toCloudViewsExplorer({
-    //     accountId,
-    //     viewId,
-    //     viewName
-    //   }),
-    //   query: {
-    //     defaultGroupBy: queryString.stringify(groupBy),
-    //     defaultTimeRange: timeRange,
-    //     chartType: chartType
-    //   }
-    // })
-    // } else {
-    // Show Error here
-    // toaster.showError({ message: res.error, timeout: TOASTER_TIMEOUT })
-    // }
+    try {
+      const { resource } = await createView(apiObject as CEView)
+      if (resource) {
+        props.onNext(resource)
+      }
+    } catch (err) {
+      const errMessage = err.data.message
+      showError(errMessage)
+    }
   }
+
   const goBack: () => void = () => {
     history.goBack()
   }
@@ -186,7 +168,9 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
                   className={css.builderContainer}
                   padding={{ left: 'large', right: 'xxlarge', bottom: 'xxlarge', top: 'xxlarge' }}
                 >
-                  <Text color="grey800">{getString('ce.perspectives.createPerspective.title')}</Text>
+                  <Heading color="grey800" margin={{ bottom: 'large' }} level={5}>
+                    {getString('ce.perspectives.createPerspective.title')}
+                  </Heading>
                   <Layout.Horizontal>
                     <FormInput.Text
                       name="name"
@@ -236,7 +220,11 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
                     <PerspectiveFilters formikProps={formikProps} />
                   </div>
                   <FlexExpander />
-                  <Container padding="medium" background="grey100" className={css.proTipContainer}>
+
+                  {/* 
+                    this block is commented out, we will uncomment it once custom fields are Done
+                    
+                  {<Container padding="medium" background="grey100" className={css.proTipContainer}>
                     <Layout.Horizontal spacing="medium">
                       <img src={ProTipIcon} />
                       <Container>
@@ -256,7 +244,7 @@ const PerspectiveBuilder: React.FC<{ perspectiveData?: CEView; onNext: () => voi
                         </Layout.Horizontal>
                       </Container>
                     </Layout.Horizontal>
-                  </Container>
+                  </Container>} */}
                   <Layout.Horizontal
                     padding={{
                       top: 'medium'

@@ -26,5 +26,6 @@ declare const styles: {
   readonly actionButtons: string
   readonly secondaryButton: string
   readonly footerCheckbox: string
+  readonly inputSetFormRunPipeline: string
 }
 export default styles

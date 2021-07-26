@@ -59,7 +59,7 @@ const ResourceGroups: React.FC = () => {
         title={
           <Layout.Horizontal padding={{ left: 'large' }}>
             <RbacButton
-              text={getString('resourceGroup.newResourceGroup')}
+              text={getString('rbac.resourceGroup.newResourceGroup')}
               intent="primary"
               icon="plus"
               onClick={() => openResourceGroupModal()}
@@ -81,6 +81,7 @@ const ResourceGroups: React.FC = () => {
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
+              flip
               placeholder={getString('rbac.usersPage.search')}
               onChange={e => {
                 setSearchTerm(e.trim())

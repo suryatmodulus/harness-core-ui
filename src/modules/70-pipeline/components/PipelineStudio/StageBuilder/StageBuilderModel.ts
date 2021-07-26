@@ -1,7 +1,8 @@
 import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
-import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { UseStringsReturn } from 'framework/strings'
+import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import { EmptyStageName } from '../PipelineConstants'
 import type { StagesMap } from '../PipelineContext/PipelineContext'
 import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
@@ -16,7 +17,7 @@ import {
 } from '../../Diagram'
 
 export interface AddUpdateGraphProps {
-  data: NgPipeline
+  data: PipelineInfoConfig
   listeners: Listeners
   stagesMap: StagesMap
   getString: UseStringsReturn['getString']
@@ -87,7 +88,6 @@ export class StageBuilderModel extends DiagramModel {
             canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
             draggable: !isReadonly,
             height: 57,
-            skipCondition: node.stage.skipCondition,
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
               : false,
@@ -103,7 +103,6 @@ export class StageBuilderModel extends DiagramModel {
             width: 114,
             draggable: !isReadonly,
             canDelete: !(selectedStageId === node.stage.identifier || isReadonly),
-            skipCondition: node.stage.skipCondition,
             conditionalExecutionEnabled: node.stage.when
               ? node.stage.when?.pipelineStatus !== 'Success' || !!node.stage.when?.condition?.trim()
               : false,
@@ -129,20 +128,20 @@ export class StageBuilderModel extends DiagramModel {
           let isSelected = false
           const icons: Array<IconName> = []
           node.parallel.forEach((nodeP: StageElementWrapper) => {
-            const type = stagesMap[nodeP.stage.type]
-            if (nodeP.stage.identifier === selectedStageId) {
+            const type = stagesMap[nodeP.stage?.type || '']
+            if (nodeP.stage?.identifier === selectedStageId) {
               parallelStageNames.unshift(nodeP.stage.name)
               icons.unshift(type.icon)
               isSelected = true
             } else {
-              parallelStageNames.push(nodeP.stage.name)
+              parallelStageNames.push(nodeP.stage?.name || '')
               icons.push(type.icon)
             }
           })
           const groupedNode = new GroupNodeModel({
             customNodeStyle: getCommonStyles(isSelected),
-            identifier: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
-            id: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
+            identifier: isSelected ? selectedStageId : node.parallel[0].stage?.identifier,
+            id: isSelected ? selectedStageId : node.parallel[0].stage?.identifier,
             name:
               parallelStageNames.length > 2
                 ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
@@ -166,7 +165,7 @@ export class StageBuilderModel extends DiagramModel {
           let newY = startY
           /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
             const emptyNodeStart = new EmptyNodeModel({
-              identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+              identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage?.identifier}${EmptyNodeSeparator}`,
               name: 'Empty',
               hideOutPort: true
             })
@@ -181,7 +180,7 @@ export class StageBuilderModel extends DiagramModel {
           }
           const prevNodesAr: DefaultNodeModel[] = []
           node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
-            const isLastNode = node.parallel.length === index + 1
+            const isLastNode = node.parallel?.length === index + 1
             const resp = this.renderGraphNodes({
               node: nodeP,
               startX: newX,
@@ -204,7 +203,7 @@ export class StageBuilderModel extends DiagramModel {
           })
           /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
             const emptyNodeEnd = new EmptyNodeModel({
-              identifier: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+              identifier: `${EmptyNodeSeparator}${node.parallel[0].stage?.identifier}${EmptyNodeSeparator}`,
               name: 'Empty',
               hideInPort: true
             })

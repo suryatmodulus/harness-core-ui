@@ -12,15 +12,20 @@ describe('Test util functions', () => {
   test('validare createTrendDataWithZone', () => {
     const trendSeries = createTrendDataWithZone(trendChartMockData)
     const { data, zones } = trendSeries
-    expect(data).toEqual([2, 4, 8, 16])
+    expect(data).toEqual([
+      { x: 0, y: 2 },
+      { x: 1, y: 4 },
+      { x: 2, y: 8 },
+      { x: 3, y: 16 }
+    ])
     expect(zones).toEqual([
       {
         color: 'var(--green-500)',
-        value: 8
+        value: 2
       },
       {
         color: 'var(--orange-500)',
-        value: 16
+        value: 3
       },
       {
         color: 'var(--red-500)',

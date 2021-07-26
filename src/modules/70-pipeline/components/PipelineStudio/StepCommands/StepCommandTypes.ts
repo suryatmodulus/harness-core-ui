@@ -1,5 +1,5 @@
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
-import type { ExecutionWrapper, StepWhenCondition } from 'services/cd-ng'
+import type { StepElementConfig, StepGroupElementConfig, StepWhenCondition } from 'services/cd-ng'
 import type { StageType } from '@pipeline/utils/stageHelpers'
 
 export enum AdvancedPanels {
@@ -10,8 +10,8 @@ export enum AdvancedPanels {
 }
 
 export interface StepCommandsProps {
-  step: ExecutionWrapper
-  onChange: (step: ExecutionWrapper) => void
+  step: StepElementConfig | StepGroupElementConfig
+  onChange: (step: Partial<Values>) => void
   stepsFactory: AbstractStepFactory
   isStepGroup: boolean
   isReadonly: boolean
@@ -27,11 +27,9 @@ export enum TabTypes {
   Advanced = 'ADVANCED'
 }
 
-export interface Values {
+export type Values = (StepElementConfig | StepGroupElementConfig) & {
   tab?: TabTypes
-  skipCondition?: string
   shouldKeepOpen?: boolean
-  failureStrategies?: any[]
   delegateSelectors?: string[]
   when?: StepWhenCondition
 }

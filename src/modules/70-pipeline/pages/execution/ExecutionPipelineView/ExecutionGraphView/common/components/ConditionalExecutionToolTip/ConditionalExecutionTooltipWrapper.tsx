@@ -1,6 +1,7 @@
 import React from 'react'
 import {
   PipelineOrStageStatus,
+  WhenConditionStatus,
   statusToStatusMapping
 } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import type { StepMode as Modes } from '@pipeline/utils/stepUtils'
@@ -25,7 +26,7 @@ export interface ConditionalExecutionToolTipWrapperProps {
 const processConditionData = (
   whenCondition: string
 ): {
-  status: PipelineOrStageStatus
+  status: WhenConditionStatus
   statusStringId: keyof StringsMap
   condition: string | undefined
 } => {

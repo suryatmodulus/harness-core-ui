@@ -1,13 +1,13 @@
 import React from 'react'
 import { PipelineStage } from '@pipeline/components/PipelineStages/PipelineStage'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { DeployStageErrorProvider } from '@pipeline/context/StageErrorContext'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import { EditStageView } from './EditStageView/EditStageView'
 import DeployStageSetupShell from '../DeployStageSetupShell/DeployStageSetupShell'
 
 interface DeployStageProps {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
+  data?: StageElementWrapper<DeploymentStageElementConfig>
+  onSubmit?: (values: StageElementWrapper<DeploymentStageElementConfig>, identifier?: string) => void
 }
 
 export class DeployStage extends PipelineStage<DeployStageProps> {

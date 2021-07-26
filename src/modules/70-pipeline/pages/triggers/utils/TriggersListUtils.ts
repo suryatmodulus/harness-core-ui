@@ -19,7 +19,8 @@ export const ArtifactSourceProviders: Record<string, { value: string; iconName: 
 }
 
 const TriggerTypeIcons = {
-  SCHEDULE: 'trigger-schedule'
+  SCHEDULE: 'trigger-schedule',
+  NEW_ARTIFACT: 'new-artifact'
 }
 export const getTriggerIcon = ({
   type,
@@ -36,6 +37,8 @@ export const getTriggerIcon = ({
     return webhookSourceRepoIconName as IconName
   } else if (type === TriggerTypes.SCHEDULE) {
     return TriggerTypeIcons.SCHEDULE as IconName
+  } else if (type === TriggerTypes.NEW_ARTIFACT) {
+    return TriggerTypeIcons.NEW_ARTIFACT as IconName
   }
   return 'yaml-builder-trigger'
 }

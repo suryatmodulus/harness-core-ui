@@ -5,7 +5,7 @@ import type {
   ResponsePageInputSetSummaryResponse,
   ResponsePageNGTriggerDetailsResponse
 } from 'services/pipeline-ng'
-import type { ResponseConnectorResponse, ResponsePageEnvironmentResponse } from 'services/cd-ng'
+import type { ResponseConnectorResponse, ResponseListEnvironmentResponse } from 'services/cd-ng'
 import type { ResponsePMSPipelineResponseDTO, PMSPipelineResponseDTO } from 'services/pipeline-ng'
 
 export const GetPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
@@ -268,37 +268,29 @@ export const GetInputSetsResponse: UseGetReturnData<ResponsePageInputSetSummaryR
   }
 }
 
-export const GetEnvironmentList: UseGetReturnData<ResponsePageEnvironmentResponse> = {
+export const GetEnvironmentList: UseGetReturnData<ResponseListEnvironmentResponse> = {
   loading: false,
   refetch: jest.fn(),
   error: null,
   data: {
     status: 'SUCCESS',
-    data: {
-      totalPages: 1,
-      totalItems: 1,
-      pageItemCount: 1,
-      pageSize: 100,
-      content: [
-        {
-          environment: {
-            accountId: 'accountId',
-            orgIdentifier: 'default',
-            projectIdentifier: 'p1',
-            identifier: 'prod',
-            name: 'prod',
-            description: null as unknown as undefined,
-            color: '#0063F7',
-            type: 'Production',
-            deleted: false,
-            tags: {},
-            version: 2
-          }
+    data: [
+      {
+        environment: {
+          accountId: 'accountId',
+          orgIdentifier: 'default',
+          projectIdentifier: 'p1',
+          identifier: 'prod',
+          name: 'prod',
+          description: null as unknown as undefined,
+          color: '#0063F7',
+          type: 'Production',
+          deleted: false,
+          tags: {},
+          version: 2
         }
-      ],
-      pageIndex: 0,
-      empty: false
-    },
+      }
+    ],
     correlationId: 'dbc7238c-380f-4fe0-b160-a29510cfe0c8'
   }
 }

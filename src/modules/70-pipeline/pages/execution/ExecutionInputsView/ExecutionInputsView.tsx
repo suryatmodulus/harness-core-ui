@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useGetInputsetYaml } from 'services/pipeline-ng'
+import { useGetInputsetYamlV2 } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import type { ResponseJsonNode } from 'services/cd-ng'
@@ -20,7 +20,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
 
   const { pipelineExecutionDetail } = useExecutionContext()
 
-  const { data, loading } = useGetInputsetYaml({
+  const { data, loading } = useGetInputsetYamlV2({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
@@ -35,20 +35,16 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
     }
   })
 
-  const [inputSetYaml, setInputSetYaml] = React.useState('')
-  React.useEffect(() => {
-    if (data) {
-      ;(data as unknown as Response).text().then(str => {
-        setInputSetYaml(str)
-      })
+  const [inputSetYaml, setInputSetYaml] = useState('')
+  const [inputSetTemplateYaml, setInputSetTemplateYaml] = useState('')
+  useEffect(() => {
+    if (data?.data?.inputSetYaml) {
+      setInputSetYaml(data.data?.inputSetYaml)
+    }
+    if (data?.data?.inputSetTemplateYaml) {
+      setInputSetTemplateYaml(data.data.inputSetTemplateYaml)
     }
   }, [data])
-
-  // React.useEffect(() => {
-  //   if (query.executionId && query.executionId !== null) {
-  //     refetch()
-  //   }
-  // }, [query.executionId])
 
   if (loading) {
     return <PageSpinner />
@@ -67,6 +63,7 @@ export default function ExecutionInputsView(props: ExecutionInputsViewInterface)
         branch={pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch}
         repoIdentifier={pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier}
         mockData={props.mockData}
+        executionInputSetTemplateYaml={inputSetTemplateYaml}
       />
     </div>
   )

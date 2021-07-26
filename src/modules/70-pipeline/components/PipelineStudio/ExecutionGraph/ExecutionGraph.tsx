@@ -1,20 +1,22 @@
 import React, { useEffect } from 'react'
-import { cloneDeep } from 'lodash-es'
+import { cloneDeep, set } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Layout, Text } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { useToaster } from '@common/exports'
-import type { ExecutionWrapper } from 'services/cd-ng'
 import { useValidationErrors } from '@pipeline/components/PipelineStudio/PiplineHooks/useValidationErrors'
 import { PipelineOrStageStatus } from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionPanelUtils'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import ConditionalExecutionTooltip from '@pipeline/pages/execution/ExecutionPipelineView/ExecutionGraphView/common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltip'
+import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { ExecutionElementConfig, ExecutionWrapperConfig, StageElementConfig } from 'services/cd-ng'
+import type { StepElementConfig } from 'services/cd-ng'
+import type { DependencyElement } from 'services/ci'
 import { ExecutionStepModel, GridStyleInterface } from './ExecutionStepModel'
 import { StepType as PipelineStepType } from '../../PipelineSteps/PipelineStepInterface'
 import {
@@ -35,7 +37,8 @@ import {
   getDefaultDependencyServiceState,
   updateStepsState,
   updateDependenciesState,
-  applyExistingStates
+  applyExistingStates,
+  ExecutionWrapper
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -83,10 +86,14 @@ const renderPopover = ({
   isHoverView,
   data
 }: PopoverData): JSX.Element => {
-  if (isHoverView && !!data?.when) {
+  if (isHoverView && !!(data as StepElementConfig)?.when) {
     return (
       <HoverCard>
-        <ConditionalExecutionTooltip status={data.when.stageStatus} condition={data.when.condition} mode={Modes.STEP} />
+        <ConditionalExecutionTooltip
+          status={(data as StepElementConfig)?.when?.stageStatus}
+          condition={(data as StepElementConfig)?.when?.condition}
+          mode={Modes.STEP}
+        />
       </HoverCard>
     )
   } else if (labels) {
@@ -133,7 +140,7 @@ export interface ExecutionGraphEditStepEvent {
   stepType: StepType | undefined
 }
 
-export interface ExecutionGraphProp {
+export interface ExecutionGraphProp<T extends StageElementConfig> {
   /*Allow adding group*/
   allowAddGroup?: boolean
   /*Hide or show rollback button*/
@@ -142,9 +149,9 @@ export interface ExecutionGraphProp {
   hasDependencies?: boolean
   isReadonly: boolean
   stepsFactory: AbstractStepFactory // REQUIRED (pass to addUpdateGraph)
-  stage: StageElementWrapper
-  originalStage?: StageElementWrapper
-  updateStage: (stage: StageElementWrapper) => void
+  stage: StageElementWrapper<T>
+  originalStage?: StageElementWrapper<T>
+  updateStage: (stage: StageElementWrapper<T>) => void
   onAddStep: (event: ExecutionGraphAddStepEvent) => void
   onEditStep: (event: ExecutionGraphEditStepEvent) => void
   selectedStepId?: string
@@ -157,7 +164,10 @@ export interface ExecutionGraphProp {
   pathToStage: string
 }
 
-function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForwardRef): JSX.Element {
+function ExecutionGraphRef<T extends StageElementConfig>(
+  props: ExecutionGraphProp<T>,
+  ref: ExecutionGraphForwardRef
+): JSX.Element {
   const {
     allowAddGroup = true,
     hasDependencies = false,
@@ -180,12 +190,12 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   } = props
 
   // NOTE: we are using ref as DynamicPopover use memo
-  const stageCloneRef = React.useRef<StageElementWrapper>({})
+  const stageCloneRef = React.useRef<StageElementWrapper<T>>({})
   stageCloneRef.current = cloneDeep(stage)
 
-  const updateStageWithNewData = (stateToApply: ExecutionGraphState) => {
-    stageCloneRef.current.stage.spec.execution = stateToApply.stepsData
-    stageCloneRef.current.stage.spec.serviceDependencies = stateToApply.dependenciesData
+  const updateStageWithNewData = (stateToApply: ExecutionGraphState): void => {
+    set(stageCloneRef.current, 'stage.spec.execution', stateToApply.stepsData)
+    set(stageCloneRef.current, 'stage.spec.serviceDependencies', stateToApply.dependenciesData)
     updateStage(stageCloneRef.current)
   }
 
@@ -205,7 +215,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const [state, setState] = React.useState<ExecutionGraphState>({
     states: new Map<string, StepState>(),
-    stepsData: { steps: [], rollbackSteps: [], metadata: '' },
+    stepsData: { steps: [], rollbackSteps: [] },
     dependenciesData: [],
     isRollback: false
   })
@@ -293,8 +303,11 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       const dropEntity = model.getNodeFromId(event.node.id)
       if (dropEntity) {
         const drop = getStepFromNode(state.stepsData, dropEntity, true)
-        const dropNode = drop.node
-        const current = getStepFromNode(state.stepsData, eventTemp.entity, true, true)
+        const dropNode = drop.node as ExecutionWrapperConfig
+        const current = getStepFromNode(state.stepsData, eventTemp.entity, true, true) as {
+          node: ExecutionWrapperConfig
+          parent?: ExecutionWrapperConfig[]
+        }
         const skipFlattenIfSameParallel = drop.parent === current.node?.parallel
         // Check Drop Node and Current node should not be same
         if (event.node.identifier !== eventTemp.entity.getIdentifier() && dropNode) {
@@ -311,8 +324,8 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
                     current.parent?.splice(index, 1, { parallel: [current.node, dropNode] })
                     updateStageWithNewData(state)
                   }
-                } else if (current.node.parallel && current.node.parallel.length > 0) {
-                  current.node.parallel.push(dropNode)
+                } else if (current.node.parallel && (current.node.parallel?.length || 0) > 0) {
+                  current.node.parallel?.push?.(dropNode)
                   updateStageWithNewData(state)
                 }
               } else {
@@ -330,7 +343,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     const eventTemp = event as DefaultNodeEvent
     eventTemp.stopPropagation()
     dynamicPopoverHandler?.hide()
-    const node = getStepFromNode(state.stepsData, eventTemp.entity).node
+    const node = getStepFromNode(state.stepsData, eventTemp.entity).node as StepElementConfig
     if (node?.when) {
       const { stageStatus, condition } = node.when
       if (stageStatus === PipelineOrStageStatus.SUCCESS && isEmpty(condition)) {
@@ -343,7 +356,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
           isHoverView: true,
           data: node
         },
-        { useArrows: true, darkMode: false, fixedPosition: false }
+        { useArrows: true, darkMode: false, fixedPosition: false, placement: 'top' }
       )
     }
   }
@@ -381,7 +394,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
         })
         setState(prev => ({ ...prev, states: stepStates }))
       } else {
-        let node
+        let node: ExecutionWrapper | DependencyElement | undefined
         if (stepState?.stepType === StepType.STEP) {
           node = getStepFromNode(state.stepsData, eventTemp.entity).node
         } else if (stepState?.stepType === StepType.SERVICE) {
@@ -397,7 +410,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
             stepType: stepState?.stepType
           })
 
-          onSelectStep?.(node.identifier)
+          onSelectStep?.((node as DependencyElement).identifier)
         }
       }
     },
@@ -466,7 +479,7 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       if (event.node?.identifier && event.node?.id) {
         const dropEntity = model.getNodeFromId(event.node.id)
         if (dropEntity) {
-          const dropNode = getStepFromNode(state.stepsData, dropEntity, true).node
+          const dropNode = getStepFromNode(state.stepsData, dropEntity, true).node as ExecutionWrapperConfig
           if (dropNode?.stepGroup && isLinkUnderStepGroup(eventTemp.entity)) {
             showError(getString('stepGroupInAnotherStepGroup'), undefined, 'pipeline.setgroup.error')
           } else {
@@ -569,11 +582,19 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
       const newStateMap = new Map<string, StepState>()
       getStepsState(stageCloneRef.current.stage.spec.execution, newStateMap)
       applyExistingStates(newStateMap, state.states)
-      if (hasDependencies && stageCloneRef.current?.stage?.spec?.serviceDependencies) {
-        getDependenciesState(stageCloneRef.current.stage.spec.serviceDependencies, newStateMap)
+      if (hasDependencies && (stageCloneRef.current?.stage as BuildStageElementConfig)?.spec?.serviceDependencies) {
+        getDependenciesState(
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+          (stageCloneRef.current.stage as BuildStageElementConfig).spec!.serviceDependencies!,
+          newStateMap
+        )
         applyExistingStates(newStateMap, state.states)
-        if (originalStage?.stage?.spec?.serviceDependencies) {
-          updateDependenciesState(originalStage.stage.spec.serviceDependencies, newStateMap)
+        if ((originalStage?.stage as BuildStageElementConfig)?.spec?.serviceDependencies) {
+          updateDependenciesState(
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            (originalStage!.stage as BuildStageElementConfig)!.spec!.serviceDependencies!,
+            newStateMap
+          )
         }
       }
       if (originalStage?.stage?.spec?.execution) {
@@ -591,8 +612,8 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
     if (stageCloneRef.current?.stage?.spec?.execution) {
       setState(prevState => ({
         ...prevState,
-        stepsData: stageCloneRef.current.stage.spec.execution,
-        dependenciesData: stageCloneRef.current.stage.spec.serviceDependencies
+        stepsData: (stageCloneRef.current.stage as BuildStageElementConfig).spec?.execution as ExecutionElementConfig,
+        dependenciesData: (stageCloneRef.current.stage as BuildStageElementConfig).spec?.serviceDependencies || []
       }))
     }
   }, [stage, ref])
@@ -718,11 +739,17 @@ function ExecutionGraphRef(props: ExecutionGraphProp, ref: ExecutionGraphForward
           darkMode={true}
           render={renderPopover}
           bind={setDynamicPopoverHandler}
-          placement={'right'}
         />
       </div>
     </div>
   )
 }
-const ExecutionGraph = React.forwardRef(ExecutionGraphRef)
+
+/**
+ * As per https://stackoverflow.com/questions/58469229/react-with-typescript-generics-while-using-react-forwardref/58473012
+ * Forward Ref components do not support generic out of the box
+ */
+const ExecutionGraph = React.forwardRef(ExecutionGraphRef) as <T extends StageElementConfig>(
+  props: ExecutionGraphProp<T> & { ref?: ExecutionGraphForwardRef }
+) => React.ReactElement
 export default ExecutionGraph

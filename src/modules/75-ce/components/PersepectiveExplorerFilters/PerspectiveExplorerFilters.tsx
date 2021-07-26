@@ -31,6 +31,9 @@ export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = (
         keepTogether: { enabled: true },
         preventOverflow: { enabled: true }
       }}
+      hoverCloseDelay={0}
+      transitionDuration={0}
+      minimal={true}
       content={
         <Menu>
           <MenuItem
@@ -75,6 +78,10 @@ interface PersepectiveExplorerFiltersProps {
       from: number
     }>
   >
+  timeRange: {
+    to: number
+    from: number
+  }
   setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
   filters: QlceViewFilterInput[]
 }
@@ -84,13 +91,14 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
   setAggregation,
   setTimeRange,
   setFilters,
+  timeRange,
   filters
 }) => {
   return (
     <Container background="white" padding="small">
       <Container className={css.mainContainer}>
         <Icon name="ng-filter" size={20} />
-        <ExplorerFilters filters={filters} setFilters={setFilters} />
+        <ExplorerFilters timeRange={timeRange} filters={filters} setFilters={setFilters} />
         <FlexExpander />
         <PerspectiveTimeRangePicker setTimeRange={setTimeRange} />
         <Text color="primary7">|</Text>

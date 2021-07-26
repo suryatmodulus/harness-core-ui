@@ -25,6 +25,7 @@ export interface TestExecutionEntryProps {
   onExpand: () => void
   stageId: string
   stepId: string
+  splitview?: boolean
 }
 
 export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
@@ -35,7 +36,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   status,
   onExpand,
   stageId,
-  stepId
+  stepId,
+  splitview
 }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
@@ -194,7 +196,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium">
       <Container flex className={css.headingContainer}>
         <Text
-          className={css.testSuiteHeading}
+          className={`${css.testSuiteHeading} ${splitview ? css.splitview : ''}`}
           color={Color.GREY_500}
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >

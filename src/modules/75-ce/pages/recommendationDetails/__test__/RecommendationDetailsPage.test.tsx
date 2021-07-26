@@ -11,8 +11,6 @@ jest.mock('@ce/components/CEChart/CEChart', () => 'mock')
 
 const params = {
   accountId: 'TEST_ACC',
-  orgIdentifier: 'TEST_ORG',
-  projectIdentifier: 'TEST_PROJECT',
   recommendation: 'RECOMMENDATION_ID'
 }
 

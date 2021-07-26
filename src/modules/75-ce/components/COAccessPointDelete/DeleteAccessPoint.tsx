@@ -56,9 +56,9 @@ const DeleteAccessPoint = (props: DeleteAccessPointProps) => {
     hideModal()
   }
   const getTitle = (): string => {
-    let str = getString('ce.co.accessPoint.aps')
+    let str = getString('ce.co.accessPoint.loadbalancers')
     if (accessPoints.length == 1) {
-      str = getString('ce.co.accessPoint.ap')
+      str = getString('ce.co.accessPoint.loadbalancer')
     }
     return getString('delete') + ' ' + accessPoints.length + ' ' + str
   }

@@ -1,0 +1,39 @@
+.valueContainer {
+  max-height: 420px;
+  width: 320px;
+  padding: var(--spacing-medium) !important;
+  overflow: scroll;
+
+  .searchBoxContainer {
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    align-items: center;
+
+    .searchCheckBox {
+      padding-left: 11px;
+      margin-bottom: var(--spacing-4);
+    }
+  }
+
+  .fetchingMoreLoader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .checkbox {
+    margin-left: var(--spacing-large) !important;
+
+    &.labelItem {
+      padding: var(--spacing-xsmall) 0px;
+    }
+  }
+}
+
+.valueFetching {
+  height: 344px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

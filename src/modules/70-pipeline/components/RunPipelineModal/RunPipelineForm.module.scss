@@ -39,7 +39,7 @@
 
   .divider {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    margin-bottom: var(--spacing-3);
+    margin-top: var(--spacing-4);
   }
 
   .footer {
@@ -145,4 +145,9 @@
 .footerCheckbox {
   border-radius: 4px;
   font-size: var(--font-size-small) !important;
+  opacity: 0.8;
+}
+
+.inputSetFormRunPipeline {
+  padding-top: var(--spacing-xxlarge) !important;
 }

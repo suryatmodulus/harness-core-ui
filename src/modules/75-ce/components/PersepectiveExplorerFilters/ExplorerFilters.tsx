@@ -9,9 +9,13 @@ import css from './ExplorerFilters.module.scss'
 interface ExplorerFiltersProps {
   setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
   filters: QlceViewFilterInput[]
+  timeRange: {
+    to: number
+    from: number
+  }
 }
 
-const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters }) => {
+const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters, timeRange }) => {
   const { perspectiveId } = useParams<{ perspectiveId: string }>()
 
   const [result] = useFetchViewFieldsQuery({
@@ -64,6 +68,7 @@ const ExplorerFilters: React.FC<ExplorerFiltersProps> = ({ setFilters, filters }
               <FilterPill
                 key={`${filterData.field.fieldName}-${filterData.field.identifier}-${index}`}
                 id={index}
+                timeRange={timeRange}
                 removePill={() => {
                   // arrayHelpers.remove(index)
                   // removePill && removePill(innerIndex)

@@ -1,19 +1,22 @@
 .create-new-content {
-  max-width: 500px;
+  max-width: 530px;
   background: #fff;
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 320px 210px;
   &.parallel {
     .create-new-cards {
       grid-template-columns: 66px 66px 66px;
     }
+  }
+  .stageTypeSection {
+    border-right: dashed 1px #ccc;
+    padding: var(--spacing-xxlarge);
   }
 
   .create-new-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: var(--spacing-xlarge);
-    padding: var(--spacing-xxlarge);
 
     .card-new {
       width: 72px;
@@ -37,27 +40,30 @@
       }
     }
   }
-
-  .create-new-message {
-    font-size: var(--font-size-normal);
-    border-left: dashed 1px #ccc;
-    padding: var(--spacing-xlarge);
-    .stageTitle {
-      font-size: var(--font-size-medium);
-      font-weight: 600;
-      color: var(--grey-600);
-      margin-bottom: 12px;
-    }
-    .stageDescription {
-      font-size: var(--font-size-small);
-      color: var(--grey-500);
-      margin-bottom: 12px;
-    }
+  .stageTitle {
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    color: var(--grey-800);
+    margin-bottom: 24px;
   }
-}
-.closeIcon {
-  position: absolute;
-  right: 11px;
-  top: 10px;
-  cursor: pointer;
+
+  .hoverTitle {
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    color: var(--grey-800);
+  }
+
+  .stageDescription {
+    font-size: var(--font-size-small);
+    color: var(--grey-600);
+    margin: var(--spacing-large);
+    text-align: center;
+    height: 60px;
+  }
+  .closeIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+  }
 }

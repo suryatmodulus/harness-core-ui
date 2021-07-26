@@ -81,7 +81,7 @@ export interface CEView {
   viewRules?: ViewRule[]
   viewState?: 'DRAFT' | 'COMPLETED'
   viewTimeRange?: ViewTimeRange
-  viewType?: 'SAMPLE' | 'CUSTOMER' | 'DEFAULT_AZURE'
+  viewType?: 'SAMPLE' | 'CUSTOMER' | 'DEFAULT_AZURE' | 'DEFAULT'
   viewVersion?: string
   viewVisualization?: ViewVisualization
 }
@@ -401,6 +401,7 @@ export interface ResponseMessage {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -583,7 +584,7 @@ export type CEViewRequestBody = CEView
 export type ViewCustomFieldRequestBody = ViewCustomField
 
 export interface ListBudgetsForAccountQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type ListBudgetsForAccountProps = Omit<
@@ -617,7 +618,7 @@ export const useListBudgetsForAccount = (props: UseListBudgetsForAccountProps) =
   })
 
 export interface CreateBudgetQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type CreateBudgetProps = Omit<
@@ -652,7 +653,7 @@ export const useCreateBudget = (props: UseCreateBudgetProps) =>
   })
 
 export interface ListBudgetsForPerspectiveQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   perspectiveId?: string
 }
 
@@ -687,7 +688,7 @@ export const useListBudgetsForPerspective = (props: UseListBudgetsForPerspective
   })
 
 export interface DeleteBudgetQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type DeleteBudgetProps = Omit<
@@ -722,7 +723,7 @@ export const useDeleteBudget = (props: UseDeleteBudgetProps) =>
   })
 
 export interface GetBudgetQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export interface GetBudgetPathParams {
@@ -762,7 +763,7 @@ export const useGetBudget = ({ id, ...props }: UseGetBudgetProps) =>
   )
 
 export interface CloneBudgetQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   cloneName?: string
 }
 
@@ -804,12 +805,16 @@ export const useCloneBudget = ({ id, ...props }: UseCloneBudgetProps) =>
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
   )
 
+export interface UpdateBudgetQueryParams {
+  accountIdentifier?: string
+}
+
 export interface UpdateBudgetPathParams {
   id: string
 }
 
 export type UpdateBudgetProps = Omit<
-  MutateProps<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>,
+  MutateProps<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>,
   'path' | 'verb'
 > &
   UpdateBudgetPathParams
@@ -818,7 +823,7 @@ export type UpdateBudgetProps = Omit<
  * Update budget
  */
 export const UpdateBudget = ({ id, ...props }: UpdateBudgetProps) => (
-  <Mutate<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>
+  <Mutate<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>
     verb="PUT"
     path={`/budgets/${id}`}
     base={getConfig('ccm/api')}
@@ -827,7 +832,7 @@ export const UpdateBudget = ({ id, ...props }: UpdateBudgetProps) => (
 )
 
 export type UseUpdateBudgetProps = Omit<
-  UseMutateProps<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>,
+  UseMutateProps<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>,
   'path' | 'verb'
 > &
   UpdateBudgetPathParams
@@ -836,7 +841,7 @@ export type UseUpdateBudgetProps = Omit<
  * Update budget
  */
 export const useUpdateBudget = ({ id, ...props }: UseUpdateBudgetProps) =>
-  useMutate<RestResponseString, unknown, void, BudgetRequestBody, UpdateBudgetPathParams>(
+  useMutate<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>(
     'PUT',
     (paramsInPath: UpdateBudgetPathParams) => `/budgets/${paramsInPath.id}`,
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
@@ -961,7 +966,7 @@ export const useGetCENGMicroserviceHealthStatus = (props: UseGetCENGMicroservice
   useGet<ResponseString, unknown, void, void>(`/health`, { base: getConfig('ccm/api'), ...props })
 
 export interface TimescaleSqlQueriesStatsQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type TimescaleSqlQueriesStatsProps = Omit<
@@ -995,7 +1000,7 @@ export const useTimescaleSqlQueriesStats = (props: UseTimescaleSqlQueriesStatsPr
   })
 
 export interface DeletePerspectiveQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   perspectiveId?: string
 }
 
@@ -1031,7 +1036,7 @@ export const useDeletePerspective = (props: UseDeletePerspectiveProps) =>
   })
 
 export interface GetPerspectiveQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   perspectiveId?: string
 }
 
@@ -1063,7 +1068,7 @@ export const useGetPerspective = (props: UseGetPerspectiveProps) =>
   })
 
 export interface CreatePerspectiveQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   clone?: boolean
 }
 
@@ -1100,7 +1105,7 @@ export const useCreatePerspective = (props: UseCreatePerspectiveProps) =>
   )
 
 export interface UpdatePerspectiveQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type UpdatePerspectiveProps = Omit<
@@ -1135,7 +1140,7 @@ export const useUpdatePerspective = (props: UseUpdatePerspectiveProps) =>
   })
 
 export interface DeleteCustomFieldQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   customFieldId?: string
 }
 
@@ -1172,7 +1177,7 @@ export const useDeleteCustomField = (props: UseDeleteCustomFieldProps) =>
   )
 
 export interface GetCustomFieldQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   customFieldId?: string
 }
 
@@ -1207,7 +1212,7 @@ export const useGetCustomField = (props: UseGetCustomFieldProps) =>
   })
 
 export interface SaveCustomFieldQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type SaveCustomFieldProps = Omit<
@@ -1243,7 +1248,7 @@ export const useSaveCustomField = (props: UseSaveCustomFieldProps) =>
   )
 
 export interface UpdateCustomFieldQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type UpdateCustomFieldProps = Omit<
@@ -1279,7 +1284,7 @@ export const useUpdateCustomField = (props: UseUpdateCustomFieldProps) =>
   )
 
 export interface ValidateCustomFieldQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type ValidateCustomFieldProps = Omit<
@@ -1356,7 +1361,7 @@ export interface GetReportSettingQueryParams {
 }
 
 export interface GetReportSettingPathParams {
-  accountId: string
+  accountIdentifier: string
 }
 
 export type GetReportSettingProps = Omit<
@@ -1368,9 +1373,9 @@ export type GetReportSettingProps = Omit<
 /**
  * Get perspective reports
  */
-export const GetReportSetting = ({ accountId, ...props }: GetReportSettingProps) => (
+export const GetReportSetting = ({ accountIdentifier, ...props }: GetReportSettingProps) => (
   <Get<RestResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>
-    path={`/perspectiveReport/${accountId}`}
+    path={`/perspectiveReport/${accountIdentifier}`}
     base={getConfig('ccm/api')}
     {...props}
   />
@@ -1385,14 +1390,14 @@ export type UseGetReportSettingProps = Omit<
 /**
  * Get perspective reports
  */
-export const useGetReportSetting = ({ accountId, ...props }: UseGetReportSettingProps) =>
+export const useGetReportSetting = ({ accountIdentifier, ...props }: UseGetReportSettingProps) =>
   useGet<RestResponseListCEReportSchedule, unknown, GetReportSettingQueryParams, GetReportSettingPathParams>(
-    (paramsInPath: GetReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountId}`,
-    { base: getConfig('ccm/api'), pathParams: { accountId }, ...props }
+    (paramsInPath: GetReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`,
+    { base: getConfig('ccm/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface CreateReportSettingPathParams {
-  accountId: string
+  accountIdentifier: string
 }
 
 export type CreateReportSettingProps = Omit<
@@ -1410,10 +1415,10 @@ export type CreateReportSettingProps = Omit<
 /**
  * Create perspective reports
  */
-export const CreateReportSetting = ({ accountId, ...props }: CreateReportSettingProps) => (
+export const CreateReportSetting = ({ accountIdentifier, ...props }: CreateReportSettingProps) => (
   <Mutate<RestResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, CreateReportSettingPathParams>
     verb="POST"
-    path={`/perspectiveReport/${accountId}`}
+    path={`/perspectiveReport/${accountIdentifier}`}
     base={getConfig('ccm/api')}
     {...props}
   />
@@ -1434,21 +1439,21 @@ export type UseCreateReportSettingProps = Omit<
 /**
  * Create perspective reports
  */
-export const useCreateReportSetting = ({ accountId, ...props }: UseCreateReportSettingProps) =>
+export const useCreateReportSetting = ({ accountIdentifier, ...props }: UseCreateReportSettingProps) =>
   useMutate<
     RestResponseListCEReportSchedule,
     unknown,
     void,
     CEReportScheduleRequestBody,
     CreateReportSettingPathParams
-  >('POST', (paramsInPath: CreateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountId}`, {
+  >('POST', (paramsInPath: CreateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`, {
     base: getConfig('ccm/api'),
-    pathParams: { accountId },
+    pathParams: { accountIdentifier },
     ...props
   })
 
 export interface UpdateReportSettingPathParams {
-  accountId: string
+  accountIdentifier: string
 }
 
 export type UpdateReportSettingProps = Omit<
@@ -1466,10 +1471,10 @@ export type UpdateReportSettingProps = Omit<
 /**
  * Update perspective reports
  */
-export const UpdateReportSetting = ({ accountId, ...props }: UpdateReportSettingProps) => (
+export const UpdateReportSetting = ({ accountIdentifier, ...props }: UpdateReportSettingProps) => (
   <Mutate<RestResponseListCEReportSchedule, unknown, void, CEReportScheduleRequestBody, UpdateReportSettingPathParams>
     verb="PUT"
-    path={`/perspectiveReport/${accountId}`}
+    path={`/perspectiveReport/${accountIdentifier}`}
     base={getConfig('ccm/api')}
     {...props}
   />
@@ -1490,16 +1495,16 @@ export type UseUpdateReportSettingProps = Omit<
 /**
  * Update perspective reports
  */
-export const useUpdateReportSetting = ({ accountId, ...props }: UseUpdateReportSettingProps) =>
+export const useUpdateReportSetting = ({ accountIdentifier, ...props }: UseUpdateReportSettingProps) =>
   useMutate<
     RestResponseListCEReportSchedule,
     unknown,
     void,
     CEReportScheduleRequestBody,
     UpdateReportSettingPathParams
-  >('PUT', (paramsInPath: UpdateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountId}`, {
+  >('PUT', (paramsInPath: UpdateReportSettingPathParams) => `/perspectiveReport/${paramsInPath.accountIdentifier}`, {
     base: getConfig('ccm/api'),
-    pathParams: { accountId },
+    pathParams: { accountIdentifier },
     ...props
   })
 

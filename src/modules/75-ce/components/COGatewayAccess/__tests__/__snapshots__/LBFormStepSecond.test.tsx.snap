@@ -262,7 +262,7 @@ exports[`AWS Access Point Configuration screen first render and fill form 1`] = 
                           class="bp3-input-ghost bp3-multi-select-tag-input-input"
                           disabled=""
                           name="securityGroups"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           value=""
                         />
                       </div>

@@ -1,7 +1,7 @@
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 
 export interface PipelineVariablesData {
-  variablesPipeline: NgPipeline
+  variablesPipeline: PipelineInfoConfig
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
 }

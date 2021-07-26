@@ -310,6 +310,10 @@ type PerspectiveTimeSeriesData {
 type PerspectiveTrendStats {
   cost: StatsInfo
   efficiencyScoreStats: EfficiencyScoreStats
+  idleCost: StatsInfo
+  systemCost: StatsInfo
+  unallocatedCost: StatsInfo
+  utilizedCost: StatsInfo
 }
 
 type QLCEView {
@@ -364,6 +368,12 @@ type Query {
     "defaults to Now().minusDays(7)"
     startTime: OffsetDateTime
   ): RecommendClusterRequest
+  "Table for perspective"
+  overviewTimeSeriesStats(
+    aggregateFunction: [QLCEViewAggregationInput]
+    filters: [QLCEViewFilterWrapperInput]
+    groupBy: [QLCEViewGroupByInput]
+  ): PerspectiveTimeSeriesData
   "Fields for perspective explorer"
   perspectiveFields(filters: [QLCEViewFilterWrapperInput]): PerspectiveFieldsData
   "Filter values for perspective"
@@ -528,9 +538,9 @@ type ResourceRequirement {
 type StatsInfo {
   statsDescription: String!
   statsLabel: String!
-  statsTrend: BigDecimal!
+  statsTrend: BigDecimal
   statsValue: String!
-  value: BigDecimal!
+  value: BigDecimal
 }
 
 type StorageDetails {

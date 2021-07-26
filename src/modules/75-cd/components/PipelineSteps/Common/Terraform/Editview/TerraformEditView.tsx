@@ -121,7 +121,7 @@ export default function TerraformEditView(
 
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
 
@@ -146,6 +146,8 @@ export default function TerraformEditView(
                   />
                 )}
               </div>
+
+              <div className={stepCss.noLookDivider} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.Select

@@ -10,6 +10,7 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { HttpStepFormData } from './types'
+import css from './HttpStep.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export const httpStepType: SelectOption[] = [
@@ -36,13 +37,38 @@ export default function HttpStepBase(props: {
 
   return (
     <div className={stepCss.stepPanel}>
-      <div className={cx(stepCss.formGroup, stepCss.md)}>
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.InputWithIdentifier
-          isIdentifierEditable={isNewStep && !readonly}
           inputLabel={getString('name')}
-          inputGroupProps={{ disabled: readonly }}
+          isIdentifierEditable={isNewStep && !readonly}
+          inputGroupProps={{
+            disabled: readonly
+          }}
         />
       </div>
+      <div className={cx(stepCss.formGroup, stepCss.sm)}>
+        <FormMultiTypeDurationField
+          name="timeout"
+          label={getString('pipelineSteps.timeoutLabel')}
+          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
+          disabled={readonly}
+        />
+        {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
+          <ConfigureOptions
+            value={formValues.timeout || ''}
+            type="String"
+            variableName="timeout"
+            showRequiredField={false}
+            showDefaultField={false}
+            showAdvanced={true}
+            onChange={value => setFieldValue('timeout', value)}
+            isReadonly={readonly}
+          />
+        )}
+      </div>
+
+      <div className={stepCss.noLookDivider} />
+
       <div className={stepCss.formGroup}>
         <FormInput.MultiTextInput
           name="spec.url"
@@ -88,6 +114,7 @@ export default function HttpStepBase(props: {
         <FormMultiTypeTextAreaField
           name="spec.requestBody"
           label={getString('requestBodyLabel')}
+          className={css.requestBody}
           multiTypeTextArea={{ enableConfigureOptions: false, expressions, disabled: readonly }}
         />
         {getMultiTypeFromValue(formValues.spec.requestBody) === MultiTypeInputType.RUNTIME && (
@@ -99,26 +126,6 @@ export default function HttpStepBase(props: {
             showDefaultField={false}
             showAdvanced={true}
             onChange={value => setFieldValue('spec.requestBody', value)}
-            isReadonly={readonly}
-          />
-        )}
-      </div>
-      <div className={cx(stepCss.formGroup, stepCss.sm)}>
-        <FormMultiTypeDurationField
-          name="timeout"
-          label={getString('pipelineSteps.timeoutLabel')}
-          multiTypeDurationProps={{ enableConfigureOptions: false, expressions, disabled: readonly }}
-          disabled={readonly}
-        />
-        {getMultiTypeFromValue(formValues.timeout) === MultiTypeInputType.RUNTIME && (
-          <ConfigureOptions
-            value={formValues.timeout || ''}
-            type="String"
-            variableName="timeout"
-            showRequiredField={false}
-            showDefaultField={false}
-            showAdvanced={true}
-            onChange={value => setFieldValue('timeout', value)}
             isReadonly={readonly}
           />
         )}

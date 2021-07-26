@@ -17,6 +17,7 @@ import { Classes, Position } from '@blueprintjs/core'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useStrings } from 'framework/strings'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './OverrideSetsInputSelector.module.scss'
 
 type InputSetValue = SelectOption | SelectOption[]
@@ -82,40 +83,40 @@ export const OverrideSetsInputSelector: React.FC<InputSetSelectorProps> = ({
     getStageFromPipeline
   } = React.useContext(PipelineContext)
 
-  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
+  const { stage: currentStage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
 
   React.useEffect(() => {
     const useFromStage = currentStage?.stage?.spec?.serviceConfig?.useFromStage?.stage
-    setUseFromStage(useFromStage)
-  }, [currentStage?.stage?.spec?.serviceConfig?.stageOverrides?.useFromStage])
+    if (useFromStage) setUseFromStage(useFromStage)
+  }, [(currentStage?.stage?.spec?.serviceConfig?.stageOverrides as any)?.useFromStage])
 
-  const { stage: useFromStageObj = {} } = getStageFromPipeline(useFromStageId || '')
+  const { stage: useFromStageObj = {} } = getStageFromPipeline<DeploymentStageElementConfig>(useFromStageId || '')
 
   React.useEffect(() => {
     const spec = useFromStageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec
     if (spec) {
       const _overrideSets: { name: string; identifier: string }[] = []
       if (context === 'ARTIFACT') {
-        spec.artifactOverrideSets?.map((overrideSets: { overrideSet: { identifier: string } }) => {
+        spec.artifactOverrideSets?.map(overrideSets => {
           _overrideSets.push({
-            name: overrideSets.overrideSet.identifier,
-            identifier: overrideSets.overrideSet.identifier
+            name: overrideSets.overrideSet?.identifier || '',
+            identifier: overrideSets.overrideSet?.identifier || ''
           })
         })
       }
       if (context === 'MANIFEST') {
-        spec.manifestOverrideSets?.map((overrideSets: { overrideSet: { identifier: string } }) => {
+        spec.manifestOverrideSets?.map(overrideSets => {
           _overrideSets.push({
-            name: overrideSets.overrideSet.identifier,
-            identifier: overrideSets.overrideSet.identifier
+            name: overrideSets.overrideSet?.identifier || '',
+            identifier: overrideSets.overrideSet?.identifier || ''
           })
         })
       }
       if (context === 'VARIABLES') {
-        spec.variableOverrideSets?.map((overrideSets: { overrideSet: { identifier: string } }) => {
+        spec.variableOverrideSets?.map(overrideSets => {
           _overrideSets.push({
-            name: overrideSets.overrideSet.identifier,
-            identifier: overrideSets.overrideSet.identifier
+            name: overrideSets.overrideSet?.identifier || '',
+            identifier: overrideSets.overrideSet?.identifier || ''
           })
         })
       }

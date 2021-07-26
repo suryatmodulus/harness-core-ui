@@ -4,7 +4,6 @@ import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import ExecutionGraph, {
@@ -19,6 +18,8 @@ import {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
@@ -67,7 +68,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   } = React.useContext(PipelineContext)
 
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
-  const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
+  const [stageData, setStageData] = React.useState<BuildStageElementConfig | undefined>()
 
   React.useEffect(() => {
     if (selectedStepId) {
@@ -78,27 +79,33 @@ export default function BuildStageSetupShell(): JSX.Element {
   React.useEffect(() => {
     // @TODO: add CI Codebase field check if Clone Codebase is checked
     // once it is added to BuildStageSpecifications (CI-757)
-    const specifications = stageData?.name && stageData?.identifier
-    const infra =
-      (stageData?.spec?.infrastructure?.spec?.connectorRef && stageData?.spec?.infrastructure?.spec?.namespace) ||
-      stageData?.spec?.infrastructure?.useFromStage
+    const specifications = !!(stageData?.name && stageData?.identifier)
+    const infra = !!(
+      ((stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef &&
+        (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace) ||
+      (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
+    )
     const execution = !!stageData?.spec?.execution?.steps?.length
     setFilledUpStages({ specifications, infra, execution })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     stageData?.name,
     stageData?.identifier,
-    stageData?.spec?.infrastructure?.spec?.connectorRef,
-    stageData?.spec?.infrastructure?.spec?.namespace,
-    stageData?.spec?.infrastructure?.useFromStage,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage,
     stageData?.spec?.execution?.steps?.length
   ])
 
   React.useEffect(() => {
     if (selectedStageId && isSplitViewOpen) {
-      const { stage } = cloneDeep(getStageFromPipeline(selectedStageId))
+      const { stage } = cloneDeep(getStageFromPipeline<BuildStageElementConfig>(selectedStageId))
       const key = Object.keys(stage || {})[0]
-      if (key && stage && !isEqual(stage[key], stageData)) {
-        setStageData(stage[key])
+      if (key && stage && !isEqual(stage[key as 'stage'], stageData)) {
+        setStageData(stage[key as 'stage'])
       }
     }
     if (stageNames.indexOf(selectedStageId) !== -1) {
@@ -120,8 +127,8 @@ export default function BuildStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
-  const selectedStage = getStageFromPipeline(selectedStageId).stage
-  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
+  const selectedStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId).stage
+  const originalStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
   const executionHasWarning = !filledUpStages.execution
 
@@ -246,19 +253,21 @@ export default function BuildStageSetupShell(): JSX.Element {
               stage={selectedStageClone}
               originalStage={originalStage}
               ref={executionRef}
-              updateStage={(newStageData: StageElementWrapper) => {
-                updateStage(
-                  produce(newStageData, draft => {
-                    // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
-                    if (draft?.stage?.spec?.execution?.rollbackSteps) {
-                      delete draft.stage.spec.execution.rollbackSteps
-                    }
-                    // delete serviceDependencies if its empty array (as serviceDependencies is optional)
-                    if (draft?.stage?.spec?.serviceDependencies && isEmpty(draft?.stage?.spec?.serviceDependencies)) {
-                      delete draft.stage.spec.serviceDependencies
-                    }
-                  }).stage
-                )
+              updateStage={newStageData => {
+                const newData = produce(newStageData, draft => {
+                  // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
+                  if (draft?.stage?.spec?.execution?.rollbackSteps) {
+                    delete draft.stage.spec.execution.rollbackSteps
+                  }
+                  // delete serviceDependencies if its empty array (as serviceDependencies is optional)
+                  if (draft?.stage?.spec?.serviceDependencies && isEmpty(draft?.stage?.spec?.serviceDependencies)) {
+                    delete draft.stage.spec.serviceDependencies
+                  }
+                })
+
+                if (newData.stage) {
+                  updateStage(newData.stage)
+                }
               }}
               // Check and update the correct stage path here
               pathToStage={`${stagePath}.stage.spec.execution`}
@@ -314,7 +323,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                     type: event.stepType === StepType.STEP ? DrawerTypes.StepConfig : DrawerTypes.ConfigureService,
                     data: {
                       stepConfig: {
-                        node: event.node,
+                        node: event.node as any,
                         stepsMap: event.stepsMap,
                         onUpdate: executionRef.current?.stepGroupUpdated,
                         isStepGroup: event.isStepGroup,

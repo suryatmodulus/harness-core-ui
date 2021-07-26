@@ -20,8 +20,8 @@ import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import {
   GetDelegatesStatusV2QueryParams,
-  useDeleteDelegateGroup,
-  useGetDelegateGroupsV2,
+  useDeleteDelegateGroupByIdentifier,
+  useGetDelegateGroupsNGV2,
   DelegateGroupDetails,
   DelegateInsightsBarDetails
 } from 'services/portal'
@@ -179,15 +179,15 @@ const RenderActivityColumn: Renderer<CellProps<DelegateGroupDetails>> = ({ row }
 
 const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) => {
   const { row } = cell
-  const groupId = row.original.groupId
+  const delegateGroupIdentifier = row.original.delegateGroupIdentifier
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
-  const { mutate: deleteDelegate } = useDeleteDelegateGroup({
+  const { mutate: deleteDelegate } = useDeleteDelegateGroupByIdentifier({
     queryParams: { accountId: accountId }
   })
-  const { mutate: forceDeleteDelegate } = useDeleteDelegateGroup({
+  const { mutate: forceDeleteDelegate } = useDeleteDelegateGroupByIdentifier({
     queryParams: { accountId: accountId, forceDelete: true }
   })
   const { openDialog } = useConfirmationDialog({
@@ -198,8 +198,8 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          if (groupId) {
-            const deleted = await deleteDelegate(groupId)
+          if (delegateGroupIdentifier) {
+            const deleted = await deleteDelegate(delegateGroupIdentifier)
             if (deleted) {
               showSuccess(getString('delegates.delegateDeleted', { name: row.original.groupName }))
             }
@@ -224,8 +224,8 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          if (groupId) {
-            const deleted = await forceDeleteDelegate(groupId)
+          if (delegateGroupIdentifier) {
+            const deleted = await forceDeleteDelegate(delegateGroupIdentifier)
 
             if (deleted) {
               showSuccess(getString('delegates.delegateForceDeleted', { name: row.original.groupName }))
@@ -272,7 +272,7 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
               },
               resource: {
                 resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: row.original.groupId
+                resourceIdentifier: row.original.delegateGroupIdentifier
               },
               permission: PermissionIdentifier.VIEW_DELEGATE
             }}
@@ -288,7 +288,7 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
               },
               resource: {
                 resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: row.original.groupId
+                resourceIdentifier: row.original.delegateGroupIdentifier
               },
               permission: PermissionIdentifier.DELETE_DELEGATE
             }}
@@ -305,7 +305,7 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
               },
               resource: {
                 resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: groupId
+                resourceIdentifier: delegateGroupIdentifier
               },
               permission: PermissionIdentifier.DELETE_DELEGATE
             }}
@@ -349,7 +349,7 @@ export const DelegateListing: React.FC = () => {
     projectId: projectIdentifier,
     module
   } as GetDelegatesStatusV2QueryParams
-  const { data, loading, error, refetch } = useGetDelegateGroupsV2({ queryParams })
+  const { data, loading, error, refetch } = useGetDelegateGroupsNGV2({ queryParams })
   const { openDelegateModal } = useCreateDelegateModal()
   const delegates = get(data, 'resource.delegateGroupDetails', [])
   const filteredDelegates = searchParam
@@ -480,7 +480,7 @@ export const DelegateListing: React.FC = () => {
     if (canAccessDelegate) {
       const params = {
         accountId,
-        delegateId: item.groupId as string
+        delegateIdentifier: item.delegateGroupIdentifier as string
       }
       if (orgIdentifier) {
         set(params, 'orgIdentifier', orgIdentifier)

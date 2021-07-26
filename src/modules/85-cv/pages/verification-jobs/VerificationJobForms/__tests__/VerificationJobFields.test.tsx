@@ -80,7 +80,7 @@ describe('Monitoring Sources component', () => {
       </TestWrapper>
     )
     // get input for multiselect
-    const input = screen.getByPlaceholderText('Search...')
+    const input = screen.getByPlaceholderText('- Select -')
     // type empty space to so show dropdown
     fireEvent.change(input, { target: { value: ' ' } })
     // list all items in dropdown
@@ -164,7 +164,7 @@ describe('Monitoring Sources component with no monitoring source', () => {
       </TestWrapper>
     )
     // get input for multiselect
-    const input = screen.getByPlaceholderText('Search...')
+    const input = screen.getByPlaceholderText('- Select -')
     // type empty space to so show dropdown
     fireEvent.change(input, { target: { value: ' ' } })
     // list all items in dropdown

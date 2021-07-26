@@ -64,9 +64,13 @@ interface FilterPillProps {
   onChange: (id: number, data: QlceViewFilterInput) => void
   pillData: QlceViewFilterInput
   fieldValuesList: Maybe<QlceViewFieldIdentifierData>[]
+  timeRange: {
+    to: number
+    from: number
+  }
 }
 
-const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id, onChange, pillData }) => {
+const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id, onChange, pillData, timeRange }) => {
   const { fieldName, identifierName, identifier, fieldId } = pillData.field
 
   const valuesObject: Record<string, boolean> = {}
@@ -87,22 +91,10 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
 
   const filteredFieldValuesList = fieldValuesList.filter(fieldValue => fieldValue) as QlceViewFieldIdentifierData[]
 
-  // useEffect(() => {
-  //   const { fieldName, identifierName, identifier, fieldId } = pillData.field
-  //   const valuesObject: Record<string, boolean> = {}
-  //   pillData?.values.forEach(val => {
-  //     valuesObject[val] = true
-  //   })
-  //   setProvider({ id: identifier, name: identifierName || '' })
-  //   setService({ id: fieldId, name: fieldName })
-  //   setValues(valuesObject)
-  //   setOperator(pillData.operator)
-  // }, [pillData])
-
   return (
     <section className={css.filterPillContainer}>
       <Layout.Horizontal
-        background="blue100"
+        background="primary2"
         spacing="xsmall"
         padding="xsmall"
         className={cx(css.filterPillInnerContainer, { [css.errorPill]: showError })}
@@ -150,6 +142,7 @@ const FilterPill: React.FC<FilterPillProps> = ({ fieldValuesList, removePill, id
             provider?.id ? (
               service?.id ? (
                 <ValueSelector
+                  timeRange={timeRange}
                   service={service}
                   provider={provider}
                   setService={setService}

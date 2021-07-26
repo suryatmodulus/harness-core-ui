@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { DurationInputFieldForInputSet } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useGetPipeline } from 'services/pipeline-ng'
 import type { spec } from '../../types'
 import { checkIfRunTimeInput } from '../../utils'
@@ -31,7 +31,7 @@ export function ContinousVerificationInputSetStep(
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
   const { getString } = useStrings()
-  const [pipeline, setPipeline] = useState<{ pipeline: NgPipeline } | undefined>()
+  const [pipeline, setPipeline] = useState<{ pipeline: PipelineInfoConfig } | undefined>()
   const prefix = isEmpty(path) ? '' : `${path}.`
   const { sensitivity, duration, baseline, trafficsplit, deploymentTag } = (template?.spec?.spec as spec) || {}
   const { data: pipelineData, refetch: fetchPipeline } = useGetPipeline({

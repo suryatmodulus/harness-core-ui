@@ -24,6 +24,7 @@ import {
   PipelineInfrastructure,
   EnvironmentResponseDTO,
   useGetEnvironmentList,
+  useGetEnvironmentAccessList,
   getEnvironmentListPromise,
   useCreateEnvironmentV2,
   useUpsertEnvironmentV2
@@ -489,7 +490,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
     data: environmentsResponse,
     error,
     refetch
-  } = useGetEnvironmentList({
+  } = useGetEnvironmentAccessList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -537,15 +538,15 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
   }, [hideModal])
 
   React.useEffect(() => {
-    if (environmentsResponse?.data?.content?.length) {
+    if (environmentsResponse?.data?.length) {
       setEnvironments(
-        environmentsResponse.data.content.map(env => ({
+        environmentsResponse.data.map(env => ({
           label: env.environment?.name || env.environment?.identifier || '',
           value: env.environment?.identifier || ''
         }))
       )
     }
-  }, [environmentsResponse, environmentsResponse?.data?.content?.length])
+  }, [environmentsResponse, environmentsResponse?.data?.length])
   const [canEdit] = usePermission({
     resource: {
       resourceType: ResourceType.ENVIRONMENT,
@@ -599,7 +600,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
                   setState({
                     isEdit,
                     isEnvironment: false,
-                    data: environmentsResponse?.data?.content?.filter(
+                    data: environmentsResponse?.data?.filter(
                       env => env.environment?.identifier === initialValues.environmentRef
                     )?.[0]?.environment as EnvironmentResponseDTO
                   })

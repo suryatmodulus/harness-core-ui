@@ -277,7 +277,7 @@ exports[`Auto stopping Rule creation Tests Config screen renders without crashin
                   <span
                     class="bp3-control-indicator"
                   />
-                  Instances
+                  EC2 VM(s)
                 </label>
                 <label
                   class="bp3-control bp3-radio"
@@ -698,7 +698,7 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                   <span
                     class="bp3-control-indicator"
                   />
-                  Instances
+                  EC2 VM(s)
                 </label>
                 <label
                   class="bp3-control bp3-radio"
@@ -1123,6 +1123,11 @@ exports[`Auto stopping Rule creation Tests Fill remaining form for INSTANCES 1`]
                       class="StyledProps--font StyledProps--main"
                       style="background-color: rgb(251, 251, 251);"
                     >
+                      <p
+                        class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                      >
+                        ce.co.gatewayConfig.routingDescription
+                      </p>
                       <div
                         class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                       >
@@ -2008,7 +2013,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Instances
+                  EC2 VM(s)
                 </label>
                 <label
                   class="bp3-control bp3-radio"
@@ -2414,6 +2419,11 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 1`] = `
                       class="StyledProps--font StyledProps--main"
                       style="background-color: rgb(251, 251, 251);"
                     >
+                      <p
+                        class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                      >
+                        ce.co.gatewayConfig.routingDescription
+                      </p>
                       <div
                         class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                       >
@@ -3046,7 +3056,7 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Instances
+                  EC2 VM(s)
                 </label>
                 <label
                   class="bp3-control bp3-radio"
@@ -3452,6 +3462,11 @@ exports[`Auto stopping Rule creation Tests fill remaining form for ASGs 2`] = `
                       class="StyledProps--font StyledProps--main"
                       style="background-color: rgb(251, 251, 251);"
                     >
+                      <p
+                        class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                      >
+                        ce.co.gatewayConfig.routingDescription
+                      </p>
                       <div
                         class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                       >
@@ -4084,7 +4099,7 @@ exports[`Auto stopping Rule creation Tests kubernestes config edit 1`] = `
                   <span
                     class="bp3-control-indicator"
                   />
-                  Instances
+                  EC2 VM(s)
                 </label>
                 <label
                   class="bp3-control bp3-radio"

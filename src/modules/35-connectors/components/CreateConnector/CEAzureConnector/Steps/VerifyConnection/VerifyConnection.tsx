@@ -1,18 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
-import {
-  Button,
-  Layout,
-  StepProps,
-  StepsProgress,
-  Intent,
-  Heading,
-  ModalErrorHandler,
-  ModalErrorHandlerBinding
-} from '@wings-software/uicore'
+import { Button, Layout, StepProps, StepsProgress, Intent, Heading } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { ConnectorInfoDTO, ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { useGetTestConnectionResult } from 'services/cd-ng'
+import ShowConnectorError from '../ShowConnectorError'
+import type { CEAzureDTO } from '../Overview/AzureConnectorOverview'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 
 enum Status {
@@ -21,19 +14,23 @@ enum Status {
   ERROR = 'ERROR'
 }
 
+interface Error {
+  title: string
+  reason: string
+}
+
 export interface TestConnectionProps extends ConnectorConfigDTO {
   onClose?: () => void
 }
 
-const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps> = props => {
+const TestConnection: React.FC<StepProps<CEAzureDTO> & TestConnectionProps> = props => {
   const { prevStepData } = props
-  const { accountId } = useParams<{
-    accountId: string
-  }>()
+  const { accountId } = useParams<{ accountId: string }>()
+
+  const [error, setError] = useState<Error>()
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.ERROR)
   const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.NONE)
   const [currentStep, setCurrentStep] = useState<number>(1)
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
   const { getString } = useStrings()
   const steps: string[] = [
@@ -52,16 +49,21 @@ const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps
   const verifyOptimizationPermissions = async (): Promise<void> => {
     try {
       setCurrentStatus(Status.PROCESS)
-      const result = await testConnection()
-      if (result.data?.status !== 'SUCCESS') {
-        throw new Error("Couldn't verify the connection")
+      const { data } = await testConnection()
+      if (data?.status !== 'SUCCESS') {
+        const err: Error = {
+          title: 'Connector authentication failed',
+          reason: data?.errors?.[0].message || 'Something went wrong'
+        }
+
+        setError(err)
+        throw new Error(err.title)
       }
 
       setCurrentIntent(Intent.SUCCESS)
       setCurrentStatus(Status.DONE)
       setCurrentStep(2)
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data?.errorSummary || e.message)
       setCurrentStatus(Status.ERROR)
       setCurrentIntent(Intent.DANGER)
     }
@@ -71,12 +73,12 @@ const TestConnection: React.FC<StepProps<ConnectorInfoDTO> & TestConnectionProps
   }, [])
 
   return (
-    <Layout.Vertical className={css.stepContainer}>
-      <ModalErrorHandler bind={setModalErrorHandler} />
+    <Layout.Vertical className={css.stepContainer} spacing="medium">
       <Heading level={2} className={css.header}>
         {getString('connectors.ceAzure.testConnection.heading')}
       </Heading>
       <StepsProgress steps={steps} intent={currentIntent} current={currentStep} currentStatus={currentStatus} />
+      {error && <ShowConnectorError title={error.title} reason={error.reason} />}
       <Button
         intent="primary"
         text={getString('finish')}

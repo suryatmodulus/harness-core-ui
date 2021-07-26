@@ -1,0 +1,28 @@
+.horizontalCenterAlign {
+  align-items: center;
+}
+
+.metricPack {
+  width: 400px;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin-left: var(--spacing-xxxlarge) !important;
+}
+
+.formFullheight {
+  height: calc(100vh - 120px);
+  min-height: calc(100% - 120px);
+  position: relative;
+  overflow-y: scroll;
+}
+
+.applicationDropdown,
+.tierDropdown {
+  span.bp3-input-left-container {
+    margin-top: var(--spacing-none) !important;
+  }
+}
+
+.iconButton {
+  color: var(--blue-600) !important;
+}

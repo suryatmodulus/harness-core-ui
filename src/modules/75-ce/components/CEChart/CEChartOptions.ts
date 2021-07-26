@@ -18,6 +18,9 @@ export default {
     height: 300,
     animation: {
       duration: 100
+    },
+    style: {
+      fontFamily: 'var(--font-family)'
     }
   },
   boost: {

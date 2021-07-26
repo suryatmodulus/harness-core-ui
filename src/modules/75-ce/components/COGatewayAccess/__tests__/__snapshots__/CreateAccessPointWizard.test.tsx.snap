@@ -1482,7 +1482,7 @@ exports[`Create Access Point Wizard Tests renders for rule creation mode without
                                 class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                 disabled=""
                                 name="securityGroups"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 value=""
                               />
                             </div>
@@ -2058,7 +2058,7 @@ exports[`Create Access Point Wizard Tests renders without crashing 1`] = `
                                 class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                 disabled=""
                                 name="securityGroups"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 value=""
                               />
                             </div>

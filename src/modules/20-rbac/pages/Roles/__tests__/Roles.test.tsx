@@ -104,7 +104,7 @@ describe('Role Details Page', () => {
       const deleteMenu = getByText(popover as HTMLElement, 'delete')
       await act(async () => {
         fireEvent.click(deleteMenu!)
-        await waitFor(() => getByText(document.body, 'roleCard.confirmDeleteTitle'))
+        await waitFor(() => getByText(document.body, 'rbac.roleCard.confirmDeleteTitle'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
         const deleteBtn = queryByText(form as HTMLElement, 'delete')

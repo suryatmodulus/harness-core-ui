@@ -7,10 +7,10 @@ import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
-import type { ExecutionWrapper } from 'services/cd-ng'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import type { StepElementConfig } from 'services/cd-ng'
 import type { StepCommandsProps } from './StepCommandTypes'
 import css from './StepCommands.module.scss'
 
@@ -19,7 +19,7 @@ export type StepFormikRef<T = unknown> = {
   submitForm: FormikProps<T>['submitForm']
   getErrors(): FormikProps<T>['errors']
   setFieldError(key: string, error: string): void
-  getValues(): ExecutionWrapper
+  getValues(): T
 }
 
 export type StepCommandsRef<T = unknown> =
@@ -112,12 +112,12 @@ export function StepCommands(
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const stepObj = isStepGroup
         ? (stepsFactory.getStep(StepType.StepGroup) as PipelineStep<any>)
-        : (stepsFactory.getStep(step.type) as PipelineStep<any>)
+        : (stepsFactory.getStep((step as StepElementConfig).type) as PipelineStep<any>)
       return activeTab === StepCommandTabs.StepConfiguration && stepRef.current
-        ? (stepObj.processFormData(stepRef.current.values) as ExecutionWrapper)
+        ? stepObj.processFormData(stepRef.current.values)
         : activeTab === StepCommandTabs.Advanced && advancedConfRef.current
-        ? (advancedConfRef.current.values as ExecutionWrapper)
-        : ({} as ExecutionWrapper)
+        ? advancedConfRef.current.values
+        : {}
     }
   }))
 
@@ -128,7 +128,7 @@ export function StepCommands(
       readonly={isReadonly}
       isNewStep={isNewStep}
       onUpdate={onChange}
-      type={isStepGroup ? 'StepGroup' : step.type}
+      type={isStepGroup ? StepType.StepGroup : ((step as StepElementConfig).type as StepType)}
       ref={stepRef}
     />
   )

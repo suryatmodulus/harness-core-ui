@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import type { CellProps } from 'react-table'
 import { Color, IconName, Text } from '@wings-software/uicore'
+import moment from 'moment'
 import formatCost from '@ce/utils/formatCost'
 import {
   QlceViewFieldInputInput,
@@ -109,6 +110,10 @@ const RenderCostTrendCell = (props: CellProps<GridData>): JSX.Element => {
       {`${Math.abs(v)}%`}
     </Text>
   )
+}
+
+export const RenderDateCell = (item: Record<string, any>) => {
+  return item.value ? <div>{moment.utc(item.value).format(`MMM DD, YYYY hh:mm a`)}</div> : '-'
 }
 
 export type Column = {
@@ -335,18 +340,18 @@ const COLUMNS: Record<string, Column> = {
   CREATION_TIME: {
     Header: 'Creation Time',
     accessor: 'createTime',
-    width: 200
+    width: 200,
     // type: DATE_TIME_COLUMN,
     // className: COST_COLUMN_CLASSNAME
-    // renderer: dateRenderer
+    Cell: RenderDateCell
   },
   DELETION_TIME: {
     Header: 'Deletion Time',
     accessor: 'deleteTime',
-    width: 200
+    width: 200,
     // type: DATE_TIME_COLUMN,
     // className: COST_COLUMN_CLASSNAME
-    // renderer: dateRenderer
+    Cell: RenderDateCell
   },
   CPU_REQUESTED: {
     Header: 'CPU Requested (vCPU)',
@@ -660,6 +665,17 @@ export const ECS_TASK_ID_COLS = [
   COLUMNS.ECS_LAUNCH_TYPE_ID
 ]
 
+export const PODS_COLUMNS = [
+  { ...COLUMNS.NAME, sticky: undefined },
+  COLUMNS.CREATION_TIME,
+  COLUMNS.DELETION_TIME,
+  COLUMNS.CPU_REQUESTED,
+  COLUMNS.MEMORY_REQUESTED,
+  COLUMNS.TOTAL_COST,
+  COLUMNS.IDLE_COST,
+  { ...COLUMNS.WORKLOAD, accessor: 'workload' },
+  COLUMNS.NAMESPACE
+]
 export const LABELS_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND, COLUMNS.IDLE_COST]
 
 // TODO: remove after demo
@@ -704,11 +720,16 @@ export const GroupByMapping: Record<string, Column[]> = {
   'ECS Launch Type': ECS_LAUNCH_TYPE_COLS,
   'ECS Launch Type Id': ECS_LAUNCH_TYPE_ID_COLS,
   'ECS Task': ECS_TASK_COLS,
-  'ECS Task Id': ECS_TASK_ID_COLS
+  'ECS Task Id': ECS_TASK_ID_COLS,
+  Pod: PODS_COLUMNS
 }
 
-export const getGridColumnsByGroupBy = (groupBy: QlceViewFieldInputInput): Column[] => {
+export const getGridColumnsByGroupBy = (groupBy: QlceViewFieldInputInput, isClusterOnly: boolean): Column[] => {
   const { fieldName, identifier } = groupBy
+
+  if (!isClusterOnly) {
+    return DEFAULT_COLS
+  }
 
   if (identifier === 'LABEL') {
     return LABELS_COLS

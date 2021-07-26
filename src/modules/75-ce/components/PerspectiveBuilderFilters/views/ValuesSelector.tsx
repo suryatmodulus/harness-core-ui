@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
-import { Virtuoso } from 'react-virtuoso'
-import { Container, TextInput, Icon, Checkbox, Layout, Text } from '@wings-software/uicore'
+import { Icon, Layout, Text } from '@wings-software/uicore'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import type { QlceViewFilterOperator, Maybe } from 'services/ce/services'
+import MultiValueSelectorComponent from '@ce/components/MultiValueSelectorComponent/MultiValueSelectorComponent'
 import type { ProviderType } from '../PerspectiveBuilderFilter'
 
 import css from '../PerspectiveBuilderFilter.module.scss'
@@ -18,6 +18,9 @@ interface ValuesSelectorProps {
   fetching: boolean
   selectedVal: string[]
   onValueChange: (val: string[]) => void
+  fetchMore?: (e: number) => void
+  shouldFetchMore?: boolean
+  onInputChange: (val: string) => void
 }
 
 const ValuesSelector: React.FC<ValuesSelectorProps> = ({
@@ -25,10 +28,12 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
   fetching,
   valueList,
   selectedVal,
-  onValueChange
+  onValueChange,
+  fetchMore,
+  shouldFetchMore,
+  onInputChange
 }) => {
   const [selectedValues, setSelectedValues] = useState<Record<string, boolean>>({})
-  const [searchText, setSearchText] = useState('')
 
   const { getString } = useStrings()
 
@@ -41,37 +46,6 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
     })
     setSelectedValues(newSelectedVals)
   }, [selectedVal])
-
-  const renderValues = () => {
-    const filteredValues = valueList.filter(val => val && val.includes(searchText))
-    return (
-      <Container>
-        <Virtuoso
-          style={{ height: 350, paddingLeft: 10 }}
-          data={filteredValues}
-          overscan={{ main: 20, reverse: 20 }}
-          itemContent={(_, value) => {
-            if (!value) return null
-            return (
-              <Checkbox
-                onClick={() => {
-                  setSelectedValues(prevVal => ({
-                    ...prevVal,
-                    [value]: !prevVal[value]
-                  }))
-                }}
-                checked={selectedValues[value]}
-                className={css.checkbox}
-                key={value}
-                value={value}
-                label={value}
-              />
-            )
-          }}
-        />
-      </Container>
-    )
-  }
 
   return (
     <Popover
@@ -90,22 +64,15 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
       fill={true}
       usePortal={true}
       content={
-        <Container className={cx(css.valueContainer, { [css.valueFetching]: fetching })}>
-          {fetching ? (
-            <Icon name="spinner" size={28} color="blue500" />
-          ) : (
-            <>
-              <TextInput
-                onChange={e => {
-                  const target = e.target as any
-                  setSearchText(target.value)
-                }}
-                placeholder={getString('ce.perspectives.createPerspective.filters.searchText')}
-              />
-              {renderValues()}
-            </>
-          )}
-        </Container>
+        <MultiValueSelectorComponent
+          fetching={fetching}
+          valueList={valueList}
+          shouldFetchMore={shouldFetchMore}
+          setSelectedValues={setSelectedValues}
+          selectedValues={selectedValues}
+          fetchMore={fetchMore}
+          onInputChange={onInputChange}
+        />
       }
     >
       <div

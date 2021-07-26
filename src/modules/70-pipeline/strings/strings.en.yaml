@@ -487,6 +487,17 @@ triggers:
     SUN: 'SUN'
     expressionBreakdown: 'Expression Breakdown'
     cronExpression: 'Cron Expression'
+  artifactTriggerConfigPanel:
+    artifact: 'Artifact'
+    artifactRepository: 'Artifact Repository'
+    buildTag: 'Build/Tag'
+    configureInput: 'Configure Input'
+    listenOnNewArtifact: 'Listen on New Artifact'
+    plusSelectArtifact: '+ Select Artifact'
+    selectAnArtifact: 'Select an Artifact Reference'
+    noSelectableArtifactsFound: 'No selectable artifacts found. Please add an artifact in the pipeline.'
+    configureInputs: Configure inputs
+    parameterized: Parameterized
 dashboards:
   failedBuilds: Failed Builds
   activeBuilds: Active Builds
@@ -584,8 +595,8 @@ inputSets:
   aboutInputSets: Harness Input Sets are collections of variables/values that can be provided to one or more Pipelines before execution.
 provisionerSteps: Provisioner Steps
 addStage:
-  title: Select a Stage
-  description: In a pipeline, a stage involves a series of tasks or tests that must be satisfied in order to proceed to the next stage.
+  title: Select stage type
+  description: Hover over stage type for more info.
 aboutYourStage:
   stageNamePlaceholder: Enter Stage Name
 infraSpecifications:
@@ -641,6 +652,20 @@ verification:
   analysisTab:
     metrics: 'Metrics'
     logs: 'Logs'
+  logs:
+    logCluster: Log cluster
+    noAnalysis: No analysis
+    clusterType: CLUSTER TYPE
+    sampleMessage: MESSAGE
+    messageFrequency: MESSAGE FREQUENCY
+    messageCount: COUNT
+    actions: ACTIONS
+    risk: RISK
+    copyURL: Copy url
+    urlCopied: URL copied
+    share: share
+    sampleEvent: Sample event
+    trend: trend
 stepCommonFields:
   runAsUser: Run as User
   ifNotPresent: 'If Not Present'

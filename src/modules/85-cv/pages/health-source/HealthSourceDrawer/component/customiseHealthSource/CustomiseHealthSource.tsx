@@ -8,12 +8,13 @@ import {
   useSaveMonitoredService,
   useUpdateMonitoredService
 } from 'services/cv'
+import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { BGColorWrapper } from '@cv/pages/health-source/common/StyledComponents'
 import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { LoadSourceByType, createHealthsourceList } from './CustomiseHealthSource.utils'
-import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
+import type { SourceDataInterface, UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 import { omitServiceEnvironmentKeys } from './CustomiseHealthSource.constant'
 
 export default function CustomiseHealthSource({
@@ -36,7 +37,10 @@ export default function CustomiseHealthSource({
   })
 
   // Removing Service and Environment keys
-  const filteredSourceData = useMemo(() => omit(sourceData, omitServiceEnvironmentKeys), [sourceData])
+  const filteredSourceData: Omit<
+    SourceDataInterface,
+    'isEdit' | 'serviceRef' | 'environmentRef' | 'monitoredServiceRef'
+  > = useMemo(() => omit(sourceData, omitServiceEnvironmentKeys), [sourceData])
 
   const isEdit = useMemo(
     () => params?.identifier || shouldRenderAtVerifyStep,
@@ -71,7 +75,7 @@ export default function CustomiseHealthSource({
           : getString('cv.monitoredServices.monitoredServiceCreated')
       )
     } catch (error) {
-      showError(error?.data?.message)
+      showError(getErrorMessage(error))
     }
   }
 

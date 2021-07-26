@@ -11,6 +11,7 @@ interface KubernetesRuleYamlEditorProps {
   handleSave?: (data: any) => void
   existingData?: Record<any, any>
   mode?: 'read' | 'edit'
+  fileName?: string
 }
 
 const KubernetesRuleYamlEditor: React.FC<KubernetesRuleYamlEditorProps> = props => {
@@ -40,7 +41,7 @@ const KubernetesRuleYamlEditor: React.FC<KubernetesRuleYamlEditorProps> = props 
       <YAMLBuilder
         schema={getK8sYamlSchema()}
         showSnippetSection={false}
-        fileName={'harness-ccm-autostopping-connector.yaml'}
+        fileName={props.fileName || 'harness-ccm-autostopping-connector.yaml'}
         entityType="Service"
         bind={setYamlHandler}
         height="400px"

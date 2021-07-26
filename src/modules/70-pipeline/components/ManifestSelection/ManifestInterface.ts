@@ -5,9 +5,10 @@ import type {
   ManifestConfig,
   ManifestConfigWrapper,
   PageConnectorResponse,
+  PipelineInfoConfig,
   StageElementConfig
 } from 'services/cd-ng'
-import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
+import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 
 export type ManifestTypes =
   | 'K8sManifest'
@@ -28,7 +29,7 @@ export interface ManifestSelectionProps {
 }
 
 export interface ManifestListViewProps {
-  pipeline: NgPipeline
+  pipeline: PipelineInfoConfig
   isForOverrideSets: boolean
   updateStage: (stage: StageElementConfig) => Promise<void>
   identifierName?: string

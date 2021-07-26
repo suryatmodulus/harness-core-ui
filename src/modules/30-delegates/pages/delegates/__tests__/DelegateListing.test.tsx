@@ -11,7 +11,7 @@ import {
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/portal', () => ({
-  useGetDelegateGroupsV2: ({ queryParams: { accountId } }: any) => {
+  useGetDelegateGroupsNGV2: ({ queryParams: { accountId } }: any) => {
     let data
     if (accountId === 'singleDelegateWithoutTags') {
       data = singleDelegateWithoutTagsResponseMock
@@ -25,7 +25,7 @@ jest.mock('services/portal', () => ({
       refetch: jest.fn()
     }
   },
-  useDeleteDelegateGroup: () => ({
+  useDeleteDelegateGroupByIdentifier: () => ({
     mutate: jest.fn()
   })
 }))

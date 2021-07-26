@@ -3,9 +3,10 @@ import { Container, Popover, Text, Layout, Icon } from '@wings-software/uicore'
 import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { useRecommendationFiltersQuery } from 'services/ce/services'
+import formatCost from '@ce/utils/formatCost'
 import ValuePopover from './views/ValuePopover'
 import FilterTypePopover from './views/TypePopover'
-import { COST_FILTER_KEYS, getLabelMappingForFilters } from './constants'
+import { COST_FILTER_KEYS, getLabelMappingForFilters, getFiltersLabelName } from './constants'
 
 // const CostInput = () => {
 //   const [showInput, setShowInput] = useState(false)
@@ -35,15 +36,22 @@ interface RecommendationFiltersProps {
   setFilters: React.Dispatch<React.SetStateAction<Record<string, string[]>>>
   filters: Record<string, string[]>
   setCostFilters: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  costFilters: Record<string, number>
 }
 
-const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({ setCostFilters, setFilters, filters }) => {
+const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({
+  setCostFilters,
+  setFilters,
+  filters,
+  costFilters
+}) => {
   const [selectedType, setSelectedType] = useState<string>()
   const [currentFilters, setCurrentFilters] = useState<Record<string, boolean>>({})
   const [currentCost, setCurrentCost] = useState<number>(0)
 
   const { getString } = useStrings()
   const keyToLabelMapping = getLabelMappingForFilters(getString)
+  const costFiltersLabels = getFiltersLabelName(getString)
 
   const completeFilterSelection: () => void = () => {
     const getFilterArray = Object.keys(currentFilters).filter(val => currentFilters[val])
@@ -67,6 +75,14 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({ setCostFi
 
   const clearCurrentFilter: (type: string) => void = type => {
     setFilters(currenVal => {
+      const newFilters = { ...currenVal }
+      delete newFilters[type]
+      return newFilters
+    })
+  }
+
+  const clearCurrentCostFilter: (type: string) => void = type => {
+    setCostFilters(currenVal => {
       const newFilters = { ...currenVal }
       delete newFilters[type]
       return newFilters
@@ -132,6 +148,37 @@ const RecommendationFilters: React.FC<RecommendationFiltersProps> = ({ setCostFi
                 size={12}
                 onClick={() => {
                   clearCurrentFilter(filter)
+                }}
+              />
+            </Layout.Horizontal>
+          ) : null
+        })}
+        {Object.keys(costFilters).map(costFilter => {
+          return costFilters[costFilter] ? (
+            <Layout.Horizontal
+              key={costFilter}
+              background="blue100"
+              border={{
+                color: 'primary5'
+              }}
+              margin={{
+                right: 'small'
+              }}
+              padding="xsmall"
+              style={{
+                alignItems: 'center'
+              }}
+            >
+              <Text color="blue800" font="small">{`${costFiltersLabels[costFilter]}: `}</Text>
+              <Text padding={{ top: 'xsmall', left: 'xsmall' }} color="blue800" font="small">
+                {formatCost(costFilters[costFilter])}
+              </Text>
+              <Icon
+                color="blue800"
+                name="cross"
+                size={12}
+                onClick={() => {
+                  clearCurrentCostFilter(costFilter)
                 }}
               />
             </Layout.Horizontal>

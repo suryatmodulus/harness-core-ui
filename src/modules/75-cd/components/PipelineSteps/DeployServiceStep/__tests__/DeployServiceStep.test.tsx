@@ -6,17 +6,20 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { findDialogContainer } from '@common/utils/testUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { DeployService } from '../DeployServiceStep.stories'
-import services from './serviceMock'
+import serviceData, { inputSetServiceData } from './serviceMock'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 jest.mock('services/cd-ng', () => ({
-  useGetServiceList: jest.fn().mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
+  useGetServiceList: jest.fn().mockImplementation(() => ({ loading: false, data: serviceData, refetch: jest.fn() })),
+  useGetServiceAccessList: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: inputSetServiceData, refetch: jest.fn() })),
   useCreateServicesV2: jest.fn().mockImplementation(() => ({
     cancel: jest.fn(),
     loading: false,
     mutate: jest.fn().mockImplementation(obj => {
-      services.data.content.push({
+      serviceData.data.content.push({
         service: {
           accountId: 'AQ8xhfNCRtGIUjq5bSM8Fg',
           identifier: obj[0].identifier,

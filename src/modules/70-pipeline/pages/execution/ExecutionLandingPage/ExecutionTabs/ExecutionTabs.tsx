@@ -7,7 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import type { CIBuildResponseDTO } from 'services/ci'
+import type { CIWebhookInfoDTO } from 'services/ci'
 import {
   getStageNodesWithArtifacts,
   getStageSetupIds
@@ -38,7 +38,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   const urlSuffix = isLogView ? '?view=log' : ''
 
   const ciData = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
-    ?.ciExecutionInfoDTO as CIBuildResponseDTO
+    ?.ciExecutionInfoDTO as CIWebhookInfoDTO
   // NOTE: hide commits tab if there are no commits
   // by default we are showing Commits tab > 'isEmpty(pipelineExecutionDetail)'
   const ciShowCommitsTab = !!ciData?.branch?.commits?.length || !!ciData?.pullRequest?.commits?.length

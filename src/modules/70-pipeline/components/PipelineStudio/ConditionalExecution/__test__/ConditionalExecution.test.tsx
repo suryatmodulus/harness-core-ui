@@ -14,7 +14,7 @@ const getProps = (hasData: boolean): ConditionalExecutionProps => ({
           condition: 'some condition'
         }
       })
-    }
+    } as any
   }
 })
 

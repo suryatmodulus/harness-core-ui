@@ -89,7 +89,7 @@ function TerraformRollbackWidget(
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
                 </div>
 
@@ -115,6 +115,8 @@ function TerraformRollbackWidget(
                     />
                   )}
                 </div>
+
+                <div className={stepCss.noLookDivider} />
 
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeDurationField

@@ -2,12 +2,11 @@ import React, { useMemo } from 'react'
 import get from 'lodash-es/get'
 import { Button } from '@wings-software/uicore'
 import type { RbacResourceRendererProps } from '@rbac/factories/RbacFactory'
-import { useListDelegateProfilesNg } from 'services/cd-ng'
-import type { DelegateProfile } from 'services/portal'
+import { useListDelegateProfilesNg, DelegateProfileDetailsNg } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 import { PageSpinner } from '@common/components'
 
-type CellType = { row: { original: DelegateProfile } }
+type CellType = { row: { original: DelegateProfileDetailsNg } }
 
 const DelegateConfigurationResourceRenderer: React.FC<RbacResourceRendererProps> = ({
   identifiers,
@@ -27,9 +26,11 @@ const DelegateConfigurationResourceRenderer: React.FC<RbacResourceRendererProps>
   )
   const { data, loading } = useListDelegateProfilesNg({ queryParams })
 
-  const configurations: DelegateProfile[] = get(data, 'resource.response', [])
+  const configurations: DelegateProfileDetailsNg[] = get(data, 'resource.response', [])
 
-  const filteredConfigurations = configurations.filter(config => identifiers.includes(config.uuid))
+  const filteredConfigurations = configurations.filter(
+    config => config.identifier && identifiers.includes(config.identifier)
+  )
 
   return filteredConfigurations && !loading ? (
     <Table
@@ -48,12 +49,13 @@ const DelegateConfigurationResourceRenderer: React.FC<RbacResourceRendererProps>
           disableSortBy: true,
           // eslint-disable-next-line react/display-name
           Cell: (element: CellType) => {
+            const { identifier } = element.row.original
             return (
               <Button
                 icon="trash"
                 minimal
                 onClick={() => {
-                  onResourceSelectionChange(resourceType, false, [element.row.original.uuid])
+                  identifier && onResourceSelectionChange(resourceType, false, [identifier])
                 }}
               />
             )

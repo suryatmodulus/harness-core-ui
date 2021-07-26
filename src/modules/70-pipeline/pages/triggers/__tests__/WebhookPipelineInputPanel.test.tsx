@@ -27,7 +27,7 @@ const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMo
 const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
 
 jest.mock('services/cd-ng', () => ({
-  useGetEnvironmentList: jest.fn(() => GetEnvironmentList),
+  useGetEnvironmentAccessList: jest.fn(() => GetEnvironmentList),
   useGetConnector: jest.fn(() => ConnectorResponse),
   useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
     return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }

@@ -130,8 +130,8 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
         hostedZoneId: loadBalancer?.metadata?.dns?.route53?.hosted_zone_id as string,
         dnsProvider: !showOthersInfo ? 'route53' : 'others',
         customDomainPrefix:
-          props.hostedZone && loadBalancer?.metadata?.dns?.others
-            ? loadBalancer?.metadata?.dns?.others.replace(`.${props.hostedZone}`, '')
+          props.hostedZone && loadBalancer?.metadata?.dns?.route53
+            ? (loadBalancer?.host_name?.replace(`${props.hostedZone}`, '') as string)
             : loadBalancer?.metadata?.dns?.others || '',
         lbName: loadBalancer?.name || ''
       }}
@@ -140,7 +140,12 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
       render={({ submitForm, values, setFieldValue }) => (
         <FormikForm>
           <Layout.Vertical>
-            <FormInput.Text name="lbName" label="Provide a name for the Load balancer" className={css.lbNameInput} />
+            <FormInput.Text
+              name="lbName"
+              label="Provide a name for the Load balancer"
+              className={css.lbNameInput}
+              disabled={!createMode}
+            />
             <Text color={Color.GREY_400} className={css.configInfo}>
               The Application Load Balancer does not have a domain name associated with it. The rule directs traffic to
               resources through the Load balancer. Hence the Load balancer requires a domain name to be accessed by th
@@ -158,6 +163,7 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
                     className={css.radioBtn}
                     onClick={() => {
                       setFieldValue('dnsProvider', 'route53')
+                      setFieldValue('customDomainPrefix', '')
                       setShowOthersInfo(false)
                     }}
                   ></Radio>
@@ -175,6 +181,8 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
                   className={css.radioBtn}
                   onClick={() => {
                     setFieldValue('dnsProvider', 'others')
+                    setFieldValue('hostedZoneId', '')
+                    setFieldValue('customDomainPrefix', '')
                     setShowOthersInfo(true)
                   }}
                   style={{ marginBottom: 'var(--spacing-medium)' }}
@@ -216,8 +224,8 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
             {!isSaving && (
               <Button
                 intent="primary"
-                text={createMode ? 'Continue' : 'Save'}
-                rightIcon={createMode ? 'chevron-right' : undefined}
+                text={'Continue'}
+                rightIcon={'chevron-right'}
                 onClick={submitForm}
                 disabled={
                   !values.lbName || values.dnsProvider === 'others'

@@ -114,7 +114,7 @@ const RoleDetails: React.FC = () => {
     try {
       const updated = await addPermissions(role)
       /* istanbul ignore else */ if (updated) {
-        showSuccess(getString('roleDetails.permissionUpdatedSuccess'))
+        showSuccess(getString('rbac.roleDetails.permissionUpdatedSuccess'))
         refetch()
       }
     } catch (e) {
@@ -223,7 +223,7 @@ const RoleDetails: React.FC = () => {
             <Layout.Vertical>
               <Layout.Horizontal flex padding="medium" spacing="medium">
                 <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ left: 'medium' }}>
-                  {getString('roleDetails.updateRolePermissions')}
+                  {getString('rbac.roleDetails.updateRolePermissions')}
                 </Text>
                 <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
                   {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}

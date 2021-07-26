@@ -33,12 +33,14 @@ interface ICard {
 const useSelectedCards = (featuresEnabled: ICard['value'][]) => {
   const { getString } = useStrings()
   const FeatureCards = useRef<ICard[]>([
-    {
-      title: getString('common.ce.visibility'),
-      desc: getString('connectors.ceAzure.chooseRequirements.visibilityCardDesc'),
-      value: 'VISIBILITY',
-      icon: 'ce-visibility'
-    },
+    // Keeping it for future.
+    //
+    // {
+    //   title: getString('common.ce.visibility'),
+    //   desc: getString('connectors.ceAzure.chooseRequirements.visibilityCardDesc'),
+    //   value: 'VISIBILITY',
+    //   icon: 'ce-visibility'
+    // },
     {
       title: getString('common.ce.optimization'),
       desc: getString('connectors.ceAzure.chooseRequirements.optimizationCardDesc'),
@@ -98,13 +100,12 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
   return (
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
-        {getString('connectors.ceAzure.chooseRequirements.heading')} -{' '}
-        <span>{getString('connectors.ceAzure.chooseRequirements.subText')}</span>
+        {getString('connectors.ceAzure.chooseRequirements.heading')}
       </Heading>
       <Text className={css.infobox}>{getString('connectors.ceAzure.chooseRequirements.subHeading')}</Text>
       <Container>
         <Heading level={3} className={css.mtbxxlarge}>
-          {getString('connectors.ceAzure.chooseRequirements.featureDesc')} <i>(optional)</i>
+          {getString('connectors.ceAzure.chooseRequirements.featureDesc')}
         </Heading>
         <Formik<CloudFeatures>
           initialValues={{

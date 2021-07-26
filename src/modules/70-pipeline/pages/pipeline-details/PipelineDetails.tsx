@@ -144,9 +144,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
       projectIdentifier,
       pipelineIdentifier,
       accountId,
-      module,
-      repoIdentifier,
-      branch
+      module
     })
   ) || { isExact: false }
 
@@ -162,6 +160,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     <>
       <GitSyncStoreProvider>
         <Page.Header
+          className={isPipelineStudioRoute ? css.rightMargin : ''}
           title={
             <Layout.Vertical>
               <Layout.Horizontal>
@@ -242,7 +241,7 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
           }
         />
       </GitSyncStoreProvider>
-      <Page.Body>{children}</Page.Body>
+      <Page.Body className={isPipelineStudioRoute ? css.rightMargin : ''}>{children}</Page.Body>
     </>
   )
 }

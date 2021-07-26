@@ -91,9 +91,9 @@ exports[`Project Page List Create Project and Close 1`] = `
                 >
                   <svg
                     data-icon="cog"
-                    height="12"
+                    height="16"
                     viewBox="0 0 16 16"
-                    width="12"
+                    width="16"
                   >
                     <desc>
                       cog
@@ -111,13 +111,13 @@ exports[`Project Page List Create Project and Close 1`] = `
                 </p>
               </a>
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="8"
+                  height="12"
                   viewBox="0 0 8 14"
-                  width="8"
+                  width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -227,12 +227,12 @@ exports[`Project Page List Create Project and Close 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
         data-name=""
         style="max-width: 350px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
           data-icon="thinner-search"
         >
           <svg
@@ -3424,9 +3424,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                 >
                   <svg
                     data-icon="cog"
-                    height="12"
+                    height="16"
                     viewBox="0 0 16 16"
-                    width="12"
+                    width="16"
                   >
                     <desc>
                       cog
@@ -3444,13 +3444,13 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                 </p>
               </a>
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="8"
+                  height="12"
                   viewBox="0 0 8 14"
-                  width="8"
+                  width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -3560,12 +3560,12 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
         data-name=""
         style="max-width: 350px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
           data-icon="thinner-search"
         >
           <svg
@@ -6757,9 +6757,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                 >
                   <svg
                     data-icon="cog"
-                    height="12"
+                    height="16"
                     viewBox="0 0 16 16"
-                    width="12"
+                    width="16"
                   >
                     <desc>
                       cog
@@ -6777,13 +6777,13 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                 </p>
               </a>
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="8"
+                  height="12"
                   viewBox="0 0 8 14"
-                  width="8"
+                  width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -6893,12 +6893,12 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
         data-name=""
         style="max-width: 350px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
           data-icon="thinner-search"
         >
           <svg
@@ -10090,9 +10090,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
                 >
                   <svg
                     data-icon="cog"
-                    height="12"
+                    height="16"
                     viewBox="0 0 16 16"
-                    width="12"
+                    width="16"
                   >
                     <desc>
                       cog
@@ -10110,13 +10110,13 @@ exports[`Project Page List Whole Modal Test 1`] = `
                 </p>
               </a>
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="8"
+                  height="12"
                   viewBox="0 0 8 14"
-                  width="8"
+                  width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -10226,12 +10226,12 @@ exports[`Project Page List Whole Modal Test 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
         data-name=""
         style="max-width: 350px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
           data-icon="thinner-search"
         >
           <svg

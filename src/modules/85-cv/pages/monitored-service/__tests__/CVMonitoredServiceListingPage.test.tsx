@@ -47,8 +47,11 @@ describe('Monitored Service list', () => {
                   name: 'delete me test',
                   identifier: 'delete_me_test',
                   serviceRef: 'AppDService',
+                  serviceName: 'ServiceName 1',
+                  environmentName: 'EnvironmentName 1',
                   environmentRef: 'new_env_test',
                   type: 'Application',
+                  healthMonitoringEnabled: true,
                   historicalTrend: {
                     healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
                   },
@@ -59,10 +62,14 @@ describe('Monitored Service list', () => {
                   identifier: 'Monitoring_service_101',
                   serviceRef: 'AppDService101',
                   environmentRef: 'AppDTestEnv1',
+                  serviceName: 'ServiceName 2',
+                  environmentName: 'EnvironmentName 2',
                   type: 'Application',
+                  healthMonitoringEnabled: true,
                   historicalTrend: {
                     healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
                   },
+                  tags: { tag1: '', tag2: '', tag3: '' },
                   currentHealthScore: { riskValue: 50, riskStatus: 'MEDIUM' }
                 },
                 {
@@ -70,7 +77,10 @@ describe('Monitored Service list', () => {
                   identifier: 'dadadasd',
                   serviceRef: 'test_service',
                   environmentRef: 'AppDTestEnv2',
+                  serviceName: 'ServiceName 3',
+                  environmentName: 'EnvironmentName 3',
                   type: 'Application',
+                  healthMonitoringEnabled: true,
                   historicalTrend: {
                     healthScores: [{ riskStatus: 'NO_DATA', riskValue: -2 }]
                   },
@@ -114,14 +124,42 @@ describe('Monitored Service list', () => {
   })
 
   // TestCase for Checking Title + Chart + HealthScore + Tags render
-  test('Test HealSourceCard values', async () => {
-    const { findByText } = render(
+  test('Test HealthSourceCard values', async () => {
+    const { getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <CVMonitoredServiceListingPage />
       </TestWrapper>
     )
-    await waitFor(() => expect(findByText('cv.monitoredServices.riskLabel.highRisk')).toBeDefined())
-    await waitFor(() => expect(findByText('cv.monitoredServices.riskLabel.mediumRisk')).toBeDefined())
-    await waitFor(() => expect(findByText('cv.monitoredServices.riskLabel.lowRisk')).toBeDefined())
+
+    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.highRisk')).toBeDefined())
+    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.mediumRisk')).toBeDefined())
+    await waitFor(() => expect(getByText('cv.monitoredServices.riskLabel.lowRisk')).toBeDefined())
+  })
+
+  test('Test Service and Environment names renders', async () => {
+    const { getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredServiceListingPage />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('ServiceName 1')).toBeDefined())
+    await waitFor(() => expect(getByText('EnvironmentName 1')).toBeDefined())
+    await waitFor(() => expect(getByText('ServiceName 2')).toBeDefined())
+    await waitFor(() => expect(getByText('EnvironmentName 2')).toBeDefined())
+    await waitFor(() => expect(getByText('ServiceName 3')).toBeDefined())
+    await waitFor(() => expect(getByText('EnvironmentName 3')).toBeDefined())
+  })
+
+  test('Test tags renders', async () => {
+    const { getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <CVMonitoredServiceListingPage />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('tag1')).toBeDefined())
+    await waitFor(() => expect(getByText('tag2')).toBeDefined())
+    await waitFor(() => expect(getByText('tag3')).toBeDefined())
   })
 })

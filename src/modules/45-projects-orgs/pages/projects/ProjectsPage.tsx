@@ -179,10 +179,12 @@ const ProjectsListPage: React.FC = () => {
         <div style={{ flex: 1 }}></div>
 
         <ExpandingSearchInput
+          flip
           placeholder={getString('projectsOrgs.search')}
           onChange={text => {
             setSearchParam(text.trim())
           }}
+          className={css.expandSearch}
           width={350}
         />
         <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />

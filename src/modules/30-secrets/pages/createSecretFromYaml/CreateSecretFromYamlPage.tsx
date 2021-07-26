@@ -146,7 +146,6 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           onSnippetCopy={onSnippetCopy}
           snippetFetchResponse={snippetFetchResponse}
           snippets={snippetData?.data?.yamlSnippets}
-          showSnippetSection={false}
         />
         <Layout.Horizontal spacing="large">
           <Button

@@ -16,6 +16,7 @@ import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { FeatureFlag } from '@common/featureFlags'
+import { RightBar } from '@pipeline/components/PipelineStudio/RightBar/RightBar'
 import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineStagesUtils'
 import css from './CFPipelineStudio.module.scss'
 
@@ -68,6 +69,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineProject={routes.toDeployments}
         routePipelineList={routes.toPipelines}
       />
+      <RightBar />
     </PipelineProvider>
   )
 }

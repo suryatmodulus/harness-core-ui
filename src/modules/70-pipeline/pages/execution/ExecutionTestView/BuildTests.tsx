@@ -313,6 +313,7 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
           </Layout.Horizontal>
           <Layout.Horizontal spacing="large">
             {/* <TestsCoverage /> */}
+            {/* TI is above Reports which is 100% width */}
             {stageId && stepId && serviceToken && (
               <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
             )}
@@ -362,8 +363,9 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
                   tests={reportSummaryData.tests}
                 />
               )}
+            {/* Overview and Reports split the width  */}
             {stageId && stepId && serviceToken && (
-              <TestsExecution stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
+              <TestsExecution splitview={true} stageId={stageId} stepId={stepId} serviceToken={serviceToken} />
             )}
           </Layout.Horizontal>
         </>

@@ -3,7 +3,7 @@ import { useModalHook, Button } from '@wings-software/uicore'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useTelemetry } from '@common/hooks/useTelemetry'
 import { Category, TrialActions, PageNames } from '@common/constants/TrackingConstants'
 
@@ -14,12 +14,12 @@ import ciImage from '../images/illustration.png'
 
 import css from './useCITrialModal.module.scss'
 
-type onCreateSuccess = (data: NgPipeline) => void
+type onCreateSuccess = (data: PipelineInfoConfig) => void
 type onSelectSuccess = () => void
 
 interface DialogProps {
   onClose: () => void
-  onSubmit: (values: NgPipeline) => void
+  onSubmit: (values: PipelineInfoConfig) => void
   isSelect: boolean
 }
 export interface UseCITrialModalProps {
@@ -34,7 +34,7 @@ export interface UseCITrialModalReturn {
 }
 
 type handleSelectSubmit = (value: string) => void
-type handleCreateSubmit = (value: NgPipeline) => void
+type handleCreateSubmit = (value: PipelineInfoConfig) => void
 interface CITrialModalData {
   onSubmit: handleSelectSubmit | handleCreateSubmit
   closeModal?: () => void
@@ -83,7 +83,7 @@ const CITrialDialog = ({ onClose, onSubmit, isSelect }: DialogProps): React.Reac
     trackEvent(TrialActions.TrialModalPipelineSetupCancel, { category: Category.SIGNUP, module: 'ci' })
     onClose()
   }
-  const handleSubmit = (values: NgPipeline): void => {
+  const handleSubmit = (values: PipelineInfoConfig): void => {
     trackEvent(TrialActions.TrialModalPipelineSetupSubmit, { category: Category.SIGNUP, module: 'ci' })
     onSubmit(values)
   }

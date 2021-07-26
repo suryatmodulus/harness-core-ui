@@ -30,9 +30,9 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
                 >
                   <svg
                     fill="none"
-                    height="12"
+                    height="16"
                     viewBox="0 0 27 29"
-                    width="12"
+                    width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
@@ -68,13 +68,13 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
                 </p>
               </a>
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="8"
+                  height="12"
                   viewBox="0 0 8 14"
-                  width="8"
+                  width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -98,13 +98,13 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
                 </p>
               </a>
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-small StyledProps--padding-left-small"
+                class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
                 data-icon="main-chevron-right"
               >
                 <svg
-                  height="8"
+                  height="12"
                   viewBox="0 0 8 14"
-                  width="8"
+                  width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path

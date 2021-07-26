@@ -686,7 +686,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
                 flip
                 width={200}
                 placeholder={getString('search')}
-                data-name="connectorSeachContainer"
                 throttle={200}
                 onChange={(query: string) => {
                   debouncedConnectorSearch(encodeURIComponent(query))

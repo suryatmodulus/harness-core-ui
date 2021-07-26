@@ -1792,53 +1792,49 @@ exports[`Connectors Page Test Render and check create connector panel: Connector
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main paletteCardHeader"
-                style="align-items: center;"
               >
                 <div
                   class="Layout--vertical StyledProps--main"
                 >
                   <p
                     class="StyledProps--font StyledProps--main"
-                    style="width: 185px; font-size: 14px; line-height: 24px;"
+                    style="width: 185px; font-size: 14px; line-height: 24px; font-weight: 500;"
                   >
                     Connectors
                   </p>
                 </div>
                 <div
-                  class="expandSearch"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip"
+                  data-name=""
+                  style="max-width: 200px;"
                 >
-                  <div
-                    class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
-                    data-name=""
+                  <span
+                    class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    data-icon="thinner-search"
                   >
-                    <span
-                      class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
-                      data-icon="thinner-search"
+                    <svg
+                      fill="none"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <svg
-                        fill="none"
-                        height="14"
-                        viewBox="0 0 16 16"
-                        width="14"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        />
-                      </svg>
-                    </span>
-                    <input
-                      class="bp3-input  ExpandingSearchInput--filter"
-                      dir="auto"
-                      placeholder="search"
-                      style="padding-right: 0px;"
-                      type="search"
-                      value=""
-                    />
-                  </div>
+                      <path
+                        d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </span>
+                  <input
+                    class="bp3-input  ExpandingSearchInput--filter"
+                    dir="auto"
+                    placeholder="search"
+                    style="padding-right: 0px;"
+                    type="search"
+                    value=""
+                  />
                 </div>
               </div>
               <section
@@ -1990,7 +1986,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="types"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>
@@ -2069,7 +2065,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="connectivityStatuses"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>
@@ -2300,7 +2296,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 1`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      common.filters.saveNewFilter
+                      filters.newFilter
                     </span>
                   </button>
                 </div>
@@ -2529,7 +2525,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="types"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>
@@ -2608,7 +2604,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                                     autocomplete="off"
                                     class="bp3-input-ghost bp3-multi-select-tag-input-input"
                                     name="connectivityStatuses"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     value=""
                                   />
                                 </div>
@@ -2839,7 +2835,7 @@ exports[`Connectors Page Test Render and check filter panel: New Filter 2`] = `
                     <span
                       class="bp3-button-text"
                     >
-                      common.filters.saveNewFilter
+                      filters.newFilter
                     </span>
                   </button>
                 </div>

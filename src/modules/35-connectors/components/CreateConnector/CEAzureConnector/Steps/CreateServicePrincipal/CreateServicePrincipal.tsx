@@ -102,7 +102,7 @@ const CreateServicePrincipal: React.FC<StepProps<CEAzureDTO>> = (props): JSX.Ele
       <Commands comment={'# Register the Harness app'} command={`az ad sp create --id ${appId}`} />,
       <Commands
         comment={'# Role assignment for enabling CCM Billing and Visibility'}
-        command={`\`SCOPE=az storage account show --name ${storageAccountName} --query "id" | xargs\``}
+        command={`SCOPE=\`az storage account show --name ${storageAccountName} --query "id" | xargs\``}
       />,
       <Commands
         comment={'# Assign role to the app on the scope fetched above'}

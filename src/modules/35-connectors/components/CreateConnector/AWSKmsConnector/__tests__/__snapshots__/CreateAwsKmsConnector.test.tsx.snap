@@ -954,7 +954,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               createOrSelectSecret
@@ -1013,7 +1013,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               createOrSelectSecret
@@ -1072,7 +1072,7 @@ exports[`Create Secret Manager Wizard should be able to render first and second 
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               createOrSelectSecret

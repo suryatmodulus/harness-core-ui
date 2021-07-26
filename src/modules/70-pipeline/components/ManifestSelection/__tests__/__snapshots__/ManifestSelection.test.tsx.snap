@@ -122,7 +122,11 @@ exports[`ManifestSelection tests delete manifest list works correctly 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main"
               style="--text-line-clamp: 1; width: 200px;"
             >
-              path
+              <span
+                class="noWrap"
+              >
+                path
+              </span>
             </p>
           </span>
           <span>
@@ -402,7 +406,11 @@ exports[`ManifestSelection tests edit manifest list works correctly 1`] = `
               class="StyledProps--font Text--lineclamp StyledProps--main"
               style="--text-line-clamp: 1; width: 200px;"
             >
-              test
+              <span
+                class="noWrap"
+              >
+                test
+              </span>
             </p>
           </span>
           <span>

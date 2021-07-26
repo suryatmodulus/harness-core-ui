@@ -20,17 +20,4 @@ const MonitoringServicesHeader = styled.div`
 `
 MonitoringServicesHeader.displayName = 'MonitoringServicesHeader'
 
-const HealthScoreCard = styled.div`
-  height: 31px;
-  width: 31px;
-  border-radius: var(--spacing-xsmall);
-  font-size: var(--font-size-small);
-  padding: var(--spacing-small);
-  color: var(--white);
-  text-align: center;
-  margin-right: var(--spacing-small);
-`
-
-HealthScoreCard.displayName = 'HealthScoreCard'
-
-export { MonitoringServicesHeader, HealthScoreCard }
+export { MonitoringServicesHeader }

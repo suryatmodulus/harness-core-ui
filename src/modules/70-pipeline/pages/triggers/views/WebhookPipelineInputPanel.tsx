@@ -4,7 +4,7 @@ import { Layout, Heading, Text, NestedAccordionProvider } from '@wings-software/
 import { parse } from 'yaml'
 import { pick, merge } from 'lodash-es'
 import { InputSetSelector, InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
   useGetTemplateFromPipeline,
   getInputSetForPipelinePromise,
@@ -69,7 +69,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
           })
           if (data?.data?.pipelineYaml) {
             const pipelineObject = parse(data.data.pipelineYaml) as {
-              pipeline: NgPipeline | any
+              pipeline: PipelineInfoConfig | any
             }
             if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {
               pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
@@ -96,7 +96,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
               const pipelineObject = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
-                pipeline: NgPipeline | any
+                pipeline: PipelineInfoConfig | any
               }
 
               if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {

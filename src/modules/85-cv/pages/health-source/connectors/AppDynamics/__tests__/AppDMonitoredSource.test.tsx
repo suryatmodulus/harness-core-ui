@@ -68,12 +68,99 @@ describe('Unit tests for createAppd monitoring source', () => {
           appDTier: 'manager',
           appdApplication: 'Harness-Dev',
           applicationName: 'Harness-Dev',
-          tierName: 'manager',
-          metricAppD: {
+          connectorRef: {
+            connector: {
+              description: '',
+              identifier: 'AppD_Connector_102',
+              name: 'AppD Connector 102',
+              orgIdentifier: 'default',
+              projectIdentifier: 'Demo',
+              spec: {
+                accountname: 'harness-test',
+                authType: 'UsernamePassword',
+                clientId: null,
+                clientSecretRef: null,
+                controllerUrl: 'https://harness-test.saas.appdynamics.com/controller/',
+                delegateSelectors: [],
+                passwordRef: 'AppDSecret',
+                username: 'raghu@harness.io'
+              },
+              tags: {},
+              type: 'AppDynamics'
+            },
+            label: 'AppD Connector 102',
+            live: true,
+            scope: 'project',
+            value: 'AppD_Connector_102'
+          },
+          environmentIdentifier: 'TestDemo101',
+          environmentName: 'TestDemo101',
+          healthSourceIdentifier: 'AppD_101',
+          healthSourceList: [
+            {
+              environment: 'TestDemo101',
+              identifier: 'AppD_101',
+              name: 'AppD 101',
+              service: 'TestDemo',
+              spec: {
+                applicationName: 'Harness-Dev',
+                connectorRef: 'AppD_Connector_102',
+                feature: 'Application Monitoring',
+                metricPacks: [
+                  {
+                    identifier: 'Errors'
+                  },
+                  {
+                    identifier: 'Performance'
+                  }
+                ],
+                tierName: 'manager'
+              },
+              type: 'AppDynamics'
+            },
+            {
+              environment: 'TestDemo101',
+              identifier: 'dasdsadasd',
+              name: 'dasdsadasd',
+              service: 'TestDemo',
+              spec: {
+                applicationName: 'Harness-Dev',
+                connectorRef: 'AppD_Connector',
+                feature: 'Application Monitoring',
+                metricPacks: [
+                  {
+                    identifier: 'Performance'
+                  }
+                ],
+                tierName: 'manager'
+              },
+              type: 'AppDynamics'
+            }
+          ],
+          healthSourceName: 'AppD 101',
+          isEdit: true,
+          metricData: {
             Errors: true,
             Performance: true
           },
-          metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
+          metricPacks: [
+            {
+              identifier: 'Errors'
+            },
+            {
+              identifier: 'Performance'
+            }
+          ],
+          monitoredServiceIdentifier: 'AppD_Test',
+          monitoringSourceName: 'AppD Test',
+          product: {
+            label: 'Application Monitoring',
+            value: 'Application Monitoring'
+          },
+          serviceIdentifier: 'TestDemo',
+          serviceName: 'TestDemo',
+          sourceType: 'AppDynamics',
+          tierName: 'manager'
         })
       )
     )

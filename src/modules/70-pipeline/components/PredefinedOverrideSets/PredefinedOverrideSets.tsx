@@ -2,26 +2,27 @@ import React from 'react'
 import { Layout, Text, SelectOption } from '@wings-software/uicore'
 import { isArray } from 'lodash-es'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import type { StageElementWrapper } from 'services/cd-ng'
 // eslint-disable-next-line no-restricted-imports
 import { OverrideSetsInputSelector } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
 // eslint-disable-next-line no-restricted-imports
 import type { InputSetSelectorProps } from '@cd/components/OverrideSetsInputSelector/OverrideSetsInputSelector'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { StageOverridesConfig } from 'services/cd-ng'
 
-export const PredefinedOverrideSets: React.FC<{ currentStage: StageElementWrapper | undefined; context: string }> = ({
-  currentStage,
-  context
-}): JSX.Element => {
+export const PredefinedOverrideSets: React.FC<{
+  currentStage: StageElementWrapper<DeploymentStageElementConfig> | undefined
+  context: string
+}> = ({ currentStage, context }): JSX.Element => {
   const {
     state: { pipeline },
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const getCurrentSpec = () => {
-    return currentStage?.stage.spec?.serviceConfig?.stageOverrides
+  const getCurrentSpec = (): StageOverridesConfig | undefined => {
+    return currentStage?.stage?.spec?.serviceConfig?.stageOverrides
   }
 
-  const getValuesByContext = (): StageElementWrapper | undefined => {
+  const getValuesByContext = () => {
     const path = getCurrentSpec()
     if (path) {
       if (context == 'ARTIFACT') {

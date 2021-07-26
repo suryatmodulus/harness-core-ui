@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Layout, Text } from '@wings-software/uicore'
+import type Highcharts from 'highcharts'
 
 import css from './ChartLegend.module.scss'
 
@@ -23,36 +24,37 @@ const ChartLegend: React.FC<ChartLegendProps> = ({ chartRefObj }) => {
   }, [chartRefObj])
 
   const legendItemClick: (chart: any) => void = chart => {
-    const visibleItems = Object.keys(legendMap).filter(x => legendMap[x]).length
+    // const visibleItems = Object.keys(legendMap).filter(x => legendMap[x]).length
     let updatedLegend: Record<string, boolean> = {}
 
-    if (visibleItems === Object.keys(legendMap).length) {
-      // Hide all and show one
-      Object.keys(legendMap).forEach(x => {
-        updatedLegend[x] = false
-      })
-      updatedLegend[chart.userOptions.name] = true
-    } else if (visibleItems === 1 && legendMap[chart.userOptions.name]) {
-      Object.keys(legendMap).forEach(x => {
-        updatedLegend[x] = true
-      })
-    } else {
-      updatedLegend = { ...legendMap }
-      updatedLegend[chart.userOptions.name] = !updatedLegend[chart.userOptions.name]
-      chart.update({
-        visible: updatedLegend[chart.userOptions.name]
-      })
-      setLegendMap(updatedLegend)
-      return
-    }
-
-    chartRefObj.series.map(s => {
-      const series = s as any
-      const sName = series.userOptions.name
-      series.update({ visible: updatedLegend[sName] }, false)
+    // if (visibleItems === Object.keys(legendMap).length) {
+    //   // Hide all and show one
+    //   Object.keys(legendMap).forEach(x => {
+    //     updatedLegend[x] = false
+    //   })
+    //   updatedLegend[chart.userOptions.name] = true
+    // } else
+    // if (visibleItems === 1 && legendMap[chart.userOptions.name]) {
+    //   Object.keys(legendMap).forEach(x => {
+    //     updatedLegend[x] = true
+    //   })
+    // } else {
+    updatedLegend = { ...legendMap }
+    updatedLegend[chart.userOptions.name] = !updatedLegend[chart.userOptions.name]
+    chart.update({
+      visible: updatedLegend[chart.userOptions.name]
     })
-    chartRefObj.redraw()
     setLegendMap(updatedLegend)
+    return
+    // }
+
+    // chartRefObj.series.map(s => {
+    //   const series = s as any
+    //   const sName = series.userOptions.name
+    //   series.update({ visible: updatedLegend[sName] }, false)
+    // })
+    // chartRefObj.redraw()
+    // setLegendMap(updatedLegend)
   }
 
   return (

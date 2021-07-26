@@ -4039,6 +4039,7 @@ export interface DelegateGroupDetails {
   activelyConnected?: boolean
   delegateConfigurationId?: string
   delegateDescription?: string
+  delegateGroupIdentifier?: string
   delegateInsightsDetails?: DelegateInsightsDetails
   delegateInstanceDetails?: DelegateInner[]
   delegateType?: string
@@ -19474,6 +19475,93 @@ export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNam
     { base: getConfig('api'), ...props }
   )
 
+export interface GetDelegateGroupsNGV2QueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type GetDelegateGroupsNGV2Props = Omit<
+  GetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegateGroupsNGV2 = (props: GetDelegateGroupsNGV2Props) => (
+  <Get<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>
+    path={`/setup/delegates/ng/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupsNGV2Props = Omit<
+  UseGetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateGroupsNGV2 = (props: UseGetDelegateGroupsNGV2Props) =>
+  useGet<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>(`/setup/delegates/ng/v2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateGroupByIdentifierQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export interface GetDelegateGroupByIdentifierPathParams {
+  identifier: string
+}
+
+export type GetDelegateGroupByIdentifierProps = Omit<
+  GetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupByIdentifierPathParams
+
+export const GetDelegateGroupByIdentifier = ({ identifier, ...props }: GetDelegateGroupByIdentifierProps) => (
+  <Get<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >
+    path={`/setup/delegates/ng/v2/${identifier}`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupByIdentifierProps = Omit<
+  UseGetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupByIdentifierPathParams
+
+export const useGetDelegateGroupByIdentifier = ({ identifier, ...props }: UseGetDelegateGroupByIdentifierProps) =>
+  useGet<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >((paramsInPath: GetDelegateGroupByIdentifierPathParams) => `/setup/delegates/ng/v2/${paramsInPath.identifier}`, {
+    base: getConfig('api'),
+    pathParams: { identifier },
+    ...props
+  })
+
 export interface GetDelegatesStatusQueryParams {
   accountId?: string
 }
@@ -19646,6 +19734,39 @@ export const useGetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: UseGe
     pathParams: { delegateGroupId },
     ...props
   })
+
+export interface DeleteDelegateGroupByIdentifierQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+  forceDelete?: boolean
+}
+
+export type DeleteDelegateGroupByIdentifierProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegateGroupByIdentifier = (props: DeleteDelegateGroupByIdentifierProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>
+    verb="DELETE"
+    path={`/setup/delegates/v3/groups`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateGroupByIdentifierProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegateGroupByIdentifier = (props: UseDeleteDelegateGroupByIdentifierProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>(
+    'DELETE',
+    `/setup/delegates/v3/groups`,
+    { base: getConfig('api'), ...props }
+  )
 
 export interface ValidateKubernetesYamlQueryParams {
   accountId?: string

@@ -1,9 +1,9 @@
 import React from 'react'
 import produce from 'immer'
-import { set } from 'lodash-es'
+import { defaultTo, set } from 'lodash-es'
 import { Text, Color, NestedAccordionPanel } from '@wings-software/uicore'
 
-import type { StageElement, DeploymentStage, StageElementConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, StageElementConfig } from 'services/cd-ng'
 import type {
   CustomVariablesData,
   CustomVariableEditableExtraProps
@@ -23,8 +23,8 @@ import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
 export interface StageCardProps {
-  stage: StageElement
-  originalStage: StageElement
+  stage: StageElementConfig
+  originalStage: StageElementConfig
   metadataMap: PipelineVariablesData['metadataMap']
   readonly?: boolean
 }
@@ -33,8 +33,8 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
   const { stage, originalStage, metadataMap, readonly } = props
   const { updateStage, stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
-  const stageSpec = stage.spec as DeploymentStage
-  const originalSpec = originalStage.spec as DeploymentStage
+  const stageSpec = stage.spec as DeploymentStageConfig
+  const originalSpec = originalStage.spec as DeploymentStageConfig
 
   return (
     <NestedAccordionPanel
@@ -58,21 +58,21 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
               <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
                 factory={stepsFactory}
                 initialValues={{
-                  variables: ((originalStage as DeploymentStage).variables || []) as AllNGVariables[],
+                  variables: defaultTo(originalStage.variables, []) as AllNGVariables[],
                   canAddVariable: true
                 }}
                 readonly={readonly}
                 type={StepType.CustomVariable}
                 stepViewType={StepViewType.InputVariable}
                 onUpdate={({ variables }: CustomVariablesData) => {
-                  updateStage({ ...originalStage, variables } as StageElementConfig)
+                  updateStage({ ...originalStage, variables })
                 }}
                 customStepProps={{
                   variableNamePrefix: `${originalStage.identifier}.variables.`,
                   domId: `Stage.${originalStage.identifier}.Variables-panel`,
                   className: css.customVariables,
                   heading: <b>{getString('customVariables.title')}</b>,
-                  yamlProperties: ((stage as DeploymentStage).variables as AllNGVariables[])?.map?.(
+                  yamlProperties: (defaultTo(stage.variables, []) as AllNGVariables[]).map?.(
                     variable =>
                       metadataMap[variable.value || /* istanbul ignore next */ '']?.yamlProperties ||
                       /* istanbul ignore next */ {}
@@ -101,7 +101,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                             if (serviceSpec.variables) {
                               set(draft, 'spec.serviceConfig.serviceDefinition.spec.variables', serviceSpec.variables)
                             }
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                     />
@@ -117,14 +117,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                         updateStage(
                           produce(originalStage, draft => {
                             set(draft, 'spec.infrastructure', infrastructure)
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                       onUpdateInfrastructureProvisioner={provisioner => {
                         updateStage(
                           produce(originalStage, draft => {
                             set(draft, 'spec.infrastructure.infrastructureDefinition.provisioner', provisioner)
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                     />
@@ -142,7 +142,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                         updateStage(
                           produce(originalStage, draft => {
                             set(draft, 'spec.execution', execution)
-                          }) as StageElementConfig
+                          })
                         )
                       }}
                     />

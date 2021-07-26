@@ -1,5 +1,4 @@
 import React from 'react'
-import type { StageElementWrapper } from 'services/cd-ng'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -8,6 +7,7 @@ import ExecutionGraph, {
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 
 export const ApprovalStageExecution: React.FC = () => {
   const {
@@ -41,7 +41,7 @@ export const ApprovalStageExecution: React.FC = () => {
       stage={selectedStage!}
       originalStage={originalStage}
       updateStage={(stageData: StageElementWrapper) => {
-        updateStage(stageData.stage)
+        if (stageData.stage) updateStage(stageData.stage)
       }}
       onAddStep={(event: ExecutionGraphAddStepEvent) => {
         updatePipelineView({
@@ -70,7 +70,7 @@ export const ApprovalStageExecution: React.FC = () => {
             type: DrawerTypes.StepConfig,
             data: {
               stepConfig: {
-                node: event.node,
+                node: event.node as any,
                 stepsMap: event.stepsMap,
                 onUpdate: executionRef.current?.stepGroupUpdated,
                 isStepGroup: event.isStepGroup,

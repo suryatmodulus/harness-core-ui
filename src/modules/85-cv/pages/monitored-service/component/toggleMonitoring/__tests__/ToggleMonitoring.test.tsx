@@ -28,14 +28,13 @@ describe('ToggleMonitoring', () => {
     const mutate = jest.fn()
     ;(useSetHealthMonitoringFlag as jest.Mock).mockImplementation(() => ({ mutate }))
 
-    const { container, getByText, getByRole } = render(
+    const { container, getByRole } = render(
       <TestWrapper {...testWrapperProps}>
         <ToggleMonitoring identifier={'Test_Monitored_service'} enable={false} />
       </TestWrapper>
     )
 
     await waitFor(() => expect(getByRole('checkbox')).toBeVisible())
-    await waitFor(() => expect(getByText('common.disable')).toBeDefined())
     fireEvent.click(getByRole('checkbox'))
     await waitFor(() =>
       expect(mutate).toHaveBeenCalledWith(undefined, {

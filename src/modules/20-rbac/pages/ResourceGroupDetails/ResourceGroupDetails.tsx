@@ -105,7 +105,7 @@ const ResourceGroupDetails: React.FC = () => {
     try {
       const updated = await updateResourceGroup(dataToSubmit)
       if (updated) {
-        showSuccess(getString('resourceGroup.updateSuccess'))
+        showSuccess(getString('rbac.resourceGroup.updateSuccess'))
         refetch()
       }
     } /* istanbul ignore next */ catch (e) {
@@ -184,7 +184,7 @@ const ResourceGroupDetails: React.FC = () => {
       />
     )
   if (!resourceGroup)
-    return <Page.NoDataCard icon="resources-icon" message={getString('resourceGroup.noResourceGroupFound')} />
+    return <Page.NoDataCard icon="resources-icon" message={getString('rbac.resourceGroup.noResourceGroupFound')} />
 
   return (
     <>
@@ -231,7 +231,7 @@ const ResourceGroupDetails: React.FC = () => {
               <Text lineClamp={1} color={Color.BLACK}>
                 {isHarnessManaged ? (
                   <Text lineClamp={1} color={Color.BLACK}>
-                    {getString('resourceGroup.builtInResourceGroup')}
+                    {getString('rbac.resourceGroup.builtInResourceGroup')}
                   </Text>
                 ) : (
                   <ReactTimeago date={resourceGroupDetails?.data?.createdAt || ''} />
@@ -243,7 +243,7 @@ const ResourceGroupDetails: React.FC = () => {
               <Text lineClamp={1} color={Color.BLACK}>
                 {isHarnessManaged ? (
                   <Text lineClamp={1} color={Color.BLACK}>
-                    {getString('resourceGroup.builtInResourceGroup')}
+                    {getString('rbac.resourceGroup.builtInResourceGroup')}
                   </Text>
                 ) : (
                   <ReactTimeago date={resourceGroupDetails?.data?.lastModifiedAt || ''} />
@@ -310,7 +310,7 @@ const ResourceGroupDetails: React.FC = () => {
             <Layout.Vertical spacing="small" height="100%">
               {Array.from(selectedResourcesMap.keys()).length === 0 && (
                 <Page.NoDataCard
-                  message={getString('resourceGroup.dragAndDropData')}
+                  message={getString('rbac.resourceGroup.dragAndDropData')}
                   icon="drag-handle-horizontal"
                   iconSize={100}
                 />

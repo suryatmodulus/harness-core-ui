@@ -169,9 +169,17 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
         <div className={css.stepInside}>
           <section className={css.stepsRenderer}>
             <Layout.Vertical padding="large" spacing="large">
-              <Layout.Horizontal className={css.paletteCardHeader} spacing="medium" style={{ alignItems: 'center' }}>
+              <Layout.Horizontal className={css.paletteCardHeader} spacing="medium">
                 <Layout.Vertical>
-                  <Text style={{ width: '185px', color: 'var(--grey-700)', fontSize: 14, lineHeight: '24px' }}>
+                  <Text
+                    style={{
+                      width: '185px',
+                      color: 'var(--grey-700)',
+                      fontSize: 14,
+                      lineHeight: '24px',
+                      fontWeight: 500
+                    }}
+                  >
                     {addDrawerMap.drawerLabel}
                   </Text>
                   {addDrawerMap.drawerSubLabel && (
@@ -179,13 +187,13 @@ export default function AddDrawer(props: AddDrawerProps): JSX.Element {
                   )}
                 </Layout.Vertical>
 
-                <div className={css.expandSearch}>
-                  <ExpandingSearchInput
-                    placeholder={addDrawerMap.searchPlaceholder || getString('search')}
-                    throttle={200}
-                    onChange={(text: string) => filterSteps(text, filterContext.SEARCH)}
-                  />
-                </div>
+                <ExpandingSearchInput
+                  flip
+                  width={200}
+                  placeholder={addDrawerMap.searchPlaceholder || getString('search')}
+                  throttle={200}
+                  onChange={(text: string) => filterSteps(text, filterContext.SEARCH)}
+                />
               </Layout.Horizontal>
               {categories?.length === 0 && (
                 <section style={{ paddingTop: '50%', justifyContent: 'center', textAlign: 'center' }}>

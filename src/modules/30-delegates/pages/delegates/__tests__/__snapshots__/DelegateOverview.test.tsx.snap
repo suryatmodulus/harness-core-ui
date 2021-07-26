@@ -81,6 +81,16 @@ exports[`Delegates Overview Page render data 1`] = `
         class="StyledProps--font StyledProps--main"
         style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
       >
+        delegates.delegateIdentifier
+      </p>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main entry"
+    >
+      <p
+        class="StyledProps--font StyledProps--main"
+        style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+      >
         delegate.delegateConfiguration
       </p>
       <p

@@ -37,7 +37,7 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
           <section className={cx(css.filterContainer)}>
             {filters.map((data, innerIndex) => {
               return (
-                <>
+                <React.Fragment key={`filter-pill-${innerIndex}`}>
                   <PerspectiveBuilderFilter
                     showAddButton={innerIndex === filters.length - 1}
                     onButtonClick={() => {
@@ -68,7 +68,7 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
                     pillData={data}
                   />
                   {/* {showAndOperator ? <Text className={css.andOperator}>AND</Text> : ''} */}
-                </>
+                </React.Fragment>
               )
             })}
           </section>

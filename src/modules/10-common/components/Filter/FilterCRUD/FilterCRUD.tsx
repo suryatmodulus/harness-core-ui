@@ -34,11 +34,11 @@ interface FilterCRUDProps<T> extends Partial<Omit<FormikProps<T>, 'initialValues
   onDelete: (identifier: string) => Promise<void>
   onClose: () => void
   onFilterSelect: (identifier: string) => void
-  enableEdit?: boolean
   isRefreshingFilters: boolean
   dataSvcConfig?: Map<CrudOperation, (...rest: any[]) => Promise<any>>
   ref?: FilterCRUDFowardRef<T>
   onSuccessfulCrudOperation?: () => Promise<void>
+  isLeftFilterDirty: boolean
 }
 
 const FILTER_LIST_MAX_HEIGHT = 85
@@ -65,18 +65,19 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
     onClose,
     onDelete,
     onFilterSelect,
-    enableEdit,
     isRefreshingFilters,
     dataSvcConfig,
-    onSuccessfulCrudOperation
+    onSuccessfulCrudOperation,
+    isLeftFilterDirty
   } = props
 
   const [isEditEnabled, setIsEditEnabled] = useState<boolean>()
   const [isNewFilter, setIsNewFilter] = useState<boolean>(false)
-  const [filterInContext, setFilterInContext] = useState<T | null>()
+  const [filterInContext, setFilterInContext] = useState<T | null>(initialValues)
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [unsavedFilter, setUnsavedFilter] = useState<boolean>(false)
 
   const ignoreClickEventDefaultBehaviour = (event: React.MouseEvent<Element, MouseEvent>): void => {
     event.preventDefault()
@@ -84,23 +85,25 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
   }
 
   const onAddNewFilter = (event: React.MouseEvent<Element, MouseEvent>): void => {
+    if (unsavedFilter) {
+      return undefined
+    }
     ignoreClickEventDefaultBehaviour(event)
     setIsEditEnabled(true)
     setIsNewFilter(true)
     setFilterInContext(null)
   }
 
-  useEffect(() => {
-    setIsEditEnabled(enableEdit)
-  }, [enableEdit])
-
   const formHasInitialValues = (): boolean => isEmpty(omitBy(initialValues, isEmpty))
 
   useEffect(() => {
-    if (!isNewFilter) {
-      setFilterInContext(initialValues)
+    if (isLeftFilterDirty && !isEditEnabled && !isNewFilter) {
+      setIsEditEnabled(true)
+      setIsNewFilter(true)
+      setFilterInContext(null)
+      setUnsavedFilter(true)
     }
-  }, [isNewFilter, initialValues])
+  }, [isLeftFilterDirty])
 
   useEffect(() => {
     if (filterInContext?.identifier) {
@@ -120,9 +123,10 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
           return updatedFilter
         }
       } else {
-        const { status } = await dataSvcConfig?.get('ADD')?.(payload)
+        const { status, data: updatedFilter } = await dataSvcConfig?.get('ADD')?.(payload)
         if (status === 'SUCCESS') {
           showSuccess(`${payload?.name} saved.`)
+          return updatedFilter
         }
       }
     } /* istanbul ignore next */ catch (e) {
@@ -262,9 +266,9 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             className={css.menuItem}
             onClick={(event: React.MouseEvent<HTMLElement, MouseEvent>) => {
               ignoreClickEventDefaultBehaviour(event)
-              setFilterInContext(filter)
               setIsEditEnabled(true)
               setIsNewFilter(false)
+              setFilterInContext(filter)
             }}
             disabled={isEditEnabled && filter?.identifier === filterInContext?.identifier}
           />
@@ -306,6 +310,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
         onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
           ignoreClickEventDefaultBehaviour(event)
           onFilterSelect(identifier)
+          setFilterInContext(filter)
         }}
         title={filterVisibility === 'OnlyCreator' ? getString('filters.visibilityTitle') : ''}
       >
@@ -335,7 +340,6 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
     submitCount: number,
     errors: FormikErrors<{
       name: string
-      filterVisibility?: T['filterVisibility']
     }>
   ): JSX.Element => {
     return (
@@ -380,7 +384,11 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
             <Button
               intent="primary"
               icon="plus"
-              text={getString('common.filters.saveNewFilter')}
+              text={
+                unsavedFilter && isNewFilter
+                  ? getString('common.filters.unsavedFilter')
+                  : getString('filters.newFilter')
+              }
               className={cx(css.addNewFilterBtn, { [css.isActive]: formHasInitialValues() })}
               onClick={onAddNewFilter}
               padding={{ left: 'large' }}
@@ -398,6 +406,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                 })
               }
               setIsEditEnabled(false)
+              setIsNewFilter(false)
             }}
             formName="filterCrudForm"
             validationSchema={Yup.object().shape({
@@ -409,7 +418,7 @@ const FilterCRUDRef = <T extends FilterInterface>(props: FilterCRUDProps<T>, fil
                 .oneOf(['OnlyCreator', 'EveryOne'])
                 .required(getString('filters.visibilityRequired'))
             })}
-            initialValues={isNewFilter ? { name: '' } : initialValues}
+            initialValues={isNewFilter ? { name: '', filterVisibility: 'OnlyCreator', identifier: '' } : initialValues}
             enableReinitialize={true}
           >
             {formik => {

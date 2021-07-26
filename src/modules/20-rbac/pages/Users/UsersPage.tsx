@@ -85,6 +85,7 @@ const UsersPage: React.FC = () => {
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge" className={css.toolbar} width={350}>
             <ExpandingSearchInput
+              flip
               placeholder={getString('rbac.usersPage.search')}
               onChange={text => {
                 setSearchParam(text.trim())

@@ -141,6 +141,7 @@ export interface StringsMap {
   'common.filters.noFilterSaved': string
   'common.filters.noMatchingFilterData': string
   'common.filters.saveNewFilter': string
+  'common.filters.unsavedFilter': string
   'common.frequency': string
   'common.git.APIAccessDescriptipn': string
   'common.git.APIAuthentication': string
@@ -239,6 +240,7 @@ export interface StringsMap {
   'common.link': string
   'common.loading': string
   'common.local': string
+  'common.location': string
   'common.logs.delegateSelectionLogs': string
   'common.logs.noLogsText': string
   'common.manage': string
@@ -450,6 +452,7 @@ export interface StringsMap {
   'rbac.accountScope': string
   'rbac.accountSettings.label': string
   'rbac.activeUsers': string
+  'rbac.addResourceModal.selectedText': string
   'rbac.addRole': string
   'rbac.addUser': string
   'rbac.allResources': string
@@ -476,11 +479,38 @@ export interface StringsMap {
   'rbac.permissionLabels.pipelineExecution': string
   'rbac.permissionLabels.view': string
   'rbac.project': string
+  'rbac.resourceGroup.add': string
+  'rbac.resourceGroup.all': string
+  'rbac.resourceGroup.builtInResourceGroup': string
+  'rbac.resourceGroup.color': string
+  'rbac.resourceGroup.confirmDelete': string
+  'rbac.resourceGroup.confirmDeleteTitle': string
+  'rbac.resourceGroup.createSuccess': string
+  'rbac.resourceGroup.deletedMessage': string
+  'rbac.resourceGroup.dragAndDropData': string
+  'rbac.resourceGroup.limitAccess': string
+  'rbac.resourceGroup.newResourceGroup': string
+  'rbac.resourceGroup.noResourceGroup': string
+  'rbac.resourceGroup.noResourceGroupFound': string
+  'rbac.resourceGroup.noResourceGroupTypes': string
+  'rbac.resourceGroup.resourceGroupColumn': string
+  'rbac.resourceGroup.selectResourceGroup': string
+  'rbac.resourceGroup.summary': string
+  'rbac.resourceGroup.updateResourceGroupDialogTitle': string
+  'rbac.resourceGroup.updateSuccess': string
   'rbac.roleAssignment.assignmentValidation': string
   'rbac.roleAssignment.deleteFailure': string
   'rbac.roleAssignment.deleteSuccess': string
   'rbac.roleAssignment.userPlaceHolder': string
   'rbac.roleBinding': string
+  'rbac.roleCard.confirmDelete': string
+  'rbac.roleCard.confirmDeleteTitle': string
+  'rbac.roleCard.successMessage': string
+  'rbac.roleDetails.noDataText': string
+  'rbac.roleDetails.permissionUpdatedSuccess': string
+  'rbac.roleDetails.updateRolePermissions': string
+  'rbac.roleForm.createSuccess': string
+  'rbac.roleForm.updateSuccess': string
   'rbac.serviceAccounts.confirmDelete': string
   'rbac.serviceAccounts.confirmDeleteTitle': string
   'rbac.serviceAccounts.email': string
@@ -684,6 +714,7 @@ export interface StringsMap {
   'delegates.delSetup': string
   'delegates.delegateDeleted': string
   'delegates.delegateForceDeleted': string
+  'delegates.delegateIdentifier': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
   'delegates.delegateNamespaceRequired': string
@@ -1039,7 +1070,6 @@ export interface StringsMap {
   'connectors.ceAzure.chooseRequirements.heading': string
   'connectors.ceAzure.chooseRequirements.optimizationCardDesc': string
   'connectors.ceAzure.chooseRequirements.subHeading': string
-  'connectors.ceAzure.chooseRequirements.subText': string
   'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
   'connectors.ceAzure.existingExports.instruction': string
@@ -1959,6 +1989,16 @@ export interface StringsMap {
   'pipeline.triggers.activityActivation': string
   'pipeline.triggers.activityDays': string
   'pipeline.triggers.addNewTrigger': string
+  'pipeline.triggers.artifactTriggerConfigPanel.artifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.artifactRepository': string
+  'pipeline.triggers.artifactTriggerConfigPanel.buildTag': string
+  'pipeline.triggers.artifactTriggerConfigPanel.configureInput': string
+  'pipeline.triggers.artifactTriggerConfigPanel.configureInputs': string
+  'pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound': string
+  'pipeline.triggers.artifactTriggerConfigPanel.parameterized': string
+  'pipeline.triggers.artifactTriggerConfigPanel.plusSelectArtifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact': string
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
   'pipeline.triggers.conditionsPanel.attribute': string
@@ -2085,6 +2125,19 @@ export interface StringsMap {
   'pipeline.verification.currentTest': string
   'pipeline.verification.healthSourcePlaceholder': string
   'pipeline.verification.logClustersInViolation': string
+  'pipeline.verification.logs.actions': string
+  'pipeline.verification.logs.clusterType': string
+  'pipeline.verification.logs.copyURL': string
+  'pipeline.verification.logs.logCluster': string
+  'pipeline.verification.logs.messageCount': string
+  'pipeline.verification.logs.messageFrequency': string
+  'pipeline.verification.logs.noAnalysis': string
+  'pipeline.verification.logs.risk': string
+  'pipeline.verification.logs.sampleEvent': string
+  'pipeline.verification.logs.sampleMessage': string
+  'pipeline.verification.logs.share': string
+  'pipeline.verification.logs.trend': string
+  'pipeline.verification.logs.urlCopied': string
   'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string
   'pipeline.verification.noMetrics': string
@@ -2236,7 +2289,6 @@ export interface StringsMap {
   'ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms': string
   'ce.co.autoStoppingRule.helpText.step2.title': string
   'ce.co.autoStoppingRule.helpText.step3.description.additionalInfo': string
-  'ce.co.autoStoppingRule.helpText.step3.description.heading': string
   'ce.co.autoStoppingRule.helpText.step3.description.info': string
   'ce.co.autoStoppingRule.helpText.step3.title': string
   'ce.co.autoStoppingRule.providerSelector.description': string
@@ -2293,14 +2345,17 @@ export interface StringsMap {
   'ce.co.gatewayConfig.addInstanceLabel': string
   'ce.co.gatewayConfig.addPortLabel': string
   'ce.co.gatewayConfig.addSchedule': string
+  'ce.co.gatewayConfig.advancedConfigDescription': string
   'ce.co.gatewayConfig.allowTraffic': string
   'ce.co.gatewayConfig.configHeading': string
   'ce.co.gatewayConfig.customDomain': string
   'ce.co.gatewayConfig.customDomainHelp': string
   'ce.co.gatewayConfig.disable': string
   'ce.co.gatewayConfig.healthCheck': string
+  'ce.co.gatewayConfig.healthCheckDescription': string
   'ce.co.gatewayConfig.info': string
   'ce.co.gatewayConfig.name': string
+  'ce.co.gatewayConfig.routingDescription': string
   'ce.co.gatewayConfig.scheduleDescription': string
   'ce.co.gatewayConfig.usePrivateIP': string
   'ce.co.gatewayReview.configurationDetails': string
@@ -2433,6 +2488,7 @@ export interface StringsMap {
   'ce.perspectives.reports.title': string
   'ce.perspectives.save': string
   'ce.perspectives.searchPerspectives': string
+  'ce.perspectives.sideNavText': string
   'ce.perspectives.timeAggregation.daily': string
   'ce.perspectives.timeAggregation.monthly': string
   'ce.perspectives.timeRange.calendarMonths': string
@@ -2453,6 +2509,15 @@ export interface StringsMap {
   'ce.perspectives.validations.emailRequired': string
   'ce.perspectives.validations.invalidEmails': string
   'ce.perspectives.validations.reportNameRequired': string
+  'ce.perspectives.workloadDetails.aggregation.absolute': string
+  'ce.perspectives.workloadDetails.aggregation.text': string
+  'ce.perspectives.workloadDetails.aggregation.timeWeighted': string
+  'ce.perspectives.workloadDetails.costDetailsText': string
+  'ce.perspectives.workloadDetails.fieldNames.clusterName': string
+  'ce.perspectives.workloadDetails.fieldNames.namespace': string
+  'ce.perspectives.workloadDetails.fieldNames.workload': string
+  'ce.perspectives.workloadDetails.fieldNames.workloadType': string
+  'ce.perspectives.workloadDetails.workloadDetailsText': string
   'ce.recommendation.detailsPage.costOptimized': string
   'ce.recommendation.detailsPage.costOptimizedCaps': string
   'ce.recommendation.detailsPage.costOptimizedDetails': string
@@ -3110,6 +3175,7 @@ export interface StringsMap {
   'cv.healthSource.connectors.AppDynamics.trierLabel': string
   'cv.healthSource.connectors.AppDynamics.validation.application': string
   'cv.healthSource.connectors.AppDynamics.validation.tier': string
+  'cv.healthSource.connectors.NewRelic.applicationLabel': string
   'cv.healthSource.connectors.createConnector': string
   'cv.healthSource.customizeHealthSource': string
   'cv.healthSource.defineHealthSource': string
@@ -3589,10 +3655,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   addRepository: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'addResourceModal.selectedText': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6756,82 +6818,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'resourceGroup.add': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.all': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.builtInResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.color': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.confirmDelete': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.confirmDeleteTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.createSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.deletedMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.dragAndDropData': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.limitAccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.newResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.noResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.noResourceGroupFound': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.noResourceGroupTypes': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.resourceGroupColumn': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.selectResourceGroup': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.summary': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.updateResourceGroupDialogTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'resourceGroup.updateSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   resourceGroups: string
   /**
    * @deprecated migrate this string to module level file
@@ -6881,38 +6867,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   risk: string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleCard.confirmDelete': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleCard.confirmDeleteTitle': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleCard.successMessage': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleDetails.noDataText': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleDetails.permissionUpdatedSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleDetails.updateRolePermissions': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleForm.createSuccess': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'roleForm.updateSuccess': string
   /**
    * @deprecated migrate this string to module level file
    */

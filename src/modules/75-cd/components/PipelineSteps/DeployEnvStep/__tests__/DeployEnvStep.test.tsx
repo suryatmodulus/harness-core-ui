@@ -7,6 +7,7 @@ import { findDialogContainer } from '@common/utils/testUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { DeployEnvironment } from '../DeployEnvStep.stories'
 import environments from './mock.json'
+import inputSetEnvironments from './envMock'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
@@ -14,6 +15,9 @@ jest.mock('services/cd-ng', () => ({
   useGetEnvironmentList: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
+  useGetEnvironmentAccessList: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: inputSetEnvironments, refetch: jest.fn() })),
   useCreateEnvironmentV2: jest.fn().mockImplementation(() => ({
     cancel: jest.fn(),
     loading: false,

@@ -162,10 +162,10 @@ const routes = {
     ({
       orgIdentifier,
       projectIdentifier,
-      delegateId,
+      delegateIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegatePathProps>) => {
-      const path = `delegates/${delegateId}`
+      const path = `delegates/${delegateIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -1033,23 +1033,27 @@ const routes = {
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
   ),
-  toCERecommendations: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations`
-  ),
+  toCERecommendations: withAccountId(() => `/ce/recommendations`),
   toCERecommendationDetails: withAccountId(
-    ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
+    ({ recommendation }: { recommendation: string }) => `/ce/recommendations/${recommendation}/details`
   ),
   toPerspectiveDetails: withAccountId(
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
-      `/ce/perspective/${perspectiveId}/name/${perspectiveName}`
+      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}`
   ),
   toCECreatePerspective: withAccountId(
-    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspective/${perspectiveId}/create`
+    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspectives/${perspectiveId}/create`
   ),
   toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
+  toWorkloadDetails: withAccountId(
+    ({
+      clusterName,
+      namespace,
+      workloadName
+    }: AccountPathProps & { clusterName: string; namespace: string; workloadName: string }) =>
+      `/ce/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+  ),
   /********************************************************************************************************************/
   toCustomDasboard: withAccountId(() => '/home/dashboards'),
   toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/home/dashboards/view/${viewId}`)

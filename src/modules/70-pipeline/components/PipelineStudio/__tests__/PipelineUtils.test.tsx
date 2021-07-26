@@ -89,7 +89,7 @@ describe('Test Pipeline Utils', () => {
             stage: { name: 'test2', identifier: 'test2', description: '', type: 'Deployment', spec: { execution: {} } }
           }
         ]
-      },
+      } as any,
       {},
       str => str
     )

@@ -174,7 +174,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                     <span
                       class="bp3-button-text"
                     >
-                      common.filters.saveNewFilter
+                      filters.newFilter
                     </span>
                   </button>
                 </div>

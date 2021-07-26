@@ -49,14 +49,6 @@ export interface ActivitySourceDTO {
   uuid?: string
 }
 
-export interface ActivityStatusDTO {
-  activityId?: string
-  durationMs?: number
-  progressPercentage?: number
-  remainingTimeMs?: number
-  status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-}
-
 export interface ActivityVerificationResultDTO {
   activityId?: string
   activityName?: string
@@ -363,12 +355,6 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
   tokenRef: string
   username?: string
   usernameRef?: string
-}
-
-export interface CD10RegisterActivityDTO {
-  activityId?: string
-  envIdentifier?: string
-  serviceIdentifier?: string
 }
 
 export type CEAwsConnector = ConnectorConfigDTO & {
@@ -1548,7 +1534,7 @@ export interface HealthSource {
   identifier?: string
   name?: string
   spec: HealthSourceSpec
-  type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog'
+  type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog' | 'Stackdriver' | 'Prometheus' | 'Splunk'
 }
 
 export interface HealthSourceSpec {
@@ -2001,12 +1987,17 @@ export interface MonitoredServiceDTO {
 
 export interface MonitoredServiceListItemDTO {
   currentHealthScore?: RiskData
+  environmentName?: string
   environmentRef?: string
   healthMonitoringEnabled?: boolean
   historicalTrend?: HistoricalTrend
   identifier?: string
   name?: string
+  serviceName?: string
   serviceRef?: string
+  tags?: {
+    [key: string]: string
+  }
   type?: 'Application'
 }
 
@@ -2291,7 +2282,6 @@ export interface PrometheusSampleData {
 }
 
 export interface QueryDTO {
-  messageIdentifier: string
   name: string
   query: string
   serviceInstanceIdentifier: string
@@ -2799,14 +2789,6 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseActivityStatusDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivityStatusDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseActivityVerificationResultDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -2828,14 +2810,6 @@ export interface RestResponseBoolean {
     [key: string]: { [key: string]: any }
   }
   resource?: boolean
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseCD10RegisterActivityDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CD10RegisterActivityDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -3365,6 +3339,11 @@ export type SplunkConnectorDTO = ConnectorConfigDTO & {
   passwordRef: string
   splunkUrl: string
   username?: string
+}
+
+export type SplunkHealthSourceSpec = HealthSourceSpec & {
+  feature: string
+  queries: QueryDTO[]
 }
 
 export interface SplunkSampleResponse {
@@ -4458,6 +4437,93 @@ export const getActivityVerificationResultPromise = (
     GetActivityVerificationResultPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/activity-risks`, props, signal)
 
+export interface GetDeploymentLogAnalysisClustersQueryParams {
+  accountId: string
+  hostName?: string
+}
+
+export interface GetDeploymentLogAnalysisClustersPathParams {
+  activityId: string
+}
+
+export type GetDeploymentLogAnalysisClustersProps = Omit<
+  GetProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisClustersPathParams
+
+/**
+ * get logs for given activity
+ */
+export const GetDeploymentLogAnalysisClusters = ({ activityId, ...props }: GetDeploymentLogAnalysisClustersProps) => (
+  <Get<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >
+    path={`/activity/${activityId}/clusters`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentLogAnalysisClustersProps = Omit<
+  UseGetProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisClustersPathParams
+
+/**
+ * get logs for given activity
+ */
+export const useGetDeploymentLogAnalysisClusters = ({
+  activityId,
+  ...props
+}: UseGetDeploymentLogAnalysisClustersProps) =>
+  useGet<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >((paramsInPath: GetDeploymentLogAnalysisClustersPathParams) => `/activity/${paramsInPath.activityId}/clusters`, {
+    base: getConfig('cv/api'),
+    pathParams: { activityId },
+    ...props
+  })
+
+/**
+ * get logs for given activity
+ */
+export const getDeploymentLogAnalysisClustersPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >(getConfig('cv/api'), `/activity/${activityId}/clusters`, props, signal)
+
 export interface GetDatasourceTypesQueryParams {
   accountId: string
 }
@@ -4602,6 +4668,93 @@ export const getDeploymentActivitySummaryPromise = (
     GetDeploymentActivitySummaryQueryParams,
     GetDeploymentActivitySummaryPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/deployment-activity-summary`, props, signal)
+
+export interface GetDeploymentLogAnalysisResultQueryParams {
+  accountId: string
+  label?: number
+  pageNumber: number
+  pageSize: number
+  hostName?: string
+}
+
+export interface GetDeploymentLogAnalysisResultPathParams {
+  activityId: string
+}
+
+export type GetDeploymentLogAnalysisResultProps = Omit<
+  GetProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisResultPathParams
+
+/**
+ * get logs for given activity
+ */
+export const GetDeploymentLogAnalysisResult = ({ activityId, ...props }: GetDeploymentLogAnalysisResultProps) => (
+  <Get<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >
+    path={`/activity/${activityId}/deployment-log-analysis-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentLogAnalysisResultProps = Omit<
+  UseGetProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisResultPathParams
+
+/**
+ * get logs for given activity
+ */
+export const useGetDeploymentLogAnalysisResult = ({ activityId, ...props }: UseGetDeploymentLogAnalysisResultProps) =>
+  useGet<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >(
+    (paramsInPath: GetDeploymentLogAnalysisResultPathParams) =>
+      `/activity/${paramsInPath.activityId}/deployment-log-analysis-data`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * get logs for given activity
+ */
+export const getDeploymentLogAnalysisResultPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >(getConfig('cv/api'), `/activity/${activityId}/deployment-log-analysis-data`, props, signal)
 
 export interface GetDeploymentMetricsQueryParams {
   accountId: string

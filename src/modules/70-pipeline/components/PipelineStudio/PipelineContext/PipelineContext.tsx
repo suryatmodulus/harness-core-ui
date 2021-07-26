@@ -4,12 +4,7 @@ import { isEqual, cloneDeep, pick, isNil, isEmpty, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
-import type {
-  PipelineInfoConfig,
-  StageElementConfig,
-  StageElementWrapper,
-  StageElementWrapperConfig
-} from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfigConfig } from 'services/cd-ng'
 import type { PermissionCheck } from 'services/rbac'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -33,6 +28,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -173,10 +169,10 @@ export interface PipelineContextInterface {
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => Promise<void>
-  getStageFromPipeline: (
+  getStageFromPipeline<T extends StageElementConfig = StageElementConfig>(
     stageId: string,
     pipeline?: PipelineInfoConfig
-  ) => { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined }
+  ): PipelineStageWrapper<T>
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: PipelineInfoConfig) => void
   updateStage: (stage: StageElementConfig) => Promise<void>
@@ -664,7 +660,10 @@ export const PipelineProvider: React.FC<{
   }, [queryParamStateSelection.stepId, queryParamStateSelection.stageId])
 
   const getStageFromPipeline = React.useCallback(
-    (stageId: string, pipeline?: PipelineInfoConfig) => {
+    <T extends StageElementConfig = StageElementConfig>(
+      stageId: string,
+      pipeline?: PipelineInfoConfig
+    ): PipelineStageWrapper<T> => {
       const localPipeline = pipeline || state.pipeline
       return _getStageFromPipeline(stageId, localPipeline)
     },
@@ -686,15 +685,14 @@ export const PipelineProvider: React.FC<{
 
   const updateStage = React.useCallback(
     async (newStage: StageElementConfig) => {
-      function _updateStages(stages: StageElementWrapperConfig[]): StageElementWrapperConfig[] {
+      function _updateStages(stages: StageElementWrapperConfigConfig[]): StageElementWrapperConfigConfig[] {
         return stages.map(node => {
           if (node.stage?.identifier === newStage.identifier) {
             return { stage: newStage }
           } else if (node.parallel) {
             return {
-              parallel: _updateStages(node.parallel as unknown as StageElementWrapperConfig[])
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any
+              parallel: _updateStages(node.parallel)
+            }
           }
 
           return node

@@ -1,7 +1,7 @@
 import React from 'react'
 import { first } from 'lodash-es'
 
-import type { CIBuildResponseDTO } from 'services/ci'
+import type { CIWebhookInfoDTO } from 'services/ci'
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 import { BranchBadge } from '@ci/components/BranchBadge/BranchBadge'
 import { CommitsInfo } from '@ci/components/CommitsInfo/CommitsInfo'
@@ -12,7 +12,7 @@ import css from './CIExecutionCardSummary.module.scss'
 
 export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.ReactElement {
   const { data } = props
-  const buildData = data?.ciExecutionInfoDTO as CIBuildResponseDTO
+  const buildData = data?.ciExecutionInfoDTO as CIWebhookInfoDTO
   const branchName = data?.branch as string
   const tagName = data?.tag
   const lastCommit = first(buildData?.branch?.commits || [])

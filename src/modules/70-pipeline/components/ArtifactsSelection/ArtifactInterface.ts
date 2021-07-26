@@ -1,15 +1,10 @@
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
-import type {
-  ArtifactConfig,
-  PrimaryArtifact,
-  PageConnectorResponse,
-  SidecarArtifactWrapper,
-  StageElementWrapper
-} from 'services/cd-ng'
+import type { DeploymentStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { ArtifactConfig, PrimaryArtifact, PageConnectorResponse, SidecarArtifactWrapper } from 'services/cd-ng'
 
 export interface ArtifactListViewProps {
   isForPredefinedSets?: boolean
-  stage: StageElementWrapper | undefined
+  stage: StageElementWrapper<DeploymentStageElementConfig> | undefined
   overrideSetIdentifier?: string
   primaryArtifact: PrimaryArtifact
   sideCarArtifact: SidecarArtifactWrapper[] | undefined

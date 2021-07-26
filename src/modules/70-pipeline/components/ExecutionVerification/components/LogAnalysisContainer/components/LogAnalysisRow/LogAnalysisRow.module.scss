@@ -1,0 +1,119 @@
+.main {
+  height: 100%;
+  .dataContainer {
+    overflow-y: auto;
+  }
+  .mainRow {
+    display: flex;
+
+    .clusterType {
+      flex: 2;
+    }
+
+    .risk {
+      flex: 1;
+    }
+
+    .message {
+      flex: 5;
+    }
+
+    .count {
+      font-weight: 400;
+      font-style: normal;
+      font-size: small;
+      line-height: normal;
+      justify-content: center;
+      flex: 1;
+    }
+
+    .messageFrequency {
+      flex: 3;
+    }
+
+    .logRowText {
+      display: flex;
+      align-items: center;
+      font-size: x-small !important;
+      color: #22272d !important;
+    }
+
+    .logRowColumnHeader {
+      margin-bottom: var(--spacing-small);
+      font-size: var(--font-size-small) !important;
+    }
+
+    .compareDataColumn {
+      display: flex;
+      align-items: baseline;
+      input {
+        margin-right: var(--spacing-small);
+      }
+
+      input,
+      [class*='bp3-icon'] {
+        cursor: pointer;
+      }
+    }
+
+    .openModalColumn {
+      cursor: pointer;
+    }
+
+    .noFeedback {
+      margin: 0 auto;
+      position: relative;
+      right: 2px;
+    }
+
+    .logText {
+      display: flex;
+      align-items: center;
+      padding-top: var(--spacing-small);
+      white-space: pre-wrap;
+      word-break: break-word;
+      p {
+        font-family: var(--font-family-mono) !important;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+      }
+      :global {
+        .bp3-popover-target {
+          width: 100% !important;
+        }
+      }
+    }
+
+    .lineChartContainer {
+      padding-top: 0 !important;
+      padding-bottom: var(--spacing-small);
+      > div {
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    .dataColumn {
+      align-items: center;
+    }
+
+    .actions {
+      display: flex;
+    }
+  }
+}
+
+.columnHeader {
+  border-bottom: 1px solid var(--grey-250);
+}
+
+.dataRow {
+  padding: var(--spacing-xsmall) 0 !important;
+  height: 80px;
+}
+
+.highlightRow:hover {
+  background-color: var(--blue-200);
+}

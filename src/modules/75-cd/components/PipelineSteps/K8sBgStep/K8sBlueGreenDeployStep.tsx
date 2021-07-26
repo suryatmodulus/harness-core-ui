@@ -68,7 +68,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
           return (
             <>
               <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
@@ -97,7 +97,8 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                     />
                   )}
                 </div>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <div className={stepCss.noLookDivider} />
+                <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeCheckboxField
                     name="spec.skipDryRun"
                     label={getString('pipelineSteps.skipDryRun')}

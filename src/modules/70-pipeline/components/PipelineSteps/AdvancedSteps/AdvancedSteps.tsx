@@ -2,13 +2,18 @@ import React from 'react'
 import type { FormikProps } from 'formik'
 import { Formik, FormikForm, Accordion, AccordionHandle } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
-import { AdvancedPanels, StepCommandsProps } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import {
+  AdvancedPanels,
+  StepCommandsProps,
+  Values
+} from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { TabTypes } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
 import { StepFormikFowardRef, setFormikRef } from '@pipeline/components/AbstractSteps/Step'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
+import type { StepElementConfig } from 'services/cd-ng'
 
 import DelegateSelectorPanel from './DelegateSelectorPanel/DelegateSelectorPanel'
 import FailureStrategyPanel, { AllFailureStrategyConfig } from './FailureStrategyPanel/FailureStrategyPanel'
@@ -17,10 +22,8 @@ import { StepType } from '../PipelineStepInterface'
 import ConditionalExecutionPanel from './ConditionalExecutionPanel/ConditionalExecutionPanel'
 import css from './AdvancedSteps.module.scss'
 
-export interface FormValues {
+export type FormValues = Pick<Values, 'delegateSelectors' | 'when'> & {
   failureStrategies: AllFailureStrategyConfig[]
-  delegateSelectors: string[]
-  when: any
 }
 
 export interface AdvancedStepsProps extends StepCommandsProps {
@@ -34,8 +37,8 @@ export default function AdvancedSteps(props: AdvancedStepsProps, formikRef: Step
   return (
     <Formik<FormValues>
       initialValues={{
-        failureStrategies: step.failureStrategies || [],
-        delegateSelectors: step.spec?.delegateSelectors || [],
+        failureStrategies: defaultTo(step.failureStrategies, []) as AllFailureStrategyConfig[],
+        delegateSelectors: defaultTo((step as StepElementConfig).spec?.delegateSelectors, []),
         when: step.when
       }}
       onSubmit={data => {
@@ -70,7 +73,7 @@ export function AdvancedTabForm(props: AdvancedTabFormProps): React.ReactElement
     isReadonly,
     stageType
   } = props
-  const stepType = isStepGroup ? StepType.StepGroup : step.type
+  const stepType = isStepGroup ? StepType.StepGroup : (step as StepElementConfig).type
   const accordionRef = React.useRef<AccordionHandle>({} as AccordionHandle)
   const { getString } = useStrings()
 

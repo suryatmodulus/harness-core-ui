@@ -7,16 +7,12 @@ import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
 import get from 'lodash-es/get'
 import type {
-  NgPipeline,
   StageElementConfig,
-  StageElementWrapper,
   ExecutionWrapperConfig,
-  StepElement,
-  ExecutionWrapper,
   PipelineInfoConfig,
-  StageElementWrapperConfig,
   DeploymentStageConfig,
-  Infrastructure
+  Infrastructure,
+  StageElementWrapperConfigConfig
 } from 'services/cd-ng'
 
 import type { UseStringsReturn } from 'framework/strings'
@@ -28,7 +24,7 @@ import '@cd/components/PipelineSteps'
 import '@ci/components/PipelineSteps'
 import type { StepViewType } from '../AbstractSteps/Step'
 
-export const clearRuntimeInput = (template: NgPipeline): NgPipeline => {
+export const clearRuntimeInput = (template: PipelineInfoConfig): PipelineInfoConfig => {
   return JSON.parse(
     JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
   )
@@ -42,7 +38,7 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
     } else if (item.stepGroup?.identifier === stepId) {
       responseStep = item
     } else if (item.parallel) {
-      return (item.parallel as unknown as StepElement[]).forEach((node: ExecutionWrapper) => {
+      return item.parallel.forEach(node => {
         if (node.step?.identifier === stepId || node.stepGroup?.identifier === stepId) {
           responseStep = node
         }
@@ -55,14 +51,14 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
 export function getStageFromPipeline(
   stageId: string,
   pipeline?: PipelineInfoConfig
-): StageElementWrapperConfig | undefined {
+): StageElementWrapperConfigConfig | undefined {
   if (pipeline?.stages) {
-    let responseStage: StageElementWrapperConfig | undefined = undefined
+    let responseStage: StageElementWrapperConfigConfig | undefined = undefined
     pipeline.stages.forEach(item => {
       if (item.stage && item.stage.identifier === stageId) {
         responseStage = item
       } else if (item.parallel) {
-        return (item.parallel as unknown as StageElementWrapperConfig[]).forEach(node => {
+        return item.parallel.forEach(node => {
           if (node.stage?.identifier === stageId) {
             responseStage = node
           }
@@ -104,13 +100,13 @@ const validateStep = ({
         set(errors, `steps[${index}].step`, errorResponse)
       }
     } else if (stepObj.parallel) {
-      ;(stepObj.parallel as unknown as StepElement[]).forEach((stepParallel, indexP) => {
+      stepObj.parallel.forEach((stepParallel, indexP) => {
         if (stepParallel.step) {
           const originalStep = getStepFromStage(stepParallel.step.identifier || '', originalSteps)
           const pipelineStep = factory.getStep(originalStep?.step?.type)
           const errorResponse = pipelineStep?.validateInputSet({
             data: stepParallel.step,
-            template: (template?.[index]?.parallel as unknown as StepElement[])?.[indexP]?.step,
+            template: template?.[index]?.parallel?.[indexP]?.step,
             getString,
             viewType
           })
@@ -153,7 +149,7 @@ const validateStep = ({
 
 interface ValidateStageProps {
   stage: StageElementConfig
-  template: StageElementConfig
+  template?: StageElementConfig
   viewType: StepViewType
   originalStage?: StageElementConfig
   getString?: UseStringsReturn['getString']
@@ -171,7 +167,7 @@ const validateStage = ({
   // Validation for infrastructure namespace
   // For CD spec is DeploymentStageConfig
   const stageConfig = stage.spec as DeploymentStageConfig | undefined
-  const templateStageConfig = template.spec as DeploymentStageConfig | undefined
+  const templateStageConfig = template?.spec as DeploymentStageConfig | undefined
   const originalStageConfig = originalStage?.spec as DeploymentStageConfig | undefined
   if (
     isEmpty((stageConfig?.infrastructure as Infrastructure)?.spec?.namespace) &&
@@ -289,10 +285,10 @@ const validateStage = ({
 }
 
 interface ValidatePipelineProps {
-  pipeline: NgPipeline
-  template: NgPipeline
+  pipeline: PipelineInfoConfig
+  template: PipelineInfoConfig
   viewType: StepViewType
-  originalPipeline?: NgPipeline
+  originalPipeline?: PipelineInfoConfig
   getString?: UseStringsReturn['getString']
   path?: string
 }
@@ -304,7 +300,7 @@ export const validatePipeline = ({
   viewType,
   getString,
   path
-}: ValidatePipelineProps): FormikErrors<NgPipeline> => {
+}: ValidatePipelineProps): FormikErrors<PipelineInfoConfig> => {
   const errors = {}
 
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
@@ -373,7 +369,7 @@ export const validatePipeline = ({
       }
     }
     if (stageObj.parallel) {
-      stageObj.parallel.forEach((stageP: StageElementWrapper, indexP: number) => {
+      stageObj.parallel.forEach((stageP, indexP: number) => {
         if (stageP.stage) {
           const originalStage = getStageFromPipeline(stageP.stage.identifier, originalPipeline)
           const errorsResponse = validateStage({

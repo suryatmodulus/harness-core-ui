@@ -103,7 +103,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 </span>
               </div>
               <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-xlarge"
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
               >
                 <div
                   class="subheading"
@@ -265,7 +265,7 @@ exports[`WebhookPipelineInputPanel Triggers tests Renders/snapshots Initial Rend
                 </span>
               </div>
               <div
-                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-xlarge"
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
               >
                 <div
                   class="Layout--vertical StyledProps--main"

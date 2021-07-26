@@ -1,0 +1,118 @@
+.main {
+  padding: calc(var(--spacing-large) * 2);
+  .headingContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-large);
+  }
+
+  .iconContainer {
+    cursor: pointer;
+    &:not(:last-of-type) {
+      margin-right: var(--spacing-small);
+    }
+    .logo {
+      margin-right: var(--spacing-xsmall);
+    }
+  }
+
+  .formAndMessageContainer {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    grid-template-rows: 1fr 35px;
+    grid-gap: var(--spacing-large) calc(2 * var(--spacing-large));
+  }
+
+  .formContainer {
+    .message textarea {
+      min-height: 130px;
+      max-height: 385px;
+    }
+  }
+
+  .buttonContainer {
+    justify-self: flex-end;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    button:first-child {
+      margin-right: var(--spacing-small);
+    }
+  }
+}
+
+.sharePopoverContent {
+  width: 200px;
+  padding: var(--spacing-small) !important;
+  .urlContent {
+    background-color: var(--grey-100);
+    padding: var(--spacing-small);
+    p {
+      font-size: 10px !important;
+      word-break: break-all;
+    }
+  }
+
+  .copyButton {
+    margin-top: var(--spacing-small);
+    font-size: 10px !important;
+    position: relative;
+    left: 70%;
+  }
+
+  .copySuccess {
+    margin-top: var(--spacing-small);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    > span {
+      position: relative;
+      bottom: 1px;
+    }
+    p {
+      margin-left: var(--spacing-xsmall);
+      font-size: 10px !important;
+    }
+  }
+}
+
+.activityContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-medium) !important;
+  .trendChart {
+    height: 20px;
+    width: 250px;
+    .chartContainer {
+      height: 100%;
+      width: 100%;
+      > div {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.dataNameData {
+  width: 150px;
+  height: 50px;
+  margin-bottom: var(--spacing-small) !important;
+  .dataContent {
+    margin-top: var(--spacing-small) !important;
+    font-size: var(--font-size-small);
+  }
+}
+
+.logMessageContainer {
+  .sampleEvent {
+    margin-bottom: var(--spacing-small);
+  }
+
+  .logMessage {
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    font-size: 10px !important;
+    font-family: var(--font-family-mono) !important;
+  }
+}

@@ -1,11 +1,16 @@
-export enum PipelineOrStageStatus {
-  SUCCESS = 'Success',
-  ALL = 'All',
-  FAILURE = 'Failure'
+import type { StepWhenCondition } from 'services/cd-ng'
+
+export type WhenConditionStatus = StepWhenCondition['stageStatus']
+
+// TODO: fix casing for this
+export const PipelineOrStageStatus: Record<string, WhenConditionStatus> = {
+  SUCCESS: 'Success',
+  ALL: 'All',
+  FAILURE: 'Failure'
 }
 
 export interface ConditionalExecutionConfig {
-  status: PipelineOrStageStatus
+  status: WhenConditionStatus
   condition: string
 }
 

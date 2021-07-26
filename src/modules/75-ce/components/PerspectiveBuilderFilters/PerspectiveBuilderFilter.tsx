@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Icon, Color, Container } from '@wings-software/uicore'
 import {
@@ -40,6 +40,8 @@ interface FilterPillProps {
   onButtonClick: () => void
 }
 
+const LIMIT = 100
+
 const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   fieldValuesList,
   removePill,
@@ -59,6 +61,18 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
     name: pillData.viewField.fieldName
   }
 
+  const [pageInfo, setPageInfo] = useState<{
+    filtersValuesData: string[]
+    loadMore: boolean
+    page: number
+    searchValue: string
+  }>({
+    filtersValuesData: [],
+    loadMore: true,
+    page: 1,
+    searchValue: ''
+  })
+
   const operator: QlceViewFilterOperator = pillData.viewOperator
   const selectedVal: string[] = pillData.values
 
@@ -66,6 +80,7 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
     providerData,
     serviceData
   ) => {
+    onInputChange('')
     const changedData = {
       ...pillData,
       viewField: {
@@ -79,12 +94,15 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   }
 
   const onOperatorChange: (op: QlceViewFilterOperator) => void = op => {
+    onInputChange('')
     const changedData = {
       ...pillData,
       viewOperator: op
     }
     if (op === QlceViewFilterOperator.Null || op === QlceViewFilterOperator.NotNull) {
       onChange(id, { ...changedData, values: [''] })
+    } else if ([QlceViewFilterOperator.Null, QlceViewFilterOperator.NotNull].includes(operator)) {
+      onChange(id, { ...changedData, values: [] })
     } else {
       onChange(id, changedData)
     }
@@ -113,17 +131,38 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
               identifierName: provider?.name
             },
             operator: QlceViewFilterOperator.In,
-            values: ['']
+            values: [pageInfo.searchValue]
           }
         } as QlceViewFilterWrapperInput
       ],
-      offset: 0,
-      limit: 100
+      offset: (pageInfo.page - 1) * LIMIT,
+      limit: LIMIT
     },
-    pause: !service
+    pause: !provider.id || [QlceViewFilterOperator.NotNull, QlceViewFilterOperator.Null].includes(operator)
   })
 
   const { data, fetching } = result
+
+  useEffect(() => {
+    if (data?.perspectiveFilters?.values) {
+      const moreItemsPresent = data.perspectiveFilters.values.length === LIMIT
+      const filteredVal = data.perspectiveFilters.values.filter(e => e) as string[]
+      setPageInfo(prevInfo => ({
+        ...prevInfo,
+        loadMore: moreItemsPresent,
+        filtersValuesData: [...prevInfo.filtersValuesData, ...filteredVal]
+      }))
+    }
+  }, [data?.perspectiveFilters?.values])
+
+  const onInputChange: (val: string) => void = val => {
+    setPageInfo({
+      filtersValuesData: [],
+      loadMore: true,
+      page: 1,
+      searchValue: val
+    })
+  }
 
   return (
     <Container className={css.mainContainer}>
@@ -133,16 +172,23 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
         fieldValuesList={fieldValuesList}
         setProviderAndIdentifier={setProviderAndIdentifier}
       />
-      <OperatorSelector isDisabled={!provider} operator={operator} onOperatorChange={onOperatorChange} />
+      <OperatorSelector isDisabled={!provider.id} operator={operator} onOperatorChange={onOperatorChange} />
       <ValuesSelector
         provider={provider}
         service={service}
         isDisabled={
-          !provider || operator === QlceViewFilterOperator.NotNull || operator === QlceViewFilterOperator.Null
+          !provider.id || operator === QlceViewFilterOperator.NotNull || operator === QlceViewFilterOperator.Null
         }
         operator={operator}
-        valueList={data?.perspectiveFilters?.values || ([] as string[])}
-        fetching={fetching}
+        valueList={pageInfo.filtersValuesData}
+        fetchMore={e => {
+          if (e === pageInfo.page * LIMIT - 1) {
+            setPageInfo(prevInfo => ({ ...prevInfo, page: prevInfo.page + 1 }))
+          }
+        }}
+        onInputChange={onInputChange}
+        shouldFetchMore={pageInfo.loadMore}
+        fetching={!pageInfo.filtersValuesData.length && fetching}
         selectedVal={selectedVal}
         onValueChange={onValueChange}
       />

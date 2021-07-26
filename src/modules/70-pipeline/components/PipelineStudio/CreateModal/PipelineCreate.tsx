@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -19,13 +19,13 @@ import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 
 const logger = loggerFor(ModuleName.CD)
 
-interface NgPipelineWithGitDetails extends NgPipeline {
+interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
   repo: string
   branch: string
 }
 export interface PipelineCreateProps {
-  afterSave?: (values: NgPipeline, gitDetails?: EntityGitDetails) => void
-  initialValues?: NgPipelineWithGitDetails
+  afterSave?: (values: PipelineInfoConfig, gitDetails?: EntityGitDetails) => void
+  initialValues?: PipelineInfoConfigWithGitDetails
   closeModal?: () => void
   gitDetails?: IGitContextFormProps
 }

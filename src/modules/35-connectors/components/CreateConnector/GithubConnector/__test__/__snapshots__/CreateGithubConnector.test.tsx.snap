@@ -2814,7 +2814,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -2833,7 +2833,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -3336,7 +3336,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -3355,7 +3355,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -3527,7 +3527,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -3546,7 +3546,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -4024,7 +4024,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -4043,7 +4043,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -4215,7 +4215,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -4234,7 +4234,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -4712,7 +4712,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -4731,7 +4731,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -4980,7 +4980,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                                 </svg>
                               </span>
                               <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                               >
                                 <div>
                                   secret.configureSecret
@@ -4999,7 +4999,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                                 class="bp3-button-text"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                  class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                   icon="edit"
                                 >
                                   <svg

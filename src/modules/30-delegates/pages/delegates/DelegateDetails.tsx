@@ -11,7 +11,7 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
-import { useGetDelegateGroupFromIdV2, useGetV2, DelegateProfile } from 'services/portal'
+import { useGetDelegateGroupByIdentifier, useGetV2, DelegateProfile } from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { SectionContainer } from '@delegates/components/SectionContainer/SectionContainer'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
@@ -20,12 +20,12 @@ import { DelegateAdvanced } from './DelegateAdvanced'
 import css from './DelegateDetails.module.scss'
 
 export default function DelegateDetails(): JSX.Element {
-  const { delegateId, accountId, orgIdentifier, projectIdentifier, module } = useParams<
+  const { delegateIdentifier, accountId, orgIdentifier, projectIdentifier, module } = useParams<
     Partial<ProjectPathProps & ModulePathParams> & DelegatePathProps & AccountPathProps
   >()
   const { getString } = useStrings()
-  const { data } = useGetDelegateGroupFromIdV2({
-    delegateGroupId: delegateId,
+  const { data } = useGetDelegateGroupByIdentifier({
+    identifier: delegateIdentifier,
     queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
   })
 

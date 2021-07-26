@@ -308,6 +308,230 @@ export const FetchViewFieldsDocument = gql`
 export function useFetchViewFieldsQuery(options: Omit<Urql.UseQueryArgs<FetchViewFieldsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<FetchViewFieldsQuery>({ query: FetchViewFieldsDocument, ...options })
 }
+export const FetchWorkloadGridDocument = gql`
+  query FetchWorkloadGrid($filters: [QLCEViewFilterWrapperInput]) {
+    perspectiveGrid(
+      filters: $filters
+      aggregateFunction: [
+        { operationType: SUM, columnName: "networkcost" }
+        { operationType: SUM, columnName: "storageActualIdleCost" }
+        { operationType: SUM, columnName: "cost" }
+        { operationType: SUM, columnName: "memoryBillingAmount" }
+        { operationType: SUM, columnName: "cpuBillingAmount" }
+        { operationType: SUM, columnName: "storageCost" }
+        { operationType: SUM, columnName: "unallocatedcost" }
+        { operationType: SUM, columnName: "storageUnallocatedCost" }
+        { operationType: SUM, columnName: "memoryUnallocatedCost" }
+        { operationType: SUM, columnName: "cpuUnallocatedCost" }
+        { operationType: SUM, columnName: "idleCost" }
+        { operationType: SUM, columnName: "memoryIdleCost" }
+        { operationType: SUM, columnName: "cpuIdleCost" }
+        { operationType: SUM, columnName: "systemcost" }
+        { operationType: MAX, columnName: "storageUtilizationValue" }
+        { operationType: MAX, columnName: "storageRequest" }
+      ]
+      sortCriteria: [{ sortType: COST, sortOrder: DESCENDING }]
+      groupBy: { entityGroupBy: { fieldId: "instanceId", fieldName: "Pod", identifier: CLUSTER } }
+      limit: 100
+      offset: 0
+    ) {
+      data {
+        id
+        name
+        cost
+        costTrend
+        clusterData: instanceDetails {
+          name
+          id
+          nodeId
+          namespace
+          workload
+          clusterName
+          clusterId
+          node
+          nodePoolName
+          cloudProviderInstanceId
+          podCapacity
+          totalCost
+          idleCost
+          systemCost
+          networkCost
+          unallocatedCost
+          cpuAllocatable
+          memoryAllocatable
+          cpuRequested
+          memoryRequested
+          cpuUnitPrice
+          memoryUnitPrice
+          instanceCategory
+          machineType
+          createTime
+          deleteTime
+          qosClass
+          memoryBillingAmount
+          cpuBillingAmount
+          storageUnallocatedCost
+          memoryUnallocatedCost
+          cpuUnallocatedCost
+          memoryIdleCost
+          cpuIdleCost
+          storageCost
+          storageActualIdleCost
+          storageUtilizationValue
+          storageRequest
+        }
+      }
+    }
+  }
+`
+
+export function useFetchWorkloadGridQuery(
+  options: Omit<Urql.UseQueryArgs<FetchWorkloadGridQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchWorkloadGridQuery>({ query: FetchWorkloadGridDocument, ...options })
+}
+export const FetchWorkloadSummaryDocument = gql`
+  query FetchWorkloadSummary($filters: [QLCEViewFilterWrapperInput]) {
+    perspectiveTrendStats(
+      filters: $filters
+      aggregateFunction: [
+        { operationType: SUM, columnName: "billingamount" }
+        { operationType: SUM, columnName: "actualidlecost" }
+        { operationType: SUM, columnName: "unallocatedcost" }
+        { operationType: MAX, columnName: "startTime" }
+        { operationType: MIN, columnName: "startTime" }
+      ]
+    ) {
+      cost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      idleCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      utilizedCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+    }
+    perspectiveGrid(
+      filters: $filters
+      aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
+      sortCriteria: []
+      groupBy: { entityGroupBy: { fieldId: "workloadName", fieldName: "Workload Id", identifier: CLUSTER } }
+      limit: 100
+      offset: 0
+    ) {
+      data {
+        clusterData {
+          workloadName
+          workloadType
+          namespace
+          clusterName
+        }
+      }
+    }
+  }
+`
+
+export function useFetchWorkloadSummaryQuery(
+  options: Omit<Urql.UseQueryArgs<FetchWorkloadSummaryQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchWorkloadSummaryQuery>({ query: FetchWorkloadSummaryDocument, ...options })
+}
+export const FetchWorkloadTimeSeriesDocument = gql`
+  query FetchWorkloadTimeSeries(
+    $filters: [QLCEViewFilterWrapperInput]
+    $aggregateFunction: [QLCEViewAggregationInput]
+  ) {
+    perspectiveTimeSeriesStats(
+      filters: $filters
+      aggregateFunction: $aggregateFunction
+      groupBy: [
+        { entityGroupBy: { fieldId: "workloadName", fieldName: "Workload", identifier: CLUSTER } }
+        { entityGroupBy: { fieldId: "clusterName", fieldName: "Cluster Name", identifier: CLUSTER } }
+        { timeTruncGroupBy: { resolution: DAY } }
+      ]
+      limit: 100
+      offset: 0
+      includeOthers: false
+    ) {
+      cpuLimit {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      cpuRequest {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      cpuUtilValues {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      memoryLimit {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      memoryRequest {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+      memoryUtilValues {
+        time
+        values {
+          key {
+            name
+            id
+          }
+          value
+        }
+      }
+    }
+  }
+`
+
+export function useFetchWorkloadTimeSeriesQuery(
+  options: Omit<Urql.UseQueryArgs<FetchWorkloadTimeSeriesQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchWorkloadTimeSeriesQuery>({ query: FetchWorkloadTimeSeriesDocument, ...options })
+}
 export type FetchAllPerspectivesQueryVariables = Exact<{ [key: string]: never }>
 
 export type FetchAllPerspectivesQuery = {
@@ -481,9 +705,9 @@ export type FetchPerspectiveDetailsSummaryQuery = {
       __typename?: 'StatsInfo'
       statsDescription: string
       statsLabel: string
-      statsTrend: any
+      statsTrend: Maybe<any>
       statsValue: string
-      value: any
+      value: Maybe<any>
     }>
   }>
 }
@@ -605,6 +829,196 @@ export type FetchViewFieldsQuery = {
               identifier: Maybe<ViewFieldIdentifier>
               identifierName: Maybe<string>
             }>
+          >
+        }>
+      >
+    >
+  }>
+}
+
+export type FetchWorkloadGridQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+}>
+
+export type FetchWorkloadGridQuery = {
+  __typename?: 'Query'
+  perspectiveGrid: Maybe<{
+    __typename?: 'PerspectiveEntityStatsData'
+    data: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEViewEntityStatsDataPoint'
+          id: Maybe<string>
+          name: Maybe<string>
+          cost: Maybe<any>
+          costTrend: Maybe<any>
+          clusterData: Maybe<{
+            __typename?: 'InstanceDetails'
+            name: Maybe<string>
+            id: Maybe<string>
+            nodeId: Maybe<string>
+            namespace: Maybe<string>
+            workload: Maybe<string>
+            clusterName: Maybe<string>
+            clusterId: Maybe<string>
+            node: Maybe<string>
+            nodePoolName: Maybe<string>
+            cloudProviderInstanceId: Maybe<string>
+            podCapacity: Maybe<string>
+            totalCost: number
+            idleCost: number
+            systemCost: number
+            networkCost: number
+            unallocatedCost: number
+            cpuAllocatable: number
+            memoryAllocatable: number
+            cpuRequested: number
+            memoryRequested: number
+            cpuUnitPrice: number
+            memoryUnitPrice: number
+            instanceCategory: Maybe<string>
+            machineType: Maybe<string>
+            createTime: any
+            deleteTime: any
+            qosClass: Maybe<string>
+            memoryBillingAmount: number
+            cpuBillingAmount: number
+            storageUnallocatedCost: number
+            memoryUnallocatedCost: number
+            cpuUnallocatedCost: number
+            memoryIdleCost: number
+            cpuIdleCost: number
+            storageCost: number
+            storageActualIdleCost: number
+            storageUtilizationValue: number
+            storageRequest: number
+          }>
+        }>
+      >
+    >
+  }>
+}
+
+export type FetchWorkloadSummaryQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+}>
+
+export type FetchWorkloadSummaryQuery = {
+  __typename?: 'Query'
+  perspectiveTrendStats: Maybe<{
+    __typename?: 'PerspectiveTrendStats'
+    cost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+    idleCost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+    utilizedCost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+  }>
+  perspectiveGrid: Maybe<{
+    __typename?: 'PerspectiveEntityStatsData'
+    data: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEViewEntityStatsDataPoint'
+          clusterData: Maybe<{
+            __typename?: 'ClusterData'
+            workloadName: Maybe<string>
+            workloadType: Maybe<string>
+            namespace: Maybe<string>
+            clusterName: Maybe<string>
+          }>
+        }>
+      >
+    >
+  }>
+}
+
+export type FetchWorkloadTimeSeriesQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>> | Maybe<QlceViewAggregationInput>>
+}>
+
+export type FetchWorkloadTimeSeriesQuery = {
+  __typename?: 'Query'
+  perspectiveTimeSeriesStats: Maybe<{
+    __typename?: 'PerspectiveTimeSeriesData'
+    cpuLimit: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'TimeSeriesDataPoints'
+          time: any
+          values: Array<
+            Maybe<{ __typename?: 'DataPoint'; value: any; key: { __typename?: 'Reference'; name: string; id: string } }>
+          >
+        }>
+      >
+    >
+    cpuRequest: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'TimeSeriesDataPoints'
+          time: any
+          values: Array<
+            Maybe<{ __typename?: 'DataPoint'; value: any; key: { __typename?: 'Reference'; name: string; id: string } }>
+          >
+        }>
+      >
+    >
+    cpuUtilValues: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'TimeSeriesDataPoints'
+          time: any
+          values: Array<
+            Maybe<{ __typename?: 'DataPoint'; value: any; key: { __typename?: 'Reference'; name: string; id: string } }>
+          >
+        }>
+      >
+    >
+    memoryLimit: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'TimeSeriesDataPoints'
+          time: any
+          values: Array<
+            Maybe<{ __typename?: 'DataPoint'; value: any; key: { __typename?: 'Reference'; name: string; id: string } }>
+          >
+        }>
+      >
+    >
+    memoryRequest: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'TimeSeriesDataPoints'
+          time: any
+          values: Array<
+            Maybe<{ __typename?: 'DataPoint'; value: any; key: { __typename?: 'Reference'; name: string; id: string } }>
+          >
+        }>
+      >
+    >
+    memoryUtilValues: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'TimeSeriesDataPoints'
+          time: any
+          values: Array<
+            Maybe<{ __typename?: 'DataPoint'; value: any; key: { __typename?: 'Reference'; name: string; id: string } }>
           >
         }>
       >
@@ -957,6 +1371,10 @@ export type PerspectiveTrendStats = {
   __typename?: 'PerspectiveTrendStats'
   cost: Maybe<StatsInfo>
   efficiencyScoreStats: Maybe<EfficiencyScoreStats>
+  idleCost: Maybe<StatsInfo>
+  systemCost: Maybe<StatsInfo>
+  unallocatedCost: Maybe<StatsInfo>
+  utilizedCost: Maybe<StatsInfo>
 }
 
 export type QlceView = {
@@ -1010,6 +1428,8 @@ export type Query = {
   billingdata: Maybe<Array<Maybe<BillingDataDemo>>>
   instancedata: Maybe<InstanceDataDemo>
   nodeRecommendationRequest: Maybe<RecommendClusterRequest>
+  /** Table for perspective */
+  overviewTimeSeriesStats: Maybe<PerspectiveTimeSeriesData>
   /** Fields for perspective explorer */
   perspectiveFields: Maybe<PerspectiveFieldsData>
   /** Filter values for perspective */
@@ -1064,6 +1484,13 @@ export type QueryNodeRecommendationRequestArgs = {
   endTime: Maybe<Scalars['OffsetDateTime']>
   nodePoolId: NodePoolIdInput
   startTime: Maybe<Scalars['OffsetDateTime']>
+}
+
+/** Query root */
+export type QueryOverviewTimeSeriesStatsArgs = {
+  aggregateFunction: Maybe<Array<Maybe<QlceViewAggregationInput>>>
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>>>
+  groupBy: Maybe<Array<Maybe<QlceViewGroupByInput>>>
 }
 
 /** Query root */
@@ -1252,9 +1679,9 @@ export type StatsInfo = {
   __typename?: 'StatsInfo'
   statsDescription: Scalars['String']
   statsLabel: Scalars['String']
-  statsTrend: Scalars['BigDecimal']
+  statsTrend: Maybe<Scalars['BigDecimal']>
   statsValue: Scalars['String']
-  value: Scalars['BigDecimal']
+  value: Maybe<Scalars['BigDecimal']>
 }
 
 export type StorageDetails = {

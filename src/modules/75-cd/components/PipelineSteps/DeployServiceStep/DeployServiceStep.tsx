@@ -23,6 +23,7 @@ import {
   useCreateServicesV2,
   ServiceRequestDTO,
   useGetServiceList,
+  useGetServiceAccessList,
   getServiceListPromise,
   useUpsertServiceV2
 } from 'services/cd-ng'
@@ -460,7 +461,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
     data: serviceResponse,
     error,
     refetch
-  } = useGetServiceList({
+  } = useGetServiceAccessList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -472,15 +473,15 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
   }, [])
 
   React.useEffect(() => {
-    if (serviceResponse?.data?.content?.length) {
+    if (serviceResponse?.data?.length) {
       setService(
-        serviceResponse.data.content.map(service => ({
+        serviceResponse.data.map(service => ({
           label: service.service?.name || '',
           value: service.service?.identifier || ''
         }))
       )
     }
-  }, [serviceResponse, serviceResponse?.data?.content?.length])
+  }, [serviceResponse, serviceResponse?.data?.length])
 
   const [canEdit] = usePermission({
     resource: {
@@ -573,7 +574,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
                   setState({
                     isEdit,
                     isService: false,
-                    data: serviceResponse?.data?.content?.filter(
+                    data: serviceResponse?.data?.filter(
                       service => service.service?.identifier === initialValues.serviceRef
                     )?.[0]?.service as ServiceRequestDTO
                   })

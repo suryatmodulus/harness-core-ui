@@ -462,7 +462,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
                           <span
                             class="bp3-control-indicator"
                           />
-                          Instances
+                          EC2 VM(s)
                         </label>
                         <label
                           class="bp3-control bp3-radio"

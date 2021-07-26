@@ -14,7 +14,7 @@ import {
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { FormikErrors } from 'formik'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
   useGetTemplateFromPipeline,
   useGetPipeline,
@@ -62,7 +62,7 @@ import { StepViewType } from '../AbstractSteps/Step'
 import css from './InputSetForm.module.scss'
 
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
-  pipeline?: NgPipeline
+  pipeline?: PipelineInfoConfig
   identifier?: string
   repo?: string
   branch?: string
@@ -72,7 +72,11 @@ interface SaveInputSetDTO {
   inputSet: InputSetDTO
 }
 
-const getDefaultInputSet = (template: NgPipeline, orgIdentifier: string, projectIdentifier: string): InputSetDTO => ({
+const getDefaultInputSet = (
+  template: PipelineInfoConfig,
+  orgIdentifier: string,
+  projectIdentifier: string
+): InputSetDTO => ({
   name: undefined,
   identifier: '',
   description: undefined,

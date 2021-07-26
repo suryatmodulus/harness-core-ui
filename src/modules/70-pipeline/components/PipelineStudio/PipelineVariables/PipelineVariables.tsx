@@ -4,7 +4,7 @@ import type { ITreeNode } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import cx from 'classnames'
 
-import type { StageElementWrapper } from 'services/cd-ng'
+import type {} from 'services/cd-ng'
 import { PageSpinner } from '@common/components'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -47,7 +47,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   if (variablesPipeline.stages && variablesPipeline.stages?.length > 0) {
     variablesPipeline.stages?.forEach((data, i) => {
       if (data.parallel && data.parallel.length > 0) {
-        data.parallel.forEach((nodeP: StageElementWrapper, j: number) => {
+        data.parallel.forEach((nodeP, j: number) => {
           nodeP.stage &&
             stagesCards.push(
               <StageCard

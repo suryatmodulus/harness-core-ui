@@ -60,7 +60,7 @@ describe('Resource Groups Page', () => {
     expect(project).toBeTruthy()
     fireEvent.click(project!)
     await waitFor(() => {
-      expect(getAllByText('resourceGroup.all')[0]).toBeDefined()
+      expect(getAllByText('rbac.resourceGroup.all')[0]).toBeDefined()
     })
     act(() => {
       fireEvent.click(getByText('applyChanges'))

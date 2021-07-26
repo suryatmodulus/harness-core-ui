@@ -73,12 +73,12 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
       style="width: 350px;"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip"
         data-name=""
         style="max-width: 350px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
           data-icon="thinner-search"
         >
           <svg

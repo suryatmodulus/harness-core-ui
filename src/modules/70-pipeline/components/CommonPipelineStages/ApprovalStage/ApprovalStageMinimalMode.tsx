@@ -6,19 +6,19 @@ import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { useStrings } from 'framework/strings'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { NameIdDescriptionTags } from '@common/components'
-import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
+import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues, ApprovalType } from './types'
 import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
 
 import css from './ApprovalStageMinimalMode.module.scss'
 
-const getInitialValues = (data?: StageElementWrapper): ApprovalStageMinimalValues => ({
-  identifier: data?.stage.identifier,
-  name: data?.stage.name,
-  description: data?.stage.description,
-  tags: data?.stage.tags || {},
-  approvalType: data?.stage.spec?.approvalType || approvalTypeCardsData[0].value
+const getInitialValues = (data?: StageElementWrapper<ApprovalStageElementConfig>): ApprovalStageMinimalValues => ({
+  identifier: data?.stage?.identifier || '',
+  name: data?.stage?.name || '',
+  description: data?.stage?.description,
+  tags: data?.stage?.tags || {},
+  approvalType: ((data?.stage?.spec as any)?.approvalType || approvalTypeCardsData[0].value) as ApprovalType
 })
 
 export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> = props => {
@@ -41,12 +41,12 @@ export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> =
   }
 
   const handleSubmit = (values: ApprovalStageMinimalValues): void => {
-    if (data) {
+    if (data?.stage) {
       data.stage.identifier = values.identifier
       data.stage.name = values.name
       data.stage.description = values.description
       data.stage.tags = values.tags
-      data.stage.approvalType = values.approvalType
+      ;(data.stage as any).approvalType = values.approvalType
       onSubmit?.(data, values.identifier)
     }
   }

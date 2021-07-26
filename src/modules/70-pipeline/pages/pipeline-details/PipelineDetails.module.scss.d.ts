@@ -9,5 +9,6 @@ declare const styles: {
   readonly noPipelineFoundImage: string
   readonly noPipelineFound: string
   readonly selectDiffBranch: string
+  readonly rightMargin: string
 }
 export default styles

@@ -114,7 +114,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
           >
             <Icon size={24} height={12} name={'key-main'} />
             <Text
-              color={Color.BLUE_500}
+              color={Color.PRIMARY_7}
               flex={{ alignItems: 'center', justifyContent: 'flex-start', inline: false }}
               padding="small"
               className={css.containerLinkText}
@@ -147,7 +147,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
                   orgIdentifier: secretReference?.['orgIdentifier']
                 }
               }}
-              text={<Icon size={16} name={'edit'} color={Color.BLUE_500} />}
+              text={<Icon size={16} name={'edit'} color={Color.PRIMARY_7} />}
             />
           ) : null}
         </Container>

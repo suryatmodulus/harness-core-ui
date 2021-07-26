@@ -45,8 +45,8 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
   }
 
   const { openDialog } = useConfirmationDialog({
-    contentText: `${getString('resourceGroup.confirmDelete', { name: data.resourceGroup?.name })}`,
-    titleText: getString('resourceGroup.confirmDeleteTitle'),
+    contentText: `${getString('rbac.resourceGroup.confirmDelete', { name: data.resourceGroup?.name })}`,
+    titleText: getString('rbac.resourceGroup.confirmDeleteTitle'),
     confirmButtonText: getString('delete'),
     cancelButtonText: getString('cancel'),
     onCloseDialog: async (isConfirmed: boolean) => {
@@ -55,7 +55,7 @@ const ResourceGroupColumnMenu: Renderer<CellPropsResourceGroupColumn<ResourceGro
           const deleted = await deleteResourceGroup(data.resourceGroup?.identifier || '', {
             headers: { 'content-type': 'application/json' }
           })
-          if (deleted) showSuccess(getString('resourceGroup.deletedMessage', { name: data.resourceGroup?.name }))
+          if (deleted) showSuccess(getString('rbac.resourceGroup.deletedMessage', { name: data.resourceGroup?.name }))
           column.reload?.()
         } catch (err) {
           showError(err?.data?.message || err?.message)

@@ -595,28 +595,25 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                     type="button"
                   >
                     <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
+                      data-icon="main-share"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 14 14"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                    <span
                       class="bp3-button-text"
                     >
                       connectors.ceAws.cur.launchTemplate
-                    </span>
-                    <span
-                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                      icon="chevron-right"
-                    >
-                      <svg
-                        data-icon="chevron-right"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          chevron-right
-                        </desc>
-                        <path
-                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
                     </span>
                   </button>
                   <p
@@ -1683,28 +1680,25 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                   type="button"
                 >
                   <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
+                    data-icon="main-share"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 14 14"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                  <span
                     class="bp3-button-text"
                   >
                     connectors.ceAws.crossAccountRoleStep2.launchTemplate
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                    icon="chevron-right"
-                  >
-                    <svg
-                      data-icon="chevron-right"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-right
-                      </desc>
-                      <path
-                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
                   </span>
                 </button>
                 <p

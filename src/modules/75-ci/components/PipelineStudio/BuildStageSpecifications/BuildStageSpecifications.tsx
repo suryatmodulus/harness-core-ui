@@ -2,14 +2,14 @@ import React, { useEffect } from 'react'
 import * as yup from 'yup'
 import { Layout, Button, Formik, FormikForm, FormInput, Switch, Text, Card, Accordion } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { isEqual, debounce, cloneDeep } from 'lodash-es'
+import { isEqual, debounce, cloneDeep, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 import { produce } from 'immer'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AllNGVariables } from '@pipeline/utils/types'
-import type { StageElementConfig } from 'services/cd-ng'
+import type { NGVariable, StageElementConfig, StringNGVariable } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
@@ -19,7 +19,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { NameSchema } from '@common/utils/Validation'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import type { StageElementWrapper } from 'services/cd-ng'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './BuildStageSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -49,7 +49,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
-  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
+  const { stage = {} } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const getInitialValues = (): {
     identifier: string
@@ -57,8 +57,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     description: string
     cloneCodebase: boolean
     sharedPaths: string[]
-    variables: { name: string; type: string; value?: string }[]
-    skipCondition: string
+    variables: NGVariable[]
   } => {
     const pipelineData = stage?.stage || null
     const spec = stage?.stage?.spec || null
@@ -66,7 +65,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     const identifier = pipelineData?.identifier || ''
     const name = pipelineData?.name || ''
     const description = pipelineData?.description || ''
-    const cloneCodebase = spec?.cloneCodebase
+    const cloneCodebase = !!spec?.cloneCodebase
     const sharedPaths =
       typeof spec?.sharedPaths === 'string'
         ? spec?.sharedPaths
@@ -77,16 +76,14 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
               value: _value
             })) || []
     const variables = pipelineData?.variables || []
-    const skipCondition = pipelineData?.skipCondition || ''
 
     return {
       identifier,
       name,
       description,
       cloneCodebase,
-      sharedPaths,
-      variables,
-      skipCondition
+      sharedPaths: sharedPaths as any,
+      variables
     }
   }
 
@@ -146,7 +143,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   ).current
 
   const handleStepWidgetUpdate = React.useCallback(
-    debounce((values: StageElementWrapper): void => {
+    debounce((values: StageElementConfig): void => {
       updateStage({ ...stage?.stage, ...values })
     }, 300),
     [stage?.stage, updateStage]
@@ -278,14 +275,16 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                                 handleStepWidgetUpdate({ ...stage?.stage, variables } as StageElementConfig)
                               }}
                               customStepProps={{
-                                yamlProperties:
-                                  getStageFromPipeline(
-                                    stage?.stage?.identifier,
+                                yamlProperties: defaultTo(
+                                  getStageFromPipeline<BuildStageElementConfig>(
+                                    stage?.stage?.identifier || '',
                                     variablesPipeline
-                                  )?.stage?.variables?.map?.(
-                                    (variable: AllNGVariables) =>
-                                      metadataMap[variable.value || '']?.yamlProperties || {}
-                                  ) || []
+                                  )?.stage?.stage?.variables?.map?.(
+                                    variable =>
+                                      metadataMap[(variable as StringNGVariable).value || '']?.yamlProperties || {}
+                                  ),
+                                  []
+                                )
                               }}
                             />
                           </div>

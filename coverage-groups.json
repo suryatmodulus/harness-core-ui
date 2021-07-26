@@ -5,6 +5,7 @@
     "Secrets": ["src/modules/30-secrets/**"],
     "Projects & Orgs": ["src/modules/45-projects-orgs/**"],
     "CD": ["src/modules/75-cd/**"],
+    "Templates": ["src/modules/72-templates-library/**"],
     "Pipeline": ["src/modules/70-pipeline/**"],
     "CV": [
       "src/modules/85-cv/**",

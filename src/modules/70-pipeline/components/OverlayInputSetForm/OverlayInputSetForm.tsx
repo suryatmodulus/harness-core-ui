@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 
 import {
   OverlayInputSetResponse,
@@ -48,7 +48,7 @@ import type { InputSetDTO } from '../InputSetForm/InputSetForm'
 import css from './OverlayInputSetForm.module.scss'
 
 export interface OverlayInputSetDTO extends Omit<OverlayInputSetResponse, 'identifier'> {
-  pipeline?: NgPipeline
+  pipeline?: PipelineInfoConfig
   identifier?: string
   repo?: string
   branch?: string

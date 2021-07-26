@@ -16,12 +16,12 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { FormikErrors } from 'formik'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
 import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
+import type { FeatureFlagStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import css from './FeatureAddStageView.module.scss'
 
 const newStageData = [
@@ -40,9 +40,9 @@ const newStageData = [
 ]
 
 export interface FeatureAddEditStageViewProps {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
-  onChange?: (values: StageElementWrapper) => void
+  data?: StageElementWrapper<FeatureFlagStageElementConfig>
+  onSubmit?: (values: StageElementWrapper<FeatureFlagStageElementConfig>, identifier: string) => void
+  onChange?: (values: Values) => void
 }
 
 interface Values {
@@ -65,11 +65,11 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
   } = React.useContext(PipelineContext)
 
   const initialValues: Values = {
-    identifier: data?.stage.identifier,
-    name: data?.stage.name,
-    description: data?.stage.description,
-    environment: data?.stage.environment,
-    featureType: data?.stage.featureType
+    identifier: data?.stage?.identifier || '',
+    name: data?.stage?.name || '',
+    description: data?.stage?.description,
+    environment: data?.stage?.environment,
+    featureType: data?.stage?.featureType
   }
 
   const validationSchema = () =>
@@ -100,7 +100,7 @@ export const FeatureAddEditStageView: React.FC<FeatureAddEditStageViewProps> = (
   }
 
   const handleSubmit = (values: Values): void => {
-    if (data) {
+    if (data?.stage) {
       data.stage.identifier = values.identifier
       data.stage.name = values.name
       if (values.description) data.stage.description = values.description

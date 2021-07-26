@@ -2,7 +2,6 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import { set } from 'lodash-es'
-import type { StageElementWrapper } from 'services/cd-ng'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -168,8 +167,8 @@ export default function FeatureStageSetupShell(): JSX.Element {
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
               originalStage={originalStage}
-              updateStage={(stageData: StageElementWrapper) => {
-                updateStage(stageData.stage)
+              updateStage={stageData => {
+                if (stageData.stage) updateStage(stageData.stage)
               }}
               // Check and update the correct stage path here
               pathToStage={`${stagePath}.stage.spec.execution`}
@@ -201,7 +200,7 @@ export default function FeatureStageSetupShell(): JSX.Element {
                     type: DrawerTypes.StepConfig,
                     data: {
                       stepConfig: {
-                        node: event.node,
+                        node: event.node as any,
                         stepsMap: event.stepsMap,
                         onUpdate: executionRef.current?.stepGroupUpdated,
                         isStepGroup: event.isStepGroup,

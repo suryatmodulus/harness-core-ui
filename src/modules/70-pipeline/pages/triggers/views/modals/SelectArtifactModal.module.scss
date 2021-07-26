@@ -1,0 +1,22 @@
+.selectArtifactModal {
+  min-width: 800px;
+  padding-top: 36px;
+  h4 {
+    font-size: 20px !important;
+  }
+  [class*='bp3-dialog-header'] {
+    margin-bottom: 0 !important;
+  }
+}
+.footer {
+  z-index: 1;
+  align-items: center;
+  padding: var(--spacing-medium) var(--spacing-xxlarge) !important;
+  p:hover {
+    cursor: pointer;
+    color: var(--grey-700);
+  }
+  .cancel {
+    margin-left: var(--spacing-xxxlarge) !important;
+  }
+}

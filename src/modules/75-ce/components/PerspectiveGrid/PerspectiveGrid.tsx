@@ -18,6 +18,7 @@ export interface PerspectiveGridProps {
   showPagination?: boolean
   gridData: Maybe<Maybe<QlceViewEntityStatsDataPoint>[]> | undefined
   gridFetching: boolean
+  isClusterOnly?: boolean
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -27,10 +28,11 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     groupBy,
     showColumnSelector,
     gridData: response,
-    gridFetching: fetching
+    gridFetching: fetching,
+    isClusterOnly = false
   } = props
 
-  const gridColumns = getGridColumnsByGroupBy(groupBy)
+  const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
   const [selectedColumns, setSelectedColumns] = useState(gridColumns)
 
   const gridData = useMemo(() => {
@@ -48,8 +50,8 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
   }, [gridData])
 
   useEffect(() => {
-    setSelectedColumns(getGridColumnsByGroupBy(groupBy))
-  }, [groupBy])
+    setSelectedColumns(getGridColumnsByGroupBy(groupBy, isClusterOnly))
+  }, [groupBy, isClusterOnly])
 
   if (fetching) {
     return (

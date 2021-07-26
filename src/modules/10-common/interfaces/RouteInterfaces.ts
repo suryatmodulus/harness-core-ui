@@ -71,7 +71,7 @@ export interface ResourceGroupPathProps {
   resourceGroupIdentifier: string
 }
 export interface DelegatePathProps {
-  delegateId: string
+  delegateIdentifier: string
 }
 
 export interface DelegateConfigProps {

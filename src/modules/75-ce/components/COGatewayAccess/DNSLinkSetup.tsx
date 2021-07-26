@@ -12,8 +12,7 @@ import {
   Container,
   Select,
   Checkbox,
-  Button,
-  Icon
+  Button
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { debounce as _debounce, isEmpty as _isEmpty, values as _values } from 'lodash-es'
@@ -40,7 +39,6 @@ import { cleanupForHostName } from '../COGatewayList/Utils'
 import { Utils } from '../../common/Utils'
 import LoadBalancerDnsConfig from './LoadBalancerDnsConfig'
 import AzureAPConfig from '../COAccessPointList/AzureAPConfig'
-import loadBalancerSvg from './images/loadbalancer.svg'
 import css from './COGatewayAccess.module.scss'
 
 const modalPropsLight: IDialogProps = {
@@ -386,6 +384,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const createApDetailsFromLoadBalancer = (currLoadBalancer: AccessPointCore): AccessPoint => {
     return {
       ...initialAccessPointDetails,
+      name: currLoadBalancer.details?.name,
       ...((currLoadBalancer.details as ALBAccessPointCore)?.vpc && {
         vpc: (currLoadBalancer.details as ALBAccessPointCore).vpc
       }),
@@ -541,10 +540,9 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                       ? 'ce.co.autoStoppingRule.setupAccess.selectLb'
                       : 'ce.co.autoStoppingRule.setupAccess.selectAppGateway'
                   )}
-                  <Icon name="info" onClick={props.onInfoIconClick}></Icon>
                 </Heading>
                 <Layout.Horizontal className={css.selectLoadBalancerContainer}>
-                  <img src={loadBalancerSvg} className={css.helperImage} />
+                  {/* <img src={loadBalancerSvg} className={css.helperImage} /> */}
                   <div>
                     <Text className={css.helpText}>
                       {getString('ce.co.autoStoppingRule.setupAccess.selectLbHelpText')}

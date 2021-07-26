@@ -142,7 +142,7 @@ function DefineHealthSource(): JSX.Element {
                         onSuccess={connectorInfo => {
                           formik.setFieldValue(
                             SelectOrCreateConnectorFieldNames.CONNECTOR_REF,
-                            buildConnectorRef(connectorInfo)
+                            buildConnectorRef(connectorInfo)?.value
                           )
                         }}
                         isNewConnectorLabelVisible

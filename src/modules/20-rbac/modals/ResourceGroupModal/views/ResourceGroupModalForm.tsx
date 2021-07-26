@@ -58,13 +58,13 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
       if (!editMode) {
         const created = await createResourceGroup(dataToSubmit)
         if (created) {
-          showSuccess(getString('resourceGroup.createSuccess'))
+          showSuccess(getString('rbac.resourceGroup.createSuccess'))
           onSubmit?.(dataToSubmit.resourcegroup)
         }
       } else {
         const updated = await updateResourceGroup(dataToSubmit)
         if (updated) {
-          showSuccess(getString('resourceGroup.updateSuccess'))
+          showSuccess(getString('rbac.resourceGroup.updateSuccess'))
           onSubmit?.(dataToSubmit.resourcegroup)
         }
       }
@@ -108,7 +108,7 @@ const ResourceGroupForm: React.FC<ResourceGroupModalData> = props => {
                     formikProps={formikProps}
                     identifierProps={{ isIdentifierEditable: !editMode }}
                   />
-                  <FormInput.ColorPicker label={getString('resourceGroup.color')} name="color" />
+                  <FormInput.ColorPicker label={getString('rbac.resourceGroup.color')} name="color" />
                 </Container>
                 <Layout.Horizontal>
                   <Button

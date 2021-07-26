@@ -106,6 +106,7 @@ export const RightBar = (): JSX.Element => {
     state: {
       pipeline,
       pipelineView,
+      isLoading,
       pipelineView: {
         drawerData: { type }
       }
@@ -317,6 +318,10 @@ export const RightBar = (): JSX.Element => {
   const { getString } = useStrings()
   const [isGitExpOpen, setIsGitExpOpen] = React.useState(false)
 
+  if (isLoading) {
+    return <div className={css.rightBar}></div>
+  }
+
   return (
     <div className={css.rightBar}>
       {!isGitSyncEnabled && (
@@ -348,7 +353,7 @@ export const RightBar = (): JSX.Element => {
       )}
       {isCodebaseEnabled && !isYaml && (
         <Button
-          className={cx(css.iconButton)}
+          className={cx(css.iconButton, css.codebaseIcon)}
           text={getString('codebase')}
           font={{ weight: 'semi-bold', size: 'xsmall' }}
           icon={codebaseIcons[codebaseStatus] as IconName}

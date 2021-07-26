@@ -136,7 +136,8 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
           <Button
             className={css.launchTemplateBut}
             text={getString('connectors.ceAws.crossAccountRoleStep2.launchTemplate')}
-            rightIcon="chevron-right"
+            icon="main-share"
+            iconProps={{ size: 12, margin: { right: 'xsmall' } }}
             disabled={awsUrlTemplateLoading}
             onClick={() => {
               makeTemplateUrl()

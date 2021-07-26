@@ -1,8 +1,15 @@
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
 import { v4 as nameSpace, v5 as uuid, version } from 'uuid'
-import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import { IconNodeModel } from '@pipeline/components/Diagram/node/IconNode/IconNodeModel'
+import type {
+  ExecutionElementConfig,
+  ExecutionWrapperConfig,
+  ParallelStepElementConfig,
+  StepElementConfig,
+  StepGroupElementConfig
+} from 'services/cd-ng'
+import type { DependencyElement } from 'services/ci'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import {
   CreateNewModel,
@@ -19,15 +26,14 @@ export interface DependenciesWrapper {
   [key: string]: any
 }
 
+export type ExecutionWrapper = {
+  [key: string]: any
+}
 export interface ExecutionGraphState {
   isRollback: boolean
   states: StepStateMap
-  stepsData: Required<ExecutionElement>
-  dependenciesData: Required<DependenciesWrapper[]>
-}
-
-export type ExecutionParallelWrapper = ExecutionWrapper & {
-  parallel: ExecutionWrapper[]
+  stepsData: ExecutionElementConfig
+  dependenciesData: DependencyElement[]
 }
 
 export interface Listeners {
@@ -82,7 +88,7 @@ export const getDefaultDependencyServiceState = (): StepState => ({
 export type StepStateMap = Map<string, StepState>
 
 export const calculateDepthPS = (
-  node: ExecutionWrapper,
+  node: ExecutionWrapperConfig,
   stepStates: StepStateMap,
   spaceAfterGroup: number,
   SPACE_AFTER_GROUP: number
@@ -98,11 +104,11 @@ export const calculateDepthPS = (
     // expanded group
     if (node.stepGroup.steps?.length > 0) {
       groupMaxDepth = 0
-      node.stepGroup.steps.forEach((nodeG: ExecutionWrapper) => {
+      node.stepGroup.steps.forEach(nodeG => {
         let depthInner = 0
         if (nodeG?.parallel) {
           // parallel
-          nodeG?.parallel.forEach((nodeP: ExecutionWrapper) => {
+          nodeG?.parallel.forEach(nodeP => {
             depthInner += calculateDepthPS(nodeP, stepStates, SPACE_AFTER_GROUP, SPACE_AFTER_GROUP)
           })
         } else {
@@ -121,15 +127,15 @@ export const calculateDepthPS = (
 }
 
 export const getDependencyFromNode = (
-  servicesData: Required<DependenciesWrapper[]> | undefined,
+  servicesData: DependencyElement[] | undefined,
   node: DefaultNodeModel
-): { node: DependenciesWrapper | undefined; parent: DependenciesWrapper[] } => {
+): { node: DependencyElement | undefined; parent: DependencyElement[] | undefined } => {
   const _service = servicesData?.find((service: DependenciesWrapper) => node.getIdentifier() === service.identifier)
-  return { node: _service, parent: servicesData as DependenciesWrapper[] }
+  return { node: _service, parent: servicesData }
 }
 
 export const getStepFromNode = (
-  stepData: Required<ExecutionElement> | undefined,
+  stepData: ExecutionWrapper | undefined,
   node: DefaultNodeModel,
   isComplete = false,
   isFindParallelNode = false
@@ -139,14 +145,14 @@ export const getStepFromNode = (
   if (layer instanceof StepGroupNodeLayerModel) {
     const group = getStepFromId(data, layer.getIdentifier() || '', false).node
     if (group) {
-      data = group as Required<ExecutionElement>
+      data = group
     }
   }
   return getStepFromId(data, node.getIdentifier(), isComplete, isFindParallelNode)
 }
 
 export const getStepFromId = (
-  stageData: Required<ExecutionElement> | undefined,
+  stageData: ExecutionWrapper | undefined,
   id: string,
   isComplete = false,
   isFindParallelNode = false
@@ -157,21 +163,31 @@ export const getStepFromId = (
   parallelParentIdx?: number
   parallelParentParent?: ExecutionWrapper[]
 } => {
-  let returnObj = getStepFromIdInternal(stageData?.steps, id, isComplete, isFindParallelNode)
+  let returnObj = getStepFromIdInternal(
+    (stageData as ExecutionElementConfig)?.steps,
+    id,
+    isComplete,
+    isFindParallelNode
+  )
   if (!returnObj.node) {
-    returnObj = getStepFromIdInternal(stageData?.rollbackSteps, id, isComplete, isFindParallelNode)
+    returnObj = getStepFromIdInternal(
+      (stageData as ExecutionElementConfig)?.rollbackSteps,
+      id,
+      isComplete,
+      isFindParallelNode
+    )
   }
   return returnObj
 }
 
 const getStepFromIdInternal = (
-  stepData: ExecutionWrapper[] | undefined,
+  stepData: ExecutionWrapperConfig[] | undefined,
   id: string,
   isComplete = false,
   isFindParallelNode = false,
-  _parallelParent: ExecutionWrapper | undefined = undefined,
+  _parallelParent: ExecutionWrapperConfig | undefined = undefined,
   _parallelParentIdx: number | undefined = undefined,
-  _parallelParentParent: ExecutionWrapper[] | undefined = undefined
+  _parallelParentParent: ExecutionWrapperConfig[] | undefined = undefined
 ): {
   node: ExecutionWrapper | undefined
   parent: ExecutionWrapper[]
@@ -179,8 +195,9 @@ const getStepFromIdInternal = (
   parallelParentIdx?: number
   parallelParentParent?: ExecutionWrapper[]
 } => {
-  let stepResp: ExecutionWrapper | undefined = undefined
-  let parent: ExecutionWrapper[] | ExecutionParallelWrapper = []
+  let stepResp: ExecutionWrapper | StepElementConfig | ParallelStepElementConfig | StepGroupElementConfig | undefined =
+    undefined
+  let parent: ExecutionWrapper[] = []
   let parallelParent: ExecutionWrapper | undefined = undefined
   let parallelParentIdx: number | undefined
   let parallelParentParent: ExecutionWrapper[] | undefined = undefined
@@ -198,7 +215,7 @@ const getStepFromIdInternal = (
       return false
     } else if (node.parallel) {
       if (isFindParallelNode) {
-        node.parallel?.every((nodeP: ExecutionWrapper) => {
+        node.parallel?.every(nodeP => {
           if (nodeP.step && nodeP.step.identifier === id) {
             if (isComplete) {
               stepResp = node
@@ -322,65 +339,80 @@ export const updateDependenciesState = (services: DependenciesWrapper[], mapStat
   })
 }
 
+export function isExecutionWrapperConfig(node?: ExecutionWrapper): node is ExecutionWrapperConfig {
+  return !!(
+    (node as ExecutionWrapperConfig)?.step ||
+    (node as ExecutionWrapperConfig)?.parallel ||
+    (node as ExecutionWrapperConfig)?.stepGroup
+  )
+}
+
+export function isExecutionElementConfig(node?: ExecutionWrapper): node is ExecutionElementConfig {
+  return !!((node as ExecutionElementConfig)?.steps || (node as ExecutionElementConfig)?.rollbackSteps)
+}
+
 export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
-  if (node.step) {
+  if (isExecutionWrapperConfig(node) && node.step) {
     mapState.set(node.step.identifier, getDefaultStepState())
-  } else if (node.steps) {
-    node.steps.forEach((step: ExecutionWrapper) => {
+  } else if (isExecutionElementConfig(node) && node.steps) {
+    node.steps.forEach(step => {
       getStepsState(step, mapState)
     })
     if (node.rollbackSteps) {
-      node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+      node.rollbackSteps.forEach(step => {
         getStepsState(step, mapState)
       })
     }
-  } else if (node.rollbackSteps) {
-    node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+  } else if (isExecutionElementConfig(node) && node.rollbackSteps) {
+    node.rollbackSteps.forEach(step => {
       getStepsState(step, mapState)
     })
-  } else if (node.parallel) {
-    node.parallel.forEach((step: ExecutionWrapper) => {
+  } else if (isExecutionWrapperConfig(node) && node.parallel) {
+    node.parallel.forEach(step => {
       getStepsState(step, mapState)
     })
-  } else if (node.stepGroup) {
-    node.stepGroup.steps?.forEach?.((step: ExecutionWrapper) => {
+  } else if (isExecutionWrapperConfig(node) && node.stepGroup) {
+    node.stepGroup.steps?.forEach?.(step => {
       getStepsState(step, mapState)
     })
-    node.stepGroup.rollbackSteps?.forEach?.((step: ExecutionWrapper) => {
+    node.stepGroup.rollbackSteps?.forEach?.(step => {
       getStepsState(step, mapState)
     })
 
     mapState.set(node.stepGroup.identifier, mapState.get(node.stepGroup.identifier) || getDefaultStepGroupState())
   }
 }
-export const updateStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
-  if (node.step && mapState.get(node.step.identifier)) {
+export const updateStepsState = (
+  node: ExecutionWrapperConfig | ExecutionElementConfig,
+  mapState: StepStateMap
+): void => {
+  if (isExecutionWrapperConfig(node) && node.step && mapState.get(node.step.identifier)) {
     const data = mapState.get(node.step.identifier)
     if (data) {
       mapState.set(node.step.identifier, { ...data, isSaved: true })
     }
-  } else if (node.steps) {
-    node.steps.forEach((step: ExecutionWrapper) => {
+  } else if (isExecutionElementConfig(node) && node.steps) {
+    node.steps.forEach(step => {
       updateStepsState(step, mapState)
     })
     if (node.rollbackSteps) {
-      node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+      node.rollbackSteps.forEach(step => {
         updateStepsState(step, mapState)
       })
     }
-  } else if (node.rollbackSteps) {
-    node.rollbackSteps.forEach((step: ExecutionWrapper) => {
+  } else if (isExecutionElementConfig(node) && node.rollbackSteps) {
+    node.rollbackSteps.forEach(step => {
       updateStepsState(step, mapState)
     })
-  } else if (node.parallel) {
-    node.parallel.forEach((step: ExecutionWrapper) => {
+  } else if (isExecutionWrapperConfig(node) && node.parallel) {
+    node.parallel.forEach(step => {
       updateStepsState(step, mapState)
     })
-  } else if (node.stepGroup) {
-    node.stepGroup.steps?.forEach?.((step: ExecutionWrapper) => {
+  } else if (isExecutionWrapperConfig(node) && node.stepGroup) {
+    node.stepGroup.steps?.forEach?.(step => {
       updateStepsState(step, mapState)
     })
-    node.stepGroup.rollbackSteps?.forEach?.((step: ExecutionWrapper) => {
+    node.stepGroup.rollbackSteps?.forEach?.(step => {
       updateStepsState(step, mapState)
     })
     const groupData = mapState.get(node.stepGroup.identifier)
@@ -412,12 +444,12 @@ export const removeStepOrGroup = (
 
   // 2. steps
   let isRemoved = false
-  let data = state.stepsData
+  let data: ExecutionWrapper = state.stepsData
   const layer = entity.getParent()
   if (layer instanceof StepGroupNodeLayerModel) {
     const node = getStepFromId(data, layer.getIdentifier() || '', false).node
     if (node) {
-      data = node as Required<ExecutionElement>
+      data = node
     }
   }
   const response = getStepFromId(data, entity.getIdentifier(), true)
@@ -426,8 +458,13 @@ export const removeStepOrGroup = (
     if (index > -1) {
       response.parent.splice(index, 1)
       // NOTE: if there is one item in parallel array, we are removing parallel array
-      if (!skipFlatten && response.parallelParent && response.parallelParent.parallel.length === 1) {
-        const stepToReAttach = response.parallelParent.parallel[0]
+      if (
+        !skipFlatten &&
+        response.parallelParent &&
+        (response.parallelParent as ExecutionWrapperConfig).parallel?.length === 1
+      ) {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const stepToReAttach = (response.parallelParent as ExecutionWrapperConfig).parallel![0]
         // reattach step
         if (response.parallelParentParent && response.parallelParentIdx !== undefined) {
           response.parallelParentParent[response.parallelParentIdx] = stepToReAttach
@@ -452,14 +489,14 @@ export const isLinkUnderStepGroup = (link: DefaultLinkModel): boolean => {
   return false
 }
 
-export const addService = (data: Required<ExecutionWrapper[]>, service: ExecutionWrapper): void => {
+export const addService = (data: DependencyElement[], service: DependencyElement): void => {
   data.push(service)
 }
 
 export const addStepOrGroup = (
   entity: BaseModel,
-  data: Required<ExecutionElement>,
-  step: ExecutionWrapper,
+  data: ExecutionWrapper,
+  step: ExecutionWrapperConfig,
   isParallel: boolean,
   isRollback: boolean
 ): void => {
@@ -471,7 +508,7 @@ export const addStepOrGroup = (
       if (layer instanceof StepGroupNodeLayerModel) {
         const node = getStepFromId(data, layer.getIdentifier() || '', false).node
         if (node) {
-          data = node as Required<ExecutionElement>
+          data = node
         }
       }
     }
@@ -511,21 +548,24 @@ export const addStepOrGroup = (
     if (layer instanceof StepGroupNodeLayerModel) {
       const options = layer.getOptions() as StepGroupNodeLayerOptions
       const isRollbackGroup = options.rollBackProps?.active === StepsType.Rollback
-      if (!isRollbackGroup && node?.steps) {
+      if (!isRollbackGroup && isExecutionElementConfig(node) && node?.steps) {
         node.steps.push(step)
-      } else if (isRollbackGroup && node?.rollbackSteps) {
+      } else if (isRollbackGroup && isExecutionElementConfig(node) && node?.rollbackSteps) {
         node.rollbackSteps.push(step)
       }
     } else {
       if (isRollback) {
-        data.rollbackSteps.push(step)
+        if (isExecutionElementConfig(data)) data.rollbackSteps?.push?.(step)
       } else {
-        data.steps.push(step)
+        if (isExecutionElementConfig(data)) data.steps.push(step)
       }
     }
   } else if (entity instanceof DefaultNodeModel) {
     if (isParallel) {
-      const response = getStepFromId(data, entity.getIdentifier(), true, true)
+      const response = getStepFromId(data, entity.getIdentifier(), true, true) as {
+        node: ExecutionWrapperConfig
+        parent: ExecutionWrapperConfig[]
+      }
       if (response.node) {
         if (response.node.parallel && response.node.parallel.length > 0) {
           response.node.parallel.push(step)
@@ -538,14 +578,17 @@ export const addStepOrGroup = (
       }
     } else {
       if (isRollback) {
-        data.rollbackSteps.push(step)
+        ;(data as ExecutionElementConfig).rollbackSteps?.push?.(step)
       } else {
-        data.steps.push(step)
+        ;(data as ExecutionElementConfig).steps.push(step)
       }
     }
   } else if (entity instanceof StepGroupNodeLayerModel) {
     if (isParallel) {
-      const response = getStepFromId(data, entity.getIdentifier() || '', true, true)
+      const response = getStepFromId(data, entity.getIdentifier() || '', true, true) as {
+        node: ExecutionWrapperConfig
+        parent: ExecutionWrapperConfig[]
+      }
       if (response.node) {
         if (response.node.parallel && response.node.parallel.length > 0) {
           response.node.parallel.push(step)

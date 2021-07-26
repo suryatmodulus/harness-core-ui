@@ -259,22 +259,21 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
         <Container>
           <Text color="grey900">{getString('ce.perspectives.createPerspective.preview.title')}</Text>
           <GroupByView setGroupBy={setGroupBy} groupBy={groupBy} chartType={chartType} setChartType={setChartType} />
-          {chartData?.perspectiveTimeSeriesStats ? (
-            <CloudCostInsightChart
-              chartType={chartType === ViewChartType.StackedLineChart ? CCM_CHART_TYPES.AREA : CCM_CHART_TYPES.COLUMN}
-              columnSequence={[]}
-              setFilterUsingChartClick={() => {
-                noop
-              }}
-              fetching={fetching}
-              showLegends={false}
-              data={chartData.perspectiveTimeSeriesStats as any}
-              aggregation={
-                (formValues.viewVisualization?.granularity as QlceViewTimeGroupType) || QlceViewTimeGroupType.Day
-              }
-              xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
-            />
-          ) : null}
+
+          <CloudCostInsightChart
+            chartType={chartType === ViewChartType.StackedLineChart ? CCM_CHART_TYPES.AREA : CCM_CHART_TYPES.COLUMN}
+            columnSequence={[]}
+            setFilterUsingChartClick={() => {
+              noop
+            }}
+            fetching={fetching}
+            showLegends={false}
+            data={chartData?.perspectiveTimeSeriesStats as any}
+            aggregation={
+              (formValues.viewVisualization?.granularity as QlceViewTimeGroupType) || QlceViewTimeGroupType.Day
+            }
+            xAxisPointCount={chartData?.perspectiveTimeSeriesStats?.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
+          />
         </Container>
         <Container width={650}>
           <Text color="grey900">Cost Breakdown</Text>

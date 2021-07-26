@@ -4,11 +4,12 @@ declare const styles: {
   readonly createNewContent: string
   readonly parallel: string
   readonly createNewCards: string
+  readonly stageTypeSection: string
   readonly cardNew: string
   readonly cardTitle: string
   readonly selected: string
-  readonly createNewMessage: string
   readonly stageTitle: string
+  readonly hoverTitle: string
   readonly stageDescription: string
   readonly closeIcon: string
 }

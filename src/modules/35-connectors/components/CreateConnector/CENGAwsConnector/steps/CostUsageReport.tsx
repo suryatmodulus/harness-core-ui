@@ -87,7 +87,8 @@ const CostUsageStep: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
               <Button
                 className={css.launchTemplateBut}
                 text={getString('connectors.ceAws.cur.launchTemplate')}
-                rightIcon="chevron-right"
+                icon="main-share"
+                iconProps={{ size: 12, margin: { right: 'xsmall' } }}
                 onClick={() => {
                   window.open('https://console.aws.amazon.com/billing/home?#/reports')
                 }}

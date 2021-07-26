@@ -146,8 +146,9 @@ const RenderValue = React.memo(function RenderValue({
                   {index + 1}
                 </Button>
                 <Text
-                  color={Color.PRIMARY_7}
+                  color={Color.PRIMARY_8}
                   icon={getIconByType(item.type)}
+                  className={css.selectedInputSetLabel}
                   iconProps={{ className: css.selectedInputSetTypeIcon }}
                 >
                   {item.label}

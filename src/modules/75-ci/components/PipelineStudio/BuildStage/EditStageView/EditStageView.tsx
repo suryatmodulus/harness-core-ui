@@ -18,7 +18,7 @@ import { isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
 import { produce } from 'immer'
-import type { StageElementWrapper, PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
@@ -37,12 +37,17 @@ import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBui
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string, pipeline?: PipelineInfoConfig) => void
-  onChange?: (values: StageElementWrapper) => void
+  data?: StageElementWrapper<BuildStageElementConfig>
+  onSubmit?: (
+    values: StageElementWrapper<BuildStageElementConfig>,
+    identifier: string,
+    pipeline?: PipelineInfoConfig
+  ) => void
+  onChange?: (values: Values) => void
 }
 
 interface Values {
@@ -73,10 +78,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const initialValues: Values = {
-    identifier: data?.stage.identifier,
-    name: data?.stage.name,
-    description: data?.stage.description,
-    cloneCodebase: data?.stage.spec?.cloneCodebase ?? true
+    identifier: data?.stage?.identifier || '',
+    name: data?.stage?.name || '',
+    description: data?.stage?.description,
+    cloneCodebase: data?.stage?.spec?.cloneCodebase ?? true
   }
 
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
@@ -150,7 +155,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   }
 
   const handleSubmit = (values: Values): void => {
-    if (data) {
+    if (data?.stage) {
       // TODO: Add Codebase verification
       let pipelineData: PipelineInfoConfig | undefined = undefined
       if (values.cloneCodebase && values.connectorRef) {
@@ -171,8 +176,8 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
       data.stage.name = values.name
 
       if (values.description) data.stage.description = values.description
-      if (!data.stage.spec) data.stage.spec = {}
-      data.stage.spec.cloneCodebase = values.cloneCodebase
+      if (!data.stage.spec) data.stage.spec = {} as any
+      set(data, 'stage.spec.cloneCodebase', values.cloneCodebase)
       if (pipelineData) {
         onSubmit?.(data, values.identifier, pipelineData)
       } else {

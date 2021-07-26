@@ -223,6 +223,7 @@ const PerspectiveDetailsPage: React.FC = () => {
           setAggregation={setAggregation}
           aggregation={aggregation}
           setTimeRange={setTimeRange}
+          timeRange={timeRange}
         />
         <PerspectiveSummary data={summaryData?.perspectiveTrendStats as any} fetching={summaryFetching} />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>
@@ -256,6 +257,7 @@ const PerspectiveDetailsPage: React.FC = () => {
             ) : null}
           </Container>
           <PerspectiveGrid
+            isClusterOnly={isClusterOnly}
             gridData={gridData?.perspectiveGrid?.data as any}
             gridFetching={gridFetching}
             columnSequence={columnSequence}

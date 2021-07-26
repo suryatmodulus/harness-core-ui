@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Button, Container, ExpandingSearchInput, FlexExpander } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
@@ -7,7 +7,7 @@ import routes from '@common/RouteDefinitions'
 import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components'
 import { useCreatePerspective, useDeletePerspective, CEView } from 'services/ce'
-import { QlceView, useFetchAllPerspectivesQuery, ViewState } from 'services/ce/services'
+import { QlceView, useFetchAllPerspectivesQuery, ViewState, ViewType } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
 import PerspectiveListView from '@ce/components/PerspectiveViews/PerspectiveListView'
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
@@ -33,13 +33,13 @@ const PerspectiveListPage: React.FC = () => {
 
   const { mutate: createView, loading: createViewLoading } = useCreatePerspective({
     queryParams: {
-      accountId: accountId
+      accountIdentifier: accountId
     }
   })
 
   const { mutate: deleteView } = useDeletePerspective({
     queryParams: {
-      accountId: accountId
+      accountIdentifier: accountId
     }
   })
 
@@ -81,7 +81,7 @@ const PerspectiveListPage: React.FC = () => {
       await deleteView(void 0, {
         queryParams: {
           perspectiveId: perspectiveId,
-          accountId: accountId
+          accountIdentifier: accountId
         }
       })
       executeQuery({
@@ -117,6 +117,18 @@ const PerspectiveListPage: React.FC = () => {
 
   const pespectiveList = data?.perspectives?.customerViews || []
 
+  useMemo(() => {
+    pespectiveList.sort((a, b) => {
+      if (a?.viewType === ViewType.Default && b?.viewType === ViewType.Customer) {
+        return -1
+      }
+      if (a?.viewType === ViewType.Customer && b?.viewType === ViewType.Default) {
+        return 1
+      }
+      return 0
+    })
+  }, [pespectiveList])
+
   const filteredPerspectiveData = pespectiveList.filter(per => {
     if (!per?.name) {
       return false
@@ -126,6 +138,7 @@ const PerspectiveListPage: React.FC = () => {
     }
     return true
   }) as QlceView[]
+
   return (
     <>
       <Page.Header title="Perspectives" />

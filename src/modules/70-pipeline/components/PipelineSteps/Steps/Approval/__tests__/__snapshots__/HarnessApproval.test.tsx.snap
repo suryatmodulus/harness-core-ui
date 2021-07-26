@@ -60,7 +60,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode readonly: h
                 <input
                   class="bp3-input-ghost bp3-multi-select-tag-input-input"
                   name="spec.approvers.userGroups"
-                  placeholder="pipeline.approvalStep.addUserGroups"
+                  placeholder="- pipeline.approvalStep.addUserGroups -"
                   value=""
                 />
               </div>
@@ -186,7 +186,7 @@ exports[`Harness Approval tests Basic snapshot - deploymentform mode: harness-ap
                 <input
                   class="bp3-input-ghost bp3-multi-select-tag-input-input"
                   name="spec.approvers.userGroups"
-                  placeholder="pipeline.approvalStep.addUserGroups"
+                  placeholder="- pipeline.approvalStep.addUserGroups -"
                   value=""
                 />
               </div>
@@ -717,7 +717,7 @@ exports[`Harness Approval tests Basic snapshot - inputset mode: input set with e
                 <input
                   class="bp3-input-ghost bp3-multi-select-tag-input-input"
                   name="spec.approvers.userGroups"
-                  placeholder="pipeline.approvalStep.addUserGroups"
+                  placeholder="- pipeline.approvalStep.addUserGroups -"
                   value=""
                 />
               </div>

@@ -1,0 +1,38 @@
+.textCentered {
+  text-align: center;
+}
+
+.table {
+  [class*='body'] {
+    [role*='row'] {
+      padding: 0 16px;
+      box-shadow: none;
+      &:hover {
+        background: rgba(220, 238, 255, 0.5) !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
+      }
+    }
+  }
+  [role*='columnheader'] {
+    color: #9293ab !important;
+  }
+}
+
+.readonly {
+  width: 690px;
+  display: inline-block;
+  [class*='body'] {
+    [class*='clickable'] {
+      cursor: auto !important;
+    }
+    [role*='row'] {
+      &:hover {
+        background: transparent !important;
+      }
+    }
+  }
+}
+
+.actionButton {
+}

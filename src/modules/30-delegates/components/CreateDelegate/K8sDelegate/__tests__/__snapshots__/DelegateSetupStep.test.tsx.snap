@@ -19,12 +19,10 @@ exports[`Create DelegateSetup Step render data 1`] = `
               class="StyledProps--font StyledProps--main delegateForm"
             >
               <div
-                class="Layout--horizontal StyledProps--main"
-                style="height: 500px;"
+                class="Layout--horizontal StyledProps--main baseContainer"
               >
                 <div
-                  class="Layout--vertical StyledProps--main"
-                  style="width: 50%;"
+                  class="Layout--vertical StyledProps--main leftPanel"
                 >
                   <div
                     class="formGroup"
@@ -39,37 +37,88 @@ exports[`Create DelegateSetup Step render data 1`] = `
                           class="StyledProps--font StyledProps--main connectorFormNameElm"
                         >
                           <div
-                            class="bp3-form-group"
-                            data-id="name-0"
+                            class="InputWithIdentifier--txtNameContainer TextInput--main"
                           >
-                            <label
-                              class="bp3-label"
-                              for="name"
-                            >
-                              <span
-                                class="Tooltip--acenter"
-                                data-tooltip-id="delegateSetupStepForm_name"
-                              >
-                                delegate.delegateName
-                              </span>
-                               
-                              <span
-                                class="bp3-text-muted"
-                              />
-                            </label>
                             <div
-                              class="bp3-form-content"
+                              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                             >
-                              <div
-                                class="bp3-input-group"
+                              <p
+                                class="StyledProps--font StyledProps--main"
                               >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  name="name"
-                                  type="text"
-                                  value=""
+                                ID
+                                :
+                              </p>
+                              <span
+                                class="bp3-popover-wrapper"
+                              >
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <div
+                                    class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                    tabindex="0"
+                                  >
+                                    <span
+                                      class="bp3-editable-text-content"
+                                      style="height: 1px; line-height: 1px; min-width: 0;"
+                                    />
+                                  </div>
+                                </span>
+                              </span>
+                              <span
+                                class="bp3-icon bp3-icon-edit StyledProps--main"
+                                icon="edit"
+                                style="vertical-align: middle; cursor: pointer;"
+                              >
+                                <svg
+                                  data-icon="edit"
+                                  height="12"
+                                  viewBox="0 0 16 16"
+                                  width="12"
+                                >
+                                  <desc>
+                                    edit
+                                  </desc>
+                                  <path
+                                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </div>
+                            <div
+                              class="bp3-form-group"
+                              data-id="name-0"
+                            >
+                              <label
+                                class="bp3-label"
+                                for="name"
+                              >
+                                <span
+                                  class="Tooltip--acenter"
+                                  data-tooltip-id="delegateSetupStepForm_name"
+                                >
+                                  delegate.delegateName
+                                </span>
+                                 
+                                <span
+                                  class="bp3-text-muted"
                                 />
+                              </label>
+                              <div
+                                class="bp3-form-content"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="name"
+                                    type="text"
+                                    value=""
+                                  />
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -83,11 +132,13 @@ exports[`Create DelegateSetup Step render data 1`] = `
                           >
                             + Description
                           </p>
+                          <p
+                            class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
+                          >
+                            + Tags
+                          </p>
                         </div>
                       </div>
-                      <div
-                        class="StyledProps--font StyledProps--main connectorFormElm"
-                      />
                     </div>
                   </div>
                   <div

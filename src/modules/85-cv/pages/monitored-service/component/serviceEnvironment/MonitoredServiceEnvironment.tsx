@@ -40,7 +40,7 @@ function ServiceEnvironment({ formik }: { formik: FormikProps<any> }): JSX.Eleme
               if (newOption?.identifier && newOption.name) {
                 const newServiceOption = { label: newOption.name, value: newOption.identifier }
                 setServiceOptions([newServiceOption, ...serviceOptions])
-                formik.setFieldValue('serviceRef', newServiceOption)
+                formik.setFieldValue('serviceRef', newServiceOption.value)
               }
             }
           }}
@@ -65,7 +65,7 @@ function ServiceEnvironment({ formik }: { formik: FormikProps<any> }): JSX.Eleme
               if (newOption?.identifier && newOption.name) {
                 const newEnvOption = { label: newOption.name, value: newOption.identifier }
                 setEnvironmentOptions([newEnvOption, ...environmentOptions])
-                formik.setFieldValue('environmentRef', newEnvOption)
+                formik.setFieldValue('environmentRef', newEnvOption.value)
               }
             }
           }}

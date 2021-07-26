@@ -9,7 +9,7 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup md"
+        class="formGroup lg"
       >
         <div
           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -100,74 +100,6 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
         </div>
       </div>
       <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="spec.deleteResources.type"
-          >
-            <span
-              class="Tooltip--acenter"
-              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
-            >
-              pipelineSteps.deleteResourcesBy
-            </span>
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.resourceNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.resourceNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.manifestPathValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.manifestPathLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
         class="formGroup sm"
       >
         <div
@@ -234,6 +166,77 @@ exports[`Test K8sDeleteStep should render edit view -with ManifestPaths selected
                   </span>
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="noLookDivider"
+      />
+      <div
+        class="formGroup"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for="spec.deleteResources.type"
+          >
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
+            >
+              pipelineSteps.deleteResourcesBy
+            </span>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
             </div>
           </div>
         </div>
@@ -252,7 +255,7 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup md"
+        class="formGroup lg"
       >
         <div
           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -343,74 +346,6 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
         </div>
       </div>
       <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="spec.deleteResources.type"
-          >
-            <span
-              class="Tooltip--acenter"
-              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
-            >
-              pipelineSteps.deleteResourcesBy
-            </span>
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.resourceNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.resourceNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.manifestPathValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.manifestPathLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
         class="formGroup sm"
       >
         <div
@@ -477,6 +412,77 @@ exports[`Test K8sDeleteStep should render edit view -with ReleaseName selected 1
                   </span>
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="noLookDivider"
+      />
+      <div
+        class="formGroup"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for="spec.deleteResources.type"
+          >
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
+            >
+              pipelineSteps.deleteResourcesBy
+            </span>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
             </div>
           </div>
         </div>
@@ -505,7 +511,7 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup md"
+        class="formGroup lg"
       >
         <div
           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -596,74 +602,6 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
         </div>
       </div>
       <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="spec.deleteResources.type"
-          >
-            <span
-              class="Tooltip--acenter"
-              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
-            >
-              pipelineSteps.deleteResourcesBy
-            </span>
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.resourceNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.resourceNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.manifestPathValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.manifestPathLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
         class="formGroup sm"
       >
         <div
@@ -734,6 +672,77 @@ exports[`Test K8sDeleteStep should render edit view -with ResourceName selected 
           </div>
         </div>
       </div>
+      <div
+        class="noLookDivider"
+      />
+      <div
+        class="formGroup"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for="spec.deleteResources.type"
+          >
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
+            >
+              pipelineSteps.deleteResourcesBy
+            </span>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -748,7 +757,7 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall"
     >
       <div
-        class="formGroup md"
+        class="formGroup lg"
       >
         <div
           class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -837,74 +846,6 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="formGroup"
-      >
-        <div
-          class="bp3-form-group"
-        >
-          <label
-            class="bp3-label"
-            for="spec.deleteResources.type"
-          >
-            <span
-              class="Tooltip--acenter"
-              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
-            >
-              pipelineSteps.deleteResourcesBy
-            </span>
-             
-            <span
-              class="bp3-text-muted"
-            />
-          </label>
-          <div
-            class="bp3-form-content"
-          >
-            <div>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.resourceNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.resourceNameLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.manifestPathValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.manifestPathLabel
-              </label>
-              <label
-                class="bp3-control bp3-radio bp3-inline Radio--radio"
-              >
-                <input
-                  name="spec.deleteResources.type"
-                  type="radio"
-                  value="pipelineSteps.releaseNameValue"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                pipelineSteps.releaseNameLabel
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
         class="formGroup sm"
       >
         <div
@@ -971,6 +912,77 @@ exports[`Test K8sDeleteStep should render edit view as new step 1`] = `
                   </span>
                 </span>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="noLookDivider"
+      />
+      <div
+        class="formGroup"
+      >
+        <div
+          class="bp3-form-group"
+        >
+          <label
+            class="bp3-label"
+            for="spec.deleteResources.type"
+          >
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8DeleteData_spec.deleteResources.type"
+            >
+              pipelineSteps.deleteResourcesBy
+            </span>
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.resourceNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.resourceNameLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.manifestPathValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.manifestPathLabel
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="spec.deleteResources.type"
+                  type="radio"
+                  value="pipelineSteps.releaseNameValue"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                pipelineSteps.releaseNameLabel
+              </label>
             </div>
           </div>
         </div>

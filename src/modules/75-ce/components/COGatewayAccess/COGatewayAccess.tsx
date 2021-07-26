@@ -159,9 +159,9 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
               {getString('ce.co.autoStoppingRule.setupAccess.pageName')}
             </Heading>
           </Layout.Horizontal>
-          <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>
+          {/* <Heading level={3} font={{ weight: 'light' }} className={css.setupAccessSubHeading}>
             {getString('ce.co.gatewayAccess.subtitle')}
-          </Heading>
+          </Heading> */}
         </Layout.Vertical>
         {isK8sRule && <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequired')}</Text>}
         {!isK8sRule && (

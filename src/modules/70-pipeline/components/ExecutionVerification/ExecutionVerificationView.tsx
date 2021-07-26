@@ -5,6 +5,7 @@ import type { ExecutionNode } from 'services/pipeline-ng'
 import { DeploymentMetrics } from './components/DeploymentMetrics/DeploymentMetrics'
 import { ExecutionVerificationSummary } from './components/ExecutionVerificationSummary/ExecutionVerificationSummary'
 import type { DeploymentNodeAnalysisResult } from './components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
+import LogAnalysisContainer from './components/LogAnalysisContainer/LogAnalysisView.container'
 import css from './ExecutionVerificationView.module.scss'
 
 interface ExecutionVerificationViewProps {
@@ -32,7 +33,7 @@ export function ExecutionVerificationView(props: ExecutionVerificationViewProps)
         <Tab
           id={getString('pipeline.verification.analysisTab.logs')}
           title={getString('pipeline.verification.analysisTab.logs')}
-          panel={<Container />}
+          panel={<LogAnalysisContainer step={step} hostName={selectedNode?.hostName} />}
         />
       </Tabs>
     </Container>

@@ -102,7 +102,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -462,7 +462,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -707,7 +707,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -1067,7 +1067,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -1312,7 +1312,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -1672,7 +1672,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -1917,7 +1917,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -2162,7 +2162,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -2522,7 +2522,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>

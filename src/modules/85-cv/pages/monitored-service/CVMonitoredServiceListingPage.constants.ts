@@ -22,7 +22,7 @@ export const HistoricalTrendChartOption = {
   tooltip: {
     enabled: false
   },
-  chart: { width: 125, height: 52 },
+  chart: { width: 175, height: 52 },
   plotOptions: {
     series: {
       marker: {

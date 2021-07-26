@@ -132,11 +132,11 @@ const ManifestListView = ({
     listOfManifests.splice(index, 1)
 
     if (stage) {
-      updateStage(
-        produce(stage, draft => {
-          set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
-        }).stage as StageElementConfig
-      )
+      const newStage = produce(stage, draft => {
+        set(draft, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', listOfManifests)
+      }).stage
+
+      if (newStage) updateStage(newStage)
     }
   }
 
@@ -634,16 +634,18 @@ const ManifestListView = ({
                   {!!manifest?.spec?.store.spec.paths?.length && (
                     <span>
                       <Text lineClamp={1} width={200}>
-                        {typeof manifest?.spec?.store.spec.paths === 'string'
-                          ? manifest?.spec?.store.spec.paths
-                          : manifest?.spec?.store.spec.paths.join(', ')}
+                        <span className={css.noWrap}>
+                          {typeof manifest?.spec?.store.spec.paths === 'string'
+                            ? manifest?.spec?.store.spec.paths
+                            : manifest?.spec?.store.spec.paths.join(', ')}
+                        </span>
                       </Text>
                     </span>
                   )}
                   {!!manifest?.spec?.store.spec.folderPath && (
                     <span>
                       <Text lineClamp={1} width={200}>
-                        {manifest.spec.store?.spec?.folderPath}
+                        <span className={css.noWrap}>{manifest.spec.store?.spec?.folderPath}</span>
                       </Text>
                     </span>
                   )}
@@ -651,7 +653,7 @@ const ManifestListView = ({
                   {!!(manifest?.spec?.chartName && !manifest?.spec?.store.spec.folderPath) && (
                     <span>
                       <Text lineClamp={1} width={200}>
-                        {manifest.spec.chartName}
+                        <span className={css.noWrap}>{manifest.spec.chartName}</span>
                       </Text>
                     </span>
                   )}

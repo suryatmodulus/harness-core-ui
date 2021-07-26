@@ -29,31 +29,10 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectAppGateway
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"
@@ -254,31 +233,10 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectLb
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"
@@ -479,31 +437,10 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectLb
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"
@@ -704,31 +641,10 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectLb
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"

@@ -1474,7 +1474,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                           <span
                             class="bp3-control-indicator"
                           />
-                          Instances
+                          EC2 VM(s)
                         </label>
                         <label
                           class="bp3-control bp3-radio"
@@ -1899,6 +1899,11 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                               class="StyledProps--font StyledProps--main"
                               style="background-color: rgb(251, 251, 251);"
                             >
+                              <p
+                                class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                              >
+                                ce.co.gatewayConfig.routingDescription
+                              </p>
                               <div
                                 class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                               >
@@ -2780,12 +2785,6 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
                     ce.co.autoStoppingRule.setupAccess.pageName
                   </h2>
                 </div>
-                <h3
-                  class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
-                  level="3"
-                >
-                  ce.co.gatewayAccess.subtitle
-                </h3>
               </div>
               <div
                 class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
@@ -3178,12 +3177,6 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                     ce.co.autoStoppingRule.setupAccess.pageName
                   </h2>
                 </div>
-                <h3
-                  class="StyledProps--font StyledProps--font-h3 StyledProps--main setupAccessSubHeading StyledProps--font-weight-light"
-                  level="3"
-                >
-                  ce.co.gatewayAccess.subtitle
-                </h3>
               </div>
               <div
                 class="Layout--vertical Layout--layout-spacing-small StyledProps--main StyledProps--padding-medium"
@@ -3832,7 +3825,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                           <span
                             class="bp3-control-indicator"
                           />
-                          Instances
+                          EC2 VM(s)
                         </label>
                         <label
                           class="bp3-control bp3-radio"
@@ -4257,6 +4250,11 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                               class="StyledProps--font StyledProps--main"
                               style="background-color: rgb(251, 251, 251);"
                             >
+                              <p
+                                class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                              >
+                                ce.co.gatewayConfig.routingDescription
+                              </p>
                               <div
                                 class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                               >
@@ -5450,7 +5448,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                           <span
                             class="bp3-control-indicator"
                           />
-                          Instances
+                          EC2 VM(s)
                         </label>
                         <label
                           class="bp3-control bp3-radio"
@@ -5875,6 +5873,11 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                               class="StyledProps--font StyledProps--main"
                               style="background-color: rgb(251, 251, 251);"
                             >
+                              <p
+                                class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                              >
+                                ce.co.gatewayConfig.routingDescription
+                              </p>
                               <div
                                 class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
                               >

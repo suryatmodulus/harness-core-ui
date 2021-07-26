@@ -11,6 +11,7 @@ import { getIdentifierFromValue, getScopeFromValue } from '@common/components/En
 
 import { useStrings } from 'framework/strings'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -32,7 +33,7 @@ export default function ManifestSelection({
     isReadonly
   } = React.useContext(PipelineContext)
 
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<

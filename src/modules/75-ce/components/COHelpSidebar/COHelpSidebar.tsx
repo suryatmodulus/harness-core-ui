@@ -4,9 +4,9 @@ import { useStrings } from 'framework/strings'
 import idleTimeIMG from './images/idleTime.svg'
 import spotVSODIMG from './images/spotOD.svg'
 import ssh from './images/ssh.svg'
-import rdp from './images/rdp.svg'
-import bgTasks from './images/bgTasks.svg'
-import ip from './images/ip.svg'
+// import rdp from './images/rdp.svg'
+// import bgTasks from './images/bgTasks.svg'
+// import ip from './images/ip.svg'
 import dnsLink from './images/dnsLink.svg'
 import providerSelector from './images/providerSelector.svg'
 
@@ -46,11 +46,6 @@ const ConfigStepTwoContent = () => {
       </Text>
       <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
         {getString('ce.co.autoStoppingRule.helpText.step2.description.heading')}
-        <br />
-        <ol type={'1'}>
-          <li>{getString('ce.co.autoStoppingRule.helpText.step2.description.resourceList.vms')}</li>
-          <li>{getString('ce.co.autoStoppingRule.helpText.step2.description.resourceList.asg')}</li>
-        </ol>
       </Text>
     </>
   )
@@ -65,9 +60,8 @@ const ConfigStepThreeContent = () => {
       </Text>
       <img src={spotVSODIMG} alt="" aria-hidden />
       <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
-        {getString('ce.co.autoStoppingRule.helpText.step3.description.heading')}
-        <br />
         {getString('ce.co.autoStoppingRule.helpText.step3.description.info')}
+        <br />
         <br />
         {getString('ce.co.autoStoppingRule.helpText.step3.description.additionalInfo')}
       </Text>
@@ -110,7 +104,7 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
                 {getString('ce.co.autoStoppingRule.setupAccess.helpText.ssh.info')}
               </Text>
             </Layout.Horizontal>
-            <Layout.Horizontal spacing="large" padding="medium">
+            {/* <Layout.Horizontal spacing="large" padding="medium">
               <img src={rdp} alt="" aria-hidden />
               <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
                 {getString('ce.co.autoStoppingRule.setupAccess.helpText.rdp.info')}
@@ -127,7 +121,7 @@ const COHelpSidebar: React.FC<COHelpSidebarProps> = props => {
               <Text style={{ lineHeight: '20px', fontSize: 'var(--font-size-normal)' }}>
                 {getString('ce.co.autoStoppingRule.setupAccess.helpText.ip.info')}
               </Text>
-            </Layout.Horizontal>
+            </Layout.Horizontal> */}
             {/* <Text
               style={{ color: '#0278d5', fontSize: 'var(--font-size-normal)', fontWeight: 500, lineHeight: '24px' }}
             >

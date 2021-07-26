@@ -7,13 +7,12 @@ import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration
 import type {
   DeploymentStageConfig,
   ServiceSpec,
-  StepElement,
-  ExecutionWrapper,
   ExecutionWrapperConfig,
   ServiceConfig,
   PipelineInfrastructure,
   Infrastructure,
-  StageOverridesConfig
+  StageOverridesConfig,
+  StepElementConfig
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
@@ -54,7 +53,7 @@ function ServiceDependencyForm({
         {getString('pipeline.serviceDependencyText')}: {getString('pipeline.stepLabel', allValues)}
       </Label>
       <div>
-        <StepWidget<ExecutionWrapper>
+        <StepWidget<any>
           factory={factory}
           readonly={readonly}
           path={path}
@@ -81,7 +80,7 @@ function StepForm({
   template?: ExecutionWrapperConfig
   allValues?: ExecutionWrapperConfig
   values?: ExecutionWrapperConfig
-  onUpdate: (data: ExecutionWrapper) => void
+  onUpdate: (data: any) => void
   readonly?: boolean
   path: string
 }): JSX.Element {
@@ -97,7 +96,7 @@ function StepForm({
         {getString('pipeline.stepLabel', allValues?.step)}
       </Label>
       <div>
-        <StepWidget<ExecutionWrapper>
+        <StepWidget<Partial<StepElementConfig>>
           factory={factory}
           readonly={readonly}
           path={path}
@@ -176,7 +175,7 @@ function ExecutionWrapperInputSetForm(props: {
             />
           ) : null
         } else if (item.parallel) {
-          return (item.parallel as unknown as StepElement[]).map((nodep: ExecutionWrapper, indexp) => {
+          return item.parallel.map((nodep, indexp) => {
             if (nodep.step) {
               const originalStep = getStepFromStage(nodep.step?.identifier || '', allValues)
               const initialValues = getStepFromStage(nodep.step?.identifier || '', values)

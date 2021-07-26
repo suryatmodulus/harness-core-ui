@@ -275,7 +275,7 @@ export const onSubmitTerraformData = (values: any): TFFormData => {
 
     const configObject: TerraformExecutionData = {
       workspace: values?.spec?.configuration?.spec?.workspace,
-      configFiles: {}
+      configFiles: {} as any
     }
     if (values?.spec?.configuration?.spec?.backendConfig?.spec?.content) {
       configObject['backendConfig'] = {
@@ -378,7 +378,7 @@ export const onSubmitTFPlanData = (values: any): TFPlanFormData => {
   const configObject: TerraformPlanExecutionData = {
     command: values?.spec?.configuration?.command,
     workspace: values?.spec?.configuration?.workspace,
-    configFiles: {},
+    configFiles: {} as any,
     secretManagerRef: ''
   }
   if (values?.spec?.configuration?.backendConfig?.spec?.content) {

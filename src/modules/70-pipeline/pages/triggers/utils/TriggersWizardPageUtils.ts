@@ -1,7 +1,7 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
 import type { SelectOption } from '@wings-software/uicore'
-import type { NgPipeline, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
+import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { GetActionsListQueryParams, NGTriggerConfigV2, NGTriggerSourceV2 } from 'services/pipeline-ng'
@@ -31,8 +31,8 @@ export interface FlatInitialValuesInterface {
   tags?: {
     [key: string]: string
   }
-  pipeline?: string | NgPipeline
-  originalPipeline?: NgPipeline
+  pipeline?: string | PipelineInfoConfig
+  originalPipeline?: PipelineInfoConfig
   name?: string
   // WEBHOOK-SPECIFIC
   sourceRepo?: string
@@ -49,9 +49,9 @@ export interface FlatOnEditValuesInterface {
   tags?: {
     [key: string]: string
   }
-  pipeline: NgPipeline
+  pipeline: PipelineInfoConfig
   triggerType: NGTriggerSourceV2['type']
-  originalPipeline?: NgPipeline
+  originalPipeline?: PipelineInfoConfig
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']
   connectorRef?: ConnectorRefInterface
@@ -89,7 +89,7 @@ export interface FlatValidWebhookFormikValuesInterface {
   }
   target?: string
   targetIdentifier?: string
-  pipeline: NgPipeline
+  pipeline: PipelineInfoConfig
   sourceRepo: string
   triggerType: NGTriggerSourceV2['type']
   repoName?: string
@@ -120,7 +120,7 @@ export interface FlatValidScheduleFormikValuesInterface {
   }
   target?: string
   targetIdentifier?: string
-  pipeline: NgPipeline
+  pipeline: PipelineInfoConfig
   sourceRepo: string
   triggerType: NGTriggerSourceV2['type']
   expression: string

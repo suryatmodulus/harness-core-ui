@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Switch, Text, Icon, Container } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+import { Switch, Icon, Container } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { RestResponseHealthMonitoringFlagResponse, useSetHealthMonitoringFlag } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -10,7 +9,6 @@ export default function ToggleMonitoring({ identifier, enable }: { identifier: s
   const params = useParams<ProjectPathProps>()
   const { showError, clear } = useToaster()
   const [isEnabled, setIsEnabled] = useState(enable)
-  const { getString } = useStrings()
   const { mutate: toggleMonitoringService, loading } = useSetHealthMonitoringFlag({
     identifier
   })
@@ -38,9 +36,8 @@ export default function ToggleMonitoring({ identifier, enable }: { identifier: s
       {loading ? (
         <Icon name="steps-spinner" />
       ) : (
-        <Container width={120} flex onClick={e => e.stopPropagation()}>
+        <Container onClick={e => e.stopPropagation()}>
           <Switch checked={isEnabled} onChange={onToggleMonitoringSource} />
-          <Text>{isEnabled ? getString('enable') : getString('common.disable')}</Text>
         </Container>
       )}
     </>

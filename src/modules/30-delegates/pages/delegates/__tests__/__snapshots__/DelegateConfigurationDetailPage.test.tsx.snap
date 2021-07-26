@@ -130,6 +130,16 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
+                delegates.delegateIdentifier
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
                 description
               </p>
               <div
@@ -247,7 +257,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -289,7 +299,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -447,6 +457,16 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
+                delegates.delegateIdentifier
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
                 description
               </p>
               <p
@@ -523,7 +543,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -566,7 +586,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>

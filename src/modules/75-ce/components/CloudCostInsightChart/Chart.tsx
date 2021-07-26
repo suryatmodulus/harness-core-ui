@@ -17,7 +17,7 @@ interface GetChartProps {
   chartType: string
   aggregation: QlceViewTimeGroupType
   xAxisPointCount: number
-  setFilterUsingChartClick: (value: string) => void
+  setFilterUsingChartClick?: (value: string) => void
   showLegends: boolean
 }
 
@@ -68,7 +68,7 @@ const GetChart: React.FC<GetChartProps> = ({
       events: {
         click: function (event: any) {
           const name = event.point.series.userOptions.name as string
-          setFilterUsingChartClick(name)
+          setFilterUsingChartClick && setFilterUsingChartClick(name)
         }
       },
       stacking
@@ -143,7 +143,7 @@ interface CCMChartProps {
   chartType: string
   aggregation: QlceViewTimeGroupType
   xAxisPointCount: number
-  setFilterUsingChartClick: (value: string) => void
+  setFilterUsingChartClick?: (value: string) => void
   showLegends: boolean
 }
 

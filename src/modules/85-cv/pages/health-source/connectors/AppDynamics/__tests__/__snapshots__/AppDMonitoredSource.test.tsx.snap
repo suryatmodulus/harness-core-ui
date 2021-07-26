@@ -334,7 +334,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                       >
                         <div
                           class="bp3-form-group"
-                          data-id="metricAppD.Errors-2"
+                          data-id="metricData.Errors-2"
                         >
                           <div
                             class="bp3-form-content"
@@ -344,7 +344,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                             >
                               <input
                                 checked=""
-                                name="metricAppD.Errors"
+                                name="metricData.Errors"
                                 type="checkbox"
                               />
                               <span
@@ -352,7 +352,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                               />
                               <span
                                 class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="appDHealthSourceform_metricAppD.Errors"
+                                data-tooltip-id="appDHealthSourceform_metricData.Errors"
                               >
                                 Errors
                               </span>
@@ -361,7 +361,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                         </div>
                         <div
                           class="bp3-form-group"
-                          data-id="metricAppD.Performance-3"
+                          data-id="metricData.Performance-3"
                         >
                           <div
                             class="bp3-form-content"
@@ -371,7 +371,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                             >
                               <input
                                 checked=""
-                                name="metricAppD.Performance"
+                                name="metricData.Performance"
                                 type="checkbox"
                               />
                               <span
@@ -379,7 +379,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                               />
                               <span
                                 class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="appDHealthSourceform_metricAppD.Performance"
+                                data-tooltip-id="appDHealthSourceform_metricData.Performance"
                               >
                                 Performance
                               </span>

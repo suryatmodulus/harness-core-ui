@@ -5,7 +5,7 @@ import DelegateDetails from '../DelegateDetails'
 
 const mockGetCallFunction = jest.fn()
 jest.mock('services/portal', () => ({
-  useGetDelegateGroupFromIdV2: jest.fn().mockImplementation(args => {
+  useGetDelegateGroupByIdentifier: jest.fn().mockImplementation(args => {
     mockGetCallFunction(args)
     return {
       data: {
@@ -42,8 +42,8 @@ describe('Delegates Details Page', () => {
   test('render data', () => {
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/resources/delegates/:delegateId/"
-        pathParams={{ accountId: 'dummy', delegateId: 'delegateId' }}
+        path="/account/:accountId/resources/delegates/:delegateIdentifier/"
+        pathParams={{ accountId: 'dummy', delegateIdentifier: 'delegateIdentifier' }}
       >
         <DelegateDetails />
       </TestWrapper>

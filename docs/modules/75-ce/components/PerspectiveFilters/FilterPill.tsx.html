@@ -236,14 +236,7 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a>
-<a name='L186'></a><a href='#L186'>186</a>
-<a name='L187'></a><a href='#L187'>187</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -311,6 +304,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -332,18 +329,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -390,6 +375,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -495,9 +481,13 @@ interface FilterPillProps {
   onChange: (id: number, data: QlceViewFilterInput) =&gt; void
   pillData: QlceViewFilterInput
   fieldValuesList: Maybe&lt;QlceViewFieldIdentifierData&gt;[]
+  timeRange: {
+    to: number
+    from: number
+  }
 }
 &nbsp;
-const FilterPill: React.FC&lt;FilterPillProps&gt; = <span class="fstat-no" title="function not covered" >({</span> fieldValuesList, removePill, id, onChange, pillData }) =&gt; {
+const FilterPill: React.FC&lt;FilterPillProps&gt; = <span class="fstat-no" title="function not covered" >({</span> fieldValuesList, removePill, id, onChange, pillData, timeRange }) =&gt; {
   const { fieldName, identifierName, identifier, fieldId } = <span class="cstat-no" title="statement not covered" >pillData.field</span>
 &nbsp;
   const valuesObject: Record&lt;string, boolean&gt; = <span class="cstat-no" title="statement not covered" >{}</span>
@@ -518,22 +508,10 @@ const FilterPill: React.FC&lt;FilterPillProps&gt; = <span class="fstat-no" title
 &nbsp;
   const filteredFieldValuesList = <span class="cstat-no" title="statement not covered" >fieldValuesList.filter(<span class="fstat-no" title="function not covered" >fieldValue </span>=&gt; <span class="cstat-no" title="statement not covered" >fieldValue)</span> as QlceViewFieldIdentifierData[]</span>
 &nbsp;
-  // useEffect(() =&gt; {
-  //   const { fieldName, identifierName, identifier, fieldId } = pillData.field
-  //   const valuesObject: Record&lt;string, boolean&gt; = {}
-  //   pillData?.values.forEach(val =&gt; {
-  //     valuesObject[val] = true
-  //   })
-  //   setProvider({ id: identifier, name: identifierName || '' })
-  //   setService({ id: fieldId, name: fieldName })
-  //   setValues(valuesObject)
-  //   setOperator(pillData.operator)
-  // }, [pillData])
-&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;section className={css.filterPillContainer}&gt;
       &lt;Layout.Horizontal
-        background="blue100"
+        background="primary2"
         spacing="xsmall"
         padding="xsmall"
         className={cx(css.filterPillInnerContainer, { [css.errorPill]: showError })}
@@ -581,6 +559,7 @@ const FilterPill: React.FC&lt;FilterPillProps&gt; = <span class="fstat-no" title
             provider?.id ? (
               service?.id ? (
                 &lt;ValueSelector
+                  timeRange={timeRange}
                   service={service}
                   provider={provider}
                   setService={setService}
@@ -622,7 +601,7 @@ export default FilterPill
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 02:27:57 GMT+0000 (Greenwich Mean Time)
+                at Mon Jul 26 2021 06:00:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

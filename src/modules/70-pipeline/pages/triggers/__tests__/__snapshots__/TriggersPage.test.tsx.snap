@@ -2,7 +2,6 @@
 
 exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Trigger List 1`] = `
 <body>
-  <x-mentions />
   <div />
   <div>
     <div

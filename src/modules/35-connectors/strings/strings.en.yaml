@@ -295,7 +295,7 @@ cdng:
     durationRequired: Duration is required
     sensitivityRequired: Sensitivity is required
     verificationTypeRequired: Verification type is required
-    monitoringServiceRequired: Monitoring Service is required
+    monitoringServiceRequired: Monitored Service is required
     healthSourceRequired: At least one health source is required
   verificationSensitivityLabel:
     high: High

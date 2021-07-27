@@ -48,7 +48,7 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
   const [showOthersInfo, setShowOthersInfo] = useState<boolean>(!loadBalancer?.metadata?.dns?.route53)
   const [route53HostedZones, setRoute53HostedZones] = useState<SelectOption[]>([])
 
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
@@ -60,9 +60,7 @@ const LBFormStepFirst: React.FC<LBFormStepFirstProps> = props => {
     error: fetchHostedZonesError,
     refetch: refetchHostedZones
   } = useAllHostedZones({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId as string, // eslint-disable-line
       region: 'us-east-1',

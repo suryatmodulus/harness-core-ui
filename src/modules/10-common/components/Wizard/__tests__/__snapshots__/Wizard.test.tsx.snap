@@ -2,7 +2,6 @@
 
 exports[`Wizard tests Interactivity Tab Change: Show warning for each touched panel until pass validation: look for warning 1`] = `
 <body>
-  <x-mentions />
   <div />
   <div>
     <section
@@ -241,7 +240,6 @@ exports[`Wizard tests Interactivity Tab Change: Show warning for each touched pa
 
 exports[`Wizard tests Renders/snapshots Initial Render - 3 panels 1`] = `
 <body>
-  <x-mentions />
   <div />
   <div>
     <section

@@ -230,8 +230,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   }
 
   const { mutate: getInstances, loading: loadingInstances } = useAllResourcesOfAccount({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -241,8 +239,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   })
 
   const { mutate: fetchAllASGs, loading: loadingFetchASGs } = useGetAllASGs({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -265,8 +261,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   })
 
   const { data: servicesData, error } = useGetServices({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -553,9 +548,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   }, [gatewayName])
 
   const { mutate: getSecurityGroups, loading } = useSecurityGroupsOfInstances({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       accountIdentifier: accountId

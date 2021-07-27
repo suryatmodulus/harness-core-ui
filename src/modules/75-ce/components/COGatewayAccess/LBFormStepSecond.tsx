@@ -45,16 +45,14 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
   const [selectedRegion, setSelectedRegion] = useState<string>(loadBalancer.region as string)
   const [selectedVpc, setSelectedVpc] = useState<string | undefined>(loadBalancer.vpc as string)
 
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
   }>()
 
   const { data: regions, loading: regionsLoading } = useAllRegions({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
       accountIdentifier: accountId
@@ -66,9 +64,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
     loading: vpcsLoading,
     refetch: vpcsReload
   } = useAllVPCs({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: selectedRegion,
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
@@ -82,9 +78,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
     loading: certificatesLoading,
     refetch: certificatesReload
   } = useAllCertificates({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: selectedCloudAccount, // eslint-disable-line
       region: selectedRegion,
@@ -98,9 +92,7 @@ const LBFormStepSecond: React.FC<LBFormStepSecondProps> = props => {
     loading: sgsLoading,
     refetch: sgsReload
   } = useAllSecurityGroups({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       region: selectedRegion,
       vpc_id: selectedVpc as string, // eslint-disable-line

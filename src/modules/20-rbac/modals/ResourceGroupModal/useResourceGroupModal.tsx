@@ -42,7 +42,7 @@ export const useResourceGroupModal = ({ onSuccess }: UseResourceGroupModalProps)
         />
       </Dialog>
     ),
-    [resourceGroupData]
+    [resourceGroupData, onSuccess]
   )
   const open = useCallback(
     (_resourceGroup?: ResourceGroupDTO) => {

@@ -66,7 +66,7 @@ const DEFAULT_FUNC_REGION = 'westus2'
 
 const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
   const { cloudAccountId, lbCreationInProgress, loadBalancer, isCreateMode } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
@@ -95,9 +95,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
   )
 
   const { data: regions, loading: regionsLoading } = useAllRegions({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId, // eslint-disable-line
       accountIdentifier: accountId
@@ -109,9 +107,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     loading: resourceGroupsLoading,
     refetch: refetchResourceGroups
   } = useAllResourceGroups({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId, // eslint-disable-line
       accountIdentifier: accountId
@@ -123,9 +119,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     loading: vpcsLoading,
     refetch: vpcsReload
   } = useAllVPCs({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
       region: (selectedRegion?.value || loadBalancer.region) as string,
@@ -140,9 +134,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     loading: subnetsLoading,
     refetch: subnetsReload
   } = useAllSubnets({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
       region: (selectedRegion?.value || loadBalancer.region) as string,
@@ -158,9 +150,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     loading: publicIpsLoading,
     refetch: publicIpsReload
   } = useAllPublicIps({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
       region: (selectedRegion?.value || loadBalancer.region) as string,
@@ -176,9 +166,7 @@ const AzureAccessPointForm: React.FC<AzureAccessPointFormProps> = props => {
     loading: certificatesLoading,
     refetch: certificatesReload
   } = useAllCertificates({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: cloudAccountId,
       region: (selectedRegion?.value || loadBalancer.region) as string,

@@ -171,8 +171,7 @@ const COGatewayList: React.FC = () => {
     loading,
     refetch: refetchServices
   } = useGetServices({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -197,9 +196,8 @@ const COGatewayList: React.FC = () => {
 
   function SavingsCell(tableProps: CellProps<Service>): JSX.Element {
     const { data, loading: savingsLoading } = useSavingsOfService({
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -232,9 +230,8 @@ const COGatewayList: React.FC = () => {
   }
   function ActivityCell(tableProps: CellProps<Service>): JSX.Element {
     const { data, loading: activityLoading } = useRequestsOfService({
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -260,9 +257,8 @@ const COGatewayList: React.FC = () => {
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
     const isK8sRule = tableProps.row.original.kind === 'k8s'
     const { data, loading: healthLoading } = useHealthOfService({
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -274,9 +270,8 @@ const COGatewayList: React.FC = () => {
       loading: resourcesLoading,
       error: resourcesError
     } = useAllServiceResources({
-      org_id: orgIdentifier, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      service_id: tableProps.row.original.id as number, // eslint-disable-line
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number, // eslint-disable-line
       debounce: 300,
       lazy: isK8sRule
     })
@@ -479,8 +474,6 @@ const COGatewayList: React.FC = () => {
   const handleServiceEdit = (_service: Service) =>
     history.push(
       routes.toCECOEditGateway({
-        orgIdentifier: _service.org_id as string,
-        projectIdentifier: _service.project_id as string,
         accountId: _service.account_identifier as string,
         gatewayIdentifier: _service.id?.toString() as string
       })
@@ -488,10 +481,8 @@ const COGatewayList: React.FC = () => {
 
   const StatusCell = ({ row }: CellProps<Service>) => {
     const { data } = useGetServiceDiagnostics({
-      org_id: orgIdentifier, // eslint-disable-line
       account_id: accountId, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      service_id: row.original.id as number, // eslint-disable-line
+      rule_id: row.original.id as number, // eslint-disable-line
       queryParams: {
         accountIdentifier: accountId
       }
@@ -521,7 +512,7 @@ const COGatewayList: React.FC = () => {
             className={css.breadCrumb}
             links={[
               {
-                url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+                url: routes.toCECORules({ accountId }),
                 label: getString('ce.co.breadCrumb.rules')
               }
             ]}
@@ -546,8 +537,6 @@ const COGatewayList: React.FC = () => {
               onClick={() => {
                 history.push(
                   routes.toCECOCreateGateway({
-                    orgIdentifier: orgIdentifier as string,
-                    projectIdentifier: projectIdentifier as string,
                     accountId
                   })
                 )
@@ -597,8 +586,6 @@ const COGatewayList: React.FC = () => {
                       onClick={() => {
                         history.push(
                           routes.toCECOCreateGateway({
-                            orgIdentifier: orgIdentifier as string,
-                            projectIdentifier: projectIdentifier as string,
                             accountId
                           })
                         )

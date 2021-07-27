@@ -196,7 +196,7 @@ export const buildGithubPayload = (formData: FormData) => {
         : {
             installationId: formData.installationId,
             applicationId: formData.applicationId,
-            privateKeyRef: formData.privateKey.referenceString
+            privateKeyRef: formData.privateKey
           }
   } else {
     delete savedData.spec.apiAccess
@@ -346,7 +346,7 @@ export const setupGithubFormData = async (connectorInfo: ConnectorInfoDTO, accou
     apiAuthType: connectorInfo?.spec?.apiAccess?.type,
     installationId: connectorInfo?.spec?.apiAccess?.spec?.installationId,
     applicationId: connectorInfo?.spec?.apiAccess?.spec?.applicationId,
-    privateKey: await setSecretField(connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef, scopeQueryParams)
+    privateKey: connectorInfo?.spec?.apiAccess?.spec?.privateKeyRef
   }
 
   return formData

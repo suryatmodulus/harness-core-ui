@@ -28,8 +28,14 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 const TEST_PATH = routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
+const PIPELINE_STUDIO_PATH = routes.toPipelineStudio({
+  ...accountPathProps,
+  ...pipelinePathProps,
+  ...pipelineModuleParams
+})
+
 describe('Pipeline Details tests', () => {
-  test('render snapshot view', async () => {
+  test('render snapshot view for non pipeline studio route', async () => {
     const { container } = render(
       <TestWrapper
         path={TEST_PATH}
@@ -45,7 +51,30 @@ describe('Pipeline Details tests', () => {
         <PipelineDetails />
       </TestWrapper>
     )
-
+    const pipelineStudioDivs = document.getElementsByClassName('pipelineStudio')
+    // pipelineStudio class should not be there
+    expect(pipelineStudioDivs).toHaveLength(0)
     expect(container).toMatchSnapshot()
+  })
+
+  test('pipelineStudio class should be there when pipeline studio is visited', () => {
+    render(
+      <TestWrapper
+        path={PIPELINE_STUDIO_PATH}
+        pathParams={{
+          accountId: 'testAcc',
+          orgIdentifier: 'testOrg',
+          projectIdentifier: 'test',
+          pipelineIdentifier: 'pipeline',
+          module: 'cd'
+        }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <PipelineDetails />
+      </TestWrapper>
+    )
+
+    const pipelineStudioDivs = document.getElementsByClassName('pipelineStudio')
+    expect(pipelineStudioDivs).toHaveLength(1)
   })
 })

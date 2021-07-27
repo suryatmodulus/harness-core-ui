@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useModalHook, Text, Icon, Layout, Color, Button, SelectOption } from '@wings-software/uicore'
+import { useModalHook, Text, Icon, Layout, Button, SelectOption } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEmpty, isEqual, merge, omit } from 'lodash-es'
@@ -667,7 +667,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   const RenderGitDetails: React.FC = React.useCallback(() => {
     if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
       return (
-        <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}>
+        <Layout.Horizontal spacing="medium" className={css.gitDetails}>
           <Layout.Horizontal spacing="small" className={css.repoDetails}>
             <Icon name="repository" margin={{ left: 'medium' }}></Icon>
             {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
@@ -677,11 +677,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             )}
           </Layout.Horizontal>
 
-          <Layout.Horizontal
-            border={{ left: true, color: Color.GREY_300 }}
-            spacing="small"
-            className={css.branchDetails}
-          >
+          <Layout.Horizontal spacing="small" className={css.branchDetails}>
             {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
               <>
                 <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
@@ -775,7 +771,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
                 </Text>
                 {!isEmpty(pipeline?.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
                 {isYaml || isReadonly ? null : (
-                  <Button minimal icon="Edit" withoutBoxShadow iconProps={{ size: 12 }} onClick={showModal} />
+                  <Button
+                    minimal
+                    icon="Edit"
+                    withoutBoxShadow
+                    iconProps={{ size: 16 }}
+                    onClick={showModal}
+                    withoutCurrentColor={true}
+                  />
                 )}
               </div>
 
@@ -801,7 +804,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               {isUpdated && !isReadonly && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
               <div>
                 {!isReadonly && (
-                  <Button intent="primary" text={getString('save')} onClick={saveAndPublish} icon="send-data" />
+                  <Button
+                    intent="primary"
+                    text={getString('save')}
+                    onClick={saveAndPublish}
+                    icon="send-data"
+                    className={css.saveButton}
+                  />
                 )}
                 {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
                   <Button

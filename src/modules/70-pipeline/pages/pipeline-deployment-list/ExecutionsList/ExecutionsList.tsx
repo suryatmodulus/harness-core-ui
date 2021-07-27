@@ -1,7 +1,7 @@
 import React from 'react'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 
-import ExecutionCard from './ExecutionCard/ExecutionCard'
+import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
 import css from './ExecutionList.module.scss'
 
 export interface ExecutionsListProps {

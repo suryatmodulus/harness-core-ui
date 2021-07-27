@@ -52,7 +52,7 @@ export const useTokenModal = ({ onSuccess, apiKeyType, parentIdentifier }: useTo
         )}
       </Dialog>
     ),
-    [tokenData, apiKeyIdentifier, isRotate]
+    [tokenData, apiKeyIdentifier, isRotate, parentIdentifier]
   )
   const open = useCallback(
     (_apiKeyIdentifier: string, _token?: TokenDTO, _isRotate?: boolean) => {

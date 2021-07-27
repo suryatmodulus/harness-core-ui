@@ -18,6 +18,7 @@ declare const styles: {
   readonly step: string
   readonly stepName: string
   readonly subCategory: string
+  readonly lastSubCategory: string
   readonly categoriesRenderer: string
   readonly libraryHeader: string
   readonly headerContainer: string
@@ -26,6 +27,7 @@ declare const styles: {
   readonly primaryCategories: string
   readonly secCategories: string
   readonly category: string
+  readonly hasSubCategories: string
   readonly offset: string
   readonly active: string
 }

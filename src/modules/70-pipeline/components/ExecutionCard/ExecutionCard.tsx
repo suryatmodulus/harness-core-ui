@@ -20,6 +20,7 @@ import executionFactory from '@pipeline/factories/ExecutionFactory'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import { CardVariant } from '@pipeline/utils/constants'
 
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 
@@ -28,10 +29,11 @@ import css from './ExecutionCard.module.scss'
 
 export interface ExecutionCardProps {
   pipelineExecution: PipelineExecutionSummary
+  variant?: CardVariant
 }
 
 export default function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
-  const { pipelineExecution } = props
+  const { pipelineExecution, variant = CardVariant.Default } = props
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const history = useHistory()
 
@@ -73,7 +75,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   }
 
   return (
-    <Card elevation={0} className={css.card} data-disabled={disabled}>
+    <Card elevation={0} className={css.card} data-disabled={disabled} data-variant={variant}>
       <div className={css.cardLink} onClick={handleClick}>
         <div className={css.content}>
           <div className={css.header}>
@@ -127,21 +129,23 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   </Popover>
                 ) : null}
               </div>
-              <ExecutionActions
-                executionStatus={pipelineExecution.status as ExecutionStatus}
-                params={{
-                  accountId,
-                  orgIdentifier,
-                  pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
-                  executionIdentifier: pipelineExecution?.planExecutionId || '',
-                  projectIdentifier,
-                  module,
-                  repoIdentifier: pipelineExecution?.gitDetails?.repoIdentifier,
-                  branch: pipelineExecution?.gitDetails?.branch
-                }}
-                canEdit={canEdit}
-                canExecute={canExecute}
-              />
+              {variant === CardVariant.Default || variant === CardVariant.MinimalWithActions ? (
+                <ExecutionActions
+                  executionStatus={pipelineExecution.status as ExecutionStatus}
+                  params={{
+                    accountId,
+                    orgIdentifier,
+                    pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
+                    executionIdentifier: pipelineExecution?.planExecutionId || '',
+                    projectIdentifier,
+                    module,
+                    repoIdentifier: pipelineExecution?.gitDetails?.repoIdentifier,
+                    branch: pipelineExecution?.gitDetails?.branch
+                  }}
+                  canEdit={canEdit}
+                  canExecute={canExecute}
+                />
+              ) : null}
             </div>
           </div>
           <div className={css.main}>
@@ -152,7 +156,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   {React.createElement<ExecutionCardInfoProps>(ciInfo.component, {
                     data: pipelineExecution?.moduleInfo?.ci || {},
                     nodeMap: pipelineExecution?.layoutNodeMap || {},
-                    startingNodeId: pipelineExecution?.startingNodeId || ''
+                    startingNodeId: pipelineExecution?.startingNodeId || '',
+                    variant
                   })}
                 </div>
               ) : null}
@@ -162,18 +167,21 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   {React.createElement<ExecutionCardInfoProps>(cdInfo.component, {
                     data: pipelineExecution?.moduleInfo?.cd || {},
                     nodeMap: pipelineExecution?.layoutNodeMap || {},
-                    startingNodeId: pipelineExecution?.startingNodeId || ''
+                    startingNodeId: pipelineExecution?.startingNodeId || '',
+                    variant
                   })}
                 </div>
               ) : null}
             </div>
-            <MiniExecutionGraph
-              pipelineExecution={pipelineExecution}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              accountId={accountId}
-              module={module}
-            />
+            {variant === CardVariant.Default ? (
+              <MiniExecutionGraph
+                pipelineExecution={pipelineExecution}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                accountId={accountId}
+                module={module}
+              />
+            ) : null}
           </div>
         </div>
         <div className={css.footer}>
@@ -197,6 +205,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               className={css.duration}
               iconProps={{ size: 14, className: css.timerIcon }}
               startTime={pipelineExecution?.startTs}
+              durationText={variant === CardVariant.Default ? undefined : ' '}
               endTime={pipelineExecution?.endTs}
             />
             <TimeAgo

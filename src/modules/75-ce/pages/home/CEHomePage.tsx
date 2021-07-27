@@ -44,11 +44,9 @@ const CEHomePage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trial])
 
-  function handleSelectProjectFromModal(provider: string, project?: Project): void {
+  function handleSelectProjectFromModal(provider: string): void {
     history.push({
       pathname: routes.toCECOCreateGateway({
-        orgIdentifier: project?.orgIdentifier || selectedProject?.orgIdentifier || '',
-        projectIdentifier: project?.orgIdentifier || selectedProject?.identifier || '',
         accountId
       }),
       search: `?provider=${provider}`
@@ -58,8 +56,6 @@ const CEHomePage: React.FC = () => {
   function handleRouteToCECO(): void {
     history.push({
       pathname: routes.toCECORules({
-        orgIdentifier: selectedProject?.orgIdentifier || '',
-        projectIdentifier: selectedProject?.identifier || '',
         accountId
       })
     })

@@ -3957,13 +3957,6 @@
   optionalDependencies:
     webpack "^4.0.0"
 
-"@wings-software/mentions@^1.2.9":
-  version "1.2.9"
-  resolved "https://npm.pkg.github.com/download/@wings-software/mentions/1.2.9/66b154fedb00ce429a5760d649f66e48ddb602a1b53bb6ee99704a49437468cb#33a66befe5025eab0cb3d6248dd5eb5cb1bd4688"
-  integrity "sha1-M6Zr7+UCXqsMs9YkjdXrXLG9Rog= sha512-+/HAt3jsi0nnGpvSGUHcKrk8JygbdUyl6rBF+RpGBoPk7qQTWAAMP6g6ZjbNybWXwsdg2CUpDXt730mDAQhHRg=="
-  dependencies:
-    caret-xy "^2.0.3"
-
 "@wings-software/monaco-yaml@2.4.36":
   version "2.4.36"
   resolved "https://npm.pkg.github.com/download/@wings-software/monaco-yaml/2.4.36/e5fde004b4d32cee0b2bcfefd3743cd0905ef1407f35087c722e0f642e784ba2#8096da5412717fecf8a14e0cce7e8d1f2624ec84"
@@ -3984,10 +3977,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.322":
-  version "0.1.322"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.322/aa424bb67c4637c8a904a7dfd350661d1eb8684ce8c72566acd236e63cc1b936#ee2c0ddbf7667ccca06a3dc772f9b03ee8fdb5f8"
-  integrity sha512-6cRu00arUdJfKs1HIOukPXouUX2L++GC2PVYl8nQ+Mei1c3WvuHUiBnD/f4QGk6GTFsdQwT505D+y7JQn3Cxqw==
+"@wings-software/uicore@0.1.328":
+  version "0.1.328"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.328/aaf6aee87e010e458247bd139fbe8439fa5196ef9db11c475239683ed420cf33#41a925e8077bc2237ab847a1642319a0878a2dc6"
+  integrity sha512-3LNeb14CAFF2x4yHGWuWSi/8mDI495iDAS24QK06F4Trr7/45kMwYVI69O6n70pG4I+4Bc8RFsR7BN4u8xcsTw==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -5322,11 +5315,6 @@ capture-stack-trace@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.1.tgz#a6c0bbe1f38f3aa0b92238ecb6ff42c344d4135d"
   integrity "sha1-psC74fOPOqC5Ijjstv9Cw0TUE10= sha512-mYQLZnx5Qt1JgB1WEiMCf2647plpGeQ2NMR/5L0HNZzGQo4fuSPnK+wjfPnKZV0aiJDgzmWqqkV/g7JD+DW0qw=="
-
-caret-xy@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/caret-xy/-/caret-xy-2.0.3.tgz#8c0c5906a3966550b0af6698b5f3e6786a874271"
-  integrity "sha1-jAxZBqOWZVCwr2aYtfPmeGqHQnE= sha512-iZySCshCBnQcwdYCFbfCvAorpMe/ghXqEOyDdCpOcYR6OtJu6bdnm3OTyCxlWtA7IAss4TQqcc0XO6EksKKJUw=="
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"

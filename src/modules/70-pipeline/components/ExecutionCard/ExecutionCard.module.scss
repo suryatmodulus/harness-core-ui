@@ -73,7 +73,6 @@ $actions-translate: 10px;
         justify-content: space-between;
         transform: translateX($actions-translate);
         column-gap: var(--spacing-5);
-        width: $timer-width + $actions-translate;
       }
 
       & .statusContainer {
@@ -148,8 +147,7 @@ $actions-translate: 10px;
 
     .timers {
       display: flex;
-      column-gap: var(--spacing-8);
-      width: $timer-width;
+      column-gap: var(--spacing-3);
 
       .timerIcon {
         margin-right: var(--spacing-2);
@@ -157,7 +155,6 @@ $actions-translate: 10px;
       }
 
       & .duration {
-        min-width: 150px;
         color: var(--grey-900);
       }
 
@@ -168,6 +165,24 @@ $actions-translate: 10px;
         & time {
           font-size: var(--font-size-small);
           color: var(--grey-900);
+        }
+      }
+    }
+  }
+
+  &[data-variant='Default'] {
+    .header {
+      .actions {
+        width: $timer-width + $actions-translate;
+      }
+    }
+    .footer {
+      .timers {
+        width: $timer-width;
+        column-gap: var(--spacing-8);
+
+        & .duration {
+          min-width: 150px;
         }
       }
     }

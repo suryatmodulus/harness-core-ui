@@ -20,7 +20,7 @@ import {
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
-
+import MultiTypeSecretInput from '@secrets/components/MutiTypeSecretInput/MultiTypeSecretInput'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -116,7 +116,7 @@ const RenderAPIAccessForm: React.FC<FormikProps<GithubFormInterface>> = props =>
             <FormInput.Text name="applicationId" label={getString('common.git.applicationId')} />
           </Container>
           <Container width={'42.5%'}>
-            <SecretInput name="privateKey" label={getString('common.git.privateKey')} />
+            <MultiTypeSecretInput name="privateKey" label={getString('common.git.privateKey')} />
           </Container>
         </Container>
       )
@@ -246,10 +246,10 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
               then: Yup.object().required(getString('validation.accessToken')),
               otherwise: Yup.object().nullable()
             }),
-            privateKey: Yup.object().when(['enableAPIAccess', 'apiAuthType'], {
+            privateKey: Yup.string().when(['enableAPIAccess', 'apiAuthType'], {
               is: (enableAPIAccess, apiAuthType) => enableAPIAccess && apiAuthType === GitAPIAuthTypes.GITHUB_APP,
-              then: Yup.object().required(getString('validation.privateKey')),
-              otherwise: Yup.object().nullable()
+              then: Yup.string().required(getString('validation.privateKey')),
+              otherwise: Yup.string().nullable()
             }),
             apiAuthType: Yup.string().when('enableAPIAccess', {
               is: val => val,

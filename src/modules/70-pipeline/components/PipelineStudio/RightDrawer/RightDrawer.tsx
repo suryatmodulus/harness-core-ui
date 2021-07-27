@@ -36,7 +36,8 @@ export const AlmostFullScreenDrawers: DrawerTypes[] = [
 export const ConfigureStepScreenDrawers: DrawerTypes[] = [
   DrawerTypes.StepConfig,
   DrawerTypes.ConfigureService,
-  DrawerTypes.ProvisionerStepConfig
+  DrawerTypes.ProvisionerStepConfig,
+  DrawerTypes.AddStep
 ]
 const checkDuplicateStep = (
   formikRef: React.MutableRefObject<StepFormikRef<unknown> | null>,
@@ -416,7 +417,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       // BUG: https://github.com/palantir/blueprint/issues/4519
       // you must pass only a single classname, not even an empty string, hence passing a dummy class
       // "classnames" package cannot be used here because it returns an empty string when no classes are applied
-      portalClassName={isAlmostFullscreen ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'}
+      portalClassName={
+        isAlmostFullscreen && type !== DrawerTypes.AddStep ? css.almostFullScreenPortal : 'pipeline-studio-right-drawer'
+      }
     >
       {isAlmostFullscreen ? (
         <Button

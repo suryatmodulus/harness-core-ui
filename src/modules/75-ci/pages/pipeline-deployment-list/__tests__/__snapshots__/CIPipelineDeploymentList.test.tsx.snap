@@ -215,6 +215,7 @@ exports[`<CIPipelineDeploymentList /> tests snapshot test 1`] = `
       <div
         class="bp3-card bp3-elevation-0 Card--card card"
         data-disabled="false"
+        data-variant="Default"
       >
         <div
           class="cardLink"

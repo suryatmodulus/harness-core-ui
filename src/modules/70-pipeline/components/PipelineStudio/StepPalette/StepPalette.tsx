@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, Color, Container } from '@wings-software/uicore'
+import { ExpandingSearchInput, Card, Text, Icon, Layout, Color, Container, Heading } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -107,7 +107,6 @@ export interface StepPaletteProps {
 }
 export const StepPalette: React.FC<StepPaletteProps> = ({
   onSelect,
-  onClose,
   selectedStage,
   stepsFactory,
   stageType,
@@ -151,7 +150,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   }, [stepsData?.data?.stepCategories])
 
   const renderIcon = () => {
-    return <Icon size={8} name="harness" className={css.stepHarnessLogo} />
+    return <Icon size={12} name="harness-logo-white-bg-blue" className={css.stepHarnessLogo} />
   }
 
   const filterSteps = (stepName: string, context = FilterContext.NAV): void => {
@@ -217,11 +216,12 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     <div className={css.stepPalette}>
       <div className={css.stepInside}>
         <section className={css.stepsRenderer}>
-          <Layout.Vertical padding="large" spacing="large">
+          <Layout.Vertical padding="xlarge" spacing="large">
             <Layout.Horizontal spacing="medium" className={css.paletteCardHeader}>
               <Layout.Vertical>
-                <Text className={css.title}>{getString('stepPalette.title')}</Text>
-                <Text className={css.subTitle}>{getString('stepPalette.subTitle')}</Text>
+                <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }} className={css.title}>
+                  {getString('stepPalette.title')}
+                </Heading>
               </Layout.Vertical>
 
               <ExpandingSearchInput
@@ -352,8 +352,6 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                   {getString('stepPalette.library')}
                 </Text>
               </Container>
-
-              <Button intent="primary" minimal icon="cross" onClick={onClose} color={Color.WHITE} withoutBoxShadow />
             </Layout.Horizontal>
 
             <section
@@ -396,7 +394,11 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                   const subCategory = category.stepCategories
                   stepRenderer.push(
                     <section
-                      className={cx(css.category, selectedCategory === category.name && css.active)}
+                      className={cx(
+                        css.category,
+                        selectedCategory === category.name && css.active,
+                        subCategory.length && css.hasSubCategories
+                      )}
                       onClick={() => {
                         filterSteps(category.name || '')
                       }}
@@ -417,7 +419,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                           css.category,
                           css.subCategory,
                           css.offset,
-                          selectedCategory === subCat.name && css.active
+                          selectedCategory === subCat.name && css.active,
+                          k === subCategory.length - 1 && css.lastSubCategory
                         )}
                         onClick={() => {
                           filterSteps(subCat.name || /* istanbul ignore next */ '')

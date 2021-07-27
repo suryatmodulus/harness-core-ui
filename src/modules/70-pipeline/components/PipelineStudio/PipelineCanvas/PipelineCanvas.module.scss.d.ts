@@ -14,6 +14,7 @@ declare const styles: {
   readonly savePublishContainer: string
   readonly readonlyAccessTag: string
   readonly readonlyAccessText: string
+  readonly saveButton: string
   readonly tagRender: string
   readonly runPipelineBtn: string
   readonly discardBtn: string

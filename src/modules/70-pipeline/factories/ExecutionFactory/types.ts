@@ -2,6 +2,7 @@ import type { IconName } from '@wings-software/uicore'
 
 import type { ExecutionNode, GraphLayoutNode } from 'services/pipeline-ng'
 import type { StageType } from '@pipeline/utils/stageHelpers'
+import type { CardVariant } from '@pipeline/utils/constants'
 
 export interface StepDetailProps {
   step: ExecutionNode
@@ -17,6 +18,7 @@ export interface ExecutionCardInfoProps {
   data: Record<string, any>
   nodeMap: Record<string, GraphLayoutNode>
   startingNodeId: string
+  variant: CardVariant
 }
 
 export interface ExecutionCardInfoRegister {

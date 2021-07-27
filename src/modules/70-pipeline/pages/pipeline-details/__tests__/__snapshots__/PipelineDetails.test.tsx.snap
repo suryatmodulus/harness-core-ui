@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Pipeline Details tests render snapshot view 1`] = `
+exports[`Pipeline Details tests render snapshot view for non pipeline studio route 1`] = `
 <div>
   <div
     class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"

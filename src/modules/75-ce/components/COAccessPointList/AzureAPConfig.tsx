@@ -31,7 +31,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
   // const [loadBalancerId, setLoadBalancerId] = useState<string>()
   const [lbCreationInProgress, setLbCreationInProgress] = useState<boolean>(false)
 
-  const { orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
     accountId: string
@@ -49,8 +49,7 @@ const AzureAPConfig: React.FC<AzureAPConfigProps> = props => {
   // })
 
   const { mutate: createLoadBalancer } = useCreateAccessPoint({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier // eslint-disable-line
+    account_id: accountId
   })
 
   const moveForward = () => {

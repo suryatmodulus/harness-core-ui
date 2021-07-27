@@ -21,14 +21,7 @@ export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalRetu
   const [roleData, setRoleData] = useState<Role>()
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog
-        isOpen={true}
-        enforceFocus={false}
-        onClose={() => {
-          hideModal()
-        }}
-        className={cx(css.dialog, Classes.DIALOG)}
-      >
+      <Dialog isOpen={true} enforceFocus={false} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
         <RoleForm
           data={roleData}
           isEdit={!!roleData}
@@ -38,18 +31,10 @@ export const useRoleModal = ({ onSuccess }: UseRoleModalProps): UseRoleModalRetu
           }}
         />
 
-        <Button
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={() => {
-            hideModal()
-          }}
-          className={css.crossIcon}
-        />
+        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    [roleData]
+    [roleData, onSuccess]
   )
   const open = useCallback(
     (_role?: Role) => {

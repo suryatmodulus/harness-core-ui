@@ -12,7 +12,7 @@ exports[`Test GatewayDetails renders review screen 1`] = `
       <div>
         <a
           class="breadcrumb"
-          href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+          href="/account/accountId/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>
@@ -1023,7 +1023,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
       <div>
         <a
           class="breadcrumb"
-          href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+          href="/account/accountId/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>
@@ -2590,7 +2590,7 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
       <div>
         <a
           class="breadcrumb"
-          href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+          href="/account/accountId/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>
@@ -2982,7 +2982,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
       <div>
         <a
           class="breadcrumb"
-          href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+          href="/account/accountId/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>
@@ -3374,7 +3374,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
       <div>
         <a
           class="breadcrumb"
-          href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+          href="/account/accountId/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>
@@ -4997,7 +4997,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
       <div>
         <a
           class="breadcrumb"
-          href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+          href="/account/accountId/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>

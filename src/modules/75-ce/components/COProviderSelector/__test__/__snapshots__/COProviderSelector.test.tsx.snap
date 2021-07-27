@@ -8,7 +8,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
     <div>
       <a
         class="breadcrumb"
-        href="/account/testAcc/ce/orgs/undefined/projects/undefined/autostopping-rules"
+        href="/account/testAcc/ce/autostopping-rules"
       >
         ce.co.breadCrumb.rules
       </a>
@@ -355,7 +355,7 @@ exports[`COProviderSelector passing a provider property shows the gateway basics
     <div>
       <a
         class="breadcrumb"
-        href="/account/testAcc/ce/orgs/undefined/projects/undefined/autostopping-rules"
+        href="/account/testAcc/ce/autostopping-rules"
       >
         ce.co.breadCrumb.rules
       </a>
@@ -665,7 +665,7 @@ exports[`COProviderSelector selecting AWS provider shows option to select connec
     <div>
       <a
         class="breadcrumb"
-        href="/account/testAcc/ce/orgs/undefined/projects/undefined/autostopping-rules"
+        href="/account/testAcc/ce/autostopping-rules"
       >
         ce.co.breadCrumb.rules
       </a>
@@ -975,7 +975,7 @@ exports[`COProviderSelector selecting Azure provider shows option to select conn
     <div>
       <a
         class="breadcrumb"
-        href="/account/testAcc/ce/orgs/undefined/projects/undefined/autostopping-rules"
+        href="/account/testAcc/ce/autostopping-rules"
       >
         ce.co.breadCrumb.rules
       </a>

@@ -12,7 +12,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
       <div>
         <a
           class="breadcrumb"
-          href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+          href="/account/accountId/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>

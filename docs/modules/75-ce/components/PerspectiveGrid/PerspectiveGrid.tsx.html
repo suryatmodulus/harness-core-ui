@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.55% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>29/31</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">90.48% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>19/21</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
                 <span class="strong">83.33% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>5/6</span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>30/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">63.33% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>19/30</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">71.43% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>5/7</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">82.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/30</span>
+                <span class='fraction'>29/35</span>
             </div>
         
             
@@ -151,7 +151,22 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -174,7 +189,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,12 +240,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -247,7 +277,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo, useEffect, useState } from 'react'
 import { Text, Container, Icon } from '@wings-software/uicore'
-import type { Column } from 'react-table'
+import type { Column, Row } from 'react-table'
 import { isEqual } from 'lodash-es'
 import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } from 'services/ce/services'
 import ColumnSelector from './ColumnSelector'
@@ -266,6 +296,7 @@ export interface PerspectiveGridProps {
   gridData: Maybe&lt;Maybe&lt;QlceViewEntityStatsDataPoint&gt;[]&gt; | undefined
   gridFetching: boolean
   isClusterOnly?: boolean
+  goToWorkloadDetails?: (clusterName: string, namespace: string, workloadName: string) =&gt; void
 }
 &nbsp;
 const PerspectiveGrid: React.FC&lt;PerspectiveGridProps&gt; = props =&gt; {
@@ -276,7 +307,8 @@ const PerspectiveGrid: React.FC&lt;PerspectiveGridProps&gt; = props =&gt; {
     showColumnSelector,
     gridData: response,
     gridFetching: fetching,
-    isClusterOnly = false
+    isClusterOnly = false,
+    goToWorkloadDetails
   } = props
 &nbsp;
   const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
@@ -316,6 +348,18 @@ const PerspectiveGrid: React.FC&lt;PerspectiveGridProps&gt; = props =&gt; {
     )
   }
 &nbsp;
+  const onRowClick = <span class="fstat-no" title="function not covered" >(r</span>ow: Row&lt;GridData&gt;) =&gt; {
+    const { fieldName } = <span class="cstat-no" title="statement not covered" >groupBy</span>
+<span class="cstat-no" title="statement not covered" >    if (fieldName === 'Workload Id' &amp;&amp; isClusterOnly) {</span>
+      const { clusterName, namespace, workloadName } = <span class="cstat-no" title="statement not covered" >row.original</span>
+<span class="cstat-no" title="statement not covered" >      goToWorkloadDetails &amp;&amp;</span>
+        clusterName &amp;&amp;
+        namespace &amp;&amp;
+        workloadName &amp;&amp;
+        goToWorkloadDetails(clusterName, namespace, workloadName)
+    }
+  }
+&nbsp;
   return (
     &lt;Container background="white"&gt;
       {showColumnSelector &amp;&amp; (
@@ -327,6 +371,7 @@ const PerspectiveGrid: React.FC&lt;PerspectiveGridProps&gt; = props =&gt; {
       )}
       &lt;Grid&lt;GridData&gt;
         data={gridData}
+        onRowClick={onRowClick}
         columns={props.tempGridColumns ? (<span class="branch-0 cbranch-no" title="branch not covered" >DEFAULT_COLS as Column&lt;GridData&gt;[]) </span>: (selectedColumns as Column&lt;GridData&gt;[])}
         showPagination={props.showPagination}
       /&gt;
@@ -346,7 +391,7 @@ export default PerspectiveGrid
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Jul 26 2021 18:18:07 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 27 2021 02:30:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -33,7 +33,11 @@ export interface TimeRange {
 }
 
 const NoDataOverviewPage = () => {
-  const { openModal } = useCreateConnectorMinimal({})
+  const { openModal, closeModal } = useCreateConnectorMinimal({
+    onSuccess: () => {
+      closeModal()
+    }
+  })
   useEffect(() => {
     openModal()
   }, [])

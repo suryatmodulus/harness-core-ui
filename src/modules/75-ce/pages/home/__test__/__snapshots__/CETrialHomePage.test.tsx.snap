@@ -3,93 +3,52 @@
 exports[`CETrialHomePage snapshot test it should render properly 1`] = `
 <div>
   <div
-    class="StyledProps--font StyledProps--main body"
-    style="background: transparent url(test-file-stub) no-repeat;"
+    class="StyledProps--font StyledProps--main pageBody body hasNoBanner"
+    data-name="page-body"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      class="StyledProps--font StyledProps--main container"
+      style="background: transparent url(test-file-stub) no-repeat;"
     >
-      <h1
-        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
-      >
-        ce.continuous
-      </h1>
       <div
-        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px;"
+        <h1
+          class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          ce.ceTrialHomePage.startTrial.description
+          ce.ccm
+        </h1>
+        <p
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
+        >
+          ce.homepage.slogan
         </p>
         <a
-          class="learnMore"
-          href="https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder"
-          rel="noreferrer"
+          class="bp3-button Button--button StyledProps--font StyledProps--main link StyledProps--color StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
+          href="https://ngdocs.harness.io/"
+          rel="noreferrer noopener"
+          role="button"
+          tabindex="0"
           target="_blank"
-        >
-          ce.learnMore
-        </a>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-          style="width: 300px; height: 45px;"
-          type="button"
         >
           <span
             class="bp3-button-text"
           >
-            getStarted
+            ce.learnMore
           </span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`CETrialHomePage snapshot test it should show a loading spinner 1`] = `
-<div>
-  <div
-    class="StyledProps--font StyledProps--main body"
-    style="background: transparent url(test-file-stub) no-repeat;"
-  >
-    <div
-      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
-    >
-      <h1
-        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
-      >
-        ce.continuous
-      </h1>
-      <div
-        class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-      >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--padding-bottom-xxlarge"
-          style="width: 500px;"
-        >
-          ce.ceTrialHomePage.startTrial.description
-        </p>
-        <a
-          class="learnMore"
-          href="https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder"
-          rel="noreferrer"
-          target="_blank"
-        >
-          ce.learnMore
         </a>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-          style="width: 300px; height: 45px;"
-          type="button"
+        <div
+          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--flex"
         >
-          <span
-            class="bp3-button-text"
+          <div
+            class="createBtn linkCursor"
           >
-            getStarted
-          </span>
-        </button>
+            ce.trialCta
+          </div>
+          <span
+            style="flex-grow: 1;"
+          />
+        </div>
       </div>
     </div>
   </div>

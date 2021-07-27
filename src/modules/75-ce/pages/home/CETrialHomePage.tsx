@@ -1,80 +1,95 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
-import { useStartTrialLicense } from 'services/cd-ng'
-import { useQueryParams } from '@common/hooks'
+// import { useStartTrialLicense } from 'services/cd-ng'
+// import { useQueryParams } from '@common/hooks'
 import { useStrings } from 'framework/strings'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
-import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
+// import { PageSpinner } from '@common/components/Page/PageSpinner'
+// import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
 import routes from '@common/RouteDefinitions'
-import { useToaster } from '@common/components'
-import bgImageURL from './ce-homepage-bg.svg'
+// import { useToaster } from '@common/components'
+import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
+import type { ModuleName } from 'framework/types/ModuleName'
+import useCreateConnector from '@ce/components/CreateConnector/CreateConnector'
+import bgImage from './images/cehomebg.svg'
 
-const CETrialHomePage: React.FC = () => {
+interface TrialBannerProps {
+  expiryTime?: number
+  licenseType?: string
+  module: ModuleName
+  refetch?: () => void
+}
+
+interface CETrialHomePagePropa {
+  trialBannerProps: TrialBannerProps
+}
+
+const CETrialHomePage: React.FC<CETrialHomePagePropa> = props => {
   const { getString } = useStrings()
 
   const { accountId } = useParams<{
     accountId: string
   }>()
   const history = useHistory()
-  const { source } = useQueryParams<{ source?: string }>()
-  const { showError } = useToaster()
+  // const { source } = useQueryParams<{ source?: string }>()
+  // const { showError } = useToaster()
 
-  const {
-    error,
-    mutate: startTrial,
-    loading
-  } = useStartTrialLicense({
-    queryParams: {
-      accountIdentifier: accountId
+  const { openModal } = useCreateConnector({
+    onSuccess: () => {
+      history.push(routes.toCEOverview({ accountId }))
     }
   })
 
-  async function startTrialAndRouteToModuleHome(): Promise<void> {
-    await startTrial({ moduleType: 'CE' })
-    history.push({
-      pathname: routes.toModuleHome({ accountId, module: 'ce' }),
-      search: '?trial=true'
-    })
-  }
+  // const {
+  //   error,
+  //   mutate: startTrial,
+  //   loading
+  // } = useStartTrialLicense({
+  //   queryParams: {
+  //     accountIdentifier: accountId
+  //   }
+  // })
 
-  const { showModal: openStartTrialModal } = useStartTrialModal({
-    module: 'ce',
-    handleStartTrial: source === 'signup' ? undefined : startTrialAndRouteToModuleHome
-  })
+  // async function startTrialAndRouteToModuleHome(): Promise<void> {
+  //   await startTrial({ moduleType: 'CE' })
+  //   history.push({
+  //     pathname: routes.toModuleHome({ accountId, module: 'ce' }),
+  //     search: '?trial=true'
+  //   })
+  // }
 
-  const startTrialProps = {
-    description: getString('ce.ceTrialHomePage.startTrial.description'),
-    learnMore: {
-      description: getString('ce.learnMore'),
-      url: 'https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder'
-    },
-    startBtn: {
-      description: source ? getString('common.startTrial') : getString('getStarted'),
-      onClick: source ? undefined : openStartTrialModal
-    }
-  }
+  // const { showModal: openStartTrialModal } = useStartTrialModal({
+  //   module: 'ce',
+  //   handleStartTrial: source === 'signup' ? undefined : startTrialAndRouteToModuleHome
+  // })
 
-  useEffect(() => {
-    if (source === 'signup') {
-      openStartTrialModal()
-    }
-  }, [openStartTrialModal, source])
+  // useEffect(() => {
+  //   if (source === 'signup') {
+  //     openStartTrialModal()
+  //   }
+  // }, [openStartTrialModal, source])
 
-  if (loading) {
-    return <PageSpinner />
-  }
+  // if (loading) {
+  //   return <PageSpinner />
+  // }
 
-  if (error) {
-    showError((error.data as Error)?.message || error.message, undefined, 'ce.start.trial.error')
-  }
+  // if (error) {
+  //   showError((error.data as Error)?.message || error.message, undefined, 'ce.start.trial.error')
+  // }
 
   return (
-    <StartTrialTemplate
-      title={getString('ce.continuous')}
-      bgImageUrl={bgImageURL}
-      startTrialProps={startTrialProps}
-      module="ce"
+    <HomePageTemplate
+      title={getString('ce.ccm')}
+      bgImageUrl={bgImage}
+      subTitle={getString('ce.homepage.slogan')}
+      documentText={getString('ce.learnMore')}
+      trialBannerProps={props?.trialBannerProps as TrialBannerProps}
+      ctaProps={{
+        text: getString('ce.trialCta'),
+        onClick: () => {
+          openModal()
+        }
+      }}
+      disableAdditionalCta={true}
     />
   )
 }

@@ -8,7 +8,7 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
-import { MinimalLayout } from '@common/layouts'
+// import { MinimalLayout } from '@common/layouts'
 import SessionToken from 'framework/utils/SessionToken'
 
 import CESideNav from '@ce/components/CESideNav/CESideNav'
@@ -22,7 +22,7 @@ import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPa
 import CECOEditGatewayPage from './pages/co-edit-gateway/CECOEditGatewayPage'
 import CECOLoadBalancersPage from './pages/co-access-points/CECOAccessPointsPage'
 import Budgets from './pages/budgets/Budgets'
-import CETrialHomePage from './pages/home/CETrialHomePage'
+// import CETrialHomePage from './pages/home/CETrialHomePage'
 
 import RecommendationList from './pages/recommendationList/RecommendationList'
 import RecommendationDetailsPage from './pages/recommendationDetails/RecommendationDetailsPage'
@@ -97,13 +97,13 @@ const CERoutes: React.FC = () => {
         <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>
           <CEHomePage />
         </RouteWithLayout>
-        <RouteWithLayout
+        {/* <RouteWithLayout
           layout={MinimalLayout}
           path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ce' })}
           exact
         >
           <CETrialHomePage />
-        </RouteWithLayout>
+        </RouteWithLayout> */}
         <RouteWithLayout
           sidebarProps={CESideNavProps}
           path={routes.toCEOverview({ ...accountPathProps, ...projectPathProps })}

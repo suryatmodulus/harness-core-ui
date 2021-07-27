@@ -115,7 +115,7 @@ export const useCreateConnectorMinimal = (props: UseCreateConnectorProps) => {
     }
   }
 
-  const [showModal] = useModalHook(() => {
+  const [showModal, hideModal] = useModalHook(() => {
     return (
       <Dialog isOpen={true} style={{ width: 450, padding: 40 }} enforceFocus={false}>
         <Text color={Color.GREY_700} font={{ weight: 'bold', size: 'normal' }} style={{ marginBottom: 10 }}>
@@ -132,7 +132,7 @@ export const useCreateConnectorMinimal = (props: UseCreateConnectorProps) => {
     )
   }, [])
 
-  return { openModal: showModal }
+  return { openModal: showModal, closeModal: hideModal }
 }
 
 const FeaturesCarousel = () => {

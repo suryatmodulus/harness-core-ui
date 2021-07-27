@@ -437,11 +437,7 @@
 <a name='L378'></a><a href='#L378'>378</a>
 <a name='L379'></a><a href='#L379'>379</a>
 <a name='L380'></a><a href='#L380'>380</a>
-<a name='L381'></a><a href='#L381'>381</a>
-<a name='L382'></a><a href='#L382'>382</a>
-<a name='L383'></a><a href='#L383'>383</a>
-<a name='L384'></a><a href='#L384'>384</a>
-<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L381'></a><a href='#L381'>381</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -583,6 +579,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -595,21 +600,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -961,17 +953,15 @@ const COGatewayAnalytics: React.FC&lt;COGatewayAnalyticsProps&gt; = props =&gt; 
   const [idleHourSeries, setIdleHourSeries] = useState&lt;number[]&gt;([])
   const [actualHoursSeries, setActualHoursSeries] = useState&lt;number[]&gt;([])
   const { data, loading } = useSavingsOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number,
+    account_id: accountId,
+    rule_id: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number,
     queryParams: {
       accountIdentifier: accountId
     }
   })
   const { data: graphData, loading: graphLoading } = useSavingsOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number,
+    account_id: accountId,
+    rule_id: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number,
     queryParams: {
       accountIdentifier: accountId,
       from: moment(startOfDay(today().subtract(7, 'days'))).format(DATE_FORMAT),
@@ -980,9 +970,8 @@ const COGatewayAnalytics: React.FC&lt;COGatewayAnalyticsProps&gt; = props =&gt; 
     }
   })
   const { data: healthData, loading: healthDataLoading } = useHealthOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number,
+    account_id: accountId,
+    rule_id: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -993,9 +982,8 @@ const COGatewayAnalytics: React.FC&lt;COGatewayAnalyticsProps&gt; = props =&gt; 
     loading: resourcesLoading,
     error: resourceError
   } = useAllServiceResources({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    service_id: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number, // eslint-disable-line
+    account_id: accountId,
+    rule_id: props.service<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata.id as number, // eslint-disable-line
     debounce: 300
   })
 &nbsp;
@@ -1216,7 +1204,7 @@ export default COGatewayAnalytics
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 27 2021 15:58:18 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 27 2021 18:33:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

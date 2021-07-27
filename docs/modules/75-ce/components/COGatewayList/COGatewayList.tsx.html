@@ -761,20 +761,7 @@
 <a name='L702'></a><a href='#L702'>702</a>
 <a name='L703'></a><a href='#L703'>703</a>
 <a name='L704'></a><a href='#L704'>704</a>
-<a name='L705'></a><a href='#L705'>705</a>
-<a name='L706'></a><a href='#L706'>706</a>
-<a name='L707'></a><a href='#L707'>707</a>
-<a name='L708'></a><a href='#L708'>708</a>
-<a name='L709'></a><a href='#L709'>709</a>
-<a name='L710'></a><a href='#L710'>710</a>
-<a name='L711'></a><a href='#L711'>711</a>
-<a name='L712'></a><a href='#L712'>712</a>
-<a name='L713'></a><a href='#L713'>713</a>
-<a name='L714'></a><a href='#L714'>714</a>
-<a name='L715'></a><a href='#L715'>715</a>
-<a name='L716'></a><a href='#L716'>716</a>
-<a name='L717'></a><a href='#L717'>717</a>
-<a name='L718'></a><a href='#L718'>718</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L705'></a><a href='#L705'>705</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -954,7 +941,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -980,7 +966,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1008,7 +993,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1048,9 +1032,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1260,12 +1242,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1325,8 +1303,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1372,8 +1348,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1664,8 +1638,7 @@ const COGatewayList: React.FC = () =&gt; {
     loading,
     refetch: refetchServices
   } = useGetServices({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -1690,9 +1663,8 @@ const COGatewayList: React.FC = () =&gt; {
 &nbsp;
   function <span class="fstat-no" title="function not covered" >SavingsCell(</span>tableProps: CellProps&lt;Service&gt;): JSX.Element {
     const { data, loading: savingsLoading } = <span class="cstat-no" title="statement not covered" >useSavingsOfService({</span>
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -1725,9 +1697,8 @@ const COGatewayList: React.FC = () =&gt; {
   }
   function <span class="fstat-no" title="function not covered" >ActivityCell(</span>tableProps: CellProps&lt;Service&gt;): JSX.Element {
     const { data, loading: activityLoading } = <span class="cstat-no" title="statement not covered" >useRequestsOfService({</span>
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -1753,9 +1724,8 @@ const COGatewayList: React.FC = () =&gt; {
   function <span class="fstat-no" title="function not covered" >ResourcesCell(</span>tableProps: CellProps&lt;Service&gt;): JSX.Element {
     const isK8sRule = <span class="cstat-no" title="statement not covered" >tableProps.row.original.kind === 'k8s'</span>
     const { data, loading: healthLoading } = <span class="cstat-no" title="statement not covered" >useHealthOfService({</span>
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -1767,9 +1737,8 @@ const COGatewayList: React.FC = () =&gt; {
       loading: resourcesLoading,
       error: resourcesError
     } = <span class="cstat-no" title="statement not covered" >useAllServiceResources({</span>
-      org_id: orgIdentifier, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      service_id: tableProps.row.original.id as number, // eslint-disable-line
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number, // eslint-disable-line
       debounce: 300,
       lazy: isK8sRule
     })
@@ -1972,8 +1941,6 @@ const COGatewayList: React.FC = () =&gt; {
   const handleServiceEdit = <span class="fstat-no" title="function not covered" >(_</span>service: Service) =&gt;
 <span class="cstat-no" title="statement not covered" >    history.push(</span>
       routes.toCECOEditGateway({
-        orgIdentifier: _service.org_id as string,
-        projectIdentifier: _service.project_id as string,
         accountId: _service.account_identifier as string,
         gatewayIdentifier: _service.id?.toString() as string
       })
@@ -1981,10 +1948,8 @@ const COGatewayList: React.FC = () =&gt; {
 &nbsp;
   const StatusCell = <span class="fstat-no" title="function not covered" >({</span> row }: CellProps&lt;Service&gt;) =&gt; {
     const { data } = <span class="cstat-no" title="statement not covered" >useGetServiceDiagnostics({</span>
-      org_id: orgIdentifier, // eslint-disable-line
       account_id: accountId, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      service_id: row.original.id as number, // eslint-disable-line
+      rule_id: row.original.id as number, // eslint-disable-line
       queryParams: {
         accountIdentifier: accountId
       }
@@ -2014,7 +1979,7 @@ const COGatewayList: React.FC = () =&gt; {
             className={css.breadCrumb}
             links={[
               {
-                url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+                url: routes.toCECORules({ accountId }),
                 label: getString('ce.co.breadCrumb.rules')
               }
             ]}
@@ -2039,8 +2004,6 @@ const COGatewayList: React.FC = () =&gt; {
               onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                history.push(</span>
                   routes.toCECOCreateGateway({
-                    orgIdentifier: orgIdentifier as string,
-                    projectIdentifier: projectIdentifier as string,
                     accountId
                   })
                 )
@@ -2090,8 +2053,6 @@ const COGatewayList: React.FC = () =&gt; {
                       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                        history.push(</span>
                           routes.toCECOCreateGateway({
-                            orgIdentifier: orgIdentifier as string,
-                            projectIdentifier: projectIdentifier as string,
                             accountId
                           })
                         )
@@ -2215,7 +2176,7 @@ export default COGatewayList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 27 2021 15:58:18 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 27 2021 18:33:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

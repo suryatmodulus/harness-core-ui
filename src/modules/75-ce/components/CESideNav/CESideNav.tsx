@@ -25,7 +25,7 @@ export default function CESideNav(): React.ReactElement {
     <Layout.Vertical spacing="small">
       <Layout.Vertical
         padding={{ top: 'xlarge', left: 'medium', bottom: 'xlarge', right: 'medium' }}
-        border={{ bottom: true, color: 'rgba(#FFF, 0.2)' }}
+        border={{ bottom: true, color: 'rgba(#FFF)' }}
       >
         <Text font={{ size: 'small' }}>Account</Text>
         <Text font={{ size: 'normal' }} color={'white'} style={{ paddingTop: 10 }}>

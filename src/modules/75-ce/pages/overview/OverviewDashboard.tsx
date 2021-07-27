@@ -8,7 +8,7 @@ import bgImage from './images/CD/overviewBg.png'
 // interface OverviewDashboardProps {}
 
 const OverviewDashboard: React.FC = () => {
-  const { openModal } = useCreateConnectorMinimal()
+  const { openModal } = useCreateConnectorMinimal({})
 
   const [result] = useCcmMetaDataQuery()
   const { data } = result

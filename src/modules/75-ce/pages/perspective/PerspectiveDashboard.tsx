@@ -7,7 +7,7 @@ import bgImage from './images/perspectiveBg.png'
 // interface PerspectiveDashboardProps {}
 
 const PerspectiveDashboard: React.FC = () => {
-  const { openModal } = useCreateConnectorMinimal()
+  const { openModal } = useCreateConnectorMinimal({})
 
   const [result] = useCcmMetaDataQuery()
   const { data } = result

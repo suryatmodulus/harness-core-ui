@@ -54,10 +54,7 @@ export default function CESideNav(): React.ReactElement {
       />
       {
         <React.Fragment>
-          <SidebarLink
-            label={getString('overview')}
-            to={routes.toCEOverview({ accountId, projectIdentifier, orgIdentifier })}
-          />
+          <SidebarLink label={getString('overview')} to={routes.toCEOverview({ accountId })} />
           <SidebarLink
             label={getString('ce.sideNav.perspective')}
             to={routes.toCEPerspectiveDashboard({ accountId, projectIdentifier, orgIdentifier })}

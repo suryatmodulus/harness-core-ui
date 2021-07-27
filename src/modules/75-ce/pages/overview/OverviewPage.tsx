@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import cx from 'classnames'
 import { Container } from '@wings-software/uicore'
 import { Page } from '@common/components/Page/Page'
@@ -22,11 +22,24 @@ import OverviewCostByProviders from '@ce/components/OverviewPage/OverviewCostByP
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
 import { PageSpinner } from '@common/components'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
+import { Utils } from '@ce/common/Utils'
+import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
+import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
 export interface TimeRange {
   to: string
   from: string
+}
+
+const NoDataOverviewPage = () => {
+  const { openModal } = useCreateConnectorMinimal({})
+  useEffect(() => {
+    openModal()
+  }, [])
+  return (
+    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
+  )
 }
 
 const OverviewPage = () => {
@@ -74,9 +87,12 @@ const OverviewPage = () => {
   if (fetchingCCMMetaData) {
     return <PageSpinner />
   }
-
   // cloudDataPresent = false
   // clusterDataPresent = false
+
+  if (ccmData && !Utils.accountHasConnectors(ccmData.ccmMetaData as CcmMetaData)) {
+    return <NoDataOverviewPage />
+  }
 
   return (
     <Container>

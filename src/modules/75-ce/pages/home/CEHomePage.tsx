@@ -31,7 +31,7 @@ const CEHomePage: React.FC = () => {
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
-  const { openModal } = useCreateConnector()
+  const { openModal } = useCreateConnector({})
 
   const {
     data: projectListData,

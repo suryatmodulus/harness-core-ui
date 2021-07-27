@@ -38,6 +38,10 @@ interface CloudProviderListProps {
   selected?: string
 }
 
+interface UseCreateConnectorProps {
+  onSuccess?: () => void
+}
+
 const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selected }) => {
   const providers = [
     {
@@ -80,10 +84,10 @@ const CloudProviderList: React.FC<CloudProviderListProps> = ({ onChange, selecte
   )
 }
 
-export const useCreateConnectorMinimal = () => {
+export const useCreateConnectorMinimal = (props: UseCreateConnectorProps) => {
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
-      // handleConnectorCreationSuccess(data?.connector)
+      props?.onSuccess?.()
     }
   })
 
@@ -187,12 +191,12 @@ const FeaturesCarousel = () => {
   )
 }
 
-const useCreateConnector = () => {
+const useCreateConnector = (props: UseCreateConnectorProps) => {
   const [selectedProvider, setSelectedProvider] = useState<string>()
 
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
-      // handleConnectorCreationSuccess(data?.connector)
+      props?.onSuccess?.()
     }
   })
 

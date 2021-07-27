@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.68% </span>
+                <span class="strong">64.35% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>135/212</span>
+                <span class='fraction'>139/216</span>
             </div>
         
             
@@ -497,7 +497,10 @@
 <a name='L438'></a><a href='#L438'>438</a>
 <a name='L439'></a><a href='#L439'>439</a>
 <a name='L440'></a><a href='#L440'>440</a>
-<a name='L441'></a><a href='#L441'>441</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L441'></a><a href='#L441'>441</a>
+<a name='L442'></a><a href='#L442'>442</a>
+<a name='L443'></a><a href='#L443'>443</a>
+<a name='L444'></a><a href='#L444'>444</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -611,7 +614,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -727,6 +729,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -834,8 +837,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -897,6 +898,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -911,6 +916,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -938,7 +944,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, Color, Container } from '@wings-software/uicore'
+import { ExpandingSearchInput, Card, Text, Icon, Layout, Color, Container, Heading } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -1046,7 +1052,6 @@ export interface StepPaletteProps {
 }
 export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
   onSelect,
-  onClose,
   selectedStage,
   stepsFactory,
   stageType,
@@ -1090,7 +1095,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
   }, [stepsData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepCategories])
 &nbsp;
   const renderIcon = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >    return &lt;Icon size={8} name="harness" className={css.stepHarnessLogo} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >    return &lt;Icon size={12} name="harness-logo-white-bg-blue" className={css.stepHarnessLogo} /&gt;</span>
   }
 &nbsp;
   const filterSteps = (stepName: string, context = <span class="branch-0 cbranch-no" title="branch not covered" >FilterContext.NAV)</span>: void =&gt; {
@@ -1156,11 +1161,12 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
     &lt;div className={css.stepPalette}&gt;
       &lt;div className={css.stepInside}&gt;
         &lt;section className={css.stepsRenderer}&gt;
-          &lt;Layout.Vertical padding="large" spacing="large"&gt;
+          &lt;Layout.Vertical padding="xlarge" spacing="large"&gt;
             &lt;Layout.Horizontal spacing="medium" className={css.paletteCardHeader}&gt;
               &lt;Layout.Vertical&gt;
-                &lt;Text className={css.title}&gt;{getString('stepPalette.title')}&lt;/Text&gt;
-                &lt;Text className={css.subTitle}&gt;{getString('stepPalette.subTitle')}&lt;/Text&gt;
+                &lt;Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }} className={css.title}&gt;
+                  {getString('stepPalette.title')}
+                &lt;/Heading&gt;
               &lt;/Layout.Vertical&gt;
 &nbsp;
               &lt;ExpandingSearchInput
@@ -1291,8 +1297,6 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                   {getString('stepPalette.library')}
                 &lt;/Text&gt;
               &lt;/Container&gt;
-&nbsp;
-              &lt;Button intent="primary" minimal icon="cross" onClick={onClose} color={Color.WHITE} withoutBoxShadow /&gt;
             &lt;/Layout.Horizontal&gt;
 &nbsp;
             &lt;section
@@ -1335,7 +1339,11 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                   const subCategory = category.stepCategories
                   stepRenderer.push(
                     &lt;section
-                      className={cx(css.category, selectedCategory === category.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.active)</span>}
+                      className={cx(
+                        css.category,
+                        selectedCategory === category.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.active,</span>
+                        subCategory.length &amp;&amp; css.hasSubCategories
+                      )}
                       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                        filterSteps(category.name || '')</span>
                       }}
@@ -1356,7 +1364,8 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                           css.category,
                           css.subCategory,
                           css.offset,
-                          selectedCategory === subCat.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.active</span>
+                          selectedCategory === subCat.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.active,</span>
+                          k === subCategory.length - 1 &amp;&amp; css.lastSubCategory
                         )}
                         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                          filterSteps(<span class="branch-0 cbranch-no" title="branch not covered" >subCat.name </span>|| /* istanbul ignore next */ '')</span>
@@ -1384,7 +1393,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 27 2021 08:13:57 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 27 2021 11:21:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

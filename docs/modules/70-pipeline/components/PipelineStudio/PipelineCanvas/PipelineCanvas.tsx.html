@@ -908,7 +908,16 @@
 <a name='L849'></a><a href='#L849'>849</a>
 <a name='L850'></a><a href='#L850'>850</a>
 <a name='L851'></a><a href='#L851'>851</a>
-<a name='L852'></a><a href='#L852'>852</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L852'></a><a href='#L852'>852</a>
+<a name='L853'></a><a href='#L853'>853</a>
+<a name='L854'></a><a href='#L854'>854</a>
+<a name='L855'></a><a href='#L855'>855</a>
+<a name='L856'></a><a href='#L856'>856</a>
+<a name='L857'></a><a href='#L857'>857</a>
+<a name='L858'></a><a href='#L858'>858</a>
+<a name='L859'></a><a href='#L859'>859</a>
+<a name='L860'></a><a href='#L860'>860</a>
+<a name='L861'></a><a href='#L861'>861</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -1605,10 +1614,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1695,8 +1700,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1762,7 +1780,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useModalHook, Text, Icon, Layout, Color, Button, SelectOption } from '@wings-software/uicore'
+import { useModalHook, Text, Icon, Layout, Button, SelectOption } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEmpty, isEqual, merge, omit } from 'lodash-es'
@@ -2428,7 +2446,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
   const RenderGitDetails: React.FC = <span class="cstat-no" title="statement not covered" >React.useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >    if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId &amp;&amp; gitDetails.repoIdentifier)) {</span>
 <span class="cstat-no" title="statement not covered" >      return (</span>
-        &lt;Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}&gt;
+        &lt;Layout.Horizontal spacing="medium" className={css.gitDetails}&gt;
           &lt;Layout.Horizontal spacing="small" className={css.repoDetails}&gt;
             &lt;Icon name="repository" margin={{ left: 'medium' }}&gt;&lt;/Icon&gt;
             {pipelineIdentifier === DefaultNewPipelineId &amp;&amp; !loadingRepos ? (
@@ -2438,11 +2456,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             )}
           &lt;/Layout.Horizontal&gt;
 &nbsp;
-          &lt;Layout.Horizontal
-            border={{ left: true, color: Color.GREY_300 }}
-            spacing="small"
-            className={css.branchDetails}
-          &gt;
+          &lt;Layout.Horizontal spacing="small" className={css.branchDetails}&gt;
             {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
               &lt;&gt;
                 &lt;Icon name="git-new-branch" margin={{ left: 'medium' }}&gt;&lt;/Icon&gt;
@@ -2536,7 +2550,14 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
                 &lt;/Text&gt;
                 {!isEmpty(pipeline?.tags) &amp;&amp; pipeline.tags &amp;&amp; &lt;TagsPopover tags={pipeline.tags} /&gt;}
                 {isYaml || isReadonly ? null : (
-                  &lt;Button minimal icon="Edit" withoutBoxShadow iconProps={{ size: 12 }} onClick={showModal} /&gt;
+                  &lt;Button
+                    minimal
+                    icon="Edit"
+                    withoutBoxShadow
+                    iconProps={{ size: 16 }}
+                    onClick={showModal}
+                    withoutCurrentColor={true}
+                  /&gt;
                 )}
               &lt;/div&gt;
 &nbsp;
@@ -2562,7 +2583,13 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
               {isUpdated &amp;&amp; !isReadonly &amp;&amp; &lt;div className={css.tagRender}&gt;{getString('unsavedChanges')}&lt;/div&gt;}
               &lt;div&gt;
                 {!isReadonly &amp;&amp; (
-                  &lt;Button intent="primary" text={getString('save')} onClick={saveAndPublish} icon="send-data" /&gt;
+                  &lt;Button
+                    intent="primary"
+                    text={getString('save')}
+                    onClick={saveAndPublish}
+                    icon="send-data"
+                    className={css.saveButton}
+                  /&gt;
                 )}
                 {pipelineIdentifier !== DefaultNewPipelineId &amp;&amp; !isReadonly &amp;&amp; (
                   &lt;Button
@@ -2617,7 +2644,7 @@ export const PipelineCanvas: React.FC&lt;PipelineCanvasProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 27 2021 08:13:57 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 27 2021 11:21:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

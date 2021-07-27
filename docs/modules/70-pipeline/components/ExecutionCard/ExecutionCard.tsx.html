@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/70-pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard/ExecutionCard.tsx</title>
+    <title>Code coverage report for modules/70-pipeline/components/ExecutionCard/ExecutionCard.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/pages/pipeline-deployment-list/ExecutionsList/ExecutionCard</a> ExecutionCard.tsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">modules/70-pipeline/components/ExecutionCard</a> ExecutionCard.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.29% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/35</span>
+                <span class='fraction'>34/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.88% </span>
+                <span class="strong">49.2% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>87/178</span>
+                <span class='fraction'>92/187</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.29% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/35</span>
+                <span class='fraction'>34/36</span>
             </div>
         
             
@@ -271,7 +271,16 @@
 <a name='L212'></a><a href='#L212'>212</a>
 <a name='L213'></a><a href='#L213'>213</a>
 <a name='L214'></a><a href='#L214'>214</a>
-<a name='L215'></a><a href='#L215'>215</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L215'></a><a href='#L215'>215</a>
+<a name='L216'></a><a href='#L216'>216</a>
+<a name='L217'></a><a href='#L217'>217</a>
+<a name='L218'></a><a href='#L218'>218</a>
+<a name='L219'></a><a href='#L219'>219</a>
+<a name='L220'></a><a href='#L220'>220</a>
+<a name='L221'></a><a href='#L221'>221</a>
+<a name='L222'></a><a href='#L222'>222</a>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -293,11 +302,13 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -485,6 +496,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Card, Icon } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
@@ -507,6 +525,7 @@ import executionFactory from '@pipeline/factories/ExecutionFactory'
 import { hasCDStage, hasCIStage, StageType } from '@pipeline/utils/stageHelpers'
 import { mapTriggerTypeToStringID } from '@pipeline/utils/triggerUtils'
 import GitPopover from '@pipeline/components/GitPopover/GitPopover'
+import { CardVariant } from '@pipeline/utils/constants'
 &nbsp;
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
 &nbsp;
@@ -515,10 +534,11 @@ import css from './ExecutionCard.module.scss'
 &nbsp;
 export interface ExecutionCardProps {
   pipelineExecution: PipelineExecutionSummary
+  variant?: CardVariant
 }
 &nbsp;
 export default function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
-  const { pipelineExecution } = props
+  const { pipelineExecution, variant = CardVariant.Default } = props
   const { orgIdentifier, projectIdentifier, accountId, module } = useParams&lt;PipelineType&lt;ProjectPathProps&gt;&gt;()
   const history = useHistory()
 &nbsp;
@@ -560,7 +580,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
   }
 &nbsp;
   return (
-    &lt;Card elevation={0} className={css.card} data-disabled={disabled}&gt;
+    &lt;Card elevation={0} className={css.card} data-disabled={disabled} data-variant={variant}&gt;
       &lt;div className={css.cardLink} onClick={handleClick}&gt;
         &lt;div className={css.content}&gt;
           &lt;div className={css.header}&gt;
@@ -614,21 +634,23 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   &lt;/Popover&gt;
                 ) : null}
               &lt;/div&gt;
-              &lt;ExecutionActions
-                executionStatus={pipelineExecution.status as ExecutionStatus}
-                params={{
-                  accountId,
-                  orgIdentifier,
-                  pipelineIdentifier: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-                  executionIdentifier: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>lanExecutionId || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
-                  projectIdentifier,
-                  module,
-                  repoIdentifier: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier,</span>
-                  branch: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch</span>
-                }}
-                canEdit={canEdit}
-                canExecute={canExecute}
-              /&gt;
+              {variant === CardVariant.Default || <span class="branch-1 cbranch-no" title="branch not covered" >variant === CardVariant.MinimalWithActions </span>? (
+                &lt;ExecutionActions
+                  executionStatus={pipelineExecution.status as ExecutionStatus}
+                  params={{
+                    accountId,
+                    orgIdentifier,
+                    pipelineIdentifier: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineIdentifier || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+                    executionIdentifier: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>lanExecutionId || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+                    projectIdentifier,
+                    module,
+                    repoIdentifier: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier,</span>
+                    branch: pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.branch</span>
+                  }}
+                  canEdit={canEdit}
+                  canExecute={canExecute}
+                /&gt;
+              ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
             &lt;/div&gt;
           &lt;/div&gt;
           &lt;div className={css.main}&gt;
@@ -639,7 +661,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   {React.createElement&lt;ExecutionCardInfoProps&gt;(ciInfo.component, {
                     data: pipelineExecution?.moduleInfo?.ci || {},
                     nodeMap: pipelineExecution?.layoutNodeMap || {},
-                    startingNodeId: pipelineExecution?.startingNodeId || ''
+                    startingNodeId: pipelineExecution?.startingNodeId || '',
+                    variant
                   })}
                 &lt;/div&gt;
               ) : null}
@@ -649,18 +672,21 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   {React.createElement&lt;ExecutionCardInfoProps&gt;(cdInfo.component, {
                     data: pipelineExecution?.moduleInfo?.cd || {},
                     nodeMap: pipelineExecution?.layoutNodeMap || {},
-                    startingNodeId: pipelineExecution?.startingNodeId || ''
+                    startingNodeId: pipelineExecution?.startingNodeId || '',
+                    variant
                   })}
                 &lt;/div&gt;
               ) : null}
             &lt;/div&gt;
-            &lt;MiniExecutionGraph
-              pipelineExecution={pipelineExecution}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              accountId={accountId}
-              module={module}
-            /&gt;
+            {variant === CardVariant.Default ? (
+              &lt;MiniExecutionGraph
+                pipelineExecution={pipelineExecution}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                accountId={accountId}
+                module={module}
+              /&gt;
+            ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
           &lt;/div&gt;
         &lt;/div&gt;
         &lt;div className={css.footer}&gt;
@@ -684,6 +710,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               className={css.duration}
               iconProps={{ size: 14, className: css.timerIcon }}
               startTime={pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tartTs}
+              durationText={variant === CardVariant.Default ? undefined : <span class="branch-1 cbranch-no" title="branch not covered" >' '}</span>
               endTime={pipelineExecution<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>ndTs}
             /&gt;
             &lt;TimeAgo
@@ -706,17 +733,17 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 27 2021 08:13:57 GMT+0000 (Greenwich Mean Time)
+                at Tue Jul 27 2021 11:21:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
-        <script src="../../../../../../prettify.js"></script>
+        <script src="../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../../sorter.js"></script>
-        <script src="../../../../../../block-navigation.js"></script>
+        <script src="../../../../sorter.js"></script>
+        <script src="../../../../block-navigation.js"></script>
     </body>
 </html>
     

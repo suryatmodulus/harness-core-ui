@@ -74,7 +74,7 @@ exports[`side nav tests side nav renders without error when no project is select
     </div>
     <a
       class="link"
-      href="/account/accountId/ce/orgs/undefined/projects/undefined/overview"
+      href="/account/accountId/ce/overview"
     >
       <p
         class="StyledProps--font StyledProps--main text"
@@ -196,7 +196,7 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
     </div>
     <a
       class="link"
-      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/overview"
+      href="/account/accountId/ce/overview"
     >
       <p
         class="StyledProps--font StyledProps--main text"
@@ -319,7 +319,7 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
     </div>
     <a
       class="link"
-      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/overview"
+      href="/account/accountId/ce/overview"
     >
       <p
         class="StyledProps--font StyledProps--main text"

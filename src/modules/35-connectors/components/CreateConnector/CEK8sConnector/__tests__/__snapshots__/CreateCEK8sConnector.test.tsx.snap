@@ -1,5 +1,1140 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Create CE K8s Connector Wizard Proceed with following steps 1`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="app-kubernetes"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 32 30"
+            width="40"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+            >
+              <path
+                d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
+                fill="#326CE5"
+              />
+              <path
+                d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
+                fill="#FFF"
+                stroke="#FFF"
+                stroke-width="0.25"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        pipelineSteps.kubernetesInfraStep.kubernetesConnector
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          1
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Feature Selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Provide permissions
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.verifyConnection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep overviewStep"
+      >
+        <div
+          class="heading"
+        >
+          overview
+        </div>
+        <div
+          class="infoSection"
+        >
+          connectors.ceK8.infoText
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
+        >
+          <div
+            class="OverlaySpinner--overlaySpinner"
+          >
+            <form
+              class="FormikForm--main"
+            >
+              <div>
+                <div
+                  class="StyledProps--font StyledProps--main"
+                  style="min-height: 460px;"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main main formElm"
+                  >
+                    <div
+                      class="InputWithIdentifier--txtNameContainer TextInput--main"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ID
+                          :
+                        </p>
+                        <span
+                          class="bp3-popover-wrapper"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="bp3-editable-text InputWithIdentifier--idValue"
+                              tabindex="0"
+                            >
+                              <span
+                                class="bp3-editable-text-content"
+                                style="height: 1px; line-height: 1px; min-width: 0;"
+                              >
+                                dummy_name
+                              </span>
+                            </div>
+                          </span>
+                        </span>
+                        <span
+                          class="bp3-icon bp3-icon-edit StyledProps--main"
+                          icon="edit"
+                          style="vertical-align: middle; cursor: pointer;"
+                        >
+                          <svg
+                            data-icon="edit"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              edit
+                            </desc>
+                            <path
+                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="bp3-form-group"
+                        data-id="name-0"
+                      >
+                        <label
+                          class="bp3-label"
+                          for="name"
+                        >
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="overViewStepForm_name"
+                          >
+                            name
+                          </span>
+                           
+                          <span
+                            class="bp3-text-muted"
+                          />
+                        </label>
+                        <div
+                          class="bp3-form-content"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="name"
+                              placeholder="common.namePlaceholder"
+                              type="text"
+                              value="dummy name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <label
+                        class="Label--main"
+                        style="font-size: 13px; font-weight: normal;"
+                      >
+                        optionalField
+                        <span
+                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                          data-name="edit"
+                          data-testid="description-edit"
+                          icon="edit"
+                        >
+                          <svg
+                            data-icon="edit"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              edit
+                            </desc>
+                            <path
+                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </label>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      <label
+                        class="Label--main"
+                        style="font-size: 13px; font-weight: normal;"
+                      >
+                        optionalField
+                        <span
+                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                          data-name="edit"
+                          data-testid="tags-edit"
+                          icon="edit"
+                        >
+                          <svg
+                            data-icon="edit"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              edit
+                            </desc>
+                            <path
+                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group selectConnector"
+                    data-id="referenceConnector-1"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="referenceConnector"
+                    >
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="overViewStepForm_referenceConnector"
+                      >
+                        connectors.ceK8.selectConnectorLabel
+                      </span>
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-popover-wrapper Select--main bp3-fill"
+                      >
+                        <div
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="bp3-input-group"
+                          >
+                            <input
+                              autocomplete="off"
+                              class="bp3-input"
+                              name="referenceConnector"
+                              placeholder="- Select -"
+                              style="padding-right: 0px;"
+                              type="text"
+                              value="rishabhk8s"
+                            />
+                            <span
+                              class="bp3-input-action"
+                            >
+                              <span
+                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                icon="chevron-down"
+                              >
+                                <svg
+                                  data-icon="chevron-down"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                >
+                                  <desc>
+                                    chevron-down
+                                  </desc>
+                                  <path
+                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                            </span>
+                          </div>
+                        </div>
+                        <div
+                          class="bp3-overlay bp3-overlay-inline"
+                        >
+                          <div
+                            class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
+                            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
+                          >
+                            <div
+                              class="bp3-popover bp3-minimal bp3-select-popover"
+                              style="transform-origin: center top;"
+                            >
+                              <div
+                                class="bp3-popover-content"
+                              >
+                                <div>
+                                  <ul
+                                    class="bp3-menu"
+                                  >
+                                    <li
+                                      class="Select--menuItem Select--active"
+                                    >
+                                      rishabhk8s
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main"
+                >
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        saveAndContinue
+                      </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create CE K8s Connector Wizard Proceed with following steps 2`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="app-kubernetes"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 32 30"
+            width="40"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+            >
+              <path
+                d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
+                fill="#326CE5"
+              />
+              <path
+                d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
+                fill="#FFF"
+                stroke="#FFF"
+                stroke-width="0.25"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        pipelineSteps.kubernetesInfraStep.kubernetesConnector
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Feature Selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Provide permissions
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.verifyConnection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical StyledProps--main featureSelectionCont"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main header"
+          level="2"
+        >
+          connectors.ceAws.crossAccountRoleStep1.heading
+        </h2>
+        <div
+          style="padding: 5px 5px 20px 5px;"
+        >
+          connectors.ceAws.crossAccountRoleStep1.description
+        </div>
+        <div
+          style="flex: 1;"
+        >
+          <div
+            class="grid"
+          >
+            <div
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
+              data-index="0"
+              tabindex="0"
+            >
+              <span
+                class="Card--corner"
+              >
+                <span
+                  class="Card--badge"
+                />
+                <span
+                  class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                  data-icon="main-tick"
+                >
+                  <svg
+                    height="10"
+                    viewBox="0 0 11 8"
+                    width="10"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </span>
+              </span>
+              <div>
+                <div
+                  style="display: flex; padding-bottom: 7px;"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
+                    data-icon="main-main-zoom_in"
+                    style="padding-right: 10px;"
+                  >
+                    <svg
+                      height="32"
+                      viewBox="0 0 14 14"
+                      width="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13.7 12.2l-3.5-3.5c.6-.9 1-2 1-3.2 0-3-2.5-5.5-5.6-5.5S0 2.5 0 5.6s2.5 5.6 5.6 5.6c1.2 0 2.2-.4 3.2-1l3.5 3.5c.2.2.5.3.7.3.6 0 1.1-.5 1.1-1.1-.1-.2-.2-.5-.4-.7zM5.6 9.8c-2.3 0-4.2-1.9-4.2-4.2s1.9-4.2 4.2-4.2 4.2 1.9 4.2 4.2-1.9 4.2-4.2 4.2zm2.1-4.9H6.3V3.5c0-.4-.3-.7-.7-.7s-.7.3-.7.7v1.4H3.5c-.4 0-.7.3-.7.7s.3.7.7.7h1.4v1.4c0 .4.3.7.7.7s.7-.3.7-.7V6.3h1.4c.4 0 .7-.3.7-.7s-.3-.7-.7-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                  <p>
+                    <div
+                      style="font-size: 8px; font-family: inter;"
+                    >
+                      connectors.ceAws.crossAccountRoleStep1.cost
+                    </div>
+                     
+                    <div
+                      style="font-size: 14px; font-family: inter;"
+                    >
+                      connectors.ceAws.crossAccountRoleStep1.visibility
+                    </div>
+                  </p>
+                </div>
+                <p>
+                  connectors.ceAws.crossAccountRoleStep1.visibilityDes
+                </p>
+              </div>
+            </div>
+            <div
+              class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+              data-index="1"
+              tabindex="0"
+            >
+              <div>
+                <div
+                  style="display: flex; padding-bottom: 7px;"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
+                    data-icon="gear"
+                    style="padding-right: 10px;"
+                  >
+                    <svg
+                      height="32"
+                      viewBox="0 0 16 16"
+                      width="32"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M2.687 3.488a.437.437 0 01-.4.16l-.752-.144a.389.389 0 00-.432.24l-.176.48-.176.48c-.064.176 0 .384.176.464l.656.384a.45.45 0 01.208.384c-.016.224 0 .448.016.672a.434.434 0 01-.176.4l-.624.432a.378.378 0 00-.128.48l.208.464.208.464a.38.38 0 00.448.208l.736-.192c.144-.048.304.016.416.128.144.16.32.32.496.464a.437.437 0 01.16.4l-.144.752a.38.38 0 00.24.432l.48.176.48.176c.176.064.384 0 .464-.176l.384-.656c.08-.144.224-.208.384-.208.208.016.432 0 .64-.016a.434.434 0 01.4.176l.432.64c.112.16.304.208.48.128l.464-.208.464-.208a.38.38 0 00.208-.448l-.192-.72a.4.4 0 01.128-.416c.16-.144.32-.32.464-.496a.437.437 0 01.4-.16l.752.144a.38.38 0 00.432-.24l.176-.48.176-.48c.064-.176 0-.384-.176-.464l-.656-.368c-.144-.08-.208-.224-.208-.384.016-.224 0-.448-.016-.672a.434.434 0 01.176-.4l.64-.432a.378.378 0 00.128-.48l-.208-.464-.208-.464a.38.38 0 00-.448-.208l-.72.208c-.16.048-.32 0-.416-.128a4.408 4.408 0 00-.48-.464.437.437 0 01-.16-.4l.144-.752a.38.38 0 00-.24-.432l-.48-.176-.48-.176c-.176-.064-.384 0-.464.176l-.368.64c-.08.144-.224.208-.384.208-.24-.016-.464 0-.704.016a.434.434 0 01-.4-.176l-.432-.624a.378.378 0 00-.48-.128l-.464.208-.464.208a.38.38 0 00-.208.448l.192.736c.048.144-.016.304-.128.416-.176.096-.32.272-.464.448zm1.2 1.872A2.249 2.249 0 016.735 4a2.249 2.249 0 011.36 2.848c-.4 1.168-1.68 1.76-2.848 1.36a2.228 2.228 0 01-1.36-2.848zm10.704 4.816a.264.264 0 00-.016-.304l-.208-.208-.208-.208a.242.242 0 00-.304-.032l-.368.256c-.08.048-.176.064-.256.016a2.553 2.553 0 00-.368-.16c-.08-.032-.16-.112-.16-.192l-.08-.448a.224.224 0 00-.224-.192h-.608a.224.224 0 00-.224.192l-.08.448c-.016.096-.08.176-.176.192-.128.032-.256.096-.368.144-.08.048-.176.032-.256-.016l-.368-.272a.264.264 0 00-.304.016l-.208.208-.208.208a.242.242 0 00-.032.304l.256.368c.048.08.064.176.016.256-.064.128-.128.256-.16.384-.032.096-.096.16-.192.176l-.448.08a.224.224 0 00-.192.224v.608c0 .112.08.208.192.224l.448.08c.096.016.16.08.192.176.048.128.096.256.16.368.048.08.032.176-.016.256l-.272.368a.24.24 0 00.016.288l.208.208.208.208c.08.08.208.096.304.032l.368-.256c.08-.048.176-.064.256-.016.128.064.24.112.368.16.096.032.16.096.176.192l.08.448a.224.224 0 00.224.192h.608c.112 0 .208-.08.224-.192l.08-.448c.016-.096.08-.16.176-.192.128-.048.256-.096.368-.16.08-.048.176-.032.256.016l.368.272a.264.264 0 00.304-.016l.208-.208.208-.208a.242.242 0 00.032-.304l-.256-.368c-.048-.08-.064-.176-.016-.256.064-.112.112-.24.144-.352a.264.264 0 01.192-.176l.448-.08a.224.224 0 00.192-.224v-.608a.224.224 0 00-.192-.224l-.448-.08c-.096-.016-.16-.08-.192-.176-.032-.128-.096-.256-.144-.368-.048-.08-.032-.176.016-.256l.256-.368zm-1.584 2.688a1.318 1.318 0 01-1.872.016 1.318 1.318 0 01-.016-1.872c.512-.512 1.36-.528 1.872-.016s.528 1.344.016 1.872z"
+                        fill="#30AAAF"
+                      />
+                    </svg>
+                  </span>
+                  <p>
+                    <div
+                      style="font-size: 8px; font-family: inter;"
+                    >
+                      connectors.ceAws.crossAccountRoleStep1.cost
+                    </div>
+                     
+                    <div
+                      style="font-size: 14px; font-family: inter;"
+                    >
+                      connectors.ceAws.crossAccountRoleStep1.optimization
+                    </div>
+                  </p>
+                </div>
+                <p>
+                  connectors.ceAws.crossAccountRoleStep1.optimizationDes
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main buttonPanel"
+          >
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
+            >
+              <span
+                class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                icon="chevron-left"
+              >
+                <svg
+                  data-icon="chevron-left"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-left
+                  </desc>
+                  <path
+                    d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="bp3-button-text"
+              >
+                previous
+              </span>
+            </button>
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+              type="submit"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                continue
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                icon="chevron-right"
+              >
+                <svg
+                  data-icon="chevron-right"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-right
+                  </desc>
+                  <path
+                    d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create CE K8s Connector Wizard Proceed with following steps 3`] = `
+<div>
+  <div
+    class="StepWizard--main StepWizard--navBar"
+  >
+    <div
+      class="StepWizard--navBarList"
+    >
+      <span
+        class="StepWizard--header"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="app-kubernetes"
+        >
+          <svg
+            height="40"
+            viewBox="0 0 32 30"
+            width="40"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <g
+              fill="none"
+            >
+              <path
+                d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
+                fill="#326CE5"
+              />
+              <path
+                d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
+                fill="#FFF"
+                stroke="#FFF"
+                stroke-width="0.25"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard--title StepWizard--header"
+      >
+        pipelineSteps.kubernetesInfraStep.kubernetesConnector
+      </span>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          overview
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Feature Selection
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--completedStep"
+      >
+        <span
+          class="StepWizard--completedIcon"
+        >
+          <span
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            icon="small-tick"
+          >
+            <svg
+              data-icon="small-tick"
+              height="20"
+              viewBox="0 0 20 20"
+              width="20"
+            >
+              <desc>
+                small-tick
+              </desc>
+              <path
+                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Secret Creation
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep StepWizard--activeStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Provide permissions
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          5
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          connectors.verifyConnection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard--stepDetails"
+    >
+       
+      <div
+        class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main providePermissionContainer"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main heading"
+          level="2"
+        >
+          Provide Permissions - 
+          <span>
+            Download YAML
+          </span>
+        </h2>
+        <p
+          class="StyledProps--font StyledProps--main"
+        >
+          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file here.
+        </p>
+        <div>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            This YAML file contains:
+          </p>
+          <ul>
+            <li>
+              Creation of a delegate
+            </li>
+            <li>
+              Permissions to access the pods and services of the cluster
+            </li>
+            <li>
+              Installing components to create Autostopping rules
+            </li>
+            <li>
+              Permissions to start and stop services as per rules
+            </li>
+          </ul>
+          <div
+            class="Layout--horizontal StyledProps--main successTextContainer"
+          >
+            <span
+              class="bp3-icon bp3-icon-tick StyledProps--main"
+              icon="tick"
+            >
+              <svg
+                data-icon="tick"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  tick
+                </desc>
+                <path
+                  d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span>
+              Download Complete
+            </span>
+          </div>
+          <div
+            class="commandSection"
+          >
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster. Run the following command to apply the Harness delegate to your Kubernetes Cluster
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                $ kubectl apply -f cost-optimisation-crd.yaml
+              </p>
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="step-group"
+                title="copy"
+              >
+                <svg
+                  height="16"
+                  id="step-group_svg__Layer_1"
+                  viewBox="0 0 21 20"
+                  width="16"
+                  x="0"
+                  xml:space="preserve"
+                  xmlns="http://www.w3.org/2000/svg"
+                  y="0"
+                >
+                  <style>
+                    .step-group_svg__st0{fill:#fff!important}
+                  </style>
+                  <path
+                    class="step-group_svg__st0"
+                    d="M1 .8h13v13.3H1z"
+                  />
+                  <path
+                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
+                  />
+                  <path
+                    class="step-group_svg__st0"
+                    d="M7 6h13v13H7z"
+                  />
+                  <path
+                    class="step-group_svg__st1"
+                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main successTextContainer"
+            >
+              <span
+                class="bp3-icon bp3-icon-tick StyledProps--main"
+                icon="tick"
+              >
+                <svg
+                  data-icon="tick"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    tick
+                  </desc>
+                  <path
+                    d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span>
+                Command executed successfully
+              </span>
+            </div>
+          </div>
+        </div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main submitBtn StyledProps--intent-primary Button--with-current-color"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            continue
+          </span>
+          <span
+            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+            icon="chevron-right"
+          >
+            <svg
+              data-icon="chevron-right"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                chevron-right
+              </desc>
+              <path
+                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Create CE K8s Connector Wizard Step One 1`] = `
 <div>
   <div
@@ -76,7 +1211,7 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          Provide permissions
+          Feature Selection
         </p>
       </div>
       <div
@@ -86,6 +1221,21 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
           class="StepWizard--number"
         >
           3
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Provide permissions
+        </p>
+      </div>
+      <div
+        class="StepWizard--navStep"
+      >
+        <span
+          class="StepWizard--number"
+        >
+          4
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
@@ -447,1259 +1597,6 @@ exports[`Create CE K8s Connector Wizard Step One 1`] = `
             </form>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Create CE K8s Connector Wizard Step one and step two 1`] = `
-<div>
-  <div
-    class="StepWizard--main StepWizard--navBar"
-  >
-    <div
-      class="StepWizard--navBarList"
-    >
-      <span
-        class="StepWizard--header"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="app-kubernetes"
-        >
-          <svg
-            height="40"
-            viewBox="0 0 32 30"
-            width="40"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="none"
-            >
-              <path
-                d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
-                fill="#326CE5"
-              />
-              <path
-                d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
-                fill="#FFF"
-                stroke="#FFF"
-                stroke-width="0.25"
-              />
-            </g>
-          </svg>
-        </span>
-      </span>
-      <span
-        class="StepWizard--title StepWizard--header"
-      >
-        pipelineSteps.kubernetesInfraStep.kubernetesConnector
-      </span>
-      <div
-        class="StepWizard--navStep StepWizard--activeStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          1
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          overview
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          2
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Provide permissions
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          3
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          connectors.verifyConnection
-        </p>
-      </div>
-    </div>
-    <div
-      class="StepWizard--stepDetails"
-    >
-       
-      <div
-        class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main firstep overviewStep"
-      >
-        <div
-          class="heading"
-        >
-          overview
-        </div>
-        <div
-          class="infoSection"
-        >
-          connectors.ceK8.infoText
-        </div>
-        <div
-          class="StyledProps--font StyledProps--main connectorForm StyledProps--padding-small"
-        >
-          <div
-            class="OverlaySpinner--overlaySpinner"
-          >
-            <form
-              class="FormikForm--main"
-            >
-              <div>
-                <div
-                  class="StyledProps--font StyledProps--main"
-                  style="min-height: 460px;"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main main formElm"
-                  >
-                    <div
-                      class="InputWithIdentifier--txtNameContainer TextInput--main"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
-                      >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                        >
-                          ID
-                          :
-                        </p>
-                        <span
-                          class="bp3-popover-wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <div
-                              class="bp3-editable-text InputWithIdentifier--idValue"
-                              tabindex="0"
-                            >
-                              <span
-                                class="bp3-editable-text-content"
-                                style="height: 1px; line-height: 1px; min-width: 0;"
-                              >
-                                dummy_name
-                              </span>
-                            </div>
-                          </span>
-                        </span>
-                        <span
-                          class="bp3-icon bp3-icon-edit StyledProps--main"
-                          icon="edit"
-                          style="vertical-align: middle; cursor: pointer;"
-                        >
-                          <svg
-                            data-icon="edit"
-                            height="12"
-                            viewBox="0 0 16 16"
-                            width="12"
-                          >
-                            <desc>
-                              edit
-                            </desc>
-                            <path
-                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                      <div
-                        class="bp3-form-group"
-                        data-id="name-0"
-                      >
-                        <label
-                          class="bp3-label"
-                          for="name"
-                        >
-                          <span
-                            class="Tooltip--acenter"
-                            data-tooltip-id="overViewStepForm_name"
-                          >
-                            name
-                          </span>
-                           
-                          <span
-                            class="bp3-text-muted"
-                          />
-                        </label>
-                        <div
-                          class="bp3-form-content"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="name"
-                              placeholder="common.namePlaceholder"
-                              type="text"
-                              value="dummy name"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      <label
-                        class="Label--main"
-                        style="font-size: 13px; font-weight: normal;"
-                      >
-                        optionalField
-                        <span
-                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                          data-name="edit"
-                          data-testid="description-edit"
-                          icon="edit"
-                        >
-                          <svg
-                            data-icon="edit"
-                            height="12"
-                            viewBox="0 0 16 16"
-                            width="12"
-                          >
-                            <desc>
-                              edit
-                            </desc>
-                            <path
-                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </label>
-                    </div>
-                    <div
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      <label
-                        class="Label--main"
-                        style="font-size: 13px; font-weight: normal;"
-                      >
-                        optionalField
-                        <span
-                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                          data-name="edit"
-                          data-testid="tags-edit"
-                          icon="edit"
-                        >
-                          <svg
-                            data-icon="edit"
-                            height="12"
-                            viewBox="0 0 16 16"
-                            width="12"
-                          >
-                            <desc>
-                              edit
-                            </desc>
-                            <path
-                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                  <div
-                    class="bp3-form-group selectConnector"
-                    data-id="referenceConnector-1"
-                  >
-                    <label
-                      class="bp3-label"
-                      for="referenceConnector"
-                    >
-                      <span
-                        class="Tooltip--acenter"
-                        data-tooltip-id="overViewStepForm_referenceConnector"
-                      >
-                        connectors.ceK8.selectConnectorLabel
-                      </span>
-                       
-                      <span
-                        class="bp3-text-muted"
-                      />
-                    </label>
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="bp3-popover-wrapper Select--main bp3-fill"
-                      >
-                        <div
-                          class="bp3-popover-target"
-                        >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="referenceConnector"
-                              placeholder="- Select -"
-                              style="padding-right: 0px;"
-                              type="text"
-                              value="rishabhk8s"
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                icon="chevron-down"
-                              >
-                                <svg
-                                  data-icon="chevron-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    chevron-down
-                                  </desc>
-                                  <path
-                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                        <div
-                          class="bp3-overlay bp3-overlay-inline"
-                        >
-                          <div
-                            class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
-                            style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
-                          >
-                            <div
-                              class="bp3-popover bp3-minimal bp3-select-popover"
-                              style="transform-origin: center top;"
-                            >
-                              <div
-                                class="bp3-popover-content"
-                              >
-                                <div>
-                                  <ul
-                                    class="bp3-menu"
-                                  >
-                                    <li
-                                      class="Select--menuItem Select--active"
-                                    >
-                                      rishabhk8s
-                                    </li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="Layout--horizontal StyledProps--main"
-                >
-                  <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-                    type="submit"
-                  >
-                    <span
-                      class="bp3-button-text"
-                    >
-                      <span>
-                        saveAndContinue
-                      </span>
-                    </span>
-                    <span
-                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                      icon="chevron-right"
-                    >
-                      <svg
-                        data-icon="chevron-right"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          chevron-right
-                        </desc>
-                        <path
-                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Create CE K8s Connector Wizard Step one and step two 2`] = `
-<div>
-  <div
-    class="StepWizard--main StepWizard--navBar"
-  >
-    <div
-      class="StepWizard--navBarList"
-    >
-      <span
-        class="StepWizard--header"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="app-kubernetes"
-        >
-          <svg
-            height="40"
-            viewBox="0 0 32 30"
-            width="40"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="none"
-            >
-              <path
-                d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
-                fill="#326CE5"
-              />
-              <path
-                d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
-                fill="#FFF"
-                stroke="#FFF"
-                stroke-width="0.25"
-              />
-            </g>
-          </svg>
-        </span>
-      </span>
-      <span
-        class="StepWizard--title StepWizard--header"
-      >
-        pipelineSteps.kubernetesInfraStep.kubernetesConnector
-      </span>
-      <div
-        class="StepWizard--navStep StepWizard--completedStep"
-      >
-        <span
-          class="StepWizard--completedIcon"
-        >
-          <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
-            icon="small-tick"
-          >
-            <svg
-              data-icon="small-tick"
-              height="20"
-              viewBox="0 0 20 20"
-              width="20"
-            >
-              <desc>
-                small-tick
-              </desc>
-              <path
-                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          overview
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep StepWizard--activeStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          2
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Provide permissions
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          3
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          connectors.verifyConnection
-        </p>
-      </div>
-    </div>
-    <div
-      class="StepWizard--stepDetails"
-    >
-       
-      <div
-        class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main providePermissionContainer"
-      >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main heading"
-          level="2"
-        >
-          Provide Permissions - 
-          <span>
-            Download YAML
-          </span>
-        </h2>
-        <div>
-          <ol
-            type="1"
-          >
-            <li>
-              Create an api key
-               
-              <a
-                href="http://localhost/#/account/undefined/access-management/api-keys"
-                rel="noreferrer"
-                target="_blank"
-              >
-                here
-              </a>
-            </li>
-            <li>
-              Run the following command to create namespace
-            </li>
-            <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                kubectl create namespace harness-autostopping
-              </p>
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="step-group"
-                title="copy"
-              >
-                <svg
-                  height="16"
-                  id="step-group_svg__Layer_1"
-                  viewBox="0 0 21 20"
-                  width="16"
-                  x="0"
-                  xml:space="preserve"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0"
-                >
-                  <style>
-                    .step-group_svg__st0{fill:#fff!important}
-                  </style>
-                  <path
-                    class="step-group_svg__st0"
-                    d="M1 .8h13v13.3H1z"
-                  />
-                  <path
-                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                  />
-                  <path
-                    class="step-group_svg__st0"
-                    d="M7 6h13v13H7z"
-                  />
-                  <path
-                    class="step-group_svg__st1"
-                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <li>
-              Replace the api key in the following Yaml
-            </li>
-            <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                apiVersion: v1
-data:
-  token: &lt;paste token here&gt;
-kind: Secret
-metadata:
-  name: harness-api-key
-  namespace: harness-autostopping
-type: Opaque
-
-              </p>
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="step-group"
-                title="copy"
-              >
-                <svg
-                  height="16"
-                  id="step-group_svg__Layer_1"
-                  viewBox="0 0 21 20"
-                  width="16"
-                  x="0"
-                  xml:space="preserve"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0"
-                >
-                  <style>
-                    .step-group_svg__st0{fill:#fff!important}
-                  </style>
-                  <path
-                    class="step-group_svg__st0"
-                    d="M1 .8h13v13.3H1z"
-                  />
-                  <path
-                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                  />
-                  <path
-                    class="step-group_svg__st0"
-                    d="M7 6h13v13H7z"
-                  />
-                  <path
-                    class="step-group_svg__st1"
-                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <li>
-              Run the following command
-            </li>
-            <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                kubectl apply -f secret.yaml
-              </p>
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="step-group"
-                title="copy"
-              >
-                <svg
-                  height="16"
-                  id="step-group_svg__Layer_1"
-                  viewBox="0 0 21 20"
-                  width="16"
-                  x="0"
-                  xml:space="preserve"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0"
-                >
-                  <style>
-                    .step-group_svg__st0{fill:#fff!important}
-                  </style>
-                  <path
-                    class="step-group_svg__st0"
-                    d="M1 .8h13v13.3H1z"
-                  />
-                  <path
-                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                  />
-                  <path
-                    class="step-group_svg__st0"
-                    d="M7 6h13v13H7z"
-                  />
-                  <path
-                    class="step-group_svg__st1"
-                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                  />
-                </svg>
-              </span>
-            </div>
-          </ol>
-        </div>
-        <p
-          class="StyledProps--font StyledProps--main"
-        >
-          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file here.
-        </p>
-        <div>
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            This YAML file contains:
-          </p>
-          <ul>
-            <li>
-              Creation of a delegate
-            </li>
-            <li>
-              Permissions to access the pods and services of the cluster
-            </li>
-            <li>
-              Installing components to create Autostopping rules
-            </li>
-            <li>
-              Permissions to start and stop services as per rules
-            </li>
-          </ul>
-          <button
-            class="bp3-button bp3-outlined Button--button StyledProps--font StyledProps--main stepBtn StyledProps--intent-primary Button--with-current-color"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              Download YAML
-            </span>
-          </button>
-        </div>
-        <button
-          class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main submitBtn StyledProps--intent-primary Button--with-current-color"
-          disabled=""
-          tabindex="-1"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            continue
-          </span>
-          <span
-            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-            icon="chevron-right"
-          >
-            <svg
-              data-icon="chevron-right"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-right
-              </desc>
-              <path
-                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Create CE K8s Connector Wizard Step one and step two 3`] = `
-<div>
-  <div
-    class="StepWizard--main StepWizard--navBar"
-  >
-    <div
-      class="StepWizard--navBarList"
-    >
-      <span
-        class="StepWizard--header"
-      >
-        <span
-          class="bp3-icon StyledProps--main"
-          data-icon="app-kubernetes"
-        >
-          <svg
-            height="40"
-            viewBox="0 0 32 30"
-            width="40"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <g
-              fill="none"
-            >
-              <path
-                d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
-                fill="#326CE5"
-              />
-              <path
-                d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
-                fill="#FFF"
-                stroke="#FFF"
-                stroke-width="0.25"
-              />
-            </g>
-          </svg>
-        </span>
-      </span>
-      <span
-        class="StepWizard--title StepWizard--header"
-      >
-        pipelineSteps.kubernetesInfraStep.kubernetesConnector
-      </span>
-      <div
-        class="StepWizard--navStep StepWizard--completedStep"
-      >
-        <span
-          class="StepWizard--completedIcon"
-        >
-          <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
-            icon="small-tick"
-          >
-            <svg
-              data-icon="small-tick"
-              height="20"
-              viewBox="0 0 20 20"
-              width="20"
-            >
-              <desc>
-                small-tick
-              </desc>
-              <path
-                d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          overview
-        </p>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep StepWizard--activeStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          2
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          Provide permissions
-        </p>
-      </div>
-      <div
-        class="StepWizard--navStep"
-      >
-        <span
-          class="StepWizard--number"
-        >
-          3
-        </span>
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          connectors.verifyConnection
-        </p>
-      </div>
-    </div>
-    <div
-      class="StepWizard--stepDetails"
-    >
-       
-      <div
-        class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main providePermissionContainer"
-      >
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main heading"
-          level="2"
-        >
-          Provide Permissions - 
-          <span>
-            Download YAML
-          </span>
-        </h2>
-        <div>
-          <ol
-            type="1"
-          >
-            <li>
-              Create an api key
-               
-              <a
-                href="http://localhost/#/account/undefined/access-management/api-keys"
-                rel="noreferrer"
-                target="_blank"
-              >
-                here
-              </a>
-            </li>
-            <li>
-              Run the following command to create namespace
-            </li>
-            <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                kubectl create namespace harness-autostopping
-              </p>
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="step-group"
-                title="copy"
-              >
-                <svg
-                  height="16"
-                  id="step-group_svg__Layer_1"
-                  viewBox="0 0 21 20"
-                  width="16"
-                  x="0"
-                  xml:space="preserve"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0"
-                >
-                  <style>
-                    .step-group_svg__st0{fill:#fff!important}
-                  </style>
-                  <path
-                    class="step-group_svg__st0"
-                    d="M1 .8h13v13.3H1z"
-                  />
-                  <path
-                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                  />
-                  <path
-                    class="step-group_svg__st0"
-                    d="M7 6h13v13H7z"
-                  />
-                  <path
-                    class="step-group_svg__st1"
-                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <li>
-              Replace the api key in the following Yaml
-            </li>
-            <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                apiVersion: v1
-data:
-  token: &lt;paste token here&gt;
-kind: Secret
-metadata:
-  name: harness-api-key
-  namespace: harness-autostopping
-type: Opaque
-
-              </p>
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="step-group"
-                title="copy"
-              >
-                <svg
-                  height="16"
-                  id="step-group_svg__Layer_1"
-                  viewBox="0 0 21 20"
-                  width="16"
-                  x="0"
-                  xml:space="preserve"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0"
-                >
-                  <style>
-                    .step-group_svg__st0{fill:#fff!important}
-                  </style>
-                  <path
-                    class="step-group_svg__st0"
-                    d="M1 .8h13v13.3H1z"
-                  />
-                  <path
-                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                  />
-                  <path
-                    class="step-group_svg__st0"
-                    d="M7 6h13v13H7z"
-                  />
-                  <path
-                    class="step-group_svg__st1"
-                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <li>
-              Run the following command
-            </li>
-            <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                kubectl apply -f secret.yaml
-              </p>
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="step-group"
-                title="copy"
-              >
-                <svg
-                  height="16"
-                  id="step-group_svg__Layer_1"
-                  viewBox="0 0 21 20"
-                  width="16"
-                  x="0"
-                  xml:space="preserve"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0"
-                >
-                  <style>
-                    .step-group_svg__st0{fill:#fff!important}
-                  </style>
-                  <path
-                    class="step-group_svg__st0"
-                    d="M1 .8h13v13.3H1z"
-                  />
-                  <path
-                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                  />
-                  <path
-                    class="step-group_svg__st0"
-                    d="M7 6h13v13H7z"
-                  />
-                  <path
-                    class="step-group_svg__st1"
-                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                  />
-                </svg>
-              </span>
-            </div>
-          </ol>
-        </div>
-        <p
-          class="StyledProps--font StyledProps--main"
-        >
-          To provide required permissions to your cluster, please download the YAML below and continue to apply it using instructions given in the next step. You can preview the YAML file here.
-        </p>
-        <div>
-          <p
-            class="StyledProps--font StyledProps--main"
-          >
-            This YAML file contains:
-          </p>
-          <ul>
-            <li>
-              Creation of a delegate
-            </li>
-            <li>
-              Permissions to access the pods and services of the cluster
-            </li>
-            <li>
-              Installing components to create Autostopping rules
-            </li>
-            <li>
-              Permissions to start and stop services as per rules
-            </li>
-          </ul>
-          <div
-            class="Layout--horizontal StyledProps--main successTextContainer"
-          >
-            <span
-              class="bp3-icon bp3-icon-tick StyledProps--main"
-              icon="tick"
-            >
-              <svg
-                data-icon="tick"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  tick
-                </desc>
-                <path
-                  d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-            <span>
-              Download Complete
-            </span>
-          </div>
-          <div
-            class="commandSection"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              Copy the downloaded YAML to a machine where you have kubectl installed and have access to your Kubernetes cluster. Run the following command to apply the Harness delegate to your Kubernetes Cluster
-            </p>
-            <div
-              class="StyledProps--font StyledProps--main copyCommand StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-start"
-            >
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                $ kubectl apply -f cost-optimisation-crd.yaml
-              </p>
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="step-group"
-                title="copy"
-              >
-                <svg
-                  height="16"
-                  id="step-group_svg__Layer_1"
-                  viewBox="0 0 21 20"
-                  width="16"
-                  x="0"
-                  xml:space="preserve"
-                  xmlns="http://www.w3.org/2000/svg"
-                  y="0"
-                >
-                  <style>
-                    .step-group_svg__st0{fill:#fff!important}
-                  </style>
-                  <path
-                    class="step-group_svg__st0"
-                    d="M1 .8h13v13.3H1z"
-                  />
-                  <path
-                    d="M14 1H1v13h13V1zm1-1v15H0V0h15z"
-                  />
-                  <path
-                    class="step-group_svg__st0"
-                    d="M7 6h13v13H7z"
-                  />
-                  <path
-                    class="step-group_svg__st1"
-                    d="M20 6H7v13h13V6zm1-1v15H6V5h15z"
-                  />
-                </svg>
-              </span>
-            </div>
-            <div
-              class="Layout--horizontal StyledProps--main successTextContainer"
-            >
-              <span
-                class="bp3-icon bp3-icon-tick StyledProps--main"
-                icon="tick"
-              >
-                <svg
-                  data-icon="tick"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    tick
-                  </desc>
-                  <path
-                    d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-              <span>
-                Command executed successfully
-              </span>
-            </div>
-          </div>
-        </div>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main submitBtn StyledProps--intent-primary Button--with-current-color"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            continue
-          </span>
-          <span
-            class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-            icon="chevron-right"
-          >
-            <svg
-              data-icon="chevron-right"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
-            >
-              <desc>
-                chevron-right
-              </desc>
-              <path
-                d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </button>
       </div>
     </div>
   </div>

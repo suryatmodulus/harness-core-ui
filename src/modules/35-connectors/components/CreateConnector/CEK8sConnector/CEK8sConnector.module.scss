@@ -57,27 +57,75 @@
   .commandSection {
     margin-top: var(--spacing-xlarge) !important;
   }
-  .copyCommand {
-    background: var(--primary-1) !important;
-    padding: var(--spacing-medium) !important;
-    border-radius: 4px;
-    font-family: 'Courier New', Courier, monospace !important;
-    margin-top: var(--spacing-large) !important;
-    margin-bottom: var(--spacing-large) !important;
-    width: 70%;
-    span {
-      cursor: pointer;
-    }
-    p {
-      color: #343a41 !important;
-      white-space: pre-wrap !important;
-      font-family: monospace !important;
-    }
-  }
   .submitBtn {
     width: 150px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
   }
 }
+
+.featureSelectionCont {
+  position: relative;
+  height: 100%;
+  .header {
+    color: var(--grey-800) !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    margin-bottom: var(--spacing-xxxlarge) !important;
+  }
+
+  .subHeader {
+    padding: var(--spacing-xxxlarge);
+  }
+  .infobox {
+    padding: 20px;
+    background: var(--primary-1);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 250px 250px;
+    column-gap: 20px;
+    grid-auto-rows: 200px;
+    grid-auto-columns: 220px;
+  }
+  .buttonPanel {
+    position: absolute;
+    max-width: 500px;
+    left: 0;
+    bottom: 0;
+  }
+}
+
+.secretCreationCont {
+  position: relative;
+  height: 100%;
+  .header {
+    color: var(--grey-800) !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    margin-bottom: var(--spacing-xxxlarge) !important;
+  }
+}
+
+.copyCommand {
+  background: var(--primary-1) !important;
+  padding: var(--spacing-medium) !important;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace !important;
+  margin-top: var(--spacing-large) !important;
+  margin-bottom: var(--spacing-large) !important;
+  width: 70%;
+  span {
+    cursor: pointer;
+  }
+  p {
+    color: #343a41 !important;
+    white-space: pre-wrap !important;
+    font-family: monospace !important;
+  }
+}
+
 @keyframes stroke {
   100% {
     stroke-dashoffset: 0;

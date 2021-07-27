@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import {
   Button,
-  Container,
   Heading,
   Icon,
   Layout,
@@ -11,15 +10,14 @@ import {
   Text
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
-import copy from 'copy-to-clipboard'
+
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
-import { useToaster } from '@common/components'
 import { downloadYamlAsFile } from '@common/utils/downloadYamlUtils'
 import { Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import { yamlStringify } from '@common/utils/YamlHelperMethods'
-import { useGetCostOptimisationYamlTemplate } from 'services/ce'
+import { useCloudCostK8sClusterSetup } from 'services/ce'
+import CopyCodeSection from './components/CopyCodeSection'
 import css from './CEK8sConnector.module.scss'
 
 interface ProvidePermissionsProps {
@@ -32,24 +30,6 @@ interface StepSecretManagerProps extends ConnectorInfoDTO {
   spec: any
 }
 
-interface CopyCodeSectionProps {
-  snippet: string
-}
-
-const CopyCodeSection: React.FC<CopyCodeSectionProps> = ({ snippet }) => {
-  const { showError, showSuccess } = useToaster()
-  const { getString } = useStrings()
-  const copyCommandToClipboard = () => {
-    copy(snippet) ? showSuccess(getString('clipboardCopySuccess')) : showError(getString('clipboardCopyFail'))
-  }
-  return (
-    <Container flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }} className={css.copyCommand}>
-      <Text>{snippet}</Text>
-      <Icon name="step-group" title={'copy'} onClick={copyCommandToClipboard} />
-    </Container>
-  )
-}
-
 const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePermissionsProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
@@ -58,30 +38,20 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
   const [command] = useState('kubectl apply -f cost-optimisation-crd.yaml')
   const [isSaving, setIsSaving] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [secretYaml] = useState<string>(
-    yamlStringify({
-      apiVersion: 'v1',
-      data: {
-        token: '<paste token here>'
-      },
-      kind: 'Secret',
-      metadata: {
-        name: 'harness-api-key',
-        namespace: 'harness-autostopping'
-      },
-      type: 'Opaque'
-    })
-  )
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
-  const { mutate: downloadYaml } = useGetCostOptimisationYamlTemplate({
-    queryParams: { accountId, connectorIdentifier: props.prevStepData?.identifier as string }
+  const { mutate: downloadYaml } = useCloudCostK8sClusterSetup({
+    queryParams: { accountIdentifier: accountId, accountId }
   })
 
   const handleDownload = async () => {
-    const response = await downloadYaml('ZWNobyAidGhlIGVuZCBpcyBoZXJlIg==')
+    const response = await downloadYaml({
+      connectorIdentifier: props.prevStepData?.spec?.connectorRef as string,
+      featuresEnabled: props.prevStepData?.spec?.featuresEnabled,
+      ccmConnectorIdentifier: props.prevStepData?.identifier as string
+    })
     const { status } = await downloadYamlAsFile(response, 'cost-optimisation-crd.yaml')
     status && setIsDownloadComplete(true)
   }
@@ -113,26 +83,6 @@ const ProvidePermissions: React.FC<StepProps<StepSecretManagerProps> & ProvidePe
         Provide Permissions - <span>Download YAML</span>
       </Heading>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <div>
-        <ol type="1">
-          <li>
-            Create an api key{' '}
-            <a
-              href={`${window.location.origin}/#/account/${accountId}/access-management/api-keys`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              here
-            </a>
-          </li>
-          <li>Run the following command to create namespace</li>
-          <CopyCodeSection snippet={'kubectl create namespace harness-autostopping'} />
-          <li>Replace the api key in the following Yaml</li>
-          <CopyCodeSection snippet={`${secretYaml}`} />
-          <li>Run the following command</li>
-          <CopyCodeSection snippet={'kubectl apply -f secret.yaml'} />
-        </ol>
-      </div>
       <Text>
         To provide required permissions to your cluster, please download the YAML below and continue to apply it using
         instructions given in the next step. You can preview the YAML file here.

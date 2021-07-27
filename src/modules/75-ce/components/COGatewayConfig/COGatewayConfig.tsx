@@ -1479,9 +1479,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                                 getK8sIngressTemplate({
                                   name: props.gatewayDetails.name,
                                   idleTime: props.gatewayDetails.idleTimeMins,
-                                  cloudConnectorId: props.gatewayDetails.cloudAccount.id,
-                                  orgId: orgIdentifier,
-                                  projectId: projectIdentifier
+                                  cloudConnectorId: props.gatewayDetails.cloudAccount.id
                                 })
                               }
                               fileName={gatewayName && `${gatewayName.split(' ').join('-')}-autostopping.yaml`}

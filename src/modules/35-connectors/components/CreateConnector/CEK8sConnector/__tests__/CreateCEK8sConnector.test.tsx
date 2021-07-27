@@ -32,7 +32,7 @@ jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
 }))
 const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve('')) as unknown
-const useDownloadYamlSpy = jest.spyOn(ccmService, 'useGetCostOptimisationYamlTemplate') as any
+const useDownloadYamlSpy = jest.spyOn(ccmService, 'useCloudCostK8sClusterSetup') as any
 useDownloadYamlSpy.mockReturnValue({ mutate: mockMutateFn } as UseMutateReturn<any, any, any, any, any>)
 
 describe('Create CE K8s Connector Wizard', () => {
@@ -50,7 +50,7 @@ describe('Create CE K8s Connector Wizard', () => {
     expect(container).toMatchSnapshot() // Form validation for all required fields in step one
   })
 
-  test('Step one and step two', async () => {
+  test('Proceed with following steps', async () => {
     ;(c2cMock as jest.Mock).mockImplementationOnce(() => true)
     const { container } = render(
       <TestWrapper pathParams={{ accountId: 'dummy' }}>
@@ -58,7 +58,7 @@ describe('Create CE K8s Connector Wizard', () => {
       </TestWrapper>
     )
 
-    // fill step 1
+    // 1 - fill step 1
     const nameInput = queryByAttribute('name', container, 'name')
     expect(nameInput).toBeTruthy()
     if (nameInput) fireEvent.change(nameInput, { target: { value: 'dummy name' } })
@@ -83,9 +83,34 @@ describe('Create CE K8s Connector Wizard', () => {
     await act(async () => {
       clickSubmit(container)
     })
-
-    //step 2
     expect(container).toMatchSnapshot() // Form validation for all required fields
+
+    // 2 - Feature Selection step
+    expect(await findByText(container, 'connectors.ceAws.crossAccountRoleStep1.heading')).toBeDefined()
+
+    const featuresCard = container.querySelectorAll('.bp3-card')
+    const optimizationCard = featuresCard && featuresCard[1]
+    act(() => {
+      fireEvent.click(optimizationCard)
+    })
+
+    // OPTIMIZATION is selected
+    expect(optimizationCard.classList.contains('Card--selected')).toBeTruthy()
+
+    const continueBtn = await findByText(container, 'continue', { selector: 'button span' })
+    act(() => {
+      fireEvent.click(continueBtn)
+    })
+
+    // 3 - selecting OPTIMIZATION should enable secret creation step
+    expect(await findByText(container, 'Secret Creation', { selector: 'h2' })).toBeDefined()
+
+    const continueBtn2 = await findByText(container, 'continue', { selector: 'button span' })
+    act(() => {
+      fireEvent.click(continueBtn2)
+    })
+
+    // 4 - Provide Permission step
     const downloadBtn = await findByText(container, 'Download YAML', { selector: 'button span' })
     expect(downloadBtn).toBeTruthy()
     act(() => {

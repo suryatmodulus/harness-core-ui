@@ -105,6 +105,7 @@ export interface GraphQLQuery {
 }
 
 export interface K8sClusterSetupRequest {
+  ccmConnectorIdentifier?: string
   connectorIdentifier?: string
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
   orgIdentifier?: string
@@ -1509,6 +1510,7 @@ export const useUpdateReportSetting = ({ accountIdentifier, ...props }: UseUpdat
   })
 
 export interface CloudCostK8sClusterSetupQueryParams {
+  accountIdentifier?: string
   accountId?: string
 }
 

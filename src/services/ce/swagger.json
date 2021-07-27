@@ -299,6 +299,12 @@
         "produces": ["application/json"],
         "parameters": [
           {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "accountId",
             "in": "query",
             "required": false,
@@ -1547,6 +1553,9 @@
           }
         },
         "connectorIdentifier": {
+          "type": "string"
+        },
+        "ccmConnectorIdentifier": {
           "type": "string"
         },
         "orgIdentifier": {

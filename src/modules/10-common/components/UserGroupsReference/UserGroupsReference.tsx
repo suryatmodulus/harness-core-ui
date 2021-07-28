@@ -2,8 +2,12 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Text, Container, Layout, Color, AvatarGroup } from '@wings-software/uicore'
 import { Failure, UserGroupDTO, getUserGroupAggregateListPromise, UserMetadataDTO } from 'services/cd-ng'
-import { EntityReference } from '@common/exports'
-import type { EntityReferenceResponse, ScopeAndUuid } from '@common/components/EntityReference/EntityReference'
+import { MultiSelectEntityReference } from '@common/exports'
+import type {
+  EntityReferenceResponse,
+  ScopeAndIdentifier,
+  ScopeUpdatedWithPreviousData
+} from '@common/components/MultiSelectEntityReference/MultiSelectEntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -12,10 +16,15 @@ import css from './UserGroupsReference.module.scss'
 export interface UserGroupsRef extends Omit<UserGroupDTO, 'users'> {
   users: UserMetadataDTO[]
 }
+export interface UserGroupSelectDTO {
+  userGroups: UserGroupDTO[]
+  previousSelectedItemsUuidAndScope: ScopeAndIdentifier[] | undefined
+  scopesUpdatedWithPreviousData: ScopeUpdatedWithPreviousData
+}
 
 export interface UserGroupsReferenceProps {
-  onSelect: (userGroups: UserGroupDTO[]) => void
-  userGroupsScopeAndUuid?: ScopeAndUuid[]
+  onSelect: (data: ScopeAndIdentifier[]) => void
+  userGroupsScopeAndUuid?: ScopeAndIdentifier[]
   scope?: Scope
   mock?: UserGroupDTO[]
 }
@@ -76,19 +85,10 @@ const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   return (
-    <EntityReference<UserGroupsRef>
+    <MultiSelectEntityReference<UserGroupsRef>
       className={css.main}
-      onSelect={() => {
-        // not needed in multiSelect but is required by EntityReference
-      }}
-      onMultiSelect={data => {
-        const groupsDTO: UserGroupDTO[] = data.map(group => {
-          const mappedUserIds = group.users.map(user => {
-            return user.uuid
-          })
-          return { ...group, users: mappedUserIds }
-        })
-        onSelect(groupsDTO)
+      onMultiSelect={(selectedData: ScopeAndIdentifier[]) => {
+        onSelect(selectedData)
       }}
       defaultScope={scope}
       fetchRecords={(fetchScope, search = '', done) => {
@@ -98,7 +98,6 @@ const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
       orgIdentifier={orgIdentifier}
       noRecordsText={getString('noData')}
       selectedItemsUuidAndScope={userGroupsScopeAndUuid}
-      allowMultiSelect
       recordRender={({ item, selected }) => {
         const avatars =
           item.record.users?.map(user => {

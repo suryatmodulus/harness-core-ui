@@ -4,23 +4,23 @@ import { Dialog } from '@blueprintjs/core'
 import type { UserGroupDTO } from 'services/cd-ng'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import UserGroupsReference from '@common/components/UserGroupsReference/UserGroupsReference'
-import type { ScopeAndUuid } from '@common/components/EntityReference/EntityReference'
 import { useStrings } from 'framework/strings'
+import type { ScopeAndIdentifier } from '@common/components/MultiSelectEntityReference/MultiSelectEntityReference'
 import css from './useSelectUserGroupsModal.module.scss'
 
 export interface UseSelectUserGroupsModalProps {
-  onSuccess?: (userGroups: UserGroupDTO[]) => void
+  onSuccess?: (data: ScopeAndIdentifier[]) => void
   secretsListMockData?: UserGroupDTO[]
 }
 
 export interface UseSelectUserGroupsModalReturn {
-  openSelectUserGroupsModal: (selectedUserGroups?: ScopeAndUuid[], scope?: Scope) => void
+  openSelectUserGroupsModal: (selectedUserGroups?: ScopeAndIdentifier[], scope?: Scope) => void
   closeSelectUserGroupsModal: () => void
 }
 
 const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSelectUserGroupsModalReturn => {
   const { getString } = useStrings()
-  const [selectedUserGroups, setSelectedUserGroups] = useState<ScopeAndUuid[]>()
+  const [selectedUserGroups, setSelectedUserGroups] = useState<ScopeAndIdentifier[]>()
   const [scope, setScope] = useState<Scope>()
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -40,8 +40,8 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
           scope={scope}
           userGroupsScopeAndUuid={selectedUserGroups}
           mock={props.secretsListMockData}
-          onSelect={userGroups => {
-            props.onSuccess?.(userGroups)
+          onSelect={data => {
+            props.onSuccess?.(data)
             hideModal()
           }}
         />
@@ -52,7 +52,7 @@ const useSelectUserGroupsModal = (props: UseSelectUserGroupsModalProps): UseSele
   )
 
   return {
-    openSelectUserGroupsModal: (_selectedUserGroups: ScopeAndUuid[] | undefined, _scope: Scope | undefined) => {
+    openSelectUserGroupsModal: (_selectedUserGroups: ScopeAndIdentifier[] | undefined, _scope: Scope | undefined) => {
       setSelectedUserGroups(_selectedUserGroups)
       setScope(_scope)
       showModal()

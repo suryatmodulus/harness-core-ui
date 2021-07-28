@@ -9,30 +9,72 @@ import type { UserGroupDTO } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import useSelectUserGroupsModal from '@common/modals/SelectUserGroups/useSelectUserGroupsModal'
 import { useStrings } from 'framework/strings'
-import { ScopeAndUuid, getDefaultScope } from '@common/components/EntityReference/EntityReference'
+import type { ScopeAndIdentifier } from '../MultiSelectEntityReference/MultiSelectEntityReference'
 import css from './UserGroupsInput.module.scss'
 
 export interface UserGroupsInputProps {
   name: string
   label?: string
   placeholder?: string
-  onSuccess?: (userGroups: UserGroupDTO[]) => void
+  onSuccess?: (userGroups: string[]) => void
   userGroupsMockData?: UserGroupDTO
+}
+interface MappedUserGroupData {
+  name: Scope
+  userGroupsCount: number
 }
 
 interface FormikUserGroupsInput extends UserGroupsInputProps {
   formik: FormikContext<any>
 }
+const getScopeAndUserIdIdentifierFromString = (record: string): ScopeAndIdentifier => {
+  const indexOfDot = record.indexOf('.')
+  let scope = Scope.PROJECT
+  let identifier = record
+  if (indexOfDot !== -1) {
+    const scopeTemp = record.slice(0, indexOfDot).toLowerCase()
+    const uuidTemp = record.slice(indexOfDot + 1)
+    switch (scopeTemp) {
+      case Scope.ACCOUNT:
+        scope = Scope.ACCOUNT
+        identifier = uuidTemp
+        break
+      case Scope.ORG:
+        scope = Scope.ORG
+        identifier = uuidTemp
+        break
+    }
+  }
+
+  return { scope, identifier }
+}
+const convertListOfScopeObjToStringArry = (records: ScopeAndIdentifier[]): string[] => {
+  return records.map(el => {
+    let scope = ''
+
+    switch (el.scope) {
+      case Scope.ACCOUNT:
+        scope = `${Scope.ACCOUNT}.`
+        break
+      case Scope.ORG:
+        scope = `${Scope.ORG}.`
+        break
+    }
+    return `${scope}${el.identifier}`
+  })
+}
 
 const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
   const { getString } = useStrings()
   const { formik, label, name, onSuccess, placeholder } = props
-  const userGroupsReference: UserGroupDTO[] = formik.values[name]
+  const userGroupsReference: string[] = formik.values[name]
 
   const { openSelectUserGroupsModal } = useSelectUserGroupsModal({
     onSuccess: data => {
-      formik.setFieldValue(name, data)
-      onSuccess?.(data)
+      const scopeObjToStringArry = convertListOfScopeObjToStringArry(data)
+      formik.setFieldValue(name, scopeObjToStringArry)
+      setUserGroupsScopeAndIndentifier(data)
+      onSuccess?.(scopeObjToStringArry)
     }
   })
 
@@ -41,78 +83,54 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
       get(formik?.errors, name) &&
       !isPlainObject(get(formik?.errors, name))) as boolean
 
-  const [userGroupsScopeAndUuid, setUserGroupsScopeAndUuid] = useState<ScopeAndUuid[]>()
+  const [userGroupsScopeAndIndentifier, setUserGroupsScopeAndIndentifier] = useState<ScopeAndIdentifier[]>()
 
   useEffect(() => {
-    if (userGroupsReference) {
-      setUserGroupsScopeAndUuid(
+    if (userGroupsReference && userGroupsReference.length) {
+      setUserGroupsScopeAndIndentifier(
         userGroupsReference.map(el => {
-          return { scope: getDefaultScope(el.orgIdentifier, el.projectIdentifier), uuid: el.identifier }
+          return getScopeAndUserIdIdentifierFromString(el)
+          //return { scope: getDefaultScope(el.orgIdentifier, el.projectIdentifier), uuid: el.identifier }
         })
       )
     }
   }, [userGroupsReference])
 
-  let mappedUserGroups: { name: Scope; userGroupsCount: number }[] | undefined = undefined
-  let inputItems = null
-  if (userGroupsReference && userGroupsReference.length > 0) {
-    let accCount = 0
-    let projectCount = 0
-    let orgCount = 0
-    userGroupsReference.forEach(group => {
-      group.orgIdentifier && !group.projectIdentifier && orgCount++
-      group.projectIdentifier && group.orgIdentifier && projectCount++
-      group.accountIdentifier && !group.projectIdentifier && !group.orgIdentifier && accCount++
-    })
-    if (accCount || orgCount || projectCount) {
-      mappedUserGroups = []
-      if (projectCount) {
-        mappedUserGroups.push({ name: Scope.PROJECT, userGroupsCount: projectCount })
-      }
-      if (orgCount) {
-        mappedUserGroups.push({ name: Scope.ORG, userGroupsCount: orgCount })
-      }
-      if (accCount) {
-        mappedUserGroups.push({ name: Scope.ACCOUNT, userGroupsCount: accCount })
-      }
-    }
+  const [mappedUserGroups, setMappedUserGroups] = useState<MappedUserGroupData[]>()
+  useEffect(() => {
+    if (userGroupsScopeAndIndentifier && userGroupsScopeAndIndentifier.length > 0) {
+      let accCount = 0
+      let projectCount = 0
+      let orgCount = 0
+      userGroupsScopeAndIndentifier.forEach(ele => {
+        switch (ele.scope) {
+          case Scope.ORG:
+            orgCount++
+            break
+          case Scope.ACCOUNT:
+            accCount++
+            break
+          case Scope.PROJECT:
+            projectCount++
+            break
+        }
+      })
 
-    inputItems = mappedUserGroups?.length ? (
-      <Layout.Horizontal spacing="xsmall" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-        {mappedUserGroups.map(scope => {
-          return (
-            <Container
-              padding={{ top: 'xsmall', right: 'small', bottom: 'xsmall', left: 'small' }}
-              width={'30%'}
-              background={Color.PRIMARY_2}
-              key={scope.name}
-              onClick={() => {
-                openSelectUserGroupsModal(userGroupsScopeAndUuid, scope.name)
-              }}
-              border={{ radius: 100 }}
-              className={css.pointer}
-            >
-              <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                <Text font={{ size: 'small' }} color={Color.BLACK}>
-                  {scope.name.toUpperCase()}
-                </Text>
-                <Text
-                  font={{ size: 'small' }}
-                  padding={{ left: 'xsmall', right: 'xsmall' }}
-                  flex={{ align: 'center-center' }}
-                  background={Color.BLUE_600}
-                  color={Color.WHITE}
-                  border={{ radius: 100 }}
-                >
-                  {scope.userGroupsCount}
-                </Text>
-              </Layout.Horizontal>
-            </Container>
-          )
-        })}
-      </Layout.Horizontal>
-    ) : null
-  }
+      const tempMappedUserGroups = []
+      if (accCount || orgCount || projectCount) {
+        if (projectCount) {
+          tempMappedUserGroups.push({ name: Scope.PROJECT, userGroupsCount: projectCount })
+        }
+        if (orgCount) {
+          tempMappedUserGroups.push({ name: Scope.ORG, userGroupsCount: orgCount })
+        }
+        if (accCount) {
+          tempMappedUserGroups.push({ name: Scope.ACCOUNT, userGroupsCount: accCount })
+        }
+      }
+      setMappedUserGroups(tempMappedUserGroups)
+    }
+  }, [userGroupsScopeAndIndentifier])
 
   return (
     <FormGroup
@@ -122,8 +140,40 @@ const UserGroupsInput: React.FC<FormikUserGroupsInput> = props => {
       <Layout.Vertical>
         {label ? <label className={'bp3-label'}>{label}</label> : null}
         <Container border padding="xsmall">
-          {inputItems ? (
-            inputItems
+          {mappedUserGroups?.length ? (
+            <Layout.Horizontal spacing="xsmall" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              {mappedUserGroups.map(scope => {
+                return (
+                  <Container
+                    padding={{ top: 'xsmall', right: 'small', bottom: 'xsmall', left: 'small' }}
+                    width={'33%'}
+                    background={Color.PRIMARY_2}
+                    key={scope.name}
+                    onClick={() => {
+                      openSelectUserGroupsModal(userGroupsScopeAndIndentifier, scope.name)
+                    }}
+                    border={{ radius: 100 }}
+                    className={css.pointer}
+                  >
+                    <Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                      <Text font={{ size: 'small' }} color={Color.BLACK}>
+                        {scope.name.toUpperCase()}
+                      </Text>
+                      <Text
+                        font={{ size: 'small' }}
+                        padding={{ left: 'xsmall', right: 'xsmall' }}
+                        flex={{ align: 'center-center' }}
+                        background={Color.PRIMARY_7}
+                        color={Color.WHITE}
+                        border={{ radius: 100 }}
+                      >
+                        {scope.userGroupsCount}
+                      </Text>
+                    </Layout.Horizontal>
+                  </Container>
+                )
+              })}
+            </Layout.Horizontal>
           ) : (
             <Link
               to="#"

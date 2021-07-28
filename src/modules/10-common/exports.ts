@@ -17,6 +17,7 @@ export { useConfirmationDialog } from './modals/ConfirmDialog/useConfirmationDia
 export { NavigationCheck } from './components/NavigationCheck/NavigationCheck'
 export { useToaster } from './components/Toaster/useToaster'
 export { EntityReference } from './components/EntityReference/EntityReference'
+export { MultiSelectEntityReference } from './components/MultiSelectEntityReference/MultiSelectEntityReference'
 export { ReferenceSelect, MultiTypeReferenceInput } from './components/ReferenceSelect/ReferenceSelect'
 export type { UserLabelProps } from './components/UserLabel/UserLabel'
 export { UserLabel } from './components/UserLabel/UserLabel'

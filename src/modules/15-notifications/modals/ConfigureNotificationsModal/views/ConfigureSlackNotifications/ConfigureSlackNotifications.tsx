@@ -11,6 +11,7 @@ import { SlackNotificationConfiguration, TestStatus } from '@notifications/inter
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface ConfigureSlackNotificationsProps {
@@ -114,11 +115,7 @@ const ConfigureSlackNotifications: React.FC<ConfigureSlackNotificationsProps> = 
                     <Icon name="cross" className={cx(css.statusIcon, css.red)} />
                   ) : null}
                 </Layout.Horizontal>
-                <FormInput.MultiInput
-                  name={'userGroups'}
-                  label={getString('notifications.labelSlackUserGroups')}
-                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
-                />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
 
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>

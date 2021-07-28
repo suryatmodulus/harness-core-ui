@@ -13,6 +13,7 @@ import { NotificationType } from '@notifications/interfaces/Notifications'
 import { useTestNotificationSetting, EmailSettingDTO } from 'services/notifications'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface EmailTestConfigData {
@@ -151,11 +152,7 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             return (
               <FormikForm>
                 <FormInput.TextArea name={'emailIds'} label={getString('notifications.emailRecipients')} />
-                <FormInput.MultiInput
-                  name={'userGroups'}
-                  label={getString('notifications.labelEmailUserGroups')}
-                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
-                />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelEmailUserGroups')} />
                 <Layout.Horizontal style={{ alignItems: 'center' }}>
                   <Popover isOpen={isOpen} onInteraction={setIsOpen}>
                     <Button

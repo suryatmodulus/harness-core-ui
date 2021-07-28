@@ -13,6 +13,7 @@ import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import css from '../../ConfigureNotificationsModal.module.scss'
 
 interface ConfigurePagerDutyNotificationsProps {
@@ -101,11 +102,7 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
                     <Icon name="cross" className={cx(css.statusIcon, css.red)} />
                   ) : null}
                 </Layout.Horizontal>
-                <FormInput.MultiInput
-                  name={'userGroups'}
-                  label={getString('notifications.labelPDUserGroups')}
-                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
-                />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelPDUserGroups')} />
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'xlarge' }}>
                     <Button text={getString('back')} onClick={props.onBack} />

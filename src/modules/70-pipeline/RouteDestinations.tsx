@@ -5,7 +5,6 @@ import '@pipeline/components/CommonPipelineStages/PipelineStage'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
 import ExecFactory from '@pipeline/factories/ExecutionFactory'
-
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'

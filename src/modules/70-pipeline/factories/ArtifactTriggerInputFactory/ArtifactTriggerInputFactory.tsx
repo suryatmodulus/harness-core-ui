@@ -1,23 +1,25 @@
 import type { TriggerFormType, FormDetailsRegister } from './types'
 
 export class ArtifactTriggerInputFactory {
-  private stepDetailsMap = new Map<TriggerFormType, FormDetailsRegister>()
-  private defaultStepDetails!: FormDetailsRegister
+  private triggerFormDetailsMap = new Map<TriggerFormType, FormDetailsRegister>()
+  private defaultTriggerFormDetails!: FormDetailsRegister
 
-  registerDefaultStepDetails(defaultRegister: FormDetailsRegister): void {
-    this.defaultStepDetails = defaultRegister
+  registerDefaultTriggerFormDetails(defaultRegister: FormDetailsRegister): void {
+    this.defaultTriggerFormDetails = defaultRegister
   }
 
-  getStepDetails(formType?: TriggerFormType): FormDetailsRegister {
+  getTriggerFormDetails(formType?: TriggerFormType): FormDetailsRegister {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return formType && this.stepDetailsMap.has(formType) ? this.stepDetailsMap.get(formType)! : this.defaultStepDetails
+    return formType && this.triggerFormDetailsMap.has(formType)
+      ? this.triggerFormDetailsMap.get(formType)!
+      : this.defaultTriggerFormDetails
   }
 
   registerTriggerForm(formType: TriggerFormType, stepDetails: FormDetailsRegister): void {
-    if (this.stepDetailsMap.has(formType)) {
+    if (this.triggerFormDetailsMap.has(formType)) {
       throw new Error(`Form of type "${formType}" is already registred`)
     }
 
-    this.stepDetailsMap.set(formType, stepDetails)
+    this.triggerFormDetailsMap.set(formType, stepDetails)
   }
 }

@@ -176,7 +176,6 @@ const CDSideNavProps: SidebarContext = {
 const pipelineModuleParams: ModulePathParams = {
   module: ':module(cd)'
 }
-// registerTriggerForm
 TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
   component: ManifestInputForm
 })

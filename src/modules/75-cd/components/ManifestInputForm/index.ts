@@ -1,8 +1,8 @@
 import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
-import factory from '@pipeline/factories/ArtifactTriggerInputFactory'
+import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
 
-factory.registerDefaultStepDetails({
+TriggerFactory.registerDefaultTriggerFormDetails({
   component: ManifestInputForm
 })
 
-export default factory
+export default TriggerFactory

@@ -9,7 +9,6 @@ import ExecFactory from '@pipeline/factories/ExecutionFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
-import ManifestInputFactory from '@pipeline/factories/ManifestInputFactory/index'
 
 import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
@@ -19,8 +18,6 @@ import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/vie
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 import { ExecutionVerificationSummary } from './components/ExecutionVerification/components/ExecutionVerificationSummary/ExecutionVerificationSummary'
-import type { FormType } from './factories/ManifestInputFactory/types'
-import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
 
 /**
  * Register RBAC resources
@@ -79,8 +76,4 @@ ExecFactory.registerStepDetails(StepType.JiraApproval, {
 
 ExecFactory.registerStepDetails(StepType.Verify, {
   component: ExecutionVerificationSummary
-})
-
-ManifestInputFactory.registerStepDetails('PipelineRunTime' as FormType, {
-  component: ManifestInputForm
 })

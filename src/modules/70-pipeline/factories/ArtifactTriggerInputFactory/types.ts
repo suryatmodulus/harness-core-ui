@@ -27,11 +27,11 @@ export enum TriggerType {
   Scheduled = 'Scheduled'
 }
 
-export enum FormType {
-  PipelineRunTime = 'PipelineRunTime',
-  Trigger = 'Trigger'
+export enum TriggerFormType {
+  Artifact = 'Artifact',
+  Manifest = 'Manifest'
 }
 
-export interface StepDetailsRegister {
+export interface FormDetailsRegister {
   component: React.ComponentType<KubernetesServiceInputFormProps>
 }

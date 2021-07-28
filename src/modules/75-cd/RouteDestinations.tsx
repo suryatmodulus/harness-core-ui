@@ -90,9 +90,14 @@ import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAcco
 import executionFactory from '@pipeline/factories/ExecutionFactory'
 import { StageType } from '@pipeline/utils/stageHelpers'
 
+import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
+
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
+
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
+import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -171,6 +176,10 @@ const CDSideNavProps: SidebarContext = {
 const pipelineModuleParams: ModulePathParams = {
   module: ':module(cd)'
 }
+// registerTriggerForm
+TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
+  component: ManifestInputForm
+})
 
 export default (
   <>

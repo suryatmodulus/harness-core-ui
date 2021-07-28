@@ -782,6 +782,7 @@ export interface StringsMap {
   'delegates.delegateSizeUpTo': string
   'delegates.downloadYAMLFile': string
   'delegates.forceDelete': string
+  'delegates.groupTagsSaved': string
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string

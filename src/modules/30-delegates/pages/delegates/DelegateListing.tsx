@@ -179,7 +179,7 @@ const RenderActivityColumn: Renderer<CellProps<DelegateGroupDetails>> = ({ row }
 const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) => {
   const history = useHistory()
   const { row } = cell
-  const delegateGroupIdentifier = row.original.delegateGroupIdentifier
+  const delegateIdentifier = row.original.delegateGroupIdentifier
   const { getString } = useStrings()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
@@ -198,8 +198,8 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          if (delegateGroupIdentifier) {
-            const deleted = await deleteDelegate(delegateGroupIdentifier)
+          if (delegateIdentifier) {
+            const deleted = await deleteDelegate(delegateIdentifier)
             if (deleted) {
               showSuccess(getString('delegates.delegateDeleted', { name: row.original.groupName }))
             }
@@ -214,10 +214,11 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
   const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     history.push(
-      routes.toDelegatesDetails({
+      routes.toEditDelegatesDetails({
         accountId,
         orgIdentifier,
-        projectIdentifier
+        projectIdentifier,
+        delegateIdentifier
       })
     )
   }
@@ -236,8 +237,8 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          if (delegateGroupIdentifier) {
-            const deleted = await forceDeleteDelegate(delegateGroupIdentifier)
+          if (delegateIdentifier) {
+            const deleted = await forceDeleteDelegate(delegateIdentifier)
 
             if (deleted) {
               showSuccess(getString('delegates.delegateForceDeleted', { name: row.original.groupName }))
@@ -334,7 +335,7 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
               },
               resource: {
                 resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: delegateGroupIdentifier
+                resourceIdentifier: delegateIdentifier
               },
               permission: PermissionIdentifier.DELETE_DELEGATE
             }}

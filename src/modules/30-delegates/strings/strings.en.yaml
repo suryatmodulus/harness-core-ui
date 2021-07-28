@@ -76,3 +76,4 @@ delegateNotInstalled:
       checkEndPoint: 'Check the Health Check Endpoint in the Delegate. Search YAML for healthCheckEndpoint'
     troubleshooting: 'Troubleshooting'
 delegateIdentifier: 'Delegate Identifier'
+groupTagsSaved: 'Delegate tags sucessfully saved!'

@@ -2,7 +2,6 @@ import React from 'react'
 import { Layout } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { Module, PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import { SidebarLink } from '../SideNav/SideNav'
@@ -15,7 +14,6 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { NG_SHOW_DELEGATE } = useFeatureFlags()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
   const getGitSyncEnabled = (): boolean => {
     if (module === 'ci' || module === 'cd' || !module) return true
@@ -27,9 +25,7 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
         <SidebarLink label={getString('connectorsLabel')} to={routes.toConnectors(params)} />
         <SidebarLink label={getString('common.secrets')} to={routes.toSecrets(params)} />
         <SidebarLink to={routes.toAccessControl(params)} label={getString('accessControl')} />
-        {NG_SHOW_DELEGATE ? (
-          <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates(params)} />
-        ) : null}
+        <SidebarLink label={getString('delegate.delegates')} to={routes.toDelegates(params)} />
         {getGitSyncEnabled() ? (
           <SidebarLink
             label={getString('gitManagement')}

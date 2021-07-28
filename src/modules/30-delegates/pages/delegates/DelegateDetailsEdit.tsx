@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { Container, Layout, Text, IconName, Color, FlexExpander, SimpleTagInput } from '@wings-software/uicore'
-import { Page } from '@common/exports'
+import { Page, useToaster } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type {
   ProjectPathProps,
@@ -11,45 +11,70 @@ import type {
 } from '@common/interfaces/RouteInterfaces'
 import { delegateTypeToIcon } from '@common/utils/delegateUtils'
 import { useStrings } from 'framework/strings'
-import { useGetDelegateGroupByIdentifier, useGetV2, DelegateProfile } from 'services/portal'
+import {
+  useGetDelegateGroupByIdentifier,
+  useGetV2,
+  DelegateProfile,
+  useUpdateDelegateGroupTags,
+  DelegateGroupDetails
+} from 'services/portal'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { SectionContainer } from '@delegates/components/SectionContainer/SectionContainer'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+
 import { DelegateOverview } from './DelegateOverview'
 import css from './DelegateDetails.module.scss'
 
-export default function DelegateDetails(): JSX.Element {
-  const { delegateIdentifier, accountId, orgIdentifier, projectIdentifier, module } = useParams<
+function HeaderTitle({ delegate, newTags }: { delegate: DelegateGroupDetails; newTags: string[] }): JSX.Element {
+  const { getString } = useStrings()
+  const { showError, showSuccess } = useToaster()
+  const history = useHistory()
+  const { accountId, orgIdentifier, projectIdentifier, delegateIdentifier, module } = useParams<
     Partial<ProjectPathProps & ModulePathParams> & DelegatePathProps & AccountPathProps
   >()
-  const { getString } = useStrings()
-  const { data } = useGetDelegateGroupByIdentifier({
-    identifier: delegateIdentifier,
-    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  const delegateGroupId = delegate?.groupId || ''
+  const { mutate: updateDelegateGroupTags } = useUpdateDelegateGroupTags({
+    delegateId: delegateGroupId
   })
 
-  const delegate = data?.resource
+  const permissionRequestEditDelegate = {
+    resourceScope: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier
+    },
+    permission: PermissionIdentifier.UPDATE_DELEGATE,
+    resource: {
+      resourceType: ResourceType.DELEGATE,
+      resourceIdentifier: delegate?.delegateGroupIdentifier
+    }
+  }
 
-  const {
-    loading,
-    error,
-    data: profileResponse,
-    refetch
-  } = useGetV2({
-    delegateProfileId: delegate?.delegateConfigurationId || '',
-    queryParams: { accountId }
-  })
+  const onGroupUpdate = async (): Promise<void> => {
+    try {
+      await updateDelegateGroupTags({ tags: newTags })
+      showSuccess(getString('delegates.groupTagsSaved'))
+      history.push(
+        routes.toDelegatesDetails({
+          accountId,
+          orgIdentifier,
+          projectIdentifier,
+          delegateIdentifier
+        })
+      )
+    } catch (e) {
+      showError(e.message)
+    }
+  }
 
-  const tags = Object.entries(delegate?.groupImplicitSelectors || {})
-    .filter(tag => tag[1] !== 'PROFILE_SELECTORS')
-    .map(tag => tag[0])
-  const [newTags, setNewTags] = useState(tags)
-
-  const delegateProfile = profileResponse?.resource as DelegateProfile
   const icon: IconName = delegateTypeToIcon(delegate?.delegateType as string)
 
-  const renderTitle = (): React.ReactNode => {
-    return (
+  return (
+    <Layout.Horizontal>
       <Layout.Vertical spacing="small">
         <Layout.Horizontal spacing="small">
           <Link
@@ -73,8 +98,62 @@ export default function DelegateDetails(): JSX.Element {
           <TagsViewer tags={Object.keys(delegate?.groupImplicitSelectors || {})} style={{ background: '#CDF4FE' }} />
         </Container>
       </Layout.Vertical>
-    )
+      <RbacButton
+        icon="floppy-disk"
+        text={getString('save')}
+        permission={permissionRequestEditDelegate}
+        id="saveDelegateBtn"
+        data-test="saveDelegateBtn"
+        style={{
+          position: 'absolute',
+          top: '50px',
+          right: '50px',
+          color: 'var(--primary-7)',
+          borderColor: 'var(--primary-7)'
+        }}
+        onClick={onGroupUpdate}
+      />
+    </Layout.Horizontal>
+  )
+}
+
+export default function DelegateDetails(): JSX.Element {
+  const { delegateIdentifier, accountId, orgIdentifier, projectIdentifier } = useParams<
+    Partial<ProjectPathProps & ModulePathParams> & DelegatePathProps & AccountPathProps
+  >()
+  const { getString } = useStrings()
+  const [newTags, setNewTags] = useState([] as string[])
+  const { data } = useGetDelegateGroupByIdentifier({
+    identifier: delegateIdentifier,
+    queryParams: { accountId, orgId: orgIdentifier, projectId: projectIdentifier }
+  })
+
+  const delegate = data?.resource
+
+  const {
+    loading,
+    error,
+    data: profileResponse,
+    refetch
+  } = useGetV2({
+    delegateProfileId: delegate?.delegateConfigurationId || '',
+    queryParams: { accountId }
+  })
+
+  useEffect(() => {
+    const tags = Object.entries(delegate?.groupImplicitSelectors || {})
+      .filter(tag => tag[1] !== 'PROFILE_SELECTORS')
+      .map(tag => tag[0])
+    setNewTags(tags)
+  }, [delegate])
+
+  const delegateProfile = profileResponse?.resource as DelegateProfile
+
+  if (error) {
+    return <Page.Error message={error.message} onClick={() => refetch()} />
   }
+
+  const size = delegate?.sizeDetails
 
   if (loading) {
     return (
@@ -92,12 +171,6 @@ export default function DelegateDetails(): JSX.Element {
     )
   }
 
-  if (error) {
-    return <Page.Error message={error.message} onClick={() => refetch()} />
-  }
-
-  const size = delegate?.sizeDetails
-
   return (
     <>
       <Container
@@ -105,7 +178,7 @@ export default function DelegateDetails(): JSX.Element {
         padding={{ top: 'large', right: 'xlarge', bottom: 'large', left: 'xlarge' }}
         style={{ backgroundColor: 'rgba(219, 241, 255, .46)' }}
       >
-        {renderTitle()}
+        {delegate && <HeaderTitle delegate={delegate} newTags={newTags} />}
       </Container>
       <Page.Body className={css.main}>
         <Layout.Vertical>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.05% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/39</span>
+                <span class='fraction'>30/36</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.05% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/39</span>
+                <span class='fraction'>30/36</span>
             </div>
         
             
@@ -191,7 +191,10 @@
 <a name='L132'></a><a href='#L132'>132</a>
 <a name='L133'></a><a href='#L133'>133</a>
 <a name='L134'></a><a href='#L134'>134</a>
-<a name='L135'></a><a href='#L135'>135</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -202,7 +205,7 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,7 +235,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -240,7 +246,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -336,14 +342,14 @@ import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
 import type { MonitoringSourceData, RunTimeMonitoredServiceProps } from './RunTimeMonitoredService.types'
-import { updateMonitoredServiceData } from './RunTimeMonitoredService.utils'
+// import { updateMonitoredServiceData } from './RunTimeMonitoredService.utils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './RunTimeMonitoredService.module.scss'
 &nbsp;
 export default function RunTimeMonitoredService({
   serviceIdentifier,
   envIdentifier,
-  onUpdate,
+  // onUpdate,
   prefix,
   initialValues
 }: RunTimeMonitoredServiceProps): JSX.Element {
@@ -366,7 +372,10 @@ export default function RunTimeMonitoredService({
 &nbsp;
   useEffect(() =&gt; {
     if (!loading &amp;&amp; !error &amp;&amp; envIdentifier &amp;&amp; serviceIdentifier) {
-      updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
+      // Note - This code is commented as we decided to not to pass Monitored service
+      // and health sources in yaml. This could be useful in future depending on product requirements.
+&nbsp;
+      // updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
       setMonitoringSourceData(monitoredServiceData as MonitoringSourceData)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -374,7 +383,7 @@ export default function RunTimeMonitoredService({
 &nbsp;
   const onSuccess = useCallback(
 <span class="fstat-no" title="function not covered" >    (u</span>pdatedMonitoredService: MonitoredServiceResponse) =&gt; {
-<span class="cstat-no" title="statement not covered" >      updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)</span>
+      // updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
 <span class="cstat-no" title="statement not covered" >      setMonitoringSourceData(updatedMonitoredService as MonitoringSourceData)</span>
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -466,7 +475,7 @@ export default function RunTimeMonitoredService({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 08:40:27 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../prettify.js"></script>

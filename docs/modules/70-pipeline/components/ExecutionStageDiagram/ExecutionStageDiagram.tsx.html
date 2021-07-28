@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.39% </span>
+                <span class="strong">56.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/133</span>
+                <span class='fraction'>76/134</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">42.35% </span>
+                <span class="strong">42.64% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>83/196</span>
+                <span class='fraction'>84/197</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.81% </span>
+                <span class="strong">58.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>74/128</span>
+                <span class='fraction'>75/129</span>
             </div>
         
             
@@ -522,7 +522,15 @@
 <a name='L463'></a><a href='#L463'>463</a>
 <a name='L464'></a><a href='#L464'>464</a>
 <a name='L465'></a><a href='#L465'>465</a>
-<a name='L466'></a><a href='#L466'>466</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L466'></a><a href='#L466'>466</a>
+<a name='L467'></a><a href='#L467'>467</a>
+<a name='L468'></a><a href='#L468'>468</a>
+<a name='L469'></a><a href='#L469'>469</a>
+<a name='L470'></a><a href='#L470'>470</a>
+<a name='L471'></a><a href='#L471'>471</a>
+<a name='L472'></a><a href='#L472'>472</a>
+<a name='L473'></a><a href='#L473'>473</a>
+<a name='L474'></a><a href='#L474'>474</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -546,6 +554,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -637,7 +650,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -730,6 +745,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -1010,7 +1026,12 @@ import type {
   ExecutionPipelineItem,
   StageOptions
 } from './ExecutionPipelineModel'
-import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
+import {
+  ExecutionStageDiagramConfiguration,
+  ExecutionStageDiagramModel,
+  GridStyleInterface,
+  NodeStyleInterface
+} from './ExecutionStageDiagramModel'
 import ExecutionActions from '../ExecutionActions/ExecutionActions'
 import {
   focusRunningNode,
@@ -1080,6 +1101,7 @@ export interface ExecutionStageDiagramProps&lt;T&gt; {
   nodeStyle?: NodeStyleInterface
   /** grid style */
   gridStyle: GridStyleInterface
+  graphConfiguration?: Partial&lt;ExecutionStageDiagramConfiguration&gt;
   loading?: boolean
   showStartEndNode?: boolean // Default: true
   showEndNode?: boolean // Default: true
@@ -1108,6 +1130,7 @@ export default function ExecutionStageDiagram&lt;T&gt;(props: ExecutionStageDiag
     className,
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
+    graphConfiguration = {},
     gridStyle,
     diagramContainerHeight,
     showStartEndNode = true,
@@ -1197,6 +1220,7 @@ export default function ExecutionStageDiagram&lt;T&gt;(props: ExecutionStageDiag
   //setup the diagram model
   const model = React.useMemo(() =&gt; new ExecutionStageDiagramModel(), [])
   model.setDefaultNodeStyle(nodeStyle)
+  model.setGraphConfiguration(graphConfiguration)
   model.setGridStyle(gridStyle)
 &nbsp;
   // Graph position and zoom set (set values from context)
@@ -1459,7 +1483,7 @@ export default function ExecutionStageDiagram&lt;T&gt;(props: ExecutionStageDiag
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 08:40:27 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

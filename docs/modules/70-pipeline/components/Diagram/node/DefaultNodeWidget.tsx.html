@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.33% </span>
+                <span class="strong">44.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/97</span>
+                <span class='fraction'>44/98</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.67% </span>
+                <span class="strong">35.85% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>33/98</span>
+                <span class='fraction'>38/106</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.68% </span>
+                <span class="strong">45.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/94</span>
+                <span class='fraction'>43/95</span>
             </div>
         
             
@@ -355,7 +355,12 @@
 <a name='L296'></a><a href='#L296'>296</a>
 <a name='L297'></a><a href='#L297'>297</a>
 <a name='L298'></a><a href='#L298'>298</a>
-<a name='L299'></a><a href='#L299'>299</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">70x</span>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">70x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">70x</span>
 <span class="cline-any cline-yes">70x</span>
@@ -474,7 +479,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -634,6 +643,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -655,7 +665,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button } from '@wings-software/uicore'
+import { Icon, Text, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -772,9 +782,13 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element =&gt; {
     }
   }, [options.selected])
 &nbsp;
+  // NOTE: adjust x position node in order to get node box cornet at x zero position
+  const marginAdjustment = -(128 - (options<span class="branch-0 cbranch-no" title="branch not covered" >?.w</span>idth || <span class="branch-1 cbranch-no" title="branch not covered" >64)</span>) / 2
+&nbsp;
   return (
     &lt;div
       className={css.defaultNode}
+      style={{ marginLeft: `${marginAdjustment}px` }}
       ref={nodeRef}
       onClick={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >        if (!options.disableClick) {</span>
@@ -921,8 +935,9 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element =&gt; {
       &lt;/div&gt;
       &lt;Text
         font={{ size: 'normal', align: 'center' }}
+        color={options.selected ? <span class="branch-0 cbranch-no" title="branch not covered" >Color.GREY_900 </span>: Color.GREY_600}
         style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'break-word' }}
-        padding="xsmall"
+        padding={'small'}
         width={125}
         lineClamp={2}
         tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
@@ -942,10 +957,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element =&gt; {
             width: options.width,
             height: options.height,
             display: showAdd ? 'flex' : 'none',
-            marginLeft: (126 - (options.width || 64)) / 2
+            marginLeft: (128 - (options.width || 64)) / 2
           }}
         &gt;
-          &lt;Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} /&gt;
+          &lt;Icon name="plus" size={22} color={'var(--diagram-add-node-color)'} /&gt;
         &lt;/div&gt;
       )}
     &lt;/div&gt;
@@ -958,7 +973,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 08:40:27 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

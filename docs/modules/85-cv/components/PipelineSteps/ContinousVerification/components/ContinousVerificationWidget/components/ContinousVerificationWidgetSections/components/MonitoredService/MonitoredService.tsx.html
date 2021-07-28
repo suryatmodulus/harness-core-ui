@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">75.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>42/54</span>
+                <span class='fraction'>44/58</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.9% </span>
+                <span class="strong">60.2% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>115/192</span>
+                <span class='fraction'>118/196</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.78% </span>
+                <span class="strong">75.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/54</span>
+                <span class='fraction'>44/58</span>
             </div>
         
             
@@ -240,7 +240,12 @@
 <a name='L181'></a><a href='#L181'>181</a>
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -258,6 +263,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -315,6 +321,10 @@
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -441,7 +451,8 @@ import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthS
 import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { MonitoredServiceProps } from './MonitoredService.types'
-import { getNewSpecs } from './MonitoredService.utils'
+import { getNewSpecs, isAnExpression } from './MonitoredService.utils'
+import { MONITORED_SERVICE_EXPRESSION } from './MonitoredService.constants'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './MonitoredService.module.scss'
 &nbsp;
@@ -499,8 +510,12 @@ export default function MonitoredService({
 &nbsp;
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (environmentIdentifier === RUNTIME_INPUT_VALUE || serviceIdentifier === RUNTIME_INPUT_VALUE) {
-      //when serviceIdentifier and environmentIdentifier are runtime
+      //when serviceIdentifier or environmentIdentifier are runtime
       const newSpecs = <span class="cstat-no" title="statement not covered" >{ ...formValues.spec, monitoredServiceRef: RUNTIME_INPUT_VALUE }</span>
+<span class="cstat-no" title="statement not covered" >      setFieldValue('spec', newSpecs)</span>
+    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (isAnExpression(environmentIdentifier) || isAnExpression(serviceIdentifier)) {
+      //when serviceIdentifier or environmentIdentifier is an expression
+      const newSpecs = <span class="cstat-no" title="statement not covered" >{ ...formValues.spec, monitoredServiceRef: MONITORED_SERVICE_EXPRESSION }</span>
 <span class="cstat-no" title="statement not covered" >      setFieldValue('spec', newSpecs)</span>
     } else <span class="missing-if-branch" title="else path not taken" >E</span>if (!loading &amp;&amp; !error) {
       //when monitoredServiceData is derived from service and env.
@@ -613,7 +628,7 @@ export default function MonitoredService({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 08:40:27 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../../../prettify.js"></script>

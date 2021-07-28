@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.68% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>28/38</span>
+                <span class='fraction'>0/38</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/5</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -87,22 +87,22 @@
 <a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -114,25 +114,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { ContinousVerificationData } from '@cv/components/PipelineSteps/ContinousVerification/types'
 import type { MonitoredServiceResponse, HealthSource } from 'services/cv'
 &nbsp;
-export const updateMonitoredServiceData = (
+export const <span class="cstat-no" title="statement not covered" >updateMonitoredServiceData = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(</span></span></span>
   initialValues: ContinousVerificationData,
   onUpdate?: (data: any) =&gt; void,
   monitoredServiceData?: MonitoredServiceResponse
 ): void =&gt; {
   const healthSources =
-    monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>onitoredService<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ources<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthSources<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(el =&gt; {
-      return { identifier: (el as HealthSource)<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier }
-    }) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+<span class="cstat-no" title="statement not covered" >    monitoredServiceData?.monitoredService?.sources?.healthSources?.map(<span class="fstat-no" title="function not covered" >el </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      return { identifier: (el as HealthSource)?.identifier }</span>
+    }) || []
 &nbsp;
-  const newMonitoredServiceData = {
-    monitoredServiceRef: monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>onitoredService<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame,
+  const newMonitoredServiceData = <span class="cstat-no" title="statement not covered" >{</span>
+    monitoredServiceRef: monitoredServiceData?.monitoredService?.name,
     healthSources: healthSources as { identifier: string }[]
   }
 &nbsp;
-  onUpdate<span class="branch-0 cbranch-no" title="branch not covered" >?.({</span>
+<span class="cstat-no" title="statement not covered" >  onUpdate?.({</span>
     ...initialValues,
     spec: {
-      ...initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec,
+      ...initialValues?.spec,
       ...newMonitoredServiceData,
       spec: { ...initialValues.spec.spec }
     }
@@ -145,7 +145,7 @@ export const updateMonitoredServiceData = (
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 08:40:27 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../../../prettify.js"></script>

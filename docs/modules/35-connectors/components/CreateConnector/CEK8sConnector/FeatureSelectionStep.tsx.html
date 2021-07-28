@@ -199,23 +199,20 @@
 <a name='L140'></a><a href='#L140'>140</a>
 <a name='L141'></a><a href='#L141'>141</a>
 <a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">102x</span>
-<span class="cline-any cline-yes">102x</span>
-<span class="cline-any cline-yes">102x</span>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a>
+<a name='L145'></a><a href='#L145'>145</a>
+<a name='L146'></a><a href='#L146'>146</a>
+<a name='L147'></a><a href='#L147'>147</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">102x</span>
-<span class="cline-any cline-yes">102x</span>
-<span class="cline-any cline-yes">102x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
+<span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -230,7 +227,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -250,6 +255,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -292,6 +299,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,9 +348,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">102x</span>
+<span class="cline-any cline-yes">103x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
-import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName } from '@wings-software/uicore'
+import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 &nbsp;
@@ -360,6 +368,7 @@ interface CardData {
   text: string
   value: FeaturesString
   heading: string
+  subheading: string
 }
 &nbsp;
 interface StepSecretManagerProps extends ConnectorInfoDTO {
@@ -380,15 +389,17 @@ const FeatureSelectionStep: React.FC&lt;StepProps&lt;StepSecretManagerProps&gt; 
   const cardData: CardData[] = [
     {
       icon: 'main-main-zoom_in',
-      text: getString('connectors.ceAws.crossAccountRoleStep1.visibilityDes'),
+      text: getString('connectors.ceK8S.chooseRequirements.visibility.description'),
       value: 'VISIBILITY',
-      heading: getString('connectors.ceAws.crossAccountRoleStep1.visibility')
+      heading: getString('connectors.ceK8S.chooseRequirements.visibility.heading'),
+      subheading: getString('connectors.ceK8S.chooseRequirements.visibility.subheading')
     },
     {
       icon: 'gear',
-      text: getString('connectors.ceAws.crossAccountRoleStep1.optimizationDes'),
+      text: getString('connectors.ceK8S.chooseRequirements.optimization.description'),
       value: 'OPTIMIZATION',
-      heading: getString('connectors.ceAws.crossAccountRoleStep1.optimization')
+      heading: getString('connectors.ceK8S.chooseRequirements.optimization.heading'),
+      subheading: getString('connectors.ceK8S.chooseRequirements.optimization.subheading')
     }
   ]
 &nbsp;
@@ -436,10 +447,11 @@ const FeatureSelectionStep: React.FC&lt;StepProps&lt;StepSecretManagerProps&gt; 
   return (
     &lt;Layout.Vertical className={css.featureSelectionCont}&gt;
       &lt;Heading level={2} className={css.header}&gt;
-        {getString('connectors.ceAws.crossAccountRoleStep1.heading')}
+        {getString('connectors.ceK8S.chooseRequirements.heading')}
       &lt;/Heading&gt;
       &lt;div style={{ padding: 5, paddingBottom: 20 }}&gt;
-        {getString('connectors.ceAws.crossAccountRoleStep1.description')}
+        &lt;Text&gt; {getString('connectors.ceK8S.chooseRequirements.subheading')}&lt;/Text&gt;
+        {getString('connectors.ceK8S.chooseRequirements.description')}
       &lt;/div&gt;
       &lt;div style={{ flex: 1 }}&gt;
         &lt;CardSelect
@@ -456,13 +468,13 @@ const FeatureSelectionStep: React.FC&lt;StepProps&lt;StepSecretManagerProps&gt; 
               &lt;div style={{ display: 'flex', paddingBottom: 7 }}&gt;
                 &lt;Icon name={item.icon} size={32} color="primary5" style={{ paddingRight: 10 }}&gt;&lt;/Icon&gt;
                 &lt;p&gt;
-                  &lt;div style={{ fontSize: 8, fontFamily: 'inter' }}&gt;
-                    {getString('connectors.ceAws.crossAccountRoleStep1.cost')}
-                  &lt;/div&gt;{' '}
-                  &lt;div style={{ fontSize: 14, fontFamily: 'inter' }}&gt;{item.heading}&lt;/div&gt;
+                  &lt;div style={{ fontSize: 8, fontFamily: 'inter' }}&gt;{item.heading}&lt;/div&gt;{' '}
+                  &lt;div style={{ fontSize: 14, fontFamily: 'inter' }}&gt;{item.subheading}&lt;/div&gt;
                 &lt;/p&gt;
               &lt;/div&gt;
-              &lt;p&gt;{item.text}&lt;/p&gt;
+              &lt;p&gt;
+                &lt;div dangerouslySetInnerHTML={{ __html: item.text }} /&gt;
+              &lt;/p&gt;
             &lt;/div&gt;
           )}
         &gt;&lt;/CardSelect&gt;
@@ -490,7 +502,7 @@ export default FeatureSelectionStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 12:08:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

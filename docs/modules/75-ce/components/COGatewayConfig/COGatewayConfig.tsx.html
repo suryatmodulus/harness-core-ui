@@ -1635,7 +1635,17 @@
 <a name='L1576'></a><a href='#L1576'>1576</a>
 <a name='L1577'></a><a href='#L1577'>1577</a>
 <a name='L1578'></a><a href='#L1578'>1578</a>
-<a name='L1579'></a><a href='#L1579'>1579</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L1579'></a><a href='#L1579'>1579</a>
+<a name='L1580'></a><a href='#L1580'>1580</a>
+<a name='L1581'></a><a href='#L1581'>1581</a>
+<a name='L1582'></a><a href='#L1582'>1582</a>
+<a name='L1583'></a><a href='#L1583'>1583</a>
+<a name='L1584'></a><a href='#L1584'>1584</a>
+<a name='L1585'></a><a href='#L1585'>1585</a>
+<a name='L1586'></a><a href='#L1586'>1586</a>
+<a name='L1587'></a><a href='#L1587'>1587</a>
+<a name='L1588'></a><a href='#L1588'>1588</a>
+<a name='L1589'></a><a href='#L1589'>1589</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
@@ -3094,7 +3104,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -4654,45 +4674,55 @@ const COGatewayConfig: React.FC&lt;COGatewayConfigProps&gt; = props =&gt; {
                       title="Routing"
                       panel={
                         &lt;Container style={{ backgroundColor: '#FBFBFB' }}&gt;
-                          &lt;Text className={css.titleHelpTextDescription}&gt;
-                            {getString('ce.co.gatewayConfig.routingDescription')}
-                          &lt;/Text&gt;
                           {!isK8sSelected &amp;&amp; (
-                            &lt;Layout.Vertical spacing="large"&gt;
-                              {!selectedAsg &amp;&amp; loading ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                                &lt;Icon</span>
-                                  name="spinner"
-                                  size={24}
-                                  color="blue500"
-                                  style={{ alignSelf: 'center', marginTop: '10px' }}
-                                /&gt;
-                              ) : (
-                                &lt;CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} /&gt;
-                              )}
-                              &lt;Container className={css.rowItem}&gt;
-                                &lt;Text
-                                  onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                                    addPort()</span>
-                                  }}
-                                &gt;
-                                  {getString('ce.co.gatewayConfig.addPortLabel')}
-                                &lt;/Text&gt;
-                              &lt;/Container&gt;
-                            &lt;/Layout.Vertical&gt;
+                            &lt;&gt;
+                              &lt;Text className={css.titleHelpTextDescription}&gt;
+                                {getString('ce.co.gatewayConfig.routingDescription')}
+                              &lt;/Text&gt;
+                              &lt;Layout.Vertical spacing="large"&gt;
+                                {!selectedAsg &amp;&amp; loading ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                                  &lt;Icon</span>
+                                    name="spinner"
+                                    size={24}
+                                    color="blue500"
+                                    style={{ alignSelf: 'center', marginTop: '10px' }}
+                                  /&gt;
+                                ) : (
+                                  &lt;CORoutingTable
+                                    routingRecords={routingRecords}
+                                    setRoutingRecords={setRoutingRecords}
+                                  /&gt;
+                                )}
+                                &lt;Container className={css.rowItem}&gt;
+                                  &lt;Text
+                                    onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                                      addPort()</span>
+                                    }}
+                                  &gt;
+                                    {getString('ce.co.gatewayConfig.addPortLabel')}
+                                  &lt;/Text&gt;
+                                &lt;/Container&gt;
+                              &lt;/Layout.Vertical&gt;
+                            &lt;/&gt;
                           )}
                           {isK8sSelected &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                            &lt;KubernetesRuleYamlEditor</span>
-                              existingData={
-                                yamlData ||
-                                getK8sIngressTemplate({
-                                  name: props.gatewayDetails.name,
-                                  idleTime: props.gatewayDetails.idleTimeMins,
-                                  cloudConnectorId: props.gatewayDetails.cloudAccount.id
-                                })
-                              }
-                              fileName={gatewayName &amp;&amp; `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
-                              handleSave={handleYamlSave}
-                            /&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >                            &lt;&gt;</span>
+                              &lt;Text className={css.titleHelpTextDescription}&gt;
+                                {getString('ce.co.gatewayConfig.k8sroutingDescription')}
+                              &lt;/Text&gt;
+                              &lt;KubernetesRuleYamlEditor
+                                existingData={
+                                  yamlData ||
+                                  getK8sIngressTemplate({
+                                    name: props.gatewayDetails.name,
+                                    idleTime: props.gatewayDetails.idleTimeMins,
+                                    cloudConnectorId: props.gatewayDetails.cloudAccount.id
+                                  })
+                                }
+                                fileName={gatewayName &amp;&amp; `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
+                                handleSave={handleYamlSave}
+                              /&gt;
+                            &lt;/&gt;
                           )}
                         &lt;/Container&gt;
                       }
@@ -4798,7 +4828,7 @@ export default COGatewayConfig
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 12:08:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

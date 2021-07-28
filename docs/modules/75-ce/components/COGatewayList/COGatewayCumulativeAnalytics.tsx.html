@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.56% </span>
+                <span class="strong">80.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>78/109</span>
+                <span class='fraction'>88/109</span>
             </div>
         
             
@@ -462,19 +462,19 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -781,7 +781,7 @@ const COGatewayCumulativeAnalytics: React.FC&lt;COGatewayCumulativeAnalyticsProp
 <span class="branch-0 cbranch-no" title="branch not covered" >                    &lt;Icon name="spinner" size={24} color="blue500" /&gt;</span>
                   ) : (
                     &lt;Heading level={1} style={{ color: '#05AAB6' }}&gt;
-                      ${(Math.round(graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_savings as number) * 100) / 100}
+                      ${(Math.round(graphData?.response?.total_savings as number) * 100) / 100}
                     &lt;/Heading&gt;
                   )}
                 &lt;/Layout.Vertical&gt;
@@ -795,7 +795,7 @@ const COGatewayCumulativeAnalytics: React.FC&lt;COGatewayCumulativeAnalyticsProp
 <span class="branch-0 cbranch-no" title="branch not covered" >                    &lt;Icon name="spinner" size={24} color="blue500" /&gt;</span>
                   ) : (
                     &lt;Heading level={1} style={{ color: '#592BAA' }}&gt;
-                      ${(Math.round(graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_cost as number) * 100) / 100}
+                      ${(Math.round(graphData?.response?.total_cost as number) * 100) / 100}
                     &lt;/Heading&gt;
                   )}
                 &lt;/Layout.Vertical&gt;
@@ -818,8 +818,8 @@ const COGatewayCumulativeAnalytics: React.FC&lt;COGatewayCumulativeAnalyticsProp
                   graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ctual_cost as number[]
                 )}
               /&gt;
-            ) : <span class="branch-1 cbranch-no" title="branch not covered" >graphLoading ? (</span>
-              &lt;Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} /&gt;
+            ) : graphLoading ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;Icon name="spinner" size={24} color="blue500" style={{ alignSelf: 'center' }} /&gt;</span>
             ) : (
               &lt;Text style={{ marginTop: 'var(--spacing-xxlarge)', fontSize: 'var(--font-size-medium)' }}&gt;
                 {getString('ce.co.noData')}
@@ -830,26 +830,26 @@ const COGatewayCumulativeAnalytics: React.FC&lt;COGatewayCumulativeAnalyticsProp
             &lt;Layout.Vertical spacing="xsmall"&gt;
               &lt;Text className={css.analyticsColHeader}&gt;SAVINGS PERCENTAGE&lt;/Text&gt;
               &lt;Heading level={1}&gt;
-                {graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse != null
+                {graphData?.response != null
                   ? getSavingsPercentage(
                       graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_savings as number,
                       graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_potential as number
                     )
-                  : <span class="branch-1 cbranch-no" title="branch not covered" >0}</span>
+                  : 0}
                 %
               &lt;/Heading&gt;
               &lt;Layout.Horizontal&gt;
                 &lt;HighchartsReact
                   highchart={Highcharts}
                   options={
-                    graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse != null
+                    graphData?.response != null
                       ? geGaugeChartOptionsWithoutLabel(
                           getSavingsPercentage(
                             graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_savings as number,
                             graphData<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esponse<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otal_potential as number
                           )
                         )
-                      : <span class="branch-1 cbranch-no" title="branch not covered" >geGaugeChartOptionsWithoutLabel(0)</span>
+                      : geGaugeChartOptionsWithoutLabel(0)
                   }
                 /&gt;
               &lt;/Layout.Horizontal&gt;
@@ -922,7 +922,7 @@ export default COGatewayCumulativeAnalytics
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 09:29:23 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 12:08:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

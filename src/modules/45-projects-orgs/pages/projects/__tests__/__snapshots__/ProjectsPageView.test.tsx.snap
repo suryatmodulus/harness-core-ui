@@ -263,7 +263,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -289,7 +289,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -3596,7 +3596,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -3622,7 +3622,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -6929,7 +6929,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -6955,7 +6955,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -10262,7 +10262,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -10288,7 +10288,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"

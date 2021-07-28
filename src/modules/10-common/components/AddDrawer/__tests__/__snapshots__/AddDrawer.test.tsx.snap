@@ -4,7 +4,6 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
 <body
   class="bp3-overlay-open"
 >
-  <x-mentions />
   <div>
     <div
       class="StyledProps--font StyledProps--main"

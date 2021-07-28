@@ -71,10 +71,11 @@ const CERoutes: React.FC = () => {
   }, [token])
 
   const urqlClient = React.useCallback(() => {
-    let url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
-    if (url.startsWith('/')) {
-      url = url.substr(1)
-    }
+    const url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
+
+    // if (url.startsWith('/')) {
+    //   url = url.substr(1)
+    // }
     return createClient({
       url: url,
       fetchOptions: () => {

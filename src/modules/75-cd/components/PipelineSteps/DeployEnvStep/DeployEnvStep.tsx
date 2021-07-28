@@ -302,10 +302,11 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
         })
       }
       if (initialValues.environmentRef) {
-        setEnvironments(envList)
-        const doesExist = envList.filter(env => env.value === initialValues.environmentRef).length > 0
-        if (!doesExist) {
-          formikRef.current?.setFieldValue('environmentRef', '')
+        if (getMultiTypeFromValue(initialValues.environmentRef) === MultiTypeInputType.FIXED) {
+          const doesExist = envList.filter(env => env.value === initialValues.environmentRef).length > 0
+          if (!doesExist) {
+            formikRef.current?.setFieldValue('environmentRef', '')
+          }
         }
       } else {
         const identifier = initialValues.environment?.identifier
@@ -317,8 +318,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           }
           envList.push(value)
         }
-        setEnvironments(envList)
       }
+      setEnvironments(envList)
     }
   }, [
     loading,

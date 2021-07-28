@@ -285,10 +285,11 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         })
       }
       if (initialValues.serviceRef) {
-        setService(serviceList)
-        const doesExist = serviceList.filter(service => service.value === initialValues.serviceRef).length > 0
-        if (!doesExist) {
-          formikRef.current?.setFieldValue('serviceRef', '')
+        if (getMultiTypeFromValue(initialValues.serviceRef) === MultiTypeInputType.FIXED) {
+          const doesExist = serviceList.filter(service => service.value === initialValues.serviceRef).length > 0
+          if (!doesExist) {
+            formikRef.current?.setFieldValue('serviceRef', '')
+          }
         }
       } else {
         const identifier = initialValues.service?.identifier
@@ -297,8 +298,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
           serviceList.push(value)
         }
-        setService(serviceList)
       }
+      setService(serviceList)
     }
   }, [
     loading,

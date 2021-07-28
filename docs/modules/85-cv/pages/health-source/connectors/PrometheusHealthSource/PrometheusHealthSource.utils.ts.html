@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.57% </span>
+                <span class="strong">65.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>120/183</span>
+                <span class='fraction'>124/189</span>
             </div>
         
             
@@ -374,14 +374,22 @@
 <a name='L315'></a><a href='#L315'>315</a>
 <a name='L316'></a><a href='#L316'>316</a>
 <a name='L317'></a><a href='#L317'>317</a>
-<a name='L318'></a><a href='#L318'>318</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a>
+<a name='L322'></a><a href='#L322'>322</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -695,7 +703,12 @@
 import { isNumber } from 'lodash-es'
 import type { FormikProps } from 'formik'
 import type { MultiSelectOption } from '@wings-software/uicore'
-import type { MetricDefinition, TimeSeriesMetricDefinition } from 'services/cv'
+import type {
+  MetricDefinition,
+  PrometheusFilter,
+  PrometheusHealthSourceSpec,
+  TimeSeriesMetricDefinition
+} from 'services/cv'
 import type { UseStringsReturn } from 'framework/strings'
 import {
   CreatedMetricsWithSelectedIndex,
@@ -703,7 +716,6 @@ import {
   SelectedAndMappedMetrics,
   PrometheusSetupSource,
   RiskProfileCatgory,
-  PrometheusFilter,
   MapPrometheusQueryToService,
   PrometheusProductNames
 } from './PrometheusHealthSource.constants'
@@ -876,8 +888,8 @@ export function transformLabelToPrometheusFilter(options?: MultiSelectOption[]):
 <span class="cstat-no" title="statement not covered" >  return filters</span>
 }
 &nbsp;
-function generateMultiSelectOptionListFromPrometheusFilter(filters: PrometheusFilter[]): MultiSelectOption[] {
-  if (!filters<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength) {
+function generateMultiSelectOptionListFromPrometheusFilter(filters?: PrometheusFilter[]): MultiSelectOption[] {
+  if (!filters?.length) {
     return []
   }
 &nbsp;
@@ -918,22 +930,22 @@ export function transformPrometheusHealthSourceToSetupSource(sourceData: any): P
     connectorRef: sourceData.connectorRef
   }
 &nbsp;
-  for (const metricDefinition of (healthSource<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as any)<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricDefinitions || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span> {
+  for (const metricDefinition of (healthSource<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as PrometheusHealthSourceSpec)<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricDefinitions || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span> {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (metricDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricName) {
       setupSource.mappedServicesAndEnvs.set(metricDefinition.metricName, {
         metricName: metricDefinition.metricName,
         prometheusMetric: metricDefinition.prometheusMetric,
-        query: metricDefinition.query,
-        isManualQuery: metricDefinition.isManualQuery,
+        query: metricDefinition.query || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+        isManualQuery: metricDefinition.isManualQuery || false,
         serviceFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.serviceFilter),
         envFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.envFilter),
-        additionalFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.additionalFilters || []),
+        additionalFilter: generateMultiSelectOptionListFromPrometheusFilter(metricDefinition.additionalFilters),
         aggregator: metricDefinition.aggregation,
         riskCategory: `${metricDefinition.riskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ategory}/${metricDefinition.riskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>etricType}`,
         serviceInstance: metricDefinition.serviceInstanceFieldName,
         lowerBaselineDeviation: metricDefinition.riskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>hresholdTypes<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes('ACT_WHEN_LOWER') || <span class="branch-1 cbranch-no" title="branch not covered" >false,</span>
         higherBaselineDeviation: metricDefinition.riskProfile<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>hresholdTypes<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>ncludes('ACT_WHEN_HIGHER') || <span class="branch-1 cbranch-no" title="branch not covered" >false,</span>
-        groupName: { label: metricDefinition.groupName, value: metricDefinition.groupName }
+        groupName: { label: metricDefinition.groupName || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span> value: metricDefinition.groupName || <span class="branch-1 cbranch-no" title="branch not covered" >'' </span>}
       })
     }
   }
@@ -1015,7 +1027,7 @@ export function transformPrometheusSetupSourceToHealthSource(setupSource: Promet
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 27 2021 19:15:26 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 00:20:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

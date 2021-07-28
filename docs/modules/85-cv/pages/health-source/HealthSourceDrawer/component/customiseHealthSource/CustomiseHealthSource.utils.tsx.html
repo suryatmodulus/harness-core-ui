@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.88% </span>
+                <span class="strong">47.06% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/32</span>
+                <span class='fraction'>16/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">1.64% </span>
+                <span class="strong">1.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/61</span>
+                <span class='fraction'>1/62</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.33% </span>
+                <span class="strong">43.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/30</span>
+                <span class='fraction'>14/32</span>
             </div>
         
             
@@ -117,7 +117,11 @@
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
@@ -146,6 +150,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -179,12 +185,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { isEmpty } from 'lodash-es'
-import { GCOProduct } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
 import GCOLogsMonitoringSource from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GCOLogsMonitoringSource'
 import AppDMonitoredSource from '@cv/pages/health-source/connectors/AppDynamics/AppDMonitoredSource'
 import { PrometheusHealthSource } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource'
 import NewrelicMonitoredSourceContainer from '@cv/pages/health-source/connectors/NewRelic/NewRelicHealthSourceContainer'
 import { Connectors } from '@connectors/constants'
+import { GCOMetricsHealthSource } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource'
+import { GCOProduct } from '@cv/pages/health-source/connectors/GCOMetricsHealthSource/GCOMetricsHealthSource.utils'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { UpdatedHealthSource } from '../../HealthSourceDrawerContent.types'
 &nbsp;
@@ -204,15 +211,17 @@ export const LoadSourceByType = ({
 <span class="cstat-no" title="statement not covered" >      if (data?.product?.value === GCOProduct.CLOUD_LOGS) {</span>
 <span class="cstat-no" title="statement not covered" >        return &lt;GCOLogsMonitoringSource data={data} onSubmit={onSubmit} /&gt;</span>
       } else {
-<span class="cstat-no" title="statement not covered" >        return &lt;&gt;&lt;/&gt;</span>
+<span class="cstat-no" title="statement not covered" >        return &lt;GCOMetricsHealthSource data={data} onSubmit={onSubmit} /&gt;</span>
       }
 <span class="branch-2 cbranch-no" title="branch not covered" >    case HealthSourceTypes.StackdriverLog:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;GCOLogsMonitoringSource data={data} onSubmit={onSubmit} /&gt;</span>
-<span class="branch-3 cbranch-no" title="branch not covered" >    case HealthSourceTypes.Prometheus:</span>
+<span class="branch-3 cbranch-no" title="branch not covered" >    case HealthSourceTypes.StackdriverMetrics:</span>
+<span class="cstat-no" title="statement not covered" >      return &lt;GCOMetricsHealthSource data={data} onSubmit={onSubmit} /&gt;</span>
+<span class="branch-4 cbranch-no" title="branch not covered" >    case HealthSourceTypes.Prometheus:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;PrometheusHealthSource data={data} onSubmit={onSubmit} /&gt;</span>
-<span class="branch-4 cbranch-no" title="branch not covered" >    case Connectors.NEW_RELIC:</span>
+<span class="branch-5 cbranch-no" title="branch not covered" >    case Connectors.NEW_RELIC:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;NewrelicMonitoredSourceContainer data={data} onSubmit={onSubmit} /&gt;</span>
-<span class="branch-5 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-6 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;&gt;&lt;/&gt;</span>
   }
 }
@@ -244,7 +253,7 @@ export const createHealthsourceList = <span class="fstat-no" title="function not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Jul 27 2021 19:15:26 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 00:20:04 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

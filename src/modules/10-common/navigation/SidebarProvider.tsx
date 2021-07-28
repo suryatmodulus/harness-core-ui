@@ -8,6 +8,7 @@ export interface SidebarContext extends SideNavProps {
 const SidebarContext = React.createContext<SidebarContext>({
   title: '',
   subtitle: '',
+  hideNav: false,
   navComponent: function DefaultNav() {
     return null
   }

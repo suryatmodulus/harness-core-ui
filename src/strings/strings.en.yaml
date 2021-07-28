@@ -100,6 +100,7 @@ deploymentText: Deployment
 deploymentTypeText: Deployment Type
 cloudCostsText: Cloud Costs
 changeVerificationText: Change Verifications
+argoCDText: Argo CD
 deploymentsText: Deployments
 dockerRegistry: 'Docker Registry'
 executionText: Execution

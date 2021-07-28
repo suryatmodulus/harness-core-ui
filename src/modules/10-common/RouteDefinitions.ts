@@ -68,6 +68,7 @@ const routes = {
   //user profile
   toUserProfile: withAccountId(() => '/user/profile'),
   toUserPreferences: withAccountId(() => '/user/preferences'),
+  toArgo: withAccountId(() => '/argo/home'),
   // account resources
   toCreateConnectorFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
@@ -494,6 +495,14 @@ const routes = {
   toPipelines: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines`
+  ),
+  toGitOps: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops`
+  ),
+  toGitOpsNew: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops2`
   ),
   toServices: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>

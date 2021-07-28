@@ -1,0 +1,41 @@
+.header {
+  margin-bottom: 20px;
+}
+
+.card {
+  width: 300px;
+  min-height: 300px;
+  border-radius: 1px;
+
+  margin: 20px;
+}
+
+.gitOpsContainer {
+  padding: 40px;
+}
+
+.argoLogo {
+  height: 70px;
+}
+
+.launch {
+  margin: 20px 0;
+}
+
+.footer {
+  margin-top: 20px;
+  position: absolute;
+  bottom: 1.25rem;
+}
+
+.providerContainer {
+  display: flex;
+  justify-content: space-between;
+
+  margin: 20px 0;
+}
+
+.title {
+  margin-bottom: 30px;
+  color: #333;
+}

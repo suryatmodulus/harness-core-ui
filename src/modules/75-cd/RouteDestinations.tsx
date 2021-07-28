@@ -93,6 +93,8 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
+import GitOpsPage from './pages/git-ops/GitOpsPage'
+import GitOpsModalContainer from './pages/git-ops-modal-container/GitOpsModalContainer'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -212,6 +214,25 @@ export default (
     >
       <PipelinesPage />
     </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      hideNav={false}
+    >
+      <GitOpsPage />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toGitOpsNew({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      hideNav={false}
+    >
+      <GitOpsModalContainer />
+    </RouteWithLayout>
+
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}

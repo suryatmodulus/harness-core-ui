@@ -166,6 +166,7 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@urql/devtools": "^2.0.3",
+    "@webpack-cli/serve": "^1.5.1",
     "@wings-software/css-types-loader": "^2.1.0",
     "@wings-software/jarvis": "0.11.0",
     "assert": "^2.0.0",

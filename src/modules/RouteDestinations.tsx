@@ -15,6 +15,7 @@ import templatesRoutes from '@templates-library/RouteDestination'
 import CDRoutes from '@cd/RouteDestinations'
 import CIRoutes from '@ci/RouteDestinations'
 import CVRoutes from '@cv/RouteDestinations'
+import ArgoRoutes from '@argo/RouteDestinations'
 import CFRoutes from '@cf/RouteDestinations'
 import CERoutes from '@ce/RouteDestinations'
 import DASHBOARDRoutes from '@dashboards/RouteDestinations'
@@ -39,6 +40,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
+      {...ArgoRoutes.props.children}
       {CENG_ENABLED ? (
         <Route path="/account/:accountId/:module(ce)">
           <CERoutes />

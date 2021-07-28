@@ -3333,6 +3333,7 @@ export interface StringsMap {
   'cv.verificationJobs.validation.type': string
   'cv.verificationStatus': string
   'cv.verifications': string
+  'argo.title': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -3565,6 +3566,10 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   archiveFormatInfo: string
+  /**
+   * @deprecated migrate this string to module level file
+   */
+  argoCDText: string
   /**
    * @deprecated migrate this string to module level file
    */

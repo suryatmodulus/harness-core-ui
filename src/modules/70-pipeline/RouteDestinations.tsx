@@ -5,10 +5,11 @@ import '@pipeline/components/CommonPipelineStages/PipelineStage'
 
 import RbacFactory from '@rbac/factories/RbacFactory'
 import ExecFactory from '@pipeline/factories/ExecutionFactory'
-import ManifestInputFactory from '@pipeline/factories/ManifestInputFactory'
+
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
+import ManifestInputFactory from '@pipeline/factories/ManifestInputFactory/index'
 
 import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
@@ -18,8 +19,8 @@ import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/vie
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 import { ExecutionVerificationSummary } from './components/ExecutionVerification/components/ExecutionVerificationSummary/ExecutionVerificationSummary'
-import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
 import type { FormType } from './factories/ManifestInputFactory/types'
+import { ManifestInputForm } from '@cd/components/ManifestInputForm/ManifestInputForm'
 
 /**
  * Register RBAC resources

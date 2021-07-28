@@ -19,19 +19,20 @@ import List from '@common/components/List/List'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 
 import { GitConfigDTO, ServiceSpec, useGetBucketListForS3, useGetGCSBucketList } from 'services/cd-ng'
-import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
-import type { StepViewType } from '../AbstractSteps/Step'
-import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
+import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 
-import ExperimentalInput from './ExperimentalInput'
+import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
+
+import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
 import {
   ManifestToConnectorMap,
   GitRepoName,
   ManifestStoreMap,
   ManifestDataType
-} from '../ManifestSelection/Manifesthelper'
-import type { ManifestStores } from '../ManifestSelection/ManifestInterface'
+} from '@pipeline/components/ManifestSelection/Manifesthelper'
+import type { ManifestStores } from '@pipeline/components/ManifestSelection/ManifestInterface'
+import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 
 import css from './ManifestInputForm.module.scss'
 

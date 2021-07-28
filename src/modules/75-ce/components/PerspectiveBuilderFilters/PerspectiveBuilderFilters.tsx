@@ -4,7 +4,8 @@ import cx from 'classnames'
 import type { FormikExtended } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import type { CEView } from 'services/ce/'
 import type { QlceViewFieldIdentifierData } from 'services/ce/services'
-
+import { perspectiveDefaultTimeRangeMapper } from '@ce/utils/perspectiveUtils'
+import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import PerspectiveBuilderFilter, { PillData } from './PerspectiveBuilderFilter'
 
 import css from './PerspectiveBuilderFilters.module.scss'
@@ -27,6 +28,10 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
     setFieldValue(`viewRules[${index}].viewConditions[${id}]`, data)
   }
 
+  const dateRange =
+    (formikProps.values.viewTimeRange?.viewTimeRangeType &&
+      perspectiveDefaultTimeRangeMapper[formikProps.values.viewTimeRange?.viewTimeRangeType]) ||
+    DATE_RANGE_SHORTCUTS.LAST_7_DAYS
   return (
     <FieldArray
       name={`viewRules[${index}].viewConditions`}
@@ -39,6 +44,10 @@ const Filters: React.FC<FiltersProps> = ({ index, formikProps, removePill, field
               return (
                 <React.Fragment key={`filter-pill-${innerIndex}`}>
                   <PerspectiveBuilderFilter
+                    timeRange={{
+                      to: dateRange[1].format(CE_DATE_FORMAT_INTERNAL),
+                      from: dateRange[0].format(CE_DATE_FORMAT_INTERNAL)
+                    }}
                     showAddButton={innerIndex === filters.length - 1}
                     onButtonClick={() => {
                       arrayHelpers.push({

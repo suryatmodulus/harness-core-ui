@@ -12,6 +12,7 @@ import {
   ViewChartType,
   QlceViewRuleInput
 } from 'services/ce/services'
+import { DATE_RANGE_SHORTCUTS } from './momentUtils'
 
 const startTimeLabel = 'startTime'
 
@@ -156,4 +157,10 @@ export const SOURCE_ICON_MAPPING: Record<string, IconName> = {
   CLUSTER: 'blue-black-cluster',
   CUSTOM: 'pipeline-custom',
   AZURE: 'service-azure'
+}
+
+export const perspectiveDefaultTimeRangeMapper: Record<string, moment.Moment[]> = {
+  [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
+  [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
+  [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
 }

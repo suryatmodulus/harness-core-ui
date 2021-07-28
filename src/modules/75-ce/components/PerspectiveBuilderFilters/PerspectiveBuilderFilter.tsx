@@ -7,6 +7,8 @@ import {
   useFetchPerspectiveFiltersValueQuery,
   QlceViewFilterWrapperInput
 } from 'services/ce/services'
+import { getTimeFilters } from '@ce/utils/perspectiveUtils'
+import { getGMTEndDateTime, getGMTStartDateTime } from '@ce/utils/momentUtils'
 import OperatorSelector from './views/OperatorSelector'
 import OperandSelector from './views/OperandSelector'
 import ValuesSelector from './views/ValuesSelector'
@@ -38,6 +40,10 @@ interface FilterPillProps {
   fieldValuesList: QlceViewFieldIdentifierData[]
   showAddButton: boolean
   onButtonClick: () => void
+  timeRange: {
+    to: string
+    from: string
+  }
 }
 
 const LIMIT = 100
@@ -49,7 +55,8 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
   onButtonClick,
   onChange,
   pillData,
-  id
+  id,
+  timeRange
 }) => {
   const provider: ProviderType = {
     id: pillData.viewField.identifier,
@@ -122,6 +129,7 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
     variables: {
       filters: [
         { viewMetadataFilter: { viewId: perspectiveId, isPreview: true } } as QlceViewFilterWrapperInput,
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         {
           idFilter: {
             field: {

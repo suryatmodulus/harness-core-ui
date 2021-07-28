@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.27% </span>
+                <span class="strong">72.97% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/37</span>
+                <span class='fraction'>27/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">59.52% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/42</span>
+                <span class='fraction'>25/42</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.57% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>24/35</span>
+                <span class='fraction'>25/35</span>
             </div>
         
             
@@ -146,18 +146,18 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,9 +191,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -209,16 +209,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -244,7 +244,7 @@ export const mergeTemplateWithInputSetData = (
   inputSetPortion: NgPipelineTemplate
 ): NgPipelineTemplate =&gt; {
   // Replace all the matching stages in parsedTemplate with the stages received in input set portion
-  const mergedStages = templatePipeline.pipeline.stages<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(stage =&gt; {
+  const mergedStages = templatePipeline.pipeline.stages?.map(stage =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (stage.parallel) {
       /*
       This stage is parallel. Now loop over all the children stages, and check if any of them match in input set portion
@@ -280,7 +280,7 @@ export const mergeTemplateWithInputSetData = (
   })
   const toBeUpdated = templatePipeline
   toBeUpdated.pipeline.stages = mergedStages
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (inputSetPortion.pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>roperties<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>i) {
+  if (inputSetPortion.pipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>roperties?.ci) {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (!toBeUpdated.pipeline.properties) {
 <span class="cstat-no" title="statement not covered" >      toBeUpdated.pipeline.properties = {}</span>
     }
@@ -296,9 +296,9 @@ export const mergeTemplateWithInputSetData = (
   This is why 'toBeUpdated' pipeline should have the variables
   */
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (inputSetPortion.pipeline.variables) {
+  if (inputSetPortion.pipeline.variables) {
     // If we have variables saved in input set, pick them and update
-<span class="cstat-no" title="statement not covered" >    toBeUpdated.pipeline.variables = inputSetPortion.pipeline.variables</span>
+    toBeUpdated.pipeline.variables = inputSetPortion.pipeline.variables
   }
 &nbsp;
   return toBeUpdated
@@ -325,7 +325,7 @@ export const getFormattedErrors = (apiErrorMap?: { [key: string]: InputSetErrorR
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 00:20:04 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 08:40:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

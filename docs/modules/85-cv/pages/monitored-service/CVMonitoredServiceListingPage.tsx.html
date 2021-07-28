@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">75.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>44/56</span>
+                <span class='fraction'>43/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.14% </span>
+                <span class="strong">43.94% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>33/70</span>
+                <span class='fraction'>29/66</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">55.56% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/10</span>
+                <span class='fraction'>5/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">75.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/56</span>
+                <span class='fraction'>43/57</span>
             </div>
         
             
@@ -359,6 +359,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -415,6 +416,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -517,9 +520,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -630,7 +630,8 @@ import {
   RenderHealthTrend,
   RenderHealthScore,
   RenderTags,
-  getFilterAndEnvironmentValue
+  getFilterAndEnvironmentValue,
+  getEnvironmentOptions
 } from './CVMonitoredServiceListingPage.utils'
 import ToggleMonitoring from './component/toggleMonitoring/ToggleMonitoring'
 &nbsp;
@@ -653,7 +654,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState&lt;SelectOption&gt;()
   // const [searchTerm, setSearchTerm] = useState('') // TODO: Need clarificaition from product
-  const { data: serviceList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
+  const { data: environmentDataList, loading: loadingServices } = useGetMonitoredServiceListEnvironments({
     queryParams: {
       accountId: params.accountId,
       projectIdentifier: params.projectIdentifier,
@@ -682,12 +683,14 @@ function CVMonitoredServiceListingPage(): JSX.Element {
 &nbsp;
   const onDelete = <span class="fstat-no" title="function not covered" >async </span>(identifier?: string): Promise&lt;void&gt; =&gt; {
 <span class="cstat-no" title="statement not covered" >    try {</span>
-<span class="cstat-no" title="statement not covered" >      identifier &amp;&amp; (await deleteMonitoredService(identifier))</span>
+<span class="cstat-no" title="statement not covered" >      if (identifier) {</span>
+        const delPromise = <span class="cstat-no" title="statement not covered" >deleteMonitoredService(identifier)</span>
+        const refetchPromise = <span class="cstat-no" title="statement not covered" >refetch()</span>
+<span class="cstat-no" title="statement not covered" >        await Promise.all([delPromise, refetchPromise])</span>
+      }
       const { pageItemCount, pageIndex } = <span class="cstat-no" title="statement not covered" >data?.data ?? {}</span>
 <span class="cstat-no" title="statement not covered" >      if (pageIndex! &gt; 0 &amp;&amp; pageItemCount === 1) {</span>
 <span class="cstat-no" title="statement not covered" >        setPage(page - 1)</span>
-      } else {
-<span class="cstat-no" title="statement not covered" >        refetch()</span>
       }
     } catch (e) {
 <span class="cstat-no" title="statement not covered" >      if (e?.data) {</span>
@@ -791,12 +794,9 @@ function CVMonitoredServiceListingPage(): JSX.Element {
               items={
                 loadingServices
                   ? <span class="branch-0 cbranch-no" title="branch not covered" >[{ label: getString('loading'), value: 'loading' }]</span>
-                  : [getString('all'), ...(serviceList<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata || [])].map(item =&gt; {
-                      return {
-                        label: item,
-                        value: item
-                      }
-                    })
+                  : environmentDataList
+                  ? getEnvironmentOptions(environmentDataList, getString('all'))
+                  : <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
               }
               onChange={<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >setEnvironment(item)}</span>
             /&gt;
@@ -883,7 +883,7 @@ export default CVMonitoredServiceListingPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 00:20:04 GMT+0000 (Greenwich Mean Time)
+                at Wed Jul 28 2021 08:40:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

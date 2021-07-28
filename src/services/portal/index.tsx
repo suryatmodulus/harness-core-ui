@@ -19883,6 +19883,66 @@ export const useGetDelegateFromId = ({ delegateId, ...props }: UseGetDelegateFro
     { base: getConfig('api'), pathParams: { delegateId }, ...props }
   )
 
+export interface UpdateDelegateGroupTagsQueryParams {
+  accountId?: string
+}
+
+export interface UpdateDelegateGroupTagsPathParams {
+  delegateId: string
+}
+
+export type UpdateDelegateGroupTagsProps = Omit<
+  MutateProps<
+    RestResponseDelegate,
+    unknown,
+    UpdateDelegateGroupTagsQueryParams,
+    DelegateTags,
+    UpdateDelegateGroupTagsPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateDelegateGroupTagsPathParams
+
+export const UpdateDelegateGroupTags = ({ delegateId, ...props }: UpdateDelegateGroupTagsProps) => (
+  <Mutate<
+    RestResponseDelegate,
+    unknown,
+    UpdateDelegateGroupTagsQueryParams,
+    DelegateTags,
+    UpdateDelegateGroupTagsPathParams
+  >
+    verb="PUT"
+    path={`/setup/delegates/${delegateId}/tags`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseUpdateDelegateGroupTagsProps = Omit<
+  UseMutateProps<
+    RestResponseDelegate,
+    unknown,
+    UpdateDelegateGroupTagsQueryParams,
+    DelegateTags,
+    UpdateDelegateGroupTagsPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateDelegateGroupTagsPathParams
+
+export const useUpdateDelegateGroupTags = ({ delegateId, ...props }: UseUpdateDelegateGroupTagsProps) =>
+  useMutate<
+    RestResponseDelegate,
+    unknown,
+    UpdateDelegateGroupTagsQueryParams,
+    DelegateTags,
+    UpdateDelegateGroupTagsPathParams
+  >('PUT', (paramsInPath: UpdateDelegateGroupTagsPathParams) => `/setup/delegates/${paramsInPath.delegateId}/tags`, {
+    base: getConfig('api'),
+    pathParams: { delegateId },
+    ...props
+  })
+
 export interface GetFeatureFlagsPathParams {
   accountId: string
 }

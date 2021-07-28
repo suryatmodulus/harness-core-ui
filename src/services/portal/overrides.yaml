@@ -23,6 +23,7 @@ allowpaths:
   - '/users/{userId}/logout'
   - '/users/refresh-token'
   - '/setup/delegates/delegate-tags.get'
+  - '/setup/delegates/{delegateId}/tags.put'
   - '/apps'
   - '/services'
   - '/environments'
@@ -59,6 +60,7 @@ operationIdOverrides:
   /users/user.get: getUser
   /users/{userId}/logout: logout
   /setup/delegates/delegate-tags.get: getDelegateTags
+  /setup/delegates/{delegateId}/tags.put: updateDelegateGroupTags
   /apps.get: getListApplications
   /services.get: getListServices
   /environments.get: getListEnvironments

@@ -30,10 +30,6 @@ jest.mock('services/portal', () => ({
   })
 }))
 
-jest.mock('@common/hooks/useFeatureFlag', () => ({
-  useFeatureFlags: () => ({ DELEGATE_INSIGHTS_ENABLED: true })
-}))
-
 describe('Feature flag enabled', () => {
   // eslint-disable-next-line jest/no-disabled-tests
   test.skip('render delegates list and check for activity column', () => {

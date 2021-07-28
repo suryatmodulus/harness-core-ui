@@ -14,7 +14,6 @@ import {
   ExpandingSearchInput
 } from '@wings-software/uicore'
 import { Menu, MenuItem, Classes, Position, Dialog } from '@blueprintjs/core'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
@@ -178,6 +177,7 @@ const RenderActivityColumn: Renderer<CellProps<DelegateGroupDetails>> = ({ row }
 }
 
 const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) => {
+  const history = useHistory()
   const { row } = cell
   const delegateGroupIdentifier = row.original.delegateGroupIdentifier
   const { getString } = useStrings()
@@ -210,6 +210,18 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
       }
     }
   })
+
+  const handleEdit = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    e.stopPropagation()
+    history.push(
+      routes.toDelegatesDetails({
+        accountId,
+        orgIdentifier,
+        projectIdentifier
+      })
+    )
+  }
+
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)
@@ -290,6 +302,23 @@ const RenderColumnMenu = ({ cell, setOpenTroubleshoter }: cellWithModalControl) 
                 resourceType: ResourceType.DELEGATE,
                 resourceIdentifier: row.original.delegateGroupIdentifier
               },
+              permission: PermissionIdentifier.UPDATE_DELEGATE
+            }}
+            icon="edit"
+            text={getString('edit')}
+            onClick={handleEdit}
+          />
+          <RbacMenuItem
+            permission={{
+              resourceScope: {
+                accountIdentifier: accountId,
+                orgIdentifier,
+                projectIdentifier
+              },
+              resource: {
+                resourceType: ResourceType.DELEGATE,
+                resourceIdentifier: row.original.delegateGroupIdentifier
+              },
               permission: PermissionIdentifier.DELETE_DELEGATE
             }}
             icon="trash"
@@ -340,7 +369,6 @@ export const DelegateListing: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, module } = useParams<Record<string, string>>()
   const [searchParam, setSearchParam] = useState('')
   const [troubleshoterOpen, setOpenTroubleshoter] = useState(false)
-  const { DELEGATE_INSIGHTS_ENABLED } = useFeatureFlags()
   const history = useHistory()
 
   const queryParams: GetDelegatesStatusV2QueryParams = {
@@ -394,7 +422,7 @@ export const DelegateListing: React.FC = () => {
       {
         Header: getString('delegate.DelegateName').toUpperCase(),
         accessor: (row: DelegateGroupDetails) => row.groupName,
-        width: DELEGATE_INSIGHTS_ENABLED ? '25%' : '30%',
+        width: '25%',
         id: 'name',
         Cell: RenderNameColumn
       },
@@ -402,8 +430,15 @@ export const DelegateListing: React.FC = () => {
         Header: getString('tagsLabel').toUpperCase(),
         accessor: (row: DelegateGroupDetails) => row.groupImplicitSelectors,
         id: 'tags',
-        width: DELEGATE_INSIGHTS_ENABLED ? '25%' : '30%',
+        width: '25%',
         Cell: RenderTagsColumn
+      },
+      {
+        Header: getString('activity').toUpperCase(),
+        width: 'calc(15% - 10px)',
+        id: 'insights',
+        disableSortBy: true,
+        Cell: RenderActivityColumn
       },
       {
         Header: getString('delegate.LastHeartBeat').toUpperCase(),
@@ -414,7 +449,7 @@ export const DelegateListing: React.FC = () => {
           return getString('na')
         },
         id: 'lastHeartBeat',
-        width: DELEGATE_INSIGHTS_ENABLED ? 'calc(15% - 10px)' : 'calc(20% - 10px)'
+        width: 'calc(15% - 10px)'
       },
       {
         Header: getString('connectivityStatus').toUpperCase(),
@@ -432,18 +467,8 @@ export const DelegateListing: React.FC = () => {
         Cell: (cell: CellProps<DelegateGroupDetails>) => RenderColumnMenu({ cell, setOpenTroubleshoter })
       }
     ]
-    if (DELEGATE_INSIGHTS_ENABLED) {
-      const activityColumn = {
-        Header: getString('activity').toUpperCase(),
-        width: 'calc(15% - 10px)',
-        id: 'insights',
-        disableSortBy: true,
-        Cell: RenderActivityColumn
-      }
-      tableColumns.splice(3, 0, activityColumn)
-    }
     return tableColumns
-  }, [DELEGATE_INSIGHTS_ENABLED, getString])
+  }, [getString])
 
   // Add polling
   useEffect(() => {

@@ -34,6 +34,7 @@ import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
 import SecretsPage from '@secrets/pages/secrets/SecretsPage'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
+import DelegateDetailsEdit from '@delegates/pages/delegates/DelegateDetailsEdit'
 import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsPage'
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
@@ -155,6 +156,22 @@ export default (
       exact
     >
       <DelegateDetails />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={routes.toEditDelegatesDetails({ ...orgPathProps, ...delegatePathProps })}
+      exact
+    >
+      <DelegateDetailsEdit />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={routes.toEditDelegatesDetails({ ...projectPathProps, ...delegatePathProps })}
+      exact
+    >
+      <DelegateDetailsEdit />
     </RouteWithLayout>
 
     <RouteWithLayout

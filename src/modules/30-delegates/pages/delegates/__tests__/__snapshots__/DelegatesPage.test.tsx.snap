@@ -184,7 +184,7 @@ exports[`Delegates Page render data 1`] = `
                     class="cell"
                     colspan="1"
                     role="columnheader"
-                    style="width: 30%;"
+                    style="width: 25%;"
                   >
                     DELEGATE.DELEGATENAME
                   </div>
@@ -192,7 +192,7 @@ exports[`Delegates Page render data 1`] = `
                     class="cell"
                     colspan="1"
                     role="columnheader"
-                    style="width: 30%;"
+                    style="width: 25%;"
                   >
                     TAGSLABEL
                   </div>
@@ -200,7 +200,15 @@ exports[`Delegates Page render data 1`] = `
                     class="cell"
                     colspan="1"
                     role="columnheader"
-                    style="width: calc(20% - 10px);"
+                    style="width: calc(15% - 10px);"
+                  >
+                    ACTIVITY
+                  </div>
+                  <div
+                    class="cell"
+                    colspan="1"
+                    role="columnheader"
+                    style="width: calc(15% - 10px);"
                   >
                     DELEGATE.LASTHEARTBEAT
                   </div>

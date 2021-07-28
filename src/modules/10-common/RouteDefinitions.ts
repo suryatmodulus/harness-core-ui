@@ -179,6 +179,24 @@ const routes = {
       })
     }
   ),
+  toEditDelegatesDetails: withAccountId(
+    ({
+      orgIdentifier,
+      projectIdentifier,
+      delegateIdentifier,
+      module
+    }: Partial<ProjectPathProps & ModulePathParams & DelegatePathProps>) => {
+      const path = `resources/delegates/${delegateIdentifier}/edit`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   toDelegateConfigsDetails: withAccountId(
     ({
       orgIdentifier,

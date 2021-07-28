@@ -12,6 +12,7 @@ import { String } from 'framework/strings'
 import DelegatesPage from '@delegates/pages/delegates/DelegatesPage'
 import DelegateProfileDetails from '@delegates/pages/delegates/DelegateConfigurationDetailPage'
 import DelegateDetails from '@delegates/pages/delegates/DelegateDetails'
+import DelegateDetailsEdit from '@delegates/pages/delegates/DelegateDetailsEdit'
 
 import DelegateResourceModalBody from '@delegates/components/DelegateResourceModalBody/DelegateResourceModalBody'
 import DelegateConfigurationResourceModalBody from '@delegates/components/DelegateConfigurationResourceModalBody/DelegateConfigurationResourceModalBody'
@@ -61,6 +62,12 @@ export default (
       path={[routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps })]}
     >
       <DelegateDetails />
+    </RouteWithLayout>
+    <RouteWithLayout
+      sidebarProps={AccountSideNavProps}
+      path={[routes.toEditDelegatesDetails({ ...accountPathProps, ...delegatePathProps })]}
+    >
+      <DelegateDetailsEdit />
     </RouteWithLayout>
     <RouteWithLayout
       sidebarProps={AccountSideNavProps}

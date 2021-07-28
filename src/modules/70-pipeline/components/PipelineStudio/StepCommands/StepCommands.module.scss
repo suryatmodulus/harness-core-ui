@@ -22,7 +22,7 @@
     }
 
     :global(.bp3-tab-indicator-wrapper) {
-      height: 22px !important;
+      height: 18px !important;
     }
 
     :global(.bp3-tab) {
@@ -37,7 +37,7 @@
 
     :global(.bp3-tab-list) {
       border-bottom: 1px solid var(--grey-300);
-      margin: 0 var(--spacing-5);
+      padding: var(--spacing-3) var(--spacing-5);
     }
     :global(.bp3-tab-panel) {
       padding: var(--spacing-large);

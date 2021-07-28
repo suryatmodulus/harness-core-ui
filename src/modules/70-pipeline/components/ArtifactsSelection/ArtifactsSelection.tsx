@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -29,7 +29,7 @@ import GcrAuthentication from '@connectors/components/CreateConnector/GcrConnect
 import StepAWSAuthentication from '@connectors/components/CreateConnector/AWSConnector/StepAuth/StepAWSAuthentication'
 import { buildAWSPayload, buildDockerPayload, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
-import { useQueryParams } from '@common/hooks'
+import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -261,7 +261,7 @@ export default function ArtifactsSelection({
     }
   }
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     refetchConnectorList()
   }, [stage, primaryArtifact, sideCarArtifact])
 

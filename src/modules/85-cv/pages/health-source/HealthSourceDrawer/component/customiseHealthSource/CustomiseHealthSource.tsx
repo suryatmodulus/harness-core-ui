@@ -49,7 +49,7 @@ export default function CustomiseHealthSource({
 
   const submitData = async (formdata: any, healthSourcePayload: UpdatedHealthSource): Promise<void> => {
     const healthSourceList = createHealthsourceList(formdata, healthSourcePayload)
-    const { identifier, name, description, tags } = formdata?.monitoredServiceRef
+    const { identifier, name, description = '', tags = {} } = formdata?.monitoredServiceRef
     try {
       const payload: MonitoredServiceDTO = {
         orgIdentifier: params.orgIdentifier,

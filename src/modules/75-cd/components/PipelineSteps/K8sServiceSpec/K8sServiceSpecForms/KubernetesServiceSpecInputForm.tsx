@@ -45,12 +45,16 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { gcrUrlList } from '@pipeline/components/ArtifactsSelection/ArtifactRepository/ArtifactLastSteps/GCRImagePath/GCRImagePath'
 import { EXPRESSION_STRING } from '@pipeline/utils/constants'
-import { ManifestInputForm } from '@pipeline/components/ManifestInputForm/ManifestInputForm'
+import ManifestFactory from '@pipeline/factories/ManifestInputFactory'
 
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { FormType } from '@pipeline/factories/ManifestInputFactory/types'
+
 import type { KubernetesServiceInputFormProps, LastQueryData } from '../K8sServiceSpecInterface'
+
 import { clearRuntimeInputValue, getNonRuntimeFields } from '../K8sServiceSpecHelper'
 import ExperimentalInput from './ExperimentalInput'
+// import factory from '@pipeline/factories/ManifestInputFactory/ManifestInputFactory'
 import css from '../K8sServiceSpec.module.scss'
 
 const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormProps> = ({
@@ -64,6 +68,9 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
   stageIdentifier,
   formik
 }) => {
+  const stepDetails = ManifestFactory.getStepDetails(FormType.PipelineRunTime)
+
+  const StepDetails = stepDetails.component
   const { getString } = useStrings()
   const { showError, clear } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<
@@ -761,7 +768,7 @@ const KubernetesServiceSpecInputFormikForm: React.FC<KubernetesServiceInputFormP
         </div>
       )}
       {!!template?.manifests?.length && (
-        <ManifestInputForm
+        <StepDetails
           template={template}
           path={path}
           allValues={allValues}

@@ -12,10 +12,10 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
       ...data.spec,
       approvers: {
         ...data.spec.approvers,
-        userGroups:
-          getMultiTypeFromValue(data.spec.approvers.userGroups as string) !== MultiTypeInputType.FIXED
-            ? data.spec.approvers.userGroups
-            : (data.spec.approvers.userGroups as MultiSelectOption[])?.map(ug => ug.value?.toString()),
+        userGroups: data.spec.approvers.userGroups,
+        // getMultiTypeFromValue(data.spec.approvers.userGroups as string) !== MultiTypeInputType.FIXED
+        //   ? data.spec.approvers.userGroups
+        //   : (data.spec.approvers.userGroups as MultiSelectOption[])?.map(ug => ug.value?.toString()),
         minimumCount:
           getMultiTypeFromValue(data.spec.approvers.minimumCount as string) === MultiTypeInputType.RUNTIME
             ? data.spec.approvers.minimumCount

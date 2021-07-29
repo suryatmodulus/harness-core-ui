@@ -40,6 +40,7 @@ import type {
 import { isArrayOfStrings } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './HarnessApproval.module.scss'
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 
 const FormContent = ({
   formik,
@@ -53,41 +54,41 @@ const FormContent = ({
   const { expressions } = useVariablesExpression()
   const [userGroupOptions, setUserGroupOptions] = useState<MultiSelectOption[]>([])
 
-  const setOptionsInForm = (userGroupIds: string[]) => {
-    // When we open the form, we'll get the userGroups as string[] as saved in BE
-    // Convert the same as MultiSelectOption[], and update the formik values for auto populate
-    const selectedUgOptions: MultiSelectOption[] = []
-    userGroupIds.forEach(ugIdentifier => {
-      const matchedOption = userGroupOptions.find(opt => opt.value === ugIdentifier)
-      if (matchedOption) {
-        selectedUgOptions.push(matchedOption)
-      }
-    })
-    formik.setFieldValue('spec.approvers.userGroups', selectedUgOptions)
-  }
+  // const setOptionsInForm = (userGroupIds: string[]) => {
+  //   // When we open the form, we'll get the userGroups as string[] as saved in BE
+  //   // Convert the same as MultiSelectOption[], and update the formik values for auto populate
+  //   const selectedUgOptions: MultiSelectOption[] = []
+  //   userGroupIds.forEach(ugIdentifier => {
+  //     const matchedOption = userGroupOptions.find(opt => opt.value === ugIdentifier)
+  //     if (matchedOption) {
+  //       selectedUgOptions.push(matchedOption)
+  //     }
+  //   })
+  //   formik.setFieldValue('spec.approvers.userGroups', selectedUgOptions)
+  // }
 
-  useEffect(() => {
-    // When moving back from advanced tab
-    if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups)) {
-      setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
-    }
-  }, [formik.initialValues])
+  // useEffect(() => {
+  //   // When moving back from advanced tab
+  //   if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups)) {
+  //     setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
+  //   }
+  // }, [formik.initialValues])
 
-  useEffect(() => {
-    if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups) && userGroupOptions.length) {
-      setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
-    }
-  }, [userGroupOptions])
+  // useEffect(() => {
+  //   if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups) && userGroupOptions.length) {
+  //     setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
+  //   }
+  // }, [userGroupOptions])
 
-  useEffect(() => {
-    if (userGroupsResponse?.data?.content) {
-      const userGroupsContent = userGroupsResponse?.data?.content
-      const options: MultiSelectOption[] = userGroupsContent
-        ? userGroupsContent.map(ug => ({ label: ug.name || '', value: ug.identifier || '' }))
-        : []
-      setUserGroupOptions(options)
-    }
-  }, [userGroupsResponse?.data?.content])
+  // useEffect(() => {
+  //   if (userGroupsResponse?.data?.content) {
+  //     const userGroupsContent = userGroupsResponse?.data?.content
+  //     const options: MultiSelectOption[] = userGroupsContent
+  //       ? userGroupsContent.map(ug => ({ label: ug.name || '', value: ug.identifier || '' }))
+  //       : []
+  //     setUserGroupOptions(options)
+  //   }
+  // }, [userGroupsResponse?.data?.content])
 
   return (
     <React.Fragment>
@@ -156,7 +157,7 @@ const FormContent = ({
         disabled={isApprovalStepFieldDisabled(readonly)}
       />
 
-      <div className={cx(stepCss.formGroup, stepCss.lg)}>
+      {/* <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiSelectTypeInput
           className={css.multiSelect}
           name="spec.approvers.userGroups"
@@ -217,6 +218,9 @@ const FormContent = ({
             isReadonly={readonly}
           />
         )}
+      </div> */}
+      <div className={cx(stepCss.formGroup, stepCss.lg)}>
+        <UserGroupsInput name="spec.approvers.userGroups" label={getString('common.userGroups')} />
       </div>
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
@@ -334,17 +338,17 @@ function HarnessApprovalStepMode(
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
 
-  const {
-    data: userGroupsResponse,
-    loading: fetchingUserGroups,
-    error: userGroupsFetchError
-  } = useGetUserGroupList({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
+  // const {
+  //   data: userGroupsResponse,
+  //   loading: fetchingUserGroups,
+  //   error: userGroupsFetchError
+  // } = useGetUserGroupList({
+  //   queryParams: {
+  //     accountIdentifier: accountId,
+  //     orgIdentifier,
+  //     projectIdentifier
+  //   }
+  // })
 
   return (
     <Formik<HarnessApprovalData>
@@ -374,9 +378,9 @@ function HarnessApprovalStepMode(
           <FormikForm>
             <FormContent
               formik={formik}
-              userGroupsResponse={userGroupsResponse}
-              fetchingUserGroups={fetchingUserGroups}
-              userGroupsFetchError={userGroupsFetchError}
+              // userGroupsResponse={userGroupsResponse}
+              // fetchingUserGroups={fetchingUserGroups}
+              // userGroupsFetchError={userGroupsFetchError}
               isNewStep={isNewStep}
               readonly={readonly}
             />

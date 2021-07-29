@@ -1,5 +1,6 @@
 import React from 'react'
 import { waitFor, act, fireEvent, findByText, findAllByText, render } from '@testing-library/react'
+import { cloneDeep } from 'lodash-es'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
 import type { ResponseConnectorResponse } from 'services/cd-ng'
@@ -117,5 +118,56 @@ describe('BuildInfraSpecifications snapshot test', () => {
     // TODO - check why validation error is not appearing
     // expect(container).toMatchSnapshot()
     expect(true).toBeTruthy()
+  })
+
+  test('Renders with multiple stages', () => {
+    const context = cloneDeep(contextMock)
+    context.state.pipeline.stages.push({
+      stage: {
+        name: 's2',
+        identifier: 's2',
+        description: '',
+        type: 'CI',
+        spec: {
+          cloneCodebase: true,
+          serviceDependencies: [],
+          infrastructure: {
+            type: 'KubernetesDirect',
+            spec: {
+              namespace: '',
+              labels: {
+                lab1: 'test',
+                projectid: 'invalidKey'
+              }
+            }
+          },
+          execution: {
+            steps: []
+          }
+        }
+      }
+    })
+    context.state.selectionState = {
+      selectedStageId: 's2'
+    }
+
+    const { container } = render(
+      <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
+        <PipelineContext.Provider
+          value={
+            {
+              ...context,
+              getStageFromPipeline: jest.fn(() => {
+                return { stage: contextMock.state.pipeline.stages[0], parent: undefined }
+              }),
+              updatePipeline: jest.fn
+            } as any
+          }
+        >
+          <BuildInfraSpecifications />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
   })
 })

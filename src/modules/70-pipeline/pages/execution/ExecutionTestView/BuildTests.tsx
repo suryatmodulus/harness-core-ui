@@ -22,7 +22,6 @@ import { TestsOverview } from './TestsOverview'
 import { TestsExecutionResult } from './TestsExecutionResult'
 import { TestsSelectionBreakdown } from './TestsSelectionBreakdown'
 import { TestsReportOverview } from './TestsReportOverview'
-import { isExecutionComplete } from './TestsUtils'
 // import { TestsCoverage } from './TestsCoverage'
 import css from './BuildTests.module.scss'
 
@@ -114,7 +113,7 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
   })
 
   useEffect(() => {
-    if (isExecutionComplete(status) && serviceToken) {
+    if (status && serviceToken) {
       fetchReportInfo()
       fetchTestInfo()
     }
@@ -208,7 +207,7 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
       : UI.ZeroState
 
   useEffect(() => {
-    if (isExecutionComplete(status) && stageId && stepId) {
+    if (status && stageId && stepId) {
       fetchReportSummary()
       fetchTestOverview()
     }

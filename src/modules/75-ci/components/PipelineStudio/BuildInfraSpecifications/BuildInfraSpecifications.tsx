@@ -68,8 +68,16 @@ const testLabelKey = (value: string): boolean => {
 
 const getValidationSchema = (getString?: UseStringsReturn['getString']): yup.Schema<unknown> =>
   yup.object().shape({
-    connectorRef: yup.mixed().required(),
-    namespace: yup.string().trim().required(),
+    connectorRef: yup.mixed().when(['useFromStage'], {
+      is: isEmpty,
+      then: yup.mixed().required(),
+      otherwise: yup.mixed()
+    }),
+    namespace: yup.string().when(['useFromStage'], {
+      is: isEmpty,
+      then: yup.string().trim().required(),
+      otherwise: yup.string().nullable()
+    }),
     runAsUser: yup.string().test(
       'Must be a number and allows runtimeinput or expression',
       getString?.('pipeline.stepCommonFields.validation.mustBeANumber', {

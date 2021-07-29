@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.69% </span>
+                <span class="strong">74.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>239/320</span>
+                <span class='fraction'>241/325</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.25% </span>
+                <span class="strong">55% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>531/944</span>
+                <span class='fraction'>528/960</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.56% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>238/315</span>
+                <span class='fraction'>240/320</span>
             </div>
         
             
@@ -1258,7 +1258,26 @@
 <a name='L1199'></a><a href='#L1199'>1199</a>
 <a name='L1200'></a><a href='#L1200'>1200</a>
 <a name='L1201'></a><a href='#L1201'>1201</a>
-<a name='L1202'></a><a href='#L1202'>1202</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L1202'></a><a href='#L1202'>1202</a>
+<a name='L1203'></a><a href='#L1203'>1203</a>
+<a name='L1204'></a><a href='#L1204'>1204</a>
+<a name='L1205'></a><a href='#L1205'>1205</a>
+<a name='L1206'></a><a href='#L1206'>1206</a>
+<a name='L1207'></a><a href='#L1207'>1207</a>
+<a name='L1208'></a><a href='#L1208'>1208</a>
+<a name='L1209'></a><a href='#L1209'>1209</a>
+<a name='L1210'></a><a href='#L1210'>1210</a>
+<a name='L1211'></a><a href='#L1211'>1211</a>
+<a name='L1212'></a><a href='#L1212'>1212</a>
+<a name='L1213'></a><a href='#L1213'>1213</a>
+<a name='L1214'></a><a href='#L1214'>1214</a>
+<a name='L1215'></a><a href='#L1215'>1215</a>
+<a name='L1216'></a><a href='#L1216'>1216</a>
+<a name='L1217'></a><a href='#L1217'>1217</a>
+<a name='L1218'></a><a href='#L1218'>1218</a>
+<a name='L1219'></a><a href='#L1219'>1219</a>
+<a name='L1220'></a><a href='#L1220'>1220</a>
+<a name='L1221'></a><a href='#L1221'>1221</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -1451,6 +1470,8 @@
 <span class="cline-any cline-yes">78x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">78x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2086,6 +2107,9 @@
 <span class="cline-any cline-yes">141x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2113,6 +2137,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">49x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-yes">36x</span>
@@ -2659,7 +2697,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         originalPipeline?: PipelineInfoConfig
         identifier?: string
         connectorRef?: { identifier?: string; scope?: string }
-        inputSetTemplateYaml?: string
+        inputSetTemplateYamlObj?: {
+          pipeline: PipelineInfoConfig | Record&lt;string, never&gt;
+        }
       }
   &gt;({ triggerType: triggerTypeOnNew })
 &nbsp;
@@ -3285,12 +3325,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
         ...getDefaultExpressionBreakdownValues(scheduleTabsId.MINUTES)
       }
     } else <span class="missing-if-branch" title="if path not taken" >I</span>if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+      const inputSetTemplateYamlObj = <span class="cstat-no" title="statement not covered" >parse(template?.data?.inputSetTemplateYaml || '')</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >      return {</span>
         triggerType: triggerTypeOnNew,
         identifier: '',
         tags: {},
         pipeline: currentPipeline?.pipeline,
-        originalPipeline
+        originalPipeline,
+        inputSetTemplateYamlObj
       }
     }
     return {}
@@ -3314,19 +3357,33 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
     ) {
       try {
         const newOriginalPipeline = parse(yamlPipeline)<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipeline
+        const additionalValues: {
+          inputSetTemplateYamlObj?: {
+            pipeline: PipelineInfoConfig | Record&lt;string, never&gt;
+          }
+        } = {}
+&nbsp;
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (
+          initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>riggerType === TriggerTypes.NEW_ARTIFACT ||
+          onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>riggerType === TriggerTypes.NEW_ARTIFACT
+        ) {
+          const inputSetTemplateYamlObj = <span class="cstat-no" title="statement not covered" >parse(template?.data?.inputSetTemplateYaml || '')</span>
+<span class="cstat-no" title="statement not covered" >          additionalValues.inputSetTemplateYamlObj = inputSetTemplateYamlObj</span>
+        }
+&nbsp;
         if (onEditInitialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier) {
           const newPipeline = currentPipeline<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipeline ? currentPipeline.pipeline : <span class="branch-1 cbranch-no" title="branch not covered" >onEditInitialValues.pipeline || {}</span>
           setOnEditInitialValues({
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
             pipeline: newPipeline,
-            inputSetTemplateYaml: template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml
+            ...{ additionalValues }
           })
         } else {
           setInitialValues({
             ...initialValues,
             originalPipeline: newOriginalPipeline,
-            inputSetTemplateYaml: template<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>nputSetTemplateYaml
+            ...{ additionalValues }
           })
         }
       } catch (e) {
@@ -3667,7 +3724,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 29 2021 21:32:48 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 29 2021 23:05:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

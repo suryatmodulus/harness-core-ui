@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.84% </span>
+                <span class="strong">62.96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>137/218</span>
+                <span class='fraction'>136/216</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.63% </span>
+                <span class="strong">33.04% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>226/672</span>
+                <span class='fraction'>226/684</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.42% </span>
+                <span class="strong">60.53% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>116/192</span>
+                <span class='fraction'>115/190</span>
             </div>
         
             
@@ -853,24 +853,29 @@
 <a name='L794'></a><a href='#L794'>794</a>
 <a name='L795'></a><a href='#L795'>795</a>
 <a name='L796'></a><a href='#L796'>796</a>
-<a name='L797'></a><a href='#L797'>797</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">21x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L797'></a><a href='#L797'>797</a>
+<a name='L798'></a><a href='#L798'>798</a>
+<a name='L799'></a><a href='#L799'>799</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
 <span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-yes">21x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1560,10 +1565,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1651,7 +1655,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
-import { parse } from 'yaml'
 import type { SelectOption } from '@wings-software/uicore'
 import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
@@ -1685,7 +1688,9 @@ export interface FlatInitialValuesInterface {
   }
   pipeline?: string | PipelineInfoConfig
   originalPipeline?: PipelineInfoConfig
-  inputSetTemplateYaml?: string
+  inputSetTemplateYamlObj?: {
+    pipeline: PipelineInfoConfig | Record&lt;string, never&gt;
+  }
   name?: string
   // WEBHOOK-SPECIFIC
   sourceRepo?: string
@@ -1705,7 +1710,6 @@ export interface FlatOnEditValuesInterface {
   pipeline: PipelineInfoConfig
   triggerType: NGTriggerSourceV2['type']
   originalPipeline?: PipelineInfoConfig
-  inputSetTemplateYaml?: string
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']
   connectorRef?: ConnectorRefInterface
@@ -1733,6 +1737,9 @@ export interface FlatOnEditValuesInterface {
   minutes?: string
   expression?: string
   // ARTIFACT/MANIFEST-SPECIFIC
+  inputSetTemplateYamlObj?: {
+    pipeline: PipelineInfoConfig | Record&lt;string, never&gt;
+  }
 }
 &nbsp;
 export interface FlatValidWebhookFormikValuesInterface {
@@ -2342,28 +2349,27 @@ interface data {
   buildTag: string
 }
 export const parseArtifactsManifests = <span class="fstat-no" title="function not covered" >({</span>
-  inputSetTemplateYaml,
+  inputSetTemplateYamlObj,
   manifestType,
   artifactType,
   artifactRef,
   stageId,
   isManifest
 }: {
-  inputSetTemplateYaml?: string
+  inputSetTemplateYamlObj?: {
+    pipeline: PipelineInfoConfig | Record&lt;string, never&gt;
+  }
   artifactRef?: string
   stageId?: string
   isManifest: boolean
   artifactType?: string
   manifestType?: string
 }): { appliedArtifact?: any; data?: data[] } =&gt; {
-<span class="cstat-no" title="statement not covered" >  if (inputSetTemplateYaml) {</span>
-    const pipelineObject = <span class="cstat-no" title="statement not covered" >parse(inputSetTemplateYaml) as {</span>
-      pipeline: PipelineInfoConfig | any
-    }
+<span class="cstat-no" title="statement not covered" >  if (inputSetTemplateYamlObj?.pipeline) {</span>
 <span class="cstat-no" title="statement not covered" >    if (artifactRef &amp;&amp; isManifest) {</span>
       // returns single manifest
       let appliedArtifact
-<span class="cstat-no" title="statement not covered" >      pipelineObject.pipeline.stages.some(<span class="fstat-no" title="function not covered" >(s</span>tageObj: any) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      inputSetTemplateYamlObj.pipeline.stages?.some(<span class="fstat-no" title="function not covered" >(s</span>tageObj: any) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (stageObj?.stage?.identifier === stageId) {</span>
           const appliedArtifactObj = <span class="cstat-no" title="statement not covered" >stageObj.stage.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.find(</span>
 <span class="fstat-no" title="function not covered" >            (m</span>anifestObj: any) =&gt; <span class="cstat-no" title="statement not covered" >manifestObj?.manifest?.identifier === artifactRef</span>
@@ -2377,7 +2383,7 @@ export const parseArtifactsManifests = <span class="fstat-no" title="function no
 <span class="cstat-no" title="statement not covered" >      return { appliedArtifact }</span>
     } else <span class="cstat-no" title="statement not covered" >if (isManifest) {</span>
       // returns list of manifests
-      const stagesManifests = <span class="cstat-no" title="statement not covered" >pipelineObject.pipeline.stages.map(<span class="fstat-no" title="function not covered" >(s</span>tageObj: any) =&gt; {</span>
+      const stagesManifests = <span class="cstat-no" title="statement not covered" >inputSetTemplateYamlObj.pipeline.stages?.map(<span class="fstat-no" title="function not covered" >(s</span>tageObj: any) =&gt; {</span>
         const filteredManifests = <span class="cstat-no" title="statement not covered" >stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.filter(</span>
 <span class="fstat-no" title="function not covered" >          (m</span>anifestObj: any) =&gt; <span class="cstat-no" title="statement not covered" >manifestObj?.manifest?.type === manifestType</span>
         )
@@ -2452,7 +2458,7 @@ export const getArtifactTableDataFromData = <span class="fstat-no" title="functi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 29 2021 21:32:48 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 29 2021 23:05:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

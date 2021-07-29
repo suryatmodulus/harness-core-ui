@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/23</span>
+                <span class='fraction'>16/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.06% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/17</span>
+                <span class='fraction'>16/28</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">61.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/23</span>
+                <span class='fraction'>16/26</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -138,13 +138,23 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -167,6 +177,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,6 +191,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,7 +243,8 @@ import cx from 'classnames'
 import type { FormikExtended } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import type { CEView } from 'services/ce/'
 import type { QlceViewFieldIdentifierData } from 'services/ce/services'
-&nbsp;
+import { perspectiveDefaultTimeRangeMapper } from '@ce/utils/perspectiveUtils'
+import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
 import PerspectiveBuilderFilter, { PillData } from './PerspectiveBuilderFilter'
 &nbsp;
 import css from './PerspectiveBuilderFilters.module.scss'
@@ -248,6 +267,10 @@ const Filters: React.FC&lt;FiltersProps&gt; = ({ index, formikProps, removePill,
 <span class="cstat-no" title="statement not covered" >    setFieldValue(`viewRules[${index}].viewConditions[${id}]`, data)</span>
   }
 &nbsp;
+  const dateRange =
+    (formikProps.values.viewTimeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewTimeRangeType &amp;&amp;
+      perspectiveDefaultTimeRangeMapper[formikProps.values.viewTimeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewTimeRangeType]) ||
+<span class="branch-2 cbranch-no" title="branch not covered" >    DATE_RANGE_SHORTCUTS.LAST_7_DAYS</span>
   return (
     &lt;FieldArray
       name={`viewRules[${index}].viewConditions`}
@@ -260,6 +283,10 @@ const Filters: React.FC&lt;FiltersProps&gt; = ({ index, formikProps, removePill,
               return (
                 &lt;React.Fragment key={`filter-pill-${innerIndex}`}&gt;
                   &lt;PerspectiveBuilderFilter
+                    timeRange={{
+                      to: dateRange[1].format(CE_DATE_FORMAT_INTERNAL),
+                      from: dateRange[0].format(CE_DATE_FORMAT_INTERNAL)
+                    }}
                     showAddButton={innerIndex === filters.length - 1}
                     onButtonClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                      arrayHelpers.push({</span>
@@ -307,7 +334,7 @@ export default Filters
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 22:08:24 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 29 2021 03:54:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

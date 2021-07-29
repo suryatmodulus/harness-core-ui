@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.04% </span>
+                <span class="strong">90.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>61/67</span>
+                <span class='fraction'>64/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.68% </span>
+                <span class="strong">61.47% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/107</span>
+                <span class='fraction'>67/109</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/8</span>
+                <span class='fraction'>4/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.42% </span>
+                <span class="strong">91.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>61/66</span>
+                <span class='fraction'>64/70</span>
             </div>
         
             
@@ -359,7 +359,10 @@
 <a name='L300'></a><a href='#L300'>300</a>
 <a name='L301'></a><a href='#L301'>301</a>
 <a name='L302'></a><a href='#L302'>302</a>
-<a name='L303'></a><a href='#L303'>303</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -378,16 +381,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -494,12 +497,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -560,6 +557,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -677,7 +683,6 @@ import {
   QlceViewFieldInputInput,
   useFetchperspectiveGridQuery,
   ViewChartType,
-  ViewTimeRangeType,
   ViewType,
   QlceViewAggregateOperation
 } from 'services/ce/services'
@@ -695,7 +700,8 @@ import {
   getGroupByFilter,
   getTimeRangeFilter,
   getFilters,
-  DEFAULT_GROUP_BY
+  DEFAULT_GROUP_BY,
+  perspectiveDefaultTimeRangeMapper
 } from '@ce/utils/perspectiveUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
 import {
@@ -795,12 +801,6 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
     from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
 &nbsp;
-  const timeRangeMapper: Record&lt;string, moment.Moment[]&gt; = {
-    [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
-    [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
-    [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
-  }
-&nbsp;
   useEffect(() =&gt; {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (perspectiveData) {
       const cType =
@@ -815,7 +815,7 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
 &nbsp;
       const dateRange =
         (perspectiveData.viewTimeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewTimeRangeType &amp;&amp;
-          timeRangeMapper[perspectiveData.viewTimeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewTimeRangeType]) ||
+          perspectiveDefaultTimeRangeMapper[perspectiveData.viewTimeRange<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>iewTimeRangeType]) ||
 <span class="branch-2 cbranch-no" title="branch not covered" >        DATE_RANGE_SHORTCUTS.LAST_7_DAYS</span>
 &nbsp;
       setTimeRange({
@@ -864,9 +864,18 @@ const PerspectiveDetailsPage: React.FC = () =&gt; {
     }
   })
 &nbsp;
+  const getAggregationFunc = () =&gt; {
+    const af = AGGREGATE_FUNCTION[groupBy.fieldId]
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!af) {
+      return isClusterOnly ? <span class="branch-0 cbranch-no" title="branch not covered" >AGGREGATE_FUNCTION.CLUSTER </span>: AGGREGATE_FUNCTION.DEFAULT
+    }
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    return af</span>
+  }
+&nbsp;
   const [gridResults] = useFetchperspectiveGridQuery({
     variables: {
-      aggregateFunction: isClusterOnly ? <span class="branch-0 cbranch-no" title="branch not covered" >AGGREGATE_FUNCTION.CLUSTER </span>: AGGREGATE_FUNCTION.DEFAULT,
+      aggregateFunction: getAggregationFunc(),
       filters: [
         getViewFilterForId(perspectiveId),
         ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
@@ -970,7 +979,7 @@ export default PerspectiveDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Jul 28 2021 22:08:24 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 29 2021 03:54:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

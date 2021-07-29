@@ -21,6 +21,7 @@ export interface LicenseStoreContextProps {
   readonly licenseInformation: AccountLicenseDTO['moduleLicenses'] | Record<string, undefined>
   readonly CI_LICENSE_STATE: LICENSE_STATE_VALUES
   readonly FF_LICENSE_STATE: LICENSE_STATE_VALUES
+  readonly CCM_LICENSE_STATE: LICENSE_STATE_VALUES
 
   updateLicenseStore(data: Partial<Pick<LicenseStoreContextProps, 'licenseInformation'>>): void
 }
@@ -35,13 +36,15 @@ type licenseStateNames = keyof Omit<LicenseStoreContextProps, 'licenseInformatio
 
 export const LICENSE_STATE_NAMES: { [T in licenseStateNames]: T } = {
   CI_LICENSE_STATE: 'CI_LICENSE_STATE',
-  FF_LICENSE_STATE: 'FF_LICENSE_STATE'
+  FF_LICENSE_STATE: 'FF_LICENSE_STATE',
+  CCM_LICENSE_STATE: 'CCM_LICENSE_STATE'
 }
 
 export const LicenseStoreContext = React.createContext<LicenseStoreContextProps>({
   licenseInformation: {},
   CI_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED,
   FF_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED,
+  CCM_LICENSE_STATE: LICENSE_STATE_VALUES.NOT_STARTED,
   updateLicenseStore: () => void 0
 })
 
@@ -70,7 +73,8 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   const [state, setState] = useState<Omit<LicenseStoreContextProps, 'updateLicenseStore' | 'strings'>>({
     licenseInformation: {},
     CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED,
-    FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED
+    FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED,
+    CCM_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : LICENSE_STATE_VALUES.NOT_STARTED
   })
   const [isFirstRender, setIsFirstRender] = useState(true)
 
@@ -128,15 +132,18 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
 
     const CIModuleLicenseData = licenses['CI']
     const FFModuleLicenseData = licenses['CF']
+    const CCMModuleLicenseData = licenses['CE']
 
     const updatedCILicenseState: LICENSE_STATE_VALUES = getLicenseState(CIModuleLicenseData?.expiryTime)
     const updatedFFLicenseState: LICENSE_STATE_VALUES = getLicenseState(FFModuleLicenseData?.expiryTime)
+    const updatedCCMFLicenseState: LICENSE_STATE_VALUES = getLicenseState(CCMModuleLicenseData?.expiryTime)
 
     setState(prevState => ({
       ...prevState,
       licenseInformation: licenses,
       CI_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedCILicenseState,
-      FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedFFLicenseState
+      FF_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedFFLicenseState,
+      CCM_LICENSE_STATE: shouldLicensesBeDisabled ? LICENSE_STATE_VALUES.ACTIVE : updatedCCMFLicenseState
     }))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data?.data?.allModuleLicenses, shouldLicensesBeDisabled])
@@ -154,10 +161,16 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   }, [])
 
   function updateLicenseStore(
-    updateData: Partial<Pick<LicenseStoreContextProps, 'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE'>>
+    updateData: Partial<
+      Pick<
+        LicenseStoreContextProps,
+        'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE' | 'CCM_LICENSE_STATE'
+      >
+    >
   ): void {
     const CIModuleLicenseData = updateData.licenseInformation?.['CI']
     const FFModuleLicenseData = updateData.licenseInformation?.['CF']
+    const CCMModuleLicenseData = updateData.licenseInformation?.['CE']
 
     setState(prevState => ({
       ...prevState,
@@ -167,7 +180,10 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
         : prevState.CI_LICENSE_STATE,
       FF_LICENSE_STATE: FFModuleLicenseData?.expiryTime
         ? getLicenseState(FFModuleLicenseData.expiryTime)
-        : prevState.FF_LICENSE_STATE
+        : prevState.FF_LICENSE_STATE,
+      CCM_LICENSE_STATE: CCMModuleLicenseData?.expiryTime
+        ? getLicenseState(CCMModuleLicenseData.expiryTime)
+        : prevState.CCM_LICENSE_STATE
     }))
   }
 
@@ -193,7 +209,12 @@ export function handleUpdateLicenseStore(
     return
   }
   let licenseStoreData:
-    | Partial<Pick<LicenseStoreContextProps, 'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE'>>
+    | Partial<
+        Pick<
+          LicenseStoreContextProps,
+          'licenseInformation' | 'CI_LICENSE_STATE' | 'FF_LICENSE_STATE' | 'CCM_LICENSE_STATE'
+        >
+      >
     | undefined
 
   if (module.toUpperCase() === ModuleName.CI) {
@@ -203,6 +224,11 @@ export function handleUpdateLicenseStore(
     }
   } else if (module.toUpperCase() === ModuleName.CF) {
     newLicenseInformation[ModuleName.CF] = data
+    licenseStoreData = {
+      licenseInformation: newLicenseInformation
+    }
+  } else if (module.toUpperCase() === ModuleName.CE) {
+    newLicenseInformation[ModuleName.CE] = data
     licenseStoreData = {
       licenseInformation: newLicenseInformation
     }

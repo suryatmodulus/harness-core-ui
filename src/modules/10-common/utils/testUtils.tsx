@@ -140,6 +140,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
             licenseInformation: {},
             CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
             FF_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+            CCM_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
             updateLicenseStore: () => void 0,
             ...defaultLicenseStoreValues
           }}

@@ -6,7 +6,7 @@ import routes from '@common/RouteDefinitions'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 // import { MinimalLayout } from '@common/layouts'
 import SessionToken from 'framework/utils/SessionToken'
@@ -14,6 +14,7 @@ import SessionToken from 'framework/utils/SessionToken'
 import CESideNav from '@ce/components/CESideNav/CESideNav'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
+import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import { getConfig } from 'services/config'
 import CEHomePage from './pages/home/CEHomePage'
 import CEDashboardPage from './pages/dashboard/CEDashboardPage'
@@ -46,6 +47,42 @@ const RedirectToCEProject = (): React.ReactElement => {
   } else {
     return <Redirect to={routes.toCDHome(params)} />
   }
+}
+
+const RedirectToModuleTrialHome = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toModuleTrialHome({
+        accountId,
+        module: 'ce'
+      })}
+    />
+  )
+}
+
+const RedirectToSubscriptions = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toSubscriptions({
+        accountId,
+        moduleCard: ModuleName.CE.toLowerCase() as Module
+      })}
+    />
+  )
+}
+
+const licenseRedirectData: LicenseRedirectProps = {
+  licenseStateName: LICENSE_STATE_NAMES.FF_LICENSE_STATE,
+  startTrialRedirect: RedirectToModuleTrialHome,
+  expiredTrialRedirect: RedirectToSubscriptions
 }
 
 const CESideNavProps: SidebarContext = {
@@ -88,10 +125,14 @@ const CERoutes: React.FC = () => {
   return (
     <Provider value={urqlClient()}>
       <Switch>
-        <Route path={routes.toCE({ ...accountPathProps })} exact>
+        <Route licenseRedirectData={licenseRedirectData} path={routes.toCE({ ...accountPathProps })} exact>
           <RedirectToCEHome />
         </Route>
-        <Route path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })} exact>
+        <Route
+          licenseRedirectData={licenseRedirectData}
+          path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })}
+          exact
+        >
           <RedirectToCEProject />
         </Route>
         <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>

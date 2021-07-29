@@ -108,6 +108,10 @@ executionFactory.registerSummary(StageType.DEPLOY, {
   component: CDExecutionSummary
 })
 
+TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
+  component: ManifestInputForm
+})
+
 const RedirectToAccessControlHome = (): React.ReactElement => {
   const { accountId, projectIdentifier, orgIdentifier, module } = useParams<PipelineType<ProjectPathProps>>()
 
@@ -176,9 +180,6 @@ const CDSideNavProps: SidebarContext = {
 const pipelineModuleParams: ModulePathParams = {
   module: ':module(cd)'
 }
-TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
-  component: ManifestInputForm
-})
 
 export default (
   <>

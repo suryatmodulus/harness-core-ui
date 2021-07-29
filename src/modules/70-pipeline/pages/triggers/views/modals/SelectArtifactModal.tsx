@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { Layout, Text, Button } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
+import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
+
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import css from './SelectArtifactModal.module.scss'
 
@@ -11,6 +14,7 @@ interface SelectArtifactModalPropsInterface {
   artifactTableData: any
   formikProps: any
   closeModal: () => void
+  runtimeData: any
 }
 
 enum ModalState {
@@ -23,7 +27,8 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   formikProps,
   closeModal,
   isManifest,
-  artifactTableData
+  artifactTableData,
+  runtimeData
 }) => {
   const [selectedArtifactLabel, setSelectedArtifactLabel] = useState(undefined) // artifactLabel is unique
   const [selectedStage, setSelectedStage] = useState(undefined)
@@ -35,6 +40,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     closeModal()
     setSelectedArtifact(undefined)
   }
+
+  const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
+  const ManifestFormDetails = formDetails.component
 
   return (
     <Dialog
@@ -77,6 +85,15 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
         </>
       ) : (
         <>
+          <ManifestFormDetails
+            template={runtimeData}
+            path={'test'}
+            allValues={runtimeData}
+            initialValues={runtimeData}
+            readonly={false}
+            stageIdentifier={artifactTableData?.stageId}
+            formik={formikProps}
+          />
           <Layout.Horizontal spacing="medium" className={css.footer}>
             <Button
               text={getString('back')}
@@ -87,7 +104,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               }}
             />
             <Button
-              text={getString('select')}
+              text={getString('filters.apply')}
               intent="primary"
               onClick={() => {
                 formikProps.setValues({ ...formikProps.values, artifact: selectedArtifact })

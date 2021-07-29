@@ -17,7 +17,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   formikProps,
   isEdit = false
 }) => {
-  const { artifactType, artifactRef, manifestType, stageId, inputSetTemplateYaml } = formikProps.values
+  const { artifactType, artifactRef, manifestType = 'HelmChart', stageId, inputSetTemplateYaml } = formikProps.values
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { getString } = useStrings()
   const isManifest = !!manifestType
@@ -107,6 +107,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                   artifactTableData={artifactTableData}
                   closeModal={() => setModalOpen(false)}
                   isManifest={isManifest}
+                  runtimeData={data}
                 />
               )}
             </>

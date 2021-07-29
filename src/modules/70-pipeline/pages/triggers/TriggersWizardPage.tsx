@@ -829,7 +829,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         identifier: '',
         tags: {},
         pipeline: currentPipeline?.pipeline,
-        originalPipeline
+        originalPipeline,
+        inputSetTemplateYaml: template?.data?.inputSetTemplateYaml
       }
     }
     return {}

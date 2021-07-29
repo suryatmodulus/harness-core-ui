@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.74% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>36/38</span>
+                <span class='fraction'>38/40</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.29% </span>
+                <span class="strong">94.59% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/35</span>
+                <span class='fraction'>35/37</span>
             </div>
         
             
@@ -325,14 +325,19 @@
 <a name='L266'></a><a href='#L266'>266</a>
 <a name='L267'></a><a href='#L267'>267</a>
 <a name='L268'></a><a href='#L268'>268</a>
-<a name='L269'></a><a href='#L269'>269</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L269'></a><a href='#L269'>269</a>
+<a name='L270'></a><a href='#L270'>270</a>
+<a name='L271'></a><a href='#L271'>271</a>
+<a name='L272'></a><a href='#L272'>272</a>
+<a name='L273'></a><a href='#L273'>273</a>
+<a name='L274'></a><a href='#L274'>274</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -371,6 +376,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -507,6 +516,7 @@
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -600,7 +610,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import type { StringsMap } from 'stringTypes'
-&nbsp;
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './ModuleInfoCards.module.scss'
 interface InfoCards {
   [key: string]: Array&lt;ModuleInfoCard&gt;
@@ -638,7 +648,11 @@ const INFO_CARD_STYLES: { [key: string]: string } = {
   cd: css.cd
 }
 &nbsp;
-export const getInfoCardsProps = (accountId: string): InfoCards =&gt; {
+export const getInfoCardsProps = (
+  accountId: string,
+  GTM_CCM_ENABLED?: boolean,
+  GTM_CD_ENABLED?: boolean
+): InfoCards =&gt; {
   return {
     ce: [
       {
@@ -655,7 +669,7 @@ export const getInfoCardsProps = (accountId: string): InfoCards =&gt; {
         subtitle: 'common.ce.optimization',
         description: 'common.purpose.ce.optimizationCard.description',
         isNgRoute: true,
-        disabled: true
+        disabled: !GTM_CCM_ENABLED
       }
     ],
     cd: [
@@ -705,7 +719,7 @@ export const getInfoCardsProps = (accountId: string): InfoCards =&gt; {
         title: 'common.purpose.cd.newGen.title',
         description: 'common.purpose.cd.newGen.description',
         isNgRoute: true,
-        disabled: true,
+        disabled: !GTM_CD_ENABLED,
         footer: {
           title: 'common.purpose.cd.supportedStack',
           icons: [
@@ -775,6 +789,7 @@ const getCardKey = ({ key1, key2 }: { key1?: string; key2?: string }): string =&
 const ModuleInfoCards: React.FC&lt;ModuleInfoCardsProps&gt; = props =&gt; {
   const { module, selectedInfoCard, setSelectedInfoCard, style } = props
   const { getString } = useStrings()
+  const { GTM_CCM_ENABLED, GTM_CD_ENABLED } = useFeatureFlags()
 &nbsp;
   const { accountId } = useParams&lt;{
     accountId: string
@@ -838,7 +853,7 @@ const ModuleInfoCards: React.FC&lt;ModuleInfoCardsProps&gt; = props =&gt; {
     )
   }
 &nbsp;
-  const infoCardProps = getInfoCardsProps(accountId)[module]
+  const infoCardProps = getInfoCardsProps(accountId, GTM_CCM_ENABLED, GTM_CD_ENABLED)[module]
 &nbsp;
   const infoCardStyle = INFO_CARD_STYLES[module]
 &nbsp;
@@ -868,7 +883,7 @@ export default ModuleInfoCards
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 29 2021 04:37:21 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 29 2021 05:39:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

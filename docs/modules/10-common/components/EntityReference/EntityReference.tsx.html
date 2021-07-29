@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.61% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>70/79</span>
+                <span class='fraction'>70/80</span>
             </div>
         
             
@@ -37,9 +37,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>16/19</span>
+                <span class='fraction'>16/20</span>
             </div>
         
             
@@ -286,13 +286,7 @@
 <a name='L227'></a><a href='#L227'>227</a>
 <a name='L228'></a><a href='#L228'>228</a>
 <a name='L229'></a><a href='#L229'>229</a>
-<a name='L230'></a><a href='#L230'>230</a>
-<a name='L231'></a><a href='#L231'>231</a>
-<a name='L232'></a><a href='#L232'>232</a>
-<a name='L233'></a><a href='#L233'>233</a>
-<a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a>
-<a name='L236'></a><a href='#L236'>236</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">412x</span>
+<a name='L230'></a><a href='#L230'>230</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">412x</span>
 <span class="cline-any cline-yes">412x</span>
 <span class="cline-any cline-yes">412x</span>
 <span class="cline-any cline-yes">412x</span>
@@ -355,10 +349,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">77x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">62x</span>
@@ -395,12 +385,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">65x</span>
 <span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-yes">13x</span>
@@ -414,6 +398,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -578,11 +566,7 @@ export type EntityReferenceResponse&lt;T&gt; = {
 &nbsp;
 export interface EntityReferenceProps&lt;T&gt; {
   onSelect: (reference: T, scope: Scope) =&gt; void
-  fetchRecords: (
-    scope: Scope,
-    searchTerm: string | undefined,
-    done: (records: EntityReferenceResponse&lt;T&gt;[]) =&gt; void
-  ) =&gt; void
+  fetchRecords: (scope: Scope, searchTerm: string, done: (records: EntityReferenceResponse&lt;T&gt;[]) =&gt; void) =&gt; void
   recordRender: (args: { item: EntityReferenceResponse&lt;T&gt;; selectedScope: Scope; selected?: boolean }) =&gt; JSX.Element
   recordClassName?: string
   className?: string
@@ -615,7 +599,7 @@ export function EntityReference&lt;T&gt;(props: EntityReferenceProps&lt;T&gt;): 
     noRecordsText = <span class="branch-0 cbranch-no" title="branch not covered" >getString('entityReference.noRecordFound'),</span>
     searchInlineComponent
   } = props
-  const [searchTerm, setSearchTerm] = useState&lt;string | undefined&gt;()
+  const [searchTerm, setSearchTerm] = useState&lt;string&gt;('')
   const [selectedScope, setSelectedScope] = useState&lt;Scope&gt;(
     defaultScope || getDefaultScope(orgIdentifier, projectIdentifier)
   )
@@ -628,13 +612,7 @@ export function EntityReference&lt;T&gt;(props: EntityReferenceProps&lt;T&gt;): 
     setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
   }, [projectIdentifier, orgIdentifier])
 &nbsp;
-  const delayedFetchRecords = useRef(
-    debounce(<span class="fstat-no" title="function not covered" >(s</span>cope: Scope, search: string | undefined, done: (records: EntityReferenceResponse&lt;T&gt;[]) =&gt; void) =&gt; {
-<span class="cstat-no" title="statement not covered" >      setLoading(true)</span>
-<span class="cstat-no" title="statement not covered" >      setSelectedRecord(undefined)</span>
-<span class="cstat-no" title="statement not covered" >      fetchRecords(scope, search, done)</span>
-    }, 300)
-  ).current
+  const delayedFetchRecords = useRef(debounce(<span class="fstat-no" title="function not covered" >(f</span>n: () =&gt; void) =&gt; <span class="cstat-no" title="statement not covered" >fn(),</span> 300)).current
 &nbsp;
   const fetchData = useCallback(() =&gt; {
     try {
@@ -646,9 +624,13 @@ export function EntityReference&lt;T&gt;(props: EntityReferenceProps&lt;T&gt;): 
           setLoading(false)
         })
       } else {
-<span class="cstat-no" title="statement not covered" >        delayedFetchRecords(selectedScope, searchTerm, <span class="fstat-no" title="function not covered" >records </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          setData(records)</span>
-<span class="cstat-no" title="statement not covered" >          setLoading(false)</span>
+<span class="cstat-no" title="statement not covered" >        delayedFetchRecords(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+<span class="cstat-no" title="statement not covered" >          setLoading(true)</span>
+<span class="cstat-no" title="statement not covered" >          setSelectedRecord(undefined)</span>
+<span class="cstat-no" title="statement not covered" >          fetchRecords(selectedScope, searchTerm, <span class="fstat-no" title="function not covered" >records </span>=&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            setData(records)</span>
+<span class="cstat-no" title="statement not covered" >            setLoading(false)</span>
+          })
         })
       }
     } catch (msg) {
@@ -769,7 +751,7 @@ export default EntityReference
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 29 2021 12:10:17 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 29 2021 12:49:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

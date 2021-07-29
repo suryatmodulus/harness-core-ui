@@ -230,8 +230,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   }
 
   const { mutate: getInstances, loading: loadingInstances } = useAllResourcesOfAccount({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -241,8 +239,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   })
 
   const { mutate: fetchAllASGs, loading: loadingFetchASGs } = useGetAllASGs({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -265,8 +261,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   })
 
   const { data: servicesData, error } = useGetServices({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -553,9 +548,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   }, [gatewayName])
 
   const { mutate: getSecurityGroups, loading } = useSecurityGroupsOfInstances({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
       accountIdentifier: accountId
@@ -1446,45 +1439,55 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       title="Routing"
                       panel={
                         <Container style={{ backgroundColor: '#FBFBFB' }}>
-                          <Text className={css.titleHelpTextDescription}>
-                            {getString('ce.co.gatewayConfig.routingDescription')}
-                          </Text>
                           {!isK8sSelected && (
-                            <Layout.Vertical spacing="large">
-                              {!selectedAsg && loading ? (
-                                <Icon
-                                  name="spinner"
-                                  size={24}
-                                  color="blue500"
-                                  style={{ alignSelf: 'center', marginTop: '10px' }}
-                                />
-                              ) : (
-                                <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
-                              )}
-                              <Container className={css.rowItem}>
-                                <Text
-                                  onClick={() => {
-                                    addPort()
-                                  }}
-                                >
-                                  {getString('ce.co.gatewayConfig.addPortLabel')}
-                                </Text>
-                              </Container>
-                            </Layout.Vertical>
+                            <>
+                              <Text className={css.titleHelpTextDescription}>
+                                {getString('ce.co.gatewayConfig.routingDescription')}
+                              </Text>
+                              <Layout.Vertical spacing="large">
+                                {!selectedAsg && loading ? (
+                                  <Icon
+                                    name="spinner"
+                                    size={24}
+                                    color="blue500"
+                                    style={{ alignSelf: 'center', marginTop: '10px' }}
+                                  />
+                                ) : (
+                                  <CORoutingTable
+                                    routingRecords={routingRecords}
+                                    setRoutingRecords={setRoutingRecords}
+                                  />
+                                )}
+                                <Container className={css.rowItem}>
+                                  <Text
+                                    onClick={() => {
+                                      addPort()
+                                    }}
+                                  >
+                                    {getString('ce.co.gatewayConfig.addPortLabel')}
+                                  </Text>
+                                </Container>
+                              </Layout.Vertical>
+                            </>
                           )}
                           {isK8sSelected && (
-                            <KubernetesRuleYamlEditor
-                              existingData={
-                                yamlData ||
-                                getK8sIngressTemplate({
-                                  name: props.gatewayDetails.name,
-                                  idleTime: props.gatewayDetails.idleTimeMins,
-                                  cloudConnectorId: props.gatewayDetails.cloudAccount.id
-                                })
-                              }
-                              fileName={gatewayName && `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
-                              handleSave={handleYamlSave}
-                            />
+                            <>
+                              <Text className={css.titleHelpTextDescription}>
+                                {getString('ce.co.gatewayConfig.k8sroutingDescription')}
+                              </Text>
+                              <KubernetesRuleYamlEditor
+                                existingData={
+                                  yamlData ||
+                                  getK8sIngressTemplate({
+                                    name: props.gatewayDetails.name,
+                                    idleTime: props.gatewayDetails.idleTimeMins,
+                                    cloudConnectorId: props.gatewayDetails.cloudAccount.id
+                                  })
+                                }
+                                fileName={gatewayName && `${gatewayName.split(' ').join('-')}-autostopping.yaml`}
+                                handleSave={handleYamlSave}
+                              />
+                            </>
                           )}
                         </Container>
                       }

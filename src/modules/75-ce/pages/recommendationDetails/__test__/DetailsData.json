@@ -1,6 +1,18 @@
 {
   "data": {
     "recommendationStats": { "totalMonthlyCost": 49.82, "totalMonthlySaving": 19.08 },
+    "recommendationsV2": {
+      "items": [
+        {
+          "clusterName": "ce-test-dontdelete",
+          "namespace": "harness-delegate",
+          "id": "c4zIELdlReKh3bHW-i87OA",
+          "resourceName": "ce-test-dontdelete-kmpysm",
+          "__typename": "RecommendationItemDTO"
+        }
+      ],
+      "__typename": "RecommendationsDTO"
+    },
     "recommendationDetails": {
       "containerRecommendations": {
         "sample": {

@@ -96,9 +96,7 @@ const CreatePerspectivePage: React.FC = () => {
       <PageBody>
         {perspectiveData && (
           <div className={css.mainContainer}>
-            <div>
-              <div className={css.filler}></div>
-            </div>
+            <div></div>
             <Tabs
               id="perspectiveBuilder"
               onChange={(id: string) => setSelectedTabId(id)}

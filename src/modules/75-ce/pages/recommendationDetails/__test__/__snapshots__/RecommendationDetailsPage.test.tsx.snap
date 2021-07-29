@@ -17,7 +17,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
             class="breadcrumb"
             href="/account/undefined/ce/recommendations"
           >
-            Recommendation
+            ce.recommendation.sideNavText
           </a>
           <span
             class="bp3-icon StyledProps--main separator"
@@ -46,13 +46,13 @@ exports[`test cases for Recommendation List Page should be able to render the li
         class="StyledProps--font StyledProps--main savingsContainer StyledProps--padding-xlarge"
       >
         <div
-          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+          class="StyledProps--font StyledProps--main"
         >
           <div
-            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+            class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-normal"
+              class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-grey400"
             >
               ce.recommendation.listPage.monthlySavingsText
             </p>
@@ -273,17 +273,72 @@ exports[`test cases for Recommendation List Page should be able to render the li
             </p>
           </div>
           <div
-            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-grey400"
+              >
+                ce.recommendation.listPage.monthlyForcastedCostText
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey800"
+              >
+                $19.08
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-left-large"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-huge StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-normal"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
             >
-              ce.recommendation.listPage.monthlyForcastedCostText
+              ce.perspectives.workloadDetails.workloadDetailsText
+            </p>
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main viewDetailsButton StyledProps--font StyledProps--font-small StyledProps--intent-primary StyledProps--border Button--with-current-color Button--round Button--without-shadow"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                ce.recommendation.detailsPage.viewMoreDetailsText
+              </span>
+            </button>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+            >
+              ce.recommendation.listPage.filters.clusterName
             </p>
             <p
-              class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--color StyledProps--color-grey800"
+              class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall"
             >
-              $19.08
+              ce-test-dontdelete
+            </p>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main StyledProps--padding-top-large"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+            >
+              ce.perspectives.workloadDetails.fieldNames.workload
+            </p>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall"
+            >
+              ce-test-dontdelete-kmpysm
             </p>
           </div>
         </div>

@@ -89,7 +89,7 @@ const getColumnChartConfig = ({ data, chartType, chartHeight }: ColumnChartConfi
       ordinal: true,
       min: null,
       lineWidth: 0,
-      tickInterval: 24 * 3600 * 1000,
+      // tickInterval: 24 * 3600 * 1000,
       labels: {
         formatter: function () {
           return moment(this.value).utc().format('MMM DD')
@@ -99,6 +99,7 @@ const getColumnChartConfig = ({ data, chartType, chartHeight }: ColumnChartConfi
     yAxis: {
       gridLineColor: '#fff',
       type: 'logarithmic',
+      tickInterval: 1,
       title: {
         text: ''
       },
@@ -112,7 +113,7 @@ const getColumnChartConfig = ({ data, chartType, chartHeight }: ColumnChartConfi
       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
       pointFormat:
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-        '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+        '<td style="padding:0"><b>${point.y:.1f}</b></td></tr>',
       footerFormat: '</table>',
       shared: true,
       useHTML: true

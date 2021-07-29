@@ -5,6 +5,7 @@ declare const styles: {
   readonly breadCrumb: string
   readonly customImage: string
   readonly savingsContainer: string
+  readonly viewDetailsButton: string
   readonly pageBody: string
   readonly mainContainer: string
 }

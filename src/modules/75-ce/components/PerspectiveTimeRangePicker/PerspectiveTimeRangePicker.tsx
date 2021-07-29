@@ -160,7 +160,7 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
     }
     return {
       dateLabelKey: DATE_RANGE_SHORTCUTS_NAME.LAST_7_DAYS,
-      dateLabelText: `${timeRange.to} - ${timeRange.from}`
+      dateLabelText: `${timeRange.from} - ${timeRange.to}`
     }
   }, [timeRange])
 

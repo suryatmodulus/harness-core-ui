@@ -2,7 +2,8 @@ import { Layout, Text } from '@wings-software/uicore'
 import React from 'react'
 import { useStrings } from 'framework/strings'
 import type { StatsInfo } from 'services/ce/services'
-import { Card, Loader, Trend } from './OverviewPageLayout'
+import CostTrend from '@ce/common/CostTrend'
+import { Card, Loader } from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
 
 interface SummaryProps {
@@ -24,7 +25,7 @@ const OverviewSummary = (props: SummaryProps) => {
               <Text color="grey500" font="small">
                 {cost.statsLabel}
               </Text>
-              <Trend value={cost.statsTrend} />
+              <CostTrend value={cost.statsTrend} />
             </Layout.Horizontal>
             <Text color="black" font="medium">
               {cost.statsValue || getString('na')}

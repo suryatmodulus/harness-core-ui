@@ -311,7 +311,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                 <span
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700 StyledProps--inline"
                 >
-                  0%
+                  —
                 </span>
               </div>
             </div>
@@ -453,7 +453,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                 <span
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700 StyledProps--inline"
                 >
-                  0%
+                  —
                 </span>
               </div>
             </div>
@@ -514,7 +514,7 @@ exports[`test cases for Perspective Grid should be able to render Perspective Gr
                 <span
                   class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700 StyledProps--inline"
                 >
-                  0%
+                  —
                 </span>
               </div>
             </div>

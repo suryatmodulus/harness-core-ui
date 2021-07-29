@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName } from '@wings-software/uicore'
+import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 
@@ -17,6 +17,7 @@ interface CardData {
   text: string
   value: FeaturesString
   heading: string
+  subheading: string
 }
 
 interface StepSecretManagerProps extends ConnectorInfoDTO {
@@ -37,15 +38,17 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
   const cardData: CardData[] = [
     {
       icon: 'main-main-zoom_in',
-      text: getString('connectors.ceAws.crossAccountRoleStep1.visibilityDes'),
+      text: getString('connectors.ceK8S.chooseRequirements.visibility.description'),
       value: 'VISIBILITY',
-      heading: getString('connectors.ceAws.crossAccountRoleStep1.visibility')
+      heading: getString('connectors.ceK8S.chooseRequirements.visibility.heading'),
+      subheading: getString('connectors.ceK8S.chooseRequirements.visibility.subheading')
     },
     {
       icon: 'gear',
-      text: getString('connectors.ceAws.crossAccountRoleStep1.optimizationDes'),
+      text: getString('connectors.ceK8S.chooseRequirements.optimization.description'),
       value: 'OPTIMIZATION',
-      heading: getString('connectors.ceAws.crossAccountRoleStep1.optimization')
+      heading: getString('connectors.ceK8S.chooseRequirements.optimization.heading'),
+      subheading: getString('connectors.ceK8S.chooseRequirements.optimization.subheading')
     }
   ]
 
@@ -93,10 +96,11 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
   return (
     <Layout.Vertical className={css.featureSelectionCont}>
       <Heading level={2} className={css.header}>
-        {getString('connectors.ceAws.crossAccountRoleStep1.heading')}
+        {getString('connectors.ceK8S.chooseRequirements.heading')}
       </Heading>
       <div style={{ padding: 5, paddingBottom: 20 }}>
-        {getString('connectors.ceAws.crossAccountRoleStep1.description')}
+        <Text> {getString('connectors.ceK8S.chooseRequirements.subheading')}</Text>
+        {getString('connectors.ceK8S.chooseRequirements.description')}
       </div>
       <div style={{ flex: 1 }}>
         <CardSelect
@@ -113,13 +117,13 @@ const FeatureSelectionStep: React.FC<StepProps<StepSecretManagerProps> & Feature
               <div style={{ display: 'flex', paddingBottom: 7 }}>
                 <Icon name={item.icon} size={32} color="primary5" style={{ paddingRight: 10 }}></Icon>
                 <p>
-                  <div style={{ fontSize: 8, fontFamily: 'inter' }}>
-                    {getString('connectors.ceAws.crossAccountRoleStep1.cost')}
-                  </div>{' '}
-                  <div style={{ fontSize: 14, fontFamily: 'inter' }}>{item.heading}</div>
+                  <div style={{ fontSize: 8, fontFamily: 'inter' }}>{item.heading}</div>{' '}
+                  <div style={{ fontSize: 14, fontFamily: 'inter' }}>{item.subheading}</div>
                 </p>
               </div>
-              <p>{item.text}</p>
+              <p>
+                <div dangerouslySetInnerHTML={{ __html: item.text }} />
+              </p>
             </div>
           )}
         ></CardSelect>

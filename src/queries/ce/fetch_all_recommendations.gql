@@ -1,11 +1,8 @@
-query Recommendations($filters: K8sRecommendationFilterDTOInput) {
-  recommendationStatsV2(filter: $filters) {
-    totalMonthlyCost
-    totalMonthlySaving
-  }
-
-  recommendationsV2(filter: $filters) {
+query Recommendations($filter: K8sRecommendationFilterDTOInput) {
+  recommendationsV2(filter: $filter) {
     items {
+      clusterName
+      namespace
       id
       resourceType
       resourceName

@@ -1,21 +1,45 @@
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Button, Container, ExpandingSearchInput, FlexExpander } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/components/Page/Page'
-import { useToaster } from '@common/components'
+import { PageSpinner, useToaster } from '@common/components'
 import { useCreatePerspective, useDeletePerspective, CEView } from 'services/ce'
-import { QlceView, useFetchAllPerspectivesQuery, ViewState, ViewType } from 'services/ce/services'
+import {
+  CcmMetaData,
+  QlceView,
+  useFetchAllPerspectivesQuery,
+  useFetchCcmMetaDataQuery,
+  ViewState,
+  ViewType
+} from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
 import PerspectiveListView from '@ce/components/PerspectiveViews/PerspectiveListView'
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
+import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
+import { Utils } from '@ce/common/Utils'
+import bgImage from './images/perspectiveBg.png'
 import css from './PerspectiveListPage.module.scss'
 
 enum Views {
   LIST,
   GRID
+}
+
+const NoDataPerspectivePage = () => {
+  const { openModal, closeModal } = useCreateConnectorMinimal({
+    onSuccess: () => {
+      closeModal()
+    }
+  })
+  useEffect(() => {
+    openModal()
+  }, [])
+  return (
+    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
+  )
 }
 
 const PerspectiveListPage: React.FC = () => {
@@ -42,6 +66,9 @@ const PerspectiveListPage: React.FC = () => {
       accountIdentifier: accountId
     }
   })
+
+  const [ccmMetaResult] = useFetchCcmMetaDataQuery()
+  const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
 
   const createNewPerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void = async (
     values = {},
@@ -119,10 +146,12 @@ const PerspectiveListPage: React.FC = () => {
 
   useMemo(() => {
     pespectiveList.sort((a, b) => {
-      if (a?.viewType === ViewType.Default && b?.viewType === ViewType.Customer) {
+      const isElementADefault = a?.viewType === ViewType.Default
+      const isElementBDefault = b?.viewType === ViewType.Default
+      if (isElementADefault && !isElementBDefault) {
         return -1
       }
-      if (a?.viewType === ViewType.Customer && b?.viewType === ViewType.Default) {
+      if (!isElementADefault && isElementBDefault) {
         return 1
       }
       return 0
@@ -138,6 +167,14 @@ const PerspectiveListPage: React.FC = () => {
     }
     return true
   }) as QlceView[]
+
+  if (fetchingCCMMetaData) {
+    return <PageSpinner />
+  }
+
+  if (ccmData && !Utils.accountHasConnectors(ccmData.ccmMetaData as CcmMetaData)) {
+    return <NoDataPerspectivePage />
+  }
 
   return (
     <>

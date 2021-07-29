@@ -91,9 +91,10 @@
 
   .cols {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: auto 1fr;
     padding-top: var(--spacing-medium);
     align-items: center;
+    column-gap: var(--spacing-medium);
   }
 }
 

@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react'
+import cx from 'classnames'
+import { get } from 'lodash-es'
 import {
   Text,
   Heading,
@@ -10,14 +12,15 @@ import {
   Formik,
   FormikForm
 } from '@wings-software/uicore'
-import cx from 'classnames'
-import { useStrings } from 'framework/strings'
 import type { Budget } from 'services/ce'
+import formatCost from '@ce/utils/formatCost'
+import { useStrings } from 'framework/strings'
 import css from '../PerspectiveCreateBudget.module.scss'
 
 interface Props {
   name: string
   budget?: Budget
+  isEditMode: boolean
 }
 
 interface Form {
@@ -41,14 +44,16 @@ const SetBudgetAmount: React.FC<StepProps<Budget> & Props> = props => {
       [getString('ce.perspectives.budgets.setBudgetAmount.lastMonthCost'), lastMonthCost],
       [getString('ce.perspectives.budgets.setBudgetAmount.projectedCost'), forecastCost]
     ],
-    []
+    [lastMonthCost, forecastCost]
   )
 
   const handleSubmit = (data: Form) => {
     const nextStepData: Budget = {
       ...((prevStepData || {}) as Budget),
       type: data.type,
-      budgetAmount: data.budgetAmount
+      budgetAmount: data.budgetAmount,
+      lastMonthCost: lastMonthCost,
+      forecastCost: forecastCost
     }
 
     nextStep?.(nextStepData)
@@ -65,7 +70,7 @@ const SetBudgetAmount: React.FC<StepProps<Budget> & Props> = props => {
                   {cost[0]}
                 </Text>
                 <Text color="grey800" font={{ weight: 'bold', size: 'medium' }}>
-                  {cost[1]}
+                  {formatCost(cost[1] as number)}
                 </Text>
               </div>
               {idx === 0 && <div className={css.separator}></div>}
@@ -90,8 +95,8 @@ const SetBudgetAmount: React.FC<StepProps<Budget> & Props> = props => {
           formName="createReportScheduleForm"
           enableReinitialize={true}
           initialValues={{
-            type: type || 'SPECIFIED_AMOUNT',
-            budgetAmount
+            type: type || get(prevStepData, 'type') || 'SPECIFIED_AMOUNT',
+            budgetAmount: budgetAmount || get(prevStepData, 'budgetAmount') || 0
           }}
         >
           {formikProps => {
@@ -105,10 +110,20 @@ const SetBudgetAmount: React.FC<StepProps<Budget> & Props> = props => {
                         items={BUDGET_TYPE}
                         name={'type'}
                         label={getString('ce.perspectives.budgets.setBudgetAmount.budgetType')}
+                        onChange={option => {
+                          if (option.value === 'PREVIOUS_MONTH_SPEND') {
+                            formikProps.setFieldValue('budgetAmount', lastMonthCost || 0)
+                          }
+                        }}
                       />
                       <FormInput.Text
+                        disabled={formikProps.values.type === 'PREVIOUS_MONTH_SPEND'}
                         name={'budgetAmount'}
-                        label={getString('ce.perspectives.budgets.setBudgetAmount.specifyAmount')}
+                        label={
+                          formikProps.values.type === 'PREVIOUS_MONTH_SPEND'
+                            ? getString('ce.perspectives.budgets.setBudgetAmount.lastMonthSpend')
+                            : getString('ce.perspectives.budgets.setBudgetAmount.specifyAmount')
+                        }
                       />
                     </Layout.Vertical>
                   </Container>

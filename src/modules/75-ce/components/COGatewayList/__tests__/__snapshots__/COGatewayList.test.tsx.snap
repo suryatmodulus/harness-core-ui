@@ -1,5 +1,675 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main StyledProps--background-white"
+    style="height: 100vh;"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main container standard header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
+        >
+          ce.co.breadCrumb.rules
+        </h2>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--padding-large"
+    >
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="width: 55%;"
+      >
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          type="button"
+        >
+          <span
+            class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
+            icon="plus"
+          >
+            <svg
+              data-icon="plus"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                plus
+              </desc>
+              <path
+                d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="bp3-button-text"
+          >
+            ce.co.newAutoStoppingRule
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main headerLayout"
+        style="width: 45%;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex"
+        >
+          <div
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+            data-name=""
+          >
+            <span
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+              data-icon="thinner-search"
+            >
+              <svg
+                fill="none"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input  ExpandingSearchInput--filter"
+              dir="auto"
+              placeholder="search"
+              style="padding-right: 0px;"
+              type="search"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main pageBody pageContainer"
+      data-name="page-body"
+    >
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-small"
+      >
+        <div>
+          <p
+            class="StyledProps--font StyledProps--main summaryHeading"
+          >
+            SUMMARY OF RULES
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main analyticsContainer StyledProps--background-white"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              style="flex: 1.2;"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-small"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--padding-small"
+                  style="border-radius: 4px; background-color: rgba(71, 213, 223, 0.05);"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main analyticsColHeader"
+                      style="color: rgb(5, 170, 182);"
+                    >
+                      TOTAL SAVINGS TILL DATE
+                    </p>
+                    <h1
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      level="1"
+                      style="color: rgb(5, 170, 182);"
+                    >
+                      $
+                      NaN
+                    </h1>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--padding-small"
+                  style="border-radius: 4px; background-color: rgba(124, 77, 211, 0.05);"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main analyticsColHeader"
+                      style="color: rgb(89, 43, 170);"
+                    >
+                      TOTAL SPEND TILL DATE
+                    </p>
+                    <h1
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      level="1"
+                      style="color: rgb(89, 43, 170);"
+                    >
+                      $
+                      NaN
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              style="text-align: center; flex: 3;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main analyticsColHeader"
+              >
+                TOTAL SPEND VS SAVINGS
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ce.co.noData
+              </p>
+            </div>
+            <div
+              class="Layout--vertical StyledProps--main"
+              style="flex: 1;"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main analyticsColHeader"
+                >
+                  SAVINGS PERCENTAGE
+                </p>
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                >
+                  0
+                  %
+                </h1>
+                <div
+                  class="Layout--horizontal StyledProps--main"
+                />
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main analyticsColHeader"
+              >
+                ACTIVE RULES
+              </p>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              >
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                >
+                  1
+                </h1>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="align-self: center;"
+                >
+                  Rules
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              style="flex: 1;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main analyticsColHeader"
+              >
+                INSTANCES MANAGED
+              </p>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+              >
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                >
+                  1
+                </h1>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="align-self: center;"
+                >
+                  Instances
+                </p>
+              </div>
+              <div
+                class="instanceManager"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main instanceCount"
+                >
+                  1
+                </p>
+                <div
+                  class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-play StyledProps--main"
+                    icon="play"
+                  >
+                    <svg
+                      data-icon="play"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        play
+                      </desc>
+                      <path
+                        d="M12 8c0-.35-.19-.64-.46-.82l.01-.02-6-4-.01.02A.969.969 0 005 3c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1 .21 0 .39-.08.54-.18l.01.02 6-4-.01-.02c.27-.18.46-.47.46-.82z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    style="color: rgb(66, 171, 69);"
+                  >
+                    Running
+                  </span>
+                </div>
+              </div>
+              <div
+                class="instanceManager"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main instanceCount"
+                >
+                  0
+                </p>
+                <div
+                  class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-stop StyledProps--main"
+                    icon="stop"
+                  >
+                    <svg
+                      data-icon="stop"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        stop
+                      </desc>
+                      <path
+                        d="M12 3H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    style="color: rgb(218, 41, 29);"
+                  >
+                    Stopped
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="position: relative;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main refreshIconContainer"
+        >
+          <img
+            height="12px"
+            src="test-file-stub"
+            width="12px"
+          />
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            Refresh
+          </p>
+        </div>
+        <div
+          class="table table"
+        >
+          <div
+            class="header"
+            role="row"
+          >
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 18%;"
+            >
+              NAME
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 8%;"
+            >
+              IDLE TIME
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 12%;"
+            >
+              COMPUTE TYPE
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 22%;"
+            >
+              RESOURCES MANAGED BY THE RULE
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              CUMULATIVE SAVINGS
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              LAST ACTIVITY
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              STATUS
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 5%;"
+            >
+              
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="row card clickable"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 18%;"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="font-weight: 600; --text-line-clamp: 3;"
+                >
+                  ravi-test-13
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 8%;"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500"
+                  style="--text-line-clamp: 3;"
+                >
+                  15
+                   mins
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 12%;"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="app-kubernetes"
+                  >
+                    <svg
+                      height="21"
+                      viewBox="0 0 32 30"
+                      width="21"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="none"
+                      >
+                        <path
+                          d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
+                          fill="#326CE5"
+                        />
+                        <path
+                          d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
+                          fill="#FFF"
+                          stroke="#FFF"
+                          stroke-width="0.25"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500"
+                    style="--text-line-clamp: 3;"
+                  >
+                    kubernetes
+                  </p>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 22%;"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main"
+                  style="max-width: 80%;"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                  >
+                    <div
+                      class="Layout--horizontal StyledProps--main"
+                    >
+                      <div
+                        class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-stop StyledProps--main"
+                          icon="stop"
+                        >
+                          <svg
+                            data-icon="stop"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              stop
+                            </desc>
+                            <path
+                              d="M12 3H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          style="color: rgb(218, 41, 29);"
+                        >
+                          Stopped
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    >
+                      <span>
+                        Host name: 
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgb(2, 120, 213); text-decoration: underline; cursor: inherit;"
+                      >
+                        grateful-liger-c40gjtnsbqnjmr91f8n0.gateway.lightwing.io
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 15%;"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main savingsAmount"
+                  >
+                    0
+                  </p>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 10%;"
+              >
+                -
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 10%;"
+              >
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--inline"
+                      style="display: inline-flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                        icon="full-circle"
+                      >
+                        <svg
+                          data-icon="full-circle"
+                          height="6"
+                          viewBox="0 0 16 16"
+                          width="6"
+                        >
+                          <desc>
+                            full-circle
+                          </desc>
+                          <path
+                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      created
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 5%;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main layout"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        data-testid="menu-282"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Test COGatewayList renders without crashing 1`] = `
 <div>
   <div
@@ -7,75 +677,664 @@ exports[`Test COGatewayList renders without crashing 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="breadCrumb breadcrumbs"
+      class="Layout--horizontal StyledProps--main container standard header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
     >
-      <div>
-        <span
-          class="lastBreadcrumb"
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
         >
           ce.co.breadCrumb.rules
-        </span>
+        </h2>
       </div>
     </div>
     <div
-      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-      style="justify-content: center; align-items: center; padding-top: 220px;"
+      class="Layout--horizontal StyledProps--main StyledProps--padding-large"
     >
-      <img
-        height="224px"
-        src="test-file-stub"
-        width="603px"
-      />
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--font-normal"
-        style="line-height: 24px; text-align: center; width: 760px; margin-top: 20px;"
+      <div
+        class="Layout--horizontal StyledProps--main"
+        style="width: 55%;"
       >
-        <span>
-          ce.co.landingPageText
-        </span>
-         
-        <a
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--link"
-          href="/#/"
-          role="button"
-          tabindex="0"
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          type="button"
         >
+          <span
+            class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
+            icon="plus"
+          >
+            <svg
+              data-icon="plus"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                plus
+              </desc>
+              <path
+                d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
           <span
             class="bp3-button-text"
           >
-            Learn more
+            ce.co.newAutoStoppingRule
           </span>
-        </a>
-      </p>
-      <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-        type="button"
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main headerLayout"
+        style="width: 45%;"
       >
-        <span
-          class="bp3-icon bp3-icon-plus StyledProps--main StyledProps--padding-right-xsmall"
-          icon="plus"
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex"
         >
-          <svg
-            data-icon="plus"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
+          <div
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+            data-name=""
           >
-            <desc>
-              plus
-            </desc>
-            <path
-              d="M13 7H9V3c0-.55-.45-1-1-1s-1 .45-1 1v4H3c-.55 0-1 .45-1 1s.45 1 1 1h4v4c0 .55.45 1 1 1s1-.45 1-1V9h4c.55 0 1-.45 1-1s-.45-1-1-1z"
-              fill-rule="evenodd"
+            <span
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+              data-icon="thinner-search"
+            >
+              <svg
+                fill="none"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input  ExpandingSearchInput--filter"
+              dir="auto"
+              placeholder="search"
+              style="padding-right: 0px;"
+              type="search"
+              value=""
             />
-          </svg>
-        </span>
-        <span
-          class="bp3-button-text"
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main pageBody pageContainer"
+      data-name="page-body"
+    >
+      <div
+        class="StyledProps--font StyledProps--main StyledProps--padding-small"
+      >
+        <div>
+          <p
+            class="StyledProps--font StyledProps--main summaryHeading"
+          >
+            SUMMARY OF RULES
+          </p>
+          <div
+            class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main analyticsContainer StyledProps--background-white"
+          >
+            <div
+              class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+              style="flex: 1.2;"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-small"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--padding-small"
+                  style="border-radius: 4px; background-color: rgba(71, 213, 223, 0.05);"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main analyticsColHeader"
+                      style="color: rgb(5, 170, 182);"
+                    >
+                      TOTAL SAVINGS TILL DATE
+                    </p>
+                    <h1
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      level="1"
+                      style="color: rgb(5, 170, 182);"
+                    >
+                      $
+                      NaN
+                    </h1>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--padding-small"
+                  style="border-radius: 4px; background-color: rgba(124, 77, 211, 0.05);"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main analyticsColHeader"
+                      style="color: rgb(89, 43, 170);"
+                    >
+                      TOTAL SPEND TILL DATE
+                    </p>
+                    <h1
+                      class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                      level="1"
+                      style="color: rgb(89, 43, 170);"
+                    >
+                      $
+                      NaN
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              style="text-align: center; flex: 3;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main analyticsColHeader"
+              >
+                TOTAL SPEND VS SAVINGS
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ce.co.noData
+              </p>
+            </div>
+            <div
+              class="Layout--vertical StyledProps--main"
+              style="flex: 1;"
+            >
+              <div
+                class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main analyticsColHeader"
+                >
+                  SAVINGS PERCENTAGE
+                </p>
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                >
+                  0
+                  %
+                </h1>
+                <div
+                  class="Layout--horizontal StyledProps--main"
+                />
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main analyticsColHeader"
+              >
+                ACTIVE RULES
+              </p>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+              >
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                >
+                  1
+                </h1>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="align-self: center;"
+                >
+                  Rules
+                </p>
+              </div>
+            </div>
+            <div
+              class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+              style="flex: 1;"
+            >
+              <p
+                class="StyledProps--font StyledProps--main analyticsColHeader"
+              >
+                INSTANCES MANAGED
+              </p>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+              >
+                <h1
+                  class="StyledProps--font StyledProps--font-h1 StyledProps--main"
+                  level="1"
+                >
+                  1
+                </h1>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="align-self: center;"
+                >
+                  Instances
+                </p>
+              </div>
+              <div
+                class="instanceManager"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main instanceCount"
+                >
+                  1
+                </p>
+                <div
+                  class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-play StyledProps--main"
+                    icon="play"
+                  >
+                    <svg
+                      data-icon="play"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        play
+                      </desc>
+                      <path
+                        d="M12 8c0-.35-.19-.64-.46-.82l.01-.02-6-4-.01.02A.969.969 0 005 3c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1 .21 0 .39-.08.54-.18l.01.02 6-4-.01-.02c.27-.18.46-.47.46-.82z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    style="color: rgb(66, 171, 69);"
+                  >
+                    Running
+                  </span>
+                </div>
+              </div>
+              <div
+                class="instanceManager"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main instanceCount"
+                >
+                  0
+                </p>
+                <div
+                  class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-stop StyledProps--main"
+                    icon="stop"
+                  >
+                    <svg
+                      data-icon="stop"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        stop
+                      </desc>
+                      <path
+                        d="M12 3H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    style="color: rgb(218, 41, 29);"
+                  >
+                    Stopped
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        style="position: relative;"
+      >
+        <div
+          class="Layout--horizontal StyledProps--main refreshIconContainer"
         >
-          ce.co.newAutoStoppingRule
-        </span>
-      </button>
+          <img
+            height="12px"
+            src="test-file-stub"
+            width="12px"
+          />
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            Refresh
+          </p>
+        </div>
+        <div
+          class="table table"
+        >
+          <div
+            class="header"
+            role="row"
+          >
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 18%;"
+            >
+              NAME
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 8%;"
+            >
+              IDLE TIME
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 12%;"
+            >
+              COMPUTE TYPE
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 22%;"
+            >
+              RESOURCES MANAGED BY THE RULE
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 15%;"
+            >
+              CUMULATIVE SAVINGS
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              LAST ACTIVITY
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 10%;"
+            >
+              STATUS
+            </div>
+            <div
+              class="cell"
+              colspan="1"
+              role="columnheader"
+              style="width: 5%;"
+            >
+              
+            </div>
+          </div>
+          <div
+            class="body"
+          >
+            <div
+              class="row card clickable"
+              role="row"
+            >
+              <div
+                class="cell"
+                role="cell"
+                style="width: 18%;"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="font-weight: 600; --text-line-clamp: 3;"
+                >
+                  ravi-test-13
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 8%;"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500"
+                  style="--text-line-clamp: 3;"
+                >
+                  15
+                   mins
+                </p>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 12%;"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main"
+                    data-icon="app-kubernetes"
+                  >
+                    <svg
+                      height="21"
+                      viewBox="0 0 32 30"
+                      width="21"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="none"
+                      >
+                        <path
+                          d="M15.94.023c-.228 0-.457 0-.685.229L4.512 5.28c-.457.229-.915.686-1.143 1.372L.626 18.08c-.229.457 0 1.143.229 1.6l.228.229 7.314 9.143c.458.457.915.685 1.6.685h11.886c.686 0 1.143-.228 1.6-.685l7.314-9.143c.458-.457.458-1.143.458-1.6L28.512 6.88c-.229-.685-.457-1.143-1.143-1.371L16.626.48c0-.228-.457-.457-.686-.457z"
+                          fill="#326CE5"
+                        />
+                        <path
+                          d="M15.94 3.909c-.457 0-.685.228-.685.686v2.057c0 .228-.229.228-.229.228v.229c-.457 0-.686 0-1.143.228-1.6.458-3.2 1.143-4.114 2.286l-.229-.228h-.457c-.228-.23-.457-.458-.914-.686l-.457-.457h-.229c-.228 0-.228-.229-.457-.229s-.457 0-.457.229c-.229.228-.229.685.228.914h.23c.228.229.456.229.456.229.457.228.686.457.914.685 0 0 .23.229.23.457l.228.229c-1.143 1.6-1.6 3.657-1.372 5.714h-.228l-.229.229c-.229 0-.686.228-1.143.228H4.97c-.457 0-.686.458-.457.686 0 .229.457.457.914.457h.229c.228 0 .457-.228.685-.228.457-.229.686-.229 1.143-.229.229 0 .229 0 .457.229h.229c.686 2.057 2.057 3.657 3.657 4.571l-.229.229v.457c-.228.228-.228.686-.685 1.143-.229.228-.229.228-.229.457v.228c-.228.458 0 .686.229.915.228.228.685 0 .914-.457v-.23c0-.228.229-.456.229-.685.228-.457.228-.914.457-1.143 0 0 .228 0 .228-.228l.229-.229c1.371.457 3.2.686 4.8.457.457 0 .686-.228 1.143-.228l.228.228s.229 0 .229.229c.228.229.228.686.457 1.143 0 .228 0 .457.229.686v.228c.228.457.457.457.914.457.228-.228.457-.457.228-.914v-.229c0-.228-.228-.228-.228-.457-.229-.457-.457-.685-.457-.914v-.686c1.828-1.143 2.971-2.743 3.657-4.571h.228s.23-.229.458-.229.685.229 1.142.229c.23 0 .458.228.686.228h.229c.457 0 .685-.228.914-.457 0-.228-.229-.685-.457-.685h-.914c-.458 0-.915 0-1.143-.23-.229 0-.229-.228-.229-.228h-.228c.228-.914 0-2.057-.229-2.971-.229-.914-.686-2.057-1.143-2.743l.229-.228c0-.23 0-.23.228-.458.229-.228.457-.457.915-.685.228 0 .457-.229.457-.229h.228c.229-.228.457-.686.229-.914-.229-.229-.686-.229-.914 0h-.229l-.457.457c-.229.229-.686.686-.914.686h-.458l-.228.228a8.778 8.778 0 00-5.257-2.514v-.229l-.229-.228V5.052c-.457-.686-.686-1.143-1.143-1.143zm-.685 5.028l-.229 3.429a.492.492 0 01-.457.457h-.229l-2.743-2.057c.915-.914 1.83-1.371 3.2-1.829h.458zm1.6 0c1.371.229 2.742.915 3.885 1.829l-2.743 1.829c-.228.228-.685.228-.685 0l-.229-.23-.228-3.428zm-6.4 3.2l2.514 2.286c.228.229.228.457 0 .686l-.229.228-3.2.915c-.228-1.6 0-2.972.915-4.115zm11.2 0c.457.686.685 1.372.914 2.058.228.685.228 1.37.228 2.057l-3.2-.915c-.228 0-.457-.457-.457-.685 0-.229 0-.229.229-.229l2.286-2.286zm-6.172 2.286h.914l.686.686-.228.914-.915.457-.914-.457-.229-.914.686-.686zm3.2 2.743c.229 0 .229 0 0 0l3.429.457c-.457 1.372-1.372 2.514-2.743 3.429l-1.372-3.2c.23-.229.23-.457.686-.686h0zm-5.486 0c.23 0 .458.229.458.457v.457l-1.372 3.2c-1.143-.685-2.057-1.828-2.743-3.428l3.657-.686zm2.743 1.371h.229l.228.229 1.6 2.971c-.228 0-.457.229-.685.229-1.143.229-2.515.229-3.657-.229l1.6-2.971c.457 0 .457-.229.685-.229h0z"
+                          fill="#FFF"
+                          stroke="#FFF"
+                          stroke-width="0.25"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500"
+                    style="--text-line-clamp: 3;"
+                  >
+                    kubernetes
+                  </p>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 22%;"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main"
+                  style="max-width: 80%;"
+                >
+                  <div
+                    class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                  >
+                    <div
+                      class="Layout--horizontal StyledProps--main"
+                    >
+                      <div
+                        class="Layout--horizontal StyledProps--main instanceStatusIndicator"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-stop StyledProps--main"
+                          icon="stop"
+                        >
+                          <svg
+                            data-icon="stop"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              stop
+                            </desc>
+                            <path
+                              d="M12 3H4c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1h8c.55 0 1-.45 1-1V4c0-.55-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <span
+                          style="color: rgb(218, 41, 29);"
+                        >
+                          Stopped
+                        </span>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                    >
+                      <span>
+                        Host name: 
+                      </span>
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                        style="flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: rgb(2, 120, 213); text-decoration: underline; cursor: inherit;"
+                      >
+                        grateful-liger-c40gjtnsbqnjmr91f8n0.gateway.lightwing.io
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 15%;"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main savingsAmount"
+                  >
+                    0
+                  </p>
+                </div>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 10%;"
+              >
+                -
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 10%;"
+              >
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <span
+                      class="StyledProps--font StyledProps--main StyledProps--inline"
+                      style="display: inline-flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-full-circle StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                        icon="full-circle"
+                      >
+                        <svg
+                          data-icon="full-circle"
+                          height="6"
+                          viewBox="0 0 16 16"
+                          width="6"
+                        >
+                          <desc>
+                            full-circle
+                          </desc>
+                          <path
+                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      created
+                    </span>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="cell"
+                role="cell"
+                style="width: 5%;"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main layout"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        data-testid="menu-282"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="Options"
+                        >
+                          <svg
+                            fill="none"
+                            height="16"
+                            viewBox="0 0 4 16"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

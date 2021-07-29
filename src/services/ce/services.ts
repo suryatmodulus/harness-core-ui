@@ -6,6 +6,29 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: 
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> }
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
+export const CcmMetaDataDocument = gql`
+  query CCMMetaData {
+    ccmMetaData {
+      k8sClusterConnectorPresent
+      cloudDataPresent
+      awsConnectorsPresent
+      gcpConnectorsPresent
+      azureConnectorsPresent
+      applicationDataPresent
+      inventoryDataPresent
+      clusterDataPresent
+      isSampleClusterPresent
+      defaultAzurePerspectiveId
+      defaultAwsPerspectiveId
+      defaultGcpPerspectiveId
+      defaultClusterPerspectiveId
+    }
+  }
+`
+
+export function useCcmMetaDataQuery(options: Omit<Urql.UseQueryArgs<CcmMetaDataQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<CcmMetaDataQuery>({ query: CcmMetaDataDocument, ...options })
+}
 export const FetchAllPerspectivesDocument = gql`
   query FetchAllPerspectives {
     perspectives {
@@ -46,13 +69,11 @@ export function useFetchAllPerspectivesQuery(
   return Urql.useQuery<FetchAllPerspectivesQuery>({ query: FetchAllPerspectivesDocument, ...options })
 }
 export const RecommendationsDocument = gql`
-  query Recommendations($filters: K8sRecommendationFilterDTOInput) {
-    recommendationStatsV2(filter: $filters) {
-      totalMonthlyCost
-      totalMonthlySaving
-    }
-    recommendationsV2(filter: $filters) {
+  query Recommendations($filter: K8sRecommendationFilterDTOInput) {
+    recommendationsV2(filter: $filter) {
       items {
+        clusterName
+        namespace
         id
         resourceType
         resourceName
@@ -65,6 +86,21 @@ export const RecommendationsDocument = gql`
 
 export function useRecommendationsQuery(options: Omit<Urql.UseQueryArgs<RecommendationsQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<RecommendationsQuery>({ query: RecommendationsDocument, ...options })
+}
+export const RecommendationsSummaryDocument = gql`
+  query RecommendationsSummary($filter: K8sRecommendationFilterDTOInput) {
+    recommendationStatsV2(filter: $filter) {
+      totalMonthlyCost
+      totalMonthlySaving
+      count
+    }
+  }
+`
+
+export function useRecommendationsSummaryQuery(
+  options: Omit<Urql.UseQueryArgs<RecommendationsSummaryQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<RecommendationsSummaryQuery>({ query: RecommendationsSummaryDocument, ...options })
 }
 export const FetchCcmMetaDataDocument = gql`
   query FetchCcmMetaData {
@@ -188,7 +224,7 @@ export const FetchperspectiveGridDocument = gql`
           clusterType
           costTrend
           cpuBillingAmount
-          cpuIdleCost
+          cpuActualIdleCost
           cpuUnallocatedCost
           efficiencyScore
           efficiencyScoreTrendPercentage
@@ -201,7 +237,7 @@ export const FetchperspectiveGridDocument = gql`
           maxCpuUtilization
           maxMemoryUtilization
           memoryBillingAmount
-          memoryIdleCost
+          memoryActualIdleCost
           memoryUnallocatedCost
           name
           namespace
@@ -210,6 +246,7 @@ export const FetchperspectiveGridDocument = gql`
           region
           serviceId
           serviceName
+          storageCost
           storageActualIdleCost
           storageRequest
           storageUnallocatedCost
@@ -220,6 +257,53 @@ export const FetchperspectiveGridDocument = gql`
           unallocatedCost
           workloadName
           workloadType
+        }
+        instanceDetails @include(if: $isClusterOnly) {
+          name
+          id
+          nodeId
+          clusterName
+          clusterId
+          nodePoolName
+          cloudProviderInstanceId
+          podCapacity
+          totalCost
+          idleCost
+          systemCost
+          unallocatedCost
+          cpuAllocatable
+          memoryAllocatable
+          instanceCategory
+          machineType
+          createTime
+          deleteTime
+          memoryBillingAmount
+          cpuBillingAmount
+          memoryUnallocatedCost
+          cpuUnallocatedCost
+          memoryIdleCost
+          cpuIdleCost
+        }
+        storageDetails @include(if: $isClusterOnly) {
+          id
+          instanceId
+          instanceName
+          claimName
+          claimNamespace
+          clusterName
+          clusterId
+          storageClass
+          volumeType
+          cloudProvider
+          region
+          storageCost
+          storageActualIdleCost
+          storageUnallocatedCost
+          capacity
+          storageRequest
+          storageUtilizationValue
+          createTime
+          deleteTime
         }
       }
     }
@@ -316,6 +400,14 @@ export const FetchRecommendationDocument = gql`
     recommendationStats(id: $id) {
       totalMonthlyCost
       totalMonthlySaving
+    }
+    recommendationsV2(filter: { ids: [$id], offset: 0, limit: 10 }) {
+      items {
+        clusterName
+        namespace
+        id
+        resourceName
+      }
     }
     recommendationDetails(id: $id, resourceType: WORKLOAD, startTime: $startTime, endTime: $endTime) {
       ... on WorkloadRecommendationDTO {
@@ -626,6 +718,28 @@ export function useFetchWorkloadTimeSeriesQuery(
 ) {
   return Urql.useQuery<FetchWorkloadTimeSeriesQuery>({ query: FetchWorkloadTimeSeriesDocument, ...options })
 }
+export type CcmMetaDataQueryVariables = Exact<{ [key: string]: never }>
+
+export type CcmMetaDataQuery = {
+  __typename?: 'Query'
+  ccmMetaData: Maybe<{
+    __typename?: 'CCMMetaData'
+    k8sClusterConnectorPresent: boolean
+    cloudDataPresent: boolean
+    awsConnectorsPresent: boolean
+    gcpConnectorsPresent: boolean
+    azureConnectorsPresent: boolean
+    applicationDataPresent: boolean
+    inventoryDataPresent: boolean
+    clusterDataPresent: boolean
+    isSampleClusterPresent: boolean
+    defaultAzurePerspectiveId: Maybe<string>
+    defaultAwsPerspectiveId: Maybe<string>
+    defaultGcpPerspectiveId: Maybe<string>
+    defaultClusterPerspectiveId: Maybe<string>
+  }>
+}
+
 export type FetchAllPerspectivesQueryVariables = Exact<{ [key: string]: never }>
 
 export type FetchAllPerspectivesQuery = {
@@ -674,22 +788,19 @@ export type FetchAllPerspectivesQuery = {
 }
 
 export type RecommendationsQueryVariables = Exact<{
-  filters: Maybe<K8sRecommendationFilterDtoInput>
+  filter: Maybe<K8sRecommendationFilterDtoInput>
 }>
 
 export type RecommendationsQuery = {
   __typename?: 'Query'
-  recommendationStatsV2: Maybe<{
-    __typename?: 'RecommendationOverviewStats'
-    totalMonthlyCost: number
-    totalMonthlySaving: number
-  }>
   recommendationsV2: Maybe<{
     __typename?: 'RecommendationsDTO'
     items: Maybe<
       Array<
         Maybe<{
           __typename?: 'RecommendationItemDTO'
+          clusterName: Maybe<string>
+          namespace: Maybe<string>
           id: string
           resourceType: ResourceType
           resourceName: Maybe<string>
@@ -698,6 +809,20 @@ export type RecommendationsQuery = {
         }>
       >
     >
+  }>
+}
+
+export type RecommendationsSummaryQueryVariables = Exact<{
+  filter: Maybe<K8sRecommendationFilterDtoInput>
+}>
+
+export type RecommendationsSummaryQuery = {
+  __typename?: 'Query'
+  recommendationStatsV2: Maybe<{
+    __typename?: 'RecommendationOverviewStats'
+    totalMonthlyCost: number
+    totalMonthlySaving: number
+    count: number
   }>
 }
 
@@ -817,7 +942,7 @@ export type FetchperspectiveGridQuery = {
             clusterType: Maybe<string>
             costTrend: Maybe<number>
             cpuBillingAmount: Maybe<number>
-            cpuIdleCost: Maybe<number>
+            cpuActualIdleCost: Maybe<number>
             cpuUnallocatedCost: Maybe<number>
             efficiencyScore: number
             efficiencyScoreTrendPercentage: number
@@ -830,7 +955,7 @@ export type FetchperspectiveGridQuery = {
             maxCpuUtilization: Maybe<number>
             maxMemoryUtilization: Maybe<number>
             memoryBillingAmount: Maybe<number>
-            memoryIdleCost: Maybe<number>
+            memoryActualIdleCost: Maybe<number>
             memoryUnallocatedCost: Maybe<number>
             name: Maybe<string>
             namespace: Maybe<string>
@@ -839,6 +964,7 @@ export type FetchperspectiveGridQuery = {
             region: Maybe<string>
             serviceId: Maybe<string>
             serviceName: Maybe<string>
+            storageCost: Maybe<number>
             storageActualIdleCost: Maybe<number>
             storageRequest: Maybe<number>
             storageUnallocatedCost: Maybe<number>
@@ -849,6 +975,55 @@ export type FetchperspectiveGridQuery = {
             unallocatedCost: Maybe<number>
             workloadName: Maybe<string>
             workloadType: Maybe<string>
+          }>
+          instanceDetails?: Maybe<{
+            __typename?: 'InstanceDetails'
+            name: Maybe<string>
+            id: Maybe<string>
+            nodeId: Maybe<string>
+            clusterName: Maybe<string>
+            clusterId: Maybe<string>
+            nodePoolName: Maybe<string>
+            cloudProviderInstanceId: Maybe<string>
+            podCapacity: Maybe<string>
+            totalCost: number
+            idleCost: number
+            systemCost: number
+            unallocatedCost: number
+            cpuAllocatable: number
+            memoryAllocatable: number
+            instanceCategory: Maybe<string>
+            machineType: Maybe<string>
+            createTime: any
+            deleteTime: any
+            memoryBillingAmount: number
+            cpuBillingAmount: number
+            memoryUnallocatedCost: number
+            cpuUnallocatedCost: number
+            memoryIdleCost: number
+            cpuIdleCost: number
+          }>
+          storageDetails?: Maybe<{
+            __typename?: 'StorageDetails'
+            id: Maybe<string>
+            instanceId: Maybe<string>
+            instanceName: Maybe<string>
+            claimName: Maybe<string>
+            claimNamespace: Maybe<string>
+            clusterName: Maybe<string>
+            clusterId: Maybe<string>
+            storageClass: Maybe<string>
+            volumeType: Maybe<string>
+            cloudProvider: Maybe<string>
+            region: Maybe<string>
+            storageCost: number
+            storageActualIdleCost: number
+            storageUnallocatedCost: number
+            capacity: number
+            storageRequest: number
+            storageUtilizationValue: number
+            createTime: any
+            deleteTime: any
           }>
         }>
       >
@@ -926,6 +1101,20 @@ export type FetchRecommendationQuery = {
     __typename?: 'RecommendationOverviewStats'
     totalMonthlyCost: number
     totalMonthlySaving: number
+  }>
+  recommendationsV2: Maybe<{
+    __typename?: 'RecommendationsDTO'
+    items: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'RecommendationItemDTO'
+          clusterName: Maybe<string>
+          namespace: Maybe<string>
+          id: string
+          resourceName: Maybe<string>
+        }>
+      >
+    >
   }>
   recommendationDetails: Maybe<
     | { __typename?: 'NodeRecommendationDTO' }

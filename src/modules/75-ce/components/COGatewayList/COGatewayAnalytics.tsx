@@ -134,17 +134,15 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const [idleHourSeries, setIdleHourSeries] = useState<number[]>([])
   const [actualHoursSeries, setActualHoursSeries] = useState<number[]>([])
   const { data, loading } = useSavingsOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service?.data.id as number,
+    account_id: accountId,
+    rule_id: props.service?.data.id as number,
     queryParams: {
       accountIdentifier: accountId
     }
   })
   const { data: graphData, loading: graphLoading } = useSavingsOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service?.data.id as number,
+    account_id: accountId,
+    rule_id: props.service?.data.id as number,
     queryParams: {
       accountIdentifier: accountId,
       from: moment(startOfDay(today().subtract(7, 'days'))).format(DATE_FORMAT),
@@ -153,9 +151,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     }
   })
   const { data: healthData, loading: healthDataLoading } = useHealthOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service?.data.id as number,
+    account_id: accountId,
+    rule_id: props.service?.data.id as number,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -166,9 +163,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     loading: resourcesLoading,
     error: resourceError
   } = useAllServiceResources({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    service_id: props.service?.data.id as number, // eslint-disable-line
+    account_id: accountId,
+    rule_id: props.service?.data.id as number, // eslint-disable-line
     debounce: 300
   })
 

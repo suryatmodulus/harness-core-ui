@@ -37,7 +37,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-normal"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-grey400"
               >
                 ce.recommendation.listPage.monthlySavingsText
               </p>
@@ -254,7 +254,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
                     </g>
                   </svg>
                 </span>
-                $1,713.79
+                $0.00
               </p>
             </div>
           </div>
@@ -265,14 +265,14 @@ exports[`test cases for Recommendation List Page should be able to render the li
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-normal"
+                class="StyledProps--font StyledProps--main StyledProps--font-normal StyledProps--color StyledProps--color-grey400"
               >
                 ce.recommendation.listPage.monthlyForcastedCostText
               </p>
               <p
                 class="StyledProps--font StyledProps--main amount StyledProps--color StyledProps--color-grey800"
               >
-                $822.90
+                $0.00
               </p>
               <p
                 class="StyledProps--font StyledProps--main StyledProps--font-small"
@@ -292,7 +292,7 @@ exports[`test cases for Recommendation List Page should be able to render the li
               class="Layout--horizontal StyledProps--main"
             >
               <p
-                class="StyledProps--font StyledProps--main"
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
                 style="flex: 1;"
               >
                 ce.recommendation.listPage.recommnedationBreakdown

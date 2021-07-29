@@ -45,6 +45,7 @@ const makeNewThresold = (): AlertThreshold => {
 
 const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
   const { getString } = useStrings()
+  const [loading, setLoading] = useState(false)
   const [hasError, setError] = useState(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { prevStepData, previousStep, viewId, perspectiveName, accountId, budget, isEditMode } = props
@@ -61,6 +62,7 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
 
   const handleSubmit = async ({ alertThresholds }: ThresholdForm) => {
     setError(false)
+    setLoading(true)
 
     const emptyThresholds = (t: AlertThreshold) => (t.emailAddresses?.length || 0) > 0 && t.percentage
     const payload = {
@@ -80,6 +82,7 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
       props.onSuccess()
     } catch (e) {
       setError(true)
+      setLoading(false)
       modalErrorHandler?.showDanger(e.message)
     }
   }
@@ -120,8 +123,12 @@ const ConfigureAlerts: React.FC<StepProps<Budget> & Props> = props => {
                   <Button
                     intent="primary"
                     rightIcon={'chevron-right'}
-                    disabled={false}
-                    onClick={formikProps.submitForm}
+                    disabled={loading}
+                    onClick={() => {
+                      setTimeout(() => {
+                        formikProps.submitForm()
+                      }, 0)
+                    }}
                   >
                     {getString('save')}
                   </Button>
@@ -253,7 +260,7 @@ const Threshold = (props: ThresholdProps): JSX.Element => {
         addOnBlur
         className={css.tagInput}
         tagProps={{ className: css.tag }}
-        placeholder={getString('ce.perspectives.budgets.configureAlerts.emailPlaceholder')}
+        placeholder={getString('ce.perspectives.reports.emailPlaceholder')}
         onChange={values => handleEmailChange(values)}
         // onAdd={values => {}}
         values={value.emailAddresses || []}

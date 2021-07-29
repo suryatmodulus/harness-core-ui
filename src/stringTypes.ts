@@ -69,6 +69,7 @@ export interface StringsMap {
   'common.bash': string
   'common.blank': string
   'common.capsAll': string
+  'common.ce.autostopping': string
   'common.ce.cost': string
   'common.ce.optimization': string
   'common.ce.visibility': string
@@ -1154,6 +1155,15 @@ export interface StringsMap {
   'connectors.ceGcp.testConnection.step3': string
   'connectors.ceK8.infoText': string
   'connectors.ceK8.selectConnectorLabel': string
+  'connectors.ceK8S.chooseRequirements.description': string
+  'connectors.ceK8S.chooseRequirements.heading': string
+  'connectors.ceK8S.chooseRequirements.optimization.description': string
+  'connectors.ceK8S.chooseRequirements.optimization.heading': string
+  'connectors.ceK8S.chooseRequirements.optimization.subheading': string
+  'connectors.ceK8S.chooseRequirements.subheading': string
+  'connectors.ceK8S.chooseRequirements.visibility.description': string
+  'connectors.ceK8S.chooseRequirements.visibility.heading': string
+  'connectors.ceK8S.chooseRequirements.visibility.subheading': string
   'connectors.click': string
   'connectors.confirmDelete': string
   'connectors.confirmDeleteTitle': string
@@ -2221,6 +2231,7 @@ export interface StringsMap {
   'cd.varFile': string
   'cd.varFileDetails': string
   'cd.workloadRequired': string
+  'ce.ccm': string
   'ce.ceTrialHomePage.startTrial.description': string
   'ce.co.accessPoint.ap': string
   'ce.co.accessPoint.aps': string
@@ -2369,6 +2380,7 @@ export interface StringsMap {
   'ce.co.gatewayConfig.healthCheck': string
   'ce.co.gatewayConfig.healthCheckDescription': string
   'ce.co.gatewayConfig.info': string
+  'ce.co.gatewayConfig.k8sroutingDescription': string
   'ce.co.gatewayConfig.name': string
   'ce.co.gatewayConfig.routingDescription': string
   'ce.co.gatewayConfig.scheduleDescription': string
@@ -2462,7 +2474,6 @@ export interface StringsMap {
   'ce.perspectives.budgets.configureAlerts.basedOn': string
   'ce.perspectives.budgets.configureAlerts.budgetAmount': string
   'ce.perspectives.budgets.configureAlerts.createAlert': string
-  'ce.perspectives.budgets.configureAlerts.emailPlaceholder': string
   'ce.perspectives.budgets.configureAlerts.exceeds': string
   'ce.perspectives.budgets.configureAlerts.forecasted': string
   'ce.perspectives.budgets.configureAlerts.percent': string
@@ -2572,6 +2583,7 @@ export interface StringsMap {
   'ce.recommendation.detailsPage.resourceChanges': string
   'ce.recommendation.detailsPage.timeChangeText': string
   'ce.recommendation.detailsPage.totalCost': string
+  'ce.recommendation.detailsPage.viewMoreDetailsText': string
   'ce.recommendation.listPage.filterHereText': string
   'ce.recommendation.listPage.filters.clusterName': string
   'ce.recommendation.listPage.filters.enterCost': string
@@ -2599,6 +2611,8 @@ export interface StringsMap {
   'ce.recommendation.recommendationChart.noOfSamples': string
   'ce.recommendation.sideNavText': string
   'ce.savedYamlSuccess': string
+  'ce.sideNav.perspective': string
+  'ce.trialCta': string
   'ce.uploadCertiHeader': string
   'cf.addPrerequisites.addPrerequisitesDesc': string
   'cf.addPrerequisites.addPrerequisitesHeading': string

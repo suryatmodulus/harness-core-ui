@@ -64,11 +64,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
     <div
       class="mainContainer"
     >
-      <div>
-        <div
-          class="filler"
-        />
-      </div>
+      <div />
       <div
         class="bp3-tabs Tabs--main Tabs--horizontal"
       >

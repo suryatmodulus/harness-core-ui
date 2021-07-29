@@ -578,12 +578,18 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 2`] = `
           class="StyledProps--font StyledProps--font-h2 StyledProps--main header"
           level="2"
         >
-          connectors.ceAws.crossAccountRoleStep1.heading
+          connectors.ceK8S.chooseRequirements.heading
         </h2>
         <div
           style="padding: 5px 5px 20px 5px;"
         >
-          connectors.ceAws.crossAccountRoleStep1.description
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+             
+            connectors.ceK8S.chooseRequirements.subheading
+          </p>
+          connectors.ceK8S.chooseRequirements.description
         </div>
         <div
           style="flex: 1;"
@@ -644,18 +650,20 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 2`] = `
                     <div
                       style="font-size: 8px; font-family: inter;"
                     >
-                      connectors.ceAws.crossAccountRoleStep1.cost
+                      connectors.ceK8S.chooseRequirements.visibility.heading
                     </div>
                      
                     <div
                       style="font-size: 14px; font-family: inter;"
                     >
-                      connectors.ceAws.crossAccountRoleStep1.visibility
+                      connectors.ceK8S.chooseRequirements.visibility.subheading
                     </div>
                   </p>
                 </div>
                 <p>
-                  connectors.ceAws.crossAccountRoleStep1.visibilityDes
+                  <div>
+                    connectors.ceK8S.chooseRequirements.visibility.description
+                  </div>
                 </p>
               </div>
             </div>
@@ -689,18 +697,20 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 2`] = `
                     <div
                       style="font-size: 8px; font-family: inter;"
                     >
-                      connectors.ceAws.crossAccountRoleStep1.cost
+                      connectors.ceK8S.chooseRequirements.optimization.heading
                     </div>
                      
                     <div
                       style="font-size: 14px; font-family: inter;"
                     >
-                      connectors.ceAws.crossAccountRoleStep1.optimization
+                      connectors.ceK8S.chooseRequirements.optimization.subheading
                     </div>
                   </p>
                 </div>
                 <p>
-                  connectors.ceAws.crossAccountRoleStep1.optimizationDes
+                  <div>
+                    connectors.ceK8S.chooseRequirements.optimization.description
+                  </div>
                 </p>
               </div>
             </div>

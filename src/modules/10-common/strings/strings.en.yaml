@@ -129,7 +129,8 @@ ce:
   optimization: Optimization
   visibility: Visibility
   visibilityWarning: Cost Visibility is currently only available in CE First Generation
-  visibilityLaunchButton: Launch CE First Generation
+  visibilityLaunchButton: Launch CCM First Generation
+  autostopping: 'AutoStopping'
 launchFirstGen: 'Launch {{module}} First Generation'
 startTrial: 'Start 14 day {{module}} Enterprise trial'
 new: new

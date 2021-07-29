@@ -45,6 +45,19 @@ export interface Budget {
   uuid?: string
 }
 
+export interface BudgetCostData {
+  actualCost?: number
+  budgetVariance?: number
+  budgetVariancePercentage?: number
+  budgeted?: number
+  time?: number
+}
+
+export interface BudgetData {
+  costData?: BudgetCostData[]
+  forecastCost?: number
+}
+
 export interface BudgetScope {
   budgetScopeType?: string
   entityIds?: string[]
@@ -473,11 +486,27 @@ export interface RestResponseBudget {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseBudgetData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: BudgetData
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseCEView {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: CEView
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDouble {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: number
   responseMessages?: ResponseMessage[]
 }
 
@@ -649,6 +678,73 @@ export type UseCreateBudgetProps = Omit<
  */
 export const useCreateBudget = (props: UseCreateBudgetProps) =>
   useMutate<RestResponseString, unknown, CreateBudgetQueryParams, BudgetRequestBody, void>('POST', `/budgets`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface GetForecastCostQueryParams {
+  accountIdentifier?: string
+  perspectiveId?: string
+}
+
+export type GetForecastCostProps = Omit<GetProps<RestResponseDouble, unknown, GetForecastCostQueryParams, void>, 'path'>
+
+/**
+ * Get forecast cost for perspective
+ */
+export const GetForecastCost = (props: GetForecastCostProps) => (
+  <Get<RestResponseDouble, unknown, GetForecastCostQueryParams, void>
+    path={`/budgets/forecastCost`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetForecastCostProps = Omit<
+  UseGetProps<RestResponseDouble, unknown, GetForecastCostQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get forecast cost for perspective
+ */
+export const useGetForecastCost = (props: UseGetForecastCostProps) =>
+  useGet<RestResponseDouble, unknown, GetForecastCostQueryParams, void>(`/budgets/forecastCost`, {
+    base: getConfig('ccm/api'),
+    ...props
+  })
+
+export interface GetLastMonthCostQueryParams {
+  accountIdentifier?: string
+  perspectiveId?: string
+}
+
+export type GetLastMonthCostProps = Omit<
+  GetProps<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get last month cost for perspective
+ */
+export const GetLastMonthCost = (props: GetLastMonthCostProps) => (
+  <Get<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>
+    path={`/budgets/lastMonthCost`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetLastMonthCostProps = Omit<
+  UseGetProps<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get last month cost for perspective
+ */
+export const useGetLastMonthCost = (props: UseGetLastMonthCostProps) =>
+  useGet<RestResponseDouble, unknown, GetLastMonthCostQueryParams, void>(`/budgets/lastMonthCost`, {
     base: getConfig('ccm/api'),
     ...props
   })
@@ -845,6 +941,46 @@ export const useUpdateBudget = ({ id, ...props }: UseUpdateBudgetProps) =>
   useMutate<RestResponseString, unknown, UpdateBudgetQueryParams, BudgetRequestBody, UpdateBudgetPathParams>(
     'PUT',
     (paramsInPath: UpdateBudgetPathParams) => `/budgets/${paramsInPath.id}`,
+    { base: getConfig('ccm/api'), pathParams: { id }, ...props }
+  )
+
+export interface GetCostDetailsQueryParams {
+  accountIdentifier?: string
+}
+
+export interface GetCostDetailsPathParams {
+  id: string
+}
+
+export type GetCostDetailsProps = Omit<
+  GetProps<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>,
+  'path'
+> &
+  GetCostDetailsPathParams
+
+/**
+ * Get cost details for budget
+ */
+export const GetCostDetails = ({ id, ...props }: GetCostDetailsProps) => (
+  <Get<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>
+    path={`/budgets/${id}/costDetails`}
+    base={getConfig('ccm/api')}
+    {...props}
+  />
+)
+
+export type UseGetCostDetailsProps = Omit<
+  UseGetProps<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>,
+  'path'
+> &
+  GetCostDetailsPathParams
+
+/**
+ * Get cost details for budget
+ */
+export const useGetCostDetails = ({ id, ...props }: UseGetCostDetailsProps) =>
+  useGet<RestResponseBudgetData, unknown, GetCostDetailsQueryParams, GetCostDetailsPathParams>(
+    (paramsInPath: GetCostDetailsPathParams) => `/budgets/${paramsInPath.id}/costDetails`,
     { base: getConfig('ccm/api'), pathParams: { id }, ...props }
   )
 
@@ -1547,12 +1683,12 @@ export const useCloudCostK8sClusterSetup = (props: UseCloudCostK8sClusterSetupPr
   )
 
 export interface GetCostOptimisationYamlTemplateQueryParams {
-  accountId?: string
+  accountIdentifier?: string
   connectorIdentifier?: string
 }
 
 export type GetCostOptimisationYamlTemplateProps = Omit<
-  MutateProps<void, void, GetCostOptimisationYamlTemplateQueryParams, string, void>,
+  MutateProps<void, void, GetCostOptimisationYamlTemplateQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -1560,7 +1696,7 @@ export type GetCostOptimisationYamlTemplateProps = Omit<
  * Get Cost Optimisation Yaml
  */
 export const GetCostOptimisationYamlTemplate = (props: GetCostOptimisationYamlTemplateProps) => (
-  <Mutate<void, void, GetCostOptimisationYamlTemplateQueryParams, string, void>
+  <Mutate<void, void, GetCostOptimisationYamlTemplateQueryParams, void, void>
     verb="POST"
     path={`/yaml/generate-cost-optimisation-yaml`}
     base={getConfig('ccm/api')}
@@ -1569,7 +1705,7 @@ export const GetCostOptimisationYamlTemplate = (props: GetCostOptimisationYamlTe
 )
 
 export type UseGetCostOptimisationYamlTemplateProps = Omit<
-  UseMutateProps<void, void, GetCostOptimisationYamlTemplateQueryParams, string, void>,
+  UseMutateProps<void, void, GetCostOptimisationYamlTemplateQueryParams, void, void>,
   'path' | 'verb'
 >
 
@@ -1577,7 +1713,7 @@ export type UseGetCostOptimisationYamlTemplateProps = Omit<
  * Get Cost Optimisation Yaml
  */
 export const useGetCostOptimisationYamlTemplate = (props: UseGetCostOptimisationYamlTemplateProps) =>
-  useMutate<void, void, GetCostOptimisationYamlTemplateQueryParams, string, void>(
+  useMutate<void, void, GetCostOptimisationYamlTemplateQueryParams, void, void>(
     'POST',
     `/yaml/generate-cost-optimisation-yaml`,
     { base: getConfig('ccm/api'), ...props }

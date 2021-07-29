@@ -26,7 +26,7 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
   const [budget, setBudget] = useState<Budget>()
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
   const { data: perspectiveRes } = useGetPerspective({
-    queryParams: { perspectiveId: perspectiveId } // TODO: accountIdentifier: accountId
+    queryParams: { perspectiveId } // TODO: accountIdentifier: accountId
   })
 
   const modalPropsLight: IDialogProps = {
@@ -52,7 +52,11 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
             title={getString('ce.perspectives.budgets.wizardTitle')}
             className={css.mainCtn}
           >
-            <SetBudgetAmount name={getString('ce.perspectives.budgets.setBudgetAmount.title')} budget={budget} />
+            <SetBudgetAmount
+              name={getString('ce.perspectives.budgets.setBudgetAmount.title')}
+              budget={budget}
+              isEditMode={isEditMode}
+            />
             <ConfigureAlerts
               isEditMode={isEditMode}
               viewId={perspectiveId}

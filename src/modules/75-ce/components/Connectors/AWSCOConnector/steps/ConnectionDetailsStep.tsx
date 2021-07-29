@@ -30,7 +30,7 @@ interface AWSCODetails {
 }
 
 const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
@@ -47,8 +47,6 @@ const ConnectionDetailsStep: React.FC<StepProps<ConnectorInfoDTO>> = props => {
   const { showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { data, error } = useGetCloudFormationTemplate({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       accountIdentifier: accountId

@@ -284,11 +284,11 @@ exports[`test cases for Perspective details Page should be able to render the de
               style="flex-grow: 1;"
             />
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500"
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-red500"
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
                 icon="caret-down"
               >
                 <svg

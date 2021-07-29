@@ -38,15 +38,14 @@ function getLogs(logs: ServiceLog[] | undefined): string {
 }
 
 const COGatewayLogs: React.FC<COGatewayLogsProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
   }>()
   const { data, loading } = useLogsOfService({
-    org_id: orgIdentifier,
-    projectID: projectIdentifier,
-    serviceID: props.service?.id as number,
+    account_id: accountId,
+    rule_id: props.service?.id as number,
     queryParams: {
       accountIdentifier: accountId
     }

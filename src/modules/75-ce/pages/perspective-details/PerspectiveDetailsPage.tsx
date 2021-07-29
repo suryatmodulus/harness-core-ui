@@ -14,7 +14,6 @@ import {
   QlceViewFieldInputInput,
   useFetchperspectiveGridQuery,
   ViewChartType,
-  ViewTimeRangeType,
   ViewType,
   QlceViewAggregateOperation
 } from 'services/ce/services'
@@ -32,7 +31,8 @@ import {
   getGroupByFilter,
   getTimeRangeFilter,
   getFilters,
-  DEFAULT_GROUP_BY
+  DEFAULT_GROUP_BY,
+  perspectiveDefaultTimeRangeMapper
 } from '@ce/utils/perspectiveUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
 import {
@@ -132,12 +132,6 @@ const PerspectiveDetailsPage: React.FC = () => {
     from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
 
-  const timeRangeMapper: Record<string, moment.Moment[]> = {
-    [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
-    [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
-    [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
-  }
-
   useEffect(() => {
     if (perspectiveData) {
       const cType =
@@ -152,7 +146,7 @@ const PerspectiveDetailsPage: React.FC = () => {
 
       const dateRange =
         (perspectiveData.viewTimeRange?.viewTimeRangeType &&
-          timeRangeMapper[perspectiveData.viewTimeRange?.viewTimeRangeType]) ||
+          perspectiveDefaultTimeRangeMapper[perspectiveData.viewTimeRange?.viewTimeRangeType]) ||
         DATE_RANGE_SHORTCUTS.LAST_7_DAYS
 
       setTimeRange({
@@ -201,9 +195,18 @@ const PerspectiveDetailsPage: React.FC = () => {
     }
   })
 
+  const getAggregationFunc = () => {
+    const af = AGGREGATE_FUNCTION[groupBy.fieldId]
+    if (!af) {
+      return isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT
+    }
+
+    return af
+  }
+
   const [gridResults] = useFetchperspectiveGridQuery({
     variables: {
-      aggregateFunction: isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT,
+      aggregateFunction: getAggregationFunc(),
       filters: [
         getViewFilterForId(perspectiveId),
         ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),

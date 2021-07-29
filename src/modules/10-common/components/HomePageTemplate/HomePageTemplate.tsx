@@ -17,6 +17,12 @@ interface TrialBannerProps {
   module: ModuleName
   refetch?: () => void
 }
+
+interface CTAProps {
+  text?: string
+  onClick?: () => void
+}
+
 interface HomePageTemplate {
   title: string
   subTitle: string
@@ -24,6 +30,8 @@ interface HomePageTemplate {
   documentText: string
   documentURL?: string
   trialBannerProps: TrialBannerProps
+  ctaProps?: CTAProps
+  disableAdditionalCta?: boolean
 }
 
 export const HomePageTemplate: React.FC<HomePageTemplate> = ({
@@ -32,7 +40,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
   subTitle,
   documentText,
   documentURL = 'https://ngdocs.harness.io/',
-  trialBannerProps
+  trialBannerProps,
+  disableAdditionalCta,
+  ctaProps
 }) => {
   const { accountId } = useParams<{
     accountId: string
@@ -63,7 +73,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
             <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
               {title}
             </Heading>
-            <Text color={'var(--grey-500)'}>{subTitle}</Text>
+            <Text color={'var(--grey-500)'} className={css.subTitle}>
+              {subTitle}
+            </Text>
             <ExternalLink
               className={css.link}
               color={'var(--primary-6)'}
@@ -74,12 +86,21 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
               {documentText}
             </ExternalLink>
             <Layout.Horizontal spacing="large" flex>
-              <Link to={routes.toProjects({ accountId })} className={css.createBtn}>
-                {getString('createProject')}
-              </Link>
-              <Text font={{ size: 'medium' }} color={Color.BLACK}>
-                {getString('orSelectExisting')}
-              </Text>
+              {ctaProps?.onClick && ctaProps.text && (
+                <div className={cx(css.createBtn, css.linkCursor)} onClick={ctaProps.onClick}>
+                  {ctaProps.text}
+                </div>
+              )}
+              {!ctaProps?.onClick && (
+                <Link to={routes.toProjects({ accountId })} className={css.createBtn}>
+                  {ctaProps?.text || getString('createProject')}
+                </Link>
+              )}
+              {!disableAdditionalCta && (
+                <Text font={{ size: 'medium' }} color={Color.BLACK}>
+                  {getString('orSelectExisting')}
+                </Text>
+              )}
               <FlexExpander />
             </Layout.Horizontal>
           </Layout.Vertical>

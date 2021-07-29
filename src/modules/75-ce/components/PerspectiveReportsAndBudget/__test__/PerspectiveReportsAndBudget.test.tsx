@@ -75,6 +75,18 @@ jest.mock('services/ce', () => ({
         data: {}
       }
     }
+  })),
+  useGetLastMonthCost: jest.fn().mockImplementation(() => ({
+    data: { resource: 100 },
+    refetch: jest.fn(),
+    error: null,
+    loading: false
+  })),
+  useGetForecastCost: jest.fn().mockImplementation(() => ({
+    data: { resource: 100 },
+    refetch: jest.fn(),
+    error: null,
+    loading: false
   }))
 }))
 

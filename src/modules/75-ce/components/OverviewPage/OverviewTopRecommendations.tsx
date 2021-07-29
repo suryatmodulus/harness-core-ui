@@ -20,7 +20,7 @@ const OverviewTopRecommendations = () => {
   const [result] = useRecommendationsQuery({
     requestPolicy: 'network-only',
     variables: {
-      filters: { offset: 0, limit: 20, resourceTypes: ['WORKLOAD'], minSaving: 0 } as K8sRecommendationFilterDtoInput
+      filter: { offset: 0, limit: 20, resourceTypes: ['WORKLOAD'], minSaving: 0 } as K8sRecommendationFilterDtoInput
     }
   })
 

@@ -262,7 +262,7 @@ exports[`test cases for Perspective Create Budgets should be able to open create
                             >
                               <input
                                 class="bp3-input-ghost"
-                                placeholder="ce.perspectives.budgets.configureAlerts.emailPlaceholder"
+                                placeholder="ce.perspectives.reports.emailPlaceholder"
                                 value=""
                               />
                             </div>
@@ -732,7 +732,7 @@ exports[`test cases for Perspective Reports and Budget page should be able to re
     >
       <div
         class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--padding-left-large StyledProps--padding-right-xxlarge StyledProps--padding-bottom-xxlarge StyledProps--padding-top-xxlarge"
-        style="height: 100%;"
+        style="overflow-y: auto; height: 100%;"
       >
         <div
           class="StyledProps--font StyledProps--main"

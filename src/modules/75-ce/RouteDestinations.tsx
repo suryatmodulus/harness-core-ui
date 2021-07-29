@@ -8,7 +8,7 @@ import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
-import { MinimalLayout } from '@common/layouts'
+// import { MinimalLayout } from '@common/layouts'
 import SessionToken from 'framework/utils/SessionToken'
 
 import CESideNav from '@ce/components/CESideNav/CESideNav'
@@ -22,7 +22,7 @@ import CECOCreateGatewayPage from './pages/co-create-gateway/CECOCreateGatewayPa
 import CECOEditGatewayPage from './pages/co-edit-gateway/CECOEditGatewayPage'
 import CECOLoadBalancersPage from './pages/co-access-points/CECOAccessPointsPage'
 import Budgets from './pages/budgets/Budgets'
-import CETrialHomePage from './pages/home/CETrialHomePage'
+// import CETrialHomePage from './pages/home/CETrialHomePage'
 
 import RecommendationList from './pages/recommendationList/RecommendationList'
 import RecommendationDetailsPage from './pages/recommendationDetails/RecommendationDetailsPage'
@@ -50,14 +50,14 @@ const RedirectToCEProject = (): React.ReactElement => {
 
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Efficiency',
+  subtitle: 'CLOUD COST',
+  title: 'Management',
   icon: 'ce-main'
 }
 
 const CERoutes: React.FC = () => {
   const token = SessionToken.getToken()
-  const accountId = SessionToken.accountId()
+  const { accountId } = useParams<AccountPathProps>()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
@@ -70,10 +70,11 @@ const CERoutes: React.FC = () => {
   }, [token])
 
   const urqlClient = React.useCallback(() => {
-    let url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
-    if (url.startsWith('/')) {
-      url = url.substr(1)
-    }
+    const url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
+
+    // if (url.startsWith('/')) {
+    //   url = url.substr(1)
+    // }
     return createClient({
       url: url,
       fetchOptions: () => {
@@ -82,7 +83,7 @@ const CERoutes: React.FC = () => {
       exchanges: [dedupExchange, requestPolicyExchange({}), cacheExchange, fetchExchange],
       requestPolicy: 'cache-first'
     })
-  }, [token])
+  }, [token, accountId])
 
   return (
     <Provider value={urqlClient()}>
@@ -90,18 +91,24 @@ const CERoutes: React.FC = () => {
         <Route path={routes.toCE({ ...accountPathProps })} exact>
           <RedirectToCEHome />
         </Route>
-        <Route path={routes.toCEProject({ ...accountPathProps, ...projectPathProps })} exact>
+        <Route path={routes.toCEDashboard({ ...accountPathProps, ...projectPathProps })} exact>
           <RedirectToCEProject />
         </Route>
         <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>
           <CEHomePage />
         </RouteWithLayout>
-        <RouteWithLayout
+        {/* <RouteWithLayout
           layout={MinimalLayout}
           path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ce' })}
           exact
         >
           <CETrialHomePage />
+        </RouteWithLayout> */}
+        <RouteWithLayout
+          sidebarProps={CESideNavProps}
+          path={routes.toCEOverview({ ...accountPathProps, ...projectPathProps })}
+        >
+          <OverviewPage />
         </RouteWithLayout>
         <RouteWithLayout
           sidebarProps={CESideNavProps}
@@ -166,6 +173,7 @@ const CERoutes: React.FC = () => {
           path={routes.toCERecommendationDetails({
             ...accountPathProps,
             ...projectPathProps,
+            recommendationName: ':recommendationName',
             recommendation: ':recommendation'
           })}
           exact
@@ -222,6 +230,7 @@ const CERoutes: React.FC = () => {
           path={routes.toCERecommendationWorkloadDetails({
             ...accountPathProps,
             recommendation: ':recommendation',
+            recommendationName: ':recommendationName',
             clusterName: ':clusterName',
             namespace: ':namespace',
             workloadName: ':workloadName'

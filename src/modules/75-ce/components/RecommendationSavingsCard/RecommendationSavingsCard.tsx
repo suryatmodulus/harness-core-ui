@@ -15,7 +15,9 @@ const RecommendationSavingsCard: React.FC<RecommendationSavingsCardProps> = prop
   return (
     <Card className={css.savingsCard} elevation={1}>
       <Layout.Vertical spacing="small">
-        <Text font="normal">{title}</Text>
+        <Text font="normal" color="grey400">
+          {title}
+        </Text>
         <Text
           className={css.amount}
           color={iconName ? 'green500' : 'grey800'}

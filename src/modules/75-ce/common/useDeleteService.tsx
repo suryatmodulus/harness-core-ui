@@ -17,11 +17,10 @@ interface UseDeleteServiceHookReturn {
 }
 
 const useDeleteServiceHook = (props: UseDeleteServiceHookProps): UseDeleteServiceHookReturn => {
-  const { accountId, orgIdentifier, projectIdentifier, serviceData } = props
+  const { accountId, serviceData } = props
   const { getString } = useStrings()
   const { mutate: deleteServiceApiCall } = useDeleteService({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     }

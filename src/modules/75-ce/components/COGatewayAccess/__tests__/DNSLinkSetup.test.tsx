@@ -283,8 +283,6 @@ describe('Use DNS for Setup', () => {
     expect(notUsingCustomDomain).toBeDefined()
 
     const accessPointDropDown = container.querySelector('input[name="accessPoint"]') as HTMLInputElement
-    const generatedHostName = await findByText(container, 'ce.co.dnsSetup.autoURL')
-    expect(generatedHostName).toBeDefined()
     expect(accessPointDropDown).toBeDefined()
 
     // selecting resource
@@ -300,7 +298,6 @@ describe('Use DNS for Setup', () => {
       fireEvent.click(apToSelect)
     })
     expect(accessPointDropDown.value).toBe('mockALBname')
-    expect(generatedHostName.textContent).toBe('orgidentifier-mockname.mock.com')
 
     // adding custom url
     const customURL = container.querySelector('input[name="customURL"]') as HTMLInputElement
@@ -408,8 +405,6 @@ describe('Azure DNS setup', () => {
     expect(container).toMatchSnapshot()
 
     const accessPointDropDown = container.querySelector('input[name="accessPoint"]') as HTMLInputElement
-    const generatedHostName = await findByText(container, 'ce.co.dnsSetup.autoURL')
-    expect(generatedHostName).toBeDefined()
     expect(accessPointDropDown).toBeDefined()
 
     // selecting resource
@@ -425,6 +420,5 @@ describe('Azure DNS setup', () => {
       fireEvent.click(apToSelect)
     })
     expect(accessPointDropDown.value).toBe('mockALBname')
-    expect(generatedHostName.textContent).toBe('orgidentifier-mockname.mock.com')
   })
 })

@@ -1,13 +1,14 @@
 import React, { ReactNode, useMemo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Color, Container, Icon, IconName, Layout, Text } from '@wings-software/uicore'
+import { Container, Icon, Layout, Text } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { CE_COLOR_CONST, getRadialChartOptions } from '@ce/components/CEChart/CEChartOptions'
 import CEChart from '@ce/components/CEChart/CEChart'
 import formatCost from '@ce/utils/formatCost'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { useStrings } from 'framework/strings'
+import CostTrend from '@ce/common/CostTrend'
 
 import css from './OverviewPage.module.scss'
 
@@ -61,13 +62,6 @@ interface GistProps {
   totalCost: Stats
 }
 
-interface TrendProps {
-  value: number
-  downIcon?: string
-  upIcon?: string
-  iconSize?: number
-}
-
 interface LegendProps {
   color: string
   label: React.ReactNode
@@ -102,7 +96,7 @@ const getNumberOfDigits = (num = 0) => {
 export const VerticalLayout = (props: VerticalLayoutProps) => {
   const { title, chartData, totalCost, footer, showTrendInChart, seeAll } = props
   const len = getNumberOfDigits(+(totalCost.value || 0).toFixed(2))
-  const totalCostFontSize = len > 7 ? '20px' : '24px'
+  const totalCostFontSize = len >= 7 ? '20px' : '24px'
 
   return (
     <div className={css.verticalLayout}>
@@ -126,7 +120,7 @@ export const VerticalLayout = (props: VerticalLayoutProps) => {
 export const HorizontalLayout = (props: HorizontalLayoutProps) => {
   const { title, chartData, totalCost, sideBar, showTrendInChart, seeAll } = props
   const len = getNumberOfDigits(+(totalCost.value || 0).toFixed(2))
-  const totalCostFontSize = len > 7 ? '15px' : '18px'
+  const totalCostFontSize = len >= 7 ? '15px' : '18px'
 
   return (
     <div className={css.horizontalLayout}>
@@ -139,7 +133,7 @@ export const HorizontalLayout = (props: HorizontalLayoutProps) => {
       <div className={css.cols}>
         <CostDistributionRadialChart
           data={chartData}
-          chartSize={{ height: 200, width: 250 }}
+          chartSize={{ height: 200, width: 200 }}
           gist={<Gist totalCostFontSize={totalCostFontSize} totalCost={totalCost} showTrend={showTrendInChart} />}
         />
         {sideBar}
@@ -171,33 +165,8 @@ const Gist = (props: GistProps) => {
       <Text color="grey800" font={{ weight: 'bold' }} style={{ fontSize: totalCostFontSize }}>
         {formatCost(totalCost.value)}
       </Text>
-      {showTrend && <Trend value={totalCost.trend} />}
+      {showTrend && <CostTrend value={totalCost.trend} />}
     </Layout.Vertical>
-  )
-}
-
-export const Trend = (props: TrendProps) => {
-  const { iconSize = 16, value = 0, downIcon = 'caret-down', upIcon = 'caret-up' } = props
-
-  const v = +value
-  let icon: Record<string, string | undefined> = { name: undefined, color: undefined } // when v = 0
-
-  if (v < 0) {
-    icon = { name: downIcon, color: Color.GREEN_500 }
-  } else if (v > 0) {
-    icon = { name: upIcon, color: Color.RED_500 }
-  }
-
-  return (
-    <Text
-      font="small"
-      color="grey700"
-      inline
-      icon={icon.name as IconName}
-      iconProps={{ size: iconSize, color: icon.color }}
-    >
-      {`${Math.abs(v)}%`}
-    </Text>
   )
 }
 
@@ -212,7 +181,7 @@ export const EfficiencyScore = (props: EfficiencyScoreProps) => {
           <Text color="grey800" font={{ weight: 'bold' }} style={{ fontSize: 24 }}>
             {score}
           </Text>
-          <Trend value={trend} />
+          <CostTrend value={trend} />
         </Layout.Horizontal>
       </Layout.Vertical>
     </div>
@@ -233,52 +202,46 @@ export const List = (props: ListProps) => {
   const { accountId } = useParams<{ accountId: string }>()
   const { data = [], type = ListType.KEY_ONLY, classNames } = props
 
+  const renderLegend = (item: Stats) => {
+    return (
+      <Legend
+        color={item.legendColor as string}
+        label={
+          item.linkId ? (
+            <Link
+              to={routes.toPerspectiveDetails({
+                accountId: accountId,
+                perspectiveId: item.linkId,
+                perspectiveName: item.linkId
+              })}
+            >
+              <Text inline color="primary7" font="small" lineClamp={1} style={{ width: 100 }}>
+                {item.label}
+              </Text>
+            </Link>
+          ) : (
+            <Text color="grey800" font="small" lineClamp={1} style={{ width: 100 }}>
+              {item.label}
+            </Text>
+          )
+        }
+      />
+    )
+  }
+
   const renderItem = (item: Stats, idx: number) => {
     if (type === ListType.KEY_VALUE) {
       return (
         <Layout.Horizontal key={idx} spacing="large" style={{ alignItems: 'center' }}>
-          <Legend
-            color={item.legendColor as string}
-            label={
-              item.linkId ? (
-                <Link
-                  to={routes.toPerspectiveDetails({
-                    accountId: accountId,
-                    perspectiveId: item.linkId,
-                    perspectiveName: item.linkId
-                  })}
-                >
-                  <Text inline color="primary7" font="small" lineClamp={1} style={{ width: 100 }}>
-                    {item.label}
-                  </Text>
-                </Link>
-              ) : (
-                <Text color="grey800" font="small" lineClamp={1} style={{ width: 100 }}>
-                  {item.label}
-                </Text>
-              )
-            }
-          />
-          <Text color="grey600" font="small">
+          {renderLegend(item)}
+          <Text color="grey600" font="small" lineClamp={1} style={{ width: 90 }}>
             {formatCost(item.value)}
           </Text>
         </Layout.Horizontal>
       )
     }
 
-    return (
-      <Container padding={{ top: 'small' }}>
-        <Legend
-          key={idx}
-          color={item.legendColor as string}
-          label={
-            <Text color="grey800" font="small" lineClamp={1} style={{ width: 100 }}>
-              {item.label}
-            </Text>
-          }
-        />
-      </Container>
-    )
+    return <Container padding={{ top: 'small' }}>{renderLegend(item)}</Container>
   }
 
   return <div className={cx(css.list, classNames)}>{data.map(renderItem)}</div>

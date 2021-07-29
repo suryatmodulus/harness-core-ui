@@ -611,3 +611,16 @@ ceGcp:
     step2: 'Validation/Verification 2'
     step3: 'Validation/Verification 3'
     error: 'Could not verify connectivity'
+ceK8S:
+  chooseRequirements:
+    heading: '{{ $.connectors.ceAzure.steps.requirements }}'
+    subheading: 'Select the Cloud Cost Management features that you would like to enable.'
+    description: '(Deep Kubernetes cost Visibility is selected by default. Select the other option to enable Intelligent Cloud AutoStopping for Kubernetes)'
+    visibility:
+      heading: 'DEEP KUBERNETES'
+      subheading: 'Cost Visibility'
+      description: '<ul><li>Costs by pods, nodes, namespaces, workloads </li><li> Idle and unallocated cluster costs</li><li> Cost anomaly detection</li><li> Workload recommendations</li><li> Node recommendations</li><li> Budgets and alerts</li></ul>'
+    optimization:
+      heading: 'KUBERNETES OPTIMIZATION BY'
+      subheading: '{{ $.common.ce.autostopping }}'
+      description: '<ul><li>Works for custom clusters and EKS, AKS, GKE, etc</li><li> Orchestrate pods based on idleness</li><li> Set dependencies between workloads like pods, VMs, etc.</li><li> Granular savings visibility</li><li> Simple one-time setup</li></ul>'

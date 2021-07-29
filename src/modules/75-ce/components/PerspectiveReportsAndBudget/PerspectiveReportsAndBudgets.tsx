@@ -1,5 +1,6 @@
-import React, { useState, useMemo, ReactNode } from 'react'
+import React, { useState, useMemo, ReactNode, useEffect, useRef } from 'react'
 import cronstrue from 'cronstrue'
+import { isEmpty } from 'lodash-es'
 import { useHistory, useParams } from 'react-router-dom'
 import type { Column, CellProps, Renderer } from 'react-table'
 import { Button, Container, Text, Layout, Icon, FlexExpander } from '@wings-software/uicore'
@@ -14,7 +15,9 @@ import {
   useListBudgetsForPerspective,
   AlertThreshold,
   useDeleteBudget,
-  useDeleteReportSetting
+  useDeleteReportSetting,
+  useGetLastMonthCost,
+  useGetForecastCost
 } from 'services/ce'
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
@@ -47,7 +50,7 @@ interface ReportsAndBudgetsProps {
   onPrevButtonClick: () => void
 }
 
-interface UrlParams {
+export interface UrlParams {
   perspectiveId: string
   accountId: string
 }
@@ -87,6 +90,7 @@ const ReportsAndBudgets: React.FC<ReportsAndBudgetsProps> = ({ values, onPrevBut
             bottom: 'xxlarge',
             top: 'xxlarge'
           }}
+          style={{ overflowY: 'auto' }}
         >
           <ScheduledReports />
           <Budgets />
@@ -211,6 +215,31 @@ const Budgets = (): JSX.Element => {
   const budget = budgets[0] || {}
   const { budgetAmount, alertThresholds = [] } = budget
 
+  const {
+    data: lmc,
+    loading: lmcLoading,
+    refetch: lmcRefetch
+  } = useGetLastMonthCost({
+    queryParams: { accountIdentifier: accountId, perspectiveId },
+    lazy: true
+  })
+
+  const {
+    data: fc,
+    loading: fcLoading,
+    refetch: fcRefetch
+  } = useGetForecastCost({
+    queryParams: { accountIdentifier: accountId, perspectiveId },
+    lazy: true
+  })
+
+  useDidMountEffect(() => {
+    if (isEmpty(budgets[0])) {
+      lmcRefetch()
+      fcRefetch()
+    }
+  }, [loading])
+
   const handleDeleteBudget = async () => {
     try {
       const deleted = await (budget?.uuid && deleteBudget(budget.uuid))
@@ -278,7 +307,7 @@ const Budgets = (): JSX.Element => {
             />
           </Container>
         </Layout.Horizontal>
-        <Table<AlertThreshold> columns={columns} data={alertThresholds} />
+        <Table<AlertThreshold> columns={columns} data={alertThresholds || []} />
       </Container>
     )
   }
@@ -288,13 +317,21 @@ const Budgets = (): JSX.Element => {
       title={getString('ce.perspectives.budgets.title')}
       subTitle={getString('ce.perspectives.budgets.desc')}
       buttonText={getString('ce.perspectives.budgets.createNew')}
-      onButtonClick={() => openModal()}
-      hasData={!!alertThresholds.length}
-      loading={loading}
+      onButtonClick={() =>
+        openModal({
+          isEdit: false,
+          selectedBudget: {
+            lastMonthCost: lmc?.resource,
+            forecastCost: fc?.resource
+          }
+        })
+      }
+      hasData={!isEmpty(budget)}
+      loading={loading || lmcLoading || fcLoading}
       // Show create budget button only when there's no exisiting budget.
       // A user can create only 1 budget at a time. To create a new, they
       // have to delete the existing one, or just edit it.
-      showCreateButton={!alertThresholds.length}
+      showCreateButton={isEmpty(budget)}
       meta={renderMeta()}
       grid={renderGrid()}
     />
@@ -423,6 +460,15 @@ const RenderEditDeleteActions = (props: TableActionsProps): JSX.Element => {
 const RenderAlertThresholds: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
   const percentage = row.original.percentage
   return <span>{percentage}%</span>
+}
+
+const useDidMountEffect = (func: () => void, deps: any[]) => {
+  const didMount = useRef(false)
+
+  useEffect(() => {
+    if (didMount.current) func()
+    else didMount.current = true
+  }, deps)
 }
 
 export default ReportsAndBudgets

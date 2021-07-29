@@ -13,10 +13,10 @@ const StatsTrendRenderer: React.FC<{ val: number }> = ({ val }) => {
     return (
       <Text
         iconProps={{
-          color: 'red500'
+          color: 'green500'
         }}
         icon="caret-down"
-        color="red500"
+        color="green500"
       >
         {val * -1}
       </Text>
@@ -25,10 +25,10 @@ const StatsTrendRenderer: React.FC<{ val: number }> = ({ val }) => {
   return (
     <Text
       iconProps={{
-        color: 'green500'
+        color: 'red500'
       }}
       icon="caret-up"
-      color="green500"
+      color="red500"
     >
       {val}
     </Text>

@@ -12,7 +12,7 @@ exports[`Create Auto Stopping rule Render cloud provider & connector selection s
       <div>
         <a
           class="breadcrumb"
-          href="/account/undefined/ce/orgs/undefined/projects/undefined/autostopping-rules"
+          href="/account/undefined/ce/autostopping-rules"
         >
           ce.co.breadCrumb.rules
         </a>

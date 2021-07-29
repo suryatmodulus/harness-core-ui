@@ -1,25 +1,35 @@
 import React, { ReactNode } from 'react'
 import type { CellProps } from 'react-table'
-import { Color, IconName, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import formatCost from '@ce/utils/formatCost'
 import {
   QlceViewFieldInputInput,
   QlceViewAggregateOperation,
   QlceViewEntityStatsDataPoint,
-  ClusterData
+  ClusterData,
+  StorageDetails,
+  InstanceDetails
 } from 'services/ce/services'
+import CostTrend from '@ce/common/CostTrend'
 import { CE_COLOR_CONST } from '../CEChart/CEChartOptions'
 import css from './PerspectiveGrid.module.scss'
 
-export type GridData = Omit<QlceViewEntityStatsDataPoint, 'clusterData' | '__typename'> &
+type AggregationFunction = {
+  operationType: QlceViewAggregateOperation
+  columnName: string
+}
+
+export type GridData = Omit<
+  QlceViewEntityStatsDataPoint,
+  'clusterData' | 'storageDetails' | 'instanceDetails' | '__typename'
+> &
   Omit<ClusterData, '__typename'> & { legendColor: string }
 
 export const addLegendColorToRow = (data: QlceViewEntityStatsDataPoint[]): GridData[] => {
   let idx = 0
   const colors = new Map()
 
-  return data.map(({ name, clusterData = {}, ...rest }) => {
+  return data.map(({ name, clusterData = {}, storageDetails = {}, instanceDetails = {}, ...rest }) => {
     const key = name?.toLowerCase()
     if (!colors.has(key)) {
       colors.set(key, CE_COLOR_CONST[idx % CE_COLOR_CONST.length])
@@ -30,51 +40,94 @@ export const addLegendColorToRow = (data: QlceViewEntityStatsDataPoint[]): GridD
       name,
       legendColor: colors.get(key),
       ...(clusterData as ClusterData),
+      ...(storageDetails as StorageDetails),
+      ...(instanceDetails as InstanceDetails),
       ...rest
     }
   })
 }
 
 const SUM = QlceViewAggregateOperation.Sum
+const MAX = QlceViewAggregateOperation.Max
+
+const AGGREGATE_COST = { operationType: SUM, columnName: 'cost' }
+
+const AGGREGATE_CPU_BILLING_AMOUNT = { operationType: SUM, columnName: 'cpuBillingAmount' }
+const AGGREGATE_CPU_UNALLOCATED_COST = { operationType: SUM, columnName: 'cpuUnallocatedCost' }
+const AGGREGATE_CPU_ACTUAL_IDLE_COST = { operationType: SUM, columnName: 'cpuActualIdleCost' }
+
+const AGGREGATE_MEMORY_BILLING_AMOUNT = { operationType: SUM, columnName: 'memoryBillingAmount' }
+const AGGREGATE_MEMORY_UNALLOCATED_COST = { operationType: SUM, columnName: 'memoryUnallocatedCost' }
+const AGGREGATE_MEMORY_ACTUAL_IDLE_COST = { operationType: SUM, columnName: 'memoryActualIdleCost' }
+
+const AGGREGATE_STORAGE_COST = { operationType: SUM, columnName: 'storageCost' }
+const AGGREGATE_STORAGE_UNALLOCATED_COST = { operationType: SUM, columnName: 'storageUnallocatedCost' }
+const AGGREGATE_STORAGE_ACTUAL_IDLE_COST = { operationType: SUM, columnName: 'storageActualIdleCost' }
+const AGGREGATE_STORAGE_UTILIZATION_VALUE = { operationType: MAX, columnName: 'storageUtilizationValue' }
+const AGGREGATE_STORAGE_REQUEST = { operationType: MAX, columnName: 'storageRequest' }
+
+const AGGREGATE_UNALLOCATED_COST = { operationType: SUM, columnName: 'unallocatedcost' }
+const AGGREGATE_ACTUAL_IDLE_COST = { operationType: SUM, columnName: 'actualidlecost' }
+const AGGREGATE_SYSTEM_COST = { operationType: SUM, columnName: 'systemcost' }
+const AGGREGATE_NETWORK_COST = { operationType: SUM, columnName: 'networkcost' }
+
 const AGGREGATE_FUNCTION_TYPE1 = [
-  { operationType: SUM, columnName: 'cost' },
-  { operationType: SUM, columnName: 'cpuBillingAmount' },
-  { operationType: SUM, columnName: 'memoryBillingAmount' },
-  { operationType: SUM, columnName: 'storageCost' },
-  { operationType: SUM, columnName: 'unallocatedcost' },
-  { operationType: SUM, columnName: 'storageUnallocatedCost' },
-  { operationType: SUM, columnName: 'memoryUnallocatedCost' },
-  { operationType: SUM, columnName: 'cpuUnallocatedCost' },
-  { operationType: SUM, columnName: 'actualidlecost' },
-  { operationType: SUM, columnName: 'cpuIdleCost' },
-  { operationType: SUM, columnName: 'memoryIdleCost' },
-  { operationType: SUM, columnName: 'storageActualIdleCost' }
+  AGGREGATE_COST,
+  AGGREGATE_CPU_ACTUAL_IDLE_COST,
+  AGGREGATE_CPU_BILLING_AMOUNT,
+  AGGREGATE_CPU_UNALLOCATED_COST,
+  AGGREGATE_MEMORY_BILLING_AMOUNT,
+  AGGREGATE_MEMORY_UNALLOCATED_COST,
+  AGGREGATE_MEMORY_ACTUAL_IDLE_COST,
+  AGGREGATE_STORAGE_COST,
+  AGGREGATE_STORAGE_UNALLOCATED_COST,
+  AGGREGATE_STORAGE_ACTUAL_IDLE_COST,
+  AGGREGATE_UNALLOCATED_COST,
+  AGGREGATE_ACTUAL_IDLE_COST
+]
+const AGGREGATE_FUNCTION_TYPE2 = [AGGREGATE_COST, AGGREGATE_ACTUAL_IDLE_COST]
+const AGGREGATE_FUNCTION_DEFAULT = [AGGREGATE_COST]
+
+const AGGREGATE_FUNCTION_NODE = [
+  AGGREGATE_COST,
+  AGGREGATE_CPU_ACTUAL_IDLE_COST,
+  AGGREGATE_CPU_BILLING_AMOUNT,
+  AGGREGATE_CPU_UNALLOCATED_COST,
+  AGGREGATE_MEMORY_BILLING_AMOUNT,
+  AGGREGATE_MEMORY_UNALLOCATED_COST,
+  AGGREGATE_MEMORY_ACTUAL_IDLE_COST,
+  AGGREGATE_UNALLOCATED_COST,
+  AGGREGATE_ACTUAL_IDLE_COST,
+  AGGREGATE_SYSTEM_COST,
+  AGGREGATE_NETWORK_COST,
+  AGGREGATE_STORAGE_UNALLOCATED_COST
 ]
 
-const AGGREGATE_FUNCTION_TYPE2 = [
-  { operationType: SUM, columnName: 'cost' },
-  { operationType: SUM, columnName: 'actualidlecost' }
+const AGGREGATE_FUNCTION_STORAGE = [
+  AGGREGATE_COST,
+  AGGREGATE_STORAGE_COST,
+  AGGREGATE_STORAGE_UNALLOCATED_COST,
+  AGGREGATE_STORAGE_ACTUAL_IDLE_COST,
+  AGGREGATE_STORAGE_UTILIZATION_VALUE,
+  AGGREGATE_STORAGE_REQUEST
 ]
 
-const AGGREGATE_FUNCTION_DEFAULT = [{ operationType: SUM, columnName: 'cost' }]
+export const AGGREGATE_FUNCTION: Record<string, AggregationFunction[]> = {
+  namespace: AGGREGATE_FUNCTION_TYPE1,
+  clusterName: AGGREGATE_FUNCTION_TYPE1,
+  workloadName: AGGREGATE_FUNCTION_TYPE1,
+  appName: AGGREGATE_FUNCTION_TYPE2,
+  serviceName: AGGREGATE_FUNCTION_TYPE2,
+  envName: AGGREGATE_FUNCTION_TYPE2,
+  cloudProvider: AGGREGATE_FUNCTION_TYPE2,
+  cloudServiceName: AGGREGATE_FUNCTION_TYPE2,
+  launchType: AGGREGATE_FUNCTION_TYPE2,
+  taskId: AGGREGATE_FUNCTION_TYPE2,
+  'labels.value': AGGREGATE_FUNCTION_TYPE2,
+  instanceName: AGGREGATE_FUNCTION_NODE,
+  storage: AGGREGATE_FUNCTION_STORAGE,
 
-export const AGGREGATE_FUNCTION = {
-  NAMESPACE: AGGREGATE_FUNCTION_TYPE1,
-  NAMESPACE_ID: AGGREGATE_FUNCTION_TYPE1,
   CLUSTER: AGGREGATE_FUNCTION_TYPE1,
-  WORKLOAD: AGGREGATE_FUNCTION_TYPE1,
-  WORKLOAD_ID: AGGREGATE_FUNCTION_TYPE1,
-  APPLICATION: AGGREGATE_FUNCTION_TYPE2,
-  SERVICE: AGGREGATE_FUNCTION_TYPE2,
-  ENVIRONMENT: AGGREGATE_FUNCTION_TYPE2,
-  CLOUD_PROVIDER: AGGREGATE_FUNCTION_TYPE2,
-  ECS_SERVICE: AGGREGATE_FUNCTION_TYPE2,
-  ECS_SERVICE_ID: AGGREGATE_FUNCTION_TYPE2,
-  ECS_LAUNCH_TYPE: AGGREGATE_FUNCTION_TYPE2,
-  ECS_LAUNCH_TYPE_ID: AGGREGATE_FUNCTION_TYPE2,
-  ECS_TASK: AGGREGATE_FUNCTION_TYPE2,
-  ECS_TASK_ID: AGGREGATE_FUNCTION_TYPE2,
-  LABELS: AGGREGATE_FUNCTION_TYPE2,
   DEFAULT: AGGREGATE_FUNCTION_DEFAULT
 }
 
@@ -96,20 +149,7 @@ export const RenderCostCell = (props: CellProps<GridData>): JSX.Element => <span
 export const RenderPercentageCell = (props: CellProps<GridData>): JSX.Element => <span>{props.value}%</span>
 
 const RenderCostTrendCell = (props: CellProps<GridData>): JSX.Element => {
-  const v = +props.value
-  let icon: Record<string, string | undefined> = { name: undefined, color: undefined } // when v = 0
-
-  if (v < 0) {
-    icon = { name: 'arrow-down', color: Color.GREEN_500 }
-  } else if (v > 0) {
-    icon = { name: 'arrow-up', color: Color.RED_500 }
-  }
-
-  return (
-    <Text font="small" color="grey700" inline icon={icon.name as IconName} iconProps={{ size: 12, color: icon.color }}>
-      {`${Math.abs(v)}%`}
-    </Text>
-  )
+  return <CostTrend value={+props.value} downIcon="arrow-down" upIcon="arrow-up" iconSize={12} />
 }
 
 export const RenderDateCell = (item: Record<string, any>) => {
@@ -214,6 +254,13 @@ const COLUMNS: Record<string, Column> = {
     className: 'workload-memory-idle-cost cost-column',
     Cell: RenderCostCell
   },
+  MEMORY_ACTUAL_IDLE_COST: {
+    Header: 'Memory Actual Idle Cost',
+    accessor: 'memoryActualIdleCost',
+    width: 200,
+    className: 'workload-memory-idle-cost cost-column',
+    Cell: RenderCostCell
+  },
   MEMORY_UNALLOCATED_COST: {
     Header: 'Memory unallocated cost',
     accessor: 'memoryUnallocatedCost',
@@ -226,6 +273,13 @@ const COLUMNS: Record<string, Column> = {
     accessor: 'cpuBillingAmount',
     width: 200,
     className: 'cpu-total-cost cost-column',
+    Cell: RenderCostCell
+  },
+  CPU_ACTUAL_IDLE_COST: {
+    Header: 'CPU idle cost',
+    accessor: 'cpuActualIdleCost',
+    width: 200,
+    className: 'workload-cpu-idle-cost cost-column',
     Cell: RenderCostCell
   },
   CPU_IDLE_COST: {
@@ -470,19 +524,19 @@ const COLUMNS: Record<string, Column> = {
     // renderer: efficiencyScoreRenderer
   },
   INSTANCE_NAME: {
-    Header: 'Instance name',
+    Header: 'Instance Name',
     accessor: 'instanceName',
     width: 200,
     className: 'instance-name'
   },
   CLAIM_NAME: {
-    Header: 'Claim name',
+    Header: 'Claim Name',
     accessor: 'claimName',
     width: 200,
     className: 'name'
   },
   STORAGE_CLASS: {
-    Header: 'Storage class',
+    Header: 'Storage Class',
     accessor: 'storageClass',
     width: 200,
     className: 'name'
@@ -507,6 +561,61 @@ const COLUMNS: Record<string, Column> = {
     accessor: 'storageRequest',
     width: 200,
     Header: 'Storage request'
+  },
+  INSTANCE_ID: {
+    accessor: 'instanceId',
+    width: 200,
+    Header: 'Instance ID'
+  },
+  CLAIM_NAMESPACE: {
+    accessor: 'claimNamespace',
+    width: 200,
+    Header: 'Claim Namespace'
+  },
+  CLUSTER_ID: {
+    accessor: 'clusterId',
+    width: 200,
+    Header: 'Cluster ID'
+  },
+  NODEPOOL_NAME: {
+    accessor: 'nodePoolName',
+    width: 200,
+    Header: 'Node Pool Name'
+  },
+  CLOUD_PROVIDER_INSTANCE_ID: {
+    accessor: 'cloudProviderInstanceId',
+    width: 200,
+    Header: 'Cloud Provider Instance ID'
+  },
+  POD_CAPACITY: {
+    accessor: 'podCapacity',
+    width: 200,
+    Header: 'POD Capacity'
+  },
+  SYSTEM_COST: {
+    accessor: 'systemCost',
+    width: 200,
+    Header: 'System Cost'
+  },
+  INSTANCE_CATEGORY: {
+    accessor: 'instanceCategory',
+    width: 200,
+    Header: 'Instance Category'
+  },
+  MACHINE_TYPE: {
+    accessor: 'machineType',
+    width: 200,
+    Header: 'Machine Type'
+  },
+  MEMORY_ALLOCATABLE: {
+    accessor: 'memoryAllocatable',
+    width: 200,
+    Header: 'Memory Allocatable'
+  },
+  CPU_ALLOCATABLE: {
+    accessor: 'cpuAllocatable',
+    width: 200,
+    Header: 'CPU Allocatable'
   }
 }
 
@@ -520,10 +629,10 @@ export const CLUSTER_COLS = [
   COLUMNS.STORAGE_ACTUAL_IDLE_COST,
   COLUMNS.STORAGE_UNALLOCATED_COST,
   COLUMNS.MEMORY_BILLING_AMOUNT,
-  COLUMNS.MEMORY_IDLE_COST,
+  COLUMNS.MEMORY_ACTUAL_IDLE_COST,
   COLUMNS.MEMORY_UNALLOCATED_COST,
   COLUMNS.CPU_BILLING_AMOUNT,
-  COLUMNS.CPU_IDLE_COST,
+  COLUMNS.CPU_ACTUAL_IDLE_COST,
   COLUMNS.CPU_UNALLOCATED_COST
 ]
 
@@ -538,10 +647,10 @@ export const NAMESPACE_COLS = [
   COLUMNS.STORAGE_ACTUAL_IDLE_COST,
   COLUMNS.STORAGE_UNALLOCATED_COST,
   COLUMNS.MEMORY_BILLING_AMOUNT,
-  COLUMNS.MEMORY_IDLE_COST,
+  COLUMNS.MEMORY_ACTUAL_IDLE_COST,
   COLUMNS.MEMORY_UNALLOCATED_COST,
   COLUMNS.CPU_BILLING_AMOUNT,
-  COLUMNS.CPU_IDLE_COST,
+  COLUMNS.CPU_ACTUAL_IDLE_COST,
   COLUMNS.CPU_UNALLOCATED_COST
 ]
 
@@ -557,10 +666,10 @@ export const NAMESPACE_ID_COLS = [
   COLUMNS.STORAGE_ACTUAL_IDLE_COST,
   COLUMNS.STORAGE_UNALLOCATED_COST,
   COLUMNS.MEMORY_BILLING_AMOUNT,
-  COLUMNS.MEMORY_IDLE_COST,
+  COLUMNS.MEMORY_ACTUAL_IDLE_COST,
   COLUMNS.MEMORY_UNALLOCATED_COST,
   COLUMNS.CPU_BILLING_AMOUNT,
-  COLUMNS.CPU_IDLE_COST,
+  COLUMNS.CPU_ACTUAL_IDLE_COST,
   COLUMNS.CPU_UNALLOCATED_COST
 ]
 
@@ -575,10 +684,10 @@ export const WORKLOAD_COLS = [
   COLUMNS.STORAGE_ACTUAL_IDLE_COST,
   COLUMNS.STORAGE_UNALLOCATED_COST,
   COLUMNS.MEMORY_BILLING_AMOUNT,
-  COLUMNS.MEMORY_IDLE_COST,
+  COLUMNS.MEMORY_ACTUAL_IDLE_COST,
   COLUMNS.MEMORY_UNALLOCATED_COST,
   COLUMNS.CPU_BILLING_AMOUNT,
-  COLUMNS.CPU_IDLE_COST,
+  COLUMNS.CPU_ACTUAL_IDLE_COST,
   COLUMNS.CPU_UNALLOCATED_COST
 ]
 
@@ -596,10 +705,10 @@ export const WORKLOAD_ID_COLS = [
   COLUMNS.STORAGE_ACTUAL_IDLE_COST,
   COLUMNS.STORAGE_UNALLOCATED_COST,
   COLUMNS.MEMORY_BILLING_AMOUNT,
-  COLUMNS.MEMORY_IDLE_COST,
+  COLUMNS.MEMORY_ACTUAL_IDLE_COST,
   COLUMNS.MEMORY_UNALLOCATED_COST,
   COLUMNS.CPU_BILLING_AMOUNT,
-  COLUMNS.CPU_IDLE_COST,
+  COLUMNS.CPU_ACTUAL_IDLE_COST,
   COLUMNS.CPU_UNALLOCATED_COST
 ]
 
@@ -676,9 +785,51 @@ export const PODS_COLUMNS = [
   { ...COLUMNS.WORKLOAD, accessor: 'workload' },
   COLUMNS.NAMESPACE
 ]
+
+export const NODE_COLS = [
+  COLUMNS.NAME,
+  COLUMNS.CLUSTER_NAME,
+  COLUMNS.TOTAL_COST,
+  COLUMNS.IDLE_COST,
+  COLUMNS.UNALLOCATED_COST,
+  COLUMNS.INSTANCE_CATEGORY,
+  COLUMNS.MEMORY_ALLOCATABLE,
+  COLUMNS.CPU_ALLOCATABLE,
+  COLUMNS.MACHINE_TYPE,
+  COLUMNS.SYSTEM_COST,
+  COLUMNS.CREATION_TIME,
+  COLUMNS.DELETION_TIME,
+  COLUMNS.CPU_BILLING_AMOUNT,
+  COLUMNS.MEMORY_BILLING_AMOUNT,
+  COLUMNS.MEMORY_IDLE_COST,
+  COLUMNS.CPU_IDLE_COST,
+  COLUMNS.MEMORY_UNALLOCATED_COST,
+  COLUMNS.CPU_UNALLOCATED_COST
+]
+
+export const STORAGE_COLS = [
+  COLUMNS.NAME,
+  COLUMNS.INSTANCE_ID,
+  COLUMNS.INSTANCE_NAME,
+  COLUMNS.CLAIM_NAME,
+  COLUMNS.CLUSTER_NAME,
+  COLUMNS.CLUSTER_ID,
+  COLUMNS.STORAGE_CLASS,
+  COLUMNS.VOLUME_TYPE,
+  COLUMNS.CLOUD_PROVIDER,
+  COLUMNS.REGION,
+  COLUMNS.STORAGE_COST,
+  COLUMNS.STORAGE_ACTUAL_IDLE_COST,
+  COLUMNS.STORAGE_UNALLOCATED_COST,
+  COLUMNS.CAPACITY,
+  COLUMNS.STORAGE_REQUEST,
+  COLUMNS.STORAGE_UTILIZATION_VALUE,
+  COLUMNS.CREATION_TIME,
+  COLUMNS.DELETION_TIME
+]
+
 export const LABELS_COLS = [COLUMNS.NAME, COLUMNS.COST, COLUMNS.COST_TREND, COLUMNS.IDLE_COST]
 
-// TODO: remove after demo
 export const DEFAULT_COLS: Column[] = [
   {
     Header: 'Name',
@@ -721,7 +872,9 @@ export const GroupByMapping: Record<string, Column[]> = {
   'ECS Launch Type Id': ECS_LAUNCH_TYPE_ID_COLS,
   'ECS Task': ECS_TASK_COLS,
   'ECS Task Id': ECS_TASK_ID_COLS,
-  Pod: PODS_COLUMNS
+  Pod: PODS_COLUMNS,
+  Node: NODE_COLS,
+  Storage: STORAGE_COLS
 }
 
 export const getGridColumnsByGroupBy = (groupBy: QlceViewFieldInputInput, isClusterOnly: boolean): Column[] => {

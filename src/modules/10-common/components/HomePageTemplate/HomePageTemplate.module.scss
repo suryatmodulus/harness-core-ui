@@ -5,7 +5,7 @@
   font-weight: bold;
   color: var(--white);
   width: 200px;
-  height: 45px;
+  height: 40px;
   background-color: var(--primary-6);
   display: flex;
   align-items: center;
@@ -13,6 +13,10 @@
   &:hover {
     text-decoration: none;
   }
+}
+
+.linkCursor {
+  cursor: pointer;
 }
 
 .body {
@@ -31,6 +35,9 @@
   height: calc(100vh - var(--page-header-height, 64px));
   background-size: contain !important;
   background-position: right bottom !important;
+  .subTitle {
+    max-width: 550px;
+  }
 }
 
 .link {

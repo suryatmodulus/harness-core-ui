@@ -1,11 +1,17 @@
 import React, { useState } from 'react'
-import { Card, Text, Layout, Container } from '@wings-software/uicore'
-import { useHistory, useLocation } from 'react-router-dom'
+import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 
 import { useStrings } from 'framework/strings'
-import { RecommendationItemDto, useRecommendationsQuery, K8sRecommendationFilterDtoInput } from 'services/ce/services'
+import {
+  RecommendationItemDto,
+  useRecommendationsQuery,
+  useRecommendationsSummaryQuery,
+  K8sRecommendationFilterDtoInput
+} from 'services/ce/services'
 
+import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
@@ -18,6 +24,13 @@ interface RecommendationListProps {
   filters: Record<string, string[]>
   setCostFilters: React.Dispatch<React.SetStateAction<Record<string, number>>>
   costFilters: Record<string, number>
+  pagination: {
+    itemCount: number
+    pageSize: number
+    pageCount: number
+    pageIndex: number
+    gotoPage: (pageNumber: number) => void
+  }
 }
 
 const RecommendationsList: React.FC<RecommendationListProps> = ({
@@ -25,10 +38,11 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
   filters,
   setFilters,
   setCostFilters,
-  costFilters
+  costFilters,
+  pagination
 }) => {
   const history = useHistory()
-  const { pathname } = useLocation()
+  const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()
 
   const NameCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
@@ -75,7 +89,9 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
     <Card elevation={1}>
       <Layout.Vertical spacing="large">
         <Layout.Horizontal>
-          <Text style={{ flex: 1 }}>{getString('ce.recommendation.listPage.recommnedationBreakdown')}</Text>
+          <Text style={{ flex: 1 }} color={Color.GREY_400}>
+            {getString('ce.recommendation.listPage.recommnedationBreakdown')}
+          </Text>
           <RecommendationFilters
             costFilters={costFilters}
             setCostFilters={setCostFilters}
@@ -86,7 +102,13 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
 
         <Table<RecommendationItemDto>
           onRowClick={row => {
-            history.push(`${pathname}/${row.id}/details`)
+            history.push(
+              routes.toCERecommendationDetails({
+                accountId,
+                recommendation: row.id,
+                recommendationName: row.resourceName || row.id
+              })
+            )
           }}
           data={data}
           columns={[
@@ -125,6 +147,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
               width: '15%'
             }
           ]}
+          pagination={pagination}
         ></Table>
       </Layout.Vertical>
     </Card>
@@ -134,30 +157,53 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
 const RecommendationList: React.FC = () => {
   const [filters, setFilters] = useState<Record<string, string[]>>({})
   const [costFilters, setCostFilters] = useState<Record<string, number>>({})
+  const [page, setPage] = useState(0)
 
-  // const [offset, setOffset] = useState<number>(0)
-  // const [limit, setLimit] = useState<number>(100)
+  const modifiedCostFilters = costFilters['minSaving'] ? costFilters : { ...costFilters, minSaving: 0 }
 
   const [result] = useRecommendationsQuery({
     variables: {
-      filters: {
+      filter: {
         ...filters,
-        offset: 0,
-        limit: 100,
-        ...costFilters,
+        ...modifiedCostFilters,
+        offset: page * 10,
+        limit: 10,
+        resourceTypes: ['WORKLOAD']
+      } as K8sRecommendationFilterDtoInput
+    }
+  })
+
+  const [summaryResult] = useRecommendationsSummaryQuery({
+    variables: {
+      filter: {
+        ...filters,
+        ...modifiedCostFilters,
         resourceTypes: ['WORKLOAD']
       } as K8sRecommendationFilterDtoInput
     }
   })
 
   const { data, fetching } = result
+  const { data: summaryData } = summaryResult
 
   const { getString } = useStrings()
 
-  const totalMonthlyCost = data?.recommendationStatsV2?.totalMonthlyCost || 0
-  const totalSavings = data?.recommendationStatsV2?.totalMonthlySaving || 0
+  const totalMonthlyCost = summaryData?.recommendationStatsV2?.totalMonthlyCost || 0
+  const totalSavings = summaryData?.recommendationStatsV2?.totalMonthlySaving || 0
 
   const recommendationItems = data?.recommendationsV2?.items || []
+
+  const gotoPage = (pageNumber: number) => setPage(pageNumber)
+
+  const pagination = {
+    itemCount: summaryData?.recommendationStatsV2?.count || 0,
+    pageSize: 10,
+    pageCount: summaryData?.recommendationStatsV2?.count
+      ? Math.ceil(summaryData?.recommendationStatsV2?.count / 10)
+      : 0,
+    pageIndex: page,
+    gotoPage: gotoPage
+  }
 
   return (
     <>
@@ -180,6 +226,7 @@ const RecommendationList: React.FC = () => {
               </Layout.Horizontal>
 
               <RecommendationsList
+                pagination={pagination}
                 setFilters={setFilters}
                 filters={filters}
                 setCostFilters={setCostFilters}

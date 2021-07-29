@@ -18,16 +18,10 @@
   ],
   "schemes": ["https"],
   "paths": {
-    "/orgs/{org_id}/projects/{project_id}/services": {
+    "/accounts/{account_id}/autostopping/rules": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -41,7 +35,7 @@
       ],
       "get": {
         "tags": ["services"],
-        "summary": "Gets all Autostopping Gateways",
+        "summary": "Gets all AutoStopping Gateways",
         "description": "Multiple status values can be provided with comma separated strings",
         "operationId": "getServices",
         "produces": ["application/json"],
@@ -86,22 +80,16 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/services/{id}": {
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/stats": {
       "parameters": [
         {
-          "name": "org_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
         },
         {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "id",
+          "name": "rule_id",
           "in": "path",
           "required": true,
           "type": "number"
@@ -115,54 +103,8 @@
       ],
       "get": {
         "tags": ["services"],
-        "summary": "Gets autostopping gateway by id",
-        "description": "Get service definition of auto stopping gateway",
-        "operationId": "GetServiceDefinitionByID",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ServiceDefinitionByIDResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/services/{id}/stats": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "type": "number"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["services"],
-        "summary": "Get statuses of given autostopping gateway",
-        "description": "Returns duartion of idle time and down time",
+        "summary": "Get statuses of given autostopping rule",
+        "description": "Returns duration of idle time and down time",
         "operationId": "GetServiceStats",
         "produces": ["application/json"],
         "responses": {
@@ -178,22 +120,331 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/services/{id}/requests": {
+    "/accounts/{account_id}/autostopping/rules/{rule_id}": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rule_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["RouteDetails"],
+        "summary": "Details of a Route",
+        "description": "Get Details of a Route",
+        "operationId": "RouteDetails",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "response": {
+                  "$ref": "#/definitions/SaveServiceRequest"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "delete": {
+        "parameters": [
+          {
+            "name": "rule_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["deleteService"],
+        "summary": "Service Deletion",
+        "description": "Deletes a service",
+        "operationId": "DeleteService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/health": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rule_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Health"],
+        "summary": "Health of a service",
+        "description": "Returns health of a service",
+        "operationId": "HealthOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceHealthResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/savings": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rule_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "group_by",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "tags": ["Savings"],
+        "summary": "Savings of a service",
+        "description": "Returns savings of a service",
+        "operationId": "SavingsOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "oneOf": [
+                {
+                  "$ref": "#/definitions/ServiceSavingsResponse"
+                },
+                {
+                  "$ref": "#/definitions/ServiceSavingsGraphResponse"
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/requests": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rule_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Requests"],
+        "summary": "Requests of a service",
+        "description": "Returns requests of a service",
+        "operationId": "RequestsOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceRequestsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/logs": {
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rule_id",
+            "in": "path",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["Logs"],
+        "summary": "Logs of a service",
+        "description": "Returns logs of a service",
+        "operationId": "LogsOfService",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServiceLogsResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/resources": {
       "parameters": [
         {
-          "name": "org_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
         },
         {
-          "name": "project_id",
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "rule_id",
+          "in": "path",
+          "required": true,
+          "type": "number",
+          "format": "int64"
+        },
+        {
+          "name": "accountIdentifier",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["serviceResources"],
+        "summary": "Lists all resources for a service",
+        "description": "Lists all resources for a service",
+        "operationId": "AllServiceResources",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AllResourcesOfAccountResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/diagnostics": {
+      "parameters": [
+        {
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
         },
         {
-          "name": "id",
+          "name": "rule_id",
           "in": "path",
           "required": true,
           "type": "number"
@@ -206,16 +457,16 @@
         }
       ],
       "get": {
-        "tags": ["services"],
-        "summary": "Get service usage records",
-        "description": "Returns service usage records of requested autostopping gateway",
-        "operationId": "GetServiceRequests",
+        "tags": ["diagnostics"],
+        "summary": "Service Diagnostics",
+        "description": "Gets the diagnostics result of a service",
+        "operationId": "GetServiceDiagnostics",
         "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/ServiceUsageResponse"
+              "$ref": "#/definitions/ServiceDiagnosticsResponse"
             }
           },
           "400": {
@@ -224,10 +475,10 @@
         }
       }
     },
-    "/orgs/{org_id}/accounts": {
+    "/accounts/{account_id}/autostopping/rules/savings/cumulative": {
       "parameters": [
         {
-          "name": "org_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -240,16 +491,16 @@
         }
       ],
       "get": {
-        "tags": ["accounts"],
-        "summary": "Lists all accounts under an org",
-        "description": "Returns all the accounts under the requesting organization",
-        "operationId": "AllAccounts",
+        "tags": ["serviceCumulativeSavings"],
+        "summary": "CumulativeSavings for all services",
+        "description": "CumulativeSavings for all services",
+        "operationId": "CumulativeServiceSavings",
         "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/AllAccountsResponse"
+              "$ref": "#/definitions/CumulativeSavingsResponse"
             }
           },
           "400": {
@@ -258,21 +509,432 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/resources": {
+    "/accounts/{account_id}/autostopping/rules/{rule_id}/toggle_state": {
+      "put": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "rule_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "disable",
+            "in": "query",
+            "required": true,
+            "type": "boolean"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["ToggleAutostoppingRule"],
+        "summary": "Toggle state of Autostopping Rule",
+        "description": "Toggle state of Autostopping Rule",
+        "operationId": "ToggleAutostoppingRule",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "schema": {
+                "$ref": "#/definitions/ServicesResponse"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers": {
       "post": {
         "parameters": [
           {
-            "name": "org_id",
+            "name": "account_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
           {
-            "name": "project_id",
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accessPoint",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AccessPoint"
+            }
+          }
+        ],
+        "tags": ["CreateAccessPoint"],
+        "summary": "Create an AccessPoint",
+        "description": "Create an AccessPoint",
+        "operationId": "CreateAccessPoint",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CreateAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "get": {
+        "parameters": [
+          {
+            "name": "account_id",
             "in": "path",
             "required": true,
             "type": "string"
           },
+          {
+            "name": "vpc",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "cloud_account_id",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": ["ListAccessPoints"],
+        "summary": "List all AccessPoints",
+        "description": "List all AccessPoints",
+        "operationId": "ListAccessPoints",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete Access Points",
+        "operationId": "DeleteAccessPoints",
+        "tags": ["Delete Access Points"],
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accessPoint",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/DeleteAccessPointPayload"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/supported_resources": {
+      "parameters": [
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "cloud_account_id",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "region",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "resource_group_name",
+          "in": "query",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "name": "accountIdentifier",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["Access Point Resources"],
+        "summary": "Lists all resources that can be used as access point",
+        "description": "Lists all resources that can be used as access point. Eg : alb in the case of AWS account",
+        "operationId": "AccessPointResources",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AccessPointCoresResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/all": {
+      "parameters": [
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountIdentifier",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["allAccessPoints"],
+        "summary": "Lists all AccessPoints for an account",
+        "description": "Returns all AccessPoints for an account",
+        "operationId": "AllAccessPoints",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ListAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}": {
+      "parameters": [
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "lb_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountIdentifier",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["GetAccessPoint"],
+        "summary": "Get access point",
+        "description": "Get access point",
+        "operationId": "GetAccessPoint",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/GetAccessPointResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}/map_dns": {
+      "post": {
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lb_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MaptoDNSBody"
+            }
+          }
+        ],
+        "tags": ["mapToDNS"],
+        "summary": "map access point to dns",
+        "description": "map access point to dns",
+        "operationId": "MapToDNS",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}/rules": {
+      "parameters": [
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "lb_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountIdentifier",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["accessPointRules"],
+        "summary": "Lists all Rules for an access point",
+        "description": "Lists all Rules for an access point",
+        "operationId": "AccessPointRules",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/ServicesResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/autostopping/loadbalancers/{lb_id}/last_active_at": {
+      "parameters": [
+        {
+          "name": "account_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "lb_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "accountIdentifier",
+          "in": "query",
+          "required": true,
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": ["accessPointActivity"],
+        "summary": "get lastest activity for an access point",
+        "description": "get lastest activity for an access point",
+        "operationId": "AccessPointActivity",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/AccessPointActivityResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        }
+      }
+    },
+    "/accounts/{account_id}/resources": {
+      "post": {
+        "parameters": [
           {
             "name": "account_id",
             "in": "path",
@@ -326,23 +988,11 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/instance_nsg": {
+    "/accounts/{account_id}/instance_nsg": {
       "post": {
         "parameters": [
           {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
             "name": "account_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -388,217 +1038,11 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/health": {
-      "get": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "serviceID",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": ["Health"],
-        "summary": "Health of a service",
-        "description": "Returns health of a service",
-        "operationId": "HealthOfService",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ServiceHealthResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/savings": {
-      "get": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "serviceID",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "from",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "to",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "group_by",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "tags": ["Savings"],
-        "summary": "Savings of a service",
-        "description": "Returns savings of a service",
-        "operationId": "SavingsOfService",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "oneOf": [
-                {
-                  "$ref": "#/definitions/ServiceSavingsResponse"
-                },
-                {
-                  "$ref": "#/definitions/ServiceSavingsGraphResponse"
-                }
-              ]
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/requests": {
-      "get": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "serviceID",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": ["Requests"],
-        "summary": "Requests of a service",
-        "description": "Returns requests of a service",
-        "operationId": "RequestsOfService",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ServiceRequestsResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{projectID}/services/{serviceID}/logs": {
-      "get": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "projectID",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "serviceID",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": ["Logs"],
-        "summary": "Logs of a service",
-        "description": "Returns logs of a service",
-        "operationId": "LogsOfService",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ServiceLogsResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/reports": {
+    "/accounts/{account_id}/reports": {
       "post": {
         "parameters": [
           {
-            "name": "org_id",
+            "name": "account_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -638,70 +1082,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/services/{service_id}/toggle_state": {
-      "put": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "service_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "disable",
-            "in": "query",
-            "required": true,
-            "type": "boolean"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": ["ToggleAutostoppingRule"],
-        "summary": "Toggle state of Autostopping Rule",
-        "description": "Toggle state of Autostopping Rule",
-        "operationId": "ToggleAutostoppingRule",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "schema": {
-                "$ref": "#/definitions/ServicesResponse"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/regions": {
+    "/accounts/{account_id}/regions": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -744,16 +1128,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/resource_groups": {
+    "/accounts/{account_id}/resource_groups": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -796,16 +1174,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/virtual_networks": {
+    "/accounts/{account_id}/virtual_networks": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -860,16 +1232,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/subnets": {
+    "/accounts/{account_id}/subnets": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -930,16 +1296,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/public_ips": {
+    "/accounts/{account_id}/public_ips": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -1000,16 +1360,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/network_security_groups": {
+    "/accounts/{account_id}/network_security_groups": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -1064,212 +1418,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/services/access_points": {
-      "post": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accessPoint",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AccessPoint"
-            }
-          }
-        ],
-        "tags": ["CreateAccessPoint"],
-        "summary": "Create an AccessPoint",
-        "description": "Create an AccessPoint",
-        "operationId": "CreateAccessPoint",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/CreateAccessPointResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      },
-      "delete": {
-        "description": "Delete Access Points",
-        "operationId": "DeleteAccessPoints",
-        "tags": ["Delete Access Points"],
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accessPoint",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/DeleteAccessPointPayload"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points": {
-      "get": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "vpc",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "region",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "cloud_account_id",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": ["ListAccessPoints"],
-        "summary": "List all AccessPoints",
-        "description": "List all AccessPoints",
-        "operationId": "ListAccessPoints",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ListAccessPointResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/services/access_points/{access_point_id}": {
+    "/accounts/{account_id}/execution_roles": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_point_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["GetAccessPoint"],
-        "summary": "status of access point",
-        "description": "status of access point",
-        "operationId": "GetAccessPoint",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/GetAccessPointResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/execution_roles": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -1277,12 +1429,6 @@
         {
           "name": "cloud_account_id",
           "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
           "required": true,
           "type": "string"
         },
@@ -1312,16 +1458,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/certificates": {
+    "/accounts/{account_id}/certificates": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -1335,12 +1475,6 @@
         {
           "name": "region",
           "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
           "required": true,
           "type": "string"
         },
@@ -1382,208 +1516,11 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/services/{service_id}/resources": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "cloud_account_id",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "region",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "service_id",
-          "in": "path",
-          "required": true,
-          "type": "number",
-          "format": "int64"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["serviceResources"],
-        "summary": "Lists all resources for a service",
-        "description": "Lists all resources for a service",
-        "operationId": "AllServiceResources",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/AllResourcesOfAccountResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/services/savings/cumulative": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["serviceCumulativeSavings"],
-        "summary": "CumulativeSavings for all services",
-        "description": "CumulativeSavings for all services",
-        "operationId": "CumulativeServiceSavings",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/CumulativeSavingsResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/services/{service_id}": {
-      "get": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "service_id",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": ["RouteDetails"],
-        "summary": "Details of a Route",
-        "description": "Get Details of a Route",
-        "operationId": "RouteDetails",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "response": {
-                  "$ref": "#/definitions/SaveServiceRequest"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      },
-      "delete": {
-        "parameters": [
-          {
-            "name": "service_id",
-            "in": "path",
-            "required": true,
-            "type": "number"
-          },
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "tags": ["deleteService"],
-        "summary": "Service Deletion",
-        "description": "Deletes a service",
-        "operationId": "DeleteService",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation"
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/tag": {
+    "/accounts/{account_id}/tag": {
       "post": {
         "parameters": [
           {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
+            "name": "account_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -1603,12 +1540,6 @@
           {
             "name": "tagValue",
             "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "account_id",
-            "in": "path",
             "required": true,
             "type": "string"
           },
@@ -1645,16 +1576,10 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/hosted_zones": {
+    "/accounts/{account_id}/hosted_zones": {
       "parameters": [
         {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
+          "name": "account_id",
           "in": "path",
           "required": true,
           "type": "string"
@@ -1668,12 +1593,6 @@
         {
           "name": "region",
           "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
           "required": true,
           "type": "string"
         },
@@ -1709,221 +1628,8 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/services/access_points/{access_point_id}/map_dns": {
-      "post": {
-        "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "access_point_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/MaptoDNSBody"
-            }
-          }
-        ],
-        "tags": ["mapToDNS"],
-        "summary": "map access point to dns",
-        "description": "map access point to dns",
-        "operationId": "MapToDNS",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation"
-          },
-          "400": {
-            "description": "Invalid"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points/all": {
+    "/accounts/{account_id}/cft_path": {
       "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["allAccessPoints"],
-        "summary": "Lists all AccessPoints for an account",
-        "description": "Returns all AccessPoints for an account",
-        "operationId": "AllAccessPoints",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ListAccessPointResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points/{access_point_id}/rules": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_point_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["accessPointRules"],
-        "summary": "Lists all Rules for an access point",
-        "description": "Lists all Rules for an access point",
-        "operationId": "AccessPointRules",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ServicesResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/access_points/{access_point_id}/last_active_at": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "access_point_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["accessPointActivity"],
-        "summary": "get lastest activity for an access point",
-        "description": "get lastest activity for an access point",
-        "operationId": "AccessPointActivity",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/AccessPointActivityResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/cft_path": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
         {
           "name": "account_id",
           "in": "path",
@@ -1956,137 +1662,9 @@
         }
       }
     },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/services/{service_id}/diagnostics": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "service_id",
-          "in": "path",
-          "required": true,
-          "type": "number"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["diagnostics"],
-        "summary": "Service Diagnostics",
-        "description": "Gets the diagnostics result of a service",
-        "operationId": "GetServiceDiagnostics",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ServiceDiagnosticsResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/access_points/supported_resources": {
-      "parameters": [
-        {
-          "name": "org_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "project_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "account_id",
-          "in": "path",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "cloud_account_id",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "region",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        },
-        {
-          "name": "resource_group_name",
-          "in": "query",
-          "required": false,
-          "type": "string"
-        },
-        {
-          "name": "accountIdentifier",
-          "in": "query",
-          "required": true,
-          "type": "string"
-        }
-      ],
-      "get": {
-        "tags": ["Access Point Resources"],
-        "summary": "Lists all resources that can be used as access point",
-        "description": "Lists all resources that can be used as access point. Eg : alb in the case of AWS account",
-        "operationId": "AccessPointResources",
-        "produces": ["application/json"],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/AccessPointCoresResponse"
-            }
-          },
-          "400": {
-            "description": "Invalid status value"
-          }
-        }
-      }
-    },
-    "/orgs/{org_id}/projects/{project_id}/accounts/{account_id}/scaling_groups": {
+    "/accounts/{account_id}/scaling_groups": {
       "post": {
         "parameters": [
-          {
-            "name": "org_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "project_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
           {
             "name": "account_id",
             "in": "path",
@@ -2170,7 +1748,7 @@
     },
     "Service": {
       "type": "object",
-      "required": ["name", "fulfilment", "kind", "org_id", "cloud_account_id"],
+      "required": ["name", "fulfillment", "kind", "org_id", "cloud_account_id"],
       "properties": {
         "id": {
           "type": "integer",

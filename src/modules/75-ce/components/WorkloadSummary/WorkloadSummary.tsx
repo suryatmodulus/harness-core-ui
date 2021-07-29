@@ -58,7 +58,7 @@ const NodeDetails: ({ infoData, pageType }: { infoData: ClusterData; pageType: C
             <div key={`overview-field-${idx}`}>
               {table.map(({ name, key }) => {
                 const accessor = key as keyof ClusterData
-                const value = infoData[accessor]
+                const value = (infoData && infoData[accessor]) || ''
                 return <KeyValuePairRenderer key={accessor} keyVal={name} value={value} />
               })}
             </div>

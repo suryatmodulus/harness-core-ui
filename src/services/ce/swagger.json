@@ -168,6 +168,37 @@
         }
       }
     },
+    "/budgets/perspectiveBudgets": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "List budgets for perspective",
+        "description": "",
+        "operationId": "listBudgetsForPerspective",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "perspectiveId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListBudget"
+            }
+          }
+        }
+      }
+    },
     "/budgets": {
       "get": {
         "tags": ["budgets"],
@@ -224,12 +255,12 @@
         }
       }
     },
-    "/budgets/perspectiveBudgets": {
+    "/budgets/lastMonthCost": {
       "get": {
         "tags": ["budgets"],
-        "summary": "List budgets for perspective",
+        "summary": "Get last month cost for perspective",
         "description": "",
-        "operationId": "listBudgetsForPerspective",
+        "operationId": "getLastMonthCost",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -249,45 +280,72 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseListBudget"
+              "$ref": "#/definitions/RestResponseDouble"
             }
           }
         }
       }
     },
-    "/yaml/generate-cost-optimisation-yaml": {
-      "post": {
-        "tags": ["yaml"],
-        "summary": "Get Cost Optimisation Yaml",
+    "/budgets/forecastCost": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Get forecast cost for perspective",
         "description": "",
-        "operationId": "getCostOptimisationYamlTemplate",
+        "operationId": "getForecastCost",
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "accountId",
+            "name": "accountIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
           },
           {
-            "name": "connectorIdentifier",
+            "name": "perspectiveId",
             "in": "query",
             "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "required": true,
-            "name": "apiToken",
             "type": "string"
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseDouble"
+            }
           }
-        },
-        "deprecated": true
+        }
+      }
+    },
+    "/budgets/{id}/costDetails": {
+      "get": {
+        "tags": ["budgets"],
+        "summary": "Get cost details for budget",
+        "description": "",
+        "operationId": "getCostDetails",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseBudgetData"
+            }
+          }
+        }
       }
     },
     "/yaml/cloudCostK8sClusterSetup": {
@@ -324,6 +382,35 @@
             "description": "successful operation"
           }
         }
+      }
+    },
+    "/yaml/generate-cost-optimisation-yaml": {
+      "post": {
+        "tags": ["yaml"],
+        "summary": "Get Cost Optimisation Yaml",
+        "description": "",
+        "operationId": "getCostOptimisationYamlTemplate",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "connectorIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        },
+        "deprecated": true
       }
     },
     "/connector/azureappclientid": {
@@ -1542,6 +1629,87 @@
         }
       }
     },
+    "RestResponseDouble": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "number",
+          "format": "double"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "BudgetCostData": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "actualCost": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgeted": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariance": {
+          "type": "number",
+          "format": "double"
+        },
+        "budgetVariancePercentage": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "BudgetData": {
+      "type": "object",
+      "properties": {
+        "costData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/BudgetCostData"
+          }
+        },
+        "forecastCost": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
+    "RestResponseBudgetData": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/BudgetData"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "K8sClusterSetupRequest": {
       "type": "object",
       "properties": {
@@ -1555,13 +1723,13 @@
         "connectorIdentifier": {
           "type": "string"
         },
-        "ccmConnectorIdentifier": {
-          "type": "string"
-        },
         "orgIdentifier": {
           "type": "string"
         },
         "projectIdentifier": {
+          "type": "string"
+        },
+        "ccmConnectorIdentifier": {
           "type": "string"
         }
       }

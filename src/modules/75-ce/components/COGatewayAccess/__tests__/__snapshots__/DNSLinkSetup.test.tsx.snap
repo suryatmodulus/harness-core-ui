@@ -128,12 +128,6 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
-                  <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"
                   >
@@ -331,12 +325,6 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"
@@ -536,12 +524,6 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
-                  <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"
                   >
@@ -739,12 +721,6 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"

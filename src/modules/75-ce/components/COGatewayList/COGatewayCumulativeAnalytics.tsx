@@ -117,15 +117,14 @@ function getSavingsPercentage(totalSavings: number, totalPotentialCost: number):
   return Math.round((totalSavings / totalPotentialCost) * 100)
 }
 const COGatewayCumulativeAnalytics: React.FC<COGatewayCumulativeAnalyticsProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     orgIdentifier: string
     projectIdentifier: string
     accountId: string
   }>()
   const { getString } = useStrings()
   const { data: graphData, loading: graphLoading } = useCumulativeServiceSavings({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     }

@@ -36,16 +36,25 @@ import { Aggregation, AggregationFunctionMapping } from './constants'
 import css from './WorkloadDetailsPage.module.scss'
 
 const WorkloadDetailsPage: () => JSX.Element = () => {
-  const { clusterName, namespace, workloadName, perspectiveId, perspectiveName, recommendation, accountId } =
-    useParams<{
-      clusterName: string
-      namespace: string
-      workloadName: string
-      perspectiveId: string
-      perspectiveName: string
-      recommendation: string
-      accountId: string
-    }>()
+  const {
+    clusterName,
+    namespace,
+    workloadName,
+    perspectiveId,
+    perspectiveName,
+    recommendation,
+    accountId,
+    recommendationName
+  } = useParams<{
+    clusterName: string
+    namespace: string
+    workloadName: string
+    perspectiveId: string
+    perspectiveName: string
+    recommendation: string
+    accountId: string
+    recommendationName: string
+  }>()
 
   const { getString } = useStrings()
 
@@ -150,7 +159,7 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
                       label: getString('ce.recommendation.sideNavText')
                     },
                     {
-                      url: routes.toCERecommendationDetails({ accountId, recommendation }),
+                      url: routes.toCERecommendationDetails({ accountId, recommendation, recommendationName }),
                       label: workloadName
                     },
                     {

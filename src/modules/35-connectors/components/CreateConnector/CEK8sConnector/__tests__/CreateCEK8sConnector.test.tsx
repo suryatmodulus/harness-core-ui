@@ -86,7 +86,7 @@ describe('Create CE K8s Connector Wizard', () => {
     expect(container).toMatchSnapshot() // Form validation for all required fields
 
     // 2 - Feature Selection step
-    expect(await findByText(container, 'connectors.ceAws.crossAccountRoleStep1.heading')).toBeDefined()
+    expect(await findByText(container, 'connectors.ceK8S.chooseRequirements.heading')).toBeDefined()
 
     const featuresCard = container.querySelectorAll('.bp3-card')
     const optimizationCard = featuresCard && featuresCard[1]

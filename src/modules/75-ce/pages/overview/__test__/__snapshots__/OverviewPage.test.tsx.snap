@@ -312,7 +312,8 @@ exports[`test cases for Perspective details Page should be able to render the de
                             </p>
                           </div>
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                            style="width: 90px; --text-line-clamp: 1;"
                           >
                             $582.92
                           </p>
@@ -337,7 +338,8 @@ exports[`test cases for Perspective details Page should be able to render the de
                             </p>
                           </div>
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                            style="width: 90px; --text-line-clamp: 1;"
                           >
                             $1,030.60
                           </p>
@@ -362,7 +364,8 @@ exports[`test cases for Perspective details Page should be able to render the de
                             </p>
                           </div>
                           <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                            style="width: 90px; --text-line-clamp: 1;"
                           >
                             $838.51
                           </p>
@@ -495,7 +498,8 @@ exports[`test cases for Perspective details Page should be able to render the de
                         </a>
                       </div>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                        style="width: 90px; --text-line-clamp: 1;"
                       >
                         $315,150.39
                       </p>
@@ -524,7 +528,8 @@ exports[`test cases for Perspective details Page should be able to render the de
                         </a>
                       </div>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                        style="width: 90px; --text-line-clamp: 1;"
                       >
                         $5,407.30
                       </p>
@@ -553,7 +558,8 @@ exports[`test cases for Perspective details Page should be able to render the de
                         </a>
                       </div>
                       <p
-                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                        style="width: 90px; --text-line-clamp: 1;"
                       >
                         $5,168.40
                       </p>
@@ -667,34 +673,6 @@ exports[`test cases for Perspective details Page should be able to render the de
               </div>
             </div>
           </div>
-        </div>
-        <div
-          class="addCluster"
-        >
-          <img
-            height="150"
-            src="test-file-stub"
-          />
-          <div
-            class="StyledProps--font StyledProps--main"
-            style="width: 650px;"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              ce.overview.addClusterDesc
-            </p>
-          </div>
-          <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main addClusterBtn Button--with-current-color Button--without-shadow"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              ce.overview.addClusterBtn
-            </span>
-          </button>
         </div>
       </div>
     </div>

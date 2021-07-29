@@ -46,4 +46,43 @@ describe('Tests for utils methods', () => {
     const str = Utils.getHyphenSpacedString('some random string in here')
     expect(str.split('-').length).toEqual(5)
   })
+
+  describe('Check for account with connectors data', () => {
+    test('Has data', () => {
+      const result = Utils.accountHasConnectors({
+        awsConnectorsPresent: true,
+        azureConnectorsPresent: false,
+        k8sClusterConnectorPresent: false,
+        gcpConnectorsPresent: false,
+        applicationDataPresent: false,
+        cloudDataPresent: false,
+        clusterDataPresent: false,
+        defaultAwsPerspectiveId: '',
+        defaultAzurePerspectiveId: '',
+        defaultClusterPerspectiveId: '',
+        defaultGcpPerspectiveId: '',
+        inventoryDataPresent: false,
+        isSampleClusterPresent: false
+      })
+      expect(result).toBeTruthy()
+    })
+    test('Has no data', () => {
+      const result = Utils.accountHasConnectors({
+        awsConnectorsPresent: false,
+        azureConnectorsPresent: false,
+        k8sClusterConnectorPresent: false,
+        gcpConnectorsPresent: false,
+        applicationDataPresent: false,
+        cloudDataPresent: false,
+        clusterDataPresent: false,
+        defaultAwsPerspectiveId: '',
+        defaultAzurePerspectiveId: '',
+        defaultClusterPerspectiveId: '',
+        defaultGcpPerspectiveId: '',
+        inventoryDataPresent: false,
+        isSampleClusterPresent: false
+      })
+      expect(result).toBeFalsy()
+    })
+  })
 })

@@ -41,8 +41,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     projectIdentifier: string
   }>()
   const { mutate: saveGateway } = useSaveService({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     }
@@ -50,8 +49,6 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
 
   const tagKey = 'lightwingRule'
   const { mutate: assignFilterTags } = useAttachTags({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId // eslint-disable-line
   })
 
@@ -127,8 +124,6 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         }
         history.push(
           routes.toCECORules({
-            orgIdentifier: orgIdentifier as string,
-            projectIdentifier: projectIdentifier as string,
             accountId
           })
         )
@@ -192,7 +187,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+            url: routes.toCECORules({ accountId }),
             label: getString('ce.co.breadCrumb.rules')
           },
           {

@@ -166,64 +166,43 @@ exports[`Delegates Page render data 1`] = `
               data-name="page-body"
             >
               <div
-                class="table delegateTable"
+                class="StyledProps--font StyledProps--main delegateListContainer StyledProps--background-grey100"
               >
                 <div
-                  class="header"
-                  role="row"
+                  class="Layout--horizontal StyledProps--main delegateListHeader"
                 >
                   <div
-                    class="cell"
-                    colspan="1"
-                    role="columnheader"
                     style="width: 30px;"
+                  />
+                  <div
+                    style="width: 25%;"
                   >
-                    
+                    delegate.DelegateName
                   </div>
                   <div
-                    class="cell"
-                    colspan="1"
-                    role="columnheader"
-                    style="width: 30%;"
+                    style="width: 25%;"
                   >
-                    DELEGATE.DELEGATENAME
+                    tagsLabel
                   </div>
                   <div
-                    class="cell"
-                    colspan="1"
-                    role="columnheader"
-                    style="width: 30%;"
+                    style="width: calc(15% - 8px);"
                   >
-                    TAGSLABEL
+                    activity
                   </div>
                   <div
-                    class="cell"
-                    colspan="1"
-                    role="columnheader"
-                    style="width: calc(20% - 10px);"
+                    style="width: calc(15% - 8px);"
                   >
-                    DELEGATE.LASTHEARTBEAT
+                    delegate.LastHeartBeat
                   </div>
                   <div
-                    class="cell"
-                    colspan="1"
-                    role="columnheader"
-                    style="width: calc(15% - 20px);"
+                    style="width: calc(15% - 14px);"
                   >
-                    CONNECTIVITYSTATUS
+                    connectivityStatus
                   </div>
                   <div
-                    class="cell"
-                    colspan="1"
-                    role="columnheader"
                     style="width: 5%;"
-                  >
-                    
-                  </div>
+                  />
                 </div>
-                <div
-                  class="body"
-                />
               </div>
             </div>
           </div>

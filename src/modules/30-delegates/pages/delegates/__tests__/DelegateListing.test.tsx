@@ -47,12 +47,12 @@ describe('Feature flag enabled', () => {
   })
 
   test('render delegate list and test new delegate button', async () => {
-    const { getByText } = render(
+    const { getAllByText } = render(
       <TestWrapper path="/account/:accountId/resources/delegates" pathParams={{ accountId: 'simpleDelegateResponse' }}>
         <DelegatesListing />
       </TestWrapper>
     )
-    fireEvent.click(getByText('delegate.DelegateName'))
+    fireEvent.click(getAllByText('delegate.DelegateName')[0]!)
     await waitFor(() => {
       expect(document.body.querySelector('.bp3-dialog')).toBeDefined()
     })

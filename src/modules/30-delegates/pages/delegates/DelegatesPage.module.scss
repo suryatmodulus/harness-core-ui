@@ -139,3 +139,28 @@
 .delegateProfileElements {
   margin: 0 var(--spacing-large) var(--spacing-large) 0;
 }
+
+.delegateListContainer {
+  padding: var(--spacing-large) !important;
+}
+
+.delegateListHeader {
+  padding: var(--spacing-large) !important;
+  padding-top: 0;
+  font-weight: 700;
+  font-size: var(--font-size-small);
+  color: var(--grey-800) !important;
+  text-transform: uppercase;
+}
+
+.delegateItemContainer {
+  width: 100%;
+  box-shadow: 0 1px 5px -4px var(--black);
+  border-radius: 4px;
+  margin-bottom: var(--spacing-small);
+  padding: var(--spacing-large);
+}
+
+.delegateItemSubcontainer {
+  align-items: center;
+}

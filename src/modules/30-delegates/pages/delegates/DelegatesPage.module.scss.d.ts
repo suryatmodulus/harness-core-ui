@@ -26,5 +26,9 @@ declare const styles: {
   readonly profileDetailsContainer: string
   readonly delegateProfilesContainer: string
   readonly delegateProfileElements: string
+  readonly delegateListContainer: string
+  readonly delegateListHeader: string
+  readonly delegateItemContainer: string
+  readonly delegateItemSubcontainer: string
 }
 export default styles

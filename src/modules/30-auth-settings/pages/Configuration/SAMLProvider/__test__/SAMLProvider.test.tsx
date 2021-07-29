@@ -6,6 +6,7 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { authSettings, mockResponse, permissionRequest } from '@auth-settings/pages/Configuration/__test__/mock'
 import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
+import { getSamlEndpoint } from '@auth-settings/constants/utils'
 import SAMLProvider from '../SAMLProvider'
 
 jest.mock('services/cd-ng', () => ({
@@ -283,5 +284,53 @@ describe('SAML Provider', () => {
 
       const removedForm = findDialogContainer()
       expect(removedForm).toBeFalsy()
+    })
+})
+
+describe('getSamlEndpoint cases', () => {
+  let mockWindow: jest.MockedFunction<any>
+
+  beforeEach(() => {
+    mockWindow = jest.spyOn(window, 'window', 'get')
+  })
+
+  afterEach(() => {
+    mockWindow.mockRestore()
+  })
+
+  test('apiUrl as undefined', () => {
+    mockWindow.mockImplementation(() => ({
+      location: {
+        href: 'https://qa.harness.io/ng/#/account/123/home/setup/authentication/configuration'
+      }
+    }))
+    expect(getSamlEndpoint('123')).toEqual('https://qa.harness.io/api/users/saml-login?accountId=123')
+  }),
+    test('apiUrl as /gateway', () => {
+      mockWindow.mockImplementation(() => ({
+        apiUrl: '/gateway',
+        location: {
+          href: 'https://qa.harness.io/ng/#/account/123/home/setup/authentication/configuration'
+        }
+      }))
+      expect(getSamlEndpoint('123')).toEqual('https://qa.harness.io/gateway/api/users/saml-login?accountId=123')
+    }),
+    test('apiUrl as https://qa.harness.io/gateway', () => {
+      mockWindow.mockImplementation(() => ({
+        apiUrl: 'https://qa.harness.io/gateway',
+        location: {
+          href: 'https://qa.harness.io/ng/#/account/123/home/setup/authentication/configuration'
+        }
+      }))
+      expect(getSamlEndpoint('123')).toEqual('https://qa.harness.io/gateway/api/users/saml-login?accountId=123')
+    }),
+    test('apiUrl as http://localhost:9090', () => {
+      mockWindow.mockImplementation(() => ({
+        apiUrl: 'http://localhost:9090',
+        location: {
+          href: 'https://qa.harness.io/ng/#/account/123/home/setup/authentication/configuration'
+        }
+      }))
+      expect(getSamlEndpoint('123')).toEqual('http://localhost:9090/api/users/saml-login?accountId=123')
     })
 })

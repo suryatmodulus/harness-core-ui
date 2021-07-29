@@ -6,6 +6,8 @@ import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory
 import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
 
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
+import { filterManifest, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
+
 import css from './SelectArtifactModal.module.scss'
 
 interface SelectArtifactModalPropsInterface {
@@ -39,10 +41,16 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const closeAndReset = () => {
     closeModal()
     setSelectedArtifact(undefined)
+    setSelectedArtifactLabel(undefined)
+    setSelectedStage(undefined)
+    setModalState(ModalState.SELECT)
   }
 
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
   const ManifestFormDetails = formDetails.component
+
+  const filteredManifest = filterManifest(runtimeData, selectedStage, selectedArtifact)
+  const templateObject = getTemplateObject(filteredManifest, [])
 
   return (
     <Dialog
@@ -86,9 +94,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
       ) : (
         <>
           <ManifestFormDetails
-            template={runtimeData}
-            path={'test'}
-            allValues={runtimeData}
+            template={templateObject}
+            path={getPathString(runtimeData, selectedStage)}
+            allValues={templateObject}
             initialValues={runtimeData}
             readonly={false}
             stageIdentifier={artifactTableData?.stageId}
@@ -108,7 +116,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
               intent="primary"
               onClick={() => {
                 formikProps.setValues({ ...formikProps.values, artifact: selectedArtifact })
-                closeModal()
+                closeAndReset()
               }}
             />
             <Text className={css.cancel} onClick={closeAndReset}>

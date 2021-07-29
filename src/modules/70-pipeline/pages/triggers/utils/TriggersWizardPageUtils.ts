@@ -744,6 +744,28 @@ export const parseArtifactsManifests = ({
   }
   return {}
 }
+
+export const filterManifest = (pipelineObject: any, stageId: any, manifestIdentifier: any) => {
+  const filteredStage = pipelineObject.find((item: any) => item.stage.identifier === stageId)
+  const filteredManifest = filteredStage?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests.find(
+    (maniItem: any) => maniItem?.manifest?.identifier === manifestIdentifier
+  )
+
+  return filteredManifest
+}
+
+export const getTemplateObject = (manifest: any, artifacts: any) => {
+  return {
+    artifacts: artifacts,
+    manifests: [manifest]
+  }
+}
+
+export const getPathString = (pipelineObject: any, stageId: any) => {
+  const filteredStageIdx = pipelineObject.findIndex((item: any) => item.stage.identifier === stageId)
+  return `stages[${filteredStageIdx}].stage.spec.serviceConfig.serviceDefinition.spec`
+}
+
 const isRuntimeInput = (str: any): boolean => typeof str === 'string' && str?.includes('<+input>')
 const getRuntimeInputLabel = (str: any): string => (isRuntimeInput(str) ? 'runtime input' : str)
 

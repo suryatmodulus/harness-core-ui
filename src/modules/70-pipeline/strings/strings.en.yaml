@@ -496,6 +496,7 @@ triggers:
     plusSelectArtifact: '+ Select Artifact'
     selectAnArtifact: 'Select an Artifact Reference'
     noSelectableArtifactsFound: 'No selectable artifacts found. Please add an artifact in the pipeline.'
+    noArtifacts: No artifacts for selected stage.
     configureInputs: Configure inputs
     parameterized: Parameterized
 dashboards:

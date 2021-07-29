@@ -8,10 +8,6 @@ import { useQueryParams, useUpdateQueryParams } from '@common/hooks'
 import { accountPathProps, executionPathProps, pipelineModuleParams } from '@common/utils/routeUtils'
 import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import type { CIWebhookInfoDTO } from 'services/ci'
-import {
-  getStageNodesWithArtifacts,
-  getStageSetupIds
-} from '@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { String, useStrings } from 'framework/strings'
@@ -35,21 +31,12 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
   const indicatorRef = React.useRef<HTMLDivElement | null>(null)
   const isCI = params.module === 'ci'
   const isCIInPipeline = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
-  const urlSuffix = isLogView ? '?view=log' : ''
 
   const ciData = pipelineExecutionDetail?.pipelineExecutionSummary?.moduleInfo?.ci
     ?.ciExecutionInfoDTO as CIWebhookInfoDTO
   // NOTE: hide commits tab if there are no commits
   // by default we are showing Commits tab > 'isEmpty(pipelineExecutionDetail)'
   const ciShowCommitsTab = !!ciData?.branch?.commits?.length || !!ciData?.pullRequest?.commits?.length
-
-  const ciShowArtifactsTab =
-    !!pipelineExecutionDetail?.executionGraph &&
-    !!pipelineExecutionDetail?.pipelineExecutionSummary &&
-    getStageNodesWithArtifacts(
-      pipelineExecutionDetail?.executionGraph,
-      getStageSetupIds(pipelineExecutionDetail?.pipelineExecutionSummary)
-    ).length
 
   function handleLogViewChange(e: React.ChangeEvent<HTMLInputElement>): void {
     const { checked } = e.target as HTMLInputElement
@@ -82,7 +69,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
     <div className={css.main}>
       <div className={css.tabs}>
         <NavLink
-          to={routes.toExecutionPipelineView(params) + urlSuffix}
+          to={routes.toExecutionPipelineView(params) + location.search}
           className={css.tabLink}
           activeClassName={css.activeLink}
         >
@@ -90,7 +77,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           <span>{getString('pipelines')}</span>
         </NavLink>
         <NavLink
-          to={routes.toExecutionInputsView(params) + urlSuffix}
+          to={routes.toExecutionInputsView(params) + location.search}
           className={css.tabLink}
           activeClassName={css.activeLink}
         >
@@ -99,19 +86,17 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
         </NavLink>
         {isCI && (
           <>
-            {ciShowArtifactsTab ? (
-              <NavLink
-                to={routes.toExecutionArtifactsView(params) + urlSuffix}
-                className={css.tabLink}
-                activeClassName={css.activeLink}
-              >
-                <Icon name="add-to-artifact" size={16} />
-                <span>{getString('artifacts')}</span>
-              </NavLink>
-            ) : null}
+            <NavLink
+              to={routes.toExecutionArtifactsView(params) + location.search}
+              className={css.tabLink}
+              activeClassName={css.activeLink}
+            >
+              <Icon name="add-to-artifact" size={16} />
+              <span>{getString('artifacts')}</span>
+            </NavLink>
             {ciShowCommitsTab ? (
               <NavLink
-                to={routes.toExecutionCommitsView(params) + urlSuffix}
+                to={routes.toExecutionCommitsView(params) + location.search}
                 className={css.tabLink}
                 activeClassName={css.activeLink}
               >
@@ -123,7 +108,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
         )}
         {(isCI || isCIInPipeline) && (
           <NavLink
-            to={routes.toExecutionTestsView(params) + urlSuffix}
+            to={routes.toExecutionTestsView(params) + location.search}
             className={css.tabLink}
             activeClassName={css.activeLink}
           >

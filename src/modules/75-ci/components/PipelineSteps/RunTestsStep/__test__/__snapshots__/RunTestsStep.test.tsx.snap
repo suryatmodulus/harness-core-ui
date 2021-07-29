@@ -6123,7 +6123,7 @@ exports[`RunTests Step Edit View should render properly 1`] = `
                             placeholder="Search..."
                             style="padding-right: 0px;"
                             type="text"
-                            value="Maven"
+                            value="Bazel"
                           />
                           <span
                             class="bp3-input-action"
@@ -10360,7 +10360,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
       class="StyledProps--font Text--lineclamp StyledProps--main"
       style="--text-line-clamp: 1;"
     >
-      maven
+      Maven
     </p>
     <div
       class="main"
@@ -10408,7 +10408,7 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
       class="StyledProps--font Text--lineclamp StyledProps--main"
       style="--text-line-clamp: 1;"
     >
-      java
+      Java
     </p>
     <div
       class="main"

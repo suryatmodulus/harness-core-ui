@@ -2020,6 +2020,7 @@ export interface StringsMap {
   'pipeline.triggers.artifactTriggerConfigPanel.configureInput': string
   'pipeline.triggers.artifactTriggerConfigPanel.configureInputs': string
   'pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.noArtifacts': string
   'pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound': string
   'pipeline.triggers.artifactTriggerConfigPanel.parameterized': string
   'pipeline.triggers.artifactTriggerConfigPanel.plusSelectArtifact': string

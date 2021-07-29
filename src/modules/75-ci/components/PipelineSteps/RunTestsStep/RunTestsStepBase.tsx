@@ -66,10 +66,10 @@ export const RunTestsStepBase = (
   const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const buildToolOptions = [
-    { label: 'Bazel', value: 'bazel' },
-    { label: 'Maven', value: 'maven' }
+    { label: 'Bazel', value: 'Bazel' },
+    { label: 'Maven', value: 'Maven' }
   ]
-  const languageOptions = [{ label: 'Java', value: 'java' }]
+  const languageOptions = [{ label: 'Java', value: 'Java' }]
 
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // const pullOptions = usePullOptions()

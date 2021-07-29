@@ -1,5 +1,6 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import executionMock from './executionMock.json'
 
 import ExecutionArtifactsView, {
@@ -142,7 +143,11 @@ describe('<ExecutionArtifactsView /> tests', () => {
     ])
   })
   test('renders ok', () => {
-    const { container } = render(<ExecutionArtifactsView />)
+    const { container } = render(
+      <TestWrapper>
+        <ExecutionArtifactsView />
+      </TestWrapper>
+    )
     expect(container).toMatchSnapshot()
   })
 })

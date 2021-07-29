@@ -1,10 +1,10 @@
 import React from 'react'
 import { Menu } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
-import type { TemplatesSummaryResponse } from '@templates-library/temporary-mock/model'
+import type { TemplateSummaryResponse } from '@templates-library/temporary-mock/model'
 
 interface ContextMenuProps {
-  template: TemplatesSummaryResponse
+  template: TemplateSummaryResponse
 }
 
 export const TemplateCardContextMenu: React.FC<ContextMenuProps> = ({ template: _template }): JSX.Element => {

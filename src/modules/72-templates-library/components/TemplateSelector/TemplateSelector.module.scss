@@ -1,0 +1,47 @@
+.templateSelector {
+  .templateList {
+    height: 100vh;
+    overflow: hidden;
+    width: calc(100% - 550px);
+
+    background: #ffffff;
+    border: 1px solid #d8d8d8;
+    box-sizing: border-box;
+    box-shadow: -3px 3px 11px rgba(156, 156, 156, 0.5);
+
+    .templateListInner {
+      display: flex;
+      flex-direction: column;
+      padding: var(--spacing-large);
+      overflow: hidden;
+      height: 100vh;
+
+      > * + * {
+        margin-top: var(--spacing-medium);
+      }
+    }
+  }
+}
+
+.levelSelect {
+  width: 250px;
+}
+
+.gridLayout {
+  width: calc(100% - 60px) !important;
+}
+
+.templateSelectorInner {
+  display: flex;
+}
+
+.templateDetails {
+  width: 550px;
+  height: 100vh;
+
+  font-family: Inter;
+  font-style: normal;
+
+  background: #00467b;
+  color: var(--white);
+}

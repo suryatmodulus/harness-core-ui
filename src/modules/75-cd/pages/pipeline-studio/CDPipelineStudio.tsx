@@ -14,6 +14,7 @@ import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineSta
 import { useStrings } from 'framework/strings'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
+import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
 import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
@@ -86,6 +87,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineList={routes.toPipelines}
         getOtherModal={getOtherModal}
       />
+      <TemplateDrawer />
     </PipelineProvider>
   )
 }

@@ -14,6 +14,7 @@ export enum PipelineActions {
   Initialize = 'Initialize',
   Fetching = 'Fetching',
   UpdatePipelineView = 'UpdatePipelineView',
+  UpdateTemplateView = 'UpdateTemplateView',
   UpdatePipeline = 'UpdatePipeline',
   SetYamlHandler = 'SetYamlHandler',
   PipelineSaved = 'PipelineSaved',
@@ -22,6 +23,10 @@ export enum PipelineActions {
   Error = 'Error'
 }
 export const DefaultNewPipelineId = '-1'
+
+export enum TemplateDrawerTypes {
+  UseTemplate = 'UseTemplate'
+}
 
 export enum DrawerTypes {
   StepConfig = 'StepConfig',
@@ -35,6 +40,10 @@ export enum DrawerTypes {
   FlowControl = 'FlowControl',
   ProvisionerStepConfig = 'ProvisionerStepConfig',
   AddProvisionerStep = 'AddProvisionerStep'
+}
+
+export const TemplateDrawerSizes: Record<TemplateDrawerTypes, React.CSSProperties['width']> = {
+  [TemplateDrawerTypes.UseTemplate]: 700
 }
 
 export const DrawerSizes: Record<DrawerTypes, React.CSSProperties['width']> = {
@@ -77,6 +86,30 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
     }
   }
 }
+
+export interface TemplateDrawerData extends Omit<IDrawerProps, 'isOpen'> {
+  type: TemplateDrawerTypes
+  data?: {
+    paletteData?: {
+      //isRollback: boolean
+      //isParallelNodeClicked: boolean
+      //onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      //entity: Diagram.DefaultNodeModel
+      //stepsMap: Map<string, StepState>
+      //hiddenAdvancedPanels?: AdvancedPanels[]
+    }
+    stepConfig?: {
+      //node: ExecutionWrapper | DependenciesWrapper
+      //addOrEdit: 'add' | 'edit'
+      //isStepGroup: boolean
+      //stepsMap: Map<string, StepState>
+      //onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      //isUnderStepGroup?: boolean
+      //hiddenAdvancedPanels?: AdvancedPanels[]
+    }
+  }
+}
+
 export interface PipelineViewData {
   isSplitViewOpen: boolean
   isYamlEditable: boolean
@@ -85,6 +118,11 @@ export interface PipelineViewData {
   }
   isDrawerOpened: boolean
   drawerData: DrawerData
+}
+
+export interface TemplateViewData {
+  isTemplateDrawerOpened: boolean
+  templateDrawerData: TemplateDrawerData
 }
 
 export interface SelectionState {
@@ -98,6 +136,7 @@ export interface PipelineReducerState {
   yamlHandler?: YamlBuilderHandlerBinding
   originalPipeline: PipelineInfoConfig
   pipelineView: PipelineViewData
+  templateView: TemplateViewData
   pipelineIdentifier: string
   error?: string
   schemaErrors: boolean
@@ -126,6 +165,7 @@ export interface ActionResponse {
   originalPipeline?: PipelineInfoConfig
   isBEPipelineUpdated?: boolean
   pipelineView?: PipelineViewData
+  templateView?: TemplateViewData
   selectionState?: SelectionState
 }
 
@@ -138,6 +178,10 @@ const dbInitialized = (): ActionReturnType => ({ type: PipelineActions.DBInitial
 const initialized = (): ActionReturnType => ({ type: PipelineActions.Initialize })
 const updatePipelineView = (response: ActionResponse): ActionReturnType => ({
   type: PipelineActions.UpdatePipelineView,
+  response
+})
+const updateTemplateView = (response: ActionResponse): ActionReturnType => ({
+  type: PipelineActions.UpdateTemplateView,
   response
 })
 const setYamlHandler = (response: ActionResponse): ActionReturnType => ({
@@ -168,6 +212,7 @@ export const PipelineContextActions = {
   fetching,
   pipelineSavedAction,
   updatePipelineView,
+  updateTemplateView,
   setYamlHandler,
   success,
   error,
@@ -187,6 +232,10 @@ export const initialState: PipelineReducerState = {
     drawerData: {
       type: DrawerTypes.AddStep
     }
+  },
+  templateView: {
+    isTemplateDrawerOpened: false,
+    templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
   },
   schemaErrors: false,
   gitDetails: {},
@@ -232,6 +281,14 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
           ? clone({ ...state.pipelineView, ...response?.pipelineView })
           : state.pipelineView
       }
+    case PipelineActions.UpdateTemplateView:
+      return {
+        ...state,
+        templateView: response?.templateView
+          ? clone({ ...state.templateView, ...response?.templateView })
+          : state.templateView
+      }
+
     case PipelineActions.UpdatePipeline:
       return {
         ...state,

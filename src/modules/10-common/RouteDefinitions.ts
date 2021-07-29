@@ -688,7 +688,19 @@ const routes = {
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
   /********************************************************************************************************************/
-  toTemplatesListing: withAccountId(({ orgIdentifier }: OrgPathProps) => `/orgs/${orgIdentifier}/templates`),
+  toTemplatesListing: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `templates`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   /********************************************************************************************************************/
   toCI: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),

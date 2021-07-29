@@ -32,7 +32,7 @@ titleGovernance: 'GOVERNANCE'
 newItem: '+ new item'
 noData: 'No data found. Click the button below to create a new item.'
 welcome: 'Welcome to Continuous Integration'
-description: 'Build your applications with blazing fast pipelines.'
+description: Build, test and push artifacts to repositories.
 createPipeline: '{{ $.common.createPipeline }}'
 privileged: Privileged
 privilegedInfo: 'Enable this option to run the container with escalated privileges. This is the equivalent of running a container with the Docker --privileged flag.'

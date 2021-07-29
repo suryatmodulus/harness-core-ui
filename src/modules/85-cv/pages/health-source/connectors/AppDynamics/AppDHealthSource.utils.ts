@@ -3,7 +3,7 @@ import type { UpdatedHealthSource } from '../../HealthSourceDrawer/HealthSourceD
 import { HealthSourceTypes } from '../../types'
 
 export const createAppDynamicsData = (sourceData: any) => {
-  const payload: UpdatedHealthSource = sourceData?.healthSourceList.find(
+  const payload: UpdatedHealthSource = sourceData?.healthSourceList?.find(
     (source: UpdatedHealthSource) => source.identifier === sourceData.healthSourceIdentifier
   )
 

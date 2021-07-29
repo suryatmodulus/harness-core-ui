@@ -1,13 +1,13 @@
-.projectButton {
-  border-right: 1px solid rgba(204, 204, 204, 0.3) !important;
-  justify-content: start !important;
-  padding: var(--spacing-large) !important;
-}
-
 .projectSelector {
   border: 0.5px solid var(--grey-500);
   border-radius: 2px;
-  height: 24px;
+  height: 26px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+}
+
+.selectProjectDisplay {
+  grid-template-columns: 1fr;
 }
 
 .projectText {
@@ -55,7 +55,7 @@
 }
 
 .projectContainerWrapper {
-  height: calc(100vh - 150px);
+  height: calc(100vh - 120px);
   justify-content: space-between;
   overflow: scroll;
 }
@@ -66,6 +66,7 @@
 
 .selectContainer {
   height: 100vh;
+  padding-bottom: var(--spacing-none) !important;
   background: #f3f8fb !important;
 }
 
@@ -73,9 +74,18 @@
   transform: translate3d(21px, -5px, 0px) !important;
 }
 
-.selectButton {
-  border-radius: inherit;
+.popoverTarget {
+  border-radius: 0;
   height: 24px;
   min-height: unset;
   padding: var(--spacing-none) !important;
+}
+
+.selectButton {
+  width: 100%;
+  justify-content: space-between;
+}
+
+.selectedProject {
+  justify-content: flex-start;
 }

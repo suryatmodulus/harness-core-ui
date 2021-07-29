@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Layout, Text } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
@@ -12,6 +12,7 @@ import { getIdentifierFromValue, getScopeFromValue } from '@common/components/En
 import { useStrings } from 'framework/strings'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import { useDeepCompareEffect } from '@common/hooks'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -112,9 +113,9 @@ export default function ManifestSelection({
 
   const { getString } = useStrings()
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     refetchConnectorList()
-  }, [stage])
+  }, [stage, listOfManifests])
 
   return (
     <Layout.Vertical>

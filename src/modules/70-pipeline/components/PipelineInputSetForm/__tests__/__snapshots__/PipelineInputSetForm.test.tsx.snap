@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CD enabled CD stage form READONLY mode: disabled CD stage 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          id="Stage.testCdStage1"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
+            >
+              Stage: 
+              testCdStage1
+            </p>
+          </div>
+          <div
+            class="topAccordion"
+          />
+        </div>
+      </div>
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          id="Stage.parallelStage1"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
+            >
+              Stage: 
+              parallelStage1
+            </p>
+          </div>
+          <div
+            class="topAccordion"
+          />
+        </div>
+      </div>
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          id="Stage.parallelStage2"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--padding-top-medium StyledProps--padding-left-medium"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black100 StyledProps--font-weight-semi-bold"
+            >
+              Stage: 
+              parallelStage2
+            </p>
+          </div>
+          <div
+            class="topAccordion"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CI enabled CI READONLY mode: CI stage readonly mode 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
+    >
+      <div
+        class="subheading"
+      >
+        ciCodebase
+      </div>
+      <div
+        class="container"
+      >
+        <div
+          class="bp3-form-group"
+          style="margin-bottom: 0px;"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+              >
+                <input
+                  disabled=""
+                  name="/dummypath.properties.ci.codebase.build.type"
+                  type="radio"
+                  value="branch"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                gitBranch
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-disabled bp3-inline Radio--radio"
+              >
+                <input
+                  disabled=""
+                  name="/dummypath.properties.ci.codebase.build.type"
+                  type="radio"
+                  value="tag"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                gitTag
+              </label>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`CI enabled CI present in one of the stages: CI codebase input set form 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
+    >
+      <div
+        class="subheading"
+      >
+        ciCodebase
+      </div>
+      <div
+        class="container"
+      >
+        <div
+          class="bp3-form-group"
+          style="margin-bottom: 0px;"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="/dummypath.properties.ci.codebase.build.type"
+                  type="radio"
+                  value="branch"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                gitBranch
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio--radio"
+              >
+                <input
+                  name="/dummypath.properties.ci.codebase.build.type"
+                  type="radio"
+                  value="tag"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                gitTag
+              </label>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+`;

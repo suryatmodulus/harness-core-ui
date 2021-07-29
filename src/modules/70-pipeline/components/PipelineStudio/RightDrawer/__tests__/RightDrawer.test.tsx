@@ -96,6 +96,7 @@ describe('Right Drawer tests', () => {
           renderPipelineStage: () => <div />,
           fetchPipeline: () => new Promise<void>(() => undefined),
           updatePipelineView: () => undefined,
+          updateTemplateView: () => undefined,
           updateStage: udpateStageMock,
           getStageFromPipeline: () => ({ stage: stateMock.pipeline.stages[0] as any, parent: undefined }),
           setYamlHandler: () => undefined,

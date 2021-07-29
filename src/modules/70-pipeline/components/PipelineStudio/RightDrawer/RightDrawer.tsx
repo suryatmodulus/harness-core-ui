@@ -12,7 +12,7 @@ import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { DrawerData, DrawerSizes, DrawerTypes } from '../PipelineContext/PipelineActions'
+import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
 import { TabTypes, Values } from '../StepCommands/StepCommandTypes'
 import { StepPalette } from '../StepPalette/StepPalette'
@@ -63,6 +63,41 @@ const checkDuplicateStep = (
   return false
 }
 
+export const updateStepWithinStage = (
+  execution: ExecutionElementConfig,
+  processingNodeIdentifier: string,
+  processedNode: StepElementConfig
+): void => {
+  // Finds the step in the stage, and updates with the processed node
+  execution?.steps?.forEach(stepWithinStage => {
+    if (stepWithinStage.stepGroup) {
+      // If stage has a step group, loop over the step group steps and update the matching identifier with node
+      if (stepWithinStage.stepGroup?.identifier === processingNodeIdentifier) {
+        stepWithinStage.stepGroup = processedNode as any
+      } else {
+        updateStepWithinStage(stepWithinStage.stepGroup, processingNodeIdentifier, processedNode)
+      }
+    } else if (stepWithinStage.parallel) {
+      // If stage has a parallel steps, loop over and update the matching identifier with node
+      stepWithinStage.parallel.forEach(parallelStep => {
+        if (parallelStep?.stepGroup?.identifier === processingNodeIdentifier) {
+          parallelStep.stepGroup = processedNode as any
+        } else if (parallelStep.step?.identifier === processingNodeIdentifier) {
+          parallelStep.step = processedNode
+        } else if (parallelStep?.stepGroup) {
+          updateStepWithinStage(parallelStep?.stepGroup, processingNodeIdentifier, processedNode)
+        }
+      })
+    } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
+      // Else simply find the matching step ad update the node
+      stepWithinStage.step = processedNode as StepElementConfig
+    }
+  })
+  if (execution?.rollbackSteps) {
+    updateStepWithinStage({ steps: execution.rollbackSteps }, processingNodeIdentifier, processedNode)
+  }
+}
+
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
     state: {
@@ -73,6 +108,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     isReadonly,
     updateStage,
     updatePipelineView,
+    updateTemplateView,
     getStageFromPipeline,
     stepsFactory,
     setSelectedStepId
@@ -193,41 +229,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       }
     }
   }, [selectedStepId, selectedStage, isSplitViewOpen])
-
-  const updateStepWithinStage = (
-    execution: ExecutionElementConfig,
-    processingNodeIdentifier: string,
-    processedNode: StepElementConfig
-  ): void => {
-    // Finds the step in the stage, and updates with the processed node
-    execution?.steps?.forEach(stepWithinStage => {
-      if (stepWithinStage.stepGroup) {
-        // If stage has a step group, loop over the step group steps and update the matching identifier with node
-        if (stepWithinStage.stepGroup?.identifier === processingNodeIdentifier) {
-          stepWithinStage.stepGroup = processedNode as any
-        } else {
-          updateStepWithinStage(stepWithinStage.stepGroup, processingNodeIdentifier, processedNode)
-        }
-      } else if (stepWithinStage.parallel) {
-        // If stage has a parallel steps, loop over and update the matching identifier with node
-        stepWithinStage.parallel.forEach(parallelStep => {
-          if (parallelStep?.stepGroup?.identifier === processingNodeIdentifier) {
-            parallelStep.stepGroup = processedNode as any
-          } else if (parallelStep.step?.identifier === processingNodeIdentifier) {
-            parallelStep.step = processedNode
-          } else if (parallelStep?.stepGroup) {
-            updateStepWithinStage(parallelStep?.stepGroup, processingNodeIdentifier, processedNode)
-          }
-        })
-      } else if (stepWithinStage.step?.identifier === processingNodeIdentifier) {
-        // Else simply find the matching step ad update the node
-        stepWithinStage.step = processedNode as StepElementConfig
-      }
-    })
-    if (execution?.rollbackSteps) {
-      updateStepWithinStage({ steps: execution.rollbackSteps }, processingNodeIdentifier, processedNode)
-    }
-  }
 
   const onSubmitStep = async (item: Partial<Values>, drawerType: DrawerTypes): Promise<void> => {
     if (data?.stepConfig?.node) {
@@ -443,6 +444,12 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           stepsFactory={stepsFactory}
           hasStepGroupAncestor={!!data?.stepConfig?.isUnderStepGroup}
           onChange={value => onSubmitStep(value, DrawerTypes.StepConfig)}
+          onUseTemplate={_step =>
+            updateTemplateView({
+              isTemplateDrawerOpened: true,
+              templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
+            })
+          }
           isStepGroup={data.stepConfig.isStepGroup}
           hiddenPanels={data.stepConfig.hiddenAdvancedPanels}
           stageType={stageType as StageType}

@@ -39,7 +39,8 @@ import {
   PipelineReducer,
   PipelineViewData,
   DrawerTypes,
-  SelectionState
+  SelectionState,
+  TemplateViewData
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
@@ -168,6 +169,7 @@ export interface PipelineContextInterface {
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
+  updateTemplateView: (data: TemplateViewData) => void
   deletePipelineCache: () => Promise<void>
   getStageFromPipeline<T extends StageElementConfig = StageElementConfig>(
     stageId: string,
@@ -524,6 +526,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   renderPipelineStage: () => <div />,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
+  updateTemplateView: () => undefined,
   updateStage: () => new Promise<void>(() => undefined),
   getStageFromPipeline: () => ({ stage: undefined, parent: undefined }),
   setYamlHandler: () => undefined,
@@ -626,6 +629,10 @@ export const PipelineProvider: React.FC<{
 
   const updatePipelineView = React.useCallback((data: PipelineViewData) => {
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
+  }, [])
+
+  const updateTemplateView = React.useCallback((data: TemplateViewData) => {
+    dispatch(PipelineContextActions.updateTemplateView({ templateView: data }))
   }, [])
 
   // stage/step selection
@@ -763,6 +770,7 @@ export const PipelineProvider: React.FC<{
         updatePipeline,
         updateStage,
         updatePipelineView,
+        updateTemplateView,
         pipelineSaved,
         deletePipelineCache,
         isReadonly,

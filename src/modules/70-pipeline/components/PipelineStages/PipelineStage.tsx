@@ -6,6 +6,7 @@ export interface PipelineStageProps<T = Record<string, unknown>> {
   name: string
   type: string
   icon: IconName
+  hoverIcon?: IconName
   isDisabled: boolean
   title: string
   description: string

@@ -16,8 +16,8 @@ const getStageAttributes = (_getString: UseStringsReturn['getString']): StageAtt
 
 const getStageEditorImplementation = (isEnabled: boolean, _getString: UseStringsReturn['getString']) => (
   <PipelineStage
-    icon={'pipeline'}
-    name={'Pipeline'}
+    icon={'chained-pipeline'}
+    name={_getString('pipeline.pipelineSteps.chainedPipeline')}
     title=""
     description=""
     type={StageType.PIPELINE}

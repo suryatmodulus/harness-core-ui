@@ -1,6 +1,6 @@
 import type { IconName } from '@wings-software/uicore'
 import { TemplateType } from '@templates-library/utils/templatesUtils'
-import type { TemplatesSummaryResponse } from '@templates-library/temporary-mock/model'
+import type { TemplateSummaryResponse } from '@templates-library/temporary-mock/model'
 
 export const templateColorStyleMap: { [keyof in TemplateType]: React.CSSProperties } = {
   [TemplateType.pipeline]: {
@@ -45,7 +45,7 @@ interface IconProps {
   size: number
 }
 
-export const getIconsForTemplate = (data: TemplatesSummaryResponse): IconProps[] => {
+export const getIconsForTemplate = (data: TemplateSummaryResponse): IconProps[] => {
   const icons: IconProps[] = []
   if (data.modules?.includes('cd')) {
     icons.push({ icon: 'cd-main', size: 20 })

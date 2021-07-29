@@ -132,7 +132,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       }}
       defaultScope={defaultScope}
       recordClassName={css.listItem}
-      fetchRecords={(scope, search = '', done) => {
+      fetchRecords={(scope, search, done) => {
         const selectedType = type || (secretType?.value as SecretDTOV2['type'])
         fetchRecords(
           scope,

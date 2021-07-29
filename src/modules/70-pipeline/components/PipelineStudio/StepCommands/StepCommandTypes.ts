@@ -12,6 +12,7 @@ export enum AdvancedPanels {
 export interface StepCommandsProps {
   step: StepElementConfig | StepGroupElementConfig
   onChange: (step: Partial<Values>) => void
+  onUseTemplate?: (step: Partial<Values>) => void
   stepsFactory: AbstractStepFactory
   isStepGroup: boolean
   isReadonly: boolean

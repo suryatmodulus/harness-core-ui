@@ -6,7 +6,7 @@ import {
   PipelineContext,
   PipelineContextInterface
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { DrawerTypes, TemplateDrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { factory } from '@pipeline/components/PipelineSteps/Steps/__tests__/StepTestUtil'
 import { CustomVariables } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariables'
 import FeatureStageSpecifications from '../FeatureStageSpecifications'
@@ -25,6 +25,10 @@ const getPipelineContext = (): PipelineContextInterface => ({
       isYamlEditable: false,
       drawerData: { type: DrawerTypes.AddStep },
       splitViewData: {}
+    },
+    templateView: {
+      isTemplateDrawerOpened: false,
+      templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
     },
     schemaErrors: false,
     gitDetails: {},
@@ -45,6 +49,7 @@ const getPipelineContext = (): PipelineContextInterface => ({
   setYamlHandler: jest.fn(),
   updatePipeline: jest.fn(),
   updatePipelineView: jest.fn(),
+  updateTemplateView: jest.fn(),
   updateStage: jest.fn(),
   getStageFromPipeline: jest.fn(() => ({ stage: undefined, parent: undefined })),
   deletePipelineCache: jest.fn(),

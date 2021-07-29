@@ -12,6 +12,12 @@
     border-right: dashed 1px #ccc;
     padding: var(--spacing-xxlarge);
   }
+  .hoverStageSection {
+    padding: var(--spacing-xxlarge);
+  }
+  .emptyStageView {
+    margin: auto;
+  }
 
   .create-new-cards {
     display: grid;
@@ -35,6 +41,7 @@
       justify-content: center;
       display: grid;
       padding: 8px;
+      text-align: center;
       &.selected {
         font-weight: 600 !important;
       }
@@ -51,19 +58,22 @@
     font-size: var(--font-size-medium);
     font-weight: 600;
     color: var(--grey-800);
+    margin-bottom: 8px;
   }
 
   .stageDescription {
-    font-size: var(--font-size-small);
-    color: var(--grey-600);
-    margin: var(--spacing-large);
-    text-align: center;
+    font-size: var(--font-size-normal);
+    color: var(--grey-800);
+    font-weight: 400;
     height: 60px;
+  }
+  .hoverStageDescription {
+    text-align: center;
   }
   .closeIcon {
     cursor: pointer;
     position: absolute;
-    top: 24px;
-    right: 24px;
+    top: 18px;
+    right: 18px;
   }
 }

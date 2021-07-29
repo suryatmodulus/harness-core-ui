@@ -1,7 +1,7 @@
 import type { Pageable, Sort } from 'services/pipeline-ng'
 import type { TemplateType } from '../utils/templatesUtils'
 
-export interface TemplatesSummaryResponse {
+export interface TemplateSummaryResponse {
   templateType: TemplateType
   createdAt?: number
   description?: string
@@ -23,7 +23,7 @@ export interface TemplatesSummaryResponse {
 }
 
 export interface TemplatesPageSummaryResponse {
-  content?: TemplatesSummaryResponse[]
+  content?: TemplateSummaryResponse[]
   empty?: boolean
   first?: boolean
   last?: boolean

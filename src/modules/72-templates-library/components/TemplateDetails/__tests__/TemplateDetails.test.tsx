@@ -7,7 +7,7 @@ describe('<TemplateDetails /> tests', () => {
   test('snapshot test', async () => {
     const { container } = render(
       <TestWrapper>
-        <TemplateDetails templateIdentifier={'123'} onClose={jest.fn()} />
+        <TemplateDetails templateIdentifier={'123'} />
       </TestWrapper>
     )
 

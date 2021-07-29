@@ -1,10 +1,12 @@
 import React from 'react'
-import { Tabs, Tab } from '@wings-software/uicore'
+import { Tabs, Tab, Button } from '@wings-software/uicore'
+import { Expander } from '@blueprintjs/core'
 import cx from 'classnames'
 import type { FormikProps } from 'formik'
 import { isEmpty } from 'lodash-es'
 
 import { useStrings } from 'framework/strings'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { StepWidgetWithFormikRef } from '@pipeline/components/AbstractSteps/StepWidget'
 import { AdvancedStepsWithRef } from '@pipeline/components/PipelineSteps/AdvancedSteps/AdvancedSteps'
 import type { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
@@ -39,6 +41,7 @@ export function StepCommands(
   const {
     step,
     onChange,
+    onUseTemplate,
     isStepGroup,
     isReadonly,
     stepsFactory,
@@ -50,6 +53,7 @@ export function StepCommands(
     stageType = StageType.DEPLOY
   } = props
   const { getString } = useStrings()
+  const { NG_TEMPLATES } = useFeatureFlags()
   const [activeTab, setActiveTab] = React.useState(StepCommandTabs.StepConfiguration)
   const stepRef = React.useRef<FormikProps<unknown> | null>(null)
   const advancedConfRef = React.useRef<FormikProps<unknown> | null>(null)
@@ -121,20 +125,28 @@ export function StepCommands(
     }
   }))
 
-  const stepWidgetWithFormikRef = (
-    <StepWidgetWithFormikRef
-      factory={stepsFactory}
-      initialValues={step}
-      readonly={isReadonly}
-      isNewStep={isNewStep}
-      onUpdate={onChange}
-      type={isStepGroup ? StepType.StepGroup : ((step as StepElementConfig).type as StepType)}
-      ref={stepRef}
-    />
-  )
+  const getStepWidgetWithFormikRef = () => {
+    const stepType: StepType = isStepGroup
+      ? StepType.StepGroup
+      : (step as any)['step-template']
+      ? StepType.TemplateStep
+      : ((step as StepElementConfig).type as StepType)
+
+    return (
+      <StepWidgetWithFormikRef
+        factory={stepsFactory}
+        initialValues={step}
+        readonly={isReadonly}
+        isNewStep={isNewStep}
+        onUpdate={onChange}
+        type={stepType}
+        ref={stepRef}
+      />
+    )
+  }
 
   if (withoutTabs) {
-    return <div className={cx(css.stepCommand, css.withoutTabs)}>{stepWidgetWithFormikRef}</div>
+    return <div className={cx(css.stepCommand, css.withoutTabs)}>{getStepWidgetWithFormikRef()}</div>
   }
 
   return (
@@ -144,7 +156,7 @@ export function StepCommands(
           <Tab
             id={StepCommandTabs.StepConfiguration}
             title={isStepGroup ? getString('stepGroupConfiguration') : getString('stepConfiguration')}
-            panel={stepWidgetWithFormikRef}
+            panel={getStepWidgetWithFormikRef()}
           />
           <Tab
             id={StepCommandTabs.Advanced}
@@ -163,6 +175,22 @@ export function StepCommands(
               />
             }
           />
+          {NG_TEMPLATES && (
+            <>
+              <Expander />
+              <Button
+                icon="library"
+                minimal
+                small
+                onClick={() => {
+                  onUseTemplate?.(step)
+                }}
+                className={css.useTemplateBtn}
+              >
+                Use template
+              </Button>
+            </>
+          )}
         </Tabs>
       </div>
     </div>

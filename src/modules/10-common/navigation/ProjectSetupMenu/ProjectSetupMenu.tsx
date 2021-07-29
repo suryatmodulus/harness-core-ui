@@ -15,7 +15,7 @@ interface ProjectSetupMenuProps {
 const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
-  const { NG_SHOW_DELEGATE } = useFeatureFlags()
+  const { NG_SHOW_DELEGATE, NG_TEMPLATES } = useFeatureFlags()
   const params = { accountId, orgIdentifier, projectIdentifier, module }
   const getGitSyncEnabled = (): boolean => {
     if (module === 'ci' || module === 'cd' || !module) return true
@@ -35,6 +35,9 @@ const ProjectSetupMenu: React.FC<ProjectSetupMenuProps> = ({ module }) => {
             label={getString('gitManagement')}
             to={routes.toGitSyncAdmin({ accountId, orgIdentifier, projectIdentifier, module })}
           />
+        ) : null}
+        {NG_TEMPLATES ? (
+          <SidebarLink label={getString('common.templates')} to={routes.toTemplatesListing(params)} />
         ) : null}
       </Layout.Vertical>
     </NavExpandable>

@@ -600,6 +600,12 @@ provisionerSteps: Provisioner Steps
 addStage:
   title: Select stage type
   description: Hover over stage type for more info.
+pipelineSteps:
+  customStage: Custom Stage
+  chainedPipeline: Chained Pipeline
+  deployStageDescription: Deploy services, serverless functions or execute workloads.
+  featureStageDescription: Enable or disable functionality remotely without redeploying code.
+  approvalStageDescription: Approve or reject changes during Pipeline executions.
 aboutYourStage:
   stageNamePlaceholder: Enter Stage Name
 infraSpecifications:

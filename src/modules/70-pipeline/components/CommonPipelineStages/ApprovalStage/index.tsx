@@ -22,8 +22,9 @@ const getStageEditorImplementation = (
   <ApprovalStage
     icon={'pipeline-approval'}
     name={'Approval'}
+    hoverIcon={'approval-stage'}
     title={_getString('approvalStage.title')}
-    description={_getString('approvalStage.description')}
+    description={_getString('pipeline.pipelineSteps.approvalStageDescription')}
     type={StageType.APPROVAL}
     iconsStyle={{ color: 'var(--pipeline-approval-stage-color)' }}
     isDisabled={!isEnabled}

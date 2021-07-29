@@ -30,6 +30,7 @@ import {
 } from './Utils'
 import useToggleRuleState from './useToggleRuleState'
 // import SpotvsODChart from './SpotvsODChart'
+import DownloadCLI from '../DownloadCLI/DownloadCLI'
 import css from './COGatewayList.module.scss'
 interface COGatewayAnalyticsProps {
   service: { data: Service; index: number } | null | undefined
@@ -244,7 +245,9 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           {/* <Avatar email="john.doe@harnes.io" size={'small'} />
           {'John Doe '} */}
         </Text>
-        <Heading level={3}>DETAILS</Heading>
+        <Heading level={3} className={css.analyticsSubHeader}>
+          DETAILS
+        </Heading>
         <Layout.Horizontal spacing="large" padding="medium">
           <Layout.Vertical spacing="large" padding="medium">
             <Text>Connector</Text>
@@ -311,6 +314,14 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             ) : null}
           </Layout.Vertical>
         </Layout.Horizontal>
+        {props.service?.data.fulfilment !== 'kubernetes' && (
+          <>
+            <Heading level={3} className={css.analyticsSubHeader}>
+              {getString('ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download')}
+            </Heading>
+            <DownloadCLI />
+          </>
+        )}
         <Container padding="medium" style={{ backgroundColor: '#f7fbfe' }}>
           <Layout.Horizontal spacing="large">
             {loading ? (

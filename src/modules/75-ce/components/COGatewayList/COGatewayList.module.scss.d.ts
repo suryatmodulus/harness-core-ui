@@ -12,5 +12,6 @@ declare const styles: {
   readonly breadCrumb: string
   readonly fulFilmentIcon: string
   readonly refreshIconContainer: string
+  readonly analyticsSubHeader: string
 }
 export default styles

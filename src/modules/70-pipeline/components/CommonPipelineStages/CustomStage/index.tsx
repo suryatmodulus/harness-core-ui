@@ -16,8 +16,8 @@ const getStageAttributes = (_getString: UseStringsReturn['getString']): StageAtt
 
 const getStageEditorImplementation = (isEnabled: boolean, _getString: UseStringsReturn['getString']) => (
   <CustomStage
-    icon={'pipeline-custom'}
-    name={'Custom'}
+    icon={'custom-stage-icon'}
+    name={_getString('pipeline.pipelineSteps.customStage')}
     title=""
     description=""
     type={StageType.CUSTOM}

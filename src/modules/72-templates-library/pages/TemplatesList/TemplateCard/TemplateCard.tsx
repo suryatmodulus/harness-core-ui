@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Card, Text, Color, Container, Layout, CardBody, Icon, Tag } from '@wings-software/uicore'
 import { UserLabel } from '@common/components'
-import type { TemplatesSummaryResponse } from '@templates-library/temporary-mock/model'
+import type { TemplateSummaryResponse } from '@templates-library/temporary-mock/model'
 import { getIconsForTemplate, templateColorStyleMap } from '@templates-library/pages/TemplatesList/TemplatesListUtils'
 import { TemplateCardContextMenu } from './TemplateCardContextMenu/TemplateCardContextMenu'
 import { TemplateColor } from './TemplateColor/TemplateColor'
@@ -11,12 +11,13 @@ import { TemplateColor } from './TemplateColor/TemplateColor'
 import css from './TemplateCard.module.scss'
 
 export interface TemplateCardProps {
-  template: TemplatesSummaryResponse
+  template: TemplateSummaryResponse
   onSelect: (templateIdentifier: string) => void
+  className?: string
 }
 
 export const TemplateCard: React.FC<TemplateCardProps> = (props): JSX.Element => {
-  const { template, onSelect } = props
+  const { template, onSelect, className } = props
 
   // const { module, accountId, projectIdentifier, orgIdentifier, } = useParams<
   //   PipelineType<{
@@ -31,7 +32,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = (props): JSX.Element =>
   const style = templateColorStyleMap[template.templateType]
 
   return (
-    <Card className={css.templateCard} interactive onClick={() => onSelect(template.identifier!)}>
+    <Card className={cx(css.templateCard, className)} interactive onClick={() => onSelect(template.identifier!)}>
       <div className={cx(css.sectionMargin, css.sectionBorder)}>
         <Container padding={{ bottom: 'medium' }} className={css.templateHeader}>
           <span>

@@ -8,6 +8,7 @@ declare const styles: {
   readonly secondaryIcon: string
   readonly tertiaryIcon: string
   readonly inComplete: string
+  readonly template: string
   readonly conditional: string
   readonly iconGroup: string
   readonly addNode: string

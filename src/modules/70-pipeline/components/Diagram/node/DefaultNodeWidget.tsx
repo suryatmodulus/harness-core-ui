@@ -8,6 +8,7 @@ import type { DefaultNodeModel } from './DefaultNodeModel'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import { Event, DiagramDrag } from '../Constants'
+import { TemplateIcon } from './assets/TemplateIcon'
 import css from './DefaultNode.module.scss'
 
 export interface DefaultNodeProps {
@@ -257,7 +258,12 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             </Text>
           </div>
         )}
-
+        {options.isTemplate && (
+          <div className={css.template}>
+            {/* TODO: move icon to uicore */}
+            <TemplateIcon />
+          </div>
+        )}
         {options.canDelete && (
           <Button
             className={css.closeNode}

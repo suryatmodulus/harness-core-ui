@@ -1938,6 +1938,11 @@ export interface StringsMap {
   'pipeline.overrideSets.overrideSetError': string
   'pipeline.overrideSets.overrideSetInfo': string
   'pipeline.overrideSets.overrideSetPlaceholder': string
+  'pipeline.pipelineSteps.approvalStageDescription': string
+  'pipeline.pipelineSteps.chainedPipeline': string
+  'pipeline.pipelineSteps.customStage': string
+  'pipeline.pipelineSteps.deployStageDescription': string
+  'pipeline.pipelineSteps.featureStageDescription': string
   'pipeline.progressPercentage': string
   'pipeline.provisionerSteps': string
   'pipeline.regionPlaceholder': string
@@ -2192,6 +2197,7 @@ export interface StringsMap {
   'templatesLibrary.openEditTemplate': string
   'templatesLibrary.previewTemplate': string
   'templatesLibrary.referencedBy': string
+  'templatesLibrary.selectTemplateToPreview': string
   'templatesLibrary.templateInputs': string
   'templatesLibrary.templateSettings': string
   'templatesLibrary.useTemplate': string
@@ -3779,10 +3785,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'approvalStage.approvalTypeHeading': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'approvalStage.description': string
   /**
    * @deprecated migrate this string to module level file
    */
@@ -6042,10 +6044,6 @@ export interface StringsMap {
   /**
    * @deprecated migrate this string to module level file
    */
-  'pipelineSteps.deploy.create.deployStageDescription': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
   'pipelineSteps.deploy.create.deployStageName': string
   /**
    * @deprecated migrate this string to module level file
@@ -6167,10 +6165,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'pipelineSteps.environmentTab.specifyYourEnvironment': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'pipelineSteps.feature.create.featureStageDescription': string
   /**
    * @deprecated migrate this string to module level file
    */

@@ -17,11 +17,12 @@ const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttr
 const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsReturn['getString']) => (
   <FeatureFlagStage
     icon={'cf-main'}
+    hoverIcon={'feature-flag-stage'}
     iconsStyle={{ color: 'var(--pipeline-feature-stage-color)' }}
     name={getString('pipelineSteps.feature.create.featureStageName')}
     type={StageType.FEATURE}
     title={getString('pipelineSteps.feature.create.featureStageName')}
-    description={getString('pipelineSteps.feature.create.featureStageDescription')}
+    description={getString('pipeline.pipelineSteps.featureStageDescription')}
     isDisabled={false}
     isHidden={!isEnabled}
     isApproval={false}

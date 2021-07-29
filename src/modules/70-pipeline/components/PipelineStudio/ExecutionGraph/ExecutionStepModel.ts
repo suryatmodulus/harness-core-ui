@@ -333,6 +333,7 @@ export class ExecutionStepModel extends DiagramModel {
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
                 : false,
+              isTemplate: !!(node.step as any)?.['step-template'],
               draggable: !isReadonly,
               canDelete: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },

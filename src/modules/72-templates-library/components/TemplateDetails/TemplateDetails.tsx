@@ -1,19 +1,34 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
-import { Drawer, Menu, Position } from '@blueprintjs/core'
-import { Button, Color, Layout, Popover, Select, SelectOption, Tag, Text, Tabs, Tab } from '@wings-software/uicore'
+import { Menu } from '@blueprintjs/core'
+import {
+  Button,
+  Color,
+  Layout,
+  Popover,
+  Select,
+  SelectOption,
+  Tag,
+  Text,
+  Tabs,
+  Tab,
+  Icon
+} from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { TemplateInputs } from '../TemplateInputs/TemplateInputs'
+import { TemplateYaml } from '../TemplateYaml/TemplateYaml'
 
 import css from './TemplateDetails.module.scss'
 
 export interface TemplateDetailsProps {
   templateIdentifier: string | undefined
-  onClose: () => void
+  showActions?: boolean
+  onTemplateSelect?: (templateIdentifier: string) => void
 }
+
 export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
-  const { templateIdentifier, onClose } = props
+  const { templateIdentifier, showActions = false, onTemplateSelect } = props
   const { getString } = useStrings()
 
   const template: { tags: { [key: string]: string }; version: string } = {
@@ -49,21 +64,22 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
     )
   }
 
+  if (!templateIdentifier) {
+    return (
+      <div className={css.emptyHolder}>
+        <div className={css.emptyHolderInner}>
+          <Icon name="advanced" size={100} color={Color.GREY_200} />
+          <Text color={Color.GREY_200}>
+            <i>{getString('templatesLibrary.selectTemplateToPreview')}</i>
+          </Text>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <Drawer
-      onClose={onClose}
-      usePortal={true}
-      autoFocus={true}
-      canEscapeKeyClose={true}
-      canOutsideClickClose={true}
-      enforceFocus={false}
-      hasBackdrop={true}
-      size={600}
-      isOpen={!!templateIdentifier}
-      position={Position.RIGHT}
-      className={css.drawer}
-    >
-      <div className={css.main}>
+    <div className={css.main}>
+      <div className={css.details}>
         <div>
           <Layout.Horizontal spacing="medium" flex={true} style={{ justifyContent: 'flex-end' }}>
             <Popover content={<ContextMenu />} minimal>
@@ -121,7 +137,7 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
       <div className={cx(css.tabsContainer)}>
         <Tabs id="template-details">
           <Tab id="template-input" title={getString('templatesLibrary.templateInputs')} panel={<TemplateInputs />} />
-          <Tab id="template-yaml" title={getString('yaml')} panel={<div>YAML</div>} />
+          <Tab id="template-yaml" title={getString('yaml')} panel={<TemplateYaml />} />
           <Tab
             id="template-referenced-by"
             title={
@@ -138,6 +154,19 @@ export const TemplateDetails: React.FC<TemplateDetailsProps> = props => {
           />
         </Tabs>
       </div>
-    </Drawer>
+      {showActions && (
+        <div className={css.actionHolder}>
+          <Button
+            intent="primary"
+            onClick={() => {
+              onTemplateSelect?.(templateIdentifier)
+            }}
+          >
+            Use template
+          </Button>
+          <Button minimal>Copy to pipeline</Button>
+        </div>
+      )}
+    </div>
   )
 }

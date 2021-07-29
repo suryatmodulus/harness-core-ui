@@ -14,34 +14,28 @@ exports[`Projects Side Nav render 1`] = `
         projectLabel
       </p>
       <div
-        class="Layout--horizontal StyledProps--main projectSelector StyledProps--flex"
+        class="projectSelector selectProjectDisplay"
       >
-        <button
-          class="bp3-button bp3-minimal selectButton"
-          type="button"
+        <div
+          class="bp3-popover-wrapper bp3-fill"
         >
-          <span
-            class="bp3-button-text"
-          >
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main projectText StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal StyledProps--padding-xsmall"
-              style="--text-line-clamp: 1;"
-            >
-              selectProject
-            </p>
-          </span>
-        </button>
-        <span
-          class="bp3-popover-wrapper"
-        >
-          <span
+          <div
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal selectButton"
-              data-testid="project-select-dropdown"
+              class="bp3-button bp3-minimal popoverTarget selectButton"
+              data-testid="project-select-button"
               type="button"
             >
+              <span
+                class="bp3-button-text"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal StyledProps--padding-xsmall"
+                >
+                  selectProject
+                </p>
+              </span>
               <span
                 class="bp3-icon bp3-icon-chevron-right"
                 icon="chevron-right"
@@ -62,8 +56,8 @@ exports[`Projects Side Nav render 1`] = `
                 </svg>
               </span>
             </button>
-          </span>
-        </span>
+          </div>
+        </div>
       </div>
     </div>
     <div

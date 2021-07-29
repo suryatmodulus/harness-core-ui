@@ -1,8 +1,11 @@
 import React from 'react'
-import { Card, Icon, Layout } from '@wings-software/uicore'
+import { Card, Icon, IconName } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { PipelineStageProps } from '../PipelineStage'
+import EmptyStageView from './EmptyStageView'
+import StageHoverView from './StageHoverView'
+
 import css from './AddStageView.module.scss'
 
 export interface AddStageViewProps {
@@ -11,14 +14,17 @@ export interface AddStageViewProps {
   isParallel?: boolean
 }
 
-interface SelectedTypeData {
+export interface SelectedAddStageTypeData {
   title?: string
   description?: string
   type?: string
+  icon?: IconName
+  hoverIcon?: IconName
 }
+
 export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel = false, stages }) => {
   const { getString } = useStrings()
-  const [selectedType, setSelectedType] = React.useState<SelectedTypeData | undefined>(undefined)
+  const [selectedType, setSelectedType] = React.useState<SelectedAddStageTypeData | undefined>(undefined)
 
   return (
     <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
@@ -55,26 +61,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
           ))}
         </div>
       </div>
-      <div style={{ margin: 'auto' }}>
-        <Icon
-          name="main-close"
-          size={12}
-          className={css.closeIcon}
-          onClick={() => window.dispatchEvent(new CustomEvent('CLOSE_CREATE_STAGE_POPOVER'))}
-        />
-        <Layout.Vertical margin={{ top: 'xxlarge', bottom: 'xxlarge', right: 'medium', left: 'medium' }}>
-          <Layout.Horizontal margin={{ bottom: 'medium', top: 'large' }} flex={{ justifyContent: 'center' }}>
-            {selectedType?.title ? (
-              <div className={css.hoverTitle}> {selectedType?.title}</div>
-            ) : (
-              <Icon name="add-stage" size={74} />
-            )}
-          </Layout.Horizontal>
-          <div className={css.stageDescription}>
-            {selectedType?.description || getString('pipeline.addStage.description')}
-          </div>
-        </Layout.Vertical>
-      </div>
+      {selectedType ? <StageHoverView selectedStageType={selectedType} /> : <EmptyStageView />}
     </div>
   )
 }

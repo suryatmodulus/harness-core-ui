@@ -25,7 +25,7 @@ describe('ProjectSelector', () => {
     expect(container).toMatchSnapshot()
 
     await act(async () => {
-      fireEvent.click(getByTestId('project-select-dropdown'))
+      fireEvent.click(getByTestId('project-select-button'))
     })
 
     expect(container).toMatchSnapshot()

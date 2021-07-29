@@ -1069,7 +1069,6 @@ pipelineSteps:
     create:
       multipleServices: '{{$.multipleService}}'
       deployStageName: Deploy
-      deployStageDescription: Use this stage to deploy services, functions or execute workloads
     inputSet:
       artifactServer: 'Artifact Server'
       branch: 'Branch'
@@ -1089,7 +1088,6 @@ pipelineSteps:
   feature:
     create:
       featureStageName: Feature Flag
-      featureStageDescription: Use this stage to roll out features or run a workflow.
       specifyEnvironment: Specify the environment
       whatIsFor: What is your flag used for?
 
@@ -1225,7 +1223,6 @@ customVariables:
 
 approvalStage:
   title: Approval
-  description: Use this stage to approve or reject the progression of your deployments.
   approvalTypeHeading: What type of approval would you like to add?
   stageNameRequired: Stage name is mandatory
   setupShellOverview: Approval Stage Overview

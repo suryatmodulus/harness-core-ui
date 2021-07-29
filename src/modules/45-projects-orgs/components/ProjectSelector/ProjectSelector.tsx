@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Position, PopoverInteractionKind } from '@blueprintjs/core'
+import { Button, Position, PopoverInteractionKind, Classes } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
-
+import cx from 'classnames'
 import { Text, Layout, Color, Container, Popover, TextInput, Pagination } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectAggregateDTOList } from 'services/cd-ng'
@@ -26,7 +26,6 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
   const [page, setPage] = useState(0)
   const [searchTerm, setSearchTerm] = useState<string>()
   const { getString } = useStrings()
-  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const { data, loading } = useGetProjectAggregateDTOList({
     queryParams: {
@@ -44,16 +43,30 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
       position={Position.RIGHT}
       modifiers={{ offset: { offset: -50 } }}
       minimal
-      isOpen={isOpen}
+      fill={true}
       popoverClassName={css.popover}
     >
-      <Button
-        minimal
-        icon={selectedProject ? 'double-chevron-right' : 'chevron-right'}
-        data-testid={'project-select-dropdown'}
-        className={css.selectButton}
-        onClick={() => setIsOpen(true)}
-      />
+      {selectedProject ? (
+        <Button
+          minimal
+          icon="double-chevron-right"
+          data-testid="project-select-dropdown"
+          className={css.popoverTarget}
+        />
+      ) : (
+        <Button
+          minimal
+          text={
+            <Text color={Color.GREY_400} font={{ size: 'normal' }} padding="xsmall">
+              {getString('selectProject')}
+            </Text>
+          }
+          rightIcon="chevron-right"
+          data-testid="project-select-button"
+          className={cx(css.popoverTarget, css.selectButton)}
+        />
+      )}
+
       <Container width={600} padding="xlarge" className={css.selectContainer}>
         <Layout.Horizontal flex padding={{ bottom: 'large' }}>
           <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
@@ -85,10 +98,9 @@ const ProjectSelect: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
                   key={projectAggregate.projectResponse.project.identifier}
                   data={projectAggregate}
                   minimal={true}
-                  className={css.projectCard}
+                  className={cx(css.projectCard, Classes.POPOVER_DISMISS)}
                   onClick={() => {
                     onSelect(projectAggregate.projectResponse.project)
-                    setIsOpen(false)
                   }}
                 />
               ))}
@@ -128,26 +140,31 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect, modu
         <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.GREY_500}>
           {getString('projectLabel')}
         </Text>
-        <Layout.Horizontal flex className={css.projectSelector}>
-          <Button
-            minimal
-            onClick={() => {
-              selectedProject && history.push(routes.toProjectDetails({ accountId, orgIdentifier, projectIdentifier }))
-            }}
-            className={css.selectButton}
-          >
-            <Text
-              lineClamp={1}
-              color={selectedProject ? Color.WHITE : Color.GREY_400}
-              font={{ size: 'normal' }}
-              padding="xsmall"
-              className={css.projectText}
-            >
-              {selectedProject ? selectedProject.name : getString('selectProject')}
-            </Text>
-          </Button>
+        <div className={cx(css.projectSelector, { [css.selectProjectDisplay]: !selectedProject })}>
+          {selectedProject && (
+            <Button
+              minimal
+              onClick={() => {
+                history.push(routes.toProjectDetails({ accountId, orgIdentifier, projectIdentifier }))
+              }}
+              className={cx(css.popoverTarget, css.selectedProject)}
+              text={
+                <Layout.Horizontal>
+                  <Text
+                    lineClamp={1}
+                    color={Color.WHITE}
+                    font={{ size: 'normal' }}
+                    padding="xsmall"
+                    className={css.projectText}
+                  >
+                    {selectedProject.name}
+                  </Text>
+                </Layout.Horizontal>
+              }
+            />
+          )}
           <ProjectSelect onSelect={onSelect} />
-        </Layout.Horizontal>
+        </div>
       </Layout.Vertical>
 
       {selectedProject ? null : (

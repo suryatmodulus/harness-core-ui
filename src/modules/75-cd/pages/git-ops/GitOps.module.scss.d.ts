@@ -7,5 +7,7 @@ declare const styles: {
   readonly navBar: string
   readonly gitOpsPage: string
   readonly harnessMenu: string
+  readonly backToHarness: string
+  readonly navControllerIcon: string
 }
 export default styles

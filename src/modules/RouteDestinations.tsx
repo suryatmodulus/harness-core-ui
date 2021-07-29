@@ -38,7 +38,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...userProfileRoutes.props.children}
       {...NG_TEMPLATES_LIBRARY_ENABLED ? templatesRoutes.props.children : []}
       {...CING_ENABLED ? CIRoutes.props.children : []}
-      {...CDNG_ENABLED ? CDRoutes.props.children : []}
+      {CDNG_ENABLED ? <CDRoutes /> : null}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
       {...ArgoRoutes.props.children}
       {CENG_ENABLED ? (

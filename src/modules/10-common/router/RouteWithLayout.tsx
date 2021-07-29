@@ -16,7 +16,7 @@ export interface RouteWithLayoutProps extends RouterRouteprops {
 }
 
 export function RouteWithLayout(props: React.PropsWithChildren<RouteWithLayoutProps>): React.ReactElement {
-  const { children, layout: Layout, sidebarProps, licenseRedirectData, ...rest } = props
+  const { children, layout: Layout, sidebarProps, licenseRedirectData, hideNav, ...rest } = props
   const licenseStore = useLicenseStore()
 
   const childComponent = (

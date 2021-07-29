@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.44% </span>
+                <span class="strong">91.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>34/36</span>
+                <span class='fraction'>22/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/15</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -140,7 +140,8 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -162,14 +163,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">97x</span>
-<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">97x</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">97x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,17 +180,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">97x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">97x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">58x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">93x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -224,9 +226,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { MenuItem, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { truncate } from 'lodash-es'
-import { Select, SelectOption, Layout, Popover, Button } from '@wings-software/uicore'
+import { SelectOption, Layout, Popover, Button, DropDown } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { getFilterSummary, MAX_FILTER_NAME_LENGTH, getFilterSize } from '@common/components/Filter/utils/FilterUtils'
 import type { FilterInterface } from '../Constants'
@@ -266,25 +268,26 @@ export default function FilterSelector&lt;T extends FilterInterface&gt;(props: F
 &nbsp;
   const fieldCountInAppliedFilter = getFilterSize(filterWithValidFields)
 &nbsp;
+  const getItems = React.useMemo(
+    () =&gt;
+      filters?.map(item =&gt; ({
+        label: truncate(item<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame, { length: MAX_FILTER_NAME_LENGTH }),
+        value: item<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
+      })) as SelectOption[],
+    [filters]
+  )
+&nbsp;
   return (
     &lt;&gt;
-      &lt;Select
-        className={css.filterSelector}
-        items={
-          filters?.map((item: T) =&gt; {
-            return {
-              label: truncate(item<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame, { length: MAX_FILTER_NAME_LENGTH }),
-              value: item<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
-            } as SelectOption
-          }) || []
-        }
+      &lt;DropDown
+        buttonTestId={'filter-select'}
         onChange={onFilterSelect}
-        addClearBtn={true}
-        value={{ label: appliedFilter?.name || '', value: appliedFilter?.identifier || '' }}
-        inputProps={{
-          placeholder: filters?.length ? getString('filters.selectFilter') : getString('common.filters.noFilterSaved')
-        }}
-        noResults={&lt;MenuItem disabled={true} text={getString('filters.noFilterFound')} /&gt;}
+        value={appliedFilter ? appliedFilter.identifier : null}
+        items={getItems}
+        placeholder={filters?.length ? getString('filters.selectFilter') : getString('common.filters.noFilterSaved')}
+        minWidth={220}
+        usePortal={true}
+        filterable={true}
       /&gt;
       &lt;div className={css.filterButtonContainer}&gt;
         {fieldCountInAppliedFilter ? (
@@ -313,7 +316,7 @@ export default function FilterSelector&lt;T extends FilterInterface&gt;(props: F
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Jul 29 2021 07:45:47 GMT+0000 (Greenwich Mean Time)
+                at Thu Jul 29 2021 09:17:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

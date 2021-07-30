@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.23% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/13</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>9/11</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -124,9 +124,9 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -162,8 +162,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -180,10 +180,10 @@ import { GitSyncStoreProvider, useGitSyncStore } from 'framework/GitRepoStore/Gi
 import type { EntityGitDetails } from 'services/pipeline-ng'
 import css from './GitDetailsColumn.module.scss'
 &nbsp;
-const RenderGitDetails: React.FC&lt;EntityGitDetails&gt; = <span class="fstat-no" title="function not covered" >({</span> repoIdentifier, branch }) =&gt; {
-  const { gitSyncRepos, loadingRepos } = <span class="cstat-no" title="statement not covered" >useGitSyncStore()</span>
+const RenderGitDetails: React.FC&lt;EntityGitDetails&gt; = ({ repoIdentifier, branch }) =&gt; {
+  const { gitSyncRepos, loadingRepos } = useGitSyncStore()
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return !!repoIdentifier &amp;&amp; !!branch ? (</span>
+  return !!repoIdentifier &amp;&amp; !!branch ? (
     &lt;Layout.Horizontal style={{ alignItems: 'center' }} padding={{ right: 'medium' }} className={css.gitDetails}&gt;
       &lt;Text
         style={{ fontSize: '13px', wordWrap: 'break-word', maxWidth: '100px' }}
@@ -192,7 +192,7 @@ const RenderGitDetails: React.FC&lt;EntityGitDetails&gt; = <span class="fstat-no
         lineClamp={1}
         title={repoIdentifier}
       &gt;
-        {(!loadingRepos &amp;&amp; getRepoDetailsByIndentifier(repoIdentifier, gitSyncRepos)?.name) || ''}
+        {(!loadingRepos &amp;&amp; getRepoDetailsByIndentifier(repoIdentifier, gitSyncRepos)<span class="branch-1 cbranch-no" title="branch not covered" >?.name)</span> || ''}
       &lt;/Text&gt;
       &lt;Layout.Horizontal
         border={{ color: Color.GREY_200 }}
@@ -214,13 +214,13 @@ const RenderGitDetails: React.FC&lt;EntityGitDetails&gt; = <span class="fstat-no
       &lt;/Layout.Horizontal&gt;
     &lt;/Layout.Horizontal&gt;
   ) : (
-    &lt;&gt;&lt;/&gt;
+<span class="branch-1 cbranch-no" title="branch not covered" >    &lt;&gt;&lt;/&gt;</span>
   )
 }
 &nbsp;
-export const GitDetailsColumn: Renderer&lt;CellProps&lt;any&gt;&gt; = <span class="fstat-no" title="function not covered" >({</span> row }) =&gt; {
-  const { gitDetails } = <span class="cstat-no" title="statement not covered" >row.original</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+export const GitDetailsColumn: Renderer&lt;CellProps&lt;any&gt;&gt; = ({ row }) =&gt; {
+  const { gitDetails } = row.original
+  return (
     &lt;GitSyncStoreProvider&gt;
       &lt;RenderGitDetails repoIdentifier={gitDetails.repoIdentifier} branch={gitDetails.branch} /&gt;
     &lt;/GitSyncStoreProvider&gt;
@@ -235,7 +235,7 @@ export default GitDetailsColumn
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 30 2021 09:44:54 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 30 2021 12:19:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -5,7 +5,6 @@ import { Card, Color, Icon, IconName, Layout, Text } from '@wings-software/uicor
 import { String } from 'framework/strings'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './ResourceCardList.module.scss'
 
 interface ResourceOption {
@@ -21,7 +20,6 @@ interface ResourceCardListProps {
 const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
   const { accountId, orgIdentifier } = useParams<OrgPathProps>()
   const history = useHistory()
-  const { NG_SHOW_DELEGATE } = useFeatureFlags()
   const options: ResourceOption[] = items || [
     {
       label: <String stringID="connectorsLabel" />,
@@ -29,16 +27,12 @@ const ResourceCardList: React.FC<ResourceCardListProps> = ({ items }) => {
       route: routes.toConnectors({ accountId, orgIdentifier }),
       colorClass: css.connectors
     },
-    ...(NG_SHOW_DELEGATE
-      ? [
-          {
-            label: <String stringID="delegate.delegates" />,
-            icon: 'delegates-icon' as IconName,
-            route: routes.toDelegates({ accountId, orgIdentifier }),
-            colorClass: css.delegates
-          }
-        ]
-      : []),
+    {
+      label: <String stringID="delegate.delegates" />,
+      icon: 'delegates-icon' as IconName,
+      route: routes.toDelegates({ accountId, orgIdentifier }),
+      colorClass: css.delegates
+    },
     {
       label: <String stringID="common.secrets" />,
       icon: 'secrets-icon',

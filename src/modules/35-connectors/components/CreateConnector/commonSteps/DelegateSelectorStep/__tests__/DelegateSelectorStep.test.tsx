@@ -63,7 +63,6 @@ jest.mock('services/cd-ng', () => ({
 
 jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
   CDNG_ENABLED: false,
-  NG_SHOW_DELEGATE: false,
   NG_CG_TASK_ASSIGNMENT_ISOLATION: true
 }))
 
@@ -84,7 +83,6 @@ describe('DelegateSelectorStep', () => {
   test('should confirm that install new delegate button is visible if feature flags are present', async () => {
     jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
       CDNG_ENABLED: true,
-      NG_SHOW_DELEGATE: true,
       NG_CG_TASK_ASSIGNMENT_ISOLATION: true
     }))
     const { container } = render(
@@ -331,7 +329,6 @@ describe('DelegateSelectorStep', () => {
   test('should open Git Sync modal on clicking Save and Continue', async () => {
     jest.spyOn(featureFlags, 'useFeatureFlags').mockImplementation(() => ({
       CDNG_ENABLED: true,
-      NG_SHOW_DELEGATE: true,
       NG_CG_TASK_ASSIGNMENT_ISOLATION: true
     }))
     const { container } = render(

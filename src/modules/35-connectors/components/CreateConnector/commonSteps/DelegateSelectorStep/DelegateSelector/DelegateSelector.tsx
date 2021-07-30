@@ -117,7 +117,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams<AccountPathProps>()
   const { orgIdentifier, projectIdentifier } = props
-  const { CDNG_ENABLED, NG_SHOW_DELEGATE, NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
+  const { CDNG_ENABLED, NG_CG_TASK_ASSIGNMENT_ISOLATION } = useFeatureFlags()
 
   const scope = { projectIdentifier, orgIdentifier }
 
@@ -328,7 +328,7 @@ export const DelegateSelector: React.FC<DelegateSelectorProps> = props => {
         <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
           {getString('connectors.delegate.testDelegateConnectivity')}
         </Text>
-        {CDNG_ENABLED && NG_SHOW_DELEGATE && NG_CG_TASK_ASSIGNMENT_ISOLATION ? (
+        {CDNG_ENABLED && NG_CG_TASK_ASSIGNMENT_ISOLATION ? (
           <RbacButton
             icon="plus"
             withoutBoxShadow

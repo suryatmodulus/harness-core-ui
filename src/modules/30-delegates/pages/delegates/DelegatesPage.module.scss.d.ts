@@ -30,5 +30,6 @@ declare const styles: {
   readonly delegateListHeader: string
   readonly delegateItemContainer: string
   readonly delegateItemSubcontainer: string
+  readonly chevronIcon: string
 }
 export default styles

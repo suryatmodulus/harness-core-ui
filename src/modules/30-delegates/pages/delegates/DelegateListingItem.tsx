@@ -213,6 +213,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
 export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroubleshoterProps) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
+  const [isExtended, setIsExtended] = useState(false)
   const history = useHistory()
 
   const [canAccessDelegate] = usePermission(
@@ -253,6 +254,15 @@ export const DelegateListingItem = ({ delegate, setOpenTroubleshoter }: delTroub
   return (
     <Card elevation={2} interactive={true} onClick={onDelegateClick} className={css.delegateItemContainer}>
       <Layout.Horizontal className={css.delegateItemSubcontainer}>
+        <Text
+          rightIcon={isExtended ? 'chevron-up' : 'chevron-down'}
+          font="normal"
+          className={css.chevronIcon}
+          onClick={e => {
+            e.stopPropagation()
+            setIsExtended(!isExtended)
+          }}
+        />
         <Text width="30px" icon={delegateTypeToIcon(delegate.delegateType as string)} iconProps={{ size: 24 }} />
         <Layout.Horizontal width="25%" data-testid={delegate.groupHostName}>
           <Layout.Vertical padding={{ left: 'small' }}>

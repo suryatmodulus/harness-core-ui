@@ -425,7 +425,9 @@
 <a name='L366'></a><a href='#L366'>366</a>
 <a name='L367'></a><a href='#L367'>367</a>
 <a name='L368'></a><a href='#L368'>368</a>
-<a name='L369'></a><a href='#L369'>369</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L369'></a><a href='#L369'>369</a>
+<a name='L370'></a><a href='#L370'>370</a>
+<a name='L371'></a><a href='#L371'>371</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -681,6 +683,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -764,6 +767,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -930,7 +934,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   const executionHasWarning = !filledUpStages.execution
 &nbsp;
   // NOTE: set empty arrays, required by ExecutionGraph
-  const selectedStageClone = cloneDeep(selectedStage || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>
+  const selectedStageClone = cloneDeep(selectedStage)
   <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedStageClone) {
     <span class="missing-if-branch" title="else path not taken" >E</span>if (!selectedStageClone.stage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDependencies) {
       set(selectedStageClone, 'stage.spec.serviceDependencies', [])
@@ -1039,102 +1043,104 @@ export default function BuildStageSetupShell(): JSX.Element {
             &lt;/span&gt;
           }
           panel={
-            &lt;ExecutionGraph
-              allowAddGroup={false}
-              hasRollback={false}
-              isReadonly={isReadonly}
-              hasDependencies={true}
-              stepsFactory={stepsFactory}
-              stage={selectedStageClone}
-              originalStage={originalStage}
-              ref={executionRef}
-              updateStage={<span class="fstat-no" title="function not covered" >newStageData </span>=&gt; {
-                const newData = <span class="cstat-no" title="statement not covered" >produce(newStageData, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
-                  // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
-<span class="cstat-no" title="statement not covered" >                  if (draft?.stage?.spec?.execution?.rollbackSteps) {</span>
-<span class="cstat-no" title="statement not covered" >                    delete draft.stage.spec.execution.rollbackSteps</span>
-                  }
-                  // delete serviceDependencies if its empty array (as serviceDependencies is optional)
-<span class="cstat-no" title="statement not covered" >                  if (draft?.stage?.spec?.serviceDependencies &amp;&amp; isEmpty(draft?.stage?.spec?.serviceDependencies)) {</span>
-<span class="cstat-no" title="statement not covered" >                    delete draft.stage.spec.serviceDependencies</span>
-                  }
-                })
-&nbsp;
-<span class="cstat-no" title="statement not covered" >                if (newData.stage) {</span>
-<span class="cstat-no" title="statement not covered" >                  updateStage(newData.stage)</span>
-                }
-              }}
-              // Check and update the correct stage path here
-              pathToStage={`${stagePath}.stage.spec.execution`}
-              onAddStep={(event: ExecutionGraphAddStepEvent) =&gt; {
-                <span class="missing-if-branch" title="if path not taken" >I</span>if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
-<span class="cstat-no" title="statement not covered" >                  updatePipelineView({</span>
-                    ...pipelineView,
-                    isDrawerOpened: true,
-                    drawerData: {
-                      type: DrawerTypes.ConfigureService,
-                      data: {
-                        stepConfig: {
-                          node: {
-                            type: StepsStepType.Dependency,
-                            name: '',
-                            identifier: generateRandomString(StepsStepType.Dependency)
-                          },
-                          stepsMap: event.stepsMap,
-                          onUpdate: executionRef.current?.stepGroupUpdated,
-                          addOrEdit: 'add',
-                          isStepGroup: false,
-                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
-                        }
-                      }
+            selectedStageClone ? (
+              &lt;ExecutionGraph
+                allowAddGroup={false}
+                hasRollback={false}
+                isReadonly={isReadonly}
+                hasDependencies={true}
+                stepsFactory={stepsFactory}
+                stage={selectedStageClone}
+                originalStage={originalStage}
+                ref={executionRef}
+                updateStage={<span class="fstat-no" title="function not covered" >newStageData </span>=&gt; {
+                  const newData = <span class="cstat-no" title="statement not covered" >produce(newStageData, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
+                    // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
+<span class="cstat-no" title="statement not covered" >                    if (draft?.stage?.spec?.execution?.rollbackSteps) {</span>
+<span class="cstat-no" title="statement not covered" >                      delete draft.stage.spec.execution.rollbackSteps</span>
+                    }
+                    // delete serviceDependencies if its empty array (as serviceDependencies is optional)
+<span class="cstat-no" title="statement not covered" >                    if (draft?.stage?.spec?.serviceDependencies &amp;&amp; isEmpty(draft?.stage?.spec?.serviceDependencies)) {</span>
+<span class="cstat-no" title="statement not covered" >                      delete draft.stage.spec.serviceDependencies</span>
                     }
                   })
-                } else {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                  if (newData.stage) {</span>
+<span class="cstat-no" title="statement not covered" >                    updateStage(newData.stage)</span>
+                  }
+                }}
+                // Check and update the correct stage path here
+                pathToStage={`${stagePath}.stage.spec.execution`}
+                onAddStep={(event: ExecutionGraphAddStepEvent) =&gt; {
+                  <span class="missing-if-branch" title="if path not taken" >I</span>if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
+<span class="cstat-no" title="statement not covered" >                    updatePipelineView({</span>
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.ConfigureService,
+                        data: {
+                          stepConfig: {
+                            node: {
+                              type: StepsStepType.Dependency,
+                              name: '',
+                              identifier: generateRandomString(StepsStepType.Dependency)
+                            },
+                            stepsMap: event.stepsMap,
+                            onUpdate: executionRef.current?.stepGroupUpdated,
+                            addOrEdit: 'add',
+                            isStepGroup: false,
+                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                          }
+                        }
+                      }
+                    })
+                  } else {
+                    updatePipelineView({
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.AddStep,
+                        data: {
+                          paletteData: {
+                            entity: event.entity,
+                            stepsMap: event.stepsMap,
+                            onUpdate: executionRef.current<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tepGroupUpdated,</span>
+                            // isAddStepOverride: true,
+                            isRollback: event.isRollback,
+                            isParallelNodeClicked: event.isParallel,
+                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                          }
+                        }
+                      }
+                    })
+                  }
+                }}
+                onEditStep={(event: ExecutionGraphEditStepEvent) =&gt; {
                   updatePipelineView({
                     ...pipelineView,
                     isDrawerOpened: true,
                     drawerData: {
-                      type: DrawerTypes.AddStep,
+                      type: event.stepType === StepType.STEP ? <span class="branch-0 cbranch-no" title="branch not covered" >DrawerTypes.StepConfig </span>: DrawerTypes.ConfigureService,
                       data: {
-                        paletteData: {
-                          entity: event.entity,
+                        stepConfig: {
+                          node: event.node as any,
                           stepsMap: event.stepsMap,
                           onUpdate: executionRef.current<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tepGroupUpdated,</span>
-                          // isAddStepOverride: true,
-                          isRollback: event.isRollback,
-                          isParallelNodeClicked: event.isParallel,
+                          isStepGroup: event.isStepGroup,
+                          isUnderStepGroup: event.isUnderStepGroup,
+                          addOrEdit: event.addOrEdit,
                           hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                         }
                       }
                     }
                   })
-                }
-              }}
-              onEditStep={(event: ExecutionGraphEditStepEvent) =&gt; {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: true,
-                  drawerData: {
-                    type: event.stepType === StepType.STEP ? <span class="branch-0 cbranch-no" title="branch not covered" >DrawerTypes.StepConfig </span>: DrawerTypes.ConfigureService,
-                    data: {
-                      stepConfig: {
-                        node: event.node as any,
-                        stepsMap: event.stepsMap,
-                        onUpdate: executionRef.current<span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" >?.s</span>tepGroupUpdated,</span>
-                        isStepGroup: event.isStepGroup,
-                        isUnderStepGroup: event.isUnderStepGroup,
-                        addOrEdit: event.addOrEdit,
-                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
-                      }
-                    }
-                  }
-                })
-              }}
-              onSelectStep={<span class="fstat-no" title="function not covered" >(s</span>tepId: string) =&gt; {
-<span class="cstat-no" title="statement not covered" >                setSelectedStepId(stepId)</span>
-              }}
-              selectedStepId={selectedStepId}
-            /&gt;
+                }}
+                onSelectStep={<span class="fstat-no" title="function not covered" >(s</span>tepId: string) =&gt; {
+<span class="cstat-no" title="statement not covered" >                  setSelectedStepId(stepId)</span>
+                }}
+                selectedStepId={selectedStepId}
+              /&gt;
+            ) : <span class="branch-1 cbranch-no" title="branch not covered" >undefined</span>
           }
           data-testid={getString('ci.executionLabel')}
         /&gt;
@@ -1168,7 +1174,7 @@ export default function BuildStageSetupShell(): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 30 2021 12:19:28 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 30 2021 13:08:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

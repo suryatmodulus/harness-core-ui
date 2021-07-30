@@ -411,11 +411,7 @@
 <a name='L352'></a><a href='#L352'>352</a>
 <a name='L353'></a><a href='#L353'>353</a>
 <a name='L354'></a><a href='#L354'>354</a>
-<a name='L355'></a><a href='#L355'>355</a>
-<a name='L356'></a><a href='#L356'>356</a>
-<a name='L357'></a><a href='#L357'>357</a>
-<a name='L358'></a><a href='#L358'>358</a>
-<a name='L359'></a><a href='#L359'>359</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">76x</span>
+<a name='L355'></a><a href='#L355'>355</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">76x</span>
 <span class="cline-any cline-yes">76x</span>
 <span class="cline-any cline-yes">76x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -666,10 +662,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">76x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -779,7 +771,7 @@ import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import produce from 'immer'
 import type {
-  StageElementWrapperConfigConfig,
+  StageElementWrapperConfig,
   PageConnectorResponse,
   PipelineInfoConfig,
   DeploymentStageConfig
@@ -798,27 +790,27 @@ import { getStageFromPipeline } from '../PipelineContext/helpers'
 &nbsp;
 export interface StageState {
   isConfigured: boolean
-  stage: StageElementWrapperConfigConfig
+  stage: StageElementWrapperConfig
 }
 &nbsp;
 export interface PopoverData {
-  data?: StageElementWrapperConfigConfig
+  data?: StageElementWrapperConfig
   isStageView: boolean
-  groupStages?: StageElementWrapperConfigConfig[]
+  groupStages?: StageElementWrapperConfig[]
   isGroupStage?: boolean
   stagesMap: StagesMap
   groupSelectedStageId?: string
   isParallel?: boolean
   event?: Diagram.DefaultNodeEvent
   addStage?: (
-    newStage: StageElementWrapperConfigConfig,
+    newStage: StageElementWrapperConfig,
     isParallel?: boolean,
     event?: Diagram.DefaultNodeEvent,
     insertAt?: number,
     openSetupAfterAdd?: boolean,
     pipeline?: PipelineInfoConfig
   ) =&gt; void
-  onSubmitPrimaryData?: (values: StageElementWrapperConfigConfig, identifier: string) =&gt; void
+  onSubmitPrimaryData?: (values: StageElementWrapperConfig, identifier: string) =&gt; void
   onClickGroupStage?: (stageId: string, type: StageType) =&gt; void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
   isHoverView?: boolean
@@ -848,7 +840,7 @@ export const getStageIndexByIdentifier = <span class="fstat-no" title="function 
 <span class="cstat-no" title="statement not covered" >  return stageDetails</span>
 }
 &nbsp;
-export const getNewStageFromType = <span class="fstat-no" title="function not covered" >(t</span>ype: string, clearDefaultValues = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span>: StageElementWrapperConfigConfig =&gt; {
+export const getNewStageFromType = <span class="fstat-no" title="function not covered" >(t</span>ype: string, clearDefaultValues = <span class="branch-0 cbranch-no" title="branch not covered" >false)</span>: StageElementWrapperConfig =&gt; {
   // TODO: replace string with type
 <span class="cstat-no" title="statement not covered" >  if (type === 'ci') {</span>
 <span class="cstat-no" title="statement not covered" >    return {</span>
@@ -924,10 +916,10 @@ export const getStageIndexFromPipeline = (data: PipelineInfoConfig, identifier?:
 export const getFlattenedStages = (
   data: Partial&lt;PipelineInfoConfig&gt;
 ): {
-  stages: StageElementWrapperConfigConfig[]
+  stages: StageElementWrapperConfig[]
 } =&gt; {
   let stages = []
-  stages = flatMap(data.stages || [], (n: StageElementWrapperConfigConfig) =&gt; {
+  stages = flatMap(data.stages || [], (n: StageElementWrapperConfig) =&gt; {
     const k = []
     <span class="missing-if-branch" title="if path not taken" >I</span>if (n.parallel) {
 <span class="cstat-no" title="statement not covered" >      k.push(...n['parallel'])</span>
@@ -959,7 +951,7 @@ export const mayBeStripCIProps = (pipeline: PipelineInfoConfig): boolean =&gt; {
 }
 &nbsp;
 export const removeNodeFromPipeline = <span class="fstat-no" title="function not covered" >(</span>
-  nodeResponse: { stage?: StageElementWrapperConfigConfig; parent?: StageElementWrapperConfigConfig },
+  nodeResponse: { stage?: StageElementWrapperConfig; parent?: StageElementWrapperConfig },
   data: PipelineInfoConfig,
   stageMap: Map&lt;string, StageState&gt;,
   updateStateMap = <span class="branch-0 cbranch-no" title="branch not covered" >true</span>
@@ -1023,11 +1015,7 @@ export const resetDiagram = <span class="fstat-no" title="function not covered" 
 <span class="cstat-no" title="statement not covered" >  engine.repaintCanvas()</span>
 }
 &nbsp;
-export const isDuplicateStageId = (
-  id: string,
-  stages: StageElementWrapperConfigConfig[],
-  updateMode?: boolean
-): boolean =&gt; {
+export const isDuplicateStageId = (id: string, stages: StageElementWrapperConfig[], updateMode?: boolean): boolean =&gt; {
   const flattenedStages = getFlattenedStages({
     stages
   })
@@ -1058,7 +1046,7 @@ export const getConnectorNameFromValue = (
 export const resetServiceSelectionForStages = <span class="fstat-no" title="function not covered" >(</span>
   stages: string[] = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span>
   pipeline: PipelineInfoConfig
-): StageElementWrapperConfigConfig[] =&gt; {
+): StageElementWrapperConfig[] =&gt; {
   const stagesCopy = <span class="cstat-no" title="statement not covered" >cloneDeep(pipeline.stages) || []</span>
 <span class="cstat-no" title="statement not covered" >  stages.forEach(<span class="fstat-no" title="function not covered" >stageId </span>=&gt; {</span>
     const { stage, parent = <span class="branch-0 cbranch-no" title="branch not covered" >null </span>} = <span class="cstat-no" title="statement not covered" >getStageFromPipeline(stageId, pipeline)</span>
@@ -1093,7 +1081,7 @@ export const getAffectedDependentStages = <span class="fstat-no" title="function
 <span class="cstat-no" title="statement not covered" >      return false</span>
     }
 <span class="cstat-no" title="statement not covered" >    if (parent) {</span>
-<span class="cstat-no" title="statement not covered" >      parent?.parallel?.forEach(<span class="fstat-no" title="function not covered" >(p</span>StageId: StageElementWrapperConfigConfig, index: number) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >      parent?.parallel?.forEach(<span class="fstat-no" title="function not covered" >(p</span>StageId: StageElementWrapperConfig, index: number) =&gt; {</span>
         const stageIndex = <span class="cstat-no" title="statement not covered" >dependentStages.indexOf(pStageId?.stage?.identifier || '')</span>
 <span class="cstat-no" title="statement not covered" >        if (parallelStageIndex !== -1) {</span>
 <span class="cstat-no" title="statement not covered" >          stageIndex &gt; -1 &amp;&amp; index &lt;= parallelStageIndex &amp;&amp; affectedStages.add(stageId)</span>
@@ -1113,7 +1101,7 @@ export const getAffectedDependentStages = <span class="fstat-no" title="function
 <span class="cstat-no" title="statement not covered" >  return [...affectedStages]</span>
 }
 &nbsp;
-export const resetStageServiceSpec = <span class="fstat-no" title="function not covered" >(s</span>tage: StageElementWrapperConfigConfig): StageElementWrapperConfigConfig =&gt;
+export const resetStageServiceSpec = <span class="fstat-no" title="function not covered" >(s</span>tage: StageElementWrapperConfig): StageElementWrapperConfig =&gt;
 <span class="cstat-no" title="statement not covered" >  produce(stage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {</span>
     ;<span class="cstat-no" title="statement not covered" >(draft.stage?.spec as DeploymentStageConfig).serviceConfig = {</span>
       serviceRef: '',
@@ -1138,7 +1126,7 @@ export const resetStageServiceSpec = <span class="fstat-no" title="function not 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 30 2021 12:19:28 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 30 2021 13:08:13 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

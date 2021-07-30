@@ -16,6 +16,13 @@ interface NotificationItemDTO {
   value?: string
 }
 
+export enum NotificationTypes {
+  EMAIL = 'EMAIL',
+  PAGERDUTY = 'PAGERDUTY',
+  SLACK = 'SLACK',
+  MSTEAMS = 'MSTEAMS'
+}
+
 export const getIconByNotificationMethod = (option: NotificationType): IconName => {
   switch (option) {
     case NotificationType.Email:
@@ -31,25 +38,25 @@ export const getIconByNotificationMethod = (option: NotificationType): IconName 
 
 export const getNotificationByConfig = (option: NotificationSettingConfigDTO | null): NotificationItemDTO => {
   switch (option?.type) {
-    case 'EMAIL':
+    case NotificationTypes.EMAIL:
       return {
         label: <String stringID="notifications.emailOrAlias" />,
         icon: 'main-email',
         value: (option as EmailConfigDTO)?.groupEmail
       }
-    case 'PAGERDUTY':
+    case NotificationTypes.PAGERDUTY:
       return {
         label: <String stringID="common.pagerDuty" />,
         icon: 'service-pagerduty',
         value: (option as PagerDutyConfigDTO)?.pagerDutyKey
       }
-    case 'SLACK':
+    case NotificationTypes.SLACK:
       return {
         label: <String stringID="common.slack" />,
         icon: 'service-slack',
         value: (option as SlackConfigDTO)?.slackWebhookUrl
       }
-    case 'MSTEAMS':
+    case NotificationTypes.MSTEAMS:
       return {
         label: <String stringID="notifications.labelMS" />,
         icon: 'service-msteams',

@@ -13,7 +13,7 @@ import { TestSlackNotifications } from '@notifications/modals/ConfigureNotificat
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { TestMSTeamsNotifications } from '@notifications/modals/ConfigureNotificationsModal/views/ConfigureMSTeamsNotifications/ConfigureMSTeamsNotifications'
-import { getNotificationByConfig } from '@notifications/Utils/Utils'
+import { getNotificationByConfig, NotificationTypes } from '@notifications/Utils/Utils'
 import { EmailSchema, URLValidationSchema } from '@common/utils/Validation'
 import css from './NotificationList.module.scss'
 
@@ -66,22 +66,22 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
 
   const getFieldDetails = (type: NotificationSettingConfigDTO['type']): FieldDetails => {
     switch (type) {
-      case 'EMAIL':
+      case NotificationTypes.EMAIL:
         return {
           name: 'groupEmail',
           textPlaceholder: getString('notifications.emailOrAlias')
         }
-      case 'SLACK':
+      case NotificationTypes.SLACK:
         return {
           name: 'slackWebhookUrl',
           textPlaceholder: getString('notifications.labelWebhookUrl')
         }
-      case 'PAGERDUTY':
+      case NotificationTypes.PAGERDUTY:
         return {
           name: 'pagerDutyKey',
           textPlaceholder: getString('notifications.labelPagerDuty')
         }
-      case 'MSTEAMS':
+      case NotificationTypes.MSTEAMS:
         return {
           name: 'microsoftTeamsWebhookUrl',
           textPlaceholder: getString('notifications.labelMSTeam')
@@ -152,19 +152,19 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
         validationSchema={Yup.object().shape({
           type: Yup.string().required(),
           groupEmail: Yup.string().when(['type'], {
-            is: 'EMAIL',
+            is: NotificationTypes.EMAIL,
             then: EmailSchema()
           }),
           slackWebhookUrl: Yup.string().when(['type'], {
-            is: 'SLACK',
+            is: NotificationTypes.SLACK,
             then: URLValidationSchema()
           }),
           pagerDutyKey: Yup.string().when(['type'], {
-            is: 'PAGERDUTY',
+            is: NotificationTypes.PAGERDUTY,
             then: Yup.string().trim().required(getString('notifications.validationPDKey'))
           }),
           microsoftTeamsWebhookUrl: Yup.string().when(['type'], {
-            is: 'MSTEAMS',
+            is: NotificationTypes.MSTEAMS,
             then: URLValidationSchema()
           })
         })}
@@ -211,7 +211,7 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
                 )}
                 <Container width="25%">
                   <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="xsmall">
-                    {formikProps.values.type == 'EMAIL' ? (
+                    {formikProps.values.type == NotificationTypes.EMAIL ? (
                       <TestEmailNotifications
                         onClick={() => handleTest(formikProps)}
                         buttonProps={{
@@ -219,7 +219,7 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
                         }}
                       />
                     ) : null}
-                    {formikProps.values.type == 'SLACK' ? (
+                    {formikProps.values.type == NotificationTypes.SLACK ? (
                       <TestSlackNotifications
                         data={formikProps.values as any}
                         onClick={() => handleTest(formikProps)}
@@ -228,7 +228,7 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
                         }}
                       />
                     ) : null}
-                    {formikProps.values.type == 'PAGERDUTY' ? (
+                    {formikProps.values.type == NotificationTypes.PAGERDUTY ? (
                       <TestPagerDutyNotifications
                         data={formikProps.values as any}
                         onClick={() => handleTest(formikProps)}
@@ -237,7 +237,7 @@ const ChannelRow: React.FC<ChannelRow> = ({ data, userGroup, onSubmit, notificat
                         }}
                       />
                     ) : null}
-                    {formikProps.values.type == 'MSTEAMS' ? (
+                    {formikProps.values.type == NotificationTypes.MSTEAMS ? (
                       <TestMSTeamsNotifications
                         data={formikProps.values as any}
                         buttonProps={{
@@ -280,35 +280,35 @@ const NotificationList: React.FC<NotificationListProps> = ({ userGroup, onSubmit
 
   const EmailNotification: NotificationOption = {
     label: getString('notifications.emailOrAlias'),
-    value: 'EMAIL'
+    value: NotificationTypes.EMAIL
   }
 
   const SlackNotification: NotificationOption = {
     label: getString('notifications.labelWebhookUrl'),
-    value: 'SLACK'
+    value: NotificationTypes.SLACK
   }
 
   const PDNotification: NotificationOption = {
     label: getString('notifications.labelPagerDuty'),
-    value: 'PAGERDUTY'
+    value: NotificationTypes.PAGERDUTY
   }
 
   const MSNotification: NotificationOption = {
     label: getString('notifications.labelMSTeam'),
-    value: 'MSTEAMS'
+    value: NotificationTypes.MSTEAMS
   }
 
   const options = [EmailNotification, SlackNotification, PDNotification, MSNotification]
 
   const getNotificationOption = (type: NotificationSettingConfigDTO['type']): NotificationOption => {
     switch (type) {
-      case 'EMAIL':
+      case NotificationTypes.EMAIL:
         return EmailNotification
-      case 'SLACK':
+      case NotificationTypes.SLACK:
         return SlackNotification
-      case 'PAGERDUTY':
+      case NotificationTypes.PAGERDUTY:
         return PDNotification
-      case 'MSTEAMS':
+      case NotificationTypes.MSTEAMS:
         return MSNotification
       default:
         return EmailNotification

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.12% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.12% </span>
+                <span class="strong">93.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/17</span>
+                <span class='fraction'>14/15</span>
             </div>
         
             
@@ -123,19 +123,12 @@
 <a name='L64'></a><a href='#L64'>64</a>
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L67'></a><a href='#L67'>67</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,11 +146,6 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,7 +169,7 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -208,7 +196,6 @@ import { Card, Color, Icon, IconName, Layout, Text } from '@wings-software/uicor
 import { String } from 'framework/strings'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import css from './ResourceCardList.module.scss'
 &nbsp;
 interface ResourceOption {
@@ -224,7 +211,6 @@ interface ResourceCardListProps {
 const ResourceCardList: React.FC&lt;ResourceCardListProps&gt; = ({ items }) =&gt; {
   const { accountId, orgIdentifier } = useParams&lt;OrgPathProps&gt;()
   const history = useHistory()
-  const { NG_SHOW_DELEGATE } = useFeatureFlags()
   const options: ResourceOption[] = items || [
     {
       label: &lt;String stringID="connectorsLabel" /&gt;,
@@ -232,16 +218,12 @@ const ResourceCardList: React.FC&lt;ResourceCardListProps&gt; = ({ items }) =&gt
       route: routes.toConnectors({ accountId, orgIdentifier }),
       colorClass: css.connectors
     },
-    ...(NG_SHOW_DELEGATE
-      ? <span class="branch-0 cbranch-no" title="branch not covered" >[</span>
-          {
-            label: &lt;String stringID="delegate.delegates" /&gt;,
-            icon: 'delegates-icon' as IconName,
-            route: routes.toDelegates({ accountId, orgIdentifier }),
-            colorClass: css.delegates
-          }
-        ]
-      : []),
+    {
+      label: &lt;String stringID="delegate.delegates" /&gt;,
+      icon: 'delegates-icon' as IconName,
+      route: routes.toDelegates({ accountId, orgIdentifier }),
+      colorClass: css.delegates
+    },
     {
       label: &lt;String stringID="common.secrets" /&gt;,
       icon: 'secrets-icon',
@@ -280,7 +262,7 @@ export default ResourceCardList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 30 2021 15:13:58 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 30 2021 16:40:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

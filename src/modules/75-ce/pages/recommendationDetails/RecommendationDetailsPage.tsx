@@ -247,19 +247,21 @@ const RecommendationDetailsPage: React.FC = () => {
         <Layout.Vertical spacing="xlarge">
           {recommendationItems.length ? (
             <Container className={css.detailsContainer}>
-              {recommendationItems.map((item, index) => {
-                const { containerName } = item
-                const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
-                return (
-                  <RecommendationDetails
-                    key={`${item.containerName}-${index}-${timeRange.label}`}
-                    histogramData={item}
-                    currentResources={currentResources}
-                    timeRange={timeRange}
-                    setTimeRange={setTimeRange}
-                  />
-                )
-              })}
+              <Layout.Vertical spacing="huge">
+                {recommendationItems.map((item, index) => {
+                  const { containerName } = item
+                  const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
+                  return (
+                    <RecommendationDetails
+                      key={`${item.containerName}-${index}-${timeRange.label}`}
+                      histogramData={item}
+                      currentResources={currentResources}
+                      timeRange={timeRange}
+                      setTimeRange={setTimeRange}
+                    />
+                  )
+                })}
+              </Layout.Vertical>
               <RecommendationHelperText />
             </Container>
           ) : null}

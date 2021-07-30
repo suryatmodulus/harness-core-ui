@@ -1,0 +1,713 @@
+import React, { useState } from 'react'
+import cx from 'classnames'
+import {
+  Color,
+  Layout,
+  Text,
+  Container,
+  Card,
+  Button,
+  Heading,
+  Icon,
+  useModalHook,
+  StepWizard,
+  CardBody,
+  FormInput,
+  Formik,
+  Pagination,
+  Checkbox,
+  SelectOption,
+  ExpandingSearchInput
+} from '@wings-software/uicore'
+
+import { Select } from '@blueprintjs/select'
+
+import { Classes, Dialog, Menu, MenuItem } from '@blueprintjs/core'
+import { Form } from 'formik'
+import * as Yup from 'yup'
+import { NavLink, useParams, useHistory } from 'react-router-dom'
+import { useGet, useMutate } from 'restful-react'
+import type { CellProps, Renderer, Column } from 'react-table'
+import RbacButton from '@rbac/components/Button/Button'
+import { Page } from '@common/exports'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import routes from '@common/RouteDefinitions'
+import Table from '@common/components/Table/Table'
+
+import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/strings'
+import { GetStarted } from '../home/GetStarted'
+import useDeleteFolder from './useDeleteFolder'
+
+import dashboardIcon from './dashboard.svg'
+
+import css from '../home/HomePage.module.scss'
+
+const DEFAULT_FILTER: { [key: string]: boolean } = {
+  HARNESS: false,
+  CE: false,
+  CD: false,
+  CI: false,
+  CF: false
+}
+
+type CustomColumn<T extends Record<string, any>> = Column<T>
+
+const CustomSelect = Select.ofType<SelectOption>()
+
+enum Views {
+  CREATE,
+  EDIT
+}
+
+interface FolderInterface {
+  id: string
+  name: string
+  title: string
+  type: string
+  child_count: number
+  created_at: string
+  data_source: string[]
+}
+
+enum LayoutViews {
+  LIST,
+  GRID
+}
+
+const defaultSortBy: SelectOption = {
+  label: 'Select Option',
+  value: ''
+}
+
+const FirstStep = (props: any): JSX.Element => {
+  const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
+  const [errorMessage, setErrorMessage] = React.useState('')
+  const history = useHistory()
+  const { mutate: createFolder, loading } = useMutate({
+    verb: 'POST',
+    path: 'dashboard/folder',
+    queryParams: { accountId: accountId }
+  })
+
+  const submitForm = async (formData: { name: string }) => {
+    const response = await createFolder(formData)
+    return response
+  }
+
+  return (
+    <Layout.Horizontal style={{ height: '100%', justifyContent: 'space-between' }}>
+      <Layout.Horizontal
+        flex
+        padding="medium"
+        style={{ flexDirection: 'column', alignItems: 'baseline', width: '50%' }}
+        spacing="medium"
+      >
+        <Text font="medium" color={Color.BLACK_100}>
+          {getString('dashboards.createFolder.stepOne')}
+        </Text>
+        <Formik
+          initialValues={{ name: '' }}
+          formName={'createFolderForm'}
+          validationSchema={Yup.object().shape({
+            name: Yup.string().trim().required(getString('dashboards.createFolder.folderNameValidation'))
+          })}
+          onSubmit={(formData: { name: string }) => {
+            setErrorMessage('')
+            const response = submitForm(formData)
+            response
+              .then(data => {
+                if (data?.resource) {
+                  history.push({
+                    pathname: routes.toCustomDashboardHome({
+                      folderId: data?.resource,
+                      accountId: accountId
+                    })
+                  })
+                  props?.hideModal?.()
+                }
+              })
+              .catch(() => {
+                setErrorMessage(getString('dashboards.createFolder.folderSubmitFail'))
+              })
+          }}
+        >
+          {() => (
+            <Form className={css.formContainer}>
+              <Layout.Vertical spacing="xsmall">
+                <FormInput.Text
+                  name="name"
+                  label={getString('name')}
+                  placeholder={getString('dashboards.createFolder.folderPlaceholder')}
+                />
+
+                <Layout.Vertical style={{ marginTop: '180px' }}>
+                  <Button
+                    type="submit"
+                    intent="primary"
+                    style={{ width: '150px', marginTop: '200px' }}
+                    text={getString('continue')}
+                    disabled={loading}
+                    className={css.button}
+                  />
+                  {errorMessage && (
+                    <section style={{ color: 'var(--red-700)', marginTop: 'var(--spacing-small)' }}>
+                      {errorMessage}
+                    </section>
+                  )}
+                </Layout.Vertical>
+              </Layout.Vertical>
+            </Form>
+          )}
+        </Formik>
+      </Layout.Horizontal>
+    </Layout.Horizontal>
+  )
+}
+const folderType: { [key: string]: string } = {
+  SHARED: 'SHARED',
+  ACCOUNT: 'ACCOUNT'
+}
+
+const TagsRenderer = (data: FolderInterface) => {
+  const { getString } = useStrings()
+  return (
+    <Container className={css.predefinedTags}>
+      {data.type === folderType.SHARED && (
+        <section className={css.harnessTag}>{getString('dashboards.modules.harness')}</section>
+      )}
+      {data.data_source.map((tag: string) => {
+        if (tag === 'CE') return <section className={css.ceTag}>{getString('common.purpose.ce.cloudCost')}</section>
+        if (tag === 'CI') return <section className={css.ciTag}>{getString('buildsText')}</section>
+        if (tag === 'CD') return <section className={css.cdTag}>{getString('deploymentsText')}</section>
+        if (tag === 'CF') return <section className={css.cfTag}>{getString('common.purpose.cf.continuous')}</section>
+      })}
+    </Container>
+  )
+}
+
+const RenderDashboardName: Renderer<CellProps<FolderInterface>> = ({ row }) => {
+  const data = row.original
+  return (
+    <Text color={Color.BLACK} lineClamp={1}>
+      {data.name}
+    </Text>
+  )
+}
+
+const RenderDashboardCount: Renderer<CellProps<FolderInterface>> = ({ row }) => {
+  const data = row.original
+  return (
+    <Layout.Horizontal spacing="small">
+      <img src={dashboardIcon} height={20} />
+      <Text color={Color.PRIMARY_7} font={{ size: 'medium', weight: 'semi-bold' }}>
+        {data?.child_count || 0}
+      </Text>
+    </Layout.Horizontal>
+  )
+}
+
+const RenderDashboardTags: Renderer<CellProps<FolderInterface>> = ({ row }) => {
+  const data = row.original
+  return TagsRenderer(data)
+}
+
+const columns: CustomColumn<FolderInterface>[] = [
+  {
+    Header: 'Name',
+    id: 'name',
+    accessor: row => row.name,
+    width: '30%',
+    Cell: RenderDashboardName
+  },
+  {
+    Header: 'Tags',
+    id: 'tags',
+    accessor: row => row.data_source,
+    width: '30%',
+    Cell: RenderDashboardTags
+  },
+  {
+    Header: 'Dashboard Count',
+    id: 'child_count',
+    accessor: row => row.child_count,
+    width: '30%',
+    Cell: RenderDashboardCount
+  }
+]
+
+const FoldersPage: React.FC = () => {
+  const { getString } = useStrings()
+  const { accountId } = useParams<AccountPathProps>()
+  const history = useHistory()
+
+  const [filteredFoldersList, setFilteredList] = React.useState<FolderInterface[]>([])
+
+  const [view, setView] = useState(Views.CREATE)
+  const [deleteContext, setDeleteContext] = React.useState<FolderInterface>()
+  const [page, setPage] = useState(0)
+  const [filteredTags, setFilteredTags] = React.useState<string[]>([])
+  const [selectedFilter, setCheckboxFilter] = React.useState(DEFAULT_FILTER)
+  const [searchTerm, setSearchTerm] = useState<string | undefined>()
+  const [layoutView, setLayoutView] = useState(LayoutViews.GRID)
+  const [sortby, setSortingFilter] = useState<SelectOption>(defaultSortBy)
+  const [isOpen, setDrawerOpen] = useState(false)
+  const serialize = (obj: { [key: string]: boolean }) => {
+    const str = []
+    for (const p in obj)
+      if (Object.prototype.hasOwnProperty.call(obj, p)) {
+        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]))
+      }
+    return str.join('&')
+  }
+
+  React.useEffect(() => {
+    const script = document.createElement('script')
+
+    script.src = 'https://fast.wistia.com/assets/external/E-v1.js'
+    script.async = true
+
+    document.body.appendChild(script)
+  }, [])
+
+  React.useEffect(() => {
+    if (searchTerm || selectedFilter || sortby?.value || filteredTags?.length > 0) setPage(0)
+  }, [searchTerm, selectedFilter, sortby?.value, filteredTags])
+
+  const {
+    data: foldersList,
+    loading,
+    error,
+    refetch: reloadFolders
+  } = useGet({
+    // Inferred from RestfulProvider in index.js
+    path: 'dashboard/v1/folders',
+    queryParams: {
+      accountId: accountId,
+      searchTerm,
+      page: page + 1,
+      pageSize: 20,
+      tags: serialize(selectedFilter),
+      sortBy: sortby?.value
+    }
+  })
+
+  const sortingOptions: SelectOption[] = [
+    {
+      label: 'Name (A-Z)',
+      value: 'name'
+    },
+    {
+      label: 'Name (Z-A)',
+      value: 'name desc'
+    },
+    {
+      label: 'Recently Created',
+      value: 'created_at desc'
+    }
+  ]
+
+  const onDeleted = (): void => {
+    reloadFolders?.()
+  }
+
+  React.useEffect(() => {
+    if (foldersList) {
+      setFilteredList(foldersList?.resource?.list)
+    }
+  }, [foldersList])
+
+  const setPredefinedFilter = (filterType: string, isChecked: boolean) => {
+    const updatedValue: any = {}
+    updatedValue[filterType] = isChecked
+    setCheckboxFilter({ ...selectedFilter, ...updatedValue })
+  }
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        isOpen={true}
+        enforceFocus={false}
+        onClose={() => {
+          setView(Views.CREATE)
+          hideModal()
+        }}
+        className={cx(css.folderDialog, Classes.DIALOG, {
+          [css.create]: view === Views.CREATE
+        })}
+      >
+        {view === Views.CREATE ? (
+          <StepWizard stepClassName={css.stepClass}>
+            <FirstStep
+              name={getString('dashboards.createFolder.stepOne')}
+              formData={{}}
+              hideModal={hideModal}
+              handleViewChange={{}}
+            />
+            {null}
+          </StepWizard>
+        ) : null}
+
+        {view === Views.EDIT ? <section>se</section> : null}
+
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            setView(Views.CREATE)
+            hideModal()
+          }}
+          className={css.crossIcon}
+        />
+      </Dialog>
+    ),
+    [view]
+  )
+
+  const { openDialog } = useDeleteFolder(deleteContext, onDeleted)
+
+  return (
+    <Page.Body
+      loading={loading}
+      className={css.pageContainer}
+      retryOnError={() => {
+        return
+      }}
+      error={(error?.data as Error)?.message}
+    >
+      <GetStarted isOpen={isOpen} setDrawerOpen={val => setDrawerOpen(val)} />
+      <Layout.Vertical padding="large" background={Color.GREY_0}>
+        <Layout.Horizontal style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+          <Layout.Vertical spacing="medium">
+            <Breadcrumbs
+              links={[
+                {
+                  url: routes.toCustomDashboardHome({ accountId }),
+                  label: 'Home'
+                },
+                {
+                  url: routes.toCustomDashboardHome({ accountId }),
+                  label: getString('common.dashboards')
+                }
+              ]}
+            />
+            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
+              {getString('dashboards.homePage.folders')}
+            </Text>
+          </Layout.Vertical>
+          <Layout.Horizontal>
+            <Layout.Horizontal spacing="medium">
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={routes.toCustomDashboardHome({ accountId })}
+              >
+                {getString('common.dashboards')}
+              </NavLink>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={routes.toCustomFolderHome({ accountId })}
+              >
+                {getString('dashboards.homePage.folders')}
+              </NavLink>
+            </Layout.Horizontal>
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="medium">
+            <Text color={Color.PRIMARY_6} style={{ cursor: 'pointer' }} onClick={() => setDrawerOpen(true)}>
+              {' '}
+              <Icon name="question" /> {getString('getStarted')}
+            </Text>
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+        <Layout.Horizontal
+          style={{
+            borderBottom: '1px solid var(--grey-100)',
+            justifyContent: 'space-between',
+            paddingLeft: 0,
+            paddingRight: 0
+          }}
+          padding="medium"
+          flex={true}
+        >
+          <Layout.Horizontal
+            spacing="medium"
+            style={{ justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+          >
+            <section style={{ display: 'flex' }}>
+              <RbacButton
+                intent="primary"
+                text={getString('dashboards.homePage.folders')}
+                onClick={() => showModal()}
+                icon="plus"
+                style={{ minWidth: '110px', marginRight: 'var(--spacing-11)' }}
+                permission={{
+                  permission: PermissionIdentifier.EDIT_ACCOUNT,
+                  resource: {
+                    resourceType: ResourceType.ACCOUNT
+                  }
+                }}
+              />
+              <Layout.Horizontal className={css.predefinedTags + ' ' + css.mainNavTag}>
+                <>
+                  <Checkbox
+                    checked={selectedFilter['HARNESS']}
+                    onChange={e => {
+                      setPredefinedFilter('HARNESS', e.currentTarget.checked)
+                    }}
+                  />
+                  <section className={css.harnessTag}>{getString('dashboards.modules.harness')}</section>
+                </>
+                <>
+                  <Checkbox
+                    checked={selectedFilter['CE']}
+                    onChange={e => {
+                      setPredefinedFilter('CE', e.currentTarget.checked)
+                    }}
+                  />
+                  <section className={css.ceTag}>{getString('common.purpose.ce.cloudCost')}</section>
+                </>
+                <>
+                  <Checkbox
+                    checked={selectedFilter['CI']}
+                    onChange={e => {
+                      setPredefinedFilter('CI', e.currentTarget.checked)
+                    }}
+                  />
+                  <section className={css.ciTag}>{getString('buildsText')}</section>
+                </>
+                <>
+                  <Checkbox
+                    checked={selectedFilter['CD']}
+                    onChange={e => {
+                      setPredefinedFilter('CD', e.currentTarget.checked)
+                    }}
+                  />
+                  <section className={css.cdTag}>{getString('deploymentsText')}</section>
+                </>
+                <>
+                  <Checkbox
+                    checked={selectedFilter['CF']}
+                    onChange={e => {
+                      setPredefinedFilter('CF', e.currentTarget.checked)
+                    }}
+                  />
+                  <section className={css.cfTag}>{getString('common.purpose.cf.continuous')}</section>
+                </>
+              </Layout.Horizontal>
+            </section>
+            <Layout.Horizontal>
+              <CustomSelect
+                items={sortingOptions}
+                filterable={false}
+                itemRenderer={(item, { handleClick }) => (
+                  <div key={item.value.toString()}>
+                    <Menu.Item text={item.label} onClick={handleClick} />
+                  </div>
+                )}
+                onItemSelect={item => {
+                  setSortingFilter(item)
+                }}
+                popoverProps={{ minimal: true, popoverClassName: '' }}
+              >
+                <Button
+                  inline
+                  round
+                  rightIcon="chevron-down"
+                  className={css.customSelect}
+                  text={
+                    <Layout.Horizontal spacing="xsmall">
+                      <Text color={Color.BLACK}>{'Sort By'}</Text>
+                      <Text>{sortby?.label}</Text>
+                    </Layout.Horizontal>
+                  }
+                />
+              </CustomSelect>
+              <Layout.Horizontal>
+                <Button
+                  minimal
+                  icon="grid-view"
+                  intent={layoutView === LayoutViews.GRID ? 'primary' : 'none'}
+                  onClick={() => {
+                    setLayoutView(LayoutViews.GRID)
+                  }}
+                />
+                <Button
+                  minimal
+                  icon="list"
+                  intent={layoutView === LayoutViews.LIST ? 'primary' : 'none'}
+                  onClick={() => {
+                    setLayoutView(LayoutViews.LIST)
+                  }}
+                />
+              </Layout.Horizontal>
+            </Layout.Horizontal>
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      </Layout.Vertical>
+
+      <Layout.Vertical padding="large" style={{ height: 'calc(100vh - 226px)', paddingTop: 0, overflow: 'scroll' }}>
+        <Layout.Horizontal style={{ padding: 'var(--spacing-6) var(--spacing-9) ' }}>
+          <ExpandingSearchInput
+            placeholder={getString('dashboards.homePage.searchPlaceholder')}
+            onChange={(text: string) => {
+              setSearchTerm(text)
+            }}
+            className={css.search}
+          />
+        </Layout.Horizontal>
+        <Layout.Horizontal style={{ marginLeft: 'var(--spacing-xxxlarge)', alignItems: 'baseline' }}>
+          <section className={css.filteredTags}>
+            {filteredTags.map((tag: string, index: number) => {
+              return (
+                <section className={css.customTag} key={tag + index}>
+                  {tag}{' '}
+                  <Icon
+                    name="cross"
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      const filterTags = filteredTags.filter(v => v !== tag)
+                      setFilteredTags(filterTags)
+                    }}
+                  />
+                </section>
+              )
+            })}
+          </section>
+          {filteredTags?.length > 0 && (
+            <Text
+              color={Color.PRIMARY_7}
+              style={{ cursor: 'pointer' }}
+              font={{ weight: 'semi-bold' }}
+              onClick={() => setFilteredTags([])}
+            >
+              Clear All
+            </Text>
+          )}
+        </Layout.Horizontal>
+
+        {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.GRID && (
+          <Layout.Vertical padding="large">
+            <Container className={css.folderMasonry}>
+              <Layout.Masonry
+                center
+                gutter={25}
+                items={filteredFoldersList}
+                renderItem={(folder: FolderInterface) => (
+                  <Card className={cx(css.dashboardCard)}>
+                    <Container>
+                      {folder?.type !== folderType.SHARED && (
+                        <CardBody.Menu
+                          menuContent={
+                            <Menu>
+                              <MenuItem
+                                text="Delete"
+                                onClick={() => {
+                                  setDeleteContext(folder)
+                                  openDialog()
+                                }}
+                              />
+                            </Menu>
+                          }
+                          menuPopoverProps={{
+                            className: Classes.DARK
+                          }}
+                        />
+                      )}
+
+                      <Layout.Vertical
+                        spacing="large"
+                        onClick={() => {
+                          history.push({
+                            pathname: routes.toCustomDashboardHome({
+                              folderId: folder?.id ? folder?.id : 'shared',
+                              accountId: accountId
+                            })
+                          })
+                        }}
+                      >
+                        <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
+                          {folder?.name}
+                        </Text>
+                        {TagsRenderer(folder)}
+                        <Layout.Horizontal spacing="medium">
+                          <Container
+                            flex
+                            style={{
+                              borderRadius: '5px',
+                              flexDirection: 'row',
+                              justifyContent: 'start',
+                              alignItems: 'center'
+                            }}
+                            padding="small"
+                          >
+                            <Layout.Vertical>
+                              <Layout.Horizontal spacing="small">
+                                <img src={dashboardIcon} height={20} />
+                                <Text color={Color.PRIMARY_7} font={{ size: 'medium', weight: 'semi-bold' }}>
+                                  {folder?.child_count || 0}
+                                </Text>
+                              </Layout.Horizontal>
+                            </Layout.Vertical>
+                          </Container>
+                        </Layout.Horizontal>
+                      </Layout.Vertical>
+                    </Container>
+                  </Card>
+                )}
+                keyOf={folder => folder?.id}
+              />
+            </Container>
+          </Layout.Vertical>
+        )}
+
+        {filteredFoldersList && filteredFoldersList.length > 0 && layoutView === LayoutViews.LIST && (
+          <Container className={css.folderMasonry}>
+            <Table<FolderInterface>
+              className={css.table}
+              columns={columns}
+              data={filteredFoldersList || []}
+              onRowClick={data => {
+                history.push({
+                  pathname: routes.toCustomDashboardHome({
+                    folderId: data?.id ? data?.id : 'shared',
+                    accountId: accountId
+                  })
+                })
+              }}
+            />
+          </Container>
+        )}
+
+        {filteredFoldersList && filteredFoldersList.length === 0 && !loading && (
+          <Container style={{ height: 'calc(100vh - 226px)' }} flex={{ align: 'center-center' }}>
+            <Layout.Vertical spacing="medium" width={470} style={{ alignItems: 'center', marginTop: '-48px' }}>
+              <Icon name="folder-open" color={Color.GREY_300} size={35} />
+              <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
+                {getString('dashboards.homePage.noFolderAvailable')}
+              </Heading>
+            </Layout.Vertical>
+          </Container>
+        )}
+      </Layout.Vertical>
+
+      {!loading && (
+        <Container className={css.pagination}>
+          <Pagination
+            itemCount={100}
+            pageSize={10}
+            pageCount={100}
+            pageIndex={page}
+            gotoPage={(pageNumber: number) => setPage(pageNumber)}
+          />
+        </Container>
+      )}
+    </Page.Body>
+  )
+}
+
+export default FoldersPage

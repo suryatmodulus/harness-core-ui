@@ -18,6 +18,7 @@ exports[`Create Step Review Script Delegate render data 1`] = `
       >
         <button
           class="bp3-button bp3-outlined Button--button StyledProps--font StyledProps--main downloadButton Button--with-current-color"
+          id="stepReviewScriptDownloadYAMLButton"
           type="button"
         >
           <span
@@ -126,27 +127,27 @@ exports[`Create Step Review Script Delegate render data 1`] = `
         </h2>
       </div>
       <div
-        class="Layout--horizontal StyledProps--main StyledProps--padding-small"
+        class="Layout--vertical StyledProps--main StyledProps--padding-small"
       >
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
           style="--text-line-clamp: 3; width: 514px;"
         >
           delegate.reviewScript.descriptionProxySettings
+        </p>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small"
+          style="--text-line-clamp: 3; width: 514px;"
+        >
+          delegates.reviewScript.docLinkBefore
           <a
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--link"
             href="https://docs.harness.io/article/pfim3oig7o-configure-delegate-proxy-settings"
-            rel="noreferrer noopener"
-            role="button"
-            tabindex="0"
+            rel="noreferrer"
             target="_blank"
           >
-            <span
-              class="bp3-button-text"
-            >
-              More info
-            </span>
+            delegates.reviewScript.docLink
           </a>
+          delegates.reviewScript.docLinkAfter
         </p>
       </div>
     </div>

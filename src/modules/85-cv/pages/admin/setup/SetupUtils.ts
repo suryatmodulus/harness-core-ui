@@ -23,10 +23,12 @@ export const getIconBySourceType = (type: string): IconName => {
     case 'TEST':
       return 'lab-test'
     case 'PROMETHEUS':
+    case 'Prometheus':
       return 'service-prometheus'
     //TODO one type will be removed once it is full deprecated from backend.
     case 'STACKDRIVER_LOG':
     case 'StackdriverLog':
+    case 'Stackdriver':
       return 'service-stackdriver'
     default:
       return 'placeholder'

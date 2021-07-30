@@ -202,22 +202,10 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
             >
               delegate.Scope
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 14px; color: rgb(34, 39, 45); line-height: 24px; font-weight: 500;"
-            >
-              delegate.ScopeDescription
-            </p>
             <div
               class="StyledProps--font StyledProps--main"
               style="height: 100%;"
             >
-              <h2
-                class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-large"
-                level="2"
-              >
-                delegate.Scope
-              </h2>
               <h3
                 class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xxlarge"
                 level="3"
@@ -487,22 +475,10 @@ exports[`Delegates Profile Detail initial render 1`] = `
             >
               delegate.Scope
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 14px; color: rgb(34, 39, 45); line-height: 24px; font-weight: 500;"
-            >
-              delegate.ScopeDescription
-            </p>
             <div
               class="StyledProps--font StyledProps--main"
               style="height: 100%;"
             >
-              <h2
-                class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-large"
-                level="2"
-              >
-                delegate.Scope
-              </h2>
               <h3
                 class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xxlarge"
                 level="3"

@@ -84,6 +84,7 @@ export interface StringsMap {
   'common.changeDefaultAccountTitle': string
   'common.changeIntelligence': string
   'common.changesUnsaved': string
+  'common.channel': string
   'common.clearSelection': string
   'common.clientId': string
   'common.cluster': string
@@ -262,6 +263,7 @@ export interface StringsMap {
   'common.newVersion': string
   'common.noRefData': string
   'common.note': string
+  'common.notificationPreferences': string
   'common.ok': string
   'common.on': string
   'common.optionalConfig': string
@@ -271,6 +273,7 @@ export interface StringsMap {
   'common.orgViewer': string
   'common.other': string
   'common.overSubscribed': string
+  'common.pagerDuty': string
   'common.paste': string
   'common.path': string
   'common.pendingInvitation': string
@@ -349,6 +352,7 @@ export interface StringsMap {
   'common.secrets': string
   'common.seeDetails': string
   'common.seeWhatChanged': string
+  'common.selectAChannel': string
   'common.selectBranch': string
   'common.selectDefaultExperience': string
   'common.selectStrategy': string
@@ -357,6 +361,7 @@ export interface StringsMap {
   'common.shell': string
   'common.showLess': string
   'common.showMore': string
+  'common.slack': string
   'common.specify': string
   'common.startTrial': string
   'common.submittingRequest': string
@@ -431,8 +436,10 @@ export interface StringsMap {
   'common.validation.variableAlreadyExists': string
   'common.validation.yamlFilePath': string
   'common.valuePlaceholder': string
+  'common.webhookURL': string
   'common.welcome': string
   'notifications.buttonSend': string
+  'notifications.emailOrAlias': string
   'notifications.emailRecipients': string
   'notifications.emailTestSuccess': string
   'notifications.helpPagerDuty': string
@@ -441,12 +448,16 @@ export interface StringsMap {
   'notifications.infoSlack': string
   'notifications.labelBody': string
   'notifications.labelEmailUserGroups': string
+  'notifications.labelMS': string
+  'notifications.labelMSTeam': string
   'notifications.labelPDKey': string
   'notifications.labelPDUserGroups': string
+  'notifications.labelPagerDuty': string
   'notifications.labelSlackUserGroups': string
   'notifications.labelSubject': string
   'notifications.labelTo': string
   'notifications.labelWebhookUrl': string
+  'notifications.msTestSuccess': string
   'notifications.name': string
   'notifications.nameOftheRule': string
   'notifications.notificationMethod': string
@@ -561,6 +572,7 @@ export interface StringsMap {
   'rbac.token.rotateLabel': string
   'rbac.token.scheduledToExpire': string
   'rbac.token.successMessage': string
+  'rbac.updateNotificationSuccess': string
   'rbac.user': string
   'rbac.userDetails.linkToSSOProviderModal.btnDisabledTooltipText': string
   'rbac.userDetails.linkToSSOProviderModal.delinkLabel': string
@@ -735,7 +747,6 @@ export interface StringsMap {
   'authSettings.yourAccountWillBeLockedOut': string
   'delegates.delSetup': string
   'delegates.delegateDeleted': string
-  'delegates.delegateForceDeleted': string
   'delegates.delegateIdentifier': string
   'delegates.delegateInstances': string
   'delegates.delegateNameRegexIssue': string
@@ -783,7 +794,6 @@ export interface StringsMap {
   'delegates.delegatePermissions.title': string
   'delegates.delegateSizeUpTo': string
   'delegates.downloadYAMLFile': string
-  'delegates.forceDelete': string
   'delegates.harnessDocs': string
   'delegates.lastUpdated': string
   'delegates.newDelegateConfigWizard.matchAllEnvs': string
@@ -797,9 +807,11 @@ export interface StringsMap {
   'delegates.newDelegateConfigWizard.successMessage': string
   'delegates.openTroubleshooter': string
   'delegates.permissionRequired': string
-  'delegates.questionDeleteDelegate': string
   'delegates.questionForceDeleteDelegate': string
   'delegates.replicaText': string
+  'delegates.reviewScript.docLink': string
+  'delegates.reviewScript.docLinkAfter': string
+  'delegates.reviewScript.docLinkBefore': string
   'delegates.reviewYAML': string
   'delegates.searchDelegateName': string
   'delegates.totalMemUnit': string
@@ -1455,6 +1467,11 @@ export interface StringsMap {
   'gitsync.selectHarnessFolder': string
   'gitsync.successfullCreate': string
   'gitsync.successfullySavedConnectivityMode': string
+  'dashboards.createFolder.folderDescriptionPlaceholder': string
+  'dashboards.createFolder.folderNameValidation': string
+  'dashboards.createFolder.folderPlaceholder': string
+  'dashboards.createFolder.folderSubmitFail': string
+  'dashboards.createFolder.stepOne': string
   'dashboards.createModal.dataSource': string
   'dashboards.createModal.descriptionPlaceholder': string
   'dashboards.createModal.fav': string
@@ -1465,7 +1482,24 @@ export interface StringsMap {
   'dashboards.createModal.stepOne': string
   'dashboards.createModal.submitFail': string
   'dashboards.createModal.view': string
-  'dashboards.homePage.title': string
+  'dashboards.deleteFolder.confirmDeleteText': string
+  'dashboards.deleteFolder.confirmDeleteTitle': string
+  'dashboards.deleteFolder.success': string
+  'dashboards.getStarted.subTextVideo1': string
+  'dashboards.getStarted.subTextVideo2': string
+  'dashboards.getStarted.subTextVideo3': string
+  'dashboards.getStarted.title': string
+  'dashboards.getStarted.video1Title': string
+  'dashboards.getStarted.video2Title': string
+  'dashboards.getStarted.video3Title': string
+  'dashboards.homePage.folders': string
+  'dashboards.homePage.noDashboardsAvailable': string
+  'dashboards.homePage.noFolderAvailable': string
+  'dashboards.homePage.noTags': string
+  'dashboards.homePage.searchPlaceholder': string
+  'dashboards.modules.harness': string
+  'dashboards.resourceModal.folderDetail': string
+  'dashboards.resourceModal.folders': string
   'dashboards.serviceDashboard.3months': string
   'dashboards.serviceDashboard.6months': string
   'dashboards.serviceDashboard.activeServiceInstancesLabel': string
@@ -2485,6 +2519,11 @@ export interface StringsMap {
   'ce.overview.cardtitles.multipleCloud': string
   'ce.overview.cardtitles.topClusters': string
   'ce.overview.cardtitles.topRecommendation': string
+  'ce.overview.noData.autoStopping': string
+  'ce.overview.noData.connector': string
+  'ce.overview.noData.explore': string
+  'ce.overview.noData.info': string
+  'ce.overview.noData.ngDocs': string
   'ce.overview.savings': string
   'ce.overview.seeAll': string
   'ce.overview.title': string
@@ -2739,6 +2778,7 @@ export interface StringsMap {
   'cf.environments.apiKeys.deleteMessage': string
   'cf.environments.apiKeys.deleteSuccess': string
   'cf.environments.apiKeys.deleteTitle': string
+  'cf.environments.apiKeys.emptyName': string
   'cf.environments.apiKeys.keyType': string
   'cf.environments.apiKeys.message': string
   'cf.environments.apiKeys.noKeysFound': string
@@ -3262,8 +3302,6 @@ export interface StringsMap {
   'cv.healthSource.serviceLabel': string
   'cv.healthSource.table.environmentMapping': string
   'cv.healthSource.table.serviceMapping': string
-  'cv.healthSource.table.type.logs': string
-  'cv.healthSource.table.type.metrics': string
   'cv.hostNamePlaceholder': string
   'cv.initiated': string
   'cv.jobNamePlaceholder': string
@@ -4233,10 +4271,6 @@ export interface StringsMap {
    * @deprecated migrate this string to module level file
    */
   'delegate.Scope': string
-  /**
-   * @deprecated migrate this string to module level file
-   */
-  'delegate.ScopeDescription': string
   /**
    * @deprecated migrate this string to module level file
    */

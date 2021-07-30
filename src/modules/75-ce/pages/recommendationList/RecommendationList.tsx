@@ -78,7 +78,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
   }
 
   const SavingCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
-    return cell.value ? (
+    return !isNaN(cell.value) ? (
       <Text color="green500" icon="money-icon" iconProps={{ size: 28 }}>
         {formatCost(cell.value)}
       </Text>

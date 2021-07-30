@@ -83,17 +83,7 @@ exports[`test cases for Perspective details Page should be able to render the de
           <span
             class="bp3-button-text"
           >
-            Edit
-          </span>
-        </button>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-          type="button"
-        >
-          <span
-            class="bp3-button-text"
-          >
-            Share
+            edit
           </span>
         </button>
       </div>

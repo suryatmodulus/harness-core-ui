@@ -6,12 +6,6 @@ exports[`Render del config scope Edit render data 1`] = `
     class="StyledProps--font StyledProps--main"
     style="height: 100%;"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-large"
-      level="2"
-    >
-      delegate.Scope
-    </h2>
     <h3
       class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xxlarge"
       level="3"

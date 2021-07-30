@@ -437,7 +437,6 @@ const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
   onRetryButtonClick
 }) => {
   const { getString } = useStrings()
-
   // If the check is complete
   if (preFlightCheckData?.status === 'SUCCESS' || preFlightCheckData?.status === 'FAILURE') {
     return (

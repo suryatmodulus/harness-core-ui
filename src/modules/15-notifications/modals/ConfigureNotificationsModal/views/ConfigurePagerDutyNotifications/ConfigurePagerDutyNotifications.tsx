@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading } from '@wings-software/uicore'
+import { FormikForm, FormInput, Button, Layout, Icon, Text, Heading, ButtonProps } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
@@ -27,10 +27,15 @@ interface ConfigurePagerDutyNotificationsProps {
 
 interface PagerDutyNotificationData {
   key: string
+  pagerDutyKey?: string
   userGroups: string[]
 }
 
-const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsProps> = props => {
+export const TestPagerDutyNotifications: React.FC<{
+  data: PagerDutyNotificationData
+  onClick?: () => Promise<boolean>
+  buttonProps?: ButtonProps
+}> = ({ data, onClick, buttonProps }) => {
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
   const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
@@ -38,12 +43,16 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
   const { showSuccess, showError } = useToaster()
 
   const handleTest = async (testData: PagerDutyNotificationData): Promise<void> => {
+    if (onClick) {
+      const success = await onClick()
+      if (!success) return
+    }
     try {
       setTestStatus(TestStatus.INIT)
       const resp = await testNotificationSetting({
         accountId,
         type: 'PAGERDUTY',
-        recipient: testData.key,
+        recipient: testData.key || testData.pagerDutyKey,
         notificationId: 'asd'
       } as PagerDutySettingDTO)
       if (resp.status === 'SUCCESS' && resp.data) {
@@ -58,6 +67,19 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
       setTestStatus(TestStatus.ERROR)
     }
   }
+  return (
+    <>
+      <Button text={getString('test')} onClick={() => handleTest(data)} {...buttonProps} />
+      {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={cx(css.statusIcon, css.green)} /> : null}
+      {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
+        <Icon name="cross" className={cx(css.statusIcon, css.red)} />
+      ) : null}
+    </>
+  )
+}
+
+const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsProps> = props => {
+  const { getString } = useStrings()
 
   const handleSubmit = (formData: PagerDutyNotificationData): void => {
     props.onSuccess({
@@ -93,13 +115,7 @@ const ConfigurePagerDutyNotifications: React.FC<ConfigurePagerDutyNotificationsP
               <FormikForm>
                 <FormInput.Text name={'key'} label={getString('notifications.labelPDKey')} />
                 <Layout.Horizontal margin={{ bottom: 'xxlarge' }} style={{ alignItems: 'center' }}>
-                  <Button text={getString('test')} onClick={() => handleTest(formik.values)} />
-                  {testStatus === TestStatus.SUCCESS ? (
-                    <Icon name="tick" className={cx(css.statusIcon, css.green)} />
-                  ) : null}
-                  {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
-                    <Icon name="cross" className={cx(css.statusIcon, css.red)} />
-                  ) : null}
+                  <TestPagerDutyNotifications data={formik.values} />
                 </Layout.Horizontal>
                 <FormInput.MultiInput
                   name={'userGroups'}

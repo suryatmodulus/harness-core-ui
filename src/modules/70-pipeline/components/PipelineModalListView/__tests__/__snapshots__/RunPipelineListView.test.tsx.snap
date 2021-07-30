@@ -53,9 +53,9 @@ exports[`PipelineModal List View render list view 1`] = `
     data-name="page-body"
   >
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main searchContainer "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main searchContainer  ExpandingSearchInput--alwaysExpanded"
       data-name=""
-      style="max-width: 250px;"
+      style="width: 250px; max-width: 250px;"
     >
       <span
         class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
@@ -80,7 +80,7 @@ exports[`PipelineModal List View render list view 1`] = `
         class="bp3-input  ExpandingSearchInput--filter"
         dir="auto"
         placeholder="search"
-        style="padding-right: 0px;"
+        style="padding-right: 36px;"
         type="search"
         value=""
       />

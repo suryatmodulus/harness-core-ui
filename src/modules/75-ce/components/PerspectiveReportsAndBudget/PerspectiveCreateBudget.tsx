@@ -33,6 +33,7 @@ const useBudgetModal = ({ onSuccess }: BudgetModalProps) => {
     isOpen: true,
     autoFocus: true,
     enforceFocus: false,
+    canOutsideClickClose: false,
     className: cx(Classes.DIALOG, css.dialog),
     style: {
       minWidth: 1175,

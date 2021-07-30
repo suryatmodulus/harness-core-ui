@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Layout, SimpleTagInput, Text, TextInput, useToggle } from '@wings-software/uicore'
+import { Container, Layout, SimpleTagInput, TextInput, useToggle } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import {
   SectionContainer,
@@ -297,9 +297,6 @@ export default function DelegateProfileDetails(): JSX.Element {
 
                 <SectionContainer>
                   <SectionContainerTitle>{getString('delegate.Scope')}</SectionContainerTitle>
-                  <Text style={{ fontSize: '14px', color: '#22272D', lineHeight: '24px', fontWeight: 500 }}>
-                    {getString('delegate.ScopeDescription')}
-                  </Text>
                   {profile && editMode ? (
                     <DelegateConfigScopeEdit
                       onChange={onScopeChange}

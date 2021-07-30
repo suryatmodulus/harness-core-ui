@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react'
 import cx from 'classnames'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -118,7 +118,7 @@ export default function HealthSourceTable({
     const rowdata = row?.original
     return (
       <Layout.Horizontal flex={{ justifyContent: 'space-between' }}>
-        <Text icon={getIconBySourceType(rowdata?.type as string)}>{rowdata?.type}</Text>
+        <Icon name={getIconBySourceType(rowdata?.type as string)} size={22} />
         <ContextMenuActions
           titleText={getString('cv.healthSource.deleteHealthSource')}
           contentText={getString('cv.healthSource.deleteHealthSourceWarning') + `: ${rowdata.identifier}`}

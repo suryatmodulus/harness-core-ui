@@ -99,8 +99,13 @@ const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ titl
         </Heading>
       </Container>
 
-      <Button disabled={isDefaultPerspective} text="Edit" icon="edit" intent="primary" onClick={goToEditPerspective} />
-      <Button text="Share" />
+      <Button
+        disabled={isDefaultPerspective}
+        text={getString('edit')}
+        icon="edit"
+        intent="primary"
+        onClick={goToEditPerspective}
+      />
     </Layout.Horizontal>
   )
 }

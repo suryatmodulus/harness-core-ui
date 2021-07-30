@@ -20,11 +20,14 @@ declare const styles: {
   readonly gist: string
   readonly efficienyScore: string
   readonly legendColor: string
-  readonly list: string
+  readonly flexList: string
+  readonly tableList: string
   readonly chartLoadingContainer: string
   readonly rowGap8: string
   readonly addCluster: string
   readonly addClusterBtn: string
   readonly cardLoader: string
+  readonly noDataCtn: string
+  readonly ngDocs: string
 }
 export default styles

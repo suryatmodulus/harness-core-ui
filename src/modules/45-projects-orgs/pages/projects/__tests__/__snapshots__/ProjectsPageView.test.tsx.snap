@@ -224,7 +224,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
         data-name=""
         style="max-width: 350px;"
       >
@@ -3554,7 +3554,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
         data-name=""
         style="max-width: 350px;"
       >
@@ -6884,7 +6884,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
         data-name=""
         style="max-width: 350px;"
       >
@@ -10214,7 +10214,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
         data-name=""
         style="max-width: 350px;"
       >

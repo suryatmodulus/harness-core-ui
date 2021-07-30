@@ -53,6 +53,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         sort: [],
         status: params.status as QuickStatusParam,
         myDeployments: !!params.myDeployments,
+        searchTerm: params.searchTerm,
         filters,
         repoIdentifier: params.repoIdentifier,
         branch: params.branch
@@ -61,9 +62,10 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   })
   const { replaceQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
 
-  const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch } = queryParams
+  const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch, searchTerm } = queryParams
   const hasFilters =
-    [queryParams.pipelineIdentifier, status, filterIdentifier].some(filter => filter !== undefined) || myDeployments
+    [queryParams.pipelineIdentifier, status, filterIdentifier, searchTerm].some(filter => filter !== undefined) ||
+    myDeployments
 
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
@@ -88,7 +90,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       myDeployments,
       status,
       repoIdentifier,
-      branch
+      branch,
+      searchTerm
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'

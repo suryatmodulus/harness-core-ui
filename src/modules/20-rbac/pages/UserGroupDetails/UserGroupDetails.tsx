@@ -20,6 +20,7 @@ import { useLinkToSSOProviderModal } from '@rbac/modals/LinkToSSOProviderModal/u
 import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
+import NotificationList from '@rbac/components/NotificationList/NotificationList'
 import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
@@ -180,6 +181,12 @@ const UserGroupDetails: React.FC = () => {
                 resourceIdentifier={userGroupIdentifier}
               />
             </Layout.Horizontal>
+          </Layout.Vertical>
+          <Layout.Vertical spacing="medium">
+            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
+              {getString('common.notificationPreferences')}
+            </Text>
+            <NotificationList userGroup={userGroup} onSubmit={refetch} />
           </Layout.Vertical>
         </Container>
       </Page.Body>

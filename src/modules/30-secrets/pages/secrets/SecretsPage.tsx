@@ -127,12 +127,12 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
           />
         </Layout.Horizontal>
         <ExpandingSearchInput
-          flip
+          alwaysExpanded
           onChange={text => {
             setSearchTerm(text.trim())
             setPage(0)
           }}
-          width={350}
+          width={250}
         />
       </Layout.Horizontal>
       <Page.Body className={css.body}>

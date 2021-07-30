@@ -1081,8 +1081,16 @@ const routes = {
   toCEOverview: withAccountId(() => '/ce/overview'),
   toCEPerspectiveDashboard: withAccountId(() => `/ce/perspective`),
   /********************************************************************************************************************/
-  toCustomDashboard: withAccountId(() => '/dashboards'),
-  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/view/${viewId}`)
+  toCustomDashboard: withAccountId(() => '/home/dashboards'),
+  toCustomDashboardHome: withAccountId(
+    ({ folderId }: { folderId?: string }) => `/home/dashboards/folder/${folderId ? folderId : 'shared'}`
+  ),
+  toViewCustomDashboard: withAccountId(
+    ({ viewId, folderId }: { viewId: string; folderId: string }) =>
+      `/home/dashboards/folder/${folderId ? folderId : 'shared'}/view/${viewId}`
+  ),
+  toCustomFolderHome: withAccountId(() => '/home/dashboards/folders'),
+  toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/home/dashboards/folder/view/${viewId}`)
 
   /****************** Secret Usage************************************************************************************/
 }

@@ -6,9 +6,11 @@ export const getTypeByFeature = (feature: string, getString: UseStringsReturn['g
   switch (feature) {
     case Connectors.APP_DYNAMICS:
     case Connectors.GCP:
-      return getString('cv.healthSource.table.type.metrics')
+    case Connectors.PROMETHEUS:
+    case HealthSourceTypes.StackdriverMetrics:
+      return getString('pipeline.verification.analysisTab.metrics')
     case HealthSourceTypes.StackdriverLog:
-      return getString('cv.healthSource.table.type.logs')
+      return getString('pipeline.verification.analysisTab.logs')
     default:
       return ''
   }

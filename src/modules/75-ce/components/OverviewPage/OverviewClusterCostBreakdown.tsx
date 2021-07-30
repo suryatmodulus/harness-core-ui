@@ -14,7 +14,7 @@ import { getGMTStartDateTime } from '@ce/utils/momentUtils'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
 import type { TimeRange } from '@ce/pages/overview/OverviewPage'
 import { CE_COLOR_CONST } from '../CEChart/CEChartOptions'
-import { EfficiencyScore, LEGEND_LIMIT, List, ListType, Loader, Stats, VerticalLayout } from './OverviewPageLayout'
+import { EfficiencyScore, LEGEND_LIMIT, ListType, Loader, Stats, TableList, VerticalLayout } from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
 
 interface ClusterCostBreakdownProps {
@@ -108,7 +108,7 @@ const OverviewClusterCostBreakdown = (props: ClusterCostBreakdownProps) => {
             <Text>Cost breakdown</Text>
             <div className={css.breakdown}>
               <Container padding={{ top: 'medium' }}>
-                <List data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_VALUE} classNames={css.rowGap8} />
+                <TableList data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_VALUE} classNames={css.rowGap8} />
               </Container>
               <EfficiencyScore score={!isNaN(statsValue as number) ? Number(statsValue) : 0} trend={statsTrend} />
             </div>

@@ -1,12 +1,12 @@
 .mainContainer {
   display: grid;
-  grid-template-columns: minmax(450px, 33%) minmax(950px, 66%);
+  grid-template-columns: minmax(400px, 1fr) minmax(800px, 2fr);
   gap: var(--spacing-medium);
 
   .columnOne {
     display: grid;
     grid-template-rows: 100px max-content max-content;
-    grid-template-columns: minmax(450px, 100%);
+    grid-template-columns: minmax(400px, 100%);
     gap: var(--spacing-medium);
 
     .summary {
@@ -19,7 +19,7 @@
   .columnTwo {
     display: grid;
     grid-template-rows: repeat(3, max-content);
-    grid-template-columns: minmax(950px, 100%);
+    grid-template-columns: minmax(800px, 100%);
     gap: var(--spacing-medium);
 
     > div {

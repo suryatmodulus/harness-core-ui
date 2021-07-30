@@ -199,6 +199,7 @@ const PerspectiveBuilderFilter: React.FC<FilterPillProps> = ({
         fetching={!pageInfo.filtersValuesData.length && fetching}
         selectedVal={selectedVal}
         onValueChange={onValueChange}
+        searchText={pageInfo.searchValue}
       />
 
       <Icon key="delete" name="delete" size={18} color={Color.ORANGE_500} onClick={removePill} />

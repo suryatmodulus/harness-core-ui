@@ -843,7 +843,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                         </div>
                         <div
                           class="StyledProps--font StyledProps--main"
-                          style="width: 650px;"
+                          style="width: 100%;"
                         >
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"

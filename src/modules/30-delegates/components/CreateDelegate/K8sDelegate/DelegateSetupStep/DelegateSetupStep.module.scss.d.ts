@@ -30,6 +30,7 @@ declare const styles: {
   readonly permissionsTitle: string
   readonly permissionSelect: string
   readonly permissionSelectTitle: string
+  readonly permissionSelectDetails: string
   readonly namespace: string
   readonly profileSelectorsItemsContainer: string
   readonly textCenter: string

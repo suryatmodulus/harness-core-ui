@@ -62,7 +62,7 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     </p>
                   </div>
                   <div
-                    class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip"
+                    class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip "
                     data-name=""
                     style="max-width: 200px;"
                   >

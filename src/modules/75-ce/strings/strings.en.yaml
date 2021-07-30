@@ -502,5 +502,11 @@ overview:
     efficiencyScore: Cost Efficiency score
     topClusters: Top spending clusters
     topRecommendation: Top 20 Recommendations
+  noData:
+    info: You have created your first connector successfully! It takes about 12 hours for the first data to appear. We will send you an email once it’s ready.
+    explore: Meanwhile, you can also explore
+    autoStopping: Create a new AutoStopping Rule
+    connector: Create another Connector
+    ngDocs: Learn what CCM has to offer
 sideNav:
   perspective: 'Perspective'

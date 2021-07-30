@@ -308,6 +308,7 @@ environments:
     addKeyTitle: Create SDK Key
     message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
     title: 'SDK Keys'
+    emptyName: 'SDK Key name is required'
     addKey: '+ Add Key'
     clientType: '{{ $.cf.testTheFlag.sdkClient }}'
     serverType: '{{ $.cf.testTheFlag.sdkServer }}'

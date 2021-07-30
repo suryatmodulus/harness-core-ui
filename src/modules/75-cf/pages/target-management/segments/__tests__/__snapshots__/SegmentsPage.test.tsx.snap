@@ -91,7 +91,7 @@ exports[`SegmentsPage No data view should be rendered 1`] = `
           style="flex-grow: 1;"
         />
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main   "
           data-name="findFlag"
         >
           <span
@@ -479,7 +479,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
           style="flex-grow: 1;"
         />
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main   "
           data-name="findFlag"
         >
           <span

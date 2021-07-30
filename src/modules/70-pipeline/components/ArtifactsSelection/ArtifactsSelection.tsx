@@ -3,6 +3,7 @@ import { Color, useModalHook, StepWizard, StepProps } from '@wings-software/uico
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
 
+import produce from 'immer'
 import get from 'lodash-es/get'
 import set from 'lodash-es/set'
 
@@ -14,7 +15,8 @@ import {
   ConnectorInfoDTO,
   ConnectorConfigDTO,
   SidecarArtifactWrapper,
-  PrimaryArtifact
+  PrimaryArtifact,
+  StageElementConfig
 } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { CONNECTOR_CREDENTIALS_STEP_IDENTIFIER } from '@connectors/constants'
@@ -33,7 +35,6 @@ import { useDeepCompareEffect, useQueryParams } from '@common/hooks'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { getStageIndexFromPipeline, getFlattenedStages } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
-
 import ArtifactWizard from './ArtifactWizard/ArtifactWizard'
 import { ImagePath } from './ArtifactRepository/ArtifactLastSteps/ImagePath/ImagePath'
 import { ECRArtifact } from './ArtifactRepository/ArtifactLastSteps/ECRArtifact/ECRArtifact'
@@ -74,7 +75,7 @@ export default function ArtifactsSelection({
       selectionState: { selectedStageId }
     },
     getStageFromPipeline,
-    updatePipeline,
+    updateStage,
     isReadonly
   } = useContext(PipelineContext)
 
@@ -263,7 +264,7 @@ export default function ArtifactsSelection({
 
   useDeepCompareEffect(() => {
     refetchConnectorList()
-  }, [stage, primaryArtifact, sideCarArtifact])
+  }, [stage])
 
   const addArtifact = (artifactObj: any): void => {
     artifactObj = {
@@ -321,8 +322,23 @@ export default function ArtifactsSelection({
         }
       }
     }
-
-    updatePipeline(pipeline)
+    const updatedStage = produce(stage, draft => {
+      if (context === ModalViewFor.PRIMARY) {
+        if (isPropagating && draft?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts) {
+          draft.stage.spec.serviceConfig.stageOverrides.artifacts = artifacts
+        } else if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
+          draft.stage.spec.serviceConfig.serviceDefinition.spec.artifacts = artifacts
+        }
+      }
+      if (context === ModalViewFor.SIDECAR) {
+        if (isPropagating && draft?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts) {
+          draft.stage.spec.serviceConfig.stageOverrides.artifacts.sidecars = sideCarArtifact
+        } else if (draft?.stage?.spec?.serviceConfig?.serviceDefinition?.spec.artifacts) {
+          draft.stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars = sideCarArtifact
+        }
+      }
+    })
+    updateStage(updatedStage?.stage as StageElementConfig)
     hideConnectorModal()
     setSelectedArtifact(null)
     refetchConnectorList()
@@ -396,12 +412,26 @@ export default function ArtifactsSelection({
     }
     primaryArtifact.spec = {}
     setSelectedArtifact(null)
-    updatePipeline(pipeline)
+    const updatedStage = produce(stage, draft => {
+      if (isPropagating && draft?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts) {
+        draft.stage.spec.serviceConfig.stageOverrides.artifacts = artifacts
+      } else if (draft?.stage?.spec?.serviceConfig.serviceDefinition?.spec.artifacts) {
+        draft.stage.spec.serviceConfig.serviceDefinition.spec.artifacts = artifacts
+      }
+    })
+    updateStage(updatedStage?.stage as StageElementConfig)
   }
 
   const removeSidecar = (index: number): void => {
     sideCarArtifact.splice(index, 1)
-    updatePipeline(pipeline)
+    const updatedStage = produce(stage, draft => {
+      if (isPropagating && draft?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts) {
+        draft.stage.spec.serviceConfig.stageOverrides.artifacts.sidecars = sideCarArtifact
+      } else if (draft?.stage?.spec?.serviceConfig.serviceDefinition?.spec.artifacts?.sidecars) {
+        draft.stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars = sideCarArtifact
+      }
+    })
+    updateStage(updatedStage?.stage as StageElementConfig)
   }
 
   const getIconProps = (): IconProps | undefined => {

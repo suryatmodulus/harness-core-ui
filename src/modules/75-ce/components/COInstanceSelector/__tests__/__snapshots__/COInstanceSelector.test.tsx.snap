@@ -72,7 +72,7 @@ exports[`Instance Selector Modal search and select instances successfully 1`] = 
           </div>
         </div>
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
           data-name=""
         >
           <span
@@ -376,7 +376,7 @@ exports[`Instance Selector Modal should show data 1`] = `
           </div>
         </div>
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
           data-name=""
         >
           <span
@@ -649,7 +649,7 @@ exports[`Instance Selector Modal should show loader while loading data 1`] = `
           </div>
         </div>
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
           data-name=""
         >
           <span

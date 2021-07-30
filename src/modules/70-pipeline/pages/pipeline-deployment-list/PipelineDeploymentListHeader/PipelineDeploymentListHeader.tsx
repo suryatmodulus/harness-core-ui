@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Checkbox, Color } from '@wings-software/uicore'
+import { Checkbox, Color, ExpandingSearchInput } from '@wings-software/uicore'
 
 import cx from 'classnames'
 import { String, useStrings } from 'framework/strings'
@@ -37,6 +37,14 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
   const { queryParams } = useFiltersContext()
   const { updateQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
   const { getString } = useStrings()
+
+  function handleQueryChange(query: string): void {
+    if (query) {
+      updateQueryParams({ searchTerm: query })
+    } else {
+      updateQueryParams({ searchTerm: [] as any }) // removes the param
+    }
+  }
 
   function handleMyDeployments(isChecked: boolean): void {
     if (isChecked) {
@@ -102,6 +110,13 @@ export function PipelineDeploymentListHeader(props: PipelineDeploymentListHeader
         )}
       </div>
       <div className={css.rhs}>
+        <ExpandingSearchInput
+          defaultValue={queryParams.searchTerm}
+          alwaysExpanded
+          onChange={handleQueryChange}
+          width={200}
+          className={css.expandSearch}
+        />
         <ExecutionFilters />
       </div>
     </Page.SubHeader>

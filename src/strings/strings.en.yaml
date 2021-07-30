@@ -776,7 +776,7 @@ delegate:
     url: 'https:app.harness.io:443/'
   stepOneWizard: 'Create Delegate'
   reviewScript:
-    configProxySettings: 'Configure Proxy Settings'
+    configProxySettings: 'Configure Proxy Settings (optional)'
     descriptionProxySettings: 'If the connection to Harness will happen through a proxy, configure the proxy settings PROXY_HOST, PROXY_USER and PROXY_PASSWORD in harness-delegate.yaml '
   successVerification:
     applyYAMLTitle: ' Apply YAML and verify connection'
@@ -810,7 +810,6 @@ delegate:
   delegateConfiguration: 'Delegate Configuration'
   CONFIGURATION_NAME: 'Delegate Configuration Name'
   Scope: 'Scope'
-  ScopeDescription: 'Limit the delegate to perform tasks related to the following environments'
   Init_Script: 'Initialization Script'
   instancesCount: '({{count}} of {{total}} instances)'
   deleteDelegate: 'Delete Delegate'

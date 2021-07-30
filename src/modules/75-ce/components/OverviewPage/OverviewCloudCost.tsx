@@ -17,7 +17,16 @@ import type { TimeRange } from '@ce/pages/overview/OverviewPage'
 import routes from '@common/RouteDefinitions'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
 import { CE_COLOR_CONST } from '../CEChart/CEChartOptions'
-import { HorizontalLayout, LEGEND_LIMIT, List, ListType, Loader, Stats, VerticalLayout } from './OverviewPageLayout'
+import {
+  FlexList,
+  HorizontalLayout,
+  LEGEND_LIMIT,
+  ListType,
+  Loader,
+  Stats,
+  TableList,
+  VerticalLayout
+} from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
 
 export enum OverviewLayout {
@@ -187,7 +196,11 @@ const OverviewCloudCost = (props: CloudCostProps) => {
           seeAll={seeAll}
           chartData={chartData}
           totalCost={{ label: getString('ce.overview.totalCost'), value: totalCost, trend: 0, legendColor: '' }}
-          footer={<List data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_ONLY} classNames={css.legendList} />}
+          footer={
+            <div style={{ overflowX: 'auto' }}>
+              <FlexList data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_ONLY} classNames={css.legendList} />
+            </div>
+          }
         />
       ) : (
         <HorizontalLayout
@@ -196,7 +209,9 @@ const OverviewCloudCost = (props: CloudCostProps) => {
           chartData={chartData}
           showTrendInChart={false}
           totalCost={{ label: getString('ce.overview.totalCost'), value: totalCost, trend: 0, legendColor: '' }}
-          sideBar={<List data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_VALUE} classNames={css.rowGap8} />}
+          sideBar={
+            <TableList data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_VALUE} classNames={css.rowGap8} />
+          }
         />
       )}
     </div>

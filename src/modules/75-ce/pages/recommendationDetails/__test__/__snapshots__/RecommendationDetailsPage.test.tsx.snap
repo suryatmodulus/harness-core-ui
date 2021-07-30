@@ -354,367 +354,371 @@ exports[`test cases for Recommendation List Page should be able to render the li
           class="StyledProps--font StyledProps--main detailsContainer"
         >
           <div
-            class="StyledProps--font StyledProps--main mainContainer StyledProps--background-white StyledProps--padding-large"
+            class="Layout--vertical Layout--layout-spacing-huge StyledProps--main"
           >
             <div
-              class="StyledProps--font StyledProps--main recommendationTypeContainer StyledProps--padding-small"
+              class="StyledProps--font StyledProps--main mainContainer StyledProps--background-white StyledProps--padding-large"
             >
               <div
-                class="Layout--horizontal StyledProps--main recommendations"
+                class="StyledProps--font StyledProps--main recommendationTypeContainer StyledProps--padding-small"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main recommendationTypeText selectedTab"
+                  class="Layout--horizontal StyledProps--main recommendations"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main selectedTab StyledProps--font-size-small StyledProps--font-align-center"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main recommendationTypeText selectedTab"
                   >
-                    ce.recommendation.detailsPage.costOptimized
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main recommendationCost selectedTabCost StyledProps--font-size-xsmall StyledProps--font-align-center StyledProps--padding-left-small StyledProps--padding-right-small"
+                    <p
+                      class="StyledProps--font StyledProps--main selectedTab StyledProps--font-size-small StyledProps--font-align-center"
+                    >
+                      ce.recommendation.detailsPage.costOptimized
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main recommendationCost selectedTabCost StyledProps--font-size-xsmall StyledProps--font-align-center StyledProps--padding-left-small StyledProps--padding-right-small"
+                    >
+                      $1,765.17
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main recommendationTypeText"
                   >
-                    $1,765.17
-                  </p>
-                </div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main recommendationTypeText"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
-                  >
-                    ce.recommendation.detailsPage.performanceOptimized
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main recommendationCost StyledProps--font-size-xsmall StyledProps--font-align-center StyledProps--padding-left-small StyledProps--padding-right-small"
-                  >
-                    $2,884.85
-                  </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-align-center"
+                    >
+                      ce.recommendation.detailsPage.performanceOptimized
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main recommendationCost StyledProps--font-size-xsmall StyledProps--font-align-center StyledProps--padding-left-small StyledProps--padding-right-small"
+                    >
+                      $2,884.85
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-            <section
-              class="diffContainer"
-            >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center StyledProps--background-grey100"
-              >
-                ce.recommendation.detailsPage.resourceChanges
-              </p>
               <section
-                class="diffHeader"
+                class="diffContainer"
               >
                 <p
-                  class="StyledProps--font StyledProps--main heading StyledProps--padding-left-small StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small"
+                  class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center StyledProps--background-grey100"
                 >
-                  ce.recommendation.detailsPage.currentResources
+                  ce.recommendation.detailsPage.resourceChanges
                 </p>
-                <div
-                  class="Layout--horizontal StyledProps--main StyledProps--border StyledProps--border-left"
+                <section
+                  class="diffHeader"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main heading StyledProps--padding-left-small StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
-                    style="flex: 1;"
+                    class="StyledProps--font StyledProps--main heading StyledProps--padding-left-small StyledProps--color StyledProps--color-grey800 StyledProps--font-size-small"
                   >
-                    ce.recommendation.detailsPage.recommendedResources
+                    ce.recommendation.detailsPage.currentResources
                   </p>
-                  <span
-                    class="bp3-icon bp3-icon-duplicate StyledProps--main copyIcon StyledProps--color StyledProps--color-primary5"
-                    icon="duplicate"
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--border StyledProps--border-left"
                   >
-                    <svg
-                      data-icon="duplicate"
-                      height="13"
-                      viewBox="0 0 16 16"
-                      width="13"
+                    <p
+                      class="StyledProps--font StyledProps--main heading StyledProps--padding-left-small StyledProps--font-size-small StyledProps--color StyledProps--color-grey800"
+                      style="flex: 1;"
                     >
-                      <desc>
-                        duplicate
-                      </desc>
-                      <path
-                        d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
+                      ce.recommendation.detailsPage.recommendedResources
+                    </p>
+                    <span
+                      class="bp3-icon bp3-icon-duplicate StyledProps--main copyIcon StyledProps--color StyledProps--color-primary5"
+                      icon="duplicate"
+                    >
+                      <svg
+                        data-icon="duplicate"
+                        height="13"
+                        viewBox="0 0 16 16"
+                        width="13"
+                      >
+                        <desc>
+                          duplicate
+                        </desc>
+                        <path
+                          d="M15 0H5c-.55 0-1 .45-1 1v2h2V2h8v7h-1v2h2c.55 0 1-.45 1-1V1c0-.55-.45-1-1-1zm-4 4H1c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-1 10H2V6h8v8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                </section>
+                <div
+                  class="StyledProps--font StyledProps--main diffContainer"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main StyledProps--background-green100 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      limits
+                      :
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        memory:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
+                      >
+                        4Gi
+                      </p>
+                    </div>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        cpu:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
+                      >
+                        1
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main StyledProps--background-green100 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--border StyledProps--border-left"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      limits
+                      :
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        memory:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
+                      >
+                        4.4Gi
+                      </p>
+                    </div>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        cpu:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
+                      >
+                        -
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main StyledProps--background-primary1 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      request
+                      :
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        memory:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
+                      >
+                        4Gi
+                      </p>
+                    </div>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        cpu:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
+                      >
+                        1
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main StyledProps--background-primary1 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--border StyledProps--border-left"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      request
+                      :
+                    </p>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        memory:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
+                      >
+                        3.5Gi
+                      </p>
+                    </div>
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main"
+                      >
+                        cpu:
+                      </p>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
+                      >
+                        44m
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </section>
               <div
-                class="StyledProps--font StyledProps--main diffContainer"
+                class="StyledProps--font StyledProps--main timeframeContainer"
               >
                 <div
-                  class="StyledProps--font StyledProps--main StyledProps--background-green100 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small"
+                  class="Layout--horizontal StyledProps--main StyledProps--background-grey100"
+                  style="align-items: center; justify-content: center;"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main"
+                    class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
                   >
-                    limits
-                    :
+                    ce.recommendation.detailsPage.costOptimizedCaps
                   </p>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      memory:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
-                    >
-                      4Gi
-                    </p>
-                  </div>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      cpu:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
-                    >
-                      1
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--background-green100 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--border StyledProps--border-left"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    limits
-                    :
-                  </p>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      memory:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
-                    >
-                      4.4Gi
-                    </p>
-                  </div>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      cpu:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
-                    >
-                      -
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--background-primary1 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    request
-                    :
-                  </p>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      memory:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
-                    >
-                      4Gi
-                    </p>
-                  </div>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      cpu:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-red500 StyledProps--padding-left-xsmall"
-                    >
-                      1
-                    </p>
-                  </div>
-                </div>
-                <div
-                  class="StyledProps--font StyledProps--main StyledProps--background-primary1 StyledProps--padding-left-xxlarge StyledProps--padding-top-small StyledProps--padding-bottom-small StyledProps--border StyledProps--border-left"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    request
-                    :
-                  </p>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      memory:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
-                    >
-                      3.5Gi
-                    </p>
-                  </div>
-                  <div
-                    class="Layout--horizontal StyledProps--main StyledProps--padding-left-medium StyledProps--padding-top-xsmall"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main"
-                    >
-                      cpu:
-                    </p>
-                    <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--padding-left-xsmall"
-                    >
-                      44m
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <div
-              class="StyledProps--font StyledProps--main timeframeContainer"
-            >
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--background-grey100"
-                style="align-items: center; justify-content: center;"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--margin-right-xsmall"
-                >
-                  ce.recommendation.detailsPage.costOptimizedCaps
-                </p>
-                <span
-                  class="bp3-popover-wrapper"
-                >
                   <span
-                    class="bp3-popover-target"
+                    class="bp3-popover-wrapper"
                   >
-                    <p
-                      class="StyledProps--font StyledProps--main actionText StyledProps--color StyledProps--color-primary5"
-                      tabindex="0"
+                    <span
+                      class="bp3-popover-target"
                     >
-                      ce.recommendation.detailsPage.histogramText
-                    </p>
-                  </span>
-                </span>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center"
-                >
-                  ce.recommendation.detailsPage.timeChangeText
-                </p>
-                <span
-                  class="bp3-popover-wrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <p
-                      class="StyledProps--font StyledProps--main actionText StyledProps--color StyledProps--color-primary5"
-                      style="display: flex; align-items: center;"
-                    >
-                      LAST 7 DAYS
-                      <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary5"
-                        icon="caret-down"
+                      <p
+                        class="StyledProps--font StyledProps--main actionText StyledProps--color StyledProps--color-primary5"
+                        tabindex="0"
                       >
-                        <svg
-                          data-icon="caret-down"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            caret-down
-                          </desc>
-                          <path
-                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </p>
+                        ce.recommendation.detailsPage.histogramText
+                      </p>
+                    </span>
                   </span>
-                </span>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center"
+                  >
+                    ce.recommendation.detailsPage.timeChangeText
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main actionText StyledProps--color StyledProps--color-primary5"
+                        style="display: flex; align-items: center;"
+                      >
+                        LAST 7 DAYS
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-left-xsmall StyledProps--color StyledProps--color-primary5"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </p>
+                    </span>
+                  </span>
+                </div>
               </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main histogramContainer"
-            >
               <div
-                class="StyledProps--font StyledProps--main chartContainer"
+                class="StyledProps--font StyledProps--main histogramContainer"
+              >
+                <div
+                  class="StyledProps--font StyledProps--main chartContainer"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center StyledProps--background-primary1 StyledProps--color StyledProps--color-primary5"
+                    >
+                      delegate.delegateCPU
+                    </p>
+                    <mock
+                      options="[object Object]"
+                    />
+                  </div>
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center StyledProps--background-primary1 StyledProps--color StyledProps--color-primary5"
+                    >
+                      ce.recommendation.recommendationChart.memoryLabel
+                    </p>
+                    <mock
+                      options="[object Object]"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main legendContainer"
               >
                 <div
                   class="StyledProps--font StyledProps--main"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center StyledProps--background-primary1 StyledProps--color StyledProps--color-primary5"
-                  >
-                    delegate.delegateCPU
-                  </p>
-                  <mock
-                    options="[object Object]"
-                  />
-                </div>
-                <div
+                />
+                <img
+                  src="test-file-stub"
+                />
+                <p
                   class="StyledProps--font StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--padding-xsmall StyledProps--font-size-normal StyledProps--font-align-center StyledProps--background-primary1 StyledProps--color StyledProps--color-primary5"
-                  >
-                    ce.recommendation.recommendationChart.memoryLabel
-                  </p>
-                  <mock
-                    options="[object Object]"
-                  />
-                </div>
+                  ce.recommendation.detailsPage.reqPercentileLegendText
+                </p>
+                <img
+                  src="test-file-stub"
+                />
+                <p
+                  class="StyledProps--font StyledProps--main"
+                >
+                  ce.recommendation.detailsPage.limitPercentileLegendText
+                </p>
               </div>
-            </div>
-            <div
-              class="StyledProps--font StyledProps--main legendContainer"
-            >
-              <div
-                class="StyledProps--font StyledProps--main"
-              />
-              <img
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                ce.recommendation.detailsPage.reqPercentileLegendText
-              </p>
-              <img
-                src="test-file-stub"
-              />
-              <p
-                class="StyledProps--font StyledProps--main"
-              >
-                ce.recommendation.detailsPage.limitPercentileLegendText
-              </p>
             </div>
           </div>
           <div

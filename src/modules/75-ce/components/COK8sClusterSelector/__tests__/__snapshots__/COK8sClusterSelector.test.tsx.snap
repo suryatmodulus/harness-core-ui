@@ -83,7 +83,7 @@ exports[`K8s cluster selector render cluster selector screen with data 1`] = `
           </button>
         </div>
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main   "
           data-name=""
         >
           <span
@@ -449,7 +449,7 @@ exports[`K8s cluster selector render empty cluster selector screen 1`] = `
           </button>
         </div>
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main   "
           data-name=""
         >
           <span

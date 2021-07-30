@@ -52,6 +52,7 @@ const mockData = {
     'qa_target_clone_21',
     'eks-fargate'
   ],
+  searchText: '',
   fetching: false,
   selectedVal: ['gke'],
   onValueChange: jest.fn()

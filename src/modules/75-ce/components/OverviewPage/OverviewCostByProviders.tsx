@@ -115,7 +115,6 @@ const getColumnChartConfig = ({ data, chartType, chartHeight }: ColumnChartConfi
         '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
         '<td style="padding:0"><b>${point.y:.1f}</b></td></tr>',
       footerFormat: '</table>',
-      shared: true,
       useHTML: true
     },
     plotOptions: {
@@ -131,7 +130,10 @@ const getColumnChartConfig = ({ data, chartType, chartHeight }: ColumnChartConfi
         layout: 'vertical'
       },
       area: {
-        fillOpacity: 0.1
+        fillOpacity: 0.1,
+        marker: {
+          enabled: false
+        }
       }
     },
     series: data,

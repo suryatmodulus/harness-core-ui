@@ -76,7 +76,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex"
         >
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
             data-name=""
           >
             <span

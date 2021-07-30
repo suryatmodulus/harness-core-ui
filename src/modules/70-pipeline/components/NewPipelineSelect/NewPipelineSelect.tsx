@@ -51,7 +51,6 @@ export default function NewPipelineSelect(props: NewPipelineSelectProps): React.
       }}
       value={props.selectedPipeline}
       items={dummyPromise}
-      filterable={true}
       usePortal={true}
       query={query}
       onQueryChange={setQuery}

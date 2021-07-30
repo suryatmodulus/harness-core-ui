@@ -545,7 +545,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
             <>
               <ExpandingSearchInput
-                flip
+                alwaysExpanded
                 width={200}
                 placeholder={getString('search')}
                 onChange={(text: string) => {

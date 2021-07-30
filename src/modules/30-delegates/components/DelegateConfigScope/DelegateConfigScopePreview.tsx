@@ -33,9 +33,6 @@ const DelegateConfigScopePreview = ({ scopingRules = [] }: { scopingRules?: Scop
 
   return (
     <Container style={{ height: '100%' }}>
-      <Heading level={2} color={Color.GREY_800} margin={{ bottom: 'large' }}>
-        {getString('delegate.Scope')}
-      </Heading>
       <Heading level={3} color={Color.GREY_600} margin={{ bottom: 'xxlarge' }}>
         {getString('delegates.newDelegateConfigWizard.scopeSubtitle')}
       </Heading>

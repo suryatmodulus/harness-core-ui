@@ -33,6 +33,10 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
     if (value === 'view') return true
     return false
   }
+  const isDashboardResource = (value: string): boolean => {
+    if (value === 'DASHBOARDS') return true
+    return false
+  }
   const getPermissionList = (resource: ResourceType): JSX.Element | undefined => {
     const handler = RbacFactory.getResourceTypeHandler(resource)
     if (handler && handler.permissionLabels) {
@@ -56,7 +60,9 @@ const PermissionCard: React.FC<PermissionCardProps> = ({
                   }
                   data-testid={`checkBox-${resource}-${permission.action}`}
                   key={permission.name}
-                  disabled={disableEdit || isView(permission.action)}
+                  disabled={
+                    disableEdit || (isView(permission.action) && !isDashboardResource(permission?.resourceType))
+                  }
                   defaultChecked={isPermissionEnabled(permission.identifier)}
                   onChange={(event: React.FormEvent<HTMLInputElement>) => {
                     onChangePermission(permission.identifier, event.currentTarget.checked)

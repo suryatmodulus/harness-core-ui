@@ -249,7 +249,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span
@@ -596,7 +596,7 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span
@@ -943,7 +943,7 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span
@@ -1496,7 +1496,7 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span

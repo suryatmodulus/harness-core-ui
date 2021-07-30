@@ -603,7 +603,7 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                               class="rhs"
                             >
                               <div
-                                class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                                class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                                 data-name=""
                               >
                                 <span

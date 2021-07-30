@@ -95,6 +95,7 @@
     padding-top: var(--spacing-medium);
     align-items: center;
     column-gap: var(--spacing-medium);
+    overflow-x: auto;
   }
 }
 
@@ -115,16 +116,34 @@
 }
 
 .legendColor {
-  width: 12px;
+  min-width: 12px;
   height: 6px;
   border-radius: 4px;
 }
 
-.list {
+.flexList {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   column-gap: var(--spacing-xlarge);
+
+  :global {
+    span.bp3-popover-wrapper {
+      display: inline-flex;
+    }
+  }
+}
+
+.tableList {
+  width: 100%;
+
+  td {
+    padding-right: 10px;
+  }
+
+  tr td:last-child {
+    padding-right: 0;
+  }
 
   :global {
     span.bp3-popover-wrapper {
@@ -165,4 +184,19 @@
   height: 100% !important;
   background-color: unset;
   box-shadow: unset;
+}
+
+.noDataCtn {
+  width: 900px;
+  padding: 50px 75px;
+
+  a.ngDocs {
+    cursor: 'pointer';
+    padding: 15px;
+    color: var(--primary-7);
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }

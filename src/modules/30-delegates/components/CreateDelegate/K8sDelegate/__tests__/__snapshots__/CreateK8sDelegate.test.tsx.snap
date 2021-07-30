@@ -565,7 +565,7 @@ exports[`Create K8s Delegate render data 1`] = `
                               delegates.delegatePermissions.clusterWriteTitle
                             </div>
                             <p
-                              class="StyledProps--font StyledProps--main"
+                              class="StyledProps--font StyledProps--main permissionSelectDetails"
                             >
                               delegates.delegatePermissions.clusterWriteContent
                             </p>
@@ -585,7 +585,7 @@ exports[`Create K8s Delegate render data 1`] = `
                               delegates.delegatePermissions.clusterReadTitle
                             </div>
                             <p
-                              class="StyledProps--font StyledProps--main"
+                              class="StyledProps--font StyledProps--main permissionSelectDetails"
                             >
                               delegates.delegatePermissions.clusterReadContent
                             </p>
@@ -605,7 +605,7 @@ exports[`Create K8s Delegate render data 1`] = `
                               delegates.delegatePermissions.specificNamespaceTitle
                             </div>
                             <p
-                              class="StyledProps--font StyledProps--main"
+                              class="StyledProps--font StyledProps--main permissionSelectDetails"
                             >
                               delegates.delegatePermissions.specificNamespaceContent
                             </p>

@@ -175,3 +175,4 @@ resourceGroup:
   builtInResourceGroup: 'Built in resource-group'
   noResourceGroup: 'No Resource Group available'
   noResourceGroupFound: 'No Resource Group Found'
+updateNotificationSuccess: Notification preferences updated successfully

@@ -19,7 +19,7 @@ const commonLinkProps: Partial<NavLinkProps> = {
 
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
 
   const { currentUserInfo: user } = useAppStore()
 
@@ -135,22 +135,6 @@ export default function L1Nav(): React.ReactElement {
       </ul>
 
       <ul className={css.navList}>
-        {NG_DASHBOARDS && (
-          <li className={css.navItem}>
-            <Link
-              className={cx(css.navLink, css.settings, css.hoverNavLink)}
-              activeClassName={css.active}
-              to={paths.toCustomDashboard(params)}
-            >
-              <Layout.Vertical flex spacing="xsmall">
-                <Icon name="dashboard" size={20} />
-                <Text font={{ size: 'xsmall', align: 'center' }} color={Color.WHITE} className={css.hiddenText}>
-                  <String stringID="common.dashboards" />
-                </Text>
-              </Layout.Vertical>
-            </Link>
-          </li>
-        )}
         <li className={css.navItem}>
           <Link
             className={cx(css.navLink, css.settings, css.hoverNavLink)}

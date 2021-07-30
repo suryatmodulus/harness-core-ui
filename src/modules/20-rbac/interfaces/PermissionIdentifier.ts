@@ -59,5 +59,9 @@ export enum PermissionIdentifier {
   EDIT_FF_FEATUREFLAG = 'ff_featureflag_edit',
   TOGGLE_FF_FEATUREFLAG = 'ff_featureflag_toggle',
   DELETE_FF_TARGETGROUP = 'ff_targetgroup_delete',
-  EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit'
+  EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit',
+
+  // Dashboard Permissions
+  VIEW_DASHBOARD = 'core_dashboards_view',
+  EDIT_DASHBOARD = 'core_dashboards_edit'
 }

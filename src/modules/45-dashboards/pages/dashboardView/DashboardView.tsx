@@ -1,5 +1,4 @@
 import React from 'react'
-// import { Drawer, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { useMutate } from 'restful-react'
 import { Layout } from '@wings-software/uicore'
@@ -8,18 +7,17 @@ import { useHistory } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './DashboardView.module.scss'
 
-// import { WizardLibrary } from '../../components/WidgetLibrary/WidgetLibrary'
 const DASHBOARDS_ORIGIN = 'https://dashboards.harness.io'
 const DashboardViewPage: React.FC = () => {
-  // const { getString } = useStrings()
-  const { accountId, viewId } = useParams<AccountPathProps & { viewId: string }>()
+  const { getString } = useStrings()
+  const { accountId, viewId, folderId } = useParams<AccountPathProps & { viewId: string; folderId: string }>()
   const [embedUrl, setEmbedUrl] = React.useState('')
   const [iframeState] = React.useState(0)
   const history = useHistory()
-  // const [isDrawerOpen, setDrawerState] = React.useState(false)
 
   const {
     mutate: createSignedUrl,
@@ -27,13 +25,8 @@ const DashboardViewPage: React.FC = () => {
     error
   } = useMutate({
     verb: 'POST',
-    path: 'dashboard/signedUrl',
+    path: 'dashboard/v1/signedUrl',
     queryParams: { accountId: accountId, src: `/embed/dashboards-next/${viewId}?embed_domain=` + location?.host }
-  })
-
-  const { data: dashboardData } = useGet({
-    path: `dashboard/${viewId}/isEmpty`,
-    queryParams: { accountId: accountId }
   })
 
   const generateSignedUrl = async () => {
@@ -56,6 +49,43 @@ const DashboardViewPage: React.FC = () => {
     })
   }, [])
 
+  const { data: folderDetail } = useGet({
+    // Inferred from RestfulProvider in index.js
+    path: 'dashboard/folderDetail',
+    queryParams: { accountId: accountId, folderId: folderId === 'shared' ? '' : folderId }
+  })
+
+  const { data: dashboarDetail } = useGet({
+    // Inferred from RestfulProvider in index.js
+    path: `dashboard/${viewId}/detail`,
+    queryParams: { accountId: accountId }
+  })
+
+  const links: { url: string; label: string }[] = [
+    {
+      url: routes.toCustomDashboardHome({ accountId }),
+      label: 'Home'
+    },
+    {
+      url: routes.toCustomFolderHome({ accountId }),
+      label: getString('dashboards.homePage.folders')
+    }
+  ]
+
+  const title = folderId === 'shared' ? 'Organization Shared Folder' : folderDetail?.resource || '' + ' Folder'
+  if (folderId) {
+    links.push({
+      url: routes.toCustomDashboardHome({ accountId, folderId }),
+      label: title
+    })
+  }
+  if (dashboarDetail?.title) {
+    links.push({
+      url: '',
+      label: dashboarDetail?.title
+    })
+  }
+
   return (
     <Page.Body
       className={css.pageContainer}
@@ -70,84 +100,11 @@ const DashboardViewPage: React.FC = () => {
         message: 'Dashboard not available'
       }}
     >
-      <Breadcrumbs
-        className={css.breadCrumb}
-        links={[
-          {
-            url: routes.toCustomDashboard({ accountId }),
-            label: 'All Dashboards'
-          },
-          {
-            url: routes.toCustomDashboard({ accountId }),
-            label: dashboardData?.title
-          }
-        ]}
-      />
+      <Breadcrumbs className={css.breadCrumb} links={links} />
 
       <Layout.Vertical className={css.frame}>
         <iframe src={embedUrl} key={iframeState} height="100%" width="100%" frameBorder="0" id="dashboard-render" />
-        {/* {!dashboardData?.isHarnessDashboard && (
-          <Layout.Vertical
-            padding="medium"
-            background={Color.GREY_100}
-            style={{ borderBottom: '1px solid var(--grey-200)' }}
-          >
-            <Layout.Horizontal style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-              <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
-                {dashboardData?.title}
-              </Text>
-              {dashboardData && !dashboardData.resource && (
-                <Button
-                  intent="primary"
-                  text={'Add Visulization'}
-                  style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '200px' }}
-                  onClick={() => setDrawerState(true)}
-                />
-              )}
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        )}
-        {dashboardData && dashboardData.resource && (
-          <Layout.Vertical
-            style={{ height: 'calc(100% - 62px)', justifyContent: 'center', alignItems: 'center' }}
-            spacing="large"
-          >
-            <Text>Your Dashboard is Empty</Text>
-            <Button
-              intent="primary"
-              text={'Add Visulization'}
-              style={{ background: 'var(--blue-700)', borderColor: 'var(--blue-700)', width: '200px' }}
-              onClick={() => setDrawerState(true)}
-            />
-          </Layout.Vertical>
-        )}
-        {dashboardData && !dashboardData.resource && (
-          <iframe src={embedUrl} key={iframeState} height="100%" width="100%" frameBorder="0" id="dashboard-render" />
-        )} */}
       </Layout.Vertical>
-
-      {/* <Drawer
-        onClose={() => {
-          setDrawerState(false)
-        }}
-        usePortal={false}
-        autoFocus={true}
-        canEscapeKeyClose={true}
-        canOutsideClickClose={true}
-        enforceFocus={true}
-        hasBackdrop={true}
-        size={700}
-        isOpen={isDrawerOpen}
-        position={Position.RIGHT}
-      >
-        <WizardLibrary
-          onClose={() => {
-            setIframeState(iframeState + 1)
-            generateSignedUrl()
-            setDrawerState(false)
-          }}
-        />
-      </Drawer> */}
     </Page.Body>
   )
 }

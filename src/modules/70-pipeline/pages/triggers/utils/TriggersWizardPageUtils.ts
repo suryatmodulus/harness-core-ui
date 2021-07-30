@@ -1,6 +1,5 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
-import { parse } from 'yaml'
 import type { SelectOption } from '@wings-software/uicore'
 import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
@@ -34,7 +33,9 @@ export interface FlatInitialValuesInterface {
   }
   pipeline?: string | PipelineInfoConfig
   originalPipeline?: PipelineInfoConfig
-  inputSetTemplateYaml?: string
+  inputSetTemplateYamlObj?: {
+    pipeline: PipelineInfoConfig | Record<string, never>
+  }
   name?: string
   // WEBHOOK-SPECIFIC
   sourceRepo?: string
@@ -54,7 +55,6 @@ export interface FlatOnEditValuesInterface {
   pipeline: PipelineInfoConfig
   triggerType: NGTriggerSourceV2['type']
   originalPipeline?: PipelineInfoConfig
-  inputSetTemplateYaml?: string
   // WEBHOOK-SPECIFIC
   sourceRepo?: GetActionsListQueryParams['sourceRepo']
   connectorRef?: ConnectorRefInterface
@@ -82,6 +82,9 @@ export interface FlatOnEditValuesInterface {
   minutes?: string
   expression?: string
   // ARTIFACT/MANIFEST-SPECIFIC
+  inputSetTemplateYamlObj?: {
+    pipeline: PipelineInfoConfig | Record<string, never>
+  }
 }
 
 export interface FlatValidWebhookFormikValuesInterface {
@@ -691,28 +694,27 @@ interface data {
   buildTag: string
 }
 export const parseArtifactsManifests = ({
-  inputSetTemplateYaml,
+  inputSetTemplateYamlObj,
   manifestType,
   artifactType,
   artifactRef,
   stageId,
   isManifest
 }: {
-  inputSetTemplateYaml?: string
+  inputSetTemplateYamlObj?: {
+    pipeline: PipelineInfoConfig | Record<string, never>
+  }
   artifactRef?: string
   stageId?: string
   isManifest: boolean
   artifactType?: string
   manifestType?: string
 }): { appliedArtifact?: any; data?: data[] } => {
-  if (inputSetTemplateYaml) {
-    const pipelineObject = parse(inputSetTemplateYaml) as {
-      pipeline: PipelineInfoConfig | any
-    }
+  if (inputSetTemplateYamlObj?.pipeline) {
     if (artifactRef && isManifest) {
       // returns single manifest
       let appliedArtifact
-      pipelineObject.pipeline.stages.some((stageObj: any) => {
+      inputSetTemplateYamlObj.pipeline.stages?.some((stageObj: any) => {
         if (stageObj?.stage?.identifier === stageId) {
           const appliedArtifactObj = stageObj.stage.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.find(
             (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
@@ -726,7 +728,7 @@ export const parseArtifactsManifests = ({
       return { appliedArtifact }
     } else if (isManifest) {
       // returns list of manifests
-      const stagesManifests = pipelineObject.pipeline.stages.map((stageObj: any) => {
+      const stagesManifests = inputSetTemplateYamlObj.pipeline.stages?.map((stageObj: any) => {
         const filteredManifests = stageObj?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.filter(
           (manifestObj: any) => manifestObj?.manifest?.type === manifestType
         )

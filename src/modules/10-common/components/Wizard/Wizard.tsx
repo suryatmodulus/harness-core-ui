@@ -70,6 +70,7 @@ interface WizardProps {
   rightNav?: JSX.Element
   leftNav?: ({ selectedView }: { selectedView: SelectedView }) => JSX.Element
   visualYamlProps?: VisualYamlPropsInterface
+  wizardType?: string // required for dataTooltip to be unique
   className?: string
 }
 
@@ -88,7 +89,8 @@ const Wizard: React.FC<WizardProps> = ({
   rightNav,
   leftNav,
   visualYamlProps = { showVisualYaml: false },
-  className = ''
+  className = '',
+  wizardType
 }) => {
   const { wizardLabel } = wizardMap
   const defaultWizardTabId = wizardMap.panels[0].id
@@ -195,7 +197,11 @@ const Wizard: React.FC<WizardProps> = ({
       )}
       {!isYamlView && <div className={css.headerLine}></div>}
       <Layout.Horizontal spacing="large" className={css.tabsContainer}>
-        <Formik {...formikInitialProps} validateOnChange={validateOnChange} formName="wizardForm">
+        <Formik
+          {...formikInitialProps}
+          validateOnChange={validateOnChange}
+          formName={`wizardForm${wizardType ? `_${wizardType}` : ''}`}
+        >
           {formikProps => (
             <FormikForm className={isYamlView ? css.yamlContainer : ''}>
               <NavigationCheck

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Color, Container, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -23,6 +23,8 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
   const [selectedItems, setSelectedItems] = useState<string[]>(selectedData)
 
   if (!resourceHandler) return <Page.Error />
+  const label = resource === ResourceType['DASHBOARDS'] ? resourceHandler.labelOverride : resourceHandler.label
+
   return (
     <Layout.Vertical padding="xxxlarge">
       <Layout.Vertical>
@@ -37,7 +39,7 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
           />
           <Text color={Color.BLUE_500}>
             {getString('rbac.addResourceModal.selectedText', {
-              name: getString(resourceHandler.label),
+              name: label,
               number: selectedItems.length
             })}
           </Text>
@@ -59,7 +61,11 @@ const AddResourceModal: React.FC<RoleModalData> = ({ resource, onSuccess, onClos
         <Layout.Horizontal spacing="small">
           <Button
             intent="primary"
-            text={`${getString('add')} ${selectedItems.length} ${getString(resourceHandler.label)}`}
+            text={`${getString('add')} ${selectedItems.length} ${
+              resource === ResourceType['DASHBOARDS']
+                ? getString(resourceHandler.labelOverride || 'dashboards.homePage.folders')
+                : getString(resourceHandler.label)
+            }`}
             onClick={() => onSuccess(selectedItems)}
           />
           <Button text={getString('cancel')} onClick={onClose} />

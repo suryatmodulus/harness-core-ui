@@ -120,7 +120,7 @@ export const DelegateListing: React.FC = () => {
         <FlexExpander />
         <Layout.Horizontal spacing="xsmall">
           <ExpandingSearchInput
-            flip
+            alwaysExpanded
             width={250}
             placeholder={getString('delegates.searchDelegateName')}
             throttle={200}

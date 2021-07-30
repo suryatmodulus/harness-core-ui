@@ -41,7 +41,7 @@ const useCreateReportModal = ({ onSuccess, onError }: CreateReportModalProps) =>
     isOpen: true,
     usePortal: true,
     autoFocus: true,
-    canEscapeKeyClose: true,
+    canOutsideClickClose: false,
     enforceFocus: false,
     className: cx(Classes.DIALOG, css.mainCtn)
   }

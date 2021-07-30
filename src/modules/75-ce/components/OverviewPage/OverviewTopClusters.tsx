@@ -13,7 +13,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { getGMTStartDateTime } from '@ce/utils/momentUtils'
 import { CE_COLOR_CONST } from '../CEChart/CEChartOptions'
-import { HorizontalLayout, LEGEND_LIMIT, List, ListType, Loader, Stats } from './OverviewPageLayout'
+import { HorizontalLayout, LEGEND_LIMIT, ListType, Loader, Stats, TableList } from './OverviewPageLayout'
 import css from './OverviewPage.module.scss'
 
 interface TopClusterProps {
@@ -82,7 +82,9 @@ const OverviewTopCluster = (props: TopClusterProps) => {
           trend: 0,
           legendColor: CE_COLOR_CONST[7]
         }}
-        sideBar={<List data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_VALUE} classNames={css.rowGap8} />}
+        sideBar={
+          <TableList data={chartData.slice(0, LEGEND_LIMIT)} type={ListType.KEY_VALUE} classNames={css.rowGap8} />
+        }
       />
     </div>
   )

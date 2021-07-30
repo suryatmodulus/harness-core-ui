@@ -198,7 +198,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         originalPipeline?: PipelineInfoConfig
         identifier?: string
         connectorRef?: { identifier?: string; scope?: string }
-        inputSetTemplateYaml?: string
+        inputSetTemplateYamlObj?: {
+          pipeline: PipelineInfoConfig | Record<string, never>
+        }
       }
   >({ triggerType: triggerTypeOnNew })
 
@@ -824,12 +826,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         ...getDefaultExpressionBreakdownValues(scheduleTabsId.MINUTES)
       }
     } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+      const inputSetTemplateYamlObj = parse(template?.data?.inputSetTemplateYaml || '')
+
       return {
         triggerType: triggerTypeOnNew,
         identifier: '',
         tags: {},
         pipeline: currentPipeline?.pipeline,
-        originalPipeline
+        originalPipeline,
+        inputSetTemplateYamlObj
       }
     }
     return {}
@@ -853,19 +858,33 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     ) {
       try {
         const newOriginalPipeline = parse(yamlPipeline)?.pipeline
+        const additionalValues: {
+          inputSetTemplateYamlObj?: {
+            pipeline: PipelineInfoConfig | Record<string, never>
+          }
+        } = {}
+
+        if (
+          initialValues?.triggerType === TriggerTypes.NEW_ARTIFACT ||
+          onEditInitialValues?.triggerType === TriggerTypes.NEW_ARTIFACT
+        ) {
+          const inputSetTemplateYamlObj = parse(template?.data?.inputSetTemplateYaml || '')
+          additionalValues.inputSetTemplateYamlObj = inputSetTemplateYamlObj
+        }
+
         if (onEditInitialValues?.identifier) {
           const newPipeline = currentPipeline?.pipeline ? currentPipeline.pipeline : onEditInitialValues.pipeline || {}
           setOnEditInitialValues({
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
             pipeline: newPipeline,
-            inputSetTemplateYaml: template?.data?.inputSetTemplateYaml
+            ...{ additionalValues }
           })
         } else {
           setInitialValues({
             ...initialValues,
             originalPipeline: newOriginalPipeline,
-            inputSetTemplateYaml: template?.data?.inputSetTemplateYaml
+            ...{ additionalValues }
           })
         }
       } catch (e) {

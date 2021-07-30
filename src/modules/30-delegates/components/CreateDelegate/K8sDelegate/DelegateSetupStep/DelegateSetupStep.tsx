@@ -365,7 +365,7 @@ const DelegateSetup: React.FC<StepProps<StepK8Data> & DelegateSetupStepProps> = 
                           return (
                             <Container>
                               <div className={css.permissionSelectTitle}>{title}</div>
-                              <Text>{subtitle}</Text>
+                              <Text className={css.permissionSelectDetails}>{subtitle}</Text>
                               {item === k8sPermissionType.NAMESPACE_ADMIN && (
                                 <div className={css.namespace}>
                                   <FormInput.Text

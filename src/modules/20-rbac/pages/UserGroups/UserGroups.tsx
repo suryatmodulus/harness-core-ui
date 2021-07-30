@@ -56,12 +56,12 @@ const UserGroupsPage: React.FC = () => {
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
-              flip
+              alwaysExpanded
               placeholder={getString('rbac.userGroupPage.search')}
               onChange={text => {
                 setsearchTerm(text.trim())
               }}
-              width={350}
+              width={250}
             />
           </Layout.Horizontal>
         }

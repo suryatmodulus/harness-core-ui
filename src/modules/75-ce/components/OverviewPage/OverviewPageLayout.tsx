@@ -198,7 +198,7 @@ const Legend = (props: LegendProps) => {
   )
 }
 
-export const List = (props: ListProps) => {
+export const FlexList = (props: ListProps) => {
   const { accountId } = useParams<{ accountId: string }>()
   const { data = [], type = ListType.KEY_ONLY, classNames } = props
 
@@ -241,10 +241,69 @@ export const List = (props: ListProps) => {
       )
     }
 
-    return <Container padding={{ top: 'small' }}>{renderLegend(item)}</Container>
+    return (
+      <Container padding={{ top: 'small' }} key={idx}>
+        {renderLegend(item)}
+      </Container>
+    )
   }
 
-  return <div className={cx(css.list, classNames)}>{data.map(renderItem)}</div>
+  return <div className={cx(css.flexList, classNames)}>{data.map(renderItem)}</div>
+}
+
+export const TableList = (props: ListProps) => {
+  const { accountId } = useParams<{ accountId: string }>()
+  const { data = [], type = ListType.KEY_ONLY, classNames } = props
+
+  const renderLegend = (item: Stats) => {
+    return (
+      <Legend
+        color={item.legendColor as string}
+        label={
+          item.linkId ? (
+            <Link
+              to={routes.toPerspectiveDetails({
+                accountId: accountId,
+                perspectiveId: item.linkId,
+                perspectiveName: item.linkId
+              })}
+            >
+              <Text inline color="primary7" font="small" lineClamp={1} style={{ maxWidth: 100 }}>
+                {item.label}
+              </Text>
+            </Link>
+          ) : (
+            <Text color="grey800" font="small" lineClamp={1} style={{ maxWidth: 100 }}>
+              {item.label}
+            </Text>
+          )
+        }
+      />
+    )
+  }
+
+  const renderItem = (item: Stats, idx: number) => {
+    if (type === ListType.KEY_VALUE) {
+      return (
+        <tr key={idx}>
+          <td>{renderLegend(item)}</td>
+          <td>
+            <Text color="grey600" font="small" lineClamp={1} style={{ maxWidth: 90 }}>
+              {formatCost(item.value)}
+            </Text>
+          </td>
+        </tr>
+      )
+    }
+
+    return (
+      <tr key={idx}>
+        <td>{renderLegend(item)}</td>
+      </tr>
+    )
+  }
+
+  return <table className={cx(css.tableList, classNames)}>{data.map(renderItem)}</table>
 }
 
 export const Loader = (props: { className?: string }) => {

@@ -101,12 +101,12 @@ exports[`Delegates Page render data 1`] = `
                 class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search  ExpandingSearchInput--alwaysExpanded"
                   data-name=""
-                  style="max-width: 250px;"
+                  style="width: 250px; max-width: 250px;"
                 >
                   <span
-                    class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
                     data-icon="thinner-search"
                   >
                     <svg
@@ -128,7 +128,7 @@ exports[`Delegates Page render data 1`] = `
                     class="bp3-input  ExpandingSearchInput--filter"
                     dir="auto"
                     placeholder="delegates.searchDelegateName"
-                    style="padding-right: 0px;"
+                    style="padding-right: 36px;"
                     type="search"
                     value=""
                   />

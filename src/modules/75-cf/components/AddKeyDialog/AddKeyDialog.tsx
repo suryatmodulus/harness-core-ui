@@ -1,5 +1,6 @@
 import React from 'react'
 import { Dialog, Spinner } from '@blueprintjs/core'
+import * as yup from 'yup'
 import {
   Button,
   ButtonProps,
@@ -104,7 +105,15 @@ const AddKeyDialog: React.FC<Props> = ({ disabled, primary, environment, onCreat
           </Text>
         }
       >
-        <Formik initialValues={initialValues} formName="addKeyDialog" onSubmit={handleSubmit} onReset={hideModal}>
+        <Formik
+          initialValues={initialValues}
+          formName="addKeyDialog"
+          validationSchema={yup.object().shape({
+            name: yup.string().trim().required(getEnvString('apiKeys.emptyName'))
+          })}
+          onSubmit={handleSubmit}
+          onReset={hideModal}
+        >
           {formikProps => (
             <Layout.Vertical spacing="large" padding="xxlarge">
               <Layout.Vertical spacing="small">

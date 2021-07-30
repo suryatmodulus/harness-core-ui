@@ -275,7 +275,7 @@ const PerspectiveBuilderPreview: React.FC<PerspectiveBuilderPreviewProps> = ({
             xAxisPointCount={chartData?.perspectiveTimeSeriesStats?.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
           />
         </Container>
-        <Container width={650}>
+        <Container width="100%">
           <Text color="grey900">Cost Breakdown</Text>
           {gridData?.perspectiveGrid?.data && (
             <PerspectiveGrid

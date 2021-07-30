@@ -111,37 +111,10 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<Record<string, string>>()
-  const { mutate: deleteDelegate } = useDeleteDelegateGroupByIdentifier({
-    queryParams: { accountId: accountId }
-  })
+
   const { mutate: forceDeleteDelegate } = useDeleteDelegateGroupByIdentifier({
     queryParams: { accountId: accountId, forceDelete: true }
   })
-  const { openDialog } = useConfirmationDialog({
-    contentText: getString('delegates.questionDeleteDelegate', { name: groupName }),
-    titleText: getString('delegate.deleteDelegate'),
-    confirmButtonText: getString('delete'),
-    cancelButtonText: getString('cancel'),
-    onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
-        try {
-          if (delegateGroupIdentifier) {
-            const deleted = await deleteDelegate(delegateGroupIdentifier)
-            if (deleted) {
-              showSuccess(getString('delegates.delegateDeleted', { name: groupName }))
-            }
-          }
-        } catch (error) {
-          showError(error.message)
-        }
-      }
-    }
-  })
-  const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
-    e.stopPropagation()
-    setMenuOpen(false)
-    openDialog()
-  }
 
   const forceDeleteDialog = useConfirmationDialog({
     contentText: `${getString('delegates.questionForceDeleteDelegate')} ${groupName}`,
@@ -155,7 +128,7 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
             const deleted = await forceDeleteDelegate(delegateGroupIdentifier)
 
             if (deleted) {
-              showSuccess(getString('delegates.delegateForceDeleted', { name: groupName }))
+              showSuccess(getString('delegates.delegateDeleted', { name: groupName }))
             }
           }
         } catch (error) {
@@ -221,23 +194,6 @@ const RenderColumnMenu = ({ delegate, setOpenTroubleshoter }: delTroubleshoterPr
             }}
             icon="trash"
             text={getString('delete')}
-            onClick={handleDelete}
-          />
-          <RbacMenuItem
-            permission={{
-              resourceScope: {
-                accountIdentifier: accountId,
-                orgIdentifier,
-                projectIdentifier
-              },
-              resource: {
-                resourceType: ResourceType.DELEGATE,
-                resourceIdentifier: delegateGroupIdentifier
-              },
-              permission: PermissionIdentifier.DELETE_DELEGATE
-            }}
-            icon="trash"
-            text={getString('delegates.forceDelete')}
             onClick={handleForceDelete}
           />
           <MenuItem

@@ -65,7 +65,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex"
         >
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
             data-name=""
           >
             <span
@@ -735,7 +735,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex"
         >
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
             data-name=""
           >
             <span

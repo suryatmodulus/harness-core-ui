@@ -23,8 +23,8 @@ interface ModuleListCardProps {
 const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier, accountId }) => {
   const { getString } = useStrings()
   const history = useHistory()
-  // currently hiding chart for CI
-  const enableActivityChart = module !== ModuleName.CI
+  // currently initializing enableActivityChart to false to hide the chartView
+  const enableActivityChart = false
   const getModuleLinks = (): React.ReactElement => {
     switch (module) {
       case ModuleName.CD:
@@ -151,7 +151,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
       <Card className={css.card}>
         <Layout.Horizontal>
           <Container
-            width="30%"
+            width="50%"
             flex
             border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}
           >
@@ -171,8 +171,8 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               </div>
             </Layout.Horizontal>
           </Container>
-          <Container width="40%" border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}>
-            {enableActivityChart ? (
+          {enableActivityChart ? (
+            <Container width="40%" border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}>
               <Layout.Vertical flex={{ align: 'center-center' }}>
                 <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xxlarge">
                   <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} className={css.activitychart} />
@@ -188,9 +188,9 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
                   ).toUpperCase()}
                 </Text>
               </Layout.Vertical>
-            ) : null}
-          </Container>
-          <Container width="30%" flex={{ align: 'center-center' }}>
+            </Container>
+          ) : null}
+          <Container width="50%" flex>
             {getModuleLinks()}
           </Container>
         </Layout.Horizontal>

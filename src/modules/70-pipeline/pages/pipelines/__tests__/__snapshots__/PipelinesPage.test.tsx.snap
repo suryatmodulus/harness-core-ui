@@ -123,12 +123,12 @@ exports[`CD Pipeline Page List render card view 1`] = `
       style="align-items: center;"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded"
         data-name=""
-        style="max-width: 200px;"
+        style="width: 200px; max-width: 200px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
           data-icon="thinner-search"
         >
           <svg
@@ -150,7 +150,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="search"
-          style="padding-right: 0px;"
+          style="padding-right: 36px;"
           type="search"
           value=""
         />
@@ -159,7 +159,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-left-small StyledProps--padding-right-small"
       >
         <div
-          class="bp3-popover-wrapper DropDown--main bp3-fill"
+          class="bp3-popover-wrapper DropDown--main DropDown--disabled"
         >
           <div
             class="bp3-popover-target"
@@ -168,7 +168,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
               class=""
             >
               <div
-                class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--disabled StyledProps--flex"
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
                 data-testid="filter-select"
                 style="min-width: 220px;"
               >
@@ -1766,12 +1766,12 @@ exports[`CD Pipeline Page List render list view 1`] = `
       style="align-items: center;"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded"
         data-name=""
-        style="max-width: 200px;"
+        style="width: 200px; max-width: 200px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
           data-icon="thinner-search"
         >
           <svg
@@ -1793,7 +1793,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="search"
-          style="padding-right: 0px;"
+          style="padding-right: 36px;"
           type="search"
           value=""
         />
@@ -1802,7 +1802,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-left-small StyledProps--padding-right-small"
       >
         <div
-          class="bp3-popover-wrapper DropDown--main bp3-fill"
+          class="bp3-popover-wrapper DropDown--main DropDown--disabled"
         >
           <div
             class="bp3-popover-target"
@@ -1811,7 +1811,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
               class=""
             >
               <div
-                class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--disabled StyledProps--flex"
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
                 data-testid="filter-select"
                 style="min-width: 220px;"
               >

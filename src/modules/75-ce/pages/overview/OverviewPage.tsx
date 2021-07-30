@@ -24,6 +24,7 @@ import { PageSpinner } from '@common/components'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import { Utils } from '@ce/common/Utils'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
+import useNoDataModal from '@ce/components/OverviewPage/OverviewNoData'
 import bgImage from './images/CD/overviewBg.png'
 import css from './Overview.module.scss'
 
@@ -32,7 +33,7 @@ export interface TimeRange {
   from: string
 }
 
-const NoDataOverviewPage = () => {
+const NoClusterOverviewPage = () => {
   const { openModal, closeModal } = useCreateConnectorMinimal({
     onSuccess: () => {
       closeModal()
@@ -41,6 +42,29 @@ const NoDataOverviewPage = () => {
   useEffect(() => {
     openModal()
   }, [])
+  return (
+    <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
+  )
+}
+
+const NoDataOverviewPage = () => {
+  const { openModal: openConnectorModal, closeModal: closeConnectorModal } = useCreateConnectorMinimal({
+    onSuccess: () => {
+      closeConnectorModal()
+    }
+  })
+
+  const { openModal, hideModal } = useNoDataModal({
+    onConnectorCreateClick: () => {
+      hideModal()
+      openConnectorModal()
+    }
+  })
+
+  useEffect(() => {
+    openModal()
+  }, [])
+
   return (
     <div style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', height: '100%', width: '100%' }}></div>
   )
@@ -91,10 +115,12 @@ const OverviewPage = () => {
   if (fetchingCCMMetaData) {
     return <PageSpinner />
   }
-  // cloudDataPresent = false
-  // clusterDataPresent = false
 
   if (ccmData && !Utils.accountHasConnectors(ccmData.ccmMetaData as CcmMetaData)) {
+    return <NoClusterOverviewPage />
+  }
+
+  if (!cloudDataPresent && !clusterDataPresent) {
     return <NoDataOverviewPage />
   }
 

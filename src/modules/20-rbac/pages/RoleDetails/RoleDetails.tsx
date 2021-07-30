@@ -98,14 +98,28 @@ const RoleDetails: React.FC = () => {
   }
 
   const onChangePermission = async (permission: string, isAdd: boolean): Promise<void> => {
-    if (isAdd) setPermissions(_permissions => [...permissions, permission])
-    else {
+    if (isAdd) {
+      if (
+        permission === PermissionIdentifier.EDIT_DASHBOARD ||
+        permissions.indexOf(PermissionIdentifier.EDIT_DASHBOARD) !== -1
+      ) {
+        setPermissions(_permissions => [...permissions, permission, PermissionIdentifier.VIEW_DASHBOARD])
+      } else {
+        setPermissions(_permissions => [...permissions, permission])
+      }
+    } else if (
+      !(
+        permission === PermissionIdentifier.VIEW_DASHBOARD &&
+        permissions.indexOf(PermissionIdentifier.EDIT_DASHBOARD) !== -1
+      )
+    ) {
       setPermissions(_permissions =>
         produce(_permissions, draft => {
           draft?.splice(permissions.indexOf(permission), 1)
         })
       )
     }
+
     setIsUpdated(true)
   }
 

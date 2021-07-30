@@ -195,10 +195,10 @@
   overflow-y: auto;
   border-left: 1px solid var(--grey-300);
   padding-left: var(--spacing-xxxlarge) !important;
+  padding-right: var(--spacing-small) !important;
 }
 
 .permissionsTitle {
-  margin-bottom: var(--spacing-medium);
   font-weight: 400;
   font-size: var(--font-size-normal);
   color: var(--black);
@@ -206,6 +206,7 @@
 
 .permissionSelect {
   margin-top: var(--spacing-medium);
+  padding: var(--spacing-small) !important;
 }
 
 .permissionSelectTitle {
@@ -213,6 +214,10 @@
   font-weight: 400;
   color: var(--black);
   margin-bottom: var(--spacing-small);
+}
+
+.permissionSelectDetails {
+  font-size: var(--font-size-small) !important;
 }
 
 .namespace {

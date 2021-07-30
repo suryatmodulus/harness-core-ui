@@ -289,88 +289,91 @@ exports[`test cases for Perspective details Page should be able to render the de
                     <div
                       class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
                     >
-                      <div
-                        class="list rowGap8"
+                      <table
+                        class="tableList rowGap8"
                       >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-                          style="align-items: center;"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                            style="align-items: center;"
-                          >
+                        <tr>
+                          <td>
                             <div
-                              class="legendColor"
-                              style="background: rgb(37, 166, 247);"
-                            />
-                            <p
-                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
-                              style="width: 100px; --text-line-clamp: 1;"
+                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                              style="align-items: center;"
                             >
-                              Idle Cost
+                              <div
+                                class="legendColor"
+                                style="background: rgb(37, 166, 247);"
+                              />
+                              <p
+                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
+                                style="max-width: 100px; --text-line-clamp: 1;"
+                              >
+                                Idle Cost
+                              </p>
+                            </div>
+                          </td>
+                          <td>
+                            <p
+                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                              style="max-width: 90px; --text-line-clamp: 1;"
+                            >
+                              $582.92
                             </p>
-                          </div>
-                          <p
-                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
-                            style="width: 90px; --text-line-clamp: 1;"
-                          >
-                            $582.92
-                          </p>
-                        </div>
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-                          style="align-items: center;"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                            style="align-items: center;"
-                          >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
                             <div
-                              class="legendColor"
-                              style="background: rgb(138, 119, 222);"
-                            />
-                            <p
-                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
-                              style="width: 100px; --text-line-clamp: 1;"
+                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                              style="align-items: center;"
                             >
-                              Utilized Cost
+                              <div
+                                class="legendColor"
+                                style="background: rgb(138, 119, 222);"
+                              />
+                              <p
+                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
+                                style="max-width: 100px; --text-line-clamp: 1;"
+                              >
+                                Utilized Cost
+                              </p>
+                            </div>
+                          </td>
+                          <td>
+                            <p
+                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                              style="max-width: 90px; --text-line-clamp: 1;"
+                            >
+                              $1,030.60
                             </p>
-                          </div>
-                          <p
-                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
-                            style="width: 90px; --text-line-clamp: 1;"
-                          >
-                            $1,030.60
-                          </p>
-                        </div>
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-                          style="align-items: center;"
-                        >
-                          <div
-                            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                            style="align-items: center;"
-                          >
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
                             <div
-                              class="legendColor"
-                              style="background: rgb(255, 71, 159);"
-                            />
-                            <p
-                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
-                              style="width: 100px; --text-line-clamp: 1;"
+                              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                              style="align-items: center;"
                             >
-                              Unallocated Cost
+                              <div
+                                class="legendColor"
+                                style="background: rgb(255, 71, 159);"
+                              />
+                              <p
+                                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-small"
+                                style="max-width: 100px; --text-line-clamp: 1;"
+                              >
+                                Unallocated Cost
+                              </p>
+                            </div>
+                          </td>
+                          <td>
+                            <p
+                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                              style="max-width: 90px; --text-line-clamp: 1;"
+                            >
+                              $838.51
                             </p>
-                          </div>
-                          <p
-                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
-                            style="width: 90px; --text-line-clamp: 1;"
-                          >
-                            $838.51
-                          </p>
-                        </div>
-                      </div>
+                          </td>
+                        </tr>
+                      </table>
                     </div>
                     <div
                       class="efficienyScore"
@@ -471,100 +474,103 @@ exports[`test cases for Perspective details Page should be able to render the de
                       </div>
                     </div>
                   </div>
-                  <div
-                    class="list rowGap8"
+                  <table
+                    class="tableList rowGap8"
                   >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-                      style="align-items: center;"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                        style="align-items: center;"
-                      >
+                    <tr>
+                      <td>
                         <div
-                          class="legendColor"
-                          style="background: rgb(37, 166, 247);"
-                        />
-                        <a
-                          href="/account/undefined/ce/perspectives/8MbIXei5TdCapSxlwru4UQ/name/8MbIXei5TdCapSxlwru4UQ"
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                          style="align-items: center;"
                         >
-                          <span
-                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
-                            style="width: 100px; --text-line-clamp: 1;"
+                          <div
+                            class="legendColor"
+                            style="background: rgb(37, 166, 247);"
+                          />
+                          <a
+                            href="/account/undefined/ce/perspectives/8MbIXei5TdCapSxlwru4UQ/name/8MbIXei5TdCapSxlwru4UQ"
                           >
-                            GCP
-                          </span>
-                        </a>
-                      </div>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
-                        style="width: 90px; --text-line-clamp: 1;"
-                      >
-                        $315,150.39
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-                      style="align-items: center;"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                        style="align-items: center;"
-                      >
+                            <span
+                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
+                              style="max-width: 100px; --text-line-clamp: 1;"
+                            >
+                              GCP
+                            </span>
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                          style="max-width: 90px; --text-line-clamp: 1;"
+                        >
+                          $315,150.39
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                         <div
-                          class="legendColor"
-                          style="background: rgb(138, 119, 222);"
-                        />
-                        <a
-                          href="/account/undefined/ce/perspectives/fm8sOmxJS-OlRnEpqpX9ag/name/fm8sOmxJS-OlRnEpqpX9ag"
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                          style="align-items: center;"
                         >
-                          <span
-                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
-                            style="width: 100px; --text-line-clamp: 1;"
+                          <div
+                            class="legendColor"
+                            style="background: rgb(138, 119, 222);"
+                          />
+                          <a
+                            href="/account/undefined/ce/perspectives/fm8sOmxJS-OlRnEpqpX9ag/name/fm8sOmxJS-OlRnEpqpX9ag"
                           >
-                            AZURE
-                          </span>
-                        </a>
-                      </div>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
-                        style="width: 90px; --text-line-clamp: 1;"
-                      >
-                        $5,407.30
-                      </p>
-                    </div>
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
-                      style="align-items: center;"
-                    >
-                      <div
-                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                        style="align-items: center;"
-                      >
+                            <span
+                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
+                              style="max-width: 100px; --text-line-clamp: 1;"
+                            >
+                              AZURE
+                            </span>
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                          style="max-width: 90px; --text-line-clamp: 1;"
+                        >
+                          $5,407.30
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                         <div
-                          class="legendColor"
-                          style="background: rgb(255, 71, 159);"
-                        />
-                        <a
-                          href="/account/undefined/ce/perspectives/quBogQWFTCSqpUq5xPxLLA/name/quBogQWFTCSqpUq5xPxLLA"
+                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                          style="align-items: center;"
                         >
-                          <span
-                            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
-                            style="width: 100px; --text-line-clamp: 1;"
+                          <div
+                            class="legendColor"
+                            style="background: rgb(255, 71, 159);"
+                          />
+                          <a
+                            href="/account/undefined/ce/perspectives/quBogQWFTCSqpUq5xPxLLA/name/quBogQWFTCSqpUq5xPxLLA"
                           >
-                            AWS
-                          </span>
-                        </a>
-                      </div>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
-                        style="width: 90px; --text-line-clamp: 1;"
-                      >
-                        $5,168.40
-                      </p>
-                    </div>
-                  </div>
+                            <span
+                              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--color StyledProps--color-primary7 StyledProps--font-small"
+                              style="max-width: 100px; --text-line-clamp: 1;"
+                            >
+                              AWS
+                            </span>
+                          </a>
+                        </div>
+                      </td>
+                      <td>
+                        <p
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--font-small"
+                          style="max-width: 90px; --text-line-clamp: 1;"
+                        >
+                          $5,168.40
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
                 </div>
               </div>
             </div>

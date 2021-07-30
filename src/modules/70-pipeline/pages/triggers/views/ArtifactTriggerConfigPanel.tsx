@@ -17,13 +17,13 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
   formikProps,
   isEdit = false
 }) => {
-  const { artifactType, artifactRef, manifestType, stageId, inputSetTemplateYaml } = formikProps.values
+  const { artifactType, artifactRef, manifestType, stageId, inputSetTemplateYamlObj } = formikProps.values
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const { getString } = useStrings()
   const isManifest = !!manifestType
   // appliedArtifact is saved on the trigger or in formikValues vs. selectedArtifact is in the modal
   const { appliedArtifact, data } = parseArtifactsManifests({
-    inputSetTemplateYaml,
+    inputSetTemplateYamlObj,
     manifestType,
     stageId,
     artifactType,
@@ -111,7 +111,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
               )}
             </>
           )}
-          {inputSetTemplateYaml && !appliedArtifact && !allowSelectArtifact && (
+          {inputSetTemplateYamlObj && !appliedArtifact && !allowSelectArtifact && (
             <Text margin="small" intent="warning">
               {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound')}
             </Text>

@@ -106,6 +106,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
       />
       <Page.Body className={css.main} loading={loading}>
         <ExpandingSearchInput
+          alwaysExpanded
           width={250}
           placeholder={getString('search')}
           throttle={200}

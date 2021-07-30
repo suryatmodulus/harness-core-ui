@@ -3,7 +3,7 @@
   height: 100%;
   [class~='bp3-tab-list'] {
     border-bottom: none !important;
-    box-shadow: 5px 1px 10px var(--grey-300);
+    box-shadow: 5px 7px 7px -3px var(--grey-300);
   }
 
   [class~='bp3-tab-panel'] {
@@ -28,7 +28,7 @@
     top: 0;
     z-index: 4;
     background: var(--white);
-    border-top: 1px solid var(--grey-100);
+    border-top: 1px solid var(--grey-200);
   }
 
   [class~='bp3-tab'] {

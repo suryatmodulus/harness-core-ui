@@ -40,7 +40,10 @@ export const userGroupInfoSSOLinked = {
       identifier: 'New_RG',
       name: 'New RG',
       users: ['lv0euRhKRCyiXWzS7pOg6g', 'ZqXNvYmURnO46PX7HwgEtQ'],
-      notificationConfigs: [],
+      notificationConfigs: [
+        { type: 'EMAIL', groupEmail: 'email@harness.io' },
+        { type: 'SLACK', slackWebhookUrl: 'https://hooks.slack.com/services/dummy' }
+      ],
       description: '',
       tags: {},
       ssoLinked: true,

@@ -15,6 +15,7 @@ interface MultiValueSelectorComponentProps {
   selectedValues: Record<string, boolean>
   fetchMore?: (e: number) => void
   onInputChange: (val: string) => void
+  searchText?: string
 }
 
 const MultiValueSelectorComponent: (props: MultiValueSelectorComponentProps) => JSX.Element = ({
@@ -24,15 +25,15 @@ const MultiValueSelectorComponent: (props: MultiValueSelectorComponentProps) => 
   setSelectedValues,
   selectedValues,
   fetchMore,
-  onInputChange
+  onInputChange,
+  searchText: intialSearchVal
 }) => {
   const { getString } = useStrings()
 
-  const [searchText, setSearchText] = useState('')
+  const filteredValues = valueList.filter(val => val) as string[]
+  const [searchText, setSearchText] = useState(intialSearchVal || '')
 
   const renderValues = () => {
-    const filteredValues = valueList
-
     const allowToFetchMore = shouldFetchMore
 
     return (
@@ -84,11 +85,29 @@ const MultiValueSelectorComponent: (props: MultiValueSelectorComponentProps) => 
     debouncedOnChange(target.value)
   }
 
+  const isSelectAllChecked = filteredValues.filter(val => selectedValues[val]).length === filteredValues.length
+
   return (
     <Container className={css.valueContainer}>
       <Container className={css.searchBoxContainer}>
         <div className={css.searchCheckBox}>
-          <Checkbox className={css.checkbox} disabled={fetching} />
+          <Checkbox
+            className={css.checkbox}
+            disabled={fetching || !filteredValues.length}
+            checked={isSelectAllChecked}
+            onChange={() => {
+              const selectAllValues: Record<string, boolean> = {}
+              filteredValues.forEach(val => {
+                if (val) {
+                  selectAllValues[val] = !isSelectAllChecked
+                }
+              })
+              setSelectedValues(prevVal => ({
+                ...prevVal,
+                ...selectAllValues
+              }))
+            }}
+          />
         </div>
         <TextInput
           value={searchText}

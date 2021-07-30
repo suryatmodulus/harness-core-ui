@@ -5,6 +5,7 @@ declare const styles: {
   readonly lhs: string
   readonly rhs: string
   readonly runButton: string
+  readonly expandSearch: string
   readonly myDeploymentsCheckbox: string
   readonly selected: string
   readonly btnGroup: string

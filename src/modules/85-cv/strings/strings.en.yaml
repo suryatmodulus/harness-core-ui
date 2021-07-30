@@ -565,9 +565,6 @@ healthSource:
   noDataPresentHealthSource: No data is present for the selected Health Source
   seriveEnvironmentNote: Service selected is {{service}} and Environment selected is {{environment}}
   table:
-    type:
-      metrics: 'metrics'
-      logs: 'logs'
     serviceMapping: Service Mapping
     environmentMapping: Environment Mapping
   connectors:

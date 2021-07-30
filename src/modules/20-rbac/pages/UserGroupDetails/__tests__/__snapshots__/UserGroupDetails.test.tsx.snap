@@ -490,6 +490,30 @@ exports[`UserGroupDetails Test render data 1`] = `
           </button>
         </div>
       </div>
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium StyledProps--font-weight-bold"
+        >
+          common.notificationPreferences
+        </p>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+        >
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+            data-testid="addChannel"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              plusNumber
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

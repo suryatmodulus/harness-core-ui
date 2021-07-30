@@ -102,7 +102,7 @@ const UnlinkSSOProviderForm: React.FC<UnlinkSSOProviderModalData> = props => {
                 <Layout.Horizontal>
                   <Button
                     intent="primary"
-                    data-testId="submitLinkSSOProvider"
+                    data-testid="submitLinkSSOProvider"
                     text={getString('save')}
                     type="submit"
                     disabled={loading}

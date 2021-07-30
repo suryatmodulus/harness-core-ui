@@ -21,6 +21,7 @@ interface ValuesSelectorProps {
   fetchMore?: (e: number) => void
   shouldFetchMore?: boolean
   onInputChange: (val: string) => void
+  searchText: string
 }
 
 const ValuesSelector: React.FC<ValuesSelectorProps> = ({
@@ -31,7 +32,8 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
   onValueChange,
   fetchMore,
   shouldFetchMore,
-  onInputChange
+  onInputChange,
+  searchText
 }) => {
   const [selectedValues, setSelectedValues] = useState<Record<string, boolean>>({})
 
@@ -72,6 +74,7 @@ const ValuesSelector: React.FC<ValuesSelectorProps> = ({
           selectedValues={selectedValues}
           fetchMore={fetchMore}
           onInputChange={onInputChange}
+          searchText={searchText}
         />
       }
     >

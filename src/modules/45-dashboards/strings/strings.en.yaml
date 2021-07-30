@@ -2,12 +2,19 @@ sideNav:
   byHarness: 'BY HARNESS'
   custom: 'CUSTOM'
   noDashboard: 'No custom dashboard found'
+modules:
+  harness: 'By Harness'
 homePage:
-  title: 'All Dashboards'
+  folders: 'Folders'
+  searchPlaceholder: 'Search by name'
+  noFolderAvailable: 'No Folders available'
+  noTags: 'No custom tags available'
+  noDashboardsAvailable: 'No dashboards available'
   # addDashboard: 'Dashboard'
 createModal:
   stepOne: 'About the Dashboard'
   # name: 'Name'
+
   sampleTitle: 'Dashboard Title'
   sampleDesc: 'Dashboard Description'
   view: 'view'
@@ -19,6 +26,16 @@ createModal:
   descriptionPlaceholder: 'Provide dashboard purpose'
   # submit: 'Submit'
   submitFail: 'Dashboard creation failed, Please try again.'
+createFolder:
+  stepOne: 'About the Folder'
+  folderPlaceholder: 'Name your folder'
+  folderNameValidation: 'Folder name is a required field'
+  folderDescriptionPlaceholder: 'Provide folder purpose'
+  folderSubmitFail: 'Folder creation failed, Please try again.'
+deleteFolder:
+  confirmDeleteTitle: 'Delete {{name}} folder'
+  confirmDeleteText: 'Deleting the folder {{name}} would mean that you are also deleting all the dashboards associated with it. Are you sure you want to delete the Folder?'
+  success: 'Successfully deleted folder'
 serviceDashboard:
   activeServiceInstancesLabel: '{{$.common.subscriptions.usage.srvcInst}}'
   servicesInLast: 'Services added in {{period}}'
@@ -39,3 +56,14 @@ serviceDashboard:
   mostActiveServices: Most active services
   seeMore: '+ {{count}} more'
   buildName: 'Build Name'
+resourceModal:
+  folders: 'Folder Name'
+  folderDetail: 'Folder Dashboards'
+getStarted:
+  title: 'Custom Dashboards'
+  video1Title: 'Create Dashboards'
+  subTextVideo1: 'Learn how to create an empty dashboard and then add widgets to it. Widgets can contain a data table or chart'
+  video2Title: 'Setup Alerts'
+  subTextVideo2: 'Learn how to specify conditions in your data that, when met or exceeded, trigger a notification to be sent to desired frequency of specific recipients'
+  video3Title: 'Share Dashboards'
+  subTextVideo3: 'Learn how to send dashboards in a variety of formats to email, FTP and other destinations'

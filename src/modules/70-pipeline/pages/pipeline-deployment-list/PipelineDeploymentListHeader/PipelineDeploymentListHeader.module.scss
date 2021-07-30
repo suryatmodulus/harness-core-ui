@@ -5,10 +5,6 @@
   border: none;
   box-shadow: var(--elevation-2);
 
-  :global(.bp3-popover-wrapper.bp3-fill) {
-    width: auto;
-  }
-
   .lhs {
     display: flex;
     align-items: center;
@@ -24,6 +20,10 @@
     &:global(.bp3-disabled) {
       border: none !important;
     }
+  }
+
+  .expandSearch {
+    margin-right: var(--spacing-medium);
   }
 
   .myDeploymentsCheckbox {

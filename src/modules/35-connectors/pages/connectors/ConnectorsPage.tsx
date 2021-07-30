@@ -683,7 +683,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ catalogueMockData, stat
           <Layout.Horizontal margin={{ left: 'small' }}>
             <Container data-name="connectorSeachContainer">
               <ExpandingSearchInput
-                flip
+                alwaysExpanded
                 width={200}
                 placeholder={getString('search')}
                 throttle={200}

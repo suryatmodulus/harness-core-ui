@@ -17,7 +17,7 @@ exports[`ServicesList render 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
       >
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip"
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
           data-name=""
           style="max-width: 200px;"
         >
@@ -50,7 +50,7 @@ exports[`ServicesList render 1`] = `
           />
         </div>
         <div
-          class="bp3-popover-wrapper DropDown--main bp3-fill"
+          class="bp3-popover-wrapper DropDown--main DropDown--disabled"
         >
           <div
             class="bp3-popover-target"
@@ -59,7 +59,7 @@ exports[`ServicesList render 1`] = `
               class=""
             >
               <div
-                class="Layout--horizontal StyledProps--main DropDown--dropdownButton DropDown--disabled StyledProps--flex"
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
                 data-testid="filter-select"
                 style="min-width: 220px;"
               >

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45% </span>
+                <span class="strong">45.45% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/20</span>
+                <span class='fraction'>10/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>0/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.37% </span>
+                <span class="strong">47.62% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/19</span>
+                <span class='fraction'>10/21</span>
             </div>
         
             
@@ -129,16 +129,22 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,6 +162,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,6 +186,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,7 +216,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { Button, Color, Container, ExpandingSearchInput, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import type { ResourceType } from '@rbac/interfaces/ResourceType'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -226,6 +238,8 @@ const AddResourceModal: React.FC&lt;RoleModalData&gt; = <span class="fstat-no" t
   const [selectedItems, setSelectedItems] = <span class="cstat-no" title="statement not covered" >useState&lt;string[]&gt;(selectedData)</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  if (!resourceHandler) <span class="cstat-no" title="statement not covered" >return &lt;Page.Error /&gt;</span></span>
+  const label = <span class="cstat-no" title="statement not covered" >resource === ResourceType['DASHBOARDS'] ? resourceHandler.labelOverride : resourceHandler.label</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Layout.Vertical padding="xxxlarge"&gt;
       &lt;Layout.Vertical&gt;
@@ -240,7 +254,7 @@ const AddResourceModal: React.FC&lt;RoleModalData&gt; = <span class="fstat-no" t
           /&gt;
           &lt;Text color={Color.BLUE_500}&gt;
             {getString('rbac.addResourceModal.selectedText', {
-              name: getString(resourceHandler.label),
+              name: label,
               number: selectedItems.length
             })}
           &lt;/Text&gt;
@@ -262,7 +276,11 @@ const AddResourceModal: React.FC&lt;RoleModalData&gt; = <span class="fstat-no" t
         &lt;Layout.Horizontal spacing="small"&gt;
           &lt;Button
             intent="primary"
-            text={`${getString('add')} ${selectedItems.length} ${getString(resourceHandler.label)}`}
+            text={`${getString('add')} ${selectedItems.length} ${
+              resource === ResourceType['DASHBOARDS']
+                ? getString(resourceHandler.labelOverride || 'dashboards.homePage.folders')
+                : getString(resourceHandler.label)
+            }`}
             onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >onSuccess(selectedItems)}</span>
           /&gt;
           &lt;Button text={getString('cancel')} onClick={onClose} /&gt;
@@ -280,7 +298,7 @@ export default AddResourceModal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Jul 30 2021 02:57:47 GMT+0000 (Greenwich Mean Time)
+                at Fri Jul 30 2021 03:39:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

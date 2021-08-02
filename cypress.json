@@ -1,0 +1,5 @@
+{
+  "baseUrl": "https://localhost:8181",
+  "integrationFolder": "cypress/integration",
+  "experimentalInteractiveRunEvents": true
+}

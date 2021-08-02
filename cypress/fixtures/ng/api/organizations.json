@@ -1,0 +1,32 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 2,
+    "pageItemCount": 50,
+    "pageSize": 50,
+    "content": [
+      {
+        "organization": { "identifier": "org1", "name": "Org 1", "description": "", "tags": {} },
+        "createdAt": 1625751127249,
+        "lastModifiedAt": 1625751127249,
+        "harnessManaged": false
+      },
+      {
+        "organization": {
+          "identifier": "default",
+          "name": "Default",
+          "description": "",
+          "tags": {}
+        },
+        "createdAt": 1627554587005,
+        "lastModifiedAt": 1627554587005,
+        "harnessManaged": false
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "2ce18366-d2ae-462d-8997-ab21e87d7feb"
+}

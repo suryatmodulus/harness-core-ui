@@ -1,0 +1,25 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "uuid": "uuid",
+    "name": "email@harness.io",
+    "email": "email@harness.io",
+    "token": null,
+    "defaultAccountId": "accountId",
+    "intent": null,
+    "accounts": [
+      {
+        "uuid": "accountId",
+        "accountName": "Harness.io",
+        "companyName": "Harness.io",
+        "createdFromNG": false
+      }
+    ],
+    "admin": false,
+    "twoFactorAuthenticationEnabled": false,
+    "emailVerified": true,
+    "locked": false
+  },
+  "metaData": null,
+  "correlationId": "correlationId"
+}

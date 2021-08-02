@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.5% </span>
+                <span class="strong">82.67% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>165/200</span>
+                <span class='fraction'>167/202</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.19% </span>
+                <span class="strong">56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>227/404</span>
+                <span class='fraction'>224/400</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.47% </span>
+                <span class="strong">82.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>160/194</span>
+                <span class='fraction'>162/196</span>
             </div>
         
             
@@ -779,7 +779,12 @@
 <a name='L720'></a><a href='#L720'>720</a>
 <a name='L721'></a><a href='#L721'>721</a>
 <a name='L722'></a><a href='#L722'>722</a>
-<a name='L723'></a><a href='#L723'>723</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L723'></a><a href='#L723'>723</a>
+<a name='L724'></a><a href='#L724'>724</a>
+<a name='L725'></a><a href='#L725'>725</a>
+<a name='L726'></a><a href='#L726'>726</a>
+<a name='L727'></a><a href='#L727'>727</a>
+<a name='L728'></a><a href='#L728'>728</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1146,6 +1151,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">35x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">35x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1169,6 +1178,7 @@
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1866,6 +1876,10 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
     return () =&gt; unSubscribeForm({ tab: DeployTabs.INFRASTRUCTURE, form: formikRef })
   }, [])
 &nbsp;
+  const environmentRef = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironment?.identifier || initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef
+&nbsp;
+  const [type, setType] = React.useState&lt;MultiTypeInputType&gt;(getMultiTypeFromValue(environmentRef))
+&nbsp;
   return (
     &lt;&gt;
       &lt;Formik&lt;DeployEnvData&gt;
@@ -1880,7 +1894,7 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
         }}
         initialValues={{
           ...initialValues,
-          ...{ environmentRef: initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironment?.identifier || initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef }
+          ...{ environmentRef }
         }}
         validationSchema={Yup.object().shape({
           environmentRef: Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
@@ -1900,6 +1914,7 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
                 useValue
                 placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
                 multiTypeInputProps={{
+                  onTypeChange: setType,
                   width: 300,
                   onChange: val =&gt; {
                     if (
@@ -1918,7 +1933,7 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
                 }}
                 selectItems={environments}
               /&gt;
-              {getMultiTypeFromValue(values<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef) === MultiTypeInputType.FIXED &amp;&amp; (
+              {type === MultiTypeInputType.FIXED &amp;&amp; (
                 &lt;Button
                   minimal
                   intent="primary"
@@ -2230,7 +2245,7 @@ export class DeployEnvironmentStep extends Step&lt;DeployEnvData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 08:37:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 02 2021 09:28:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

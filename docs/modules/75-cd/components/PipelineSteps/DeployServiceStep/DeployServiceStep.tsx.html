@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.98% </span>
+                <span class="strong">81.16% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>166/205</span>
+                <span class='fraction'>168/207</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.21% </span>
+                <span class="strong">58.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>227/390</span>
+                <span class='fraction'>230/394</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.9% </span>
+                <span class="strong">81.09% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>161/199</span>
+                <span class='fraction'>163/201</span>
             </div>
         
             
@@ -754,7 +754,10 @@
 <a name='L695'></a><a href='#L695'>695</a>
 <a name='L696'></a><a href='#L696'>696</a>
 <a name='L697'></a><a href='#L697'>697</a>
-<a name='L698'></a><a href='#L698'>698</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L698'></a><a href='#L698'>698</a>
+<a name='L699'></a><a href='#L699'>699</a>
+<a name='L700'></a><a href='#L700'>700</a>
+<a name='L701'></a><a href='#L701'>701</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1100,6 +1103,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">48x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">48x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1119,12 +1126,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
+<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-yes">54x</span>
-<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1795,6 +1801,10 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 &nbsp;
+  const serviceRef = initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>ervice?.identifier || initialValues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceRef
+&nbsp;
+  const [type, setType] = React.useState&lt;MultiTypeInputType&gt;(getMultiTypeFromValue(serviceRef))
+&nbsp;
   return (
     &lt;&gt;
       &lt;Formik&lt;DeployServiceData&gt;
@@ -1809,9 +1819,7 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
         }}
         initialValues={{
           ...initialValues,
-          ...{
-            serviceRef: initialValues.service?.identifier || initialValues.serviceRef
-          }
+          ...{ serviceRef }
         }}
         validationSchema={Yup.object().shape({
           serviceRef: Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
@@ -1831,6 +1839,7 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
                 disabled={readonly}
                 placeholder={getString('pipelineSteps.serviceTab.selectService')}
                 multiTypeInputProps={{
+                  onTypeChange: setType,
                   width: 300,
                   expressions,
                   onChange: val =&gt; {
@@ -1846,7 +1855,7 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
                 }}
                 selectItems={services}
               /&gt;
-              {getMultiTypeFromValue(values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceRef) === MultiTypeInputType.FIXED ? (
+              {type === MultiTypeInputType.FIXED ? (
                 &lt;Button
                   minimal
                   intent="primary"
@@ -2155,7 +2164,7 @@ export class DeployServiceStep extends Step&lt;DeployServiceData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 08:37:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 02 2021 09:28:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/24</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/24</span>
+                <span class='fraction'>17/18</span>
             </div>
         
             
@@ -124,21 +124,7 @@
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a>
-<a name='L78'></a><a href='#L78'>78</a>
-<a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a>
-<a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -148,29 +134,17 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -211,8 +185,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,11 +192,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
-import { Classes } from '@blueprintjs/core'
-import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { Container, Layout, useModalHook, Text } from '@wings-software/uicore'
+import { Container, Layout, Text } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import CCMDocsImage from './images/CCMDocs.svg'
@@ -233,73 +202,62 @@ import ConnectorImage from './images/Connector.svg'
 import NoDataImage from './images/NoData.svg'
 import css from './OverviewPage.module.scss'
 &nbsp;
-const useNoDataModal = <span class="fstat-no" title="function not covered" >({</span> onConnectorCreateClick }: { onConnectorCreateClick: () =&gt; void }) =&gt; {
-  const { accountId } = <span class="cstat-no" title="statement not covered" >useParams&lt;{ accountId: string }&gt;()</span>
+const NoData = ({ onConnectorCreateClick }: { onConnectorCreateClick: () =&gt; void }) =&gt; {
+  const { accountId } = useParams&lt;{ accountId: string }&gt;()
 &nbsp;
-  const history = <span class="cstat-no" title="statement not covered" >useHistory()</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+  const history = useHistory()
+  const { getString } = useStrings()
 &nbsp;
-  const modalPropsLight: IDialogProps = <span class="cstat-no" title="statement not covered" >{</span>
-    isOpen: true,
-    enforceFocus: false,
-    canOutsideClickClose: false,
-    className: cx(Classes.DIALOG, css.noDataCtn)
-  }
-&nbsp;
-  const handleCreateAutoStoppingClick = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+  const handleCreateAutoStoppingClick = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >    history.push(routes.toCECORules({ accountId }))</span>
   }
-&nbsp;
-  const [openModal, hideModal] = <span class="cstat-no" title="statement not covered" >useModalHook(<span class="fstat-no" title="function not covered" >() =</span>&gt; (</span>
-<span class="cstat-no" title="statement not covered" >    &lt;Dialog {...modalPropsLight}&gt;</span>
-      &lt;Layout.Vertical spacing="xxxlarge"&gt;
-        &lt;Container&gt;
-          &lt;Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}&gt;
-            &lt;img src={NoDataImage} height={150} /&gt;
-            &lt;Text color="grey800" font="normal" style={{ lineHeight: '25px' }}&gt;
-              {getString('ce.overview.noData.info')}
-            &lt;/Text&gt;
-          &lt;/Layout.Horizontal&gt;
-        &lt;/Container&gt;
-        &lt;Container&gt;
-          &lt;Text color="grey800"&gt;{getString('ce.overview.noData.explore')}&lt;/Text&gt;
-          &lt;Layout.Horizontal style={{ justifyContent: 'space-evenly', marginTop: 25 }}&gt;
-            &lt;Layout.Vertical&gt;
-              &lt;img src={AutoStoppingImage} height={75} /&gt;
-              &lt;Text
-                padding="medium"
-                color="primary7"
-                style={{ cursor: 'pointer' }}
-                onClick={handleCreateAutoStoppingClick}
-              &gt;
-                {getString('ce.overview.noData.autoStopping')}
+  return (
+    &lt;div className={css.nodata}&gt;
+      &lt;div className={css.noDataContent}&gt;
+        &lt;Layout.Vertical spacing="xxxlarge"&gt;
+          &lt;Container&gt;
+            &lt;Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}&gt;
+              &lt;img src={NoDataImage} height={150} /&gt;
+              &lt;Text color="grey800" font="normal" style={{ lineHeight: '25px' }}&gt;
+                {getString('ce.overview.noData.info')}
               &lt;/Text&gt;
-            &lt;/Layout.Vertical&gt;
-            &lt;Layout.Vertical&gt;
-              &lt;img src={ConnectorImage} height={75} /&gt;
-              &lt;Text padding="medium" color="primary7" style={{ cursor: 'pointer' }} onClick={onConnectorCreateClick}&gt;
-                {getString('ce.overview.noData.connector')}
-              &lt;/Text&gt;
-            &lt;/Layout.Vertical&gt;
-            &lt;Layout.Vertical&gt;
-              &lt;img src={CCMDocsImage} height={75} /&gt;
-              &lt;a href="http://ngdocs.harness.io/" target="_blank" rel="noreferrer" className={css.ngDocs}&gt;
-                {getString('ce.overview.noData.ngDocs')}
-              &lt;/a&gt;
-            &lt;/Layout.Vertical&gt;
-          &lt;/Layout.Horizontal&gt;
-        &lt;/Container&gt;
-      &lt;/Layout.Vertical&gt;
-    &lt;/Dialog&gt;
-  ))
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  return {</span>
-    hideModal,
-    openModal
-  }
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Container&gt;
+          &lt;Container&gt;
+            &lt;Text color="grey800"&gt;{getString('ce.overview.noData.explore')}&lt;/Text&gt;
+            &lt;Layout.Horizontal style={{ justifyContent: 'space-evenly', marginTop: 25 }}&gt;
+              &lt;Layout.Vertical&gt;
+                &lt;img src={AutoStoppingImage} height={75} /&gt;
+                &lt;Text
+                  padding="medium"
+                  color="primary7"
+                  style={{ cursor: 'pointer' }}
+                  onClick={handleCreateAutoStoppingClick}
+                &gt;
+                  {getString('ce.overview.noData.autoStopping')}
+                &lt;/Text&gt;
+              &lt;/Layout.Vertical&gt;
+              &lt;Layout.Vertical&gt;
+                &lt;img src={ConnectorImage} height={75} /&gt;
+                &lt;Text padding="medium" color="primary7" style={{ cursor: 'pointer' }} onClick={onConnectorCreateClick}&gt;
+                  {getString('ce.overview.noData.connector')}
+                &lt;/Text&gt;
+              &lt;/Layout.Vertical&gt;
+              &lt;Layout.Vertical&gt;
+                &lt;img src={CCMDocsImage} height={75} /&gt;
+                &lt;a href="http://ngdocs.harness.io/" target="_blank" rel="noreferrer" className={css.ngDocs}&gt;
+                  {getString('ce.overview.noData.ngDocs')}
+                &lt;/a&gt;
+              &lt;/Layout.Vertical&gt;
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Container&gt;
+        &lt;/Layout.Vertical&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  )
 }
 &nbsp;
-export default useNoDataModal
+export default NoData
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -307,7 +265,7 @@ export default useNoDataModal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 05:46:57 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 02 2021 06:47:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

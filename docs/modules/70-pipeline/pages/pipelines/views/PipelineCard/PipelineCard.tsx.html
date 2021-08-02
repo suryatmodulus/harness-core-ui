@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.32% </span>
+                <span class="strong">57.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>114/189</span>
+                <span class='fraction'>116/201</span>
             </div>
         
             
@@ -544,10 +544,7 @@
 <a name='L485'></a><a href='#L485'>485</a>
 <a name='L486'></a><a href='#L486'>486</a>
 <a name='L487'></a><a href='#L487'>487</a>
-<a name='L488'></a><a href='#L488'>488</a>
-<a name='L489'></a><a href='#L489'>489</a>
-<a name='L490'></a><a href='#L490'>490</a>
-<a name='L491'></a><a href='#L491'>491</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L488'></a><a href='#L488'>488</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -557,7 +554,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -764,6 +760,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -928,10 +926,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -974,11 +968,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1026,10 +1020,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1039,7 +1033,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Card, Text, Color, Container, Layout, SparkChart, CardBody, Icon, Button } from '@wings-software/uicore'
-import { Classes, Intent, Menu, Position, TextArea } from '@blueprintjs/core'
+import { Classes, Intent, Menu, TextArea } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { isEmpty, pick } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
@@ -1048,9 +1042,8 @@ import { useConfirmationDialog, useToaster } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { EntityGitDetails, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
-import { formatDatetoLocale } from '@common/utils/dateUtils'
 import { TagsPopover } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { getRepoDetailsByIndentifier } from '@common/utils/gitSyncUtils'
@@ -1058,9 +1051,9 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import TimeAgoPopover from '@common/components/TimeAgoPopover/TimeAgoPopover'
 import { getIconsForPipeline } from '../../PipelineListUtils'
-import css from '../../PipelinesPage.module.scss'
+import css from './PipelineCard.module.scss'
 &nbsp;
 interface PipelineDTO extends PMSPipelineSummaryResponse {
   status?: string
@@ -1255,6 +1248,8 @@ const ContextMenu: React.FC&lt;ContextMenuProps&gt; = ({
   )
 }
 &nbsp;
+const LEFT_COLUMN_WIDTH = 72
+&nbsp;
 export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
   pipeline,
   goToPipelineDetail,
@@ -1268,7 +1263,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
       accountId: string
     }&gt;
   &gt;()
-  const { isGitSyncEnabled } = useAppStore()
+  const { isGitSyncEnabled } = { isGitSyncEnabled: true }
   const { gitSyncRepos, loadingRepos } = useGitSyncStore()
   const history = useHistory()
   const goToExecutionPipelineView = <span class="fstat-no" title="function not covered" >(e</span>xecutionId: string | undefined): void =&gt; {
@@ -1297,233 +1292,229 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
 &nbsp;
   return (
     &lt;Card className={css.pipelineCard} interactive onClick={() =&gt; goToPipelineStudio(pipeline)}&gt;
-      &lt;div className={cx(css.sectionMargin, css.sectionBorder)}&gt;
-        &lt;Container padding={{ bottom: 'medium' }} className={css.pipelineTitle}&gt;
-          &lt;span&gt;
+      &lt;Container padding={{ top: 'large', right: 'xlarge', bottom: 'large', left: 'xlarge' }} border={{ bottom: true }}&gt;
+        &lt;Container&gt;
+          &lt;Layout.Horizontal spacing={'small'}&gt;
             {getIconsForPipeline(pipeline).map(iconObj =&gt; (
-              &lt;Icon key={iconObj.icon} name={iconObj.icon} size={iconObj.size} /&gt;
+              &lt;Icon key={iconObj.icon} name={iconObj.icon} size={14} /&gt;
             ))}
-          &lt;/span&gt;
-&nbsp;
-          &lt;CardBody.Menu
-            menuContent={
-              &lt;ContextMenu
-                pipeline={pipeline}
-                goToPipelineStudio={goToPipelineStudio}
-                goToPipelineDetail={goToPipelineDetail}
-                refetchPipeline={refetchPipeline}
-                projectIdentifier={projectIdentifier}
-                accountIdentifier={accountId}
-                orgIdentifier={orgIdentifier}
-                isGitSyncEnabled
-              /&gt;
-            }
-            menuPopoverProps={{
-              className: Classes.DARK
-            }}
-            className={css.menu}
-          /&gt;
-        &lt;/Container&gt;
-        &lt;Layout.Horizontal padding={{ bottom: 'medium' }}&gt;
-          &lt;div className={css.pipelineNameSections}&gt;
-            &lt;Text
-              lineClamp={2}
-              font="medium"
-              color={Color.GREY_800}
-              data-testid={pipeline.identifier}
-              className={css.pipelineName}
-            &gt;
-              {pipeline.name}
-            &lt;/Text&gt;
-            &lt;Text font="small" color={Color.GREY_500}&gt;
-              {getString('idLabel')}
-              {pipeline.identifier}
-            &lt;/Text&gt;
-          &lt;/div&gt;
-          {!isEmpty(pipeline.tags) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pipeline.tags </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;TagsPopover tags={pipeline.tags} /&gt;}</span>
-        &lt;/Layout.Horizontal&gt;
-&nbsp;
-        {!isEmpty(pipeline.description) ? (
-          &lt;Layout.Horizontal padding={{ bottom: 'medium', right: 'large' }}&gt;
-            &lt;Text font="small" color={Color.GREY_700} lineClamp={2} tooltipProps={{ position: Position.BOTTOM }}&gt;
-              {pipeline.description}
-            &lt;/Text&gt;
           &lt;/Layout.Horizontal&gt;
-        ) : null}
-&nbsp;
-        {pipeline.stageNames<span class="branch-1 cbranch-no" title="branch not covered" >?.length </span>? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}&gt;</span>
-            &lt;Text font="small" color={Color.GREY_500} className={css.serviceLabel}&gt;
-              {getString('stages')}
-            &lt;/Text&gt;
-            &lt;Text color={Color.GREY_900} className={css.serviceName} width={100} lineClamp={1}&gt;
-              {pipeline.stageNames?.join(', ')}
-            &lt;/Text&gt;
-          &lt;/Layout.Horizontal&gt;
-        ) : null}
-&nbsp;
-        {pipeline.filters<span class="branch-0 cbranch-no" title="branch not covered" >?.[m</span>odule]<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceNames<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
-          &lt;Layout.Horizontal padding={{ bottom: 'medium', right: 'medium' }}&gt;
-            &lt;Text font="small" color={Color.GREY_500} className={css.serviceLabel}&gt;
-              {getString('services')}
-            &lt;/Text&gt;
-            &lt;Text color={Color.GREY_900} className={css.serviceName} lineClamp={1}&gt;
-              {pipeline.filters<span class="branch-0 cbranch-no" title="branch not covered" >?.[m</span>odule]<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceNames.join(', ')}
-            &lt;/Text&gt;
-          &lt;/Layout.Horizontal&gt;
-        ) : null}
-      &lt;/div&gt;
-&nbsp;
-      {isGitSyncEnabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!!pipeline.gitDetails?.repoIdentifier &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!</span>!pipeline.gitDetails.branch </span>&amp;&amp; (
-<span class="branch-3 cbranch-no" title="branch not covered" >        &lt;div className={cx(css.sectionMargin, css.sectionBorder)}&gt;</span>
           &lt;Layout.Horizontal
-            className={css.pipelineGitDetails}
-            style={{ alignItems: 'center', justifyContent: 'space-between' }}
-            padding={{ top: 'medium', bottom: 'medium' }}
+            spacing={'medium'}
+            margin={{ top: 'small' }}
+            flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
           &gt;
-            &lt;Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}&gt;
-              &lt;Icon name="repository" size={16} color={Color.GREY_800} /&gt;
-              &lt;Text
-                style={{ maxWidth: 70 }}
-                font={{ size: 'small' }}
-                color={Color.GREY_900}
-                title={pipeline.gitDetails.repoIdentifier}
-                lineClamp={1}
-              &gt;
-                {(!loadingRepos &amp;&amp;
-                  getRepoDetailsByIndentifier(pipeline.gitDetails.repoIdentifier, gitSyncRepos)?.name) ||
-                  ''}
+            &lt;Container&gt;
+              &lt;Text lineClamp={2} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}&gt;
+                {pipeline.name}
               &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
-            &lt;Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}&gt;
-              &lt;Icon name="git-new-branch" size={14} color={Color.GREY_800} /&gt;
-              &lt;Text
-                style={{ wordWrap: 'break-word', maxWidth: '70px' }}
-                font={{ size: 'small' }}
-                color={Color.GREY_900}
-                title={pipeline.gitDetails.branch}
-                lineClamp={1}
-              &gt;
-                {pipeline.gitDetails.branch}
+              &lt;Text font="xsmall" color={Color.GREY_600}&gt;
+                {getString('idLabel')}
+                {pipeline.identifier}
               &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
-          &lt;/Layout.Horizontal&gt;
-        &lt;/div&gt;
-      )}
-&nbsp;
-      &lt;div className={cx(css.sectionMargin, css.sectionBorder)}&gt;
-        &lt;Container padding={{ right: 'small', top: 'medium', bottom: 'small' }}&gt;
-          &lt;Layout.Horizontal spacing="xsmall"&gt;
-            &lt;String
-              stringID="lastRunAtDate"
-              color={Color.GREY_500}
-              style={{ width: pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionId ? <span class="branch-0 cbranch-no" title="branch not covered" >160 </span>: 100 }}
-            /&gt;
-            &lt;Text
-              color={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionId ? <span class="branch-0 cbranch-no" title="branch not covered" >Color.PRIMARY_7 </span>: Color.GREY_900}
-              onClick={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                event.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >                goToExecutionPipelineView(pipeline.executionSummaryInfo?.lastExecutionId)</span>
-              }}
-            &gt;
-              {pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs
-                ? formatDatetoLocale(pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs)
-                : <span class="branch-1 cbranch-no" title="branch not covered" >getString('pipelineSteps.pullNeverLabel')}</span>
-            &lt;/Text&gt;
-&nbsp;
-            {!!pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs &amp;&amp; (
-              &lt;Icon
-                name={
-                  pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus === 'Success'
-                    ? 'deployment-success-legacy'
-                    : 'warning-sign'
-                }
-                intent={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus !== 'Success' ? Intent.DANGER : Intent.NONE}
-                size={20}
+            &lt;/Container&gt;
+            {!isEmpty(pipeline.tags) &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pipeline.tags </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >              &lt;TagsPopover</span>
+                className={css.tagsPopover}
+                iconProps={{ size: 14, color: Color.GREY_600 }}
+                tags={pipeline.tags}
               /&gt;
             )}
           &lt;/Layout.Horizontal&gt;
+        &lt;/Container&gt;
+        &lt;CardBody.Menu
+          menuContent={
+            &lt;ContextMenu
+              pipeline={pipeline}
+              goToPipelineStudio={goToPipelineStudio}
+              goToPipelineDetail={goToPipelineDetail}
+              refetchPipeline={refetchPipeline}
+              projectIdentifier={projectIdentifier}
+              accountIdentifier={accountId}
+              orgIdentifier={orgIdentifier}
+              isGitSyncEnabled
+            /&gt;
+          }
+          menuPopoverProps={{
+            className: Classes.DARK
+          }}
+          className={css.menu}
+        /&gt;
+      &lt;/Container&gt;
+      &lt;Container padding={{ left: 'xlarge', right: 'xlarge' }}&gt;
+        &lt;Container border={{ bottom: true }} padding={{ top: 'medium', bottom: 'medium' }}&gt;
+          {pipeline.stageNames<span class="branch-1 cbranch-no" title="branch not covered" >?.length </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}&gt;</span>
+              &lt;Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}&gt;
+                {getString('stages')}
+              &lt;/Text&gt;
+              &lt;Text font="xsmall" color={Color.BLACK} lineClamp={1}&gt;
+                {pipeline.stageNames?.join(', ')}
+              &lt;/Text&gt;
+            &lt;/Layout.Horizontal&gt;
+          ) : null}
+&nbsp;
+          {pipeline.filters<span class="branch-0 cbranch-no" title="branch not covered" >?.[m</span>odule]<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceNames<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength ? (
+            &lt;Layout.Horizontal margin={{ top: 'small' }} flex={{ justifyContent: 'flex-start' }} spacing={'small'}&gt;
+              &lt;Text font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}&gt;
+                {getString('services')}
+              &lt;/Text&gt;
+              &lt;Text font="xsmall" color={Color.BLACK} lineClamp={1}&gt;
+                {pipeline.filters<span class="branch-0 cbranch-no" title="branch not covered" >?.[m</span>odule]<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceNames.join(', ')}
+              &lt;/Text&gt;
+            &lt;/Layout.Horizontal&gt;
+          ) : null}
+        &lt;/Container&gt;
+&nbsp;
+        {isGitSyncEnabled &amp;&amp; !!pipeline.gitDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.repoIdentifier </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!!pipeline.gitDetails.branch </span>&amp;&amp; (
+<span class="branch-3 cbranch-no" title="branch not covered" >          &lt;Container border={{ bottom: true }} padding={{ top: 'medium', bottom: 'medium' }}&gt;</span>
+            &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start' }}&gt;
+              &lt;Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}&gt;
+                {getString('pipeline.gitRepos')}
+              &lt;/Text&gt;
+              &lt;Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}&gt;
+                &lt;Icon name="repository" size={10} color={Color.GREY_600} /&gt;
+                &lt;Text
+                  font={{ size: 'xsmall' }}
+                  color={Color.BLACK}
+                  title={pipeline?.gitDetails?.repoIdentifier}
+                  lineClamp={1}
+                &gt;
+                  {(!loadingRepos &amp;&amp;
+                    getRepoDetailsByIndentifier(pipeline.gitDetails.repoIdentifier, gitSyncRepos)?.name) ||
+                    ''}
+                &lt;/Text&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/Layout.Horizontal&gt;
+&nbsp;
+            &lt;Layout.Horizontal margin={{ top: 'small' }} flex={{ justifyContent: 'flex-start' }}&gt;
+              &lt;Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}&gt;
+                {getString('pipelineSteps.deploy.inputSet.branch')}
+              &lt;/Text&gt;
+              &lt;Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}&gt;
+                &lt;Icon name="git-new-branch" size={10} color={Color.GREY_500} /&gt;
+                &lt;Text font={{ size: 'xsmall' }} color={Color.BLACK} title={pipeline?.gitDetails?.branch} lineClamp={1}&gt;
+                  {pipeline.gitDetails.branch}
+                &lt;/Text&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/Layout.Horizontal&gt;
+          &lt;/Container&gt;
+        )}
+&nbsp;
+        &lt;Container padding={{ top: 'medium', bottom: 'medium' }}&gt;
+          {pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs &amp;&amp; (
+            &lt;&gt;
+              &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start' }}&gt;
+                &lt;Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}&gt;
+                  {getString('lastRunAtDate')}
+                &lt;/Text&gt;
+                &lt;Layout.Horizontal flex spacing={'small'}&gt;
+                  &lt;TimeAgoPopover
+                    font="xsmall"
+                    color={Color.BLACK}
+                    onClick={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      event.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >                      goToExecutionPipelineView(pipeline.executionSummaryInfo?.lastExecutionId)</span>
+                    }}
+                    time={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs}
+                  /&gt;
+                  &lt;Icon
+                    name={
+                      pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus === 'Success'
+                        ? 'deployment-success-legacy'
+                        : 'warning-sign'
+                    }
+                    intent={
+                      pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionStatus !== 'Success' ? Intent.DANGER : Intent.NONE
+                    }
+                    size={12}
+                  /&gt;
+                &lt;/Layout.Horizontal&gt;
+              &lt;/Layout.Horizontal&gt;
+              &lt;Layout.Horizontal
+                margin={{ top: 'small' }}
+                flex={{ justifyContent: 'flex-start', alignItems: deployments ? 'flex-end' : <span class="branch-1 cbranch-no" title="branch not covered" >'center' </span>}}
+              &gt;
+                &lt;Container className={css.label} width={LEFT_COLUMN_WIDTH}&gt;
+                  &lt;Text color={Color.GREY_700} font="xsmall"&gt;
+                    {getString('executionsText')}
+                  &lt;/Text&gt;
+                  &lt;Text color={Color.GREY_500} style={{ fontSize: '8px' }}&gt;
+                    {getString('pipeline.lastSevenDays')}
+                  &lt;/Text&gt;
+                &lt;/Container&gt;
+                &lt;Layout.Horizontal spacing={'small'} flex={{ alignItems: 'flex-end' }}&gt;
+                  {deployments ? (
+                    &lt;&gt;
+                      &lt;SparkChart
+                        data={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eployments || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
+                        data2={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>umOfErrors || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
+                        color={Color.PRIMARY_4}
+                        color2={Color.RED_600}
+                        className={css.sparkChart}
+                      /&gt;
+                      &lt;Text
+                        color={Color.PRIMARY_7}
+                        font="medium"
+                        iconProps={{ size: 18 }}
+                        onClick={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                          event.stopPropagation()</span>
+<span class="cstat-no" title="statement not covered" >                          goToPipelineDetail(pipeline)</span>
+                        }}
+                      &gt;
+                        {deployments}
+                      &lt;/Text&gt;
+                    &lt;/&gt;
+                  ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;Text color={Color.GREY_500} font={{ size: 'xsmall' }}&gt;</span>
+                      {getString('none')}
+                    &lt;/Text&gt;
+                  )}
+                &lt;/Layout.Horizontal&gt;
+              &lt;/Layout.Horizontal&gt;
+            &lt;/&gt;
+          )}
           &lt;Layout.Horizontal
-            flex={{ distribution: 'space-between' }}
-            padding={{ top: 'medium', bottom: 'small' }}
-            spacing="medium"
-            style={{ alignItems: 'flex-end' }}
+            margin={{ top: pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs ? 'medium' : <span class="branch-1 cbranch-no" title="branch not covered" >0 </span>}}
+            spacing={'small'}
+            flex
           &gt;
-            &lt;Layout.Horizontal&gt;
-              &lt;div style={{ marginRight: 12, width: 90 }}&gt;
-                &lt;Text color={Color.GREY_500} font="small" lineClamp={2}&gt;
-                  {getString('executionsText')}
-                &lt;/Text&gt;
-                &lt;Text color={Color.GREY_500} font="small" lineClamp={2}&gt;
-                  ({getString('pipeline.lastSevenDays')})
-                &lt;/Text&gt;
-              &lt;/div&gt;
-              &lt;Text
-                color={deployments ? Color.PRIMARY_7 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.GREY_500}</span>
-                className={`${deployments ? css.clickable : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>`}
-                font="medium"
-                iconProps={{ size: 18 }}
-                onClick={<span class="fstat-no" title="function not covered" >event </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                  event.stopPropagation()</span>
+            {!pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}&gt;</span>
+                This pipeline never ran.
+              &lt;/Text&gt;
+            )}
+            &lt;RbacButton
+              data-testid="card-run-pipeline"
+              icon="command-start"
+              iconProps={{ size: 9 }}
+              className={cx(css.carBtns, css.runBtn)}
+              text={getString('runPipelineText')}
+              permission={{
+                resource: {
+                  resourceType: ResourceType.PIPELINE,
+                  resourceIdentifier: pipeline.identifier as string
+                },
+                permission: PermissionIdentifier.EXECUTE_PIPELINE
+              }}
+              onClick={e =&gt; {
+                e.stopPropagation()
+                runPipeline()
+              }}
+            /&gt;
+            {pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>astExecutionTs &amp;&amp; (
+              &lt;Button
+                className={cx(css.carBtns, css.viewExecutionsBtn)}
+                text={getString('viewExecutions')}
+                onClick={<span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent) =&gt; {
+<span class="cstat-no" title="statement not covered" >                  e.stopPropagation()</span>
 <span class="cstat-no" title="statement not covered" >                  goToPipelineDetail(pipeline)</span>
                 }}
-              &gt;
-                {deployments}
-              &lt;/Text&gt;
-            &lt;/Layout.Horizontal&gt;
-&nbsp;
-            {deployments ? (
-              &lt;span className={css.activityChart}&gt;
-                &lt;SparkChart
-                  data={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>eployments || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
-                  data2={pipeline.executionSummaryInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>umOfErrors || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
-                  color={Color.PRIMARY_4}
-                  color2={Color.RED_600}
-                /&gt;
-              &lt;/span&gt;
-            ) : (
-<span class="branch-1 cbranch-no" title="branch not covered" >              &lt;Text color={Color.GREY_400} font={{ size: 'xsmall' }}&gt;</span>
-                {getString('emptyDeployments')}
-              &lt;/Text&gt;
+              /&gt;
             )}
           &lt;/Layout.Horizontal&gt;
         &lt;/Container&gt;
-      &lt;/div&gt;
-&nbsp;
-      &lt;div className={css.sectionMargin}&gt;
-        &lt;Container flex={{ align: 'center-center', justifyContent: 'space-between' }} padding={{ top: 'large' }}&gt;
-          &lt;RbacButton
-            data-testid="card-run-pipeline"
-            icon="run-pipeline"
-            round
-            className={css.runPipelineBtn}
-            text={&lt;String stringID="runPipelineText" /&gt;}
-            font={{ size: 'normal' }}
-            permission={{
-              resource: {
-                resourceType: ResourceType.PIPELINE,
-                resourceIdentifier: pipeline.identifier as string
-              },
-              permission: PermissionIdentifier.EXECUTE_PIPELINE
-            }}
-            onClick={e =&gt; {
-              e.stopPropagation()
-              runPipeline()
-            }}
-          /&gt;
-          &lt;Button
-            round
-            color={Color.PRIMARY_7}
-            font={{ size: 'normal' }}
-            className={css.viewExecutionBtn}
-            text={getString('viewExecutions')}
-            onClick={<span class="fstat-no" title="function not covered" >(e</span>: React.MouseEvent) =&gt; {
-<span class="cstat-no" title="statement not covered" >              e.stopPropagation()</span>
-<span class="cstat-no" title="statement not covered" >              goToPipelineDetail(pipeline)</span>
-            }}
-          /&gt;
-        &lt;/Container&gt;
-      &lt;/div&gt;
+      &lt;/Container&gt;
     &lt;/Card&gt;
   )
 }
@@ -1534,7 +1525,7 @@ export const PipelineCard: React.FC&lt;PipelineCardProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 05:46:57 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 02 2021 06:47:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

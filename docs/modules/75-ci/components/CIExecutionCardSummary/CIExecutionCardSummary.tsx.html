@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">82.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/74</span>
+                <span class='fraction'>61/74</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -95,30 +95,26 @@
 <a name='L36'></a><a href='#L36'>36</a>
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,37 +129,41 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
-<span class="cstat-no" title="statement not covered" >import { first } from 'lodash-es'</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
+import { first } from 'lodash-es'
 &nbsp;
 import type { CIWebhookInfoDTO } from 'services/ci'
 import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactory/types'
-<span class="cstat-no" title="statement not covered" >import { BranchBadge } from '@ci/components/BranchBadge/BranchBadge'</span>
-<span class="cstat-no" title="statement not covered" >import { CommitsInfo } from '@ci/components/CommitsInfo/CommitsInfo'</span>
-<span class="cstat-no" title="statement not covered" >import { PullRequestBadge } from '@ci/components/PullRequestBadge/PullRequestBadge'</span>
-<span class="cstat-no" title="statement not covered" >import { PullRequestInfo } from '@ci/components/PullRequestInfo/PullRequestInfo'</span>
+import { BranchBadge } from '@ci/components/BranchBadge/BranchBadge'
+import { CommitsInfo } from '@ci/components/CommitsInfo/CommitsInfo'
+import { PullRequestBadge } from '@ci/components/PullRequestBadge/PullRequestBadge'
+import { PullRequestInfo } from '@ci/components/PullRequestInfo/PullRequestInfo'
 &nbsp;
-<span class="cstat-no" title="statement not covered" >import css from './CIExecutionCardSummary.module.scss'</span>
+import css from './CIExecutionCardSummary.module.scss'
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export function <span class="fstat-no" title="function not covered" >C</span>IExecutionCardSummary(</span>props: ExecutionCardInfoProps): React.ReactElement {
-  const { data } = <span class="cstat-no" title="statement not covered" >props</span>
-  const buildData = <span class="cstat-no" title="statement not covered" >data?.ciExecutionInfoDTO as CIWebhookInfoDTO</span>
-  const branchName = <span class="cstat-no" title="statement not covered" >data?.branch as string</span>
-  const tagName = <span class="cstat-no" title="statement not covered" >data?.tag</span>
-  const lastCommit = <span class="cstat-no" title="statement not covered" >first(buildData?.branch?.commits || [])</span>
+export function CIExecutionCardSummary(props: ExecutionCardInfoProps): React.ReactElement {
+  const { data } = props
+  const buildData = data<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>iExecutionInfoDTO as CIWebhookInfoDTO
+  const branchName = data<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch as string
+  const tagName = data<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ag
+  const lastCommit = first(buildData?.branch?.commits || [])
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={css.main}&gt;
       {buildData?.event === 'branch' ? (
         &lt;React.Fragment&gt;
-          &lt;BranchBadge branchName={buildData?.branch?.name} commitId={lastCommit?.id?.slice(0, 7)} /&gt;
-          &lt;CommitsInfo commits={buildData?.branch?.commits} /&gt;
+          &lt;BranchBadge branchName={buildData<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame} commitId={lastCommit<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>lice(0, 7)} /&gt;
+          &lt;CommitsInfo commits={buildData<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ranch<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommits} /&gt;
         &lt;/React.Fragment&gt;
       ) : buildData?.event === 'pullRequest' ? (
         &lt;React.Fragment&gt;
-          &lt;PullRequestBadge pullRequest={buildData?.pullRequest} /&gt;
-          &lt;PullRequestInfo pullRequest={buildData?.pullRequest} /&gt;
-          &lt;CommitsInfo commits={buildData?.pullRequest?.commits} /&gt;
+          &lt;PullRequestBadge pullRequest={buildData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ullRequest} /&gt;
+          &lt;PullRequestInfo pullRequest={buildData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ullRequest} /&gt;
+          &lt;CommitsInfo commits={buildData<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ullRequest<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ommits} /&gt;
         &lt;/React.Fragment&gt;
       ) : (
         &lt;BranchBadge branchName={branchName} tagName={tagName} /&gt;
@@ -178,7 +178,7 @@ import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactor
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 06:47:24 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 02 2021 08:37:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

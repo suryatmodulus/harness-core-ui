@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.67% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>31/60</span>
+                <span class='fraction'>32/64</span>
             </div>
         
             
@@ -174,7 +174,8 @@
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
 <a name='L117'></a><a href='#L117'>117</a>
-<a name='L118'></a><a href='#L118'>118</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -196,10 +197,6 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -268,8 +265,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -313,11 +315,7 @@ function MonitoredService(): JSX.Element {
   const [validMonitoredSource, setValidMonitoredSource] = useState(false)
   const params = useParams&lt;ProjectPathProps &amp; { identifier: string }&gt;()
   const isEdit = !!params<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
-  const {
-    data: dataMonitoredServiceById,
-    refetch,
-    loading: loadingMonitoredServiceById
-  } = useGetMonitoredService({
+  const { data: dataMonitoredServiceById, refetch } = useGetMonitoredService({
     lazy: true,
     identifier: params<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
     pathParams: {
@@ -378,28 +376,33 @@ function MonitoredService(): JSX.Element {
         const { name, identifier, description, tags, serviceRef, environmentRef } = formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues
         return (
           &lt;div&gt;
-            {loadingMonitoredServiceById &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
-            &lt;MonitoredServiceDetails formik={formik} /&gt;
-            &lt;ServiceEnvironment formik={formik} /&gt;
-            &lt;CardWithOuterTitle title={getString('cv.healthSource.defineYourSource')}&gt;
-              &lt;HealthSourceTable
-                isEdit={isEdit}
-                value={formik.values.sources<span class="branch-1 cbranch-no" title="branch not covered" >?.healthSources </span>|| []}
-                onSuccess={<span class="fstat-no" title="function not covered" >data </span>=&gt; <span class="cstat-no" title="statement not covered" >onSuccess(data, formik)}</span>
-                onDelete={<span class="fstat-no" title="function not covered" >data </span>=&gt; <span class="cstat-no" title="statement not covered" >onDelete(data, formik)}</span>
-                serviceRef={serviceRef}
-                environmentRef={environmentRef}
-                monitoredServiceRef={{
-                  name,
-                  identifier,
-                  description,
-                  tags
-                }}
-                validMonitoredSource={validMonitoredSource}
-                onCloseDrawer={setValidMonitoredSource}
-                validateMonitoredSource={formik.submitForm}
-              /&gt;
-            &lt;/CardWithOuterTitle&gt;
+            {isEdit &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!(serviceRef &amp;&amp; environmentRef) </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >              &lt;PageSpinner /&gt;</span>
+            ) : (
+              &lt;&gt;
+                &lt;MonitoredServiceDetails formik={formik} /&gt;
+                &lt;ServiceEnvironment formik={formik} /&gt;
+                &lt;CardWithOuterTitle title={getString('cv.healthSource.defineYourSource')}&gt;
+                  &lt;HealthSourceTable
+                    isEdit={isEdit}
+                    value={formik.values.sources<span class="branch-1 cbranch-no" title="branch not covered" >?.healthSources </span>|| []}
+                    onSuccess={<span class="fstat-no" title="function not covered" >data </span>=&gt; <span class="cstat-no" title="statement not covered" >onSuccess(data, formik)}</span>
+                    onDelete={<span class="fstat-no" title="function not covered" >data </span>=&gt; <span class="cstat-no" title="statement not covered" >onDelete(data, formik)}</span>
+                    serviceRef={serviceRef}
+                    environmentRef={environmentRef}
+                    monitoredServiceRef={{
+                      name,
+                      identifier,
+                      description,
+                      tags
+                    }}
+                    validMonitoredSource={validMonitoredSource}
+                    onCloseDrawer={setValidMonitoredSource}
+                    validateMonitoredSource={formik.submitForm}
+                  /&gt;
+                &lt;/CardWithOuterTitle&gt;
+              &lt;/&gt;
+            )}
           &lt;/div&gt;
         )
       }}
@@ -415,7 +418,7 @@ export default MonitoredService
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 11:32:51 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 02 2021 12:37:42 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

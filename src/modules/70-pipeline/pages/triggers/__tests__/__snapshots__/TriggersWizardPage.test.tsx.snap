@@ -1579,7 +1579,9 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             </div>
                           </div>
                         </div>
-                        <section>
+                        <section
+                          class="main"
+                        >
                           <div
                             class="bp3-form-group"
                             data-id="null-4"
@@ -2502,7 +2504,9 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                             </div>
                           </div>
                         </div>
-                        <section>
+                        <section
+                          class="main"
+                        >
                           <div
                             class="bp3-form-group"
                             data-id="null-2"

@@ -505,7 +505,9 @@ exports[`WebhookTriggerConfigPanel Triggers tests Renders/snapshots Initial Rend
                   </div>
                 </div>
               </div>
-              <section>
+              <section
+                class="main"
+              >
                 <div
                   class="bp3-form-group"
                   data-id="null-2"

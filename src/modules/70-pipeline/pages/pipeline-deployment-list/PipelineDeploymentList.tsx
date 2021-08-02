@@ -123,7 +123,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   //  - When polling call (API) is being processed, wait until it's done then re-schedule
   React.useEffect(() => {
     const timeoutId = window.setTimeout(() => {
-      if (page === 2 && !loading) {
+      if (page === 1 && !loading) {
         setPollingRequest(true)
         fetchExecutions()?.then(
           () => setPollingRequest(false),

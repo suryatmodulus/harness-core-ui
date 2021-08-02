@@ -1,0 +1,53 @@
+{
+  "metaData": {},
+  "resource": {
+    "uuid": "uuid",
+    "email": "email@harness.io",
+    "name": "email@harness.io",
+    "token": "token",
+    "intent": null,
+    "firstLogin": false,
+    "lastLogin": 1627900198073,
+    "emailVerified": true,
+    "twoFactorAuthenticationEnabled": false,
+    "twoFactorAuthenticationMechanism": null,
+    "twoFactorJwtToken": null,
+    "oauthProvider": null,
+    "defaultAccountId": "accountId",
+    "accounts": [
+      {
+        "uuid": "accountId",
+        "accountName": "Harness.io",
+        "companyName": "Harness.io",
+        "clusterName": null,
+        "localEncryptionEnabled": false,
+        "twoFactorAdminEnforced": false,
+        "forImport": false,
+        "cloudCostEnabled": true,
+        "salesContacts": null,
+        "licenseInfo": {
+          "accountType": "PAID",
+          "accountStatus": "ACTIVE",
+          "expireAfterDays": 0,
+          "expiryTime": 1645142399000,
+          "licenseUnits": 1000
+        },
+        "ceLicenseInfo": { "licenseType": "PAID", "expiryTime": 1645142399000 },
+        "licenseId": null,
+        "techStacks": [
+          { "category": "Monitoring And Logging", "technology": "NewRelic" },
+          { "category": "Deployment Platforms", "technology": "Azure" },
+          { "category": "Artifact Repositories", "technology": "DockerHub" }
+        ],
+        "subdomainUrl": null,
+        "defaultExperience": "CG",
+        "authenticationMechanism": "USER_PASSWORD",
+        "status": "ACTIVE",
+        "loginAllowed": true
+      }
+    ],
+    "supportAccounts": [],
+    "imported": false
+  },
+  "responseMessages": []
+}

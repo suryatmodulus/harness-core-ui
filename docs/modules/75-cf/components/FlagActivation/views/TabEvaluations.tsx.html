@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35.48% </span>
+                <span class="strong">34.92% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/62</span>
+                <span class='fraction'>22/63</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/70</span>
+                <span class='fraction'>0/72</span>
             </div>
         
             
@@ -235,7 +235,13 @@
 <a name='L176'></a><a href='#L176'>176</a>
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -363,6 +369,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -377,24 +384,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -414,7 +426,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
-import { Container, Icon, Layout } from '@wings-software/uicore'
+import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import cx from 'classnames'
 import { clone } from 'lodash-es'
@@ -541,6 +553,7 @@ export const TabEvaluations: React.FC&lt;TabEvaluationsProps&gt; = <span class="
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return variationSeriesItem</span>
   })
+  const sum = <span class="cstat-no" title="statement not covered" >total?.reduce(<span class="fstat-no" title="function not covered" >(_</span>sum, entry) =&gt; <span class="cstat-no" title="statement not covered" >_sum + (entry.count || 0),</span> 0) || 0</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Container className={css.contentBody}&gt;
@@ -555,7 +568,7 @@ export const TabEvaluations: React.FC&lt;TabEvaluationsProps&gt; = <span class="
             series={series as PlotOptions}
             categories={categories}
             title={getString('cf.featureFlags.metrics.flagEvaluations', {
-              count: formatNumber(total?.reduce(<span class="fstat-no" title="function not covered" >(s</span>um, entry) =&gt; <span class="cstat-no" title="statement not covered" >sum + (entry.count || 0),</span> 0) || 0)
+              count: formatNumber(sum)
             })}
           /&gt;
           &lt;Container margin={{ top: 'xxlarge' }}&gt;
@@ -579,7 +592,12 @@ export const TabEvaluations: React.FC&lt;TabEvaluationsProps&gt; = <span class="
                           &lt;VariationWithIcon variation={flagData.variations[index]} index={index} /&gt;
                         &lt;/Layout.Horizontal&gt;
                       &lt;/td&gt;
-                      &lt;td&gt;{formatNumber(entry.count || 0, true)}&lt;/td&gt;
+                      &lt;td&gt;
+                        {formatNumber(entry.count || 0, true)}{' '}
+                        &lt;Text inline color={Color.GREY_400}&gt;
+                          ({(((entry.count || 0) / sum) * 100).toFixed(2).replace(/0+$/, '')}%)
+                        &lt;/Text&gt;
+                      &lt;/td&gt;
                     &lt;/tr&gt;
                   )
                 })}
@@ -598,7 +616,7 @@ export const TabEvaluations: React.FC&lt;TabEvaluationsProps&gt; = <span class="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 12:37:42 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 04:16:59 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

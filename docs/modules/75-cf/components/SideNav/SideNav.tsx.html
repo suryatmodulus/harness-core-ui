@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/26</span>
+                <span class='fraction'>28/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15% </span>
+                <span class="strong">23.08% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/20</span>
+                <span class='fraction'>6/26</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.62% </span>
+                <span class="strong">87.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/26</span>
+                <span class='fraction'>28/32</span>
             </div>
         
             
@@ -138,7 +138,22 @@
 <a name='L79'></a><a href='#L79'>79</a>
 <a name='L80'></a><a href='#L80'>80</a>
 <a name='L81'></a><a href='#L81'>81</a>
-<a name='L82'></a><a href='#L82'>82</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
@@ -152,6 +167,7 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -160,6 +176,13 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -180,6 +203,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,7 +250,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, matchPath, useLocation } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { ProjectSelector } from '@projects-orgs/components/ProjectSelector/ProjectSelector'
@@ -233,6 +263,7 @@ import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
 import css from './SideNav.module.scss'
+import navCSS from '@common/navigation/SideNav/SideNav.module.scss'
 &nbsp;
 export default function CFSideNav(): React.ReactElement {
   const { getString } = useStrings()
@@ -241,6 +272,13 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
+  const location = useLocation()
+  const isDev = localStorage.ENABLED_FF_EXPERIMENTS
+  const toDeployments = routes.toDeployments({ ...params, module: 'cf' })
+  const toPipelines = routes.toPipelines({ ...params, module: 'cf' })
+  const isCFPipelines = !!(
+    matchPath(location.pathname, { path: toDeployments }) || matchPath(location.pathname, { path: toPipelines })
+  )
   const { trial } = useQueryParams&lt;{ trial?: boolean }&gt;()
 &nbsp;
   return (
@@ -281,6 +319,13 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFTargetManagement(params))}
           /&gt;
           &lt;SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} /&gt;
+          {isDev &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >            &lt;SidebarLink</span>
+              label={getString('pipelines')}
+              to={withActiveEnvironment(toDeployments)}
+              className={isCFPipelines ? navCSS.selected : undefined}
+            /&gt;
+          )}
           &lt;SidebarLink
             className={css.onboarding}
             label={getString('cf.shared.getStarted')}
@@ -307,7 +352,7 @@ export default function CFSideNav(): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 02 2021 12:37:42 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 04:16:59 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

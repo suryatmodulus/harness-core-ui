@@ -4,9 +4,8 @@
   padding: var(--spacing-small) var(--spacing-large) !important;
 
   .details {
-    height: 100% !important;
     width: 100% !important;
-    height: 45% !important;
+    min-height: 220px !important;
   }
 
   .loading {

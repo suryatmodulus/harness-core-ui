@@ -1,7 +1,9 @@
 .main {
   position: relative;
   height: 100% !important;
+  min-height: 50px;
   width: 100% !important;
+  overflow-y: scroll;
 
   .hexagonContainer {
     position: absolute;
@@ -28,9 +30,10 @@
       }
 
       .nodeHealth {
-        position: relative;
-        bottom: 15px;
-        left: 8px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -130%);
         border-radius: 2px;
         cursor: pointer;
       }

@@ -1,18 +1,18 @@
-import type { DeploymentNodeAnalysisResult } from './DeploymentNodes.constants'
+import {
+  DeploymentNodeAnalysisResult,
+  DeploymentNodeSubPartSize,
+  DefaultNodeSubPartSize,
+  HexagonSizes
+} from './DeploymentNodes.constants'
 
 export type HexagonCoordinates = { x: number; y: number }
 
 const A = (2 * Math.PI) / 6
-const HexagonRadius = 12
 
-export function drawGrid(width: number, height: number, totalNodes: number): HexagonCoordinates[] {
+export function drawGrid(width: number, totalNodes: number, hexagonRadius: number): HexagonCoordinates[] {
   const cooordinates: HexagonCoordinates[] = []
-  const radiusWithMargin = HexagonRadius + 2.4
-  for (
-    let y = radiusWithMargin, nodesGenerated = 0;
-    y + HexagonRadius * Math.sin(A) < height && nodesGenerated < totalNodes;
-    y += radiusWithMargin * Math.sin(A)
-  ) {
+  const radiusWithMargin = hexagonRadius + 2.4
+  for (let y = radiusWithMargin, nodesGenerated = 0; nodesGenerated < totalNodes; y += radiusWithMargin * Math.sin(A)) {
     for (
       let x = radiusWithMargin, j = 0;
       x + radiusWithMargin * (1 + Math.cos(A)) < width && nodesGenerated < totalNodes;
@@ -23,6 +23,16 @@ export function drawGrid(width: number, height: number, totalNodes: number): Hex
   }
 
   return cooordinates
+}
+
+export function getHexagonSubPartSize(containerWidth: number): DeploymentNodeSubPartSize {
+  for (const sizeObject of HexagonSizes) {
+    if (containerWidth <= sizeObject.containerWidth) {
+      return sizeObject
+    }
+  }
+
+  return DefaultNodeSubPartSize
 }
 
 export function mapNodeHealthStatusToColor(nodeHealth: DeploymentNodeAnalysisResult['risk']): string {

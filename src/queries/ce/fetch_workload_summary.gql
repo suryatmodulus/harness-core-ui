@@ -31,6 +31,7 @@ query FetchWorkloadSummary($filters: [QLCEViewFilterWrapperInput], $isClusterQue
   }
 
   perspectiveGrid(
+    isClusterQuery: $isClusterQuery
     filters: $filters
     aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
     sortCriteria: []

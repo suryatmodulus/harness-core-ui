@@ -557,7 +557,8 @@ exports[`test cases for Workload details Page should be able to render the detai
                           />
                         </span>
                         <span
-                          class="name"
+                          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                          style="--text-line-clamp: 1; width: 190px;"
                         >
                           aks-cd-ddbksb-0
                         </span>

@@ -506,9 +506,9 @@ export const FetchWorkloadGridDocument = gql`
         { operationType: SUM, columnName: "storageUnallocatedCost" }
         { operationType: SUM, columnName: "memoryUnallocatedCost" }
         { operationType: SUM, columnName: "cpuUnallocatedCost" }
-        { operationType: SUM, columnName: "idleCost" }
-        { operationType: SUM, columnName: "memoryIdleCost" }
-        { operationType: SUM, columnName: "cpuIdleCost" }
+        { operationType: SUM, columnName: "actualidlecost" }
+        { operationType: SUM, columnName: "memoryActualIdleCost" }
+        { operationType: SUM, columnName: "cpuActualIdleCost" }
         { operationType: SUM, columnName: "systemcost" }
         { operationType: MAX, columnName: "storageUtilizationValue" }
         { operationType: MAX, columnName: "storageRequest" }
@@ -606,6 +606,7 @@ export const FetchWorkloadSummaryDocument = gql`
       }
     }
     perspectiveGrid(
+      isClusterQuery: $isClusterQuery
       filters: $filters
       aggregateFunction: [{ operationType: SUM, columnName: "cost" }]
       sortCriteria: []

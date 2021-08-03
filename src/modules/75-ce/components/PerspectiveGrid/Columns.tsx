@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import type { CellProps } from 'react-table'
 import moment from 'moment'
+import { Text } from '@wings-software/uicore'
 import formatCost from '@ce/utils/formatCost'
 import {
   QlceViewFieldInputInput,
@@ -139,7 +140,9 @@ const RenderNameCell = ({ row }: CellProps<GridData>): ReactNode => {
       <span className={css.legendColorCtn}>
         <span style={{ background: legendColor }} className={css.legendColor}></span>
       </span>
-      <span className={css.name}>{name}</span>
+      <Text inline lineClamp={1} font="small" color="grey700" width={190}>
+        {name}
+      </Text>
     </span>
   )
 }

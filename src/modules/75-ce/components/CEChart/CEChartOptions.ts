@@ -1,3 +1,4 @@
+import type Highcharts from 'highcharts'
 import formatCost from '@ce/utils/formatCost'
 
 export const CE_COLOR_CONST = [

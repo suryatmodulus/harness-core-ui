@@ -196,12 +196,9 @@ const PerspectiveDetailsPage: React.FC = () => {
   })
 
   const getAggregationFunc = () => {
-    const af = AGGREGATE_FUNCTION[groupBy.fieldId]
-    if (!af) {
-      return isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT
-    }
-
-    return af
+    return isClusterOnly && AGGREGATE_FUNCTION[groupBy.fieldId]
+      ? AGGREGATE_FUNCTION[groupBy.fieldId]
+      : AGGREGATE_FUNCTION.DEFAULT
   }
 
   const [gridResults] = useFetchperspectiveGridQuery({

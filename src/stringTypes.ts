@@ -3300,6 +3300,7 @@ export interface StringsMap {
   'cv.clusterType': string
   'cv.continuous': string
   'cv.copyURL': string
+  'cv.creatingNewService': string
   'cv.currentProductionRisk': string
   'cv.cvTrialHomePage.startTrial.description': string
   'cv.cvTrialHomePage.startTrial.startBtn.description': string

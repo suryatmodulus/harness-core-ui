@@ -1,42 +1,33 @@
 import React from 'react'
-import { render, waitFor, fireEvent } from '@testing-library/react'
-import routes from '@common/RouteDefinitions'
-import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
-import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import { render, waitFor, fireEvent, act } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
 import { useCreateService } from 'services/cd-ng'
 import NewServiceForm from '../NewServiceForm'
+import { responseData } from './NewServiceForm.mock'
 
-const testWrapperProps: TestWrapperProps = {
-  path: routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
-  pathParams: {
-    accountId: '1234_accountId',
-    projectIdentifier: '1234_project',
-    orgIdentifier: '1234_org'
-  }
-}
 jest.mock('services/cd-ng')
 const useCreateServiceMock = useCreateService as jest.MockedFunction<any>
+
+const onSubmit = jest.fn()
+const onClose = jest.fn()
+
 describe('NewServieForm', () => {
-  beforeAll(() => {
+  test('Match snapshot', async () => {
     useCreateServiceMock.mockImplementation(() => {
       return {
-        cancel: jest.fn(),
         loading: false,
         mutate: jest.fn().mockImplementation(() => {
           return {
-            status: 'SUCCESS'
+            status: 'SUCCESS',
+            data: responseData
           }
         })
       }
     })
-  })
 
-  test('Match snapshot', async () => {
-    const onSubmit = jest.fn()
-    const onClose = jest.fn()
     const { container, getByText } = render(
-      <TestWrapper {...testWrapperProps}>
+      <TestWrapper>
         <NewServiceForm onClose={onClose} onSubmit={onSubmit} />
       </TestWrapper>
     )
@@ -58,7 +49,11 @@ describe('NewServieForm', () => {
     })
 
     await waitFor(() => expect(container.querySelector('input[value="Service 101"]')).toBeDefined())
+    act(() => {
+      fireEvent.click(getByText('Submit'))
+    })
 
+    await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(responseData))
     expect(container).toMatchSnapshot()
   })
 })

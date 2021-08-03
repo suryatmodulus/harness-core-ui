@@ -31,8 +31,9 @@ export default function NewServiceForm({ onSubmit, onClose }: NewServiceFormInte
         orgIdentifier: orgIdentifier as string,
         projectIdentifier: projectIdentifier as string
       })
+
       if (res.status === 'SUCCESS') {
-        await onSubmit(res.data!)
+        onSubmit(res.data!)
       }
     } catch (error) {
       clear()

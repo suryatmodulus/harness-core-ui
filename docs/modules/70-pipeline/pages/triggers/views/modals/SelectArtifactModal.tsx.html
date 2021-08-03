@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.76% </span>
+                <span class="strong">74.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/33</span>
+                <span class='fraction'>26/35</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">55.56% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>10/18</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.76% </span>
+                <span class="strong">74.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/33</span>
+                <span class='fraction'>26/35</span>
             </div>
         
             
@@ -188,7 +188,13 @@
 <a name='L129'></a><a href='#L129'>129</a>
 <a name='L130'></a><a href='#L130'>130</a>
 <a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L132'></a><a href='#L132'>132</a>
+<a name='L133'></a><a href='#L133'>133</a>
+<a name='L134'></a><a href='#L134'>134</a>
+<a name='L135'></a><a href='#L135'>135</a>
+<a name='L136'></a><a href='#L136'>136</a>
+<a name='L137'></a><a href='#L137'>137</a>
+<a name='L138'></a><a href='#L138'>138</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -222,25 +228,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -334,7 +346,7 @@ import css from './SelectArtifactModal.module.scss'
 interface SelectArtifactModalPropsInterface {
   isModalOpen: boolean
   isManifest: boolean
-  artifactTableData: any
+  artifactTableData?: any
   formikProps: any
   closeModal: () =&gt; void
   runtimeData: any
@@ -353,10 +365,13 @@ const SelectArtifactModal: React.FC&lt;SelectArtifactModalPropsInterface&gt; = (
   artifactTableData,
   runtimeData
 }) =&gt; {
+  const { values } = formikProps
   const [selectedArtifactLabel, setSelectedArtifactLabel] = useState(undefined) // artifactLabel is unique
   const [selectedStage, setSelectedStage] = useState(undefined)
   const [selectedArtifact, setSelectedArtifact] = useState(undefined)
-  const [modalState, setModalState] = useState&lt;ModalState&gt;(ModalState.SELECT)
+  const [modalState, setModalState] = useState&lt;ModalState&gt;(
+    values?.artifactRef ? <span class="branch-0 cbranch-no" title="branch not covered" >ModalState.RUNTIME_INPUT </span>: ModalState.SELECT
+  )
   const { getString } = useStrings()
 &nbsp;
   const closeAndReset = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
@@ -364,6 +379,7 @@ const SelectArtifactModal: React.FC&lt;SelectArtifactModalPropsInterface&gt; = (
 <span class="cstat-no" title="statement not covered" >    setSelectedArtifact(undefined)</span>
 <span class="cstat-no" title="statement not covered" >    setSelectedArtifactLabel(undefined)</span>
 <span class="cstat-no" title="statement not covered" >    setSelectedStage(undefined)</span>
+<span class="cstat-no" title="statement not covered" >    formikProps.setValues({ ...formikProps.values, stageId: undefined, artifactRef: undefined })</span>
   }
 &nbsp;
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
@@ -378,7 +394,9 @@ const SelectArtifactModal: React.FC&lt;SelectArtifactModalPropsInterface&gt; = (
       enforceFocus={false}
       title={
         modalState === ModalState.SELECT
-          ? getString('pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact')
+          ? isManifest
+            ? getString('pipeline.triggers.artifactTriggerConfigPanel.selectAManifest')
+            : <span class="branch-1 cbranch-no" title="branch not covered" >getString('pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact')</span>
           : <span class="branch-1 cbranch-no" title="branch not covered" >getString('pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs')</span>
       }
       onClose={closeAndReset}
@@ -457,7 +475,7 @@ export default SelectArtifactModal
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 15:49:02 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 19:45:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.97% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/31</span>
+                <span class='fraction'>21/30</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>17/25</span>
+                <span class='fraction'>16/24</span>
             </div>
         
             
@@ -193,18 +193,14 @@
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -212,16 +208,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -242,7 +233,7 @@
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -302,7 +293,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -320,7 +311,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,11 +342,6 @@ export const GitSourceProviders: Record&lt;string, { value: string; iconName: Ic
   BITBUCKET: { value: 'Bitbucket', iconName: 'bitbucket-selected' },
   AWS_CODECOMMIT: { value: 'AwsCodeCommit', iconName: 'service-aws-code-deploy' },
   CUSTOM: { value: 'Custom', iconName: 'build' }
-}
-&nbsp;
-export const ArtifactSourceProviders: Record&lt;string, { value: string; iconName: IconName }&gt; = {
-  NewArtifact: { value: 'NewArtifact', iconName: 'new-artifact' },
-  NewManifest: { value: 'NewManifest', iconName: 'new-artifact' }
 }
 &nbsp;
 const TriggerTypeIcons = {
@@ -390,17 +377,6 @@ const triggerDrawerMap = <span class="fstat-no" title="function not covered" >(g
 &nbsp;
   categories: [
     {
-      categoryLabel: getString('pipeline.triggers.scheduledLabel'),
-      categoryValue: 'Scheduled',
-      items: [
-        {
-          itemLabel: getString('pipeline.triggers.cronLabel'),
-          value: 'Cron',
-          iconName: TriggerTypeIcons.SCHEDULE as IconName
-        }
-      ]
-    },
-    {
       categoryLabel: getString('execution.triggerType.WEBHOOK'),
       categoryValue: 'Webhook',
       items: [
@@ -430,6 +406,17 @@ const triggerDrawerMap = <span class="fstat-no" title="function not covered" >(g
           iconName: GitSourceProviders.CUSTOM.iconName
         }
       ]
+    },
+    {
+      categoryLabel: getString('pipeline.triggers.scheduledLabel'),
+      categoryValue: 'Scheduled',
+      items: [
+        {
+          itemLabel: getString('pipeline.triggers.cronLabel'),
+          value: 'Cron',
+          iconName: TriggerTypeIcons.SCHEDULE as IconName
+        }
+      ]
     }
   ]
 })
@@ -457,7 +444,8 @@ export interface ItemInterface {
 export interface TriggerDataInterface {
   triggerType: string
   sourceRepo?: string
-  // all else optional
+  manifestType?: string
+  artifactType?: string
 }
 &nbsp;
 export const getEnabledStatusTriggerValues = <span class="fstat-no" title="function not covered" >({</span>
@@ -484,7 +472,7 @@ export const getEnabledStatusTriggerValues = <span class="fstat-no" title="funct
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 15:49:02 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 19:45:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

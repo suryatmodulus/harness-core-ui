@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.86% </span>
+                <span class="strong">92.98% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/56</span>
+                <span class='fraction'>53/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.98% </span>
+                <span class="strong">73.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>91/123</span>
+                <span class='fraction'>87/119</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.44% </span>
+                <span class="strong">94.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>51/54</span>
+                <span class='fraction'>52/55</span>
             </div>
         
             
@@ -334,16 +334,10 @@
 <a name='L275'></a><a href='#L275'>275</a>
 <a name='L276'></a><a href='#L276'>276</a>
 <a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -353,6 +347,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -370,19 +373,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -613,6 +617,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useContext, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
+import moment from 'moment'
 import type { SeriesAreaOptions } from 'highcharts'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -660,6 +665,7 @@ const TickerValue: React.FC&lt;{ value: number; color: Color }&gt; = props =&gt;
 export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&gt; {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
+&nbsp;
   const { serviceIdentifier } = props
   const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
 &nbsp;
@@ -670,7 +676,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
       projectIdentifier,
       serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
-      endTime: timeRange?.range[1]?.getTime() || 0,
+      endTime: timeRange?.range[1] ? moment(timeRange.range[1]).add(1, 'days').toDate().getTime() : 0,
       bucketSizeInDays: getBucketSizeForTimeRange(timeRange?.range)
     }
   }, [accountId, orgIdentifier, projectIdentifier, serviceIdentifier, timeRange])
@@ -800,8 +806,8 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
     },
     yAxis: {
       max: Math.max(
-        ...(serviceDeploymentsInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDeploymentList || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>.map(deployment =&gt;
-          Math.max(deployment.deployments<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailure || 0, deployment.deployments<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess || 0)
+        ...(serviceDeploymentsInfo<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDeploymentList || <span class="branch-1 cbranch-no" title="branch not covered" >[])</span>.map(
+          deployment =&gt; (deployment.deployments<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ailure || 0) + (deployment.deployments<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>uccess || 0)
         )
       )
     },
@@ -895,7 +901,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 07:54:51 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 08:55:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

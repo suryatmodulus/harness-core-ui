@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">86.84% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>65/75</span>
+                <span class='fraction'>66/76</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.55% </span>
+                <span class="strong">54.9% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>48/88</span>
+                <span class='fraction'>56/102</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">86.84% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/75</span>
+                <span class='fraction'>66/76</span>
             </div>
         
             
@@ -294,7 +294,12 @@
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -323,6 +328,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -439,6 +445,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -497,10 +504,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -564,6 +574,7 @@ import { EmailVerificationBanner } from '@common/components/Banners/EmailVerific
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
+import ProjectsEmptyState from './projects-empty-state.png'
 import css from './ProjectsPage.module.scss'
 &nbsp;
 const CustomSelect = Select.ofType&lt;SelectOption&gt;()
@@ -675,54 +686,55 @@ const ProjectsListPage: React.FC = () =&gt; {
     &lt;Container className={css.projectsPage} height="inherit"&gt;
       &lt;EmailVerificationBanner /&gt;
       &lt;Page.Header breadcrumbs={&lt;NGBreadcrumbs /&gt;} title={getString('projectsText')} /&gt;
-      &lt;Layout.Horizontal spacing="large" className={css.header}&gt;
-        &lt;Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() =&gt; openProjectModal()} /&gt;
-        &lt;CustomSelect
-          disabled={loading}
-          items={organizations}
-          filterable={false}
-          itemRenderer={(item, { handleClick }) =&gt; (
-            &lt;div key={item.value.toString()}&gt;
-              &lt;Menu.Item text={item.label} onClick={handleClick} /&gt;
-            &lt;/div&gt;
-          )}
-          onItemSelect={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            history.push({</span>
-              pathname: routes.toProjects({ accountId }),
-              search: `?orgIdentifier=${item.value.toString()}`
-            })
-          }}
-          popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-        &gt;
-          &lt;Button
-            inline
-            round
-            rightIcon="chevron-down"
+      {data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >searchParam </span>|| <span class="branch-2 cbranch-no" title="branch not covered" >loading </span>|| <span class="branch-3 cbranch-no" title="branch not covered" >error </span>? (
+        &lt;Layout.Horizontal spacing="large" className={css.header}&gt;
+          &lt;Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() =&gt; openProjectModal()} /&gt;
+          &lt;CustomSelect
             disabled={loading}
-            className={css.orgSelect}
-            text={
-              &lt;Layout.Horizontal spacing="xsmall"&gt;
-                &lt;Text color={Color.BLACK}&gt;{getString('projectsOrgs.tabOrgs')}&lt;/Text&gt;
-                &lt;Text&gt;{orgFilter.label}&lt;/Text&gt;
-              &lt;/Layout.Horizontal&gt;
-            }
+            items={organizations}
+            filterable={false}
+            itemRenderer={(item, { handleClick }) =&gt; (
+              &lt;div key={item.value.toString()}&gt;
+                &lt;Menu.Item text={item.label} onClick={handleClick} /&gt;
+              &lt;/div&gt;
+            )}
+            onItemSelect={<span class="fstat-no" title="function not covered" >item </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              history.push({</span>
+                pathname: routes.toProjects({ accountId }),
+                search: `?orgIdentifier=${item.value.toString()}`
+              })
+            }}
+            popoverProps={{ minimal: true, popoverClassName: css.customselect }}
+          &gt;
+            &lt;Button
+              inline
+              round
+              rightIcon="chevron-down"
+              disabled={loading}
+              className={css.orgSelect}
+              text={
+                &lt;Layout.Horizontal spacing="xsmall"&gt;
+                  &lt;Text color={Color.BLACK}&gt;{getString('projectsOrgs.tabOrgs')}&lt;/Text&gt;
+                  &lt;Text&gt;{orgFilter.label}&lt;/Text&gt;
+                &lt;/Layout.Horizontal&gt;
+              }
+            /&gt;
+          &lt;/CustomSelect&gt;
+&nbsp;
+          &lt;div style={{ flex: 1 }}&gt;&lt;/div&gt;
+&nbsp;
+          &lt;ExpandingSearchInput
+            flip
+            placeholder={getString('projectsOrgs.search')}
+            onChange={<span class="fstat-no" title="function not covered" >text </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >              setSearchParam(text.trim())</span>
+            }}
+            className={css.expandSearch}
+            width={350}
           /&gt;
-        &lt;/CustomSelect&gt;
-&nbsp;
-        &lt;div style={{ flex: 1 }}&gt;&lt;/div&gt;
-&nbsp;
-        &lt;ExpandingSearchInput
-          flip
-          placeholder={getString('projectsOrgs.search')}
-          onChange={<span class="fstat-no" title="function not covered" >text </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            setSearchParam(text.trim())</span>
-          }}
-          className={css.expandSearch}
-          width={350}
-        /&gt;
-        &lt;GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} /&gt;
-      &lt;/Layout.Horizontal&gt;
-&nbsp;
+          &lt;GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} /&gt;
+        &lt;/Layout.Horizontal&gt;
+      ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
       &lt;Page.Body
         loading={loading}
         retryOnError={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span>
@@ -731,15 +743,18 @@ const ProjectsListPage: React.FC = () =&gt; {
           !searchParam &amp;&amp; openProjectModal
             ? {
                 when: () =&gt; !data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength,
-                icon: 'nav-project',
+                image: ProjectsEmptyState,
+                imageClassName: css.imageClassName,
+                messageTitle: getString('projectsOrgs.youHaveNoProjects'),
                 message: getString('projectDescription'),
-                buttonText: getString('addProject'),
+                buttonText: getString('projectsOrgs.createAProject'),
                 onClick: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >openProjectModal?.()</span>
               }
             : <span class="branch-1 cbranch-no" title="branch not covered" >{</span>
                 when: <span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >!data?.data?.content?.length,</span>
-                icon: 'nav-project',
-                message: getString('noProjects')
+                image: ProjectsEmptyState,
+                imageClassName: css.imageClassName,
+                messageTitle: getString('noProjects')
               }
         }
         className={bodyClassName}
@@ -775,7 +790,7 @@ export default ProjectsListPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 04:53:04 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 05:35:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

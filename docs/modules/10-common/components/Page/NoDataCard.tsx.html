@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/20</span>
+                <span class='fraction'>21/28</span>
             </div>
         
             
@@ -121,11 +121,28 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">413x</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a>
+<a name='L77'></a><a href='#L77'>77</a>
+<a name='L78'></a><a href='#L78'>78</a>
+<a name='L79'></a><a href='#L79'>79</a>
+<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">413x</span>
 <span class="cline-any cline-yes">413x</span>
 <span class="cline-any cline-yes">413x</span>
 <span class="cline-any cline-yes">413x</span>
 <span class="cline-any cline-yes">413x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,19 +202,34 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uicore'
+import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName, Text } from '@wings-software/uicore'
 import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
 import css from './NoDataCard.module.scss'
 export interface NoDataCardProps {
-  icon: IconName
+  icon?: IconName
   iconSize?: number
   noIconColor?: boolean
-  message: string
+  image?: string
+  imageClassName?: string
+  messageTitle?: string
+  message?: string | React.ReactElement
   width?: number
   buttonText?: string
-  buttonWidth?: number
   button?: React.ReactElement
   onClick?: ButtonProps['onClick']
   className?: string
@@ -213,9 +245,9 @@ export const NoDataCard: React.FC&lt;NoDataCardProps&gt; = props =&gt; {
   // as it brokes complex svg gradients and a
   // simple ternary condition doesn't work
   const iconProps: { name: IconName; size: number; color?: string } = {
-    name: props.icon,
+    name: props.icon as IconName,
     size: props.iconSize || 48,
-    color: Color.GREY_400
+    color: Color.GREY_600
   }
   <span class="missing-if-branch" title="if path not taken" >I</span>if (props.noIconColor) {
 <span class="cstat-no" title="statement not covered" >    delete iconProps.color</span>
@@ -229,22 +261,35 @@ export const NoDataCard: React.FC&lt;NoDataCardProps&gt; = props =&gt; {
         style={{ alignItems: 'center', marginTop: '-48px' }}
         className={props.className}
       &gt;
-        &lt;Icon {...iconProps} /&gt;
-        &lt;Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}&gt;
-          {props.message}
-        &lt;/Heading&gt;
-        {props.button ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          props.button</span>
-        ) : props.buttonText ? (
-          &lt;Button
-            intent="primary"
-            text={props.buttonText}
-            width={props.buttonWidth}
-            onClick={props.onClick}
-            tooltip={props.buttonDisabledTooltip || (buttonDisabled ? getString('noPermission') : undefined)}
-            disabled={buttonDisabled}
-          /&gt;
+        {props.image ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;img src={props.image} className={props.imageClassName} /&gt; </span>: null}
+        {props.icon ? &lt;Icon {...iconProps} /&gt; : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
+        {props.messageTitle ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Heading level={2} font={{ weight: 'bold', align: 'center' }} color={Color.GREY_600}&gt;</span>
+            {props.messageTitle}
+          &lt;/Heading&gt;
         ) : null}
+        {typeof props.message === 'string' ? (
+          &lt;Text font={{ align: 'center' }} color={Color.GREY_600} className={css.message}&gt;
+            {props.message}
+          &lt;/Text&gt;
+        ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >          &lt;&gt;{props.message}&lt;/&gt;</span>
+        )}
+        &lt;div className={css.buttonContainer}&gt;
+          {props.button ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >            props.button</span>
+          ) : props.buttonText ? (
+            &lt;Button
+              large
+              intent="primary"
+              text={props.buttonText}
+              font={{ size: 'medium', weight: 'semi-bold' }}
+              onClick={props.onClick}
+              tooltip={props.buttonDisabledTooltip || (buttonDisabled ? getString('noPermission') : undefined)}
+              disabled={buttonDisabled}
+            /&gt;
+          ) : null}
+        &lt;/div&gt;
       &lt;/Layout.Vertical&gt;
     &lt;/Container&gt;
   )
@@ -256,7 +301,7 @@ export const NoDataCard: React.FC&lt;NoDataCardProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 04:53:04 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 05:35:56 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

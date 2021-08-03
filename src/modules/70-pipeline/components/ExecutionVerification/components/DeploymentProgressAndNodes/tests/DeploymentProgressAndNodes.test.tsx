@@ -185,7 +185,7 @@ describe('Deployment progress and nodes unit tests', () => {
     )
 
     await waitFor(() => expect(getByText('CANARY')).not.toBeNull())
-    fireEvent.click(container.querySelector('[class*="canaryNodes"] [data-name="popoverContainer"]')!)
+    fireEvent.click(container.querySelector('[class*="canaryNodes"] [class~="hexagonContainer"]')!)
     await waitFor(() =>
       expect(onSelectMock).toHaveBeenLastCalledWith({
         anomalousLogClustersCount: 0,
@@ -203,7 +203,7 @@ describe('Deployment progress and nodes unit tests', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container2.querySelector('[data-name="popoverContainer"]')!)
+    fireEvent.click(container2.querySelector('[class~="hexagonContainer"]')!)
     await waitFor(() => expect(container2.querySelector('[class*="hexagonContainer"][class*="selected"]')).toBeNull())
   })
 

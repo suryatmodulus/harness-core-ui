@@ -1,8 +1,7 @@
 import React, { useRef, useState, useLayoutEffect } from 'react'
 import cx from 'classnames'
 import { isEqual } from 'lodash-es'
-import { PopoverInteractionKind } from '@blueprintjs/core'
-import { Color, Container, Popover, Text } from '@wings-software/uicore'
+import { Color, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import {
   HexagonCoordinates,
@@ -36,7 +35,7 @@ function NodeHealthPopover(props: NodeHealthPopoverProps): JSX.Element {
       <Container
         className={css.nodeHealth}
         height={10}
-        width={10}
+        width={15}
         style={{ backgroundColor: mapNodeHealthStatusToColor(analysisResult?.risk) }}
       />
       <Container>
@@ -59,6 +58,7 @@ export function DeploymentNodes(props: DeploymentNodesProps): JSX.Element {
   const ref = useRef<HTMLDivElement>(null)
   const [coordinates, setCoordinates] = useState<HexagonCoordinates[]>([])
   const [hexagonPartSizes, setHexagonPartSizes] = useState<DeploymentNodeSubPartSize>(DefaultNodeSubPartSize)
+  const [displayTooltip, setDisplayTooltip] = useState<DeploymentNodeAnalysisResult | undefined>()
 
   useLayoutEffect(() => {
     if (!ref?.current) return
@@ -71,56 +71,57 @@ export function DeploymentNodes(props: DeploymentNodesProps): JSX.Element {
   const nodes = deploymentNodes || []
 
   return (
-    <Container className={cx(css.main, className)} ref={ref}>
-      {coordinates.map((coordinate, index) => {
-        const nodeHealthColor = mapNodeHealthStatusToColor(nodes[index]?.risk)
-        return (
-          <Container
-            key={index}
-            className={css.hexagonContainer}
-            onClick={() => {
-              onClick?.(nodes?.[index])
-            }}
-            style={{
-              height: hexagonPartSizes.hexagonContainerSize,
-              width: hexagonPartSizes.hexagonContainerSize,
-              top: coordinate.y,
-              left: coordinate.x
-            }}
-          >
-            <Popover
-              content={<NodeHealthPopover analysisResult={nodes[index]} />}
-              interactionKind={PopoverInteractionKind.HOVER}
-              className={css.nodeHealthPopover}
-              disabled={!nodes[index]}
-              usePortal={true}
+    <Container className={cx(css.main, className)}>
+      {displayTooltip && <NodeHealthPopover analysisResult={displayTooltip} />}
+      <Container className={css.hexagonList} ref={ref}>
+        {coordinates.map((coordinate, index) => {
+          const nodeHealthColor = mapNodeHealthStatusToColor(nodes[index]?.risk)
+          return (
+            <Container
+              key={index}
+              className={css.hexagonContainer}
+              onClick={() => {
+                onClick?.(nodes?.[index])
+              }}
+              style={{
+                height: hexagonPartSizes.hexagonContainerSize,
+                width: hexagonPartSizes.hexagonContainerSize,
+                top: coordinate.y,
+                left: coordinate.x
+              }}
+              onMouseOver={() => {
+                if (nodes[index] && nodes[index] !== displayTooltip) {
+                  setDisplayTooltip(nodes[index])
+                }
+              }}
+              onMouseOut={() => {
+                setDisplayTooltip(undefined)
+              }}
             >
-              <div data-name="popoverContainer">
-                <Container
-                  className={cx(
-                    css.hexagon,
-                    selectedNode && isEqual(selectedNode, nodes[index]) ? css.selected : undefined
-                  )}
-                  style={{
-                    height: hexagonPartSizes.hexagonSize,
-                    width: hexagonPartSizes.hexagonSize
-                  }}
-                />
-                <Container
-                  key={index}
-                  className={css.nodeHealth}
-                  data-node-health-color={nodeHealthColor}
-                  style={{
-                    backgroundColor: nodeHealthColor,
-                    width: hexagonPartSizes.nodeHealthSize,
-                    height: hexagonPartSizes.nodeHealthSize
-                  }}
-                />
-              </div>
-            </Popover>
-          </Container>
-        )
-      })}
+              <Container
+                className={cx(
+                  css.hexagon,
+                  selectedNode && isEqual(selectedNode, nodes[index]) ? css.selected : undefined
+                )}
+                style={{
+                  height: hexagonPartSizes.hexagonSize,
+                  width: hexagonPartSizes.hexagonSize
+                }}
+              />
+              <Container
+                key={index}
+                className={css.nodeHealth}
+                data-node-health-color={nodeHealthColor}
+                style={{
+                  backgroundColor: nodeHealthColor,
+                  width: hexagonPartSizes.nodeHealthSize,
+                  height: hexagonPartSizes.nodeHealthSize
+                }}
+              />
+            </Container>
+          )
+        })}
+      </Container>
     </Container>
   )
 }

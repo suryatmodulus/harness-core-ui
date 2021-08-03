@@ -248,7 +248,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
           repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
             if (
               connectionType === GitRepoName.Repo ||
-              getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+              getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
             ) {
               return true
             }

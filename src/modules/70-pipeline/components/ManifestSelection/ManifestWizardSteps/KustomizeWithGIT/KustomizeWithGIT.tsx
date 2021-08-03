@@ -186,7 +186,10 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             then: Yup.string().trim().required(getString('validation.commitId'))
           }),
           repoName: Yup.string().test('repoName', getString('common.validation.repositoryName'), value => {
-            if (connectionType === GitRepoName.Repo) {
+            if (
+              connectionType === GitRepoName.Repo ||
+              getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
+            ) {
               return true
             }
             return !isEmpty(value) && value?.length > 0

@@ -121,10 +121,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (
-      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
-      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
-    ) {
+    if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
       repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
@@ -260,8 +257,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
-                getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier

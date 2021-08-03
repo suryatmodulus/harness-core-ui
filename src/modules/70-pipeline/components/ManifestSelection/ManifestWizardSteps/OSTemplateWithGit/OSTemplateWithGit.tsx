@@ -75,7 +75,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
       repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
@@ -199,7 +199,7 @@ const OpenShiftTemplateWithGit: React.FC<StepProps<ConnectorConfigDTO> & Openshi
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier

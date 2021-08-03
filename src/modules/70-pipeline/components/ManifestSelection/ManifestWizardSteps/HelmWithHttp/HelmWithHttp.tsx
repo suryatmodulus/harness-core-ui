@@ -152,7 +152,7 @@ const HelmWithHttp: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropTyp
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier

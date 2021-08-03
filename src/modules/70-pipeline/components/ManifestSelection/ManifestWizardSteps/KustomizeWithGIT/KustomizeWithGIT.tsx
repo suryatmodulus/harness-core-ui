@@ -73,7 +73,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME) {
+    if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
       repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       if (connectionType === GitRepoName.Repo) {
@@ -200,7 +200,7 @@ const KustomizeWithGIT: React.FC<StepProps<ConnectorConfigDTO> & KustomizeWithGI
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier

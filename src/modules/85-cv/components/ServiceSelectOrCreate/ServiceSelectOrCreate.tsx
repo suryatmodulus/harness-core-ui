@@ -3,7 +3,7 @@ import { Container, Select, SelectOption, useModalHook } from '@wings-software/u
 import { Dialog } from '@blueprintjs/core'
 import type { ServiceResponseDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
-import NewServiceForm from './NewServiceForm'
+import NewServiceForm from './components/NewServiceForm'
 
 export interface ServiceSelectOrCreateProps {
   item?: SelectOption

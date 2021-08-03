@@ -47,7 +47,9 @@ export default function NewServiceForm({ onSubmit, onClose }: NewServiceFormInte
         name: NameSchema(),
         identifier: IdentifierSchema()
       })}
-      onSubmit={handleSubmit}
+      onSubmit={val => {
+        handleSubmit(val)
+      }}
     >
       {() => (
         <FormikForm>

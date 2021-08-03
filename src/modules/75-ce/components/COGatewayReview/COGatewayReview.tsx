@@ -56,7 +56,7 @@ const ReviewDetailsSection: React.FC<ReviewDetailsSectionProps> = props => {
 }
 
 const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
-  const isK8sRule = !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)
+  const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
   return (
     <Layout.Vertical padding="large" className={css.page}>
       <Text className={css.reviewHeading}>Cloud account details</Text>
@@ -163,125 +163,6 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           </Layout.Horizontal>
         </ReviewDetailsSection>
       )}
-      {props.gatewayDetails.routing && (
-        <ReviewDetailsSection
-          isEditable
-          onEdit={() =>
-            props.onEdit({ id: 'configuration', metaData: { activeStepCount: 4, activeStepTabId: 'routing' } })
-          }
-        >
-          <Heading level={2}>Routing</Heading>
-          {isK8sRule && (
-            <Layout.Vertical style={{ marginTop: 20 }}>
-              <KubernetesRuleYamlEditor
-                existingData={JSON.parse(props.gatewayDetails.routing.k8s?.RuleJson || '{}')}
-                mode={'read'}
-              />
-            </Layout.Vertical>
-          )}
-          {!isK8sRule && (
-            <Table<PortConfig>
-              data={props.gatewayDetails.routing.ports}
-              className={css.instanceTable}
-              bpTableProps={{}}
-              columns={[
-                {
-                  accessor: 'protocol',
-                  Header: 'LISTEN PROTOCOL',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'port',
-                  Header: 'LISTEN PORT',
-                  width: '16.5%',
-                  Cell: TableCell,
-                  disableSortBy: true
-                },
-                {
-                  accessor: 'action',
-                  Header: 'ACTION',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'target_protocol',
-                  Header: 'TARGET PROTOCOL',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'target_port',
-                  Header: 'TARGET PORT',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'redirect_url',
-                  Header: 'REDIRECT URL',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'server_name',
-                  Header: 'SERVER NAME',
-                  width: '16.5%',
-                  Cell: TableCell
-                },
-                {
-                  accessor: 'routing_rules',
-                  Header: 'PATH MATCH',
-                  width: '16.5%',
-                  Cell: PathCell
-                }
-              ]}
-            />
-          )}
-        </ReviewDetailsSection>
-      )}
-      {!_isEmpty(props.gatewayDetails.healthCheck) && !isK8sRule && (
-        <ReviewDetailsSection
-          isEditable
-          onEdit={() =>
-            props.onEdit({ id: 'configuration', metaData: { activeStepCount: 4, activeStepTabId: 'healthcheck' } })
-          }
-        >
-          <Heading level={2}>Health Check</Heading>
-          <Table<HealthCheck>
-            data={[props.gatewayDetails.healthCheck as HealthCheck]}
-            className={css.instanceTable}
-            bpTableProps={{}}
-            columns={[
-              {
-                accessor: 'protocol',
-                Header: 'PROTOCOL',
-                width: '25%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'path',
-                Header: 'PATH',
-                width: '25%',
-                Cell: TableCell
-              },
-              {
-                accessor: 'port',
-                Header: 'PORT',
-                width: '25%',
-                Cell: TableCell,
-                disableSortBy: true
-              },
-              {
-                accessor: 'timeout',
-                Header: 'TIMEOUT(SECS)',
-                width: '25%',
-                Cell: TableCell,
-                disableSortBy: true
-              }
-            ]}
-          />
-        </ReviewDetailsSection>
-      )}
       {props.gatewayDetails.opts && (
         <ReviewDetailsSection
           isEditable
@@ -317,42 +198,160 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
           )}
         </ReviewDetailsSection>
       )}
-      {!isK8sRule && <Text className={css.reviewHeading}>Setup Access details</Text>}
+      <Text className={css.reviewHeading}>Setup Access details</Text>
+      {isK8sRule && (
+        <Layout.Vertical style={{ marginTop: 20 }}>
+          <KubernetesRuleYamlEditor
+            existingData={JSON.parse(props.gatewayDetails.routing.k8s?.RuleJson || '{}')}
+            mode={'read'}
+          />
+        </Layout.Vertical>
+      )}
+
       {!isK8sRule && (
-        <ReviewDetailsSection isEditable onEdit={() => props.onEdit({ id: 'setupAccess' })}>
-          <Heading level={2}>DNS Link mapping</Heading>
-          <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
-            {!_isEmpty(props.gatewayDetails.customDomains) && (
-              <Layout.Horizontal
-                spacing={'large'}
-                padding={{ bottom: 'medium' }}
-                className={cx(css.equalSpacing, css.borderSpacing)}
-              >
-                <Text>Custom domain</Text>
-                <Text>{props.gatewayDetails.customDomains?.join(',')}</Text>
-              </Layout.Horizontal>
-            )}
-            <Layout.Horizontal
-              spacing={'large'}
-              padding={{ bottom: 'medium' }}
-              className={cx(css.equalSpacing, css.borderSpacing)}
+        <>
+          {!_isEmpty(props.gatewayDetails.routing.ports) && (
+            <ReviewDetailsSection
+              isEditable
+              onEdit={() => props.onEdit({ id: 'setupAccess', metaData: { activeStepTabId: 'routing' } })}
             >
-              <Text>Is it publicly accessible?</Text>
-              <Text>
-                {(props.gatewayDetails.metadata.access_details as ConnectionMetadata).dnsLink.public || 'Yes'}
-              </Text>
-            </Layout.Horizontal>
-            {_isEmpty(props.gatewayDetails.customDomains) && props.gatewayDetails.hostName && (
+              <Heading level={2}>Routing</Heading>
+              {!isK8sRule && (
+                <Table<PortConfig>
+                  data={props.gatewayDetails.routing.ports}
+                  className={css.instanceTable}
+                  bpTableProps={{}}
+                  columns={[
+                    {
+                      accessor: 'protocol',
+                      Header: 'LISTEN PROTOCOL',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'port',
+                      Header: 'LISTEN PORT',
+                      width: '16.5%',
+                      Cell: TableCell,
+                      disableSortBy: true
+                    },
+                    {
+                      accessor: 'action',
+                      Header: 'ACTION',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'target_protocol',
+                      Header: 'TARGET PROTOCOL',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'target_port',
+                      Header: 'TARGET PORT',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'redirect_url',
+                      Header: 'REDIRECT URL',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'server_name',
+                      Header: 'SERVER NAME',
+                      width: '16.5%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'routing_rules',
+                      Header: 'PATH MATCH',
+                      width: '16.5%',
+                      Cell: PathCell
+                    }
+                  ]}
+                />
+              )}
+            </ReviewDetailsSection>
+          )}
+          {props.gatewayDetails.metadata.access_details?.dnsLink?.selected &&
+            !_isEmpty(props.gatewayDetails.healthCheck) && (
+              <ReviewDetailsSection
+                isEditable
+                onEdit={() => props.onEdit({ id: 'setupAccess', metaData: { activeStepTabId: 'healthcheck' } })}
+              >
+                <Heading level={2}>Health Check</Heading>
+                <Table<HealthCheck>
+                  data={[props.gatewayDetails.healthCheck as HealthCheck]}
+                  className={css.instanceTable}
+                  bpTableProps={{}}
+                  columns={[
+                    {
+                      accessor: 'protocol',
+                      Header: 'PROTOCOL',
+                      width: '25%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'path',
+                      Header: 'PATH',
+                      width: '25%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'port',
+                      Header: 'PORT',
+                      width: '25%',
+                      Cell: TableCell,
+                      disableSortBy: true
+                    },
+                    {
+                      accessor: 'timeout',
+                      Header: 'TIMEOUT(SECS)',
+                      width: '25%',
+                      Cell: TableCell,
+                      disableSortBy: true
+                    }
+                  ]}
+                />
+              </ReviewDetailsSection>
+            )}
+          <ReviewDetailsSection isEditable onEdit={() => props.onEdit({ id: 'setupAccess' })}>
+            <Heading level={2}>DNS Link mapping</Heading>
+            <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
+              {!_isEmpty(props.gatewayDetails.customDomains) && (
+                <Layout.Horizontal
+                  spacing={'large'}
+                  padding={{ bottom: 'medium' }}
+                  className={cx(css.equalSpacing, css.borderSpacing)}
+                >
+                  <Text>Custom domain</Text>
+                  <Text>{props.gatewayDetails.customDomains?.join(',')}</Text>
+                </Layout.Horizontal>
+              )}
               <Layout.Horizontal
                 spacing={'large'}
                 padding={{ bottom: 'medium' }}
                 className={cx(css.equalSpacing, css.borderSpacing)}
               >
-                <Text>Auto generated URL</Text>
-                <Text>{props.gatewayDetails.hostName}</Text>
+                <Text>Is it publicly accessible?</Text>
+                <Text>
+                  {(props.gatewayDetails.metadata.access_details as ConnectionMetadata).dnsLink.public || 'Yes'}
+                </Text>
               </Layout.Horizontal>
-            )}
-            {/* <Layout.Horizontal
+              {_isEmpty(props.gatewayDetails.customDomains) && props.gatewayDetails.hostName && (
+                <Layout.Horizontal
+                  spacing={'large'}
+                  padding={{ bottom: 'medium' }}
+                  className={cx(css.equalSpacing, css.borderSpacing)}
+                >
+                  <Text>Auto generated URL</Text>
+                  <Text>{props.gatewayDetails.hostName}</Text>
+                </Layout.Horizontal>
+              )}
+              {/* <Layout.Horizontal
             spacing={'large'}
             padding={{ bottom: 'medium' }}
             className={cx(css.equalSpacing, css.borderSpacing)}
@@ -368,8 +367,9 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
             <Text>Custom Domain mapping status</Text>
             <Text>{Utils.booleanToString(props.gatewayDetails.matchAllSubdomains as boolean)}</Text>
           </Layout.Horizontal> */}
-          </Layout.Vertical>
-        </ReviewDetailsSection>
+            </Layout.Vertical>
+          </ReviewDetailsSection>
+        </>
       )}
     </Layout.Vertical>
   )

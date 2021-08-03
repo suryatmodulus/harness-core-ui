@@ -1,4 +1,5 @@
-import type { Provider } from '@ce/components/COCreateGateway/models'
+import { isEmpty as _isEmpty } from 'lodash-es'
+import type { GatewayDetails, Provider } from '@ce/components/COCreateGateway/models'
 import type { CcmMetaData } from 'services/ce/services'
 import type { HealthCheck, PortConfig } from 'services/lw'
 
@@ -48,6 +49,11 @@ export class Utils {
     })
 
   static getHyphenSpacedString = (str: string) => (str || '').trim().split(' ').join('-')
+
+  static hyphenatedToSpacedString = (str: string) => (str || '').trim().split('-').join(' ')
+
+  static isK8sRule = (details: GatewayDetails) =>
+    !_isEmpty(details.routing.k8s?.RuleJson || details.metadata.kubernetes_connector_id)
 
   static accountHasConnectors = (data: CcmMetaData): boolean => {
     return (

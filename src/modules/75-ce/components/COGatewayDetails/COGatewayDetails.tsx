@@ -74,7 +74,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     try {
       setSaveInProgress(true)
       const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
-      const isK8sRule = !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)
+      const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
       const routing: RoutingData = { ports: props.gatewayDetails.routing.ports, lb: undefined }
       if (isK8sRule) {
         routing.k8s = props.gatewayDetails.routing.k8s
@@ -174,7 +174,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       if (tabDetails.metaData?.activeStepCount) {
         activeStepDetails['count'] = tabDetails.metaData.activeStepCount
       }
-      if (tabDetails.metaData?.activeStepCount) {
+      if (tabDetails.metaData?.activeStepTabId) {
         activeStepDetails['tabId'] = tabDetails.metaData.activeStepTabId
       }
       setActiveConfigStep(activeStepDetails)
@@ -241,6 +241,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                   setValidity={setValidAccessSetup}
                   gatewayDetails={props.gatewayDetails}
                   setGatewayDetails={props.setGatewayDetails}
+                  activeStepDetails={activeConfigStep}
                 />
               }
             />

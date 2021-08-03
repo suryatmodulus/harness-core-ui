@@ -3,6 +3,7 @@ import { act } from 'react-dom/test-utils'
 import { findByText, fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import COGatewayAccess from '../COGatewayAccess'
+import { mockedSecurityGroupResponse } from './data'
 
 const testpath = '/account/:accountId/ce/orgs/:orgIdentifier/projects/:projectIdentifier/autostopping-rules/create'
 const testparams = { accountId: 'accountId', orgIdentifier: 'orgIdentifier', projectIdentifier: 'projectIdentifier' }
@@ -120,8 +121,14 @@ jest.mock('services/lw', () => ({
   })),
   useCreateAccessPoint: jest.fn().mockImplementation(() => ({
     mutate: jest.fn()
+  })),
+  useSecurityGroupsOfInstances: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn(() => Promise.resolve({ response: mockedSecurityGroupResponse })),
+    loading: false
   }))
 }))
+
+jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
 describe('Testing COGatewayAccess', () => {
   test('renders without crashing', () => {
@@ -200,7 +207,39 @@ describe('Testing COGatewayAccess', () => {
     })
   })
 
-  test('does not render dns setup screen for k8s rule', async () => {
+  test('render yaml editor for k8s rule', async () => {
+    const mockedYamlData = {
+      apiVersion: 'lightwing.lightwing.io/v1',
+      kind: 'AutoStoppingRule',
+      metadata: {
+        annotations: {},
+        name: 'test-rule-ry5',
+        namespace: 'default'
+      },
+      spec: {
+        rules: [
+          {
+            http: {
+              paths: [
+                {
+                  backend: {
+                    service: {
+                      name: 'frontend',
+                      port: {
+                        number: 80
+                      }
+                    }
+                  },
+                  path: '/ry-test',
+                  pathType: 'Prefix'
+                }
+              ]
+            }
+          }
+        ]
+      },
+      status: {}
+    }
     const { container } = render(
       <TestWrapper path={testpath} pathParams={testparams}>
         <COGatewayAccess
@@ -209,7 +248,7 @@ describe('Testing COGatewayAccess', () => {
             kind: 'k8s',
             routing: {
               ...initialGatewayDetails.routing,
-              k8s: { RuleJson: '{"apiVersion":"lightwing.lightwing.io/v1","kind":"AutoStoppingRule"}' }
+              k8s: { RuleJson: JSON.stringify(mockedYamlData) }
             }
           }}
           setGatewayDetails={jest.fn()}

@@ -4,11 +4,16 @@ import { isEmpty as _isEmpty } from 'lodash-es'
 import { Drawer } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
+import { Utils } from '@ce/common/Utils'
+import { useToaster } from '@common/exports'
+import { DEFAULT_ACCESS_DETAILS } from '@ce/constants'
 import DNSLinkSetup from './DNSLinkSetup'
 import SSHSetup from './SSHSetup'
 import IPSetup from './IPAddressSetup'
 import type { ConnectionMetadata, GatewayDetails } from '../COCreateGateway/models'
 // import COFixedDrawer from './COFixedDrawer'
+import KubernetesRuleYamlEditor from '../COGatewayConfig/KubernetesRuleYamlEditor'
+import { getK8sIngressTemplate } from '../COGatewayConfig/GetK8sYamlSchema'
 import css from './COGatewayAccess.module.scss'
 
 interface COGatewayAccessProps {
@@ -16,31 +21,31 @@ interface COGatewayAccessProps {
   setValidity: (tab: boolean) => void
   gatewayDetails: GatewayDetails
   setGatewayDetails: (gw: GatewayDetails) => void
+  activeStepDetails?: { count?: number; tabId?: string } | null
 }
 const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
+  const { showSuccess } = useToaster()
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
     props.gatewayDetails.metadata.access_details // eslint-disable-line
       ? (props.gatewayDetails.metadata.access_details as ConnectionMetadata) // eslint-disable-line
-      : {
-          dnsLink: { selected: false },
-          ssh: { selected: false },
-          rdp: { selected: false },
-          backgroundTasks: { selected: false },
-          ipaddress: { selected: false }
-        }
+      : DEFAULT_ACCESS_DETAILS
   )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
   const [selectedHelpText, setSelectedHelpText] = useState<string>('')
   const [selectedHelpTextSections, setSelectedHelpTextSections] = useState<string[]>([])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
+  const [yamlData, setYamlData] = useState<Record<any, any>>(
+    props.gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(props.gatewayDetails.routing.k8s.RuleJson) : undefined
+  )
   const selectTab = (tabId: string) => {
     setSelectedTabId(tabId)
   }
-  const isK8sRule = !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)
+  const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
 
   useEffect(() => {
     let validStatus = false
+
     if (accessDetails.dnsLink.selected) {
       // check for custom domains validation
       if (props.gatewayDetails.customDomains?.length) {
@@ -62,9 +67,14 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       if (_isEmpty(props.gatewayDetails.accessPointID)) {
         validStatus = false
       }
+
+      // check for routing ports
+      if (validStatus && _isEmpty(props.gatewayDetails.routing.ports)) {
+        validStatus = false
+      }
     } else {
       validStatus =
-        isK8sRule ||
+        (isK8sRule && !_isEmpty(yamlData)) ||
         accessDetails.ipaddress.selected ||
         accessDetails.ssh.selected ||
         accessDetails.backgroundTasks.selected ||
@@ -72,8 +82,17 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     }
     props.setValidity(validStatus)
 
-    props.gatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
-    props.setGatewayDetails(props.gatewayDetails)
+    props.setGatewayDetails({
+      ...props.gatewayDetails,
+      ...(!accessDetails.dnsLink.selected &&
+        !_isEmpty(props.gatewayDetails.accessPointData) && { accessPointData: undefined, accessPointID: '' }), // remove Access point details on deselection of dnslink option
+      metadata: { ...props.gatewayDetails.metadata, access_details: accessDetails },
+      routing: {
+        ...props.gatewayDetails.routing,
+        ...(!accessDetails.dnsLink.selected && !_isEmpty(props.gatewayDetails.routing.ports) && { ports: [] }) // empty the ports on deselection of dnslink option & if there were already saved values
+      }
+    })
+
     if (accessDetails.dnsLink.selected) {
       setSelectedTabId('dns')
       return
@@ -98,8 +117,9 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   }, [
     accessDetails,
     props.gatewayDetails.customDomains,
-    props.gatewayDetails.metadata,
-    props.gatewayDetails.accessPointID
+    props.gatewayDetails.accessPointID,
+    props.gatewayDetails.routing.ports,
+    yamlData
   ])
 
   useEffect(() => {
@@ -107,6 +127,32 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     if (selectedTabId != '') helpTextBase = `${helpTextBase}-${selectedTabId}`
     setSelectedHelpText(helpTextBase)
   }, [selectedTabId])
+
+  const handleYamlSave = (_data: Record<any, any>) => {
+    const yamlRuleName = _data?.metadata?.name
+    const updatedName = yamlRuleName && Utils.getHyphenSpacedString(props.gatewayDetails.name)
+    const yamlToSave =
+      yamlRuleName !== updatedName
+        ? {
+            ..._data,
+            metadata: {
+              ..._data.metadata,
+              annotations: {
+                ..._data.metadata.annotations,
+                'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${yamlRuleName}";`
+              }
+            }
+          }
+        : _data
+    setYamlData(yamlToSave)
+    const updatedGatewayDetails: GatewayDetails = {
+      ...props.gatewayDetails,
+      ...(yamlRuleName !== updatedName && { name: Utils.hyphenatedToSpacedString(yamlRuleName) }),
+      routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(yamlToSave) } }
+    }
+    props.setGatewayDetails(updatedGatewayDetails)
+    showSuccess(getString('ce.savedYamlSuccess'))
+  }
 
   return (
     <Container className={css.page}>
@@ -163,7 +209,27 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             {getString('ce.co.gatewayAccess.subtitle')}
           </Heading> */}
         </Layout.Vertical>
-        {isK8sRule && <Text>{getString('ce.co.autoStoppingRule.setupAccess.noSetupRequired')}</Text>}
+        {isK8sRule && (
+          <Container>
+            <Text className={css.titleHelpTextDescription}>
+              {getString('ce.co.gatewayConfig.k8sroutingDescription')}
+            </Text>
+            <KubernetesRuleYamlEditor
+              existingData={
+                yamlData ||
+                getK8sIngressTemplate({
+                  name: props.gatewayDetails.name,
+                  idleTime: props.gatewayDetails.idleTimeMins,
+                  cloudConnectorId: props.gatewayDetails.cloudAccount.id
+                })
+              }
+              fileName={
+                props.gatewayDetails.name && `${props.gatewayDetails.name.split(' ').join('-')}-autostopping.yaml`
+              }
+              handleSave={handleYamlSave}
+            />
+          </Container>
+        )}
         {!isK8sRule && (
           <Layout.Vertical spacing="small" padding="medium">
             <Layout.Horizontal spacing="small">
@@ -178,8 +244,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                   id="DNSLink"
                   label="DNS Link"
                   onChange={val => {
-                    accessDetails.dnsLink.selected = val.currentTarget.checked
-                    setAccessDetails(Object.assign({}, accessDetails))
+                    setAccessDetails({ ...accessDetails, dnsLink: { selected: val.currentTarget.checked } })
                   }}
                   className={css.checkbox}
                   defaultChecked={accessDetails.dnsLink.selected}
@@ -188,8 +253,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
                   label="SSH / RDP"
                   id="ssh"
                   onChange={val => {
-                    accessDetails.ssh.selected = val.currentTarget.checked
-                    setAccessDetails(Object.assign({}, accessDetails))
+                    setAccessDetails({ ...accessDetails, ssh: { selected: val.currentTarget.checked } })
                   }}
                   className={css.checkbox}
                   defaultChecked={accessDetails.ssh.selected}
@@ -218,36 +282,39 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
             </Layout.Horizontal>
           </Layout.Vertical>
         )}
-        <Container className={css.setupTab}>
-          <Tabs id="setupTabs" selectedTabId={selectedTabId} onChange={selectTab}>
-            {accessDetails.dnsLink.selected ? (
-              <Tab
-                id="dns"
-                title={getString('ce.co.gatewayAccess.dnsLink')}
-                panel={
-                  <DNSLinkSetup
-                    gatewayDetails={props.gatewayDetails}
-                    setHelpTextSections={setSelectedHelpTextSections}
-                    setGatewayDetails={props.setGatewayDetails}
-                    onInfoIconClick={() => setDrawerOpen(true)}
-                  />
-                }
-              ></Tab>
-            ) : null}
-            {accessDetails.ssh.selected ? (
-              <Tab id="ssh" title={getString('ce.co.gatewayAccess.sshRdp')} panel={<SSHSetup />}></Tab>
-            ) : null}
-            {accessDetails.ipaddress.selected ? (
-              <Tab id="ip" title={getString('ce.co.gatewayAccess.ip')} panel={<IPSetup />}></Tab>
-            ) : null}
-            {accessDetails.rdp.selected ? (
-              <Tab id="rdp" title={getString('ce.co.gatewayAccess.rdp')} panel={<IPSetup />}></Tab>
-            ) : null}
-            {accessDetails.backgroundTasks.selected ? (
-              <Tab id="bg" title={getString('ce.co.gatewayAccess.backgroundTasks')} panel={<IPSetup />}></Tab>
-            ) : null}
-          </Tabs>
-        </Container>
+        {!isK8sRule && (
+          <Container className={css.setupTab}>
+            <Tabs id="setupTabs" selectedTabId={selectedTabId} onChange={selectTab}>
+              {accessDetails.dnsLink.selected ? (
+                <Tab
+                  id="dns"
+                  title={getString('ce.co.gatewayAccess.dnsLink')}
+                  panel={
+                    <DNSLinkSetup
+                      gatewayDetails={props.gatewayDetails}
+                      setHelpTextSections={setSelectedHelpTextSections}
+                      setGatewayDetails={props.setGatewayDetails}
+                      onInfoIconClick={() => setDrawerOpen(true)}
+                      activeStepDetails={props.activeStepDetails}
+                    />
+                  }
+                ></Tab>
+              ) : null}
+              {accessDetails.ssh.selected ? (
+                <Tab id="ssh" title={getString('ce.co.gatewayAccess.sshRdp')} panel={<SSHSetup />}></Tab>
+              ) : null}
+              {accessDetails.ipaddress.selected ? (
+                <Tab id="ip" title={getString('ce.co.gatewayAccess.ip')} panel={<IPSetup />}></Tab>
+              ) : null}
+              {accessDetails.rdp.selected ? (
+                <Tab id="rdp" title={getString('ce.co.gatewayAccess.rdp')} panel={<IPSetup />}></Tab>
+              ) : null}
+              {accessDetails.backgroundTasks.selected ? (
+                <Tab id="bg" title={getString('ce.co.gatewayAccess.backgroundTasks')} panel={<IPSetup />}></Tab>
+              ) : null}
+            </Tabs>
+          </Container>
+        )}
       </Layout.Vertical>
     </Container>
   )

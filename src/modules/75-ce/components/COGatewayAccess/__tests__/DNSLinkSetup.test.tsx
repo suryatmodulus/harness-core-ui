@@ -4,6 +4,7 @@ import { findByText, fireEvent, queryByText, render, waitFor } from '@testing-li
 import { TestWrapper } from '@common/utils/testUtils'
 import type { AccessPoint, AccessPointCore } from 'services/lw'
 import DNSLinkSetup from '../DNSLinkSetup'
+import { mockedSecurityGroupResponse } from './data'
 
 let mockAccessPointList = {
   response: [
@@ -98,7 +99,11 @@ jest.mock('services/lw', () => ({
   useAllCertificates: jest.fn().mockImplementation(() => mockedCertificatesData),
   useAllSecurityGroups: jest
     .fn()
-    .mockImplementation(() => ({ data: { response: [] }, loading: false, refetch: jest.fn() }))
+    .mockImplementation(() => ({ data: { response: [] }, loading: false, refetch: jest.fn() })),
+  useSecurityGroupsOfInstances: jest.fn().mockImplementation(() => ({
+    mutate: jest.fn(() => Promise.resolve({ response: mockedSecurityGroupResponse })),
+    loading: false
+  }))
 }))
 
 const initialGatewayDetails = {

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.93% </span>
+                <span class="strong">84.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>94/112</span>
+                <span class='fraction'>95/113</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50.77% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>66/130</span>
+                <span class='fraction'>65/130</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.93% </span>
+                <span class="strong">84.07% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>94/112</span>
+                <span class='fraction'>95/113</span>
             </div>
         
             
@@ -595,7 +595,13 @@
 <a name='L536'></a><a href='#L536'>536</a>
 <a name='L537'></a><a href='#L537'>537</a>
 <a name='L538'></a><a href='#L538'>538</a>
-<a name='L539'></a><a href='#L539'>539</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L539'></a><a href='#L539'>539</a>
+<a name='L540'></a><a href='#L540'>540</a>
+<a name='L541'></a><a href='#L541'>541</a>
+<a name='L542'></a><a href='#L542'>542</a>
+<a name='L543'></a><a href='#L543'>543</a>
+<a name='L544'></a><a href='#L544'>544</a>
+<a name='L545'></a><a href='#L545'>545</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -629,6 +635,11 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -869,6 +880,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -976,8 +989,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1003,6 +1014,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-yes">26x</span>
 <span class="cline-any cline-yes">26x</span>
@@ -1166,11 +1178,16 @@ import {
 } from 'services/cd-ng'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/strings'
-import { getCompleteGitPath, getGitConnectorIcon, getRepoPath } from '@gitsync/common/gitSyncUtils'
+import {
+  getCompleteGitPath,
+  getGitConnectorIcon,
+  getRepoPath,
+  getHarnessFolderPathWithSuffix
+} from '@gitsync/common/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
+import { HARNESS_FOLDER_NAME_PLACEHOLDER, HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
@@ -1402,8 +1419,10 @@ const GitSyncRepoTab: React.FC = () =&gt; {
               validationSchema={Yup.object().shape({
                 rootFolder: Yup.string()
                   .trim()
-                  .required(getString('validation.nameRequired'))
-                  .matches(StringUtils.regexName, getString('common.validation.namePatternIsNotValid'))
+                  .matches(
+                    StringUtils.HarnessFolderName,
+                    getString('common.validation.harnessFolderNamePatternIsNotValid')
+                  )
               })}
               formName="gitSyncRepoTab"
               onSubmit={formData =&gt; {
@@ -1416,7 +1435,7 @@ const GitSyncRepoTab: React.FC = () =&gt; {
                     : <span class="branch-1 cbranch-no" title="branch not covered" >repoData?.gitSyncFolderConfigDTOs?.slice()</span>
 &nbsp;
                   folders<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ush({
-                    rootFolder: formData.rootFolder.concat(HARNESS_FOLDER_SUFFIX),
+                    rootFolder: getHarnessFolderPathWithSuffix(formData.rootFolder, HARNESS_FOLDER_SUFFIX),
                     isDefault: formData.isDefault
                   })
                   handleRepoUpdate(folders, true)
@@ -1475,23 +1494,21 @@ const GitSyncRepoTab: React.FC = () =&gt; {
                         className={cx(css.inputFields, css.placeholder, { [css.noSpacing]: formValues.rootFolder })}
                         name="rootFolder"
                         label={getString('gitsync.pathToHarnessFolder')}
-                        placeholder={HARNESS_FOLDER_SUFFIX}
+                        placeholder={HARNESS_FOLDER_NAME_PLACEHOLDER}
                       /&gt;
-                      {formValues.rootFolder ? (
-                        &lt;Text
-                          font={{ size: 'small' }}
-                          padding={{ top: 'xsmall', bottom: 'xxlarge' }}
-                          color={Color.GREY_250}
-                          style={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                          }}
-                          title={getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
-                        &gt;
-                          {getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
-                        &lt;/Text&gt;
-                      ) : null}
+                      &lt;Text
+                        font={{ size: 'small' }}
+                        padding={{ top: 'xsmall', bottom: 'xxlarge' }}
+                        color={Color.GREY_250}
+                        style={{
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        }}
+                        title={getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
+                      &gt;
+                        {getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
+                      &lt;/Text&gt;
                       &lt;Container
                         padding={{
                           left: 'xlarge'
@@ -1541,7 +1558,8 @@ const GitSyncRepoTab: React.FC = () =&gt; {
         &lt;Layout.Vertical spacing="xsmall"&gt;
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) =&gt; {
-                const folder = '/'.concat(rootFolderData.rootFolder<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit('/.harness')[0] || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>
+                const folderPath = rootFolderData.rootFolder<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit('/.harness')[0] || <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+                const folderWithPrefix = folderPath.startsWith('/') ? <span class="branch-0 cbranch-no" title="branch not covered" >folderPath </span>: '/'.concat(folderPath)
                 const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder)
                 return (
                   &lt;Layout.Horizontal
@@ -1557,10 +1575,10 @@ const GitSyncRepoTab: React.FC = () =&gt; {
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap'
                           }}
-                          title={folder}
+                          title={folderWithPrefix}
                           color={Color.BLACK}
                         &gt;
-                          {folder}
+                          {folderWithPrefix}
                         &lt;/Text&gt;
                       &lt;/Container&gt;
 &nbsp;
@@ -1678,7 +1696,7 @@ export default GitSyncRepoTab
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 10:52:24 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 11:27:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/14</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/9</span>
+                <span class='fraction'>6/9</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,34 +88,34 @@
 <a name='L29'></a><a href='#L29'>29</a>
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
-<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">60x</span>
+<span class="cline-any cline-yes">60x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,20 +123,20 @@
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 &nbsp;
-export const getNonRuntimeFields = <span class="fstat-no" title="function not covered" >(s</span>pec: { [key: string]: any } = <span class="branch-0 cbranch-no" title="branch not covered" >{},</span> template: { [key: string]: any }): string =&gt; {
-  const fields: { [key: string]: any } = <span class="cstat-no" title="statement not covered" >{}</span>
+export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }): string =&gt; {
+  const fields: { [key: string]: any } = {}
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  Object.entries(spec).forEach(<span class="fstat-no" title="function not covered" >([</span>key]): void =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (getMultiTypeFromValue(template?.[key]) !== MultiTypeInputType.RUNTIME) {</span>
-<span class="cstat-no" title="statement not covered" >      fields[key] = spec[key]</span>
+  Object.entries(spec).forEach(([key]): void =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (getMultiTypeFromValue(template<span class="branch-0 cbranch-no" title="branch not covered" >?.[k</span>ey]) !== MultiTypeInputType.RUNTIME) {
+      fields[key] = spec[key]
     }
   })
-<span class="cstat-no" title="statement not covered" >  return JSON.stringify(fields, null, 2)</span>
+  return JSON.stringify(fields, null, 2)
 }
 &nbsp;
-export const clearRuntimeInputValue = <span class="fstat-no" title="function not covered" >(t</span>emplate: PipelineInfoConfig): PipelineInfoConfig =&gt; {
-<span class="cstat-no" title="statement not covered" >  return JSON.parse(</span>
-    JSON.stringify(template || {}).replace(/"&lt;\+input&gt;.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
+export const clearRuntimeInputValue = (template: PipelineInfoConfig): PipelineInfoConfig =&gt; {
+  return JSON.parse(
+    JSON.stringify(template || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.replace(/"&lt;\+input&gt;.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
   )
 }
 &nbsp;
@@ -157,7 +157,7 @@ export const setupMode = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 05:35:56 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 06:26:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

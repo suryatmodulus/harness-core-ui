@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">43.75% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/16</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/16</span>
+                <span class='fraction'>12/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -77,43 +77,43 @@
 <a name='L18'></a><a href='#L18'>18</a>
 <a name='L19'></a><a href='#L19'>19</a>
 <a name='L20'></a><a href='#L20'>20</a>
-<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L21'></a><a href='#L21'>21</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">17x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { FormInput } from '@wings-software/uicore'
 import { v4 as uuid } from 'uuid'
 import { get } from 'lodash-es'
-const generateNewKey = <span class="fstat-no" title="function not covered" >(): string =</span>&gt; <span class="cstat-no" title="statement not covered" >uuid()</span>
-const ExperimentalInput = <span class="fstat-no" title="function not covered" >(p</span>rops: any): React.ReactElement =&gt; {
-  const formikValue = <span class="cstat-no" title="statement not covered" >get(props?.formik?.values, props.name, '')</span>
-  const ref = <span class="cstat-no" title="statement not covered" >React.useRef()</span>
-<span class="cstat-no" title="statement not covered" >  React.useEffect(<span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    if (!ref?.current &amp;&amp; ref.current !== formikValue) {</span>
-<span class="cstat-no" title="statement not covered" >      ref.current = formikValue</span>
+const generateNewKey = (): string =&gt; uuid()
+const ExperimentalInput = (props: any): React.ReactElement =&gt; {
+  const formikValue = get(props<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ormik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, props.name, '')
+  const ref = React.useRef()
+  React.useEffect(() =&gt; {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!ref<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent &amp;&amp; ref.current !== formikValue) {
+      ref.current = formikValue
     }
   }, [formikValue])
-  const key = <span class="cstat-no" title="statement not covered" >React.useMemo(<span class="fstat-no" title="function not covered" >(): string =</span>&gt; {</span>
-<span class="cstat-no" title="statement not covered" >    return generateNewKey()</span>
+  const key = React.useMemo((): string =&gt; {
+    return generateNewKey()
   }, [ref.current])
-<span class="cstat-no" title="statement not covered" >  return &lt;FormInput.MultiTypeInput key={key} {...props} /&gt;</span>
+  return &lt;FormInput.MultiTypeInput key={key} {...props} /&gt;
 }
 &nbsp;
 export default ExperimentalInput
@@ -124,7 +124,7 @@ export default ExperimentalInput
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 03 2021 05:35:56 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 03 2021 06:26:38 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

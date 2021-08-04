@@ -4,9 +4,10 @@ declare const styles: {
   readonly pipelineCard: string
   readonly label: string
   readonly sparkChart: string
-  readonly menu: string
+  readonly infoContainer: string
   readonly tagsPopover: string
-  readonly carBtns: string
+  readonly deploymentsCount: string
+  readonly cardBtns: string
   readonly runBtn: string
   readonly viewExecutionsBtn: string
 }

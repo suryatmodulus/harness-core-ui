@@ -20,11 +20,13 @@ depth: Depth
 sslVerify: SSL Verify
 noPipelineText: There are no pipelines in your project
 noDeploymentText: There are no deployments in your project
+runModalNoPipelineText: There are no pipelines in your project. Please create a new pipeline
 noBuildsText: There are no builds in your project
 runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+neverRan: This pipeline never ran
 startedOn: Started On
 outOf: Out Of
 approvalStage:
@@ -373,7 +375,9 @@ triggers:
   lastActivationAt: 'Last activation at'
   showAllTriggers: 'Show all Triggers'
   onNewWebhookTitle: 'On New Webhook'
-  onNewArtifactTitle: 'On New Artifact/Manifest'
+  onNewArtifactTitleWhole: 'On New Artifact'
+  onNewManifestTitleWhole: 'On New Manifest'
+  onNewArtifactTitle: 'On New {{artifact}}'
   onNewScheduleTitle: 'On New Schedule'
   newArtifactLabel: 'New Artifact'
   newManifestLabel: 'New Manifest'
@@ -489,18 +493,19 @@ triggers:
     cronExpression: 'Cron Expression'
   artifactTriggerConfigPanel:
     artifact: 'Artifact'
-    artifactRepository: 'Artifact Repository'
+    artifactRepository: '{{artifact}} Repository'
     buildTag: 'Build/Tag'
     configureInput: 'Configure Input'
-    listenOnNewArtifact: 'Listen on New Artifact'
-    plusSelectArtifact: '+ Select Artifact'
+    listenOnNewArtifact: 'Listen on New {{artifact}}'
+    plusSelect: '+ Select {{artifact}}'
     selectAnArtifact: 'Select an Artifact Reference'
+    selectAManifest: 'Select a Manifest Reference'
     configureArtifactRuntimeInputs: 'Configure Artifact Runtime Inputs'
     noSelectableArtifactsFound: 'No selectable artifacts found. Please add an artifact in the pipeline.'
     noArtifacts: No artifacts for selected stage.
     configureInputs: Configure inputs
-    parameterized: Parameterized
     hasRuntimeInputs: 'Has Runtime Inputs'
+    runtimeInput: 'Runtime Input'
 dashboards:
   failedBuilds: Failed Builds
   activeBuilds: Active Builds
@@ -663,6 +668,10 @@ verification:
     logs: 'Logs'
   logs:
     logCluster: Log cluster
+    filterByClusterType: Filter by cluster type
+    knownEvent: Known Event
+    unknownEvent: Unknown Event
+    unexpectedFrequency: Unexpected Frequency
     noAnalysis: No analysis
     clusterType: CLUSTER TYPE
     sampleMessage: MESSAGE
@@ -687,3 +696,4 @@ myDeploymentsText: My Deployments
 myBuildsText: My Builds
 noBuckets: No buckets found with given region
 gitRepos: Git Repos
+buildRepo: Build Repo

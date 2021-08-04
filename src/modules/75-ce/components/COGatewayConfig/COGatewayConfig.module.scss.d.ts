@@ -39,5 +39,6 @@ declare const styles: {
   readonly instanceTypeInput: string
   readonly yamlEditorContainer: string
   readonly titleHelpTextDescription: string
+  readonly advancedConfigInput: string
 }
 export default styles

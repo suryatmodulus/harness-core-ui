@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -75,7 +75,7 @@ function K8sCanaryDeleteWidget(
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
-            <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+            <>
               <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
@@ -107,7 +107,7 @@ function K8sCanaryDeleteWidget(
                   />
                 )}
               </div>
-            </Layout.Vertical>
+            </>
           )
         }}
       </Formik>

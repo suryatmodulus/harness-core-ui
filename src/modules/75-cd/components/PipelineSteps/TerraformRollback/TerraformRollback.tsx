@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 
@@ -88,59 +88,55 @@ function TerraformRollbackWidget(
 
           return (
             <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-                </div>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+              </div>
 
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    name="spec.provisionerIdentifier"
-                    label={getString('pipelineSteps.provisionerIdentifier')}
-                    multiTextInputProps={{ expressions }}
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      /* istanbul ignore next */
+                      setFieldValue('timeout', value)
+                    }}
+                    isReadonly={readonly}
                   />
-                  {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.spec.provisionerIdentifier}
-                      type="String"
-                      variableName="spec.provisionerIdentifier"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        /* istanbul ignore next */
-                        setFieldValue('spec.provisionerIdentifier', value)
-                      }}
-                      isReadonly={readonly}
-                    />
-                  )}
-                </div>
-
-                <div className={stepCss.noLookDivider} />
-
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                )}
+              </div>
+              <div className={stepCss.divider} />
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormInput.MultiTextInput
+                  name="spec.provisionerIdentifier"
+                  label={getString('pipelineSteps.provisionerIdentifier')}
+                  multiTextInputProps={{ expressions }}
+                />
+                {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.spec.provisionerIdentifier}
+                    type="String"
+                    variableName="spec.provisionerIdentifier"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      /* istanbul ignore next */
+                      setFieldValue('spec.provisionerIdentifier', value)
+                    }}
+                    isReadonly={readonly}
                   />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        /* istanbul ignore next */
-                        setFieldValue('timeout', value)
-                      }}
-                      isReadonly={readonly}
-                    />
-                  )}
-                </div>
-              </Layout.Vertical>
+                )}
+              </div>
             </>
           )
         }}

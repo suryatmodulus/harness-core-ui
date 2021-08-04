@@ -363,6 +363,7 @@ export interface StringsMap {
   'common.shell': string
   'common.showLess': string
   'common.showMore': string
+  'common.sidecarArtifactsText': string
   'common.slack': string
   'common.specify': string
   'common.startTrial': string
@@ -424,6 +425,7 @@ export interface StringsMap {
   'common.validation.fileIsRequired': string
   'common.validation.formatMustBeAlphanumeric': string
   'common.validation.groupAttributeIsRequired': string
+  'common.validation.harnessFolderNamePatternIsNotValid': string
   'common.validation.identifierIsRequired': string
   'common.validation.keyIsRequired': string
   'common.validation.nameIsRequired': string
@@ -1503,25 +1505,6 @@ export interface StringsMap {
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string
-  'dashboards.serviceDashboard.3months': string
-  'dashboards.serviceDashboard.6months': string
-  'dashboards.serviceDashboard.activeServiceInstancesLabel': string
-  'dashboards.serviceDashboard.buildName': string
-  'dashboards.serviceDashboard.executionId': string
-  'dashboards.serviceDashboard.frequency': string
-  'dashboards.serviceDashboard.in': string
-  'dashboards.serviceDashboard.lastDeployment': string
-  'dashboards.serviceDashboard.month': string
-  'dashboards.serviceDashboard.mostActiveServices': string
-  'dashboards.serviceDashboard.noDeployments': string
-  'dashboards.serviceDashboard.noServices': string
-  'dashboards.serviceDashboard.nonProd': string
-  'dashboards.serviceDashboard.prod': string
-  'dashboards.serviceDashboard.seeMore': string
-  'dashboards.serviceDashboard.serviceInstances': string
-  'dashboards.serviceDashboard.servicesInLast': string
-  'dashboards.serviceDashboard.totalServices': string
-  'dashboards.serviceDashboard.year': string
   'dashboards.sideNav.byHarness': string
   'dashboards.sideNav.custom': string
   'dashboards.sideNav.noDashboard': string
@@ -1668,6 +1651,7 @@ export interface StringsMap {
   'pipeline.barriers.tooltips.barrierWaiting': string
   'pipeline.barriers.tooltips.timeout': string
   'pipeline.barriers.validation.barrierNamerequired': string
+  'pipeline.buildRepo': string
   'pipeline.ciCodebase.prCloneStrategy': string
   'pipeline.clickHere': string
   'pipeline.closeStepConfig': string
@@ -1965,6 +1949,7 @@ export interface StringsMap {
   'pipeline.myBuildsText': string
   'pipeline.myDeploymentsText': string
   'pipeline.namespaceTooltip': string
+  'pipeline.neverRan': string
   'pipeline.noBuckets': string
   'pipeline.noBuildsText': string
   'pipeline.noDeploymentText': string
@@ -1992,6 +1977,7 @@ export interface StringsMap {
   'pipeline.resourceConstraints.title': string
   'pipeline.resourceConstraints.yourPipeline': string
   'pipeline.runAPipeline': string
+  'pipeline.runModalNoPipelineText': string
   'pipeline.savingInProgress': string
   'pipeline.scriptInputVariables': string
   'pipeline.scriptOutputVariables': string
@@ -2082,8 +2068,9 @@ export interface StringsMap {
   'pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact': string
   'pipeline.triggers.artifactTriggerConfigPanel.noArtifacts': string
   'pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound': string
-  'pipeline.triggers.artifactTriggerConfigPanel.parameterized': string
-  'pipeline.triggers.artifactTriggerConfigPanel.plusSelectArtifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.plusSelect': string
+  'pipeline.triggers.artifactTriggerConfigPanel.runtimeInput': string
+  'pipeline.triggers.artifactTriggerConfigPanel.selectAManifest': string
   'pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact': string
   'pipeline.triggers.cannotParseInputValues': string
   'pipeline.triggers.cannotParseTriggersData': string
@@ -2118,6 +2105,8 @@ export interface StringsMap {
   'pipeline.triggers.newTrigger': string
   'pipeline.triggers.noTriggersFound': string
   'pipeline.triggers.onNewArtifactTitle': string
+  'pipeline.triggers.onNewArtifactTitleWhole': string
+  'pipeline.triggers.onNewManifestTitleWhole': string
   'pipeline.triggers.onNewScheduleTitle': string
   'pipeline.triggers.onNewWebhookTitle': string
   'pipeline.triggers.onScheduleLabel': string
@@ -2214,6 +2203,8 @@ export interface StringsMap {
   'pipeline.verification.logs.actions': string
   'pipeline.verification.logs.clusterType': string
   'pipeline.verification.logs.copyURL': string
+  'pipeline.verification.logs.filterByClusterType': string
+  'pipeline.verification.logs.knownEvent': string
   'pipeline.verification.logs.logCluster': string
   'pipeline.verification.logs.messageCount': string
   'pipeline.verification.logs.messageFrequency': string
@@ -2223,6 +2214,8 @@ export interface StringsMap {
   'pipeline.verification.logs.sampleMessage': string
   'pipeline.verification.logs.share': string
   'pipeline.verification.logs.trend': string
+  'pipeline.verification.logs.unexpectedFrequency': string
+  'pipeline.verification.logs.unknownEvent': string
   'pipeline.verification.logs.urlCopied': string
   'pipeline.verification.metricViewPlaceholder': string
   'pipeline.verification.metricsInViolation': string
@@ -2280,6 +2273,34 @@ export interface StringsMap {
   'cd.scriptRequired': string
   'cd.secretManagerRequired': string
   'cd.serviceCreated': string
+  'cd.serviceDashboard.3months': string
+  'cd.serviceDashboard.6monthTrend': string
+  'cd.serviceDashboard.6months': string
+  'cd.serviceDashboard.activeServiceInstancesLabel': string
+  'cd.serviceDashboard.artifact': string
+  'cd.serviceDashboard.buildName': string
+  'cd.serviceDashboard.deployedAt': string
+  'cd.serviceDashboard.deployedBy': string
+  'cd.serviceDashboard.executionId': string
+  'cd.serviceDashboard.frequency': string
+  'cd.serviceDashboard.in': string
+  'cd.serviceDashboard.instanceCountHistory': string
+  'cd.serviceDashboard.instanceDetails': string
+  'cd.serviceDashboard.lastDeployment': string
+  'cd.serviceDashboard.month': string
+  'cd.serviceDashboard.mostActiveServices': string
+  'cd.serviceDashboard.noDeployments': string
+  'cd.serviceDashboard.noServiceDetails': string
+  'cd.serviceDashboard.noServiceInstances': string
+  'cd.serviceDashboard.noServices': string
+  'cd.serviceDashboard.nonProd': string
+  'cd.serviceDashboard.pod': string
+  'cd.serviceDashboard.prod': string
+  'cd.serviceDashboard.seeMore': string
+  'cd.serviceDashboard.serviceInstances': string
+  'cd.serviceDashboard.servicesInLast': string
+  'cd.serviceDashboard.totalServices': string
+  'cd.serviceDashboard.year': string
   'cd.serviceUpdated': string
   'cd.setUpProvisionerBtnText': string
   'cd.specifyTfVarStore': string

@@ -1,11 +1,34 @@
 .variables-list-table {
   display: grid;
-  grid-template-columns: repeat(2, minmax(10px, 1fr));
   align-items: baseline;
-  padding: 0 var(--spacing-large) 0 var(--spacing-large);
-  row-gap: var(--spacing-large);
+  // padding: 0 var(--spacing-large) 0 var(--spacing-large);
+  // row-gap: var(--spacing-large);
 
-  & + :global(.Accordion--panel) {
-    margin-top: var(--spacing-large);
+  .variable-list-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(10px, 1fr));
+    padding: var(--spacing-small);
+    text-indent: var(--spacing-xxlarge);
+    border-bottom: solid 1px var(--grey-200);
+    position: relative;
+    &:before {
+      position: absolute;
+      width: 100%;
+      bottom: -1px;
+      content: '';
+      border-bottom: solid 1px var(--grey-200);
+      height: 1px;
+      left: 100%;
+    }
+
+    &:after {
+      position: absolute;
+      width: 100%;
+      bottom: -1px;
+      content: '';
+      border-bottom: solid 1px var(--grey-200);
+      height: 1px;
+      right: 100%;
+    }
   }
 }

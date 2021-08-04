@@ -1,12 +1,18 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, queryByText, waitFor } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uicore'
-
+import { renderHook } from '@testing-library/react-hooks'
 import { TestWrapper } from '@common/utils/testUtils'
+import { useStrings } from 'framework/strings'
 
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, pipelineModuleParams, triggerPathProps } from '@common/utils/routeUtils'
-import { ArtifactTriggerConfigPanel } from '../views'
+import ArtifactTriggerConfigPanel from '../views/ArtifactTriggerConfigPanel'
+
+const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
+  <TestWrapper>{children}</TestWrapper>
+)
+const { result } = renderHook(() => useStrings(), { wrapper })
 
 jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService', () => ({
   getLanguageService: jest.fn()
@@ -24,19 +30,18 @@ const params = {
 const TEST_PATH = routes.toTriggersWizardPage({ ...accountPathProps, ...triggerPathProps, ...pipelineModuleParams })
 
 const iValues = {
-  identifier: 'test',
-  name: 'test',
-  stageId: 'stagea',
+  manifestType: 'HelmChart',
   originalPipeline: {
-    identifier: 'pipe11',
-    name: 'pipe11',
-    orgIdentifier: 'default',
-    projectIdentifier: 'test',
+    name: 'test-manifest',
+    identifier: 'testmanifest',
+    projectIdentifier: 'mtran',
+    orgIdentifier: 'harness',
+    tags: {},
     stages: [
       {
         stage: {
-          name: 'stagea',
-          identifier: 'stagea',
+          name: 'stage',
+          identifier: 'stage',
           description: '',
           type: 'Deployment',
           spec: {
@@ -45,59 +50,27 @@ const iValues = {
                 type: 'Kubernetes',
                 spec: {
                   artifacts: {
-                    sidecars: [
-                      {
-                        sidecar: {
-                          type: 'Gcr',
-                          spec: {
-                            connectorRef: 'testgcp1a',
-                            imagePath: 'kjlklk',
-                            registryHostname: '<+input>',
-                            tag: '<+input>'
-                          },
-                          identifier: 'klk'
-                        }
-                      }
-                    ],
-                    primary: {
-                      type: 'DockerRegistry',
-                      spec: {
-                        connectorRef: '<+input>',
-                        imagePath: 'jkjkj',
-                        tag: '<+input>'
-                      }
-                    }
+                    sidecars: []
                   },
-                  variables: [
-                    {
-                      name: 'test',
-                      type: 'String',
-                      value: 'test'
-                    },
-                    {
-                      name: 'connectorRef',
-                      type: 'String',
-                      value: 'terraform_repo'
-                    }
-                  ],
+                  variables: [],
                   manifestOverrideSets: [],
                   manifests: [
                     {
                       manifest: {
-                        identifier: 'dsfds',
+                        identifier: 's3manifestid',
                         type: 'HelmChart',
                         spec: {
                           store: {
                             type: 'S3',
                             spec: {
-                              connectorRef: 'awsconnectora',
-                              bucketName: 'sdfdsfd',
-                              folderPath: 'dsfd',
+                              connectorRef: '<+input>',
+                              bucketName: '<+input>',
+                              folderPath: 'chartPath',
                               region: '<+input>'
                             }
                           },
-                          chartName: 'dsfds',
-                          chartVersion: 'dfds',
+                          chartName: '<+input>',
+                          chartVersion: '<+input>',
                           helmVersion: 'V2',
                           skipResourceVersioning: false
                         }
@@ -106,161 +79,32 @@ const iValues = {
                   ]
                 }
               },
-              serviceRef: 'seveice'
+              serviceRef: '<+input>'
             },
             infrastructure: {
-              environmentRef: 'TestEnv',
+              environmentRef: '<+input>',
               infrastructureDefinition: {
                 type: 'KubernetesDirect',
                 spec: {
-                  connectorRef: 'testk8s',
-                  namespace: 'test',
-                  releaseName: 'sdfs'
-                },
-                provisioner: {
-                  steps: [
-                    {
-                      step: {
-                        type: 'TerraformPlan',
-                        name: 'testtf-plan-1',
-                        identifier: 'testtfplan1',
-                        spec: {
-                          configuration: {
-                            command: 'Apply',
-                            workspace: 'dsfds',
-                            configFiles: {
-                              store: {
-                                type: 'Git',
-                                spec: {
-                                  gitFetchType: 'Branch',
-                                  connectorRef: 'fghgfhg',
-                                  branch: 'sdfds',
-                                  folderPath: 'sdfds'
-                                }
-                              }
-                            },
-                            secretManagerRef: '<+input>',
-                            varFiles: [
-                              {
-                                varFile: {
-                                  type: 'Remote',
-                                  identifier: 'dsfds',
-                                  spec: {
-                                    store: {
-                                      type: 'Github',
-                                      spec: {
-                                        gitFetchType: 'Branch',
-                                        branch: 'sdfds',
-                                        paths: ['sdfds'],
-                                        connectorRef: '<+input>'
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            ],
-                            targets: '<+input>'
-                          },
-                          provisionerIdentifier: '<+input>'
-                        },
-                        timeout: '10m'
-                      }
-                    },
-                    {
-                      step: {
-                        type: 'TerraformApply',
-                        name: 'tf-apply-a',
-                        identifier: 'tfapplya',
-                        spec: {
-                          provisionerIdentifier: 'test',
-                          configuration: {
-                            type: 'Inline',
-                            spec: {
-                              workspace: 'sdfds',
-                              configFiles: {
-                                store: {
-                                  type: 'Git',
-                                  spec: {
-                                    gitFetchType: 'Branch',
-                                    connectorRef: 'dsfds',
-                                    branch: 'sdfds',
-                                    folderPath: 'sdfds'
-                                  }
-                                }
-                              },
-                              varFiles: [
-                                {
-                                  varFile: {
-                                    type: 'Remote',
-                                    identifier: 'testremoteid',
-                                    spec: {
-                                      store: {
-                                        type: 'Github',
-                                        spec: {
-                                          gitFetchType: 'Branch',
-                                          branch: 'sdfds',
-                                          paths: ['dsfds'],
-                                          connectorRef: '<+input>'
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        timeout: '10m'
-                      }
-                    },
-                    {
-                      step: {
-                        type: 'TerraformPlan',
-                        name: 'tf-plan-step2',
-                        identifier: 'tfplanstep2',
-                        spec: {
-                          configuration: {
-                            command: 'Apply',
-                            configFiles: {
-                              store: {
-                                type: 'Git',
-                                spec: {
-                                  gitFetchType: 'Branch',
-                                  connectorRef: 'dsfds',
-                                  branch: 'testbrancht',
-                                  folderPath: 'testfolder'
-                                }
-                              }
-                            },
-                            secretManagerRef: 'harnessSecretManager'
-                          },
-                          provisionerIdentifier: 'id-1'
-                        },
-                        timeout: '10m'
-                      }
-                    }
-                  ]
+                  connectorRef: '<+input>',
+                  namespace: '<+input>',
+                  releaseName: '<+input>'
                 }
               },
               allowSimultaneousDeployments: false,
-              infrastructureKey: 'sdfds'
+              infrastructureKey: '<+input>'
             },
             execution: {
               steps: [
                 {
                   step: {
-                    type: 'K8sDelete',
-                    name: 'delete-manifest',
-                    identifier: 'deletemanifest',
+                    name: 'Rollout Deployment',
+                    identifier: 'rolloutDeployment',
+                    type: 'K8sRollingDeploy',
+                    timeout: '10m',
                     spec: {
-                      deleteResources: {
-                        type: 'ManifestPath',
-                        spec: {
-                          manifestPaths: ['sdfdsfds', '', '']
-                        }
-                      }
-                    },
-                    timeout: '10m'
+                      skipDryRun: false
+                    }
                   }
                 }
               ],
@@ -275,8 +119,7 @@ const iValues = {
                   }
                 }
               ]
-            },
-            serviceDependencies: []
+            }
           },
           tags: {},
           failureStrategies: [
@@ -290,19 +133,11 @@ const iValues = {
             }
           ]
         }
-      }
-    ]
-  },
-  pipeline: {
-    identifier: 'pipe11',
-    name: 'pipe11',
-    orgIdentifier: 'default',
-    projectIdentifier: 'test',
-    stages: [
+      },
       {
         stage: {
-          name: 'stagea',
-          identifier: 'stagea',
+          name: 'stage2',
+          identifier: 'stage2',
           description: '',
           type: 'Deployment',
           spec: {
@@ -311,222 +146,69 @@ const iValues = {
                 type: 'Kubernetes',
                 spec: {
                   artifacts: {
-                    sidecars: [
-                      {
-                        sidecar: {
-                          type: 'Gcr',
-                          spec: {
-                            connectorRef: 'testgcp1a',
-                            imagePath: 'kjlklk',
-                            registryHostname: '<+input>',
-                            tag: '<+input>'
-                          },
-                          identifier: 'klk'
-                        }
-                      }
-                    ],
+                    sidecars: [],
                     primary: {
                       type: 'DockerRegistry',
                       spec: {
-                        connectorRef: '<+input>',
-                        imagePath: 'jkjkj',
+                        connectorRef: 'configurableartifact',
+                        imagePath: 'imagePath',
                         tag: '<+input>'
                       }
                     }
                   },
-                  variables: [
-                    {
-                      name: 'test',
-                      type: 'String',
-                      value: 'test'
-                    },
-                    {
-                      name: 'connectorRef',
-                      type: 'String',
-                      value: 'terraform_repo'
-                    }
-                  ],
                   manifestOverrideSets: [],
                   manifests: [
                     {
                       manifest: {
-                        identifier: 'dsfds',
+                        identifier: 'manifestId',
                         type: 'HelmChart',
                         spec: {
                           store: {
                             type: 'S3',
                             spec: {
-                              connectorRef: 'awsconnectora',
-                              bucketName: 'sdfdsfd',
-                              folderPath: 'dsfd',
-                              region: '<+input>'
+                              connectorRef: 'account.sdhgjhgdj',
+                              bucketName: '<+input>',
+                              folderPath: '<+input>',
+                              region: 'us-gov-west-1'
                             }
                           },
-                          chartName: 'dsfds',
-                          chartVersion: 'dfds',
+                          chartName: 'chartName',
+                          chartVersion: 'chartVersion',
                           helmVersion: 'V2',
                           skipResourceVersioning: false
                         }
                       }
                     }
-                  ]
+                  ],
+                  variables: []
                 }
               },
-              serviceRef: 'seveice'
+              serviceRef: '<+input>'
             },
             infrastructure: {
-              environmentRef: 'TestEnv',
+              environmentRef: '<+input>',
               infrastructureDefinition: {
                 type: 'KubernetesDirect',
                 spec: {
-                  connectorRef: 'testk8s',
-                  namespace: 'test',
-                  releaseName: 'sdfs'
-                },
-                provisioner: {
-                  steps: [
-                    {
-                      step: {
-                        type: 'TerraformPlan',
-                        name: 'testtf-plan-1',
-                        identifier: 'testtfplan1',
-                        spec: {
-                          configuration: {
-                            command: 'Apply',
-                            workspace: 'dsfds',
-                            configFiles: {
-                              store: {
-                                type: 'Git',
-                                spec: {
-                                  gitFetchType: 'Branch',
-                                  connectorRef: 'fghgfhg',
-                                  branch: 'sdfds',
-                                  folderPath: 'sdfds'
-                                }
-                              }
-                            },
-                            secretManagerRef: '<+input>',
-                            varFiles: [
-                              {
-                                varFile: {
-                                  type: 'Remote',
-                                  identifier: 'dsfds',
-                                  spec: {
-                                    store: {
-                                      type: 'Github',
-                                      spec: {
-                                        gitFetchType: 'Branch',
-                                        branch: 'sdfds',
-                                        paths: ['sdfds'],
-                                        connectorRef: '<+input>'
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            ],
-                            targets: '<+input>'
-                          },
-                          provisionerIdentifier: '<+input>'
-                        },
-                        timeout: '10m'
-                      }
-                    },
-                    {
-                      step: {
-                        type: 'TerraformApply',
-                        name: 'tf-apply-a',
-                        identifier: 'tfapplya',
-                        spec: {
-                          provisionerIdentifier: 'test',
-                          configuration: {
-                            type: 'Inline',
-                            spec: {
-                              workspace: 'sdfds',
-                              configFiles: {
-                                store: {
-                                  type: 'Git',
-                                  spec: {
-                                    gitFetchType: 'Branch',
-                                    connectorRef: 'dsfds',
-                                    branch: 'sdfds',
-                                    folderPath: 'sdfds'
-                                  }
-                                }
-                              },
-                              varFiles: [
-                                {
-                                  varFile: {
-                                    type: 'Remote',
-                                    identifier: 'testremoteid',
-                                    spec: {
-                                      store: {
-                                        type: 'Github',
-                                        spec: {
-                                          gitFetchType: 'Branch',
-                                          branch: 'sdfds',
-                                          paths: ['dsfds'],
-                                          connectorRef: '<+input>'
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          }
-                        },
-                        timeout: '10m'
-                      }
-                    },
-                    {
-                      step: {
-                        type: 'TerraformPlan',
-                        name: 'tf-plan-step2',
-                        identifier: 'tfplanstep2',
-                        spec: {
-                          configuration: {
-                            command: 'Apply',
-                            configFiles: {
-                              store: {
-                                type: 'Git',
-                                spec: {
-                                  gitFetchType: 'Branch',
-                                  connectorRef: 'dsfds',
-                                  branch: 'testbrancht',
-                                  folderPath: 'testfolder'
-                                }
-                              }
-                            },
-                            secretManagerRef: 'harnessSecretManager'
-                          },
-                          provisionerIdentifier: 'id-1'
-                        },
-                        timeout: '10m'
-                      }
-                    }
-                  ]
+                  connectorRef: 'account.builfarm',
+                  namespace: 'a',
+                  releaseName: 'a'
                 }
               },
               allowSimultaneousDeployments: false,
-              infrastructureKey: 'sdfds'
+              infrastructureKey: 'a'
             },
             execution: {
               steps: [
                 {
                   step: {
-                    type: 'K8sDelete',
-                    name: 'delete-manifest',
-                    identifier: 'deletemanifest',
+                    name: 'Rollout Deployment',
+                    identifier: 'rolloutDeployment',
+                    type: 'K8sRollingDeploy',
+                    timeout: '10m',
                     spec: {
-                      deleteResources: {
-                        type: 'ManifestPath',
-                        spec: {
-                          manifestPaths: ['sdfdsfds', '', '']
-                        }
-                      }
-                    },
-                    timeout: '10m'
+                      skipDryRun: false
+                    }
                   }
                 }
               ],
@@ -541,8 +223,101 @@ const iValues = {
                   }
                 }
               ]
+            }
+          },
+          tags: {},
+          failureStrategies: [
+            {
+              onFailure: {
+                errors: ['AllErrors'],
+                action: {
+                  type: 'StageRollback'
+                }
+              }
+            }
+          ]
+        }
+      },
+      {
+        stage: {
+          name: 'manifest-stage',
+          identifier: 'manifeststage',
+          description: '',
+          type: 'Deployment',
+          spec: {
+            serviceConfig: {
+              serviceDefinition: {
+                type: 'Kubernetes',
+                spec: {
+                  artifacts: {
+                    sidecars: []
+                  },
+                  manifestOverrideSets: [],
+                  manifests: [
+                    {
+                      manifest: {
+                        identifier: 'manifest',
+                        type: 'K8sManifest',
+                        spec: {
+                          store: {
+                            type: 'Github',
+                            spec: {
+                              connectorRef: 'configurablemanifest',
+                              gitFetchType: 'Branch',
+                              paths: ['abc'],
+                              repoName: 'reponame',
+                              branch: '<+input>'
+                            }
+                          },
+                          skipResourceVersioning: false
+                        }
+                      }
+                    }
+                  ],
+                  variables: []
+                }
+              },
+              serviceRef: '<+input>'
             },
-            serviceDependencies: []
+            infrastructure: {
+              environmentRef: '<+input>',
+              infrastructureDefinition: {
+                type: 'KubernetesDirect',
+                spec: {
+                  connectorRef: 'account.builfarm',
+                  namespace: 'a',
+                  releaseName: 'a'
+                }
+              },
+              allowSimultaneousDeployments: false,
+              infrastructureKey: 'a'
+            },
+            execution: {
+              steps: [
+                {
+                  step: {
+                    name: 'Rollout Deployment',
+                    identifier: 'rolloutDeployment',
+                    type: 'K8sRollingDeploy',
+                    timeout: '10m',
+                    spec: {
+                      skipDryRun: false
+                    }
+                  }
+                }
+              ],
+              rollbackSteps: [
+                {
+                  step: {
+                    name: 'Rollback Rollout Deployment',
+                    identifier: 'rollbackRolloutDeployment',
+                    type: 'K8sRollingRollback',
+                    timeout: '10m',
+                    spec: {}
+                  }
+                }
+              ]
+            }
           },
           tags: {},
           failureStrategies: [
@@ -561,11 +336,59 @@ const iValues = {
   },
   inputSetTemplateYamlObj: {
     pipeline: {
-      identifier: 'pipe11',
+      identifier: 'testmanifest',
       stages: [
         {
           stage: {
-            identifier: 'stagea',
+            identifier: 'stage',
+            type: 'Deployment',
+            spec: {
+              serviceConfig: {
+                serviceDefinition: {
+                  type: 'Kubernetes',
+                  spec: {
+                    manifests: [
+                      {
+                        manifest: {
+                          identifier: 's3manifestid',
+                          type: 'HelmChart',
+                          spec: {
+                            store: {
+                              type: 'S3',
+                              spec: {
+                                connectorRef: '<+input>',
+                                bucketName: '<+input>',
+                                region: '<+input>'
+                              }
+                            },
+                            chartName: '<+input>',
+                            chartVersion: '<+input>'
+                          }
+                        }
+                      }
+                    ]
+                  }
+                },
+                serviceRef: '<+input>'
+              },
+              infrastructure: {
+                environmentRef: '<+input>',
+                infrastructureDefinition: {
+                  type: 'KubernetesDirect',
+                  spec: {
+                    connectorRef: '<+input>',
+                    namespace: '<+input>',
+                    releaseName: '<+input>'
+                  }
+                },
+                infrastructureKey: '<+input>'
+              }
+            }
+          }
+        },
+        {
+          stage: {
+            identifier: 'stage2',
             type: 'Deployment',
             spec: {
               serviceConfig: {
@@ -573,22 +396,9 @@ const iValues = {
                   type: 'Kubernetes',
                   spec: {
                     artifacts: {
-                      sidecars: [
-                        {
-                          sidecar: {
-                            identifier: 'klk',
-                            type: 'Gcr',
-                            spec: {
-                              registryHostname: '<+input>',
-                              tag: '<+input>'
-                            }
-                          }
-                        }
-                      ],
                       primary: {
                         type: 'DockerRegistry',
                         spec: {
-                          connectorRef: '<+input>',
                           tag: '<+input>'
                         }
                       }
@@ -596,13 +406,14 @@ const iValues = {
                     manifests: [
                       {
                         manifest: {
-                          identifier: 'dsfds',
+                          identifier: 'manifestId',
                           type: 'HelmChart',
                           spec: {
                             store: {
                               type: 'S3',
                               spec: {
-                                region: '<+input>'
+                                bucketName: '<+input>',
+                                folderPath: '<+input>'
                               }
                             }
                           }
@@ -610,66 +421,34 @@ const iValues = {
                       }
                     ]
                   }
-                }
+                },
+                serviceRef: '<+input>'
               },
               infrastructure: {
-                infrastructureDefinition: {
-                  type: 'KubernetesDirect',
-                  provisioner: {
-                    steps: [
+                environmentRef: '<+input>'
+              }
+            }
+          }
+        },
+        {
+          stage: {
+            identifier: 'manifeststage',
+            type: 'Deployment',
+            spec: {
+              serviceConfig: {
+                serviceDefinition: {
+                  type: 'Kubernetes',
+                  spec: {
+                    manifests: [
                       {
-                        step: {
-                          identifier: 'testtfplan1',
-                          type: 'TerraformPlan',
+                        manifest: {
+                          identifier: 'manifest',
+                          type: 'K8sManifest',
                           spec: {
-                            configuration: {
-                              secretManagerRef: '<+input>',
-                              varFiles: [
-                                {
-                                  varFile: {
-                                    identifier: 'dsfds',
-                                    type: 'Remote',
-                                    spec: {
-                                      store: {
-                                        type: 'Github',
-                                        spec: {
-                                          connectorRef: '<+input>'
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              ],
-                              targets: '<+input>'
-                            },
-                            provisionerIdentifier: '<+input>'
-                          }
-                        }
-                      },
-                      {
-                        step: {
-                          identifier: 'tfapplya',
-                          type: 'TerraformApply',
-                          spec: {
-                            configuration: {
-                              type: 'Inline',
+                            store: {
+                              type: 'Github',
                               spec: {
-                                varFiles: [
-                                  {
-                                    varFile: {
-                                      identifier: 'testremoteid',
-                                      type: 'Remote',
-                                      spec: {
-                                        store: {
-                                          type: 'Github',
-                                          spec: {
-                                            connectorRef: '<+input>'
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                ]
+                                branch: '<+input>'
                               }
                             }
                           }
@@ -677,7 +456,11 @@ const iValues = {
                       }
                     ]
                   }
-                }
+                },
+                serviceRef: '<+input>'
+              },
+              infrastructure: {
+                environmentRef: '<+input>'
               }
             }
           }
@@ -686,7 +469,7 @@ const iValues = {
     }
   },
   tags: {},
-  triggerType: 'NewArtifact'
+  triggerType: 'Manifest'
 }
 
 jest.mock('@pipeline/factories/ArtifactTriggerInputFactory', () => ({
@@ -710,19 +493,35 @@ function WrapperComponent(props: { initialValues: any; isEdit?: boolean }): JSX.
     </Formik>
   )
 }
+
 describe('Artifact Trigger Config Panel  tests', () => {
-  test('inital Render', () => {
-    const { container } = render(<WrapperComponent initialValues={iValues} isEdit={false} />)
-    expect(container).toMatchSnapshot()
-  })
+  describe('Renders/snapshots', () => {
+    test('inital Render', async () => {
+      const { container } = render(<WrapperComponent initialValues={iValues} isEdit={false} />)
+      await waitFor(() => expect(queryByText(container, result.current.getString('manifestsText'))).not.toBeNull())
+      //   await waitFor(() =>
+      //     expect(
+      //       document.body.querySelector('[class*="ArtifactTriggerConfigPanel"] [data-name="plusAdd"]')
+      //     ).not.toBeNull()
+      //   )
+      expect(container).toMatchSnapshot()
+    })
 
-  test('edit render', () => {
-    const initialValueObj = {
-      ...iValues,
-
-      artifactRef: 'dsfds'
-    }
-    const { container } = render(<WrapperComponent initialValues={initialValueObj} isEdit={true} />)
-    expect(container).toMatchSnapshot()
+    test('edit render', async () => {
+      const initialValueObj = {
+        ...iValues,
+        artifactRef: 's3manifestid',
+        stageId: 'stage'
+      }
+      const { container } = render(<WrapperComponent initialValues={initialValueObj} isEdit={true} />)
+      await waitFor(() =>
+        expect(document.body.querySelector('[class*="ArtifactTriggerConfigPanel"] [data-name="plusAdd"]')).toBeNull()
+      )
+      await waitFor(() =>
+        expect(queryByText(container, result.current.getString('common.location').toUpperCase())).not.toBeNull()
+      )
+      //   !todo: update snapshot so that it shows table
+      expect(container).toMatchSnapshot()
+    })
   })
 })

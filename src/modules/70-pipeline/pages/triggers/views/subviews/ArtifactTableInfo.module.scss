@@ -5,7 +5,7 @@
 .table {
   [class*='body'] {
     [role*='row'] {
-      padding: 0 16px;
+      padding: 0;
       box-shadow: none;
       &:hover {
         background: rgba(220, 238, 255, 0.5) !important;
@@ -17,11 +17,17 @@
   [role*='columnheader'] {
     color: #9293ab !important;
   }
+  [class*='header'] {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 
-.readonly {
+.appliedArtifact {
   width: 690px;
   display: inline-block;
+  // border: 1px solid var(--grey-200);
+  // border-radius: var(--spacing-2);
   [class*='body'] {
     [class*='clickable'] {
       cursor: auto !important;

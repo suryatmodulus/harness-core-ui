@@ -2,22 +2,50 @@
 // this is an auto-generated file
 declare const styles: {
   readonly pipelineVariables: string
-  readonly description: string
   readonly variableCard: string
+  readonly pipelineDetails: string
   readonly header: string
   readonly content: string
-  readonly lhs: string
-  readonly title: string
-  readonly stagesTree: string
-  readonly collapse: string
+  readonly variablePanelHeader: string
+  readonly description: string
+  readonly searchInput: string
+  readonly searchActions: string
+  readonly applyChanges: string
+  readonly discard: string
   readonly closed: string
+  readonly lhs: string
+  readonly stagesTree: string
+  readonly title: string
+  readonly collapse: string
   readonly variableList: string
   readonly stageTitle: string
+  readonly pipelineMarginBottom: string
   readonly stageSummary: string
   readonly stageDetails: string
   readonly variableListHeader: string
   readonly customVariables: string
   readonly panel: string
+  readonly iconExpanded: string
+  readonly iconCollapsed: string
+  readonly accordionSummary: string
+  readonly nopadleft: string
   readonly variablesTable: string
+  readonly variableBorderBottom: string
+  readonly marginIndentXlarge: string
+  readonly marginIndentL1: string
+  readonly accordianDetailsIndent: string
+  readonly accordianVariablesIndent: string
+  readonly marginIndentXxlarge: string
+  readonly variablePaddingL0: string
+  readonly variablePaddingL1: string
+  readonly variablePaddingL2: string
+  readonly variablePaddingL3: string
+  readonly customVarPadL1: string
+  readonly customVarPadL2: string
+  readonly customVarPadL3: string
+  readonly accordianSummaryL1: string
+  readonly accordianSummaryL2: string
+  readonly accordianSummaryL3: string
+  readonly descriptionTooltip: string
 }
 export default styles

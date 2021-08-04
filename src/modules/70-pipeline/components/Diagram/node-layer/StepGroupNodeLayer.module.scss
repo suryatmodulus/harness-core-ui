@@ -52,7 +52,11 @@
   margin: 0 auto;
   box-shadow: -1px 4px 7px 0 rgba(135, 149, 159, 0.27);
 }
-
+.label-tooltip {
+  :global(.bp3-popover-content) {
+    padding: var(--spacing-small);
+  }
+}
 .conditional {
   position: absolute;
   top: -18px;

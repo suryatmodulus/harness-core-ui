@@ -105,6 +105,11 @@
   }
 }
 
+.clusterTypeFilter {
+  max-width: 250px;
+  padding: var(--spacing-medium) var(--spacing-none);
+}
+
 .columnHeader {
   border-bottom: 1px solid var(--grey-250);
 }

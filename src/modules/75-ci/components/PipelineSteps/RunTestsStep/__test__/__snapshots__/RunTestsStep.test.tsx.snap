@@ -10027,776 +10027,839 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
     class="variablesListTable"
   >
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.name
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          name
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        My RunTests Step
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      My RunTests Step
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.description
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          description
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        Description
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      Description
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.timeout
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          timeout
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        10s
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      10s
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.connectorRef
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          connectorRef
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        account.connectorRef
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      account.connectorRef
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.image
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          image
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        image
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      image
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.args
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          args
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        -Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=\${BUILD_NUMBER}
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      -Dmaven.test.failure.ignore=true -T 2C test -e -Dbuild.number=\${BUILD_NUMBER}
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.buildTool
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          buildTool
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        Maven
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      Maven
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.language
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          language
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        Java
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      Java
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.packages
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          packages
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        io.harness., software.wings., migrations.
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      io.harness., software.wings., migrations.
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.runOnlySelectedTests
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          runOnlySelectedTests
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        false
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      false
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.testAnnotations
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          testAnnotations
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.preCommand
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          preCommand
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        pre command
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      pre command
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.postCommand
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          postCommand
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        post command
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      post command
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.reports.spec.paths
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          paths
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        path1.xml, path2.xml, path3.xml, path4.xml, path5.xml
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      path1.xml, path2.xml, path3.xml, path4.xml, path5.xml
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.spec.envVariables
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          envVariables
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
-    </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      {
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        {
   "key1": "value1",
   "key2": "value2",
   "key3": "value3"
 }
-    </p>
-    <div
-      class="main"
-    >
-      <div
-        class="text"
-      >
-        step.runTests.spec.outputVariables
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
-        >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
-            >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </div>
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
+    <div
+      class="variableListRow"
     >
-      {
+      <div
+        class="main"
+      >
+        <div
+          class="text variable-name-cell"
+        >
+          outputVariables
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        {
   "name": "variable1"
 }, {
   "name": "variable2"
@@ -10805,103 +10868,112 @@ exports[`RunTests Step InputVariable View should render properly 1`] = `
 }, {
   "name": "variable4"
 }
-    </p>
-    <div
-      class="main"
-    >
-      <div
-        class="text"
-      >
-        step.runTests.spec.resources.limits.memory
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
-        >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
-            >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </div>
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      128Mi
-    </p>
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.runTests.resources.spec.limits.cpu
-      </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
-      >
-        <span
-          class="bp3-popover-target"
+        <div
+          class="text variable-name-cell"
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
+          memory
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
           >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
             >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
               >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        128Mi
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
+    <div
+      class="variableListRow"
     >
-      0.2
-    </p>
+      <div
+        class="main"
+      >
+        <div
+          class="text variable-name-cell"
+        >
+          cpu
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        0.2
+      </p>
+    </div>
   </div>
 </div>
 `;

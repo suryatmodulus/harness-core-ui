@@ -44,6 +44,8 @@ export interface TriggerPathProps extends PipelinePathProps {
   triggerIdentifier: string
   triggerType?: string
   sourceRepo?: string
+  artifactType?: string
+  manifestType?: string
 }
 
 export interface ExecutionPathProps extends PipelinePathProps {

@@ -7,13 +7,14 @@ import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactor
 import type { CDPipelineModuleInfo, CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import { ServicePopoverCard } from '@cd/components/ServicePopoverCard/ServicePopoverCard'
+import { CardVariant } from '@pipeline/utils/constants'
 
 import css from './CDExecutionCardSummary.module.scss'
 
 const SERVICES_LIMIT = 5
 
 export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.ReactElement {
-  const { data, nodeMap, startingNodeId } = props
+  const { data, nodeMap, startingNodeId, variant } = props
   const serviceIdentifiers: string[] = ((data as CDPipelineModuleInfo)?.serviceIdentifiers as string[]) || []
   const [showMore, setShowMore] = React.useState(false)
   const servicesMap = React.useMemo(() => {
@@ -56,25 +57,35 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
           <Icon name="services" className={css.servicesIcon} size={16} />
           <div className={css.servicesList}>
             {items.map((identifier: string) => {
-              const service = servicesMap.get(identifier)
+              if (variant === CardVariant.Default) {
+                const service = servicesMap.get(identifier)
 
-              if (!service) return null
+                if (!service) return null
 
-              return (
-                <Popover
-                  key={identifier}
-                  wrapperTagName="div"
-                  targetTagName="div"
-                  interactionKind="hover"
-                  position={Position.BOTTOM_RIGHT}
-                  className={css.serviceWrapper}
-                >
-                  <div className={css.serviceName} onClick={killEvent}>
-                    {service.displayName}
+                return (
+                  <Popover
+                    key={identifier}
+                    wrapperTagName="div"
+                    targetTagName="div"
+                    interactionKind="hover"
+                    position={Position.BOTTOM_RIGHT}
+                    className={css.serviceWrapper}
+                  >
+                    <div className={css.serviceName} onClick={killEvent}>
+                      {service.displayName}
+                    </div>
+                    <ServicePopoverCard service={service} />
+                  </Popover>
+                )
+              } else {
+                return (
+                  <div className={css.serviceWrapper}>
+                    <div key={identifier} className={css.serviceName}>
+                      {identifier}
+                    </div>
                   </div>
-                  <ServicePopoverCard service={service} />
-                </Popover>
-              )
+                )
+              }
             })}
           </div>
           {hasMoreItems ? (

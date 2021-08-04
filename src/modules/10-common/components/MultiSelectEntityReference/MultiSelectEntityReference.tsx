@@ -391,7 +391,7 @@ export function MultiSelectEntityReference<T extends Identifier>(
             intent="primary"
             text={getString('entityReference.apply')}
             onClick={onSelect}
-            disabled={!checkedItems}
+            disabled={!checkedItems || checkedItems.total < 1}
           />
         </Layout.Horizontal>
         <Layout.Horizontal spacing={'small'}>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { NestedAccordionPanel } from '@wings-software/uicore'
-
+import cx from 'classnames'
 import type { PipelineInfrastructure, Infrastructure, ExecutionElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -11,6 +11,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 
 import { ExecutionCardPanel } from './ExecutionCard'
 import type { PipelineVariablesData } from '../types'
+import VariableAccordionSummary from '../VariableAccordionSummary'
 import css from '../PipelineVariables.module.scss'
 
 export interface InfrastructureCardProps {
@@ -40,7 +41,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
   return (
     <React.Fragment>
       <VariablesListTable
-        className={css.variablesTable}
+        className={cx(css.variablesTable, css.variablePaddingL2)}
         data={infrastructure.environment}
         originalData={originalInfrastructure.environment}
         metadataMap={metadataMap}
@@ -81,8 +82,9 @@ export function InfrastructureCardPanel(props: InfrastructureCardProps): React.R
       isDefaultOpen
       addDomId
       id={`Stage.${props.stageIdentifier}.Infrastructure`}
-      summary={getString('infrastructureText')}
+      summary={<VariableAccordionSummary>{getString('infrastructureText')}</VariableAccordionSummary>}
       panelClassName={css.panel}
+      summaryClassName={css.accordianSummaryL1}
       details={<InfrastructureCard {...props} />}
     />
   )

@@ -3977,10 +3977,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/uicore@0.1.338":
-  version "0.1.338"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.338/48c4e3ce0a450eb57451beba5eacbe5eed145f896dd525aabba65bef22aacf02#92ef0112ebeb47fa241f3d700c8cc9d5a6d6e7c1"
-  integrity sha512-pG8v7fHhUnfBoIHaqzTvxKRxe8PWJ/GjX14V0WK3v1mkNb3bg2rlNizT4avdrhaDxR1hA4kNv1PPMG4ZXJifEw==
+"@wings-software/uicore@0.1.340":
+  version "0.1.340"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.340/dfb49af613ddf19eff42f2044d3a22df667d0e92f927ff5cfb5b3c24a151ccec#eac7e4e385312004cb11eeb9920d08c28103eac3"
+  integrity sha512-MRLFbldL4CcFyGTZyxNpLxiUKBkiph6sWgvBoy6ILnlQrmK5oS8QMQGmMGVDgbxcP1HppiYPV+i/MwI3zoKHfw==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -9146,7 +9146,7 @@ ignore@^4.0.3, ignore@^4.0.6:
 ignore@^5.1.4:
   version "5.1.8"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.1.8.tgz#f150a8b50a34289b33e22f5889abd4d8016f0e57"
-  integrity "sha1-8VCotQo0KJsz4i9YiavU2AFvDlc= sha512-BMpfD7PpiETpBl/A6S498BaIJ6Y/ABT93ETbby2fP00v4EbvPBXWEoaR1UBPKs3iR53pJY7EtZk5KACI57i1Uw=="
+  integrity sha512-BMpfD7PpiETpBl/A6S498BaIJ6Y/ABT93ETbby2fP00v4EbvPBXWEoaR1UBPKs3iR53pJY7EtZk5KACI57i1Uw==
 
 image-ssim@^0.2.0:
   version "0.2.0"
@@ -15541,9 +15541,9 @@ tar-stream@^2.1.4:
     readable-stream "^3.1.1"
 
 tar@^6.0.2:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.0.tgz#d1724e9bcc04b977b18d5c573b333a2207229a83"
-  integrity sha512-DUCttfhsnLCjwoDoFcI+B2iJgYa93vBnDUATYEeRx6sntCTdN01VnqsIuTlALXla/LWooNg0yEGeB+Y8WdFxGA==
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/tar/-/tar-6.1.5.tgz#6e25bee1cfda94317aedc3f5d49290ae68361d73"
+  integrity sha512-FiK6MQyyaqd5vHuUjbg/NpO8BuEGeSXcmlH7Pt/JkugWS8s0w8nKybWjHDJiwzCAIKZ66uof4ghm4tBADjcqRA==
   dependencies:
     chownr "^2.0.0"
     fs-minipass "^2.0.0"
@@ -17258,7 +17258,7 @@ yallist@^3.0.2:
 yallist@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-4.0.0.tgz#9bb92790d9c0effec63be73519e11a35019a3a72"
-  integrity "sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI= sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A=="
+  integrity sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==
 
 yaml-ast-parser@^0.0.43:
   version "0.0.43"

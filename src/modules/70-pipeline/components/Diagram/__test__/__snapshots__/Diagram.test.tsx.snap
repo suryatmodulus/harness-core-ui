@@ -160,7 +160,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               </div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--color StyledProps--color-grey600 StyledProps--padding-small"
-                style="cursor: pointer; line-height: 1.6; overflow-wrap: break-word; --text-line-clamp: 2; width: 125px;"
+                style="cursor: pointer; line-height: 1.95; overflow-wrap: break-word; --text-line-clamp: 2; width: 125px;"
               >
                 Node 1
               </p>
@@ -384,7 +384,7 @@ exports[`Test Diagram App should test basic snapshot 1`] = `
               </div>
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-normal StyledProps--font-align-center StyledProps--color StyledProps--color-grey600 StyledProps--padding-small"
-                style="cursor: pointer; line-height: 1.6; overflow-wrap: break-word; --text-line-clamp: 2; width: 125px;"
+                style="cursor: pointer; line-height: 1.95; overflow-wrap: break-word; --text-line-clamp: 2; width: 125px;"
               >
                 Node 2
               </p>

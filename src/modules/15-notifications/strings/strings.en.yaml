@@ -4,8 +4,8 @@ titleSlack: Setup Slack Notifications
 titlePagerDuty: Setup PagerDuty Notifications
 helpPagerDuty: Enter the key for a PagerDuty Account/Service to which Harness can send notifications. You can copy/paste this key from PagerDuty's Configuration > Services > Service Details dialog > Integrations tab.
 infoPagerDuty: For more details, see PagerDutys documentation on Creating Integrations.
-helpSlack: You can receive Harness notifications in your Slack channels. You simply add a Slack Incoming Webhook into a Harness User Groups' Notification Settings.
-infoSlack: For more details, see Slack’s doucmentation Getting Started with Incoming Webhooks.
+helpSlack: You can receive Harness notifications in your Slack channels. You simply add a Slack Incoming Webhook into a Harness User Group's Notification Settings.
+infoSlack: For more details, see Slack’s documentation Getting Started with Incoming Webhooks.
 labelEmailUserGroups: Email all members of these user groups
 buttonSend: Send
 labelTo: To

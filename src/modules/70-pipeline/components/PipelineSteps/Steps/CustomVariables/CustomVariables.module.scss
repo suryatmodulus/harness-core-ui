@@ -1,8 +1,12 @@
 .custom-variables {
+  position: relative;
+
   .header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    display: inline-flex;
+    transform: translateY(-48px);
+    margin-left: 85%;
+    width: 200px;
+    height: 0;
   }
 
   .subHeader {
@@ -51,6 +55,26 @@
     grid-template-columns: repeat(2, minmax(10px, 1fr));
     align-items: baseline;
     margin-top: var(--spacing-small);
+    border-bottom: solid 1px var(--grey-200);
+    position: relative;
+    &:before {
+      position: absolute;
+      width: 100%;
+      bottom: -1px;
+      content: '';
+      border-bottom: solid 1px var(--grey-200);
+      height: 1px;
+      left: 100%;
+    }
+    &:after {
+      position: absolute;
+      width: 100%;
+      bottom: -1px;
+      content: '';
+      border-bottom: solid 1px var(--grey-200);
+      height: 1px;
+      right: 100%;
+    }
   }
 
   .actionButtons {
@@ -58,6 +82,7 @@
       margin-left: var(--spacing-small);
       border-radius: var(--spacing-xxlarge) !important;
       padding: 0 !important;
+      vertical-align: initial;
       :global {
         svg {
           height: 12px;

@@ -13,7 +13,7 @@ import css from './SelectArtifactModal.module.scss'
 interface SelectArtifactModalPropsInterface {
   isModalOpen: boolean
   isManifest: boolean
-  artifactTableData: any
+  artifactTableData?: any
   formikProps: any
   closeModal: () => void
   runtimeData: any
@@ -32,10 +32,13 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   artifactTableData,
   runtimeData
 }) => {
+  const { values } = formikProps
   const [selectedArtifactLabel, setSelectedArtifactLabel] = useState(undefined) // artifactLabel is unique
   const [selectedStage, setSelectedStage] = useState(undefined)
   const [selectedArtifact, setSelectedArtifact] = useState(undefined)
-  const [modalState, setModalState] = useState<ModalState>(ModalState.SELECT)
+  const [modalState, setModalState] = useState<ModalState>(
+    values?.artifactRef ? ModalState.RUNTIME_INPUT : ModalState.SELECT
+  )
   const { getString } = useStrings()
 
   const closeAndReset = () => {
@@ -43,6 +46,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     setSelectedArtifact(undefined)
     setSelectedArtifactLabel(undefined)
     setSelectedStage(undefined)
+    formikProps.setValues({ ...formikProps.values, stageId: undefined, artifactRef: undefined })
   }
 
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
@@ -57,7 +61,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
       enforceFocus={false}
       title={
         modalState === ModalState.SELECT
-          ? getString('pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact')
+          ? isManifest
+            ? getString('pipeline.triggers.artifactTriggerConfigPanel.selectAManifest')
+            : getString('pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact')
           : getString('pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs')
       }
       onClose={closeAndReset}

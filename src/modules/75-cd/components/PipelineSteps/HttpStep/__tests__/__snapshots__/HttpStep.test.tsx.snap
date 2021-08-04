@@ -166,7 +166,7 @@ exports[`Http Step edit mode works 1`] = `
         </div>
       </div>
       <div
-        class="noLookDivider"
+        class="divider"
       />
       <div
         class="formGroup"
@@ -1026,7 +1026,7 @@ exports[`Http Step renders runtime inputs 1`] = `
         </div>
       </div>
       <div
-        class="noLookDivider"
+        class="divider"
       />
       <div
         class="formGroup"
@@ -1525,7 +1525,7 @@ exports[`Http Step should render edit view as new step 1`] = `
         </div>
       </div>
       <div
-        class="noLookDivider"
+        class="divider"
       />
       <div
         class="formGroup"

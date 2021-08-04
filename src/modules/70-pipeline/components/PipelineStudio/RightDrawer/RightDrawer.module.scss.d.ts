@@ -7,6 +7,7 @@ declare const styles: {
   readonly discard: string
   readonly title: string
   readonly almostFullScreen: string
+  readonly showRighDrawer: string
   readonly fullScreen: string
   readonly almostFullScreenPortal: string
   readonly almostFullScreenCloseBtn: string

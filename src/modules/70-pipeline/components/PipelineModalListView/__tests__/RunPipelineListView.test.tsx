@@ -64,7 +64,7 @@ describe('PipelineModal List View', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText('noDeploymentText')).toBeTruthy())
+    await waitFor(() => expect(queryByText('pipeline.noDeploymentText')).toBeTruthy())
   })
 
   test('CI - render empty data', async () => {
@@ -81,7 +81,7 @@ describe('PipelineModal List View', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(queryByText('noBuildsText')).toBeTruthy())
+    await waitFor(() => expect(queryByText('pipeline.runModalNoPipelineText')).toBeTruthy())
   })
 
   test('render data with git sync enabled', async () => {

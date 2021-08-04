@@ -4,6 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import { DelegateTypes } from '@delegates/constants'
 import DelegateDetailsStep from '../DelegateDetailsStep'
 
+const mockFn = jest.fn()
 jest.mock('services/portal', () => ({
   useGetDelegateSizes: jest.fn().mockImplementation(() => {
     return {
@@ -35,7 +36,7 @@ describe('Delgate Details StepWizard', () => {
   test('Click continue button', async () => {
     const { container } = render(
       <TestWrapper>
-        <DelegateDetailsStep type={DelegateTypes.KUBERNETES_CLUSTER} name={'Step 1'} />
+        <DelegateDetailsStep type={DelegateTypes.KUBERNETES_CLUSTER} name={'Step 1'} onClick={mockFn} />
       </TestWrapper>
     )
     const step1ContinueButton = container?.querySelector('#step1ContinueButton')

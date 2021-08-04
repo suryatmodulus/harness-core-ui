@@ -142,136 +142,134 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.lg)}>
-                  <FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isNewStep}
-                    inputGroupProps={{ disabled: isDisabled }}
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                <FormInput.InputWithIdentifier
+                  inputLabel={getString('name')}
+                  isIdentifierEditable={isNewStep}
+                  inputGroupProps={{ disabled: isDisabled }}
+                />
+              </div>
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  disabled={isDisabled}
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, disabled: isDisabled }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('timeout', value)
+                    }}
+                    isReadonly={isDisabled}
                   />
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    disabled={isDisabled}
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, disabled: isDisabled }}
-                  />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('timeout', value)
-                      }}
-                      isReadonly={isDisabled}
-                    />
-                  )}
-                </div>
-                <div className={stepCss.noLookDivider} />
-                <div className={stepCss.formGroup}>
-                  <MultiTypeFieldSelector
-                    defaultValueToReset={defaultValueToReset}
-                    name={'spec.filePaths'}
-                    label={getString('common.git.filePath')}
-                  >
-                    <FieldArray
-                      name="spec.filePaths"
-                      render={arrayHelpers => (
-                        <Layout.Vertical>
-                          {(values?.spec?.filePaths as FilePathConfig[])?.map((path: FilePathConfig, index: number) => (
-                            <Layout.Horizontal
-                              key={path.id}
-                              flex={{ distribution: 'space-between' }}
-                              style={{ alignItems: 'end' }}
-                            >
-                              <FormInput.MultiTextInput
-                                label=""
-                                placeholder={getString('cd.filePathPlaceholder')}
-                                name={`spec.filePaths[${index}].value`}
-                                multiTextInputProps={{
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                                  expressions,
-                                  textProps: { disabled: isDisabled }
-                                }}
-                                disabled={isDisabled}
-                                style={{ width: '430px' }}
-                              />
-
-                              <Button
-                                minimal
-                                icon="main-trash"
-                                onClick={() => arrayHelpers.remove(index)}
-                                disabled={isDisabled}
-                              />
-                            </Layout.Horizontal>
-                          ))}
-                          <span>
-                            <Button
-                              minimal
-                              text={getString('addFileText')}
-                              intent="primary"
-                              onClick={() => {
-                                arrayHelpers.push({ value: '', id: uuid() })
+                )}
+              </div>
+              <div className={stepCss.divider} />
+              <div className={stepCss.formGroup}>
+                <MultiTypeFieldSelector
+                  defaultValueToReset={defaultValueToReset}
+                  name={'spec.filePaths'}
+                  label={getString('common.git.filePath')}
+                >
+                  <FieldArray
+                    name="spec.filePaths"
+                    render={arrayHelpers => (
+                      <Layout.Vertical>
+                        {(values?.spec?.filePaths as FilePathConfig[])?.map((path: FilePathConfig, index: number) => (
+                          <Layout.Horizontal
+                            key={path.id}
+                            flex={{ distribution: 'space-between' }}
+                            style={{ alignItems: 'end' }}
+                          >
+                            <FormInput.MultiTextInput
+                              label=""
+                              placeholder={getString('cd.filePathPlaceholder')}
+                              name={`spec.filePaths[${index}].value`}
+                              multiTextInputProps={{
+                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                expressions,
+                                textProps: { disabled: isDisabled }
                               }}
                               disabled={isDisabled}
+                              style={{ width: '430px' }}
                             />
-                          </span>
-                        </Layout.Vertical>
-                      )}
-                    />
-                  </MultiTypeFieldSelector>
-                </div>
 
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeCheckboxField
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                    disabled={isDisabled}
-                    multiTypeTextbox={{ expressions }}
+                            <Button
+                              minimal
+                              icon="main-trash"
+                              onClick={() => arrayHelpers.remove(index)}
+                              disabled={isDisabled}
+                            />
+                          </Layout.Horizontal>
+                        ))}
+                        <span>
+                          <Button
+                            minimal
+                            text={getString('addFileText')}
+                            intent="primary"
+                            onClick={() => {
+                              arrayHelpers.push({ value: '', id: uuid() })
+                            }}
+                            disabled={isDisabled}
+                          />
+                        </span>
+                      </Layout.Vertical>
+                    )}
                   />
-                  {getMultiTypeFromValue(values.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={(values.spec.skipDryRun || '') as string}
-                      type="String"
-                      variableName="spec.skipDryRun"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('spec.skipDryRun', value)
-                      }}
-                      isReadonly={isDisabled}
-                    />
-                  )}
-                </div>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeCheckboxField
-                    name="spec.skipSteadyStateCheck"
-                    disabled={isDisabled}
-                    label={getString('pipelineSteps.skipSteadyStateCheck')}
-                    multiTypeTextbox={{ expressions }}
+                </MultiTypeFieldSelector>
+              </div>
+
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormMultiTypeCheckboxField
+                  name="spec.skipDryRun"
+                  label={getString('pipelineSteps.skipDryRun')}
+                  disabled={isDisabled}
+                  multiTypeTextbox={{ expressions }}
+                />
+                {getMultiTypeFromValue(values.spec?.skipDryRun) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={(values.spec.skipDryRun || '') as string}
+                    type="String"
+                    variableName="spec.skipDryRun"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('spec.skipDryRun', value)
+                    }}
+                    isReadonly={isDisabled}
                   />
-                  {getMultiTypeFromValue(values.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={(values.spec.skipSteadyStateCheck || '') as string}
-                      type="String"
-                      variableName="spec.skipSteadyStateCheck"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('spec.skipSteadyStateCheck', value)
-                      }}
-                      isReadonly={isDisabled}
-                    />
-                  )}
-                </div>
-              </Layout.Vertical>
+                )}
+              </div>
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormMultiTypeCheckboxField
+                  name="spec.skipSteadyStateCheck"
+                  disabled={isDisabled}
+                  label={getString('pipelineSteps.skipSteadyStateCheck')}
+                  multiTypeTextbox={{ expressions }}
+                />
+                {getMultiTypeFromValue(values.spec?.skipSteadyStateCheck) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={(values.spec.skipSteadyStateCheck || '') as string}
+                    type="String"
+                    variableName="spec.skipSteadyStateCheck"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('spec.skipSteadyStateCheck', value)
+                    }}
+                    isReadonly={isDisabled}
+                  />
+                )}
+              </div>
             </>
           )
         }}
@@ -353,7 +351,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
 const K8sApplyVariableStep: React.FC<K8sApplyVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
   return (
     <VariablesListTable
-      className={stepCss.topSpacingLarge}
+      // className={stepCss.topSpacingLarge}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}

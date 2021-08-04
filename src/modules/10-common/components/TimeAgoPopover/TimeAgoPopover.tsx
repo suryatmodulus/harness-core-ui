@@ -1,16 +1,17 @@
 import React from 'react'
-import { Text, Popover, Container, TextProps, Layout, Color } from '@wings-software/uicore'
+import { Text, Popover, Container, TextProps, Layout, Color, IconName } from '@wings-software/uicore'
 import { Classes, IPopoverProps, PopoverInteractionKind, Position } from '@blueprintjs/core'
 
 import ReactTimeago from 'react-timeago'
 
 export interface TimeAgoPopoverProps extends TextProps, React.ComponentProps<typeof ReactTimeago> {
-  className?: string
   time: number
   popoverProps?: IPopoverProps
+  icon?: IconName
+  className?: string
 }
-const TimeAgoPopover: React.FC<TimeAgoPopoverProps> = props => {
-  const { time, popoverProps, iconProps, className, ...textProps } = props
+export const TimeAgoPopover: React.FC<TimeAgoPopoverProps> = props => {
+  const { time, popoverProps, icon, className, ...textProps } = props
   return (
     <Popover
       interactionKind={PopoverInteractionKind.HOVER}
@@ -18,8 +19,8 @@ const TimeAgoPopover: React.FC<TimeAgoPopoverProps> = props => {
       className={Classes.DARK}
       {...popoverProps}
     >
-      <Text inline {...textProps}>
-        <ReactTimeago date={time} live />
+      <Text inline {...textProps} icon={icon} className={className}>
+        <ReactTimeago date={time} live title={''} />
       </Text>
       <Container padding="medium">
         <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
@@ -42,5 +43,3 @@ const TimeAgoPopover: React.FC<TimeAgoPopoverProps> = props => {
     </Popover>
   )
 }
-
-export default TimeAgoPopover

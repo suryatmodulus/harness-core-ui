@@ -26,7 +26,6 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
 
         const metadata = metadataMap[value]
         const finalvalue = get(originalData, key)
-
         let formattedValue
 
         if (Array.isArray(finalvalue)) {
@@ -40,14 +39,16 @@ export function VariablesListTable<T>(props: VariableListTableProps<T>): React.R
         }
 
         if (isNil(metadata) || isNil(formattedValue)) return null
+        const variableNameParts = metadata.yamlProperties?.localName?.split('.') || []
+        const vairableName = variableNameParts[variableNameParts?.length - 1]
 
         return (
-          <React.Fragment key={key}>
-            <CopyText textToCopy={toVariableStr(metadata.yamlProperties?.fqn || '')}>
-              {metadata.yamlProperties?.localName}
+          <div key={key} className={css.variableListRow}>
+            <CopyText className="variable-name-cell" textToCopy={toVariableStr(metadata.yamlProperties?.fqn || '')}>
+              {vairableName}
             </CopyText>
             <Text lineClamp={1}>{formattedValue.toString()}</Text>
-          </React.Fragment>
+          </div>
         )
       })}
     </div>

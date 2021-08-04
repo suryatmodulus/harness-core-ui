@@ -41,6 +41,7 @@ export interface Account {
   licenseInfo?: LicenseInfo
   localEncryptionEnabled?: boolean
   migratedToClusterUrl?: string
+  nextGenEnabled?: boolean
   oauthEnabled?: boolean
   povAccount?: boolean
   serviceAccountConfig?: ServiceAccountConfig
@@ -60,6 +61,7 @@ export interface AccountDTO {
   defaultExperience?: 'NG' | 'CG'
   identifier?: string
   name?: string
+  nextGenEnabled?: boolean
   serviceAccountConfig?: ServiceAccountConfig
 }
 
@@ -328,11 +330,6 @@ export interface ArtifactConfig {
   [key: string]: any
 }
 
-export interface ArtifactDetails {
-  artifactId?: string
-  tag?: string
-}
-
 export interface ArtifactListConfig {
   metadata?: string
   primary?: PrimaryArtifact
@@ -408,6 +405,11 @@ export interface AuthenticationSettingsResponse {
   ngAuthSettings?: NGAuthSettings[]
   twoFactorEnabled?: boolean
   whitelistedDomains?: string[]
+}
+
+export interface AuthorInfo {
+  name?: string
+  url?: string
 }
 
 export interface AwsCodeCommitAuthenticationDTO {
@@ -1009,10 +1011,10 @@ export interface CrossAccountAccess {
   externalId?: string
 }
 
-export interface DashboardDeploymentActiveFailedRunningInfo {
-  active?: DeploymentStatusInfo[]
-  failure?: DeploymentStatusInfo[]
-  pending?: DeploymentStatusInfo[]
+export interface DashboardExecutionStatusInfo {
+  active?: ExecutionStatusInfo[]
+  failure?: ExecutionStatusInfo[]
+  pending?: ExecutionStatusInfo[]
 }
 
 export interface DashboardWorkloadDeployment {
@@ -1029,6 +1031,11 @@ export type DatadogConnectorDTO = ConnectorConfigDTO & {
 export interface DelegateConfiguration {
   action?: 'SELF_DESTRUCT'
   delegateVersions?: string[]
+}
+
+export interface DelegateMetaInfo {
+  hostName?: string
+  id?: string
 }
 
 export interface DelegateProfileDetailsNg {
@@ -1098,16 +1105,6 @@ export type DeploymentStageConfig = StageInfoConfig & {
   execution: ExecutionElementConfig
   infrastructure: PipelineInfrastructure
   serviceConfig: ServiceConfig
-}
-
-export interface DeploymentStatusInfo {
-  endTs?: number
-  name?: string
-  pipelineIdentifier?: string
-  planExecutionId?: string
-  serviceInfoList?: ServiceDeploymentInfo[]
-  startTs?: number
-  status?: string
 }
 
 export interface DockerAuthCredentialsDTO {
@@ -1435,6 +1432,7 @@ export interface Error {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1666,6 +1664,19 @@ export interface ExecutionElementConfig {
   steps: ExecutionWrapperConfig[]
 }
 
+export interface ExecutionStatusInfo {
+  author?: AuthorInfo
+  endTs?: number
+  gitInfo?: GitInfo
+  pipelineIdentifier?: string
+  pipelineName?: string
+  planExecutionId?: string
+  serviceInfoList?: ServiceDeploymentInfo[]
+  startTs?: number
+  status?: string
+  triggerType?: string
+}
+
 export interface ExecutionTarget {
   connectorRef?: string
   host?: string
@@ -1762,6 +1773,7 @@ export interface Failure {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -2030,6 +2042,7 @@ export interface GatewayAccountRequestDTO {
   accountName?: string
   companyName?: string
   createdFromNG?: boolean
+  nextGenEnabled?: boolean
   uuid?: string
 }
 
@@ -2206,6 +2219,15 @@ export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
   passwordRef: string
   username?: string
   usernameRef?: string
+}
+
+export interface GitInfo {
+  commit?: string
+  commitID?: string
+  eventType?: string
+  repoName?: string
+  sourceBranch?: string
+  targetBranch?: string
 }
 
 export type GitLabStore = StoreConfig & {
@@ -2598,6 +2620,10 @@ export interface InfrastructureDef {
   type: 'KubernetesDirect' | 'KubernetesGcp'
 }
 
+export interface InfrastructureDetails {
+  [key: string]: any
+}
+
 export type InlineTerraformBackendConfigSpec = TerraformBackendConfigSpec & {
   content?: string
 }
@@ -2628,43 +2654,21 @@ export interface InstanceCountDetailsByEnvTypeBase {
   totalInstances?: number
 }
 
-export interface InstanceDTO {
-  accountIdentifier?: string
-  connectorRef?: string
-  createdAt?: number
-  deleted?: boolean
-  deletedAt?: number
-  envId?: string
-  envName?: string
-  envType?: 'PreProduction' | 'Production'
-  infraMappingType?: string
-  infrastructureMappingId?: string
-  instanceInfoDTO?: InstanceInfoDTO
-  instanceKey?: string
-  instanceType?:
-    | 'PHYSICAL_HOST_INSTANCE'
-    | 'EC2_CLOUD_INSTANCE'
-    | 'GCP_CLOUD_INSTANCE'
-    | 'ECS_CONTAINER_INSTANCE'
-    | 'KUBERNETES_CONTAINER_INSTANCE'
-    | 'PCF_INSTANCE'
-    | 'AZURE_VMSS_INSTANCE'
-    | 'AZURE_WEB_APP_INSTANCE'
-  lastDeployedAt?: number
-  lastDeployedById?: string
-  lastDeployedByName?: string
-  lastModifiedAt?: number
-  lastPipelineExecutionId?: string
-  lastPipelineExecutionName?: string
-  orgIdentifier?: string
-  primaryArtifact?: ArtifactDetails
-  projectIdentifier?: string
-  serviceId?: string
-  serviceName?: string
+export interface InstanceDetailsByBuildId {
+  buildId?: string
+  instances?: InstanceDetailsDTO[]
 }
 
-export interface InstanceInfoDTO {
-  [key: string]: any
+export interface InstanceDetailsDTO {
+  artifactName?: string
+  connectorRef?: string
+  deployedAt?: number
+  deployedById?: string
+  deployedByName?: string
+  infrastructureDetails?: InfrastructureDetails
+  pipelineExecutionName?: string
+  podName?: string
+  terraformInstance?: string
 }
 
 export interface InstanceSelectionBase {
@@ -2676,13 +2680,13 @@ export interface InstanceSelectionWrapper {
   type?: 'Count' | 'Percentage'
 }
 
-export interface InstancesByBuildId {
-  buildId?: string
-  instances?: InstanceDTO[]
+export interface InstanceSyncPerpetualTaskResponse {
+  delegateMetaInfo?: DelegateMetaInfo
+  serverInstanceDetails?: ServerInstanceInfo[]
 }
 
 export interface InstancesByBuildIdList {
-  instancesByBuildIdList?: InstancesByBuildId[]
+  instancesByBuildIdList?: InstanceDetailsByBuildId[]
 }
 
 export interface Invite {
@@ -2877,6 +2881,11 @@ export type K8sGcpInfrastructure = Infrastructure & {
   metadata?: string
   namespace: string
   releaseName: string
+}
+
+export type K8sInfrastructureDetails = InfrastructureDetails & {
+  namespace?: string
+  releaseName?: string
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -3727,6 +3736,7 @@ export interface PipelineInfoConfig {
   tags?: {
     [key: string]: string
   }
+  timeout?: string
   variables?: NGVariable[]
 }
 
@@ -3978,9 +3988,9 @@ export interface ResponseCreatePRDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface ResponseDashboardDeploymentActiveFailedRunningInfo {
+export interface ResponseDashboardExecutionStatusInfo {
   correlationId?: string
-  data?: DashboardDeploymentActiveFailedRunningInfo
+  data?: DashboardExecutionStatusInfo
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4431,6 +4441,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -5425,6 +5436,10 @@ export interface SecretValidationResultDTO {
   success?: boolean
 }
 
+export interface ServerInstanceInfo {
+  [key: string]: any
+}
+
 export interface ServiceAccountAggregateDTO {
   createdAt: number
   lastModifiedAt: number
@@ -5496,6 +5511,7 @@ export interface ServiceDetailsDTO {
   failureRateChangeRate?: number
   frequency?: number
   frequencyChangeRate?: number
+  instanceCountDetails?: InstanceCountDetailsByEnvTypeBase
   lastPipelineExecuted?: ServicePipelineInfo
   serviceIdentifier?: string
   serviceName?: string
@@ -6313,9 +6329,9 @@ export type ProjectRequestRequestBody = ProjectRequest
 
 export type ScopingRuleDetailsNgArrayRequestBody = ScopingRuleDetailsNg[]
 
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
+export type SecretRequestWrapperRequestBody = void
 
-export type SecretRequestWrapper2RequestBody = void
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
 
 export type ServiceAccountDTORequestBody = ServiceAccountDTO
 
@@ -10914,7 +10930,7 @@ export interface GetDeploymentsQueryParams {
 }
 
 export type GetDeploymentsProps = Omit<
-  GetProps<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>,
+  GetProps<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>,
   'path'
 >
 
@@ -10922,7 +10938,7 @@ export type GetDeploymentsProps = Omit<
  * Get deployments
  */
 export const GetDeployments = (props: GetDeploymentsProps) => (
-  <Get<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>
+  <Get<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>
     path={`/dashboard/getDeployments`}
     base={getConfig('ng/api')}
     {...props}
@@ -10930,7 +10946,7 @@ export const GetDeployments = (props: GetDeploymentsProps) => (
 )
 
 export type UseGetDeploymentsProps = Omit<
-  UseGetProps<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>,
+  UseGetProps<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>,
   'path'
 >
 
@@ -10938,7 +10954,7 @@ export type UseGetDeploymentsProps = Omit<
  * Get deployments
  */
 export const useGetDeployments = (props: UseGetDeploymentsProps) =>
-  useGet<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>(
+  useGet<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>(
     `/dashboard/getDeployments`,
     { base: getConfig('ng/api'), ...props }
   )
@@ -10947,15 +10963,10 @@ export const useGetDeployments = (props: UseGetDeploymentsProps) =>
  * Get deployments
  */
 export const getDeploymentsPromise = (
-  props: GetUsingFetchProps<
-    ResponseDashboardDeploymentActiveFailedRunningInfo,
-    Failure | Error,
-    GetDeploymentsQueryParams,
-    void
-  >,
+  props: GetUsingFetchProps<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseDashboardDeploymentActiveFailedRunningInfo, Failure | Error, GetDeploymentsQueryParams, void>(
+  getUsingFetch<ResponseDashboardExecutionStatusInfo, Failure | Error, GetDeploymentsQueryParams, void>(
     getConfig('ng/api'),
     `/dashboard/getDeployments`,
     props,
@@ -11398,7 +11409,7 @@ export interface GetServiceDeploymentsQueryParams {
   projectIdentifier: string
   startTime: number
   endTime: number
-  serviceIdentiier?: string
+  serviceId?: string
   bucketSizeInDays?: number
 }
 
@@ -11452,7 +11463,7 @@ export interface GetServiceDeploymentsInfoQueryParams {
   projectIdentifier: string
   startTime: number
   endTime: number
-  serviceIdentiier?: string
+  serviceId?: string
   bucketSizeInDays?: number
 }
 
@@ -12134,6 +12145,9 @@ export interface ListReferredByEntitiesQueryParams {
     | 'FeatureFlagStage'
     | 'Triggers'
   searchTerm?: string
+  branch?: string
+  repoIdentifier?: string
+  getDefaultFromOtherRepo?: boolean
 }
 
 export type ListReferredByEntitiesProps = Omit<
@@ -21512,7 +21526,7 @@ export type PostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -21522,7 +21536,7 @@ export type PostSecretProps = Omit<
  * Create a secret
  */
 export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
     verb="POST"
     path={`/v2/secrets`}
     base={getConfig('ng/api')}
@@ -21535,7 +21549,7 @@ export type UsePostSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   'path' | 'verb'
@@ -21549,7 +21563,7 @@ export const usePostSecret = (props: UsePostSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
 
@@ -21561,7 +21575,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -21570,7 +21584,7 @@ export const postSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
 
@@ -21888,7 +21902,7 @@ export type PostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -21902,7 +21916,7 @@ export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >
     verb="POST"
@@ -21917,7 +21931,7 @@ export type UsePostSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   'path' | 'verb'
@@ -21931,7 +21945,7 @@ export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
 
@@ -21943,7 +21957,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -21952,7 +21966,7 @@ export const postSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     void
   >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
 
@@ -22087,7 +22101,7 @@ export type PutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -22102,7 +22116,7 @@ export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >
     verb="PUT"
@@ -22117,7 +22131,7 @@ export type UsePutSecretProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >,
   'path' | 'verb'
@@ -22132,7 +22146,7 @@ export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
     base: getConfig('ng/api'),
@@ -22151,7 +22165,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -22160,7 +22174,7 @@ export const putSecretPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
+    SecretRequestWrapper2RequestBody,
     PutSecretPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
 
@@ -22179,7 +22193,7 @@ export type PutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -22194,7 +22208,7 @@ export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >
     verb="PUT"
@@ -22209,7 +22223,7 @@ export type UsePutSecretViaYamlProps = Omit<
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >,
   'path' | 'verb'
@@ -22224,7 +22238,7 @@ export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYam
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
     base: getConfig('ng/api'),
@@ -22243,7 +22257,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
@@ -22252,7 +22266,7 @@ export const putSecretViaYamlPromise = (
     ResponseSecretResponseWrapper,
     Failure | Error,
     PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
+    SecretRequestWrapperRequestBody,
     PutSecretViaYamlPathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
+exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -40,14 +40,12 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                       class="bp3-popover-target"
                     >
                       <div
-                        class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                        class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
                       >
                         <span
                           class="bp3-editable-text-content"
                           style="height: 1px; line-height: 1px; min-width: 0;"
-                        >
-                          test
-                        </span>
+                        />
                       </div>
                     </span>
                   </span>
@@ -83,7 +81,7 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                         name="name"
                         placeholder="common.namePlaceholder"
                         type="text"
-                        value="test"
+                        value=""
                       />
                     </div>
                   </div>
@@ -164,7 +162,7 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                 style="display: inline-block; width: 100%;"
               >
                 <div
-                  class="table table readonly"
+                  class="table table appliedArtifact"
                 >
                   <div
                     class="header"
@@ -176,7 +174,7 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                       role="columnheader"
                       style="width: 25%;"
                     >
-                      PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.ARTIFACT
+                      MANIFESTSTEXT
                     </div>
                     <div
                       class="cell"
@@ -190,7 +188,7 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                       class="cell"
                       colspan="1"
                       role="columnheader"
-                      style="width: 20%;"
+                      style="width: 18%;"
                     >
                       COMMON.LOCATION
                     </div>
@@ -200,15 +198,7 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                       role="columnheader"
                       style="width: 10%;"
                     >
-                      VERSION
-                    </div>
-                    <div
-                      class="cell"
-                      colspan="1"
-                      role="columnheader"
-                      style="width: 10%;"
-                    >
-                      PIPELINE.TRIGGERS.ARTIFACTTRIGGERCONFIGPANEL.HASRUNTIMEINPUTS
+                       
                     </div>
                   </div>
                   <div
@@ -228,7 +218,9 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                         >
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                          />
+                          >
+                            stage: s3manifestid
+                          </p>
                         </div>
                       </div>
                       <div
@@ -241,13 +233,15 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                         >
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                          />
+                          >
+                            pipeline.triggers.artifactTriggerConfigPanel.runtimeInput
+                          </p>
                         </div>
                       </div>
                       <div
                         class="cell"
                         role="cell"
-                        style="width: 20%;"
+                        style="width: 18%;"
                       >
                         <div
                           class="Layout--horizontal StyledProps--main"
@@ -255,7 +249,7 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                           <p
                             class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
                           >
-                            pipeline.triggers.artifactTriggerConfigPanel.parameterized
+                            chartPath
                           </p>
                         </div>
                       </div>
@@ -266,25 +260,32 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
                       >
                         <div
                           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                          style="justify-content: center;"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
-                          />
-                        </div>
-                      </div>
-                      <div
-                        class="cell"
-                        role="cell"
-                        style="width: 10%;"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                        >
-                          <p
-                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black"
+                          <button
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            type="button"
                           >
-                            No
-                          </p>
+                            <span
+                              class="bp3-icon bp3-icon-edit StyledProps--main"
+                              icon="edit"
+                            >
+                              <svg
+                                data-icon="edit"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  edit
+                                </desc>
+                                <path
+                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -323,7 +324,7 @@ exports[`Artifact Trigger Config Panel  tests edit render 1`] = `
 </div>
 `;
 
-exports[`Artifact Trigger Config Panel  tests inital Render 1`] = `
+exports[`Artifact Trigger Config Panel  tests Renders/snapshots inital Render 1`] = `
 <div>
   <div
     class="OverlaySpinner--overlaySpinner"
@@ -363,15 +364,13 @@ exports[`Artifact Trigger Config Panel  tests inital Render 1`] = `
                       class="bp3-popover-target"
                     >
                       <div
-                        class="bp3-editable-text InputWithIdentifier--idValue"
+                        class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
                         tabindex="0"
                       >
                         <span
                           class="bp3-editable-text-content"
                           style="height: 1px; line-height: 1px; min-width: 0;"
-                        >
-                          test
-                        </span>
+                        />
                       </div>
                     </span>
                   </span>
@@ -427,7 +426,7 @@ exports[`Artifact Trigger Config Panel  tests inital Render 1`] = `
                         name="name"
                         placeholder="common.namePlaceholder"
                         type="text"
-                        value="test"
+                        value=""
                       />
                     </div>
                   </div>
@@ -507,14 +506,14 @@ exports[`Artifact Trigger Config Panel  tests inital Render 1`] = `
                 class="Label--main"
                 style="font-size: 13px; font-weight: normal;"
               >
-                pipeline.triggers.artifactTriggerConfigPanel.artifact
+                manifestsText
               </label>
               <p
                 class="StyledProps--font StyledProps--main"
                 data-name="plusAdd"
                 style="cursor: pointer; width: 130px;"
               >
-                pipeline.triggers.artifactTriggerConfigPanel.plusSelectArtifact
+                pipeline.triggers.artifactTriggerConfigPanel.plusSelect
               </p>
             </section>
           </div>

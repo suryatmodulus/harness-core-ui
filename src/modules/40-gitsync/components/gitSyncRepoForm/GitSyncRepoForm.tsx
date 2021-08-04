@@ -36,10 +36,16 @@ import {
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { shouldShowError } from '@common/utils/errorUtils'
-import { ConnectorCardInterface, getCompleteGitPath, getRepoPath, gitCards } from '@gitsync/common/gitSyncUtils'
+import {
+  ConnectorCardInterface,
+  getCompleteGitPath,
+  getRepoPath,
+  getHarnessFolderPathWithSuffix,
+  gitCards
+} from '@gitsync/common/gitSyncUtils'
 import { NameId } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
-import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
+import { HARNESS_FOLDER_NAME_PLACEHOLDER, HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { getScopeFromDTO, ScopedObjectDTO } from '@common/components/EntityReference/EntityReference'
 import css from './GitSyncRepoForm.module.scss'
 
@@ -222,8 +228,10 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
               branch: Yup.string().trim().required(getString('validation.branchName')),
               rootfolder: Yup.string()
                 .trim()
-                .required(getString('validation.nameRequired'))
-                .matches(StringUtils.regexName, getString('common.validation.namePatternIsNotValid'))
+                .matches(
+                  StringUtils.HarnessFolderName,
+                  getString('common.validation.harnessFolderNamePatternIsNotValid')
+                )
             })}
             onSubmit={formData => {
               const gitSyncRepoData = {
@@ -231,7 +239,7 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                 gitConnectorRef: (formData.gitConnector as ConnectorSelectedValue)?.value,
                 gitSyncFolderConfigDTOs: [
                   {
-                    rootFolder: formData.rootfolder.concat(HARNESS_FOLDER_SUFFIX),
+                    rootFolder: getHarnessFolderPathWithSuffix(formData.rootfolder.trim(), HARNESS_FOLDER_SUFFIX),
                     isDefault: true
                   }
                 ],
@@ -314,7 +322,6 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         nameLabel={getString('common.git.selectRepoLabel')}
                       />
                     </Container>
-
                     <ConnectorReferenceField
                       name="gitConnector"
                       width={350}
@@ -346,7 +353,6 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         setTestStatus(TestStatus.NOT_INITIATED)
                       }}
                     />
-
                     <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing="medium">
                       <Layout.Vertical>
                         <FormInput.Text
@@ -402,27 +408,24 @@ const GitSyncRepoForm: React.FC<ModalConfigureProps & GitSyncRepoFormProps> = pr
                         </Container>
                       ) : null}
                     </Layout.Horizontal>
-
                     <FormInput.Text
                       className={cx(css.placeholder, { [css.noSpacing]: formValues.rootfolder })}
                       name="rootfolder"
                       label={getString('gitsync.selectHarnessFolder')}
-                      placeholder={HARNESS_FOLDER_SUFFIX}
+                      placeholder={HARNESS_FOLDER_NAME_PLACEHOLDER}
                     />
-                    {formValues.rootfolder ? (
-                      <Text
-                        padding={{ top: 'xsmall', bottom: 'medium' }}
-                        color={Color.GREY_250}
-                        style={{
-                          overflow: 'hidden',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap'
-                        }}
-                        title={getCompleteGitPath(formValues.repo, formValues.rootfolder, HARNESS_FOLDER_SUFFIX)}
-                      >
-                        {getCompleteGitPath(formValues.repo, formValues.rootfolder, HARNESS_FOLDER_SUFFIX)}
-                      </Text>
-                    ) : null}
+                    <Text
+                      padding={{ top: 'xsmall', bottom: 'medium' }}
+                      color={Color.GREY_250}
+                      style={{
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        whiteSpace: 'nowrap'
+                      }}
+                      title={getCompleteGitPath(formValues.repo, formValues.rootfolder, HARNESS_FOLDER_SUFFIX)}
+                    >
+                      {getCompleteGitPath(formValues.repo, formValues.rootfolder, HARNESS_FOLDER_SUFFIX)}
+                    </Text>
                     <Layout.Horizontal>
                       <FormInput.Select
                         name="branch"

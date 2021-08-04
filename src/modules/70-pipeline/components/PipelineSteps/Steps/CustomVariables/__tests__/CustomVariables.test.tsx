@@ -57,14 +57,13 @@ describe('Custom Variables', () => {
     act(() => {
       fireEvent.change(name!, { target: { value: 'myVar' } })
     })
-
-    const save = await findByTextGlobal(document.body, 'save')
+    const saveButton = await findByTextGlobal(document.body.querySelector('.bp3-dialog')!, 'save')
 
     act(() => {
-      fireEvent.click(save)
+      fireEvent.click(saveButton)
     })
 
-    await waitFor(() => findByText('customVariables.variableAndType', { selector: 'span' }))
+    await waitFor(() => findByText('myVar'))
 
     const value = queryByAttribute('name', container, 'variables[0].value')
 

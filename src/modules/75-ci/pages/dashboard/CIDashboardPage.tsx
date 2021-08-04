@@ -1,22 +1,48 @@
 import React, { useState } from 'react'
 import { Container, Text } from '@wings-software/uicore'
 import { useParams, useHistory } from 'react-router-dom'
+import { camelCase } from 'lodash-es'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetBuilds, useGetRepositoryBuild } from 'services/ci'
+import { BuildActiveInfo, BuildFailureInfo, CIWebhookInfoDTO, useGetBuilds, useGetRepositoryBuild } from 'services/ci'
 import { useStrings } from 'framework/strings'
 import CIDashboardSummaryCards from '@pipeline/components/Dashboards/CIDashboardSummaryCards/CIDashboardSummaryCards'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
-import FailedBuildCard from '@pipeline/components/Dashboards/BuildCards/FailedBuildCard'
-import ActiveBuildCard from '@pipeline/components/Dashboards/BuildCards/ActiveBuildCard'
 import BuildExecutionsChart from '@pipeline/components/Dashboards/BuildExecutionsChart/BuildExecutionsChart'
 import RepositoryCard from '@pipeline/components/Dashboards/BuildCards/RepositoryCard'
 import RangeSelector from '@pipeline/components/Dashboards/RangeSelector'
 import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageHeader } from '@common/components/Page/PageHeader'
+import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
+import { CardVariant } from '@pipeline/utils/constants'
+import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import styles from './CIDashboardPage.module.scss'
+
+function buildInfoToExecutionSummary(buildInfo: BuildActiveInfo | BuildFailureInfo): PipelineExecutionSummary {
+  const ciExecutionInfoDTO: CIWebhookInfoDTO = {
+    author: buildInfo.author,
+    branch: { name: buildInfo.branch, commits: [{ message: buildInfo.commit, id: buildInfo.commitID }] }
+  }
+
+  return {
+    startTs: buildInfo.startTs,
+    endTs: typeof buildInfo.endTs === 'number' && buildInfo.endTs > 0 ? buildInfo.endTs : undefined,
+    name: buildInfo.piplineName,
+    status: (buildInfo.status
+      ? buildInfo.status.charAt(0).toUpperCase() + camelCase(buildInfo.status).slice(1)
+      : '') as any,
+    planExecutionId: (buildInfo as any).planExecutionId, // TODO: fix once BE changes are merged
+    pipelineIdentifier: buildInfo.pipelineIdentifier,
+    moduleInfo: {
+      ci: {
+        ciExecutionInfoDTO,
+        branch: buildInfo.branch as any
+      }
+    }
+  }
+}
 
 export const CIDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -101,16 +127,10 @@ export const CIDashboardPage: React.FC = () => {
             }
           >
             {data?.data?.failed?.map((build, index) => (
-              <FailedBuildCard
+              <ExecutionCard
                 key={index}
-                title={build.piplineName!}
-                message={build.commit!}
-                branchName={build.branch}
-                commitId={build.commitID}
-                startTime={build.startTs}
-                endTime={build.endTs}
-                username={(build as any)?.author?.name}
-                avatarUrl={(build as any)?.author?.url}
+                variant={CardVariant.Minimal}
+                pipelineExecution={buildInfoToExecutionSummary(build)}
               />
             ))}
           </CardRailView>
@@ -128,7 +148,11 @@ export const CIDashboardPage: React.FC = () => {
             }
           >
             {data?.data?.active?.map((build, index) => (
-              <ActiveBuildCard key={index} title={build.piplineName!} message={build.commit!} status={build.status} />
+              <ExecutionCard
+                key={index}
+                variant={CardVariant.Minimal}
+                pipelineExecution={buildInfoToExecutionSummary(build)}
+              />
             ))}
           </CardRailView>
         </Container>

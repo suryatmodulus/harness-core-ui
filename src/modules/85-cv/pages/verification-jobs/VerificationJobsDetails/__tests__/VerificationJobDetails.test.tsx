@@ -220,8 +220,8 @@ describe('VerificationJobsDetails', () => {
 
     // select data source
     fireEvent.click(dataSourceField)
-    await waitFor(() => expect(container.querySelector('[class*="MultiSelect--menuItem"]')).not.toBeNull())
-    const menuItems = container.querySelectorAll('[class*="MultiSelect--menuItem"]')
+    await waitFor(() => expect(container.querySelector('[class*="MultiSelect--menuItemLabel"]')).not.toBeNull())
+    const menuItems = container.querySelectorAll('[class*="MultiSelect--menuItemLabel"]')
     expect(menuItems.length).toBe(4)
 
     fireEvent.click(menuItems[1])

@@ -4,6 +4,7 @@ declare const styles: {
   readonly groupLayer: string
   readonly header: string
   readonly addNode: string
+  readonly labelTooltip: string
   readonly conditional: string
 }
 export default styles

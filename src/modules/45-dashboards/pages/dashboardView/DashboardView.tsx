@@ -14,10 +14,12 @@ import css from './DashboardView.module.scss'
 const DASHBOARDS_ORIGIN = 'https://dashboards.harness.io'
 const DashboardViewPage: React.FC = () => {
   const { getString } = useStrings()
+
   const { accountId, viewId, folderId } = useParams<AccountPathProps & { viewId: string; folderId: string }>()
   const [embedUrl, setEmbedUrl] = React.useState('')
   const [iframeState] = React.useState(0)
   const history = useHistory()
+  const query = location.href.split('?')[1]
 
   const {
     mutate: createSignedUrl,
@@ -26,7 +28,10 @@ const DashboardViewPage: React.FC = () => {
   } = useMutate({
     verb: 'POST',
     path: 'dashboard/v1/signedUrl',
-    queryParams: { accountId: accountId, src: `/embed/dashboards-next/${viewId}?embed_domain=` + location?.host }
+    queryParams: {
+      accountId: accountId,
+      src: `/embed/dashboards-next/${viewId}?embed_domain=` + location?.host + '&' + query
+    }
   })
 
   const generateSignedUrl = async () => {

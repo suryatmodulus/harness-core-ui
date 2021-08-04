@@ -13,11 +13,6 @@ export const GitSourceProviders: Record<string, { value: string; iconName: IconN
   CUSTOM: { value: 'Custom', iconName: 'build' }
 }
 
-export const ArtifactSourceProviders: Record<string, { value: string; iconName: IconName }> = {
-  NewArtifact: { value: 'NewArtifact', iconName: 'new-artifact' },
-  NewManifest: { value: 'NewManifest', iconName: 'new-artifact' }
-}
-
 const TriggerTypeIcons = {
   SCHEDULE: 'trigger-schedule',
   NEW_ARTIFACT: 'new-artifact'
@@ -51,17 +46,6 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
 
   categories: [
     {
-      categoryLabel: getString('pipeline.triggers.scheduledLabel'),
-      categoryValue: 'Scheduled',
-      items: [
-        {
-          itemLabel: getString('pipeline.triggers.cronLabel'),
-          value: 'Cron',
-          iconName: TriggerTypeIcons.SCHEDULE as IconName
-        }
-      ]
-    },
-    {
       categoryLabel: getString('execution.triggerType.WEBHOOK'),
       categoryValue: 'Webhook',
       items: [
@@ -91,6 +75,17 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
           iconName: GitSourceProviders.CUSTOM.iconName
         }
       ]
+    },
+    {
+      categoryLabel: getString('pipeline.triggers.scheduledLabel'),
+      categoryValue: 'Scheduled',
+      items: [
+        {
+          itemLabel: getString('pipeline.triggers.cronLabel'),
+          value: 'Cron',
+          iconName: TriggerTypeIcons.SCHEDULE as IconName
+        }
+      ]
     }
   ]
 })
@@ -118,7 +113,8 @@ export interface ItemInterface {
 export interface TriggerDataInterface {
   triggerType: string
   sourceRepo?: string
-  // all else optional
+  manifestType?: string
+  artifactType?: string
 }
 
 export const getEnabledStatusTriggerValues = ({

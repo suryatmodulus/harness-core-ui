@@ -160,7 +160,7 @@ function TerraformPlanWidget(
                 )}
               </div>
 
-              <div className={stepCss.noLookDivider} />
+              <div className={stepCss.divider} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.RadioGroup

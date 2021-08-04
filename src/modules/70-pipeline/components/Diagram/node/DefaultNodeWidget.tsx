@@ -277,7 +277,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       <Text
         font={{ size: 'normal', align: 'center' }}
         color={options.selected ? Color.GREY_900 : Color.GREY_600}
-        style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'break-word' }}
+        style={{ cursor: 'pointer', lineHeight: '1.95', overflowWrap: 'break-word' }}
         padding={'small'}
         width={125}
         lineClamp={2}

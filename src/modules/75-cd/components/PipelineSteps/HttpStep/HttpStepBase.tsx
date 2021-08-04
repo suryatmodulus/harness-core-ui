@@ -67,7 +67,7 @@ export default function HttpStepBase(props: {
         )}
       </div>
 
-      <div className={stepCss.noLookDivider} />
+      <div className={stepCss.divider} />
 
       <div className={stepCss.formGroup}>
         <FormInput.MultiTextInput

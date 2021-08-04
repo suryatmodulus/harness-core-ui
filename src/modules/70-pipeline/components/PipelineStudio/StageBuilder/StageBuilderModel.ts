@@ -115,7 +115,7 @@ export class StageBuilderModel extends DiagramModel {
             id: node.stage.identifier,
             customNodeStyle: {
               // Without this doesn't look straight
-              marginTop: '2.5px',
+              marginTop: '1px',
               ...getCommonStyles(isSelected)
             },
             name: node.stage.name,

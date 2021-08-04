@@ -21,8 +21,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
       Object {
         "icon": "cf-main",
         "navComponent": [Function],
-        "subtitle": "CONTINUOUS",
-        "title": "Features",
+        "title": "Feature Flags",
       }
     }
   >
@@ -47,8 +46,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
       Object {
         "icon": "cf-main",
         "navComponent": [Function],
-        "subtitle": "CONTINUOUS",
-        "title": "Features",
+        "title": "Feature Flags",
       }
     }
   >
@@ -75,8 +73,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
       Object {
         "icon": "cf-main",
         "navComponent": [Function],
-        "subtitle": "CONTINUOUS",
-        "title": "Features",
+        "title": "Feature Flags",
       }
     }
   >
@@ -103,8 +100,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
       Object {
         "icon": "cf-main",
         "navComponent": [Function],
-        "subtitle": "CONTINUOUS",
-        "title": "Features",
+        "title": "Feature Flags",
       }
     }
   >
@@ -131,8 +127,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
       Object {
         "icon": "cf-main",
         "navComponent": [Function],
-        "subtitle": "CONTINUOUS",
-        "title": "Features",
+        "title": "Feature Flags",
       }
     }
   >
@@ -159,8 +154,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
       Object {
         "icon": "cf-main",
         "navComponent": [Function],
-        "subtitle": "CONTINUOUS",
-        "title": "Features",
+        "title": "Feature Flags",
       }
     }
   >
@@ -185,8 +179,7 @@ exports[`AdminRouteDestinations it should return the admin routes 1`] = `
       Object {
         "icon": "cf-main",
         "navComponent": [Function],
-        "subtitle": "CONTINUOUS",
-        "title": "Features",
+        "title": "Feature Flags",
       }
     }
   >

@@ -135,7 +135,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
   }
   return (
     <Container>
-      <PageHeader breadcrumbs={<NGBreadcrumbs />} title={getString('createSecretYAML.createSecret')} />
+      <PageHeader breadcrumbs={<NGBreadcrumbs />} title={getString('createSecretYAML.newSecret')} />
       <Container padding="xlarge">
         <YAMLBuilder
           fileName={getString('createSecretYAML.newSecret')}

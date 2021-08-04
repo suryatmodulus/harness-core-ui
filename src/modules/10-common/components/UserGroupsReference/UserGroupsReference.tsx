@@ -115,7 +115,7 @@ const UserGroupsReference: React.FC<UserGroupsReferenceProps> = props => {
                 width={160}
                 lineClamp={1}
                 font={{ weight: 'semi-bold' }}
-                color={selected ? Color.BLUE_600 : Color.BLACK}
+                color={selected ? Color.PRIMARY_7 : Color.BLACK}
               >
                 {item.name}
               </Text>

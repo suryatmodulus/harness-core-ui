@@ -152,7 +152,7 @@ export default function TerraformEditView(
                 )}
               </div>
 
-              <div className={stepCss.noLookDivider} />
+              <div className={stepCss.divider} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.Select

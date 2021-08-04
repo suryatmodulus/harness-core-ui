@@ -77,10 +77,13 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
 
   const isLoading = useMemo(() => logsLoading || clusterChartLoading, [logsLoading, clusterChartLoading])
 
+  if (isLoading) {
+    return <PageSpinner />
+  }
+
   return (
     <Container padding="large">
       <LogAnalysis data={logsData} clusterChartData={clusterChartData} isLoading={isLoading} goToPage={goToLogsPage} />
-      {isLoading && <PageSpinner />}
     </Container>
   )
 }

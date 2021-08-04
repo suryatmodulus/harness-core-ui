@@ -1,0 +1,20 @@
+.pageBody {
+  height: calc(100% - 140px) !important;
+
+  .container {
+    height: 100%;
+  }
+
+  .card {
+    display: flex !important;
+    width: 100%;
+    height: 280px;
+    padding-top: var(--spacing-medium) !important;
+    padding-bottom: var(--spacing-small) !important;
+    .separator {
+      width: 1px;
+      background: var(--grey-200);
+      margin: var(--spacing-small) var(--spacing-xxlarge);
+    }
+  }
+}

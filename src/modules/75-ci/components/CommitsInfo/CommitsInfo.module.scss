@@ -132,5 +132,8 @@
 
   .sha {
     padding: 0 var(--spacing-3);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }

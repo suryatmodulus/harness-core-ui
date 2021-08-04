@@ -151,10 +151,6 @@ export interface AppIdResponse {
   }
 }
 
-export interface AttachTagByFilterResponse {
-  response?: Resource[]
-}
-
 export interface AzureAccessPointCore {
   fe_ip_id?: string
   fe_ip_name?: string
@@ -542,8 +538,6 @@ export interface Vpc {
   id?: string
   name?: string
 }
-
-export type ResourceFilterBodyRequestBody = ResourceFilterBody
 
 export interface DeleteAccessPointsQueryParams {
   accountIdentifier: string
@@ -2144,7 +2138,7 @@ export type AllResourcesOfAccountProps = Omit<
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBodyRequestBody,
+    ResourceFilterBody,
     AllResourcesOfAccountPathParams
   >,
   'path' | 'verb'
@@ -2161,7 +2155,7 @@ export const AllResourcesOfAccount = ({ account_id, ...props }: AllResourcesOfAc
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBodyRequestBody,
+    ResourceFilterBody,
     AllResourcesOfAccountPathParams
   >
     verb="POST"
@@ -2176,7 +2170,7 @@ export type UseAllResourcesOfAccountProps = Omit<
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBodyRequestBody,
+    ResourceFilterBody,
     AllResourcesOfAccountPathParams
   >,
   'path' | 'verb'
@@ -2193,7 +2187,7 @@ export const useAllResourcesOfAccount = ({ account_id, ...props }: UseAllResourc
     AllResourcesOfAccountResponse,
     void,
     AllResourcesOfAccountQueryParams,
-    ResourceFilterBodyRequestBody,
+    ResourceFilterBody,
     AllResourcesOfAccountPathParams
   >('POST', (paramsInPath: AllResourcesOfAccountPathParams) => `/accounts/${paramsInPath.account_id}/resources`, {
     base: getConfig('lw/api'),
@@ -2295,73 +2289,6 @@ export const useAllSubnets = ({ account_id, ...props }: UseAllSubnetsProps) =>
     (paramsInPath: AllSubnetsPathParams) => `/accounts/${paramsInPath.account_id}/subnets`,
     { base: getConfig('lw/api'), pathParams: { account_id }, ...props }
   )
-
-export interface AttachTagsQueryParams {
-  cloud_account_id: string
-  tagKey: string
-  tagValue: string
-  accountIdentifier: string
-}
-
-export interface AttachTagsPathParams {
-  account_id: string
-}
-
-export type AttachTagsProps = Omit<
-  MutateProps<
-    AttachTagByFilterResponse,
-    void,
-    AttachTagsQueryParams,
-    ResourceFilterBodyRequestBody,
-    AttachTagsPathParams
-  >,
-  'path' | 'verb'
-> &
-  AttachTagsPathParams
-
-/**
- * Attach tags to resources satisfying the filter
- *
- * Attach tags to resources satisfying the filter
- */
-export const AttachTags = ({ account_id, ...props }: AttachTagsProps) => (
-  <Mutate<AttachTagByFilterResponse, void, AttachTagsQueryParams, ResourceFilterBodyRequestBody, AttachTagsPathParams>
-    verb="POST"
-    path={`/accounts/${account_id}/tag`}
-    base={getConfig('lw/api')}
-    {...props}
-  />
-)
-
-export type UseAttachTagsProps = Omit<
-  UseMutateProps<
-    AttachTagByFilterResponse,
-    void,
-    AttachTagsQueryParams,
-    ResourceFilterBodyRequestBody,
-    AttachTagsPathParams
-  >,
-  'path' | 'verb'
-> &
-  AttachTagsPathParams
-
-/**
- * Attach tags to resources satisfying the filter
- *
- * Attach tags to resources satisfying the filter
- */
-export const useAttachTags = ({ account_id, ...props }: UseAttachTagsProps) =>
-  useMutate<
-    AttachTagByFilterResponse,
-    void,
-    AttachTagsQueryParams,
-    ResourceFilterBodyRequestBody,
-    AttachTagsPathParams
-  >('POST', (paramsInPath: AttachTagsPathParams) => `/accounts/${paramsInPath.account_id}/tag`, {
-    base: getConfig('lw/api'),
-    pathParams: { account_id },
-    ...props
-  })
 
 export interface AllVPCsQueryParams {
   cloud_account_id: string

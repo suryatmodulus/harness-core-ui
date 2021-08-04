@@ -117,7 +117,7 @@ export default function PipelineModalListView({ onClose, mockData }: PipelineMod
 
         {!data?.content?.length ? (
           <Text className={css.noResultSection} font={{ size: 'medium' }}>
-            {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
+            {getString(isCIModule ? 'pipeline.runModalNoPipelineText' : 'pipeline.noDeploymentText')}
           </Text>
         ) : (
           <RunPipelineListView data={data} refetch={fetchPipelines} gotoPage={pageNumber => setPage(pageNumber)} />

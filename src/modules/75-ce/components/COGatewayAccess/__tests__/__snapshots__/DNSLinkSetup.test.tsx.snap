@@ -100,6 +100,159 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
               class="StyledProps--font StyledProps--main dnsLinkContainer"
             >
               <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <h3
@@ -290,6 +443,159 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                     >
                       +ce.co.accessPoint.new
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -496,6 +802,159 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
               class="StyledProps--font StyledProps--main dnsLinkContainer"
             >
               <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
                 class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
               >
                 <h3
@@ -686,6 +1145,159 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                     >
                       +ce.co.accessPoint.new
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

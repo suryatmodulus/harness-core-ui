@@ -252,6 +252,7 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           </div>
         )}
         <Text
+          tooltipProps={{ portalClassName: css.labelTooltip }}
           icon={options.inComplete ? 'warning-sign' : undefined}
           iconProps={{ color: Color.ORANGE_500 }}
           style={{ ...options.textCss }}

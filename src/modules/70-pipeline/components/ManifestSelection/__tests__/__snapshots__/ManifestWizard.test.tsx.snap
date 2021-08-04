@@ -892,7 +892,7 @@ exports[`ManifestSelection tests new connector view works correctly 1`] = `
                         pipeline.manifestType.gitConnectorLabel
                       </p>
                       <input
-                        name="manifestStore"
+                        name="store"
                         type="checkbox"
                         value="Git"
                       />

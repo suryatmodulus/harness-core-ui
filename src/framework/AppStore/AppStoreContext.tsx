@@ -6,7 +6,7 @@ import { Project, useGetProject, useGetCurrentUserInfo, UserInfo, isGitSyncEnabl
 import { useGetFeatureFlags } from 'services/portal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { FeatureFlag } from '@common/featureFlags'
+import type { FeatureFlag } from '@common/featureFlags'
 
 export type FeatureFlagMap = Partial<Record<FeatureFlag, boolean>>
 
@@ -62,6 +62,17 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
 
   const { data: userInfo, loading: userInfoLoading } = useGetCurrentUserInfo({})
 
+  useEffect(() => {
+    // don't redirect on local because it goes into infinite loop
+    // because there may be no current gen to go to
+    const currentAccount = userInfo?.data?.accounts?.find(account => account.uuid === accountId)
+    if (!__DEV__ && currentAccount && !currentAccount.nextGenEnabled) {
+      const baseUrl = window.location.pathname.replace(/\/ng\//, '/')
+      window.location.href = `${baseUrl}#/account/${accountId}/dashboard`
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userInfo?.data?.accounts])
+
   // update feature flags in context
   useEffect(() => {
     // TODO: Handle better if fetching feature flags fails
@@ -71,13 +82,6 @@ export function AppStoreProvider(props: React.PropsWithChildren<unknown>): React
           return [flag.name, !!flag.enabled]
         })
       )
-
-      // don't redirect on local because it goes into infinite loop
-      // because there may be no current gen to go to
-      if (!__DEV__ && !featureFlagsMap[FeatureFlag.NEXT_GEN_ENABLED]) {
-        const baseUrl = window.location.pathname.replace(/\/ng\//, '/')
-        window.location.href = `${baseUrl}#/account/${accountId}/dashboard`
-      }
 
       setState(prevState => ({
         ...prevState,

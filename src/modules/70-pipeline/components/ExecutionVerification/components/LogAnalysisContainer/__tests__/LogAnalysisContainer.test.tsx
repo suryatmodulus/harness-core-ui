@@ -45,7 +45,7 @@ describe('Unit tests for LogAnalysisContainer', () => {
     const logClusterChart = getByText('pipeline.verification.logs.logCluster')
     await waitFor(() => expect(logClusterChart).not.toBeNull())
 
-    // Verify if number of records returned by the api for the first page maatches with the number of records shown in the Logs Table
+    // Verify if number of records returned by the api for the first page matches with the number of records shown in the Logs Table
     await waitFor(() =>
       expect(screen.getAllByTestId('logs-data-row')).toHaveLength(mockedLogAnalysisData.resource.content.length)
     )

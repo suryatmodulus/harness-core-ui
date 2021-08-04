@@ -46,16 +46,7 @@ export interface CustomVariableEditableProps extends CustomVariableEditableExtra
 }
 
 export function CustomVariableEditable(props: CustomVariableEditableProps): React.ReactElement {
-  const {
-    initialValues,
-    onUpdate,
-    variableNamePrefix = '',
-    domId,
-    heading,
-    className,
-    yamlProperties,
-    readonly
-  } = props
+  const { initialValues, onUpdate, domId, heading, className, yamlProperties, readonly } = props
   const uids = React.useRef<string[]>([])
 
   const [selectedVariable, setSelectedVariable] = React.useState<VariableState | null>(null)
@@ -122,25 +113,21 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   }
                   const key = uids.current[index]
                   const yamlData = yamlProperties?.[index]
+                  const vairableNameParts = yamlData?.localName?.split('.') || []
+                  const variableName = vairableNameParts[vairableNameParts.length - 1]
 
                   return (
                     <div key={key} className={css.variableListTable}>
                       {yamlData && yamlData.fqn && yamlData.localName ? (
-                        <CopyText textToCopy={toVariableStr(yamlData.fqn)}>
-                          <String
-                            stringID="customVariables.variableAndType"
-                            vars={{ name: yamlData.localName, type: variable.type }}
-                          />
+                        <CopyText className="variable-name-cell" textToCopy={toVariableStr(yamlData.fqn)}>
+                          {variableName}
                         </CopyText>
                       ) : (
-                        <Text lineClamp={1}>
-                          <String
-                            stringID="customVariables.variableAndType"
-                            vars={{ name: `${variableNamePrefix}${variable.name}`, type: variable.type }}
-                          />
+                        <Text className="variable-name-cell" lineClamp={1}>
+                          {variable.name}
                         </Text>
                       )}
-                      <div className={css.valueRow}>
+                      <div className={cx(css.valueRow, 'variable-value-cell')}>
                         <div>
                           {variable.type === VariableType.Secret ? (
                             <MultiTypeSecretInput name={`variables[${index}].value`} label="" disabled={readonly} />
@@ -151,9 +138,12 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               label=""
                               disabled={readonly}
                               multiTextInputProps={{
+                                mini: true,
                                 defaultValueToReset: '',
                                 expressions,
+
                                 textProps: {
+                                  small: true,
                                   disabled: !initialValues.canAddVariable || readonly,
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
                                 }

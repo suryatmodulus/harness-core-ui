@@ -36,26 +36,6 @@ deleteFolder:
   confirmDeleteTitle: 'Delete {{name}} folder'
   confirmDeleteText: 'Deleting the folder {{name}} would mean that you are also deleting all the dashboards associated with it. Are you sure you want to delete the Folder?'
   success: 'Successfully deleted folder'
-serviceDashboard:
-  activeServiceInstancesLabel: '{{$.common.subscriptions.usage.srvcInst}}'
-  servicesInLast: 'Services added in {{period}}'
-  month: 'Last 30 days'
-  3months: 'Last 3 months'
-  6months: 'Last 6 months'
-  year: 'Last 1 year'
-  serviceInstances: 'Service Instances'
-  nonProd: 'Non Prod'
-  prod: 'Prod'
-  in: 'in {{timeRange}}'
-  frequency: '{{$.common.frequency}}'
-  totalServices: 'Total Services: {{total}}'
-  lastDeployment: 'last deployment'
-  executionId: 'Execution Id: {{id}}'
-  noDeployments: No Deployments in {{timeRange}}
-  noServices: No Services in {{timeRange}} for given criteria
-  mostActiveServices: Most active services
-  seeMore: '+ {{count}} more'
-  buildName: 'Build Name'
 resourceModal:
   folders: 'Folder Name'
   folderDetail: 'Folder Dashboards'

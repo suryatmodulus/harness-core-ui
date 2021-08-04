@@ -93,6 +93,7 @@ datePickerShortcuts:
   Last2Months: Last 2 Months
 validation:
   namePatternIsNotValid: 'Name can only contain alphanumerics, _ and -'
+  harnessFolderNamePatternIsNotValid: 'Harness Folder name can only contain alphanumerics, underscore, hyphen or a whitespace'
   nameIsRequired: Name is required
   valueIsRequired: Value is required
   typeIsRequired: Type is required
@@ -192,7 +193,7 @@ purpose:
     flags: Flags
     subtitle: Decouple feature releases from deployments and roll out features safely and quickly.
     description: '{{$.common.purpose.cf.subtitle}}'
-    continuous: Feature Flag Management
+    continuous: Feature Flags
 trialInProgress: Trial in progress
 trialInProgressDescription: A Project contains your pipelines, resources, and team members. Get started by creating your first Project.
 letsGetYouStarted: Let’s get you started
@@ -494,3 +495,4 @@ selectAChannel: Select a Channel
 slack: Slack
 pagerDuty: PagerDuty
 notificationPreferences: Notification Preferences
+sidecarArtifactsText: '{{$.sidecarArtifactText}}s'

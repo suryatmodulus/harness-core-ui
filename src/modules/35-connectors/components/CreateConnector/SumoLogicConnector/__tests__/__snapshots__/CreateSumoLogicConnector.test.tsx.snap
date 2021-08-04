@@ -116,12 +116,22 @@ exports[`Create Sumo Logic connector Wizard Ensure create flow works 1`] = `
                               <li
                                 class="Select--menuItem Select--active"
                               >
-                                endpoint1
+                                <p
+                                  class="StyledProps--font Text--lineclamp StyledProps--main Select--menuItemLabel"
+                                  style="--text-line-clamp: 1;"
+                                >
+                                  endpoint1
+                                </p>
                               </li>
                               <li
                                 class="Select--menuItem"
                               >
-                                endpoint2
+                                <p
+                                  class="StyledProps--font Text--lineclamp StyledProps--main Select--menuItemLabel"
+                                  style="--text-line-clamp: 1;"
+                                >
+                                  endpoint2
+                                </p>
                               </li>
                             </ul>
                           </div>

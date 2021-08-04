@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -82,7 +82,7 @@ function K8CanaryDeployWidget(
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
-            <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+            <>
               <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
@@ -113,7 +113,7 @@ function K8CanaryDeployWidget(
                   />
                 )}
               </div>
-              <div className={stepCss.noLookDivider} />
+              <div className={stepCss.divider} />
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInstanceDropdown
                   name={'spec.instanceSelection'}
@@ -150,7 +150,7 @@ function K8CanaryDeployWidget(
                   disabled={readonly}
                 />
               </div>
-            </Layout.Vertical>
+            </>
           )
         }}
       </Formik>

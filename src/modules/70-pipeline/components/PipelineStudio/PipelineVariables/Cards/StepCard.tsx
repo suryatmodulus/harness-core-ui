@@ -1,6 +1,6 @@
 import React from 'react'
 import { NestedAccordionPanel } from '@wings-software/uicore'
-
+import cx from 'classnames'
 import type { StepElementConfig } from 'services/cd-ng'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -9,7 +9,8 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 
 import type { PipelineVariablesData } from '../types'
-
+import VariableAccordionSummary from '../VariableAccordionSummary'
+import css from '../PipelineVariables.module.scss'
 export interface StepCardProps {
   step: StepElementConfig
   originalStep: StepElementConfig
@@ -26,7 +27,12 @@ export function StepCard(props: StepCardProps): React.ReactElement {
 
   return (
     <React.Fragment>
-      <VariablesListTable data={step} originalData={originalStep} metadataMap={metadataMap} />
+      <VariablesListTable
+        className={css.variablePaddingL2}
+        data={step}
+        originalData={originalStep}
+        metadataMap={metadataMap}
+      />
       <StepWidget<StepElementConfig>
         factory={stepsFactory}
         initialValues={originalStep}
@@ -50,7 +56,8 @@ export function StepCardPanel(props: StepCardProps): React.ReactElement {
       isDefaultOpen
       addDomId
       id={`Stage.${props.stageIdentifier}.Execution.Step.${props.originalStep.identifier}`}
-      summary={props.originalStep.name}
+      summary={<VariableAccordionSummary>{props.originalStep.name}</VariableAccordionSummary>}
+      summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL2)}
       details={<StepCard {...props} />}
     />
   )
@@ -76,6 +83,7 @@ export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
         data={{ name: stepGroupName }}
         originalData={{ name: stepGroupOriginalName }}
         metadataMap={metadataMap}
+        className={css.variablePaddingL3}
       />
       {steps.map(row => {
         const { step, originalStep, path } = row
@@ -102,7 +110,8 @@ export function StepGroupCardPanel(props: StepGroupCardProps): React.ReactElemen
       isDefaultOpen
       addDomId
       id={`Stage.${props.stageIdentifier}.Execution.StepGroup.${props.stepGroupIdentifier}`}
-      summary={props.stepGroupOriginalName}
+      summary={<VariableAccordionSummary>{props.stepGroupOriginalName}</VariableAccordionSummary>}
+      summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL2)}
       details={<StepGroupCard {...props} />}
     />
   )

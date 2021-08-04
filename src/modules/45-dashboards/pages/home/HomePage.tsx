@@ -254,10 +254,62 @@ const TagsRenderer = (data: DashboardInterface) => {
 
 const RenderDashboardName: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
   const data = row.original
+  const { accountId, folderId } = useParams<{ accountId: string; folderId: string }>()
+  const history = useHistory()
   return (
-    <Text color={Color.BLACK} lineClamp={1}>
+    <Text
+      color={Color.BLACK}
+      lineClamp={1}
+      onClick={() => {
+        history.push({
+          pathname: routes.toViewCustomDashboard({
+            viewId: row.id,
+            accountId: accountId,
+            folderId: folderId === 'shared' ? 'shared' : data.resourceIdentifier
+          })
+        })
+      }}
+    >
       {data.title}
     </Text>
+  )
+}
+
+const RenderMenu: Renderer<CellProps<DashboardInterface>> = ({ row }) => {
+  const data = row.original
+  const history = useHistory()
+  const { accountId } = useParams<{ accountId: string; folderId: string }>()
+  const { mutate: cloneDashboard } = useMutate({
+    // Inferred from RestfulProvider in index.js
+    verb: 'POST',
+    path: 'dashboard/clone',
+    queryParams: {
+      accountId: accountId
+    }
+  })
+  const clone = async (dashboardId: string) => {
+    const clonedDashboard = await cloneDashboard({ dashboardId })
+    if (clonedDashboard) {
+      history.push({
+        pathname: routes.toViewCustomDashboard({
+          viewId: clonedDashboard?.id,
+          accountId: accountId,
+          folderId: clonedDashboard?.folder_id
+        })
+      })
+    }
+  }
+  return (
+    <CardBody.Menu
+      menuContent={
+        <Menu>
+          <MenuItem text="clone" onClick={() => clone(data.id)} />
+        </Menu>
+      }
+      menuPopoverProps={{
+        className: Classes.DARK
+      }}
+    />
   )
 }
 
@@ -329,13 +381,20 @@ const HomePage: React.FC = () => {
       Header: 'View Count',
       id: 'view_count',
       accessor: row => row.view_count,
-      width: '20%'
+      width: '15%'
     },
     {
       Header: 'Favorite Count',
       id: 'favorite_count',
       accessor: row => row.favorite_count,
-      width: '20%'
+      width: '10%'
+    },
+    {
+      Header: '',
+      id: 'menu',
+      accessor: row => row.id,
+      width: '10%',
+      Cell: RenderMenu
     }
   ]
 
@@ -384,6 +443,28 @@ const HomePage: React.FC = () => {
       folderId: folderId === 'shared' ? '' : folderId
     }
   })
+
+  const { mutate: cloneDashboard, loading: cloning } = useMutate({
+    // Inferred from RestfulProvider in index.js
+    verb: 'POST',
+    path: 'dashboard/clone',
+    queryParams: {
+      accountId: accountId
+    }
+  })
+
+  const clone = async (dashboardId: string) => {
+    const clonedDashboard = await cloneDashboard({ dashboardId })
+    if (clonedDashboard) {
+      history.push({
+        pathname: routes.toViewCustomDashboard({
+          viewId: clonedDashboard?.id,
+          accountId: accountId,
+          folderId: clonedDashboard?.folder_id
+        })
+      })
+    }
+  }
 
   const { data: folderDetail } = useGet({
     // Inferred from RestfulProvider in index.js
@@ -480,7 +561,7 @@ const HomePage: React.FC = () => {
 
   return (
     <Page.Body
-      loading={loading}
+      loading={loading || cloning}
       className={css.pageContainer}
       retryOnError={() => {
         return
@@ -739,11 +820,11 @@ const HomePage: React.FC = () => {
               renderItem={(dashboard: DashboardInterface) => (
                 <Card className={cx(css.dashboardCard)}>
                   <Container>
-                    {dashboard?.type !== dashboardType.SHARED && dashboard?.type !== dashboardType.ACCOUNT && (
+                    {(dashboard?.type === dashboardType.SHARED || dashboard?.type === dashboardType.ACCOUNT) && (
                       <CardBody.Menu
                         menuContent={
                           <Menu>
-                            <MenuItem text="edit" />
+                            <MenuItem text="clone" onClick={() => clone(dashboard.id)} />
                           </Menu>
                         }
                         menuPopoverProps={{
@@ -799,20 +880,7 @@ const HomePage: React.FC = () => {
 
         {filteredDashboardList && filteredDashboardList.length > 0 && layoutView === LayoutViews.LIST && (
           <Container className={css.masonry}>
-            <Table<DashboardInterface>
-              className={css.table}
-              columns={columns}
-              data={filteredDashboardList || []}
-              onRowClick={data => {
-                history.push({
-                  pathname: routes.toViewCustomDashboard({
-                    viewId: data.id,
-                    accountId: accountId,
-                    folderId: folderId === 'shared' ? 'shared' : data.resourceIdentifier
-                  })
-                })
-              }}
-            />
+            <Table<DashboardInterface> className={css.table} columns={columns} data={filteredDashboardList || []} />
           </Container>
         )}
 

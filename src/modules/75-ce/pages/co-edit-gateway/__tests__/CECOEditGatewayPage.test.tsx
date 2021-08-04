@@ -147,9 +147,6 @@ jest.mock('services/lw', () => ({
   useSaveService: jest.fn().mockImplementation(() => ({
     mutate: jest.fn()
   })),
-  useAttachTags: jest.fn().mockImplementation(() => ({
-    mutate: jest.fn()
-  })),
   useAllResourcesOfAccount: jest.fn().mockImplementation(() => ({
     mutate: jest.fn(() =>
       Promise.resolve({

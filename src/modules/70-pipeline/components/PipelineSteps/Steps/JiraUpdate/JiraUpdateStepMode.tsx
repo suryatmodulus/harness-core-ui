@@ -218,7 +218,7 @@ const FormContent = ({
           />
         )}
       </div>
-      <div className={stepCss.noLookDivider} />
+      <div className={stepCss.divider} />
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormMultiTypeConnectorField
           name="spec.connectorRef"

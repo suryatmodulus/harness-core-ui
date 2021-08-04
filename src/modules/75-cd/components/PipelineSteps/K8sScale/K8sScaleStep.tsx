@@ -2,7 +2,6 @@ import React from 'react'
 import {
   IconName,
   Formik,
-  Layout,
   FormInput,
   getMultiTypeFromValue,
   MultiTypeInputType,
@@ -93,7 +92,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+              <>
                 <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
@@ -125,7 +124,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   )}
                 </div>
 
-                <div className={stepCss.noLookDivider} />
+                <div className={stepCss.divider} />
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInstanceDropdown
                     name={'spec.instanceSelection'}
@@ -190,7 +189,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     disabled={readonly}
                   />
                 </div>
-              </Layout.Vertical>
+              </>
             </>
           )
         }}

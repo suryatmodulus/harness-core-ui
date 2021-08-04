@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, pick } from 'lodash-es'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
-import { useConfirmationDialog, useToaster } from '@common/exports'
+import { TimeAgoPopover, useConfirmationDialog, useToaster } from '@common/exports'
 import { useRunPipelineModal } from '@pipeline/components/RunPipelineModal/useRunPipelineModal'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { EntityGitDetails, PMSPipelineSummaryResponse, useSoftDeletePipeline } from 'services/pipeline-ng'
@@ -18,7 +18,6 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
-import TimeAgoPopover from '@common/components/TimeAgoPopover/TimeAgoPopover'
 import { getIconsForPipeline } from '../../PipelineListUtils'
 import css from './PipelineCard.module.scss'
 
@@ -215,7 +214,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
   )
 }
 
-const LEFT_COLUMN_WIDTH = 72
+const LEFT_COLUMN_WIDTH = 80
 
 export const PipelineCard: React.FC<PipelineCardProps> = ({
   pipeline,
@@ -259,36 +258,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
 
   return (
     <Card className={css.pipelineCard} interactive onClick={() => goToPipelineStudio(pipeline)}>
-      <Container padding={{ top: 'large', right: 'xlarge', bottom: 'large', left: 'xlarge' }} border={{ bottom: true }}>
-        <Container>
-          <Layout.Horizontal spacing={'small'}>
-            {getIconsForPipeline(pipeline).map(iconObj => (
-              <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
-            ))}
-          </Layout.Horizontal>
-          <Layout.Horizontal
-            spacing={'medium'}
-            margin={{ top: 'small' }}
-            flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}
-          >
-            <Container>
-              <Text lineClamp={2} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}>
-                {pipeline.name}
-              </Text>
-              <Text font="xsmall" color={Color.GREY_600}>
-                {getString('idLabel')}
-                {pipeline.identifier}
-              </Text>
-            </Container>
-            {!isEmpty(pipeline.tags) && pipeline.tags && (
-              <TagsPopover
-                className={css.tagsPopover}
-                iconProps={{ size: 14, color: Color.GREY_600 }}
-                tags={pipeline.tags}
-              />
-            )}
-          </Layout.Horizontal>
-        </Container>
+      <Container padding={'xlarge'} border={{ bottom: true }}>
         <CardBody.Menu
           menuContent={
             <ContextMenu
@@ -305,44 +275,99 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           menuPopoverProps={{
             className: Classes.DARK
           }}
-          className={css.menu}
         />
+        <Container>
+          <Layout.Horizontal spacing={'small'} margin={{ bottom: 'small' }}>
+            {getIconsForPipeline(pipeline).map(iconObj => (
+              <Icon key={iconObj.icon} name={iconObj.icon} size={14} />
+            ))}
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing={'medium'} flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
+            <Container>
+              <Text lineClamp={2} font={{ weight: 'bold' }} color={Color.GREY_800} data-testid={pipeline.identifier}>
+                {pipeline.name}
+              </Text>
+              <Text font="small" color={Color.GREY_600} margin={{ top: 'xsmall' }}>
+                {getString('idLabel')}
+                {pipeline.identifier}
+              </Text>
+            </Container>
+            {!isEmpty(pipeline.tags) && pipeline.tags && (
+              <TagsPopover
+                className={css.tagsPopover}
+                iconProps={{ size: 14, color: Color.GREY_600 }}
+                tags={pipeline.tags}
+              />
+            )}
+          </Layout.Horizontal>
+        </Container>
       </Container>
       <Container padding={{ left: 'xlarge', right: 'xlarge' }}>
         <Container border={{ bottom: true }} padding={{ top: 'medium', bottom: 'medium' }}>
           {pipeline.stageNames?.length ? (
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
-              <Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+              <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('stages')}
               </Text>
-              <Text font="xsmall" color={Color.BLACK} lineClamp={1}>
+              <Text font="small" color={Color.BLACK} lineClamp={1}>
                 {pipeline.stageNames?.join(', ')}
               </Text>
             </Layout.Horizontal>
           ) : null}
-
-          {pipeline.filters?.[module]?.serviceNames?.length ? (
-            <Layout.Horizontal margin={{ top: 'small' }} flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
-              <Text font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+        </Container>
+        <Container
+          className={css.infoContainer}
+          border={{ bottom: true }}
+          padding={{ top: 'medium', bottom: 'medium' }}
+        >
+          {(module === 'ci' || !!pipeline.filters?.ci?.repoNames?.length) && (
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
+              <Text font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+                {getString('pipeline.buildRepo')}
+              </Text>
+              {pipeline.filters?.ci?.repoNames?.length ? (
+                <Text font="small" color={Color.BLACK} lineClamp={1}>
+                  {pipeline.filters?.ci?.repoNames.join(', ')}
+                </Text>
+              ) : (
+                <Text font="small" color={Color.GREY_500}>
+                  {getString('none')}
+                </Text>
+              )}
+            </Layout.Horizontal>
+          )}
+          {(module === 'cd' || !!pipeline.filters?.cd?.serviceNames?.length) && (
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }} spacing={'small'}>
+              <Text font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('services')}
               </Text>
-              <Text font="xsmall" color={Color.BLACK} lineClamp={1}>
-                {pipeline.filters?.[module]?.serviceNames.join(', ')}
-              </Text>
+              {pipeline.filters?.cd?.serviceNames?.length ? (
+                <Text font="small" color={Color.BLACK} lineClamp={1}>
+                  {pipeline.filters?.cd?.serviceNames.join(', ')}
+                </Text>
+              ) : (
+                <Text font="small" color={Color.GREY_500}>
+                  {getString('none')}
+                </Text>
+              )}
             </Layout.Horizontal>
-          ) : null}
+          )}
         </Container>
 
         {isGitSyncEnabled && !!pipeline.gitDetails?.repoIdentifier && !!pipeline.gitDetails.branch && (
-          <Container border={{ bottom: true }} padding={{ top: 'medium', bottom: 'medium' }}>
+          <Container
+            className={css.infoContainer}
+            border={{ bottom: true }}
+            padding={{ top: 'medium', bottom: 'medium' }}
+          >
             <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
-              <Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+              <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('pipeline.gitRepos')}
               </Text>
               <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
                 <Icon name="repository" size={10} color={Color.GREY_600} />
                 <Text
-                  font={{ size: 'xsmall' }}
+                  font={{ size: 'small' }}
                   color={Color.BLACK}
                   title={pipeline?.gitDetails?.repoIdentifier}
                   lineClamp={1}
@@ -354,13 +379,13 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
               </Layout.Horizontal>
             </Layout.Horizontal>
 
-            <Layout.Horizontal margin={{ top: 'small' }} flex={{ justifyContent: 'flex-start' }}>
-              <Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+            <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
+              <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                 {getString('pipelineSteps.deploy.inputSet.branch')}
               </Text>
               <Layout.Horizontal style={{ alignItems: 'center' }} spacing={'small'}>
                 <Icon name="git-new-branch" size={10} color={Color.GREY_500} />
-                <Text font={{ size: 'xsmall' }} color={Color.BLACK} title={pipeline?.gitDetails?.branch} lineClamp={1}>
+                <Text font={{ size: 'small' }} color={Color.BLACK} title={pipeline?.gitDetails?.branch} lineClamp={1}>
                   {pipeline.gitDetails.branch}
                 </Text>
               </Layout.Horizontal>
@@ -368,16 +393,16 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
           </Container>
         )}
 
-        <Container padding={{ top: 'medium', bottom: 'medium' }}>
+        <Container className={css.infoContainer} padding={{ top: 'medium', bottom: 'xlarge' }}>
           {pipeline.executionSummaryInfo?.lastExecutionTs && (
             <>
               <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
-                <Text className={css.label} font="xsmall" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
+                <Text className={css.label} font="small" width={LEFT_COLUMN_WIDTH} color={Color.GREY_700}>
                   {getString('lastRunAtDate')}
                 </Text>
                 <Layout.Horizontal flex spacing={'small'}>
                   <TimeAgoPopover
-                    font="xsmall"
+                    font="small"
                     color={Color.BLACK}
                     onClick={event => {
                       event.stopPropagation()
@@ -399,14 +424,14 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                 </Layout.Horizontal>
               </Layout.Horizontal>
               <Layout.Horizontal
-                margin={{ top: 'small' }}
+                margin={{ top: deployments ? 'xsmall' : 0 }}
                 flex={{ justifyContent: 'flex-start', alignItems: deployments ? 'flex-end' : 'center' }}
               >
                 <Container className={css.label} width={LEFT_COLUMN_WIDTH}>
-                  <Text color={Color.GREY_700} font="xsmall">
+                  <Text color={Color.GREY_700} font="small">
                     {getString('executionsText')}
                   </Text>
-                  <Text color={Color.GREY_500} style={{ fontSize: '8px' }}>
+                  <Text color={Color.GREY_500} font="xsmall">
                     {getString('pipeline.lastSevenDays')}
                   </Text>
                 </Container>
@@ -422,8 +447,9 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                       />
                       <Text
                         color={Color.PRIMARY_7}
-                        font="medium"
+                        font={{ size: 'medium', weight: 'semi-bold' }}
                         iconProps={{ size: 18 }}
+                        className={css.deploymentsCount}
                         onClick={event => {
                           event.stopPropagation()
                           goToPipelineDetail(pipeline)
@@ -433,7 +459,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
                       </Text>
                     </>
                   ) : (
-                    <Text color={Color.GREY_500} font={{ size: 'xsmall' }}>
+                    <Text color={Color.GREY_500} font={{ size: 'small' }}>
                       {getString('none')}
                     </Text>
                   )}
@@ -442,20 +468,20 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             </>
           )}
           <Layout.Horizontal
-            margin={{ top: pipeline.executionSummaryInfo?.lastExecutionTs ? 'medium' : 0 }}
+            margin={{ top: pipeline.executionSummaryInfo?.lastExecutionTs ? 'small' : 0 }}
             spacing={'small'}
             flex
           >
             {!pipeline.executionSummaryInfo?.lastExecutionTs && (
               <Text font={{ size: 'xsmall', weight: 'semi-bold' }} color={Color.GREY_400}>
-                This pipeline never ran.
+                {getString('pipeline.neverRan')}
               </Text>
             )}
             <RbacButton
               data-testid="card-run-pipeline"
               icon="command-start"
               iconProps={{ size: 9 }}
-              className={cx(css.carBtns, css.runBtn)}
+              className={cx(css.cardBtns, css.runBtn)}
               text={getString('runPipelineText')}
               permission={{
                 resource: {
@@ -471,7 +497,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             />
             {pipeline.executionSummaryInfo?.lastExecutionTs && (
               <Button
-                className={cx(css.carBtns, css.viewExecutionsBtn)}
+                className={cx(css.cardBtns, css.viewExecutionsBtn)}
                 text={getString('viewExecutions')}
                 onClick={(e: React.MouseEvent) => {
                   e.stopPropagation()

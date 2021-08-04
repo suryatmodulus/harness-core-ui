@@ -8,7 +8,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { useStrings } from 'framework/strings'
-
+import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
@@ -61,8 +61,9 @@ export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
       isDefaultOpen
       addDomId
       id={`Stage.${props.stageIdentifier}.Service`}
-      summary={getString('service')}
+      summary={<VariableAccordionSummary>{getString('service')}</VariableAccordionSummary>}
       panelClassName={css.panel}
+      summaryClassName={css.accordianSummaryL1}
       details={<ServiceCard {...props} />}
     />
   )

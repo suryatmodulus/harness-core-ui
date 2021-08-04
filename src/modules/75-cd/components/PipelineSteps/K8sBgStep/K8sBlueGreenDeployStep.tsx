@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, Layout, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -67,7 +67,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
+              <>
                 <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
@@ -97,7 +97,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                     />
                   )}
                 </div>
-                <div className={stepCss.noLookDivider} />
+                <div className={stepCss.divider} />
                 <div className={cx(stepCss.formGroup, stepCss.sm)}>
                   <FormMultiTypeCheckboxField
                     name="spec.skipDryRun"
@@ -105,7 +105,7 @@ function K8BGDeployWidget(props: K8BGDeployProps, formikRef: StepFormikFowardRef
                     disabled={readonly}
                   />
                 </div>
-              </Layout.Vertical>
+              </>
             </>
           )
         }}

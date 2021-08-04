@@ -2,7 +2,7 @@ import React from 'react'
 import produce from 'immer'
 import { defaultTo, set } from 'lodash-es'
 import { Text, Color, NestedAccordionPanel } from '@wings-software/uicore'
-
+import cx from 'classnames'
 import type { DeploymentStageConfig, StageElementConfig } from 'services/cd-ng'
 import type {
   CustomVariablesData,
@@ -19,6 +19,7 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 import { ServiceCardPanel } from './ServiceCard'
 import { InfrastructureCardPanel } from './InfrastructureCard'
 import { ExecutionCardPanel } from './ExecutionCard'
+import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
@@ -43,41 +44,63 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
       id={`Stage.${originalStage.identifier}`}
       addDomId
       summary={
-        <Text className={css.stageTitle} color={Color.BLACK}>
-          {originalStage.name}
-        </Text>
+        <VariableAccordionSummary>
+          <Text className={css.stageTitle} color={Color.BLACK}>
+            {`Stage:${originalStage.name}`}
+          </Text>
+        </VariableAccordionSummary>
       }
       summaryClassName={css.stageSummary}
-      detailsClassName={css.stageDetails}
       details={
         <div className={css.variableCard}>
-          <VariablesListTable data={stage} originalData={originalStage} metadataMap={metadataMap} />
+          <VariablesListTable
+            data={stage}
+            className={css.variablePaddingL0}
+            originalData={originalStage}
+            metadataMap={metadataMap}
+          />
 
           {originalSpec && (
             <React.Fragment>
-              <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
-                factory={stepsFactory}
-                initialValues={{
-                  variables: defaultTo(originalStage.variables, []) as AllNGVariables[],
-                  canAddVariable: true
-                }}
-                readonly={readonly}
-                type={StepType.CustomVariable}
-                stepViewType={StepViewType.InputVariable}
-                onUpdate={({ variables }: CustomVariablesData) => {
-                  updateStage({ ...originalStage, variables })
-                }}
-                customStepProps={{
-                  variableNamePrefix: `${originalStage.identifier}.variables.`,
-                  domId: `Stage.${originalStage.identifier}.Variables-panel`,
-                  className: css.customVariables,
-                  heading: <b>{getString('customVariables.title')}</b>,
-                  yamlProperties: (defaultTo(stage.variables, []) as AllNGVariables[]).map?.(
-                    variable =>
-                      metadataMap[variable.value || /* istanbul ignore next */ '']?.yamlProperties ||
-                      /* istanbul ignore next */ {}
-                  )
-                }}
+              <NestedAccordionPanel
+                isDefaultOpen
+                key={`${originalStage.identifier}.variables`}
+                id={`Stage.${originalStage.identifier}.variables`}
+                addDomId
+                summary={
+                  <VariableAccordionSummary>
+                    <Text className={css.stageTitle} color={Color.BLACK}>
+                      {getString('customVariables.title')}
+                    </Text>
+                  </VariableAccordionSummary>
+                }
+                summaryClassName={css.variableBorderBottom}
+                details={
+                  <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
+                    factory={stepsFactory}
+                    initialValues={{
+                      variables: defaultTo(originalStage.variables, []) as AllNGVariables[],
+                      canAddVariable: true
+                    }}
+                    readonly={readonly}
+                    type={StepType.CustomVariable}
+                    stepViewType={StepViewType.InputVariable}
+                    onUpdate={({ variables }: CustomVariablesData) => {
+                      updateStage({ ...originalStage, variables })
+                    }}
+                    customStepProps={{
+                      variableNamePrefix: `${originalStage.identifier}.variables.`,
+                      domId: `Stage.${originalStage.identifier}.Variables-panel`,
+                      className: cx(css.customVariables, css.customVarPadL1),
+                      // heading: <b>{getString('customVariables.title')}</b>,
+                      yamlProperties: (defaultTo(stage.variables, []) as AllNGVariables[]).map?.(
+                        variable =>
+                          metadataMap[variable.value || /* istanbul ignore next */ '']?.yamlProperties ||
+                          /* istanbul ignore next */ {}
+                      )
+                    }}
+                  />
+                }
               />
               {/* TODO: Temporary disable for  CI (TBD)*/}
               {stage.type === 'Deployment' ? (

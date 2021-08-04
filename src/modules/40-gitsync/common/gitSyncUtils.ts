@@ -4,6 +4,7 @@ import { Connectors } from '@connectors/constants'
 import type { GitSyncConfig, ConnectorInfoDTO, GitSyncEntityDTO } from 'services/cd-ng'
 import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { getPipelineListPromise } from 'services/pipeline-ng'
+import { GitSuffixRegex, HarnessFolderNameSanityRegex } from '@common/utils/StringUtils'
 
 export const getGitConnectorIcon = (type: GitSyncConfig['gitConnectorType']): IconName => {
   switch (type) {
@@ -71,11 +72,43 @@ export const getRepoPath = (gitRepo: GitSyncConfig): string => {
       basePath = 'https://bitbucket.com/'
   }
 
-  return gitRepo.repo?.split(basePath)[1] || ''
+  return gitRepo.repo ? gitRepo.repo.replace(GitSuffixRegex, '').split(basePath)?.[1] ?? '' : ''
 }
 
-export const getCompleteGitPath = (repo: string, rootFolder: string, suffix: string): string =>
-  repo.concat('/').concat(rootFolder).concat(suffix)
+export const getHarnessFolderPathWithSuffix = (folderPath: string, suffix: string) => {
+  const sanitizedRootFolder = folderPath.replace(HarnessFolderNameSanityRegex, '/$2')
+  return sanitizedRootFolder.endsWith('/')
+    ? sanitizedRootFolder.concat(suffix.substring(1))
+    : sanitizedRootFolder.concat(suffix)
+}
+
+export const getCompleteGitPath = (repo: string, folderPath: string, suffix: string): string => {
+  const folderPathSuffix = folderPath.endsWith('/') ? suffix.substring(1) : suffix
+  /* Convert repo url like 
+  /* https://github.com/wings-software/vb.git//// to https://github.com/wings-software/vb */
+  /* https://github.com/wings-software/vb.git to https://github.com/wings-software/vb */
+  const sanitizedRepo = repo.replace(GitSuffixRegex, '')
+  if (folderPath) {
+    /* Convert folder paths like  
+    /* ///////a/////b////c///// to /a/b/c/ */
+    /* a/////b////c to a/b/c */
+    /* ///////a/////b////c to /a/b/c */
+    const sanitizedRootFolder = folderPath.replace(HarnessFolderNameSanityRegex, '/$2')
+    if (sanitizedRepo.endsWith('/') && sanitizedRootFolder.startsWith('/')) {
+      return `${sanitizedRepo}${sanitizedRootFolder.substring(1)}${folderPathSuffix}`
+    } else if (
+      (sanitizedRepo.endsWith('/') && !sanitizedRootFolder.startsWith('/')) ||
+      (!sanitizedRepo.endsWith('/') && sanitizedRootFolder.startsWith('/'))
+    ) {
+      return `${sanitizedRepo}${sanitizedRootFolder}${folderPathSuffix}`
+    } else if (!sanitizedRepo.endsWith('/') && !sanitizedRootFolder.startsWith('/')) {
+      return `${sanitizedRepo}/${sanitizedRootFolder}${folderPathSuffix}`
+    }
+  } else {
+    return `${sanitizedRepo}${sanitizedRepo.endsWith('/') ? suffix.substring(1) : suffix}`
+  }
+  return ''
+}
 
 export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): string => {
   const { repo, branch, gitConnectorType } = config
@@ -84,7 +117,7 @@ export const getExternalUrl = (config: GitSyncConfig, folderPath?: string): stri
   }
   switch (gitConnectorType) {
     case Connectors.GITHUB:
-      return `${repo}/tree/${branch}/${folderPath}`
+      return `${repo}/tree/${branch}${folderPath.startsWith('/') ? '' : '/'}${folderPath}`
     case Connectors.GITLAB:
     case Connectors.BITBUCKET:
     default:

@@ -321,7 +321,9 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     if (!menu2) {
       throw new Error('brp3 menu not rendered.')
     }
-    expect(menu2.children[1]?.innerHTML).toEqual('solo-dolo-5')
+    expect(menu2.children[1]?.innerHTML).toEqual(
+      '<p style="--text-line-clamp: 1;" class="StyledProps--font Text--lineclamp StyledProps--main Select--menuItemLabel">solo-dolo-5</p>'
+    )
   })
 
   test('Ensure that validation message is displayed when no workloads are selected', async () => {

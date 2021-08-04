@@ -67,8 +67,8 @@ import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSet
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
-import ServiceDetailPage from '@dashboards/pages/ServiceDetailPage/ServiceDetailPage'
-import ServiceDetails from '@dashboards/components/ServiceDetails/ServiceDetails'
+import ServiceDetailPage from '@cd/pages/ServiceDetailPage/ServiceDetailPage'
+import ServiceDetails from '@cd/components/ServiceDetails/ServiceDetails'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'

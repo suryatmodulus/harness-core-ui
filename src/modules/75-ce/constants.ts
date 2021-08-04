@@ -69,3 +69,16 @@ export enum CCM_CHART_TYPES {
   AREA = 'area',
   LINE = 'line'
 }
+
+export const portProtocolMap: { [key: number]: string } = {
+  80: 'http',
+  443: 'https'
+}
+
+export const DEFAULT_ACCESS_DETAILS = {
+  dnsLink: { selected: false },
+  ssh: { selected: false },
+  rdp: { selected: false },
+  backgroundTasks: { selected: false },
+  ipaddress: { selected: false }
+}

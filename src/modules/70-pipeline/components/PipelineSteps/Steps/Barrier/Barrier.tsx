@@ -165,7 +165,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                 )}
               </div>
 
-              <div className={stepCss.noLookDivider} />
+              <div className={stepCss.divider} />
 
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormInput.MultiTypeInput

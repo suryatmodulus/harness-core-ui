@@ -31,11 +31,16 @@ import {
 } from 'services/cd-ng'
 import useCreateGitSyncModal from '@gitsync/modals/useCreateGitSyncModal'
 import { useStrings } from 'framework/strings'
-import { getCompleteGitPath, getGitConnectorIcon, getRepoPath } from '@gitsync/common/gitSyncUtils'
+import {
+  getCompleteGitPath,
+  getGitConnectorIcon,
+  getRepoPath,
+  getHarnessFolderPathWithSuffix
+} from '@gitsync/common/gitSyncUtils'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
+import { HARNESS_FOLDER_NAME_PLACEHOLDER, HARNESS_FOLDER_SUFFIX } from '@gitsync/common/Constants'
 import { TestConnectionWidget, TestStatus } from '@common/components/TestConnectionWidget/TestConnectionWidget'
 import { getIdentifierFromValue } from '@common/components/EntityReference/EntityReference'
 import CopyToClipboard from '@common/components/CopyToClipBoard/CopyToClipBoard'
@@ -267,8 +272,10 @@ const GitSyncRepoTab: React.FC = () => {
               validationSchema={Yup.object().shape({
                 rootFolder: Yup.string()
                   .trim()
-                  .required(getString('validation.nameRequired'))
-                  .matches(StringUtils.regexName, getString('common.validation.namePatternIsNotValid'))
+                  .matches(
+                    StringUtils.HarnessFolderName,
+                    getString('common.validation.harnessFolderNamePatternIsNotValid')
+                  )
               })}
               formName="gitSyncRepoTab"
               onSubmit={formData => {
@@ -281,7 +288,7 @@ const GitSyncRepoTab: React.FC = () => {
                     : repoData?.gitSyncFolderConfigDTOs?.slice()
 
                   folders?.push({
-                    rootFolder: formData.rootFolder.concat(HARNESS_FOLDER_SUFFIX),
+                    rootFolder: getHarnessFolderPathWithSuffix(formData.rootFolder.trim(), HARNESS_FOLDER_SUFFIX),
                     isDefault: formData.isDefault
                   })
                   handleRepoUpdate(folders, true)
@@ -340,23 +347,21 @@ const GitSyncRepoTab: React.FC = () => {
                         className={cx(css.inputFields, css.placeholder, { [css.noSpacing]: formValues.rootFolder })}
                         name="rootFolder"
                         label={getString('gitsync.pathToHarnessFolder')}
-                        placeholder={HARNESS_FOLDER_SUFFIX}
+                        placeholder={HARNESS_FOLDER_NAME_PLACEHOLDER}
                       />
-                      {formValues.rootFolder ? (
-                        <Text
-                          font={{ size: 'small' }}
-                          padding={{ top: 'xsmall', bottom: 'xxlarge' }}
-                          color={Color.GREY_250}
-                          style={{
-                            overflow: 'hidden',
-                            textOverflow: 'ellipsis',
-                            whiteSpace: 'nowrap'
-                          }}
-                          title={getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
-                        >
-                          {getCompleteGitPath(formValues.repo, formValues.rootFolder, HARNESS_FOLDER_SUFFIX)}
-                        </Text>
-                      ) : null}
+                      <Text
+                        font={{ size: 'small' }}
+                        padding={{ top: 'xsmall', bottom: 'xxlarge' }}
+                        color={Color.GREY_250}
+                        style={{
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap'
+                        }}
+                        title={getCompleteGitPath(formValues.repo, formValues.rootFolder.trim(), HARNESS_FOLDER_SUFFIX)}
+                      >
+                        {getCompleteGitPath(formValues.repo, formValues.rootFolder.trim(), HARNESS_FOLDER_SUFFIX)}
+                      </Text>
                       <Container
                         padding={{
                           left: 'xlarge'
@@ -406,8 +411,9 @@ const GitSyncRepoTab: React.FC = () => {
         <Layout.Vertical spacing="xsmall">
           {repoData?.gitSyncFolderConfigDTOs?.length
             ? repoData.gitSyncFolderConfigDTOs.map((rootFolderData: GitSyncFolderConfigDTO, index: number) => {
-                const folder = '/'.concat(rootFolderData.rootFolder?.split('/.harness')[0] || '')
-                const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder)
+                const folderPath = rootFolderData.rootFolder?.trim()?.split('/.harness')[0] || ''
+                const folderWithPrefix = folderPath.startsWith('/') ? folderPath : '/'.concat(folderPath)
+                const linkToProvider = getExternalUrl(repoData, rootFolderData.rootFolder?.trim())
                 return (
                   <Layout.Horizontal
                     key={index}
@@ -422,10 +428,10 @@ const GitSyncRepoTab: React.FC = () => {
                             textOverflow: 'ellipsis',
                             whiteSpace: 'nowrap'
                           }}
-                          title={folder}
+                          title={folderWithPrefix}
                           color={Color.BLACK}
                         >
-                          {folder}
+                          {folderWithPrefix}
                         </Text>
                       </Container>
 

@@ -18,6 +18,7 @@ declare const styles: {
   readonly lineChartContainer: string
   readonly dataColumn: string
   readonly actions: string
+  readonly clusterTypeFilter: string
   readonly columnHeader: string
   readonly dataRow: string
   readonly highlightRow: string

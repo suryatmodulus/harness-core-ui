@@ -453,7 +453,7 @@ const RuleEditCard: React.FC<RuleEditCardProps> = ({
                         <PercentageRollout
                           editing={true}
                           variations={variations}
-                          bucketBy={rule.clauses?.[index]?.attribute}
+                          bucketBy={rule.serve.distribution?.bucketBy}
                           weightedVariations={rule.serve.distribution?.variations || []}
                           onSetPercentageValues={handleRolloutChange}
                           style={{ marginLeft: 'var(--spacing-small)' }}

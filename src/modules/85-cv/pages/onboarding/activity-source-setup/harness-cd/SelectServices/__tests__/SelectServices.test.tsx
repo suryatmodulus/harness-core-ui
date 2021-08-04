@@ -160,8 +160,8 @@ describe('Select Services', () => {
 
     fireEvent.click(selectCaret)
 
-    await waitFor(() => expect(document.body.querySelectorAll('[class*="menuItem"]')).not.toBeNull())
-    const options = document.body.querySelectorAll('[class*="menuItem"]')
+    await waitFor(() => expect(document.body.querySelectorAll('[class*="menuItemLabel"]')).not.toBeNull())
+    const options = document.body.querySelectorAll('[class*="menuItemLabel"]')
     fireEvent.click(options[1])
     await waitFor(() => expect(container.querySelector('input[value="bvhj"]')).not.toBeNull())
 
@@ -250,8 +250,8 @@ describe('Select Services', () => {
 
     fireEvent.click(selectCaret)
 
-    await waitFor(() => expect(document.body.querySelectorAll('[class*="menuItem"]')).not.toBeNull())
-    const options = document.body.querySelectorAll('[class*="menuItem"]')
+    await waitFor(() => expect(document.body.querySelectorAll('[class*="menuItemLabel"]')).not.toBeNull())
+    const options = document.body.querySelectorAll('[class*="menuItemLabel"]')
     fireEvent.click(options[1])
     await waitFor(() => expect(container.querySelector('input[value="bvhj"]')).not.toBeNull())
 

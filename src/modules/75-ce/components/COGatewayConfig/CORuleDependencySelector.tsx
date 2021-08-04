@@ -3,6 +3,7 @@ import { Icon, Layout, Table, Select, SelectOption, TextInput, Text, Color } fro
 import type { CellProps } from 'react-table'
 import type { Service, ServiceDep } from 'services/lw'
 import css from './COGatewayConfig.module.scss'
+
 interface CORuleDendencySelectorProps {
   deps: ServiceDep[]
   setDeps: (s: ServiceDep[]) => void
@@ -91,6 +92,7 @@ const CORuleDendencySelector: React.FC<CORuleDendencySelectorProps> = props => {
       <>
         <TextInput
           defaultValue={tableProps.value}
+          className={css.advancedConfigInput}
           style={{ border: 'none' }}
           onBlur={e => {
             const value = (e.currentTarget as HTMLInputElement).value

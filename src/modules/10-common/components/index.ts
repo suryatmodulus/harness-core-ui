@@ -17,6 +17,7 @@ import TagsPopover from './TagsPopover/TagsPopover'
 import Toothpick from './Toothpick/Toothpick'
 import TimeSelect from './TimeSelect/TimeSelect'
 import { TimeAgo } from './TimeAgo/TimeAgo'
+import { TimeAgoPopover } from './TimeAgoPopover/TimeAgoPopover'
 import { useToaster } from './Toaster/useToaster'
 import { UserLabel } from './UserLabel/UserLabel'
 import { FormMultiTypeTextAreaField, MultiTypeTextArea } from './MultiTypeTextArea/MultiTypeTextArea'
@@ -46,6 +47,7 @@ export {
   Table,
   TagsPopover,
   TimeAgo,
+  TimeAgoPopover,
   TimeSelect,
   Toothpick,
   useToaster,

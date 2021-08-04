@@ -382,7 +382,12 @@ exports[`Create CE K8s Connector Wizard Proceed with following steps 1`] = `
                                     <li
                                       class="Select--menuItem Select--active"
                                     >
-                                      rishabhk8s
+                                      <p
+                                        class="StyledProps--font Text--lineclamp StyledProps--main Select--menuItemLabel"
+                                        style="--text-line-clamp: 1;"
+                                      >
+                                        rishabhk8s
+                                      </p>
                                     </li>
                                   </ul>
                                 </div>

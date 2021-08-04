@@ -379,13 +379,53 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--padding-left-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
+              <div
+                class="Card--cardMenu"
+              >
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-more StyledProps--main"
+                          icon="more"
+                        >
+                          <svg
+                            data-icon="more"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              more
+                            </desc>
+                            <path
+                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
               <div
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -463,7 +503,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
                     class="StyledProps--font StyledProps--main"
@@ -476,52 +516,12 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       pipeline1
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey600"
+                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
                     >
                       idLabel
                       pipeline1
                     </p>
                   </div>
-                </div>
-              </div>
-              <div
-                class="Card--cardMenu menu"
-              >
-                <div
-                  class="Card--dots"
-                >
-                  <span
-                    class="bp3-popover-wrapper bp3-dark"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-more StyledProps--main"
-                          icon="more"
-                        >
-                          <svg
-                            data-icon="more"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              more
-                            </desc>
-                            <path
-                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -530,18 +530,21 @@ exports[`CD Pipeline Page List render card view 1`] = `
             >
               <div
                 class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              />
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey700"
-                    style="width: 72px;"
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
                   >
                     services
                   </p>
                   <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
                     style="--text-line-clamp: 1;"
                   >
                     nginx service
@@ -549,14 +552,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--padding-top-medium StyledProps--padding-bottom-xlarge"
               >
                 <div
                   class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label StyledProps--font-xsmall StyledProps--color StyledProps--color-grey700"
-                    style="width: 72px;"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
                   >
                     lastRunAtDate
                   </p>
@@ -570,7 +573,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <span
-                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-black"
                           tabindex="0"
                         >
                           dummy date
@@ -599,20 +602,19 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-xsmall StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
                 >
                   <div
                     class="StyledProps--font StyledProps--main label"
-                    style="width: 72px;"
+                    style="width: 80px;"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-xsmall"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-small"
                     >
                       executionsText
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
-                      style="font-size: 8px;"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-xsmall"
                     >
                       pipeline.lastSevenDays
                     </p>
@@ -749,17 +751,17 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font StyledProps--main deploymentsCount StyledProps--color StyledProps--color-primary7 StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                     >
                       1
                     </p>
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-medium StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main carBtns runBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -786,7 +788,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main carBtns viewExecutionsBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
                     type="button"
                   >
                     <span
@@ -809,13 +811,53 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--padding-left-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
+              <div
+                class="Card--cardMenu"
+              >
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-more StyledProps--main"
+                          icon="more"
+                        >
+                          <svg
+                            data-icon="more"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              more
+                            </desc>
+                            <path
+                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
               <div
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -856,7 +898,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
                     class="StyledProps--font StyledProps--main"
@@ -869,52 +911,12 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       First pipeline
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey600"
+                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
                     >
                       idLabel
                       First_pipeline
                     </p>
                   </div>
-                </div>
-              </div>
-              <div
-                class="Card--cardMenu menu"
-              >
-                <div
-                  class="Card--dots"
-                >
-                  <span
-                    class="bp3-popover-wrapper bp3-dark"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-more StyledProps--main"
-                          icon="more"
-                        >
-                          <svg
-                            data-icon="more"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              more
-                            </desc>
-                            <path
-                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -923,18 +925,21 @@ exports[`CD Pipeline Page List render card view 1`] = `
             >
               <div
                 class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              />
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey700"
-                    style="width: 72px;"
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
                   >
                     services
                   </p>
                   <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
                     style="--text-line-clamp: 1;"
                   >
                     nginx service
@@ -942,14 +947,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 </div>
               </div>
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--padding-top-medium StyledProps--padding-bottom-xlarge"
               >
                 <div
                   class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label StyledProps--font-xsmall StyledProps--color StyledProps--color-grey700"
-                    style="width: 72px;"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
                   >
                     lastRunAtDate
                   </p>
@@ -963,7 +968,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <span
-                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-black"
                           tabindex="0"
                         >
                           dummy date
@@ -1001,20 +1006,19 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-xsmall StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
                 >
                   <div
                     class="StyledProps--font StyledProps--main label"
-                    style="width: 72px;"
+                    style="width: 80px;"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-xsmall"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-small"
                     >
                       executionsText
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
-                      style="font-size: 8px;"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-xsmall"
                     >
                       pipeline.lastSevenDays
                     </p>
@@ -1151,17 +1155,17 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font StyledProps--main deploymentsCount StyledProps--color StyledProps--color-primary7 StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                     >
                       9
                     </p>
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-medium StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main carBtns runBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -1188,7 +1192,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main carBtns viewExecutionsBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
                     type="button"
                   >
                     <span
@@ -1211,13 +1215,53 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="StyledProps--font StyledProps--main StyledProps--padding-top-large StyledProps--padding-right-xlarge StyledProps--padding-bottom-large StyledProps--padding-left-xlarge StyledProps--border StyledProps--border-bottom"
+              class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
+              <div
+                class="Card--cardMenu"
+              >
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-more StyledProps--main"
+                          icon="more"
+                        >
+                          <svg
+                            data-icon="more"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              more
+                            </desc>
+                            <path
+                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
               <div
                 class="StyledProps--font StyledProps--main"
               >
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
                 >
                   <span
                     class="bp3-icon StyledProps--main"
@@ -1258,7 +1302,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </span>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
                     class="StyledProps--font StyledProps--main"
@@ -1271,52 +1315,12 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       Second Pipeline
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey600"
+                      class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
                     >
                       idLabel
                       Second_Pipeline
                     </p>
                   </div>
-                </div>
-              </div>
-              <div
-                class="Card--cardMenu menu"
-              >
-                <div
-                  class="Card--dots"
-                >
-                  <span
-                    class="bp3-popover-wrapper bp3-dark"
-                  >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon bp3-icon-more StyledProps--main"
-                          icon="more"
-                        >
-                          <svg
-                            data-icon="more"
-                            height="16"
-                            viewBox="0 0 16 16"
-                            width="16"
-                          >
-                            <desc>
-                              more
-                            </desc>
-                            <path
-                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
                 </div>
               </div>
             </div>
@@ -1327,14 +1331,33 @@ exports[`CD Pipeline Page List render card view 1`] = `
                 class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
               />
               <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
+                  >
+                    services
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
+                  >
+                    none
+                  </p>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--padding-top-medium StyledProps--padding-bottom-xlarge"
               >
                 <div
                   class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main label StyledProps--font-xsmall StyledProps--color StyledProps--color-grey700"
-                    style="width: 72px;"
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
                   >
                     lastRunAtDate
                   </p>
@@ -1348,7 +1371,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="bp3-popover-target"
                       >
                         <span
-                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-xsmall StyledProps--color StyledProps--color-black"
+                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-black"
                           tabindex="0"
                         >
                           dummy date
@@ -1377,20 +1400,19 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-small StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-xsmall StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
                 >
                   <div
                     class="StyledProps--font StyledProps--main label"
-                    style="width: 72px;"
+                    style="width: 80px;"
                   >
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-xsmall"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-small"
                     >
                       executionsText
                     </p>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
-                      style="font-size: 8px;"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-xsmall"
                     >
                       pipeline.lastSevenDays
                     </p>
@@ -1527,17 +1549,17 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </div>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font StyledProps--main deploymentsCount StyledProps--color StyledProps--color-primary7 StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                     >
                       1
                     </p>
                   </div>
                 </div>
                 <div
-                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-medium StyledProps--flex"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main carBtns runBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color"
                     data-testid="card-run-pipeline"
                     type="button"
                   >
@@ -1564,7 +1586,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                     </span>
                   </button>
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main carBtns viewExecutionsBtn Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
                     type="button"
                   >
                     <span

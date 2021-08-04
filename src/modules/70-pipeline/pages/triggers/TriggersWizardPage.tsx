@@ -54,7 +54,8 @@ import {
   getConnectorName,
   getConnectorValue,
   isRowFilled,
-  CUSTOM
+  CUSTOM,
+  isArtifactOrManifestTrigger
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -100,7 +101,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const { getString } = useStrings()
   // use passed params on new trigger
   const queryParamsOnNew = location?.search ? getQueryParamsOnNew(location.search) : undefined
-  const { sourceRepo: sourceRepoOnNew, triggerType: triggerTypeOnNew } = queryParamsOnNew || {}
+  const {
+    sourceRepo: sourceRepoOnNew,
+    triggerType: triggerTypeOnNew,
+    manifestType,
+    artifactType
+  } = queryParamsOnNew || {}
 
   const { data: template } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
@@ -825,13 +831,15 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         originalPipeline,
         ...getDefaultExpressionBreakdownValues(scheduleTabsId.MINUTES)
       }
-    } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+    } else if (isArtifactOrManifestTrigger(triggerType)) {
       const inputSetTemplateYamlObj = parse(template?.data?.inputSetTemplateYaml || '')
 
       return {
         triggerType: triggerTypeOnNew,
         identifier: '',
         tags: {},
+        artifactType,
+        manifestType,
         pipeline: currentPipeline?.pipeline,
         originalPipeline,
         inputSetTemplateYamlObj
@@ -864,10 +872,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           }
         } = {}
 
-        if (
-          initialValues?.triggerType === TriggerTypes.NEW_ARTIFACT ||
-          onEditInitialValues?.triggerType === TriggerTypes.NEW_ARTIFACT
-        ) {
+        if (isArtifactOrManifestTrigger(initialValues?.triggerType)) {
           const inputSetTemplateYamlObj = parse(template?.data?.inputSetTemplateYaml || '')
           additionalValues.inputSetTemplateYamlObj = inputSetTemplateYamlObj
         }
@@ -878,13 +883,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
             pipeline: newPipeline,
-            ...{ additionalValues }
+            ...additionalValues
           })
         } else {
           setInitialValues({
             ...initialValues,
             originalPipeline: newOriginalPipeline,
-            ...{ additionalValues }
+            ...additionalValues
           })
         }
       } catch (e) {
@@ -1113,7 +1118,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           initialValues,
           onSubmit: (val: FlatValidWebhookFormikValuesInterface) => handleWebhookSubmit(val),
           validationSchema: getValidationSchema(
-            TriggerTypes.NEW_ARTIFACT as unknown as NGTriggerSourceV2['type'],
+            initialValues.triggerType as unknown as NGTriggerSourceV2['type'],
             getString
           ),
           enableReinitialize: true
@@ -1211,7 +1216,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
         {!loadingGetTrigger &&
           !getTriggerErrorMessage &&
-          initialValues.triggerType === TriggerTypes.NEW_ARTIFACT &&
+          isArtifactOrManifestTrigger(initialValues.triggerType) &&
           renderArtifactWizard()}
       </Page.Body>
     </>

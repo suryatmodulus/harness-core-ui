@@ -57,8 +57,8 @@ export default function CFSideNav(): React.ReactElement {
           }
         }}
       />
-      {projectIdentifier && orgIdentifier ? (
-        <React.Fragment>
+      {projectIdentifier && orgIdentifier && (
+        <>
           <SidebarLink
             label={getString('featureFlagsText')}
             to={withActiveEnvironment(routes.toCFFeatureFlags(params))}
@@ -76,12 +76,15 @@ export default function CFSideNav(): React.ReactElement {
             />
           )}
           <SidebarLink
-            className={css.onboarding}
             label={getString('cf.shared.getStarted')}
             to={withActiveEnvironment(routes.toCFOnboarding(params))}
           />
 
-          <NavExpandable title={getString('common.projectSetup')} route={routes.toSetup(params)}>
+          <NavExpandable
+            title={getString('common.projectSetup')}
+            route={routes.toSetup(params)}
+            className={css.projectSetup}
+          >
             <Layout.Vertical spacing="small">
               <SidebarLink
                 to={routes.toAccessControl({ ...params, module: 'cf' })}
@@ -89,8 +92,8 @@ export default function CFSideNav(): React.ReactElement {
               />
             </Layout.Vertical>
           </NavExpandable>
-        </React.Fragment>
-      ) : null}
+        </>
+      )}
     </Layout.Vertical>
   )
 }

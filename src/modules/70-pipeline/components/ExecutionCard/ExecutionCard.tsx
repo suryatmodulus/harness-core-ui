@@ -2,10 +2,10 @@ import React from 'react'
 import { Card, Icon } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Popover } from '@blueprintjs/core'
-import { isEmpty } from 'lodash-es'
+import { defaultTo, get, isEmpty } from 'lodash-es'
 
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
-import { UserLabel, Duration, TimeAgo } from '@common/exports'
+import { UserLabel, Duration, TimeAgoPopover } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { String } from 'framework/strings'
@@ -99,7 +99,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   iconProps={{ size: 14 }}
                   className={css.tags}
                   popoverProps={{ wrapperTagName: 'div', targetTagName: 'div' }}
-                  tags={(pipelineExecution?.tags || []).reduce((val, tag) => {
+                  tags={defaultTo(pipelineExecution?.tags, []).reduce((val, tag) => {
                     return Object.assign(val, { [tag.key]: tag.value })
                   }, {} as { [key: string]: string })}
                 />
@@ -139,8 +139,8 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                   params={{
                     accountId,
                     orgIdentifier,
-                    pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
-                    executionIdentifier: pipelineExecution?.planExecutionId || '',
+                    pipelineIdentifier: defaultTo(pipelineExecution?.pipelineIdentifier, ''),
+                    executionIdentifier: defaultTo(pipelineExecution?.planExecutionId, ''),
                     projectIdentifier,
                     module,
                     repoIdentifier: pipelineExecution?.gitDetails?.repoIdentifier,
@@ -158,9 +158,9 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 <div className={css.moduleData}>
                   <Icon name={ciInfo.icon} size={20} className={css.moduleIcon} />
                   {React.createElement<ExecutionCardInfoProps>(ciInfo.component, {
-                    data: pipelineExecution?.moduleInfo?.ci || {},
-                    nodeMap: pipelineExecution?.layoutNodeMap || {},
-                    startingNodeId: pipelineExecution?.startingNodeId || '',
+                    data: defaultTo(pipelineExecution?.moduleInfo?.ci, {}),
+                    nodeMap: defaultTo(pipelineExecution?.layoutNodeMap, {}),
+                    startingNodeId: defaultTo(pipelineExecution?.startingNodeId, ''),
                     variant
                   })}
                 </div>
@@ -169,9 +169,9 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
                 <div className={css.moduleData}>
                   <Icon name={cdInfo.icon} size={20} className={css.moduleIcon} />
                   {React.createElement<ExecutionCardInfoProps>(cdInfo.component, {
-                    data: pipelineExecution?.moduleInfo?.cd || {},
-                    nodeMap: pipelineExecution?.layoutNodeMap || {},
-                    startingNodeId: pipelineExecution?.startingNodeId || '',
+                    data: defaultTo(pipelineExecution?.moduleInfo?.cd, {}),
+                    nodeMap: defaultTo(pipelineExecution?.layoutNodeMap, {}),
+                    startingNodeId: defaultTo(pipelineExecution?.startingNodeId, ''),
                     variant
                   })}
                 </div>
@@ -192,15 +192,15 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           <div className={css.triggerInfo}>
             <UserLabel
               name={
-                pipelineExecution.moduleInfo?.ci?.ciExecutionInfoDTO?.author?.name ||
-                pipelineExecution.moduleInfo?.ci?.ciExecutionInfoDTO?.author?.id ||
-                pipelineExecution.executionTriggerInfo?.triggeredBy?.identifier ||
+                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.name') ||
+                get(pipelineExecution, 'moduleInfo.ci.ciExecutionInfoDTO.author.id') ||
+                get(pipelineExecution, 'executionTriggerInfo.triggeredBy.identifier') ||
                 'Anonymous'
               }
             />
             <String
               className={css.triggerType}
-              stringID={mapTriggerTypeToStringID(pipelineExecution.executionTriggerInfo?.triggerType)}
+              stringID={mapTriggerTypeToStringID(get(pipelineExecution, 'executionTriggerInfo.triggerType'))}
             />
           </div>
           <div className={css.timers}>
@@ -212,10 +212,10 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               durationText={variant === CardVariant.Default ? undefined : ' '}
               endTime={pipelineExecution?.endTs}
             />
-            <TimeAgo
+            <TimeAgoPopover
               iconProps={{ size: 14, className: css.timerIcon }}
               icon="calendar"
-              time={pipelineExecution?.startTs || 0}
+              time={defaultTo(pipelineExecution?.startTs, 0)}
               inline={false}
               className={css.timeAgo}
             />

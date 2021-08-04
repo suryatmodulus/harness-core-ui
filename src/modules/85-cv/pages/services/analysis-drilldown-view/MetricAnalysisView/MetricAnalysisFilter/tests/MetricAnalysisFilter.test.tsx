@@ -20,8 +20,8 @@ describe('Unit tests for MetricAnalysisFilter', () => {
     }
 
     fireEvent.click(icon)
-    await waitFor(() => expect(document.body.querySelector('[class*="menuItem"]')).not.toBeNull())
-    const options = document.querySelectorAll('[class*="menuItem"]')
+    await waitFor(() => expect(document.body.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
+    const options = document.querySelectorAll('[class*="menuItemLabel"]')
     fireEvent.click(options[1])
     await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(MetricAnalysisFilterType.ALL_METRICS))
   })

@@ -60,7 +60,6 @@ const getDefaultChartOptions = (seriesData: DataType): Highcharts.Options => ({
   },
   plotOptions: {
     area: {
-      stacking: 'normal',
       connectNulls: true,
       fillOpacity: 0.85,
       lineWidth: 1,

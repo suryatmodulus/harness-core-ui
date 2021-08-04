@@ -92,7 +92,6 @@ export const CFVariationColors = [
 
 export const CFSideNavProps: SidebarContext = {
   navComponent: SideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Features',
+  title: 'Feature Flags',
   icon: 'cf-main'
 }

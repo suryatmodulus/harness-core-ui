@@ -73,7 +73,7 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
         )}
       </div>
 
-      <div className={stepCss.noLookDivider} />
+      <div className={stepCss.divider} />
 
       <div className={cx(stepCss.formGroup)}>
         <FormMultiTypeTextAreaField

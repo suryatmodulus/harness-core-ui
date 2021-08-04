@@ -45,15 +45,13 @@ exports[`Custom Variables can add a string variable 1`] = `
       class="variableListTable"
     >
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main variable-name-cell"
         style="--text-line-clamp: 1;"
       >
-        <span>
-          customVariables.variableAndType
-        </span>
+        myVar
       </p>
       <div
-        class="valueRow"
+        class="valueRow variable-value-cell"
       >
         <div>
           <div
@@ -64,10 +62,10 @@ exports[`Custom Variables can add a string variable 1`] = `
               class="bp3-form-content"
             >
               <div
-                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                class="Layout--horizontal StyledProps--main MultiTypeInput--mini"
               >
                 <div
-                  class="bp3-input-group MultiTypeInput--input"
+                  class="bp3-input-group bp3-small MultiTypeInput--input"
                 >
                   <input
                     autocomplete="off"
@@ -84,7 +82,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                      class="MultiTypeInput--miniBtn MultiTypeInput--FIXED"
                     >
                       <span
                         class="bp3-icon StyledProps--main"

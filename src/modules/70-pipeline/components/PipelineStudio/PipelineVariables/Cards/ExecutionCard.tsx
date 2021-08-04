@@ -2,11 +2,12 @@ import React from 'react'
 import produce from 'immer'
 import { set } from 'lodash-es'
 import { NestedAccordionPanel } from '@wings-software/uicore'
-
+import cx from 'classnames'
 import type { ExecutionElementConfig, ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 
 import type { PipelineVariablesData } from '../types'
 import { StepCardPanel, StepGroupCardPanel } from './StepCard'
+import VariableAccordionSummary from '../VariableAccordionSummary'
 import css from '../PipelineVariables.module.scss'
 
 export interface AddStepsParams {
@@ -169,8 +170,9 @@ export function ExecutionCardPanel(props: ExecutionCardProps): React.ReactElemen
       isDefaultOpen
       addDomId
       id={props.id}
-      summary={props.title}
+      summary={<VariableAccordionSummary> {props.title}</VariableAccordionSummary>}
       panelClassName={css.panel}
+      summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL1)}
       details={<ExecutionCard {...props} />}
     />
   )

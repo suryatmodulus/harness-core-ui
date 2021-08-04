@@ -25,7 +25,7 @@ const TriggersPage: React.FC = (): React.ReactElement => {
   const history = useHistory()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const onNewTriggerClick = (val: TriggerDataInterface): void => {
-    const { triggerType, sourceRepo } = val
+    const { triggerType, sourceRepo, manifestType, artifactType } = val
     history.push(
       routes.toTriggersWizardPage({
         accountId,
@@ -35,6 +35,8 @@ const TriggersPage: React.FC = (): React.ReactElement => {
         triggerIdentifier: 'new', // new is a reserved identifier
         triggerType,
         sourceRepo,
+        manifestType,
+        artifactType,
         module,
         repoIdentifier,
         branch

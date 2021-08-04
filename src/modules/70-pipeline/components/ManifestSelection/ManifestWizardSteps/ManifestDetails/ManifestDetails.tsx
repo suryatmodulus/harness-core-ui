@@ -38,7 +38,6 @@ import {
 } from '../../Manifesthelper'
 import GitRepositoryName from '../GitRepositoryName/GitRepositoryName'
 import css from '../ManifestWizardSteps.module.scss'
-import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface ManifestDetailsPropType {
   stepName: string
@@ -121,10 +120,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
 
   const getRepoName = (): string => {
     let repoName = ''
-    if (
-      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
-      getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
-    ) {
+    if (getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED) {
       repoName = prevStepData?.connectorRef
     } else if (prevStepData?.connectorRef) {
       const connectorScope = getScopeFromValue(initialValues?.spec?.store?.spec?.connectorRef)
@@ -260,8 +256,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME ||
-                getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.EXPRESSION
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier
@@ -362,11 +357,7 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                     </div>
                   )}
                 </Layout.Horizontal>
-                <div
-                  className={cx(stepCss.formGroup, {
-                    [css.folderRunTimeInput]: getMultiTypeFromValue(formik.values?.paths) === MultiTypeInputType.RUNTIME
-                  })}
-                >
+                <div className={css.halfWidth}>
                   <MultiTypeFieldSelector
                     defaultValueToReset={defaultValueToReset}
                     name={'paths'}
@@ -376,11 +367,6 @@ const ManifestDetails: React.FC<StepProps<ConnectorConfigDTO> & ManifestDetailsP
                           ? getString('fileFolderPathText')
                           : getString('common.git.filePath')}
                       </Text>
-                    }
-                    style={
-                      getMultiTypeFromValue(formik.values?.paths) !== MultiTypeInputType.RUNTIME
-                        ? { width: 330 }
-                        : { width: 500 }
                     }
                   >
                     <FieldArray

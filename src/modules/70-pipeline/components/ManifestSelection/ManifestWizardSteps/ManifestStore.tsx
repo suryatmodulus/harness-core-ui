@@ -60,9 +60,9 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
   const { getString } = useStrings()
 
-  const [selectedManifest, setSelectedManifest] = React.useState(prevStepData?.store ?? initialValues.store)
+  const [selectedStore, setSelectedStore] = React.useState(prevStepData?.store ?? initialValues.store)
   const newConnectorLabel = `${getString('newLabel')} ${
-    !!selectedManifest && getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])
+    !!selectedStore && getString(ManifestToConnectorLabelMap[selectedStore as ManifestStores])
   } ${getString('connector')}`
 
   const [canCreate] = usePermission({
@@ -73,25 +73,25 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
   })
 
   const submitFirstStep = async (formData: ManifestStepInitData): Promise<void> => {
-    nextStep?.({ ...formData, store: selectedManifest })
+    nextStep?.({ ...formData })
   }
   const handleOptionSelection = (selected: ManifestStores): void => {
-    setSelectedManifest(selected)
+    setSelectedStore(selected)
     handleStoreChange(selected)
   }
 
   const getInitialValues = useCallback((): ManifestStepInitData => {
-    const initValues = { ...initialValues, manifestStore: selectedManifest }
+    const initValues = { ...initialValues }
 
     if (prevStepData?.connectorRef) {
       initValues.connectorRef = prevStepData?.connectorRef
-      handleStoreChange(selectedManifest)
+      handleStoreChange(selectedStore)
     }
-    if (selectedManifest !== initValues.store) {
+    if (selectedStore !== initValues.store) {
       initValues.connectorRef = ''
     }
-    return initValues
-  }, [selectedManifest])
+    return { ...initValues, store: selectedStore }
+  }, [selectedStore])
 
   const supportedManifestStores = useMemo(
     () =>
@@ -116,13 +116,13 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
           connectorRef: Yup.string()
             .trim()
             .required(
-              `${ManifestToConnectorMap[selectedManifest]} ${getString(
+              `${ManifestToConnectorMap[selectedStore]} ${getString(
                 'pipelineSteps.build.create.connectorRequiredError'
               )}`
             )
         })}
         onSubmit={formData => {
-          submitFirstStep({ ...formData, store: selectedManifest })
+          submitFirstStep({ ...formData })
         }}
         enableReinitialize={true}
       >
@@ -131,7 +131,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
             <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
               <ThumbnailSelect
                 className={css.thumbnailSelect}
-                name={'manifestStore'}
+                name={'store'}
                 items={supportedManifestStores}
                 isReadonly={isReadonly}
                 onChange={handleOptionSelection}
@@ -139,20 +139,20 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
             </Layout.Horizontal>
 
             <div className={css.formContainerStepOne}>
-              {selectedManifest !== '' ? (
+              {formik.values.store !== '' ? (
                 <div className={css.connectorContainer}>
                   <FormMultiTypeConnectorField
-                    key={selectedManifest}
+                    key={formik.values.store}
                     name="connectorRef"
                     label={
                       <Text style={{ marginBottom: '5px' }}>
-                        {`${getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])} ${getString(
+                        {`${getString(ManifestToConnectorLabelMap[formik.values.store as ManifestStores])} ${getString(
                           'connector'
                         )}`}
                       </Text>
                     }
                     placeholder={`${getString('select')} ${getString(
-                      ManifestToConnectorLabelMap[selectedManifest as ManifestStores]
+                      ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
                     )} ${getString('connector')}`}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
@@ -160,7 +160,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     width={400}
                     multiTypeProps={{ expressions }}
                     isNewConnectorLabelVisible={false}
-                    type={ManifestToConnectorMap[selectedManifest]}
+                    type={ManifestToConnectorMap[formik.values.store]}
                     enableConfigureOptions={false}
                     gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                   />
@@ -168,7 +168,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                     <div className={css.configureOptions}>
                       <ConfigureOptions
                         value={formik.values.connectorRef as unknown as string}
-                        type={ManifestToConnectorMap[selectedManifest]}
+                        type={ManifestToConnectorMap[formik.values.store]}
                         variableName="connectorRef"
                         showRequiredField={false}
                         showDefaultField={false}
@@ -190,7 +190,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                       icon="plus"
                       onClick={() => {
                         handleConnectorViewChange()
-                        nextStep?.({ ...prevStepData, store: selectedManifest })
+                        nextStep?.({ ...prevStepData, store: selectedStore })
                       }}
                     />
                   )}
@@ -206,7 +206,7 @@ const ManifestStore: React.FC<StepProps<ConnectorConfigDTO> & ManifestStorePropT
                 text={getString('continue')}
                 rightIcon="chevron-right"
                 disabled={
-                  !selectedManifest ||
+                  !selectedStore ||
                   (getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.FIXED &&
                     !(formik.values.connectorRef as ConnectorSelectedValue)?.connector)
                 }

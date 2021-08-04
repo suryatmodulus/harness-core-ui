@@ -1,21 +1,67 @@
 import React, { useState } from 'react'
 import { Container } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
+import { camelCase, defaultTo, get } from 'lodash-es'
 import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
-import { useGetWorkloads, useGetDeployments } from 'services/cd-ng'
+import { useGetWorkloads, useGetDeployments, CDPipelineModuleInfo, ExecutionStatusInfo } from 'services/cd-ng'
+import type { CIBuildCommit, CIWebhookInfoDTO } from 'services/ci'
+import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageHeader } from '@common/components/Page/PageHeader'
+import ExecutionCard from '@pipeline/components/ExecutionCard/ExecutionCard'
+import { CardVariant } from '@pipeline/utils/constants'
 import DeploymentsHealthCards from './DeploymentsHealthCards'
 import DeploymentExecutionsChart from './DeploymentExecutionsChart'
 import WorkloadCard from './DeploymentCards/WorkloadCard'
-import FailedDeploymentCard from './DeploymentCards/FailedDeploymentCard'
-import ActiveDeploymentCard from './DeploymentCards/ActiveDeploymentCard'
 import styles from './CDDashboardPage.module.scss'
+
+/** TODO: fix types after BE merge */
+function executionStatusInfoToExecutionSummary(info: ExecutionStatusInfo): PipelineExecutionSummary {
+  const cd: CDPipelineModuleInfo = {
+    serviceIdentifiers: info.serviceInfoList?.map(({ serviceName }) => defaultTo(serviceName, '')).filter(svc => !!svc)
+  }
+
+  const branch = get(info, 'gitInfo.targetBranch')
+  const commits: CIBuildCommit[] = [{ message: get(info, 'gitInfo.commit'), id: get(info, 'gitInfo.commitID') }]
+
+  const ciExecutionInfoDTO: CIWebhookInfoDTO = {
+    author: info.author,
+    event: get(info, 'gitInfo.eventType'),
+    branch: {
+      name: get(info, 'gitInfo.sourceBranch'),
+      commits
+    },
+    pullRequest: {
+      sourceBranch: get(info, 'gitInfo.sourceBranch'),
+      targetBranch: branch,
+      commits
+    }
+  }
+
+  return {
+    startTs: info.startTs,
+    endTs: typeof info.endTs === 'number' && info.endTs > 0 ? info.endTs : undefined,
+    name: info.pipelineName,
+    status: (info.status ? info.status.charAt(0).toUpperCase() + camelCase(info.status).slice(1) : '') as any,
+    planExecutionId: info.planExecutionId,
+    pipelineIdentifier: info.pipelineIdentifier,
+    moduleInfo: {
+      cd: cd as any,
+      ci: (branch ? { ciExecutionInfoDTO, branch } : undefined) as any
+    },
+    executionTriggerInfo: {
+      triggeredBy: {
+        identifier: info.author?.name
+      },
+      triggerType: info.triggerType as Required<PipelineExecutionSummary>['executionTriggerInfo']['triggerType']
+    }
+  }
+}
 
 export const CDDashboardPage: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps>()
@@ -51,6 +97,7 @@ export const CDDashboardPage: React.FC = () => {
   useErrorHandler(workloadsError)
 
   const refetchingDeployments = useRefetchCall(refetch, loading)
+  const activeDeployments = [...(data?.data?.active ?? []), ...(data?.data?.pending ?? [])]
 
   return (
     <>
@@ -86,12 +133,10 @@ export const CDDashboardPage: React.FC = () => {
             }
           >
             {data?.data?.failure?.map((d, i) => (
-              <FailedDeploymentCard
+              <ExecutionCard
+                variant={CardVariant.Minimal}
                 key={i}
-                name={d.name!}
-                startTime={d.startTs!}
-                endTime={d.endTs!}
-                serviceInfoList={d.serviceInfoList}
+                pipelineExecution={executionStatusInfoToExecutionSummary(d)}
               />
             ))}
           </CardRailView>
@@ -106,8 +151,12 @@ export const CDDashboardPage: React.FC = () => {
               )
             }
           >
-            {[...(data?.data?.active ?? []), ...(data?.data?.pending ?? [])]?.map((d, i) => (
-              <ActiveDeploymentCard key={i} name={d.name} status={d.status} serviceInfoList={d.serviceInfoList} />
+            {activeDeployments.map((d, i) => (
+              <ExecutionCard
+                variant={CardVariant.Minimal}
+                key={i}
+                pipelineExecution={executionStatusInfoToExecutionSummary(d)}
+              />
             ))}
           </CardRailView>
         </Container>

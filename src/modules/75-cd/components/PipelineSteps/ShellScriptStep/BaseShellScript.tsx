@@ -65,7 +65,7 @@ export default function BaseShellScript(props: {
           />
         )}
       </div>
-      <div className={stepCss.noLookDivider} />
+      <div className={stepCss.divider} />
       <div className={cx(stepCss.formGroup, stepCss.sm)}>
         <FormInput.Select
           items={shellScriptType}

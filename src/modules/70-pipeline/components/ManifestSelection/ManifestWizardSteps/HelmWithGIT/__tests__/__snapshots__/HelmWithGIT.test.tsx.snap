@@ -45,7 +45,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="pipeline.manifestType.chartPathPlaceholder"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -805,7 +805,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="pipeline.manifestType.chartPathPlaceholder"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -1251,7 +1251,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="pipeline.manifestType.chartPathPlaceholder"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />
@@ -1697,7 +1697,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="identifier"
-                  placeholder="pipeline.manifestType.chartPathPlaceholder"
+                  placeholder="pipeline.manifestType.manifestPlaceholder"
                   type="text"
                   value=""
                 />

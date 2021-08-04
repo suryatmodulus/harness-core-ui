@@ -3,6 +3,6 @@
 declare const styles: {
   readonly textCentered: string
   readonly table: string
-  readonly readonly: string
+  readonly appliedArtifact: string
 }
 export default styles

@@ -252,7 +252,7 @@ chartPath: Chart Path
 pluginPath: Kustomize Plugin Path
 addFileText: + Add File
 lastExecutionTs: 'Last Run'
-lastRunAtDate: '{{$.lastExecutionTs}}: '
+lastRunAtDate: '{{$.lastExecutionTs}}'
 emptyDeployments: _ _ _ _ _ _
 recentActivity: Recent Activity
 newUser: New User

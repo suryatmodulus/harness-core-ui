@@ -225,6 +225,666 @@ exports[`Testing COGatewayAccess DNS checkbox checks succesfully 1`] = `
                         class="StyledProps--font StyledProps--main dnsLinkContainer"
                       >
                         <div
+                          class="bp3-tabs Tabs--main Tabs--horizontal"
+                        >
+                          <div
+                            class="bp3-tab-list"
+                            role="tablist"
+                          >
+                            <div
+                              class="bp3-tab-indicator-wrapper"
+                              style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                            >
+                              <div
+                                class="bp3-tab-indicator"
+                              />
+                            </div>
+                            <div
+                              aria-controls="bp3-tab-panel_tabsId1_routing"
+                              aria-disabled="false"
+                              aria-expanded="true"
+                              aria-selected="true"
+                              class="bp3-tab"
+                              data-tab-id="routing"
+                              id="bp3-tab-title_tabsId1_routing"
+                              role="tab"
+                              tabindex="0"
+                            >
+                              Routing
+                            </div>
+                            <div
+                              aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                              aria-disabled="false"
+                              aria-expanded="false"
+                              aria-selected="false"
+                              class="bp3-tab"
+                              data-tab-id="healthcheck"
+                              id="bp3-tab-title_tabsId1_healthcheck"
+                              role="tab"
+                              tabindex="0"
+                            >
+                              Health check
+                            </div>
+                          </div>
+                          <div
+                            aria-hidden="false"
+                            aria-labelledby="bp3-tab-title_tabsId1_routing"
+                            class="bp3-tab-panel"
+                            id="bp3-tab-panel_tabsId1_routing"
+                            role="tabpanel"
+                          >
+                            <div
+                              class="StyledProps--font StyledProps--main"
+                              style="background-color: rgb(251, 251, 251);"
+                            >
+                              <p
+                                class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                              >
+                                ce.co.gatewayConfig.routingDescription
+                              </p>
+                              <div
+                                class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                              >
+                                <table
+                                  class="bp3-html-table bp3-interactive routingTable"
+                                  role="table"
+                                >
+                                  <thead>
+                                    <tr
+                                      role="row"
+                                    >
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        LISTEN PROTOCOL
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        LISTEN PORT
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        ACTION
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        TARGET PROTOCOL
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        TARGET PORT
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        REDIRECT URL
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        SERVER NAME
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      >
+                                        PATH MATCH
+                                      </th>
+                                      <th
+                                        colspan="1"
+                                        role="columnheader"
+                                        style="width: 16.5%;"
+                                      />
+                                    </tr>
+                                  </thead>
+                                  <tbody
+                                    role="rowgroup"
+                                  >
+                                    <tr
+                                      role="row"
+                                    >
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="bp3-popover-wrapper selectCell Select--main bp3-fill"
+                                        >
+                                          <div
+                                            class="bp3-popover-target"
+                                          >
+                                            <div
+                                              class="bp3-input-group"
+                                            >
+                                              <input
+                                                autocomplete="off"
+                                                class="bp3-input"
+                                                placeholder="- Select -"
+                                                style="padding-right: 0px;"
+                                                type="text"
+                                                value="http"
+                                              />
+                                              <span
+                                                class="bp3-input-action"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                                  icon="chevron-down"
+                                                >
+                                                  <svg
+                                                    data-icon="chevron-down"
+                                                    height="14"
+                                                    viewBox="0 0 16 16"
+                                                    width="14"
+                                                  >
+                                                    <desc>
+                                                      chevron-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value="80"
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="bp3-popover-wrapper selectCell Select--main bp3-fill"
+                                        >
+                                          <div
+                                            class="bp3-popover-target"
+                                          >
+                                            <div
+                                              class="bp3-input-group"
+                                            >
+                                              <input
+                                                autocomplete="off"
+                                                class="bp3-input"
+                                                placeholder="- Select -"
+                                                style="padding-right: 0px;"
+                                                type="text"
+                                                value="Forward"
+                                              />
+                                              <span
+                                                class="bp3-input-action"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                                  icon="chevron-down"
+                                                >
+                                                  <svg
+                                                    data-icon="chevron-down"
+                                                    height="14"
+                                                    viewBox="0 0 16 16"
+                                                    width="14"
+                                                  >
+                                                    <desc>
+                                                      chevron-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="bp3-popover-wrapper selectCell Select--main bp3-fill"
+                                        >
+                                          <div
+                                            class="bp3-popover-target"
+                                          >
+                                            <div
+                                              class="bp3-input-group"
+                                            >
+                                              <input
+                                                autocomplete="off"
+                                                class="bp3-input"
+                                                placeholder="- Select -"
+                                                style="padding-right: 0px;"
+                                                type="text"
+                                                value="http"
+                                              />
+                                              <span
+                                                class="bp3-input-action"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                                  icon="chevron-down"
+                                                >
+                                                  <svg
+                                                    data-icon="chevron-down"
+                                                    height="14"
+                                                    viewBox="0 0 16 16"
+                                                    width="14"
+                                                  >
+                                                    <desc>
+                                                      chevron-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value="80"
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <span
+                                          class="bp3-icon bp3-icon-trash StyledProps--main"
+                                          icon="trash"
+                                        >
+                                          <svg
+                                            data-icon="trash"
+                                            height="16"
+                                            viewBox="0 0 16 16"
+                                            width="16"
+                                          >
+                                            <desc>
+                                              trash
+                                            </desc>
+                                            <path
+                                              d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
+                                              fill-rule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </td>
+                                    </tr>
+                                    <tr
+                                      role="row"
+                                    >
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="bp3-popover-wrapper selectCell Select--main bp3-fill"
+                                        >
+                                          <div
+                                            class="bp3-popover-target"
+                                          >
+                                            <div
+                                              class="bp3-input-group"
+                                            >
+                                              <input
+                                                autocomplete="off"
+                                                class="bp3-input"
+                                                placeholder="- Select -"
+                                                style="padding-right: 0px;"
+                                                type="text"
+                                                value="https"
+                                              />
+                                              <span
+                                                class="bp3-input-action"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                                  icon="chevron-down"
+                                                >
+                                                  <svg
+                                                    data-icon="chevron-down"
+                                                    height="14"
+                                                    viewBox="0 0 16 16"
+                                                    width="14"
+                                                  >
+                                                    <desc>
+                                                      chevron-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value="443"
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="bp3-popover-wrapper selectCell Select--main bp3-fill"
+                                        >
+                                          <div
+                                            class="bp3-popover-target"
+                                          >
+                                            <div
+                                              class="bp3-input-group"
+                                            >
+                                              <input
+                                                autocomplete="off"
+                                                class="bp3-input"
+                                                placeholder="- Select -"
+                                                style="padding-right: 0px;"
+                                                type="text"
+                                                value="Forward"
+                                              />
+                                              <span
+                                                class="bp3-input-action"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                                  icon="chevron-down"
+                                                >
+                                                  <svg
+                                                    data-icon="chevron-down"
+                                                    height="14"
+                                                    viewBox="0 0 16 16"
+                                                    width="14"
+                                                  >
+                                                    <desc>
+                                                      chevron-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="bp3-popover-wrapper selectCell Select--main bp3-fill"
+                                        >
+                                          <div
+                                            class="bp3-popover-target"
+                                          >
+                                            <div
+                                              class="bp3-input-group"
+                                            >
+                                              <input
+                                                autocomplete="off"
+                                                class="bp3-input"
+                                                placeholder="- Select -"
+                                                style="padding-right: 0px;"
+                                                type="text"
+                                                value="https"
+                                              />
+                                              <span
+                                                class="bp3-input-action"
+                                              >
+                                                <span
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                                  icon="chevron-down"
+                                                >
+                                                  <svg
+                                                    data-icon="chevron-down"
+                                                    height="14"
+                                                    viewBox="0 0 16 16"
+                                                    width="14"
+                                                  >
+                                                    <desc>
+                                                      chevron-down
+                                                    </desc>
+                                                    <path
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                                      fill-rule="evenodd"
+                                                    />
+                                                  </svg>
+                                                </span>
+                                              </span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value="443"
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <div
+                                          class="TextInput--main"
+                                        >
+                                          <div
+                                            class="bp3-input-group"
+                                          >
+                                            <input
+                                              class="bp3-input"
+                                              type="text"
+                                              value=""
+                                            />
+                                          </div>
+                                        </div>
+                                      </td>
+                                      <td
+                                        role="cell"
+                                      >
+                                        <span
+                                          class="bp3-icon bp3-icon-trash StyledProps--main"
+                                          icon="trash"
+                                        >
+                                          <svg
+                                            data-icon="trash"
+                                            height="16"
+                                            viewBox="0 0 16 16"
+                                            width="16"
+                                          >
+                                            <desc>
+                                              trash
+                                            </desc>
+                                            <path
+                                              d="M14.49 3.99h-13c-.28 0-.5.22-.5.5s.22.5.5.5h.5v10c0 .55.45 1 1 1h10c.55 0 1-.45 1-1v-10h.5c.28 0 .5-.22.5-.5s-.22-.5-.5-.5zm-8.5 9c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm3 0c0 .55-.45 1-1 1s-1-.45-1-1v-6c0-.55.45-1 1-1s1 .45 1 1v6zm2-12h-4c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1h-4c-.55 0-1 .45-1 1v1h14v-1c0-.55-.45-1-1-1z"
+                                              fill-rule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <div
+                                  class="StyledProps--font StyledProps--main rowItem"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
+                                  >
+                                    ce.co.gatewayConfig.addPortLabel
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="StyledProps--font StyledProps--main dnsLinkContainer"
+                      >
+                        <div
                           class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                         >
                           <h3
@@ -392,7 +1052,6 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
               class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
             >
               <input
-                checked=""
                 id="DNSLink"
                 type="checkbox"
               />
@@ -434,19 +1093,6 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
               <div
                 class="bp3-tab-indicator"
               />
-            </div>
-            <div
-              aria-controls="bp3-tab-panel_setupTabs_dns"
-              aria-disabled="false"
-              aria-expanded="false"
-              aria-selected="false"
-              class="bp3-tab"
-              data-tab-id="dns"
-              id="bp3-tab-title_setupTabs_dns"
-              role="tab"
-              tabindex="0"
-            >
-              ce.co.gatewayAccess.dnsLink
             </div>
             <div
               aria-controls="bp3-tab-panel_setupTabs_ssh"
@@ -560,7 +1206,7 @@ exports[`Testing COGatewayAccess SSH checkbox checks succesfully and download os
 </div>
 `;
 
-exports[`Testing COGatewayAccess does not render dns setup screen for k8s rule: k8s rule setup access screen 1`] = `
+exports[`Testing COGatewayAccess render yaml editor for k8s rule: k8s rule setup access screen 1`] = `
 <div>
   <div
     class="StyledProps--font StyledProps--main page"
@@ -583,257 +1229,31 @@ exports[`Testing COGatewayAccess does not render dns setup screen for k8s rule: 
           </h2>
         </div>
       </div>
-      <p
+      <div
         class="StyledProps--font StyledProps--main"
       >
-        ce.co.autoStoppingRule.setupAccess.noSetupRequired
-      </p>
-      <div
-        class="StyledProps--font StyledProps--main setupTab"
-      >
-        <div
-          class="bp3-tabs Tabs--main Tabs--horizontal"
+        <p
+          class="StyledProps--font StyledProps--main titleHelpTextDescription"
         >
-          <div
-            class="bp3-tab-list"
-            role="tablist"
+          ce.co.gatewayConfig.k8sroutingDescription
+        </p>
+        <div
+          class="yamlEditorContainer"
+        >
+          <div />
+          <button
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            disabled=""
+            style="margin-top: 20px;"
+            tabindex="-1"
+            type="button"
           >
-            <div
-              class="bp3-tab-indicator-wrapper"
-              style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+            <span
+              class="bp3-button-text"
             >
-              <div
-                class="bp3-tab-indicator"
-              />
-            </div>
-            <div
-              aria-controls="bp3-tab-panel_setupTabs_dns"
-              aria-disabled="false"
-              aria-expanded="true"
-              aria-selected="true"
-              class="bp3-tab"
-              data-tab-id="dns"
-              id="bp3-tab-title_setupTabs_dns"
-              role="tab"
-              tabindex="0"
-            >
-              ce.co.gatewayAccess.dnsLink
-            </div>
-            <div
-              aria-controls="bp3-tab-panel_setupTabs_ssh"
-              aria-disabled="false"
-              aria-expanded="false"
-              aria-selected="false"
-              class="bp3-tab"
-              data-tab-id="ssh"
-              id="bp3-tab-title_setupTabs_ssh"
-              role="tab"
-              tabindex="0"
-            >
-              ce.co.gatewayAccess.sshRdp
-            </div>
-          </div>
-          <div
-            aria-hidden="false"
-            aria-labelledby="bp3-tab-title_setupTabs_dns"
-            class="bp3-tab-panel"
-            id="bp3-tab-panel_setupTabs_dns"
-            role="tabpanel"
-          >
-            <div
-              class="Layout--vertical Layout--layout-spacing-medium StyledProps--main StyledProps--padding-medium"
-            >
-              <h3
-                class="StyledProps--font StyledProps--font-h3 StyledProps--main"
-                level="3"
-              >
-                ce.co.gatewayAccess.dnsLinkHeader
-              </h3>
-              <div
-                class="OverlaySpinner--overlaySpinner"
-              >
-                <form
-                  class="FormikForm--main"
-                >
-                  <div>
-                    <div
-                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
-                    >
-                      <div
-                        class="StyledProps--font StyledProps--main dnsLinkContainer"
-                      >
-                        <h3
-                          class="StyledProps--font StyledProps--font-h3 StyledProps--main header StyledProps--font-weight-bold"
-                          level="3"
-                        >
-                          ce.co.autoStoppingRule.setupAccess.selectLb
-                        </h3>
-                        <div
-                          class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
-                        >
-                          <div>
-                            <p
-                              class="StyledProps--font StyledProps--main helpText"
-                            >
-                              ce.co.autoStoppingRule.setupAccess.selectLbHelpText
-                            </p>
-                            <div
-                              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-                            >
-                              <div
-                                class="bp3-popover-wrapper loadBalancerSelector Select--main bp3-fill"
-                              >
-                                <div
-                                  class="bp3-popover-target"
-                                >
-                                  <div
-                                    class="bp3-input-group"
-                                  >
-                                    <input
-                                      autocomplete="off"
-                                      class="bp3-input"
-                                      name="accessPoint"
-                                      placeholder="- Select -"
-                                      style="padding-right: 0px;"
-                                      type="text"
-                                      value=""
-                                    />
-                                    <span
-                                      class="bp3-input-action"
-                                    >
-                                      <span
-                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
-                                        icon="chevron-down"
-                                      >
-                                        <svg
-                                          data-icon="chevron-down"
-                                          height="14"
-                                          viewBox="0 0 16 16"
-                                          width="14"
-                                        >
-                                          <desc>
-                                            chevron-down
-                                          </desc>
-                                          <path
-                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
-                                            fill-rule="evenodd"
-                                          />
-                                        </svg>
-                                      </span>
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
-                              <p
-                                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary6"
-                                style="cursor: pointer;"
-                              >
-                                +ce.co.accessPoint.new
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div
-                        class="StyledProps--font StyledProps--main dnsLinkContainer"
-                      >
-                        <div
-                          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                        >
-                          <h3
-                            class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--font-weight-light"
-                            level="3"
-                          >
-                            ce.co.autoStoppingRule.setupAccess.customDomain.helpText
-                          </h3>
-                        </div>
-                        <div
-                          class="Layout--horizontal StyledProps--main"
-                        >
-                          <label
-                            class="bp3-control bp3-radio"
-                          >
-                            <input
-                              checked=""
-                              type="radio"
-                              value="no"
-                            />
-                            <span
-                              class="bp3-control-indicator"
-                            />
-                          </label>
-                          <div
-                            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-                          >
-                            <p
-                              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
-                              style="font-size: 12px; font-weight: 400; line-height: 18px;"
-                            >
-                              ce.co.autoStoppingRule.setupAccess.autogeneratedHelpText
-                            </p>
-                          </div>
-                        </div>
-                        <div
-                          class="Layout--horizontal StyledProps--main"
-                          style="width: 100%;"
-                        >
-                          <label
-                            class="bp3-control bp3-radio centerAlignedRadio"
-                          >
-                            <input
-                              name="usingCustomDomain"
-                              type="radio"
-                              value="yes"
-                            />
-                            <span
-                              class="bp3-control-indicator"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-group bp3-disabled"
-                            data-id="customURL-0"
-                            style="width: 100%;"
-                          >
-                            <div
-                              class="bp3-form-content"
-                            >
-                              <div
-                                class="bp3-input-group bp3-disabled"
-                              >
-                                <input
-                                  autocomplete="off"
-                                  class="bp3-input"
-                                  disabled=""
-                                  name="customURL"
-                                  placeholder="ce.co.dnsSetup.customURL"
-                                  type="text"
-                                  value=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <label
-                          class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox publicAccessibleCheckboxContainer StyledProps--main"
-                        >
-                          <input
-                            checked=""
-                            name="publicallyAccessible"
-                            type="checkbox"
-                          />
-                          <span
-                            class="bp3-control-indicator"
-                          />
-                          This url is publicly accessible
-                        </label>
-                      </div>
-                      
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+              Validate YAML
+            </span>
+          </button>
         </div>
       </div>
     </div>

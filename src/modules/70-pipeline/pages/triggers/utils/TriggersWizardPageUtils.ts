@@ -1,14 +1,14 @@
 import { isNull, isUndefined, omitBy } from 'lodash-es'
 import { string, array, object, ObjectSchema } from 'yup'
 import type { SelectOption } from '@wings-software/uicore'
-import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
+import type { PipelineInfoConfig, ConnectorInfoDTO, ConnectorResponse, ManifestConfigWrapper } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { GetActionsListQueryParams, NGTriggerConfigV2, NGTriggerSourceV2 } from 'services/pipeline-ng'
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
-import type { StringKeys } from 'framework/strings'
+import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
 
@@ -136,12 +136,19 @@ export interface FlatValidScheduleFormikValuesInterface {
 export const TriggerTypes = {
   WEBHOOK: 'Webhook',
   NEW_ARTIFACT: 'NewArtifact',
-  SCHEDULE: 'Scheduled'
+  SCHEDULE: 'Scheduled',
+  MANIFEST: 'Manifest',
+  ARTIFACT: 'Artifact'
 }
+
+export const isArtifactOrManifestTrigger = (triggerType?: string): boolean =>
+  triggerType === TriggerTypes.MANIFEST || triggerType === TriggerTypes.ARTIFACT
 
 interface TriggerTypeSourceInterface {
   triggerType: NGTriggerSourceV2['type']
   sourceRepo?: string
+  manifestType?: string
+  artifactType?: string
 }
 
 export const PayloadConditionTypes = {
@@ -163,14 +170,20 @@ const getTriggerTitle = ({
 }: {
   triggerType: NGTriggerSourceV2['type']
   triggerName?: string
-  getString: (key: StringKeys) => string
+  getString: UseStringsReturn['getString']
 }): string => {
   if (triggerName) {
     return `Trigger: ${triggerName}`
   } else if (triggerType === TriggerTypes.WEBHOOK) {
     return getString('pipeline.triggers.onNewWebhookTitle')
-  } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
-    return getString('pipeline.triggers.onNewArtifactTitle')
+  } else if (triggerType === TriggerTypes.ARTIFACT) {
+    return getString('pipeline.triggers.onNewArtifactTitle', {
+      artifact: getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
+    })
+  } else if (triggerType === TriggerTypes.MANIFEST) {
+    return getString('pipeline.triggers.onNewArtifactTitle', {
+      artifact: getString('manifestsText')
+    })
   } else if (triggerType === TriggerTypes.SCHEDULE) {
     return getString('pipeline.triggers.onNewScheduleTitle')
   }
@@ -187,9 +200,10 @@ export const clearNullUndefined = /* istanbul ignore next */ (data: TriggerConfi
 
 export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterface => {
   const triggerTypeParam = 'triggerType='
-  const sourceRepoParam = '&sourceRepo='
   const triggerType = searchStr.replace(`?${triggerTypeParam}`, '')
+
   if (triggerType.includes(TriggerTypes.WEBHOOK)) {
+    const sourceRepoParam = '&sourceRepo='
     const sourceRepo = searchStr.substring(
       searchStr.lastIndexOf(sourceRepoParam) + sourceRepoParam.length
     ) as unknown as string
@@ -200,7 +214,30 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
       ) as unknown as NGTriggerSourceV2['type'],
       sourceRepo
     }
-    // }
+  } else if (triggerType.includes(TriggerTypes.ARTIFACT)) {
+    const artifactTypeParam = '&artifactType='
+    const artifactType = searchStr.substring(
+      searchStr.lastIndexOf(artifactTypeParam) + artifactTypeParam.length
+    ) as unknown as string
+    return {
+      triggerType: searchStr.substring(
+        searchStr.lastIndexOf(triggerTypeParam) + triggerTypeParam.length,
+        searchStr.lastIndexOf(artifactTypeParam)
+      ) as unknown as NGTriggerSourceV2['type'],
+      artifactType
+    }
+  } else if (triggerType.includes(TriggerTypes.MANIFEST)) {
+    const manifestTypeParam = '&manifestType='
+    const manifestType = searchStr.substring(
+      searchStr.lastIndexOf(manifestTypeParam) + manifestTypeParam.length
+    ) as unknown as string
+    return {
+      triggerType: searchStr.substring(
+        searchStr.lastIndexOf(triggerTypeParam) + triggerTypeParam.length,
+        searchStr.lastIndexOf(manifestTypeParam)
+      ) as unknown as NGTriggerSourceV2['type'],
+      manifestType
+    }
   } else {
     // SCHEDULED | unfound page
     return {
@@ -337,7 +374,7 @@ const getPanels = ({
         // require all fields for input set and have preflight check handled on backend
       }
     ]
-  } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+  } else if (isArtifactOrManifestTrigger(triggerType)) {
     return [
       {
         id: 'Trigger Overview',
@@ -366,7 +403,7 @@ export const getWizardMap = ({
 }: {
   triggerType: NGTriggerSourceV2['type']
   triggerName?: string
-  getString: (key: StringKeys) => string
+  getString: UseStringsReturn['getString']
 }): { wizardLabel: string; panels: PanelInterface[] } => ({
   wizardLabel: getTriggerTitle({
     triggerType,
@@ -531,7 +568,7 @@ export const getValidationSchema = (
         }
       )
     })
-  } else if (triggerType === TriggerTypes.NEW_ARTIFACT) {
+  } else if (isArtifactOrManifestTrigger(triggerType)) {
     return object().shape({
       name: string().trim().required(getString('pipeline.triggers.validation.triggerName')),
       identifier: string().when('name', {
@@ -684,14 +721,14 @@ export const mockOperators = [
 export const inNotInArr = ['In', 'NotIn']
 export const inNotInPlaceholder = 'value1, regex1'
 
-interface data {
-  artifactId: string
+export interface artifactManifestData {
+  artifactRef: string
   name: string
-  stage: string
-  service: string
+  stageId: string
   artifactRepository: string
   location: string
-  buildTag: string
+  buildTag?: string
+  version?: string
 }
 export const parseArtifactsManifests = ({
   inputSetTemplateYamlObj,
@@ -709,9 +746,9 @@ export const parseArtifactsManifests = ({
   isManifest: boolean
   artifactType?: string
   manifestType?: string
-}): { appliedArtifact?: any; data?: data[] } => {
+}): { appliedArtifact?: artifactManifestData; data?: artifactManifestData[] } => {
   if (inputSetTemplateYamlObj?.pipeline) {
-    if (artifactRef && isManifest) {
+    if (stageId && artifactRef && isManifest) {
       // returns single manifest
       let appliedArtifact
       inputSetTemplateYamlObj.pipeline.stages?.some((stageObj: any) => {
@@ -769,52 +806,161 @@ export const getPathString = (pipelineObject: any, stageId: any) => {
 }
 
 const isRuntimeInput = (str: any): boolean => typeof str === 'string' && str?.includes('<+input>')
-const getRuntimeInputLabel = (str: any): string => (isRuntimeInput(str) ? 'runtime input' : str)
+const getRuntimeInputLabel = ({ str, getString }: { str: any; getString?: (key: StringKeys) => string }): string =>
+  isRuntimeInput(str) ? getString?.('pipeline.triggers.artifactTriggerConfigPanel.runtimeInput') : str
+const getLocationAttribute = (type: string): string | undefined => {
+  if (type === 'HelmChart') {
+    return 'folderPath'
+  }
+}
+
+export const getLocationFromPipeline = ({
+  manifests,
+  manifestIdentifier,
+  manifestType
+}: {
+  manifests: ManifestConfigWrapper[]
+  manifestIdentifier: string
+  manifestType: string
+}): string | undefined => {
+  if (manifestType) {
+    const locationAttribute = getLocationAttribute(manifestType)
+    return manifests?.find((manifestObj: any) => manifestObj?.manifest.identifier === manifestIdentifier)?.manifest
+      ?.spec?.store?.spec?.[`${locationAttribute}`]
+  }
+}
+
+export const getConnectorNameFromPipeline = ({
+  manifests,
+  manifestIdentifier,
+  manifestType
+}: {
+  manifests: ManifestConfigWrapper[]
+  manifestIdentifier: string
+  manifestType: string
+}): string | undefined => {
+  if (manifestType) {
+    return manifests?.find((manifestObj: any) => manifestObj?.manifest.identifier === manifestIdentifier)?.manifest
+      ?.spec?.store?.spec?.connectorRef
+  }
+}
 
 export interface artifactTableItem {
   artifactId: string
   artifactLabel: string
   stageId: string
   artifactRepository: string
+  location: string
   version?: string // for manifest
   buildTag?: string // for artifact
   hasRuntimeInputs: boolean
 }
 
+const getManifestTableItem = ({
+  stageId,
+  manifest,
+  artifactRepository,
+  location,
+  getString
+}: {
+  stageId: string
+  manifest: any
+  artifactRepository?: string
+  location?: string
+  getString?: (key: StringKeys) => string
+}): artifactTableItem => {
+  const { identifier: artifactId } = manifest
+  const manifestSpecObjectValues = Object.values(manifest?.spec || {})
+  const storeSpecObjectValues = Object.values(manifest?.spec?.store?.spec || {})
+  const hasRuntimeInputs =
+    manifestSpecObjectValues.some(val => isRuntimeInput(val)) || storeSpecObjectValues.some(val => isRuntimeInput(val))
+
+  return {
+    artifactLabel: `${stageId}: ${artifactId}`, // required for sorting
+    artifactId,
+    stageId,
+    location: getRuntimeInputLabel({ str: location, getString }),
+    artifactRepository: getRuntimeInputLabel({
+      str: artifactRepository || manifest?.spec?.store?.spec?.connectorRef,
+      getString
+    }),
+    version: getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }),
+    hasRuntimeInputs
+  }
+}
 // data is already filtered w/ correct manifest
 export const getArtifactTableDataFromData = ({
   data,
-  isManifest
+  appliedArtifact,
+  stageId,
+  isManifest,
+  getString,
+  pipeline
 }: {
   data?: any
+  appliedArtifact?: any // get from BE
+  stageId?: string
   isManifest: boolean
-}): artifactTableItem[] | undefined => {
-  if (!data) {
-    return undefined
-  }
+  getString?: (key: StringKeys) => string
+  pipeline: PipelineInfoConfig | Record<string, never> | any
+}): { appliedTableArtifact?: artifactTableItem[]; artifactTableData?: artifactTableItem[] } => {
   const artifactTableData: artifactTableItem[] = []
-  if (isManifest) {
-    data.forEach((stageObject: any) => {
-      const stageId = stageObject?.stage?.identifier
+
+  if (appliedArtifact && stageId && isManifest) {
+    const pipelineManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === stageId)?.stage
+      ?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+
+    const location = getLocationFromPipeline({
+      manifests: pipelineManifests,
+      manifestIdentifier: appliedArtifact.identifier,
+      manifestType: appliedArtifact.type
+    })
+
+    const artifactRepository = getConnectorNameFromPipeline({
+      manifests: pipelineManifests,
+      manifestIdentifier: appliedArtifact.identifier,
+      manifestType: appliedArtifact.type
+    })
+
+    artifactTableData.push(
+      getManifestTableItem({ stageId, manifest: appliedArtifact, artifactRepository, location, getString })
+    )
+    return { appliedTableArtifact: artifactTableData }
+  } else if (isManifest) {
+    data?.forEach((stageObject: any) => {
+      const dataStageId = stageObject?.stage?.identifier
+      // pipelineManifests used to find location from pipeline
+      const pipelineManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === dataStageId)
+        ?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
+
       const { manifests = [] } = stageObject?.stage?.spec?.serviceConfig?.serviceDefinition?.spec || {}
       manifests.forEach((manifestObj: any) => {
-        const { identifier: artifactId } = manifestObj?.manifest || {}
-        const manifestSpecObjectValues = Object.values(manifestObj?.manifest?.spec || {})
-        const storeSpecObjectValues = Object.values(manifestObj?.manifest?.spec?.store?.spec || {})
-        const hasRuntimeInputs =
-          manifestSpecObjectValues.some(val => isRuntimeInput(val)) ||
-          storeSpecObjectValues.some(val => isRuntimeInput(val))
-
-        artifactTableData.push({
-          artifactLabel: `${stageId}: ${artifactId}`, // required for sorting
-          artifactId,
-          stageId,
-          artifactRepository: getRuntimeInputLabel(manifestObj?.manifest?.spec?.store?.spec?.connectorRef),
-          version: getRuntimeInputLabel(manifestObj?.manifest?.spec?.chartVersion),
-          hasRuntimeInputs
+        const location = getLocationFromPipeline({
+          manifests: pipelineManifests,
+          manifestIdentifier: manifestObj.manifest.identifier,
+          manifestType: manifestObj.manifest.type
         })
+
+        const artifactRepository = getConnectorNameFromPipeline({
+          manifests: pipelineManifests,
+          manifestIdentifier: manifestObj.manifest.identifier,
+          manifestType: manifestObj.manifest.type
+        })
+
+        if (manifestObj?.manifest) {
+          artifactTableData.push(
+            getManifestTableItem({
+              stageId: dataStageId,
+              manifest: manifestObj.manifest,
+              artifactRepository,
+              location,
+              getString
+            })
+          )
+        }
       })
     })
+    return { artifactTableData }
   }
-  return artifactTableData
+  return {}
 }

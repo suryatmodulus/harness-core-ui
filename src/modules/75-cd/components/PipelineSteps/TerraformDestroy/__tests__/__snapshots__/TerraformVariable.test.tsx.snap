@@ -163,7 +163,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
       </div>
     </div>
     <div
-      class="noLookDivider"
+      class="divider"
     />
     <div
       class="formGroup md"

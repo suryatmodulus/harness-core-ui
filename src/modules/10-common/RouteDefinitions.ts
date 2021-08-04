@@ -566,6 +566,8 @@ const routes = {
       triggerIdentifier,
       triggerType,
       sourceRepo,
+      manifestType,
+      artifactType,
       accountId: _accountId,
       module,
       ...rest
@@ -574,7 +576,9 @@ const routes = {
       const queryParams = {
         ...rest,
         ...(isNewTrigger && triggerType && { triggerType }),
-        ...(isNewTrigger && sourceRepo && { sourceRepo })
+        ...(isNewTrigger && sourceRepo && { sourceRepo }),
+        ...(isNewTrigger && manifestType && { manifestType }),
+        ...(isNewTrigger && artifactType && { artifactType })
       }
       const queryString = qs.stringify(queryParams, { skipNulls: true })
       if (queryString.length > 0) {

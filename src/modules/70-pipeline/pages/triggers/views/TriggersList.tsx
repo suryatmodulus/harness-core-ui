@@ -11,14 +11,11 @@ import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInter
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { manifestTypeIcons, manifestTypeLabels } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
+
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
-import {
-  ArtifactSourceProviders,
-  getCategoryItems,
-  ItemInterface,
-  TriggerDataInterface
-} from '../utils/TriggersListUtils'
+import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
 import css from './TriggersList.module.scss'
 
 interface TriggersListPropsInterface {
@@ -134,26 +131,23 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
         hideDrawer()
         onNewTriggerClick({
           triggerType: val.categoryValue,
-          sourceRepo: (val.categoryValue === TriggerTypes.WEBHOOK && val.value) || undefined
+          sourceRepo: (val.categoryValue === TriggerTypes.WEBHOOK && val.value) || undefined,
+          artifactType: (val.categoryValue === TriggerTypes.ARTIFACT && val.value) || undefined,
+          manifestType: (val.categoryValue === TriggerTypes.MANIFEST && val.value) || undefined
         })
       }
     }
 
     const categoryItems = getCategoryItems(getString)
     if (NG_NEWARTIFACT_TRIGGER) {
-      categoryItems.categories.push({
-        categoryLabel: getString('pipeline.triggers.onNewArtifactTitle'),
-        categoryValue: 'NewArtifact',
+      categoryItems.categories.splice(1, 0, {
+        categoryLabel: getString('manifestsText'),
+        categoryValue: 'Manifest',
         items: [
           {
-            itemLabel: getString('pipeline.triggers.newArtifactLabel'),
-            value: ArtifactSourceProviders.NewArtifact.value,
-            iconName: ArtifactSourceProviders.NewArtifact.iconName
-          },
-          {
-            itemLabel: getString('pipeline.triggers.newManifestLabel'),
-            value: ArtifactSourceProviders.NewManifest.value,
-            iconName: ArtifactSourceProviders.NewManifest.iconName
+            itemLabel: getString(manifestTypeLabels.HelmChart),
+            value: 'HelmChart',
+            iconName: manifestTypeIcons.HelmChart
           }
         ]
       })

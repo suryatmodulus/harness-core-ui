@@ -141,6 +141,7 @@ exports[`Select Services render services for application 1`] = `
                       <input
                         autocomplete="off"
                         class="bp3-input"
+                        name="service"
                         placeholder="cv.selectCreateService"
                         style="padding-right: 0px;"
                         type="text"
@@ -269,6 +270,7 @@ exports[`Select Services render services for application 1`] = `
                       <input
                         autocomplete="off"
                         class="bp3-input"
+                        name="service"
                         placeholder="cv.selectCreateService"
                         style="padding-right: 0px;"
                         type="text"

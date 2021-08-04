@@ -9,7 +9,7 @@ exports[`ServiceSelectOrCreate Match Snapshot 1`] = `
       class="bp3-popover-wrapper Select--main bp3-fill"
     >
       <div
-        class="bp3-popover-target"
+        class="bp3-popover-target bp3-popover-open"
       >
         <div
           class="bp3-input-group"
@@ -18,10 +18,10 @@ exports[`ServiceSelectOrCreate Match Snapshot 1`] = `
             autocomplete="off"
             class="bp3-input"
             name="service"
-            placeholder="cv.selectCreateService"
+            placeholder="serice101"
             style="padding-right: 0px;"
             type="text"
-            value="serice101"
+            value=""
           />
           <span
             class="bp3-input-action"
@@ -49,10 +49,10 @@ exports[`ServiceSelectOrCreate Match Snapshot 1`] = `
         </div>
       </div>
       <div
-        class="bp3-overlay bp3-overlay-inline"
+        class="bp3-overlay bp3-overlay-open bp3-overlay-inline"
       >
         <div
-          class="bp3-transition-container bp3-popover-exit bp3-popover-exit-active"
+          class="bp3-transition-container bp3-popover-enter bp3-popover-enter-active"
           style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(NaNpx, NaNpx, 0);"
         >
           <div

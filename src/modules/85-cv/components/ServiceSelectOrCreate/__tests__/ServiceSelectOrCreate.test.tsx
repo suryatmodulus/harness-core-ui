@@ -47,6 +47,17 @@ describe('ServiceSelectOrCreate', () => {
 
     await waitFor(() => expect(getByText('serice101')).toBeTruthy())
 
+    await fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'service',
+        value: '@@add_new'
+      }
+    ])
+
+    await waitFor(() => expect(getByText('+ Add New')).toBeTruthy())
+
     expect(container).toMatchSnapshot()
   })
 })

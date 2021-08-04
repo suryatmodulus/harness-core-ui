@@ -17,14 +17,6 @@ export interface ServiceSelectOrCreateProps {
 
 const ADD_NEW_VALUE = '@@add_new'
 
-export function generateOptions(response?: ServiceResponseDTO[]): SelectOption[] {
-  return response
-    ? (response
-        .filter(entity => entity && entity.identifier && entity.name)
-        .map(entity => ({ value: entity.identifier, label: entity.name })) as SelectOption[])
-    : []
-}
-
 export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props => {
   const { getString } = useStrings()
 

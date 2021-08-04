@@ -1,5 +1,6 @@
 import React from 'react'
-import { render } from '@testing-library/react'
+import { render, waitFor } from '@testing-library/react'
+import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useCreateService } from 'services/cd-ng'
 import { ServiceSelectOrCreate } from '../ServiceSelectOrCreate'
@@ -11,7 +12,7 @@ const onSelect = jest.fn()
 const onNewCreated = jest.fn()
 
 describe('ServiceSelectOrCreate', () => {
-  test('Match Snapshot', () => {
+  test('Match Snapshot', async () => {
     useCreateServiceMock.mockImplementation(() => {
       return {
         loading: false,
@@ -23,11 +24,29 @@ describe('ServiceSelectOrCreate', () => {
         })
       }
     })
-    const { container } = render(
+    const { container, getByText } = render(
       <TestWrapper>
-        <ServiceSelectOrCreate options={[]} onSelect={onSelect} onNewCreated={onNewCreated} />
+        <ServiceSelectOrCreate
+          options={[{ value: 'serice101', label: 'serice101' }]}
+          onSelect={onSelect}
+          onNewCreated={onNewCreated}
+        />
       </TestWrapper>
     )
+
+    await waitFor(() => expect(container.querySelector('.bp3-popover-target')).toBeTruthy())
+
+    await fillAtForm([
+      {
+        container,
+        type: InputTypes.SELECT,
+        fieldId: 'service',
+        value: 'serice101'
+      }
+    ])
+
+    await waitFor(() => expect(getByText('serice101')).toBeTruthy())
+
     expect(container).toMatchSnapshot()
   })
 })

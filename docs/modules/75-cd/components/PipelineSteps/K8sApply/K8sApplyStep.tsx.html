@@ -571,9 +571,7 @@
 <a name='L512'></a><a href='#L512'>512</a>
 <a name='L513'></a><a href='#L513'>513</a>
 <a name='L514'></a><a href='#L514'>514</a>
-<a name='L515'></a><a href='#L515'>515</a>
-<a name='L516'></a><a href='#L516'>516</a>
-<a name='L517'></a><a href='#L517'>517</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L515'></a><a href='#L515'>515</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -740,7 +738,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -841,7 +838,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1233,136 +1229,134 @@ function K8sApplyDeployWidget(props: K8sApplyProps, formikRef: StepFormikFowardR
           setFormikRef(formikRef, formik)
           return (
             &lt;&gt;
-              &lt;Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}&gt;
-                &lt;div className={cx(stepCss.formGroup, stepCss.lg)}&gt;
-                  &lt;FormInput.InputWithIdentifier
-                    inputLabel={getString('name')}
-                    isIdentifierEditable={isNewStep}
-                    inputGroupProps={{ disabled: isDisabled }}
+              &lt;div className={cx(stepCss.formGroup, stepCss.lg)}&gt;
+                &lt;FormInput.InputWithIdentifier
+                  inputLabel={getString('name')}
+                  isIdentifierEditable={isNewStep}
+                  inputGroupProps={{ disabled: isDisabled }}
+                /&gt;
+              &lt;/div&gt;
+              &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
+                &lt;FormMultiTypeDurationField
+                  name="timeout"
+                  disabled={isDisabled}
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, disabled: isDisabled }}
+                /&gt;
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;ConfigureOptions</span>
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      setFieldValue('timeout', value)</span>
+                    }}
+                    isReadonly={isDisabled}
                   /&gt;
-                &lt;/div&gt;
-                &lt;div className={cx(stepCss.formGroup, stepCss.sm)}&gt;
-                  &lt;FormMultiTypeDurationField
-                    name="timeout"
-                    disabled={isDisabled}
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, disabled: isDisabled }}
-                  /&gt;
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                        setFieldValue('timeout', value)</span>
-                      }}
-                      isReadonly={isDisabled}
-                    /&gt;
-                  )}
-                &lt;/div&gt;
-                &lt;div className={stepCss.noLookDivider} /&gt;
-                &lt;div className={stepCss.formGroup}&gt;
-                  &lt;MultiTypeFieldSelector
-                    defaultValueToReset={defaultValueToReset}
-                    name={'spec.filePaths'}
-                    label={getString('common.git.filePath')}
-                  &gt;
-                    &lt;FieldArray
-                      name="spec.filePaths"
-                      render={arrayHelpers =&gt; (
-                        &lt;Layout.Vertical&gt;
-                          {(values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilePaths as FilePathConfig[])<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((path: FilePathConfig, index: number) =&gt; (
-                            &lt;Layout.Horizontal
-                              key={path.id}
-                              flex={{ distribution: 'space-between' }}
-                              style={{ alignItems: 'end' }}
-                            &gt;
-                              &lt;FormInput.MultiTextInput
-                                label=""
-                                placeholder={getString('cd.filePathPlaceholder')}
-                                name={`spec.filePaths[${index}].value`}
-                                multiTextInputProps={{
-                                  allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-                                  expressions,
-                                  textProps: { disabled: isDisabled }
-                                }}
-                                disabled={isDisabled}
-                                style={{ width: '430px' }}
-                              /&gt;
-&nbsp;
-                              &lt;Button
-                                minimal
-                                icon="main-trash"
-                                onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >arrayHelpers.remove(index)}</span>
-                                disabled={isDisabled}
-                              /&gt;
-                            &lt;/Layout.Horizontal&gt;
-                          ))}
-                          &lt;span&gt;
-                            &lt;Button
-                              minimal
-                              text={getString('addFileText')}
-                              intent="primary"
-                              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                                arrayHelpers.push({ value: '', id: uuid() })</span>
+                )}
+              &lt;/div&gt;
+              &lt;div className={stepCss.divider} /&gt;
+              &lt;div className={stepCss.formGroup}&gt;
+                &lt;MultiTypeFieldSelector
+                  defaultValueToReset={defaultValueToReset}
+                  name={'spec.filePaths'}
+                  label={getString('common.git.filePath')}
+                &gt;
+                  &lt;FieldArray
+                    name="spec.filePaths"
+                    render={arrayHelpers =&gt; (
+                      &lt;Layout.Vertical&gt;
+                        {(values<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilePaths as FilePathConfig[])<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((path: FilePathConfig, index: number) =&gt; (
+                          &lt;Layout.Horizontal
+                            key={path.id}
+                            flex={{ distribution: 'space-between' }}
+                            style={{ alignItems: 'end' }}
+                          &gt;
+                            &lt;FormInput.MultiTextInput
+                              label=""
+                              placeholder={getString('cd.filePathPlaceholder')}
+                              name={`spec.filePaths[${index}].value`}
+                              multiTextInputProps={{
+                                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                                expressions,
+                                textProps: { disabled: isDisabled }
                               }}
                               disabled={isDisabled}
+                              style={{ width: '430px' }}
                             /&gt;
-                          &lt;/span&gt;
-                        &lt;/Layout.Vertical&gt;
-                      )}
-                    /&gt;
-                  &lt;/MultiTypeFieldSelector&gt;
-                &lt;/div&gt;
 &nbsp;
-                &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
-                  &lt;FormMultiTypeCheckboxField
-                    name="spec.skipDryRun"
-                    label={getString('pipelineSteps.skipDryRun')}
-                    disabled={isDisabled}
-                    multiTypeTextbox={{ expressions }}
+                            &lt;Button
+                              minimal
+                              icon="main-trash"
+                              onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >arrayHelpers.remove(index)}</span>
+                              disabled={isDisabled}
+                            /&gt;
+                          &lt;/Layout.Horizontal&gt;
+                        ))}
+                        &lt;span&gt;
+                          &lt;Button
+                            minimal
+                            text={getString('addFileText')}
+                            intent="primary"
+                            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                              arrayHelpers.push({ value: '', id: uuid() })</span>
+                            }}
+                            disabled={isDisabled}
+                          /&gt;
+                        &lt;/span&gt;
+                      &lt;/Layout.Vertical&gt;
+                    )}
                   /&gt;
-                  {getMultiTypeFromValue(values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipDryRun) === MultiTypeInputType.RUNTIME &amp;&amp; (
-                    &lt;ConfigureOptions
-                      value={(values.spec.skipDryRun || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> as string}
-                      type="String"
-                      variableName="spec.skipDryRun"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                        setFieldValue('spec.skipDryRun', value)</span>
-                      }}
-                      isReadonly={isDisabled}
-                    /&gt;
-                  )}
-                &lt;/div&gt;
-                &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
-                  &lt;FormMultiTypeCheckboxField
-                    name="spec.skipSteadyStateCheck"
-                    disabled={isDisabled}
-                    label={getString('pipelineSteps.skipSteadyStateCheck')}
-                    multiTypeTextbox={{ expressions }}
+                &lt;/MultiTypeFieldSelector&gt;
+              &lt;/div&gt;
+&nbsp;
+              &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+                &lt;FormMultiTypeCheckboxField
+                  name="spec.skipDryRun"
+                  label={getString('pipelineSteps.skipDryRun')}
+                  disabled={isDisabled}
+                  multiTypeTextbox={{ expressions }}
+                /&gt;
+                {getMultiTypeFromValue(values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipDryRun) === MultiTypeInputType.RUNTIME &amp;&amp; (
+                  &lt;ConfigureOptions
+                    value={(values.spec.skipDryRun || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span> as string}
+                    type="String"
+                    variableName="spec.skipDryRun"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      setFieldValue('spec.skipDryRun', value)</span>
+                    }}
+                    isReadonly={isDisabled}
                   /&gt;
-                  {getMultiTypeFromValue(values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipSteadyStateCheck) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;ConfigureOptions</span>
-                      value={(values.spec.skipSteadyStateCheck || '') as string}
-                      type="String"
-                      variableName="spec.skipSteadyStateCheck"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                        setFieldValue('spec.skipSteadyStateCheck', value)</span>
-                      }}
-                      isReadonly={isDisabled}
-                    /&gt;
-                  )}
-                &lt;/div&gt;
-              &lt;/Layout.Vertical&gt;
+                )}
+              &lt;/div&gt;
+              &lt;div className={cx(stepCss.formGroup, stepCss.md)}&gt;
+                &lt;FormMultiTypeCheckboxField
+                  name="spec.skipSteadyStateCheck"
+                  disabled={isDisabled}
+                  label={getString('pipelineSteps.skipSteadyStateCheck')}
+                  multiTypeTextbox={{ expressions }}
+                /&gt;
+                {getMultiTypeFromValue(values.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>kipSteadyStateCheck) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;ConfigureOptions</span>
+                    value={(values.spec.skipSteadyStateCheck || '') as string}
+                    type="String"
+                    variableName="spec.skipSteadyStateCheck"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      setFieldValue('spec.skipSteadyStateCheck', value)</span>
+                    }}
+                    isReadonly={isDisabled}
+                  /&gt;
+                )}
+              &lt;/div&gt;
             &lt;/&gt;
           )
         }}
@@ -1612,7 +1606,7 @@ export class K8sApplyStep extends PipelineStep&lt;K8sApplyData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 05:07:45 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 05:56:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

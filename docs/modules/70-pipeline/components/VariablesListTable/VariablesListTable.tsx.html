@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/25</span>
+                <span class='fraction'>27/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>28/32</span>
+                <span class='fraction'>35/42</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>24/24</span>
             </div>
         
             
@@ -112,7 +112,8 @@
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">72x</span>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">72x</span>
 <span class="cline-any cline-yes">72x</span>
 <span class="cline-any cline-yes">72x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -131,31 +132,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">72x</span>
-<span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-yes">78x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">63x</span>
+<span class="cline-any cline-yes">53x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">619x</span>
+<span class="cline-any cline-yes">447x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">495x</span>
-<span class="cline-any cline-yes">495x</span>
+<span class="cline-any cline-yes">399x</span>
+<span class="cline-any cline-yes">399x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">495x</span>
+<span class="cline-any cline-yes">399x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">480x</span>
+<span class="cline-any cline-yes">384x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">469x</span>
+<span class="cline-any cline-yes">373x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">495x</span>
+<span class="cline-any cline-yes">399x</span>
+<span class="cline-any cline-yes">238x</span>
+<span class="cline-any cline-yes">238x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">283x</span>
+<span class="cline-any cline-yes">238x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -195,7 +197,6 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
 &nbsp;
         const metadata = metadataMap[value]
         const finalvalue = get(originalData, key)
-&nbsp;
         let formattedValue
 &nbsp;
         if (Array.isArray(finalvalue)) {
@@ -209,14 +210,16 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
         }
 &nbsp;
         if (isNil(metadata) || isNil(formattedValue)) return null
+        const variableNameParts = metadata.yamlProperties<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ocalName<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit('.') || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+        const vairableName = variableNameParts[variableNameParts<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength - 1]
 &nbsp;
         return (
-          &lt;React.Fragment key={key}&gt;
-            &lt;CopyText textToCopy={toVariableStr(metadata.yamlProperties<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>qn || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>}&gt;
-              {metadata.yamlProperties<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ocalName}
+          &lt;div key={key} className={css.variableListRow}&gt;
+            &lt;CopyText className="variable-name-cell" textToCopy={toVariableStr(metadata.yamlProperties<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>qn || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>}&gt;
+              {vairableName}
             &lt;/CopyText&gt;
             &lt;Text lineClamp={1}&gt;{formattedValue.toString()}&lt;/Text&gt;
-          &lt;/React.Fragment&gt;
+          &lt;/div&gt;
         )
       })}
     &lt;/div&gt;
@@ -229,7 +232,7 @@ export function VariablesListTable&lt;T&gt;(props: VariableListTableProps&lt;T&g
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 09:38:18 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 11:16:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

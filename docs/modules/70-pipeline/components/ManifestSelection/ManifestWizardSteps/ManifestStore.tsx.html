@@ -563,9 +563,9 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
   const { repoIdentifier, branch } = useQueryParams&lt;GitQueryParams&gt;()
   const { getString } = useStrings()
 &nbsp;
-  const [selectedManifest, setSelectedManifest] = React.useState(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore ?? <span class="branch-1 cbranch-no" title="branch not covered" >initialValues.store)</span>
+  const [selectedStore, setSelectedStore] = React.useState(prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore ?? <span class="branch-1 cbranch-no" title="branch not covered" >initialValues.store)</span>
   const newConnectorLabel = `${getString('newLabel')} ${
-    !!selectedManifest &amp;&amp; getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])
+    !!selectedStore &amp;&amp; getString(ManifestToConnectorLabelMap[selectedStore as ManifestStores])
   } ${getString('connector')}`
 &nbsp;
   const [canCreate] = usePermission({
@@ -576,25 +576,25 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
   })
 &nbsp;
   const submitFirstStep = <span class="fstat-no" title="function not covered" >async </span>(formData: ManifestStepInitData): Promise&lt;void&gt; =&gt; {
-<span class="cstat-no" title="statement not covered" >    nextStep?.({ ...formData, store: selectedManifest })</span>
+<span class="cstat-no" title="statement not covered" >    nextStep?.({ ...formData })</span>
   }
   const handleOptionSelection = (selected: ManifestStores): void =&gt; {
-    setSelectedManifest(selected)
+    setSelectedStore(selected)
     handleStoreChange(selected)
   }
 &nbsp;
   const getInitialValues = useCallback((): ManifestStepInitData =&gt; {
-    const initValues = { ...initialValues, manifestStore: selectedManifest }
+    const initValues = { ...initialValues }
 &nbsp;
     <span class="missing-if-branch" title="if path not taken" >I</span>if (prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef) {
 <span class="cstat-no" title="statement not covered" >      initValues.connectorRef = prevStepData?.connectorRef</span>
-<span class="cstat-no" title="statement not covered" >      handleStoreChange(selectedManifest)</span>
+<span class="cstat-no" title="statement not covered" >      handleStoreChange(selectedStore)</span>
     }
-    if (selectedManifest !== initValues.store) {
+    if (selectedStore !== initValues.store) {
       initValues.connectorRef = ''
     }
-    return initValues
-  }, [selectedManifest])
+    return { ...initValues, store: selectedStore }
+  }, [selectedStore])
 &nbsp;
   const supportedManifestStores = useMemo(
     () =&gt;
@@ -619,13 +619,13 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
           connectorRef: Yup.string()
             .trim()
             .required(
-              `${ManifestToConnectorMap[selectedManifest]} ${getString(
+              `${ManifestToConnectorMap[selectedStore]} ${getString(
                 'pipelineSteps.build.create.connectorRequiredError'
               )}`
             )
         })}
         onSubmit={<span class="fstat-no" title="function not covered" >formData </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >          submitFirstStep({ ...formData, store: selectedManifest })</span>
+<span class="cstat-no" title="statement not covered" >          submitFirstStep({ ...formData })</span>
         }}
         enableReinitialize={true}
       &gt;
@@ -634,7 +634,7 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
             &lt;Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}&gt;
               &lt;ThumbnailSelect
                 className={css.thumbnailSelect}
-                name={'manifestStore'}
+                name={'store'}
                 items={supportedManifestStores}
                 isReadonly={isReadonly}
                 onChange={handleOptionSelection}
@@ -642,20 +642,20 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
             &lt;/Layout.Horizontal&gt;
 &nbsp;
             &lt;div className={css.formContainerStepOne}&gt;
-              {selectedManifest !== '' ? (
+              {formik.values.store !== '' ? (
                 &lt;div className={css.connectorContainer}&gt;
                   &lt;FormMultiTypeConnectorField
-                    key={selectedManifest}
+                    key={formik.values.store}
                     name="connectorRef"
                     label={
                       &lt;Text style={{ marginBottom: '5px' }}&gt;
-                        {`${getString(ManifestToConnectorLabelMap[selectedManifest as ManifestStores])} ${getString(
+                        {`${getString(ManifestToConnectorLabelMap[formik.values.store as ManifestStores])} ${getString(
                           'connector'
                         )}`}
                       &lt;/Text&gt;
                     }
                     placeholder={`${getString('select')} ${getString(
-                      ManifestToConnectorLabelMap[selectedManifest as ManifestStores]
+                      ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
                     )} ${getString('connector')}`}
                     accountIdentifier={accountId}
                     projectIdentifier={projectIdentifier}
@@ -663,7 +663,7 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
                     width={400}
                     multiTypeProps={{ expressions }}
                     isNewConnectorLabelVisible={false}
-                    type={ManifestToConnectorMap[selectedManifest]}
+                    type={ManifestToConnectorMap[formik.values.store]}
                     enableConfigureOptions={false}
                     gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                   /&gt;
@@ -671,7 +671,7 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
 <span class="branch-0 cbranch-no" title="branch not covered" >                    &lt;div className={css.configureOptions}&gt;</span>
                       &lt;ConfigureOptions
                         value={formik.values.connectorRef as unknown as string}
-                        type={ManifestToConnectorMap[selectedManifest]}
+                        type={ManifestToConnectorMap[formik.values.store]}
                         variableName="connectorRef"
                         showRequiredField={false}
                         showDefaultField={false}
@@ -693,7 +693,7 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
                       icon="plus"
                       onClick={() =&gt; {
                         handleConnectorViewChange()
-                        nextStep<span class="branch-0 cbranch-no" title="branch not covered" >?.({</span> ...prevStepData, store: selectedManifest })
+                        nextStep<span class="branch-0 cbranch-no" title="branch not covered" >?.({</span> ...prevStepData, store: selectedStore })
                       }}
                     /&gt;
                   )}
@@ -709,7 +709,7 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
                 text={getString('continue')}
                 rightIcon="chevron-right"
                 disabled={
-                  !selectedManifest ||
+                  !selectedStore ||
                   (getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.FIXED &amp;&amp;
                     !(formik.values.connectorRef as ConnectorSelectedValue)?.connector)
                 }
@@ -730,7 +730,7 @@ export default ManifestStore
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 13:36:34 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 14:24:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -254,8 +254,11 @@
 <a name='L195'></a><a href='#L195'>195</a>
 <a name='L196'></a><a href='#L196'>196</a>
 <a name='L197'></a><a href='#L197'>197</a>
-<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L198'></a><a href='#L198'>198</a>
+<a name='L199'></a><a href='#L199'>199</a>
+<a name='L200'></a><a href='#L200'>200</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -450,6 +453,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
@@ -459,7 +463,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -543,103 +548,104 @@ export const GCSStepBase = (
 &nbsp;
         return (
           &lt;FormikForm&gt;
-            &lt;div className={css.fieldsSection}&gt;
-              &lt;FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                isIdentifierEditable={isNewStep}
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-                inputGroupProps={{ disabled: readonly }}
-              /&gt;
-              &lt;FormMultiTypeConnectorField
-                label={
-                  &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
-                    {getString('pipelineSteps.gcpConnectorLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.gcsConnectorInfo')}
-                      iconProps={{ size: 14 }}
+            &lt;FormInput.InputWithIdentifier
+              inputName="name"
+              idName="identifier"
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+              inputGroupProps={{ disabled: readonly }}
+            /&gt;
+            &lt;FormMultiTypeConnectorField
+              label={
+                &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                  {getString('pipelineSteps.gcpConnectorLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.gcsConnectorInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              type={'Gcp'}
+              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+              name="spec.connectorRef"
+              placeholder={getString('select')}
+              accountIdentifier={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
+              multiTypeProps={{ expressions, disabled: readonly }}
+              gitScope={gitScope}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            /&gt;
+            &lt;MultiTypeTextField
+              name="spec.bucket"
+              label={
+                &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                  {getString('pipelineSteps.bucketLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.GCSBucketInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            /&gt;
+            &lt;MultiTypeTextField
+              name="spec.sourcePath"
+              label={
+                &lt;Text&gt;
+                  {getString('pipelineSteps.sourcePathLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.sourcePathInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+            /&gt;
+            &lt;Accordion className={css.accordion}&gt;
+              &lt;Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={
+                  &lt;&gt;
+                    &lt;MultiTypeTextField
+                      name="spec.target"
+                      label={
+                        &lt;Text&gt;
+                          {getString('pipelineSteps.targetLabel')}
+                          &lt;Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.artifactsTargetInfo')}
+                            iconProps={{ size: 14 }}
+                          /&gt;
+                        &lt;/Text&gt;
+                      }
+                      multiTextInputProps={{
+                        placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
+                        multiTextInputProps: { expressions },
+                        disabled: readonly
+                      }}
+                      style={{ marginBottom: 'var(--spacing-small)' }}
                     /&gt;
-                  &lt;/Text&gt;
+                    &lt;StepCommonFields disabled={readonly} /&gt;
+                  &lt;/&gt;
                 }
-                type={'Gcp'}
-                width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
-                }
-                name="spec.connectorRef"
-                placeholder={getString('select')}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions, disabled: readonly }}
-                gitScope={gitScope}
-                style={{ marginBottom: 'var(--spacing-small)' }}
               /&gt;
-              &lt;MultiTypeTextField
-                name="spec.bucket"
-                label={
-                  &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
-                    {getString('pipelineSteps.bucketLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              /&gt;
-              &lt;MultiTypeTextField
-                name="spec.sourcePath"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.sourcePathLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.sourcePathInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              /&gt;
-            &lt;/div&gt;
-            &lt;div className={css.fieldsSection}&gt;
-              &lt;Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}&gt;
-                {getString('pipelineSteps.optionalConfiguration')}
-              &lt;/Text&gt;
-              &lt;MultiTypeTextField
-                name="spec.target"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.targetLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              /&gt;
-              &lt;StepCommonFields disabled={readonly} /&gt;
-            &lt;/div&gt;
+            &lt;/Accordion&gt;
           &lt;/FormikForm&gt;
         )
       }}
@@ -655,7 +661,7 @@ export const GCSStepBaseWithRef = React.forwardRef(GCSStepBase)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 18:13:01 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 18:46:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

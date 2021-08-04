@@ -294,8 +294,11 @@
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -530,6 +533,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
@@ -539,7 +543,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -623,143 +628,144 @@ export const S3StepBase = (
 &nbsp;
         return (
           &lt;FormikForm&gt;
-            &lt;div className={css.fieldsSection}&gt;
-              &lt;FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                isIdentifierEditable={isNewStep}
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-                inputGroupProps={{ disabled: readonly }}
-              /&gt;
-              &lt;FormMultiTypeConnectorField
-                label={
-                  &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
-                    {getString('pipelineSteps.awsConnectorLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.s3ConnectorInfo')}
-                      iconProps={{ size: 14 }}
+            &lt;FormInput.InputWithIdentifier
+              inputName="name"
+              idName="identifier"
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+              inputGroupProps={{ disabled: readonly }}
+            /&gt;
+            &lt;FormMultiTypeConnectorField
+              label={
+                &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                  {getString('pipelineSteps.awsConnectorLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.s3ConnectorInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              type={'Aws'}
+              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+              name="spec.connectorRef"
+              placeholder={getString('select')}
+              accountIdentifier={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
+              multiTypeProps={{ expressions, disabled: readonly }}
+              gitScope={gitScope}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            /&gt;
+            &lt;MultiTypeTextField
+              name="spec.region"
+              label={
+                &lt;Text&gt;
+                  {getString('regionLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.regionInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              multiTextInputProps={{
+                placeholder: getString('pipelineSteps.regionPlaceholder'),
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            /&gt;
+            &lt;MultiTypeTextField
+              name="spec.bucket"
+              label={
+                &lt;Text&gt;
+                  {getString('pipelineSteps.bucketLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.S3BucketInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            /&gt;
+            &lt;MultiTypeTextField
+              name="spec.sourcePath"
+              label={
+                &lt;Text&gt;
+                  {getString('pipelineSteps.sourcePathLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.sourcePathInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+            /&gt;
+            &lt;Accordion className={css.accordion}&gt;
+              &lt;Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={
+                  &lt;&gt;
+                    &lt;MultiTypeTextField
+                      name="spec.endpoint"
+                      label={
+                        &lt;Text&gt;
+                          {getString('pipelineSteps.endpointLabel')}
+                          &lt;Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.endpointInfo')}
+                            iconProps={{ size: 14 }}
+                          /&gt;
+                        &lt;/Text&gt;
+                      }
+                      multiTextInputProps={{
+                        placeholder: getString('pipelineSteps.endpointPlaceholder'),
+                        multiTextInputProps: { expressions },
+                        disabled: readonly
+                      }}
+                      style={{ marginBottom: 'var(--spacing-small)' }}
                     /&gt;
-                  &lt;/Text&gt;
-                }
-                type={'Aws'}
-                width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
-                }
-                name="spec.connectorRef"
-                placeholder={getString('select')}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions, disabled: readonly }}
-                gitScope={gitScope}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              /&gt;
-              &lt;MultiTypeTextField
-                name="spec.region"
-                label={
-                  &lt;Text&gt;
-                    {getString('regionLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.regionInfo')}
-                      iconProps={{ size: 14 }}
+                    &lt;MultiTypeTextField
+                      name="spec.target"
+                      label={
+                        &lt;Text&gt;
+                          {getString('pipelineSteps.targetLabel')}
+                          &lt;Button
+                            icon="question"
+                            minimal
+                            tooltip={getString('pipelineSteps.artifactsTargetInfo')}
+                            iconProps={{ size: 14 }}
+                          /&gt;
+                        &lt;/Text&gt;
+                      }
+                      multiTextInputProps={{
+                        placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
+                        multiTextInputProps: { expressions },
+                        disabled: readonly
+                      }}
+                      style={{ marginBottom: 'var(--spacing-small)' }}
                     /&gt;
-                  &lt;/Text&gt;
+                    &lt;StepCommonFields disabled={readonly} /&gt;
+                  &lt;/&gt;
                 }
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.regionPlaceholder'),
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
               /&gt;
-              &lt;MultiTypeTextField
-                name="spec.bucket"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.bucketLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.S3BucketInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              /&gt;
-              &lt;MultiTypeTextField
-                name="spec.sourcePath"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.sourcePathLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.sourcePathInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-              /&gt;
-            &lt;/div&gt;
-            &lt;div className={css.fieldsSection}&gt;
-              &lt;Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}&gt;
-                {getString('pipelineSteps.optionalConfiguration')}
-              &lt;/Text&gt;
-              &lt;MultiTypeTextField
-                name="spec.endpoint"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.endpointLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.endpointInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.endpointPlaceholder'),
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              /&gt;
-              &lt;MultiTypeTextField
-                name="spec.target"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.targetLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  placeholder: getString('pipelineSteps.artifactsTargetPlaceholder'),
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              /&gt;
-              &lt;StepCommonFields disabled={readonly} /&gt;
-            &lt;/div&gt;
+            &lt;/Accordion&gt;
           &lt;/FormikForm&gt;
         )
       }}
@@ -775,7 +781,7 @@ export const S3StepBaseWithRef = React.forwardRef(S3StepBase)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 18:13:01 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 18:46:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

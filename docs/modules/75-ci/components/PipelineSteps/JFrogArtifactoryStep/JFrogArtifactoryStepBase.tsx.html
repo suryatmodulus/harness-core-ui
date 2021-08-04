@@ -236,8 +236,11 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -414,6 +417,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
@@ -423,7 +427,8 @@ import {
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -512,80 +517,81 @@ export const JFrogArtifactoryStepBase = (
 &nbsp;
         return (
           &lt;FormikForm&gt;
-            &lt;div className={css.fieldsSection}&gt;
-              &lt;FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                isIdentifierEditable={isNewStep}
-                inputLabel={getString('pipelineSteps.stepNameLabel')}
-                inputGroupProps={{ disabled: readonly }}
-              /&gt;
-              &lt;FormMultiTypeTextAreaField
-                className={css.removeBpLabelMargin}
-                name="description"
-                label={&lt;Text margin={{ bottom: 'xsmall' }}&gt;{getString('description')}&lt;/Text&gt;}
-                multiTypeTextArea={{ expressions, disabled: readonly }}
-              /&gt;
-              &lt;FormMultiTypeConnectorField
-                label={&lt;Text margin={{ bottom: 'xsmall' }}&gt;{getString('pipelineSteps.connectorLabel')}&lt;/Text&gt;}
-                type={'Artifactory'}
-                width={
-                  getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560
+            &lt;FormInput.InputWithIdentifier
+              inputName="name"
+              idName="identifier"
+              isIdentifierEditable={isNewStep}
+              inputLabel={getString('pipelineSteps.stepNameLabel')}
+              inputGroupProps={{ disabled: readonly }}
+            /&gt;
+            &lt;FormMultiTypeTextAreaField
+              className={css.removeBpLabelMargin}
+              name="description"
+              label={&lt;Text margin={{ bottom: 'xsmall' }}&gt;{getString('description')}&lt;/Text&gt;}
+              multiTypeTextArea={{ expressions, disabled: readonly }}
+            /&gt;
+            &lt;FormMultiTypeConnectorField
+              label={&lt;Text margin={{ bottom: 'xsmall' }}&gt;{getString('pipelineSteps.connectorLabel')}&lt;/Text&gt;}
+              type={'Artifactory'}
+              width={getMultiTypeFromValue(formik.values.spec.connectorRef) === MultiTypeInputType.RUNTIME ? 515 : 560}
+              name="spec.connectorRef"
+              placeholder={getString('select')}
+              accountIdentifier={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
+              multiTypeProps={{ expressions, disabled: readonly }}
+              gitScope={gitScope}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            /&gt;
+            &lt;MultiTypeTextField
+              name="spec.target"
+              label={
+                &lt;Text&gt;
+                  {getString('pipelineSteps.targetLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.jFrogArtifactoryTargetInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+              style={{ marginBottom: 'var(--spacing-small)' }}
+            /&gt;
+            &lt;MultiTypeTextField
+              name="spec.sourcePath"
+              label={
+                &lt;Text&gt;
+                  {getString('pipelineSteps.sourcePathLabel')}
+                  &lt;Button
+                    icon="question"
+                    minimal
+                    tooltip={getString('pipelineSteps.sourcePathInfo')}
+                    iconProps={{ size: 14 }}
+                  /&gt;
+                &lt;/Text&gt;
+              }
+              multiTextInputProps={{
+                multiTextInputProps: { expressions },
+                disabled: readonly
+              }}
+              style={{ marginBottom: 0 }}
+            /&gt;
+            &lt;Accordion className={css.accordion}&gt;
+              &lt;Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={
+                  &lt;&gt;
+                    &lt;StepCommonFields disabled={readonly} /&gt;
+                  &lt;/&gt;
                 }
-                name="spec.connectorRef"
-                placeholder={getString('select')}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                multiTypeProps={{ expressions, disabled: readonly }}
-                gitScope={gitScope}
-                style={{ marginBottom: 'var(--spacing-small)' }}
               /&gt;
-              &lt;MultiTypeTextField
-                name="spec.target"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.targetLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.jFrogArtifactoryTargetInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 'var(--spacing-small)' }}
-              /&gt;
-              &lt;MultiTypeTextField
-                name="spec.sourcePath"
-                label={
-                  &lt;Text&gt;
-                    {getString('pipelineSteps.sourcePathLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.sourcePathInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
-                  &lt;/Text&gt;
-                }
-                multiTextInputProps={{
-                  multiTextInputProps: { expressions },
-                  disabled: readonly
-                }}
-                style={{ marginBottom: 0 }}
-              /&gt;
-            &lt;/div&gt;
-            &lt;div className={css.fieldsSection}&gt;
-              &lt;Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}&gt;
-                {getString('pipelineSteps.optionalConfiguration')}
-              &lt;/Text&gt;
-              &lt;StepCommonFields disabled={readonly} /&gt;
-            &lt;/div&gt;
+            &lt;/Accordion&gt;
           &lt;/FormikForm&gt;
         )
       }}
@@ -601,7 +607,7 @@ export const JFrogArtifactoryStepBaseWithRef = React.forwardRef(JFrogArtifactory
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 18:13:01 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 18:46:41 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

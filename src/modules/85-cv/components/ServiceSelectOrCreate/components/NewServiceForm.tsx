@@ -4,13 +4,12 @@ import { useParams } from 'react-router-dom'
 import { FormikForm, Container, Layout, Text, Button } from '@wings-software/uicore'
 import { Formik } from 'formik'
 import { useStrings } from 'framework/strings'
-import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { NameSchema, IdentifierSchema } from '@common/utils/Validation'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { useCreateService, CreateServiceQueryParams } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { PageSpinner } from '@common/components'
+import { NameIdDescriptionTags, PageSpinner } from '@common/components'
 import { newSeviceInitialData } from './NewServiceForm.constants'
 import type { NewServiceFormInterface, NewServiceDataInterface } from './NewServiceForm.types'
 
@@ -52,16 +51,15 @@ export default function NewServiceForm({ onSubmit, onClose }: NewServiceFormInte
         handleSubmit(val)
       }}
     >
-      {() => (
+      {formik => (
         <FormikForm>
           {loading && <PageSpinner message={getString('cv.creatingNewService')} />}
           <Container margin="medium">
             <Text font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'large' }}>
               {getString('newService')}
             </Text>
-            <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'Name' }} />
-
-            <Layout.Horizontal spacing="medium" margin={{ top: 'large', bottom: 'large' }}>
+            <NameIdDescriptionTags formikProps={formik} />
+            <Layout.Horizontal spacing="medium" margin={{ top: 'xxlarge', bottom: 'large' }}>
               <Button text="Submit" type="submit" intent="primary" />
               <Button text="Cancel" onClick={onClose} />
             </Layout.Horizontal>

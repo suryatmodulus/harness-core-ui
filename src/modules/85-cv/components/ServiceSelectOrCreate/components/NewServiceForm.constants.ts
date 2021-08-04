@@ -4,5 +4,5 @@ export const newSeviceInitialData: NewServiceDataInterface = {
   name: '',
   description: '',
   identifier: '',
-  tags: []
+  tags: {}
 }

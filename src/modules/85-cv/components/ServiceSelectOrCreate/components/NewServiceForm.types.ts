@@ -9,5 +9,5 @@ export interface NewServiceDataInterface {
   name: string
   description: string
   identifier: string
-  tags: string[]
+  tags: { [key: string]: string }
 }

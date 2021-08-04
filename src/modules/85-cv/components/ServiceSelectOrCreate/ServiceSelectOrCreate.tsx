@@ -4,6 +4,7 @@ import { Dialog } from '@blueprintjs/core'
 import type { ServiceResponseDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import NewServiceForm from './components/NewServiceForm'
+import css from './ServiceSelectOrCreate.module.scss'
 
 export interface ServiceSelectOrCreateProps {
   item?: SelectOption
@@ -47,7 +48,7 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
       canOutsideClickClose
       enforceFocus={false}
       onClose={hideModal}
-      style={{ width: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }}
+      className={css.newServiceDialog}
     >
       <NewServiceForm onSubmit={props.onNewCreated} onClose={hideModal} />
     </Dialog>

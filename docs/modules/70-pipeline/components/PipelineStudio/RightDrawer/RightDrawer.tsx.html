@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.09% </span>
+                <span class="strong">28.03% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>223/794</span>
+                <span class='fraction'>222/792</span>
             </div>
         
             
@@ -690,8 +690,7 @@
 <a name='L631'></a><a href='#L631'>631</a>
 <a name='L632'></a><a href='#L632'>632</a>
 <a name='L633'></a><a href='#L633'>633</a>
-<a name='L634'></a><a href='#L634'>634</a>
-<a name='L635'></a><a href='#L635'>635</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L634'></a><a href='#L634'>634</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -1109,7 +1108,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1444,7 +1442,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
     : <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
   const formikRef = React.useRef&lt;StepFormikRef | null&gt;(null)
   const { getString } = useStrings()
-  const showCloseButton = FullscreenDrawers.includes(type)
+  const isFullScreenDrawer = FullscreenDrawers.includes(type)
   let title: React.ReactNode | null = null
   <span class="missing-if-branch" title="if path not taken" >I</span>if (data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>sStepGroup) {
 <span class="cstat-no" title="statement not covered" >    stepData = stepsFactory.getStepData(StepType.StepGroup)</span>
@@ -1728,27 +1726,26 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
       position={Position.RIGHT}
       title={title}
       data-type={type}
-      className={cx(css.main, css.almostFullScreen, css.fullScreen)}
+      className={cx(css.main, css.almostFullScreen, css.fullScreen, { [css.showRighDrawer]: isFullScreenDrawer })}
       {...restDrawerProps}
       // {...(type === DrawerTypes.FlowControl ? { style: { right: 60, top: 64 }, hasBackdrop: false } : {})}
-      isCloseButtonShown={showCloseButton}
+      isCloseButtonShown={true}
       // BUG: https://github.com/palantir/blueprint/issues/4519
       // you must pass only a single classname, not even an empty string, hence passing a dummy class
       // "classnames" package cannot be used here because it returns an empty string when no classes are applied
-      portalClassName={showCloseButton ? <span class="branch-0 cbranch-no" title="branch not covered" >css.almostFullScreenPortal </span>: 'pipeline-studio-right-drawer'}
+      portalClassName={isFullScreenDrawer ? <span class="branch-0 cbranch-no" title="branch not covered" >css.almostFullScreenPortal </span>: 'pipeline-studio-right-drawer'}
     &gt;
-      {showCloseButton ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Button</span>
-          minimal
-          className={css.almostFullScreenCloseBtn}
-          icon="cross"
-          withoutBoxShadow
-          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })</span>
-<span class="cstat-no" title="statement not covered" >            setSelectedStepId(undefined)</span>
-          }}
-        /&gt;
-      ) : null}
+      &lt;Button
+        minimal
+        className={css.almostFullScreenCloseBtn}
+        icon="cross"
+        withoutBoxShadow
+        onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >          updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })</span>
+<span class="cstat-no" title="statement not covered" >          setSelectedStepId(undefined)</span>
+        }}
+      /&gt;
+&nbsp;
       {type === DrawerTypes.StepConfig &amp;&amp; data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ode &amp;&amp; (
         &lt;StepCommands
           step={data.stepConfig.node as StepElementConfig | StepGroupElementConfig}
@@ -1966,7 +1963,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 15:41:28 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 18:13:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

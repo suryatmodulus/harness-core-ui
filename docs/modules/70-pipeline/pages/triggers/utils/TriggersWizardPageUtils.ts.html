@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.97% </span>
+                <span class="strong">78.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>214/271</span>
+                <span class='fraction'>216/274</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">83.12% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>64/76</span>
+                <span class='fraction'>64/77</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.39% </span>
+                <span class="strong">76.17% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>178/233</span>
+                <span class='fraction'>179/235</span>
             </div>
         
             
@@ -1023,7 +1023,23 @@
 <a name='L964'></a><a href='#L964'>964</a>
 <a name='L965'></a><a href='#L965'>965</a>
 <a name='L966'></a><a href='#L966'>966</a>
-<a name='L967'></a><a href='#L967'>967</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
+<a name='L967'></a><a href='#L967'>967</a>
+<a name='L968'></a><a href='#L968'>968</a>
+<a name='L969'></a><a href='#L969'>969</a>
+<a name='L970'></a><a href='#L970'>970</a>
+<a name='L971'></a><a href='#L971'>971</a>
+<a name='L972'></a><a href='#L972'>972</a>
+<a name='L973'></a><a href='#L973'>973</a>
+<a name='L974'></a><a href='#L974'>974</a>
+<a name='L975'></a><a href='#L975'>975</a>
+<a name='L976'></a><a href='#L976'>976</a>
+<a name='L977'></a><a href='#L977'>977</a>
+<a name='L978'></a><a href='#L978'>978</a>
+<a name='L979'></a><a href='#L979'>979</a>
+<a name='L980'></a><a href='#L980'>980</a>
+<a name='L981'></a><a href='#L981'>981</a>
+<a name='L982'></a><a href='#L982'>982</a>
+<a name='L983'></a><a href='#L983'>983</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1040,6 +1056,18 @@
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1819,6 +1847,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">25x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">25x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2122,6 +2154,18 @@ export interface FlatValidScheduleFormikValuesInterface {
   sourceRepo: string
   triggerType: NGTriggerSourceV2['type']
   expression: string
+}
+&nbsp;
+export interface FlatValidManifestFormikValuesInterface {
+  name: string
+  identifier: string
+  description?: string
+  tags?: {
+    [key: string]: string
+  }
+  triggerType: NGTriggerSourceV2['type']
+  selectedManifest: ManifestConfigWrapper
+  stageId: string
 }
 &nbsp;
 export const TriggerTypes = {
@@ -2784,6 +2828,10 @@ export const filterManifest = (pipelineObject: any, stageId: any, manifestIdenti
   return filteredManifest
 }
 &nbsp;
+export const getStageIdx = <span class="fstat-no" title="function not covered" >(p</span>ipelineObject: any, stageId: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return pipelineObject.findIndex(<span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >item.stage.identifier === stageId)</span></span>
+}
+&nbsp;
 export const getTemplateObject = (manifest: any, artifacts: any) =&gt; {
   return {
     artifacts: artifacts,
@@ -2792,7 +2840,7 @@ export const getTemplateObject = (manifest: any, artifacts: any) =&gt; {
 }
 &nbsp;
 export const getPathString = <span class="fstat-no" title="function not covered" >(p</span>ipelineObject: any, stageId: any) =&gt; {
-  const filteredStageIdx = <span class="cstat-no" title="statement not covered" >pipelineObject.findIndex(<span class="fstat-no" title="function not covered" >(i</span>tem: any) =&gt; <span class="cstat-no" title="statement not covered" >item.stage.identifier === stageId)</span></span>
+  const filteredStageIdx = <span class="cstat-no" title="statement not covered" >getStageIdx(pipelineObject, stageId)</span>
 <span class="cstat-no" title="statement not covered" >  return `stages[${filteredStageIdx}].stage.spec.serviceConfig.serviceDefinition.spec`</span>
 }
 &nbsp;
@@ -2962,7 +3010,7 @@ export const getArtifactTableDataFromData = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 15:41:28 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 18:13:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -188,8 +188,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 id: stage.identifier,
                 ...commonOption,
                 customNodeStyle: {
-                  // Without this doesn't look straight
-                  marginTop: '2.5px',
                   ...commonOption.customNodeStyle,
                   border: 'none'
                 },
@@ -199,7 +197,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 icon: stage.icon,
                 iconSize: stage.iconSize,
                 iconStyle: {
-                  marginBottom: '38px'
+                  marginBottom: '30px'
                 }
               })
             : type === ExecutionPipelineNodeType.DIAMOND
@@ -207,11 +205,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 identifier: stage.identifier,
                 id: stage.identifier,
                 ...commonOption,
-                width: 64,
-                height: 64,
+                width: 57,
+                height: 57,
                 customNodeStyle: {
-                  // Without this doesn't look straight
-                  marginTop: '2.5px',
                   ...commonOption.customNodeStyle
                 },
                 name: stage.name
@@ -238,7 +234,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         })
       }
       nodeRender.setPosition(startX, startY)
-      startX += NODE_WIDTH
+      startX +=
+        type === ExecutionPipelineNodeType.DIAMOND || type === ExecutionPipelineNodeType.ICON
+          ? NODE_WIDTH + 30
+          : NODE_WIDTH
 
       /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {

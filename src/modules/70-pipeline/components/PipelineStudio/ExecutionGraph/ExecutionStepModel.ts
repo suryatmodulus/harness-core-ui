@@ -297,6 +297,8 @@ export class ExecutionStepModel extends DiagramModel {
               allowAdd: !isReadonly,
               canDelete: !isReadonly,
               draggable: !isReadonly,
+              width: 57,
+              height: 57,
               isInComplete: isCustomGeneratedString(node.step.identifier) || hasErrors,
               conditionalExecutionEnabled: node.step.when
                 ? node.step.when?.stageStatus !== 'Success' || !!node.step.when?.condition?.trim()
@@ -318,7 +320,7 @@ export class ExecutionStepModel extends DiagramModel {
                 : false,
               draggable: !isReadonly,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
-              iconSize: 70,
+              iconSize: 50,
               iconStyle: {
                 marginBottom: '38px'
               },
@@ -342,7 +344,10 @@ export class ExecutionStepModel extends DiagramModel {
 
       this.addNode(nodeRender)
       nodeRender.setPosition(startX, startY)
-      startX += NODE_WIDTH
+      startX +=
+        nodeType === ExecutionPipelineNodeType.DIAMOND || nodeType === ExecutionPipelineNodeType.ICON
+          ? NODE_WIDTH + 30
+          : NODE_WIDTH
       if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
           this.connectedParentToNode(

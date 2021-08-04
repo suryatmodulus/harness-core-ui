@@ -8,7 +8,7 @@ import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import CardRailView from '@pipeline/components/Dashboards/CardRailView/CardRailView'
 import { useGetWorkloads, useGetDeployments, CDPipelineModuleInfo, ExecutionStatusInfo } from 'services/cd-ng'
-import type { CIWebhookInfoDTO } from 'services/ci'
+import type { CIBuildCommit, CIWebhookInfoDTO } from 'services/ci'
 import type { PipelineExecutionSummary } from 'services/pipeline-ng'
 import { ActiveStatus, FailedStatus, useErrorHandler, useRefetchCall } from '@pipeline/components/Dashboards/shared'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
@@ -26,17 +26,20 @@ function executionStatusInfoToExecutionSummary(info: ExecutionStatusInfo): Pipel
     serviceIdentifiers: info.serviceInfoList?.map(({ serviceName }) => defaultTo(serviceName, '')).filter(svc => !!svc)
   }
 
+  const branch = get(info, 'gitInfo.targetBranch')
+  const commits: CIBuildCommit[] = [{ message: get(info, 'gitInfo.commit'), id: get(info, 'gitInfo.commitID') }]
+
   const ciExecutionInfoDTO: CIWebhookInfoDTO = {
     author: info.author,
     event: get(info, 'gitInfo.eventType'),
     branch: {
       name: get(info, 'gitInfo.sourceBranch'),
-      commits: [{ message: get(info, 'gitInfo.commit'), id: get(info, 'gitInfo.commitID') }]
+      commits
     },
     pullRequest: {
       sourceBranch: get(info, 'gitInfo.sourceBranch'),
-      targetBranch: get(info, 'gitInfo.targetBranch'),
-      commits: [{ message: get(info, 'gitInfo.commit'), id: get(info, 'gitInfo.commitID') }]
+      targetBranch: branch,
+      commits
     }
   }
 
@@ -47,7 +50,10 @@ function executionStatusInfoToExecutionSummary(info: ExecutionStatusInfo): Pipel
     status: (info.status ? info.status.charAt(0).toUpperCase() + camelCase(info.status).slice(1) : '') as any,
     planExecutionId: info.planExecutionId,
     pipelineIdentifier: info.pipelineIdentifier,
-    moduleInfo: { cd: cd as any, ci: { ciExecutionInfoDTO, branch: get(info, 'gitInfo.targetBranch') } },
+    moduleInfo: {
+      cd: cd as any,
+      ci: (branch ? { ciExecutionInfoDTO, branch } : undefined) as any
+    },
     executionTriggerInfo: {
       triggeredBy: {
         identifier: info.author?.name

@@ -57,7 +57,5 @@ describe('ServiceSelectOrCreate', () => {
     ])
 
     await waitFor(() => expect(getByText('+ Add New')).toBeTruthy())
-
-    expect(container).toMatchSnapshot()
   })
 })

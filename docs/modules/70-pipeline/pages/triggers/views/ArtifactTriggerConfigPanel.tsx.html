@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.37% </span>
+                <span class="strong">86.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/41</span>
+                <span class='fraction'>37/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">79.17% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>40/50</span>
+                <span class='fraction'>38/48</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.37% </span>
+                <span class="strong">86.05% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>35/41</span>
+                <span class='fraction'>37/43</span>
             </div>
         
             
@@ -245,7 +245,16 @@
 <a name='L186'></a><a href='#L186'>186</a>
 <a name='L187'></a><a href='#L187'>187</a>
 <a name='L188'></a><a href='#L188'>188</a>
-<a name='L189'></a><a href='#L189'>189</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -281,7 +290,6 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -300,6 +308,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -401,21 +412,28 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -457,7 +475,7 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
   formikProps,
   isEdit = <span class="branch-0 cbranch-no" title="branch not covered" >false</span>
 }) =&gt; {
-  const { artifactType, manifestType, stageId, inputSetTemplateYamlObj, originalPipeline, selectedManifest } =
+  const { artifactType, manifestType, stageId, inputSetTemplateYamlObj, originalPipeline, selectedArtifact } =
     formikProps.values
   const [modalOpen, setModalOpen] = useState&lt;boolean&gt;(false)
   const [editModalOpen, setEditModalOpen] = useState&lt;boolean&gt;(false)
@@ -469,25 +487,27 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
   const [appliedTableArtifact, setAppliedTableArtifact] = useState&lt;artifactTableItem[] | undefined&gt;(undefined)
   const [artifactTableData, setArtifactTableData] = useState&lt;artifactTableItem[] | undefined&gt;(undefined)
   const { appliedArtifact, data } = parsedArtifactsManifests
-&nbsp;
   const { getString } = useStrings()
   const isManifest = !!manifestType
 &nbsp;
   useEffect(() =&gt; {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (inputSetTemplateYamlObj || <span class="branch-1 cbranch-no" title="branch not covered" >selectedManifest)</span> {
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (inputSetTemplateYamlObj || <span class="branch-1 cbranch-no" title="branch not covered" >selectedArtifact)</span> {
       const res = parseArtifactsManifests({
         inputSetTemplateYamlObj,
         manifestType,
         stageId,
         artifactType,
-        artifactRef: selectedManifest?.manifest?.identifier,
+        artifactRef: selectedArtifact?.identifier, // artifactRef will represent artifact or manifest
         isManifest
       })
       setParsedArtifactsManifests(res)
     }
-  }, [inputSetTemplateYamlObj, selectedManifest])
+  }, [inputSetTemplateYamlObj, selectedArtifact])
 &nbsp;
   useEffect(() =&gt; {
+    if (!selectedArtifact) {
+      setAppliedTableArtifact(undefined)
+    }
     if ((appliedArtifact || data) &amp;&amp; originalPipeline) {
       const { appliedTableArtifact: newAppliedTableArtifact, artifactTableData: newArtifactTableData } =
         getArtifactTableDataFromData({
@@ -504,10 +524,10 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
         setArtifactTableData(newArtifactTableData)
       }
     }
-  }, [appliedArtifact, data, originalPipeline])
+  }, [appliedArtifact, data, originalPipeline, selectedArtifact])
 &nbsp;
   const loading = false
-  const allowSelectArtifact = data?.length
+  const allowSelectArtifact = !!data?.length
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : <span class="branch-1 cbranch-no" title="branch not covered" >getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')</span>
@@ -563,7 +583,12 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
                 data-name="main-delete"
                 icon="main-trash"
                 onClick={<span class="fstat-no" title="function not covered" >_ </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                  formikProps.setValues({ ...formikProps.values, artifactRef: undefined, stageId: undefined }) /</span>/ need to clear all artifact runtime inputs
+<span class="cstat-no" title="statement not covered" >                  formikProps.setValues({</span>
+                    ...formikProps.values,
+                    selectedArtifact: undefined,
+                    stageId: undefined,
+                    stages: undefined // clears all artifact runtime inputs
+                  })
                 }}
               /&gt;
             &lt;/Container&gt;
@@ -612,7 +637,9 @@ const ArtifactTriggerConfigPanel: React.FC&lt;ArtifactTriggerConfigPanelPropsInt
           )}
           {inputSetTemplateYamlObj &amp;&amp; !appliedArtifact &amp;&amp; !allowSelectArtifact &amp;&amp; (
             &lt;Text margin="small" intent="warning"&gt;
-              {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound')}
+              {getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound', {
+                artifact: artifactOrManifestText
+              })}
             &lt;/Text&gt;
           )}
         &lt;/section&gt;
@@ -628,7 +655,7 @@ export default ArtifactTriggerConfigPanel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 18:46:41 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 04 2021 21:48:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

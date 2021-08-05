@@ -622,15 +622,6 @@ export const RightBar = (): JSX.Element => {
                               items={sslVerifyOptions}
                               style={{ width: '50%' }}
                             />
-                            <Text margin={{ top: 'small' }}>
-                              {getString('pipelineSteps.setContainerResources')}
-                              <Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('pipelineSteps.setContainerResourcesTooltip')}
-                                iconProps={{ size: 14 }}
-                              />
-                            </Text>
                             <MultiTypeSelectField
                               name="prCloneStrategy"
                               label={
@@ -649,6 +640,15 @@ export const RightBar = (): JSX.Element => {
                               configureOptionsProps={{ variableName: 'prCloneStrategy' }}
                               style={{ marginBottom: 'var(--spacing-medium)' }}
                             />
+                            <Text margin={{ top: 'small' }}>
+                              {getString('pipelineSteps.setContainerResources')}
+                              <Button
+                                icon="question"
+                                minimal
+                                tooltip={getString('pipelineSteps.setContainerResourcesTooltip')}
+                                iconProps={{ size: 14 }}
+                              />
+                            </Text>
                             <Layout.Horizontal spacing="small">
                               <FormInput.Text
                                 name="memoryLimit"

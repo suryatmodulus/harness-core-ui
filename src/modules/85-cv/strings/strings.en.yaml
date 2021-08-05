@@ -47,7 +47,7 @@ throughput: Throughput
 responseTime: Response Time
 query: Query
 addNew: + Add New
-creatingNewService: creating new service
+creatingNewService: Creating new service
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes

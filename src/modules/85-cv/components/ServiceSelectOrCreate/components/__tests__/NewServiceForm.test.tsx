@@ -32,13 +32,13 @@ describe('NewServieForm', () => {
       </TestWrapper>
     )
 
-    expect(getByText('Submit')).toBeDefined()
-    expect(getByText('Cancel')).toBeDefined()
+    expect(getByText('submit')).toBeDefined()
+    expect(getByText('cancel')).toBeDefined()
 
-    fireEvent.click(getByText('Cancel'))
+    fireEvent.click(getByText('cancel'))
     expect(onClose).toHaveBeenCalled()
 
-    fireEvent.click(getByText('Submit'))
+    fireEvent.click(getByText('submit'))
     await waitFor(() => expect(getByText('common.validation.nameIsRequired')).toBeDefined())
 
     await setFieldValue({
@@ -50,7 +50,7 @@ describe('NewServieForm', () => {
 
     await waitFor(() => expect(container.querySelector('input[value="Service 101"]')).toBeDefined())
     act(() => {
-      fireEvent.click(getByText('Submit'))
+      fireEvent.click(getByText('submit'))
     })
 
     await waitFor(() => expect(onSubmit).toHaveBeenCalledWith(responseData))

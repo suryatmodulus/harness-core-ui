@@ -27,8 +27,8 @@ export default function NewServiceForm({ onSubmit, onClose }: NewServiceFormInte
       const res = await createService({
         name: name,
         identifier: identifier,
-        orgIdentifier: orgIdentifier as string,
-        projectIdentifier: projectIdentifier as string
+        orgIdentifier: orgIdentifier,
+        projectIdentifier: projectIdentifier
       })
 
       if (res.status === 'SUCCESS') {
@@ -60,8 +60,8 @@ export default function NewServiceForm({ onSubmit, onClose }: NewServiceFormInte
             </Text>
             <NameIdDescriptionTags formikProps={formik} />
             <Layout.Horizontal spacing="medium" margin={{ top: 'xxlarge', bottom: 'large' }}>
-              <Button text="Submit" type="submit" intent="primary" />
-              <Button text="Cancel" onClick={onClose} />
+              <Button text={getString('submit')} type="submit" intent="primary" />
+              <Button text={getString('cancel')} onClick={onClose} />
             </Layout.Horizontal>
           </Container>
         </FormikForm>

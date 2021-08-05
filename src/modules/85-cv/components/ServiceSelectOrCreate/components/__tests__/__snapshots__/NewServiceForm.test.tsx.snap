@@ -174,7 +174,7 @@ exports[`NewServieForm Match snapshot 1`] = `
             <span
               class="bp3-button-text"
             >
-              Submit
+              submit
             </span>
           </button>
           <button
@@ -184,7 +184,7 @@ exports[`NewServieForm Match snapshot 1`] = `
             <span
               class="bp3-button-text"
             >
-              Cancel
+              cancel
             </span>
           </button>
         </div>

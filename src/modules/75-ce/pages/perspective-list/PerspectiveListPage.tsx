@@ -7,19 +7,13 @@ import routes from '@common/RouteDefinitions'
 import { Page } from '@common/components/Page/Page'
 import { PageSpinner, useToaster } from '@common/components'
 import { useCreatePerspective, useDeletePerspective, CEView } from 'services/ce'
-import {
-  CcmMetaData,
-  QlceView,
-  useFetchAllPerspectivesQuery,
-  useFetchCcmMetaDataQuery,
-  ViewState,
-  ViewType
-} from 'services/ce/services'
+import { CcmMetaData, QlceView, useFetchAllPerspectivesQuery, ViewState, ViewType } from 'services/ce/services'
 import { generateId, CREATE_CALL_OBJECT } from '@ce/utils/perspectiveUtils'
 import PerspectiveListView from '@ce/components/PerspectiveViews/PerspectiveListView'
 import PerspectiveGridView from '@ce/components/PerspectiveViews/PerspectiveGridView'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
 import { Utils } from '@ce/common/Utils'
+import { useCCMContext } from '@ce/context/CCMContext'
 import bgImage from './images/perspectiveBg.png'
 import css from './PerspectiveListPage.module.scss'
 
@@ -67,7 +61,7 @@ const PerspectiveListPage: React.FC = () => {
     }
   })
 
-  const [ccmMetaResult] = useFetchCcmMetaDataQuery()
+  const { ccmMetaResult } = useCCMContext()
   const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
 
   const createNewPerspective: (values: QlceView | Record<string, string>, isClone: boolean) => void = async (

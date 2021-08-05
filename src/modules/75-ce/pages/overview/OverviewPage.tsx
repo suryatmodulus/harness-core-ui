@@ -8,9 +8,9 @@ import {
   CcmMetaData,
   QlceViewAggregateOperation,
   StatsInfo,
-  useFetchCcmMetaDataQuery,
   useFetchPerspectiveDetailsSummaryQuery,
-  useFetchPerspectiveForecastCostQuery
+  useFetchPerspectiveForecastCostQuery,
+  useFetchCcmMetaDataQuery
 } from 'services/ce/services'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
 import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS, getGMTStartDateTime } from '@ce/utils/momentUtils'

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">86.96% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/23</span>
+                <span class='fraction'>20/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">19.71% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/137</span>
+                <span class='fraction'>27/137</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56.52% </span>
+                <span class="strong">86.96% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/23</span>
+                <span class='fraction'>20/23</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -257,15 +257,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -417,19 +417,19 @@ export interface VariableRowProps {
   value: string
 }
 &nbsp;
-export function <span class="fstat-no" title="function not covered" >K8sServiceSpecVariablesForm(</span>props: K8sServiceSpecVariablesFormProps): React.ReactElement {
-  const { initialValues, stepsFactory, stageIdentifier, onUpdate, variablesData, metadataMap, readonly } = <span class="cstat-no" title="statement not covered" >props</span>
-  const { manifests, artifacts, variables } = <span class="cstat-no" title="statement not covered" >initialValues</span>
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
+export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormProps): React.ReactElement {
+  const { initialValues, stepsFactory, stageIdentifier, onUpdate, variablesData, metadataMap, readonly } = props
+  const { manifests, artifacts, variables } = initialValues
+  const { getString } = useStrings()
 &nbsp;
-  const primaryArtifactVariables = <span class="cstat-no" title="statement not covered" >variablesData?.artifacts?.primary?.spec</span>
-  const sidecarArtifactVariables = <span class="cstat-no" title="statement not covered" >variablesData?.artifacts?.sidecars</span>
-  const manifestsVariables = <span class="cstat-no" title="statement not covered" >variablesData.manifests</span>
+  const primaryArtifactVariables = variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>rtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rimary<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec
+  const sidecarArtifactVariables = variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>rtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>idecars
+  const manifestsVariables = variablesData.manifests
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;React.Fragment&gt;
-      {artifacts &amp;&amp; !isEmpty(omit(variablesData?.artifacts, 'uuid')) ? (
-        &lt;NestedAccordionPanel
+      {artifacts &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isEmpty(omit(variablesData?.artifacts, 'uuid')) </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;NestedAccordionPanel</span>
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Service.Artifacts`}
@@ -485,8 +485,8 @@ export function <span class="fstat-no" title="function not covered" >K8sServiceS
           }
         /&gt;
       ) : null}
-      {manifests &amp;&amp; typeof manifestsVariables !== 'string' &amp;&amp; !isEmpty(omit(manifestsVariables, 'uuid')) ? (
-        &lt;NestedAccordionPanel
+      {manifests &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >typeof manifestsVariables !== 'string' </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!isEmpty(omit(manifestsVariables, 'uuid')) </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;NestedAccordionPanel</span>
           isDefaultOpen
           addDomId
           id={`Stage.${stageIdentifier}.Service.Manifests`}
@@ -530,7 +530,7 @@ export function <span class="fstat-no" title="function not covered" >K8sServiceS
               variableNamePrefix: 'serviceConfig.variables.',
               className: cx(css.customVariables, pipelineVariableCss.customVarPadL2),
               // heading: &lt;b&gt;{getString('customVariables.title')}&lt;/b&gt;,
-              yamlProperties: (variablesData?.variables as AllNGVariables[])?.map(
+              yamlProperties: (variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>ariables as AllNGVariables[])<span class="branch-1 cbranch-no" title="branch not covered" >?.map(</span>
 <span class="fstat-no" title="function not covered" >                variable </span>=&gt; <span class="cstat-no" title="statement not covered" >metadataMap?.[variable.value || '']?.yamlProperties || {}</span>
               )
             }}
@@ -547,7 +547,7 @@ export function <span class="fstat-no" title="function not covered" >K8sServiceS
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 04 2021 21:48:40 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 05 2021 05:29:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

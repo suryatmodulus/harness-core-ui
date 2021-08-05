@@ -290,7 +290,7 @@ export default function ArtifactsSelection({
             }
           )
         } else {
-          set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.primary', { ...artifactObj })
+          artifacts['primary'] = { ...artifactObj }
         }
       }
     } else {
@@ -322,22 +322,24 @@ export default function ArtifactsSelection({
         }
       }
     }
+
     const updatedStage = produce(stage, draft => {
       if (context === ModalViewFor.PRIMARY) {
         if (isPropagating && draft?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts) {
-          draft.stage.spec.serviceConfig.stageOverrides.artifacts = artifacts
-        } else if (draft?.stage?.spec?.serviceConfig?.serviceDefinition) {
-          draft.stage.spec.serviceConfig.serviceDefinition.spec.artifacts = artifacts
+          set(draft, 'stage.spec.serviceConfig.stageOverrides.artifacts', artifacts)
+        } else {
+          set(draft!, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts', artifacts)
         }
       }
       if (context === ModalViewFor.SIDECAR) {
         if (isPropagating && draft?.stage?.spec?.serviceConfig?.stageOverrides?.artifacts) {
-          draft.stage.spec.serviceConfig.stageOverrides.artifacts.sidecars = sideCarArtifact
-        } else if (draft?.stage?.spec?.serviceConfig?.serviceDefinition?.spec.artifacts) {
-          draft.stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars = sideCarArtifact
+          set(draft, 'stage.spec.serviceConfig.stageOverrides.artifacts.sidecars', sideCarArtifact)
+        } else {
+          set(draft!, 'stage.spec.serviceConfig.serviceDefinition.spec.artifacts.sidecars', sideCarArtifact)
         }
       }
     })
+
     updateStage(updatedStage?.stage as StageElementConfig)
     hideConnectorModal()
     setSelectedArtifact(null)

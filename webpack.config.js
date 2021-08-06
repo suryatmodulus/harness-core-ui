@@ -229,7 +229,7 @@ const prodOnlyPlugins = [
   new BugsnagSourceMapUploaderPlugin(
     {
       apiKey: '1fcf8f345280f354afb553181753544b',
-      appVersion: buildVersion,
+      appVersion: require('./package.json').version,
       publicPath: '*',
       overwrite: true
     },

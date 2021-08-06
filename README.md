@@ -38,7 +38,7 @@ $ cd nextgenui
 4. Add config to make Harness Github Package Registry accessible
 
 ```
-$ yarn setup-github-registry
+yarn setup-github-registry
 ```
 
 > Note: This is only needed if this is the first UI project you are installing on your machine
@@ -46,7 +46,7 @@ $ yarn setup-github-registry
 5. Install/Update/Refresh dependencies
 
 ```
-$ yarn
+yarn
 ```
 
 > Note: This will take some time the first time you run it. Subsequent runs should be near-instant. Run this everytime you change branches or take a pull. If there are no dependency changes, this is practically a no-op.
@@ -56,7 +56,7 @@ $ yarn
 6. Compile/Build the code **and** start the web-server in watch mode
 
 ```
-$ yarn dev
+yarn dev
 ```
 
 > Note: This will start the local server in watch mode with hot reloading. Any code changes will trigger fast patch rebuilds and refresh the page in the browser.
@@ -68,8 +68,8 @@ $ yarn dev
 ### Publishing
 
 ```
-$ yarn build
-$ yarn docker <tagname>
+yarn build
+yarn docker <tagname>
 ```
 
 First command will create a production build (minified, optimised).
@@ -110,7 +110,7 @@ You can configure the application to use remote environments such as `uat.harnes
 These environment variables can be passed in a number of ways including being set in your `.bashrc` or `.zshrc` file, set in a `.env` file in the root of the application (see [`.env.example`](./.env.example)), or passed when starting the dev server as below.
 
 ```shell
-$ TARGET_LOCALHOST=false yarn dev
+TARGET_LOCALHOST=false yarn dev
 ```
 
 ### Utilities
@@ -118,13 +118,13 @@ $ TARGET_LOCALHOST=false yarn dev
 Run lint checks
 
 ```
-$ yarn lint
+yarn lint
 ```
 
 Run unit tests
 
 ```
-$ yarn test
+yarn test
 ```
 
 ### Hotfix Process

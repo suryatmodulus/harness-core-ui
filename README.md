@@ -23,7 +23,7 @@ Grouped Code Coverage report for master branch: [Coverage Report](https://github
 2. Install **yarn** package manager
 
 ```
-$ brew install yarn
+brew install yarn
 ```
 
 > Note: More options here: https://classic.yarnpkg.com/en/docs/install
@@ -31,8 +31,8 @@ $ brew install yarn
 3. Clone this repo
 
 ```
-$ git clone git@github.com:wings-software/nextgenui.git
-$ cd nextgenui
+git clone git@github.com:wings-software/nextgenui.git
+cd nextgenui
 ```
 
 4. Add config to make Harness Github Package Registry accessible

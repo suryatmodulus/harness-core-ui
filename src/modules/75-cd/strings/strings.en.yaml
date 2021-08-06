@@ -20,10 +20,10 @@ manifestPathsCannotBeEmpty: 'Manifest Paths cannot be empty'
 scriptRequired: Script is a required field
 workloadRequired: Workload is a required field
 stepName: Step Name
-serviceCreated: Service created successfully
-serviceUpdated: Service updated successfully
-environmentCreated: Environment created successfully
-environmentUpdated: Environment updated successfully
+serviceCreated: '{{ $.common.serviceCreated }}'
+serviceUpdated: '{{ $.common.serviceUpdated }}'
+environmentCreated: '{{ $.common.environmentCreated }}'
+environmentUpdated: '{{ $.common.environmentUpdated }}'
 namespaceValidation: Namespace must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
 releaseNameValidation: Release name must consist of lowercase alphanumeric characters, '-' or '.', and must start and end with an alphanumeric character (e.g. http://example.com). Harness evaluates the release name using the regex [a-z0-9]([-a-z0-9]*[a-z0-9])?(\.[a-z0-9]([-a-z0-9]*[a-z0-9])?)*
 cdTrialHomePage:

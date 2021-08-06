@@ -496,3 +496,7 @@ slack: Slack
 pagerDuty: PagerDuty
 notificationPreferences: Notification Preferences
 sidecarArtifactsText: '{{$.sidecarArtifactText}}s'
+serviceCreated: Service created successfully
+serviceUpdated: Service updated successfully
+environmentCreated: Environment created successfully
+environmentUpdated: Environment updated successfully

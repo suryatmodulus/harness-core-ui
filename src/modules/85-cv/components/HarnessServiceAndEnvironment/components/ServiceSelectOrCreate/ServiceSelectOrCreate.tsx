@@ -1,13 +1,10 @@
 import React, { useMemo } from 'react'
-import { Formik } from 'formik'
-import { Container, Text, Select, SelectOption, useModalHook, FormikForm, Layout, Button } from '@wings-software/uicore'
+import { Container, Select, SelectOption, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
-import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import { NewEditServiceModal } from '@common/modals/NewEditServiceModal/NewEditServiceModal'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useCreateService, ServiceResponseDTO, CreateServiceQueryParams } from 'services/cd-ng'
+import type { ServiceResponseDTO, ServiceRequestDTO } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 
 export interface ServiceSelectOrCreateProps {
@@ -31,10 +28,7 @@ export function generateOptions(response?: ServiceResponseDTO[]): SelectOption[]
 
 export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props => {
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { mutate: createService, loading } = useCreateService({
-    queryParams: { accountId } as CreateServiceQueryParams
-  })
+  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
 
   const selectOptions = useMemo(
     () => [
@@ -47,61 +41,28 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
     [props.options]
   )
 
-  const onSubmit = async (values: any): Promise<void> => {
-    if (loading) {
-      return
-    }
-    const res = await createService({
-      name: values.name,
-      identifier: values.identifier,
-      orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
-    })
-    if (res.status === 'SUCCESS') {
-      props.onNewCreated(res.data!)
-    }
+  const onSubmit = async (values: ServiceRequestDTO): Promise<void> => {
+    props.onNewCreated(values)
   }
 
   const [openModal, hideModal] = useModalHook(() => (
     <Dialog
       isOpen
-      usePortal
-      autoFocus
       canEscapeKeyClose
       canOutsideClickClose
       enforceFocus={false}
       onClose={hideModal}
-      style={{ width: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }}
+      isCloseButtonShown
+      title={getString('newService')}
+      className={'padded-dialog'}
     >
-      <Formik
-        initialValues={{
-          name: '',
-          description: '',
-          identifier: '',
-          tags: []
-        }}
-        validationSchema={Yup.object().shape({
-          name: NameSchema(),
-          identifier: IdentifierSchema()
-        })}
-        onSubmit={onSubmit}
-      >
-        {() => (
-          <FormikForm>
-            <Container margin="medium">
-              <Text font={{ size: 'medium', weight: 'bold' }} margin={{ bottom: 'large' }}>
-                {getString('newService')}
-              </Text>
-              <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'Name' }} />
-
-              <Layout.Horizontal spacing="medium" margin={{ top: 'large', bottom: 'large' }}>
-                <Button text="Submit" type="submit" intent="primary" />
-                <Button text="Cancel" onClick={hideModal} />
-              </Layout.Horizontal>
-            </Container>
-          </FormikForm>
-        )}
-      </Formik>
+      <NewEditServiceModal
+        data={{ name: '', identifier: '', orgIdentifier, projectIdentifier }}
+        isService
+        isEdit={false}
+        onCreateOrUpdate={onSubmit}
+        closeModal={hideModal}
+      />
     </Dialog>
   ))
 

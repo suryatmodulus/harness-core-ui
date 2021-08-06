@@ -32,7 +32,8 @@ const GetStartedProject: React.FC = () => {
   })
 
   const className = user.emailVerified === undefined || user.emailVerified ? '' : css.hasBanner
-
+  debugger
+  window.bugsnagClient.notify('testing from get started-1.40 pm')
   return (
     <>
       <EmailVerificationBanner />

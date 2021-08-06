@@ -151,9 +151,10 @@ function AppWithoutAuthentication(props: AppProps): React.ReactElement {
 ;(async () => {
   const lang: LangLocale = 'en'
   const strings = await languageLoader(lang)
-  if (window.bugsnagToken && typeof Bugsnag !== 'undefined' && Bugsnag.start) {
+
+  if (typeof Bugsnag !== 'undefined' && Bugsnag.start) {
     window.bugsnagClient = Bugsnag.start({
-      apiKey: window.bugsnagToken,
+      apiKey: '1fcf8f345280f354afb553181753544b',
       appVersion: __BUGSNAG_RELEASE_VERSION__,
       releaseStage: `ng-ui-${window.location.hostname.split('.')[0]}`
     })

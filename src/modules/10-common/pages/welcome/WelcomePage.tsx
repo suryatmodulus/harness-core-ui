@@ -24,6 +24,8 @@ interface ModuleProps {
 }
 
 const WelcomePage: React.FC = () => {
+  debugger
+  window.bugsnagClient.notify('testing from get started')
   const HarnessLogo = HarnessIcons['harness-logo-white']
   const { getString } = useStrings()
   const [step, setStep] = useState<STEPS>(STEPS.SELECT_MODULE)
@@ -102,7 +104,7 @@ const WelcomePage: React.FC = () => {
     step === STEPS.SELECT_MODULE ? (
       <Layout.Vertical>
         <Heading color={Color.WHITE} font={{ size: 'large', weight: 'bold' }} padding={{ top: 'xxlarge' }}>
-          {getString('common.purpose.welcome')}
+          swaraj
         </Heading>
         <Text padding={{ top: 'small', bottom: 'xxxlarge' }} color={Color.WHITE}>
           {getString('common.purpose.selectAModule')}

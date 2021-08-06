@@ -15,7 +15,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-generator-plugin').default
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
-
+const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
 const DEV = process.env.NODE_ENV === 'development'
 const ON_PREM = `${process.env.ON_PREM}` === 'true'
 const CONTEXT = process.cwd()
@@ -31,7 +31,7 @@ const config = {
     chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
     pathinfo: false
   },
-  devtool: DEV ? 'cheap-module-source-map' : false,
+  devtool: 'source-map',
   devServer: {
     contentBase: false,
     port: 8181,
@@ -209,6 +209,15 @@ const commonPlugins = [
 ]
 
 const devOnlyPlugins = [
+  // new BugsnagSourceMapUploaderPlugin(
+  //   {
+  //     apiKey: '1fcf8f345280f354afb553181753544b',
+  //     appVersion: buildVersion
+  //   },
+  //   {
+  //     /* opts */
+  //   }
+  // ),
   new webpack.WatchIgnorePlugin({
     paths: [/node_modules(?!\/@wings-software)/, /\.d\.ts$/, /stringTypes\.ts/]
   }),
@@ -217,6 +226,17 @@ const devOnlyPlugins = [
 ]
 
 const prodOnlyPlugins = [
+  new BugsnagSourceMapUploaderPlugin(
+    {
+      apiKey: '1fcf8f345280f354afb553181753544b',
+      appVersion: buildVersion,
+      publicPath: '*',
+      overwrite: true
+    },
+    {
+      /* opts */
+    }
+  ),
   new JSONGeneratorPlugin({
     content: {
       version: require('./package.json').version,

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.98% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>53/57</span>
+                <span class='fraction'>52/56</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.55% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/55</span>
+                <span class='fraction'>51/54</span>
             </div>
         
             
@@ -328,14 +328,7 @@
 <a name='L269'></a><a href='#L269'>269</a>
 <a name='L270'></a><a href='#L270'>270</a>
 <a name='L271'></a><a href='#L271'>271</a>
-<a name='L272'></a><a href='#L272'>272</a>
-<a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a>
-<a name='L275'></a><a href='#L275'>275</a>
-<a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L272'></a><a href='#L272'>272</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -458,11 +451,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -613,12 +601,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useContext, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import moment from 'moment'
 import type { SeriesAreaOptions } from 'highcharts'
 import { Card, Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
-import { getBucketSizeForTimeRange, TimeRangeSelector } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
+import { getBucketSizeForTimeRange } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
 import { PageError } from '@common/components/Page/PageError'
@@ -660,7 +647,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
   const { accountId, orgIdentifier, projectIdentifier } = useParams&lt;ProjectPathProps&gt;()
 &nbsp;
   const { serviceIdentifier } = props
-  const { timeRange, setTimeRange } = useContext(DeploymentsTimeRangeContext)
+  const { timeRange } = useContext(DeploymentsTimeRangeContext)
 &nbsp;
   const queryParams: GetServiceDeploymentsInfoQueryParams = useMemo(() =&gt; {
     return {
@@ -669,7 +656,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
       projectIdentifier,
       serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
-      endTime: timeRange?.range[1] ? moment(timeRange.range[1]).add(1, 'days').toDate().getTime() : 0,
+      endTime: timeRange?.range[1]?.getTime() || 0,
       bucketSizeInDays: getBucketSizeForTimeRange(timeRange?.range)
     }
   }, [accountId, orgIdentifier, projectIdentifier, serviceIdentifier, timeRange])
@@ -736,12 +723,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
   const DeploymentWidgetContainer: React.FC = ({ children }) =&gt; {
     return (
       &lt;Card className={css.card}&gt;
-        &lt;Layout.Vertical height={'100%'}&gt;
-          &lt;Container className={css.timeRange}&gt;
-            &lt;TimeRangeSelector timeRange={timeRange?.range} setTimeRange={setTimeRange} /&gt;
-          &lt;/Container&gt;
-          {children}
-        &lt;/Layout.Vertical&gt;
+        &lt;Layout.Vertical height={'100%'}&gt;{children}&lt;/Layout.Vertical&gt;
       &lt;/Card&gt;
     )
   }
@@ -895,7 +877,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 06 2021 09:57:44 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 06 2021 13:24:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

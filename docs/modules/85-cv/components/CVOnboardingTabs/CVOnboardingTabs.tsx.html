@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/25</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">35% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/20</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/7</span>
+                <span class='fraction'>0/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/25</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -153,16 +153,13 @@
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -172,10 +169,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">45x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">45x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,7 +233,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">131x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -248,14 +248,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
-import { Tabs, Tab, Icon, IconName } from '@wings-software/uicore'
-import ContentEditable from 'react-contenteditable'
-import cx from 'classnames'
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React, { useState } from 'react'</span>
+<span class="cstat-no" title="statement not covered" >import { Tabs, Tab, Icon, IconName } from '@wings-software/uicore'</span>
+<span class="cstat-no" title="statement not covered" >import ContentEditable from 'react-contenteditable'</span>
+<span class="cstat-no" title="statement not covered" >import cx from 'classnames'</span>
 import type { OnClickHandlerParams } from '@cv/hooks/CVTabsHook/useCVTabsHook'
 &nbsp;
-import css from './CVOnboardingTabs.module.scss'
+<span class="cstat-no" title="statement not covered" >import css from './CVOnboardingTabs.module.scss'</span>
 &nbsp;
 interface CVTabProps&lt;T&gt; {
   defaultEntityName: string
@@ -268,10 +268,10 @@ interface CVTabProps&lt;T&gt; {
   maxEnabledTab: number
 }
 &nbsp;
-const CVOnboardingTabs: React.FC&lt;CVTabProps&lt;any&gt;&gt; = props =&gt; {
-  const [editable, setEditable] = useState(false)
+const CVOnboardingTabs: React.FC&lt;CVTabProps&lt;any&gt;&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >props </span>=&gt; {</span>
+  const [editable, setEditable] = <span class="cstat-no" title="statement not covered" >useState(false)</span>
 &nbsp;
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div className={css.tabWrapper}&gt;
       &lt;Tabs
         id="monitoring-sources"
@@ -328,8 +328,8 @@ const CVOnboardingTabs: React.FC&lt;CVTabProps&lt;any&gt;&gt; = props =&gt; {
           }
           panel={&lt;&gt;&lt;/&gt;}
         /&gt;
-        {props.tabProps<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap((item, index) =&gt; {
-          return (
+        {props.tabProps?.map(<span class="fstat-no" title="function not covered" >(i</span>tem, index) =&gt; {
+<span class="cstat-no" title="statement not covered" >          return (</span>
             &lt;Tab
               key={`${item}${index}`}
               id={item.id}
@@ -344,7 +344,7 @@ const CVOnboardingTabs: React.FC&lt;CVTabProps&lt;any&gt;&gt; = props =&gt; {
   )
 }
 &nbsp;
-export default CVOnboardingTabs
+<span class="cstat-no" title="statement not covered" >export default CVOnboardingTabs</span>
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -352,7 +352,7 @@ export default CVOnboardingTabs
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 05 2021 22:02:32 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 06 2021 05:33:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

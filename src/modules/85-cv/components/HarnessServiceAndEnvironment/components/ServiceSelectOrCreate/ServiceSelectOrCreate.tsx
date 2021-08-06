@@ -77,6 +77,7 @@ export const ServiceSelectOrCreate: React.FC<ServiceSelectOrCreateProps> = props
   return (
     <Container onClick={e => e.stopPropagation()}>
       <Select
+        name={'service'}
         value={props.item}
         className={props.className}
         disabled={props.disabled}

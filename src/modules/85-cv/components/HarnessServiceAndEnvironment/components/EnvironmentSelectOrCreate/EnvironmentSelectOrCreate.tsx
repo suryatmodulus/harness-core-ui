@@ -96,6 +96,7 @@ export function EnvironmentSelectOrCreate({
   return (
     <Container onClick={e => e.stopPropagation()}>
       <Select
+        name={'environment'}
         value={item}
         className={className}
         disabled={disabled}

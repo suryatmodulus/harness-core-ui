@@ -62,12 +62,81 @@ const props = {
 }
 
 describe('test', () => {
-  test('', () => {
-    const { container } = render(
+  test('validation are present if submited with empty value ', async () => {
+    const { container, getByText, getAllByText, getByLabelText } = render(
       <TestWrapper>
         <NewEditEnvironmentModal {...props} />
       </TestWrapper>
     )
+
+    await act(async () => {
+      fireEvent.click(getByText('save'))
+    })
+
+    await waitFor(() => expect(getAllByText('fieldRequired').length).toEqual(2))
+
+    fillAtForm([
+      {
+        container,
+        fieldId: 'name',
+        type: InputTypes.TEXTFIELD,
+        value: 'Environment 102'
+      }
+    ])
+
+    await waitFor(() => expect(getAllByText('fieldRequired').length).toEqual(1))
+
+    await act(async () => {
+      fireEvent.click(getByLabelText('production'))
+    })
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should validate edit mode snapshot', async () => {
+    const { container, getByText } = render(
+      <TestWrapper>
+        <NewEditEnvironmentModal
+          {...props}
+          isEdit={true}
+          isEnvironment={false}
+          data={{
+            name: 'Environment 101',
+            identifier: 'Environment_101',
+            description: '',
+            tags: { tag1: '', tag2: '' },
+            type: 'Production'
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('input[value="Environment 101"]')).toBeTruthy())
+
+    fillAtForm([
+      {
+        container,
+        fieldId: 'name',
+        type: InputTypes.TEXTFIELD,
+        value: 'Environment 102'
+      }
+    ])
+
+    await act(async () => {
+      fireEvent.click(getByText('save'))
+    })
+
+    // verify on updating service has same identifier and updated name
+    await waitFor(() =>
+      expect(onSave).toHaveBeenCalledWith({
+        identifier: 'Environment_101',
+        name: 'Environment 102',
+        description: '',
+        tags: { tag1: '', tag2: '' },
+        type: 'Production'
+      })
+    )
+
     expect(container).toMatchSnapshot()
   })
 

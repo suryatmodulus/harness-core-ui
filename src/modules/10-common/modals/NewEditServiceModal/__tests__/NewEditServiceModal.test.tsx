@@ -57,16 +57,77 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 describe('Test NewEditServiceModal', () => {
-  test('should validate snapshot', () => {
-    const { container } = render(
+  test('validation are present if submited with empty value', async () => {
+    const { container, getByText, getAllByText } = render(
       <TestWrapper>
         <NewEditServiceModal {...props} />
       </TestWrapper>
     )
+
+    await act(async () => {
+      fireEvent.click(getByText('save'))
+    })
+
+    await waitFor(() => expect(getAllByText('fieldRequired').length).toEqual(1))
+
+    fillAtForm([
+      {
+        container,
+        fieldId: 'name',
+        type: InputTypes.TEXTFIELD,
+        value: 'Service 102'
+      }
+    ])
+
     expect(container).toMatchSnapshot()
   })
 
-  test('should validate save', async () => {
+  test('should validate edit mode snapshot', async () => {
+    const { container, getByText } = render(
+      <TestWrapper>
+        <NewEditServiceModal
+          {...props}
+          isEdit={true}
+          isService={false}
+          data={{
+            name: 'Service 101',
+            identifier: 'Service_101',
+            orgIdentifier: 'orgIdentifier',
+            projectIdentifier: 'projectIdentifier'
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('input[value="Service 101"]')).toBeTruthy())
+
+    fillAtForm([
+      {
+        container,
+        fieldId: 'name',
+        type: InputTypes.TEXTFIELD,
+        value: 'Service 102'
+      }
+    ])
+
+    await act(async () => {
+      fireEvent.click(getByText('save'))
+    })
+
+    // verify on updating service has same identifier and updated name
+    await waitFor(() =>
+      expect(onSave).toHaveBeenCalledWith({
+        identifier: 'Service_101',
+        name: 'Service 102',
+        orgIdentifier: 'orgIdentifier',
+        projectIdentifier: 'projectIdentifier'
+      })
+    )
+
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should validate create mode save', async () => {
     const { container, getByText } = render(
       <TestWrapper>
         <NewEditServiceModal {...props} />

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.43% </span>
+                <span class="strong">73.13% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>40/56</span>
+                <span class='fraction'>49/67</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">23.05% </span>
+                <span class="strong">22.72% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>80/347</span>
+                <span class='fraction'>92/405</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">36.36% </span>
+                <span class="strong">46.15% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/11</span>
+                <span class='fraction'>6/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.92% </span>
+                <span class="strong">77.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>40/52</span>
+                <span class='fraction'>49/63</span>
             </div>
         
             
@@ -553,7 +553,27 @@
 <a name='L494'></a><a href='#L494'>494</a>
 <a name='L495'></a><a href='#L495'>495</a>
 <a name='L496'></a><a href='#L496'>496</a>
-<a name='L497'></a><a href='#L497'>497</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L497'></a><a href='#L497'>497</a>
+<a name='L498'></a><a href='#L498'>498</a>
+<a name='L499'></a><a href='#L499'>499</a>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a>
+<a name='L509'></a><a href='#L509'>509</a>
+<a name='L510'></a><a href='#L510'>510</a>
+<a name='L511'></a><a href='#L511'>511</a>
+<a name='L512'></a><a href='#L512'>512</a>
+<a name='L513'></a><a href='#L513'>513</a>
+<a name='L514'></a><a href='#L514'>514</a>
+<a name='L515'></a><a href='#L515'>515</a>
+<a name='L516'></a><a href='#L516'>516</a>
+<a name='L517'></a><a href='#L517'>517</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
@@ -577,6 +597,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -681,6 +702,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -718,6 +745,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">52x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1073,6 +1113,7 @@ import { GitConfigDTO, useGetBucketListForS3, useGetGCSBucketList } from 'servic
 &nbsp;
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { KubernetesServiceInputFormProps } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import { TriggerTypes } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 &nbsp;
 import {
   ManifestToConnectorMap,
@@ -1176,6 +1217,12 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
     value: item
   }))
 &nbsp;
+  const fromPipelineInputTriggerTab = () =&gt; {
+    return (
+      formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues?.triggerType === TriggerTypes.MANIFEST &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >formik?.values?.selectedArtifact !== null </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >!fromTrigger</span>
+    )
+  }
+&nbsp;
   return (
     &lt;&gt;
       &lt;div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}&gt;
@@ -1213,15 +1260,28 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
             }: any,
             index: number
           ) =&gt; {
+            const isPipelineIpTab = fromPipelineInputTriggerTab()
             const filteredManifest = allValues?.manifests<span class="branch-1 cbranch-no" title="branch not covered" >?.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.manifest?.identifier === identifier)</span></span>
+            const isSelectedManifest: boolean =
+              isPipelineIpTab &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >              formik?.values?.selectedArtifact </span>&amp;&amp;
+<span class="branch-2 cbranch-no" title="branch not covered" >              identifier === formik?.values?.selectedArtifact?.identifier</span>
 &nbsp;
+            const disableField = (fieldName: string) =&gt; {
+              <span class="missing-if-branch" title="if path not taken" >I</span>if (fromTrigger) {
+<span class="cstat-no" title="statement not covered" >                return get(TriggerDefaultFieldList, fieldName) ? true : false</span>
+              } else <span class="missing-if-branch" title="if path not taken" >I</span>if (isPipelineIpTab &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isSelectedManifest)</span> {
+<span class="cstat-no" title="statement not covered" >                return get(formik?.values?.selectedArtifact, fieldName) ? true : false</span>
+              }
+              return readonly
+            }
             return (
               &lt;Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}&gt;
                 &lt;Text className={css.inputheader}&gt;{identifier}&lt;/Text&gt;
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
                   &lt;div className={css.verticalSpacingInput}&gt;
                     &lt;FormMultiTypeConnectorField
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.connectorRef')}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
                       selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`)}
                       label={getString('connector')}
@@ -1256,7 +1316,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                 {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showRepoName </span>&amp;&amp; (
 <span class="branch-2 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
                     &lt;FormInput.MultiTextInput
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.repoName')}
                       multiTextInputProps={{
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -1269,12 +1329,12 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                 {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME &amp;&amp; (
                   &lt;div className={css.verticalSpacingInput}&gt;
                     &lt;FormInput.MultiTextInput
+                      disabled={disableField('spec.store.spec.branch')}
                       multiTextInputProps={{
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
                       label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      disabled={readonly}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                     /&gt;
                   &lt;/div&gt;
@@ -1283,7 +1343,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                 {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
 <span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
                     &lt;FormInput.MultiTextInput
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.commitId')}
                       multiTextInputProps={{
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
@@ -1308,7 +1368,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
                       useValue
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.region')}
                       selectItems={regions}
                       label={getString('regionLabel')}
                       name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
@@ -1354,7 +1414,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
                           useValue
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           selectItems={bucketOptions}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           label={getString('pipeline.manifestType.bucketName')}
@@ -1368,7 +1428,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                             expressions,
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           label={getString('pipeline.manifestType.bucketName')}
                           name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
@@ -1404,7 +1464,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
                           useValue
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           selectItems={s3BucketOptions}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           label={getString('pipeline.manifestType.bucketName')}
@@ -1418,7 +1478,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                             expressions,
                             allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                           }}
-                          disabled={readonly}
+                          disabled={disableField('spec.store.spec.bucketName')}
                           label={getString('pipeline.manifestType.bucketName')}
                           placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
                           name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
@@ -1434,7 +1494,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.folderPath')}
                       label={
                         manifestType === ManifestDataType.Kustomize
                           ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.manifestType.kustomizeFolderPath')</span>
@@ -1452,7 +1512,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={readonly}
+                      disabled={disableField('spec.store.spec.pluginPath')}
                       label={getString('pluginPath')}
                       name={`${path}.manifests[${index}].manifest.spec.pluginPath`}
                     /&gt;
@@ -1466,7 +1526,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         expressions,
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={readonly}
+                      disabled={disableField('spec.chartName')}
                       label={getString('pipeline.manifestType.http.chartName')}
                       name={`${path}.manifests[${index}].manifest.spec.chartName`}
                     /&gt;
@@ -1480,7 +1540,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         ...(fromTrigger &amp;&amp; { value: TriggerDefaultFieldList.chartVersion }),
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
-                      disabled={fromTrigger ? (TriggerDefaultFieldList['chartVersion'] ? true : false) : readonly}
+                      disabled={disableField(fromTrigger ? 'chartVersion' : 'spec.chartVersion')}
                       label={getString('pipeline.manifestType.http.chartVersion')}
                       name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
                     /&gt;
@@ -1499,7 +1559,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         }
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
                         placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                        disabled={readonly}
+                        disabled={disableField('spec.store.spec.paths')}
                         style={{ marginBottom: 'var(--spacing-small)' }}
                         expressions={expressions}
                         isNameOfArrayType
@@ -1517,7 +1577,7 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                         }}
                         label={getString('pipeline.manifestType.osTemplatePath')}
                         placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
-                        disabled={readonly}
+                        disabled={disableField('spec.store.spec.path')}
                         name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
                       /&gt;
                     &lt;/div&gt;
@@ -1552,7 +1612,7 @@ export const ManifestInputForm = connect(ManifestInputSetForm)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 06 2021 14:04:50 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 09 2021 05:14:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

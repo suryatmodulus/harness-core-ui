@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.95% </span>
+                <span class="strong">40.85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>95/232</span>
+                <span class='fraction'>96/235</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.03% </span>
+                <span class="strong">27.82% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>222/792</span>
+                <span class='fraction'>222/798</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.36% </span>
+                <span class="strong">41.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>91/220</span>
+                <span class='fraction'>92/223</span>
             </div>
         
             
@@ -690,7 +690,14 @@
 <a name='L631'></a><a href='#L631'>631</a>
 <a name='L632'></a><a href='#L632'>632</a>
 <a name='L633'></a><a href='#L633'>633</a>
-<a name='L634'></a><a href='#L634'>634</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L634'></a><a href='#L634'>634</a>
+<a name='L635'></a><a href='#L635'>635</a>
+<a name='L636'></a><a href='#L636'>636</a>
+<a name='L637'></a><a href='#L637'>637</a>
+<a name='L638'></a><a href='#L638'>638</a>
+<a name='L639'></a><a href='#L639'>639</a>
+<a name='L640'></a><a href='#L640'>640</a>
+<a name='L641'></a><a href='#L641'>641</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -812,6 +819,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1111,6 +1119,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1197,6 +1209,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1345,7 +1359,7 @@ import { addService, addStepOrGroup, generateRandomString, getStepFromId } from 
 import PipelineVariables from '../PipelineVariables/PipelineVariables'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
-import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
+import { ExecutionStrategy, ExecutionStrategyRef } from '../ExecutionStrategy/ExecutionStrategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
 import { StepType } from '../../PipelineSteps/PipelineStepInterface'
 import { FlowControl } from '../FlowControl/FlowControl'
@@ -1441,6 +1455,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
     ? stepsFactory.getStepData((data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ode as StepElementConfig)<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype)
     : <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
   const formikRef = React.useRef&lt;StepFormikRef | null&gt;(null)
+  const executionStrategyRef = React.useRef&lt;ExecutionStrategyRef | null&gt;(null)
   const { getString } = useStrings()
   const isFullScreenDrawer = FullscreenDrawers.includes(type)
   let title: React.ReactNode | null = null
@@ -1741,8 +1756,12 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
         icon="cross"
         withoutBoxShadow
         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })</span>
-<span class="cstat-no" title="statement not covered" >          setSelectedStepId(undefined)</span>
+<span class="cstat-no" title="statement not covered" >          if (type === DrawerTypes.ExecutionStrategy) {</span>
+<span class="cstat-no" title="statement not covered" >            executionStrategyRef.current?.cancelExecutionStrategySelection()</span>
+          } else {
+<span class="cstat-no" title="statement not covered" >            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })</span>
+<span class="cstat-no" title="statement not covered" >            setSelectedStepId(undefined)</span>
+          }
         }}
       /&gt;
 &nbsp;
@@ -1840,7 +1859,9 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
       {/* TODO */}
       {type === DrawerTypes.PipelineVariables &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PipelineVariables /&gt;}</span>
       {type === DrawerTypes.Templates &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PipelineTemplates /&gt;}</span>
-      {type === DrawerTypes.ExecutionStrategy &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;ExecutionStrategy selectedStage={selectedStage || {}} /&gt;}</span>
+      {type === DrawerTypes.ExecutionStrategy &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;ExecutionStrategy selectedStage={selectedStage || {}} ref={executionStrategyRef} /&gt;</span>
+      )}
       {type === DrawerTypes.PipelineNotifications &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PipelineNotifications /&gt;}</span>
       {type === DrawerTypes.FlowControl &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;FlowControl /&gt;}</span>
       {type === DrawerTypes.ConfigureService &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >selectedStageId </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >data?.stepConfig </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >data?.stepConfig.node </span>&amp;&amp; (
@@ -1963,7 +1984,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 06 2021 14:04:50 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 09 2021 05:14:03 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

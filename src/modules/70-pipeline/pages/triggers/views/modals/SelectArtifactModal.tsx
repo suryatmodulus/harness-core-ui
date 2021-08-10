@@ -11,6 +11,7 @@ import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineV
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
 import { filterArtifact, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
 import css from './SelectArtifactModal.module.scss'
+import { clearRuntimeInput } from '@pipeline/components/PipelineStudio/StepUtil'
 
 interface SelectArtifactModalPropsInterface {
   isModalOpen: boolean
@@ -158,7 +159,7 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 ]
                 formikProps.setValues({
                   ...formikProps.values,
-                  selectedArtifact: finalArtifact,
+                  selectedArtifact: clearRuntimeInput(finalArtifact),
                   stageId: selectedStageId
                 })
 

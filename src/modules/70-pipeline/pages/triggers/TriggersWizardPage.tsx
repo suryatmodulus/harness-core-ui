@@ -751,7 +751,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         selectedArtifact = {
           identifier: manifestRef,
           type: artifactManifestType || _manifestType,
-          spec: spec?.store?.spec
+          spec: spec
         }
       }
 

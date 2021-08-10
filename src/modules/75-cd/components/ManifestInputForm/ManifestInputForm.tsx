@@ -198,10 +198,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     identifier: formik?.values?.selectedArtifact?.identifier,
                     type: formik?.values?.selectedArtifact?.type,
                     spec: {
-                      ...formik?.values?.selectedArtifact.spec,
-                      store: {
-                        spec: formik?.values?.selectedArtifact.spec
-                      }
+                      ...formik?.values?.selectedArtifact?.spec
                     }
                   }
                 }

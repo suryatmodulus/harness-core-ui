@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.44% </span>
+                <span class="strong">74.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/57</span>
+                <span class='fraction'>41/55</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/9</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.44% </span>
+                <span class="strong">74.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>43/57</span>
+                <span class='fraction'>41/55</span>
             </div>
         
             
@@ -323,18 +323,7 @@
 <a name='L264'></a><a href='#L264'>264</a>
 <a name='L265'></a><a href='#L265'>265</a>
 <a name='L266'></a><a href='#L266'>266</a>
-<a name='L267'></a><a href='#L267'>267</a>
-<a name='L268'></a><a href='#L268'>268</a>
-<a name='L269'></a><a href='#L269'>269</a>
-<a name='L270'></a><a href='#L270'>270</a>
-<a name='L271'></a><a href='#L271'>271</a>
-<a name='L272'></a><a href='#L272'>272</a>
-<a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a>
-<a name='L275'></a><a href='#L275'>275</a>
-<a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L267'></a><a href='#L267'>267</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -364,7 +353,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -438,14 +426,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -548,16 +536,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -641,7 +619,6 @@ import {
   getFilterAndEnvironmentValue,
   getEnvironmentOptions
 } from './CVMonitoredServiceListingPage.utils'
-import ToggleMonitoring from './component/toggleMonitoring/ToggleMonitoring'
 &nbsp;
 const ServiceCount = styled(Text)`
   padding-bottom: var(--spacing-xxlarge) !important;
@@ -708,15 +685,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     }
   }
   const { content = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> pageSize = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> pageIndex = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> totalPages = <span class="branch-0 cbranch-no" title="branch not covered" >0,</span> totalItems = <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>} = data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata ?? (<span class="branch-1 cbranch-no" title="branch not covered" >{} as any)</span>
-  const RenderEditDelete: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
+  const MonitoredServiceActions: Renderer&lt;CellProps&lt;MonitoredServiceListItemDTO&gt;&gt; = ({ row }) =&gt; {
     const rowdata = row<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>riginal
     return (
-      &lt;Layout.Horizontal flex={{ justifyContent: 'space-around' }}&gt;
-        &lt;ToggleMonitoring
-          refetch={refetch}
-          identifier={rowdata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string}
-          enable={!!rowdata<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthMonitoringEnabled}
-        /&gt;
+      &lt;Layout.Horizontal&gt;
         &lt;ContextMenuActions
           titleText={getString('cv.monitoredServices.deleteMonitoredService')}
           contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowdata.identifier}`}
@@ -730,6 +702,11 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 identifier: rowdata.identifier
               })
             )
+          }}
+          onToggleMonitoredServiceData={{
+            refetch,
+            identifier: rowdata<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier as string,
+            enabled: !!rowdata<span class="branch-0 cbranch-no" title="branch not covered" >?.h</span>ealthMonitoringEnabled
           }}
         /&gt;
       &lt;/Layout.Horizontal&gt;
@@ -833,25 +810,15 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         {content.length &gt; 0 ? (
           &lt;Table
             sortable={true}
-            onRowClick={rowdata =&gt; {
-              history.push(
-                routes.toCVAddMonitoringServicesEdit({
-                  accountId: params.accountId,
-                  projectIdentifier: params.projectIdentifier,
-                  orgIdentifier: params.orgIdentifier,
-                  identifier: rowdata.identifier
-                })
-              )
-            }}
             columns={[
               {
                 Header: getString('cv.monitoredServices.table.serviceName'),
-                width: '30%',
+                width: '20%',
                 Cell: RenderServiceName
               },
               {
                 Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-                width: '20%',
+                width: '30%',
                 Cell: RenderHealthTrend
               },
               {
@@ -865,9 +832,9 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 Cell: RenderTags
               },
               {
-                Header: getString('cv.monitoredServices.table.healthMonitoring'),
-                width: '20%',
-                Cell: RenderEditDelete
+                Header: getString('pipeline.triggers.triggerConfigurationPanel.actions'),
+                width: '15%',
+                Cell: MonitoredServiceActions
               }
             ]}
             data={content}
@@ -895,7 +862,7 @@ export default CVMonitoredServiceListingPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 10 2021 11:27:19 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 10 2021 12:48:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

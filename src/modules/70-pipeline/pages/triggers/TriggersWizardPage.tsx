@@ -837,7 +837,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       triggerType: formikValueTriggerType,
       selectedArtifact,
       stageId,
-      eventConditions = []
+      eventConditions = [],
+      manifestType: onEditManifestType
     } = val
 
     // actions will be required thru validation
@@ -872,7 +873,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         spec: {
           stageIdentifier: stageId,
           manifestRef: selectedArtifact?.identifier,
-          type: manifestType,
+          type: onEditManifestType || manifestType,
           ...artifactSourceSpec
         }
       },

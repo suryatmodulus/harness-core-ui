@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/18</span>
+                <span class='fraction'>15/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/21</span>
+                <span class='fraction'>15/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">80% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/5</span>
+                <span class='fraction'>4/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.06% </span>
+                <span class="strong">82.35% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/17</span>
+                <span class='fraction'>14/17</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -124,17 +124,15 @@
 <a name='L65'></a><a href='#L65'>65</a>
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,23 +146,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">84x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,23 +215,23 @@ export interface SelectedAddStageTypeData {
   hoverIcon?: IconName
 }
 &nbsp;
-export const AddStageView: React.FC&lt;AddStageViewProps&gt; = <span class="fstat-no" title="function not covered" >({</span> callback, isParallel = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span> stages }) =&gt; {
-  const { getString } = <span class="cstat-no" title="statement not covered" >useStrings()</span>
-  const [selectedType, setSelectedType] = <span class="cstat-no" title="statement not covered" >React.useState&lt;SelectedAddStageTypeData | undefined&gt;(undefined)</span>
+export const AddStageView: React.FC&lt;AddStageViewProps&gt; = ({ callback, isParallel = <span class="branch-0 cbranch-no" title="branch not covered" >false,</span> stages }) =&gt; {
+  const { getString } = useStrings()
+  const [selectedType, setSelectedType] = React.useState&lt;SelectedAddStageTypeData | undefined&gt;(undefined)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return (</span>
+  return (
     &lt;div className={cx(css.createNewContent, { [css.parallel]: isParallel })}&gt;
       &lt;div className={css.stageTypeSection}&gt;
         &lt;div className={css.stageTitle}&gt;{getString('pipeline.addStage.title')}&lt;/div&gt;
         &lt;div className={css.createNewCards}&gt;
-          {stages.map(<span class="fstat-no" title="function not covered" >stage </span>=&gt; (
-<span class="cstat-no" title="statement not covered" >            &lt;React.Fragment key={stage.type}&gt;</span>
-              {stage.isHidden !== true &amp;&amp; (!stage.isApproval || !isParallel) ? (
+          {stages.map(stage =&gt; (
+            &lt;React.Fragment key={stage.type}&gt;
+              {stage.isHidden !== true &amp;&amp; (!stage.isApproval || <span class="branch-2 cbranch-no" title="branch not covered" >!isParallel)</span> ? (
                 &lt;div&gt;
                   &lt;Card
                     data-testid={`stage-${stage.type}`}
-                    onMouseOver={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >!stage.isDisabled &amp;&amp; selectedType?.type !== stage.type &amp;&amp; setSelectedType(stage)}</span>
-                    onMouseLeave={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setSelectedType(undefined)}</span>
+                    onMouseOver={() =&gt; !stage.isDisabled &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >selectedType?.type </span>!== stage.type &amp;&amp; setSelectedType(stage)}
+                    onMouseLeave={() =&gt; setSelectedType(undefined)}
                     interactive={true}
                     disabled={stage.isDisabled}
                     className={cx(css.cardNew)}
@@ -249,7 +249,7 @@ export const AddStageView: React.FC&lt;AddStageViewProps&gt; = <span class="fsta
                     {stage.name}
                   &lt;/div&gt;
                 &lt;/div&gt;
-              ) : null}
+              ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
             &lt;/React.Fragment&gt;
           ))}
         &lt;/div&gt;
@@ -265,7 +265,7 @@ export const AddStageView: React.FC&lt;AddStageViewProps&gt; = <span class="fsta
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 10 2021 07:39:11 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 10 2021 08:18:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

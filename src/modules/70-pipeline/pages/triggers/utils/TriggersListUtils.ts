@@ -3,6 +3,7 @@ import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
 import type { StringKeys } from 'framework/strings'
+import { manifestTypeIcons } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { TriggerTypes, AWS_CODECOMMIT, AwsCodeCommit } from './TriggersWizardPageUtils'
 
 export const GitSourceProviders: Record<string, { value: string; iconName: IconName }> = {
@@ -19,10 +20,12 @@ const TriggerTypeIcons = {
 }
 export const getTriggerIcon = ({
   type,
-  webhookSourceRepo
+  webhookSourceRepo,
+  artifactManifestType
 }: {
   type: string
   webhookSourceRepo?: string // string temporary until backend
+  artifactManifestType?: string
 }): IconName => {
   const updatedWebhookSourceRepo =
     webhookSourceRepo === AwsCodeCommit ? AWS_CODECOMMIT : webhookSourceRepo?.toUpperCase()
@@ -32,8 +35,10 @@ export const getTriggerIcon = ({
     return webhookSourceRepoIconName as IconName
   } else if (type === TriggerTypes.SCHEDULE) {
     return TriggerTypeIcons.SCHEDULE as IconName
-  } else if (type === TriggerTypes.NEW_ARTIFACT) {
-    return TriggerTypeIcons.NEW_ARTIFACT as IconName
+  } else if (type === TriggerTypes.MANIFEST && artifactManifestType) {
+    if (artifactManifestType === 'HelmChart') {
+      return manifestTypeIcons.HelmChart
+    }
   }
   return 'yaml-builder-trigger'
 }

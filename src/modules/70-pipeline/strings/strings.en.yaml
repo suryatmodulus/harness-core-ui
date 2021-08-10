@@ -499,7 +499,7 @@ triggers:
     plusSelect: '+ Select {{artifact}}'
     selectAnArtifact: 'Select an Artifact Reference'
     selectAManifest: 'Select a Manifest Reference'
-    configureArtifactRuntimeInputs: 'Configure Artifact Runtime Inputs'
+    configureArtifactRuntimeInputs: 'Configure {{artifact}} Runtime Inputs'
     noSelectableArtifactsFound: 'No selectable {{artifact}}s found. Please add in the pipeline.'
     noArtifacts: No artifacts for selected stage.
     configureInputs: Configure inputs

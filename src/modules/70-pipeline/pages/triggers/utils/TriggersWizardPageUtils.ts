@@ -88,6 +88,7 @@ export interface FlatOnEditValuesInterface {
   inputSetTemplateYamlObj?: {
     pipeline: PipelineInfoConfig | Record<string, never>
   }
+  eventConditions?: AddConditionInterface[]
 }
 
 export interface FlatValidWebhookFormikValuesInterface {

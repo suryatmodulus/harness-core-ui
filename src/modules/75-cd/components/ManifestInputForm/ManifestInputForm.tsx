@@ -36,7 +36,8 @@ import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecFor
 import css from './ManifestInputForm.module.scss'
 
 const TriggerDefaultFieldList = {
-  chartVersion: '<+trigger.manifest.version>'
+  chartVersion: '<+trigger.manifest.version>',
+  build: '<+trigger.artifact.build'
 }
 
 const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
@@ -134,11 +135,11 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   return (
     <>
       <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}>
-        {
+        {!fromTrigger && (
           <div className={css.subheading}>
             {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
           </div>
-        }
+        )}
         {template?.manifests?.map?.(
           (
             {
@@ -226,7 +227,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
 
             return (
               <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
-                <Text className={css.inputheader}>{identifier}</Text>
+                {!fromTrigger && <Text className={css.inputheader}>{identifier}</Text>}
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                   <div className={css.verticalSpacingInput}>
                     <FormMultiTypeConnectorField

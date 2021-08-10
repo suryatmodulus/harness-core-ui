@@ -65,6 +65,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     isManifest
   })
   const templateObject = getTemplateObject(filteredArtifact, [])
+  const artifactOrManifestText = isManifest
+    ? getString('manifestsText')
+    : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
 
   // const pathId = getPathString(runtimeData, selectedStage)
   return (
@@ -77,7 +80,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
           ? isManifest
             ? getString('pipeline.triggers.artifactTriggerConfigPanel.selectAManifest')
             : getString('pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact')
-          : getString('pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs')
+          : getString('pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs', {
+              artifact: artifactOrManifestText
+            })
       }
       onClose={closeAndReset}
     >

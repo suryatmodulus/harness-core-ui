@@ -168,7 +168,11 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ ro
         <Icon
           name={
             data.type
-              ? getTriggerIcon({ type: data.type, webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo })
+              ? getTriggerIcon({
+                  type: data.type,
+                  webhookSourceRepo: data?.webhookDetails?.webhookSourceRepo
+                  // artifactManifestType: data?.manifestType || data?.artifactType
+                })
               : 'yaml-builder-trigger'
           }
           size={26}

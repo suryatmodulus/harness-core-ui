@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.84% </span>
+                <span class="strong">87.34% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/76</span>
+                <span class='fraction'>69/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">69.05% </span>
+                <span class="strong">69.77% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>87/126</span>
+                <span class='fraction'>90/129</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.67% </span>
+                <span class="strong">87.18% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/75</span>
+                <span class='fraction'>68/78</span>
             </div>
         
             
@@ -355,7 +355,22 @@
 <a name='L296'></a><a href='#L296'>296</a>
 <a name='L297'></a><a href='#L297'>297</a>
 <a name='L298'></a><a href='#L298'>298</a>
-<a name='L299'></a><a href='#L299'>299</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">90x</span>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">90x</span>
 <span class="cline-any cline-yes">90x</span>
 <span class="cline-any cline-yes">90x</span>
 <span class="cline-any cline-yes">90x</span>
@@ -476,7 +491,20 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">90x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">415x</span>
+<span class="cline-any cline-yes">415x</span>
+<span class="cline-any cline-yes">415x</span>
 <span class="cline-any cline-yes">415x</span>
 <span class="cline-any cline-yes">415x</span>
 <span class="cline-any cline-yes">415x</span>
@@ -528,6 +556,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">415x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -772,10 +802,23 @@ export interface FormMultiTypeDurationProps extends Omit&lt;IFormGroupProps, 'la
   multiTypeDurationProps?: Omit&lt;MultiTypeDurationProps, 'name' | 'onChange' | 'value'&gt;
   onChange?: MultiTypeDurationProps['onChange']
   tooltipProps?: DataTooltipInterface
+  isOptional?: boolean
 }
 &nbsp;
 export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.ReactElement {
-  const { label, multiTypeDurationProps, formik, name, onChange, skipErrorsIf, ...restProps } = props
+  const {
+    label,
+    multiTypeDurationProps,
+    formik,
+    name,
+    onChange,
+    skipErrorsIf,
+    isOptional = false,
+    ...restProps
+  } = props
+  const { getString } = useStrings()
+  const optionalLabel = getString('common.optionalLabel')
+  const labelText = !isOptional ? label : `${label} ${optionalLabel}`
   const hideErrors = typeof skipErrorsIf === 'function' ? skipErrorsIf(formik) : false
   const hasError = !hideErrors &amp;&amp; errorCheck(name, formik)
 &nbsp;
@@ -832,7 +875,9 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
       helperText={helperText}
       intent={intent}
       disabled={disabled}
-      label={label ? &lt;HarnessDocTooltip tooltipId={<span class="branch-1 cbranch-no" title="branch not covered" >tooltipProps?.dataTooltipId}</span> labelText={label} /&gt; : label}
+      label={
+        labelText ? &lt;HarnessDocTooltip tooltipId={<span class="branch-1 cbranch-no" title="branch not covered" >tooltipProps?.dataTooltipId}</span> labelText={labelText} /&gt; : labelText
+      }
     &gt;
       &lt;MultiTypeDuration {...customProps} value={value} onChange={handleChange} disabled={disabled} /&gt;
     &lt;/FormGroup&gt;
@@ -958,7 +1003,7 @@ export const DurationInputFieldForInputSet = connect&lt;DurationInputForInputSet
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 10 2021 09:22:40 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 10 2021 10:38:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

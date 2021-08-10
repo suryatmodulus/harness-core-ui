@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">19.71% </span>
+                <span class="strong">17.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>27/137</span>
+                <span class='fraction'>27/151</span>
             </div>
         
             
@@ -218,7 +218,8 @@
 <a name='L159'></a><a href='#L159'>159</a>
 <a name='L160'></a><a href='#L160'>160</a>
 <a name='L161'></a><a href='#L161'>161</a>
-<a name='L162'></a><a href='#L162'>162</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -264,7 +265,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -308,6 +308,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -425,7 +427,6 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
   const primaryArtifactVariables = variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>rtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rimary<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec
   const sidecarArtifactVariables = variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>rtifacts<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>idecars
   const manifestsVariables = variablesData.manifests
-&nbsp;
   return (
     &lt;React.Fragment&gt;
       {artifacts &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!isEmpty(omit(variablesData?.artifacts, 'uuid')) </span>? (
@@ -441,11 +442,11 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                 &lt;NestedAccordionPanel
                   isDefaultOpen
                   addDomId
+                  collapseProps={{ keepChildrenMounted: true }}
                   id={`Stage.${stageIdentifier}.Service.Artifacts.Primary`}
                   summary={&lt;VariableAccordionSummary&gt; {getString('primaryArtifactText')}&lt;/VariableAccordionSummary&gt;}
                   summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
                   details={
-                    // &lt;div className={css.artifactHeader}&gt;{getString('primaryArtifactText')}&lt;/div&gt;
                     &lt;VariablesListTable
                       className={pipelineVariableCss.variablePaddingL3}
                       data={primaryArtifactVariables}
@@ -455,7 +456,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                   }
                 /&gt;
 &nbsp;
-                {sidecarArtifactVariables?.length &amp;&amp; (
+                {!!sidecarArtifactVariables?.length &amp;&amp; (
                   &lt;&gt;
                     &lt;NestedAccordionPanel
                       isDefaultOpen
@@ -466,16 +467,18 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
                       }
                       summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
                       details={
-                        // &lt;div className={cx(css.artifactHeader, css.mtop)}&gt;{getString('sidecarArtifactsText')}&lt;/div&gt;
                         Array.isArray(sidecarArtifactVariables) &amp;&amp;
-                        sidecarArtifactVariables.map(<span class="fstat-no" title="function not covered" >({</span> sidecar }, index) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
-                          &lt;VariablesListTable
-                            key={index}
-                            data={sidecar}
-                            originalData={initialValues?.artifacts?.sidecars?.[index] || ({} as any)}
-                            metadataMap={metadataMap}
-                          /&gt;
-                        ))
+                        sidecarArtifactVariables.map(<span class="fstat-no" title="function not covered" >({</span> sidecar }, index) =&gt; {
+<span class="cstat-no" title="statement not covered" >                          return (</span>
+                            &lt;VariablesListTable
+                              className={pipelineVariableCss.variablePaddingL3}
+                              key={index}
+                              data={sidecar?.spec}
+                              originalData={initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec}
+                              metadataMap={metadataMap}
+                            /&gt;
+                          )
+                        })
                       }
                     /&gt;
                   &lt;/&gt;
@@ -493,7 +496,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
           summary={&lt;VariableAccordionSummary&gt; {getString('manifests')}&lt;/VariableAccordionSummary&gt;}
           summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
           details={
-            manifestsVariables &amp;&amp; (
+            !!manifestsVariables?.length &amp;&amp; (
               &lt;&gt;
                 {manifestsVariables?.map(<span class="fstat-no" title="function not covered" >({</span> manifest }, index) =&gt; <span class="cstat-no" title="statement not covered" >(</span>
                   &lt;VariablesListTable
@@ -547,7 +550,7 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 10 2021 06:52:07 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 10 2021 07:39:11 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

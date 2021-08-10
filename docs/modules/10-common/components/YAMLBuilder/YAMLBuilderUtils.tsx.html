@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.78% </span>
-                <span class="quiet">Statements</span>
-                <span class='fraction'>39/46</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">64.2% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>52/81</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>6/9</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
                 <span class="strong">84.44% </span>
-                <span class="quiet">Lines</span>
+                <span class="quiet">Statements</span>
                 <span class='fraction'>38/45</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">61.18% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>52/85</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">62.5% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>5/8</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">84.09% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>37/44</span>
             </div>
         
             
@@ -162,12 +162,16 @@
 <a name='L103'></a><a href='#L103'>103</a>
 <a name='L104'></a><a href='#L104'>104</a>
 <a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a>
+<a name='L108'></a><a href='#L108'>108</a>
+<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -198,13 +202,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -214,6 +211,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -221,6 +224,9 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -273,6 +279,7 @@ import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
 &nbsp;
 import { findLeafToParentPath } from '../../utils/YamlUtils'
+import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 &nbsp;
 /**
  * Get YAML from editor with placeholder added at current position in editor
@@ -302,30 +309,32 @@ const getYAMLFromEditor = (editor: any, shouldAddPlaceholder: boolean): string |
 <span class="cstat-no" title="statement not covered" >  return null</span>
 }
 &nbsp;
-function getJSONFromYAML(yaml: string): Record&lt;string, any&gt; {
-  try {
-    return parse(yaml)
-  } catch (error) {
-<span class="cstat-no" title="statement not covered" >    throw error</span>
-  }
-}
-&nbsp;
 /**
  * Get current property to parent json path
  * @param editor
+ * @param onErrorCallback
  * @param shouldAddPlaceholder
  */
-const getMetaDataForKeyboardEventProcessing = (
-  editor: any,
-  shouldAddPlaceholder: boolean = <span class="branch-0 cbranch-no" title="branch not covered" >false</span>
-): Record&lt;string, string | undefined&gt; | undefined =&gt; {
+const getMetaDataForKeyboardEventProcessing = ({
+  editor,
+  onErrorCallback,
+  shouldAddPlaceholder = <span class="branch-0 cbranch-no" title="branch not covered" >false</span>
+}: {
+  editor: any
+  onErrorCallback?: YamlBuilderProps['onErrorCallback']
+  shouldAddPlaceholder?: boolean
+}): Record&lt;string, string | undefined&gt; | undefined =&gt; {
   const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder)
   <span class="missing-if-branch" title="else path not taken" >E</span>if (yamlInEditor) {
-    const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(yamlInEditor)
-    const textInCurrentEditorLine = editor.getModel()<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>etLineContent(editor.getPosition().lineNumber)
-    const currentProperty = textInCurrentEditorLine<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit(':').map((item: string) =&gt; item.trim())[0]
-    const parentToCurrentPropertyPath = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
-    return { currentProperty, yamlInEditor, parentToCurrentPropertyPath }
+    try {
+      const jsonEquivalentOfYAMLInEditor = parse(yamlInEditor)
+      const textInCurrentEditorLine = editor.getModel()<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>etLineContent(editor.getPosition().lineNumber)
+      const currentProperty = textInCurrentEditorLine<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>plit(':').map((item: string) =&gt; item.trim())[0]
+      const parentToCurrentPropertyPath = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
+      return { currentProperty, yamlInEditor, parentToCurrentPropertyPath }
+    } catch (e) {
+<span class="cstat-no" title="statement not covered" >      onErrorCallback?.(e)</span>
+    }
   }
 }
 &nbsp;
@@ -379,7 +388,7 @@ export {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 10 2021 08:18:54 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 10 2021 09:22:40 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

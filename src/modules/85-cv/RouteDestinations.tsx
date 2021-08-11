@@ -89,15 +89,15 @@ const RedirectToCVProject = (): React.ReactElement => {
   }
 }
 
-const CVSideNavProps: SidebarContext = {
-  navComponent: SideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Verification',
-  icon: 'cv-main'
-}
-
 const cvModuleParams: ModulePathParams = {
   module: ':module(cv)'
+}
+
+const CVSideNavProps: SidebarContext = {
+  navComponent: SideNav,
+  subtitle: 'CHANGE',
+  title: 'Intelligence',
+  icon: 'cv-main'
 }
 
 export default (
@@ -388,3 +388,5 @@ export default (
     </RouteWithLayout>
   </>
 )
+
+// export default <RouteDestinations />

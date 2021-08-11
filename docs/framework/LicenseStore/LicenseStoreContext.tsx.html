@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">39.74% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>31/78</span>
+                <span class='fraction'>32/80</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10% </span>
+                <span class="strong">9.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/110</span>
+                <span class='fraction'>11/111</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.33% </span>
+                <span class="strong">41.56% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/75</span>
+                <span class='fraction'>32/77</span>
             </div>
         
             
@@ -286,7 +286,8 @@
 <a name='L227'></a><a href='#L227'>227</a>
 <a name='L228'></a><a href='#L228'>228</a>
 <a name='L229'></a><a href='#L229'>229</a>
-<a name='L230'></a><a href='#L230'>230</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">553x</span>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -295,6 +296,7 @@
 <span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -347,13 +349,13 @@
 <span class="cline-any cline-yes">553x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -526,6 +528,7 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 &nbsp;
 import { AccountLicenseDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'
 import { ModuleName } from 'framework/types/ModuleName'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 &nbsp;
 export enum LICENSE_STATE_VALUES {
   ACTIVE = 'ACTIVE',
@@ -575,6 +578,7 @@ const POLL_INTERVAL = 1000 * 60 * 60 * 2
 &nbsp;
 export function <span class="fstat-no" title="function not covered" >LicenseStoreProvider(</span>props: React.PropsWithChildren&lt;unknown&gt;): React.ReactElement {
   const { currentUserInfo } = <span class="cstat-no" title="statement not covered" >useAppStore()</span>
+  const { NG_LICENSES_ENABLED } = <span class="cstat-no" title="statement not covered" >useFeatureFlags()</span>
   const { accountId } = <span class="cstat-no" title="statement not covered" >useParams&lt;{</span>
     accountId: string
   }&gt;()
@@ -583,10 +587,9 @@ export function <span class="fstat-no" title="function not covered" >LicenseStor
 &nbsp;
   const createdFromNG = <span class="cstat-no" title="statement not covered" >accounts?.find(<span class="fstat-no" title="function not covered" >account </span>=&gt; <span class="cstat-no" title="statement not covered" >account.uuid === accountId)</span>?.createdFromNG</span>
 &nbsp;
-  // Automatically set the license state to active for users that have not been created via NG
-  // This will prevent existing users from experiencing issues accessing the product
-  // When license information is migrated we can remove this 'createdFromNG' check
-  const shouldLicensesBeDisabled = <span class="cstat-no" title="statement not covered" >__DEV__ || !createdFromNG</span>
+  // If the user has been created from NG signup we will always enforce licensing
+  // If the user is a CG user we will look at the NG_LICENSES_ENABLED feature flag to determine whether or not we should enforce licensing
+  const shouldLicensesBeDisabled = <span class="cstat-no" title="statement not covered" >__DEV__ || (!createdFromNG &amp;&amp; !NG_LICENSES_ENABLED)</span>
 &nbsp;
   const [state, setState] = <span class="cstat-no" title="statement not covered" >useState&lt;Omit&lt;LicenseStoreContextProps, 'updateLicenseStore' | 'strings'&gt;&gt;({</span>
     licenseInformation: {},
@@ -751,7 +754,7 @@ export function handleUpdateLicenseStore(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 18:17:47 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 18:57:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

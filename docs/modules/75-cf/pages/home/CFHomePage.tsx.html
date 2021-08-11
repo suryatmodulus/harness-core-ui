@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90% </span>
+                <span class="strong">90.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/50</span>
+                <span class='fraction'>48/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">73.56% </span>
+                <span class="strong">74.16% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>64/87</span>
+                <span class='fraction'>66/89</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">92.16% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/48</span>
+                <span class='fraction'>47/51</span>
             </div>
         
             
@@ -196,7 +196,11 @@
 <a name='L137'></a><a href='#L137'>137</a>
 <a name='L138'></a><a href='#L138'>138</a>
 <a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L140'></a><a href='#L140'>140</a>
+<a name='L141'></a><a href='#L141'>141</a>
+<a name='L142'></a><a href='#L142'>142</a>
+<a name='L143'></a><a href='#L143'>143</a>
+<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -211,6 +215,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -220,6 +225,7 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -290,6 +296,8 @@
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -352,12 +360,14 @@ import routes from '@common/RouteDefinitions'
 import type { Module, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import bgImageURL from './ff.svg'
 &nbsp;
 const CFHomePage: React.FC = () =&gt; {
   const { getString } = useStrings()
   const { accountId } = useParams&lt;AccountPathProps&gt;()
   const { currentUserInfo, selectedProject } = useAppStore()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
 &nbsp;
   const { accounts } = currentUserInfo
@@ -430,7 +440,9 @@ const CFHomePage: React.FC = () =&gt; {
     return &lt;PageError message={(error.data as Error)<span class="branch-1 cbranch-no" title="branch not covered" >?.message </span>|| error.message} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;
   }
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (createdFromNG &amp;&amp; data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === 'SUCCESS' &amp;&amp; !data.data) {
+  const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
+&nbsp;
+  <span class="missing-if-branch" title="if path not taken" >I</span>if (showTrialPages &amp;&amp; data<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus === 'SUCCESS' &amp;&amp; !data.data) {
 <span class="cstat-no" title="statement not covered" >    history.push(</span>
       routes.toModuleTrialHome({
         accountId,
@@ -439,7 +451,7 @@ const CFHomePage: React.FC = () =&gt; {
     )
   }
 &nbsp;
-  if (createdFromNG &amp;&amp; data &amp;&amp; data.data &amp;&amp; trial) {
+  if (showTrialPages &amp;&amp; data &amp;&amp; data.data &amp;&amp; trial) {
     return (
       &lt;TrialInProgressTemplate
         title={getString('cf.continuous')}
@@ -481,7 +493,7 @@ export default CFHomePage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 18:17:47 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 18:57:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

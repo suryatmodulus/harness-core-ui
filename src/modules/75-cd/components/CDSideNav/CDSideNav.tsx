@@ -65,12 +65,7 @@ export default function CDSideNav(): React.ReactElement {
           {CD_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCDProjectOverview({ ...params, module })} />}
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
-          {/* <div className={css.gitOpsMenu}>
-            <Button onClick={hideModal} minimal icon="chevron-left" iconProps={{ size: 12 }} />
-            <SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} />
-          </div> */}
-          <SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} />
-          <SidebarLink label="GitOps 2" to={routes.toGitOpsNew({ ...params, module })} />
+          <SidebarLink label="GitOps" to={routes.toGitOpsNew({ ...params, module })} />
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <ProjectSetupMenu module={module} />
         </React.Fragment>

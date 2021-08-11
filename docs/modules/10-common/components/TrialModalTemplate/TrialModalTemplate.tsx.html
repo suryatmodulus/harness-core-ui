@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/1</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -136,9 +136,19 @@
 <a name='L77'></a><a href='#L77'>77</a>
 <a name='L78'></a><a href='#L78'>78</a>
 <a name='L79'></a><a href='#L79'>79</a>
-<a name='L80'></a><a href='#L80'>80</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">9x</span>
+<a name='L80'></a><a href='#L80'>80</a>
+<a name='L81'></a><a href='#L81'>81</a>
+<a name='L82'></a><a href='#L82'>82</a>
+<a name='L83'></a><a href='#L83'>83</a>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,7 +159,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,6 +172,14 @@
 <span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">24x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -220,10 +240,11 @@ import { Text, Layout, Icon, Container, Color, IconName } from '@wings-software/
 import { useStrings } from 'framework/strings'
 &nbsp;
 interface TrialModalTemplateProps {
-  iconName: string
+  iconName?: string
   title: string
-  description: string
+  description?: string
   imgSrc: string
+  hideTrialBadge?: boolean
   children: React.ReactElement
   rightWidth?: string
 }
@@ -233,6 +254,7 @@ export const TrialModalTemplate: React.FC&lt;TrialModalTemplateProps&gt; = ({
   title,
   description,
   imgSrc,
+  hideTrialBadge,
   children,
   rightWidth = '30%'
 }) =&gt; {
@@ -241,21 +263,27 @@ export const TrialModalTemplate: React.FC&lt;TrialModalTemplateProps&gt; = ({
   return (
     &lt;Layout.Vertical padding={{ top: 'large', right: 'large' }}&gt;
       &lt;Layout.Horizontal padding={{ top: 'large', left: 'xxxlarge' }} spacing="small"&gt;
-        &lt;Icon name={iconName as IconName} size={20} /&gt;
-        &lt;Text color={Color.BLACK} font={'medium'}&gt;
-          {title}
-        &lt;/Text&gt;
-        &lt;Text
-          background={Color.ORANGE_500}
-          color={Color.WHITE}
-          width={120}
-          border={{ radius: 3 }}
-          margin={{ left: 30 }}
-          inline
-          font={{ align: 'center' }}
-        &gt;
-          {getString('common.trialInProgress')}
-        &lt;/Text&gt;
+        {iconName &amp;&amp; (
+          &lt;&gt;
+            &lt;Icon name={iconName as IconName} size={20} /&gt;
+            &lt;Text color={Color.BLACK} font={'medium'}&gt;
+              {title}
+            &lt;/Text&gt;
+          &lt;/&gt;
+        )}
+        {!hideTrialBadge &amp;&amp; (
+          &lt;Text
+            background={Color.ORANGE_500}
+            color={Color.WHITE}
+            width={120}
+            border={{ radius: 3 }}
+            margin={{ left: 30 }}
+            inline
+            font={{ align: 'center' }}
+          &gt;
+            {getString('common.trialInProgress')}
+          &lt;/Text&gt;
+        )}
       &lt;/Layout.Horizontal&gt;
       &lt;Layout.Horizontal padding={{ top: 'large' }}&gt;
         &lt;Container
@@ -268,15 +296,17 @@ export const TrialModalTemplate: React.FC&lt;TrialModalTemplateProps&gt; = ({
             backgroundPositionY: 'center'
           }}
         &gt;
-          &lt;Text
-            padding={{ left: 'xxxlarge' }}
-            font={{ size: 'normal' }}
-            width={380}
-            margin={{ left: 30 }}
-            style={{ lineHeight: 2 }}
-          &gt;
-            {description}
-          &lt;/Text&gt;
+          {description &amp;&amp; (
+            &lt;Text
+              padding={{ left: 'xxxlarge' }}
+              font={{ size: 'normal' }}
+              width={380}
+              margin={{ left: 30 }}
+              style={{ lineHeight: 2 }}
+            &gt;
+              {description}
+            &lt;/Text&gt;
+          )}
         &lt;/Container&gt;
         &lt;div
           style={{
@@ -301,7 +331,7 @@ export const TrialModalTemplate: React.FC&lt;TrialModalTemplateProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 16:33:49 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 18:17:47 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

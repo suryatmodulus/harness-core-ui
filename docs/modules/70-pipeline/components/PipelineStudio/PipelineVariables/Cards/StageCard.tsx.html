@@ -238,7 +238,15 @@
 <a name='L179'></a><a href='#L179'>179</a>
 <a name='L180'></a><a href='#L180'>180</a>
 <a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -270,14 +278,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -327,6 +339,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -353,6 +366,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -361,8 +378,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -387,6 +402,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -449,10 +465,11 @@ export interface StageCardProps {
   originalStage: StageElementConfig
   metadataMap: PipelineVariablesData['metadataMap']
   readonly?: boolean
+  path?: string
 }
 &nbsp;
 export default function StageCard(props: StageCardProps): React.ReactElement {
-  const { stage, originalStage, metadataMap, readonly } = props
+  const { stage, originalStage, metadataMap, readonly, path } = props
   const { updateStage, stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
   const stageSpec = stage.spec as DeploymentStageConfig
@@ -461,8 +478,11 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
   return (
     &lt;NestedAccordionPanel
       isDefaultOpen
-      key={originalStage.identifier}
-      id={`Stage.${originalStage.identifier}`}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
+      key={`${path}.${originalStage.identifier}`}
+      id={`${path}.${originalStage.identifier}`}
       addDomId
       summary={
         &lt;VariableAccordionSummary&gt;
@@ -485,8 +505,8 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
             &lt;React.Fragment&gt;
               &lt;NestedAccordionPanel
                 isDefaultOpen
-                key={`${originalStage.identifier}.variables`}
-                id={`Stage.${originalStage.identifier}.variables`}
+                key={`${path}.variables`}
+                id={`${path}.variables`}
                 addDomId
                 summary={
                   &lt;VariableAccordionSummary&gt;
@@ -514,6 +534,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       domId: `Stage.${originalStage.identifier}.Variables-panel`,
                       className: cx(css.customVariables, css.customVarPadL1),
                       // heading: &lt;b&gt;{getString('customVariables.title')}&lt;/b&gt;,
+                      path: `${path}.customVariables`,
                       yamlProperties: (defaultTo(stage.variables, []) as AllNGVariables[]).map<span class="branch-0 cbranch-no" title="branch not covered" >?.(</span>
                         variable =&gt;
                           metadataMap[variable.value || /* istanbul ignore next */ '']<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>amlProperties ||
@@ -533,6 +554,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       metadataMap={metadataMap}
                       readonly={readonly}
                       stageIdentifier={originalStage.identifier}
+                      path={`${path}.${originalStage.identifier}`}
                       onUpdateServiceConfig={<span class="fstat-no" title="function not covered" >serviceSpec </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                        updateStage(</span>
                           produce(originalStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
@@ -557,6 +579,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
                       readonly={readonly}
+                      path={`${path}.${originalStage.identifier}.Infrastructure`}
                       onUpdateInfrastructure={<span class="fstat-no" title="function not covered" >infrastructure </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                        updateStage(</span>
                           produce(originalStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
@@ -575,13 +598,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   ) : /* istanbul ignore next */ null}
                   {stageSpec.execution &amp;&amp; originalSpec.execution ? (
                     &lt;ExecutionCardPanel
-                      id={`Stage.${originalStage.identifier}.Execution`}
+                      id={`${path}.${originalStage.identifier}.Execution`}
                       title={getString('executionText')}
                       execution={stageSpec.execution}
                       originalExecution={originalSpec.execution}
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
                       readonly={readonly}
+                      path={`${path}.${originalStage.identifier}.Execution`}
                       onUpdateExecution={<span class="fstat-no" title="function not covered" >execution </span>=&gt; {
 <span class="cstat-no" title="statement not covered" >                        updateStage(</span>
                           produce(originalStage, <span class="fstat-no" title="function not covered" >draft </span>=&gt; {
@@ -607,7 +631,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 06:57:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

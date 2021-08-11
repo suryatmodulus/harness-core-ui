@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/15</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/15</span>
+                <span class='fraction'>10/16</span>
             </div>
         
             
@@ -120,14 +120,18 @@
 <a name='L61'></a><a href='#L61'>61</a>
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
@@ -152,23 +156,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -186,12 +194,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-&nbsp;
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { RemoteTerraformVarFileSpec } from 'services/cd-ng'
 &nbsp;
 import type { TerraformData, TerraformVariableStepProps } from '../TerraformInterfaces'
 import css from '@cd/components/PipelineSteps/Common/Terraform/TerraformStep.module.scss'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 &nbsp;
 export function ConfigVariables(props: TerraformVariableStepProps): React.ReactElement {
   const { variablesData = <span class="branch-0 cbranch-no" title="branch not covered" >{} as TerraformData,</span> metadataMap, initialValues } = props
@@ -203,12 +211,14 @@ export function ConfigVariables(props: TerraformVariableStepProps): React.ReactE
         data={variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec}
         originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec}
         metadataMap={metadataMap}
+        className={pipelineVariableCss.variablePaddingL2}
       /&gt;
       {variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.g</span>itFetchType &amp;&amp; (
         &lt;VariablesListTable
           data={variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec}
           originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfigFiles<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tore<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec}
           metadataMap={metadataMap}
+          className={pipelineVariableCss.variablePaddingL2}
         /&gt;
       )}
       {variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>arFiles<span class="branch-1 cbranch-no" title="branch not covered" >?.length </span>&amp;&amp; (
@@ -224,6 +234,7 @@ export function ConfigVariables(props: TerraformVariableStepProps): React.ReactE
                     initialValues?.spec?.configuration?.spec?.varFiles?.[index]?.varFile?.spec || ({} as any)
                   }
                   metadataMap={metadataMap}
+                  className={pipelineVariableCss.variablePaddingL2}
                 /&gt;
               )
             } else <span class="cstat-no" title="statement not covered" >if (varFile?.varFile?.type === 'Remote') {</span>
@@ -237,6 +248,7 @@ export function ConfigVariables(props: TerraformVariableStepProps): React.ReactE
                   data={remoteSpec?.store?.spec}
                   originalData={initVarSpec?.store?.spec || ({} as any)}
                   metadataMap={metadataMap}
+                  className={pipelineVariableCss.variablePaddingL2}
                 /&gt;
               )
             }
@@ -253,7 +265,7 @@ export function ConfigVariables(props: TerraformVariableStepProps): React.ReactE
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 06:57:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

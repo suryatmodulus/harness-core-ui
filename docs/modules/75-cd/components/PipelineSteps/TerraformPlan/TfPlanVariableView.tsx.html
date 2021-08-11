@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/11</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -104,14 +104,17 @@
 <a name='L45'></a><a href='#L45'>45</a>
 <a name='L46'></a><a href='#L46'>46</a>
 <a name='L47'></a><a href='#L47'>47</a>
-<a name='L48'></a><a href='#L48'>48</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -139,7 +142,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -158,7 +164,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import type { TFPlanFormData, TerraformPlanVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
 import { ConfigVariables } from './Variableview/TfPlanConfigSection'
 import css from '@cd/components/PipelineSteps/Common/Terraform/TerraformStep.module.scss'
-&nbsp;
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 export function TerraformVariableStep(props: TerraformPlanVariableStepProps): React.ReactElement {
   const { variablesData = <span class="branch-0 cbranch-no" title="branch not covered" >{} as TFPlanFormData,</span> metadataMap, initialValues } = props
 &nbsp;
@@ -169,6 +175,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
         data={variablesData.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rovisionerIdentifier}
         originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>rovisionerIdentifier}
         metadataMap={metadataMap}
+        className={pipelineVariableCss.variablePaddingL2}
       /&gt;
       &lt;ConfigVariables {...props} /&gt;
       {variablesData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>ackendConfig<span class="branch-1 cbranch-no" title="branch not covered" >?.spec </span>&amp;&amp; (
@@ -178,6 +185,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
             data={variablesData?.spec?.configuration?.backendConfig?.spec}
             originalData={initialValues.spec?.configuration?.backendConfig?.spec}
             metadataMap={metadataMap}
+            className={pipelineVariableCss.variablePaddingL2}
           /&gt;
         &lt;/&gt;
       )}
@@ -192,6 +200,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
             data={variablesData.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]}
             originalData={initialValues.spec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onfiguration<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentVariables<span class="branch-0 cbranch-no" title="branch not covered" >?.[i</span>ndex]}
             metadataMap={metadataMap}
+            className={pipelineVariableCss.variablePaddingL2}
           /&gt;
         )
       })}
@@ -205,7 +214,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 06:57:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

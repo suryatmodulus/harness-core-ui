@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.53% </span>
+                <span class="strong">46.52% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>355/763</span>
+                <span class='fraction'>368/791</span>
             </div>
         
             
@@ -718,10 +718,40 @@
 <a name='L659'></a><a href='#L659'>659</a>
 <a name='L660'></a><a href='#L660'>660</a>
 <a name='L661'></a><a href='#L661'>661</a>
-<a name='L662'></a><a href='#L662'>662</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a>
+<a name='L666'></a><a href='#L666'>666</a>
+<a name='L667'></a><a href='#L667'>667</a>
+<a name='L668'></a><a href='#L668'>668</a>
+<a name='L669'></a><a href='#L669'>669</a>
+<a name='L670'></a><a href='#L670'>670</a>
+<a name='L671'></a><a href='#L671'>671</a>
+<a name='L672'></a><a href='#L672'>672</a>
+<a name='L673'></a><a href='#L673'>673</a>
+<a name='L674'></a><a href='#L674'>674</a>
+<a name='L675'></a><a href='#L675'>675</a>
+<a name='L676'></a><a href='#L676'>676</a>
+<a name='L677'></a><a href='#L677'>677</a>
+<a name='L678'></a><a href='#L678'>678</a>
+<a name='L679'></a><a href='#L679'>679</a>
+<a name='L680'></a><a href='#L680'>680</a>
+<a name='L681'></a><a href='#L681'>681</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -788,6 +818,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -954,6 +989,9 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1382,7 +1420,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion, Button } from '@wings-software/uicore'
+import {
+  Layout,
+  Formik,
+  FormikForm,
+  FormInput,
+  Text,
+  Card,
+  Accordion,
+  Button,
+  getMultiTypeFromValue,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import { isEmpty, isUndefined, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -1451,12 +1500,17 @@ const getValidationSchema = (getString?: UseStringsReturn['getString']): yup.Sch
   yup.object().shape({
     connectorRef: yup.mixed().when(['useFromStage'], {
       is: isEmpty,
-      then: yup.mixed().required(),
+      then: yup.mixed().required(getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>fieldRequired', { field: getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>connectors.title.k8sCluster') })),
       otherwise: yup.mixed()
     }),
     namespace: yup.string().when(['useFromStage'], {
       is: isEmpty,
-      then: yup.string().trim().required(),
+      then: yup
+        .string()
+        .trim()
+        .required(
+          getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>fieldRequired', { field: getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>pipelineSteps.build.infraSpecifications.namespace') })
+        ),
       otherwise: yup.string().nullable()
     }),
     runAsUser: yup.string().test(
@@ -1619,7 +1673,10 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             spec: {
               // Avoid accidental overrides for connectorRef
               connectorRef:
-                values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue ??
+                (values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue ||
+                  (<span class="branch-1 cbranch-no" title="branch not covered" >getMultiTypeFromValue(values?.connectorRef as string) === MultiTypeInputType.RUNTIME</span>
+                    ? values?.connectorRef
+                    : undefined)) ??
 <span class="branch-1 cbranch-no" title="branch not covered" >                (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,</span>
               namespace: values.namespace,
               serviceAccountName: values.serviceAccountName,
@@ -2047,7 +2104,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 06:57:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

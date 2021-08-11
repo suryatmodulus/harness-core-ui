@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.85% </span>
+                <span class="strong">41% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>96/235</span>
+                <span class='fraction'>98/239</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">27.82% </span>
+                <span class="strong">27.61% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>222/798</span>
+                <span class='fraction'>222/804</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.26% </span>
+                <span class="strong">41.41% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>92/223</span>
+                <span class='fraction'>94/227</span>
             </div>
         
             
@@ -697,7 +697,11 @@
 <a name='L638'></a><a href='#L638'>638</a>
 <a name='L639'></a><a href='#L639'>639</a>
 <a name='L640'></a><a href='#L640'>640</a>
-<a name='L641'></a><a href='#L641'>641</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L641'></a><a href='#L641'>641</a>
+<a name='L642'></a><a href='#L642'>642</a>
+<a name='L643'></a><a href='#L643'>643</a>
+<a name='L644'></a><a href='#L644'>644</a>
+<a name='L645'></a><a href='#L645'>645</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -710,6 +714,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
@@ -1084,7 +1089,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1115,6 +1120,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -1350,6 +1358,7 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
+import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -1724,7 +1733,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
 <span class="cstat-no" title="statement not covered" >    updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })</span>
 <span class="cstat-no" title="statement not covered" >    setSelectedStepId(undefined)</span>
   }
-&nbsp;
+  const { onSearchInputChange } = usePipelineVariables()
   return (
     &lt;Drawer
       onClose={<span class="fstat-no" title="function not covered" >async </span>e =&gt; {
@@ -1759,6 +1768,9 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
 <span class="cstat-no" title="statement not covered" >          if (type === DrawerTypes.ExecutionStrategy) {</span>
 <span class="cstat-no" title="statement not covered" >            executionStrategyRef.current?.cancelExecutionStrategySelection()</span>
           } else {
+<span class="cstat-no" title="statement not covered" >            if (type === DrawerTypes.PipelineVariables) {</span>
+<span class="cstat-no" title="statement not covered" >              onSearchInputChange?.('')</span>
+            }
 <span class="cstat-no" title="statement not covered" >            updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })</span>
 <span class="cstat-no" title="statement not covered" >            setSelectedStepId(undefined)</span>
           }
@@ -1984,7 +1996,7 @@ export const RightDrawer: React.FC = (): JSX.Element =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 06:57:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

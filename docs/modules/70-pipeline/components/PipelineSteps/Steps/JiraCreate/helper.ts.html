@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.23% </span>
+                <span class="strong">69.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/79</span>
+                <span class='fraction'>55/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">63.93% </span>
+                <span class="strong">66.39% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>78/122</span>
+                <span class='fraction'>81/122</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>14/24</span>
+                <span class='fraction'>18/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.84% </span>
+                <span class="strong">66.13% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/62</span>
+                <span class='fraction'>41/62</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -272,9 +272,9 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-yes">28x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -377,15 +377,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { getMultiTypeFromValue, MultiSelectOption, MultiTypeInputType, SelectOption } from '@wings-software/uicore'
 import type { FormikProps } from 'formik'
@@ -537,20 +537,20 @@ export const getSelectedFieldsToBeAddedInForm = (
   return toReturn
 }
 &nbsp;
-export const getKVFieldsToBeAddedInForm = <span class="fstat-no" title="function not covered" >(</span>
+export const getKVFieldsToBeAddedInForm = (
   newFields: JiraCreateFieldType[],
   existingFields: JiraCreateFieldType[] = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span>
   existingSelectedFields: JiraFieldNGWithValue[] = <span class="branch-0 cbranch-no" title="branch not covered" >[]</span>
 ): JiraCreateFieldType[] =&gt; {
-  const toReturn: JiraCreateFieldType[] = <span class="cstat-no" title="statement not covered" >[...existingFields]</span>
-<span class="cstat-no" title="statement not covered" >  newFields.forEach(<span class="fstat-no" title="function not covered" >field </span>=&gt; {</span>
-    const alreadyPresent = <span class="cstat-no" title="statement not covered" >existingFields.find(<span class="fstat-no" title="function not covered" >existing </span>=&gt; <span class="cstat-no" title="statement not covered" >existing.name === field.name)</span></span>
-    const alreadyPresentSelectedField = <span class="cstat-no" title="statement not covered" >existingSelectedFields.find(<span class="fstat-no" title="function not covered" >existing </span>=&gt; <span class="cstat-no" title="statement not covered" >existing.name === field.name)</span></span>
-<span class="cstat-no" title="statement not covered" >    if (!alreadyPresent &amp;&amp; !alreadyPresentSelectedField) {</span>
-<span class="cstat-no" title="statement not covered" >      toReturn.push(field)</span>
+  const toReturn: JiraCreateFieldType[] = [...existingFields]
+  newFields.forEach(field =&gt; {
+    const alreadyPresent = existingFields.find(existing =&gt; existing.name === field.name)
+    const alreadyPresentSelectedField = existingSelectedFields.find(existing =&gt; existing.name === field.name)
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (!alreadyPresent &amp;&amp; !alreadyPresentSelectedField) {
+      toReturn.push(field)
     }
   })
-<span class="cstat-no" title="statement not covered" >  return toReturn</span>
+  return toReturn
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -559,7 +559,7 @@ export const getKVFieldsToBeAddedInForm = <span class="fstat-no" title="function
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 04:11:50 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 05:14:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

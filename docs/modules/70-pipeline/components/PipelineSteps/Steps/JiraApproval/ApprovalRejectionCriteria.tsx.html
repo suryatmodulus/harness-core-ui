@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.21% </span>
+                <span class="strong">70.77% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>47/66</span>
+                <span class='fraction'>46/65</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.84% </span>
+                <span class="strong">43.59% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/43</span>
+                <span class='fraction'>17/39</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.97% </span>
+                <span class="strong">70.49% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/62</span>
+                <span class='fraction'>43/61</span>
             </div>
         
             
@@ -365,8 +365,11 @@
 <a name='L306'></a><a href='#L306'>306</a>
 <a name='L307'></a><a href='#L307'>307</a>
 <a name='L308'></a><a href='#L308'>308</a>
-<a name='L309'></a><a href='#L309'>309</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">30x</span>
-<span class="cline-any cline-yes">30x</span>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
@@ -659,6 +662,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -673,8 +678,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useState } from 'react'
-import cx from 'classnames'
 import { FieldArray } from 'formik'
 import { isEmpty } from 'lodash-es'
 import {
@@ -907,7 +914,7 @@ export const Jexl = (props: ApprovalRejectionCriteriaProps) =&gt; {
 }
 &nbsp;
 export const ApprovalRejectionCriteria: React.FC&lt;ApprovalRejectionCriteriaProps&gt; = props =&gt; {
-  const { values, onChange, title } = props
+  const { values, onChange, title, readonly } = props
   const [type, setType] = useState&lt;ApprovalRejectionCriteriaType&gt;(values.type)
   const [allowedFieldKeys, setAllowedFieldKeys] = useState&lt;SelectOption[]&gt;([])
   const [allowedValuesForFields, setAllowedValuesForFields] = useState&lt;Record&lt;string, SelectOption[]&gt;&gt;({})
@@ -953,24 +960,29 @@ export const ApprovalRejectionCriteria: React.FC&lt;ApprovalRejectionCriteriaPro
   return (
     &lt;div className={css.box}&gt;
       &lt;div className="ng-tooltip-native"&gt;
-        &lt;div data-tooltip-id={tooltipId} className={css.title}&gt;
+        &lt;div data-tooltip-id={tooltipId} className={stepCss.stepSubSectionHeading}&gt;
           {title}
         &lt;/div&gt;
         &lt;HarnessDocTooltip tooltipId={tooltipId} useStandAlone={true} /&gt;
       &lt;/div&gt;
+&nbsp;
       &lt;div className={css.tabs}&gt;
-        &lt;div
-          className={cx(css.tab, type === ApprovalRejectionCriteriaType.KeyValues ? css.selectedTab : '')}
+        &lt;Radio
           onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >setType(ApprovalRejectionCriteriaType.KeyValues)}</span>
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          checked={type === ApprovalRejectionCriteriaType.KeyValues}
+          className={css.tab}
         &gt;
           {getString('conditions')}
-        &lt;/div&gt;
-        &lt;div
-          className={cx(css.tab, type === ApprovalRejectionCriteriaType.Jexl ? css.selectedTab : '')}
+        &lt;/Radio&gt;
+        &lt;Radio
           onClick={() =&gt; setType(ApprovalRejectionCriteriaType.Jexl)}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          checked={type === ApprovalRejectionCriteriaType.Jexl}
+          className={css.tab}
         &gt;
           {getString('common.jexlExpression')}
-        &lt;/div&gt;
+        &lt;/Radio&gt;
       &lt;/div&gt;
 &nbsp;
       {type === ApprovalRejectionCriteriaType.KeyValues ? (
@@ -988,7 +1000,7 @@ export const ApprovalRejectionCriteria: React.FC&lt;ApprovalRejectionCriteriaPro
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 04:11:50 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 05:14:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

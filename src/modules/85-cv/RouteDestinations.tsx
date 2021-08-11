@@ -388,5 +388,3 @@ export default (
     </RouteWithLayout>
   </>
 )
-
-// export default <RouteDestinations />

@@ -158,6 +158,9 @@ const ExecutionStrategyRef = (
         }).stage as StageElementConfig
       )
     }
+    if (selectedStrategy === getString('pipeline.executionStrategy.strategies.default.actualName')) {
+      setIsVerifyEnabled(false)
+    }
   }, [yamlSnippet?.data, selectedStrategy])
 
   const updatePipelineViewState = (): void => {
@@ -277,7 +280,7 @@ const ExecutionStrategyRef = (
               </section>
             )}
             {selectedStrategy !== 'Default' && <Steps strategy={selectedStrategy} />}
-            {selectedStrategy === 'Default' && (
+            {selectedStrategy !== 'Default' && (
               <section className={css.enableVerificationSection}>
                 <Text className={css.enableVerification}>{getString('pipeline.enableVerificationOptions')}</Text>
                 <Switch

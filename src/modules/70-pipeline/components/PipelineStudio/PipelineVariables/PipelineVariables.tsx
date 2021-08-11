@@ -1,9 +1,9 @@
 import React from 'react'
-import { Icon, NestedAccordionPanel, NestedAccordionProvider } from '@wings-software/uicore'
+import { Icon, NestedAccordionPanel, NestedAccordionProvider, ExpandingSearchInput } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 
 import type {} from 'services/cd-ng'
-import { Tooltip } from '@blueprintjs/core'
+import { Button, Tooltip } from '@blueprintjs/core'
 import { PageSpinner } from '@common/components'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
@@ -13,17 +13,42 @@ import { usePipelineContext } from '../PipelineContext/PipelineContext'
 import PipelineCard from './Cards/PipelineCard'
 import StageCard from './Cards/StageCard'
 import VariableAccordionSummary from './VariableAccordionSummary'
+import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './PipelineVariables.module.scss'
 
 export const PipelineVariables: React.FC = (): JSX.Element => {
   const {
     updatePipeline,
     stepsFactory,
-    state: { pipeline: originalPipeline },
-    isReadonly
+    state: { pipeline: originalPipeline, pipelineView },
+    isReadonly,
+
+    updatePipelineView,
+    fetchPipeline
   } = usePipelineContext()
-  const { variablesPipeline, metadataMap, error, initLoading } = usePipelineVariables()
+  const {
+    variablesPipeline,
+    metadataMap,
+    error,
+    initLoading,
+    onSearchInputChange,
+    searchIndex = 0,
+    searchResults = [],
+    goToNextSearchResult,
+    goToPrevSearchResult
+  } = usePipelineVariables()
   const { getString } = useStrings()
+
+  const pipelineVariablesRef = React.useRef()
+  React.useLayoutEffect(() => {
+    if (searchIndex === null && pipelineVariablesRef.current) {
+      ;(pipelineVariablesRef.current as any)?.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
+  }, [searchIndex])
   const stagesCards: JSX.Element[] = []
   /* istanbul ignore else */
   if (variablesPipeline.stages && variablesPipeline.stages?.length > 0) {
@@ -37,6 +62,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
                 key={nodeP.stage.identifier}
                 stage={nodeP.stage}
                 metadataMap={metadataMap}
+                path="pipeline"
               />
             )
         })
@@ -48,6 +74,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
             originalStage={get(originalPipeline, `stages[${i}].stage`)}
             metadataMap={metadataMap}
             readonly={isReadonly}
+            path="pipeline"
           />
         )
       }
@@ -63,34 +90,69 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
       ) : (
         <div className={css.content}>
           <div className={css.variablePanelHeader}>
-            <div>
-              <Icon name="pipeline-variables" />
-              <String stringID="variablesText" />
-              <Tooltip
-                content={getString('customVariables.pipelineVariablesDescription')}
-                portalClassName={css.descriptionTooltip}
-              >
-                <Icon size={12} name="info" className={css.description} />
-              </Tooltip>
+            <div className={css.variableTitle}>
+              <div>
+                <Icon name="pipeline-variables" />
+                <String stringID="variablesText" />
+                <Tooltip
+                  content={getString('customVariables.pipelineVariablesDescription')}
+                  portalClassName={css.descriptionTooltip}
+                >
+                  <Icon size={12} name="info" className={css.description} />
+                </Tooltip>
+              </div>
             </div>
             <div>
               {/* WIP Variabes Search */}
-              {/* <TextInput leftIcon="search-list" className={css.searchInput} name="search-var" placeholder="Find..." /> */}
+              <ExpandingSearchInput
+                alwaysExpanded
+                onChange={onSearchInputChange}
+                showPrevNextButtons
+                className={css.searchInput}
+                fixedText={`${Math.min((searchIndex || 0) + 1, searchResults?.length)} / ${searchResults?.length}`}
+                onNext={goToNextSearchResult}
+                onPrev={goToPrevSearchResult}
+                onEnter={goToNextSearchResult}
+                placeholder="Find..."
+              />
             </div>
 
             <div className={css.searchActions}>
-              {/* WIP Variabes Search */}
-              {/* <Button minimal className={css.applyChanges} text={getString('applyChanges')} onClick={noop} />
-              <Button minimal className={css.discard} text={getString('pipeline.discard')} onClick={noop} /> */}
+              <Button
+                intent="primary"
+                minimal
+                className={css.applyChanges}
+                text={getString('applyChanges')}
+                onClick={() => {
+                  updatePipelineView({
+                    ...pipelineView,
+                    isDrawerOpened: false,
+                    drawerData: { type: DrawerTypes.PipelineVariables }
+                  })
+                  onSearchInputChange?.('')
+                }}
+              />
+              <Button
+                intent="primary"
+                minimal
+                className={css.discard}
+                text={getString('pipeline.discard')}
+                onClick={() => {
+                  fetchPipeline({ forceFetch: true, forceUpdate: true })
+                }}
+              />
             </div>
           </div>
-          <div className={css.variableList}>
+          <div className={css.variableList} ref={pipelineVariablesRef as any}>
             <GitSyncStoreProvider>
               <NestedAccordionPanel
                 isDefaultOpen
-                key={'pipeline'}
-                id={'pipeline'}
+                key="pipeline"
+                id="pipeline"
                 addDomId
+                collapseProps={{
+                  keepChildrenMounted: true
+                }}
                 summary={<VariableAccordionSummary>{getString('common.pipeline')}</VariableAccordionSummary>}
                 summaryClassName={css.stageSummary}
                 detailsClassName={css.pipelineDetails}

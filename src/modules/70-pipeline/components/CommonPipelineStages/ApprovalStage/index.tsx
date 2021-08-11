@@ -9,7 +9,7 @@ import { ApprovalStage } from './ApprovalStage'
 const getStageAttributes = (_getString: UseStringsReturn['getString']): StageAttributes => ({
   name: 'Approval',
   type: StageType.APPROVAL,
-  icon: 'pipeline-approval',
+  icon: 'approval-stage-icon',
   iconColor: 'var(--pipeline-approval-stage-color)',
   isApproval: true,
   openExecutionStrategy: false

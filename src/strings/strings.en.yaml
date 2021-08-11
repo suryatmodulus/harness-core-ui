@@ -160,19 +160,13 @@ events: Events
 details: Details
 test: Test
 enable: Enable
-runTestsArgsInfo: The arguments to be passed to the buildTool. For maven, it will be a goal
 packagesLabel: Packages
-packagesInfo: 'List of source code package prefixes separated by comma. E.g. com.company., io.company., migrations.'
 testAnnotationsLabel: Test Annotations
-testAnnotationsInfo: 'List of test annotations used in unit testing. They should be separated by comma. Any method annotated with this will be treated as test method. The defaults are: org.junit.Test, org.junit.jupiter.api.Test, org.testng.annotations.Test'
 runOnlySelectedTestsLabel: Run only selected tests
 buildToolLabel: Build Tool
-buildToolInfo: Build automation tool
 languageLabel: Language
-languageInfo: The programming language of the source code to build
 reset: Reset
 archiveFormat: Archive Format
-archiveFormatInfo: Select archive format. Default is Tar
 failIfKeyNotFound: Fail If Key Doesn’t exist
 override: Override Cache
 pathStyle: Path Style
@@ -333,7 +327,6 @@ stageNameLabel: Stage Name
 stageName: 'Stage: {{ name }}'
 tagsLabel: Tags
 tagLabel: Tag
-tagsInfo: Specify one or more tags for the Docker image
 whatToDeploy: What would you like to deploy?
 removeLabel: 'remove'
 keyLabel: Key
@@ -345,11 +338,8 @@ activityLog: Activity Log
 selectAnExistingConnector: Select an existing Connector
 authentication: Authentication
 preCommandLabel: PreCommand
-preCommandInfo: Commands used for setting up the environment before running the tests
 postCommandLabel: PostCommand
-postCommandInfo: Commands used for cleaning up the environment after running the tests
 consoleView: Console View
-commandInfo: POSIX shell script executed inside the container. The script is invoked as if it were the container’s entrypoint.
 commandPlaceholder: |
   npm install
   npm test
@@ -365,16 +355,11 @@ variableNameLabel: Variable Name
 imageLabel: Image
 imagePlaceholder: maven:3.6.3-jdk-8
 pluginImagePlaceholder: plugins/slack
-pluginImageInfo: The name of the Plugin Docker image. The image name should include the tag and will default to the latest tag if unspecified. You can use any docker image from any docker registry, including docker images from private registries
 dependencyImagePlaceholder: mysql:5
-imageInfo: 'The name and tag of a Docker image to use in this stage. For example, a database container or a container to run integration tests on. Include the image name and tag. Harness will default to the latest tag if unspecified. You can use any Docker image from any public or private Docker registry.'
 imageNameLabel: Image Name
-imageNameInfo: The name of the image that will be pushed to the target container registry.
 encryptedKeyLabel: Encrypted Key
 environment: 'Environment'
 environmentVariables: 'Environment Variables'
-environmentVariablesInfo: Environment variables injected into the container to be used in the commands.
-dependencyEnvironmentVariablesInfo: Environment variables injected into the container
 service: 'Service'
 plusAdd: '+ Add'
 idLabel: 'ID: {{id}}'
@@ -383,9 +368,7 @@ descriptionLabel: 'Description: {{description}}'
 launchStudio: Launch Studio
 viewExecutions: View Executions
 entryPointLabel: 'Entry Point'
-entryPointInfo: 'Overrides the image ENTRYPOINT. Commands should be in exec form. Each command and parameter should be added separately. [Learn More](https://ngdocs.harness.io/article/vo4sjbd09g-configure-service-dependency-step-settings)'
 argsLabel: 'Arguments'
-argsInfo: Overrides the image COMMAND
 dependencyNameLabel: 'Dependency Name'
 cloneCodebaseLabel: 'Clone Codebase'
 allowedValues: 'Allowed values'
@@ -893,52 +876,26 @@ pipelineSteps:
   storeTypeRequired: 'Store Type is required.'
   addTerraformVarFile: 'Add Terraform Var File'
   connectorLabel: 'Container Registry'
-  connectorInfo: 'Container Registry to use to download the image use to run commands on'
-  dependencyConnectorInfo: 'Container registry to pull the service dependency image from'
-  gcrConnectorInfo: GCP connector to use for uploading the image to GCR
-  ecrConnectorInfo: AWS connector to use for uploading the image to ECR
-  s3ConnectorInfo: AWS connector to use for uploading the artifact(s) to S3
-  gcsConnectorInfo: GCP connector to use for uploading the artifact(s) to GCS
   hostLabel: Host
   hostPlaceholder: us.gcr.io
-  hostInfo: GCR Host
   projectIDLabel: Project ID
-  projectIDInfo: GCR Project ID
   cacheFromLabel: 'Cache From'
   autoTagLabel: 'Auto-Tag'
   autoTagSuffixLabel: 'Auto-Tag Suffix'
-  settingsInfo: Plugin specific settings. Please refer to the plugin's documentation page
-  dockerRegistryInfo: Docker registry. For example, "plugins/s3"
   dockerfileLabel: 'Dockerfile'
-  dockerfileInfo: If not provided assumed to be in the root folder of the codebase
   endpointLabel: 'Endpoint URL'
   endpointPlaceholder: http://minio.company.com
-  endpointInfo: Endpoint for S3 compatible providers (not needed for AWS).
   contextLabel: 'Context'
-  contextInfo: Context represents a directory containing a Dockerfile which kaniko will use to build your image. For example, a COPY command in your Dockerfile should refer to a file in the build context.
   labelsLabel: 'Labels'
-  labelsInfo: Use Labels to add metadata to the Docker image
   regionPlaceholder: us-east-1
-  regionInfo: AWS Region
-  accountInfo: AWS Account ID
   reportPathsLabel: Report Paths
-  reportPathsInfo: Enter paths to file(s) that store results in the JUnit XML format. Regex is supported.
   reportPathsPlaceholder: '**/*.xml'
   buildArgsLabel: 'Build Arguments'
-  buildArgsInfo: Build-time variables
   bucketLabel: 'Bucket'
-  bucketInfo: AWS Bucket
-  S3BucketInfo: S3 Bucket
-  GCSBucketInfo: GCS Bucket
   targetLabel: 'Target'
   artifactsTargetPlaceholder: path/in/bucket
-  targetInfo: Build the specified stage as defined inside the Dockerfile
-  artifactsTargetInfo: The path to store the cache in, relatively to the bucket. If not provided the cache will be save to [bucket]/
-  jFrogArtifactoryTargetInfo: Repository name relative to the server URL in the connector. If pom.xml is not present then target should be full path to artifacts folder (groupID/artifactID/version)
   outputVariablesLabel: 'Output Variables'
-  outputVariablesInfo: 'Output Variables can be used to expose Environment Variables to be used by other steps/stages of the pipeline'
   sourcePathLabel: 'Source Path'
-  sourcePathInfo: Use regex to upload multiple files
   optionalConfiguration: 'OPTIONAL CONFIGURATIONS'
   pullLabel: 'Image Pull Policy'
   pullInfo: |
@@ -952,14 +909,9 @@ pipelineSteps:
   pullAlwaysLabel: 'Always'
   sourcePathsLabel: 'Source Paths'
   sourcePathsInfo: 'A list of files. Expressions are supported. For example: target/*.jar'
-  cacheSourcePathsInfo: A list of files/folders to cache
   pomFileLabel: 'POM File'
   pomFileInfo: Path to the pom.xml file
   setContainerResources: 'Set container Resources'
-  setContainerResourcesTooltip: |
-    Resources limits allow setting maximum values for the resources the container is allowed to use at runtime.
-    Use “Limit Memory” to limit the memory that the container can use. Limits for memory are measured in bytes. You can express memory as a plain integer or as a fixed-point number using one of these suffixes: G, M. You can also use the power-of-two equivalents: Gi, Mi.
-    Use “Limit CPU” to limit the number of cores that the container can use. Limits for CPU resources are measured in cpu units. Fractional requests are allowed. The expression 0.1 is equivalent to the expression 100m, which can be read as "one hundred millicpu"
   limitMemoryLabel: 'Limit Memory'
   limitMemoryPlaceholder: '128Mi'
   limitCPULabel: 'Limit CPU'
@@ -981,23 +933,10 @@ pipelineSteps:
   deleteResourcesPlaceHolder: 'Specify resources to be delete'
   manifestPathsPlaceHolder: 'Specify file paths'
   deleteNamespaceWarning: 'Warning: Ensure that you are not deleting a namespace that is used by other deployments'
-  timeoutInfo: |
-    You can use:
-    w for weeks
-    d for days
-    h for hours
-    m for minutes
-    s for seconds
-    ms for milliseconds
   typeName: 'instanceType'
   awsConnectorLabel: AWS Connector
-  awsConnectorInfo: AWS connector to use for saving the cache to S3
-  restoreCacheAwsConnectorInfo: AWS connector to use for restoring the cache from S3
   gcpConnectorLabel: GCP Connector
-  gcpConnectorInfo: GCP connector to use for saving the cache to GCS
-  restoreCacheGcpConnectorInfo: GCP connector to use for restoring the cache from GCS
   dockerHubConnectorLabel: Docker Connector
-  dockerHubConnectorInfo: Docker Connector to use for uploading the image
   k8sRolloutDeploy: K8s Rollout Deploy
   k8sApply: K8s Apply
   k8sDelete: K8s Delete
@@ -1020,8 +959,6 @@ pipelineSteps:
   morethanHundred: 'Instance cannot be more than 100.'
   instancesRequired: 'Instance is required.'
   methodIsRequired: Method is required
-  keyInfo: The key the cache will be identified by. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
-  restoreCacheKeyInfo: The key that can be used to restore this cache. You can use the checksum macro to create a key that is based on a file’s checksum. For example, myApp-{ { checksum filePath1 } }
   build:
     delete:
       confirmDeleteTitle: 'Are you sure you want to remove this stage '
@@ -1029,7 +966,6 @@ pipelineSteps:
     create:
       aboutYourStage: 'About Your Stage'
       stageNameRequiredError: 'Stage Name is required'
-      cloneCodebaseHelperText: 'Unless disabled, Harness automatically clones your codebase repository before executing the steps of this stage'
       stageNameRegExpError: 'Stage Name can only contain alphanumerics, _ and $'
       stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'
       configureCodebase: 'Configure Codebase'
@@ -1043,7 +979,6 @@ pipelineSteps:
     stageSpecifications:
       variableNamePlaceholder: 'Enter Variable name'
       sharedPaths: 'Shared Paths'
-      sharedPathsInfo: 'By default, all of a stage’s steps use the same workspace to share data. If you need to share additional paths between steps, add Shared Paths.'
       addSharedPath: '+ Path'
       addDescription: 'description'
       addTags: 'tags'

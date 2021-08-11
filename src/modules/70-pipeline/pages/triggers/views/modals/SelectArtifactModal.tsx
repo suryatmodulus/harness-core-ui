@@ -9,7 +9,13 @@ import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory'
 import { PipelineVariablesContextProvider } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 
 import ArtifactTableInfo from '../subviews/ArtifactTableInfo'
-import { filterArtifact, getPathString, getTemplateObject } from '../../utils/TriggersWizardPageUtils'
+import {
+  clearRuntimeInputValue,
+  filterArtifact,
+  getPathString,
+  getTemplateObject,
+  replaceTriggerDefaultBuild
+} from '../../utils/TriggersWizardPageUtils'
 import css from './SelectArtifactModal.module.scss'
 
 interface SelectArtifactModalPropsInterface {
@@ -65,6 +71,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
     isManifest
   })
   const templateObject = getTemplateObject(filteredArtifact, [])
+  const artifactOrManifestText = isManifest
+    ? getString('manifestsText')
+    : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
 
   // const pathId = getPathString(runtimeData, selectedStage)
   return (
@@ -77,7 +86,9 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
           ? isManifest
             ? getString('pipeline.triggers.artifactTriggerConfigPanel.selectAManifest')
             : getString('pipeline.triggers.artifactTriggerConfigPanel.selectAnArtifact')
-          : getString('pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs')
+          : getString('pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs', {
+              artifact: artifactOrManifestText
+            })
       }
       onClose={closeAndReset}
     >
@@ -151,9 +162,17 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 const finalArtifact = merge({}, orginalArtifact, formFilteredArtifact)?.[
                   isManifest ? 'manifest' : 'artifact'
                 ]
+
+                if (finalArtifact?.spec?.chartVersion) {
+                  // hardcode manifest chart version to default
+                  finalArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
+                    chartVersion: finalArtifact.spec.chartVersion
+                  })
+                }
+
                 formikProps.setValues({
                   ...formikProps.values,
-                  selectedArtifact: finalArtifact,
+                  selectedArtifact: clearRuntimeInputValue(finalArtifact),
                   stageId: selectedStageId
                 })
 

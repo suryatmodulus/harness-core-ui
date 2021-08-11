@@ -2,3 +2,20 @@
   width: 540px;
   height: 290px;
 }
+
+.tooltipCard {
+  width: 100%;
+  padding-top: var(--spacing-small) !important;
+  .tooltipTimestamp {
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .tooltipEnvName {
+    overflow: hidden;
+    white-space: nowrap !important;
+    text-overflow: ellipsis;
+  }
+  .tooltipSeriesColor {
+    align-self: center;
+    border-radius: 16px;
+  }
+}

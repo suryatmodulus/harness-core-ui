@@ -47,6 +47,7 @@ throughput: Throughput
 responseTime: Response Time
 query: Query
 addNew: + Add New
+turnService: Turn service
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -538,6 +539,7 @@ monitoredServices:
   deleteMonitoredService: Delete Monitored Service
   monitoredServiceCreated: Monitoring Service created
   monitoredServiceUpdated: Monitoring Service updated
+  monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   serviceCount: Showing {{serviceCount}} Services
   riskLabel:
     lowRisk: Low risk

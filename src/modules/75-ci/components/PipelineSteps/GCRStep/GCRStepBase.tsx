@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -103,14 +102,11 @@ export const GCRStepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'gcrConnector' }}
+                >
                   {getString('pipelineSteps.gcpConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.gcrConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'Gcp'}
@@ -127,14 +123,8 @@ export const GCRStepBase = (
             <MultiTypeTextField
               name="spec.host"
               label={
-                <Text margin={{ top: 'small' }}>
+                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'gcrHost' }}>
                   {getString('pipelineSteps.hostLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.hostInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               multiTextInputProps={{
@@ -146,14 +136,8 @@ export const GCRStepBase = (
             <MultiTypeTextField
               name="spec.projectID"
               label={
-                <Text margin={{ top: 'small' }}>
+                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'gcrProjectID' }}>
                   {getString('pipelineSteps.projectIDLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.projectIDInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               multiTextInputProps={{
@@ -164,9 +148,8 @@ export const GCRStepBase = (
             <MultiTypeTextField
               name="spec.imageName"
               label={
-                <Text margin={{ top: 'small' }}>
+                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'imageName' }}>
                   {getString('imageNameLabel')}
-                  <Button icon="question" minimal tooltip={getString('imageNameInfo')} iconProps={{ size: 14 }} />
                 </Text>
               }
               multiTextInputProps={{
@@ -179,9 +162,8 @@ export const GCRStepBase = (
               multiTextInputProps={{ expressions }}
               multiTypeFieldSelectorProps={{
                 label: (
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'tags' }}>
                     {getString('tagsLabel')}
-                    <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 )
               }}
@@ -198,29 +180,16 @@ export const GCRStepBase = (
                       name="spec.optimize"
                       label={getString('ci.optimize')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.optimizeInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions
                       }}
                       disabled={readonly}
+                      tooltipProps={{ dataTooltipId: 'optimize' }}
                     />
                     <MultiTypeTextField
                       name="spec.dockerfile"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'dockerfile' }}>
                           {getString('pipelineSteps.dockerfileLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.dockerfileInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -231,14 +200,8 @@ export const GCRStepBase = (
                     <MultiTypeTextField
                       name="spec.context"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'context' }}>
                           {getString('pipelineSteps.contextLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.contextInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -251,14 +214,11 @@ export const GCRStepBase = (
                       valueMultiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'labels' }}
+                          >
                             {getString('pipelineSteps.labelsLabel')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.labelsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}
@@ -270,14 +230,11 @@ export const GCRStepBase = (
                       valueMultiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'buildArgs' }}
+                          >
                             {getString('pipelineSteps.buildArgsLabel')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.buildArgsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}
@@ -286,14 +243,8 @@ export const GCRStepBase = (
                     <MultiTypeTextField
                       name="spec.target"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'target' }}>
                           {getString('pipelineSteps.targetLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.targetInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -304,14 +255,8 @@ export const GCRStepBase = (
                     <MultiTypeTextField
                       name="spec.remoteCacheImage"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'gcrRemoteCache' }}>
                           {getString('ci.remoteCacheImage.label')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.remoteCacheImage.gcrInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{

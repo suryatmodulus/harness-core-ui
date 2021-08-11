@@ -28,7 +28,6 @@ import {
   getFilterAndEnvironmentValue,
   getEnvironmentOptions
 } from './CVMonitoredServiceListingPage.utils'
-import ToggleMonitoring from './component/toggleMonitoring/ToggleMonitoring'
 
 const ServiceCount = styled(Text)`
   padding-bottom: var(--spacing-xxlarge) !important;
@@ -95,15 +94,10 @@ function CVMonitoredServiceListingPage(): JSX.Element {
     }
   }
   const { content = [], pageSize = 0, pageIndex = 0, totalPages = 0, totalItems = 0 } = data?.data ?? ({} as any)
-  const RenderEditDelete: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
+  const MonitoredServiceActions: Renderer<CellProps<MonitoredServiceListItemDTO>> = ({ row }) => {
     const rowdata = row?.original
     return (
-      <Layout.Horizontal flex={{ justifyContent: 'space-around' }}>
-        <ToggleMonitoring
-          refetch={refetch}
-          identifier={rowdata?.identifier as string}
-          enable={!!rowdata?.healthMonitoringEnabled}
-        />
+      <Layout.Horizontal>
         <ContextMenuActions
           titleText={getString('cv.monitoredServices.deleteMonitoredService')}
           contentText={getString('cv.monitoredServices.deleteMonitoredServiceWarning') + `: ${rowdata.identifier}`}
@@ -117,6 +111,11 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 identifier: rowdata.identifier
               })
             )
+          }}
+          onToggleMonitoredServiceData={{
+            refetch,
+            identifier: rowdata?.identifier as string,
+            enabled: !!rowdata?.healthMonitoringEnabled
           }}
         />
       </Layout.Horizontal>
@@ -220,25 +219,15 @@ function CVMonitoredServiceListingPage(): JSX.Element {
         {content.length > 0 ? (
           <Table
             sortable={true}
-            onRowClick={rowdata => {
-              history.push(
-                routes.toCVAddMonitoringServicesEdit({
-                  accountId: params.accountId,
-                  projectIdentifier: params.projectIdentifier,
-                  orgIdentifier: params.orgIdentifier,
-                  identifier: rowdata.identifier
-                })
-              )
-            }}
             columns={[
               {
                 Header: getString('cv.monitoredServices.table.serviceName'),
-                width: '30%',
+                width: '20%',
                 Cell: RenderServiceName
               },
               {
                 Header: getString('cv.monitoredServices.table.lastestHealthTrend'),
-                width: '20%',
+                width: '30%',
                 Cell: RenderHealthTrend
               },
               {
@@ -252,9 +241,9 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 Cell: RenderTags
               },
               {
-                Header: getString('cv.monitoredServices.table.healthMonitoring'),
-                width: '20%',
-                Cell: RenderEditDelete
+                Header: getString('pipeline.triggers.triggerConfigurationPanel.actions'),
+                width: '15%',
+                Cell: MonitoredServiceActions
               }
             ]}
             data={content}

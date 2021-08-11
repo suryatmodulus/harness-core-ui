@@ -46,7 +46,7 @@ export interface HealthSourceDrawerInterface {
   serviceRef: string
   environmentRef: string
   monitoredServiceRef: MonitoredServiceRef
-  onSuccess: (data: MonitoredServiceResponse) => void
+  onSuccess: (data: MonitoredServiceResponse | UpdatedHealthSource) => void
   modalOpen: boolean
   createHeader: () => JSX.Element
   onClose: (val: any) => void

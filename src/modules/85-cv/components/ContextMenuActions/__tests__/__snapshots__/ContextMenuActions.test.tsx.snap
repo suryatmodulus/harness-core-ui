@@ -3,7 +3,7 @@
 exports[`ContextMenuActions matches snapshot 1`] = `
 <div>
   <span
-    class="bp3-popover-wrapper bp3-dark"
+    class="bp3-popover-wrapper"
   >
     <span
       class="bp3-popover-target"

@@ -21,7 +21,7 @@ export interface InfrastructureCardProps {
   stageIdentifier: string
   onUpdateInfrastructure(data: Infrastructure): void
   onUpdateInfrastructureProvisioner(data: ExecutionElementConfig): void
-
+  path?: string
   readonly?: boolean
 }
 
@@ -33,7 +33,8 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
     onUpdateInfrastructureProvisioner,
     stageIdentifier,
     metadataMap,
-    readonly
+    readonly,
+    path
   } = props
   const { stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
@@ -56,12 +57,13 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
         customStepProps={{
           stageIdentifier,
           metadataMap,
-          variablesData: infrastructure
+          variablesData: infrastructure,
+          path
         }}
       />
       {infrastructure.infrastructureDefinition && originalInfrastructure.infrastructureDefinition ? (
         <ExecutionCardPanel
-          id={`Stage.${stageIdentifier}.Provisioner`}
+          id={`${props.path}.Provisioner`}
           title={getString('common.provisioner')}
           execution={infrastructure.infrastructureDefinition.provisioner || ({} as any)}
           originalExecution={originalInfrastructure.infrastructureDefinition.provisioner || ({} as any)}
@@ -69,6 +71,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
           stageIdentifier={stageIdentifier}
           readonly={readonly}
           onUpdateExecution={onUpdateInfrastructureProvisioner}
+          path={`${props.path}.Provisioner`}
         />
       ) : /* istanbul ignore next */ null}
     </React.Fragment>
@@ -81,7 +84,7 @@ export function InfrastructureCardPanel(props: InfrastructureCardProps): React.R
     <NestedAccordionPanel
       isDefaultOpen
       addDomId
-      id={`Stage.${props.stageIdentifier}.Infrastructure`}
+      id={`${props.path}`}
       summary={<VariableAccordionSummary>{getString('infrastructureText')}</VariableAccordionSummary>}
       panelClassName={css.panel}
       summaryClassName={css.accordianSummaryL1}

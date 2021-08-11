@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -125,14 +124,8 @@ export const JFrogArtifactoryStepBase = (
             <MultiTypeTextField
               name="spec.target"
               label={
-                <Text>
+                <Text tooltipProps={{ dataTooltipId: 'jFrogArtifactoryTarget' }}>
                   {getString('pipelineSteps.targetLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.jFrogArtifactoryTargetInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               multiTextInputProps={{
@@ -144,15 +137,7 @@ export const JFrogArtifactoryStepBase = (
             <MultiTypeTextField
               name="spec.sourcePath"
               label={
-                <Text>
-                  {getString('pipelineSteps.sourcePathLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.sourcePathInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
+                <Text tooltipProps={{ dataTooltipId: 'sourcePath' }}>{getString('pipelineSteps.sourcePathLabel')}</Text>
               }
               multiTextInputProps={{
                 multiTextInputProps: { expressions },

@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -100,14 +99,11 @@ export const GCSStepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'gcsConnector' }}
+                >
                   {getString('pipelineSteps.gcpConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.gcsConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'Gcp'}
@@ -124,14 +120,8 @@ export const GCSStepBase = (
             <MultiTypeTextField
               name="spec.bucket"
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'gcsBucket' }}>
                   {getString('pipelineSteps.bucketLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               multiTextInputProps={{
@@ -143,15 +133,7 @@ export const GCSStepBase = (
             <MultiTypeTextField
               name="spec.sourcePath"
               label={
-                <Text>
-                  {getString('pipelineSteps.sourcePathLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.sourcePathInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
+                <Text tooltipProps={{ dataTooltipId: 'sourcePath' }}>{getString('pipelineSteps.sourcePathLabel')}</Text>
               }
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
@@ -167,14 +149,8 @@ export const GCSStepBase = (
                     <MultiTypeTextField
                       name="spec.target"
                       label={
-                        <Text>
+                        <Text tooltipProps={{ dataTooltipId: 'gcsS3Target' }}>
                           {getString('pipelineSteps.targetLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{

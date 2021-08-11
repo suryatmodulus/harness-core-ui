@@ -25,9 +25,9 @@ const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = 
 
       <AddConditionsSection
         title=""
-        key="headerConditions"
-        fieldId="headerConditions"
-        attributePlaceholder="<+trigger.header['key-name']>"
+        key="eventConditions"
+        fieldId="eventConditions"
+        attributePlaceholder="<+trigger.event.pathInJson>"
         formikValues={formikValues}
         setFieldValue={setFieldValue}
         errors={errors}

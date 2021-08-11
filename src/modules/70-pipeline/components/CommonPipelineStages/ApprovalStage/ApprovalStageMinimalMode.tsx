@@ -8,7 +8,7 @@ import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBui
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
 import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
-import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues, ApprovalType } from './types'
+import type { ApprovalStageMinimalModeProps, ApprovalStageMinimalValues } from './types'
 import { ApprovalTypeCards, approvalTypeCardsData } from './ApprovalTypeCards'
 
 import css from './ApprovalStageMinimalMode.module.scss'
@@ -18,7 +18,7 @@ const getInitialValues = (data?: StageElementWrapper<ApprovalStageElementConfig>
   name: data?.stage?.name || '',
   description: data?.stage?.description,
   tags: data?.stage?.tags || {},
-  approvalType: ((data?.stage?.spec as any)?.approvalType || approvalTypeCardsData[0].value) as ApprovalType
+  approvalType: (data?.stage?.spec as any)?.approvalType || approvalTypeCardsData[0].value
 })
 
 export const ApprovalStageMinimalMode: React.FC<ApprovalStageMinimalModeProps> = props => {

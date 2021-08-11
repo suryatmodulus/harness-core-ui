@@ -1,5 +1,5 @@
-import React, { useMemo, useCallback, useState, useRef, useEffect } from 'react'
-import { Container, Text, Color, Select } from '@wings-software/uicore'
+import React, { useMemo, useCallback, useState, useRef } from 'react'
+import { Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
@@ -13,7 +13,7 @@ import type {
   CompareLogEventsInfo,
   LogAnalysisRowData
 } from './LogAnalysisRow.types'
-import { getClusterTypes, getEventTypeFromClusterType } from './LogAnalysisRow.utils'
+import { getEventTypeFromClusterType } from './LogAnalysisRow.utils'
 import css from './LogAnalysisRow.module.scss'
 
 function ColumnHeaderRow(): JSX.Element {
@@ -107,17 +107,8 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
 }
 
 export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
-  const { data = [], fetchLogsDataForCluster } = props
+  const { data = [] } = props
   const [dataToCompare, setDataToCompare] = useState<CompareLogEventsInfo[]>([])
-  const [selectedClusterType, setSelectedClusterType] = useState<string>('')
-  const { getString } = useStrings()
-
-  useEffect(() => {
-    if (selectedClusterType) {
-      fetchLogsDataForCluster(selectedClusterType)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedClusterType])
 
   const onCompareSelectCallback = useCallback(
     (isSelect: boolean, selectedData: LogAnalysisRowData, index: number) => {
@@ -136,12 +127,6 @@ export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
 
   return (
     <Container className={cx(css.main, props.className)}>
-      <Select
-        items={getClusterTypes(getString)}
-        className={css.clusterTypeFilter}
-        inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
-        onChange={item => setSelectedClusterType(item.value as string)}
-      />
       <ColumnHeaderRow />
       <Container className={css.dataContainer}>
         {data.map((row, index) => {

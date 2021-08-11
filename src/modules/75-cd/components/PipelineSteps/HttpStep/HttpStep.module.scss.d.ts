@@ -5,7 +5,6 @@ declare const styles: {
   readonly headerRow: string
   readonly responseMappingRow: string
   readonly label: string
-  readonly variablesList: string
   readonly requestBody: string
 }
 export default styles

@@ -28,10 +28,11 @@ export interface StageCardProps {
   originalStage: StageElementConfig
   metadataMap: PipelineVariablesData['metadataMap']
   readonly?: boolean
+  path?: string
 }
 
 export default function StageCard(props: StageCardProps): React.ReactElement {
-  const { stage, originalStage, metadataMap, readonly } = props
+  const { stage, originalStage, metadataMap, readonly, path } = props
   const { updateStage, stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
   const stageSpec = stage.spec as DeploymentStageConfig
@@ -40,8 +41,11 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
   return (
     <NestedAccordionPanel
       isDefaultOpen
-      key={originalStage.identifier}
-      id={`Stage.${originalStage.identifier}`}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
+      key={`${path}.${originalStage.identifier}`}
+      id={`${path}.${originalStage.identifier}`}
       addDomId
       summary={
         <VariableAccordionSummary>
@@ -64,8 +68,8 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
             <React.Fragment>
               <NestedAccordionPanel
                 isDefaultOpen
-                key={`${originalStage.identifier}.variables`}
-                id={`Stage.${originalStage.identifier}.variables`}
+                key={`${path}.variables`}
+                id={`${path}.variables`}
                 addDomId
                 summary={
                   <VariableAccordionSummary>
@@ -93,6 +97,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       domId: `Stage.${originalStage.identifier}.Variables-panel`,
                       className: cx(css.customVariables, css.customVarPadL1),
                       // heading: <b>{getString('customVariables.title')}</b>,
+                      path: `${path}.customVariables`,
                       yamlProperties: (defaultTo(stage.variables, []) as AllNGVariables[]).map?.(
                         variable =>
                           metadataMap[variable.value || /* istanbul ignore next */ '']?.yamlProperties ||
@@ -112,6 +117,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       metadataMap={metadataMap}
                       readonly={readonly}
                       stageIdentifier={originalStage.identifier}
+                      path={`${path}.${originalStage.identifier}`}
                       onUpdateServiceConfig={serviceSpec => {
                         updateStage(
                           produce(originalStage, draft => {
@@ -136,6 +142,7 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
                       readonly={readonly}
+                      path={`${path}.${originalStage.identifier}.Infrastructure`}
                       onUpdateInfrastructure={infrastructure => {
                         updateStage(
                           produce(originalStage, draft => {
@@ -154,13 +161,14 @@ export default function StageCard(props: StageCardProps): React.ReactElement {
                   ) : /* istanbul ignore next */ null}
                   {stageSpec.execution && originalSpec.execution ? (
                     <ExecutionCardPanel
-                      id={`Stage.${originalStage.identifier}.Execution`}
+                      id={`${path}.${originalStage.identifier}.Execution`}
                       title={getString('executionText')}
                       execution={stageSpec.execution}
                       originalExecution={originalSpec.execution}
                       metadataMap={metadataMap}
                       stageIdentifier={originalStage.identifier}
                       readonly={readonly}
+                      path={`${path}.${originalStage.identifier}.Execution`}
                       onUpdateExecution={execution => {
                         updateStage(
                           produce(originalStage, draft => {

@@ -5,9 +5,8 @@ import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-// import { MinimalLayout } from '@common/layouts'
+import { MinimalLayout } from '@common/layouts'
 
-import { HomeSideNavProps } from '@common/RouteDestinations'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import DashboardResourceModalBody from '@dashboards/components/DashboardResourceModalBody/DashbaordResourceModalBody'
@@ -51,24 +50,17 @@ export default (
       <RedirectToHome />
     </Route>
     <RouteWithLayout
-      // layout={MinimalLayout}
-      sidebarProps={HomeSideNavProps}
+      layout={MinimalLayout}
       exact
       path={routes.toCustomDashboardHome({ ...accountPathProps, folderId: ':folderId' })}
     >
       <HomePage />
     </RouteWithLayout>
-    <RouteWithLayout
-      // layout={MinimalLayout}
-      sidebarProps={HomeSideNavProps}
-      path={routes.toCustomFolderHome({ ...accountPathProps })}
-      exact
-    >
+    <RouteWithLayout layout={MinimalLayout} path={routes.toCustomFolderHome({ ...accountPathProps })} exact>
       <FoldersPage />
     </RouteWithLayout>
     <RouteWithLayout
-      // layout={MinimalLayout}
-      sidebarProps={HomeSideNavProps}
+      layout={MinimalLayout}
       path={routes.toViewCustomDashboard({ ...accountPathProps, ...viewPathProps })}
       exact
     >

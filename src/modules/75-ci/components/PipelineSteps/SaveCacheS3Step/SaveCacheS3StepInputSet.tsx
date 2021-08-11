@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -43,14 +43,11 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'saveCacheS3Connector' }}
+            >
               {getString('pipelineSteps.awsConnectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.awsConnectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={'Aws'}
@@ -74,14 +71,8 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'region' }}>
               {getString('regionLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.regionInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -100,14 +91,8 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.bucket`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 's3Bucket' }}>
               {getString('pipelineSteps.bucketLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.S3BucketInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -125,9 +110,8 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.key`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'saveCacheKey' }}>
               {getString('keyLabel')}
-              <Button icon="question" minimal tooltip={getString('pipelineSteps.keyInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -145,14 +129,11 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           name={`${isEmpty(path) ? '' : `${path}.`}spec.sourcePaths`}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'saveCacheSourcePaths' }}
+              >
                 {getString('pipelineSteps.sourcePathsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.cacheSourcePathsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -170,14 +151,8 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.endpoint`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'endpoint' }}>
               {getString('pipelineSteps.endpointLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.endpointInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -196,9 +171,8 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.archiveFormat`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'archiveFormat' }}>
               {getString('archiveFormat')}
-              <Button icon="question" minimal tooltip={getString('archiveFormatInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTypeInputProps={{
@@ -230,20 +204,13 @@ export const SaveCacheS3StepInputSet: React.FC<SaveCacheS3StepProps> = ({ templa
           name={`${isEmpty(path) ? '' : `${path}.`}spec.pathStyle`}
           label={getString('pathStyle')}
           multiTypeTextbox={{
-            children: (
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('ci.pipelineSteps.failIfKeyNotFoundInfo')}
-                iconProps={{ size: 14 }}
-              />
-            ),
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
             disabled: readonly
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
           setToFalseWhenEmpty={true}
+          tooltipProps={{ dataTooltipId: 'pathStyle' }}
         />
       )}
       <StepCommonFieldsInputSet path={path} readonly={readonly} template={template} />

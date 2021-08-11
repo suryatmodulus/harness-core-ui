@@ -73,7 +73,7 @@ exports[`Role Details Page render data 1`] = `
         <input
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
-          placeholder="rbac.usersPage.search"
+          placeholder="common.searchPlaceholder"
           style="padding-right: 36px;"
           type="search"
           value=""

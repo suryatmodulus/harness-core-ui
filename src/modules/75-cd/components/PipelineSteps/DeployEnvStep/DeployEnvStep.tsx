@@ -11,7 +11,8 @@ import {
   useModalHook,
   Container,
   ThumbnailSelect,
-  Label
+  Label,
+  FormikForm
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
@@ -392,76 +393,78 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           formikRef.current = formik
           const { values, setFieldValue } = formik
           return (
-            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-              <FormInput.MultiTypeInput
-                label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
-                tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
-                name="environmentRef"
-                disabled={readonly}
-                useValue
-                placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
-                multiTypeInputProps={{
-                  onTypeChange: setType,
-                  width: 300,
-                  onChange: val => {
-                    if (
-                      values.environment?.identifier &&
-                      (val as SelectOption).value !== values.environment.identifier
-                    ) {
-                      setEnvironments(environments.filter(env => env.value !== values.environment?.identifier))
-                      setFieldValue('environment', undefined)
-                    }
-                  },
-                  selectProps: {
-                    addClearBtn: !readonly,
-                    items: environments
-                  },
-                  expressions
-                }}
-                selectItems={environments}
-              />
-              {type === MultiTypeInputType.FIXED && (
-                <Button
-                  minimal
-                  intent="primary"
-                  disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
-                  onClick={() => {
-                    const isEdit = isEditEnvironment(values)
-                    if (isEdit) {
-                      if (values.environment?.identifier) {
-                        setState({
-                          isEdit,
-                          formik,
-                          isEnvironment: true,
-                          data: values.environment
-                        })
+            <FormikForm>
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                <FormInput.MultiTypeInput
+                  label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+                  tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
+                  name="environmentRef"
+                  disabled={readonly}
+                  useValue
+                  placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
+                  multiTypeInputProps={{
+                    onTypeChange: setType,
+                    width: 300,
+                    onChange: val => {
+                      if (
+                        values.environment?.identifier &&
+                        (val as SelectOption).value !== values.environment.identifier
+                      ) {
+                        setEnvironments(environments.filter(env => env.value !== values.environment?.identifier))
+                        setFieldValue('environment', undefined)
+                      }
+                    },
+                    selectProps: {
+                      addClearBtn: !readonly,
+                      items: environments
+                    },
+                    expressions
+                  }}
+                  selectItems={environments}
+                />
+                {type === MultiTypeInputType.FIXED && (
+                  <Button
+                    minimal
+                    intent="primary"
+                    disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
+                    onClick={() => {
+                      const isEdit = isEditEnvironment(values)
+                      if (isEdit) {
+                        if (values.environment?.identifier) {
+                          setState({
+                            isEdit,
+                            formik,
+                            isEnvironment: true,
+                            data: values.environment
+                          })
+                        } else {
+                          setState({
+                            isEdit,
+                            formik,
+                            isEnvironment: false,
+                            data: environmentsResponse?.data?.content?.filter(
+                              env => env.environment?.identifier === values.environmentRef
+                            )?.[0]?.environment as EnvironmentResponseDTO
+                          })
+                        }
                       } else {
                         setState({
-                          isEdit,
-                          formik,
+                          isEdit: false,
                           isEnvironment: false,
-                          data: environmentsResponse?.data?.content?.filter(
-                            env => env.environment?.identifier === values.environmentRef
-                          )?.[0]?.environment as EnvironmentResponseDTO
+                          formik
                         })
                       }
-                    } else {
-                      setState({
-                        isEdit: false,
-                        isEnvironment: false,
-                        formik
-                      })
+                      showModal()
+                    }}
+                    text={
+                      isEditEnvironment(values)
+                        ? getString('editEnvironment')
+                        : getString('pipelineSteps.environmentTab.newEnvironment')
                     }
-                    showModal()
-                  }}
-                  text={
-                    isEditEnvironment(values)
-                      ? getString('editEnvironment')
-                      : getString('pipelineSteps.environmentTab.newEnvironment')
-                  }
-                />
-              )}
-            </Layout.Horizontal>
+                  />
+                )}
+              </Layout.Horizontal>
+            </FormikForm>
           )
         }}
       </Formik>

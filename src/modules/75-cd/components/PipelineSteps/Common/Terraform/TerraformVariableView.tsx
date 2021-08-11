@@ -5,6 +5,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import { TerraformData, TerraformVariableStepProps, TerraformStoreTypes } from './TerraformInterfaces'
 import { ConfigVariables } from './Variableview/ConfigSection'
 import css from './TerraformStep.module.scss'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 export function TerraformVariableStep(props: TerraformVariableStepProps): React.ReactElement {
   const { variablesData = {} as TerraformData, metadataMap, initialValues } = props
@@ -18,6 +19,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
           data={variablesData.spec?.provisionerIdentifier}
           originalData={initialValues.spec?.provisionerIdentifier}
           metadataMap={metadataMap}
+          className={pipelineVariableCss.variablePaddingL2}
         />
         <ConfigVariables {...props} />
 
@@ -28,6 +30,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
               data={variablesData.spec?.configuration?.spec?.backendConfig?.spec}
               originalData={initialValues.spec?.configuration?.spec?.backendConfig?.spec}
               metadataMap={metadataMap}
+              className={pipelineVariableCss.variablePaddingL2}
             />
           </>
         )}
@@ -41,6 +44,7 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
               data={variablesData.spec?.configuration?.spec?.environmentVariables?.[index]}
               originalData={initialValues.spec?.configuration?.spec?.environmentVariables?.[index]}
               metadataMap={metadataMap}
+              className={pipelineVariableCss.variablePaddingL2}
             />
           )
         })}
@@ -49,12 +53,18 @@ export function TerraformVariableStep(props: TerraformVariableStepProps): React.
   } else if (initialValues?.spec?.configuration?.type !== TerraformStoreTypes.Inline) {
     return (
       <>
-        <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+        <VariablesListTable
+          className={pipelineVariableCss.variablePaddingL2}
+          data={variablesData.spec}
+          originalData={initialValues.spec}
+          metadataMap={metadataMap}
+        />
 
         <VariablesListTable
           data={variablesData.spec?.configuration?.type}
           originalData={initialValues.spec?.configuration?.type}
           metadataMap={metadataMap}
+          className={pipelineVariableCss.variablePaddingL2}
         />
       </>
     )

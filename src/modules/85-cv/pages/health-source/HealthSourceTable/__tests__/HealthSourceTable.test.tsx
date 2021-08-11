@@ -57,7 +57,6 @@ describe('HealthSource table', () => {
           isEdit={true}
           value={HealthSourceList}
           onSuccess={healthSourceTableProps.onSuccess}
-          onDelete={healthSourceTableProps.onDelete}
           serviceRef={healthSourceTableProps.serviceRef}
           environmentRef={healthSourceTableProps.environmentRef}
           monitoredServiceRef={healthSourceTableProps.monitoredServiceRef}

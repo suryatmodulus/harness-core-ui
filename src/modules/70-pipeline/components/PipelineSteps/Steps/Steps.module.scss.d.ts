@@ -14,6 +14,7 @@ declare const styles: {
   readonly code: string
   readonly divider: string
   readonly noLookDivider: string
+  readonly stepSubSectionHeading: string
   readonly fieldsSection: string
   readonly fieldsGroup: string
   readonly withoutSpacing: string

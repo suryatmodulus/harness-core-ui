@@ -63,5 +63,14 @@ export const numberFormatter: (value?: number, options?: NumberFormatterOptions)
       }
     }
   }
-  return `${value % 1 === 0 ? value : value.toFixed(1)}`
+  return `${getFixed(value)}`
 }
+
+export const getFixed = (value: number, places = 1): number => {
+  if (value % 1 === 0) {
+    return value
+  }
+  return parseFloat(value.toFixed(places))
+}
+
+export const INVALID_CHANGE_RATE = -10000

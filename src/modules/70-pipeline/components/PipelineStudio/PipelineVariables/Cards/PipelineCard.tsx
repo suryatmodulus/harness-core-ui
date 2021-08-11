@@ -41,8 +41,8 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
 
       <NestedAccordionPanel
         isDefaultOpen
-        key={`${variablePipeline.identifier}.variables`}
-        id={`pipeline.${variablePipeline.identifier}.variables`}
+        key={`pipeline.variables`}
+        id={`pipeline.variables`}
         addDomId
         summary={<VariableAccordionSummary>{getString('customVariables.title')}</VariableAccordionSummary>}
         summaryClassName={css.variableBorderBottom}
@@ -61,6 +61,7 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
               domId: 'Pipeline.Variables-panel',
               className: cx(css.customVariables, css.customVarPadL1),
               // heading: <b>{getString('customVariables.title')}</b>,
+              path: 'pipeline.variables',
               yamlProperties: (variablePipeline.variables as AllNGVariables[])?.map(
                 variable => metadataMap[variable.value || '']?.yamlProperties || {}
               )

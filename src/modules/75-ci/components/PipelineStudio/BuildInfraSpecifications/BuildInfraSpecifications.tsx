@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion, Button } from '@wings-software/uicore'
+import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@wings-software/uicore'
 import { isEmpty, isUndefined, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -70,12 +70,17 @@ const getValidationSchema = (getString?: UseStringsReturn['getString']): yup.Sch
   yup.object().shape({
     connectorRef: yup.mixed().when(['useFromStage'], {
       is: isEmpty,
-      then: yup.mixed().required(),
+      then: yup.mixed().required(getString?.('fieldRequired', { field: getString?.('connectors.title.k8sCluster') })),
       otherwise: yup.mixed()
     }),
     namespace: yup.string().when(['useFromStage'], {
       is: isEmpty,
-      then: yup.string().trim().required(),
+      then: yup
+        .string()
+        .trim()
+        .required(
+          getString?.('fieldRequired', { field: getString?.('pipelineSteps.build.infraSpecifications.namespace') })
+        ),
       otherwise: yup.string().nullable()
     }),
     runAsUser: yup.string().test(
@@ -236,9 +241,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           set(draft, 'stage.spec.infrastructure', {
             type: 'KubernetesDirect',
             spec: {
-              // Avoid accidental overrides for connectorRef
               connectorRef:
-                values?.connectorRef?.value ??
+                values?.connectorRef?.value ||
+                values?.connectorRef ||
                 (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
               namespace: values.namespace,
               serviceAccountName: values.serviceAccountName,
@@ -428,20 +433,18 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             name="connectorRef"
                             label={''}
                             placeholder={getString('select')}
-                            disabled={isReadonly}
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
                             gitScope={gitScope}
+                            multiTypeProps={{ expressions, disabled: isReadonly }}
                           />
-                          <Text font="small" margin={{ bottom: 'xsmall' }}>
+                          <Text
+                            font="small"
+                            margin={{ bottom: 'xsmall' }}
+                            tooltipProps={{ dataTooltipId: 'namespace' }}
+                          >
                             {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipeline.namespaceTooltip')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                           <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                             <FormInput.MultiTextInput
@@ -449,7 +452,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               name={'namespace'}
                               placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
                               style={{ width: 300 }}
-                              multiTextInputProps={{ disabled: isReadonly }}
+                              multiTextInputProps={{ expressions, disabled: isReadonly }}
                             />
                           </div>
                           <FormInput.MultiTextInput
@@ -461,7 +464,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               marginTop: 'var(--spacing-small)',
                               marginBottom: 'var(--spacing-xsmall)'
                             }}
-                            multiTextInputProps={{ disabled: isReadonly }}
+                            multiTextInputProps={{ expressions, disabled: isReadonly }}
                           />
                           <MultiTypeTextField
                             label={
@@ -481,14 +484,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             name="initTimeout"
                             multiTypeDurationProps={{ expressions }}
                             label={
-                              <Text flex={{ justifyContent: 'start' }} font="small">
+                              <Text
+                                flex={{ justifyContent: 'start' }}
+                                font="small"
+                                tooltipProps={{ dataTooltipId: 'timeout' }}
+                              >
                                 {getString('pipeline.infraSpecifications.initTimeout')}
-                                <Button
-                                  icon="question"
-                                  minimal
-                                  tooltip={getString('pipelineSteps.timeoutInfo')}
-                                  iconProps={{ size: 14 }}
-                                />
                               </Text>
                             }
                             disabled={isReadonly}
@@ -539,20 +540,14 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           placeholder={getString(
                             'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
                           )}
-                          disabled={isReadonly}
                           accountIdentifier={accountId}
                           projectIdentifier={projectIdentifier}
                           orgIdentifier={orgIdentifier}
                           gitScope={gitScope}
+                          multiTypeProps={{ expressions, disabled: isReadonly }}
                         />
-                        <Text margin={{ bottom: 'xsmall' }}>
+                        <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}>
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipeline.namespaceTooltip')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                           <MultiTypeTextField
@@ -606,14 +601,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                 name="initTimeout"
                                 multiTypeDurationProps={{ expressions }}
                                 label={
-                                  <Text flex={{ justifyContent: 'start' }}>
+                                  <Text flex={{ justifyContent: 'start' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
                                     {getString('pipeline.infraSpecifications.initTimeout')}
-                                    <Button
-                                      icon="question"
-                                      minimal
-                                      tooltip={getString('pipelineSteps.timeoutInfo')}
-                                      iconProps={{ size: 14 }}
-                                    />
                                   </Text>
                                 }
                                 disabled={isReadonly}

@@ -85,7 +85,7 @@ const Roles: React.FC = () => {
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
               alwaysExpanded
-              placeholder={getString('rbac.usersPage.search')}
+              placeholder={getString('common.searchPlaceholder')}
               onChange={text => {
                 setSearchTerm(text.trim())
               }}

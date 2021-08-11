@@ -117,10 +117,23 @@ export interface FormMultiTypeDurationProps extends Omit<IFormGroupProps, 'label
   multiTypeDurationProps?: Omit<MultiTypeDurationProps, 'name' | 'onChange' | 'value'>
   onChange?: MultiTypeDurationProps['onChange']
   tooltipProps?: DataTooltipInterface
+  isOptional?: boolean
 }
 
 export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.ReactElement {
-  const { label, multiTypeDurationProps, formik, name, onChange, skipErrorsIf, ...restProps } = props
+  const {
+    label,
+    multiTypeDurationProps,
+    formik,
+    name,
+    onChange,
+    skipErrorsIf,
+    isOptional = false,
+    ...restProps
+  } = props
+  const { getString } = useStrings()
+  const optionalLabel = getString('common.optionalLabel')
+  const labelText = !isOptional ? label : `${label} ${optionalLabel}`
   const hideErrors = typeof skipErrorsIf === 'function' ? skipErrorsIf(formik) : false
   const hasError = !hideErrors && errorCheck(name, formik)
 
@@ -177,7 +190,9 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
       helperText={helperText}
       intent={intent}
       disabled={disabled}
-      label={label ? <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={label} /> : label}
+      label={
+        labelText ? <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={labelText} /> : labelText
+      }
     >
       <MultiTypeDuration {...customProps} value={value} onChange={handleChange} disabled={disabled} />
     </FormGroup>

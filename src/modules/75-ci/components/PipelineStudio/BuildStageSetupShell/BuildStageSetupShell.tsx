@@ -30,7 +30,7 @@ import css from './BuildStageSetupShell.module.scss'
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Deployment: 'pipeline-deploy',
   CI: 'pipeline-build-select',
-  Approval: 'pipeline-approval',
+  Approval: 'approval-stage-icon',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
 }

@@ -74,7 +74,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
           activeClassName={css.activeLink}
         >
           <Icon name="alignment-vertical-center" size={16} />
-          <span>{getString('pipelines')}</span>
+          <span>{getString('common.pipeline')}</span>
         </NavLink>
         <NavLink
           to={routes.toExecutionInputsView(params) + location.search}

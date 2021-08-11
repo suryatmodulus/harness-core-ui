@@ -92,3 +92,4 @@ serviceDashboard:
   artifact: artifact
   totalPipelines: Total Pipelines
   noPipelines: No pipeline execution in {{timeRange}} matches the given criteria
+  envName: Env Name

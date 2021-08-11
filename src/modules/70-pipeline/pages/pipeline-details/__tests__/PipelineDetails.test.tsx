@@ -27,7 +27,11 @@ jest.mock('services/cd-ng', () => ({
   })
 }))
 
-const TEST_PATH = routes.toPipelineDetail({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })
+const NOT_PIPELINE_STUDIO_PATH = routes.toPipelineDetail({
+  ...accountPathProps,
+  ...pipelinePathProps,
+  ...pipelineModuleParams
+})
 const PIPELINE_STUDIO_PATH = routes.toPipelineStudio({
   ...accountPathProps,
   ...pipelinePathProps,
@@ -36,9 +40,9 @@ const PIPELINE_STUDIO_PATH = routes.toPipelineStudio({
 
 describe('Pipeline Details tests', () => {
   test('render snapshot view for non pipeline studio route', async () => {
-    const { container } = render(
+    const { container, getByTestId } = render(
       <TestWrapper
-        path={TEST_PATH}
+        path={NOT_PIPELINE_STUDIO_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -51,14 +55,13 @@ describe('Pipeline Details tests', () => {
         <PipelineDetails />
       </TestWrapper>
     )
-    const pipelineStudioDivs = document.getElementsByClassName('pipelineStudio')
-    // pipelineStudio class should not be there
-    expect(pipelineStudioDivs).toHaveLength(0)
+    const notPipelineStudio = getByTestId('not-pipeline-studio')
+    expect(notPipelineStudio).toBeTruthy()
     expect(container).toMatchSnapshot()
   })
 
-  test('pipelineStudio class should be there when pipeline studio is visited', () => {
-    render(
+  test('pipelineStudio should be rendered pipeline studio is visited', () => {
+    const { getByTestId } = render(
       <TestWrapper
         path={PIPELINE_STUDIO_PATH}
         pathParams={{
@@ -73,8 +76,7 @@ describe('Pipeline Details tests', () => {
         <PipelineDetails />
       </TestWrapper>
     )
-
-    const pipelineStudioDivs = document.getElementsByClassName('pipelineStudio')
-    expect(pipelineStudioDivs).toHaveLength(1)
+    const pipelineStudio = getByTestId('pipeline-studio')
+    expect(pipelineStudio).toBeTruthy()
   })
 })

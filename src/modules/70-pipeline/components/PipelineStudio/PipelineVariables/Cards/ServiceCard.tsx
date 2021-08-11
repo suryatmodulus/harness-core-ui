@@ -23,6 +23,7 @@ export interface ServiceCardProps {
   stageIdentifier: string
   onUpdateServiceConfig(data: ServiceSpec): void
   readonly?: boolean
+  path?: string
 }
 
 export function ServiceCard(props: ServiceCardProps): React.ReactElement {
@@ -46,7 +47,8 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
         customStepProps={{
           stageIdentifier,
           metadataMap,
-          variablesData: serviceConfig.serviceDefinition?.spec
+          variablesData: serviceConfig.serviceDefinition?.spec,
+          path: props.path
         }}
       />
     </React.Fragment>
@@ -60,11 +62,11 @@ export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
     <NestedAccordionPanel
       isDefaultOpen
       addDomId
-      id={`Stage.${props.stageIdentifier}.Service`}
+      id={`${props.path}.Service`}
       summary={<VariableAccordionSummary>{getString('service')}</VariableAccordionSummary>}
       panelClassName={css.panel}
       summaryClassName={css.accordianSummaryL1}
-      details={<ServiceCard {...props} />}
+      details={<ServiceCard {...props} path={`${props.path}.Service`} />}
     />
   )
 }

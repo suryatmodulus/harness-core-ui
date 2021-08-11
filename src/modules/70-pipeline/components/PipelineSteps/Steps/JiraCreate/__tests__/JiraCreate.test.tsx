@@ -170,16 +170,20 @@ describe('Jira Create tests', () => {
     expect(queryByDisplayValue('1d')).toBeTruthy()
     expect(queryByDisplayValue('pid1')).toBeTruthy()
     expect(queryByDisplayValue('itd1')).toBeTruthy()
+    expect(queryByDisplayValue('summaryval')).toBeTruthy()
 
     fireEvent.click(getByText('common.optionalConfig'))
-    fireEvent.change(getByPlaceholderText('pipeline.jiraCreateStep.summaryPlaceholder'), {
-      target: { value: 'summary' }
-    })
+
+    // Check if summary abd other fields are populated
     expect(queryByDisplayValue('value1')).toBeTruthy()
     expect(queryByDisplayValue('2233')).toBeTruthy()
     expect(queryByDisplayValue('23-march')).toBeTruthy()
-    expect(queryByDisplayValue('summaryval')).toBeNull()
 
+    fireEvent.change(getByPlaceholderText('pipeline.jiraCreateStep.summaryPlaceholder'), {
+      target: { value: 'summary' }
+    })
+
+    // Open the fields selector dialog
     act(() => {
       fireEvent.click(getByText('pipeline.jiraCreateStep.fieldSelectorAdd'))
     })
@@ -188,36 +192,46 @@ describe('Jira Create tests', () => {
     const dialogContainer = document.body.querySelector('.bp3-portal')
     const icon = dialogContainer?.querySelectorAll('[icon="chevron-down"]')
 
-    // Project dropdown
+    // select project
     fireEvent.click(icon![0])
     fireEvent.click(getByText('p1'))
 
+    // select issue type
     fireEvent.click(icon![1])
     fireEvent.click(getByText('it1'))
 
+    // Click the new custom field
     fireEvent.click(getByText('f1'))
 
+    // Add the field to jira create form
     const button = dialogContainer?.querySelector('.bp3-button-text')
     fireEvent.click(button!)
 
-    // The selected field is now added to the main form
+    // The selected field should be now added to the main form
     expect(queryByPlaceholderText('f1')).toBeTruthy()
 
+    // Open the fields selector dialog again
     act(() => {
       fireEvent.click(getByText('pipeline.jiraCreateStep.fieldSelectorAdd'))
     })
-    const provideFieldListElement = getByText('pipeline.jiraCreateStep.provideFieldList')
-    fireEvent.click(provideFieldListElement)
+    // Click on provide field list option - to add KV pairs
+    fireEvent.click(getByText('pipeline.jiraCreateStep.provideFieldList'))
 
     const dialogContainerPostUpdate = document.body.querySelector('.bp3-portal')
     act(() => {
       fireEvent.click(getByText('Field'))
     })
-    fireEvent.change(getByPlaceholderText('pipeline.keyPlaceholder'), { target: { value: 'issueKey1' } })
-    fireEvent.change(getByPlaceholderText('common.valuePlaceholder'), { target: { value: 'issueKey1Value' } })
-    const addButton = dialogContainerPostUpdate?.querySelector('.bp3-button-text')
+    // add the new KV pair inside the dialog container
+    const keyDiv = dialogContainerPostUpdate?.querySelector('input[name="fieldList[0].name"]')
+    fireEvent.change(keyDiv!, { target: { value: 'issueKey1' } })
+    const valueDiv = dialogContainerPostUpdate?.querySelector('input[name="fieldList[0].value"]')
+    fireEvent.change(valueDiv!, { target: { value: 'issueKey1Value' } })
+
+    // Add the field to form
+    const addButton = dialogContainerPostUpdate?.querySelector('button[type="submit"]')
     fireEvent.click(addButton!)
 
+    // the new kv pair should now be visible in the main form
     expect(queryByDisplayValue('issueKey1')).toBeTruthy()
     expect(queryByDisplayValue('issueKey1Value')).toBeTruthy()
     await act(() => ref.current?.submitForm())
@@ -235,7 +249,8 @@ describe('Jira Create tests', () => {
           { name: 'f1', value: '' },
           { name: 'f21', value: 'value1' },
           { name: 'f2', value: 2233 },
-          { name: 'date', value: '23-march' }
+          { name: 'date', value: '23-march' },
+          { name: 'issueKey1', value: 'issueKey1Value' }
         ]
       },
       name: 'jira createe step'

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
-import { Container } from '@wings-software/uicore'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { Container, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useGetDeploymentLogAnalysisResult, useGetDeploymentLogAnalysisClusters } from 'services/cv'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -12,6 +12,7 @@ import type { LogAnalysisContainerProps } from './LogAnalysis.types'
 export default function LogAnalysisContainer({ step, hostName }: LogAnalysisContainerProps): React.ReactElement {
   const { accountId } = useParams<AccountPathProps>()
   const { showError } = useToaster()
+  const [selectedClusterType, setSelectedClusterType] = useState<SelectOption>()
 
   const {
     data: logsData,
@@ -68,7 +69,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
         accountId,
         pageNumber: initialPageNumber,
         pageSize,
-        ...(hostName && { hostName })
+        ...(hostName && { hostName }),
+        ...(selectedClusterType?.value && { clusterType: selectedClusterType?.value })
       }
     })
     fetchClusterAnalysis({
@@ -96,6 +98,13 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
     [accountId, hostName]
   )
 
+  useEffect(() => {
+    if (selectedClusterType) {
+      fetchLogsDataForCluster(selectedClusterType.value as string)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedClusterType?.value])
+
   const isLoading = useMemo(() => logsLoading || clusterChartLoading, [logsLoading, clusterChartLoading])
 
   if (isLoading) {
@@ -109,7 +118,8 @@ export default function LogAnalysisContainer({ step, hostName }: LogAnalysisCont
         clusterChartData={clusterChartData}
         isLoading={isLoading}
         goToPage={goToLogsPage}
-        fetchLogsDataForCluster={fetchLogsDataForCluster}
+        selectedClusterType={selectedClusterType as SelectOption}
+        setSelectedClusterType={setSelectedClusterType}
       />
     </Container>
   )

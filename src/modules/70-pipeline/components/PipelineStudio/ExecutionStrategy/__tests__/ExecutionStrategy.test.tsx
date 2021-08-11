@@ -162,6 +162,12 @@ describe('ExecutionStrategy test', () => {
     expect(step3Header.innerHTML).toEqual('pipeline.executionStrategy.strategies.common.steps.step3.title')
     expect(step3Description.innerHTML).toEqual('pipeline.executionStrategy.strategies.rolling.steps.step3.description')
 
+    // Enable Verification Options
+    const enableVerificationOptionsLabel = getByText(component, 'pipeline.enableVerificationOptions')
+    expect(enableVerificationOptionsLabel).toBeInTheDocument()
+    const enableVerificationOptionsSwitch = getByTestId(component, 'enable-verification-options-switch')
+    expect(enableVerificationOptionsSwitch).toBeInTheDocument()
+
     // Use Strategy button
     const useStrategyBtn = getByText(component, 'pipeline.executionStrategy.useStrategy').closest('button')
     expect(useStrategyBtn).toBeInTheDocument()
@@ -220,6 +226,12 @@ describe('ExecutionStrategy test', () => {
       'pipeline.executionStrategy.strategies.blueGreen.steps.step3.description'
     )
 
+    // Enable Verification Options
+    const enableVerificationOptionsLabel = getByText(component, 'pipeline.enableVerificationOptions')
+    expect(enableVerificationOptionsLabel).toBeInTheDocument()
+    const enableVerificationOptionsSwitch = getByTestId(component, 'enable-verification-options-switch')
+    expect(enableVerificationOptionsSwitch).toBeInTheDocument()
+
     // Use Strategy button
     const useStrategyBtn = getByText(component, 'pipeline.executionStrategy.useStrategy').closest('button')
     expect(useStrategyBtn).toBeInTheDocument()
@@ -272,6 +284,12 @@ describe('ExecutionStrategy test', () => {
     expect(step3Header.innerHTML).toEqual('pipeline.executionStrategy.strategies.canary.steps.step3.title')
     expect(step3Description.innerHTML).toEqual('pipeline.executionStrategy.strategies.canary.steps.step3.description')
 
+    // Enable Verification Options
+    const enableVerificationOptionsLabel = getByText(component, 'pipeline.enableVerificationOptions')
+    expect(enableVerificationOptionsLabel).toBeInTheDocument()
+    const enableVerificationOptionsSwitch = getByTestId(component, 'enable-verification-options-switch')
+    expect(enableVerificationOptionsSwitch).toBeInTheDocument()
+
     // Use Strategy button
     const useStrategyBtn = getByText(component, 'pipeline.executionStrategy.useStrategy').closest('button')
     expect(useStrategyBtn).toBeInTheDocument()
@@ -305,12 +323,6 @@ describe('ExecutionStrategy test', () => {
     // Image should be in view
     const blankCanvasImage = getByTestId(component, 'blank-canvas-image')
     expect(blankCanvasImage).toBeInTheDocument()
-
-    // Enable Verification Options
-    const enableVerificationOptionsLabel = getByText(component, 'pipeline.enableVerificationOptions')
-    expect(enableVerificationOptionsLabel).toBeInTheDocument()
-    const enableVerificationOptionsSwitch = getByTestId(component, 'enable-verification-options-switch')
-    expect(enableVerificationOptionsSwitch).toBeInTheDocument()
 
     // Use Strategy button
     const useStrategyBtn = getByText(component, 'pipeline.executionStrategy.useStrategy').closest('button')

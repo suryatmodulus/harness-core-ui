@@ -393,7 +393,7 @@ export type AuditFilterProperties = FilterProperties & {
   )[]
   endTime?: number
   environments?: Environment[]
-  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
   principals?: Principal[]
   resources?: ResourceDTO[]
   scopes?: ResourceScopeDTO[]
@@ -988,6 +988,52 @@ export interface ContainerResource {
   limits: Limits
 }
 
+export interface ContextElement {
+  elementType?:
+    | 'SERVICE'
+    | 'INFRAMAPPING'
+    | 'SERVICE_TEMPLATE'
+    | 'TAG'
+    | 'SHELL'
+    | 'HOST'
+    | 'INSTANCE'
+    | 'STANDARD'
+    | 'PARAM'
+    | 'PARTITION'
+    | 'OTHER'
+    | 'FORK'
+    | 'CONTAINER_SERVICE'
+    | 'CLUSTER'
+    | 'AWS_LAMBDA_FUNCTION'
+    | 'AMI_SERVICE_SETUP'
+    | 'AMI_SERVICE_DEPLOY'
+    | 'ECS_SERVICE_SETUP'
+    | 'AMI_SWITCH_ROUTES'
+    | 'PCF_SERVICE_SETUP'
+    | 'PCF_SERVICE_DEPLOY'
+    | 'PCF_ROUTE_SWAP_ROLLBACK'
+    | 'PCF_INSTANCE'
+    | 'SPOTINST_SERVICE_SETUP'
+    | 'SPOTINST_SERVICE_DEPLOY'
+    | 'ARTIFACT'
+    | 'ARTIFACT_VARIABLE'
+    | 'HELM_DEPLOY'
+    | 'CLOUD_FORMATION_PROVISION'
+    | 'CLOUD_FORMATION_ROLLBACK'
+    | 'CLOUD_FORMATION_DEPROVISION'
+    | 'TERRAFORM_PROVISION'
+    | 'SHELL_SCRIPT_PROVISION'
+    | 'K8S'
+    | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
+    | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
+    | 'HELM_CHART'
+    | 'MANIFEST_VARIABLE'
+  name?: string
+  uuid?: string
+}
+
 export type CountInstanceSelection = InstanceSelectionBase & {
   count?: ParameterFieldString
 }
@@ -1014,6 +1060,18 @@ export interface CriteriaSpecWrapper {
 export interface CrossAccountAccess {
   crossAccountRoleArn: string
   externalId?: string
+}
+
+export interface DOMConfiguration {
+  parameterNames?: DOMStringList
+}
+
+export interface DOMImplementation {
+  [key: string]: any
+}
+
+export interface DOMStringList {
+  length?: number
 }
 
 export interface DashboardExecutionStatusInfo {
@@ -1063,6 +1121,10 @@ export interface DelegateProfileDetailsNg {
   uuid?: string
 }
 
+export interface DelegateResponseData {
+  [key: string]: any
+}
+
 export type DeleteManifestPathSpec = DeleteResourcesBaseSpec & {
   allManifestPaths?: boolean
   manifestPaths?: string[]
@@ -1087,6 +1149,13 @@ export interface DeleteResourcesWrapper {
 
 export interface Deployment {
   count?: number
+}
+
+export interface DeploymentChangeRates {
+  failureRate?: number
+  failureRateChangeRate?: number
+  frequency?: number
+  frequencyChangeRate?: number
 }
 
 export interface DeploymentCount {
@@ -1168,6 +1237,60 @@ export type DockerUserNamePasswordDTO = DockerAuthCredentialsDTO & {
   usernameRef?: string
 }
 
+export interface Document {
+  attributes?: NamedNodeMap
+  baseURI?: string
+  childNodes?: NodeList
+  doctype?: DocumentType
+  documentElement?: Element
+  documentURI?: string
+  domConfig?: DOMConfiguration
+  firstChild?: Node
+  implementation?: DOMImplementation
+  inputEncoding?: string
+  lastChild?: Node
+  localName?: string
+  namespaceURI?: string
+  nextSibling?: Node
+  nodeName?: string
+  nodeType?: number
+  nodeValue?: string
+  ownerDocument?: Document
+  parentNode?: Node
+  prefix?: string
+  previousSibling?: Node
+  strictErrorChecking?: boolean
+  textContent?: string
+  xmlEncoding?: string
+  xmlStandalone?: boolean
+  xmlVersion?: string
+}
+
+export interface DocumentType {
+  attributes?: NamedNodeMap
+  baseURI?: string
+  childNodes?: NodeList
+  entities?: NamedNodeMap
+  firstChild?: Node
+  internalSubset?: string
+  lastChild?: Node
+  localName?: string
+  name?: string
+  namespaceURI?: string
+  nextSibling?: Node
+  nodeName?: string
+  nodeType?: number
+  nodeValue?: string
+  notations?: NamedNodeMap
+  ownerDocument?: Document
+  parentNode?: Node
+  prefix?: string
+  previousSibling?: Node
+  publicId?: string
+  systemId?: string
+  textContent?: string
+}
+
 export type DynatraceConnectorDTO = ConnectorConfigDTO & {
   apiTokenRef: string
   delegateSelectors?: string[]
@@ -1208,6 +1331,27 @@ export interface EcrRequestDTO {
 
 export interface EcrResponseDTO {
   buildDetailsList?: EcrBuildDetailsDTO[]
+}
+
+export interface Element {
+  attributes?: NamedNodeMap
+  baseURI?: string
+  childNodes?: NodeList
+  firstChild?: Node
+  lastChild?: Node
+  localName?: string
+  namespaceURI?: string
+  nextSibling?: Node
+  nodeName?: string
+  nodeType?: number
+  nodeValue?: string
+  ownerDocument?: Document
+  parentNode?: Node
+  prefix?: string
+  previousSibling?: Node
+  schemaTypeInfo?: TypeInfo
+  tagName?: string
+  textContent?: string
 }
 
 export type EmailConfig = NotificationSettingConfig & {
@@ -1659,6 +1803,11 @@ export interface ErrorDetail {
   reason?: string
 }
 
+export interface ExecutionDataValue {
+  displayName?: string
+  value?: { [key: string]: any }
+}
+
 export interface ExecutionDeployment {
   deployments?: DeploymentCount
   time?: number
@@ -2006,7 +2155,7 @@ export type FeatureFlagStageConfig = StageInfoConfig & {}
 export interface FeedbackFormDTO {
   accountId?: string
   email?: string
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   score?: number
   suggestion?: string
 }
@@ -2063,6 +2212,7 @@ export type GcpCloudCostConnector = ConnectorConfigDTO & {
   billingExportSpec?: GcpBillingExportSpec
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
   projectId: string
+  serviceAccountEmail: string
 }
 
 export type GcpConnector = ConnectorConfigDTO & {
@@ -2192,7 +2342,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'FeatureFlagStage'
     | 'Triggers'
   )[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
 }
 
@@ -2220,7 +2370,7 @@ export interface GitEntityFilterProperties {
     | 'Triggers'
   )[]
   gitSyncConfigIdentifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
 }
 
@@ -2367,7 +2517,7 @@ export interface GitSyncRepoFiles {
 
 export interface GitSyncRepoFilesList {
   gitSyncRepoFilesList?: GitSyncRepoFiles[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
 export interface GitSyncSettingsDTO {
@@ -2581,6 +2731,60 @@ export type HttpHelmUsernamePasswordDTO = HttpHelmAuthCredentialsDTO & {
   usernameRef?: string
 }
 
+export type HttpStateExecutionData = DelegateResponseData & {
+  assertionStatement?: string
+  assertionStatus?: string
+  delegateMetaInfo?: DelegateMetaInfo
+  document?: Document
+  element?: ContextElement
+  endTs?: number
+  errorMsg?: string
+  executionDetails?: {
+    [key: string]: ExecutionDataValue
+  }
+  executionSummary?: {
+    [key: string]: ExecutionDataValue
+  }
+  header?: string
+  headers?: KeyValuePair[]
+  httpMethod?: string
+  httpResponseBody?: string
+  httpResponseCode?: number
+  httpUrl?: string
+  startTs?: number
+  stateName?: string
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  stateType?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  useProxy?: boolean
+  waitInterval?: number
+  warningMessage?: string
+}
+
 export type HttpStepInfo = StepSpecType & {
   assertion?: string
   delegateSelectors?: string[]
@@ -2694,11 +2898,6 @@ export interface InstanceSelectionWrapper {
   type?: 'Count' | 'Percentage'
 }
 
-export interface InstanceSyncPerpetualTaskResponse {
-  delegateMetaInfo?: DelegateMetaInfo
-  serverInstanceDetails?: ServerInstanceInfo[]
-}
-
 export interface InstancesByBuildIdList {
   instancesByBuildIdList?: InstanceDetailsByBuildId[]
 }
@@ -2722,6 +2921,7 @@ export type JexlCriteriaSpec = CriteriaSpec & {
 export type JiraApprovalStepInfo = StepSpecType & {
   approvalCriteria: CriteriaSpecWrapper
   connectorRef: string
+  delegateSelectors?: string[]
   issueKey: string
   rejectionCriteria?: CriteriaSpecWrapper
 }
@@ -2736,6 +2936,7 @@ export type JiraConnector = ConnectorConfigDTO & {
 
 export type JiraCreateStepInfo = StepSpecType & {
   connectorRef: string
+  delegateSelectors?: string[]
   fields?: JiraField[]
   issueType: string
   projectKey: string
@@ -2820,6 +3021,7 @@ export interface JiraStatusNG {
 
 export type JiraUpdateStepInfo = StepSpecType & {
   connectorRef: string
+  delegateSelectors?: string[]
   fields?: JiraField[]
   issueKey: string
   transitionTo?: TransitionTo
@@ -2931,6 +3133,11 @@ export type KerberosConfigDTO = BaseSSHSpecDTO & {
   realm: string
   spec?: TGTGenerationSpecDTO
   tgtGenerationMethod?: 'KeyTabFilePath' | 'Password'
+}
+
+export interface KeyValuePair {
+  key?: string
+  value?: string
 }
 
 export type KeyValuesCriteriaSpec = CriteriaSpec & {
@@ -3184,6 +3391,10 @@ export interface NGVariableOverrideSets {
   variables?: NGVariable[]
 }
 
+export interface NamedNodeMap {
+  length?: number
+}
+
 export type NativeHelmServiceSpec = ServiceSpec & {
   metadata?: string
 }
@@ -3215,6 +3426,29 @@ export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
   passwordRef: string
   username?: string
   usernameRef?: string
+}
+
+export interface Node {
+  attributes?: NamedNodeMap
+  baseURI?: string
+  childNodes?: NodeList
+  firstChild?: Node
+  lastChild?: Node
+  localName?: string
+  namespaceURI?: string
+  nextSibling?: Node
+  nodeName?: string
+  nodeType?: number
+  nodeValue?: string
+  ownerDocument?: Document
+  parentNode?: Node
+  prefix?: string
+  previousSibling?: Node
+  textContent?: string
+}
+
+export interface NodeList {
+  length?: number
 }
 
 export interface NotificationChannelWrapper {
@@ -3672,7 +3906,7 @@ export interface ParameterFieldString {
 }
 
 export interface PartialSchemaDTO {
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   namespace?: string
   nodeName?: string
   nodeType?: string
@@ -3805,7 +4039,7 @@ export interface Project {
   color?: string
   description?: string
   identifier: string
-  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
   name: string
   orgIdentifier?: string
   tags?: {
@@ -5362,6 +5596,55 @@ export interface ScopingRuleDetailsNg {
   environmentTypeId?: string
 }
 
+export type ScriptStateExecutionData = DelegateResponseData & {
+  activityId?: string
+  delegateMetaInfo?: DelegateMetaInfo
+  element?: ContextElement
+  endTs?: number
+  errorMsg?: string
+  executionDetails?: {
+    [key: string]: ExecutionDataValue
+  }
+  executionSummary?: {
+    [key: string]: ExecutionDataValue
+  }
+  name?: string
+  secretOutputVars?: string[]
+  startTs?: number
+  stateName?: string
+  stateParams?: {
+    [key: string]: { [key: string]: any }
+  }
+  stateType?: string
+  status?:
+    | 'ABORTED'
+    | 'DISCONTINUING'
+    | 'ERROR'
+    | 'FAILED'
+    | 'NEW'
+    | 'PAUSED'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'RESUMED'
+    | 'RUNNING'
+    | 'SCHEDULED'
+    | 'STARTING'
+    | 'SUCCESS'
+    | 'WAITING'
+    | 'SKIPPED'
+    | 'ABORTING'
+    | 'REJECTED'
+    | 'EXPIRED'
+    | 'PREPARING'
+  sweepingOutputEnvVariables?: {
+    [key: string]: string
+  }
+  templateVariable?: {
+    [key: string]: { [key: string]: any }
+  }
+  waitInterval?: number
+}
+
 export interface SecretDTOV2 {
   description?: string
   identifier: string
@@ -5461,10 +5744,6 @@ export interface SecretValidationResultDTO {
   success?: boolean
 }
 
-export interface ServerInstanceInfo {
-  [key: string]: any
-}
-
 export interface ServiceAccountAggregateDTO {
   createdAt: number
   lastModifiedAt: number
@@ -5506,6 +5785,7 @@ export interface ServiceDefinition {
 
 export interface ServiceDeployment {
   deployments?: DeploymentCount
+  rate?: DeploymentChangeRates
   time?: number
 }
 
@@ -6061,6 +6341,11 @@ export interface TwoFactorAuthSettingsInfo {
   totpqrurl?: string
   twoFactorAuthenticationEnabled?: boolean
   userId?: string
+}
+
+export interface TypeInfo {
+  typeName?: string
+  typeNamespace?: string
 }
 
 export interface User {
@@ -7289,7 +7574,7 @@ export interface GetProjectAggregateDTOListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   hasModule?: boolean
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
   pageIndex?: number
   pageSize?: number
@@ -16345,30 +16630,42 @@ export interface ProcessPollingResultNgPathParams {
 }
 
 export type ProcessPollingResultNgProps = Omit<
-  MutateProps<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>,
+  MutateProps<
+    void,
+    void,
+    ProcessPollingResultNgQueryParams,
+    SubscribeBodyRequestBody,
+    ProcessPollingResultNgPathParams
+  >,
   'path' | 'verb'
 > &
   ProcessPollingResultNgPathParams
 
 export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPollingResultNgProps) => (
-  <Mutate<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>
+  <Mutate<void, void, ProcessPollingResultNgQueryParams, SubscribeBodyRequestBody, ProcessPollingResultNgPathParams>
     verb="POST"
-    path={`/poll/delegate-response/${perpetualTaskId}`}
+    path={`/polling/delegate-response/${perpetualTaskId}`}
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
 export type UseProcessPollingResultNgProps = Omit<
-  UseMutateProps<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>,
+  UseMutateProps<
+    void,
+    void,
+    ProcessPollingResultNgQueryParams,
+    SubscribeBodyRequestBody,
+    ProcessPollingResultNgPathParams
+  >,
   'path' | 'verb'
 > &
   ProcessPollingResultNgPathParams
 
 export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProcessPollingResultNgProps) =>
-  useMutate<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>(
+  useMutate<void, void, ProcessPollingResultNgQueryParams, SubscribeBodyRequestBody, ProcessPollingResultNgPathParams>(
     'POST',
-    (paramsInPath: ProcessPollingResultNgPathParams) => `/poll/delegate-response/${paramsInPath.perpetualTaskId}`,
+    (paramsInPath: ProcessPollingResultNgPathParams) => `/polling/delegate-response/${paramsInPath.perpetualTaskId}`,
     { base: getConfig('ng/api'), pathParams: { perpetualTaskId }, ...props }
   )
 
@@ -16380,92 +16677,17 @@ export const processPollingResultNgPromise = (
     void,
     void,
     ProcessPollingResultNgQueryParams,
-    string[],
+    SubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
-  > & { perpetualTaskId: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<void, void, ProcessPollingResultNgQueryParams, string[], ProcessPollingResultNgPathParams>(
-    'POST',
-    getConfig('ng/api'),
-    `/poll/delegate-response/${perpetualTaskId}`,
-    props,
-    signal
-  )
-
-export interface ProcessPollingResultNg1QueryParams {
-  accountId?: string
-}
-
-export interface ProcessPollingResultNg1PathParams {
-  perpetualTaskId: string
-}
-
-export type ProcessPollingResultNg1Props = Omit<
-  MutateProps<
-    void,
-    void,
-    ProcessPollingResultNg1QueryParams,
-    SubscribeBodyRequestBody,
-    ProcessPollingResultNg1PathParams
-  >,
-  'path' | 'verb'
-> &
-  ProcessPollingResultNg1PathParams
-
-export const ProcessPollingResultNg1 = ({ perpetualTaskId, ...props }: ProcessPollingResultNg1Props) => (
-  <Mutate<void, void, ProcessPollingResultNg1QueryParams, SubscribeBodyRequestBody, ProcessPollingResultNg1PathParams>
-    verb="POST"
-    path={`/polling/delegate-response/${perpetualTaskId}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseProcessPollingResultNg1Props = Omit<
-  UseMutateProps<
-    void,
-    void,
-    ProcessPollingResultNg1QueryParams,
-    SubscribeBodyRequestBody,
-    ProcessPollingResultNg1PathParams
-  >,
-  'path' | 'verb'
-> &
-  ProcessPollingResultNg1PathParams
-
-export const useProcessPollingResultNg1 = ({ perpetualTaskId, ...props }: UseProcessPollingResultNg1Props) =>
-  useMutate<
-    void,
-    void,
-    ProcessPollingResultNg1QueryParams,
-    SubscribeBodyRequestBody,
-    ProcessPollingResultNg1PathParams
-  >(
-    'POST',
-    (paramsInPath: ProcessPollingResultNg1PathParams) => `/polling/delegate-response/${paramsInPath.perpetualTaskId}`,
-    { base: getConfig('ng/api'), pathParams: { perpetualTaskId }, ...props }
-  )
-
-export const processPollingResultNg1Promise = (
-  {
-    perpetualTaskId,
-    ...props
-  }: MutateUsingFetchProps<
-    void,
-    void,
-    ProcessPollingResultNg1QueryParams,
-    SubscribeBodyRequestBody,
-    ProcessPollingResultNg1PathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
     void,
     void,
-    ProcessPollingResultNg1QueryParams,
+    ProcessPollingResultNgQueryParams,
     SubscribeBodyRequestBody,
-    ProcessPollingResultNg1PathParams
+    ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<MutateProps<string[], unknown, void, SubscribeBodyRequestBody, void>, 'path' | 'verb'>
@@ -16544,7 +16766,7 @@ export interface GetProjectListQueryParams {
   orgIdentifier?: string
   hasModule?: boolean
   identifiers?: string[]
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
   pageIndex?: number
   pageSize?: number

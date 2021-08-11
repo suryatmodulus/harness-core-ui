@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -101,14 +100,8 @@ export const PluginStepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}>
                   {getString('pipelineSteps.connectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.connectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -125,9 +118,13 @@ export const PluginStepBase = (
             <MultiTypeTextField
               name="spec.image"
               label={
-                <Text margin={{ top: 'small' }}>
+                <Text
+                  margin={{ top: 'small' }}
+                  tooltipProps={{
+                    dataTooltipId: 'pluginImageInfo'
+                  }}
+                >
                   {getString('imageLabel')}
-                  <Button icon="question" minimal tooltip={getString('pluginImageInfo')} iconProps={{ size: 14 }} />
                 </Text>
               }
               multiTextInputProps={{
@@ -146,16 +143,9 @@ export const PluginStepBase = (
                       name="spec.privileged"
                       label={getString('ci.privileged')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.privilegedInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions
                       }}
+                      tooltipProps={{ dataTooltipId: 'privileged' }}
                       disabled={readonly}
                     />
                     <MultiTypeMap
@@ -163,14 +153,11 @@ export const PluginStepBase = (
                       valueMultiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'pluginSettings' }}
+                          >
                             {getString('settingsLabel')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.settingsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}

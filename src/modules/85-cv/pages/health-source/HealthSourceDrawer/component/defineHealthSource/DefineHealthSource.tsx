@@ -23,7 +23,7 @@ import { SetupSourceTabsContext } from '@cv/components/CVSetupSourcesView/SetupS
 import { Connectors } from '@connectors/constants'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import { ConnectorRefFieldName, HEALTHSOURCE_LIST } from './DefineHealthSource.constant'
-import { validate, getFeatureOption, getInitialValues } from './DefineHealthSource.utils'
+import { validate, getFeatureOption, getInitialValues, validateDuplicateIdentifier } from './DefineHealthSource.utils'
 import css from './DefineHealthSource.module.scss'
 
 interface DefineHealthSourceProps {
@@ -60,6 +60,11 @@ function DefineHealthSource(props: DefineHealthSourceProps): JSX.Element {
         enableReinitialize
         initialValues={initialValues}
         formName={'defineHealthsource'}
+        validate={values => {
+          if (!isEdit) {
+            return validateDuplicateIdentifier(values)
+          }
+        }}
         validationSchema={validate(getString)}
         onSubmit={values => {
           onSubmit?.(values)

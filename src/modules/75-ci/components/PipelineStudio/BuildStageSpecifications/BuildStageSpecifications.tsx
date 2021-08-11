@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { Layout, Button, Formik, FormikForm, FormInput, Switch, Text, Card, Accordion } from '@wings-software/uicore'
+import { Formik, FormikForm, Switch, Text, Card, Accordion, HarnessDocTooltip } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { isEqual, debounce, cloneDeep, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 import { produce } from 'immer'
 import type { FormikProps } from 'formik'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
@@ -35,8 +36,6 @@ export interface Variable {
 }
 
 export default function BuildStageSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
-  const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
-
   const { variablesPipeline, metadataMap } = usePipelineVariables()
 
   const { getString } = useStrings()
@@ -59,6 +58,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     identifier: string
     name: string
     description: string
+    tags?: { [key: string]: string }
     cloneCodebase: boolean
     sharedPaths: string[]
     variables: NGVariable[]
@@ -69,6 +69,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     const identifier = pipelineData?.identifier || ''
     const name = pipelineData?.name || ''
     const description = pipelineData?.description || ''
+    const tags = pipelineData?.tags
     const cloneCodebase = !!spec?.cloneCodebase
     const sharedPaths =
       typeof spec?.sharedPaths === 'string'
@@ -85,6 +86,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
       identifier,
       name,
       description,
+      tags,
       cloneCodebase,
       sharedPaths: sharedPaths as any,
       variables
@@ -117,6 +119,12 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
           stageData.description = values.description
         } else {
           delete stageData.description
+        }
+
+        if (values.tags) {
+          stageData.tags = values.tags
+        } else {
+          delete stageData.tags
         }
 
         spec.cloneCodebase = values.cloneCodebase
@@ -193,57 +201,25 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                 </div>
                 <Card className={cx(css.sectionCard)} disabled={isReadonly}>
                   <FormikForm>
-                    <Layout.Horizontal spacing="medium">
-                      <FormInput.InputWithIdentifier
-                        inputName="name"
-                        inputLabel={getString('stageNameLabel')}
-                        inputGroupProps={{
-                          className: css.fields,
-                          placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder'),
-                          disabled: isReadonly
-                        }}
-                        isIdentifierEditable={false}
-                      />
-                      <div className={css.addDataLinks}>
-                        {!isDescriptionVisible && !formValues.description && (
-                          <Button
-                            minimal
-                            text={getString('pipelineSteps.build.stageSpecifications.addDescription')}
-                            icon="plus"
-                            onClick={() => setDescriptionVisible(true)}
-                            disabled={isReadonly}
-                          />
-                        )}
-                      </div>
-                    </Layout.Horizontal>
-
-                    {(isDescriptionVisible || formValues.description) && (
-                      <div className={css.fields}>
-                        {!isReadonly && (
-                          <span
-                            onClick={() => {
-                              setDescriptionVisible(false)
-                              setFieldValue('description', '')
-                            }}
-                            className={css.removeLink}
-                          >
-                            {getString('removeLabel')}
-                          </span>
-                        )}
-                        <FormInput.TextArea
-                          name={'description'}
-                          label={getString('description')}
-                          disabled={isReadonly}
-                        />
-                      </div>
-                    )}
-
-                    <Switch
-                      checked={formValues.cloneCodebase}
-                      label={getString('cloneCodebaseLabel')}
-                      onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
-                      disabled={isReadonly}
+                    <NameIdDescriptionTags
+                      formikProps={formik}
+                      identifierProps={{
+                        isIdentifierEditable: false,
+                        inputGroupProps: { disabled: isReadonly }
+                      }}
+                      descriptionProps={{ disabled: isReadonly }}
+                      tagsProps={{ disabled: isReadonly }}
                     />
+
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Switch
+                        checked={formValues.cloneCodebase}
+                        label={getString('cloneCodebaseLabel')}
+                        onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                        disabled={isReadonly}
+                      />
+                      <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
+                    </div>
                   </FormikForm>
                 </Card>
 
@@ -257,14 +233,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center', minWidth: '171px' }}>
+                          <Text tooltipProps={{ dataTooltipId: 'stageSpecificationsSharedPaths' }}>
                             {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.build.stageSpecifications.sharedPathsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}

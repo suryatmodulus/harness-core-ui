@@ -93,7 +93,8 @@ const OverviewStep: React.FC<OverviewProps> = props => {
     const newSpec: GcpCloudCostConnector = {
       ...connectorInfo?.spec,
       ...prevStepData?.spec,
-      ...pick(formData, ['projectId'])
+      ...pick(formData, ['projectId']),
+      serviceAccountEmail: ''
     }
     const payload: CEGcpConnectorDTO = {
       ...omit(formData, ['projectId']),

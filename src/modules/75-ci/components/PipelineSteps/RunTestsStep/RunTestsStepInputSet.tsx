@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -60,14 +60,8 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}>
               {getString('pipelineSteps.connectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.connectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -91,9 +85,13 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.image`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'image'
+              }}
+            >
               {getString('imageLabel')}
-              <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -112,9 +110,8 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.args`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}>
               {getString('argsLabel')}
-              <Button icon="question" minimal tooltip={getString('runTestsArgsInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -132,9 +129,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.buildTool`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsBuildTool' }}
+            >
               {getString('buildToolLabel')}
-              <Button icon="question" minimal tooltip={getString('buildToolInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTypeInputProps={{
@@ -153,9 +152,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.language`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
+            >
               {getString('languageLabel')}
-              <Button icon="question" minimal tooltip={getString('languageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTypeInputProps={{
@@ -174,9 +175,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.packages`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsPackages' }}
+            >
               {getString('packagesLabel')}
-              <Button icon="question" minimal tooltip={getString('packagesInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -207,9 +210,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.testAnnotations`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsTestAnnotations' }}
+            >
               {getString('testAnnotationsLabel')}
-              <Button icon="question" minimal tooltip={getString('testAnnotationsInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -226,9 +231,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
         <MultiTypeFieldSelector
           name={`${isEmpty(path) ? '' : `${path}.`}spec.preCommand`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsPreCommand' }}
+            >
               {getString('preCommandLabel')}
-              <Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           defaultValueToReset=""
@@ -260,9 +267,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
         <MultiTypeFieldSelector
           name={`${isEmpty(path) ? '' : `${path}.`}spec.postCommand`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsPostCommand' }}
+            >
               {getString('postCommandLabel')}
-              <Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           defaultValueToReset=""
@@ -299,14 +308,8 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'reportPaths' }}>
                 {getString('pipelineSteps.reportPathsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.reportPathsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -325,14 +328,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'environmentVariables' }}
+              >
                 {getString('environmentVariables')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('environmentVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -352,14 +352,11 @@ export const RunTestsStepInputSet: React.FC<RunTestsStepProps> = ({ template, pa
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'outputVariables' }}
+              >
                 {getString('pipelineSteps.outputVariablesLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]

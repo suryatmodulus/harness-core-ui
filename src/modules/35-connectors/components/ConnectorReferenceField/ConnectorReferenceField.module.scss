@@ -57,6 +57,13 @@
 }
 .connector-label {
   padding-bottom: var(--spacing-small);
+
+  :global(.bp3-icon-chevron-down) {
+    position: absolute;
+    right: var(--spacing-8);
+    opacity: 0.5;
+    padding: var(--spacing-small) !important;
+  }
 }
 .status {
   align-items: center;

@@ -17,7 +17,6 @@ import { useStrings } from 'framework/strings'
 import type {
   DescriptionComponentProps,
   DescriptionProps,
-  FormikForNameIdDescriptionTags,
   NameIdDescriptionProps,
   NameIdDescriptionTagsDeprecatedProps,
   TagsComponentProps,
@@ -32,7 +31,7 @@ export interface NameIdDescriptionTagsProps {
   tagsProps?: Partial<ITagInputProps> & {
     isOption?: boolean
   }
-  formikProps: FormikProps<FormikForNameIdDescriptionTags>
+  formikProps: FormikProps<any>
   className?: string
   tooltipProps?: DataTooltipInterface
 }

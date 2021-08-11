@@ -203,7 +203,6 @@ docker:
   quay: 'Quay'
   other: 'Other (Docker V2 compliant)'
   dockerRepository: Docker Repository
-  dockerRepositoryInfo: Docker repository. For example, "plugins/s3"
 helmRepo:
   helmRepoUrl: 'Helm Repository URL'
 aws:

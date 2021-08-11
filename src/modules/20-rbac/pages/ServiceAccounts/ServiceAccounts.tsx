@@ -57,7 +57,7 @@ const ServiceAccountsPage: React.FC = () => {
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
               alwaysExpanded
-              placeholder={getString('rbac.serviceAccounts.search')}
+              placeholder={getString('common.searchPlaceholder')}
               onChange={text => {
                 setsearchTerm(text.trim())
               }}

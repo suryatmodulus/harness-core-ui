@@ -32,7 +32,8 @@ const BillingExport: React.FC<StepProps<CEGcpConnectorDTO>> = props => {
       ...prevStepData?.spec,
       billingExportSpec: {
         datasetId: formData.datasetId
-      }
+      },
+      serviceAccountEmail: ''
     }
     const payload = prevStepData
     if (payload) {

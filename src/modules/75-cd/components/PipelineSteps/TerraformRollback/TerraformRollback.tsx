@@ -23,8 +23,8 @@ import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { StringsMap } from 'stringTypes'
 import type { TFRollbackData } from '../Common/Terraform/TerraformInterfaces'
-
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 interface TerraformRollbackProps {
   initialValues: TFRollbackData
@@ -177,7 +177,14 @@ const TerraformRollbackVariableStep: React.FC<TerraformRollbackVariableStepProps
   metadataMap,
   initialValues
 }) => {
-  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+  return (
+    <VariablesListTable
+      className={pipelineVariableCss.variablePaddingL2}
+      data={variablesData.spec}
+      originalData={initialValues.spec}
+      metadataMap={metadataMap}
+    />
+  )
 }
 
 const TerraformRollbackWidgetWithRef = React.forwardRef(TerraformRollbackWidget)

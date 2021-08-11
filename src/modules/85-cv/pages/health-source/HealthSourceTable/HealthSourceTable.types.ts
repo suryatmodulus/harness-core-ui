@@ -12,7 +12,6 @@ export interface HealthSourceTableInterface {
   serviceRef: string
   environmentRef: string
   onSuccess: (value: MonitoredServiceResponse) => void
-  onDelete?: (value: MonitoredServiceResponse) => void
   isEdit?: boolean
   shouldRenderAtVerifyStep?: boolean
   isRunTimeInput?: boolean

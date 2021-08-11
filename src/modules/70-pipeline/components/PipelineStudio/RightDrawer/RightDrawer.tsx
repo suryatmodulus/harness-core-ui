@@ -11,6 +11,7 @@ import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmat
 import { StageType } from '@pipeline/utils/stageHelpers'
 import type { BuildStageElementConfig, DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { DependencyElement } from 'services/ci'
+import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerData, DrawerSizes, DrawerTypes, TemplateDrawerTypes } from '../PipelineContext/PipelineActions'
 import { StepCommandsWithRef as StepCommands, StepFormikRef } from '../StepCommands/StepCommands'
@@ -385,7 +386,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
     setSelectedStepId(undefined)
   }
-
+  const { onSearchInputChange } = usePipelineVariables()
   return (
     <Drawer
       onClose={async e => {
@@ -420,6 +421,9 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           if (type === DrawerTypes.ExecutionStrategy) {
             executionStrategyRef.current?.cancelExecutionStrategySelection()
           } else {
+            if (type === DrawerTypes.PipelineVariables) {
+              onSearchInputChange?.('')
+            }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
             setSelectedStepId(undefined)
           }

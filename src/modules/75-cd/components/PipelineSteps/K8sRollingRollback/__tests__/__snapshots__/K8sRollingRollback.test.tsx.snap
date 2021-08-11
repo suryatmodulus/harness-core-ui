@@ -293,7 +293,11 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
             <div
               class="text variable-name-cell"
             >
-              timeout
+              <span
+                class=""
+              >
+                timeout
+              </span>
             </div>
             <div
               class="bp3-popover-wrapper btnWrapper"
@@ -333,7 +337,11 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main"
             style="--text-line-clamp: 1;"
           >
-            10m
+            <span
+              class=""
+            >
+              10m
+            </span>
           </p>
         </div>
         <div
@@ -345,7 +353,11 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
             <div
               class="text variable-name-cell"
             >
-              skipDryRun
+              <span
+                class=""
+              >
+                skipDryRun
+              </span>
             </div>
             <div
               class="bp3-popover-wrapper btnWrapper"
@@ -385,7 +397,11 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
             class="StyledProps--font Text--lineclamp StyledProps--main"
             style="--text-line-clamp: 1;"
           >
-            false
+            <span
+              class=""
+            >
+              false
+            </span>
           </p>
         </div>
       </div>

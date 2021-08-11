@@ -36,6 +36,7 @@ export interface CustomVariableEditableExtraProps {
   yamlProperties?: YamlProperties[]
   showHeaders?: boolean
   enableValidation?: boolean
+  path?: string
 }
 
 export interface CustomVariableEditableProps extends CustomVariableEditableExtraProps {
@@ -130,7 +131,12 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                       <div className={cx(css.valueRow, 'variable-value-cell')}>
                         <div>
                           {variable.type === VariableType.Secret ? (
-                            <MultiTypeSecretInput name={`variables[${index}].value`} label="" disabled={readonly} />
+                            <MultiTypeSecretInput
+                              small
+                              name={`variables[${index}].value`}
+                              label=""
+                              disabled={readonly}
+                            />
                           ) : (
                             <FormInput.MultiTextInput
                               className="variableInput"
@@ -141,9 +147,8 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                                 mini: true,
                                 defaultValueToReset: '',
                                 expressions,
-
+                                width: 264,
                                 textProps: {
-                                  small: true,
                                   disabled: !initialValues.canAddVariable || readonly,
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
                                 }
@@ -151,43 +156,47 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               data-testid="variables-test"
                             />
                           )}
-                          {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (
-                            <ConfigureOptions
-                              value={variable.value as string}
-                              defaultValue={variable.default}
-                              type={variable.type || /* istanbul ignore next */ 'String'}
-                              variableName={variable.name || /* istanbul ignore next */ ''}
-                              onChange={(value, defaultValue) => {
-                                setFieldValue(`variables[${index}].value`, value)
-                                setFieldValue(`variables[${index}].default`, defaultValue)
-                              }}
-                              isReadonly={readonly}
-                            />
-                          ) : null}
                         </div>
-                        <div>
-                          {initialValues.canAddVariable ? (
-                            <section className={css.actionButtons}>
-                              <Button
-                                icon="edit"
-                                tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
-                                data-testid={`edit-variable-${index}`}
-                                disabled={readonly}
-                                onClick={() => {
-                                  setSelectedVariable({ variable, index })
+                        <div className={css.actionButtons}>
+                          <section className={cx(css.actionButtons, css.alignIcons)}>
+                            {initialValues.canAddVariable ? (
+                              <>
+                                <Button
+                                  icon="edit"
+                                  tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
+                                  data-testid={`edit-variable-${index}`}
+                                  disabled={readonly}
+                                  onClick={() => {
+                                    setSelectedVariable({ variable, index })
+                                  }}
+                                  minimal
+                                />
+                                <Button
+                                  icon="main-trash"
+                                  data-testid={`delete-variable-${index}`}
+                                  tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
+                                  disabled={readonly}
+                                  onClick={() => handleRemove(index)}
+                                  minimal
+                                />
+                              </>
+                            ) : /* istanbul ignore next */ null}
+                          </section>
+                          <div className={css.alignIcons}>
+                            {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (
+                              <ConfigureOptions
+                                value={variable.value as string}
+                                defaultValue={variable.default}
+                                type={variable.type || /* istanbul ignore next */ 'String'}
+                                variableName={variable.name || /* istanbul ignore next */ ''}
+                                onChange={(value, defaultValue) => {
+                                  setFieldValue(`variables[${index}].value`, value)
+                                  setFieldValue(`variables[${index}].default`, defaultValue)
                                 }}
-                                minimal
+                                isReadonly={readonly}
                               />
-                              <Button
-                                icon="main-trash"
-                                data-testid={`delete-variable-${index}`}
-                                tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
-                                disabled={readonly}
-                                onClick={() => handleRemove(index)}
-                                minimal
-                              />
-                            </section>
-                          ) : /* istanbul ignore next */ null}
+                            ) : null}
+                          </div>
                         </div>
                       </div>
                     </div>

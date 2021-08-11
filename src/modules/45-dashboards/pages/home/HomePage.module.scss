@@ -84,7 +84,7 @@ div[class*='Pagination--container'] {
   padding: 0 var(--spacing-9);
 }
 .masonry {
-  width: calc(100vw - 600px);
+  width: calc(100vw - 396px);
   div[class*='uicore-masonry-layout'] {
     padding-top: 0 !important;
   }
@@ -115,8 +115,9 @@ div[class*='Pagination--container'] {
   background: var(--grey-100) !important;
   position: absolute;
   right: 0;
-  top: 141px;
-  height: calc(100vh - 206px);
+  top: 146px;
+  overflow: scroll;
+  height: calc(100vh - 204px);
 }
 
 .predefinedTags {
@@ -211,8 +212,8 @@ div[class*='Pagination--container'] {
   align-items: center;
   margin-left: var(--spacing-4);
   section {
-    margin-top: 0;
-    margin-right: var(--spacing-9);
+    margin-top: var(--spacing-2) !important;
+    margin-right: var(--spacing-5);
   }
 }
 .filteredTags {

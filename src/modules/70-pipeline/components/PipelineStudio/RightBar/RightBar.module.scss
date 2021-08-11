@@ -32,7 +32,7 @@
 
     &:global(.bp3-button > .bp3-button-text) {
       width: 48px !important;
-      font-size: 8px !important;
+      font-size: 10px !important;
     }
 
     &.selected {
@@ -70,7 +70,10 @@
 
     &.notificationsIcon {
       --right-bar-icon: var(--teal-500);
-
+      &:global(.bp3-button > .bp3-button-text) {
+        width: 60px !important;
+        font-size: 9px !important;
+      }
       span {
         line-height: 12px !important;
         color: var(--grey-500) !important;

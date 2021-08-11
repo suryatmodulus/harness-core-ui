@@ -80,6 +80,14 @@
   margin: var(--spacing-xlarge) 0;
 }
 
+.stepSubSectionHeading {
+  color: var(--grey-800);
+  font-weight: 600;
+  font-size: var(--font-size-normal);
+  margin-top: var(--spacing-8);
+  margin-bottom: var(--spacing-4);
+}
+
 .fieldsSection {
   padding-bottom: var(--spacing-xlarge);
   margin-bottom: var(--spacing-xlarge);

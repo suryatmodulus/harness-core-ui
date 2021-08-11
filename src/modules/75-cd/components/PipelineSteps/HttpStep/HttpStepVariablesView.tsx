@@ -4,9 +4,7 @@ import { pick } from 'lodash-es'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
 import type { HttpStepData } from './types'
-
-import css from './HttpStep.module.scss'
-
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 export interface HttpStepVariablesViewProps {
   metadataMap: Record<string, VariableResponseMapValue>
   variablesData: HttpStepData
@@ -32,7 +30,7 @@ export function HttpStepVariablesView(props: HttpStepVariablesViewProps): React.
 
   return (
     <VariablesListTable
-      className={css.variablesList}
+      className={pipelineVariableCss.variablePaddingL2}
       metadataMap={metadataMap}
       data={data}
       originalData={originalData?.spec}

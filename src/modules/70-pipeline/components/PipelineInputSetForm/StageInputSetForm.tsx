@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Label,
-  FormInput,
-  MultiTypeInputType,
-  Icon,
-  Layout,
-  Text,
-  Button,
-  getMultiTypeFromValue
-} from '@wings-software/uicore'
+import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, getMultiTypeFromValue } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
@@ -405,14 +396,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             {(deploymentStageTemplate.infrastructure as any).spec?.namespace && (
               <FormInput.MultiTextInput
                 label={
-                  <Text flex font="small" margin={{ bottom: 'xsmall' }}>
+                  <Text flex font="small" margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}>
                     {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipeline.namespaceTooltip')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 }
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
@@ -452,14 +437,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             {(deploymentStageTemplate.infrastructure as any).spec?.initTimeout && (
               <FormMultiTypeDurationField
                 label={
-                  <Text flex={{ justifyContent: 'start' }} font="small">
+                  <Text flex={{ justifyContent: 'start' }} font="small" tooltipProps={{ dataTooltipId: 'timeout' }}>
                     {getString('pipeline.infraSpecifications.initTimeout')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.timeoutInfo')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 }
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.initTimeout`}

@@ -108,7 +108,7 @@ const stagesMap = {
   Approval: {
     name: 'Deploy',
     type: 'Approval',
-    icon: 'pipeline-approval',
+    icon: 'approval-stage-icon',
     iconColor: 'var(--pipeline-approval-stage-color)',
     isApproval: true,
     openExecutionStrategy: false
@@ -158,7 +158,7 @@ export const pipelineContextMock = {
       splitViewData: { type: 'StageView' },
       drawerData: { type: 'AddCommand' }
     },
-    selectionState: { selectedStageId: 'ApprovalStep' },
+    selectionState: { selectedStageId: 'ApprovalStep', selectedStepId: 'harnessApproval' },
     isLoading: false,
     isBEPipelineUpdated: false,
     isDBInitialized: true,
@@ -213,7 +213,7 @@ export const pipelineContextMockJiraApproval = {
       splitViewData: { type: 'StageView' },
       drawerData: { type: 'AddCommand' }
     },
-    selectionState: { selectedStageId: 'ApprovalStep' },
+    selectionState: { selectedStageId: 'ApprovalStep', selectedStepId: 'jiraApproval' },
     isLoading: false,
     isBEPipelineUpdated: false,
     isDBInitialized: true,
@@ -230,7 +230,18 @@ export const mockYamlSnippetResponse = {
   error: null,
   data: {
     status: 'SUCCESS',
-    content: [{ name: 'u1', uuid: 'uv1' }],
+    data: 'spec:\n  execution:\n    steps:\n      - step:\n          name: "Approval"\n          identifier: approval\n          type: HarnessApproval\n          timeout: 1d\n          spec:\n            approvalMessage: |-\n              Please review the following information\n              and approve the pipeline progression\n            includePipelineExecutionHistory: true\n            approvers:\n              minimumCount: 1\n              disallowPipelineExecutor: false\n',
+    metaData: null as unknown as undefined,
+    correlationId: 'someId'
+  }
+}
+
+export const mockYamlSnippetResponseJira = {
+  loading: false,
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: 'spec:\n  execution:\n    steps:\n      - step:\n          name: "Jira Create"\n          identifier: jiraCreate\n          type: JiraCreate\n          timeout: 5m\n          spec:\n            fields: []\n      - step:\n          name: "Jira Approval"\n          identifier: jiraApproval\n          type: JiraApproval\n          timeout: 1d\n          spec:\n            approvalCriteria:\n              type: KeyValues\n              spec:\n                matchAnyCondition: false\n                conditions: []\n            rejectionCriteria:\n              type: KeyValues\n              spec:\n                matchAnyCondition: false\n                conditions: []\n      - step:\n          name: "Jira Update"\n          identifier: jiraUpdate\n          type: JiraUpdate\n          timeout: 5m\n          spec:\n            fields: []\n',
     metaData: null as unknown as undefined,
     correlationId: 'someId'
   }
@@ -241,7 +252,7 @@ export const getDummyPipelineContextValue = (): PipelineContextInterface => {
     ...pipelineContextMock,
     updatePipeline: jest.fn(),
     updatePipelineView: jest.fn(),
-    updateStage: jest.fn(),
+    updateStage: jest.fn().mockResolvedValue({}),
     setSelectedTabId: jest.fn(),
     getStagePathFromPipeline: jest.fn(),
     getStageFromPipeline: jest.fn(() => {
@@ -255,7 +266,7 @@ export const getDummyPipelineContextValueJiraApproval = (): PipelineContextInter
     ...pipelineContextMockJiraApproval,
     updatePipeline: jest.fn(),
     updatePipelineView: jest.fn(),
-    updateStage: jest.fn(),
+    updateStage: jest.fn().mockResolvedValue({}),
     setSelectedTabId: jest.fn(),
     getStagePathFromPipeline: jest.fn(),
     getStageFromPipeline: jest.fn(() => {

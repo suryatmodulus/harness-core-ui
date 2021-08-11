@@ -104,41 +104,17 @@ exports[`Restore Cache S3 Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="restoreCacheAwsConnector"
             >
-              pipelineSteps.awsConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.awsConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -274,40 +250,16 @@ exports[`Restore Cache S3 Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="region"
           >
-            regionLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              regionLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -369,40 +321,16 @@ exports[`Restore Cache S3 Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="s3Bucket"
           >
-            pipelineSteps.bucketLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.bucketLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -463,40 +391,16 @@ exports[`Restore Cache S3 Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="restoreCacheKey"
           >
-            keyLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              keyLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -698,41 +602,17 @@ exports[`Restore Cache S3 Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="restoreCacheAwsConnector"
             >
-              pipelineSteps.awsConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.awsConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -825,40 +705,16 @@ exports[`Restore Cache S3 Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="region"
           >
-            regionLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              regionLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -949,40 +805,16 @@ exports[`Restore Cache S3 Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="s3Bucket"
           >
-            pipelineSteps.bucketLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.bucketLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1073,40 +905,16 @@ exports[`Restore Cache S3 Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="restoreCacheKey"
           >
-            keyLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              keyLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1336,41 +1144,17 @@ exports[`Restore Cache S3 Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="restoreCacheAwsConnector"
             >
-              pipelineSteps.awsConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.awsConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1506,40 +1290,16 @@ exports[`Restore Cache S3 Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="region"
           >
-            regionLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              regionLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1601,40 +1361,16 @@ exports[`Restore Cache S3 Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="s3Bucket"
           >
-            pipelineSteps.bucketLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.bucketLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1695,40 +1431,16 @@ exports[`Restore Cache S3 Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="restoreCacheKey"
           >
-            keyLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              keyLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1874,41 +1586,17 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="restoreCacheAwsConnector"
             >
-              pipelineSteps.awsConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.awsConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1996,41 +1684,17 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="region"
           >
-            regionLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              regionLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2094,41 +1758,17 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="s3Bucket"
           >
-            pipelineSteps.bucketLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.bucketLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2191,41 +1831,17 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="restoreCacheKey"
           >
-            keyLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              keyLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2286,40 +1902,16 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="endpoint"
           >
-            pipelineSteps.endpointLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.endpointLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2383,41 +1975,17 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="archiveFormat"
           >
-            archiveFormat
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              archiveFormat
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2616,40 +2184,16 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="setContainerResources"
         >
-          pipelineSteps.setContainerResources
-          <span
-            class="bp3-popover-wrapper"
+          <p
+            class="StyledProps--font StyledProps--main"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
-        </p>
+            pipelineSteps.setContainerResources
+          </p>
+        </div>
         <div
           class="fieldsGroup withoutSpacing withoutAligning"
         >
@@ -2800,41 +2344,17 @@ exports[`Restore Cache S3 Step InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="timeout"
             >
-              pipelineSteps.timeoutLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.timeoutLabel
+              </p>
+            </div>
              
             <span
               class="bp3-text-muted"
@@ -2963,7 +2483,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3003,7 +2527,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Test A
+        <span
+          class=""
+        >
+          Test A
+        </span>
       </p>
     </div>
     <div
@@ -3015,7 +2543,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3055,7 +2587,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        10s
+        <span
+          class=""
+        >
+          10s
+        </span>
       </p>
     </div>
     <div
@@ -3067,7 +2603,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3107,7 +2647,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        account.connectorRef
+        <span
+          class=""
+        >
+          account.connectorRef
+        </span>
       </p>
     </div>
     <div
@@ -3119,7 +2663,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          bucket
+          <span
+            class=""
+          >
+            bucket
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3159,7 +2707,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Bucket
+        <span
+          class=""
+        >
+          Bucket
+        </span>
       </p>
     </div>
     <div
@@ -3171,7 +2723,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          region
+          <span
+            class=""
+          >
+            region
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3211,7 +2767,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        us-east-1
+        <span
+          class=""
+        >
+          us-east-1
+        </span>
       </p>
     </div>
     <div
@@ -3223,7 +2783,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          key
+          <span
+            class=""
+          >
+            key
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3263,7 +2827,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Key
+        <span
+          class=""
+        >
+          Key
+        </span>
       </p>
     </div>
     <div
@@ -3275,7 +2843,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          endpoint
+          <span
+            class=""
+          >
+            endpoint
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3315,7 +2887,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Endpoint
+        <span
+          class=""
+        >
+          Endpoint
+        </span>
       </p>
     </div>
     <div
@@ -3327,7 +2903,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          archiveFormat
+          <span
+            class=""
+          >
+            archiveFormat
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3367,7 +2947,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Tar
+        <span
+          class=""
+        >
+          Tar
+        </span>
       </p>
     </div>
     <div
@@ -3379,7 +2963,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          pathStyle
+          <span
+            class=""
+          >
+            pathStyle
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3419,7 +3007,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -3431,7 +3023,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          failIfKeyNotFound
+          <span
+            class=""
+          >
+            failIfKeyNotFound
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3471,7 +3067,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -3483,7 +3083,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          memory
+          <span
+            class=""
+          >
+            memory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3523,7 +3127,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        128Mi
+        <span
+          class=""
+        >
+          128Mi
+        </span>
       </p>
     </div>
     <div
@@ -3535,7 +3143,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          cpu
+          <span
+            class=""
+          >
+            cpu
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3575,7 +3187,11 @@ exports[`Restore Cache S3 Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        0.2
+        <span
+          class=""
+        >
+          0.2
+        </span>
       </p>
     </div>
   </div>

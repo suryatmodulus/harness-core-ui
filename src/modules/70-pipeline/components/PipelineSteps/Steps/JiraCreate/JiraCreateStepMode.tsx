@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog, Position, Popover } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { FieldArray, FormikProps } from 'formik'
@@ -44,20 +44,17 @@ import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureO
 import type { JiraProjectSelectOption } from '../JiraApproval/types'
 import { getGenuineValue, setIssueTypeOptions } from '../JiraApproval/helper'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
-import { JiraFieldSelector } from './JiraFieldSelector'
 import { JiraDynamicFieldsSelector } from './JiraDynamicFieldsSelector'
-import {
+import type {
   JiraCreateData,
   JiraCreateStepModeProps,
   JiraCreateFormContentInterface,
-  JiraCreateFormFieldSelector,
   JiraCreateFieldType,
   JiraFieldNGWithValue
 } from './types'
 import {
   resetForm,
   getInitialValueForSelectedField,
-  getKVFields,
   processFormData,
   getKVFieldsToBeAddedInForm,
   getSelectedFieldsToBeAddedInForm
@@ -84,13 +81,8 @@ const FormContent = ({
   const { accountId, projectIdentifier, orgIdentifier } =
     useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
-  const [issueTypeFieldList, setIssueTypeFieldList] = useState<JiraFieldNG[]>([])
   const [projectOptions, setProjectOptions] = useState<JiraProjectSelectOption[]>([])
   const [projectMetadata, setProjectMetadata] = useState<JiraProjectNG>()
-  const [fieldsSelector, setFieldsSelector] = useState<JiraCreateFormFieldSelector>(
-    JiraCreateFormFieldSelector.EXPRESSION
-  )
-  const [fieldsPopoverOpen, setFieldsPopoverOpen] = useState(false)
 
   const commonParams = {
     accountIdentifier: accountId,
@@ -123,7 +115,7 @@ const FormContent = ({
       // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
-      formik.setFieldValue('spec.fields', getKVFields(formik.values))
+      // formik.setFieldValue('spec.fields', getKVFields(formik.values))
       formik.setFieldValue('spec.selectedFields', [])
     }
   }, [connectorRefFixedValue])
@@ -142,7 +134,7 @@ const FormContent = ({
       // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
-      formik.setFieldValue('spec.fields', getKVFields(formik.values))
+      // formik.setFieldValue('spec.fields', getKVFields(formik.values))
       formik.setFieldValue('spec.selectedFields', [])
     }
   }, [projectKeyFixedValue])
@@ -151,14 +143,11 @@ const FormContent = ({
     // If issuetype changes in form, set status and field list
     if (issueTypeFixedValue) {
       const issueTypeData = projectMetadata?.issuetypes[issueTypeFixedValue]
-      const fieldListToSet: JiraFieldNG[] = []
       const fieldKeys = Object.keys(issueTypeData?.fields || {})
       const formikSelectedFields: JiraFieldNGWithValue[] = []
       fieldKeys.forEach(keyy => {
         const field = issueTypeData?.fields[keyy]
         if (field && keyy !== 'Summary' && keyy !== 'Description') {
-          fieldListToSet.push(field)
-
           const savedValueForThisField = getInitialValueForSelectedField(formik.values.spec.fields, field)
           if (savedValueForThisField) {
             formikSelectedFields.push({ ...field, value: savedValueForThisField })
@@ -167,13 +156,12 @@ const FormContent = ({
           }
         }
       })
-      setIssueTypeFieldList(fieldListToSet)
       formik.setFieldValue('spec.selectedFields', formikSelectedFields)
     } else if (issueTypeFixedValue !== undefined) {
       // Undefined check is needed so that form is not set to dirty as soon as we open
       // This means we've cleared the value or marked runtime/expression
       // Flush the selected additional fields, and move everything to key value fields
-      formik.setFieldValue('spec.fields', getKVFields(formik.values))
+      // formik.setFieldValue('spec.fields', getKVFields(formik.values))
       formik.setFieldValue('spec.selectedFields', [])
     }
   }, [issueTypeFixedValue, projectMetadata])
@@ -236,29 +224,11 @@ const FormContent = ({
     )
   }, [projectOptions, connectorRefFixedValue, formik.values.spec.selectedFields, formik.values.spec.fields])
 
-  const setFieldOptions = () => {
-    if (
-      projectMetadata &&
-      !isEmpty(issueTypeFieldList) &&
-      connectorRefFixedValue &&
-      projectKeyFixedValue &&
-      issueTypeFixedValue
-    ) {
-      // This means we have concrete values of connector, project and issue type.
-      // Open the field selector
-      setFieldsSelector(JiraCreateFormFieldSelector.FIXED)
-      setFieldsPopoverOpen(true)
-    } else {
-      setFieldsSelector(JiraCreateFormFieldSelector.EXPRESSION)
-      showDynamicFieldsModal()
-    }
-  }
-
   const AddFieldsButton = () => (
     <Text
       onClick={() => {
         if (!isApprovalStepFieldDisabled(readonly)) {
-          setFieldOptions()
+          showDynamicFieldsModal()
         }
       }}
       style={{
@@ -481,28 +451,20 @@ const FormContent = ({
                 )}
               </div>
 
-              {fetchingProjectMetadata ? (
-                <div className={css.fetching}>{getString('pipeline.jiraApprovalStep.fetchingFields')}</div>
-              ) : null}
+              <JiraFieldsRenderer
+                selectedFields={formik.values.spec.selectedFields}
+                readonly={readonly}
+                onDelete={(index, selectedField) => {
+                  const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
+                    (_unused, i) => i !== index
+                  )
+                  formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
+                  const customFields = formik.values.spec.fields?.filter(field => field.name !== selectedField.name)
+                  formik.setFieldValue('spec.fields', customFields)
+                }}
+              />
 
-              {!fetchingProjectMetadata && (
-                <JiraFieldsRenderer
-                  selectedFields={formik.values.spec.selectedFields}
-                  readonly={readonly}
-                  onDelete={(index, selectedField) => {
-                    const selectedFieldsAfterRemoval = formik.values.spec.selectedFields?.filter(
-                      (_unused, i) => i !== index
-                    )
-                    formik.setFieldValue('spec.selectedFields', selectedFieldsAfterRemoval)
-                    const customFields = formik.values.spec.fields?.filter(field => field.name !== selectedField.name)
-                    formik.setFieldValue('spec.fields', customFields)
-                  }}
-                />
-              )}
-
-              {!fetchingProjectMetadata &&
-              !isEmpty(formik.values.spec.fields) &&
-              isEmpty(formik.values.spec.selectedFields) ? (
+              {!isEmpty(formik.values.spec.fields) ? (
                 <FieldArray
                   name="spec.fields"
                   render={({ remove }) => {
@@ -544,33 +506,7 @@ const FormContent = ({
                 />
               ) : null}
 
-              {fieldsSelector === JiraCreateFormFieldSelector.FIXED ? (
-                <Popover
-                  position={Position.LEFT}
-                  usePortal={true}
-                  target=""
-                  isOpen={fieldsPopoverOpen}
-                  content={
-                    <div className={css.jiraFieldSelectorSection}>
-                      <Text className={css.fieldsPopoverHeading}>{getString('pipeline.jiraCreateStep.addFields')}</Text>
-                      <Text>{getString('pipeline.jiraCreateStep.selectFieldsHeading')}</Text>
-                      <JiraFieldSelector
-                        fields={issueTypeFieldList}
-                        selectedFields={formik.values.spec.selectedFields || []}
-                        addSelectedFields={(fieldsToBeAdded: JiraFieldNG[]) => {
-                          setFieldsPopoverOpen(false)
-                          formik.setFieldValue('spec.selectedFields', fieldsToBeAdded)
-                        }}
-                        onCancel={() => setFieldsPopoverOpen(false)}
-                      />
-                    </div>
-                  }
-                >
-                  <AddFieldsButton />
-                </Popover>
-              ) : (
-                <AddFieldsButton />
-              )}
+              <AddFieldsButton />
             </div>
           }
         />

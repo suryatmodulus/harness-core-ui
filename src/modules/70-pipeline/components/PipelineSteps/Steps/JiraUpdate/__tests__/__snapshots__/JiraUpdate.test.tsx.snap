@@ -280,7 +280,11 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -320,7 +324,9 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        
+        <span
+          class=""
+        />
       </p>
     </div>
     <div
@@ -332,7 +338,11 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -372,7 +382,11 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        1d
+        <span
+          class=""
+        >
+          1d
+        </span>
       </p>
     </div>
     <div
@@ -384,7 +398,11 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -424,7 +442,9 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        
+        <span
+          class=""
+        />
       </p>
     </div>
     <div
@@ -436,7 +456,11 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         <div
           class="text variable-name-cell"
         >
-          issueKey
+          <span
+            class=""
+          >
+            issueKey
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -476,7 +500,9 @@ exports[`Jira Update tests Basic snapshot - input variable view: jira-update-inp
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        
+        <span
+          class=""
+        />
       </p>
     </div>
   </div>

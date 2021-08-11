@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -100,14 +99,8 @@ export const S3StepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 's3Connector' }}>
                   {getString('pipelineSteps.awsConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.s3ConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'Aws'}
@@ -123,17 +116,7 @@ export const S3StepBase = (
             />
             <MultiTypeTextField
               name="spec.region"
-              label={
-                <Text>
-                  {getString('regionLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.regionInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 'region' }}>{getString('regionLabel')}</Text>}
               multiTextInputProps={{
                 placeholder: getString('pipelineSteps.regionPlaceholder'),
                 multiTextInputProps: { expressions },
@@ -143,17 +126,7 @@ export const S3StepBase = (
             />
             <MultiTypeTextField
               name="spec.bucket"
-              label={
-                <Text>
-                  {getString('pipelineSteps.bucketLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.S3BucketInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 's3Bucket' }}>{getString('pipelineSteps.bucketLabel')}</Text>}
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
                 disabled: readonly
@@ -163,15 +136,7 @@ export const S3StepBase = (
             <MultiTypeTextField
               name="spec.sourcePath"
               label={
-                <Text>
-                  {getString('pipelineSteps.sourcePathLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.sourcePathInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
+                <Text tooltipProps={{ dataTooltipId: 'sourcePath' }}>{getString('pipelineSteps.sourcePathLabel')}</Text>
               }
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
@@ -187,14 +152,8 @@ export const S3StepBase = (
                     <MultiTypeTextField
                       name="spec.endpoint"
                       label={
-                        <Text>
+                        <Text tooltipProps={{ dataTooltipId: 'endpoint' }}>
                           {getString('pipelineSteps.endpointLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.endpointInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -207,14 +166,8 @@ export const S3StepBase = (
                     <MultiTypeTextField
                       name="spec.target"
                       label={
-                        <Text>
+                        <Text tooltipProps={{ dataTooltipId: 'gcsS3Target' }}>
                           {getString('pipelineSteps.targetLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{

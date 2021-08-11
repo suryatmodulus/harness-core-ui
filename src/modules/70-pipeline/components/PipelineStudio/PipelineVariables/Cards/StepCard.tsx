@@ -19,10 +19,11 @@ export interface StepCardProps {
   onUpdateStep(data: StepElementConfig, path: string): void
   stepPath: string
   readonly?: boolean
+  path?: string
 }
 
 export function StepCard(props: StepCardProps): React.ReactElement {
-  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly } = props
+  const { step, originalStep, metadataMap, stageIdentifier, onUpdateStep, stepPath, readonly, path } = props
   const { stepsFactory } = usePipelineContext()
 
   return (
@@ -43,7 +44,8 @@ export function StepCard(props: StepCardProps): React.ReactElement {
         customStepProps={{
           stageIdentifier,
           metadataMap,
-          variablesData: step
+          variablesData: step,
+          path
         }}
       />
     </React.Fragment>
@@ -53,9 +55,12 @@ export function StepCard(props: StepCardProps): React.ReactElement {
 export function StepCardPanel(props: StepCardProps): React.ReactElement {
   return (
     <NestedAccordionPanel
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
       isDefaultOpen
       addDomId
-      id={`Stage.${props.stageIdentifier}.Execution.Step.${props.originalStep.identifier}`}
+      id={`${props.stepPath}.${props.originalStep.identifier}`}
       summary={<VariableAccordionSummary>{props.originalStep.name}</VariableAccordionSummary>}
       summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL2)}
       details={<StepCard {...props} />}
@@ -72,6 +77,7 @@ export interface StepGroupCardProps {
   stepGroupName: string
   stepGroupOriginalName: string
   readonly?: boolean
+  path?: string
 }
 
 export function StepGroupCard(props: StepGroupCardProps): React.ReactElement {
@@ -109,7 +115,10 @@ export function StepGroupCardPanel(props: StepGroupCardProps): React.ReactElemen
     <NestedAccordionPanel
       isDefaultOpen
       addDomId
-      id={`Stage.${props.stageIdentifier}.Execution.StepGroup.${props.stepGroupIdentifier}`}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
+      id={`${props.path}.StepGroup.${props.stepGroupIdentifier}`}
       summary={<VariableAccordionSummary>{props.stepGroupOriginalName}</VariableAccordionSummary>}
       summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL2)}
       details={<StepGroupCard {...props} />}

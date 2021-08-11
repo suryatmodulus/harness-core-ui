@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -101,14 +100,11 @@ export const SaveCacheS3StepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'saveCacheS3Connector' }}
+                >
                   {getString('pipelineSteps.awsConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.awsConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'Aws'}
@@ -124,17 +120,7 @@ export const SaveCacheS3StepBase = (
             />
             <MultiTypeTextField
               name="spec.region"
-              label={
-                <Text>
-                  {getString('regionLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.regionInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 'region' }}>{getString('regionLabel')}</Text>}
               multiTextInputProps={{
                 placeholder: getString('pipelineSteps.regionPlaceholder'),
                 multiTextInputProps: { expressions },
@@ -144,17 +130,7 @@ export const SaveCacheS3StepBase = (
             />
             <MultiTypeTextField
               name="spec.bucket"
-              label={
-                <Text>
-                  {getString('pipelineSteps.bucketLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.S3BucketInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 's3Bucket' }}>{getString('pipelineSteps.bucketLabel')}</Text>}
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
                 disabled: readonly
@@ -163,17 +139,7 @@ export const SaveCacheS3StepBase = (
             />
             <MultiTypeTextField
               name="spec.key"
-              label={
-                <Text>
-                  {getString('keyLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.keyInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 'saveCacheKey' }}>{getString('keyLabel')}</Text>}
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
                 disabled: readonly
@@ -185,14 +151,11 @@ export const SaveCacheS3StepBase = (
               multiTextInputProps={{ expressions }}
               multiTypeFieldSelectorProps={{
                 label: (
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    tooltipProps={{ dataTooltipId: 'saveCacheSourcePaths' }}
+                  >
                     {getString('pipelineSteps.sourcePathsLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.cacheSourcePathsInfo')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 )
               }}
@@ -207,14 +170,8 @@ export const SaveCacheS3StepBase = (
                     <MultiTypeTextField
                       name="spec.endpoint"
                       label={
-                        <Text>
+                        <Text tooltipProps={{ dataTooltipId: 'endpoint' }}>
                           {getString('pipelineSteps.endpointLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.endpointInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -227,14 +184,8 @@ export const SaveCacheS3StepBase = (
                     <MultiTypeSelectField
                       name="spec.archiveFormat"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'archiveFormat' }}>
                           {getString('archiveFormat')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('archiveFormatInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTypeInputProps={{
@@ -249,37 +200,23 @@ export const SaveCacheS3StepBase = (
                       name="spec.override"
                       label={getString('override')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.pipelineSteps.overrideCacheInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions,
                         disabled: readonly
                       }}
                       style={{ marginBottom: 'var(--spacing-medium)' }}
                       disabled={readonly}
+                      tooltipProps={{ dataTooltipId: 'saveCacheOverride' }}
                     />
                     <FormMultiTypeCheckboxField
                       name="spec.pathStyle"
                       label={getString('pathStyle')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.pipelineSteps.pathStyleInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions,
                         disabled: readonly
                       }}
                       style={{ marginBottom: 'var(--spacing-small)' }}
                       disabled={readonly}
+                      tooltipProps={{ dataTooltipId: 'pathStyle' }}
                     />
                     <StepCommonFields disabled={readonly} />
                   </>

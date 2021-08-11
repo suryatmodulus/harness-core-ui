@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect, FormikContext } from 'formik'
+import cx from 'classnames'
 import {
   Button,
   FixedTypeComponentProps,
@@ -52,6 +53,7 @@ export interface MultiTypeSecretInputProps extends IFormGroupProps {
   onSuccess?: (secret: SecretReference) => void
   secretsListMockData?: ResponsePageSecretResponseWrapper
   isMultiType?: boolean
+  small?: boolean
 }
 
 export interface ConnectedMultiTypeSecretInputProps extends MultiTypeSecretInputProps {
@@ -91,6 +93,7 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
     intent = hasError ? Intent.DANGER : Intent.NONE,
     helperText = hasError ? get(formik.errors, name) : null,
     disabled,
+    small,
     ...rest
   } = restProps
 
@@ -99,7 +102,14 @@ export function MultiTypeSecretInput(props: ConnectedMultiTypeSecretInputProps):
   }
 
   return (
-    <FormGroup {...rest} labelFor={name} label={label} intent={intent} helperText={helperText}>
+    <FormGroup
+      {...rest}
+      className={cx({ [css.smallForm]: small })}
+      labelFor={name}
+      label={label}
+      intent={intent}
+      helperText={helperText}
+    >
       {isMultiType ? (
         <ExpressionAndRuntimeType
           name={name}

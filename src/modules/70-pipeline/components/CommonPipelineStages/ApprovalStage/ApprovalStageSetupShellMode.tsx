@@ -26,13 +26,11 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
   const {
     state: {
       pipeline,
-      selectionState: { selectedStageId = '', selectedStepId },
-      pipelineView
+      selectionState: { selectedStageId = '', selectedStepId }
     },
     getStageFromPipeline,
     updatePipeline,
-    updateStage,
-    updatePipelineView
+    updateStage
   } = React.useContext(PipelineContext)
 
   const [loadGraph, setLoadGraph] = React.useState(false)
@@ -53,11 +51,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
           rightIcon="chevron-right"
           onClick={() => {
             updatePipeline(pipeline)
-            if (selectedTabId === tabHeadings[1]) {
-              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-            } else {
-              setSelectedTabId(tabHeadings[1])
-            }
+            setSelectedTabId(tabHeadings[1])
           }}
         />
       </Layout.Horizontal>
@@ -147,9 +141,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
           panel={
             <>
               {loadGraph ? (
-                <ApprovalStageExecution>
-                  <ActionButtons />
-                </ApprovalStageExecution>
+                <ApprovalStageExecution />
               ) : (
                 <PageSpinner
                   className={css.graphLoadingSpinner}
@@ -176,11 +168,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
               {tabHeadings[2]}
             </span>
           }
-          panel={
-            <ApprovalAdvancedSpecifications>
-              <ActionButtons />
-            </ApprovalAdvancedSpecifications>
-          }
+          panel={<ApprovalAdvancedSpecifications />}
           data-testid={tabHeadings[2]}
         />
       </Tabs>

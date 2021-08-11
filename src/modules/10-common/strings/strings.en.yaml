@@ -497,4 +497,6 @@ pagerDuty: PagerDuty
 notificationPreferences: Notification Preferences
 videoNotSupportedError: Your browser doesn't support HTML5 video.
 sidecarArtifactsText: '{{$.sidecarArtifactText}}s'
+discard: Discard
 default: Default
+searchPlaceholder: Search by name or ID

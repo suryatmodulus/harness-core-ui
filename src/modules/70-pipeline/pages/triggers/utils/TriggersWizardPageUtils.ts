@@ -88,6 +88,7 @@ export interface FlatOnEditValuesInterface {
   inputSetTemplateYamlObj?: {
     pipeline: PipelineInfoConfig | Record<string, never>
   }
+  eventConditions?: AddConditionInterface[]
 }
 
 export interface FlatValidWebhookFormikValuesInterface {
@@ -399,7 +400,7 @@ const getPanels = ({
     return [
       {
         id: 'Trigger Overview',
-        tabTitle: getString('pipeline.triggers.triggerOverviewPanel.title'),
+        tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
         checkValidPanel: checkValidOverview,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
       },
@@ -891,6 +892,25 @@ export interface artifactTableItem {
   hasRuntimeInputs: boolean
 }
 
+export const TriggerDefaultFieldList = {
+  chartVersion: '<+trigger.manifest.version>',
+  build: '<+trigger.artifact.build'
+}
+
+export const replaceTriggerDefaultBuild = ({
+  build,
+  chartVersion
+}: {
+  build?: string
+  chartVersion?: string
+}): string => {
+  if (chartVersion === '<+input>') {
+    return TriggerDefaultFieldList.chartVersion
+  } else if (build === '<+input>') {
+    return TriggerDefaultFieldList.build
+  }
+  return build || chartVersion || ''
+}
 const getManifestTableItem = ({
   stageId,
   manifest,
@@ -1024,9 +1044,9 @@ export function getArtifactSpecObj({
     const pathArr = `.spec${path}`.split('.').filter(p => !!p)
     const pathResult = get(selectedArtifact, pathArr)
 
-    if (val === '<+input>' && key && pathResult?.[key]) {
+    if (val && key && pathResult?.[key]) {
       newAppliedArtifactSpecObj[key] = pathResult[key]
-    } else if (val === '<+input>' && key && selectedArtifact?.spec?.[key]) {
+    } else if (val && key && selectedArtifact?.spec?.[key]) {
       newAppliedArtifactSpecObj[key] = selectedArtifact.spec[key]
     } else if (typeof val === 'object') {
       const obj = getArtifactSpecObj({

@@ -76,7 +76,7 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test.each<[string, string]>([
-    ['pipelines', routes.toExecutionPipelineView(pathParams)],
+    ['common.pipeline', routes.toExecutionPipelineView(pathParams)],
     ['inputs', routes.toExecutionInputsView(pathParams)]
     // [i18nTabs.artifacts, routes.toExecutionArtifactsView(pathParams)]
   ])('Navigation to "%s" Tabs work', async (tab, url) => {

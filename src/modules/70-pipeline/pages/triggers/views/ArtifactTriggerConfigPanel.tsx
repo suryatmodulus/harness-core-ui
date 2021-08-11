@@ -50,7 +50,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
       })
       formikProps.setFieldValue(`${initialPath}.manifests[0].manifest.spec`, newAppliedArtifactSpecObj)
     }
-  }, [initialPath])
+  }, [initialPath, appliedTableArtifact])
 
   useEffect(() => {
     if (inputSetTemplateYamlObj || selectedArtifact) {

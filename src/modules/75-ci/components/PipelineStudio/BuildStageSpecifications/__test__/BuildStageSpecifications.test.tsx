@@ -1,5 +1,5 @@
 import React from 'react'
-import { queryByAttribute, act, fireEvent, findByText, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import BuildStageSpecifications from '../BuildStageSpecifications'
@@ -27,23 +27,6 @@ describe('BuildStageSpecifications tests', () => {
         </PipelineContext.Provider>
       </TestWrapper>
     )
-    expect(container).toMatchSnapshot()
-  })
-
-  test('clicking on description shows corresponding inputs', async () => {
-    const { container } = render(
-      <TestWrapper>
-        <PipelineContext.Provider value={pipelineContextMockValue}>
-          <BuildStageSpecifications />
-        </PipelineContext.Provider>
-      </TestWrapper>
-    )
-    const addDescriptionBtn = await findByText(container, 'pipelineSteps.build.stageSpecifications.addDescription')
-    expect(addDescriptionBtn).toBeDefined()
-    await act(async () => {
-      fireEvent.click(addDescriptionBtn)
-    })
-    expect(queryByAttribute('name', container, 'description')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

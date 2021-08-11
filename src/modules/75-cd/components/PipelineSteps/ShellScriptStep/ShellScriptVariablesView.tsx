@@ -4,8 +4,7 @@ import { pick } from 'lodash-es'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { VariableResponseMapValue } from 'services/pipeline-ng'
 import type { ShellScriptData } from './shellScriptTypes'
-
-import css from './ShellScript.module.scss'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 export interface ShellScriptVariablesViewProps {
   metadataMap: Record<string, VariableResponseMapValue>
@@ -39,7 +38,7 @@ export function ShellScriptVariablesView(props: ShellScriptVariablesViewProps): 
 
   return (
     <VariablesListTable
-      className={css.variablesList}
+      className={pipelineVariableCss.variablePaddingL2}
       metadataMap={metadataMap}
       data={data}
       originalData={originalData?.spec}

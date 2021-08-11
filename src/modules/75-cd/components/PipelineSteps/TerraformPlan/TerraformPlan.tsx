@@ -6,7 +6,6 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Text,
-  Button,
   Icon,
   Layout,
   Formik,
@@ -332,14 +331,11 @@ function TerraformPlanWidget(
                             multiTypeFieldSelectorProps={{
                               disableTypeSelection: true,
                               label: (
-                                <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
+                                <Text
+                                  style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}
+                                  tooltipProps={{ dataTooltipId: 'dependencyEnvironmentVariables' }}
+                                >
                                   {getString('optionalField', { name: getString('environmentVariables') })}
-                                  <Button
-                                    icon="question"
-                                    minimal
-                                    tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                                    iconProps={{ size: 14 }}
-                                  />
                                 </Text>
                               )
                             }}

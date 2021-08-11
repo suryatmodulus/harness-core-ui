@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -38,14 +38,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'ecrConnector' }}>
               {getString('pipelineSteps.awsConnectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.ecrConnectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={'Aws'}
@@ -69,14 +63,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'region' }}>
               {getString('regionLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.regionInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -94,14 +82,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.account`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'ecrAccount' }}>
               {getString('common.accountId')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.accountInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -119,9 +101,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.imageName`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'imageName' }}>
               {getString('imageNameLabel')}
-              <Button icon="question" minimal tooltip={getString('imageNameInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -143,9 +124,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'tags' }}>
                 {getString('tagsLabel')}
-                <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -159,14 +139,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.dockerfile`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'dockerfile' }}>
               {getString('pipelineSteps.dockerfileLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.dockerfileInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -184,14 +158,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.context`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'context' }}>
               {getString('pipelineSteps.contextLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.contextInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -213,14 +181,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'labels' }}>
                 {getString('pipelineSteps.labelsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.labelsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -238,14 +200,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'buildArgs' }}>
                 {getString('pipelineSteps.buildArgsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.buildArgsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -271,14 +227,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'target' }}>
               {getString('pipelineSteps.targetLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.targetInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -296,14 +246,8 @@ export const ECRStepInputSet: React.FC<ECRStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.remoteCacheImage`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'ecrRemoteCache' }}>
               {getString('ci.remoteCacheImage.label')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('ci.remoteCacheImage.ecrInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{

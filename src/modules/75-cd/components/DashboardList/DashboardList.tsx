@@ -4,7 +4,7 @@ import { noop } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import Table from '@common/components/Table/Table'
 import type { TableProps } from '@common/components/Table/Table'
-import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
+// import FilterSelector from '@common/components/Filter/FilterSelector/FilterSelector'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import ServiceDetailsEmptyState from '@cd/icons/ServiceDetailsEmptyState.svg'
@@ -38,12 +38,12 @@ const HeaderFilterComponent: React.FC<{ onChange: (val: string) => void }> = pro
         className={css.expandSearch}
         onChange={onChange}
       />
-      <FilterSelector<any>
+      {/* <FilterSelector<any>
         onFilterBtnClick={noop}
         onFilterSelect={noop}
         fieldToLabelMapping={new Map<string, string>()}
         filterWithValidFields={{}}
-      />
+      /> */}
     </Layout.Horizontal>
   )
 }

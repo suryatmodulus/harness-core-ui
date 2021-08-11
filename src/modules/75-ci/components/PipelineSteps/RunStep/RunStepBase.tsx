@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -111,14 +110,8 @@ export const RunStepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}>
                   {getString('pipelineSteps.connectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.connectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -135,9 +128,12 @@ export const RunStepBase = (
             <MultiTypeTextField
               name="spec.image"
               label={
-                <Text>
+                <Text
+                  tooltipProps={{
+                    dataTooltipId: 'image'
+                  }}
+                >
                   {getString('imageLabel')}
-                  <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
                 </Text>
               }
               multiTextInputProps={{
@@ -153,9 +149,11 @@ export const RunStepBase = (
               <MultiTypeFieldSelector
                 name="spec.command"
                 label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    tooltipProps={{ dataTooltipId: 'runCommand' }}
+                  >
                     {getString('commandLabel')}
-                    <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 }
                 defaultValueToReset=""
@@ -206,16 +204,9 @@ export const RunStepBase = (
                       name="spec.privileged"
                       label={getString('ci.privileged')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.privilegedInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions
                       }}
+                      tooltipProps={{ dataTooltipId: 'privileged' }}
                       disabled={readonly}
                     />
                     <MultiTypeList
@@ -224,14 +215,11 @@ export const RunStepBase = (
                       multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'reportPaths' }}
+                          >
                             {getString('pipelineSteps.reportPathsLabel')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.reportPathsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}
@@ -243,14 +231,11 @@ export const RunStepBase = (
                       valueMultiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'environmentVariables' }}
+                          >
                             {getString('environmentVariables')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('environmentVariablesInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}
@@ -262,14 +247,11 @@ export const RunStepBase = (
                       multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'outputVariables' }}
+                          >
                             {getString('pipelineSteps.outputVariablesLabel')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}

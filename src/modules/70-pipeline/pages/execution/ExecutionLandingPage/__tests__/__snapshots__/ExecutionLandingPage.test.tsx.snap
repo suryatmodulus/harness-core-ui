@@ -364,7 +364,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
               </svg>
             </span>
             <span>
-              pipelines
+              common.pipeline
             </span>
           </a>
           <a

@@ -1,7 +1,7 @@
 verificationResult: 'Verification result:'
 estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
-discard: Discard
+discard: '{{ $.common.discard }}'
 serviceDependencyText: Service Dependency
 serviceDependenciesText: Service Dependencies
 stepLabel: '{{name}} (ID: {{identifier}})'
@@ -12,7 +12,6 @@ clickHere: Click here
 stepDetails: Step details
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
-namespaceTooltip: Namespace must exist
 executionTarget: Execution Target
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 onlyPositiveInteger: Only positive integer values
@@ -499,7 +498,7 @@ triggers:
     plusSelect: '+ Select {{artifact}}'
     selectAnArtifact: 'Select an Artifact Reference'
     selectAManifest: 'Select a Manifest Reference'
-    configureArtifactRuntimeInputs: 'Configure Artifact Runtime Inputs'
+    configureArtifactRuntimeInputs: 'Configure {{artifact}} Runtime Inputs'
     noSelectableArtifactsFound: 'No selectable {{artifact}}s found. Please add in the pipeline.'
     noArtifacts: No artifacts for selected stage.
     configureInputs: Configure inputs

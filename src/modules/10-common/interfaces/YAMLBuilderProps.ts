@@ -40,6 +40,7 @@ export interface YamlBuilderProps {
   onSnippetCopy?: (identifier: string) => Promise<void>
   snippetFetchResponse?: SnippetFetchResponse
   onChange?: (isEditorDirty: boolean) => void
+  onErrorCallback?: (error: Record<string, any>) => void
 }
 
 export interface CompletionItemInterface {

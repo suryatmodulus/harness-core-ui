@@ -114,7 +114,7 @@ describe('Unit tests for createting monitored source', () => {
         } as any)
     )
   })
-  test('Health source tabel and environment services compoenet renders', async () => {
+  test('Health source table and environment services compoenet renders', async () => {
     const { container, getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <MonitoredServicePage />

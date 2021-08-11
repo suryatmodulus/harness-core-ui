@@ -30,7 +30,7 @@ exports[`ArtifactConditionsPanel Triggers tests Initial Render 1`] = `
             pipeline.triggers.conditionsPanel.subtitle
           </p>
           <section
-            data-name="headerConditions"
+            data-name="eventConditions"
           >
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, SelectOption, MultiTypeInputType } from '@wings-software/uicore'
+import { Text, SelectOption, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import { connect } from 'formik'
 import { useStrings } from 'framework/strings'
@@ -83,30 +83,25 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
           }}
           disabled={disabled}
           configureOptionsProps={{ variableName: 'spec.shell' }}
+          style={{ marginBottom: 'var(--spacing-medium)' }}
         />
       )}
       <MultiTypeTextField
         label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
         name="spec.runAsUser"
-        style={{ marginTop: 'var(--spacing-medium)' }}
         multiTextInputProps={{
           multiTextInputProps: { expressions },
           disabled,
           placeholder: '1000'
         }}
+        style={{ marginBottom: 'var(--spacing-medium)' }}
       />
-      <Text margin={{ top: 'small' }}>
+      <Text tooltipProps={{ dataTooltipId: 'setContainerResources' }}>
         {getString('pipelineSteps.setContainerResources')}
-        <Button
-          icon="question"
-          minimal
-          tooltip={getString('pipelineSteps.setContainerResourcesTooltip')}
-          iconProps={{ size: 14 }}
-        />
       </Text>
       <div
         className={cx(css.fieldsGroup, css.withoutSpacing, css.withoutAligning)}
-        style={{ marginBottom: 'var(--spacing-small)' }}
+        style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
       >
         <MultiTypeTextField
           name="spec.limitMemory"
@@ -137,14 +132,8 @@ const StepCommonFields = ({ withoutTimeout, disabled, enableFields = [] }: StepC
           name="timeout"
           multiTypeDurationProps={{ expressions }}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
               {getString('pipelineSteps.timeoutLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.timeoutInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           disabled={disabled}

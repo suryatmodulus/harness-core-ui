@@ -30,8 +30,8 @@ export const ServicesContent: React.FC = () => {
 
   const queryParams: GetServiceDetailsQueryParams = {
     accountIdentifier: accountId,
-    orgIdentifier,
     projectIdentifier,
+    orgIdentifier,
     startTime: timeRange?.range[0]?.getTime() || 0,
     endTime: timeRange?.range[1]?.getTime() || 0
   }

@@ -264,6 +264,12 @@ const FormContent = ({
           isOptional={true}
           multiTypeInputProps={{
             allowableTypes: [MultiTypeInputType.FIXED],
+            selectProps: {
+              items: fetchingProjects
+                ? [{ label: getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder'), value: '' }]
+                : projectOptions,
+              addClearBtn: true
+            },
             onChange: (value: unknown) => {
               // Clear dependent fields
               if ((value as JiraProjectSelectOption)?.key !== projectKeyFixedValue) {
@@ -296,6 +302,12 @@ const FormContent = ({
           }
           disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
           multiTypeInputProps={{
+            selectProps: {
+              addClearBtn: true,
+              items: fetchingProjectMetadata
+                ? [{ label: getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder'), value: '' }]
+                : setIssueTypeOptions(projectMetadata?.issuetypes)
+            },
             allowableTypes: [MultiTypeInputType.FIXED],
             onChange: (value: unknown) => {
               // Clear dependent fields
@@ -334,7 +346,6 @@ const FormContent = ({
         )}
       </div>
 
-      <div className={stepCss.divider} />
       <ApprovalRejectionCriteria
         statusList={statusList}
         fieldList={fieldList}

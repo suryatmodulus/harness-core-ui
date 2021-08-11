@@ -21,7 +21,7 @@ export default function CustomiseHealthSource({
   onSuccess,
   shouldRenderAtVerifyStep
 }: {
-  onSuccess: (data: MonitoredServiceResponse) => void
+  onSuccess: (data: MonitoredServiceResponse | UpdatedHealthSource) => void
   shouldRenderAtVerifyStep?: boolean
 }): JSX.Element {
   const params = useParams<ProjectPathProps & { identifier: string }>()
@@ -48,34 +48,38 @@ export default function CustomiseHealthSource({
   )
 
   const submitData = async (formdata: any, healthSourcePayload: UpdatedHealthSource): Promise<void> => {
-    const healthSourceList = createHealthsourceList(formdata, healthSourcePayload)
-    const { identifier, name, description = '', tags = {} } = formdata?.monitoredServiceRef
-    try {
-      const payload: MonitoredServiceDTO = {
-        orgIdentifier: params.orgIdentifier,
-        projectIdentifier: params.projectIdentifier,
-        serviceRef: sourceData.serviceRef,
-        environmentRef: sourceData.environmentRef,
-        identifier,
-        name,
-        description,
-        tags,
-        type: 'Application',
-        sources: {
-          healthSources: healthSourceList
+    if (shouldRenderAtVerifyStep) {
+      const healthSourceList = createHealthsourceList(formdata, healthSourcePayload)
+      const { identifier, name, description = '', tags = {} } = formdata?.monitoredServiceRef
+      try {
+        const payload: MonitoredServiceDTO = {
+          orgIdentifier: params.orgIdentifier,
+          projectIdentifier: params.projectIdentifier,
+          serviceRef: sourceData.serviceRef,
+          environmentRef: sourceData.environmentRef,
+          identifier,
+          name,
+          description,
+          tags,
+          type: 'Application',
+          sources: {
+            healthSources: healthSourceList
+          }
         }
+        // From verify step it will be always update call since monitored service will already be created.
+        // This flow will be triggered only when user is adding health source to existing monitored service
+        const postdatavalue = isEdit ? await updateMonitoredService(payload) : await saveMonitoredService(payload)
+        postdatavalue?.resource && onSuccess(postdatavalue?.resource)
+        showSuccess(
+          isEdit
+            ? getString('cv.monitoredServices.monitoredServiceUpdated')
+            : getString('cv.monitoredServices.monitoredServiceCreated')
+        )
+      } catch (error) {
+        showError(getErrorMessage(error))
       }
-      // From verify step it will be always update call since monitored service will already be created.
-      // This flow will be triggered only when user is adding health source to existing monitored service
-      const postdatavalue = isEdit ? await updateMonitoredService(payload) : await saveMonitoredService(payload)
-      postdatavalue?.resource && onSuccess(postdatavalue?.resource)
-      showSuccess(
-        isEdit
-          ? getString('cv.monitoredServices.monitoredServiceUpdated')
-          : getString('cv.monitoredServices.monitoredServiceCreated')
-      )
-    } catch (error) {
-      showError(getErrorMessage(error))
+    } else {
+      onSuccess(healthSourcePayload)
     }
   }
 

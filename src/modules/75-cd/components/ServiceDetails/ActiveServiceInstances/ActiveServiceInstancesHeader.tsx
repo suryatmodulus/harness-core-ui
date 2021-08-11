@@ -11,7 +11,7 @@ import {
 } from 'services/cd-ng'
 import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
 import { useStrings } from 'framework/strings'
-import { numberFormatter } from '@cd/components/Services/common'
+import { INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import { TrendPopover } from '@cd/components/TrendPopover/TrendPopover'
 import { SparklineChart } from '@common/components/SparklineChart/SparklineChart'
 import { Ticker } from '@common/components/Ticker/Ticker'
@@ -88,7 +88,8 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
     }
   }
 
-  const tickerColor = changeRate > 0 ? Color.GREEN_600 : Color.RED_500
+  const isBoostMode = changeRate === INVALID_CHANGE_RATE
+  const tickerColor = isBoostMode || changeRate > 0 ? Color.GREEN_600 : Color.RED_500
 
   return (
     <Layout.Horizontal
@@ -108,12 +109,18 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
         <Layout.Vertical flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
           <Ticker
             value={
-              <Text font={{ size: 'xsmall' }} color={tickerColor}>{`${numberFormatter(Math.abs(changeRate), {
-                truncate: false
-              })}%`}</Text>
+              isBoostMode ? (
+                <></>
+              ) : (
+                <Text font={{ size: 'xsmall' }} color={tickerColor}>{`${numberFormatter(Math.abs(changeRate), {
+                  truncate: false
+                })}%`}</Text>
+              )
             }
-            decreaseMode={changeRate < 0}
+            decreaseMode={!isBoostMode && changeRate < 0}
+            boost={isBoostMode}
             color={tickerColor}
+            size={isBoostMode ? 10 : 6}
           />
           <Text font={{ size: 'xsmall' }}>
             {getString('cd.serviceDashboard.in', {

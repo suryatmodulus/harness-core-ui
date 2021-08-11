@@ -258,7 +258,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -298,7 +302,9 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        
+        <span
+          class=""
+        />
       </p>
     </div>
     <div
@@ -310,7 +316,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -350,7 +360,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        1d
+        <span
+          class=""
+        >
+          1d
+        </span>
       </p>
     </div>
     <div
@@ -362,7 +376,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         <div
           class="text variable-name-cell"
         >
-          approvalMessage
+          <span
+            class=""
+          >
+            approvalMessage
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -402,7 +420,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Please review the following information and approve the pipeline progression
+        <span
+          class=""
+        >
+          Please review the following information and approve the pipeline progression
+        </span>
       </p>
     </div>
     <div
@@ -414,7 +436,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         <div
           class="text variable-name-cell"
         >
-          includePipelineExecutionHistory
+          <span
+            class=""
+          >
+            includePipelineExecutionHistory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -454,7 +480,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -466,7 +496,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         <div
           class="text variable-name-cell"
         >
-          userGroups
+          <span
+            class=""
+          >
+            userGroups
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -506,7 +540,9 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        
+        <span
+          class=""
+        />
       </p>
     </div>
     <div
@@ -518,7 +554,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         <div
           class="text variable-name-cell"
         >
-          minimumCount
+          <span
+            class=""
+          >
+            minimumCount
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -558,7 +598,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        1
+        <span
+          class=""
+        >
+          1
+        </span>
       </p>
     </div>
     <div
@@ -570,7 +614,11 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         <div
           class="text variable-name-cell"
         >
-          approverInputs
+          <span
+            class=""
+          >
+            approverInputs
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -610,10 +658,14 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        {
+        <span
+          class=""
+        >
+          {
   "name": "",
   "defaultValue": ""
 }
+        </span>
       </p>
     </div>
   </div>
@@ -1029,8 +1081,10 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
           </div>
         </div>
         <div
-          class="divider"
-        />
+          class="stepSubSectionHeading"
+        >
+          Approval Message
+        </div>
         <div
           class="formGroup"
         >
@@ -1094,7 +1148,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 disabled=""
@@ -1112,6 +1166,11 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
               </span>
             </label>
           </div>
+        </div>
+        <div
+          class="stepSubSectionHeading"
+        >
+          Approvers
         </div>
         <div
           class="formGroup lg"
@@ -1263,7 +1322,7 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox bp3-disabled StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 disabled=""
@@ -1492,8 +1551,10 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
           </div>
         </div>
         <div
-          class="divider"
-        />
+          class="stepSubSectionHeading"
+        >
+          Approval Message
+        </div>
         <div
           class="formGroup"
         >
@@ -1578,7 +1639,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 checked=""
@@ -1596,6 +1657,11 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
               </span>
             </label>
           </div>
+        </div>
+        <div
+          class="stepSubSectionHeading"
+        >
+          Approvers
         </div>
         <div
           class="formGroup lg"
@@ -1836,7 +1902,7 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox execHistoryCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
             >
               <input
                 checked=""

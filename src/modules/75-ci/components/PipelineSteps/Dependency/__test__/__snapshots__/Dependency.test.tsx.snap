@@ -172,41 +172,17 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dependencyConnector"
               >
-                pipelineSteps.connectorLabel
-                <span
-                  class="bp3-popover-wrapper"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="question"
-                      >
-                        <svg
-                          height="14"
-                          viewBox="0 0 14 14"
-                          width="14"
-                        >
-                          <path
-                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                            fill="#9AA5B5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </p>
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -342,40 +318,16 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="image"
             >
-              imageLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                imageLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -647,41 +599,17 @@ exports[`Dependency Edit view edit mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dependencyConnector"
               >
-                pipelineSteps.connectorLabel
-                <span
-                  class="bp3-popover-wrapper"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="question"
-                      >
-                        <svg
-                          height="14"
-                          viewBox="0 0 14 14"
-                          width="14"
-                        >
-                          <path
-                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                            fill="#9AA5B5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </p>
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -817,40 +745,16 @@ exports[`Dependency Edit view edit mode works 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="image"
             >
-              imageLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                imageLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -1122,41 +1026,17 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dependencyConnector"
               >
-                pipelineSteps.connectorLabel
-                <span
-                  class="bp3-popover-wrapper"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="question"
-                      >
-                        <svg
-                          height="14"
-                          viewBox="0 0 14 14"
-                          width="14"
-                        >
-                          <path
-                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                            fill="#9AA5B5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </p>
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1292,40 +1172,16 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="image"
             >
-              imageLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                imageLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -1632,41 +1488,17 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dependencyConnector"
               >
-                pipelineSteps.connectorLabel
-                <span
-                  class="bp3-popover-wrapper"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="question"
-                      >
-                        <svg
-                          height="14"
-                          viewBox="0 0 14 14"
-                          width="14"
-                        >
-                          <path
-                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                            fill="#9AA5B5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </p>
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1759,40 +1591,16 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="image"
             >
-              imageLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                imageLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -2089,41 +1897,17 @@ exports[`Dependency Edit view should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dependencyConnector"
               >
-                pipelineSteps.connectorLabel
-                <span
-                  class="bp3-popover-wrapper"
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
                 >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="question"
-                      >
-                        <svg
-                          height="14"
-                          viewBox="0 0 14 14"
-                          width="14"
-                        >
-                          <path
-                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                            fill="#9AA5B5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-              </p>
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -2259,40 +2043,16 @@ exports[`Dependency Edit view should render properly 1`] = `
             </div>
           </div>
           <div>
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="image"
             >
-              imageLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                imageLabel
+              </p>
+            </div>
             <div
               style="display: flex; align-items: center;"
             >
@@ -2500,41 +2260,17 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="dependencyConnectorInfo"
             >
-              pipelineSteps.connectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.connectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2622,41 +2358,17 @@ exports[`Dependency InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="image"
           >
-            imageLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              imageLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2738,35 +2450,6 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                   class="bp3-control-indicator"
                 />
                 ci.privileged
-                <span
-                  class="bp3-popover-wrapper"
-                >
-                  <span
-                    class="bp3-popover-target"
-                  >
-                    <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="bp3-icon StyledProps--main"
-                        data-icon="question"
-                      >
-                        <svg
-                          height="14"
-                          viewBox="0 0 14 14"
-                          width="14"
-                        >
-                          <path
-                            d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                            fill="#9AA5B5"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
               </label>
               <span
                 class="bp3-popover-wrapper MultiTypeInput--wrapper"
@@ -2814,41 +2497,17 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyEnvironmentVariables"
                 >
-                  environmentVariables
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    environmentVariables
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3037,41 +2696,17 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyEntryPoint"
                 >
-                  entryPointLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    entryPointLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3226,41 +2861,17 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyArgs"
                 >
-                  argsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    argsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3400,40 +3011,16 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="setContainerResources"
         >
-          pipelineSteps.setContainerResources
-          <span
-            class="bp3-popover-wrapper"
+          <p
+            class="StyledProps--font StyledProps--main"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
-        </p>
+            pipelineSteps.setContainerResources
+          </p>
+        </div>
         <div
           class="fieldsGroup withoutSpacing withoutAligning"
         >
@@ -3646,7 +3233,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3686,7 +3277,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Test A
+        <span
+          class=""
+        >
+          Test A
+        </span>
       </p>
     </div>
     <div
@@ -3698,7 +3293,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          description
+          <span
+            class=""
+          >
+            description
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3738,7 +3337,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Description
+        <span
+          class=""
+        >
+          Description
+        </span>
       </p>
     </div>
     <div
@@ -3750,7 +3353,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3790,7 +3397,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        account.connectorRef
+        <span
+          class=""
+        >
+          account.connectorRef
+        </span>
       </p>
     </div>
     <div
@@ -3801,48 +3412,56 @@ exports[`Dependency InputVariable View should render properly 1`] = `
       >
         <div
           class="text variable-name-cell"
+        >
+          <span
+            class=""
+          >
+            image
+          </span>
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
+      </div>
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
+      >
+        <span
+          class=""
         >
           image
-        </div>
-        <div
-          class="bp3-popover-wrapper btnWrapper"
-        >
-          <span
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-              tabindex="0"
-              type="button"
-            >
-              <span
-                class="bp3-icon StyledProps--main"
-                data-icon="copy-alt"
-              >
-                <svg
-                  fill="none"
-                  height="16"
-                  viewBox="0 0 8 9"
-                  width="16"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </span>
-        </div>
-      </div>
-      <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
-        style="--text-line-clamp: 1;"
-      >
-        image
+        </span>
       </p>
     </div>
     <div
@@ -3854,7 +3473,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          privileged
+          <span
+            class=""
+          >
+            privileged
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3894,7 +3517,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        false
+        <span
+          class=""
+        >
+          false
+        </span>
       </p>
     </div>
     <div
@@ -3906,7 +3533,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          envVariables
+          <span
+            class=""
+          >
+            envVariables
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3946,11 +3577,15 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        {
+        <span
+          class=""
+        >
+          {
   "key1": "value1",
   "key2": "value2",
   "key3": "value3"
 }
+        </span>
       </p>
     </div>
     <div
@@ -3962,7 +3597,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          entrypoint
+          <span
+            class=""
+          >
+            entrypoint
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4002,7 +3641,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        entrypoint1, entrypoint2, entrypoint3
+        <span
+          class=""
+        >
+          entrypoint1, entrypoint2, entrypoint3
+        </span>
       </p>
     </div>
     <div
@@ -4014,7 +3657,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          args
+          <span
+            class=""
+          >
+            args
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4054,7 +3701,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        arg1, arg2, arg3
+        <span
+          class=""
+        >
+          arg1, arg2, arg3
+        </span>
       </p>
     </div>
     <div
@@ -4066,7 +3717,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          memory
+          <span
+            class=""
+          >
+            memory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4106,7 +3761,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        128Mi
+        <span
+          class=""
+        >
+          128Mi
+        </span>
       </p>
     </div>
     <div
@@ -4118,7 +3777,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          cpu
+          <span
+            class=""
+          >
+            cpu
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4158,7 +3821,11 @@ exports[`Dependency InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        0.2
+        <span
+          class=""
+        >
+          0.2
+        </span>
       </p>
     </div>
   </div>

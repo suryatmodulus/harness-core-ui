@@ -105,41 +105,17 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="dockerHubConnector"
             >
-              pipelineSteps.dockerHubConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.dockerHubConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -275,40 +251,16 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="dockerHubRepository"
           >
-            connectors.docker.dockerRepository
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              connectors.docker.dockerRepository
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -383,41 +335,17 @@ exports[`DockerHub Step Edit View edit mode works 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -867,41 +795,17 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="dockerHubConnector"
             >
-              pipelineSteps.dockerHubConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.dockerHubConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -994,40 +898,16 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="dockerHubRepository"
           >
-            connectors.docker.dockerRepository
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              connectors.docker.dockerRepository
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1133,41 +1013,17 @@ exports[`DockerHub Step Edit View renders runtime inputs 1`] = `
                 class="Tooltip--acenter"
                 data-tooltip-id="dockerHubStep_spec.tags"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
               </span>
                
               <span
@@ -1394,41 +1250,17 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="dockerHubConnector"
             >
-              pipelineSteps.dockerHubConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.dockerHubConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1564,40 +1396,16 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="dockerHubRepository"
           >
-            connectors.docker.dockerRepository
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              connectors.docker.dockerRepository
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1672,41 +1480,17 @@ exports[`DockerHub Step Edit View should render properly 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -1939,41 +1723,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="dockerHubConnector"
             >
-              pipelineSteps.dockerHubConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.dockerHubConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2061,41 +1821,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="dockerHubRepository"
           >
-            dockerRegistry
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              dockerRegistry
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2170,41 +1906,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2345,49 +2057,78 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
+          class="bp3-form-group"
+          data-id="spec.optimize-3"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+            >
+              <label
+                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
+              >
+                <input
+                  name="spec.optimize"
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                ci.optimize
+              </label>
+              <span
+                class="bp3-popover-wrapper MultiTypeInput--wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                  >
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="fixed-input"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 9 9"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="dockerfile"
           >
-            pipelineSteps.dockerfileLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.dockerfileLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
             <div
               class="bp3-form-group"
-              data-id="spec.dockerfile-3"
+              data-id="spec.dockerfile-4"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -2444,47 +2185,23 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="context"
           >
-            pipelineSteps.contextLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.contextLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
             <div
               class="bp3-form-group"
-              data-id="spec.context-4"
+              data-id="spec.context-5"
               style="margin-bottom: 0px; flex-grow: 1;"
             >
               
@@ -2543,7 +2260,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
         >
           <div
             class="bp3-form-group"
-            data-id="spec.labels[0].key-5"
+            data-id="spec.labels[0].key-6"
             style="flex-grow: 1; margin-bottom: 0px;"
           >
             <label
@@ -2553,41 +2270,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="labels"
                 >
-                  pipelineSteps.labelsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    pipelineSteps.labelsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2766,7 +2459,7 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
         >
           <div
             class="bp3-form-group"
-            data-id="spec.buildArgs[0].key-6"
+            data-id="spec.buildArgs[0].key-7"
             style="flex-grow: 1; margin-bottom: 0px;"
           >
             <label
@@ -2776,41 +2469,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="buildArgs"
                 >
-                  pipelineSteps.buildArgsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    pipelineSteps.buildArgsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2985,96 +2654,19 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
           </div>
         </div>
         <div
-          class="bp3-form-group"
-          data-id="spec.optimize-7"
-        >
-          <div
-            class="bp3-form-content"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-            >
-              <label
-                class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox input StyledProps--main"
-              >
-                <input
-                  name="spec.optimize"
-                  type="checkbox"
-                />
-                <span
-                  class="bp3-control-indicator"
-                />
-                ci.optimize
-              </label>
-              <span
-                class="bp3-popover-wrapper MultiTypeInput--wrapper"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="fixed-input"
-                    >
-                      <svg
-                        height="12"
-                        viewBox="0 0 9 9"
-                        width="12"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                          fill="currentColor"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="target"
           >
-            pipelineSteps.targetLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.targetLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -3137,41 +2729,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="dockerHubRemoteCache"
           >
-            ci.remoteCacheRepository.label
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              ci.remoteCacheRepository.label
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -3231,40 +2799,16 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="setContainerResources"
         >
-          pipelineSteps.setContainerResources
-          <span
-            class="bp3-popover-wrapper"
+          <p
+            class="StyledProps--font StyledProps--main"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
-        </p>
+            pipelineSteps.setContainerResources
+          </p>
+        </div>
         <div
           class="fieldsGroup withoutSpacing withoutAligning"
         >
@@ -3415,41 +2959,17 @@ exports[`DockerHub Step InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="timeout"
             >
-              pipelineSteps.timeoutLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.timeoutLabel
+              </p>
+            </div>
              
             <span
               class="bp3-text-muted"
@@ -3578,7 +3098,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3618,7 +3142,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Test A
+        <span
+          class=""
+        >
+          Test A
+        </span>
       </p>
     </div>
     <div
@@ -3630,7 +3158,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3670,7 +3202,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        10s
+        <span
+          class=""
+        >
+          10s
+        </span>
       </p>
     </div>
     <div
@@ -3682,7 +3218,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3722,7 +3262,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        account.connectorRef
+        <span
+          class=""
+        >
+          account.connectorRef
+        </span>
       </p>
     </div>
     <div
@@ -3734,7 +3278,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          repo
+          <span
+            class=""
+          >
+            repo
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3774,7 +3322,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Repository
+        <span
+          class=""
+        >
+          Repository
+        </span>
       </p>
     </div>
     <div
@@ -3786,7 +3338,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          tags
+          <span
+            class=""
+          >
+            tags
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3826,7 +3382,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        tag1, tag2, tag3
+        <span
+          class=""
+        >
+          tag1, tag2, tag3
+        </span>
       </p>
     </div>
     <div
@@ -3838,7 +3398,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          dockerfile
+          <span
+            class=""
+          >
+            dockerfile
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3878,7 +3442,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Dockerfile
+        <span
+          class=""
+        >
+          Dockerfile
+        </span>
       </p>
     </div>
     <div
@@ -3890,7 +3458,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          context
+          <span
+            class=""
+          >
+            context
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3930,7 +3502,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Context
+        <span
+          class=""
+        >
+          Context
+        </span>
       </p>
     </div>
     <div
@@ -3942,7 +3518,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          labels
+          <span
+            class=""
+          >
+            labels
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -3982,11 +3562,15 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        {
+        <span
+          class=""
+        >
+          {
   "label1": "value1",
   "label2": "value2",
   "label3": "value3"
 }
+        </span>
       </p>
     </div>
     <div
@@ -3998,7 +3582,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          buildArgs
+          <span
+            class=""
+          >
+            buildArgs
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4038,11 +3626,15 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        {
+        <span
+          class=""
+        >
+          {
   "buildArg1": "value1",
   "buildArg2": "value2",
   "buildArg3": "value3"
 }
+        </span>
       </p>
     </div>
     <div
@@ -4054,7 +3646,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          optimize
+          <span
+            class=""
+          >
+            optimize
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4094,7 +3690,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -4106,7 +3706,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          target
+          <span
+            class=""
+          >
+            target
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4146,7 +3750,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Target
+        <span
+          class=""
+        >
+          Target
+        </span>
       </p>
     </div>
     <div
@@ -4158,7 +3766,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          remoteCacheRepo
+          <span
+            class=""
+          >
+            remoteCacheRepo
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4198,7 +3810,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        myImage-cache
+        <span
+          class=""
+        >
+          myImage-cache
+        </span>
       </p>
     </div>
     <div
@@ -4210,7 +3826,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          memory
+          <span
+            class=""
+          >
+            memory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4250,7 +3870,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        128Mi
+        <span
+          class=""
+        >
+          128Mi
+        </span>
       </p>
     </div>
     <div
@@ -4262,7 +3886,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          cpu
+          <span
+            class=""
+          >
+            cpu
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4302,7 +3930,11 @@ exports[`DockerHub Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        0.2
+        <span
+          class=""
+        >
+          0.2
+        </span>
       </p>
     </div>
   </div>

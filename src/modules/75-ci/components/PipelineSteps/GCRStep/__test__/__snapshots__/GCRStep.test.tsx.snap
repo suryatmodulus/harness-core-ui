@@ -105,41 +105,17 @@ exports[`GCR Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="gcrConnector"
             >
-              pipelineSteps.gcpConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.gcpConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -275,40 +251,16 @@ exports[`GCR Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrHost"
           >
-            pipelineSteps.hostLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.hostLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -370,40 +322,16 @@ exports[`GCR Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrProjectID"
           >
-            pipelineSteps.projectIDLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.projectIDLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -464,40 +392,16 @@ exports[`GCR Step Edit View edit mode works 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="imageName"
           >
-            imageNameLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              imageNameLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -572,41 +476,17 @@ exports[`GCR Step Edit View edit mode works 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -1056,41 +936,17 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="gcrConnector"
             >
-              pipelineSteps.gcpConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.gcpConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1183,40 +1039,16 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrHost"
           >
-            pipelineSteps.hostLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.hostLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1307,40 +1139,16 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrProjectID"
           >
-            pipelineSteps.projectIDLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.projectIDLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1431,40 +1239,16 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="imageName"
           >
-            imageNameLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              imageNameLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -1570,41 +1354,17 @@ exports[`GCR Step Edit View renders runtime inputs 1`] = `
                 class="Tooltip--acenter"
                 data-tooltip-id="ciGcrStep_spec.tags"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
               </span>
                
               <span
@@ -1831,41 +1591,17 @@ exports[`GCR Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="gcrConnector"
             >
-              pipelineSteps.gcpConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.gcpConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2001,40 +1737,16 @@ exports[`GCR Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrHost"
           >
-            pipelineSteps.hostLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.hostLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2096,40 +1808,16 @@ exports[`GCR Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrProjectID"
           >
-            pipelineSteps.projectIDLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.projectIDLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2190,40 +1878,16 @@ exports[`GCR Step Edit View should render properly 1`] = `
           </div>
         </div>
         <div>
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="imageName"
           >
-            imageNameLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              imageNameLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2298,41 +1962,17 @@ exports[`GCR Step Edit View should render properly 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2565,41 +2205,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="gcrConnector"
             >
-              pipelineSteps.gcpConnectorLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.gcpConnectorLabel
+              </p>
+            </div>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2687,41 +2303,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrHost"
           >
-            pipelineSteps.hostLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.hostLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2784,41 +2376,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrProjectID"
           >
-            pipelineSteps.projectIDLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.projectIDLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2881,41 +2449,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="imageName"
           >
-            imageNameLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              imageNameLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -2990,41 +2534,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="tags"
                 >
-                  tagsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    tagsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3167,41 +2687,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="dockerfile"
           >
-            pipelineSteps.dockerfileLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.dockerfileLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -3264,41 +2760,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="context"
           >
-            pipelineSteps.contextLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.contextLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -3373,41 +2845,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="labels"
                 >
-                  pipelineSteps.labelsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    pipelineSteps.labelsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3596,41 +3044,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="buildArgs"
                 >
-                  pipelineSteps.buildArgsLabel
-                  <span
-                    class="bp3-popover-wrapper"
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
                   >
-                    <span
-                      class="bp3-popover-target"
-                    >
-                      <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="bp3-icon StyledProps--main"
-                          data-icon="question"
-                        >
-                          <svg
-                            height="14"
-                            viewBox="0 0 14 14"
-                            width="14"
-                          >
-                            <path
-                              d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                              fill="#9AA5B5"
-                            />
-                          </svg>
-                        </span>
-                      </button>
-                    </span>
-                  </span>
-                </p>
+                    pipelineSteps.buildArgsLabel
+                  </p>
+                </div>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -3860,41 +3284,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="target"
           >
-            pipelineSteps.targetLabel
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              pipelineSteps.targetLabel
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -3957,41 +3357,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
         <div
           class="removeBpLabelMargin"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Text--withDocsTooltip"
+            data-tooltip-id="gcrRemoteCache"
           >
-            ci.remoteCacheImage.label
-            <span
-              class="bp3-popover-wrapper"
+            <p
+              class="StyledProps--font StyledProps--main"
+              style="display: flex; align-items: center;"
             >
-              <span
-                class="bp3-popover-target"
-              >
-                <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="question"
-                  >
-                    <svg
-                      height="14"
-                      viewBox="0 0 14 14"
-                      width="14"
-                    >
-                      <path
-                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                        fill="#9AA5B5"
-                      />
-                    </svg>
-                  </span>
-                </button>
-              </span>
-            </span>
-          </p>
+              ci.remoteCacheImage.label
+            </p>
+          </div>
           <div
             style="display: flex; align-items: center;"
           >
@@ -4051,40 +3427,16 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
             </div>
           </div>
         </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--margin-top-small"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="setContainerResources"
         >
-          pipelineSteps.setContainerResources
-          <span
-            class="bp3-popover-wrapper"
+          <p
+            class="StyledProps--font StyledProps--main"
           >
-            <span
-              class="bp3-popover-target"
-            >
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="question"
-                >
-                  <svg
-                    height="14"
-                    viewBox="0 0 14 14"
-                    width="14"
-                  >
-                    <path
-                      d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                      fill="#9AA5B5"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
-        </p>
+            pipelineSteps.setContainerResources
+          </p>
+        </div>
         <div
           class="fieldsGroup withoutSpacing withoutAligning"
         >
@@ -4235,41 +3587,17 @@ exports[`GCR Step InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="display: flex; align-items: center;"
+            <div
+              class="Text--withDocsTooltip"
+              data-tooltip-id="timeout"
             >
-              pipelineSteps.timeoutLabel
-              <span
-                class="bp3-popover-wrapper"
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="display: flex; align-items: center;"
               >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    tabindex="0"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="question"
-                    >
-                      <svg
-                        height="14"
-                        viewBox="0 0 14 14"
-                        width="14"
-                      >
-                        <path
-                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                          fill="#9AA5B5"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </span>
-              </span>
-            </p>
+                pipelineSteps.timeoutLabel
+              </p>
+            </div>
              
             <span
               class="bp3-text-muted"
@@ -4398,7 +3726,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          name
+          <span
+            class=""
+          >
+            name
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4438,7 +3770,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Test A
+        <span
+          class=""
+        >
+          Test A
+        </span>
       </p>
     </div>
     <div
@@ -4450,7 +3786,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          timeout
+          <span
+            class=""
+          >
+            timeout
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4490,7 +3830,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        10s
+        <span
+          class=""
+        >
+          10s
+        </span>
       </p>
     </div>
     <div
@@ -4502,7 +3846,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          connectorRef
+          <span
+            class=""
+          >
+            connectorRef
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4542,7 +3890,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        account.connectorRef
+        <span
+          class=""
+        >
+          account.connectorRef
+        </span>
       </p>
     </div>
     <div
@@ -4554,7 +3906,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          host
+          <span
+            class=""
+          >
+            host
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4594,7 +3950,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Host
+        <span
+          class=""
+        >
+          Host
+        </span>
       </p>
     </div>
     <div
@@ -4606,7 +3966,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          projectID
+          <span
+            class=""
+          >
+            projectID
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4646,7 +4010,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Project ID
+        <span
+          class=""
+        >
+          Project ID
+        </span>
       </p>
     </div>
     <div
@@ -4658,7 +4026,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          imageName
+          <span
+            class=""
+          >
+            imageName
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4698,7 +4070,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Image Name
+        <span
+          class=""
+        >
+          Image Name
+        </span>
       </p>
     </div>
     <div
@@ -4710,7 +4086,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          tags
+          <span
+            class=""
+          >
+            tags
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4750,7 +4130,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        tag1, tag2, tag3
+        <span
+          class=""
+        >
+          tag1, tag2, tag3
+        </span>
       </p>
     </div>
     <div
@@ -4762,7 +4146,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          dockerfile
+          <span
+            class=""
+          >
+            dockerfile
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4802,7 +4190,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Dockerfile
+        <span
+          class=""
+        >
+          Dockerfile
+        </span>
       </p>
     </div>
     <div
@@ -4814,7 +4206,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          context
+          <span
+            class=""
+          >
+            context
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4854,7 +4250,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Context
+        <span
+          class=""
+        >
+          Context
+        </span>
       </p>
     </div>
     <div
@@ -4866,7 +4266,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          labels
+          <span
+            class=""
+          >
+            labels
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4906,11 +4310,15 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        {
+        <span
+          class=""
+        >
+          {
   "label1": "value1",
   "label2": "value2",
   "label3": "value3"
 }
+        </span>
       </p>
     </div>
     <div
@@ -4922,7 +4330,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          buildArgs
+          <span
+            class=""
+          >
+            buildArgs
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -4962,11 +4374,15 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        {
+        <span
+          class=""
+        >
+          {
   "buildArg1": "value1",
   "buildArg2": "value2",
   "buildArg3": "value3"
 }
+        </span>
       </p>
     </div>
     <div
@@ -4978,7 +4394,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          optimize
+          <span
+            class=""
+          >
+            optimize
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -5018,7 +4438,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        true
+        <span
+          class=""
+        >
+          true
+        </span>
       </p>
     </div>
     <div
@@ -5030,7 +4454,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          target
+          <span
+            class=""
+          >
+            target
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -5070,7 +4498,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        Target
+        <span
+          class=""
+        >
+          Target
+        </span>
       </p>
     </div>
     <div
@@ -5082,7 +4514,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          remoteCacheImage
+          <span
+            class=""
+          >
+            remoteCacheImage
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -5122,7 +4558,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        myImage-cache
+        <span
+          class=""
+        >
+          myImage-cache
+        </span>
       </p>
     </div>
     <div
@@ -5134,7 +4574,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          memory
+          <span
+            class=""
+          >
+            memory
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -5174,7 +4618,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        128Mi
+        <span
+          class=""
+        >
+          128Mi
+        </span>
       </p>
     </div>
     <div
@@ -5186,7 +4634,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         <div
           class="text variable-name-cell"
         >
-          cpu
+          <span
+            class=""
+          >
+            cpu
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -5226,7 +4678,11 @@ exports[`GCR Step InputVariable View should render properly 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        0.2
+        <span
+          class=""
+        >
+          0.2
+        </span>
       </p>
     </div>
   </div>

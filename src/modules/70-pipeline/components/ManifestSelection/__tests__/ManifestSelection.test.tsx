@@ -66,6 +66,75 @@ describe('ManifestSelection tests', () => {
     expect(continueButton).toBeDefined()
   })
 
+  test(`renders manifest selection when isForOverrideSets is true`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ManifestSelection isForOverrideSets={true} isForPredefinedSets={false} />
+      </TestWrapper>
+    )
+    const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
+    expect(addFileButton).toBeDefined()
+
+    const listOfManifests =
+      pipelineContextMock.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets.map(
+        elem => elem.overrideSets.overrideSet.manifests
+      )[0]
+    expect(listOfManifests.length).toEqual(4)
+  })
+
+  test(`renders manifest selection when isForPredefinedSets is true`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ManifestSelection isForOverrideSets={false} isForPredefinedSets={true} />
+      </TestWrapper>
+    )
+    const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
+    expect(addFileButton).toBeDefined()
+    fireEvent.click(addFileButton)
+    const portal = document.getElementsByClassName('bp3-dialog')[0]
+    const manifestLabel = await waitFor(() =>
+      findByText(portal as HTMLElement, 'pipeline.manifestType.manifestRepoType')
+    )
+    expect(manifestLabel).toBeDefined()
+  })
+
+  test(`renders manifest selection when overrideSetIdentifier and identifierName has some value`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ManifestSelection
+          overrideSetIdentifier={'overrideSetIdentifier'}
+          isForOverrideSets={false}
+          isForPredefinedSets={false}
+          isPropagating={false}
+          identifierName={'identifierName'}
+        />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test(`renders manifest selection when isPropagating is true`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <ManifestSelection
+          overrideSetIdentifier={''}
+          isForOverrideSets={false}
+          isForPredefinedSets={false}
+          isPropagating={true}
+          identifierName={''}
+        />
+      </TestWrapper>
+    )
+    const addFileButton = await findByText(container, 'pipelineSteps.serviceTab.manifestList.addManifest')
+    expect(addFileButton).toBeDefined()
+    fireEvent.click(addFileButton)
+    const portal = document.getElementsByClassName('bp3-dialog')[0]
+    const manifestLabel = await waitFor(() =>
+      findByText(portal as HTMLElement, 'pipeline.manifestType.manifestRepoType')
+    )
+    expect(manifestLabel).toBeDefined()
+  })
+
   test(`renders Manifest Listview without crashing`, () => {
     const props = {
       isPropagating: false,
@@ -234,5 +303,38 @@ describe('ManifestSelection tests', () => {
     const closeButton = portal.querySelector("button[class*='crossIcon']") as Element
     fireEvent.click(closeButton)
     expect(container).toMatchSnapshot()
+  })
+
+  test(`manifest listview when isForOverrideSets is true`, async () => {
+    const props = {
+      isPropagating: false,
+      pipeline: pipelineContextMock,
+      updateStage: jest.fn(),
+      stage: pipelineContextMock.stages[0],
+      isForOverrideSets: true,
+      identifierName: '',
+      isForPredefinedSets: false,
+      overrideSetIdentifier: '',
+      connectors: connectorsData.data as any,
+      refetchConnectors: jest.fn(),
+      isReadonly: false,
+      listOfManifests: []
+    }
+
+    const listOfManifests = props.stage.stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets
+    const { container } = render(
+      <TestWrapper>
+        <ManifestListView {...props} listOfManifests={listOfManifests} />
+      </TestWrapper>
+    )
+
+    const editManifestBtn = container.querySelectorAll('[data-icon="edit"]')[0]
+    expect(editManifestBtn).toBeDefined()
+    fireEvent.click(editManifestBtn)
+    const portal = document.getElementsByClassName('bp3-dialog')[0]
+    const manifestLabel = await waitFor(() =>
+      findByText(portal as HTMLElement, 'pipeline.manifestType.manifestRepoType')
+    )
+    expect(manifestLabel).toBeDefined()
   })
 })

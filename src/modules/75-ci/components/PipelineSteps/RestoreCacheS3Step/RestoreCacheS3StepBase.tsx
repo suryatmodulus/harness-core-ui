@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -100,14 +99,11 @@ export const RestoreCacheS3StepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'restoreCacheAwsConnector' }}
+                >
                   {getString('pipelineSteps.awsConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.restoreCacheAwsConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'Aws'}
@@ -123,17 +119,7 @@ export const RestoreCacheS3StepBase = (
             />
             <MultiTypeTextField
               name="spec.region"
-              label={
-                <Text>
-                  {getString('regionLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.regionInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 'region' }}>{getString('regionLabel')}</Text>}
               multiTextInputProps={{
                 placeholder: getString('pipelineSteps.regionPlaceholder'),
                 multiTextInputProps: { expressions },
@@ -143,17 +129,7 @@ export const RestoreCacheS3StepBase = (
             />
             <MultiTypeTextField
               name="spec.bucket"
-              label={
-                <Text>
-                  {getString('pipelineSteps.bucketLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.S3BucketInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 's3Bucket' }}>{getString('pipelineSteps.bucketLabel')}</Text>}
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
                 disabled: readonly
@@ -162,17 +138,7 @@ export const RestoreCacheS3StepBase = (
             />
             <MultiTypeTextField
               name="spec.key"
-              label={
-                <Text>
-                  {getString('keyLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.restoreCacheKeyInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 'restoreCacheKey' }}>{getString('keyLabel')}</Text>}
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
                 disabled: readonly
@@ -187,14 +153,8 @@ export const RestoreCacheS3StepBase = (
                     <MultiTypeTextField
                       name="spec.endpoint"
                       label={
-                        <Text>
+                        <Text tooltipProps={{ dataTooltipId: 'endpoint' }}>
                           {getString('pipelineSteps.endpointLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.endpointInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -207,14 +167,8 @@ export const RestoreCacheS3StepBase = (
                     <MultiTypeSelectField
                       name="spec.archiveFormat"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'archiveFormat' }}>
                           {getString('archiveFormat')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('archiveFormatInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTypeInputProps={{
@@ -229,37 +183,23 @@ export const RestoreCacheS3StepBase = (
                       name="spec.pathStyle"
                       label={getString('pathStyle')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.pipelineSteps.pathStyleInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions,
                         disabled: readonly
                       }}
                       style={{ marginBottom: 'var(--spacing-medium)' }}
                       disabled={readonly}
+                      tooltipProps={{ dataTooltipId: 'pathStyle' }}
                     />
                     <FormMultiTypeCheckboxField
                       name="spec.failIfKeyNotFound"
                       label={getString('failIfKeyNotFound')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.pipelineSteps.failIfKeyNotFoundInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions,
                         disabled: readonly
                       }}
                       style={{ marginBottom: 'var(--spacing-small)' }}
                       disabled={readonly}
+                      tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
                     />
                     <StepCommonFields disabled={readonly} />
                   </>

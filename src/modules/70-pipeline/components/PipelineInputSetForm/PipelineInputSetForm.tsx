@@ -37,7 +37,7 @@ const stageTypeToIconMap: Record<string, IconName> = {
   ci: 'ci-main',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom',
-  Approval: 'pipeline-approval'
+  Approval: 'approval-stage-icon'
 }
 
 function StageForm({

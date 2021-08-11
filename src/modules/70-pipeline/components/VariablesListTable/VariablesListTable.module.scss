@@ -31,4 +31,10 @@
       right: 100%;
     }
   }
+  .selectedSearchText {
+    mark {
+      background: orange;
+      padding: 0px 2px;
+    }
+  }
 }

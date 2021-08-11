@@ -43,6 +43,7 @@ describe('ArtifactsSelection tests', () => {
 
     expect(container).toMatchSnapshot()
   })
+
   test(`renders artifact without crashing`, async () => {
     const { container } = render(
       <TestWrapper>
@@ -55,17 +56,68 @@ describe('ArtifactsSelection tests', () => {
     expect(primaryArtifactContainer).toBeDefined()
   })
 
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip(`renders artifact with override without crashing`, async () => {
+  test(`renders artifact when isForOverrideSets is true`, async () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection isForOverrideSets={true} />
+          <ArtifactsSelection isForOverrideSets={true} identifierName={'overrideSetIdentifier'} />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const primaryArtifact =
+      pipelineContextMock.state.pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets.map(
+        elem => elem.overrideSet.artifacts.primary
+      )[0]
+    expect(primaryArtifact.type).toBe('Dockerhub')
+    const primaryArtifactContainer = await findByText(container, 'primary')
+    expect(primaryArtifactContainer).toBeDefined()
+  })
+
+  test(`renders artifact when isPropagating is true`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection isForOverrideSets={false} identifierName={'overrideSetIdentifier'} isPropagating={true} />
         </PipelineContext.Provider>
       </TestWrapper>
     )
 
-    expect(container).toMatchSnapshot('renders artifact with override without crashing')
+    const addPrimaryArtifact = await findByText(container, 'pipelineSteps.serviceTab.artifactList.addPrimary')
+    expect(addPrimaryArtifact).toBeDefined()
+  })
+
+  test(`renders artifact when  isForPredefinedSets is true`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection
+            isForOverrideSets={false}
+            identifierName={'overrideSetIdentifier'}
+            isPropagating={false}
+            isForPredefinedSets={true}
+          />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const addPrimaryArtifact = await findByText(container, 'pipelineSteps.serviceTab.artifactList.addPrimary')
+    expect(addPrimaryArtifact).toBeDefined()
+  })
+
+  test(`renders artifact when overrideSetIdentifier and identifierName has some value`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection
+            isForOverrideSets={false}
+            identifierName={'identifierName'}
+            isPropagating={false}
+            isForPredefinedSets={false}
+            overrideSetIdentifier={'overrideSetIdentifier'}
+          />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
   })
 
   test(`renders add Artifact option without crashing`, async () => {
@@ -285,5 +337,21 @@ describe('ArtifactsSelection tests', () => {
     fireEvent.click(editArtifactBtn)
 
     expect(container).toMatchSnapshot()
+  })
+
+  test(`remove artifact list works correctly`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection isForOverrideSets={false} />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+
+    const deleteArtifactList = container.querySelectorAll('[data-icon="main-trash"]')
+    expect(deleteArtifactList.length).toBe(3)
+    const remove = container.querySelectorAll('[data-icon="main-trash"]')[1]
+
+    expect(remove).toBeDefined()
   })
 })

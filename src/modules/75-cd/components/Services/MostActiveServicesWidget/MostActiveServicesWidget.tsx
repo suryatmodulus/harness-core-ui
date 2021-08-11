@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { Card, Color, Container, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
-import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
+import { DeploymentsTimeRangeContext, getFixed, INVALID_CHANGE_RATE } from '@cd/components/Services/common'
 import { DashboardWorkloadDeployment, GetWorkloadsQueryParams, useGetWorkloads } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { FAIL_COLORS, SUCCESS_COLORS } from '@dashboards/constants'
@@ -81,7 +81,7 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
           const change = selectedType === DEFAULT_TYPES_ENUM.DEPLOYMENTS ? rateSuccess : failureRateChangeRate
           return {
             label: workloadDeploymentInfo.serviceName || '',
-            value,
+            value: getFixed(value),
             change: change || 0
           }
         }
@@ -122,8 +122,8 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
   const queryParams: GetWorkloadsQueryParams = useMemo(() => {
     return {
       accountIdentifier: accountId,
-      orgIdentifier,
       projectIdentifier,
+      orgIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
       endTime: timeRange?.range[1]?.getTime() || 0,
       environmentType: environmentTypes[selectedEnvironmentType]
@@ -160,16 +160,23 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
   const Tickers = useMemo(() => {
     return data.map((service, index) => {
       const { change } = service
+      const isBoostMode = change === INVALID_CHANGE_RATE
       const [color, tickerValueStyle] =
-        change > 0 ? [Color.RED_500, css.tickerValueRed] : [Color.GREEN_600, css.tickerValueGreen]
+        (selectedType === DEFAULT_TYPES_ENUM.DEPLOYMENTS && !isBoostMode && change < 0) ||
+        (selectedType === DEFAULT_TYPES_ENUM.ERRORS && (isBoostMode || change > 0))
+          ? [Color.RED_500, css.tickerValueRed]
+          : [Color.GREEN_600, css.tickerValueGreen]
       return (
         <div className={css.tickerContainer} key={index}>
           {change !== undefined ? (
             <Ticker
-              value={`${Math.abs(change)}%`}
+              value={isBoostMode ? '' : `${getFixed(Math.abs(change))}%`}
               color={color}
               tickerValueStyles={cx(css.tickerValueStyles, tickerValueStyle)}
               verticalAlign={TickerVerticalAlignment.CENTER}
+              decreaseMode={!isBoostMode && change < 0}
+              boost={isBoostMode}
+              size={isBoostMode ? 10 : 6}
             />
           ) : (
             <></>
@@ -266,20 +273,21 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
     <MostActiveServicesWidgetContainer>
       <Layout.Horizontal
         flex={{ distribution: 'space-between', alignItems: 'flex-start' }}
+        width="100%"
         height={150}
         className={css.stackTickerContainer}
         data-test="mostActiveServicesWidgetContent"
       >
-        <div className={css.weightedStackContainer}>
+        <Layout.Vertical className={css.weightedStackContainer} width="60%">
           <WeightedStack
             data={weightedStackData}
-            labelPosition={LabelPosition.INSIDE}
+            labelPosition={LabelPosition.BOTTOM}
             stackStyles={css.stack}
             progressBarStyles={css.progressBar}
             labelStyles={css.label}
           />
-        </div>
-        <Layout.Vertical>{Tickers}</Layout.Vertical>
+        </Layout.Vertical>
+        <Layout.Vertical width="30%">{Tickers}</Layout.Vertical>
       </Layout.Horizontal>
     </MostActiveServicesWidgetContainer>
   )

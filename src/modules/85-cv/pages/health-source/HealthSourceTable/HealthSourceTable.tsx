@@ -6,16 +6,16 @@ import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { MonitoredServiceDTO, MonitoredServiceResponse, useUpdateMonitoredService } from 'services/cv'
+import type { MonitoredServiceResponse } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 import { Table } from '@common/components'
 import ContextMenuActions from '@cv/components/ContextMenuActions/ContextMenuActions'
 import HealthSources from '@cv/components/PipelineSteps/ContinousVerification/components/HealthSources/HealthSources'
 import HealthSourceDrawerContent from '../HealthSourceDrawer/HealthSourceDrawerContent'
-import type { RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
+import type { RowData, UpdatedHealthSource } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 import type { HealthSourceTableInterface } from './HealthSourceTable.types'
-import { getIconBySourceType, getTypeByFeature } from './HealthSourceTable.utils'
+import { getIconBySourceType, getTypeByFeature, createHealthsourceList } from './HealthSourceTable.utils'
 import css from './HealthSourceTable.module.scss'
 
 export default function HealthSourceTable({
@@ -25,7 +25,6 @@ export default function HealthSourceTable({
   monitoredServiceRef,
   value: tableData,
   onSuccess,
-  onDelete,
   isEdit,
   shouldRenderAtVerifyStep,
   isRunTimeInput,
@@ -44,11 +43,6 @@ export default function HealthSourceTable({
   useEffect(() => {
     setModalOpen(!!validMonitoredSource)
   }, [validMonitoredSource])
-
-  const { mutate: updateMonitoredService, loading: monitoredServiceLoading } = useUpdateMonitoredService({
-    identifier: params.identifier,
-    queryParams: { accountId: params.accountId }
-  })
 
   const createHeader = useCallback(() => {
     return (
@@ -86,33 +80,30 @@ export default function HealthSourceTable({
   }, [rowData, isEdit])
 
   const deleteHealthSource = async (selectedRow: RowData): Promise<void> => {
-    if (onDelete) {
-      try {
-        const payload: MonitoredServiceDTO = {
-          orgIdentifier: params.orgIdentifier,
-          projectIdentifier: params.projectIdentifier,
-          serviceRef,
-          environmentRef,
-          identifier: monitoredServiceRef?.identifier,
-          name: monitoredServiceRef?.name,
-          description: monitoredServiceRef?.description,
-          tags: {},
-          type: 'Application',
-          sources: {
-            healthSources: tableData?.filter(healthSource => healthSource.identifier !== selectedRow.identifier)
-          }
+    const payload = {
+      monitoredService: {
+        sources: {
+          healthSources: tableData?.filter(healthSource => healthSource.identifier !== selectedRow.identifier)
         }
-        const deletePayload = await updateMonitoredService(payload)
-        await onDelete(deletePayload?.resource as MonitoredServiceResponse)
-      } catch (error) {
-        showError(error?.message)
       }
     }
+    onSuccess(payload as MonitoredServiceResponse)
   }
 
-  const onSuccessHealthSourceTableWrapper = (data: MonitoredServiceResponse): void => {
+  const onSuccessHealthSourceTableWrapper = (data: MonitoredServiceResponse | UpdatedHealthSource): void => {
+    if (shouldRenderAtVerifyStep) {
+      onSuccess(data as MonitoredServiceResponse)
+    } else {
+      // single health source data add to table monitoredService?.sources
+      const healthSources = createHealthsourceList(tableData, data as UpdatedHealthSource)
+      const payload = {
+        monitoredService: {
+          sources: { healthSources }
+        }
+      }
+      onSuccess(payload as MonitoredServiceResponse)
+    }
     setModalOpen(false)
-    onSuccess(data)
   }
 
   const onCloseHealthSourceTableWrapper = (): void => {
@@ -154,10 +145,6 @@ export default function HealthSourceTable({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-
-  if (monitoredServiceLoading) {
-    return <Icon className={css.tableLoader} name="steps-spinner" size={32} color={Color.GREY_600} />
-  }
 
   return (
     <>

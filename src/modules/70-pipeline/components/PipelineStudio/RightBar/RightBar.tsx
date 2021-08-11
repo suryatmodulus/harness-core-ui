@@ -640,14 +640,8 @@ export const RightBar = (): JSX.Element => {
                               configureOptionsProps={{ variableName: 'prCloneStrategy' }}
                               style={{ marginBottom: 'var(--spacing-medium)' }}
                             />
-                            <Text margin={{ top: 'small' }}>
+                            <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'setContainerResources' }}>
                               {getString('pipelineSteps.setContainerResources')}
-                              <Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('pipelineSteps.setContainerResourcesTooltip')}
-                                iconProps={{ size: 14 }}
-                              />
                             </Text>
                             <Layout.Horizontal spacing="small">
                               <FormInput.Text

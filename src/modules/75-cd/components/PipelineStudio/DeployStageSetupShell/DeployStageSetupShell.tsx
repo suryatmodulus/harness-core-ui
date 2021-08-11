@@ -25,7 +25,7 @@ import css from './DeployStageSetupShell.module.scss'
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Deployment: 'pipeline-deploy',
   CI: 'pipeline-build-select',
-  Approval: 'pipeline-approval',
+  Approval: 'approval-stage-icon',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
 }
@@ -137,25 +137,16 @@ export default function DeployStageSetupShell(): JSX.Element {
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
-      <Button
-        text={getString('previous')}
-        icon="chevron-left"
-        disabled={selectedTabId === DeployTabs.OVERVIEW}
-        onClick={() => {
-          handleTabChange(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
-        }}
-      />
-      {selectedTabId === DeployTabs.ADVANCED ? (
+      {selectedTabId !== DeployTabs.OVERVIEW && (
         <Button
-          text={getString('done')}
-          intent="primary"
+          text={getString('previous')}
+          icon="chevron-left"
           onClick={() => {
-            checkErrorsForTab(selectedTabId).then(_ => {
-              updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
-            })
+            handleTabChange(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
           }}
         />
-      ) : (
+      )}
+      {selectedTabId !== DeployTabs.ADVANCED && (
         <Button
           text={selectedTabId === DeployTabs.EXECUTION ? getString('save') : getString('next')}
           intent="primary"

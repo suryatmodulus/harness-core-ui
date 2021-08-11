@@ -16,6 +16,14 @@
     margin-bottom: 4px;
   }
 
+  &.small {
+    height: 49px;
+
+    & + div[data-name='page-body'] {
+      --page-header-height: 49px;
+    }
+  }
+
   &.standard {
     height: 73px;
 

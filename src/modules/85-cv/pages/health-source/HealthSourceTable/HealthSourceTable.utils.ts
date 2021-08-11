@@ -1,7 +1,9 @@
 import type { IconName } from '@wings-software/uicore'
+import { isEmpty } from 'lodash-es'
 import { Connectors } from '@connectors/constants'
 import type { UseStringsReturn } from 'framework/strings'
 import { HealthSourceTypes } from '../types'
+import type { UpdatedHealthSource, RowData } from '../HealthSourceDrawer/HealthSourceDrawerContent.types'
 
 export const getTypeByFeature = (feature: string, getString: UseStringsReturn['getString']): string => {
   switch (feature) {
@@ -51,4 +53,27 @@ export const getIconBySourceType = (type: string): IconName => {
     default:
       return 'placeholder'
   }
+}
+
+export const createHealthsourceList = (
+  healthSources: RowData[],
+  healthSourcesPayload: UpdatedHealthSource
+): UpdatedHealthSource[] => {
+  let updatedHealthSources = []
+  if (
+    healthSources &&
+    !isEmpty(healthSources) &&
+    healthSources.some(
+      (el: any) => el?.identifier === healthSourcesPayload?.identifier && el?.type === healthSourcesPayload?.type
+    )
+  ) {
+    updatedHealthSources = healthSources?.map((el: any) =>
+      el?.identifier === healthSourcesPayload?.identifier ? healthSourcesPayload : el
+    )
+  } else if (healthSources && !isEmpty(healthSources)) {
+    updatedHealthSources = [...healthSources, healthSourcesPayload]
+  } else {
+    updatedHealthSources = [healthSourcesPayload]
+  }
+  return updatedHealthSources
 }

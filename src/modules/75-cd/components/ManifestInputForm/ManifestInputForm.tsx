@@ -18,11 +18,11 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import List from '@common/components/List/List'
 import type { Scope } from '@common/interfaces/SecretsInterface'
 
-import { GitConfigDTO, useGetBucketListForS3, useGetGCSBucketList } from 'services/cd-ng'
+import { GitConfigDTO, ManifestConfigWrapper, useGetBucketListForS3, useGetGCSBucketList } from 'services/cd-ng'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { KubernetesServiceInputFormProps } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
-import { TriggerTypes } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
+import { TriggerTypes, TriggerDefaultFieldList } from '@pipeline/pages/triggers/utils/TriggersWizardPageUtils'
 
 import {
   ManifestToConnectorMap,
@@ -34,10 +34,6 @@ import type { ManifestStores } from '@pipeline/components/ManifestSelection/Mani
 import ExperimentalInput from '../PipelineSteps/K8sServiceSpec/K8sServiceSpecForms/ExperimentalInput'
 
 import css from './ManifestInputForm.module.scss'
-
-const TriggerDefaultFieldList = {
-  chartVersion: '<+trigger.manifest.version>'
-}
 
 const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
   template,
@@ -131,15 +127,14 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
       formik?.values?.triggerType === TriggerTypes.MANIFEST && formik?.values?.selectedArtifact !== null && !fromTrigger
     )
   }
-
   return (
     <>
       <div className={cx(css.nopadLeft, css.accordionSummary)} id={`Stage.${stageIdentifier}.Service.Manifests`}>
-        {
+        {!fromTrigger && (
           <div className={css.subheading}>
             {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
           </div>
-        }
+        )}
         {template?.manifests?.map?.(
           (
             {
@@ -169,24 +164,71 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
             }: any,
             index: number
           ) => {
-            const isPipelineIpTab = fromPipelineInputTriggerTab()
+            const isPipelineInputTab = fromPipelineInputTriggerTab()
+            // If it is pipeline input tab
+            //  the selected artifact values
+            //  needs to be merged with initialValue manifest values
+            if (isPipelineInputTab) {
+              let selectedManifest: ManifestConfigWrapper = initialValues?.manifests?.find(
+                (item: ManifestConfigWrapper) =>
+                  item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier
+              ) || {
+                manifest: {
+                  identifier: '',
+                  type: 'HelmChart',
+                  spec: {
+                    store: {
+                      spec: {}
+                    }
+                  }
+                }
+              }
+              const selectedIndex =
+                initialValues?.manifests?.findIndex(
+                  (item: ManifestConfigWrapper) =>
+                    item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier
+                ) || 0
+              if (selectedManifest && initialValues && initialValues.manifests && selectedIndex >= 0) {
+                const artifactSpec = formik?.values?.selectedArtifact?.spec || {}
+                /*
+                 backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+                */
+                if (artifactSpec.eventConditions) {
+                  delete artifactSpec.eventConditions
+                }
+
+                selectedManifest = {
+                  manifest: {
+                    identifier: formik?.values?.selectedArtifact?.identifier,
+                    type: formik?.values?.selectedArtifact?.type,
+                    spec: {
+                      ...artifactSpec
+                    }
+                  }
+                }
+              }
+              if (initialValues.manifests && selectedIndex >= 0 && initialValues.manifests[selectedIndex]) {
+                initialValues.manifests[selectedIndex] = selectedManifest
+              }
+            }
             const filteredManifest = allValues?.manifests?.find(item => item.manifest?.identifier === identifier)
             const isSelectedManifest: boolean =
-              isPipelineIpTab &&
+              isPipelineInputTab &&
               formik?.values?.selectedArtifact &&
               identifier === formik?.values?.selectedArtifact?.identifier
 
             const disableField = (fieldName: string) => {
               if (fromTrigger) {
                 return get(TriggerDefaultFieldList, fieldName) ? true : false
-              } else if (isPipelineIpTab && isSelectedManifest) {
-                return get(formik?.values?.selectedArtifact, fieldName) ? true : false
+              } else if (isPipelineInputTab && isSelectedManifest) {
+                return true
               }
               return readonly
             }
+
             return (
               <Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}>
-                <Text className={css.inputheader}>{identifier}</Text>
+                {!fromTrigger && <Text className={css.inputheader}>{identifier}</Text>}
                 {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME && (
                   <div className={css.verticalSpacingInput}>
                     <FormMultiTypeConnectorField
@@ -446,7 +488,7 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
                     <FormInput.MultiTextInput
                       multiTextInputProps={{
                         expressions,
-                        ...(fromTrigger && { value: TriggerDefaultFieldList.chartVersion }),
+                        ...((fromTrigger || isPipelineInputTab) && { value: TriggerDefaultFieldList.chartVersion }),
                         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                       }}
                       disabled={disableField(fromTrigger ? 'chartVersion' : 'spec.chartVersion')}

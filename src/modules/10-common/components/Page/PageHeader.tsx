@@ -7,9 +7,10 @@ export interface PageHeaderProps {
   title: React.ReactNode
   toolbar?: React.ReactNode
   content?: React.ReactNode
-  size?: 'standard' | 'medium' | 'large' | 'xlarge'
+  size?: 'small' | 'standard' | 'medium' | 'large' | 'xlarge'
   className?: string
   breadcrumbs?: React.ReactNode
+  testId?: string
 }
 
 /**
@@ -22,13 +23,15 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   toolbar,
   size = 'standard',
   className,
-  breadcrumbs
+  breadcrumbs,
+  testId
 }) => {
   return (
     <Layout.Horizontal
       flex
       className={cx(css.container, css[size], className)}
       padding={{ left: 'xlarge', right: 'xlarge' }}
+      data-testid={testId}
     >
       <Layout.Vertical>
         {breadcrumbs && <div className={css.breadcrumbsDiv}>{breadcrumbs}</div>}

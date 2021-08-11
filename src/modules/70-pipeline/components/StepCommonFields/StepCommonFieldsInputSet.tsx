@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { connect } from 'formik'
@@ -91,22 +91,17 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
             disabled: readonly,
             placeholder: '1000'
           }}
+          style={{ marginBottom: 'var(--spacing-medium)' }}
         />
       )}
       {(isLimitMemoryRuntime || isLimitCPURuntime) && (
         <>
-          <Text margin={{ top: 'small' }}>
+          <Text tooltipProps={{ dataTooltipId: 'setContainerResources' }}>
             {getString('pipelineSteps.setContainerResources')}
-            <Button
-              icon="question"
-              minimal
-              tooltip={getString('pipelineSteps.setContainerResourcesTooltip')}
-              iconProps={{ size: 14 }}
-            />
           </Text>
           <div
             className={cx(css.fieldsGroup, css.withoutSpacing, css.withoutAligning)}
-            style={{ marginBottom: 'var(--spacing-small)' }}
+            style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
           >
             {isLimitMemoryRuntime && (
               <MultiTypeTextField
@@ -153,14 +148,8 @@ function StepCommonFieldsInputSet<T>(props: StepCommonFieldsInputSetProps<T>): J
         <FormMultiTypeDurationField
           className={css.removeBpLabelMargin}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'timeout' }}>
               {getString('pipelineSteps.timeoutLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.timeoutInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           name={`${isEmpty(path) ? '' : `${path}.`}timeout`}

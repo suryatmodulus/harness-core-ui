@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -103,14 +102,11 @@ export const SaveCacheGCSStepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'gcpConnector' }}
+                >
                   {getString('pipelineSteps.gcpConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.gcpConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'Gcp'}
@@ -127,15 +123,7 @@ export const SaveCacheGCSStepBase = (
             <MultiTypeTextField
               name="spec.bucket"
               label={
-                <Text>
-                  {getString('pipelineSteps.bucketLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
+                <Text tooltipProps={{ dataTooltipId: 'gcsBucket' }}>{getString('pipelineSteps.bucketLabel')}</Text>
               }
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
@@ -145,17 +133,7 @@ export const SaveCacheGCSStepBase = (
             />
             <MultiTypeTextField
               name="spec.key"
-              label={
-                <Text>
-                  {getString('keyLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.keyInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 'saveCacheKey' }}>{getString('keyLabel')}</Text>}
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
                 disabled: readonly
@@ -167,14 +145,11 @@ export const SaveCacheGCSStepBase = (
               multiTextInputProps={{ expressions }}
               multiTypeFieldSelectorProps={{
                 label: (
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    tooltipProps={{ dataTooltipId: 'saveCacheSourcePaths' }}
+                  >
                     {getString('pipelineSteps.sourcePathsLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.cacheSourcePathsInfo')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 )
               }}
@@ -189,14 +164,8 @@ export const SaveCacheGCSStepBase = (
                     <MultiTypeSelectField
                       name="spec.archiveFormat"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'archiveFormat' }}>
                           {getString('archiveFormat')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('archiveFormatInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTypeInputProps={{
@@ -211,19 +180,12 @@ export const SaveCacheGCSStepBase = (
                       name="spec.override"
                       label={getString('override')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.pipelineSteps.overrideCacheInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions,
                         disabled: readonly
                       }}
                       style={{ marginBottom: 'var(--spacing-medium)' }}
                       disabled={readonly}
+                      tooltipProps={{ dataTooltipId: 'saveCacheOverride' }}
                     />
                     <StepCommonFields disabled={readonly} />
                   </>

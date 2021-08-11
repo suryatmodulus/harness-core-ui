@@ -55,3 +55,11 @@
   display: flex;
   padding-left: var(--spacing-large);
 }
+
+.connector {
+  :global {
+    .bp3-icon-chevron-down {
+      right: 0 !important;
+    }
+  }
+}

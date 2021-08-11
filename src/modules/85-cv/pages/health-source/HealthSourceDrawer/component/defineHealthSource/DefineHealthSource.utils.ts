@@ -6,6 +6,7 @@ import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/Step
 import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
 import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
 import { NewRelicProductNames, ConnectorRefFieldName } from './DefineHealthSource.constant'
+import type { DefineHealthSourceFormInterface } from './DefineHealthSource.types'
 
 export const validate = (getString: UseStringsReturn['getString']) => {
   return Yup.object().shape({
@@ -16,6 +17,13 @@ export const validate = (getString: UseStringsReturn['getString']) => {
       .nullable()
       .required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
   })
+}
+
+export const validateDuplicateIdentifier = (values: DefineHealthSourceFormInterface): any => {
+  const { healthSourceIdentifier, healthSourceList } = values
+  if (healthSourceList?.some(item => item.identifier === healthSourceIdentifier)) {
+    return { healthSourceName: 'identifier already exist' }
+  }
 }
 
 export const getFeatureOption = (type: string, getString: UseStringsReturn['getString']): SelectOption[] => {

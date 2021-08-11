@@ -80,7 +80,7 @@ const stagesMap = {
   Approval: {
     name: 'Deploy',
     type: 'Approval',
-    icon: 'pipeline-approval',
+    icon: 'approval-stage-icon',
     iconColor: 'var(--pipeline-approval-stage-color)',
     isApproval: true,
     openExecutionStrategy: false

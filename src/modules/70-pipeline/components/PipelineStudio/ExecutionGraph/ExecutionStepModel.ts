@@ -595,7 +595,7 @@ export class ExecutionStepModel extends DiagramModel {
             this.connectedParentToNode(
               stepGroupLayer.endNode,
               prevNode,
-              (node.stepGroup?.steps?.length || 0) > 0 && !isReadonly,
+              (steps?.length || 0) > 0 && !isReadonly,
               4,
               'var(--pipeline-grey-border)'
             )

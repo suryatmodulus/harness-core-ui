@@ -10,9 +10,14 @@ import {
   getDummyPipelineContextValue,
   getDummyPipelineContextValueJiraApproval,
   getPropsForMinimalStage,
-  mockYamlSnippetResponse
+  mockYamlSnippetResponse,
+  mockYamlSnippetResponseJira
 } from './ApprovalStageTestsHelper'
 
+jest.mock('@wings-software/monaco-yaml/lib/esm/languageservice/yamlLanguageService', () => ({
+  getLanguageService: jest.fn()
+}))
+jest.mock('@common/components/MonacoEditor/MonacoEditor')
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 jest.mock('@common/utils/YamlUtils', () => ({}))
 jest.mock('lodash-es', () => ({
@@ -191,50 +196,45 @@ describe('Approval Stage shell view', () => {
 
     await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
 
-    // const skipCoditionInputInOverview = container.querySelector('[name="skipCondition"]')
-    // act(() => {
-    //   fireEvent.change(skipCoditionInputInOverview!, { target: { value: 'randomskipcondition' } })
-    // })
-    // await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
-
     // Move to next tab
     act(() => {
       fireEvent.click(getByText('next'))
     })
-    expect(pipelineContextMockValue.updatePipeline).toBeCalled()
+    await waitFor(() => expect(pipelineContextMockValue.updatePipeline).toBeCalled())
 
     // Switch back to first tab
     act(() => {
       fireEvent.click(getByText('overview'))
     })
-    expect(pipelineContextMockValue.updatePipeline).toBeCalled()
-    // expect(
-    //   queryByText(
-    //     /In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages./
-    //   )
-    // ).toBeTruthy()
 
-    // Open failure strategy panel
-    // act(() => {
-    //   fireEvent.click(getByText('pipeline.failureStrategies.title'))
-    // })
-    // expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
-    //   isSplitViewOpen: true,
-    //   isDrawerOpened: true,
-    //   splitViewData: { type: 'StageView' },
-    //   drawerData: { type: 'FailureStrategy' }
-    // })
+    await waitFor(() => expect(pipelineContextMockValue.updatePipeline).toBeCalled())
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
 
-    // Open the skip conditions panel (next to failure strategy)
-    // act(() => {
-    //   fireEvent.click(getAllByText('skipConditionTitle')[0])
-    // })
-    // expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
-    //   isSplitViewOpen: true,
-    //   isDrawerOpened: true,
-    //   splitViewData: { type: 'StageView' },
-    //   drawerData: { type: 'FailureStrategy' }
-    // })
+    // Click on execution tab and check the shallow render of graph
+    act(() => {
+      fireEvent.click(getByText('executionText'))
+    })
+
+    // Click on execution tab and check the shallow render of graph
+    act(() => {
+      fireEvent.click(getByText('advancedTitle'))
+    })
+
+    // Click on the checkbox that enables us to enter when condition
+    act(() => {
+      fireEvent.click(getByText('pipeline.conditionalExecution.condition'))
+    })
+    // Call the update methods if the when condition changes
+    await waitFor(() => expect(pipelineContextMockValue.getStageFromPipeline).toBeCalled())
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
+
+    // Click on add button for failure strategy
+    act(() => {
+      fireEvent.click(getByText('add'))
+    })
+    // Call the update methods
+    await waitFor(() => expect(pipelineContextMockValue.getStageFromPipeline).toBeCalled())
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
   })
 })
 
@@ -242,7 +242,7 @@ describe('Jira Approval Stage shell view', () => {
   beforeEach(() => {
     jest
       .spyOn(services, 'useGetInitialStageYamlSnippet')
-      .mockReturnValue(mockYamlSnippetResponse as UseGetReturn<any, services.Failure, any, unknown>)
+      .mockReturnValue(mockYamlSnippetResponseJira as UseGetReturn<any, services.Failure, any, unknown>)
   })
   test('Setup shell view tests', async () => {
     const pipelineContextMockValue = getDummyPipelineContextValueJiraApproval()
@@ -263,50 +263,39 @@ describe('Jira Approval Stage shell view', () => {
 
     await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
 
-    // const skipCoditionInputInOverview = container.querySelector('[name="skipCondition"]')
-    // act(() => {
-    //   fireEvent.change(skipCoditionInputInOverview!, { target: { value: 'randomskipcondition' } })
-    // })
-    // await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
-
     // Move to next tab
     act(() => {
       fireEvent.click(getByText('next'))
     })
-    expect(pipelineContextMockValue.updatePipeline).toBeCalled()
+    await waitFor(() => expect(pipelineContextMockValue.updatePipeline).toBeCalled())
 
     // Switch back to first tab
     act(() => {
       fireEvent.click(getByText('overview'))
     })
-    expect(pipelineContextMockValue.updatePipeline).toBeCalled()
-    // expect(
-    //   queryByText(
-    //     /In the JEXL Expression, you could use any of the pipeline variables - including the output of any previous stages./
-    //   )
-    // ).toBeTruthy()
+    await waitFor(() => expect(pipelineContextMockValue.updatePipeline).toBeCalled())
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
 
-    // Open failure strategy panel
-    // act(() => {
-    //   fireEvent.click(getByText('pipeline.failureStrategies.title'))
-    // })
-    // expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
-    //   isSplitViewOpen: true,
-    //   isDrawerOpened: true,
-    //   splitViewData: { type: 'StageView' },
-    //   drawerData: { type: 'FailureStrategy' }
-    // })
+    // Click on execution tab and check the shallow render of graph
+    act(() => {
+      fireEvent.click(getByText('advancedTitle'))
+    })
 
-    // Open the skip conditions panel (next to failure strategy)
-    // act(() => {
-    //   fireEvent.click(getAllByText('Skip Condition')[0])
-    // })
-    // expect(pipelineContextMockValue.updatePipelineView).toBeCalledWith({
-    //   isSplitViewOpen: true,
-    //   isDrawerOpened: true,
-    //   splitViewData: { type: 'StageView' },
-    //   drawerData: { type: 'FailureStrategy' }
-    // })
+    // Click on the checkbox that enables us to enter when condition
+    act(() => {
+      fireEvent.click(getByText('pipeline.conditionalExecution.condition'))
+    })
+    // Call the update methods if the when condition changes
+    await waitFor(() => expect(pipelineContextMockValue.getStageFromPipeline).toBeCalled())
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
+
+    // Click on add button for failure strategy
+    act(() => {
+      fireEvent.click(getByText('add'))
+    })
+    // Call the update methods
+    await waitFor(() => expect(pipelineContextMockValue.getStageFromPipeline).toBeCalled())
+    await waitFor(() => expect(pipelineContextMockValue.updateStage).toBeCalled())
   })
 })
 

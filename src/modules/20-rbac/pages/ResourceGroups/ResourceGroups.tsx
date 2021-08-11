@@ -82,7 +82,7 @@ const ResourceGroups: React.FC = () => {
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
               alwaysExpanded
-              placeholder={getString('rbac.usersPage.search')}
+              placeholder={getString('common.searchPlaceholder')}
               onChange={e => {
                 setSearchTerm(e.trim())
               }}

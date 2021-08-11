@@ -2,7 +2,6 @@
 // this is an auto-generated file
 declare const styles: {
   readonly link: string
-  readonly pipelineStudio: string
   readonly pipelineStudioTitle: string
   readonly branchSelector: string
   readonly noPipelineFoundContainer: string

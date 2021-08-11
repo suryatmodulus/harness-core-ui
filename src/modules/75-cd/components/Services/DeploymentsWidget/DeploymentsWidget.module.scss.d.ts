@@ -6,5 +6,7 @@ declare const styles: {
   readonly tickerCard: string
   readonly tickerContainerStyles: string
   readonly tickerValueStyles: string
+  readonly tooltipCard: string
+  readonly tooltipTimestamp: string
 }
 export default styles

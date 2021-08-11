@@ -1,17 +1,18 @@
 import React, { useMemo } from 'react'
-import { Container, Pagination, Text } from '@wings-software/uicore'
+import { Container, Pagination, Select, Text } from '@wings-software/uicore'
 import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ClusterChart from './components/ClusterChart/ClusterChart'
 import type { LogAnalysisProps, LogAnalysisRowData } from './LogAnalysis.types'
 import { LogAnalysisRow } from './components/LogAnalysisRow/LogAnalysisRow'
-import { mapClusterType } from './LogAnalysis.utils'
+import { getClusterTypes, mapClusterType } from './LogAnalysis.utils'
 import styles from './LogAnalysis.module.scss'
 
 export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
-  const { fetchLogsDataForCluster, data, clusterChartData, goToPage, isLoading } = props
+  const { data, clusterChartData, goToPage, isLoading, selectedClusterType, setSelectedClusterType } = props
   const { getString } = useStrings()
+
   const logAnalysisData = useMemo((): LogAnalysisRowData[] => {
     return (
       data?.resource?.content?.map(d => ({
@@ -37,23 +38,25 @@ export default function LogAnalysis(props: LogAnalysisProps): JSX.Element {
       })) ?? []
     )
   }, [data])
+
   return (
     <Container className={styles.logsTab}>
       <Container className={styles.panel}>
         <Text font={{ weight: 'bold' }}>{getString('pipeline.verification.logs.logCluster')}</Text>
         <ClusterChart data={clusterChartData?.resource || []} />
       </Container>
+      <Select
+        value={selectedClusterType}
+        items={getClusterTypes(getString)}
+        className={styles.clusterTypeFilter}
+        inputProps={{ placeholder: getString('pipeline.verification.logs.filterByClusterType') }}
+        onChange={setSelectedClusterType}
+      />
       <Container className={styles.tableContent}>
         {!logAnalysisData.length && !isLoading && (
           <NoDataCard message={getString('pipeline.verification.logs.noAnalysis')} icon="warning-sign" />
         )}
-        {!!logAnalysisData.length && (
-          <LogAnalysisRow
-            className={styles.logAnalysisRow}
-            data={logAnalysisData}
-            fetchLogsDataForCluster={fetchLogsDataForCluster}
-          />
-        )}
+        {!!logAnalysisData.length && <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisData} />}
       </Container>
       {!!data?.resource?.totalPages && (
         <Pagination

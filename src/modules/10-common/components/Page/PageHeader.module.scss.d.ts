@@ -3,6 +3,7 @@
 declare const styles: {
   readonly container: string
   readonly breadcrumbsDiv: string
+  readonly small: string
   readonly standard: string
   readonly medium: string
   readonly large: string

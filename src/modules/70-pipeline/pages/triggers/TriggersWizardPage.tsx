@@ -57,7 +57,9 @@ import {
   CUSTOM,
   isArtifactOrManifestTrigger,
   FlatValidArtifactFormikValuesInterface,
-  clearRuntimeInputValue
+  clearRuntimeInputValue,
+  replaceTriggerDefaultBuild,
+  TriggerDefaultFieldList
 } from './utils/TriggersWizardPageUtils'
 import {
   ArtifactTriggerConfigPanel,
@@ -177,7 +179,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
       return { trigger: res }
     } else if (values.triggerType === TriggerTypes.MANIFEST) {
-      const res = getArtifactTriggerYaml({ values })
+      const res = getArtifactTriggerYaml({ values, persistIncomplete: true })
 
       return { trigger: res }
     }
@@ -200,6 +202,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
   const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: PipelineInfoConfig } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
+  const [artifactManifestType, setArtifactManifestType] = useState<string | undefined>(undefined)
   const [mergedPipelineKey, setMergedPipelineKey] = useState<number>(0)
 
   const [onEditInitialValues, setOnEditInitialValues] = useState<
@@ -744,8 +747,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
       if (type === TriggerTypes.MANIFEST) {
         const { manifestRef, type: _manifestType, spec } = source?.spec || {}
-        selectedArtifact = { identifier: manifestRef, type: _manifestType, spec: spec?.spec }
+        if (_manifestType) {
+          setArtifactManifestType(_manifestType)
+        }
+        selectedArtifact = {
+          identifier: manifestRef,
+          type: artifactManifestType || _manifestType,
+          spec
+        }
       }
+
       let pipelineJson = undefined
       try {
         pipelineJson = parse(inputYaml)?.pipeline
@@ -764,7 +775,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         manifestType: selectedArtifact?.type,
         stageId: source?.spec?.stageIdentifier,
         inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
-        selectedArtifact
+        selectedArtifact,
+        eventConditions: source?.spec?.spec?.eventConditions || []
       }
       return newOnEditInitialValues
     } catch (e) {
@@ -811,7 +823,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     })
   }
 
-  const getArtifactTriggerYaml = ({ values: val }: { values: any }): TriggerConfigDTO => {
+  const getArtifactTriggerYaml = ({
+    values: val,
+    persistIncomplete = false
+  }: {
+    values: any
+    persistIncomplete?: boolean
+  }): TriggerConfigDTO => {
     const {
       name,
       identifier,
@@ -820,11 +838,23 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       pipeline: pipelineRuntimeInput,
       triggerType: formikValueTriggerType,
       selectedArtifact,
-      stageId
+      stageId,
+      eventConditions = [],
+      manifestType: onEditManifestType
     } = val
 
     // actions will be required thru validation
     const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+
+    if (selectedArtifact?.spec?.chartVersion) {
+      // hardcode manifest chart version to default
+      selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
+        chartVersion: selectedArtifact?.spec?.chartVersion
+      })
+    } else if (!isEmpty(selectedArtifact) && selectedArtifact?.spec?.chartVersion === '') {
+      selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion
+    }
+
     // clears any runtime inputs
     const artifactSourceSpec = clearRuntimeInputValue(
       cloneDeep(
@@ -835,7 +865,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         )
       )
     )
-    return clearNullUndefined({
+
+    const triggerYaml: NGTriggerConfigV2 = {
       name,
       identifier,
       enabled: enabledStatus,
@@ -849,12 +880,20 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         spec: {
           stageIdentifier: stageId,
           manifestRef: selectedArtifact?.identifier,
-          type: manifestType,
+          type: onEditManifestType || manifestType,
           ...artifactSourceSpec
         }
       },
       inputYaml: stringifyPipelineRuntimeInput
-    })
+    }
+
+    if (triggerYaml.source?.spec?.spec) {
+      triggerYaml.source.spec.spec.eventConditions = persistIncomplete
+        ? eventConditions
+        : eventConditions.filter((eventCondition: AddConditionInterface) => isRowFilled(eventCondition))
+    }
+
+    return clearNullUndefined(triggerYaml)
   }
 
   // TriggerConfigDTO is NGTriggerConfigV2 with optional identifier

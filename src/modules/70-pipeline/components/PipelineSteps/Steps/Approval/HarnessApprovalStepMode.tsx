@@ -73,8 +73,7 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
         )}
       </div>
 
-      <div className={stepCss.divider} />
-
+      <div className={stepCss.stepSubSectionHeading}>Approval Message</div>
       <div className={cx(stepCss.formGroup)}>
         <FormMultiTypeTextAreaField
           name="spec.approvalMessage"
@@ -98,12 +97,12 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
         )}
       </div>
       <FormInput.CheckBox
-        className={css.execHistoryCheckbox}
         name="spec.includePipelineExecutionHistory"
         label={getString('pipeline.approvalStep.includePipelineExecutionHistory')}
         disabled={isApprovalStepFieldDisabled(readonly)}
       />
 
+      <div className={stepCss.stepSubSectionHeading}>Approvers</div>
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormMultiTypeUserGroupInput
           name="spec.approvers.userGroups"
@@ -141,7 +140,6 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
         )}
       </div>
       <FormInput.CheckBox
-        className={css.execHistoryCheckbox}
         name="spec.approvers.disallowPipelineExecutor"
         label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
         disabled={isApprovalStepFieldDisabled(readonly)}
@@ -160,6 +158,7 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
                 render={({ push, remove }) => {
                   return (
                     <div>
+                      <div className={stepCss.stepSubSectionHeading}>Approver Inputs</div>
                       {isEmpty(formik.values.spec.approverInputs) ? null : (
                         <>
                           <div className={css.headerRow}>

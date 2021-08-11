@@ -1,6 +1,5 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
-import cx from 'classnames'
 import { Color, Heading, Layout, TabNavigation, Text } from '@wings-software/uicore'
 import { useHistory, useParams, useRouteMatch } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -161,7 +160,9 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<un
     <>
       <GitSyncStoreProvider>
         <Page.Header
-          className={isPipelineStudioRoute ? cx(css.rightMargin, css.pipelineStudio) : ''}
+          className={isPipelineStudioRoute ? css.rightMargin : ''}
+          testId={isPipelineStudioRoute ? 'pipeline-studio' : 'not-pipeline-studio'}
+          size={isPipelineStudioRoute ? 'small' : 'standard'}
           title={
             <Layout.Vertical>
               <Layout.Horizontal>

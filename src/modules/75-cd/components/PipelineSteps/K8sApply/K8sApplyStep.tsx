@@ -38,7 +38,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import List from '@common/components/List/List'
 import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 export interface K8sApplyData extends StepElementConfig {
   spec: Omit<K8sApplyStepInfo, 'skipDryRun' | 'skipSteadyStateCheck'> & {
     skipDryRun: boolean
@@ -352,7 +352,7 @@ const K8sApplyInputStep: React.FC<K8sApplyProps> = ({ inputSetData, readonly }) 
 const K8sApplyVariableStep: React.FC<K8sApplyVariableStepProps> = ({ variablesData, metadataMap, initialValues }) => {
   return (
     <VariablesListTable
-      // className={stepCss.topSpacingLarge}
+      className={pipelineVariableCss.variablePaddingL2}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}

@@ -567,6 +567,24 @@ exports[`ManifestSelection tests renders add Manifest option without crashing 1`
 </div>
 `;
 
+exports[`ManifestSelection tests renders manifest selection when overrideSetIdentifier and identifierName has some value 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+    >
+      <div
+        class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+      >
+        <section />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`ManifestSelection tests renders without crashing 1`] = `
 <div>
   <div

@@ -15,7 +15,6 @@ import {
   FormInput,
   Formik,
   Pagination,
-  Checkbox,
   SelectOption,
   ExpandingSearchInput
 } from '@wings-software/uicore'
@@ -44,14 +43,6 @@ import useDeleteFolder from './useDeleteFolder'
 import dashboardIcon from './dashboard.svg'
 
 import css from '../home/HomePage.module.scss'
-
-const DEFAULT_FILTER: { [key: string]: boolean } = {
-  HARNESS: false,
-  CE: false,
-  CD: false,
-  CI: false,
-  CF: false
-}
 
 type CustomColumn<T extends Record<string, any>> = Column<T>
 
@@ -172,23 +163,6 @@ const folderType: { [key: string]: string } = {
   ACCOUNT: 'ACCOUNT'
 }
 
-const TagsRenderer = (data: FolderInterface) => {
-  const { getString } = useStrings()
-  return (
-    <Container className={css.predefinedTags}>
-      {data.type === folderType.SHARED && (
-        <section className={css.harnessTag}>{getString('dashboards.modules.harness')}</section>
-      )}
-      {data.data_source.map((tag: string) => {
-        if (tag === 'CE') return <section className={css.ceTag}>{getString('common.purpose.ce.cloudCost')}</section>
-        if (tag === 'CI') return <section className={css.ciTag}>{getString('buildsText')}</section>
-        if (tag === 'CD') return <section className={css.cdTag}>{getString('deploymentsText')}</section>
-        if (tag === 'CF') return <section className={css.cfTag}>{getString('common.purpose.cf.continuous')}</section>
-      })}
-    </Container>
-  )
-}
-
 const RenderDashboardName: Renderer<CellProps<FolderInterface>> = ({ row }) => {
   const data = row.original
   return (
@@ -210,31 +184,20 @@ const RenderDashboardCount: Renderer<CellProps<FolderInterface>> = ({ row }) => 
   )
 }
 
-const RenderDashboardTags: Renderer<CellProps<FolderInterface>> = ({ row }) => {
-  const data = row.original
-  return TagsRenderer(data)
-}
-
 const columns: CustomColumn<FolderInterface>[] = [
   {
     Header: 'Name',
     id: 'name',
     accessor: row => row.name,
-    width: '30%',
+    width: '80%',
     Cell: RenderDashboardName
   },
-  {
-    Header: 'Tags',
-    id: 'tags',
-    accessor: row => row.data_source,
-    width: '30%',
-    Cell: RenderDashboardTags
-  },
+
   {
     Header: 'Dashboard Count',
     id: 'child_count',
     accessor: row => row.child_count,
-    width: '30%',
+    width: '20%',
     Cell: RenderDashboardCount
   }
 ]
@@ -250,19 +213,11 @@ const FoldersPage: React.FC = () => {
   const [deleteContext, setDeleteContext] = React.useState<FolderInterface>()
   const [page, setPage] = useState(0)
   const [filteredTags, setFilteredTags] = React.useState<string[]>([])
-  const [selectedFilter, setCheckboxFilter] = React.useState(DEFAULT_FILTER)
+
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [layoutView, setLayoutView] = useState(LayoutViews.GRID)
   const [sortby, setSortingFilter] = useState<SelectOption>(defaultSortBy)
   const [isOpen, setDrawerOpen] = useState(false)
-  const serialize = (obj: { [key: string]: boolean }) => {
-    const str = []
-    for (const p in obj)
-      if (Object.prototype.hasOwnProperty.call(obj, p)) {
-        str.push(encodeURIComponent(p) + '=' + encodeURIComponent(obj[p]))
-      }
-    return str.join('&')
-  }
 
   React.useEffect(() => {
     const script = document.createElement('script')
@@ -274,8 +229,8 @@ const FoldersPage: React.FC = () => {
   }, [])
 
   React.useEffect(() => {
-    if (searchTerm || selectedFilter || sortby?.value || filteredTags?.length > 0) setPage(0)
-  }, [searchTerm, selectedFilter, sortby?.value, filteredTags])
+    if (searchTerm || sortby?.value || filteredTags?.length > 0) setPage(0)
+  }, [searchTerm, sortby?.value, filteredTags])
 
   const {
     data: foldersList,
@@ -290,7 +245,6 @@ const FoldersPage: React.FC = () => {
       searchTerm,
       page: page + 1,
       pageSize: 20,
-      tags: serialize(selectedFilter),
       sortBy: sortby?.value
     }
   })
@@ -319,12 +273,6 @@ const FoldersPage: React.FC = () => {
       setFilteredList(foldersList?.resource?.list)
     }
   }, [foldersList])
-
-  const setPredefinedFilter = (filterType: string, isChecked: boolean) => {
-    const updatedValue: any = {}
-    updatedValue[filterType] = isChecked
-    setCheckboxFilter({ ...selectedFilter, ...updatedValue })
-  }
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -452,53 +400,6 @@ const FoldersPage: React.FC = () => {
                   }
                 }}
               />
-              <Layout.Horizontal className={css.predefinedTags + ' ' + css.mainNavTag}>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['HARNESS']}
-                    onChange={e => {
-                      setPredefinedFilter('HARNESS', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.harnessTag}>{getString('dashboards.modules.harness')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CE']}
-                    onChange={e => {
-                      setPredefinedFilter('CE', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.ceTag}>{getString('common.purpose.ce.cloudCost')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CI']}
-                    onChange={e => {
-                      setPredefinedFilter('CI', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.ciTag}>{getString('buildsText')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CD']}
-                    onChange={e => {
-                      setPredefinedFilter('CD', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.cdTag}>{getString('deploymentsText')}</section>
-                </>
-                <>
-                  <Checkbox
-                    checked={selectedFilter['CF']}
-                    onChange={e => {
-                      setPredefinedFilter('CF', e.currentTarget.checked)
-                    }}
-                  />
-                  <section className={css.cfTag}>{getString('common.purpose.cf.continuous')}</section>
-                </>
-              </Layout.Horizontal>
             </section>
             <Layout.Horizontal>
               <CustomSelect
@@ -633,7 +534,7 @@ const FoldersPage: React.FC = () => {
                         <Text color={Color.BLACK_100} font={{ size: 'medium', weight: 'semi-bold' }}>
                           {folder?.name}
                         </Text>
-                        {TagsRenderer(folder)}
+                        {/* {TagsRenderer(folder)} */}
                         <Layout.Horizontal spacing="medium">
                           <Container
                             flex
@@ -643,9 +544,8 @@ const FoldersPage: React.FC = () => {
                               justifyContent: 'start',
                               alignItems: 'center'
                             }}
-                            padding="small"
                           >
-                            <Layout.Vertical>
+                            <Layout.Vertical padding="none">
                               <Layout.Horizontal spacing="small">
                                 <img src={dashboardIcon} height={20} />
                                 <Text color={Color.PRIMARY_7} font={{ size: 'medium', weight: 'semi-bold' }}>

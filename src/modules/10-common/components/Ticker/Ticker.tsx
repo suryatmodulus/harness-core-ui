@@ -12,6 +12,7 @@ export enum TickerVerticalAlignment {
 
 export interface TickerProps {
   decreaseMode?: boolean
+  boost?: boolean
   color?: string
   leftAlign?: boolean
   tickerRightAligned?: boolean
@@ -25,6 +26,7 @@ export interface TickerProps {
 export const Ticker: React.FC<TickerProps> = props => {
   const {
     decreaseMode = false,
+    boost = false,
     leftAlign = false,
     tickerRightAligned = false,
     verticalAlign = TickerVerticalAlignment.BOTTOM,
@@ -35,7 +37,13 @@ export const Ticker: React.FC<TickerProps> = props => {
     tickerValueStyles = '',
     children
   } = props
-  const iconName = decreaseMode ? 'main-caret-down' : 'main-caret-up'
+  const iconName = boost
+    ? decreaseMode
+      ? 'double-chevron-down'
+      : 'double-chevron-up'
+    : decreaseMode
+    ? 'main-caret-down'
+    : 'main-caret-up'
   return (
     <div
       className={cx(css.tickerContainer, { [css.reverseAlignment]: leftAlign }, tickerContainerStyles)}

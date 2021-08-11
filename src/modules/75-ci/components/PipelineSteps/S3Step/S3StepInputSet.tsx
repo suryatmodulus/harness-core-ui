@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -35,14 +35,8 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 's3Connector' }}>
               {getString('pipelineSteps.awsConnectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.s3ConnectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={'Aws'}
@@ -66,14 +60,8 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'region' }}>
               {getString('regionLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.regionInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -92,14 +80,8 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.bucket`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 's3Bucket' }}>
               {getString('pipelineSteps.bucketLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.bucketInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -117,14 +99,8 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.sourcePath`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'sourcePath' }}>
               {getString('pipelineSteps.sourcePathLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.sourcePathInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -142,14 +118,8 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.endpoint`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'endpoint' }}>
               {getString('pipelineSteps.endpointLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.endpointInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -168,14 +138,8 @@ export const S3StepInputSet: React.FC<S3StepProps> = ({ template, path, readonly
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'gcsS3Target' }}>
               {getString('pipelineSteps.targetLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{

@@ -6,6 +6,7 @@ declare const styles: {
   readonly subHeader: string
   readonly valueRow: string
   readonly variableListTable: string
+  readonly alignIcons: string
   readonly actionButtons: string
   readonly secretContainer: string
   readonly fixed: string

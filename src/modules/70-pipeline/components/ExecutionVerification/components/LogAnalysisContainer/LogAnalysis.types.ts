@@ -1,4 +1,5 @@
 import type { SeriesLineOptions } from 'highcharts'
+import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import type {
   LogData,
   RestResponseListLogAnalysisClusterChartDTO,
@@ -25,5 +26,6 @@ export interface LogAnalysisProps {
   clusterChartData: RestResponseListLogAnalysisClusterChartDTO | null
   goToPage(val: number): void
   isLoading: boolean
-  fetchLogsDataForCluster: (clusterType: string) => void
+  selectedClusterType: SelectOption
+  setSelectedClusterType: (clusterType: SelectOption) => void
 }

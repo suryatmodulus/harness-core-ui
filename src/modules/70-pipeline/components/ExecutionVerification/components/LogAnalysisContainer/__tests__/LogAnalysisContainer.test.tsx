@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, waitFor, screen } from '@testing-library/react'
+import { render, waitFor, screen, act, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { ExecutionNode } from 'services/pipeline-ng'
 import { mockedLogAnalysisData, mockedLogChartsData } from './LogAnalysisContainer.mocks'
@@ -93,5 +93,49 @@ describe('Unit tests for LogAnalysisContainer', () => {
         }
       })
     })
+  })
+
+  test('Verify if Filtering by cluster type works correctly', async () => {
+    const { container, getByText, getAllByText } = render(<WrapperComponent {...initialProps} />)
+
+    const clusterTypeFilterDropdown = container.querySelector(
+      'input[placeholder="pipeline.verification.logs.filterByClusterType"]'
+    ) as HTMLInputElement
+
+    expect(clusterTypeFilterDropdown).toBeTruthy()
+
+    // Clicking the filter dropdown
+    const selectCaret = container
+      .querySelector(`[placeholder="pipeline.verification.logs.filterByClusterType"] + [class*="bp3-input-action"]`)
+      ?.querySelector('[data-icon="chevron-down"]')
+    await waitFor(() => {
+      fireEvent.click(selectCaret!)
+    })
+
+    // Selecting Known event cluster type
+    const typeToSelect = await getByText('pipeline.verification.logs.knownEvent')
+    act(() => {
+      fireEvent.click(typeToSelect)
+    })
+    expect(clusterTypeFilterDropdown.value).toBe('pipeline.verification.logs.knownEvent')
+
+    // Verifying if correct number of records are shown for Known event type.
+    const knownClusterTypeMockedData = mockedLogAnalysisData.resource.content.filter(
+      el => el.clusterType === 'KNOWN_EVENT'
+    )
+    await waitFor(() => expect(getAllByText('Known')).toHaveLength(knownClusterTypeMockedData.length))
+
+    // Selecting UnKnown event cluster type
+    const unknownEventTypeSelected = await getByText('pipeline.verification.logs.unknownEvent')
+    act(() => {
+      fireEvent.click(unknownEventTypeSelected)
+    })
+    expect(clusterTypeFilterDropdown.value).toBe('pipeline.verification.logs.unknownEvent')
+
+    // Verifying if correct number of records are shown for unKnown event type.
+    const unknownClusterTypeMockedData = mockedLogAnalysisData.resource.content.filter(
+      el => el.clusterType === 'UNKNOWN_EVENT'
+    )
+    await waitFor(() => expect(getAllByText('Unknown')).toHaveLength(unknownClusterTypeMockedData.length))
   })
 })

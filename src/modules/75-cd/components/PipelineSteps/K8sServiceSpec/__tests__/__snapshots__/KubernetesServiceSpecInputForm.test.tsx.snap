@@ -2612,12 +2612,12 @@ exports[`INPUT VARIABLE VIEW renders the input variable view: input variabe mode
   <div
     class="Accordion--panel"
     data-open="false"
-    data-testid="Stage.undefined.Service.Variables-panel"
-    id="Stage.undefined.Service.Variables-panel"
+    data-testid="undefined.Variables-panel"
+    id="undefined.Variables-panel"
   >
     <div
       class="Accordion--summary variableBorderBottom accordianSummaryL2"
-      data-testid="Stage.undefined.Service.Variables-summary"
+      data-testid="undefined.Variables-summary"
     >
       <div
         class="Accordion--chevron"

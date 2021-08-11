@@ -19,3 +19,11 @@
     }
   }
 }
+
+.tooltipCard {
+  width: 100%;
+  padding-top: var(--spacing-small) !important;
+  .tooltipTimestamp {
+    border-bottom: 1px solid var(--grey-200);
+  }
+}

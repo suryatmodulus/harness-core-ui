@@ -26,7 +26,8 @@ import {
   DefaultNodeEvent,
   DefaultNodeModel,
   DiagramType,
-  Event
+  Event,
+  NodeStartModel
 } from '../../Diagram'
 import { StageBuilderModel } from './StageBuilderModel'
 import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize, MaximumSplitPaneSize } from '../PipelineConstants'
@@ -234,37 +235,41 @@ const StageBuilder: React.FC<unknown> = (): JSX.Element => {
     }
     if (event?.entity && event.entity instanceof DefaultLinkModel) {
       let node = event.entity.getSourcePort().getNode() as DefaultNodeModel
-      let { stage } = getStageFromPipeline(node.getIdentifier())
-      let next = 1
-      if (!stage) {
-        node = event.entity.getTargetPort().getNode() as DefaultNodeModel
-        stage = getStageFromPipeline(node.getIdentifier()).stage
-        next = 0
-      }
-      if (stage) {
-        const index = pipeline.stages.indexOf(stage)
-        if (index > -1) {
-          pipeline.stages.splice(index + next, 0, newStage)
-        }
+      if (node instanceof NodeStartModel) {
+        pipeline.stages.unshift(newStage)
       } else {
-        // parallel next parallel case
-        let nodeParallel = event.entity.getSourcePort().getNode() as DefaultNodeModel
-        let nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[1]
-        stage = getStageFromPipeline(nodeId).parent
-        next = 1
+        let { stage } = getStageFromPipeline(node.getIdentifier())
+        let next = 1
         if (!stage) {
-          nodeParallel = event.entity.getTargetPort().getNode() as DefaultNodeModel
-          nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[2]
-          const parallelOrRootLevelStage = getStageFromPipeline(nodeId)
-          // NOTE: in a case of two stages parallel node is moved to root level
-          // so we use parallelOrRootLevelStage.parent if defined, otherwise we use parallelOrRootLevelStage
-          stage = parallelOrRootLevelStage.parent ? parallelOrRootLevelStage.parent : parallelOrRootLevelStage.stage
+          node = event.entity.getTargetPort().getNode() as DefaultNodeModel
+          stage = getStageFromPipeline(node.getIdentifier()).stage
           next = 0
         }
         if (stage) {
           const index = pipeline.stages.indexOf(stage)
           if (index > -1) {
             pipeline.stages.splice(index + next, 0, newStage)
+          }
+        } else {
+          // parallel next parallel case
+          let nodeParallel = event.entity.getSourcePort().getNode() as DefaultNodeModel
+          let nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[1]
+          stage = getStageFromPipeline(nodeId).parent
+          next = 1
+          if (!stage) {
+            nodeParallel = event.entity.getTargetPort().getNode() as DefaultNodeModel
+            nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[2]
+            const parallelOrRootLevelStage = getStageFromPipeline(nodeId)
+            // NOTE: in a case of two stages parallel node is moved to root level
+            // so we use parallelOrRootLevelStage.parent if defined, otherwise we use parallelOrRootLevelStage
+            stage = parallelOrRootLevelStage.parent ? parallelOrRootLevelStage.parent : parallelOrRootLevelStage.stage
+            next = 0
+          }
+          if (stage) {
+            const index = pipeline.stages.indexOf(stage)
+            if (index > -1) {
+              pipeline.stages.splice(index + next, 0, newStage)
+            }
           }
         }
       }

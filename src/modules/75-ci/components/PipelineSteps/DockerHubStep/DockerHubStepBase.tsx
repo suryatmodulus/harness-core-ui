@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -103,14 +102,11 @@ export const DockerHubStepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'dockerHubConnector' }}
+                >
                   {getString('pipelineSteps.dockerHubConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.dockerHubConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'DockerRegistry'}
@@ -127,14 +123,8 @@ export const DockerHubStepBase = (
             <MultiTypeTextField
               name="spec.repo"
               label={
-                <Text margin={{ top: 'small' }}>
+                <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'dockerHubRepository' }}>
                   {getString('connectors.docker.dockerRepository')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('connectors.docker.dockerRepositoryInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               multiTextInputProps={{
@@ -147,9 +137,8 @@ export const DockerHubStepBase = (
               multiTextInputProps={{ expressions }}
               multiTypeFieldSelectorProps={{
                 label: (
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'tags' }}>
                     {getString('tagsLabel')}
-                    <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 )
               }}
@@ -166,29 +155,16 @@ export const DockerHubStepBase = (
                       name="spec.optimize"
                       label={getString('ci.optimize')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.optimizeInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions
                       }}
+                      tooltipProps={{ dataTooltipId: 'optimize' }}
                       disabled={readonly}
                     />
                     <MultiTypeTextField
                       name="spec.dockerfile"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'dockerfile' }}>
                           {getString('pipelineSteps.dockerfileLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.dockerfileInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -199,14 +175,8 @@ export const DockerHubStepBase = (
                     <MultiTypeTextField
                       name="spec.context"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'context' }}>
                           {getString('pipelineSteps.contextLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.contextInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -219,14 +189,11 @@ export const DockerHubStepBase = (
                       valueMultiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'labels' }}
+                          >
                             {getString('pipelineSteps.labelsLabel')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.labelsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}
@@ -238,14 +205,11 @@ export const DockerHubStepBase = (
                       valueMultiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          <Text style={{ display: 'flex', alignItems: 'center' }}>
+                          <Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'buildArgs' }}
+                          >
                             {getString('pipelineSteps.buildArgsLabel')}
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.buildArgsInfo')}
-                              iconProps={{ size: 14 }}
-                            />
                           </Text>
                         )
                       }}
@@ -254,14 +218,8 @@ export const DockerHubStepBase = (
                     <MultiTypeTextField
                       name="spec.target"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'target' }}>
                           {getString('pipelineSteps.targetLabel')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.targetInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{
@@ -272,14 +230,8 @@ export const DockerHubStepBase = (
                     <MultiTypeTextField
                       name="spec.remoteCacheRepo"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'dockerHubRemoteCache' }}>
                           {getString('ci.remoteCacheRepository.label')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.remoteCacheImage.dockerInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTextInputProps={{

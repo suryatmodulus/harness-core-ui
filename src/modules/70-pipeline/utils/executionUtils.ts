@@ -84,7 +84,7 @@ export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   INFRASTRUCTURE: 'search-infra-prov',
   NG_FORK: 'fork',
   DEPLOYMENT_STAGE_STEP: 'circle',
-  APPROVAL_STAGE: 'pipeline-approval'
+  APPROVAL_STAGE: 'approval-stage-icon'
 }
 
 export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {

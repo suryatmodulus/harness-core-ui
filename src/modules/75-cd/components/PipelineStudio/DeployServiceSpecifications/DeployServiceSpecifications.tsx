@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Card, SelectOption, Checkbox } from '@wings-software/uicore'
+import { Layout, Card, SelectOption, Checkbox, FormikForm } from '@wings-software/uicore'
 
 import isEmpty from 'lodash-es/isEmpty'
 import cx from 'classnames'
@@ -338,7 +338,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
   )
 
   return (
-    <>
+    <FormikForm>
       <DeployServiceErrors />
       {stageIndex > 0 && canPropagate && (
         <PropagateWidget
@@ -427,6 +427,6 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           </>
         )
       )}
-    </>
+    </FormikForm>
   )
 }

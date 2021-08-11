@@ -41,10 +41,12 @@ export interface ExecutionCardProps {
   stageIdentifier: string
   onUpdateExecution(data: ExecutionElementConfig): void
   readonly?: boolean
+  path?: string
 }
 
 export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
-  const { execution, originalExecution, metadataMap, stageIdentifier, onUpdateExecution, readonly } = props
+  const { execution, originalExecution, metadataMap, stageIdentifier, onUpdateExecution, readonly, path } = props
+
   const allSteps = React.useMemo(() => {
     function addToCards({
       steps,
@@ -64,7 +66,7 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
               type: '',
               identifier: ''
             },
-            path: `${parentPath}[${i}].step`
+            path: parentPath
           })
         } else if (stepGroup) {
           cards.push({
@@ -73,25 +75,25 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
               ...(addToCards({
                 steps: stepGroup.steps,
                 originalSteps: originalSteps?.[i]?.stepGroup?.steps,
-                parentPath: `${parentPath}[${i}].stepGroup.steps`
+                parentPath: `${parentPath}.steps`
               }) as StepRenderData[]),
               ...(addToCards({
                 steps: stepGroup.rollbackSteps,
                 originalSteps: originalSteps?.[i]?.stepGroup?.rollbackSteps,
-                parentPath: `${parentPath}[${i}].stepGroup.rollbackSteps`
+                parentPath: `${parentPath}.rollbackSteps`
               }) as StepRenderData[])
             ],
             name: stepGroup.name || '',
             originalName: originalSteps?.[i]?.stepGroup?.name || /* istanbul ignore next */ '',
             identifier: originalSteps?.[i]?.stepGroup?.identifier || /* istanbul ignore next */ '',
-            path: `${parentPath}[${i}].stepGroup`
+            path: `${parentPath}.stepGroup`
           })
         } /* istanbul ignore else */ else if (parallel) {
           cards.push(
             ...addToCards({
               steps: parallel,
               originalSteps: originalSteps?.[i]?.parallel,
-              parentPath: `${parentPath}[${i}].parallel`
+              parentPath: `${parentPath}.parallel`
             })
           )
         }
@@ -101,28 +103,28 @@ export function ExecutionCard(props: ExecutionCardProps): React.ReactElement {
     }
 
     return [
-      ...addToCards({ steps: execution.steps, originalSteps: originalExecution.steps, parentPath: 'steps' }),
+      ...addToCards({ steps: execution.steps, originalSteps: originalExecution.steps, parentPath: path }),
       ...addToCards({
         steps: execution.rollbackSteps,
         originalSteps: originalExecution.rollbackSteps,
-        parentPath: 'rollbackSteps'
+        parentPath: `${path}.rollbackSteps`
       })
     ]
   }, [execution, originalExecution])
 
   return (
     <React.Fragment>
-      {allSteps.map(row => {
+      {allSteps.map((row, index) => {
         if (row.type === 'StepRenderData' && row.step && row.originalStep) {
-          const { step, originalStep, path } = row
+          const { step, originalStep, path: pathStep } = row
           return (
             <StepCardPanel
-              key={path}
+              key={index}
               step={step}
               originalStep={originalStep}
               metadataMap={metadataMap}
               stageIdentifier={stageIdentifier}
-              stepPath={path}
+              stepPath={pathStep}
               readonly={readonly}
               onUpdateStep={(data: StepElementConfig, stepPath: string) => {
                 onUpdateExecution(
@@ -170,6 +172,9 @@ export function ExecutionCardPanel(props: ExecutionCardProps): React.ReactElemen
       isDefaultOpen
       addDomId
       id={props.id}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
       summary={<VariableAccordionSummary> {props.title}</VariableAccordionSummary>}
       panelClassName={css.panel}
       summaryClassName={cx(css.variableBorderBottom, css.accordianSummaryL1)}

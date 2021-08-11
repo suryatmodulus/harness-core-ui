@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import cx from 'classnames'
 import { FieldArray } from 'formik'
 import { isEmpty } from 'lodash-es'
 import {
@@ -232,7 +231,7 @@ export const Jexl = (props: ApprovalRejectionCriteriaProps) => {
 }
 
 export const ApprovalRejectionCriteria: React.FC<ApprovalRejectionCriteriaProps> = props => {
-  const { values, onChange, title } = props
+  const { values, onChange, title, readonly } = props
   const [type, setType] = useState<ApprovalRejectionCriteriaType>(values.type)
   const [allowedFieldKeys, setAllowedFieldKeys] = useState<SelectOption[]>([])
   const [allowedValuesForFields, setAllowedValuesForFields] = useState<Record<string, SelectOption[]>>({})
@@ -278,24 +277,29 @@ export const ApprovalRejectionCriteria: React.FC<ApprovalRejectionCriteriaProps>
   return (
     <div className={css.box}>
       <div className="ng-tooltip-native">
-        <div data-tooltip-id={tooltipId} className={css.title}>
+        <div data-tooltip-id={tooltipId} className={stepCss.stepSubSectionHeading}>
           {title}
         </div>
         <HarnessDocTooltip tooltipId={tooltipId} useStandAlone={true} />
       </div>
+
       <div className={css.tabs}>
-        <div
-          className={cx(css.tab, type === ApprovalRejectionCriteriaType.KeyValues ? css.selectedTab : '')}
+        <Radio
           onClick={() => setType(ApprovalRejectionCriteriaType.KeyValues)}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          checked={type === ApprovalRejectionCriteriaType.KeyValues}
+          className={css.tab}
         >
           {getString('conditions')}
-        </div>
-        <div
-          className={cx(css.tab, type === ApprovalRejectionCriteriaType.Jexl ? css.selectedTab : '')}
+        </Radio>
+        <Radio
           onClick={() => setType(ApprovalRejectionCriteriaType.Jexl)}
+          disabled={isApprovalStepFieldDisabled(readonly)}
+          checked={type === ApprovalRejectionCriteriaType.Jexl}
+          className={css.tab}
         >
           {getString('common.jexlExpression')}
-        </div>
+        </Radio>
       </div>
 
       {type === ApprovalRejectionCriteriaType.KeyValues ? (

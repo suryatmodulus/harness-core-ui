@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -69,14 +69,11 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'jFrogArtifactoryTarget' }}
+            >
               {getString('pipelineSteps.targetLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.jFrogArtifactoryTargetInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -94,14 +91,8 @@ export const JFrogArtifactoryStepInputSet: React.FC<JFrogArtifactoryStepProps> =
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.sourcePath`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'sourcePath' }}>
               {getString('pipelineSteps.sourcePathLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.sourcePathInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{

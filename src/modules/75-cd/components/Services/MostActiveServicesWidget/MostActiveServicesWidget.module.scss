@@ -14,7 +14,8 @@
     }
   }
   .stack {
-    padding-bottom: 2px;
+    padding-bottom: var(--spacing-small);
+    height: 30px;
   }
 
   .typeContainer {
@@ -31,7 +32,7 @@
   }
 
   .tickerContainer {
-    height: 26px;
+    height: 30px;
     .tickerValueStyles {
       font-size: var(--font-size-xsmall);
     }
@@ -46,14 +47,14 @@
   }
 
   .weightedStackContainer {
-    flex-grow: 1;
-    padding-right: var(--spacing-xxlarge);
     .progressBar {
-      height: 24px;
+      height: 8px;
+      flex: none;
     }
     .label {
-      color: var(--white);
+      color: var(--black);
       font-size: var(--font-size-xsmall) !important;
+      margin-top: 2px;
     }
   }
 

@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -104,14 +103,11 @@ export const RestoreCacheGCSStepBase = (
             />
             <FormMultiTypeConnectorField
               label={
-                <Text style={{ display: 'flex', alignItems: 'center' }}>
+                <Text
+                  style={{ display: 'flex', alignItems: 'center' }}
+                  tooltipProps={{ dataTooltipId: 'restoreCacheGcpConnector' }}
+                >
                   {getString('pipelineSteps.gcpConnectorLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.restoreCacheGcpConnectorInfo')}
-                    iconProps={{ size: 14 }}
-                  />
                 </Text>
               }
               type={'Gcp'}
@@ -128,15 +124,7 @@ export const RestoreCacheGCSStepBase = (
             <MultiTypeTextField
               name="spec.bucket"
               label={
-                <Text>
-                  {getString('pipelineSteps.bucketLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
+                <Text tooltipProps={{ dataTooltipId: 'gcsBucket' }}>{getString('pipelineSteps.bucketLabel')}</Text>
               }
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
@@ -146,17 +134,7 @@ export const RestoreCacheGCSStepBase = (
             />
             <MultiTypeTextField
               name="spec.key"
-              label={
-                <Text>
-                  {getString('keyLabel')}
-                  <Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.restoreCacheKeyInfo')}
-                    iconProps={{ size: 14 }}
-                  />
-                </Text>
-              }
+              label={<Text tooltipProps={{ dataTooltipId: 'restoreCacheKey' }}>{getString('keyLabel')}</Text>}
               multiTextInputProps={{
                 multiTextInputProps: { expressions },
                 disabled: readonly
@@ -171,14 +149,8 @@ export const RestoreCacheGCSStepBase = (
                     <MultiTypeSelectField
                       name="spec.archiveFormat"
                       label={
-                        <Text margin={{ top: 'small' }}>
+                        <Text margin={{ top: 'small' }} tooltipProps={{ dataTooltipId: 'archiveFormat' }}>
                           {getString('archiveFormat')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('archiveFormatInfo')}
-                            iconProps={{ size: 14 }}
-                          />
                         </Text>
                       }
                       multiTypeInputProps={{
@@ -193,19 +165,12 @@ export const RestoreCacheGCSStepBase = (
                       name="spec.failIfKeyNotFound"
                       label={getString('failIfKeyNotFound')}
                       multiTypeTextbox={{
-                        children: (
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.pipelineSteps.failIfKeyNotFoundInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        ),
                         expressions,
                         disabled: readonly
                       }}
                       style={{ marginBottom: 'var(--spacing-small)' }}
                       disabled={readonly}
+                      tooltipProps={{ dataTooltipId: 'failIfKeyNotFound' }}
                     />
                     <StepCommonFields disabled={readonly} />
                   </>

@@ -876,7 +876,7 @@ exports[`Test TerraformRollback should render edit view with runtime input value
 exports[`Test TerraformRollback should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL2"
   >
     <div
       class="variableListRow"
@@ -887,7 +887,11 @@ exports[`Test TerraformRollback should render variable view 1`] = `
         <div
           class="text variable-name-cell"
         >
-          provisionerIdentifier
+          <span
+            class=""
+          >
+            provisionerIdentifier
+          </span>
         </div>
         <div
           class="bp3-popover-wrapper btnWrapper"
@@ -927,7 +931,11 @@ exports[`Test TerraformRollback should render variable view 1`] = `
         class="StyledProps--font Text--lineclamp StyledProps--main"
         style="--text-line-clamp: 1;"
       >
-        &lt;+input&gt;
+        <span
+          class=""
+        >
+          &lt;+input&gt;
+        </span>
       </p>
     </div>
   </div>

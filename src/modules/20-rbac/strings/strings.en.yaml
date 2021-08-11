@@ -28,7 +28,6 @@ apiKey:
 serviceAccounts:
   label: Service Accounts
   email: '@service.harness.io'
-  search: Search by Name or Identifier
   noServiceAccounts: No Service Accounts found
   newServiceAccount: New Service Account
   noDataDescription: There are no service accounts in this scope. Click on the button below to start adding them.
@@ -85,7 +84,7 @@ roleAssignment:
   deleteSuccess: Role Assignment deleted successfully
   deleteFailure: This Role Assignment could not be deleted
 usersPage:
-  search: Search by Name or Email
+  search: Search by name or email
   roleBinding: Role Binding (Role - Resource Group)
   pendingInvitation: '{{ $.common.pendingInvitation }}'
   forUser: For User

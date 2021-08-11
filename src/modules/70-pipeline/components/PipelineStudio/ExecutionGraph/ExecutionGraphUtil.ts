@@ -1,6 +1,7 @@
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
 import { v4 as nameSpace, v5 as uuid, version } from 'uuid'
+import { isNil } from 'lodash-es'
 import { IconNodeModel } from '@pipeline/components/Diagram/node/IconNode/IconNodeModel'
 import type {
   ExecutionElementConfig,
@@ -550,7 +551,10 @@ export const addStepOrGroup = (
       const isRollbackGroup = options.rollBackProps?.active === StepsType.Rollback
       if (!isRollbackGroup && isExecutionElementConfig(node) && node?.steps) {
         node.steps.push(step)
-      } else if (isRollbackGroup && isExecutionElementConfig(node) && node?.rollbackSteps) {
+      } else if (isRollbackGroup && isExecutionElementConfig(node) && node) {
+        if (isNil(node.rollbackSteps)) {
+          node.rollbackSteps = []
+        }
         node.rollbackSteps.push(step)
       }
     } else {

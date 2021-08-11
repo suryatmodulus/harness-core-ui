@@ -39,11 +39,14 @@ export const createHealthSourceDrawerFormData = ({
     monitoredServiceRef
   }
 
-  if (isEdit) {
+  // when user is adding healthsource in create mode
+  // we will have rowData but isEdit is false
+  if (isEdit || rowData) {
     if (!rowData) return sourceData
     addProductFieldToStackdriverMetrics(sourceData.healthSourceList)
     sourceData = {
       ...sourceData,
+      isEdit: !!rowData,
       healthSourceName: rowData?.name,
       healthSourceIdentifier: rowData?.identifier,
       sourceType: rowData?.type,

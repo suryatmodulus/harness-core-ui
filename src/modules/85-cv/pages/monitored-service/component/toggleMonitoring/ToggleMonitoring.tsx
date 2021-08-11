@@ -4,6 +4,7 @@ import { Switch, Container } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { RestResponseHealthMonitoringFlagResponse, useSetHealthMonitoringFlag } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/strings'
 
 export default function ToggleMonitoring({
   identifier,
@@ -15,7 +16,8 @@ export default function ToggleMonitoring({
   refetch: () => void
 }): JSX.Element {
   const params = useParams<ProjectPathProps>()
-  const { showError, clear } = useToaster()
+  const { showError, showSuccess, clear } = useToaster()
+  const { getString } = useStrings()
   const [isEnabled, setIsEnabled] = useState(enable)
   const { mutate: toggleMonitoringService } = useSetHealthMonitoringFlag({
     identifier
@@ -33,11 +35,17 @@ export default function ToggleMonitoring({
         }
       })
       setIsEnabled(!!output.resource?.healthMonitoringEnabled)
-      await refetch()
+      refetch()
+      showSuccess(
+        getString('cv.monitoredServices.monitoredServiceToggle', {
+          enabled: output.resource?.healthMonitoringEnabled ? 'enabled' : 'disabled'
+        })
+      )
     } catch (err) {
       clear()
       showError(err?.data?.message)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

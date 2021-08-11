@@ -3,7 +3,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -108,14 +107,13 @@ export const DependencyBase = (
               />
               <FormMultiTypeConnectorField
                 label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    tooltipProps={{
+                      dataTooltipId: 'dependencyConnector'
+                    }}
+                  >
                     {getString('pipelineSteps.connectorLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.dependencyConnectorInfo')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 }
                 type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -134,9 +132,13 @@ export const DependencyBase = (
               <MultiTypeTextField
                 name="spec.image"
                 label={
-                  <Text margin={{ top: 'small' }}>
+                  <Text
+                    margin={{ top: 'small' }}
+                    tooltipProps={{
+                      dataTooltipId: 'image'
+                    }}
+                  >
                     {getString('imageLabel')}
-                    <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 }
                 multiTextInputProps={{
@@ -165,16 +167,9 @@ export const DependencyBase = (
                         name="spec.privileged"
                         label={getString('ci.privileged')}
                         multiTypeTextbox={{
-                          children: (
-                            <Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('ci.privilegedInfo')}
-                              iconProps={{ size: 14 }}
-                            />
-                          ),
                           expressions
                         }}
+                        tooltipProps={{ dataTooltipId: 'privileged' }}
                         disabled={readonly}
                       />
                       <MultiTypeMap
@@ -182,14 +177,11 @@ export const DependencyBase = (
                         valueMultiTextInputProps={{ expressions }}
                         multiTypeFieldSelectorProps={{
                           label: (
-                            <Text style={{ display: 'flex', alignItems: 'center' }}>
+                            <Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyEnvironmentVariables' }}
+                            >
                               {getString('environmentVariables')}
-                              <Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                                iconProps={{ size: 14 }}
-                              />
                             </Text>
                           )
                         }}
@@ -200,14 +192,11 @@ export const DependencyBase = (
                         multiTextInputProps={{ expressions }}
                         multiTypeFieldSelectorProps={{
                           label: (
-                            <Text style={{ display: 'flex', alignItems: 'center' }}>
+                            <Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyEntryPoint' }}
+                            >
                               {getString('entryPointLabel')}
-                              <Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('entryPointInfo')}
-                                iconProps={{ size: 14 }}
-                              />
                             </Text>
                           )
                         }}
@@ -219,14 +208,11 @@ export const DependencyBase = (
                         multiTextInputProps={{ expressions }}
                         multiTypeFieldSelectorProps={{
                           label: (
-                            <Text style={{ display: 'flex', alignItems: 'center' }}>
+                            <Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyArgs' }}
+                            >
                               {getString('argsLabel')}
-                              <Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('argsInfo')}
-                                iconProps={{ size: 14 }}
-                              />
                             </Text>
                           )
                         }}

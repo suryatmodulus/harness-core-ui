@@ -10,7 +10,8 @@ export const CVObjectStoreNames = {
   APPD_TIERS: 'appDTiers',
   ONBOARDING_JOURNEY: 'onBoardingJourney', // Remove this when old onboarding is removed
   SETUP: 'setup', // New setup/onboading journey
-  ONBOARDING_SOURCES: 'onBoardingSources'
+  ONBOARDING_SOURCES: 'onBoardingSources',
+  MONITORED_SERVICE: 'monitoredService'
 }
 
 export const CVIndexedDBPrimaryKeys = {
@@ -18,7 +19,8 @@ export const CVIndexedDBPrimaryKeys = {
   APPD_APP_ID: 'appId',
   DATASOURCE_ID: 'dataSourceId',
   SETUP_ID: 'setupID',
-  SOURCE_ID: 'sourceID'
+  SOURCE_ID: 'sourceID',
+  MONITORED_SERVICE: 'monitoredService'
 }
 
 export const CVIndexedObjectStoreToPrimaryKey = {
@@ -26,7 +28,8 @@ export const CVIndexedObjectStoreToPrimaryKey = {
   [CVObjectStoreNames.APPD_TIERS]: [CVIndexedDBPrimaryKeys.APPD_APP_ID, CVIndexedDBPrimaryKeys.DATASOURCE_ID],
   [CVObjectStoreNames.ONBOARDING_JOURNEY]: CVIndexedDBPrimaryKeys.DATASOURCE_ID,
   [CVObjectStoreNames.SETUP]: CVIndexedDBPrimaryKeys.SETUP_ID,
-  [CVObjectStoreNames.ONBOARDING_SOURCES]: CVIndexedDBPrimaryKeys.SOURCE_ID
+  [CVObjectStoreNames.ONBOARDING_SOURCES]: CVIndexedDBPrimaryKeys.SOURCE_ID,
+  [CVObjectStoreNames.MONITORED_SERVICE]: CVIndexedDBPrimaryKeys.MONITORED_SERVICE
 }
 
 const logger = loggerFor(ModuleName.CV)
@@ -73,6 +76,15 @@ const OBJECT_STORES = [
     index: {
       indexName: 'onBoardingSourcesIndex',
       property: CVIndexedObjectStoreToPrimaryKey[CVObjectStoreNames.ONBOARDING_SOURCES],
+      options: { unique: true }
+    }
+  },
+  {
+    name: CVObjectStoreNames.MONITORED_SERVICE,
+    options: { keyPath: CVIndexedDBPrimaryKeys.MONITORED_SERVICE, autoIncrement: false },
+    index: {
+      indexName: 'monitoredServiceIndex',
+      property: CVIndexedObjectStoreToPrimaryKey[CVObjectStoreNames.MONITORED_SERVICE],
       options: { unique: true }
     }
   }

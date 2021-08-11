@@ -20,6 +20,7 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -43,6 +44,7 @@ export default function CreatePipelines({
   const { getString } = useStrings()
   const { pipelineIdentifier } = useParams<{ pipelineIdentifier: string }>()
   const { isGitSyncEnabled } = useAppStore()
+  const { expressions } = useVariablesExpression()
 
   const identifier = initialValues?.identifier
   if (identifier === DefaultNewPipelineId) {
@@ -85,7 +87,7 @@ export default function CreatePipelines({
             name="timeout"
             isOptional
             label={getString('pipelineSteps.timeoutLabel')}
-            multiTypeDurationProps={{ enableConfigureOptions: true }}
+            multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
           />
           {isGitSyncEnabled && (
             <GitSyncStoreProvider>

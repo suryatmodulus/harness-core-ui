@@ -15,6 +15,7 @@ import {
   FormMultiTypeDurationField,
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 
 interface CreatePipelineFormProps {
   handleSubmit: (value: PipelineInfoConfig, gitDetail: EntityGitDetails) => void
@@ -25,6 +26,7 @@ interface CreatePipelineFormProps {
 export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
   const { getString } = useStrings()
   const { isGitSyncEnabled } = useAppStore()
+  const { expressions } = useVariablesExpression()
   const { handleSubmit, closeModal, learnMoreUrl } = props
   return (
     <Formik
@@ -71,7 +73,7 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
               name="timeout"
               isOptional
               label={getString('pipelineSteps.timeoutLabel')}
-              multiTypeDurationProps={{ enableConfigureOptions: true }}
+              multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
             />
             {isGitSyncEnabled && (
               <GitSyncStoreProvider>

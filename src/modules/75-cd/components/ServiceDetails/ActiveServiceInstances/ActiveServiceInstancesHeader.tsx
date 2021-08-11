@@ -89,6 +89,7 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
   }
 
   const tickerColor = changeRate > 0 ? Color.GREEN_600 : Color.RED_500
+  const isBootMode = changeRate === 0 && totalInstances !== 0
 
   return (
     <Layout.Horizontal
@@ -108,12 +109,18 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
         <Layout.Vertical flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}>
           <Ticker
             value={
-              <Text font={{ size: 'xsmall' }} color={tickerColor}>{`${numberFormatter(Math.abs(changeRate), {
-                truncate: false
-              })}%`}</Text>
+              isBootMode ? (
+                <></>
+              ) : (
+                <Text font={{ size: 'xsmall' }} color={tickerColor}>{`${numberFormatter(Math.abs(changeRate), {
+                  truncate: false
+                })}%`}</Text>
+              )
             }
             decreaseMode={changeRate < 0}
+            boost={isBootMode}
             color={tickerColor}
+            size={isBootMode ? 10 : 6}
           />
           <Text font={{ size: 'xsmall' }}>
             {getString('cd.serviceDashboard.in', {

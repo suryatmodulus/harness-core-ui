@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { Card, Color, Container, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
-import { DeploymentsTimeRangeContext } from '@cd/components/Services/common'
+import { DeploymentsTimeRangeContext, getFixed } from '@cd/components/Services/common'
 import { DashboardWorkloadDeployment, GetWorkloadsQueryParams, useGetWorkloads } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { FAIL_COLORS, SUCCESS_COLORS } from '@dashboards/constants'
@@ -81,7 +81,7 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
           const change = selectedType === DEFAULT_TYPES_ENUM.DEPLOYMENTS ? rateSuccess : failureRateChangeRate
           return {
             label: workloadDeploymentInfo.serviceName || '',
-            value,
+            value: getFixed(value),
             change: change || 0
           }
         }
@@ -162,14 +162,18 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
       const { change } = service
       const [color, tickerValueStyle] =
         change > 0 ? [Color.RED_500, css.tickerValueRed] : [Color.GREEN_600, css.tickerValueGreen]
+      const isBoostMode = change === 0 && service.value !== 0
       return (
         <div className={css.tickerContainer} key={index}>
           {change !== undefined ? (
             <Ticker
-              value={`${Math.abs(change)}%`}
+              value={isBoostMode ? '' : `${Math.abs(change)}%`}
               color={color}
               tickerValueStyles={cx(css.tickerValueStyles, tickerValueStyle)}
               verticalAlign={TickerVerticalAlignment.CENTER}
+              decreaseMode={change < 0}
+              boost={isBoostMode}
+              size={isBoostMode ? 10 : 6}
             />
           ) : (
             <></>

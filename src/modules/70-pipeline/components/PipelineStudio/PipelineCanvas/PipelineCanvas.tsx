@@ -393,31 +393,40 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     if (getOtherModal) {
       pipeline.identifier = ''
       updatePipeline(pipeline)
-      return getOtherModal(onSubmit, onCloseCreate)
+      return (
+        <PipelineVariablesContextProvider pipeline={pipeline}>
+          {getOtherModal(onSubmit, onCloseCreate)}
+        </PipelineVariablesContextProvider>
+      )
     } else {
       return (
-        <Dialog
-          style={{
-            width: isGitSyncEnabled ? '614px' : '385px',
-            background: 'var(--form-bg)'
-          }}
-          enforceFocus={false}
-          isOpen={true}
-          className={'padded-dialog'}
-          onClose={onCloseCreate}
-          title={
-            pipelineIdentifier === DefaultNewPipelineId
-              ? getString('moduleRenderer.newPipeLine')
-              : getString('editPipeline')
-          }
-        >
-          <CreatePipelines
-            afterSave={onSubmit}
-            initialValues={merge(pipeline, { repo: gitDetails.repoIdentifier || '', branch: gitDetails.branch || '' })}
-            closeModal={onCloseCreate}
-            gitDetails={gitDetails as IGitContextFormProps}
-          />
-        </Dialog>
+        <PipelineVariablesContextProvider pipeline={pipeline}>
+          <Dialog
+            style={{
+              width: isGitSyncEnabled ? '614px' : '385px',
+              background: 'var(--form-bg)'
+            }}
+            enforceFocus={false}
+            isOpen={true}
+            className={'padded-dialog'}
+            onClose={onCloseCreate}
+            title={
+              pipelineIdentifier === DefaultNewPipelineId
+                ? getString('moduleRenderer.newPipeLine')
+                : getString('editPipeline')
+            }
+          >
+            <CreatePipelines
+              afterSave={onSubmit}
+              initialValues={merge(pipeline, {
+                repo: gitDetails.repoIdentifier || '',
+                branch: gitDetails.branch || ''
+              })}
+              closeModal={onCloseCreate}
+              gitDetails={gitDetails as IGitContextFormProps}
+            />
+          </Dialog>
+        </PipelineVariablesContextProvider>
       )
     }
   }, [pipeline?.identifier, pipeline])

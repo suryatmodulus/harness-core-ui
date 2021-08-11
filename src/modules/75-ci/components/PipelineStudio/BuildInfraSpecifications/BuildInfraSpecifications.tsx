@@ -1,17 +1,7 @@
 import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import {
-  Layout,
-  Formik,
-  FormikForm,
-  FormInput,
-  Text,
-  Card,
-  Accordion,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@wings-software/uicore'
 import { isEmpty, isUndefined, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -251,12 +241,9 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           set(draft, 'stage.spec.infrastructure', {
             type: 'KubernetesDirect',
             spec: {
-              // Avoid accidental overrides for connectorRef
               connectorRef:
-                (values?.connectorRef?.value ||
-                  (getMultiTypeFromValue(values?.connectorRef as string) === MultiTypeInputType.RUNTIME
-                    ? values?.connectorRef
-                    : undefined)) ??
+                values?.connectorRef?.value ||
+                values?.connectorRef ||
                 (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
               namespace: values.namespace,
               serviceAccountName: values.serviceAccountName,
@@ -446,11 +433,11 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             name="connectorRef"
                             label={''}
                             placeholder={getString('select')}
-                            disabled={isReadonly}
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
                             gitScope={gitScope}
+                            multiTypeProps={{ expressions, disabled: isReadonly }}
                           />
                           <Text
                             font="small"
@@ -465,7 +452,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               name={'namespace'}
                               placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
                               style={{ width: 300 }}
-                              multiTextInputProps={{ disabled: isReadonly }}
+                              multiTextInputProps={{ expressions, disabled: isReadonly }}
                             />
                           </div>
                           <FormInput.MultiTextInput
@@ -477,7 +464,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               marginTop: 'var(--spacing-small)',
                               marginBottom: 'var(--spacing-xsmall)'
                             }}
-                            multiTextInputProps={{ disabled: isReadonly }}
+                            multiTextInputProps={{ expressions, disabled: isReadonly }}
                           />
                           <MultiTypeTextField
                             label={
@@ -553,11 +540,11 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           placeholder={getString(
                             'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
                           )}
-                          disabled={isReadonly}
                           accountIdentifier={accountId}
                           projectIdentifier={projectIdentifier}
                           orgIdentifier={orgIdentifier}
                           gitScope={gitScope}
+                          multiTypeProps={{ expressions, disabled: isReadonly }}
                         />
                         <Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}>
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}

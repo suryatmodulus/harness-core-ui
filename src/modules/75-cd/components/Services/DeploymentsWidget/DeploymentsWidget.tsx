@@ -54,6 +54,8 @@ const DeploymentsTooltip: React.FC<any> = props => {
   const currentDate = timestamp
     ? new Date(timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
     : ''
+  const isFailureBoost = failureRateChangeRate === '0' && failureRate !== '0'
+  const isFrequencyBoost = frequencyChangeRate === '0' && frequency !== '0'
   return (
     <Card className={css.tooltipCard}>
       <Layout.Vertical>
@@ -70,17 +72,23 @@ const DeploymentsTooltip: React.FC<any> = props => {
           <Text font={{ size: 'small', weight: 'semi-bold' }}>{failureRateLabel}</Text>
           <Ticker
             value={
-              <TickerValue
-                value={failureRateChangeRate}
-                color={failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
-              />
+              isFailureBoost ? (
+                <></>
+              ) : (
+                <TickerValue
+                  value={failureRateChangeRate}
+                  color={failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
+                />
+              )
             }
             decreaseMode={failureRateChangeRate < 0}
+            boost={isFailureBoost}
             color={failureRateChangeRate < 0 ? Color.GREEN_600 : Color.RED_500}
             verticalAlign={TickerVerticalAlignment.TOP}
+            size={isFailureBoost ? 10 : 6}
           >
             <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}>
-              {failureRate}
+              {failureRate}%
             </Text>
           </Ticker>
         </Layout.Horizontal>
@@ -88,14 +96,20 @@ const DeploymentsTooltip: React.FC<any> = props => {
           <Text font={{ size: 'small', weight: 'semi-bold' }}>{frequencyLabel}</Text>
           <Ticker
             value={
-              <TickerValue
-                value={frequencyChangeRate}
-                color={frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
-              />
+              isFrequencyBoost ? (
+                <></>
+              ) : (
+                <TickerValue
+                  value={frequencyChangeRate}
+                  color={frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
+                />
+              )
             }
             decreaseMode={frequencyChangeRate < 0}
+            boost={isFrequencyBoost}
             color={frequencyChangeRate > 0 ? Color.GREEN_600 : Color.RED_500}
             verticalAlign={TickerVerticalAlignment.TOP}
+            size={isFrequencyBoost ? 10 : 6}
           >
             <Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}>
               {frequency}
@@ -148,10 +162,10 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
       deployments.forEach(deployment => {
         const { failureRate, failureRateChangeRate, frequency, frequencyChangeRate } = deployment.rate || {}
         const rates = {
-          failureRate: `${numberFormatter(failureRate, { truncate: true })}%`,
-          failureRateChangeRate: numberFormatter(failureRateChangeRate, { truncate: true }),
-          frequency: numberFormatter(frequency, { truncate: true }),
-          frequencyChangeRate: numberFormatter(frequencyChangeRate, { truncate: true }),
+          failureRate: numberFormatter(failureRate, { truncate: false }),
+          failureRateChangeRate: numberFormatter(failureRateChangeRate, { truncate: false }),
+          frequency: numberFormatter(frequency),
+          frequencyChangeRate: numberFormatter(frequencyChangeRate, { truncate: false }),
           frequencyLabel: getString('common.frequency'),
           failureRateLabel: getString('common.failureRate')
         }
@@ -278,6 +292,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
     }
   }
 
+  const isDeploymentBoost = deployments.change === 0 && deployments.value != '0'
   return (
     <DeploymentWidgetContainer>
       <Container data-test="deploymentsWidgetContent">
@@ -288,14 +303,20 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
           <Layout.Horizontal width={240}>
             <Ticker
               value={
-                <TickerValue
-                  value={deployments.change}
-                  color={deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
-                />
+                isDeploymentBoost ? (
+                  <></>
+                ) : (
+                  <TickerValue
+                    value={deployments.change}
+                    color={deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
+                  />
+                )
               }
               decreaseMode={deployments.change < 0}
+              boost={isDeploymentBoost}
               color={deployments.change > 0 ? Color.GREEN_600 : Color.RED_500}
               verticalAlign={TickerVerticalAlignment.CENTER}
+              size={isDeploymentBoost ? 10 : 6}
             >
               <Layout.Vertical>
                 <Text color={Color.BLACK} font={{ weight: 'semi-bold' }} className={css.text} data-test="tickerText">
@@ -314,6 +335,7 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
             { ...frequency, name: getString('cd.serviceDashboard.frequency') }
           ].map((item, index) => {
             const colors = index ? [Color.GREEN_600, Color.RED_500] : [Color.RED_500, Color.GREEN_600]
+            const isBoost = item.change === 0 && item.value !== '0'
             return (
               <Layout.Vertical
                 padding={'small'}
@@ -329,8 +351,16 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
                   {item.name}
                 </Text>
                 <Ticker
-                  value={<TickerValue value={item.change} color={item.change > 0 ? colors[0] : colors[1]} />}
+                  value={
+                    isBoost ? (
+                      <></>
+                    ) : (
+                      <TickerValue value={item.change} color={item.change > 0 ? colors[0] : colors[1]} />
+                    )
+                  }
                   decreaseMode={item.change < 0}
+                  boost={isBoost}
+                  size={isBoost ? 10 : 6}
                   color={item.change > 0 ? colors[0] : colors[1]}
                   tickerContainerStyles={css.tickerContainerStyles}
                   verticalAlign={TickerVerticalAlignment.CENTER}

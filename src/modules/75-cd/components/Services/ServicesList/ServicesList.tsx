@@ -110,13 +110,16 @@ const TickerCard: React.FC<{ item: ChangeValue & { name: string } }> = props => 
       return item.change < 0 ? Color.GREEN_500 : Color.RED_500
     }
   })()
+  const isBoostMode = item.change === 0 && item.value !== '0'
   return (
     <Layout.Vertical padding={'small'} key={item.name} width={'fit-content'} className={css.tickerContainer}>
       <Ticker
-        value={<Text color={color} font={{ size: 'small' }}>{`${Math.abs(item.change)}%`}</Text>}
+        value={isBoostMode ? <></> : <Text color={color} font={{ size: 'small' }}>{`${Math.abs(item.change)}%`}</Text>}
         decreaseMode={item.change < 0}
+        boost={isBoostMode}
         color={color}
         tickerContainerStyles={css.tickerContainerStyles}
+        size={isBoostMode ? 10 : 6}
       >
         <Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ right: 'xsmall' }}>
           {item.value}

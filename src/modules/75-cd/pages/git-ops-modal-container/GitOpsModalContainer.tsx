@@ -51,7 +51,7 @@ const GitOpsModalContainer: React.FC = () => {
   return (
     <div className={css.gitOpsContainer}>
       <div className={css.header}>
-        <h1 className={css.title}> Git Ops </h1>
+        <h1 className={css.title}> GitOps </h1>
       </div>
       {/* <Button intent="primary" onClick={() => openUploadCertiModal()} text={'Open Argo'} className="" /> */}
 

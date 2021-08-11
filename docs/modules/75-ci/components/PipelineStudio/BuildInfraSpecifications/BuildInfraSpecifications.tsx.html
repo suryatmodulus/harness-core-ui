@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">46.52% </span>
+                <span class="strong">46.68% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>368/791</span>
+                <span class='fraction'>365/782</span>
             </div>
         
             
@@ -707,33 +707,10 @@
 <a name='L648'></a><a href='#L648'>648</a>
 <a name='L649'></a><a href='#L649'>649</a>
 <a name='L650'></a><a href='#L650'>650</a>
-<a name='L651'></a><a href='#L651'>651</a>
-<a name='L652'></a><a href='#L652'>652</a>
-<a name='L653'></a><a href='#L653'>653</a>
-<a name='L654'></a><a href='#L654'>654</a>
-<a name='L655'></a><a href='#L655'>655</a>
-<a name='L656'></a><a href='#L656'>656</a>
-<a name='L657'></a><a href='#L657'>657</a>
-<a name='L658'></a><a href='#L658'>658</a>
-<a name='L659'></a><a href='#L659'>659</a>
-<a name='L660'></a><a href='#L660'>660</a>
-<a name='L661'></a><a href='#L661'>661</a>
-<a name='L662'></a><a href='#L662'>662</a>
-<a name='L663'></a><a href='#L663'>663</a>
-<a name='L664'></a><a href='#L664'>664</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L651'></a><a href='#L651'>651</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -971,9 +948,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1386,17 +1360,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import {
-  Layout,
-  Formik,
-  FormikForm,
-  FormInput,
-  Text,
-  Card,
-  Accordion,
-  getMultiTypeFromValue,
-  MultiTypeInputType
-} from '@wings-software/uicore'
+import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@wings-software/uicore'
 import { isEmpty, isUndefined, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -1636,13 +1600,10 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
           set(draft, 'stage.spec.infrastructure', {
             type: 'KubernetesDirect',
             spec: {
-              // Avoid accidental overrides for connectorRef
               connectorRef:
-                (values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue ||
-                  (<span class="branch-1 cbranch-no" title="branch not covered" >getMultiTypeFromValue(values?.connectorRef as string) === MultiTypeInputType.RUNTIME</span>
-                    ? values?.connectorRef
-                    : undefined)) ??
-<span class="branch-1 cbranch-no" title="branch not covered" >                (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,</span>
+                values<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>onnectorRef<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alue ||
+<span class="branch-1 cbranch-no" title="branch not covered" >                values?.connectorRef </span>||
+<span class="branch-2 cbranch-no" title="branch not covered" >                (draft.stage?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,</span>
               namespace: values.namespace,
               serviceAccountName: values.serviceAccountName,
               runAsUser: values.runAsUser,
@@ -1831,11 +1792,11 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             name="connectorRef"
                             label={''}
                             placeholder={getString('select')}
-                            disabled={isReadonly}
                             accountIdentifier={accountId}
                             projectIdentifier={projectIdentifier}
                             orgIdentifier={orgIdentifier}
                             gitScope={gitScope}
+                            multiTypeProps={{ expressions, disabled: isReadonly }}
                           /&gt;
                           &lt;Text
                             font="small"
@@ -1850,7 +1811,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               name={'namespace'}
                               placeholder={getString('pipeline.infraSpecifications.namespacePlaceholder')}
                               style={{ width: 300 }}
-                              multiTextInputProps={{ disabled: isReadonly }}
+                              multiTextInputProps={{ expressions, disabled: isReadonly }}
                             /&gt;
                           &lt;/div&gt;
                           &lt;FormInput.MultiTextInput
@@ -1862,7 +1823,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                               marginTop: 'var(--spacing-small)',
                               marginBottom: 'var(--spacing-xsmall)'
                             }}
-                            multiTextInputProps={{ disabled: isReadonly }}
+                            multiTextInputProps={{ expressions, disabled: isReadonly }}
                           /&gt;
                           &lt;MultiTypeTextField
                             label={
@@ -1938,11 +1899,11 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           placeholder={getString(
                             'pipelineSteps.build.infraSpecifications.kubernetesClusterPlaceholder'
                           )}
-                          disabled={isReadonly}
                           accountIdentifier={accountId}
                           projectIdentifier={projectIdentifier}
                           orgIdentifier={orgIdentifier}
                           gitScope={gitScope}
+                          multiTypeProps={{ expressions, disabled: isReadonly }}
                         /&gt;
                         &lt;Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}&gt;
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}
@@ -2053,7 +2014,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 10:15:50 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 13:33:10 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

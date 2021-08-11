@@ -427,10 +427,7 @@
 <a name='L368'></a><a href='#L368'>368</a>
 <a name='L369'></a><a href='#L369'>369</a>
 <a name='L370'></a><a href='#L370'>370</a>
-<a name='L371'></a><a href='#L371'>371</a>
-<a name='L372'></a><a href='#L372'>372</a>
-<a name='L373'></a><a href='#L373'>373</a>
-<a name='L374'></a><a href='#L374'>374</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L371'></a><a href='#L371'>371</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -476,6 +473,13 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -700,19 +704,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -804,7 +798,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -865,14 +859,8 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormMultiTypeConnectorField
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}&gt;
               {getString('pipelineSteps.connectorLabel')}
-              &lt;Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.connectorInfo')}
-                iconProps={{ size: 14 }}
-              /&gt;
             &lt;/Text&gt;
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -896,9 +884,13 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.image`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'image'
+              }}
+            &gt;
               {getString('imageLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTextInputProps={{
@@ -917,9 +909,8 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.args`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}&gt;
               {getString('argsLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('runTestsArgsInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTextInputProps={{
@@ -937,9 +928,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.buildTool`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsBuildTool' }}
+            &gt;
               {getString('buildToolLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('buildToolInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTypeInputProps={{
@@ -958,9 +951,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.language`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
+            &gt;
               {getString('languageLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('languageInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTypeInputProps={{
@@ -979,9 +974,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.packages`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsPackages' }}
+            &gt;
               {getString('packagesLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('packagesInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTextInputProps={{
@@ -1012,9 +1009,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.testAnnotations`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsTestAnnotations' }}
+            &gt;
               {getString('testAnnotationsLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('testAnnotationsInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTextInputProps={{
@@ -1031,9 +1030,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
         &lt;MultiTypeFieldSelector
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.preCommand`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsPreCommand' }}
+            &gt;
               {getString('preCommandLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('preCommandInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           defaultValueToReset=""
@@ -1065,9 +1066,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
         &lt;MultiTypeFieldSelector
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.postCommand`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsPostCommand' }}
+            &gt;
               {getString('postCommandLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('postCommandInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           defaultValueToReset=""
@@ -1104,14 +1107,8 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+              &lt;Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'reportPaths' }}&gt;
                 {getString('pipelineSteps.reportPathsLabel')}
-                &lt;Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.reportPathsInfo')}
-                  iconProps={{ size: 14 }}
-                /&gt;
               &lt;/Text&gt;
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -1130,14 +1127,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+              &lt;Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'environmentVariables' }}
+              &gt;
                 {getString('environmentVariables')}
-                &lt;Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('environmentVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                /&gt;
               &lt;/Text&gt;
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -1157,14 +1151,11 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+              &lt;Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'outputVariables' }}
+              &gt;
                 {getString('pipelineSteps.outputVariablesLabel')}
-                &lt;Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                /&gt;
               &lt;/Text&gt;
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -1183,7 +1174,7 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 09:10:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

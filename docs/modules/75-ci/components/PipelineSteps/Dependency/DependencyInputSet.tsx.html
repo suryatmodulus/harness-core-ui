@@ -230,7 +230,11 @@
 <a name='L171'></a><a href='#L171'>171</a>
 <a name='L172'></a><a href='#L172'>172</a>
 <a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -258,6 +262,10 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -404,7 +412,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -447,14 +455,13 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormMultiTypeConnectorField
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'dependencyConnectorInfo'
+              }}
+            &gt;
               {getString('pipelineSteps.connectorLabel')}
-              &lt;Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.dependencyConnectorInfo')}
-                iconProps={{ size: 14 }}
-              /&gt;
             &lt;/Text&gt;
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -477,9 +484,13 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.image`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'image'
+              }}
+            &gt;
               {getString('imageLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTextInputProps={{
@@ -498,12 +509,10 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.privileged`}
           label={getString('ci.privileged')}
           multiTypeTextbox={{
-            children: (
-              &lt;Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} /&gt;
-            ),
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
             expressions
           }}
+          tooltipProps={{ dataTooltipId: 'privileged' }}
           disabled={readonly}
           setToFalseWhenEmpty={true}
         /&gt;
@@ -517,14 +526,13 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+              &lt;Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{
+                  dataTooltipId: 'dependencyEnvironmentVariables'
+                }}
+              &gt;
                 {getString('environmentVariables')}
-                &lt;Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('environmentVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                /&gt;
               &lt;/Text&gt;
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -542,9 +550,11 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+              &lt;Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'dependencyEntryPoint' }}
+              &gt;
                 {getString('entryPointLabel')}
-                &lt;Button icon="question" minimal tooltip={getString('entryPointInfo')} iconProps={{ size: 14 }} /&gt;
               &lt;/Text&gt;
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -562,9 +572,11 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+              &lt;Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'dependencyArgs' }}
+              &gt;
                 {getString('argsLabel')}
-                &lt;Button icon="question" minimal tooltip={getString('argsInfo')} iconProps={{ size: 14 }} /&gt;
               &lt;/Text&gt;
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -583,7 +595,7 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 09:10:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

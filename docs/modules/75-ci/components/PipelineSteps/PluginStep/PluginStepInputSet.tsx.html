@@ -193,14 +193,7 @@
 <a name='L134'></a><a href='#L134'>134</a>
 <a name='L135'></a><a href='#L135'>135</a>
 <a name='L136'></a><a href='#L136'>136</a>
-<a name='L137'></a><a href='#L137'>137</a>
-<a name='L138'></a><a href='#L138'>138</a>
-<a name='L139'></a><a href='#L139'>139</a>
-<a name='L140'></a><a href='#L140'>140</a>
-<a name='L141'></a><a href='#L141'>141</a>
-<a name='L142'></a><a href='#L142'>142</a>
-<a name='L143'></a><a href='#L143'>143</a>
-<a name='L144'></a><a href='#L144'>144</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L137'></a><a href='#L137'>137</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -236,13 +229,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -344,7 +330,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -395,14 +381,8 @@ export const PluginStepInputSet: React.FC&lt;PluginStepProps&gt; = ({ template, 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormMultiTypeConnectorField
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}&gt;
               {getString('pipelineSteps.connectorLabel')}
-              &lt;Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.connectorInfo')}
-                iconProps={{ size: 14 }}
-              /&gt;
             &lt;/Text&gt;
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -426,9 +406,13 @@ export const PluginStepInputSet: React.FC&lt;PluginStepProps&gt; = ({ template, 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.image`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'pluginImageInfo'
+              }}
+            &gt;
               {getString('imageLabel')}
-              &lt;Button icon="question" minimal tooltip={getString('pluginImageInfo')} iconProps={{ size: 14 }} /&gt;
             &lt;/Text&gt;
           }
           multiTextInputProps={{
@@ -447,12 +431,10 @@ export const PluginStepInputSet: React.FC&lt;PluginStepProps&gt; = ({ template, 
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.privileged`}
           label={getString('ci.privileged')}
           multiTypeTextbox={{
-            children: (
-              &lt;Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} /&gt;
-            ),
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
+          tooltipProps={{ dataTooltipId: 'privileged' }}
           disabled={readonly}
           setToFalseWhenEmpty={true}
         /&gt;
@@ -466,14 +448,11 @@ export const PluginStepInputSet: React.FC&lt;PluginStepProps&gt; = ({ template, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+              &lt;Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'pluginSettings' }}
+              &gt;
                 {getString('settingsLabel')}
-                &lt;Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.settingsInfo')}
-                  iconProps={{ size: 14 }}
-                /&gt;
               &lt;/Text&gt;
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -493,7 +472,7 @@ export const PluginStepInputSet: React.FC&lt;PluginStepProps&gt; = ({ template, 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 09:10:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

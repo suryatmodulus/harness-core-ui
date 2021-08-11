@@ -329,27 +329,8 @@
 <a name='L270'></a><a href='#L270'>270</a>
 <a name='L271'></a><a href='#L271'>271</a>
 <a name='L272'></a><a href='#L272'>272</a>
-<a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a>
-<a name='L275'></a><a href='#L275'>275</a>
-<a name='L276'></a><a href='#L276'>276</a>
-<a name='L277'></a><a href='#L277'>277</a>
-<a name='L278'></a><a href='#L278'>278</a>
-<a name='L279'></a><a href='#L279'>279</a>
-<a name='L280'></a><a href='#L280'>280</a>
-<a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L273'></a><a href='#L273'>273</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -510,7 +491,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -541,22 +521,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -642,7 +606,6 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -750,14 +713,8 @@ export const RunStepBase = (
             /&gt;
             &lt;FormMultiTypeConnectorField
               label={
-                &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                &lt;Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}&gt;
                   {getString('pipelineSteps.connectorLabel')}
-                  &lt;Button
-                    icon="question"
-                    minimal
-                    tooltip={getString('pipelineSteps.connectorInfo')}
-                    iconProps={{ size: 14 }}
-                  /&gt;
                 &lt;/Text&gt;
               }
               type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -774,9 +731,12 @@ export const RunStepBase = (
             &lt;MultiTypeTextField
               name="spec.image"
               label={
-                &lt;Text&gt;
+                &lt;Text
+                  tooltipProps={{
+                    dataTooltipId: 'image'
+                  }}
+                &gt;
                   {getString('imageLabel')}
-                  &lt;Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} /&gt;
                 &lt;/Text&gt;
               }
               multiTextInputProps={{
@@ -792,9 +752,11 @@ export const RunStepBase = (
               &lt;MultiTypeFieldSelector
                 name="spec.command"
                 label={
-                  &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                  &lt;Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    tooltipProps={{ dataTooltipId: 'runCommand' }}
+                  &gt;
                     {getString('commandLabel')}
-                    &lt;Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} /&gt;
                   &lt;/Text&gt;
                 }
                 defaultValueToReset=""
@@ -845,16 +807,9 @@ export const RunStepBase = (
                       name="spec.privileged"
                       label={getString('ci.privileged')}
                       multiTypeTextbox={{
-                        children: (
-                          &lt;Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('ci.privilegedInfo')}
-                            iconProps={{ size: 14 }}
-                          /&gt;
-                        ),
                         expressions
                       }}
+                      tooltipProps={{ dataTooltipId: 'privileged' }}
                       disabled={readonly}
                     /&gt;
                     &lt;MultiTypeList
@@ -863,14 +818,11 @@ export const RunStepBase = (
                       multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                          &lt;Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'reportPaths' }}
+                          &gt;
                             {getString('pipelineSteps.reportPathsLabel')}
-                            &lt;Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.reportPathsInfo')}
-                              iconProps={{ size: 14 }}
-                            /&gt;
                           &lt;/Text&gt;
                         )
                       }}
@@ -882,14 +834,11 @@ export const RunStepBase = (
                       valueMultiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                          &lt;Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'environmentVariables' }}
+                          &gt;
                             {getString('environmentVariables')}
-                            &lt;Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('environmentVariablesInfo')}
-                              iconProps={{ size: 14 }}
-                            /&gt;
                           &lt;/Text&gt;
                         )
                       }}
@@ -901,14 +850,11 @@ export const RunStepBase = (
                       multiTextInputProps={{ expressions }}
                       multiTypeFieldSelectorProps={{
                         label: (
-                          &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                          &lt;Text
+                            style={{ display: 'flex', alignItems: 'center' }}
+                            tooltipProps={{ dataTooltipId: 'outputVariables' }}
+                          &gt;
                             {getString('pipelineSteps.outputVariablesLabel')}
-                            &lt;Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                              iconProps={{ size: 14 }}
-                            /&gt;
                           &lt;/Text&gt;
                         )
                       }}
@@ -934,7 +880,7 @@ export const RunStepBaseWithRef = React.forwardRef(RunStepBase)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 09:10:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

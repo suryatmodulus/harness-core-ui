@@ -291,23 +291,8 @@
 <a name='L232'></a><a href='#L232'>232</a>
 <a name='L233'></a><a href='#L233'>233</a>
 <a name='L234'></a><a href='#L234'>234</a>
-<a name='L235'></a><a href='#L235'>235</a>
-<a name='L236'></a><a href='#L236'>236</a>
-<a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a>
-<a name='L239'></a><a href='#L239'>239</a>
-<a name='L240'></a><a href='#L240'>240</a>
-<a name='L241'></a><a href='#L241'>241</a>
-<a name='L242'></a><a href='#L242'>242</a>
-<a name='L243'></a><a href='#L243'>243</a>
-<a name='L244'></a><a href='#L244'>244</a>
-<a name='L245'></a><a href='#L245'>245</a>
-<a name='L246'></a><a href='#L246'>246</a>
-<a name='L247'></a><a href='#L247'>247</a>
-<a name='L248'></a><a href='#L248'>248</a>
-<a name='L249'></a><a href='#L249'>249</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L235'></a><a href='#L235'>235</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -539,26 +524,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   FormikForm,
@@ -663,14 +634,13 @@ export const DependencyBase = (
               /&gt;
               &lt;FormMultiTypeConnectorField
                 label={
-                  &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                  &lt;Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    tooltipProps={{
+                      dataTooltipId: 'dependencyConnector'
+                    }}
+                  &gt;
                     {getString('pipelineSteps.connectorLabel')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.dependencyConnectorInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
                   &lt;/Text&gt;
                 }
                 type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -689,9 +659,13 @@ export const DependencyBase = (
               &lt;MultiTypeTextField
                 name="spec.image"
                 label={
-                  &lt;Text margin={{ top: 'small' }}&gt;
+                  &lt;Text
+                    margin={{ top: 'small' }}
+                    tooltipProps={{
+                      dataTooltipId: 'image'
+                    }}
+                  &gt;
                     {getString('imageLabel')}
-                    &lt;Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} /&gt;
                   &lt;/Text&gt;
                 }
                 multiTextInputProps={{
@@ -720,16 +694,9 @@ export const DependencyBase = (
                         name="spec.privileged"
                         label={getString('ci.privileged')}
                         multiTypeTextbox={{
-                          children: (
-                            &lt;Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('ci.privilegedInfo')}
-                              iconProps={{ size: 14 }}
-                            /&gt;
-                          ),
                           expressions
                         }}
+                        tooltipProps={{ dataTooltipId: 'privileged' }}
                         disabled={readonly}
                       /&gt;
                       &lt;MultiTypeMap
@@ -737,14 +704,11 @@ export const DependencyBase = (
                         valueMultiTextInputProps={{ expressions }}
                         multiTypeFieldSelectorProps={{
                           label: (
-                            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                            &lt;Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyEnvironmentVariables' }}
+                            &gt;
                               {getString('environmentVariables')}
-                              &lt;Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                                iconProps={{ size: 14 }}
-                              /&gt;
                             &lt;/Text&gt;
                           )
                         }}
@@ -755,14 +719,11 @@ export const DependencyBase = (
                         multiTextInputProps={{ expressions }}
                         multiTypeFieldSelectorProps={{
                           label: (
-                            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                            &lt;Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyEntryPoint' }}
+                            &gt;
                               {getString('entryPointLabel')}
-                              &lt;Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('entryPointInfo')}
-                                iconProps={{ size: 14 }}
-                              /&gt;
                             &lt;/Text&gt;
                           )
                         }}
@@ -774,14 +735,11 @@ export const DependencyBase = (
                         multiTextInputProps={{ expressions }}
                         multiTypeFieldSelectorProps={{
                           label: (
-                            &lt;Text style={{ display: 'flex', alignItems: 'center' }}&gt;
+                            &lt;Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyArgs' }}
+                            &gt;
                               {getString('argsLabel')}
-                              &lt;Button
-                                icon="question"
-                                minimal
-                                tooltip={getString('argsInfo')}
-                                iconProps={{ size: 14 }}
-                              /&gt;
                             &lt;/Text&gt;
                           )
                         }}
@@ -808,7 +766,7 @@ export const DependencyBaseWithRef = React.forwardRef(DependencyBase)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 09:10:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -686,38 +686,8 @@
 <a name='L627'></a><a href='#L627'>627</a>
 <a name='L628'></a><a href='#L628'>628</a>
 <a name='L629'></a><a href='#L629'>629</a>
-<a name='L630'></a><a href='#L630'>630</a>
-<a name='L631'></a><a href='#L631'>631</a>
-<a name='L632'></a><a href='#L632'>632</a>
-<a name='L633'></a><a href='#L633'>633</a>
-<a name='L634'></a><a href='#L634'>634</a>
-<a name='L635'></a><a href='#L635'>635</a>
-<a name='L636'></a><a href='#L636'>636</a>
-<a name='L637'></a><a href='#L637'>637</a>
-<a name='L638'></a><a href='#L638'>638</a>
-<a name='L639'></a><a href='#L639'>639</a>
-<a name='L640'></a><a href='#L640'>640</a>
-<a name='L641'></a><a href='#L641'>641</a>
-<a name='L642'></a><a href='#L642'>642</a>
-<a name='L643'></a><a href='#L643'>643</a>
-<a name='L644'></a><a href='#L644'>644</a>
-<a name='L645'></a><a href='#L645'>645</a>
-<a name='L646'></a><a href='#L646'>646</a>
-<a name='L647'></a><a href='#L647'>647</a>
-<a name='L648'></a><a href='#L648'>648</a>
-<a name='L649'></a><a href='#L649'>649</a>
-<a name='L650'></a><a href='#L650'>650</a>
-<a name='L651'></a><a href='#L651'>651</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L630'></a><a href='#L630'>630</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -1277,18 +1247,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1358,16 +1316,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import {
-  Label,
-  FormInput,
-  MultiTypeInputType,
-  Icon,
-  Layout,
-  Text,
-  Button,
-  getMultiTypeFromValue
-} from '@wings-software/uicore'
+import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, getMultiTypeFromValue } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
@@ -1764,14 +1713,8 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
             {(deploymentStageTemplate.infrastructure as any).spec?.namespace &amp;&amp; (
               &lt;FormInput.MultiTextInput
                 label={
-                  &lt;Text flex font="small" margin={{ bottom: 'xsmall' }}&gt;
+                  &lt;Text flex font="small" margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}&gt;
                     {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipeline.namespaceTooltip')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
                   &lt;/Text&gt;
                 }
                 name={`${isEmpty(path) ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: `${path}.`}infrastructure.spec.namespace`}
@@ -1811,14 +1754,8 @@ export const StageInputSetFormInternal: React.FC&lt;StageInputSetFormProps&gt; =
             {(deploymentStageTemplate.infrastructure as any).spec?.initTimeout &amp;&amp; (
               &lt;FormMultiTypeDurationField
                 label={
-                  &lt;Text flex={{ justifyContent: 'start' }} font="small"&gt;
+                  &lt;Text flex={{ justifyContent: 'start' }} font="small" tooltipProps={{ dataTooltipId: 'timeout' }}&gt;
                     {getString('pipeline.infraSpecifications.initTimeout')}
-                    &lt;Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.timeoutInfo')}
-                      iconProps={{ size: 14 }}
-                    /&gt;
                   &lt;/Text&gt;
                 }
                 name={`${isEmpty(path) ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: `${path}.`}infrastructure.spec.initTimeout`}
@@ -2014,7 +1951,7 @@ export const StageInputSetForm = connect(StageInputSetFormInternal)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 09:10:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

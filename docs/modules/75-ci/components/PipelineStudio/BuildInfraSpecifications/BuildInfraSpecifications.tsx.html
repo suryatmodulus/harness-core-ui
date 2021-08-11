@@ -720,28 +720,10 @@
 <a name='L661'></a><a href='#L661'>661</a>
 <a name='L662'></a><a href='#L662'>662</a>
 <a name='L663'></a><a href='#L663'>663</a>
-<a name='L664'></a><a href='#L664'>664</a>
-<a name='L665'></a><a href='#L665'>665</a>
-<a name='L666'></a><a href='#L666'>666</a>
-<a name='L667'></a><a href='#L667'>667</a>
-<a name='L668'></a><a href='#L668'>668</a>
-<a name='L669'></a><a href='#L669'>669</a>
-<a name='L670'></a><a href='#L670'>670</a>
-<a name='L671'></a><a href='#L671'>671</a>
-<a name='L672'></a><a href='#L672'>672</a>
-<a name='L673'></a><a href='#L673'>673</a>
-<a name='L674'></a><a href='#L674'>674</a>
-<a name='L675'></a><a href='#L675'>675</a>
-<a name='L676'></a><a href='#L676'>676</a>
-<a name='L677'></a><a href='#L677'>677</a>
-<a name='L678'></a><a href='#L678'>678</a>
-<a name='L679'></a><a href='#L679'>679</a>
-<a name='L680'></a><a href='#L680'>680</a>
-<a name='L681'></a><a href='#L681'>681</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L664'></a><a href='#L664'>664</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1401,22 +1383,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
@@ -1428,7 +1394,6 @@ import {
   Text,
   Card,
   Accordion,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType
 } from '@wings-software/uicore'
@@ -1872,14 +1837,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             orgIdentifier={orgIdentifier}
                             gitScope={gitScope}
                           /&gt;
-                          &lt;Text font="small" margin={{ bottom: 'xsmall' }}&gt;
+                          &lt;Text
+                            font="small"
+                            margin={{ bottom: 'xsmall' }}
+                            tooltipProps={{ dataTooltipId: 'namespace' }}
+                          &gt;
                             {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                            &lt;Button
-                              icon="question"
-                              minimal
-                              tooltip={getString('pipeline.namespaceTooltip')}
-                              iconProps={{ size: 14 }}
-                            /&gt;
                           &lt;/Text&gt;
                           &lt;div className={cx(css.fieldsGroup, css.withoutSpacing)}&gt;
                             &lt;FormInput.MultiTextInput
@@ -1919,14 +1882,12 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                             name="initTimeout"
                             multiTypeDurationProps={{ expressions }}
                             label={
-                              &lt;Text flex={{ justifyContent: 'start' }} font="small"&gt;
+                              &lt;Text
+                                flex={{ justifyContent: 'start' }}
+                                font="small"
+                                tooltipProps={{ dataTooltipId: 'timeout' }}
+                              &gt;
                                 {getString('pipeline.infraSpecifications.initTimeout')}
-                                &lt;Button
-                                  icon="question"
-                                  minimal
-                                  tooltip={getString('pipelineSteps.timeoutInfo')}
-                                  iconProps={{ size: 14 }}
-                                /&gt;
                               &lt;/Text&gt;
                             }
                             disabled={isReadonly}
@@ -1983,14 +1944,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                           orgIdentifier={orgIdentifier}
                           gitScope={gitScope}
                         /&gt;
-                        &lt;Text margin={{ bottom: 'xsmall' }}&gt;
+                        &lt;Text margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}&gt;
                           {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                          &lt;Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipeline.namespaceTooltip')}
-                            iconProps={{ size: 14 }}
-                          /&gt;
                         &lt;/Text&gt;
                         &lt;div className={cx(css.fieldsGroup, css.withoutSpacing)}&gt;
                           &lt;MultiTypeTextField
@@ -2044,14 +1999,8 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
                                 name="initTimeout"
                                 multiTypeDurationProps={{ expressions }}
                                 label={
-                                  &lt;Text flex={{ justifyContent: 'start' }}&gt;
+                                  &lt;Text flex={{ justifyContent: 'start' }} tooltipProps={{ dataTooltipId: 'timeout' }}&gt;
                                     {getString('pipeline.infraSpecifications.initTimeout')}
-                                    &lt;Button
-                                      icon="question"
-                                      minimal
-                                      tooltip={getString('pipelineSteps.timeoutInfo')}
-                                      iconProps={{ size: 14 }}
-                                    /&gt;
                                   &lt;/Text&gt;
                                 }
                                 disabled={isReadonly}
@@ -2104,7 +2053,7 @@ export default function BuildInfraSpecifications({ children }: React.PropsWithCh
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 08:29:16 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 09:10:35 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

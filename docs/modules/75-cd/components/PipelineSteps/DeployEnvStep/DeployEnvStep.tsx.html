@@ -784,8 +784,12 @@
 <a name='L725'></a><a href='#L725'>725</a>
 <a name='L726'></a><a href='#L726'>726</a>
 <a name='L727'></a><a href='#L727'>727</a>
-<a name='L728'></a><a href='#L728'>728</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L728'></a><a href='#L728'>728</a>
+<a name='L729'></a><a href='#L729'>729</a>
+<a name='L730'></a><a href='#L730'>730</a>
+<a name='L731'></a><a href='#L731'>731</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1190,6 +1194,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1239,6 +1244,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1524,7 +1530,8 @@ import {
   useModalHook,
   Container,
   ThumbnailSelect,
-  Label
+  Label,
+  FormikForm
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
@@ -1905,76 +1912,78 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
           formikRef.current = formik
           const { values, setFieldValue } = formik
           return (
-            &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
-              &lt;FormInput.MultiTypeInput
-                label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
-                tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
-                name="environmentRef"
-                disabled={readonly}
-                useValue
-                placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
-                multiTypeInputProps={{
-                  onTypeChange: setType,
-                  width: 300,
-                  onChange: val =&gt; {
-                    if (
-                      values.environment?.identifier &amp;&amp;
-                      (val as SelectOption).value !== values.environment.identifier
-                    ) {
-                      setEnvironments(environments.filter(env =&gt; env.value !== values.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier))
-                      setFieldValue('environment', undefined)
-                    }
-                  },
-                  selectProps: {
-                    addClearBtn: !readonly,
-                    items: environments
-                  },
-                  expressions
-                }}
-                selectItems={environments}
-              /&gt;
-              {type === MultiTypeInputType.FIXED &amp;&amp; (
-                &lt;Button
-                  minimal
-                  intent="primary"
-                  disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
-                  onClick={() =&gt; {
-                    const isEdit = isEditEnvironment(values)
-                    if (isEdit) {
-                      if (values.environment?.identifier) {
-                        setState({
-                          isEdit,
-                          formik,
-                          isEnvironment: true,
-                          data: values.environment
-                        })
+            &lt;FormikForm&gt;
+              &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
+                &lt;FormInput.MultiTypeInput
+                  label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+                  tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
+                  name="environmentRef"
+                  disabled={readonly}
+                  useValue
+                  placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
+                  multiTypeInputProps={{
+                    onTypeChange: setType,
+                    width: 300,
+                    onChange: val =&gt; {
+                      if (
+                        values.environment?.identifier &amp;&amp;
+                        (val as SelectOption).value !== values.environment.identifier
+                      ) {
+                        setEnvironments(environments.filter(env =&gt; env.value !== values.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier))
+                        setFieldValue('environment', undefined)
+                      }
+                    },
+                    selectProps: {
+                      addClearBtn: !readonly,
+                      items: environments
+                    },
+                    expressions
+                  }}
+                  selectItems={environments}
+                /&gt;
+                {type === MultiTypeInputType.FIXED &amp;&amp; (
+                  &lt;Button
+                    minimal
+                    intent="primary"
+                    disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
+                    onClick={() =&gt; {
+                      const isEdit = isEditEnvironment(values)
+                      if (isEdit) {
+                        if (values.environment?.identifier) {
+                          setState({
+                            isEdit,
+                            formik,
+                            isEnvironment: true,
+                            data: values.environment
+                          })
+                        } else {
+                          setState({
+                            isEdit,
+                            formik,
+                            isEnvironment: false,
+                            data: environmentsResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(
+                              env =&gt; env.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === values.environmentRef
+                            )<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironment as EnvironmentResponseDTO
+                          })
+                        }
                       } else {
                         setState({
-                          isEdit,
-                          formik,
+                          isEdit: false,
                           isEnvironment: false,
-                          data: environmentsResponse<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ilter(
-                            env =&gt; env.environment<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === values.environmentRef
-                          )<span class="branch-0 cbranch-no" title="branch not covered" >?.[0</span>]<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironment as EnvironmentResponseDTO
+                          formik
                         })
                       }
-                    } else {
-                      setState({
-                        isEdit: false,
-                        isEnvironment: false,
-                        formik
-                      })
+                      showModal()
+                    }}
+                    text={
+                      isEditEnvironment(values)
+                        ? getString('editEnvironment')
+                        : getString('pipelineSteps.environmentTab.newEnvironment')
                     }
-                    showModal()
-                  }}
-                  text={
-                    isEditEnvironment(values)
-                      ? getString('editEnvironment')
-                      : getString('pipelineSteps.environmentTab.newEnvironment')
-                  }
-                /&gt;
-              )}
-            &lt;/Layout.Horizontal&gt;
+                  /&gt;
+                )}
+              &lt;/Layout.Horizontal&gt;
+            &lt;/FormikForm&gt;
           )
         }}
       &lt;/Formik&gt;
@@ -2245,7 +2254,7 @@ export class DeployEnvironmentStep extends Step&lt;DeployEnvData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 13:33:10 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 15:39:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">61.07% </span>
+                <span class="strong">59.76% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>91/149</span>
+                <span class='fraction'>101/169</span>
             </div>
         
             
@@ -442,7 +442,12 @@
 <a name='L383'></a><a href='#L383'>383</a>
 <a name='L384'></a><a href='#L384'>384</a>
 <a name='L385'></a><a href='#L385'>385</a>
-<a name='L386'></a><a href='#L386'>386</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L386'></a><a href='#L386'>386</a>
+<a name='L387'></a><a href='#L387'>387</a>
+<a name='L388'></a><a href='#L388'>388</a>
+<a name='L389'></a><a href='#L389'>389</a>
+<a name='L390'></a><a href='#L390'>390</a>
+<a name='L391'></a><a href='#L391'>391</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -454,6 +459,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -838,7 +848,12 @@ import { getBucketSizeForTimeRange } from '@cd/components/TimeRangeSelector/Time
 import { PageSpinner, TimeSeriesAreaChart } from '@common/components'
 import type { TimeSeriesAreaChartProps } from '@common/components/TimeSeriesAreaChart/TimeSeriesAreaChart'
 import { PageError } from '@common/components/Page/PageError'
-import { DeploymentsTimeRangeContext, numberFormatter } from '@cd/components/Services/common'
+import {
+  DeploymentsTimeRangeContext,
+  getFixed,
+  INVALID_CHANGE_RATE,
+  numberFormatter
+} from '@cd/components/Services/common'
 import DeploymentsEmptyState from '@cd/icons/DeploymentsEmptyState.svg'
 import {
   GetServiceDeploymentsInfoQueryParams,
@@ -883,8 +898,8 @@ const DeploymentsTooltip: React.FC&lt;any&gt; = <span class="fstat-no" title="fu
   const currentDate = <span class="cstat-no" title="statement not covered" >timestamp</span>
     ? new Date(timestamp).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
     : ''
-  const isFailureBoost = <span class="cstat-no" title="statement not covered" >failureRateChangeRate === '0' &amp;&amp; failureRate !== '0'</span>
-  const isFrequencyBoost = <span class="cstat-no" title="statement not covered" >frequencyChangeRate === '0' &amp;&amp; frequency !== '0'</span>
+  const isFailureBoost = <span class="cstat-no" title="statement not covered" >failureRateChangeRate === INVALID_CHANGE_RATE</span>
+  const isFrequencyBoost = <span class="cstat-no" title="statement not covered" >frequencyChangeRate === INVALID_CHANGE_RATE</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Card className={css.tooltipCard}&gt;
       &lt;Layout.Vertical&gt;
@@ -905,19 +920,19 @@ const DeploymentsTooltip: React.FC&lt;any&gt; = <span class="fstat-no" title="fu
                 &lt;&gt;&lt;/&gt;
               ) : (
                 &lt;TickerValue
-                  value={failureRateChangeRate}
-                  color={failureRateChangeRate &lt; 0 ? Color.GREEN_600 : Color.RED_500}
+                  value={getFixed(failureRateChangeRate || 0)}
+                  color={!isFailureBoost || failureRateChangeRate &lt; 0 ? Color.GREEN_600 : Color.RED_500}
                 /&gt;
               )
             }
-            decreaseMode={failureRateChangeRate &lt; 0}
+            decreaseMode={!isFailureBoost &amp;&amp; failureRateChangeRate &lt; 0}
             boost={isFailureBoost}
-            color={failureRateChangeRate &lt; 0 ? Color.GREEN_600 : Color.RED_500}
+            color={!isFailureBoost || failureRateChangeRate &lt; 0 ? Color.GREEN_600 : Color.RED_500}
             verticalAlign={TickerVerticalAlignment.TOP}
             size={isFailureBoost ? 10 : 6}
           &gt;
             &lt;Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}&gt;
-              {failureRate}%
+              {numberFormatter(failureRate, { truncate: false })}%
             &lt;/Text&gt;
           &lt;/Ticker&gt;
         &lt;/Layout.Horizontal&gt;
@@ -929,19 +944,19 @@ const DeploymentsTooltip: React.FC&lt;any&gt; = <span class="fstat-no" title="fu
                 &lt;&gt;&lt;/&gt;
               ) : (
                 &lt;TickerValue
-                  value={frequencyChangeRate}
-                  color={frequencyChangeRate &gt; 0 ? Color.GREEN_600 : Color.RED_500}
+                  value={getFixed(frequencyChangeRate || 0)}
+                  color={isFrequencyBoost || frequencyChangeRate &gt; 0 ? Color.GREEN_600 : Color.RED_500}
                 /&gt;
               )
             }
-            decreaseMode={frequencyChangeRate &lt; 0}
+            decreaseMode={!isFrequencyBoost &amp;&amp; frequencyChangeRate &lt; 0}
             boost={isFrequencyBoost}
-            color={frequencyChangeRate &gt; 0 ? Color.GREEN_600 : Color.RED_500}
+            color={isFrequencyBoost || frequencyChangeRate &gt; 0 ? Color.GREEN_600 : Color.RED_500}
             verticalAlign={TickerVerticalAlignment.TOP}
             size={isFrequencyBoost ? 10 : 6}
           &gt;
             &lt;Text color={Color.BLACK} font={{ weight: 'bold' }} margin={{ right: 'medium' }}&gt;
-              {frequency}
+              {numberFormatter(frequency)}
             &lt;/Text&gt;
           &lt;/Ticker&gt;
         &lt;/Layout.Horizontal&gt;
@@ -960,8 +975,8 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
   const queryParams: GetServiceDeploymentsInfoQueryParams = useMemo(() =&gt; {
     return {
       accountIdentifier: accountId,
-      orgIdentifier,
       projectIdentifier,
+      orgIdentifier,
       serviceId: serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
       endTime: timeRange?.range[1]?.getTime() || 0,
@@ -991,10 +1006,10 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
       deployments.forEach(deployment =&gt; {
         const { failureRate, failureRateChangeRate, frequency, frequencyChangeRate } = deployment.rate || {}
         const rates = {
-          failureRate: numberFormatter(failureRate, { truncate: false }),
-          failureRateChangeRate: numberFormatter(failureRateChangeRate, { truncate: false }),
-          frequency: numberFormatter(frequency),
-          frequencyChangeRate: numberFormatter(frequencyChangeRate, { truncate: false }),
+          failureRate,
+          failureRateChangeRate,
+          frequency,
+          frequencyChangeRate,
           frequencyLabel: getString('common.frequency'),
           failureRateLabel: getString('common.failureRate')
         }
@@ -1121,7 +1136,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
     }
   }
 &nbsp;
-  const isDeploymentBoost = deployments.change === 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >deployments.value != '0'</span>
+  const isDeploymentBoost = deployments.change === INVALID_CHANGE_RATE
   return (
     &lt;DeploymentWidgetContainer&gt;
       &lt;Container data-test="deploymentsWidgetContent"&gt;
@@ -1137,13 +1152,13 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
                 ) : (
                   &lt;TickerValue
                     value={deployments.change}
-                    color={deployments.change &gt; 0 ? Color.GREEN_600 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500}</span>
+                    color={isDeploymentBoost || deployments.change &gt; 0 ? Color.GREEN_600 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500}</span>
                   /&gt;
                 )
               }
-              decreaseMode={deployments.change &lt; 0}
+              decreaseMode={!isDeploymentBoost &amp;&amp; deployments.change &lt; 0}
               boost={isDeploymentBoost}
-              color={deployments.change &gt; 0 ? Color.GREEN_600 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500}</span>
+              color={isDeploymentBoost || deployments.change &gt; 0 ? Color.GREEN_600 : <span class="branch-1 cbranch-no" title="branch not covered" >Color.RED_500}</span>
               verticalAlign={TickerVerticalAlignment.CENTER}
               size={isDeploymentBoost ? <span class="branch-0 cbranch-no" title="branch not covered" >10 </span>: 6}
             &gt;
@@ -1164,7 +1179,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
             { ...frequency, name: getString('cd.serviceDashboard.frequency') }
           ].map((item, index) =&gt; {
             const colors = index ? [Color.GREEN_600, Color.RED_500] : [Color.RED_500, Color.GREEN_600]
-            const isBoost = item.change === 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >item.value !== '0'</span>
+            const isBoost = item.change === INVALID_CHANGE_RATE
             return (
               &lt;Layout.Vertical
                 padding={'small'}
@@ -1184,13 +1199,13 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
                     isBoost ? (
 <span class="branch-0 cbranch-no" title="branch not covered" >                      &lt;&gt;&lt;/&gt;</span>
                     ) : (
-                      &lt;TickerValue value={item.change} color={item.change &gt; 0 ? colors[0] : <span class="branch-1 cbranch-no" title="branch not covered" >colors[1]}</span> /&gt;
+                      &lt;TickerValue value={item.change} color={isBoost || item.change &gt; 0 ? colors[0] : <span class="branch-1 cbranch-no" title="branch not covered" >colors[1]}</span> /&gt;
                     )
                   }
-                  decreaseMode={item.change &lt; 0}
+                  decreaseMode={!isBoost &amp;&amp; item.change &lt; 0}
                   boost={isBoost}
                   size={isBoost ? <span class="branch-0 cbranch-no" title="branch not covered" >10 </span>: 6}
-                  color={item.change &gt; 0 ? colors[0] : <span class="branch-1 cbranch-no" title="branch not covered" >colors[1]}</span>
+                  color={isBoost || item.change &gt; 0 ? colors[0] : <span class="branch-1 cbranch-no" title="branch not covered" >colors[1]}</span>
                   tickerContainerStyles={css.tickerContainerStyles}
                   verticalAlign={TickerVerticalAlignment.CENTER}
                 &gt;
@@ -1219,7 +1234,7 @@ export const DeploymentsWidget: React.FC&lt;DeploymentWidgetProps&gt; = props =&
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 13:33:10 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 15:39:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

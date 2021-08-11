@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84% </span>
+                <span class="strong">86.79% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>84/100</span>
+                <span class='fraction'>92/106</span>
             </div>
         
             
@@ -347,7 +347,11 @@
 <a name='L288'></a><a href='#L288'>288</a>
 <a name='L289'></a><a href='#L289'>289</a>
 <a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -509,9 +513,12 @@
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -637,13 +644,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Card, Color, Container, LabelPosition, Layout, Text, WeightedStack } from '@wings-software/uicore'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
-import { DeploymentsTimeRangeContext, getFixed } from '@cd/components/Services/common'
+import { DeploymentsTimeRangeContext, getFixed, INVALID_CHANGE_RATE } from '@cd/components/Services/common'
 import { DashboardWorkloadDeployment, GetWorkloadsQueryParams, useGetWorkloads } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { FAIL_COLORS, SUCCESS_COLORS } from '@dashboards/constants'
@@ -761,8 +769,8 @@ export const MostActiveServicesWidget: React.FC&lt;MostActiveServicesWidget&gt; 
   const queryParams: GetWorkloadsQueryParams = useMemo(() =&gt; {
     return {
       accountIdentifier: accountId,
-      orgIdentifier,
       projectIdentifier,
+      orgIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
       endTime: timeRange?.range[1]?.getTime() || 0,
       environmentType: environmentTypes[selectedEnvironmentType]
@@ -799,18 +807,21 @@ export const MostActiveServicesWidget: React.FC&lt;MostActiveServicesWidget&gt; 
   const Tickers = useMemo(() =&gt; {
     return data.map((service, index) =&gt; {
       const { change } = service
+      const isBoostMode = change === INVALID_CHANGE_RATE
       const [color, tickerValueStyle] =
-        change &gt; 0 ? [Color.RED_500, css.tickerValueRed] : <span class="branch-1 cbranch-no" title="branch not covered" >[Color.GREEN_600, css.tickerValueGreen]</span>
-      const isBoostMode = change === 0 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >service.value !== 0</span>
+        (selectedType === DEFAULT_TYPES_ENUM.DEPLOYMENTS &amp;&amp; !isBoostMode &amp;&amp; change &lt; 0) ||
+        (selectedType === DEFAULT_TYPES_ENUM.ERRORS &amp;&amp; (isBoostMode || change &gt; 0))
+          ? [Color.RED_500, css.tickerValueRed]
+          : [Color.GREEN_600, css.tickerValueGreen]
       return (
         &lt;div className={css.tickerContainer} key={index}&gt;
           {change !== undefined ? (
             &lt;Ticker
-              value={isBoostMode ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: `${Math.abs(change)}%`}
+              value={isBoostMode ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: `${getFixed(Math.abs(change))}%`}
               color={color}
               tickerValueStyles={cx(css.tickerValueStyles, tickerValueStyle)}
               verticalAlign={TickerVerticalAlignment.CENTER}
-              decreaseMode={change &lt; 0}
+              decreaseMode={!isBoostMode &amp;&amp; change &lt; 0}
               boost={isBoostMode}
               size={isBoostMode ? <span class="branch-0 cbranch-no" title="branch not covered" >10 </span>: 6}
             /&gt;
@@ -909,20 +920,21 @@ export const MostActiveServicesWidget: React.FC&lt;MostActiveServicesWidget&gt; 
     &lt;MostActiveServicesWidgetContainer&gt;
       &lt;Layout.Horizontal
         flex={{ distribution: 'space-between', alignItems: 'flex-start' }}
+        width="100%"
         height={150}
         className={css.stackTickerContainer}
         data-test="mostActiveServicesWidgetContent"
       &gt;
-        &lt;div className={css.weightedStackContainer}&gt;
+        &lt;Layout.Vertical className={css.weightedStackContainer} width="60%"&gt;
           &lt;WeightedStack
             data={weightedStackData}
-            labelPosition={LabelPosition.INSIDE}
+            labelPosition={LabelPosition.BOTTOM}
             stackStyles={css.stack}
             progressBarStyles={css.progressBar}
             labelStyles={css.label}
           /&gt;
-        &lt;/div&gt;
-        &lt;Layout.Vertical&gt;{Tickers}&lt;/Layout.Vertical&gt;
+        &lt;/Layout.Vertical&gt;
+        &lt;Layout.Vertical width="30%"&gt;{Tickers}&lt;/Layout.Vertical&gt;
       &lt;/Layout.Horizontal&gt;
     &lt;/MostActiveServicesWidgetContainer&gt;
   )
@@ -934,7 +946,7 @@ export const MostActiveServicesWidget: React.FC&lt;MostActiveServicesWidget&gt; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 13:33:10 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 11 2021 15:39:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

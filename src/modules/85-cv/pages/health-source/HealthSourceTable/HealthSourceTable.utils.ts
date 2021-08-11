@@ -14,6 +14,7 @@ export const getTypeByFeature = (feature: string, getString: UseStringsReturn['g
     case HealthSourceTypes.StackdriverMetrics:
       return getString('pipeline.verification.analysisTab.metrics')
     case HealthSourceTypes.StackdriverLog:
+    case HealthSourceTypes.Splunk:
       return getString('pipeline.verification.analysisTab.logs')
     default:
       return ''
@@ -50,6 +51,9 @@ export const getIconBySourceType = (type: string): IconName => {
     case 'StackdriverLog':
     case 'Stackdriver':
       return 'service-stackdriver'
+    case 'SPLUNK':
+    case 'Splunk':
+      return 'service-splunk'
     default:
       return 'placeholder'
   }

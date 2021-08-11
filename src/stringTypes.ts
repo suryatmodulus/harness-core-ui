@@ -3632,6 +3632,7 @@ export interface StringsMap {
   'cv.monitoringSources.riskProfile': string
   'cv.monitoringSources.serviceInstanceIdentifier': string
   'cv.monitoringSources.serviceValidation': string
+  'cv.monitoringSources.splunk.splunkLogsQuery': string
   'cv.monitoringSources.totalMappedQueries': string
   'cv.navLinks.activities': string
   'cv.navLinks.adminSideNavLinks.activitySources': string

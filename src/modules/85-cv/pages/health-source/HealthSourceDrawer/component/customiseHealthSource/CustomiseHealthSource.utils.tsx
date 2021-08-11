@@ -1,6 +1,7 @@
 import React from 'react'
 import { isEmpty } from 'lodash-es'
 import GCOLogsMonitoringSource from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GCOLogsMonitoringSource'
+import SplunkMonitoringSource from '@cv/pages/health-source/connectors/Splunk/GCOLogsMonitoringSource'
 import AppDHealthSourceContainer from '@cv/pages/health-source/connectors/AppDynamics/AppDHealthSourceContainer'
 import { PrometheusHealthSource } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource'
 import NewrelicMonitoredSourceContainer from '@cv/pages/health-source/connectors/NewRelic/NewRelicHealthSourceContainer'
@@ -36,6 +37,8 @@ export const LoadSourceByType = ({
       return <PrometheusHealthSource data={data} onSubmit={onSubmit} />
     case Connectors.NEW_RELIC:
       return <NewrelicMonitoredSourceContainer data={data} onSubmit={onSubmit} />
+    case Connectors.SPLUNK:
+      return <SplunkMonitoringSource data={data} onSubmit={onSubmit} />
     default:
       return <></>
   }

@@ -398,6 +398,8 @@ monitoringSources:
       groupName: Group Name is required.
       uniqueName: '{{existingName}} already exists. Provide a unique name.'
       recordCount: Current query yields too many records. Please change query to yield one record.
+  splunk:
+    splunkLogsQuery: SPLUNK Logs Query
   gcoLogs:
     query: QUERY
     gcoLogsServiceInstance: Add service instance

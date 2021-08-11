@@ -18,11 +18,20 @@ export const HEALTHSOURCE_LIST = [
   {
     name: HealthSourceTypes.NewRelic,
     icon: getConnectorIconByType(Connectors.NEW_RELIC)
+  },
+  {
+    name: HealthSourceTypes.Splunk,
+    icon: getConnectorIconByType(Connectors.SPLUNK)
   }
 ]
 
 export const NewRelicProductNames = {
   APM: 'apm'
+}
+
+export const SplunkProductName = {
+  SplunkCloud: 'splunkCloud',
+  SplunkEnterprise: 'splunkEnterprise'
 }
 
 export const ConnectorRefFieldName = 'connectorRef'

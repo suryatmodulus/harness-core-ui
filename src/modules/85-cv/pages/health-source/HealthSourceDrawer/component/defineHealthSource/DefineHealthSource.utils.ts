@@ -5,7 +5,7 @@ import { HealthSourceTypes } from '@cv/pages/health-source/types'
 import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
 import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
 import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
-import { NewRelicProductNames, ConnectorRefFieldName } from './DefineHealthSource.constant'
+import { NewRelicProductNames, ConnectorRefFieldName, SplunkProductName } from './DefineHealthSource.constant'
 import type { DefineHealthSourceFormInterface } from './DefineHealthSource.types'
 
 export const validate = (getString: UseStringsReturn['getString']) => {
@@ -65,6 +65,17 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
         {
           value: NewRelicProductNames.APM,
           label: getString('connectors.newRelic.products.fullStackObservability')
+        }
+      ]
+    case Connectors.SPLUNK:
+      return [
+        {
+          value: SplunkProductName.SplunkCloud,
+          label: 'Splunk Cloud'
+        },
+        {
+          value: SplunkProductName.SplunkEnterprise,
+          label: 'Splunk Enterprise'
         }
       ]
     default:

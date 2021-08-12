@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.08% </span>
+                <span class="strong">96.23% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/51</span>
+                <span class='fraction'>51/53</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60.53% </span>
+                <span class="strong">60.26% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>46/76</span>
+                <span class='fraction'>47/78</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">98% </span>
+                <span class="strong">98.08% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/50</span>
+                <span class='fraction'>51/52</span>
             </div>
         
             
@@ -301,13 +301,27 @@
 <a name='L242'></a><a href='#L242'>242</a>
 <a name='L243'></a><a href='#L243'>243</a>
 <a name='L244'></a><a href='#L244'>244</a>
-<a name='L245'></a><a href='#L245'>245</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a>
+<a name='L249'></a><a href='#L249'>249</a>
+<a name='L250'></a><a href='#L250'>250</a>
+<a name='L251'></a><a href='#L251'>251</a>
+<a name='L252'></a><a href='#L252'>252</a>
+<a name='L253'></a><a href='#L253'>253</a>
+<a name='L254'></a><a href='#L254'>254</a>
+<a name='L255'></a><a href='#L255'>255</a>
+<a name='L256'></a><a href='#L256'>256</a>
+<a name='L257'></a><a href='#L257'>257</a>
+<a name='L258'></a><a href='#L258'>258</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -350,6 +364,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -555,7 +581,8 @@ import {
   RecommendationItemDto,
   useRecommendationsQuery,
   useRecommendationsSummaryQuery,
-  K8sRecommendationFilterDtoInput
+  K8sRecommendationFilterDtoInput,
+  ResourceType
 } from 'services/ce/services'
 &nbsp;
 import routes from '@common/RouteDefinitions'
@@ -593,7 +620,19 @@ const RecommendationsList: React.FC&lt;RecommendationListProps&gt; = ({
   const { getString } = useStrings()
 &nbsp;
   const NameCell: Renderer&lt;CellProps&lt;RecommendationItemDto&gt;&gt; = cell =&gt; {
-    return &lt;Text&gt;{cell.value}&lt;/Text&gt;
+    const originalRowData = cell.row.original
+    const { resourceType, clusterName, namespace } = originalRowData
+    return resourceType === ResourceType.Workload ? (
+      &lt;Layout.Vertical
+        margin={{
+          right: 'medium'
+        }}
+      &gt;
+        &lt;Text&gt;{clusterName}&lt;/Text&gt;
+        &lt;Text&gt;{`/ ${namespace}`}&lt;/Text&gt;
+        &lt;Text&gt;{`/ ${cell.value}`}&lt;/Text&gt;
+      &lt;/Layout.Vertical&gt;
+    ) : <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
   }
 &nbsp;
   const RecommendationTypeCell: Renderer&lt;CellProps&lt;RecommendationItemDto&gt;&gt; = ({ row }) =&gt; {
@@ -762,12 +801,12 @@ const RecommendationList: React.FC = () =&gt; {
               &lt;Layout.Horizontal spacing="medium"&gt;
                 &lt;RecommendationSavingsCard
                   title={getString('ce.recommendation.listPage.monthlySavingsText')}
-                  amount={formatCost(totalMonthlyCost)}
+                  amount={formatCost(totalSavings)}
                   iconName="money-icon"
                 /&gt;
                 &lt;RecommendationSavingsCard
                   title={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
-                  amount={formatCost(totalSavings)}
+                  amount={formatCost(totalMonthlyCost)}
                   subTitle={getString('ce.recommendation.listPage.forecatedCostSubText')}
                 /&gt;
               &lt;/Layout.Horizontal&gt;
@@ -796,7 +835,7 @@ export default RecommendationList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 12 2021 06:27:34 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 12 2021 07:48:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

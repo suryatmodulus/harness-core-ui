@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71% </span>
+                <span class="strong">71.11% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>191/269</span>
+                <span class='fraction'>192/270</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.48% </span>
+                <span class="strong">48.64% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>303/625</span>
+                <span class='fraction'>305/627</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.71% </span>
+                <span class="strong">71.81% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>185/258</span>
+                <span class='fraction'>186/259</span>
             </div>
         
             
@@ -978,10 +978,7 @@
 <a name='L919'></a><a href='#L919'>919</a>
 <a name='L920'></a><a href='#L920'>920</a>
 <a name='L921'></a><a href='#L921'>921</a>
-<a name='L922'></a><a href='#L922'>922</a>
-<a name='L923'></a><a href='#L923'>923</a>
-<a name='L924'></a><a href='#L924'>924</a>
-<a name='L925'></a><a href='#L925'>925</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L922'></a><a href='#L922'>922</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1325,15 +1322,12 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2189,7 +2183,7 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
     <span class="missing-if-branch" title="if path not taken" >I</span>if (routingRecords.length) {
 <span class="cstat-no" title="statement not covered" >      return</span>
     }
-    fetchInstanceSecurityGroups()
+    !_isEmpty(props.gatewayDetails.selectedInstances) &amp;&amp; fetchInstanceSecurityGroups()
   }, [])
 &nbsp;
   useEffect(() =&gt; {
@@ -2247,18 +2241,15 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
 &nbsp;
   const fetchInstanceSecurityGroups = async (): Promise&lt;void&gt; =&gt; {
     const emptyRecords: PortConfig[] = []
+    const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
     try {
-      let text = `id = ['${
-        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
-      }']\nregions = ['${
-        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+      let text = `id = ['${hasInstances ? props.gatewayDetails.selectedInstances[0].id : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>']\nregions = ['${
+        hasInstances ? props.gatewayDetails.selectedInstances[0].region : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
       }']`
 &nbsp;
       if (isAzureProvider) {
         text += `\nresource_groups=['${
-          props.gatewayDetails.selectedInstances
-            ? props.gatewayDetails.selectedInstances[0].metadata<span class="branch-1 cbranch-no" title="branch not covered" >?.resourceGroup</span>
-            : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+          hasInstances ? props.gatewayDetails.selectedInstances[0].metadata<span class="branch-1 cbranch-no" title="branch not covered" >?.resourceGroup </span>: <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
         }']`
       }
 &nbsp;
@@ -2761,7 +2752,7 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
                       Map your Custom domain to the hostname
                     &lt;/Heading&gt;
                     &lt;Text font={{ weight: 'light' }} color="Color.GREY_500" className={css.mapDomainHelperText}&gt;
-                      Since you have opted to access instances using a Custom domain, you need to map if to the
+                      Since you have opted to access instances using a Custom domain, you need to map it to the
                       hostname. Select your preferred DNS provider
                     &lt;/Text&gt;
                     &lt;Layout.Vertical&gt;
@@ -2836,7 +2827,7 @@ export default DNSLinkSetup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 12 2021 06:27:34 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 12 2021 07:48:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

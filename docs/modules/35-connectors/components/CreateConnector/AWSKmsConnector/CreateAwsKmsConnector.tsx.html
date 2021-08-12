@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/14</span>
+                <span class='fraction'>16/16</span>
             </div>
         
             
@@ -129,7 +129,10 @@
 <a name='L70'></a><a href='#L70'>70</a>
 <a name='L71'></a><a href='#L71'>71</a>
 <a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
@@ -138,23 +141,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-yes">100x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
+<span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -200,6 +196,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">100x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { StepWizard } from '@wings-software/uicore'
@@ -208,36 +214,29 @@ import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/p
 import {
   Connectors,
   CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
-  SECRET_MANAGER_TESTCONNECTION_STEP_INDEX
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
 } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 &nbsp;
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import { buildAWSKmsSMPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import AwsKmsConfig from './views/AwsKmsConfig'
 import css from './CreateAwsKmsConnector.module.scss'
-&nbsp;
-export interface CreateAwsKmsConnectorProps {
-  onClose: () =&gt; void
-  onSuccess: (data?: ConnectorRequestBody) =&gt; void | Promise&lt;void&gt;
-  isEditMode: boolean
-  mock?: any
-  connectorInfo?: ConnectorInfoDTO | void
-  gitDetails?: IGitContextFormProps
-}
 &nbsp;
 export interface StepSecretManagerProps extends ConnectorInfoDTO {
   isEdit: boolean
   spec: any
 }
 &nbsp;
-const CreateAwsKmsConnector: React.FC&lt;CreateAwsKmsConnectorProps&gt; = props =&gt; {
+const CreateAwsKmsConnector: React.FC&lt;CreateConnectorModalProps&gt; = props =&gt; {
   const { onClose, onSuccess } = props
   const { getString } = useStrings()
   return (
-    &lt;StepWizard&lt;StepSecretManagerProps&gt;
+    &lt;StepWizard
       icon={getConnectorIconByType(Connectors.AWS_KMS)}
       iconProps={{ size: 37 }}
       title={getString(getConnectorTitleIdByType(Connectors.AWS_KMS))}
@@ -256,8 +255,18 @@ const CreateAwsKmsConnector: React.FC&lt;CreateAwsKmsConnectorProps&gt; = props 
         name={getString('details')}
         identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         {...props}
-        onSuccess={onSuccess}
         connectorInfo={props.connectorInfo}
+      /&gt;
+      &lt;DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildAWSKmsSMPayload}
+        hideModal={onClose}
+        onConnectorCreated={onSuccess}
+        connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
+        disableGitSync={true}
       /&gt;
       &lt;VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
@@ -266,7 +275,7 @@ const CreateAwsKmsConnector: React.FC&lt;CreateAwsKmsConnectorProps&gt; = props 
         onClose={onClose}
         isLastStep={true}
         type={Connectors.AWS_KMS}
-        stepIndex={SECRET_MANAGER_TESTCONNECTION_STEP_INDEX}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       /&gt;
     &lt;/StepWizard&gt;
   )
@@ -280,7 +289,7 @@ export default CreateAwsKmsConnector
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 12 2021 06:27:34 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 12 2021 07:48:24 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

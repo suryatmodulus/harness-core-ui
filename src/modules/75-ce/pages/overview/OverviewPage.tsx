@@ -9,8 +9,7 @@ import {
   QlceViewAggregateOperation,
   StatsInfo,
   useFetchPerspectiveDetailsSummaryQuery,
-  useFetchPerspectiveForecastCostQuery,
-  useFetchCcmMetaDataQuery
+  useFetchPerspectiveForecastCostQuery
 } from 'services/ce/services'
 import { getTimeFilters } from '@ce/utils/perspectiveUtils'
 import { CE_DATE_FORMAT_INTERNAL, DATE_RANGE_SHORTCUTS, getGMTStartDateTime } from '@ce/utils/momentUtils'
@@ -26,6 +25,7 @@ import { PageSpinner } from '@common/components'
 import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import { Utils } from '@ce/common/Utils'
 import { useCreateConnectorMinimal } from '@ce/components/CreateConnector/CreateConnector'
+import { useCCMContext } from '@ce/context/CCMContext'
 import NoData from '@ce/components/OverviewPage/OverviewNoData'
 import type { TrialBannerProps } from '@common/components/HomePageTemplate/HomePageTemplate'
 import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanner'
@@ -147,7 +147,7 @@ const OverviewPage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
-  const [ccmMetaResult, refetchCCMMetaData] = useFetchCcmMetaDataQuery()
+  const { ccmMetaResult, refetchCCMMetaData } = useCCMContext()
   const { data: ccmData, fetching: fetchingCCMMetaData } = ccmMetaResult
   const {
     cloudDataPresent,

@@ -91,12 +91,8 @@ const CERoutes: React.FC = () => {
     return { headers }
   }, [token])
 
-  const urqlClient = React.useCallback(() => {
+  const urqlClient = React.useMemo(() => {
     const url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
-
-    // if (url.startsWith('/')) {
-    //   url = url.substr(1)
-    // }
     return createClient({
       url: url,
       fetchOptions: () => {
@@ -108,7 +104,7 @@ const CERoutes: React.FC = () => {
   }, [token, accountId])
 
   return (
-    <Provider value={urqlClient()}>
+    <Provider value={urqlClient}>
       <CCMContextProvider>
         <Switch>
           <RouteWithLayout

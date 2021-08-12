@@ -126,22 +126,6 @@ export default function L1Nav(): React.ReactElement {
             </Link>
           </li>
         )}
-
-        {/* <li className={css.navItem}>
-          <Link {...commonLinkProps} to={paths.toArgo(params)}>
-            <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={96}>
-              <Icon name="cd-main" size={30} />
-              <Text
-                font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
-                padding={{ bottom: 'xsmall' }}
-                color={Color.WHITE}
-                lineClamp={2}
-              >
-                <String stringID="argoCDText" />
-              </Text>
-            </Layout.Vertical>
-          </Link>
-        </li> */}
       </ul>
 
       <ul className={css.navList}>

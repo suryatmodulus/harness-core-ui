@@ -8,7 +8,6 @@ export interface SideNavProps {
   subtitle?: string
   title?: string
   icon?: IconName
-  hideNav?: boolean
 }
 
 export default function SideNav(props: React.PropsWithChildren<SideNavProps>): ReactElement {

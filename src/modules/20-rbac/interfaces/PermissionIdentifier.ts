@@ -59,5 +59,8 @@ export enum PermissionIdentifier {
   EDIT_FF_FEATUREFLAG = 'ff_featureflag_edit',
   TOGGLE_FF_FEATUREFLAG = 'ff_featureflag_toggle',
   DELETE_FF_TARGETGROUP = 'ff_targetgroup_delete',
-  EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit'
+  EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit',
+
+  // GITOPS
+  ADD_NEW_PROVIDER = 'ff_add_new_provider'
 }

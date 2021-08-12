@@ -12,11 +12,10 @@ export interface RouteWithLayoutProps extends RouterRouteprops {
   layout: React.ComponentType
   sidebarProps?: SidebarContext
   licenseRedirectData?: LicenseRedirectProps
-  hideNav?: boolean
 }
 
 export function RouteWithLayout(props: React.PropsWithChildren<RouteWithLayoutProps>): React.ReactElement {
-  const { children, layout: Layout, sidebarProps, licenseRedirectData, hideNav, ...rest } = props
+  const { children, layout: Layout, sidebarProps, licenseRedirectData, ...rest } = props
   const licenseStore = useLicenseStore()
 
   const childComponent = (

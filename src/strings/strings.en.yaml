@@ -100,7 +100,6 @@ deploymentText: Deployment
 deploymentTypeText: Deployment Type
 cloudCostsText: Cloud Costs
 changeVerificationText: Change Verifications
-argoCDText: Argo CD
 deploymentsText: Deployments
 dockerRegistry: 'Docker Registry'
 executionText: Execution
@@ -116,7 +115,8 @@ saveConnectorSuccess: Connector saved successfully
 resources: 'Resources'
 kubernetesText: Kubernetes
 kubernetesDirectText: Kubernetes Direct
-connector: Connector
+connector: Connector,
+newProvider: New Provider
 profile: Profile
 taskId: 'TaskId: {{id}}'
 preferences: Preferences
@@ -131,6 +131,7 @@ refrencedBy: Referenced by
 activityHistoryLabel: Activity History
 connectionMode: Connection Mode
 credType: Credential Type
+gitOps: GitOps
 serviceDeploymentTypes:
   kubernetes: '{{$.kubernetesText}}'
   amazonEcs: '{{$.delegate.cardData.amazonECS.name}}'

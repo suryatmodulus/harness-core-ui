@@ -1,6 +1,5 @@
 import React from 'react'
 import { useParams, useHistory, useRouteMatch } from 'react-router-dom'
-// import { Button } from '@wings-software/uicore'
 import { Layout } from '@wings-software/uicore'
 import { compile } from 'path-to-regexp'
 
@@ -16,8 +15,6 @@ import ProjectSetupMenu from '@common/navigation/ProjectSetupMenu/ProjectSetupMe
 import { returnLaunchUrl } from '@common/utils/routeUtils'
 import { LaunchButton } from '@common/components/LaunchButton/LaunchButton'
 
-// import css from './CDSideNav.module.scss'
-
 export default function CDSideNav(): React.ReactElement {
   const params = useParams<PipelinePathProps>()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = params
@@ -27,10 +24,6 @@ export default function CDSideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { SERVICE_DASHBOARD_NG, CD_OVERVIEW_PAGE } = useFeatureFlags()
   const { getString } = useStrings()
-
-  // const hideModal = () => {
-  //   console.log('hide Modal')
-  // }
 
   return (
     <Layout.Vertical spacing="small">
@@ -65,7 +58,7 @@ export default function CDSideNav(): React.ReactElement {
           {CD_OVERVIEW_PAGE && <SidebarLink label="Overview" to={routes.toCDProjectOverview({ ...params, module })} />}
           <SidebarLink label="Deployments" to={routes.toDeployments({ ...params, module })} />
           <SidebarLink label="Pipelines" to={routes.toPipelines({ ...params, module })} />
-          <SidebarLink label="GitOps" to={routes.toGitOpsNew({ ...params, module })} />
+          <SidebarLink label="GitOps" to={routes.toGitOps({ ...params, module })} />
           {SERVICE_DASHBOARD_NG ? <SidebarLink label="Services" to={routes.toServices({ ...params, module })} /> : null}
           <ProjectSetupMenu module={module} />
         </React.Fragment>

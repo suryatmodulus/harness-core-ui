@@ -1,175 +1,147 @@
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react'
-import { Dialog } from '@blueprintjs/core'
-import { useModalHook, Button, Card, Color, Icon } from '@wings-software/uicore'
-import argoLogo from './images/argo-icon-color.svg'
+import { useParams } from 'react-router-dom'
+import { Container, HarnessDocTooltip, Layout, ExpandingSearchInput } from '@wings-software/uicore'
+import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { useStrings } from 'framework/strings'
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import routes from '@common/RouteDefinitions'
+import RbacButton from '@rbac/components/Button/Button'
+import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+
+import ProvidersGridView from './ProvidersGridView'
+
 import css from './GitOpsModalContainer.module.scss'
 
 const GitOpsModalContainer: React.FC = () => {
-  const [openUploadCertiModal, closeUploadCertiModal] = useModalHook(() => {
-    return (
-      <Dialog
-        onClose={closeUploadCertiModal}
-        isOpen={true}
-        style={{
-          width: '100%',
-          padding: '40px',
-          position: 'relative',
-          height: '100vh',
-          background: 'none',
-          margin: '0px'
-        }}
-        enforceFocus={false}
-      >
-        <div
-          style={{
-            height: '100%',
-            background: 'white'
-          }}
-        >
-          <iframe
-            id="argoCD"
-            height="100%"
-            width="100%"
-            frameBorder="0"
-            name="argoCD"
-            title="argoCD"
-            src="http://localhost:8090/"
-          ></iframe>
-          <Button
-            minimal
-            icon="cross"
-            iconProps={{ size: 18 }}
-            onClick={closeUploadCertiModal}
-            style={{ position: 'absolute', right: 'var(--spacing-large)', top: 'var(--spacing-small)' }}
-            data-testid={'close-certi-upload-modal'}
-          />
-        </div>
-      </Dialog>
-    )
-  })
+  const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
+  const { getString } = useStrings()
+
+  const { selectedProject } = useAppStore()
+  const project = selectedProject
+
+  const textIdentifier = 'gitOps'
+
+  const gitOpsProviders = [
+    {
+      name: 'Darwin Argo Dev Env',
+      id: 'DarwinArgoDevEnv',
+      baseURL: 'https://34.136.244.5',
+      status: 'Active',
+      type: 'nativeArgo'
+    },
+    {
+      name: 'EMT Argo QA Env',
+      id: 'EMTArgoQAEnv',
+      baseURL: 'https://34.136.244.6',
+      status: 'Active',
+      type: 'harnessManagedArgo'
+    },
+    {
+      name: 'EMT Argo Stage Env',
+      id: 'EMTArgoStageEnv',
+      baseURL: 'https://34.136.244.7',
+      status: 'Failure',
+      type: 'nativeArgo'
+    },
+    {
+      name: 'Darwin Argo Prod Env',
+      id: 'DarwinArgoProdEnv',
+      baseURL: 'https://34.136.244.8',
+      status: 'Active',
+      type: 'harnessManagedArgo'
+    },
+    {
+      name: 'Merchant Processing Argo',
+      id: 'MerchantProcessingArgo',
+      baseURL: 'https://34.136.244.9',
+      status: 'Active',
+      type: 'nativeArgo'
+    },
+    {
+      name: 'DNA Dev Argo',
+      id: 'DNADevArgo',
+      baseURL: 'https://34.136.244.10',
+      status: 'Active',
+      type: 'harnessManagedArgo'
+    },
+    {
+      name: 'POS Prod Argo Env',
+      id: 'POSProdArgoEnv',
+      baseURL: 'https://34.136.244.11',
+      status: 'Active',
+      type: 'harnessManagedArgo'
+    },
+    {
+      name: 'POS Dev Argo Env',
+      id: 'POSDevArgoEnv',
+      baseURL: 'https://34.136.244.12',
+      status: 'Active',
+      type: 'nativeArgo'
+    }
+  ]
+
+  const addNewProvider = () => {}
+  const searchProvider = (query: string) => {}
 
   return (
-    <div className={css.gitOpsContainer}>
+    <div className={css.main}>
       <div className={css.header}>
-        <h1 className={css.title}> GitOps </h1>
-      </div>
-      {/* <Button intent="primary" onClick={() => openUploadCertiModal()} text={'Open Argo'} className="" /> */}
-
-      <div className={css.providerContainer}>
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
-
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
-
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
-
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
-
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
-
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
-
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
-
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
-
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
-
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
-
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
-
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
+        <Breadcrumbs
+          links={[
+            {
+              label: project?.name || '',
+              url: routes.toProjectOverview({ orgIdentifier, projectIdentifier, accountId, module })
+            },
+            {
+              label: 'GitOps',
+              url: ''
+            }
+          ]}
+        />
+        <div className="ng-tooltip-native">
+          <h2 data-tooltip-id={textIdentifier}>{getString(textIdentifier)}</h2>
+          <HarnessDocTooltip tooltipId={textIdentifier} useStandAlone={true} />
+        </div>
       </div>
 
-      <div className={css.providerContainer}>
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
+      <Layout.Horizontal flex className={css.addProviderHeader}>
+        <Layout.Horizontal spacing="small">
+          <RbacButton
+            intent="primary"
+            text={getString('newProvider')}
+            icon="plus"
+            permission={{
+              permission: PermissionIdentifier.ADD_NEW_PROVIDER,
+              resource: {
+                resourceType: ResourceType.PROJECT,
+                resourceIdentifier: projectIdentifier
+              }
+            }}
+            onClick={addNewProvider}
+            id="newProviderBtn"
+            data-test="newProviderButton"
+            withoutBoxShadow
+          />
+        </Layout.Horizontal>
 
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
+        <Layout.Horizontal margin={{ left: 'small' }}>
+          <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="providerSeachContainer">
+            <ExpandingSearchInput
+              placeholder={getString('search')}
+              throttle={200}
+              onChange={(query: string) => {
+                searchProvider(query)
+              }}
+            />
+          </Container>
+        </Layout.Horizontal>
+      </Layout.Horizontal>
 
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
-
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
-
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
-
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
-
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
-
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
-
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
-
-        <Card className={css.card} interactive onClick={() => openUploadCertiModal()}>
-          <img className={css.argoLogo} src={argoLogo} alt="" aria-hidden />
-          <h4> Name: &nbsp; Argo App </h4>
-          <h4> URL: &nbsp; https://34.123.123 </h4>
-
-          <h4>
-            Status: &nbsp; <Icon name="command-artifact-check" color={Color.GREEN_450} />
-          </h4>
-
-          <div className={css.footer}>
-            <Button className={css.launch} intent="primary" text={'Launch'}></Button>
-          </div>
-        </Card>
-      </div>
+      <ProvidersGridView data={{}} providers={gitOpsProviders} />
     </div>
   )
 }

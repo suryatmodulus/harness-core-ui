@@ -69,7 +69,7 @@ const CCMUsageInfo: React.FC<CCMUsageInfoProps> = ({
   return (
     <Layout.Horizontal spacing="large">
       <ActiveCloudSpend activeCloudSpend={activeCloudSpend} subscribedCloudSpend={subscribedCloudSpend} />
-      <ActiveUsers subscribedCCMUsers={subscribedCCMUsers} activeCCMUsers={activeCCMUsers} />
+      {/* <ActiveUsers subscribedCCMUsers={subscribedCCMUsers} activeCCMUsers={activeCCMUsers} /> */}
     </Layout.Horizontal>
   )
 }

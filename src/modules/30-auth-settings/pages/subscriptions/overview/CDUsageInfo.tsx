@@ -89,7 +89,7 @@ const CDUsageInfo: React.FC<CDUsageInfoProps> = ({
     <Layout.Horizontal spacing="large">
       <ActiveInstanceCard subscribedIns={subscribedIns} activeIns={activeIns} />
       <ActiveServices subscribedService={subscribedService} activeService={activeService} />
-      <ActiveUsers subscribedUsers={subscribedUsers} activeUsers={activeUsers} />
+      {/* <ActiveUsers subscribedUsers={subscribedUsers} activeUsers={activeUsers} /> */}
     </Layout.Horizontal>
   )
 }

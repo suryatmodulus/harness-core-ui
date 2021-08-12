@@ -59,7 +59,7 @@ const CIUsageInfo: React.FC<CIUsageInfoProps> = ({ subscribedInst, activeInst, s
   return (
     <Layout.Horizontal spacing="large">
       <ActiveInstanceCard subscribedInst={subscribedInst} activeInst={activeInst} />
-      <ActiveUsers subscribedUsers={subscribedUsers} activeUsers={activeUsers} />
+      {/* <ActiveUsers subscribedUsers={subscribedUsers} activeUsers={activeUsers} /> */}
     </Layout.Horizontal>
   )
 }

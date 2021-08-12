@@ -82,11 +82,11 @@ const FFUsageInfo: React.FC<FFUsageInfoProps> = ({
   return (
     <Layout.Horizontal spacing="large">
       <FeatureFlagsUsersCard subscribedUsers={subscribedUsers} activeUsers={activeUsers} />
-      <MonthlyActiveUsers
+      {/* <MonthlyActiveUsers
         subscribedMonthlyUsers={subscribedMonthlyUsers}
         activeMonthlyUsers={activeMonthlyUsers}
         month={month}
-      />
+      /> */}
       <FeatureFlags featureFlags={featureFlags} />
     </Layout.Horizontal>
   )

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.82% </span>
+                <span class="strong">63.29% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>49/78</span>
+                <span class='fraction'>50/79</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.91% </span>
+                <span class="strong">19.38% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>97/513</span>
+                <span class='fraction'>100/516</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">43.75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/15</span>
+                <span class='fraction'>7/16</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.22% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/74</span>
+                <span class='fraction'>50/75</span>
             </div>
         
             
@@ -615,7 +615,9 @@
 <a name='L556'></a><a href='#L556'>556</a>
 <a name='L557'></a><a href='#L557'>557</a>
 <a name='L558'></a><a href='#L558'>558</a>
-<a name='L559'></a><a href='#L559'>559</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L559'></a><a href='#L559'>559</a>
+<a name='L560'></a><a href='#L560'>560</a>
+<a name='L561'></a><a href='#L561'>561</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
@@ -752,6 +754,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1310,421 +1314,423 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
             {getString('pipelineSteps.deploy.serviceSpecifications.deploymentTypes.manifests')}
           &lt;/div&gt;
         )}
-        {template<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap<span class="branch-0 cbranch-no" title="branch not covered" >?.(</span>
-          (
-            {
-              manifest: {
-                identifier = '',
-                type: manifestType = '',
-                spec: {
-                  skipResourceVersioning = '',
-                  chartName = '',
-                  pluginPath = '',
-                  chartVersion = '',
-                  store: {
-                    spec: {
-                      branch = '',
-                      region = '',
-                      connectorRef = '',
-                      folderPath = '',
-                      bucketName = '',
-                      commitId = '',
-                      repoName = '',
-                      paths = ''
-                    } = {},
-                    type = ''
-                  } = {}
-                } = <span class="branch-0 cbranch-no" title="branch not covered" >{}</span>
-              } = <span class="branch-0 cbranch-no" title="branch not covered" >{}</span>
-            }: any,
-            index: number
-          ) =&gt; {
-            const isPipelineInputTab = fromPipelineInputTriggerTab()
-            // If it is pipeline input tab
-            //  the selected artifact values
-            //  needs to be merged with initialValue manifest values
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (isPipelineInputTab) {
-              let selectedManifest: ManifestConfigWrapper = <span class="cstat-no" title="statement not covered" >initialValues?.manifests?.find(</span>
-<span class="fstat-no" title="function not covered" >                (i</span>tem: ManifestConfigWrapper) =&gt;
-<span class="cstat-no" title="statement not covered" >                  item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier</span>
-              ) || {
+        {template<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+          ?.filter(m =&gt; !!m)<span class="branch-0 cbranch-no" title="branch not covered" ></span>
+          ?.map<span class="branch-0 cbranch-no" title="branch not covered" >?.(</span>
+            (
+              {
                 manifest: {
-                  identifier: '',
-                  type: 'HelmChart',
+                  identifier = '',
+                  type: manifestType = '',
                   spec: {
+                    skipResourceVersioning = '',
+                    chartName = '',
+                    pluginPath = '',
+                    chartVersion = '',
                     store: {
-                      spec: {}
-                    }
-                  }
-                }
-              }
-              const selectedIndex =
-<span class="cstat-no" title="statement not covered" >                initialValues?.manifests?.findIndex(</span>
+                      spec: {
+                        branch = '',
+                        region = '',
+                        connectorRef = '',
+                        folderPath = '',
+                        bucketName = '',
+                        commitId = '',
+                        repoName = '',
+                        paths = ''
+                      } = {},
+                      type = ''
+                    } = {}
+                  } = <span class="branch-0 cbranch-no" title="branch not covered" >{}</span>
+                } = <span class="branch-0 cbranch-no" title="branch not covered" >{}</span>
+              }: any,
+              index: number
+            ) =&gt; {
+              const isPipelineInputTab = fromPipelineInputTriggerTab()
+              // If it is pipeline input tab
+              //  the selected artifact values
+              //  needs to be merged with initialValue manifest values
+              <span class="missing-if-branch" title="if path not taken" >I</span>if (isPipelineInputTab) {
+                let selectedManifest: ManifestConfigWrapper = <span class="cstat-no" title="statement not covered" >initialValues?.manifests?.find(</span>
 <span class="fstat-no" title="function not covered" >                  (i</span>tem: ManifestConfigWrapper) =&gt;
 <span class="cstat-no" title="statement not covered" >                    item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier</span>
-                ) || 0
-<span class="cstat-no" title="statement not covered" >              if (selectedManifest &amp;&amp; initialValues &amp;&amp; initialValues.manifests &amp;&amp; selectedIndex &gt;= 0) {</span>
-                const artifactSpec = <span class="cstat-no" title="statement not covered" >formik?.values?.selectedArtifact?.spec || {}</span>
-                /*
-                 backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
-                */
-<span class="cstat-no" title="statement not covered" >                if (artifactSpec.eventConditions) {</span>
-<span class="cstat-no" title="statement not covered" >                  delete artifactSpec.eventConditions</span>
-                }
-&nbsp;
-<span class="cstat-no" title="statement not covered" >                selectedManifest = {</span>
+                ) || {
                   manifest: {
-                    identifier: formik?.values?.selectedArtifact?.identifier,
-                    type: formik?.values?.selectedArtifact?.type,
+                    identifier: '',
+                    type: 'HelmChart',
                     spec: {
-                      ...artifactSpec
+                      store: {
+                        spec: {}
+                      }
                     }
                   }
                 }
-              }
-<span class="cstat-no" title="statement not covered" >              if (initialValues.manifests &amp;&amp; selectedIndex &gt;= 0 &amp;&amp; initialValues.manifests[selectedIndex]) {</span>
-<span class="cstat-no" title="statement not covered" >                initialValues.manifests[selectedIndex] = selectedManifest</span>
-              }
-            }
-            const filteredManifest = allValues?.manifests<span class="branch-1 cbranch-no" title="branch not covered" >?.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.manifest?.identifier === identifier)</span></span>
-            const isSelectedManifest: boolean =
-              isPipelineInputTab &amp;&amp;
-<span class="branch-1 cbranch-no" title="branch not covered" >              formik?.values?.selectedArtifact </span>&amp;&amp;
-<span class="branch-2 cbranch-no" title="branch not covered" >              identifier === formik?.values?.selectedArtifact?.identifier</span>
+                const selectedIndex =
+<span class="cstat-no" title="statement not covered" >                  initialValues?.manifests?.findIndex(</span>
+<span class="fstat-no" title="function not covered" >                    (i</span>tem: ManifestConfigWrapper) =&gt;
+<span class="cstat-no" title="statement not covered" >                      item?.manifest?.identifier === formik?.values?.selectedArtifact?.identifier</span>
+                  ) || 0
+<span class="cstat-no" title="statement not covered" >                if (selectedManifest &amp;&amp; initialValues &amp;&amp; initialValues.manifests &amp;&amp; selectedIndex &gt;= 0) {</span>
+                  const artifactSpec = <span class="cstat-no" title="statement not covered" >formik?.values?.selectedArtifact?.spec || {}</span>
+                  /*
+                   backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+                  */
+<span class="cstat-no" title="statement not covered" >                  if (artifactSpec.eventConditions) {</span>
+<span class="cstat-no" title="statement not covered" >                    delete artifactSpec.eventConditions</span>
+                  }
 &nbsp;
-            const disableField = (fieldName: string) =&gt; {
-              <span class="missing-if-branch" title="if path not taken" >I</span>if (fromTrigger) {
-<span class="cstat-no" title="statement not covered" >                return get(TriggerDefaultFieldList, fieldName) ? true : false</span>
-              } else <span class="missing-if-branch" title="if path not taken" >I</span>if (isPipelineInputTab &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isSelectedManifest)</span> {
-<span class="cstat-no" title="statement not covered" >                return true</span>
-              }
-              return readonly
-            }
-&nbsp;
-            return (
-              &lt;Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}&gt;
-                {!fromTrigger &amp;&amp; &lt;Text className={css.inputheader}&gt;{identifier}&lt;/Text&gt;}
-                {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
-                  &lt;div className={css.verticalSpacingInput}&gt;
-                    &lt;FormMultiTypeConnectorField
-                      disabled={disableField('spec.store.spec.connectorRef')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
-                      selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`)}
-                      label={getString('connector')}
-                      placeholder={''}
-                      setRefValue
-                      multiTypeProps={{
-                        allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
-                        expressions
-                      }}
-                      width={370}
-                      accountIdentifier={accountId}
-                      projectIdentifier={projectIdentifier}
-                      orgIdentifier={orgIdentifier}
-                      type={ManifestToConnectorMap[type as ManifestStores]}
-                      onChange={<span class="fstat-no" title="function not covered" >(s</span>elected, _itemType, multiType) =&gt; {
-                        const item = <span class="cstat-no" title="statement not covered" >selected as unknown as { record?: GitConfigDTO; scope: Scope }</span>
-<span class="cstat-no" title="statement not covered" >                        if (multiType === MultiTypeInputType.FIXED) {</span>
-<span class="cstat-no" title="statement not covered" >                          if (</span>
-                            item?.record?.spec?.connectionType === GitRepoName.Repo ||
-                            item?.record?.spec?.type === GitRepoName.Repo
-                          ) {
-<span class="cstat-no" title="statement not covered" >                            setShowRepoName(false)</span>
-                          } else {
-<span class="cstat-no" title="statement not covered" >                            setShowRepoName(true)</span>
-                          }
-                        }
-                      }}
-                      gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-                {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showRepoName </span>&amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
-                    &lt;FormInput.MultiTextInput
-                      disabled={disableField('spec.store.spec.repoName')}
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.build.create.repositoryNameLabel')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-                {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME &amp;&amp; (
-                  &lt;div className={css.verticalSpacingInput}&gt;
-                    &lt;FormInput.MultiTextInput
-                      disabled={disableField('spec.store.spec.branch')}
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.deploy.inputSet.branch')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-&nbsp;
-                {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
-                    &lt;FormInput.MultiTextInput
-                      disabled={disableField('spec.store.spec.commitId')}
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      label={getString('pipelineSteps.commitIdValue')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-&nbsp;
-                {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
-                    &lt;ExperimentalInput
-                      formik={formik}
-                      multiTypeInputProps={{
-                        selectProps: {
-                          usePortal: true,
-                          addClearBtn: true &amp;&amp; !readonly,
-                          items: regions
-                        },
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      useValue
-                      disabled={disableField('spec.store.spec.region')}
-                      selectItems={regions}
-                      label={getString('regionLabel')}
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-&nbsp;
-                {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME &amp;&amp;
-                  (type === ManifestStoreMap.Gcs ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                    getMultiTypeFromValue(</span>
-                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
-                    ) === MultiTypeInputType.FIXED ? (
-                      &lt;div className={css.verticalSpacingInput}&gt;
-                        &lt;ExperimentalInput
-                          formik={formik}
-                          multiTypeInputProps={{
-                            onFocus: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                              if (</span>
-                                getMultiTypeFromValue(filteredManifest?.manifest?.spec?.store?.spec?.connectorRef) ===
-                                MultiTypeInputType.FIXED
-                              ) {
-<span class="cstat-no" title="statement not covered" >                                setGcsBucketQueryData({</span>
-                                  connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef
-                                })
-                              } else {
-<span class="cstat-no" title="statement not covered" >                                if (!bucketOptions.length) {</span>
-<span class="cstat-no" title="statement not covered" >                                  setGcsBucketQueryData({</span>
-                                    connectorRef:
-                                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
-                                  })
-                                }
-                              }
-                            },
-                            selectProps: {
-                              usePortal: true,
-                              addClearBtn: true &amp;&amp; !readonly,
-                              items: loading
-                                ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
-                                : bucketOptions,
-                              allowCreatingNewItems: true
-                            },
-                            expressions,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                          }}
-                          useValue
-                          disabled={disableField('spec.store.spec.bucketName')}
-                          selectItems={bucketOptions}
-                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
-                          label={getString('pipeline.manifestType.bucketName')}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                        /&gt;
-                      &lt;/div&gt;
-                    ) : (
-                      &lt;div className={css.verticalSpacingInput}&gt;
-                        &lt;FormInput.MultiTextInput
-                          multiTextInputProps={{
-                            expressions,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                          }}
-                          disabled={disableField('spec.store.spec.bucketName')}
-                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
-                          label={getString('pipeline.manifestType.bucketName')}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                        /&gt;
-                      &lt;/div&gt;
-                    )
-                  ) : type === ManifestStoreMap.S3 ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                    getMultiTypeFromValue(</span>
-                      initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
-                    ) === MultiTypeInputType.FIXED &amp;&amp;
-                    getMultiTypeFromValue(initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.region) ===
-                      MultiTypeInputType.FIXED ? (
-                      &lt;div className={css.verticalSpacingInput}&gt;
-                        &lt;ExperimentalInput
-                          formik={formik}
-                          multiTypeInputProps={{
-                            onFocus: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                              setS3BucketQueryData({</span>
-                                connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef,
-                                region: initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.region
-                              })
-                            },
-                            selectProps: {
-                              usePortal: true,
-                              addClearBtn: true &amp;&amp; !readonly,
-                              items: s3bucketdataLoading
-                                ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
-                                : s3BucketOptions,
-&nbsp;
-                              allowCreatingNewItems: true
-                            },
-                            expressions,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                          }}
-                          useValue
-                          disabled={disableField('spec.store.spec.bucketName')}
-                          selectItems={s3BucketOptions}
-                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
-                          label={getString('pipeline.manifestType.bucketName')}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                        /&gt;
-                      &lt;/div&gt;
-                    ) : (
-                      &lt;div className={css.verticalSpacingInput}&gt;
-                        &lt;FormInput.MultiTextInput
-                          multiTextInputProps={{
-                            expressions,
-                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                          }}
-                          disabled={disableField('spec.store.spec.bucketName')}
-                          label={getString('pipeline.manifestType.bucketName')}
-                          placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
-                          name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
-                        /&gt;
-                      &lt;/div&gt;
-                    )
-                  ) : null)}
-&nbsp;
-                {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME &amp;&amp; (
-                  &lt;div className={css.verticalSpacingInput}&gt;
-                    &lt;FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={disableField('spec.store.spec.folderPath')}
-                      label={
-                        manifestType === ManifestDataType.Kustomize
-                          ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.manifestType.kustomizeFolderPath')</span>
-                          : getString('chartPath')
+<span class="cstat-no" title="statement not covered" >                  selectedManifest = {</span>
+                    manifest: {
+                      identifier: formik?.values?.selectedArtifact?.identifier,
+                      type: formik?.values?.selectedArtifact?.type,
+                      spec: {
+                        ...artifactSpec
                       }
-                      name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
+                    }
+                  }
+                }
+<span class="cstat-no" title="statement not covered" >                if (initialValues.manifests &amp;&amp; selectedIndex &gt;= 0 &amp;&amp; initialValues.manifests[selectedIndex]) {</span>
+<span class="cstat-no" title="statement not covered" >                  initialValues.manifests[selectedIndex] = selectedManifest</span>
+                }
+              }
+              const filteredManifest = allValues?.manifests<span class="branch-1 cbranch-no" title="branch not covered" >?.find(<span class="fstat-no" title="function not covered" >item </span>=&gt; <span class="cstat-no" title="statement not covered" >item.manifest?.identifier === identifier)</span></span>
+              const isSelectedManifest: boolean =
+                isPipelineInputTab &amp;&amp;
+<span class="branch-1 cbranch-no" title="branch not covered" >                formik?.values?.selectedArtifact </span>&amp;&amp;
+<span class="branch-2 cbranch-no" title="branch not covered" >                identifier === formik?.values?.selectedArtifact?.identifier</span>
 &nbsp;
-                {getMultiTypeFromValue(pluginPath) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
-                    &lt;FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={disableField('spec.store.spec.pluginPath')}
-                      label={getString('pluginPath')}
-                      name={`${path}.manifests[${index}].manifest.spec.pluginPath`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
+              const disableField = (fieldName: string) =&gt; {
+                <span class="missing-if-branch" title="if path not taken" >I</span>if (fromTrigger) {
+<span class="cstat-no" title="statement not covered" >                  return get(TriggerDefaultFieldList, fieldName) ? true : false</span>
+                } else <span class="missing-if-branch" title="if path not taken" >I</span>if (isPipelineInputTab &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isSelectedManifest)</span> {
+<span class="cstat-no" title="statement not covered" >                  return true</span>
+                }
+                return readonly
+              }
 &nbsp;
-                {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
-                    &lt;FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={disableField('spec.chartName')}
-                      label={getString('pipeline.manifestType.http.chartName')}
-                      name={`${path}.manifests[${index}].manifest.spec.chartName`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-                {getMultiTypeFromValue(chartVersion) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
-                    &lt;FormInput.MultiTextInput
-                      multiTextInputProps={{
-                        expressions,
-                        ...((fromTrigger || isPipelineInputTab) &amp;&amp; { value: TriggerDefaultFieldList.chartVersion }),
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      disabled={disableField(fromTrigger ? 'chartVersion' : 'spec.chartVersion')}
-                      label={getString('pipeline.manifestType.http.chartVersion')}
-                      name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-&nbsp;
-                {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &amp;&amp;
-                  manifestType !== ManifestDataType.OpenshiftTemplate &amp;&amp; (
+              return (
+                &lt;Layout.Vertical key={identifier} className={cx(css.inputWidth, css.layoutVerticalSpacing)}&gt;
+                  {!fromTrigger &amp;&amp; &lt;Text className={css.inputheader}&gt;{identifier}&lt;/Text&gt;}
+                  {getMultiTypeFromValue(connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
                     &lt;div className={css.verticalSpacingInput}&gt;
-                      &lt;List
-                        labelClassName={css.listLabel}
-                        label={
-                          manifestType === ManifestDataType.K8sManifest
-                            ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('fileFolderPathText')</span>
-                            : getString('common.git.filePath')
-                        }
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
-                        placeholder={getString('pipeline.manifestType.pathPlaceholder')}
-                        disabled={disableField('spec.store.spec.paths')}
-                        style={{ marginBottom: 'var(--spacing-small)' }}
-                        expressions={expressions}
-                        isNameOfArrayType
+                      &lt;FormMultiTypeConnectorField
+                        disabled={disableField('spec.store.spec.connectorRef')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.connectorRef`}
+                        selected={get(initialValues, `manifests[${index}].manifest.spec.store.spec.connectorRef`)}
+                        label={getString('connector')}
+                        placeholder={''}
+                        setRefValue
+                        multiTypeProps={{
+                          allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
+                          expressions
+                        }}
+                        width={370}
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        type={ManifestToConnectorMap[type as ManifestStores]}
+                        onChange={<span class="fstat-no" title="function not covered" >(s</span>elected, _itemType, multiType) =&gt; {
+                          const item = <span class="cstat-no" title="statement not covered" >selected as unknown as { record?: GitConfigDTO; scope: Scope }</span>
+<span class="cstat-no" title="statement not covered" >                          if (multiType === MultiTypeInputType.FIXED) {</span>
+<span class="cstat-no" title="statement not covered" >                            if (</span>
+                              item?.record?.spec?.connectionType === GitRepoName.Repo ||
+                              item?.record?.spec?.type === GitRepoName.Repo
+                            ) {
+<span class="cstat-no" title="statement not covered" >                              setShowRepoName(false)</span>
+                            } else {
+<span class="cstat-no" title="statement not covered" >                              setShowRepoName(true)</span>
+                            }
+                          }
+                        }}
+                        gitScope={{ repo: repoIdentifier || '', branch: branchParam }}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+                  {getMultiTypeFromValue(repoName) === MultiTypeInputType.RUNTIME &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showRepoName </span>&amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                      &lt;FormInput.MultiTextInput
+                        disabled={disableField('spec.store.spec.repoName')}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.build.create.repositoryNameLabel')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.repoName`}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+                  {getMultiTypeFromValue(branch) === MultiTypeInputType.RUNTIME &amp;&amp; (
+                    &lt;div className={css.verticalSpacingInput}&gt;
+                      &lt;FormInput.MultiTextInput
+                        disabled={disableField('spec.store.spec.branch')}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.deploy.inputSet.branch')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.branch`}
                       /&gt;
                     &lt;/div&gt;
                   )}
 &nbsp;
-                {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &amp;&amp;
-                  manifestType === ManifestDataType.OpenshiftTemplate &amp;&amp; (
-<span class="branch-2 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                  {getMultiTypeFromValue(commitId) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                      &lt;FormInput.MultiTextInput
+                        disabled={disableField('spec.store.spec.commitId')}
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        label={getString('pipelineSteps.commitIdValue')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.commitId`}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+&nbsp;
+                  {getMultiTypeFromValue(region) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                      &lt;ExperimentalInput
+                        formik={formik}
+                        multiTypeInputProps={{
+                          selectProps: {
+                            usePortal: true,
+                            addClearBtn: true &amp;&amp; !readonly,
+                            items: regions
+                          },
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        useValue
+                        disabled={disableField('spec.store.spec.region')}
+                        selectItems={regions}
+                        label={getString('regionLabel')}
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.region`}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+&nbsp;
+                  {getMultiTypeFromValue(bucketName) === MultiTypeInputType.RUNTIME &amp;&amp;
+                    (type === ManifestStoreMap.Gcs ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                      getMultiTypeFromValue(</span>
+                        initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                      ) === MultiTypeInputType.FIXED ? (
+                        &lt;div className={css.verticalSpacingInput}&gt;
+                          &lt;ExperimentalInput
+                            formik={formik}
+                            multiTypeInputProps={{
+                              onFocus: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                                if (</span>
+                                  getMultiTypeFromValue(filteredManifest?.manifest?.spec?.store?.spec?.connectorRef) ===
+                                  MultiTypeInputType.FIXED
+                                ) {
+<span class="cstat-no" title="statement not covered" >                                  setGcsBucketQueryData({</span>
+                                    connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef
+                                  })
+                                } else {
+<span class="cstat-no" title="statement not covered" >                                  if (!bucketOptions.length) {</span>
+<span class="cstat-no" title="statement not covered" >                                    setGcsBucketQueryData({</span>
+                                      connectorRef:
+                                        initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                                    })
+                                  }
+                                }
+                              },
+                              selectProps: {
+                                usePortal: true,
+                                addClearBtn: true &amp;&amp; !readonly,
+                                items: loading
+                                  ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
+                                  : bucketOptions,
+                                allowCreatingNewItems: true
+                              },
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            useValue
+                            disabled={disableField('spec.store.spec.bucketName')}
+                            selectItems={bucketOptions}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          /&gt;
+                        &lt;/div&gt;
+                      ) : (
+                        &lt;div className={css.verticalSpacingInput}&gt;
+                          &lt;FormInput.MultiTextInput
+                            multiTextInputProps={{
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            disabled={disableField('spec.store.spec.bucketName')}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          /&gt;
+                        &lt;/div&gt;
+                      )
+                    ) : type === ManifestStoreMap.S3 ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >                      getMultiTypeFromValue(</span>
+                        initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.connectorRef
+                      ) === MultiTypeInputType.FIXED &amp;&amp;
+                      getMultiTypeFromValue(initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.region) ===
+                        MultiTypeInputType.FIXED ? (
+                        &lt;div className={css.verticalSpacingInput}&gt;
+                          &lt;ExperimentalInput
+                            formik={formik}
+                            multiTypeInputProps={{
+                              onFocus: <span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                                setS3BucketQueryData({</span>
+                                  connectorRef: filteredManifest?.manifest?.spec?.store?.spec?.connectorRef,
+                                  region: initialValues?.manifests?.[index].manifest?.spec?.store?.spec?.region
+                                })
+                              },
+                              selectProps: {
+                                usePortal: true,
+                                addClearBtn: true &amp;&amp; !readonly,
+                                items: s3bucketdataLoading
+                                  ? [{ label: 'Loading Buckets...', value: 'Loading Buckets...' }]
+                                  : s3BucketOptions,
+&nbsp;
+                                allowCreatingNewItems: true
+                              },
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            useValue
+                            disabled={disableField('spec.store.spec.bucketName')}
+                            selectItems={s3BucketOptions}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          /&gt;
+                        &lt;/div&gt;
+                      ) : (
+                        &lt;div className={css.verticalSpacingInput}&gt;
+                          &lt;FormInput.MultiTextInput
+                            multiTextInputProps={{
+                              expressions,
+                              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                            }}
+                            disabled={disableField('spec.store.spec.bucketName')}
+                            label={getString('pipeline.manifestType.bucketName')}
+                            placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                            name={`${path}.manifests[${index}].manifest.spec.store.spec.bucketName`}
+                          /&gt;
+                        &lt;/div&gt;
+                      )
+                    ) : null)}
+&nbsp;
+                  {getMultiTypeFromValue(folderPath) === MultiTypeInputType.RUNTIME &amp;&amp; (
+                    &lt;div className={css.verticalSpacingInput}&gt;
                       &lt;FormInput.MultiTextInput
                         multiTextInputProps={{
                           expressions,
                           allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
                         }}
-                        label={getString('pipeline.manifestType.osTemplatePath')}
-                        placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
-                        disabled={disableField('spec.store.spec.path')}
-                        name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
+                        disabled={disableField('spec.store.spec.folderPath')}
+                        label={
+                          manifestType === ManifestDataType.Kustomize
+                            ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('pipeline.manifestType.kustomizeFolderPath')</span>
+                            : getString('chartPath')
+                        }
+                        name={`${path}.manifests[${index}].manifest.spec.store.spec.folderPath`}
                       /&gt;
                     &lt;/div&gt;
                   )}
-                {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME &amp;&amp; (
-<span class="branch-1 cbranch-no" title="branch not covered" >                  &lt;div className={css.verticalSpacingInput}&gt;</span>
-                    &lt;FormMultiTypeCheckboxField
-                      multiTypeTextbox={{
-                        expressions,
-                        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-                      }}
-                      name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
-                      label={getString('skipResourceVersion')}
-                      setToFalseWhenEmpty={true}
-                    /&gt;
-                  &lt;/div&gt;
-                )}
-              &lt;/Layout.Vertical&gt;
-            )
-          }
-        )}
+&nbsp;
+                  {getMultiTypeFromValue(pluginPath) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                      &lt;FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={disableField('spec.store.spec.pluginPath')}
+                        label={getString('pluginPath')}
+                        name={`${path}.manifests[${index}].manifest.spec.pluginPath`}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+&nbsp;
+                  {getMultiTypeFromValue(chartName) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                      &lt;FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={disableField('spec.chartName')}
+                        label={getString('pipeline.manifestType.http.chartName')}
+                        name={`${path}.manifests[${index}].manifest.spec.chartName`}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+                  {getMultiTypeFromValue(chartVersion) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                      &lt;FormInput.MultiTextInput
+                        multiTextInputProps={{
+                          expressions,
+                          ...(fromTrigger &amp;&amp; { value: TriggerDefaultFieldList.chartVersion }),
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        disabled={disableField(fromTrigger ? 'chartVersion' : 'spec.chartVersion')}
+                        label={getString('pipeline.manifestType.http.chartVersion')}
+                        name={`${path}.manifests[${index}].manifest.spec.chartVersion`}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+&nbsp;
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &amp;&amp;
+                    manifestType !== ManifestDataType.OpenshiftTemplate &amp;&amp; (
+                      &lt;div className={css.verticalSpacingInput}&gt;
+                        &lt;List
+                          labelClassName={css.listLabel}
+                          label={
+                            manifestType === ManifestDataType.K8sManifest
+                              ? <span class="branch-0 cbranch-no" title="branch not covered" >getString('fileFolderPathText')</span>
+                              : getString('common.git.filePath')
+                          }
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.paths`}
+                          placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                          disabled={disableField('spec.store.spec.paths')}
+                          style={{ marginBottom: 'var(--spacing-small)' }}
+                          expressions={expressions}
+                          isNameOfArrayType
+                        /&gt;
+                      &lt;/div&gt;
+                    )}
+&nbsp;
+                  {getMultiTypeFromValue(paths) === MultiTypeInputType.RUNTIME &amp;&amp;
+                    manifestType === ManifestDataType.OpenshiftTemplate &amp;&amp; (
+<span class="branch-2 cbranch-no" title="branch not covered" >                      &lt;div className={css.verticalSpacingInput}&gt;</span>
+                        &lt;FormInput.MultiTextInput
+                          multiTextInputProps={{
+                            expressions,
+                            allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                          }}
+                          label={getString('pipeline.manifestType.osTemplatePath')}
+                          placeholder={getString('pipeline.manifestType.osTemplatePathPlaceHolder')}
+                          disabled={disableField('spec.store.spec.path')}
+                          name={`${path}.manifests[${index}].manifest.spec.store.spec.path`}
+                        /&gt;
+                      &lt;/div&gt;
+                    )}
+                  {getMultiTypeFromValue(skipResourceVersioning) === MultiTypeInputType.RUNTIME &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >                    &lt;div className={css.verticalSpacingInput}&gt;</span>
+                      &lt;FormMultiTypeCheckboxField
+                        multiTypeTextbox={{
+                          expressions,
+                          allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+                        }}
+                        name={`${path}.manifests[${index}].manifest.spec.skipResourceVersioning`}
+                        label={getString('skipResourceVersion')}
+                        setToFalseWhenEmpty={true}
+                      /&gt;
+                    &lt;/div&gt;
+                  )}
+                &lt;/Layout.Vertical&gt;
+              )
+            }
+          )}
       &lt;/div&gt;
     &lt;/&gt;
   )
@@ -1738,7 +1744,7 @@ export const ManifestInputForm = connect(ManifestInputSetForm)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 21:06:07 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 12 2021 06:27:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.82% </span>
+                <span class="strong">82.14% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/55</span>
+                <span class='fraction'>46/56</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.41% </span>
+                <span class="strong">43.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>41/99</span>
+                <span class='fraction'>45/103</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.48% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/54</span>
+                <span class='fraction'>45/55</span>
             </div>
         
             
@@ -346,13 +346,33 @@
 <a name='L287'></a><a href='#L287'>287</a>
 <a name='L288'></a><a href='#L288'>288</a>
 <a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L290'></a><a href='#L290'>290</a>
+<a name='L291'></a><a href='#L291'>291</a>
+<a name='L292'></a><a href='#L292'>292</a>
+<a name='L293'></a><a href='#L293'>293</a>
+<a name='L294'></a><a href='#L294'>294</a>
+<a name='L295'></a><a href='#L295'>295</a>
+<a name='L296'></a><a href='#L296'>296</a>
+<a name='L297'></a><a href='#L297'>297</a>
+<a name='L298'></a><a href='#L298'>298</a>
+<a name='L299'></a><a href='#L299'>299</a>
+<a name='L300'></a><a href='#L300'>300</a>
+<a name='L301'></a><a href='#L301'>301</a>
+<a name='L302'></a><a href='#L302'>302</a>
+<a name='L303'></a><a href='#L303'>303</a>
+<a name='L304'></a><a href='#L304'>304</a>
+<a name='L305'></a><a href='#L305'>305</a>
+<a name='L306'></a><a href='#L306'>306</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -427,8 +447,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -437,6 +466,8 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -526,6 +557,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -661,6 +693,10 @@ interface ArtifactTableInfoInterface {
 interface RenderColumnSelectColumn {
   selectedArtifactLabel?: string
 }
+&nbsp;
+interface RenderColumnArtifactLabelColumn {
+  appliedArtifact?: any
+}
 export interface FormValues {
   artifact?: string
 }
@@ -715,11 +751,20 @@ const RenderColumnSelect = ({ row, column }: { row: RenderColumnRow; column: Ren
 //   )
 // }
 &nbsp;
-const RenderColumnArtifactLabel = ({ row }: { row: RenderColumnRow }) =&gt; {
+const RenderColumnArtifactLabel = ({
+  row,
+  column
+}: {
+  row: RenderColumnRow
+  column: RenderColumnArtifactLabelColumn
+}) =&gt; {
+  const { appliedArtifact } = column
   const data = row.original
   return (
     &lt;Layout.Horizontal className={data.disabled ? <span class="branch-0 cbranch-no" title="branch not covered" >css.disabledRow </span>: ''}&gt;
-      &lt;Text color={Color.BLACK}&gt;{data.artifactLabel}&lt;/Text&gt;
+      &lt;Text width={appliedArtifact ? '296px' : '176px'} color={Color.BLACK} lineClamp={1}&gt;
+        {data.artifactLabel}
+      &lt;/Text&gt;
     &lt;/Layout.Horizontal&gt;
   )
 }
@@ -727,7 +772,9 @@ const RenderColumnArtifactRepository = ({ row }: { row: RenderColumnRow }) =&gt;
   const data = row.original
   return (
     &lt;Layout.Horizontal className={data.disabled ? <span class="branch-0 cbranch-no" title="branch not covered" >css.disabledRow </span>: ''}&gt;
-      &lt;Text color={Color.BLACK}&gt;{data.artifactRepository}&lt;/Text&gt;
+      &lt;Text color={Color.BLACK} width="159px" lineClamp={1}&gt;
+        {data.artifactRepository}
+      &lt;/Text&gt;
     &lt;/Layout.Horizontal&gt;
   )
 }
@@ -736,7 +783,7 @@ const RenderColumnLocation = ({ row }: { row: RenderColumnRow }) =&gt; {
   const data = row.original
   return (
     &lt;Layout.Horizontal className={data.disabled ? <span class="branch-0 cbranch-no" title="branch not covered" >css.disabledRow </span>: ''}&gt;
-      &lt;Text style={{ minHeight: '18px' }} color={Color.BLACK}&gt;
+      &lt;Text style={{ minHeight: '18px' }} width="110px" color={Color.BLACK} lineClamp={1}&gt;
         {data.location}
       &lt;/Text&gt;
     &lt;/Layout.Horizontal&gt;
@@ -747,7 +794,7 @@ const RenderColumnBuildTag = <span class="fstat-no" title="function not covered"
   const data = <span class="cstat-no" title="statement not covered" >row.original</span>
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}&gt;
-      &lt;Text style={{ minHeight: '18px' }} color={Color.BLACK}&gt;
+      &lt;Text style={{ minHeight: '18px' }} width="100px" color={Color.BLACK} lineClamp={1}&gt;
         {data.buildTag}
       &lt;/Text&gt;
     &lt;/Layout.Horizontal&gt;
@@ -758,7 +805,7 @@ const RenderColumnVersion = ({ row }: { row: RenderColumnRow }) =&gt; {
   const data = row.original
   return (
     &lt;Layout.Horizontal spacing="small" className={data.disabled ? <span class="branch-0 cbranch-no" title="branch not covered" >css.disabledRow </span>: ''}&gt;
-      &lt;Text style={{ minHeight: '18px' }} color={Color.BLACK}&gt;
+      &lt;Text style={{ minHeight: '18px' }} color={Color.BLACK} lineClamp={1}&gt;
         {data.version}
       &lt;/Text&gt;
     &lt;/Layout.Horizontal&gt;
@@ -818,11 +865,12 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
       {
         Header: artifactOrManifestText<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>oUpperCase(),
         accessor: 'artifactLabel',
-        width: '25%',
+        width: appliedArtifact ? '45%' : '27%',
         Cell: RenderColumnArtifactLabel,
         className: 'className',
         class: 'class',
-        disableSortBy: !!appliedArtifact
+        disableSortBy: !!appliedArtifact,
+        appliedArtifact
       },
       {
         Header: getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>pipeline.triggers.artifactTriggerConfigPanel.artifactRepository', {
@@ -882,7 +930,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element =&gt;
     columns.push({
       Header: getString<span class="branch-0 cbranch-no" title="branch not covered" >?.('</span>pipeline.triggers.artifactTriggerConfigPanel.hasRuntimeInputs').toUpperCase(),
       accessor: 'hasRuntimeInputs',
-      width: '11%',
+      width: '9%',
       Cell: RenderColumnHasRuntimeInputs,
       disableSortBy: true
     })
@@ -931,7 +979,7 @@ export default ArtifactTableInfo
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 11 2021 21:06:07 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 12 2021 06:27:34 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

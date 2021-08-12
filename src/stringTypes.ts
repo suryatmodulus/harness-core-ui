@@ -259,7 +259,10 @@ export interface StringsMap {
   'common.manage': string
   'common.member': string
   'common.monthly': string
+<<<<<<< HEAD
   'common.moreInfo': string
+=======
+>>>>>>> 98795c2cce8... feat: [GTM-339]:  add plans to subscriptions page (#4825)
   'common.moreRefineSearch': string
   'common.move': string
   'common.myProfile': string

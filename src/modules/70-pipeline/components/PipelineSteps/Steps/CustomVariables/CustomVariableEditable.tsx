@@ -1,5 +1,12 @@
 import React from 'react'
-import { Text, Button, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
+import {
+  Text,
+  Button,
+  FormInput,
+  MultiTypeInputType,
+  getMultiTypeFromValue,
+  useNestedAccordion
+} from '@wings-software/uicore'
 import { Formik, FieldArray } from 'formik'
 import { v4 as uuid } from 'uuid'
 import cx from 'classnames'
@@ -16,6 +23,10 @@ import type { AllNGVariables } from '@pipeline/utils/types'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 
+import {
+  getTextWithSearchMarkers,
+  usePipelineVariables
+} from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
 import AddEditCustomVariable from './AddEditCustomVariable'
 import type { VariableState } from './AddEditCustomVariable'
 import { VariableType } from './CustomVariableUtils'
@@ -36,6 +47,7 @@ export interface CustomVariableEditableExtraProps {
   yamlProperties?: YamlProperties[]
   showHeaders?: boolean
   enableValidation?: boolean
+  path?: string
 }
 
 export interface CustomVariableEditableProps extends CustomVariableEditableExtraProps {
@@ -46,16 +58,7 @@ export interface CustomVariableEditableProps extends CustomVariableEditableExtra
 }
 
 export function CustomVariableEditable(props: CustomVariableEditableProps): React.ReactElement {
-  const {
-    initialValues,
-    onUpdate,
-    variableNamePrefix = '',
-    domId,
-    heading,
-    className,
-    yamlProperties,
-    readonly
-  } = props
+  const { initialValues, onUpdate, domId, heading, className, yamlProperties, readonly, path } = props
   const uids = React.useRef<string[]>([])
 
   const [selectedVariable, setSelectedVariable] = React.useState<VariableState | null>(null)
@@ -73,6 +76,31 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
   }
   const { expressions } = useVariablesExpression()
 
+  const { searchText, searchIndex, searchResults = [] } = usePipelineVariables()
+  const searchedEntity = searchResults[searchIndex || 0] || {}
+  const updatedPath = path?.replace('pipeline.', '')
+  const tableRef = React.useRef()
+  const { openNestedPath } = useNestedAccordion()
+
+  React.useLayoutEffect(() => {
+    if (tableRef.current) {
+      const { testid: accordianId = '', open } =
+        (tableRef?.current as any)?.closest?.('.Accordion--panel')?.dataset || {}
+
+      if (open === 'false') {
+        openNestedPath(accordianId?.replace('-panel', ''))
+        setTimeout(() => {
+          document?.querySelector('span.selected-search-text')?.scrollIntoView({ behavior: 'smooth' })
+        }, 500)
+      } else {
+        const highlightedNode =
+          (tableRef?.current as any)?.querySelector('span.selected-search-text') ||
+          (tableRef?.current as any)?.querySelector('div.selected-search-text')
+
+        highlightedNode?.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }, [searchIndex, openNestedPath, searchText])
   return (
     <Formik initialValues={initialValues} onSubmit={data => onUpdate?.(data)} validate={debouncedUpdate}>
       {({ values, setFieldValue }) => (
@@ -93,7 +121,7 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
             }
 
             return (
-              <div className={cx(css.customVariables, className)} id={domId}>
+              <div className={cx(css.customVariables, className)} id={domId} ref={tableRef as any}>
                 <AddEditCustomVariable
                   addNewVariable={handleAdd}
                   updateVariable={handleUpdate}
@@ -122,28 +150,61 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                   }
                   const key = uids.current[index]
                   const yamlData = yamlProperties?.[index]
+                  const vairableNameParts = yamlData?.localName?.split('.') || []
+                  const variableName = vairableNameParts[vairableNameParts.length - 1]
+                  const hasSameMetaPath = searchedEntity.path === `${updatedPath}[${index}].value`
+                  const searchedEntityType = searchedEntity.type || null
+
+                  const isValidValueMatch = `${variable?.value}`
+                    ?.toLowerCase()
+                    ?.includes(searchText?.toLowerCase() || '')
 
                   return (
                     <div key={key} className={css.variableListTable}>
                       {yamlData && yamlData.fqn && yamlData.localName ? (
-                        <CopyText textToCopy={toVariableStr(yamlData.fqn)}>
-                          <String
-                            stringID="customVariables.variableAndType"
-                            vars={{ name: yamlData.localName, type: variable.type }}
+                        <CopyText className="variable-name-cell" textToCopy={toVariableStr(yamlData.fqn)}>
+                          <span
+                            className={cx({
+                              'selected-search-text': searchedEntityType === 'key' && hasSameMetaPath
+                            })}
+                            dangerouslySetInnerHTML={{
+                              __html: getTextWithSearchMarkers({
+                                searchText,
+                                txt: variableName,
+                                className: cx(css.selectedSearchText, {
+                                  [css.currentSelection]: searchedEntityType === 'key' && hasSameMetaPath
+                                })
+                              })
+                            }}
                           />
                         </CopyText>
                       ) : (
-                        <Text lineClamp={1}>
-                          <String
-                            stringID="customVariables.variableAndType"
-                            vars={{ name: `${variableNamePrefix}${variable.name}`, type: variable.type }}
+                        <Text className="variable-name-cell" lineClamp={1}>
+                          <span
+                            className={cx({
+                              [css.selectedSearchTextValueRow]: searchedEntityType === 'key' && hasSameMetaPath,
+                              'selected-search-text': searchedEntityType === 'key' && hasSameMetaPath
+                            })}
+                            dangerouslySetInnerHTML={{
+                              __html: getTextWithSearchMarkers({ searchText, txt: variable.name })
+                            }}
                           />
                         </Text>
                       )}
-                      <div className={css.valueRow}>
+                      <div
+                        className={cx(css.valueRow, 'variable-value-cell', {
+                          [css.selectedSearchTextValueRow]: searchText?.length && isValidValueMatch,
+                          'selected-search-text': searchedEntityType === 'value' && hasSameMetaPath
+                        })}
+                      >
                         <div>
                           {variable.type === VariableType.Secret ? (
-                            <MultiTypeSecretInput name={`variables[${index}].value`} label="" disabled={readonly} />
+                            <MultiTypeSecretInput
+                              small
+                              name={`variables[${index}].value`}
+                              label=""
+                              disabled={readonly}
+                            />
                           ) : (
                             <FormInput.MultiTextInput
                               className="variableInput"
@@ -151,8 +212,10 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               label=""
                               disabled={readonly}
                               multiTextInputProps={{
+                                mini: true,
                                 defaultValueToReset: '',
                                 expressions,
+                                width: 264,
                                 textProps: {
                                   disabled: !initialValues.canAddVariable || readonly,
                                   type: variable.type === VariableType.Number ? 'number' : 'text'
@@ -161,43 +224,47 @@ export function CustomVariableEditable(props: CustomVariableEditableProps): Reac
                               data-testid="variables-test"
                             />
                           )}
-                          {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (
-                            <ConfigureOptions
-                              value={variable.value as string}
-                              defaultValue={variable.default}
-                              type={variable.type || /* istanbul ignore next */ 'String'}
-                              variableName={variable.name || /* istanbul ignore next */ ''}
-                              onChange={(value, defaultValue) => {
-                                setFieldValue(`variables[${index}].value`, value)
-                                setFieldValue(`variables[${index}].default`, defaultValue)
-                              }}
-                              isReadonly={readonly}
-                            />
-                          ) : null}
                         </div>
-                        <div>
-                          {initialValues.canAddVariable ? (
-                            <section className={css.actionButtons}>
-                              <Button
-                                icon="edit"
-                                tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
-                                data-testid={`edit-variable-${index}`}
-                                disabled={readonly}
-                                onClick={() => {
-                                  setSelectedVariable({ variable, index })
+                        <div className={css.actionButtons}>
+                          <section className={cx(css.actionButtons, css.alignIcons)}>
+                            {initialValues.canAddVariable ? (
+                              <>
+                                <Button
+                                  icon="edit"
+                                  tooltip={<String className={css.tooltip} stringID="common.editVariable" />}
+                                  data-testid={`edit-variable-${index}`}
+                                  disabled={readonly}
+                                  onClick={() => {
+                                    setSelectedVariable({ variable, index })
+                                  }}
+                                  minimal
+                                />
+                                <Button
+                                  icon="main-trash"
+                                  data-testid={`delete-variable-${index}`}
+                                  tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
+                                  disabled={readonly}
+                                  onClick={() => handleRemove(index)}
+                                  minimal
+                                />
+                              </>
+                            ) : /* istanbul ignore next */ null}
+                          </section>
+                          <div className={cx(css.alignIcons, css.configureButton)}>
+                            {getMultiTypeFromValue(variable.value as string) === MultiTypeInputType.RUNTIME ? (
+                              <ConfigureOptions
+                                value={variable.value as string}
+                                defaultValue={variable.default}
+                                type={variable.type || /* istanbul ignore next */ 'String'}
+                                variableName={variable.name || /* istanbul ignore next */ ''}
+                                onChange={(value, defaultValue) => {
+                                  setFieldValue(`variables[${index}].value`, value)
+                                  setFieldValue(`variables[${index}].default`, defaultValue)
                                 }}
-                                minimal
+                                isReadonly={readonly}
                               />
-                              <Button
-                                icon="main-trash"
-                                data-testid={`delete-variable-${index}`}
-                                tooltip={<String className={css.tooltip} stringID="common.removeThisVariable" />}
-                                disabled={readonly}
-                                onClick={() => handleRemove(index)}
-                                minimal
-                              />
-                            </section>
-                          ) : /* istanbul ignore next */ null}
+                            ) : null}
+                          </div>
                         </div>
                       </div>
                     </div>

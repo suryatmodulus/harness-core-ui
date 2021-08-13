@@ -26,6 +26,7 @@ const FilterTypePopover: React.FC<FilterTypePopoverProps> = ({ filterData, setSe
           return filter?.key ? (
             <Menu.Item
               key={filter.key}
+              className={css.menuItem}
               onClick={() => setSelectedType(`${filter.key}s`)}
               shouldDismissPopover={false}
               text={keyToLabelMapping[filter.key]}
@@ -38,6 +39,7 @@ const FilterTypePopover: React.FC<FilterTypePopoverProps> = ({ filterData, setSe
           return (
             <Menu.Item
               key={filter}
+              className={css.menuItem}
               onClick={() => setSelectedType(filter)}
               shouldDismissPopover={false}
               text={costFiltersLabels[filter]}

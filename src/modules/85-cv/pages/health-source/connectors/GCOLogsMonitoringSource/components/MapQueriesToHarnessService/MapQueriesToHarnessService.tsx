@@ -35,16 +35,18 @@ export function MapQueriesToHarnessService(props: MapQueriesToHarnessServiceProp
     selectedMetricIndex: Array.from(mappedMetrics.keys()).findIndex(metric => metric === selectedMetric)
   })
 
-  const connectorIdentifier = sourceData?.connectorRef?.value
+  const connectorIdentifier = sourceData?.connectorRef
   const [rerenderKey, setRerenderKey] = useState('')
 
   return (
     <Formik<MapGCOLogsQueryToService | undefined>
-      onSubmit={updatedSource => {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      onSubmit={async updatedSource => {
         if (updatedSource) {
           mappedMetrics.set(selectedMetric, updatedSource)
         }
-        onSubmit({ ...sourceData, mappedServicesAndEnvs: new Map(mappedMetrics) })
+        await onSubmit({ ...sourceData, mappedServicesAndEnvs: new Map(mappedMetrics) })
       }}
       formName="mapGCOLogs"
       initialValues={mappedMetrics.get(selectedMetric || '')}

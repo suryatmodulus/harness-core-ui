@@ -16,10 +16,5 @@
 
 .mainContainer {
   display: grid;
-  grid-template-columns: 70px 1fr;
-
-  .filler {
-    height: 60px;
-    border-bottom: 2px solid var(--grey-200);
-  }
+  grid-template-columns: 40px 1fr;
 }

@@ -185,7 +185,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
       class="bp3-form-content"
     >
       <div
-        class="bp3-form-group bp3-intent-danger"
+        class="bp3-form-group bp3-intent-danger ThumbnailSelect--mainContainer"
       >
         <div
           class="bp3-form-content"
@@ -221,8 +221,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.ManualIntervention
               </p>
@@ -260,8 +259,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.StageRollback
               </p>
@@ -299,8 +297,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Ignore
               </p>
@@ -338,8 +335,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Retry
               </p>
@@ -377,8 +373,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.MarkAsSuccess
               </p>
@@ -416,8 +411,7 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Abort
               </p>
@@ -431,7 +425,32 @@ exports[`<FailureStrategyPanel /> tests adding a new strategy works 1`] = `
           <div
             class="bp3-form-helper-text"
           >
-            pipeline.failureStrategies.validation.actionRequired
+            <div
+              class="FormError--errorDiv"
+            >
+              <span
+                class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                data-icon="circle-cross"
+              >
+                <svg
+                  height="12"
+                  viewBox="0 0 13 13"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="FormError--error"
+              >
+                pipeline.failureStrategies.validation.actionRequired
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -696,7 +715,7 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
       class="bp3-form-content"
     >
       <div
-        class="bp3-form-group"
+        class="bp3-form-group ThumbnailSelect--mainContainer"
       >
         <div
           class="bp3-form-content"
@@ -717,21 +736,18 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
                     class="Card--badge"
                   />
                   <span
-                    class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
-                    icon="tick"
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                    data-icon="main-tick"
                   >
                     <svg
-                      data-icon="tick"
-                      height="9"
-                      viewBox="0 0 16 16"
-                      width="9"
+                      height="10"
+                      viewBox="0 0 11 8"
+                      width="10"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        tick
-                      </desc>
                       <path
-                        d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                        fill-rule="evenodd"
+                        d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
+                        fill="currentColor"
                       />
                     </svg>
                   </span>
@@ -757,8 +773,7 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-                style="text-align: center;"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Abort
               </p>
@@ -770,18 +785,18 @@ exports[`<FailureStrategyPanel /> tests removing a strategy works 1`] = `
               />
             </label>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
               data-testid="thumbnail-select-change"
               type="button"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-grey450"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
                 data-icon="Edit"
               >
                 <svg
-                  height="10"
+                  height="12"
                   viewBox="0 0 12 12"
-                  width="10"
+                  width="12"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <g

@@ -162,6 +162,8 @@ const BillingExport: React.FC<StepProps<CEAzureDTO>> = props => {
               type="submit"
               withoutBoxShadow={true}
               className={css.launchTemplateBtn}
+              icon="main-share"
+              iconProps={{ size: 12, margin: { right: 'xsmall' } }}
               text={getString('connectors.ceAzure.billing.launchAzureConsole')}
               onClick={() => {
                 window.open('https://portal.azure.com/#blade/Microsoft_Azure_CostManagement/Menu/exports')

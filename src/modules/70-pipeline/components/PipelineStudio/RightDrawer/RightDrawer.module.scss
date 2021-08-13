@@ -1,4 +1,4 @@
-$right-bar-width: 60px;
+$right-bar-width: 65px;
 $top-offset: 110px;
 
 .main {
@@ -45,7 +45,9 @@ $top-offset: 110px;
   &.almostFullScreen {
     top: $top-offset;
     right: $right-bar-width;
-
+    &.showRighDrawer {
+      transform: translateX(-65px);
+    }
     &.fullScreen {
       top: 0;
       right: 0;
@@ -78,7 +80,7 @@ $top-offset: 110px;
     right: 0;
     width: $right-bar-width;
     height: $top-offset;
-    background-color: rgba(16, 22, 26, 0.7);
+    // background-color: rgba(16, 22, 26, 0.7);
     z-index: 20;
     user-select: none;
   }

@@ -1,9 +1,7 @@
 import React from 'react'
-
 import { String } from 'framework/strings'
 import type { ServiceExecutionSummary } from 'services/cd-ng'
-
-import css from './ServicePopoverCard.module.scss'
+import css from '@cd/components/ServicePopoverCard/ServicePopoverCard.module.scss'
 
 export interface ServicePopoveCardProps {
   service: ServiceExecutionSummary

@@ -49,7 +49,7 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
     getProvider(props.gatewayDetails.provider.name)
   )
   const [cloudAccountID, setCloudAccountID] = useState<string>(props.gatewayDetails.cloudAccount.id)
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { accountId } = useParams<ProjectPathProps>()
   useEffect(() => {
     if (selectedCard) trackEvent('SelectedCloudCard', { cloudProvider: selectedCard.name })
   }, [selectedCard, trackEvent])
@@ -72,7 +72,7 @@ const COProviderSelector: React.FC<COProviderSelectorProps> = props => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+            url: routes.toCECORules({ accountId }),
             label: getString('ce.co.breadCrumb.rules')
           },
           {

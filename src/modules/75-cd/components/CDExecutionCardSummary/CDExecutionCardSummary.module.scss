@@ -27,7 +27,8 @@
     }
 
     .serviceWrapper {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
 
       &:not(:last-child)::after {
         content: ',';

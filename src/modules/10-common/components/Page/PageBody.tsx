@@ -27,13 +27,22 @@ export interface PageBodyProps {
     when: () => boolean
 
     /** icon to pass to <NoDataCard/> */
-    icon: IconName
+    icon?: IconName
 
     /** disables color passing to icon in <NoDataCard />  */
     noIconColor?: boolean
 
+    /** image to pass to <NoDataCard/> */
+    image?: string
+
+    /** image class name to pass to <NoDataCard/> */
+    imageClassName?: string
+
+    /** message title to pass to <NoDataCard/> */
+    messageTitle?: string
+
     /** message to pass to <NoDataCard/> */
-    message: string
+    message?: string
 
     /** Button to render with custom styles */
     button?: React.ReactElement
@@ -83,6 +92,9 @@ export const PageBody: React.FC<PageBodyProps> = ({
         <NoDataCard
           icon={noData?.icon}
           noIconColor={noData?.noIconColor}
+          image={noData.image}
+          imageClassName={noData.imageClassName}
+          messageTitle={noData.messageTitle}
           message={noData?.message || ''}
           button={noData?.button}
           buttonText={noData?.buttonText || ''}

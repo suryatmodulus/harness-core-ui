@@ -8,6 +8,7 @@ import { String } from 'framework/strings'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useStrings } from 'framework/strings'
 import { useGlobalEventListener } from '@common/hooks'
+import type { ConsoleViewStepDetailProps } from '@pipeline/factories/ExecutionFactory/types'
 
 import { useLogsContent } from './useLogsContent'
 import { GroupedLogsWithRef as GroupedLogs } from './components/GroupedLogs'
@@ -33,7 +34,7 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
   const virtuosoRef = React.useRef<null | GroupedVirtuosoHandle | VirtuosoHandle>(null)
 
   React.useEffect(() => {
-    const currentStepId = mode !== 'console-view' && queryParams.retryStep ? queryParams.retryStep : selectedStepId
+    const currentStepId = queryParams.retryStep ? queryParams.retryStep : selectedStepId
     const selectedStep = allNodeMap[currentStepId]
 
     actions.createSections({
@@ -134,6 +135,16 @@ export function LogsContent(props: LogsContentProps): React.ReactElement {
           </div>
         </div>
       ) : null}
+    </div>
+  )
+}
+
+export function DefaultConsoleViewStepDetails(props: ConsoleViewStepDetailProps): React.ReactElement {
+  const { errorMessage, isSkipped } = props
+
+  return (
+    <div className={css.logViewer}>
+      <LogsContent mode="console-view" errorMessage={errorMessage} isWarning={isSkipped} />
     </div>
   )
 }

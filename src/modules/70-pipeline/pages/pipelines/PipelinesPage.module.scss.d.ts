@@ -22,7 +22,6 @@ declare const styles: {
   readonly sortSelector: string
   readonly tagRow: string
   readonly cardTags: string
-  readonly header: string
   readonly expandSearch: string
   readonly activityChart: string
   readonly lastExecutionTs: string

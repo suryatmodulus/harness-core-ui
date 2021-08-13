@@ -23,14 +23,51 @@
                   "type": "Kubernetes",
                   "spec": {
                     "artifacts": {
-                      "sidecars": [],
+                      "sidecars": [
+                        {
+                          "sidecar": {
+                            "identifier": "id11",
+                            "type": "Gcr",
+                            "spec": {
+                              "connectorRef": "gcp_connector",
+                              "registryHostname": "gcr.io",
+                              "imagePath": "library/nginx",
+                              "tag": "<+input>"
+                            }
+                          }
+                        },
+                        {
+                          "sidecar": {
+                            "identifier": "id11",
+                            "type": "DockerRegistry",
+                            "spec": {
+                              "connectorRef": "harnessImage",
+                              "imagePath": "library/nginx",
+                              "tag": "<+input>"
+                            }
+                          }
+                        }
+                      ],
                       "primary": {
                         "type": "Dockerhub",
                         "spec": { "connectorRef": "<+input>", "imagePath": "<+input>" }
                       }
                     },
                     "manifests": [],
-                    "artifactOverrideSets": [],
+                    "artifactOverrideSets": [
+                      {
+                        "overrideSet": {
+                          "identifier": "overrideSetIdentifier",
+                          "artifacts": {
+                            "sidecars": [],
+                            "primary": {
+                              "type": "Dockerhub",
+                              "spec": { "connectorRef": "<+input>", "imagePath": "<+input>" }
+                            }
+                          }
+                        }
+                      }
+                    ],
                     "manifestOverrideSets": []
                   }
                 }

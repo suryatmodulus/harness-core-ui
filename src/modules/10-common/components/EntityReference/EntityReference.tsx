@@ -49,11 +49,7 @@ export type EntityReferenceResponse<T> = {
 
 export interface EntityReferenceProps<T> {
   onSelect: (reference: T, scope: Scope) => void
-  fetchRecords: (
-    scope: Scope,
-    searchTerm: string | undefined,
-    done: (records: EntityReferenceResponse<T>[]) => void
-  ) => void
+  fetchRecords: (scope: Scope, searchTerm: string, done: (records: EntityReferenceResponse<T>[]) => void) => void
   recordRender: (args: { item: EntityReferenceResponse<T>; selectedScope: Scope; selected?: boolean }) => JSX.Element
   recordClassName?: string
   className?: string
@@ -86,7 +82,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     noRecordsText = getString('entityReference.noRecordFound'),
     searchInlineComponent
   } = props
-  const [searchTerm, setSearchTerm] = useState<string | undefined>()
+  const [searchTerm, setSearchTerm] = useState<string>('')
   const [selectedScope, setSelectedScope] = useState<Scope>(
     defaultScope || getDefaultScope(orgIdentifier, projectIdentifier)
   )
@@ -99,13 +95,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     setSelectedScope(getDefaultScope(orgIdentifier, projectIdentifier))
   }, [projectIdentifier, orgIdentifier])
 
-  const delayedFetchRecords = useRef(
-    debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {
-      setLoading(true)
-      setSelectedRecord(undefined)
-      fetchRecords(scope, search, done)
-    }, 300)
-  ).current
+  const delayedFetchRecords = useRef(debounce((fn: () => void) => fn(), 300)).current
 
   const fetchData = useCallback(() => {
     try {
@@ -117,9 +107,13 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
           setLoading(false)
         })
       } else {
-        delayedFetchRecords(selectedScope, searchTerm, records => {
-          setData(records)
-          setLoading(false)
+        delayedFetchRecords(() => {
+          setLoading(true)
+          setSelectedRecord(undefined)
+          fetchRecords(selectedScope, searchTerm, records => {
+            setData(records)
+            setLoading(false)
+          })
         })
       }
     } catch (msg) {

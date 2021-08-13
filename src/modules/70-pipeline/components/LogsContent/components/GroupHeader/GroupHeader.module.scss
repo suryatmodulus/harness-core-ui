@@ -29,6 +29,7 @@
 
   .duration {
     font-size: var(--font-size-small) !important;
+    color: var(--grey-500) !important;
   }
 
   &[data-open='true'] {

@@ -11,6 +11,7 @@ import type { HttpHeaderConfig, StringNGVariable } from 'services/cd-ng'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
+import type { StringsMap } from 'stringTypes'
 import { httpStepType } from './HttpStepBase'
 import HttpInputSetStep from './HttpInputSetStep'
 import { HttpStepWidgetWithRef } from './HttpStepWidget'
@@ -61,6 +62,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
   protected type = StepType.HTTP
   protected stepName = 'Http Step'
   protected stepIcon: IconName = 'http-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.HTTP'
 
   validateInputSet({
     data,

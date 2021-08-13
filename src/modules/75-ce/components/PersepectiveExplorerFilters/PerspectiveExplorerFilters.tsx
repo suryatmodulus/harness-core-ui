@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Button, Icon } from '@wings-software/uicore'
+import { Container, Text, Button, Icon, FlexExpander } from '@wings-software/uicore'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { QlceViewTimeGroupType, QlceViewFilterInput } from 'services/ce/services'
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
@@ -31,6 +31,9 @@ export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = (
         keepTogether: { enabled: true },
         preventOverflow: { enabled: true }
       }}
+      hoverCloseDelay={0}
+      transitionDuration={0}
+      minimal={true}
       content={
         <Menu>
           <MenuItem
@@ -71,10 +74,14 @@ interface PersepectiveExplorerFiltersProps {
   setAggregation: React.Dispatch<React.SetStateAction<QlceViewTimeGroupType>>
   setTimeRange: React.Dispatch<
     React.SetStateAction<{
-      to: number
-      from: number
+      to: string
+      from: string
     }>
   >
+  timeRange: {
+    to: string
+    from: string
+  }
   setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
   filters: QlceViewFilterInput[]
 }
@@ -84,14 +91,16 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
   setAggregation,
   setTimeRange,
   setFilters,
+  timeRange,
   filters
 }) => {
   return (
     <Container background="white" padding="small">
       <Container className={css.mainContainer}>
         <Icon name="ng-filter" size={20} />
-        <ExplorerFilters filters={filters} setFilters={setFilters} />
-        <PerspectiveTimeRangePicker setTimeRange={setTimeRange} />
+        <ExplorerFilters timeRange={timeRange} filters={filters} setFilters={setFilters} />
+        <FlexExpander />
+        <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />
         <Text color="primary7">|</Text>
         <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />
       </Container>

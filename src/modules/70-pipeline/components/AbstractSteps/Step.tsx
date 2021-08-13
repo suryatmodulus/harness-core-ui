@@ -2,6 +2,7 @@ import type { IconName } from '@wings-software/uicore'
 import type { FormikErrors, FormikProps } from 'formik'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import type { UseStringsReturn } from 'framework/strings'
+import type { StringsMap } from 'stringTypes'
 import type { AbstractStepFactory } from './AbstractStepFactory'
 import type { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -62,6 +63,7 @@ export abstract class Step<T> {
   protected abstract defaultValues: T
   protected abstract stepIcon: IconName
   protected abstract stepName: string
+  protected stepDescription: keyof StringsMap | undefined
   protected _hasStepVariables = false
   protected _hasDelegateSelectionVisible = false
   protected isHarnessSpecific = false
@@ -87,6 +89,10 @@ export abstract class Step<T> {
 
   getIconName(): IconName {
     return this.stepIcon
+  }
+
+  getDescription(): keyof StringsMap | undefined {
+    return this.stepDescription
   }
 
   getStepName(): string {

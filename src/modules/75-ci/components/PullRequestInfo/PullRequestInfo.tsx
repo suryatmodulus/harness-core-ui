@@ -21,14 +21,20 @@ export function PullRequestInfo(props: PullRequestInfoProps): React.ReactElement
   }
 
   return (
-    <div className={cx(css.pullRequestInfo, { [css.minimal]: minimal })} onClick={killEvent}>
+    <div className={cx(css.pullRequestInfo, { [css.minimal]: minimal })}>
       {!minimal ? (
         <React.Fragment>
           <Icon className={css.icon} name="git-pull" size={14} />
           <Text>{pullRequest?.title}</Text>
         </React.Fragment>
       ) : null}
-      <a className={css.prNumber} href={pullRequest?.link || ''} target="_blank" rel="noopener noreferrer">
+      <a
+        className={css.prNumber}
+        href={pullRequest?.link || ''}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={killEvent}
+      >
         {getString('ci.prSymbol')}
         {typeof pullRequest?.id === 'string' || typeof pullRequest?.id === 'number'
           ? pullRequest?.id

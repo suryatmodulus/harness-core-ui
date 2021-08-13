@@ -67,8 +67,8 @@ import { EnhancedInputSetForm } from '@pipeline/components/InputSetForm/InputSet
 import TriggersDetailPage from '@pipeline/pages/triggers/TriggersDetailPage'
 import CreateConnectorFromYamlPage from '@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'
 import CreateSecretFromYamlPage from '@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'
-import ServiceDetailPage from '@dashboards/pages/ServiceDetailPage/ServiceDetailPage'
-import ServiceDetails from '@dashboards/components/ServiceDetails/ServiceDetails'
+import ServiceDetailPage from '@cd/pages/ServiceDetailPage/ServiceDetailPage'
+import ServiceDetails from '@cd/components/ServiceDetails/ServiceDetails'
 
 import './components/PipelineSteps'
 import './components/PipelineStudio/DeployStage'
@@ -89,11 +89,20 @@ import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import executionFactory from '@pipeline/factories/ExecutionFactory'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import TemplatesList from '@templates-library/pages/TemplatesList/TemplatesList'
+
+import { TriggerFormType } from '@pipeline/factories/ArtifactTriggerInputFactory/types'
+import TriggerFactory from '@pipeline/factories/ArtifactTriggerInputFactory/index'
 
 import CDTrialHomePage from './pages/home/CDTrialHomePage'
+
 import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDExecutionCardSummary'
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
+
 import GitOpsModalContainer from './pages/git-ops-modal-container/GitOpsModalContainer'
+
+import { CDStageDetails } from './components/CDStageDetails/CDStageDetails'
+import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -102,6 +111,10 @@ executionFactory.registerCardInfo(StageType.DEPLOY, {
 
 executionFactory.registerSummary(StageType.DEPLOY, {
   component: CDExecutionSummary
+})
+
+executionFactory.registerStageDetails(StageType.DEPLOY, {
+  component: CDStageDetails
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -123,7 +136,7 @@ const RedirectToCDProject = (): React.ReactElement => {
   if (selectedProject?.modules?.includes(ModuleName.CD)) {
     return (
       <Redirect
-        to={routes.toCDProjectOverview({
+        to={routes.toProjectOverview({
           accountId,
           orgIdentifier: selectedProject.orgIdentifier || '',
           projectIdentifier: selectedProject.identifier,
@@ -164,7 +177,7 @@ const RedirectToExecutionPipeline = (): React.ReactElement => {
 
 const CDSideNavProps: SidebarContext = {
   navComponent: CDSideNav,
-  subtitle: 'CONTINUOUS',
+  subtitle: 'Continuous',
   title: 'Delivery',
   icon: 'cd-main'
 }
@@ -172,17 +185,18 @@ const CDSideNavProps: SidebarContext = {
 const pipelineModuleParams: ModulePathParams = {
   module: ':module(cd)'
 }
+TriggerFactory.registerTriggerForm(TriggerFormType.Manifest, {
+  component: ManifestInputForm
+})
 
 export default (
   <>
     <Route path={routes.toCD({ ...accountPathProps })} exact>
       <RedirectToCDProject />
     </Route>
-
     <RouteWithLayout sidebarProps={CDSideNavProps} path={routes.toCDHome({ ...accountPathProps })} exact>
       <CDHomePage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={routes.toModuleTrialHome({ ...accountPathProps, module: 'cd' })}
@@ -190,10 +204,9 @@ export default (
     >
       <CDTrialHomePage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
-      path={routes.toCDProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+      path={routes.toProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
       <CDDashboardPageOrRedirect />
@@ -205,7 +218,6 @@ export default (
     >
       <DeploymentsList />
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
@@ -241,7 +253,6 @@ export default (
         <CDPipelineStudio />
       </PipelineDetails>
     </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
@@ -281,7 +292,7 @@ export default (
       sidebarProps={CDSideNavProps}
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <SecretsPage module="cd" />
+      <SecretsPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -423,7 +434,6 @@ export default (
     >
       <TriggersDetailPage />
     </RouteWithLayout>
-
     <Route
       exact
       sidebarProps={CDSideNavProps}
@@ -503,7 +513,6 @@ export default (
     >
       <CDGeneralSettingsPage />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={[routes.toAccessControl({ ...projectPathProps, ...pipelineModuleParams })]}
@@ -511,7 +520,6 @@ export default (
     >
       <RedirectToAccessControlHome />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={[routes.toUsers({ ...projectPathProps, ...pipelineModuleParams })]}
@@ -521,7 +529,6 @@ export default (
         <UsersPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={routes.toUserDetails({ ...projectPathProps, ...pipelineModuleParams, ...userPathProps })}
@@ -529,7 +536,6 @@ export default (
     >
       <UserDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={[routes.toUserGroups({ ...projectPathProps, ...pipelineModuleParams })]}
@@ -539,7 +545,6 @@ export default (
         <UserGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={routes.toUserGroupDetails({ ...projectPathProps, ...pipelineModuleParams, ...userGroupPathProps })}
@@ -547,7 +552,6 @@ export default (
     >
       <UserGroupDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={routes.toServiceAccounts({ ...projectPathProps, ...pipelineModuleParams })}
@@ -557,7 +561,6 @@ export default (
         <ServiceAccountsPage />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={routes.toServiceAccountDetails({ ...projectPathProps, ...pipelineModuleParams, ...serviceAccountProps })}
@@ -565,7 +568,6 @@ export default (
     >
       <ServiceAccountDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={[routes.toResourceGroups({ ...projectPathProps, ...pipelineModuleParams })]}
@@ -575,7 +577,6 @@ export default (
         <ResourceGroups />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={[routes.toRoles({ ...projectPathProps, ...pipelineModuleParams })]}
@@ -585,7 +586,6 @@ export default (
         <Roles />
       </AccessControlPage>
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       path={[routes.toRoleDetails({ ...projectPathProps, ...pipelineModuleParams, ...rolePathProps })]}
@@ -602,7 +602,6 @@ export default (
     >
       <ResourceGroupDetails />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CDSideNavProps}
       exact
@@ -629,12 +628,21 @@ export default (
       </GitSyncPage>
     </RouteWithLayout>
 
+
     <RouteWithLayout
       exact
       sidebarProps={CDSideNavProps}
       path={routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <GitOpsModalContainer />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toTemplatesListing({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <TemplatesList />
     </RouteWithLayout>
   </>
 )

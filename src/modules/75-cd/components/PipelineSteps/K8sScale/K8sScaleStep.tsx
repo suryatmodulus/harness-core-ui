@@ -2,7 +2,6 @@ import React from 'react'
 import {
   IconName,
   Formik,
-  Layout,
   FormInput,
   getMultiTypeFromValue,
   MultiTypeInputType,
@@ -36,6 +35,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sScaleData extends StepElementConfig {
@@ -93,14 +93,39 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
           setFormikRef(formikRef, formik)
           return (
             <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <>
+                <div className={cx(stepCss.formGroup, stepCss.lg)}>
                   <FormInput.InputWithIdentifier
                     inputLabel={getString('name')}
                     isIdentifierEditable={isNewStep}
                     inputGroupProps={{ disabled: readonly }}
                   />
                 </div>
+                <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    className={stepCss.duration}
+                    disabled={readonly}
+                    multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
+                  />
+                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                    <ConfigureOptions
+                      value={values.timeout as string}
+                      type="String"
+                      variableName="step.timeout"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        setFieldValue('timeout', value)
+                      }}
+                      isReadonly={readonly}
+                    />
+                  )}
+                </div>
+
+                <div className={stepCss.divider} />
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInstanceDropdown
                     name={'spec.instanceSelection'}
@@ -145,7 +170,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     <ConfigureOptions
                       value={values.spec.workload as string}
                       type="String"
-                      variableName={getString('pipelineSteps.workload')}
+                      variableName={getString('pipelineSteps.workload').toLowerCase()}
                       showRequiredField={false}
                       showDefaultField={false}
                       showAdvanced={true}
@@ -157,29 +182,6 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                   )}
                 </div>
 
-                <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    className={stepCss.duration}
-                    disabled={readonly}
-                    multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
-                  />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        setFieldValue('timeout', value)
-                      }}
-                      isReadonly={readonly}
-                    />
-                  )}
-                </div>
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormMultiTypeCheckboxField
                     name="spec.skipSteadyStateCheck"
@@ -188,7 +190,7 @@ function K8ScaleDeployWidget(props: K8sScaleProps, formikRef: StepFormikFowardRe
                     disabled={readonly}
                   />
                 </div>
-              </Layout.Vertical>
+              </>
             </>
           )
         }}
@@ -312,6 +314,7 @@ export class K8sScaleStep extends PipelineStep<K8sScaleData> {
   protected stepName = 'K8s Scale'
 
   protected stepIcon: IconName = 'swap-vertical'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sScale'
   protected isHarnessSpecific = true
 
   processFormData(values: K8sScaleData): K8sScaleData {

@@ -1,4 +1,40 @@
 .main {
-  position: relative;
-  height: 100%;
+  height: min-content;
+
+  :global(.Resizer.horizontal:not(.disabled)) {
+    height: var(--spacing-small) !important;
+    cursor: row-resize;
+    background: transparent;
+    z-index: 2;
+    display: block !important;
+  }
+
+  :global(.Resizer.vertical:not(.disabled)) {
+    width: var(--spacing-small);
+    cursor: col-resize;
+    background: transparent;
+    z-index: 2;
+  }
+
+  .splitPane1 {
+    & > :global(.Pane.horizontal.Pane1) {
+      border-bottom: 1px solid var(--grey-100);
+    }
+  }
+
+  .splitPane2 {
+    /* vertical split styles */
+    & :global(.Pane.vertical.Pane2) {
+      border-left: 1px solid var(--grey-200);
+    }
+
+    /* horizontal split styles */
+    & :global(.Pane.horizontal.Pane2) {
+      border-top: 1px solid var(--grey-200);
+    }
+  }
+
+  .stageDetails {
+    height: min-content;
+  }
 }

@@ -5,13 +5,8 @@ import { Button, Color, Icon, Layout, Tab, Tabs } from '@wings-software/uicore'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from '@common/components'
 import { useStrings } from 'framework/strings'
-import { useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
-import type {
-  ApprovalStageConfig,
-  StageElementConfig,
-  StageElementWrapper,
-  StageElementWrapperConfig
-} from 'services/cd-ng'
+import { GetInitialStageYamlSnippetQueryParams, useGetInitialStageYamlSnippet } from 'services/pipeline-ng'
+import type { ApprovalStageConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { ApprovalStageOverview } from './ApprovalStageOverview'
 import { ApprovalStageExecution } from './ApprovalStageExecution'
@@ -20,10 +15,6 @@ import css from './ApprovalStageSetupShellMode.module.scss'
 
 interface ApprovalStageElementConfig extends StageElementConfig {
   approvalType?: string
-}
-
-interface ApprovalStageElementWrapperConfig extends StageElementWrapperConfig {
-  stage?: ApprovalStageElementConfig
 }
 
 export const ApprovalStageSetupShellMode: React.FC = () => {
@@ -35,17 +26,15 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
   const {
     state: {
       pipeline,
-      selectionState: { selectedStageId = '', selectedStepId },
-      pipelineView
+      selectionState: { selectedStageId = '', selectedStepId }
     },
     getStageFromPipeline,
     updatePipeline,
-    updateStage,
-    updatePipelineView
+    updateStage
   } = React.useContext(PipelineContext)
 
   const [loadGraph, setLoadGraph] = React.useState(false)
-  const { stage: selectedStage = {} } = getStageFromPipeline(selectedStageId) as StageElementWrapper
+  const { stage: selectedStage } = getStageFromPipeline<ApprovalStageElementConfig>(selectedStageId)
 
   React.useEffect(() => {
     if (selectedStepId) {
@@ -53,7 +42,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
     }
   }, [selectedStepId])
 
-  const ActionButtons = () => {
+  const ActionButtons = (): React.ReactElement => {
     return (
       <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
         <Button
@@ -62,11 +51,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
           rightIcon="chevron-right"
           onClick={() => {
             updatePipeline(pipeline)
-            if (selectedTabId === tabHeadings[1]) {
-              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
-            } else {
-              setSelectedTabId(tabHeadings[1])
-            }
+            setSelectedTabId(tabHeadings[1])
           }}
         />
       </Layout.Horizontal>
@@ -82,7 +67,8 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
 
   const { data: yamlSnippet } = useGetInitialStageYamlSnippet({
     queryParams: {
-      approvalType: selectedStage.stage.approvalType || StepType.HarnessApproval
+      approvalType: (selectedStage?.stage?.approvalType ||
+        StepType.HarnessApproval) as GetInitialStageYamlSnippetQueryParams['approvalType']
     }
   })
 
@@ -92,15 +78,15 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
       // The last part of condition is important, as we only need to add the YAML snippet the first time in the step.
       if (!selectedStage?.stage?.spec?.execution) {
         updateStage(
-          produce<StageElementWrapperConfig>(selectedStage, (draft: ApprovalStageElementWrapperConfig) => {
+          produce(selectedStage as StageElementWrapperConfig, draft => {
             const jsonFromYaml = YAML.parse(yamlSnippet?.data || '') as ApprovalStageElementConfig
-            if (draft.stage && draft.stage.spec) {
+            if (draft?.stage && draft?.stage?.spec) {
               draft.stage.failureStrategies = jsonFromYaml.failureStrategies
               ;(draft.stage.spec as ApprovalStageConfig).execution =
                 (jsonFromYaml.spec as ApprovalStageConfig)?.execution || {}
               // approvalType is just used in the UI, to populate the default steps for different approval types
               // For BE, the stage type is always 'Approval' and approval type is defined inside the step
-              delete draft.stage.approvalType
+              delete (draft.stage as any)?.approvalType
             }
           }).stage as ApprovalStageElementConfig
         ).then(() => {
@@ -155,9 +141,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
           panel={
             <>
               {loadGraph ? (
-                <ApprovalStageExecution>
-                  <ActionButtons />
-                </ApprovalStageExecution>
+                <ApprovalStageExecution />
               ) : (
                 <PageSpinner
                   className={css.graphLoadingSpinner}
@@ -184,11 +168,7 @@ export const ApprovalStageSetupShellMode: React.FC = () => {
               {tabHeadings[2]}
             </span>
           }
-          panel={
-            <ApprovalAdvancedSpecifications>
-              <ActionButtons />
-            </ApprovalAdvancedSpecifications>
-          }
+          panel={<ApprovalAdvancedSpecifications />}
           data-testid={tabHeadings[2]}
         />
       </Tabs>

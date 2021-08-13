@@ -1,8 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Button, Container, Utils } from '@wings-software/uicore'
 import { PopoverInteractionKind } from '@blueprintjs/core'
-import { SelectedAppsSideNav } from '@cv/pages/monitoring-source/new-relic/MapNewRelicAppsToServicesAndEnvs/SelectedAppsSideNav/SelectedAppsSideNav'
-
+import { SelectedAppsSideNav } from './components/SelectedAppsSideNav/SelectedAppsSideNav'
 import css from './MultiItemsSideNav.module.scss'
 
 interface MultiItemsSideNavProps {

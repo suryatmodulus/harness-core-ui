@@ -13,6 +13,7 @@ import {
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import Roles from '../Roles'
 import { createRoleMockData, rolesMockList } from './RolesMock'
 
@@ -40,7 +41,7 @@ describe('Role Details Page', () => {
 
   beforeEach(async () => {
     const renderObj = render(
-      <TestWrapper path="/account/:accountId/admin/access-control/roles" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper path={routes.toRoles({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
         <Roles />
       </TestWrapper>
     )
@@ -82,7 +83,7 @@ describe('Role Details Page', () => {
     test('Edit Role', async () => {
       const menu = container
         .querySelector(`[data-testid="role-card-${rolesMockList.data?.content?.[0].role.identifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const edit = await findAllByText(popover as HTMLElement, 'edit')
@@ -98,13 +99,13 @@ describe('Role Details Page', () => {
       deleteRole.mockReset()
       const menu = container
         .querySelector(`[data-testid="role-card-${rolesMockList.data?.content?.[0].role.identifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'delete')
       await act(async () => {
         fireEvent.click(deleteMenu!)
-        await waitFor(() => getByText(document.body, 'roleCard.confirmDeleteTitle'))
+        await waitFor(() => getByText(document.body, 'rbac.roleCard.confirmDeleteTitle'))
         const form = findDialogContainer()
         expect(form).toBeTruthy()
         const deleteBtn = queryByText(form as HTMLElement, 'delete')

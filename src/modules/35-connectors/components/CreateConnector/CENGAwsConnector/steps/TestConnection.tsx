@@ -64,7 +64,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
         setCurrentStatus(Status.DONE)
         setCurrentStep(3)
       } else {
-        throw new Error('Could not verify connectivity')
+        throw new Error('connectors.ceAws.testConnection.error')
       }
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message)

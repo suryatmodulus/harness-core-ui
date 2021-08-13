@@ -16,10 +16,12 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import bgImageURL from './images/ci.svg'
 
 const CIHomePage: React.FC = () => {
   const { getString } = useStrings()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
 
   const { accountId } = useParams<AccountPathProps>()
 
@@ -97,7 +99,9 @@ const CIHomePage: React.FC = () => {
     return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
-  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
+  const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
+
+  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
     history.push(
       routes.toModuleTrialHome({
         accountId,
@@ -106,7 +110,7 @@ const CIHomePage: React.FC = () => {
     )
   }
 
-  if (createdFromNG && data && data.data && trial) {
+  if (showTrialPages && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('ci.continuous')}

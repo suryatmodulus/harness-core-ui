@@ -24,10 +24,9 @@ import copy from 'copy-to-clipboard'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
 import type { SamlSettings } from 'services/cd-ng'
-import { getConfig } from 'services/config'
 import { useUploadSamlMetaData, useUpdateSamlMetaData } from 'services/cd-ng'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { AuthenticationMechanisms } from '@auth-settings/constants/utils'
+import { AuthenticationMechanisms, getSamlEndpoint } from '@auth-settings/constants/utils'
 import type { StringsMap } from 'stringTypes'
 import css from '../useSAMLProvider.module.scss'
 
@@ -84,7 +83,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
   const { accountId } = useParams<AccountPathProps>()
   const [selected, setSelected] = React.useState<SAMLProviderType>()
   const [modalErrorHandler, setModalErrorHandler] = React.useState<ModalErrorHandlerBinding>()
-  const samlEndpoint = getConfig(`api/users/saml-login?accountId=${accountId}`)
+
   const selectedSAMLProvider = getString(
     selected
       ? selected?.type === Providers.OTHER
@@ -228,7 +227,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                     </Text>
                     <InputGroup
                       name="endPoint"
-                      value={samlEndpoint}
+                      value={getSamlEndpoint(accountId)}
                       rightElement={
                         <Button
                           icon="duplicate"
@@ -236,7 +235,7 @@ const SAMLProviderForm: React.FC<Props> = ({ onSubmit, onCancel, samlProvider })
                           minimal
                           className={css.copyToClipboardButton}
                           onClick={() => {
-                            copy(samlEndpoint)
+                            copy(getSamlEndpoint(accountId))
                               ? showSuccess(getString('clipboardCopySuccess'))
                               : showError(getString('clipboardCopyFail'))
                           }}

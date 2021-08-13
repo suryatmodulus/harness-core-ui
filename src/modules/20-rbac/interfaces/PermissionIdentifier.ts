@@ -62,5 +62,9 @@ export enum PermissionIdentifier {
   EDIT_FF_TARGETGROUP = 'ff_targetgroup_edit',
 
   // GITOPS
-  ADD_NEW_PROVIDER = 'ff_add_new_provider'
+  ADD_NEW_PROVIDER = 'ff_add_new_provider',
+  
+  // Dashboard Permissions
+  VIEW_DASHBOARD = 'core_dashboards_view',
+  EDIT_DASHBOARD = 'core_dashboards_edit'
 }

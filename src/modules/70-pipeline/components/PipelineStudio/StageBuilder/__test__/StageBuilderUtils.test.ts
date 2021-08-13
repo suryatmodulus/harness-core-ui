@@ -79,7 +79,7 @@ describe('StageBuilderUtils tests', () => {
       initialPipelineMock.stages = initialPipelineMock.stages.filter(stage => stage.stage.type !== 'CI')
       const finalPipelineMock = cloneDeep(initialPipelineMock as any)
       delete finalPipelineMock.properties
-      expect(mayBeStripCIProps(initialPipelineMock)).toEqual(true)
+      expect(mayBeStripCIProps(initialPipelineMock as any)).toEqual(true)
       expect(initialPipelineMock).toEqual(finalPipelineMock)
     })
   })

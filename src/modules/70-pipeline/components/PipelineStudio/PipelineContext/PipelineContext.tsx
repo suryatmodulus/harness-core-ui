@@ -4,12 +4,7 @@ import { isEqual, cloneDeep, pick, isNil, isEmpty, omit } from 'lodash-es'
 import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uicore'
 import merge from 'lodash-es/merge'
-import type {
-  PipelineInfoConfig,
-  StageElementConfig,
-  StageElementWrapper,
-  StageElementWrapperConfig
-} from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import type { PermissionCheck } from 'services/rbac'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -33,6 +28,7 @@ import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -43,7 +39,8 @@ import {
   PipelineReducer,
   PipelineViewData,
   DrawerTypes,
-  SelectionState
+  SelectionState,
+  TemplateViewData
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
@@ -172,11 +169,12 @@ export interface PipelineContextInterface {
   updatePipeline: (pipeline: PipelineInfoConfig) => Promise<void>
   updateGitDetails: (gitDetails: EntityGitDetails) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
+  updateTemplateView: (data: TemplateViewData) => void
   deletePipelineCache: () => Promise<void>
-  getStageFromPipeline: (
+  getStageFromPipeline<T extends StageElementConfig = StageElementConfig>(
     stageId: string,
-    pipeline?: PipelineInfoConfig
-  ) => { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined }
+    pipeline?: PipelineInfoConfig | StageElementWrapperConfig
+  ): PipelineStageWrapper<T>
   runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: PipelineInfoConfig) => void
   updateStage: (stage: StageElementConfig) => Promise<void>
@@ -498,6 +496,10 @@ const _deletePipelineCache = async (
       gitDetails.branch || ''
     )
     await IdbPipeline.delete(IdbPipelineStoreName, id)
+  }
+
+  // due to async operation, IdbPipeline may be undefined
+  if (IdbPipeline) {
     const defaultId = getId(
       queryParams.accountIdentifier,
       queryParams.orgIdentifier || '',
@@ -524,6 +526,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   renderPipelineStage: () => <div />,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
+  updateTemplateView: () => undefined,
   updateStage: () => new Promise<void>(() => undefined),
   getStageFromPipeline: () => ({ stage: undefined, parent: undefined }),
   setYamlHandler: () => undefined,
@@ -628,6 +631,10 @@ export const PipelineProvider: React.FC<{
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
 
+  const updateTemplateView = React.useCallback((data: TemplateViewData) => {
+    dispatch(PipelineContextActions.updateTemplateView({ templateView: data }))
+  }, [])
+
   // stage/step selection
   const queryParamStateSelection = usePipelineQuestParamState()
   const setSelection = (selectedState: PipelineSelectionState) => {
@@ -660,7 +667,10 @@ export const PipelineProvider: React.FC<{
   }, [queryParamStateSelection.stepId, queryParamStateSelection.stageId])
 
   const getStageFromPipeline = React.useCallback(
-    (stageId: string, pipeline?: PipelineInfoConfig) => {
+    <T extends StageElementConfig = StageElementConfig>(
+      stageId: string,
+      pipeline?: PipelineInfoConfig
+    ): PipelineStageWrapper<T> => {
       const localPipeline = pipeline || state.pipeline
       return _getStageFromPipeline(stageId, localPipeline)
     },
@@ -688,9 +698,8 @@ export const PipelineProvider: React.FC<{
             return { stage: newStage }
           } else if (node.parallel) {
             return {
-              parallel: _updateStages(node.parallel as unknown as StageElementWrapperConfig[])
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            } as any
+              parallel: _updateStages(node.parallel)
+            }
           }
 
           return node
@@ -761,6 +770,7 @@ export const PipelineProvider: React.FC<{
         updatePipeline,
         updateStage,
         updatePipelineView,
+        updateTemplateView,
         pipelineSaved,
         deletePipelineCache,
         isReadonly,

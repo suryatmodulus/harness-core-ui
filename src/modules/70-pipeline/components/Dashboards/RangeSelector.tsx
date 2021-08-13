@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { MenuItem } from '@blueprintjs/core'
 import { SelectV2, SelectOption, Text, Container } from '@wings-software/uicore'
 import styles from './RangeSelector.module.scss'
 
@@ -24,6 +25,9 @@ export default function RangeSelector({ defaultOption = rangeOptions[0], onRange
       className={styles.rangeSelector}
       items={rangeOptions}
       filterable={false}
+      itemRenderer={(item, { handleClick }) => {
+        return <MenuItem text={item.label} onClick={handleClick} key={item.label} />
+      }}
       onChange={opt => {
         setOption(opt)
         const now = Date.now()

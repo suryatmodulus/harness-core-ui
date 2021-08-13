@@ -161,13 +161,12 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
       } else {
         values.bucketName = specValues?.bucketName
       }
-
       return values
     }
     return {
       identifier: '',
       bucketName: '',
-      region: { label: '', value: '' },
+      region: '',
       folderPath: '',
       helmVersion: 'V2',
       chartName: '',
@@ -231,6 +230,8 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
           folderPath: Yup.string().trim().required(getString('pipeline.manifestType.chartPathRequired')),
           chartName: Yup.string().trim().required(getString('pipeline.manifestType.http.chartNameRequired')),
           helmVersion: Yup.string().trim().required(getString('pipeline.manifestType.helmVersionRequired')),
+          region: Yup.string().trim().required(getString('pipeline.artifactsSelection.validation.region')),
+          bucketName: Yup.string().trim().required(getString('pipeline.manifestType.bucketNameRequired')),
           commandFlags: Yup.array().of(
             Yup.object().shape({
               flag: Yup.string().when('commandType', {
@@ -245,7 +246,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier
@@ -286,7 +287,6 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                         }
                       }
                     }}
-                    isOptional={true}
                     label={getString('regionLabel')}
                   />
 
@@ -312,8 +312,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                   <div
                     className={cx(helmcss.halfWidth, {
                       [helmcss.runtimeInput]:
-                        getMultiTypeFromValue(formik.values?.region) !== MultiTypeInputType.RUNTIME ||
-                        getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
+                        getMultiTypeFromValue(formik.values?.bucketName) === MultiTypeInputType.RUNTIME
                     })}
                   >
                     <FormInput.MultiTextInput
@@ -346,15 +345,14 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                     <FormInput.MultiTypeInput
                       selectItems={buckets}
                       label={getString('pipeline.manifestType.bucketName')}
-                      placeholder={getString('pipeline.manifestType.bucketNamePlaceholder')}
+                      placeholder={getString('pipeline.manifestType.bucketPlaceHolder')}
                       name="bucketName"
-                      isOptional={true}
                       multiTypeInputProps={{
                         expressions,
                         selectProps: {
                           noResults: (
                             <Text lineClamp={1}>
-                              {get(error, 'data.message', null) || getString('pipelineSteps.deploy.errors.notags')}
+                              {get(error, 'data.message', null) || getString('pipeline.noBuckets')}
                             </Text>
                           ),
                           itemRenderer: itemRenderer,
@@ -362,7 +360,9 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                           allowCreatingNewItems: true
                         },
                         onFocus: () => {
-                          fetchBucket((formik.values?.region as any).value ?? formik.values?.region)
+                          if (!bucketData?.data && (formik.values?.region || (formik.values?.region as any).value)) {
+                            fetchBucket((formik.values?.region as any).value ?? formik.values?.region)
+                          }
                         }
                       }}
                     />
@@ -392,7 +392,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                 >
                   <FormInput.MultiTextInput
                     label={getString('chartPath')}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
                     name="folderPath"
                     multiTextInputProps={{ expressions }}
                   />
@@ -451,6 +451,7 @@ const HelmWithS3: React.FC<StepProps<ConnectorConfigDTO> & HelmWithHttpPropType>
                     multiTextInputProps={{ expressions }}
                     label={getString('pipeline.manifestType.http.chartVersion')}
                     placeholder={getString('pipeline.manifestType.http.chartVersionPlaceHolder')}
+                    isOptional
                   />
                   {getMultiTypeFromValue(formik.values?.chartVersion) === MultiTypeInputType.RUNTIME && (
                     <ConfigureOptions

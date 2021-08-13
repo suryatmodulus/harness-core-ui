@@ -21,7 +21,7 @@ jest.mock('services/cd-ng', () => ({
 
 describe('Verification step for out of cluster delegate', () => {
   test('render VerifyOutOfClusterDelegate for K8s in edit screen', async () => {
-    const { container, getByText } = render(
+    const { container, findByText } = render(
       <MemoryRouter>
         <TestWrapper>
           <VerifyOutOfClusterDelegate
@@ -34,7 +34,7 @@ describe('Verification step for out of cluster delegate', () => {
       </MemoryRouter>
     )
 
-    await waitFor(() => expect(getByText('connectors.testConnectionStep.validationText.k8s')).not.toBeNull())
+    await waitFor(() => expect(findByText('connectors.testConnectionStep.placeholderErrors')).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   }),

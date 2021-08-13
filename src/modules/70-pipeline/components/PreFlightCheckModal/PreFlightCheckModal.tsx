@@ -7,7 +7,7 @@ import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 import { Accordion, Button, Color, Container, Layout, Popover, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
   ConnectorCheckResponse,
   PipelineInputResponse,
@@ -437,7 +437,6 @@ const PreFlightCheckFooter: React.FC<PreFlightCheckFooter> = ({
   onRetryButtonClick
 }) => {
   const { getString } = useStrings()
-
   // If the check is complete
   if (preFlightCheckData?.status === 'SUCCESS' || preFlightCheckData?.status === 'FAILURE') {
     return (
@@ -481,7 +480,7 @@ const HeadLine: React.FC<HeadLineProps> = ({ errorCount }) => {
 export const POLL_INTERVAL = 3 /* sec */ * 1000 /* ms */
 
 export interface PreFlightCheckModalProps {
-  pipeline?: NgPipeline
+  pipeline?: PipelineInfoConfig
   module: Module
   accountId: string
   orgIdentifier: string

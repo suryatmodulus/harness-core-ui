@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, Button, Layout } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import { useHistory, useParams } from 'react-router-dom'
-
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { useStrings } from 'framework/strings'
@@ -135,7 +135,7 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
   }
   return (
     <Container>
-      <PageHeader title={getString('createSecretYAML.createSecret')} />
+      <PageHeader breadcrumbs={<NGBreadcrumbs />} title={getString('createSecretYAML.newSecret')} />
       <Container padding="xlarge">
         <YAMLBuilder
           fileName={getString('createSecretYAML.newSecret')}
@@ -146,7 +146,6 @@ const CreateSecretFromYamlPage: React.FC<{ mockSchemaData?: UseGetMockData<Respo
           onSnippetCopy={onSnippetCopy}
           snippetFetchResponse={snippetFetchResponse}
           snippets={snippetData?.data?.yamlSnippets}
-          showSnippetSection={false}
         />
         <Layout.Horizontal spacing="large">
           <Button

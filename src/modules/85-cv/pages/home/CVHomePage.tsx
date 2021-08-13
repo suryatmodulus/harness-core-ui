@@ -13,7 +13,7 @@ const CVHomePage: React.FC = () => {
 
   return (
     <HomePageTemplate
-      title={getString('cv.continuous')}
+      title={getString('common.changeIntelligence')}
       bgImageUrl={bgImageURL}
       subTitle={getString('cv.dashboard.subHeading')}
       documentText={getString('cv.learnMore')}

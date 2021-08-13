@@ -18,7 +18,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         class="cell sortable"
         colspan="1"
         role="columnheader"
-        style="width: 15%;"
+        style="width: 30%;"
         title="Toggle SortBy"
       >
         name
@@ -46,65 +46,9 @@ exports[`HealthSource table check delete and edit row 1`] = `
         class="cell sortable"
         colspan="1"
         role="columnheader"
-        style="width: 15%;"
+        style="width: 35%;"
       >
         typeLabel
-      </div>
-      <div
-        class="cell sortable"
-        colspan="1"
-        role="columnheader"
-        style="width: 15%;"
-        title="Toggle SortBy"
-      >
-        source
-        <span
-          class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-          icon="double-caret-vertical"
-        >
-          <svg
-            data-icon="double-caret-vertical"
-            height="15"
-            viewBox="0 0 16 16"
-            width="15"
-          >
-            <desc>
-              double-caret-vertical
-            </desc>
-            <path
-              d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-      </div>
-      <div
-        class="cell sortable"
-        colspan="1"
-        role="columnheader"
-        style="width: 20%;"
-        title="Toggle SortBy"
-      >
-        cv.healthSource.table.environmentMapping
-        <span
-          class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
-          icon="double-caret-vertical"
-        >
-          <svg
-            data-icon="double-caret-vertical"
-            height="15"
-            viewBox="0 0 16 16"
-            width="15"
-          >
-            <desc>
-              double-caret-vertical
-            </desc>
-            <path
-              d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
       </div>
       <div
         class="cell sortable"
@@ -113,7 +57,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
         style="width: 35%;"
         title="Toggle SortBy"
       >
-        cv.healthSource.table.serviceMapping
+        source
         <span
           class="bp3-icon bp3-icon-double-caret-vertical StyledProps--main StyledProps--padding-left-small"
           icon="double-caret-vertical"
@@ -145,34 +89,37 @@ exports[`HealthSource table check delete and edit row 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 30%;"
         >
           dasdsadasd
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 35%;"
         >
-          
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipeline.verification.analysisTab.metrics
+          </p>
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 35%;"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main sourceTypeIcon"
               data-icon="service-appdynamics"
             >
               <svg
-                height="16"
+                height="22"
                 viewBox="0 0 40 40"
-                width="16"
+                width="22"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
@@ -186,29 +133,6 @@ exports[`HealthSource table check delete and edit row 1`] = `
                 />
               </svg>
             </span>
-            AppDynamics
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          TestDemo101
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 35%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              TestDemo
-            </p>
             <div
               class="context-menu-mock-edit"
             />
@@ -225,34 +149,37 @@ exports[`HealthSource table check delete and edit row 1`] = `
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 30%;"
         >
           AppD 101
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 35%;"
         >
-          
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipeline.verification.analysisTab.metrics
+          </p>
         </div>
         <div
           class="cell"
           role="cell"
-          style="width: 15%;"
+          style="width: 35%;"
         >
-          <p
-            class="StyledProps--font StyledProps--main"
-            style="display: flex; align-items: center;"
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
           >
             <span
-              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              class="bp3-icon StyledProps--main sourceTypeIcon"
               data-icon="service-appdynamics"
             >
               <svg
-                height="16"
+                height="22"
                 viewBox="0 0 40 40"
-                width="16"
+                width="22"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
               >
@@ -266,29 +193,6 @@ exports[`HealthSource table check delete and edit row 1`] = `
                 />
               </svg>
             </span>
-            AppDynamics
-          </p>
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 20%;"
-        >
-          TestDemo101
-        </div>
-        <div
-          class="cell"
-          role="cell"
-          style="width: 35%;"
-        >
-          <div
-            class="StyledProps--font StyledProps--main StyledProps--flex"
-          >
-            <p
-              class="StyledProps--font StyledProps--main"
-            >
-              TestDemo
-            </p>
             <div
               class="context-menu-mock-edit"
             />

@@ -2,25 +2,17 @@ import type { TagInputProps } from '@wings-software/uicore'
 import type { ITagInputProps, IInputGroupProps } from '@blueprintjs/core'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import type { FormikProps } from 'formik'
-import type { tagsType } from '@common/utils/types'
 
 export interface DescriptionProps {
   placeholder?: string
   isOptional?: boolean
   disabled?: boolean
 }
-
-export interface FormikForNameIdDescriptionTags {
-  name?: string
-  identifier?: string
-  description?: string
-  tags?: tagsType
-}
-
 export interface DescriptionComponentProps {
   descriptionProps?: DescriptionProps
   hasValue?: boolean
   disabled?: boolean
+  dataTooltipId?: string
 }
 
 export interface TagsProps {
@@ -31,6 +23,7 @@ export interface TagsComponentProps {
   tagsProps?: Partial<ITagInputProps>
   hasValue?: boolean
   isOptional?: boolean
+  dataTooltipId?: string
 }
 
 export interface TagsDeprecatedComponentProps {
@@ -41,7 +34,7 @@ export interface NameIdDescriptionTagsDeprecatedProps<T> {
   identifierProps?: Omit<InputWithIdentifierProps, 'formik'>
   descriptionProps?: DescriptionProps
   tagInputProps?: TagInputProps<T>
-  formikProps: FormikProps<FormikForNameIdDescriptionTags>
+  formikProps: FormikProps<any>
   className?: string
 }
 
@@ -50,5 +43,5 @@ export interface NameIdDescriptionProps {
   inputGroupProps?: IInputGroupProps
   descriptionProps?: DescriptionProps
   className?: string
-  formikProps: Omit<FormikProps<FormikForNameIdDescriptionTags>, 'tags'>
+  formikProps: Omit<FormikProps<any>, 'tags'>
 }

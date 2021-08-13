@@ -6,15 +6,15 @@ import routes from '@common/RouteDefinitions'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { RouteWithLayout } from '@common/router'
-import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
 import { MinimalLayout } from '@common/layouts'
 import SessionToken from 'framework/utils/SessionToken'
 
 import CESideNav from '@ce/components/CESideNav/CESideNav'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { ModuleName } from 'framework/types/ModuleName'
 import { getConfig } from 'services/config'
+import { LicenseRedirectProps, LICENSE_STATE_NAMES } from 'framework/LicenseStore/LicenseStoreContext'
 import CEHomePage from './pages/home/CEHomePage'
 import CEDashboardPage from './pages/dashboard/CEDashboardPage'
 import CECODashboardPage from './pages/co-dashboard/CECODashboardPage'
@@ -29,33 +29,55 @@ import RecommendationDetailsPage from './pages/recommendationDetails/Recommendat
 import PerspectiveDetailsPage from './pages/perspective-details/PerspectiveDetailsPage'
 import CreatePerspectivePage from './pages/perspective-builder/CreatePerspectivePage'
 import PerspectiveListPage from './pages/perspective-list/PerspectiveListPage'
-
-const RedirectToCEHome = (): React.ReactElement => {
-  const params = useParams<AccountPathProps>()
-
-  return <Redirect to={routes.toCEHome(params)} />
-}
-const RedirectToCEProject = (): React.ReactElement => {
-  const params = useParams<ProjectPathProps>()
-  const { selectedProject } = useAppStore()
-
-  if (selectedProject?.modules?.includes(ModuleName.CD)) {
-    return <Redirect to={routes.toCECODashboard(params)} />
-  } else {
-    return <Redirect to={routes.toCDHome(params)} />
-  }
-}
+import WorkloadDetailsPage from './pages/workload-details/WorkloadDetailsPage'
+import OverviewPage from './pages/overview/OverviewPage'
 
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Efficiency',
+  subtitle: 'CLOUD COST',
+  title: 'Management',
   icon: 'ce-main'
+}
+
+const RedirectToModuleTrialHome = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toModuleTrialHome({
+        accountId,
+        module: 'ce'
+      })}
+    />
+  )
+}
+
+const RedirectToSubscriptions = (): React.ReactElement => {
+  const { accountId } = useParams<{
+    accountId: string
+  }>()
+
+  return (
+    <Redirect
+      to={routes.toSubscriptions({
+        accountId,
+        moduleCard: ModuleName.CE.toLowerCase() as Module
+      })}
+    />
+  )
+}
+
+const licenseRedirectData: LicenseRedirectProps = {
+  licenseStateName: LICENSE_STATE_NAMES.CCM_LICENSE_STATE,
+  startTrialRedirect: RedirectToModuleTrialHome,
+  expiredTrialRedirect: RedirectToSubscriptions
 }
 
 const CERoutes: React.FC = () => {
   const token = SessionToken.getToken()
-  const accountId = SessionToken.accountId()
+  const { accountId } = useParams<AccountPathProps>()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
@@ -68,10 +90,11 @@ const CERoutes: React.FC = () => {
   }, [token])
 
   const urqlClient = React.useCallback(() => {
-    let url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
-    if (url.startsWith('/')) {
-      url = url.substr(1)
-    }
+    const url = getConfig(`ccm/api/graphql?accountIdentifier=${accountId}&routingId=${accountId}`)
+
+    // if (url.startsWith('/')) {
+    //   url = url.substr(1)
+    // }
     return createClient({
       url: url,
       fetchOptions: () => {
@@ -80,26 +103,31 @@ const CERoutes: React.FC = () => {
       exchanges: [dedupExchange, requestPolicyExchange({}), cacheExchange, fetchExchange],
       requestPolicy: 'cache-first'
     })
-  }, [token])
+  }, [token, accountId])
 
   return (
     <Provider value={urqlClient()}>
       <Switch>
-        <Route path={routes.toCE({ ...accountPathProps })} exact>
-          <RedirectToCEHome />
-        </Route>
-        <Route path={routes.toCEProject({ ...accountPathProps, ...projectPathProps })} exact>
-          <RedirectToCEProject />
-        </Route>
-        <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEHome({ ...accountPathProps })} exact>
-          <CEHomePage />
-        </RouteWithLayout>
         <RouteWithLayout
           layout={MinimalLayout}
           path={routes.toModuleTrialHome({ ...accountPathProps, module: 'ce' })}
           exact
         >
           <CETrialHomePage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          path={routes.toCEHome({ ...accountPathProps })}
+          exact
+        >
+          <CEHomePage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEOverview({ ...accountPathProps, ...projectPathProps })}
+        >
+          <OverviewPage />
         </RouteWithLayout>
         <RouteWithLayout
           sidebarProps={CESideNavProps}
@@ -109,13 +137,7 @@ const CERoutes: React.FC = () => {
           <CEDashboardPage />
         </RouteWithLayout>
         <RouteWithLayout
-          sidebarProps={CESideNavProps}
-          path={routes.toCECODashboard({ ...accountPathProps, ...projectPathProps })}
-          exact
-        >
-          <CEHomePage />
-        </RouteWithLayout>
-        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCECORules({ ...accountPathProps, ...projectPathProps })}
           exact
@@ -123,6 +145,7 @@ const CERoutes: React.FC = () => {
           <CECODashboardPage />
         </RouteWithLayout>
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCECOCreateGateway({ ...accountPathProps, ...projectPathProps })}
           exact
@@ -130,6 +153,7 @@ const CERoutes: React.FC = () => {
           <CECOCreateGatewayPage />
         </RouteWithLayout>
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCECOEditGateway({
             ...accountPathProps,
@@ -141,6 +165,7 @@ const CERoutes: React.FC = () => {
           <CECOEditGatewayPage />
         </RouteWithLayout>
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCECOAccessPoints({ ...accountPathProps, ...projectPathProps })}
           exact
@@ -148,11 +173,17 @@ const CERoutes: React.FC = () => {
           <CECOLoadBalancersPage />
         </RouteWithLayout>
 
-        <RouteWithLayout sidebarProps={CESideNavProps} path={routes.toCEBudgets({ ...accountPathProps })} exact>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEBudgets({ ...accountPathProps })}
+          exact
+        >
           <Budgets />
         </RouteWithLayout>
 
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCERecommendations({ ...accountPathProps, ...projectPathProps })}
           exact
@@ -160,10 +191,12 @@ const CERoutes: React.FC = () => {
           <RecommendationList />
         </RouteWithLayout>
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCERecommendationDetails({
             ...accountPathProps,
             ...projectPathProps,
+            recommendationName: ':recommendationName',
             recommendation: ':recommendation'
           })}
           exact
@@ -171,6 +204,7 @@ const CERoutes: React.FC = () => {
           <RecommendationDetailsPage />
         </RouteWithLayout>
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toPerspectiveDetails({
             ...accountPathProps,
@@ -183,6 +217,7 @@ const CERoutes: React.FC = () => {
         </RouteWithLayout>
 
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCECreatePerspective({
             ...accountPathProps,
@@ -193,6 +228,7 @@ const CERoutes: React.FC = () => {
           <CreatePerspectivePage />
         </RouteWithLayout>
         <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
           sidebarProps={CESideNavProps}
           path={routes.toCEPerspectives({
             ...accountPathProps
@@ -200,6 +236,44 @@ const CERoutes: React.FC = () => {
           exact
         >
           <PerspectiveListPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEPerspectiveWorkloadDetails({
+            ...accountPathProps,
+            perspectiveId: ':perspectiveId',
+            perspectiveName: ':perspectiveName',
+            clusterName: ':clusterName',
+            namespace: ':namespace',
+            workloadName: ':workloadName'
+          })}
+          exact
+        >
+          <WorkloadDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCERecommendationWorkloadDetails({
+            ...accountPathProps,
+            recommendation: ':recommendation',
+            recommendationName: ':recommendationName',
+            clusterName: ':clusterName',
+            namespace: ':namespace',
+            workloadName: ':workloadName'
+          })}
+          exact
+        >
+          <WorkloadDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEOverview({ ...accountPathProps })}
+          exact
+        >
+          <OverviewPage />
         </RouteWithLayout>
         <Route path="*">
           <NotFoundPage />

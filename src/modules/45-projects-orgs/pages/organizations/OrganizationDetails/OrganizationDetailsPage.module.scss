@@ -25,3 +25,22 @@
 .pageHeight {
   max-height: calc(100vh - 144px) !important;
 }
+
+.accessControl {
+  background-color: var(--lime-50);
+}
+
+.projectsCard {
+  box-shadow: var(--card-shadow);
+  width: 750px;
+  padding: var(--spacing-xxlarge) !important;
+}
+
+.projectCount {
+  font-size: var(--font-size-xlarge) !important;
+}
+
+.createBtn {
+  max-height: 40px !important;
+  height: 40px !important;
+}

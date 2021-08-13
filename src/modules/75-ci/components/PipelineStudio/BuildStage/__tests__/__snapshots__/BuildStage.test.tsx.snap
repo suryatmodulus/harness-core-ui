@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuildStage matches snapshot 1`] = `
+<div>
+  <div />
+</div>
+`;
+
+exports[`BuildStage matches snapshot when minimal="true" 1`] = `
+<div>
+  <div />
+</div>
+`;

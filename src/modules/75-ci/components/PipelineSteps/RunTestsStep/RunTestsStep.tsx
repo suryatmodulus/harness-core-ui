@@ -17,6 +17,7 @@ import type {
   MultiTypeMapUIType,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { RunTestsStepBaseWithRef } from './RunTestsStepBase'
 import { RunTestsStepInputSet } from './RunTestsStepInputSet'
 import { RunTestsStepVariables, RunTestsStepVariablesProps } from './RunTestsStepVariables'
@@ -41,8 +42,8 @@ export interface RunTestsStepSpec {
   }
   envVariables?: MultiTypeMapType
   outputVariables?: MultiTypeListType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypePullOption
+  imagePullPolicy?: MultiTypeSelectOption
+  runAsUser?: string
   resources?: Resources
 }
 
@@ -66,8 +67,9 @@ export interface RunTestsStepSpecUI
   reportPaths?: MultiTypeListUIType
   envVariables?: MultiTypeMapUIType
   outputVariables?: MultiTypeListUIType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypeSelectOption
+  imagePullPolicy?: MultiTypeSelectOption
+  shell?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
@@ -96,6 +98,7 @@ export class RunTestsStep extends PipelineStep<RunTestsStepData> {
   protected type = StepType.RunTests
   protected stepName = 'Configure Run Tests Step'
   protected stepIcon: IconName = 'run-tests-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.RunTests'
   protected stepPaletteVisible = false
 
   protected defaultValues: RunTestsStepData = {

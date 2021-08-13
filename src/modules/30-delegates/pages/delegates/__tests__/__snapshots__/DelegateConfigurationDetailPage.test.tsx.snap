@@ -13,7 +13,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/home/setup/delegates"
+          href="/account/dummy/settings/resources/delegates"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegates
@@ -22,7 +22,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
           /
         </span>
         <a
-          href="/account/dummy/home/setup/delegates?tab=configurations"
+          href="/account/dummy/settings/resources/delegates?tab=configurations"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegatesConfigurations
@@ -130,6 +130,16 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
+                delegates.delegateIdentifier
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
                 description
               </p>
               <div
@@ -192,22 +202,10 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
             >
               delegate.Scope
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 14px; color: rgb(34, 39, 45); line-height: 24px; font-weight: 500;"
-            >
-              delegate.ScopeDescription
-            </p>
             <div
               class="StyledProps--font StyledProps--main"
               style="height: 100%;"
             >
-              <h2
-                class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-large"
-                level="2"
-              >
-                delegate.Scope
-              </h2>
               <h3
                 class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xxlarge"
                 level="3"
@@ -247,7 +245,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -289,7 +287,7 @@ exports[`Delegates Profile Detail Render and click Edit 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -337,7 +335,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
         class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
       >
         <a
-          href="/account/dummy/home/setup/delegates"
+          href="/account/dummy/settings/resources/delegates"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegates
@@ -346,7 +344,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
           /
         </span>
         <a
-          href="/account/dummy/home/setup/delegates?tab=configurations"
+          href="/account/dummy/settings/resources/delegates?tab=configurations"
           style="color: rgb(0, 146, 228); font-size: 12px;"
         >
           delegate.delegatesConfigurations
@@ -447,6 +445,16 @@ exports[`Delegates Profile Detail initial render 1`] = `
                 class="StyledProps--font StyledProps--main"
                 style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
               >
+                delegates.delegateIdentifier
+              </p>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main entry"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+                style="font-size: 12px; line-height: 16px; letter-spacing: 0.2px;"
+              >
                 description
               </p>
               <p
@@ -467,22 +475,10 @@ exports[`Delegates Profile Detail initial render 1`] = `
             >
               delegate.Scope
             </p>
-            <p
-              class="StyledProps--font StyledProps--main"
-              style="font-size: 14px; color: rgb(34, 39, 45); line-height: 24px; font-weight: 500;"
-            >
-              delegate.ScopeDescription
-            </p>
             <div
               class="StyledProps--font StyledProps--main"
               style="height: 100%;"
             >
-              <h2
-                class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--margin-bottom-large"
-                level="2"
-              >
-                delegate.Scope
-              </h2>
               <h3
                 class="StyledProps--font StyledProps--font-h3 StyledProps--main StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-xxlarge"
                 level="3"
@@ -523,7 +519,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>
@@ -566,7 +562,7 @@ exports[`Delegates Profile Detail initial render 1`] = `
                           <input
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             disabled=""
-                            placeholder="delegates.newDelegateConfigWizard.specEnvNotPossible"
+                            placeholder="- delegates.newDelegateConfigWizard.specEnvNotPossible -"
                             value=""
                           />
                         </div>

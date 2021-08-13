@@ -101,7 +101,8 @@ export const calculateGroupHeaderDepth = <T>(items: Array<ExecutionPipelineNode<
 export const getNodeStyles = (
   isSelected: boolean,
   status: ExecutionStatus,
-  type: ExecutionPipelineNodeType
+  type: ExecutionPipelineNodeType,
+  nodeHasBorder: boolean
 ): React.CSSProperties => {
   const style = {} as React.CSSProperties
 
@@ -129,9 +130,8 @@ export const getNodeStyles = (
       case ExecutionStatusEnum.InterventionWaiting:
       case ExecutionStatusEnum.ApprovalWaiting:
       case ExecutionStatusEnum.ResourceWaiting:
-        style.backgroundColor = isSelected
-          ? 'var(--execution-pipeline-color-blue)'
-          : 'var(--execution-pipeline-color-orange)'
+        style.borderColor = 'var(--execution-pipeline-color-orange2)'
+        style.backgroundColor = isSelected ? 'var(--execution-pipeline-color-orange)' : 'var(--white)'
         break
       case ExecutionStatusEnum.NotStarted:
         style.borderColor = 'var(--execution-pipeline-color-dark-grey)'
@@ -155,6 +155,10 @@ export const getNodeStyles = (
       default:
         break
     }
+  }
+
+  if (!nodeHasBorder) {
+    style.borderWidth = '0px'
   }
 
   return style
@@ -277,9 +281,10 @@ export const getStatusProps = (
         break
       case ExecutionStatusEnum.Failed:
         secondaryIcon = 'execution-warning'
-        secondaryIconProps.size = 20
+        secondaryIconProps.size = 18
         secondaryIconStyle.color = 'var(--execution-pipeline-color-dark-red)'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        secondaryIconStyle.paddingBottom = `2px`
         break
       case ExecutionStatusEnum.ResourceWaiting:
         secondaryIcon = 'execution-warning'
@@ -296,15 +301,28 @@ export const getStatusProps = (
       case ExecutionStatusEnum.AsyncWaiting:
       case ExecutionStatusEnum.TaskWaiting:
       case ExecutionStatusEnum.TimedWaiting:
-        secondaryIconProps.color = Color.WHITE
-        break
-      case ExecutionStatusEnum.Aborted:
-        secondaryIcon = 'circle-cross'
-        secondaryIconStyle.animation = `${css.fadeIn} 1s`
-        secondaryIconStyle.color = 'var(--red-600)'
-        secondaryIconStyle.backgroundColor = 'var(--white)'
+        secondaryIcon = 'spinner'
+        secondaryIconStyle.animation = `${css.rotate} 2s`
+        secondaryIconStyle.color = 'var(--white)'
+        secondaryIconStyle.backgroundColor = 'var(--primary-7)'
         secondaryIconStyle.borderRadius = '50%'
         secondaryIconStyle.height = 'fit-content'
+        secondaryIconStyle.padding = '1px'
+        secondaryIconStyle.boxShadow = '0px 0px 0px 0.6px rgba(255,255,255,1)'
+        secondaryIconProps.size = 13
+        break
+      case ExecutionStatusEnum.Aborted:
+        secondaryIcon = 'stop'
+        secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        secondaryIconStyle.color = 'var(--grey-700)'
+        secondaryIconStyle.backgroundColor = 'var(--white)'
+        secondaryIconStyle.borderRadius = '50%'
+        secondaryIconStyle.border = '1px solid var(--grey-700)'
+        secondaryIconStyle.height = 'fit-content'
+        secondaryIconStyle.padding = '3px'
+        secondaryIconStyle.boxShadow = '0px 0px 0px 0.6px rgba(255,255,255,1)'
+        secondaryIconProps.size = 8
+
         break
       case ExecutionStatusEnum.Expired:
         secondaryIcon = 'execution-abort'
@@ -316,6 +334,18 @@ export const getStatusProps = (
         secondaryIcon = 'execution-input'
         secondaryIconStyle.animation = `${css.fadeIn} 1s`
         secondaryIconStyle.color = 'var(--execution-pipeline-color-orange)'
+        break
+      case ExecutionStatusEnum.ApprovalWaiting:
+      case ExecutionStatusEnum.InterventionWaiting:
+        secondaryIcon = 'waiting'
+        secondaryIconStyle.animation = `${css.fadeIn} 1s`
+        secondaryIconStyle.color = 'var(--white)'
+        secondaryIconStyle.backgroundColor = 'var(--execution-pipeline-color-orange2)'
+        secondaryIconStyle.borderRadius = '50%'
+        secondaryIconStyle.height = 'fit-content'
+        secondaryIconStyle.padding = '2px'
+        secondaryIconProps.size = 12
+        secondaryIconStyle.boxShadow = '0px 0px 0px 0.6px rgba(255,255,255,1)'
         break
       default:
         break
@@ -369,7 +399,6 @@ export interface GroupState<T> {
   group?: ExecutionPipelineGroupInfo<T>
   collapsed: boolean
   name: string
-  showInLabel: boolean
   status: ExecutionStatus
   identifier: string
 }
@@ -386,7 +415,6 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
         name: node.group.name,
         status: node.group.status,
         identifier: node.group.identifier,
-        showInLabel: node.group.showInLabel ?? true,
         data: node.group.data,
         group: node.group
       })
@@ -399,7 +427,6 @@ export const getGroupsFromData = <T>(items: Array<ExecutionPipelineNode<T>>): Ma
         collapsed: false,
         name: node.item.name,
         status: node.item.status,
-        showInLabel: node.item.showInLabel,
         identifier: node.item.identifier,
         data: node.item.data
       })

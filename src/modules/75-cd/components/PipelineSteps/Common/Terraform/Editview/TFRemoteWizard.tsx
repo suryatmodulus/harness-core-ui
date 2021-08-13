@@ -22,7 +22,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
 
-import { PathInterface, RemoteVar, TerraformStoreTypes } from '../TerraformInterfaces'
+import { Connector, PathInterface, RemoteVar, TerraformStoreTypes } from '../TerraformInterfaces'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 import css from './TerraformVarfile.module.scss'
@@ -49,6 +49,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
             store: {
               spec: {
                 gitFetchType: prevStepData?.varFile?.spec?.store?.spec?.gitFetchType,
+
                 branch: prevStepData?.varFile?.spec?.store?.spec?.branch,
                 commitId: prevStepData?.varFile?.spec?.store?.spec?.commitId,
                 paths:
@@ -70,6 +71,7 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
             store: {
               spec: {
                 gitFetchType: 'Branch',
+                repoName: '',
                 branch: '',
                 commitId: '',
                 paths: [{ id: uuid(), path: '' }]
@@ -129,6 +131,10 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
     },
     []
   )
+  const connectorValue = prevStepData?.varFile?.spec?.store?.spec?.connectorRef as Connector
+
+  const connectionType =
+    connectorValue?.connector?.spec?.connectionType === 'Account' || connectorValue?.connector?.spec?.type === 'Account'
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" className={css.tfVarStore}>
@@ -214,6 +220,33 @@ export const TFRemoteWizard: React.FC<StepProps<any> & TFRemoteProps> = ({
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Text name="varFile.identifier" label={getString('identifier')} />
                 </div>
+
+                {connectionType && (
+                  <div className={cx(stepCss.formGroup, stepCss.md)}>
+                    <FormInput.MultiTextInput
+                      label={getString('pipelineSteps.repoName')}
+                      name="varFile.spec.store.spec.repoName"
+                      placeholder={getString('pipelineSteps.repoName')}
+                      multiTextInputProps={{ expressions }}
+                    />
+                    {getMultiTypeFromValue(formik.values?.varFile?.spec?.store?.spec?.repoName) ===
+                      MultiTypeInputType.RUNTIME && (
+                      <ConfigureOptions
+                        style={{ alignSelf: 'center' }}
+                        value={formik.values?.varFile?.spec?.store?.spec?.repoName as string}
+                        type="String"
+                        variableName="varFile.spec.store.spec.repoName"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={value =>
+                          /* istanbul ignore next */
+                          formik.setFieldValue('varFile.spec.store.spec.repoName', value)
+                        }
+                      />
+                    )}
+                  </div>
+                )}
                 <div className={cx(stepCss.formGroup, stepCss.md)}>
                   <FormInput.Select
                     items={gitFetchTypes}

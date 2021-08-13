@@ -8,35 +8,45 @@
           "resourceType": "WORKLOAD",
           "resourceName": "resource-1",
           "monthlyCost": 49.82,
-          "monthlySaving": 19.08
+          "monthlySaving": 19.08,
+          "namespace": "namespace",
+          "clusterName": "clusterName"
         },
         {
           "id": "2",
           "resourceType": "WORKLOAD",
           "resourceName": "resource-2",
           "monthlyCost": 49.82,
-          "monthlySaving": 19.08
+          "monthlySaving": 19.08,
+          "namespace": "namespace1",
+          "clusterName": "clusterName1"
         },
         {
           "id": "3",
           "resourceType": "WORKLOAD",
           "resourceName": "resource-3",
           "monthlyCost": 35.34,
-          "monthlySaving": 18.79
+          "monthlySaving": 18.79,
+          "namespace": "namespace2",
+          "clusterName": "clusterName2"
         },
         {
           "id": "4",
           "resourceType": "WORKLOAD",
           "resourceName": "resource-4",
           "monthlyCost": 35.34,
-          "monthlySaving": 18.79
+          "monthlySaving": 18.79,
+          "namespace": "namespace3",
+          "clusterName": "clusterName3"
         },
         {
           "id": "5",
           "resourceType": "WORKLOAD",
           "resourceName": "resource-5",
           "monthlyCost": 35.34,
-          "monthlySaving": 18.79
+          "monthlySaving": 18.79,
+          "namespace": "namespace4",
+          "clusterName": "clusterName4"
         }
       ]
     }

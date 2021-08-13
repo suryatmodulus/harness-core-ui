@@ -1,0 +1,182 @@
+.gcpConnector {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  line-height: 18px;
+  :global {
+    span[data-icon='service-azure'] {
+      svg > g {
+        fill: white;
+      }
+    }
+  }
+
+  :global(.bp3-popover-target) {
+    padding-bottom: 2px;
+    margin-left: var(--spacing-xsmall) !important;
+    margin-top: 0 !important;
+  }
+
+  [class*='TextInput--main'] {
+    margin-bottom: 0 !important;
+  }
+
+  .stepContainer {
+    height: 100%;
+    position: relative;
+    padding: var(--spacing-medium) !important;
+    :global {
+      .OverlaySpinner--overlaySpinner {
+        height: 100%;
+      }
+    }
+  }
+
+  .header {
+    color: var(--grey-800) !important;
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    margin-bottom: var(--spacing-xxlarge) !important;
+
+    span {
+      font-weight: lighter;
+      color: var(--grey-700);
+    }
+  }
+
+  .subHeader {
+    font-size: small;
+    line-height: 20px;
+  }
+
+  .info {
+    margin-bottom: var(--spacing-xlarge) !important;
+  }
+
+  .subHeader,
+  .dataFields,
+  .launchTemplateSection,
+  .launchTemplateBut {
+    margin-bottom: var(--spacing-xxlarge) !important;
+  }
+
+  .dataFields {
+    [class*='InputWithIdentifier--txtIdContainer'] > p {
+      font-size: var(--font-size-small) !important;
+      color: var(--grey-800);
+    }
+    margin-bottom: var(--spacing-large) !important;
+  }
+
+  .dataFields,
+  .launchTemplateSection {
+    width: 65%;
+  }
+
+  .submitBtn {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    max-width: 150px;
+  }
+
+  .main {
+    margin-bottom: var(--spacing-medium) !important;
+  }
+
+  .infobox {
+    padding: var(--spacing-medium) var(--spacing-large) !important;
+    background-color: var(--primary-1) !important;
+    color: var(--grey-800) !important;
+    line-height: var(--spacing-large) !important;
+  }
+
+  .launchTemplateBut {
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16) !important;
+    border-radius: 8px;
+    border: 1px solid var(--primary-7) !important;
+    width: 65%;
+  }
+
+  .bigQueryPage {
+    padding-left: 10px;
+    width: 200px;
+    font-size: var(--font-size-small) !important;
+    line-height: 16px !important;
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16) !important;
+    border-radius: 8px;
+    border: 1px solid #0278d5 !important;
+  }
+
+  .connectorExistBox {
+    margin: var(--spacing-xlarge) 0 var(--spacing-medium) 0;
+    border-left: 4px solid var(--red-700);
+    padding: var(--spacing-large);
+    background: var(--red-50);
+    color: var(--grey-1000);
+    border-radius: 5px;
+  }
+
+  .buttonPanel {
+    position: absolute;
+    max-width: 500px;
+    left: 0;
+    bottom: 0;
+  }
+
+  .grantPermissionSteps {
+    font-size: 13px;
+    line-height: 28px;
+    padding-left: 15 !important;
+  }
+
+  .commandsContainer {
+    background: var(--primary-1) !important;
+    padding: var(--spacing-xsmall) !important;
+
+    .command {
+      display: grid;
+      grid-template-columns: 1fr 20px;
+      align-items: center;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      font-size: small !important;
+      color: var(--grey-800);
+      margin: var(--spacing-xsmall) 0 0 0;
+      padding-right: var(--spacing-medium);
+      padding-left: var(--spacing-medium);
+    }
+  }
+}
+
+.extention {
+  font-size: small !important;
+
+  .prereq {
+    color: var(--grey-800) !important;
+    font-style: italic !important;
+  }
+
+  ul,
+  ol {
+    font-size: small;
+    color: var(--grey-700);
+    padding-left: 15px !important;
+
+    li {
+      line-height: 26px;
+      p {
+        font-size: small;
+        color: var(--grey-700);
+      }
+    }
+  }
+
+  .gray {
+    color: var(--grey-800);
+    font-weight: 700;
+    font-family: 'Roboto Mono';
+  }
+}

@@ -5,6 +5,7 @@ import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/
 import type { ResponseBoolean } from 'services/cd-ng'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import {
   mockResponse,
   userGroupsAggregate,
@@ -81,7 +82,7 @@ describe('UsersPage Test', () => {
 
   beforeEach(async () => {
     const renderObj = render(
-      <TestWrapper path="/account/:accountId/admin/access-control/user-groups" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper path={routes.toUserGroups({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
         <UserGroupsPage />
       </TestWrapper>
     )

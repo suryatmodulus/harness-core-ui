@@ -105,7 +105,7 @@ describe('Unit tests for Metric Analysis view', () => {
     expect(container.querySelector('[class*="noDataCard"]')).not.toBeNull()
 
     // switch from non anomalous to anomalous view
-    const caretDown = container.querySelector('[data-icon="caret-down"]')
+    const caretDown = container.querySelector('[data-icon="chevron-down"]')
     if (!caretDown) {
       throw Error('Select is not rendered.')
     }
@@ -155,7 +155,7 @@ describe('Unit tests for Metric Analysis view', () => {
     await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
 
     // switch from non anomalous to anomalous view
-    const caretDown = container.querySelector('[data-icon="caret-down"]')
+    const caretDown = container.querySelector('[data-icon="chevron-down"]')
     if (!caretDown) {
       throw Error('Select is not rendered.')
     }
@@ -213,7 +213,7 @@ describe('Unit tests for Metric Analysis view', () => {
     await waitFor(() => expect(container.querySelector('[class*="highcharts"]')).not.toBeNull())
 
     // switch from non anomalous to anomalous view
-    const caretDown = container.querySelector('[data-icon="caret-down"]')
+    const caretDown = container.querySelector('[data-icon="chevron-down"]')
     if (!caretDown) {
       throw Error('Select is not rendered.')
     }

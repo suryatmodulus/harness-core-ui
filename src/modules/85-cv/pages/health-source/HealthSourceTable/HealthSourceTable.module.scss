@@ -48,3 +48,13 @@
     text-decoration: underline;
   }
 }
+
+.sourceTypeIcon {
+  margin-left: var(--spacing-large) !important;
+}
+
+.tableLoader {
+  display: flex;
+  justify-content: center;
+  margin: var(--spacing-xxxlarge) !important;
+}

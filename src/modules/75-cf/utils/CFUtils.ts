@@ -360,3 +360,8 @@ export const rewriteCurrentLocationWithActiveEnvironment = (activeEnvironment: E
         .join('&')
   )
 }
+
+export enum CFEntityType {
+  TARGET = 'target',
+  TARGET_GROUP = 'segment'
+}

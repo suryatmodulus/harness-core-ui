@@ -12,13 +12,15 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  FormError
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import * as Yup from 'yup'
 import { useStrings } from 'framework/strings'
 import { ConfigureOptions, ConfigureOptionsProps } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { errorCheck } from '@common/utils/formikHelpers'
+import css from './MultiTypeDuration.module.scss'
 
 export function isValidTimeString(value: string): boolean {
   return !DurationInputHelpers.UNIT_LESS_REGEX.test(value) && DurationInputHelpers.VALID_SYNTAX_REGEX.test(value)
@@ -82,7 +84,7 @@ export function MultiTypeDuration(props: MultiTypeDurationProps): React.ReactEle
   return (
     <>
       {enableConfigureOptions ? (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className={css.container}>
           {expressionAndRuntimeTypeComponent}
           {getMultiTypeFromValue(value) === MultiTypeInputType.RUNTIME && (
             <ConfigureOptions
@@ -115,16 +117,29 @@ export interface FormMultiTypeDurationProps extends Omit<IFormGroupProps, 'label
   multiTypeDurationProps?: Omit<MultiTypeDurationProps, 'name' | 'onChange' | 'value'>
   onChange?: MultiTypeDurationProps['onChange']
   tooltipProps?: DataTooltipInterface
+  isOptional?: boolean
 }
 
 export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.ReactElement {
-  const { label, multiTypeDurationProps, formik, name, onChange, skipErrorsIf, ...restProps } = props
+  const {
+    label,
+    multiTypeDurationProps,
+    formik,
+    name,
+    onChange,
+    skipErrorsIf,
+    isOptional = false,
+    ...restProps
+  } = props
+  const { getString } = useStrings()
+  const optionalLabel = getString('common.optionalLabel')
+  const labelText = !isOptional ? label : `${label} ${optionalLabel}`
   const hideErrors = typeof skipErrorsIf === 'function' ? skipErrorsIf(formik) : false
   const hasError = !hideErrors && errorCheck(name, formik)
 
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? <FormError errorMessage={get(formik?.errors, name)} /> : null,
     disabled,
     tooltipProps,
     ...rest
@@ -175,7 +190,9 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
       helperText={helperText}
       intent={intent}
       disabled={disabled}
-      label={label ? <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={label} /> : label}
+      label={
+        labelText ? <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={labelText} /> : labelText
+      }
     >
       <MultiTypeDuration {...customProps} value={value} onChange={handleChange} disabled={disabled} />
     </FormGroup>
@@ -265,7 +282,7 @@ export function DurationInputForInputSet(props: ConnectedDurationInputForInputSe
 
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? <FormError errorMessage={get(formik?.errors, name)} /> : null,
     disabled,
     ...rest
   } = restProps

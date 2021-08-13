@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, Color, Container } from '@wings-software/uicore'
+import { ExpandingSearchInput, Text, Icon, Layout, Color, Container, Heading } from '@wings-software/uicore'
 import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy, isEmpty } from 'lodash-es'
 import cx from 'classnames'
@@ -16,9 +16,10 @@ import {
 } from 'services/pipeline-ng'
 import { useStrings } from 'framework/strings'
 import { StageType } from '@pipeline/utils/stageHelpers'
+import { StepPopover } from '@pipeline/components/PipelineStudio/StepPalette/StepPopover/StepPopover'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
-import { iconMap, iconMapByName } from './iconMap'
+import { iconMapByName } from './iconMap'
 // TODO: Mock API
 import featureStageSteps from './mock/featureStageSteps.json'
 import buildStageStepsWithRunTestsStep from './mock/buildStageStepsWithRunTestsStep.json'
@@ -53,6 +54,7 @@ const useGetFeatureSteps = (props: UseGetStepsProps) => {
       base: getConfig('ng/api'),
       ...props,
       mock: {
+        loading: false,
         data: featureStageSteps as unknown as ResponseStepCategory
       }
     }
@@ -107,7 +109,6 @@ export interface StepPaletteProps {
 }
 export const StepPalette: React.FC<StepPaletteProps> = ({
   onSelect,
-  onClose,
   selectedStage,
   stepsFactory,
   stageType,
@@ -149,10 +150,6 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
       setOriginalCategories(stepsCategories)
     }
   }, [stepsData?.data?.stepCategories])
-
-  const renderIcon = () => {
-    return <Icon size={8} name="harness" className={css.stepHarnessLogo} />
-  }
 
   const filterSteps = (stepName: string, context = FilterContext.NAV): void => {
     const filteredData: StepCategory[] = []
@@ -217,19 +214,20 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
     <div className={css.stepPalette}>
       <div className={css.stepInside}>
         <section className={css.stepsRenderer}>
-          <Layout.Vertical padding="large" spacing="large">
+          <Layout.Vertical padding="xlarge" spacing="large">
             <Layout.Horizontal spacing="medium" className={css.paletteCardHeader}>
               <Layout.Vertical>
-                <Text className={css.title}>{getString('stepPalette.title')}</Text>
-                <Text className={css.subTitle}>{getString('stepPalette.subTitle')}</Text>
+                <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }} className={css.title}>
+                  {getString('stepPalette.title')}
+                </Heading>
               </Layout.Vertical>
 
-              <div className={css.expandSearch}>
-                <ExpandingSearchInput
-                  throttle={200}
-                  onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
-                />
-              </div>
+              <ExpandingSearchInput
+                flip
+                width={200}
+                throttle={200}
+                onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
+              />
             </Layout.Horizontal>
 
             <Message stepsDataLoading={stepsDataLoading} />
@@ -252,32 +250,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                         }
                       }}
                     >
-                      {stepsFactory.getStep(stepData.type || /* istanbul ignore next */ '') ? (
-                        <Card interactive={true} elevation={0} selected={false} className={css.paletteCard}>
-                          {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && renderIcon()}
-                          <Icon
-                            name={stepsFactory.getStepIcon(stepData.type || /* istanbul ignore next */ '')}
-                            className={css.paletteIcon}
-                            size={25}
-                          />
-                        </Card>
-                      ) : (
-                        <Card
-                          interactive={false}
-                          elevation={0}
-                          selected={false}
-                          disabled
-                          className={css.paletteCard}
-                          onClick={e => e.stopPropagation()}
-                        >
-                          {stepsFactory.getStepIsHarnessSpecific(stepData.type || '') && renderIcon()}
-                          <Icon
-                            name={iconMap[stepData.name || /* istanbul ignore next */ '']}
-                            className={css.paletteIcon}
-                            size={25}
-                          />
-                        </Card>
-                      )}
+                      <StepPopover stepData={stepData} stepsFactory={stepsFactory} />
                       <section className={css.stepName}>{stepData.name}</section>
                     </section>
                   )
@@ -286,48 +259,23 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
 
               if (stepCategory?.stepCategories && stepCategory.stepCategories.length > 0) {
                 stepCategory.stepCategories.forEach((subStepData: StepCategory, j) => {
-                  subStepData?.stepsData?.map((step: StepData) => {
+                  subStepData?.stepsData?.map((stepData: StepData) => {
                     categorySteps.push(
                       <section
                         className={css.step}
-                        key={`${step.name}-${j}`}
+                        key={`${stepData.name}-${j}`}
                         onClick={() => {
-                          /* istanbul ignore else */ if (step.type !== 'Placeholder') {
+                          /* istanbul ignore else */ if (stepData.type !== 'Placeholder') {
                             onSelect({
-                              name: step.name || /* istanbul ignore next */ '',
-                              type: step.type || /* istanbul ignore next */ '',
-                              icon: stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')
+                              name: stepData.name || /* istanbul ignore next */ '',
+                              type: stepData.type || /* istanbul ignore next */ '',
+                              icon: stepsFactory.getStepIcon(stepData.type || '')
                             })
                           }
                         }}
                       >
-                        {stepsFactory.getStep(step.type || /* istanbul ignore next */ '') ? (
-                          <Card interactive={true} elevation={0} selected={false} className={css.paletteCard}>
-                            {stepsFactory.getStepIsHarnessSpecific(step.type || '') && renderIcon()}
-                            <Icon
-                              name={stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')}
-                              className={css.paletteIcon}
-                              size={25}
-                            />
-                          </Card>
-                        ) : (
-                          <Card
-                            interactive={false}
-                            elevation={0}
-                            selected={false}
-                            disabled
-                            onClick={e => e.stopPropagation()}
-                            className={css.paletteCard}
-                          >
-                            {stepsFactory.getStepIsHarnessSpecific(step.type || '') && renderIcon()}
-                            <Icon
-                              name={iconMap[step.name || /* istanbul ignore next */ '']}
-                              className={css.paletteIcon}
-                              size={25}
-                            />
-                          </Card>
-                        )}
-                        <section className={css.stepName}>{step.name}</section>
+                        <StepPopover stepData={stepData} stepsFactory={stepsFactory} />
+                        <section className={css.stepName}>{stepData.name}</section>
                       </section>
                     )
                   })
@@ -352,8 +300,6 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                   {getString('stepPalette.library')}
                 </Text>
               </Container>
-
-              <Button intent="primary" minimal icon="cross" onClick={onClose} color={Color.WHITE} withoutBoxShadow />
             </Layout.Horizontal>
 
             <section
@@ -396,7 +342,11 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                   const subCategory = category.stepCategories
                   stepRenderer.push(
                     <section
-                      className={cx(css.category, selectedCategory === category.name && css.active)}
+                      className={cx(
+                        css.category,
+                        selectedCategory === category.name && css.active,
+                        subCategory.length && css.hasSubCategories
+                      )}
                       onClick={() => {
                         filterSteps(category.name || '')
                       }}
@@ -417,7 +367,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                           css.category,
                           css.subCategory,
                           css.offset,
-                          selectedCategory === subCat.name && css.active
+                          selectedCategory === subCat.name && css.active,
+                          k === subCategory.length - 1 && css.lastSubCategory
                         )}
                         onClick={() => {
                           filterSteps(subCat.name || /* istanbul ignore next */ '')

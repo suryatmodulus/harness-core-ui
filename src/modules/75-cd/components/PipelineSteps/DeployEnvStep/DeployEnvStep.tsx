@@ -9,14 +9,15 @@ import {
   MultiTypeInputType,
   SelectOption,
   useModalHook,
-  Text,
-  CardSelect,
-  Container
+  Container,
+  ThumbnailSelect,
+  Label,
+  FormikForm
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog, FormGroup, Intent } from '@blueprintjs/core'
+import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
@@ -24,6 +25,7 @@ import {
   PipelineInfrastructure,
   EnvironmentResponseDTO,
   useGetEnvironmentList,
+  useGetEnvironmentAccessList,
   getEnvironmentListPromise,
   useCreateEnvironmentV2,
   useUpsertEnvironmentV2
@@ -38,7 +40,6 @@ import type { PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useToaster } from '@common/exports'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 
-import { errorCheck } from '@common/utils/formikHelpers'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 
@@ -127,13 +128,13 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   React.useEffect(() => {
     inputRef.current?.focus()
   }, [])
-  const typeList: { text: string; value: EnvironmentResponseDTO['type'] }[] = [
+  const typeList: { label: string; value: string }[] = [
     {
-      text: getString('production'),
+      label: getString('production'),
       value: 'Production'
     },
     {
-      text: getString('nonProduction'),
+      label: getString('nonProduction'),
       value: 'PreProduction'
     }
   ]
@@ -176,32 +177,10 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
                 isIdentifierEditable: !isEdit
               }}
             />
-            <FormGroup
-              style={{ marginBottom: 'var(--spacing-medium)' }}
-              helperText={errorCheck('type', formikProps) ? get(formikProps?.errors, 'type') : null}
-              intent={errorCheck('type', formikProps) ? Intent.DANGER : Intent.NONE}
-              label={getString('envType')}
-              labelFor="type"
-            >
-              <CardSelect
-                cornerSelected={true}
-                data={typeList}
-                className={css.grid}
-                onChange={item => {
-                  formikProps.setFieldValue('type', item.value)
-                }}
-                renderItem={(item, _) => (
-                  <Layout.Vertical spacing="large" flex={{ align: 'center-center' }}>
-                    <Text font={{ align: 'center' }} style={{ fontSize: 12 }}>
-                      {item.text}
-                    </Text>
-                  </Layout.Vertical>
-                )}
-                selected={typeList[typeList.findIndex(card => card.value == formikProps.values.type)]}
-              >
-                {}
-              </CardSelect>
-            </FormGroup>
+            <Layout.Vertical spacing={'small'} style={{ marginBottom: 'var(--spacing-medium)' }}>
+              <Label style={{ fontSize: 13, fontWeight: 'normal' }}>{getString('envType')}</Label>
+              <ThumbnailSelect className={css.thumbnailSelect} name={'type'} items={typeList} />
+            </Layout.Vertical>
             <Container padding={{ top: 'xlarge' }}>
               <Button
                 data-id="environment-save"
@@ -278,6 +257,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     isEnvironment: false,
     data: { name: '', identifier: '' }
   })
+
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -323,11 +303,23 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           })
         })
       }
-      const identifier = initialValues.environment?.identifier
-      const isExist = envList.filter(env => env.value === identifier).length > 0
-      if (initialValues.environment && identifier && !isExist) {
-        const value = { label: initialValues.environment.name || '', value: initialValues.environment.identifier || '' }
-        envList.push(value)
+      if (initialValues.environmentRef) {
+        if (getMultiTypeFromValue(initialValues.environmentRef) === MultiTypeInputType.FIXED) {
+          const doesExist = envList.filter(env => env.value === initialValues.environmentRef).length > 0
+          if (!doesExist) {
+            formikRef.current?.setFieldValue('environmentRef', '')
+          }
+        }
+      } else {
+        const identifier = initialValues.environment?.identifier
+        const isExist = envList.filter(env => env.value === identifier).length > 0
+        if (initialValues.environment && identifier && !isExist) {
+          const value = {
+            label: initialValues.environment.name || '',
+            value: initialValues.environment.identifier || ''
+          }
+          envList.push(value)
+        }
       }
       setEnvironments(envList)
     }
@@ -372,6 +364,10 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
     return () => unSubscribeForm({ tab: DeployTabs.INFRASTRUCTURE, form: formikRef })
   }, [])
 
+  const environmentRef = initialValues?.environment?.identifier || initialValues?.environmentRef
+
+  const [type, setType] = React.useState<MultiTypeInputType>(getMultiTypeFromValue(environmentRef))
+
   return (
     <>
       <Formik<DeployEnvData>
@@ -386,7 +382,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
         }}
         initialValues={{
           ...initialValues,
-          ...{ environmentRef: initialValues?.environment?.identifier || initialValues?.environmentRef }
+          ...{ environmentRef }
         }}
         validationSchema={Yup.object().shape({
           environmentRef: Yup.string().trim().required(getString('pipelineSteps.environmentTab.environmentIsRequired'))
@@ -397,75 +393,78 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           formikRef.current = formik
           const { values, setFieldValue } = formik
           return (
-            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-              <FormInput.MultiTypeInput
-                label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
-                tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
-                name="environmentRef"
-                disabled={readonly}
-                useValue
-                placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
-                multiTypeInputProps={{
-                  width: 300,
-                  onChange: val => {
-                    if (
-                      values.environment?.identifier &&
-                      (val as SelectOption).value !== values.environment.identifier
-                    ) {
-                      setEnvironments(environments.filter(env => env.value !== values.environment?.identifier))
-                      setFieldValue('environment', undefined)
-                    }
-                  },
-                  selectProps: {
-                    addClearBtn: !readonly,
-                    items: environments
-                  },
-                  expressions
-                }}
-                selectItems={environments}
-              />
-              {getMultiTypeFromValue(values?.environmentRef) === MultiTypeInputType.FIXED && (
-                <Button
-                  minimal
-                  intent="primary"
-                  disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
-                  onClick={() => {
-                    const isEdit = isEditEnvironment(values)
-                    if (isEdit) {
-                      if (values.environment?.identifier) {
-                        setState({
-                          isEdit,
-                          formik,
-                          isEnvironment: true,
-                          data: values.environment
-                        })
+            <FormikForm>
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                <FormInput.MultiTypeInput
+                  label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
+                  tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
+                  name="environmentRef"
+                  disabled={readonly}
+                  useValue
+                  placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
+                  multiTypeInputProps={{
+                    onTypeChange: setType,
+                    width: 300,
+                    onChange: val => {
+                      if (
+                        values.environment?.identifier &&
+                        (val as SelectOption).value !== values.environment.identifier
+                      ) {
+                        setEnvironments(environments.filter(env => env.value !== values.environment?.identifier))
+                        setFieldValue('environment', undefined)
+                      }
+                    },
+                    selectProps: {
+                      addClearBtn: !readonly,
+                      items: environments
+                    },
+                    expressions
+                  }}
+                  selectItems={environments}
+                />
+                {type === MultiTypeInputType.FIXED && (
+                  <Button
+                    minimal
+                    intent="primary"
+                    disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
+                    onClick={() => {
+                      const isEdit = isEditEnvironment(values)
+                      if (isEdit) {
+                        if (values.environment?.identifier) {
+                          setState({
+                            isEdit,
+                            formik,
+                            isEnvironment: true,
+                            data: values.environment
+                          })
+                        } else {
+                          setState({
+                            isEdit,
+                            formik,
+                            isEnvironment: false,
+                            data: environmentsResponse?.data?.content?.filter(
+                              env => env.environment?.identifier === values.environmentRef
+                            )?.[0]?.environment as EnvironmentResponseDTO
+                          })
+                        }
                       } else {
                         setState({
-                          isEdit,
-                          formik,
+                          isEdit: false,
                           isEnvironment: false,
-                          data: environmentsResponse?.data?.content?.filter(
-                            env => env.environment?.identifier === values.environmentRef
-                          )?.[0]?.environment as EnvironmentResponseDTO
+                          formik
                         })
                       }
-                    } else {
-                      setState({
-                        isEdit: false,
-                        isEnvironment: false,
-                        formik
-                      })
+                      showModal()
+                    }}
+                    text={
+                      isEditEnvironment(values)
+                        ? getString('editEnvironment')
+                        : getString('pipelineSteps.environmentTab.newEnvironment')
                     }
-                    showModal()
-                  }}
-                  text={
-                    isEditEnvironment(values)
-                      ? getString('editEnvironment')
-                      : getString('pipelineSteps.environmentTab.newEnvironment')
-                  }
-                />
-              )}
-            </Layout.Horizontal>
+                  />
+                )}
+              </Layout.Horizontal>
+            </FormikForm>
           )
         }}
       </Formik>
@@ -499,7 +498,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
     data: environmentsResponse,
     error,
     refetch
-  } = useGetEnvironmentList({
+  } = useGetEnvironmentAccessList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -547,15 +546,15 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
   }, [hideModal])
 
   React.useEffect(() => {
-    if (environmentsResponse?.data?.content?.length) {
+    if (environmentsResponse?.data?.length) {
       setEnvironments(
-        environmentsResponse.data.content.map(env => ({
+        environmentsResponse.data.map(env => ({
           label: env.environment?.name || env.environment?.identifier || '',
           value: env.environment?.identifier || ''
         }))
       )
     }
-  }, [environmentsResponse, environmentsResponse?.data?.content?.length])
+  }, [environmentsResponse, environmentsResponse?.data?.length])
   const [canEdit] = usePermission({
     resource: {
       resourceType: ResourceType.ENVIRONMENT,
@@ -609,7 +608,7 @@ const DeployEnvironmentInputStep: React.FC<DeployEnvironmentProps & { formik?: a
                   setState({
                     isEdit,
                     isEnvironment: false,
-                    data: environmentsResponse?.data?.content?.filter(
+                    data: environmentsResponse?.data?.filter(
                       env => env.environment?.identifier === initialValues.environmentRef
                     )?.[0]?.environment as EnvironmentResponseDTO
                   })

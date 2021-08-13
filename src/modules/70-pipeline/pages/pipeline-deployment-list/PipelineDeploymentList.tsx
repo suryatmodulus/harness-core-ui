@@ -4,6 +4,7 @@ import { Text, Icon, OverlaySpinner, Container, Layout, Color } from '@wings-sof
 
 import { useGetListOfExecutions, useGetFilterList, GetListOfExecutionsQueryParams } from 'services/pipeline-ng'
 import { String, useStrings } from 'framework/strings'
+import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { Page, StringUtils } from '@common/exports'
 import { useQueryParams, useMutateAsGet, useUpdateQueryParams } from '@common/hooks'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
@@ -53,6 +54,7 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         sort: [],
         status: params.status as QuickStatusParam,
         myDeployments: !!params.myDeployments,
+        searchTerm: params.searchTerm,
         filters,
         repoIdentifier: params.repoIdentifier,
         branch: params.branch
@@ -61,9 +63,10 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   })
   const { replaceQueryParams } = useUpdateQueryParams<Partial<GetListOfExecutionsQueryParams>>()
 
-  const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch } = queryParams
+  const { page, filterIdentifier, myDeployments, status, repoIdentifier, branch, searchTerm } = queryParams
   const hasFilters =
-    [queryParams.pipelineIdentifier, status, filterIdentifier].some(filter => filter !== undefined) || myDeployments
+    [queryParams.pipelineIdentifier, status, filterIdentifier, searchTerm].some(filter => filter !== undefined) ||
+    myDeployments
 
   const isCIModule = module === 'ci'
   const { getString } = useStrings()
@@ -88,7 +91,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       myDeployments,
       status,
       repoIdentifier,
-      branch
+      branch,
+      searchTerm
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
@@ -143,81 +147,87 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   }
 
   return (
-    <Page.Body
-      className={css.main}
-      key={pipelineIdentifier}
-      error={(error?.data as Error)?.message || error?.message}
-      retryOnError={() => fetchExecutions()}
-    >
-      {props.showHealthAndExecution && (
-        <Container className={css.healthAndExecutions}>
-          <PipelineSummaryCards />
-          <PipelineBuildExecutionsChart />
-        </Container>
-      )}
-
-      <FilterContextProvider
-        savedFilters={filters}
-        isFetchingFilters={isFetchingFilters}
-        refetchFilters={refetchFilters}
-        queryParams={queryParams}
+    <GitSyncStoreProvider>
+      <Page.Body
+        className={css.main}
+        key={pipelineIdentifier}
+        error={(error?.data as Error)?.message || error?.message}
+        retryOnError={() => fetchExecutions()}
       >
-        {(!!pipelineExecutionSummary?.content?.length || hasFilters) && (
-          <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} />
+        {props.showHealthAndExecution && (
+          <Container className={css.healthAndExecutions}>
+            <PipelineSummaryCards />
+            <PipelineBuildExecutionsChart />
+          </Container>
         )}
-        {loading && !pollingRequest ? (
-          <OverlaySpinner show={true} className={css.loading}>
-            <div />
-          </OverlaySpinner>
-        ) : !pipelineExecutionSummary?.content?.length ? (
-          <div className={css.noDeploymentSection}>
-            {hasFilters ? (
-              <Layout.Vertical spacing="small" flex>
-                <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
-                <Text
-                  margin={{ top: 'large', bottom: 'small' }}
-                  font={{ weight: 'bold', size: 'medium' }}
-                  color={Color.GREY_800}
-                >
-                  {getString('common.filters.noMatchingFilterData')}
-                </Text>
-                <String stringID="common.filters.clearFilters" className={css.clearFilterText} onClick={clearFilters} />
-              </Layout.Vertical>
-            ) : (
-              <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
-                <img src={isCIModule ? buildIllustrations : deploymentIllustrations} className={css.image} />
 
-                <Text className={css.noDeploymentText} margin={{ top: 'medium', bottom: 'small' }}>
-                  {getString(isCIModule ? 'pipeline.noBuildsText' : 'pipeline.noDeploymentText')}
-                </Text>
-                <Text className={css.aboutDeployment} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
-                  {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
-                </Text>
-                <RbacButton
-                  intent="primary"
-                  text={getString('pipeline.runAPipeline')}
-                  onClick={props.onRunPipeline}
-                  permission={{
-                    permission: PermissionIdentifier.EXECUTE_PIPELINE,
-                    resource: {
-                      resourceType: ResourceType.PIPELINE,
-                      resourceIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier
-                    },
-                    options: {
-                      skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
-                    }
-                  }}
-                />
-              </Layout.Vertical>
-            )}
-          </div>
-        ) : (
-          <React.Fragment>
-            <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary?.content} />
-            <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
-          </React.Fragment>
-        )}
-      </FilterContextProvider>
-    </Page.Body>
+        <FilterContextProvider
+          savedFilters={filters}
+          isFetchingFilters={isFetchingFilters}
+          refetchFilters={refetchFilters}
+          queryParams={queryParams}
+        >
+          {(!!pipelineExecutionSummary?.content?.length || hasFilters) && (
+            <PipelineDeploymentListHeader onRunPipeline={props.onRunPipeline} />
+          )}
+          {loading && !pollingRequest ? (
+            <OverlaySpinner show={true} className={css.loading}>
+              <div />
+            </OverlaySpinner>
+          ) : !pipelineExecutionSummary?.content?.length ? (
+            <div className={css.noDeploymentSection}>
+              {hasFilters ? (
+                <Layout.Vertical spacing="small" flex>
+                  <Icon size={50} name={isCIModule ? 'ci-main' : 'cd-hover'} margin={{ bottom: 'large' }} />
+                  <Text
+                    margin={{ top: 'large', bottom: 'small' }}
+                    font={{ weight: 'bold', size: 'medium' }}
+                    color={Color.GREY_800}
+                  >
+                    {getString('common.filters.noMatchingFilterData')}
+                  </Text>
+                  <String
+                    stringID="common.filters.clearFilters"
+                    className={css.clearFilterText}
+                    onClick={clearFilters}
+                  />
+                </Layout.Vertical>
+              ) : (
+                <Layout.Vertical spacing="small" flex={{ justifyContent: 'center', alignItems: 'center' }} width={720}>
+                  <img src={isCIModule ? buildIllustrations : deploymentIllustrations} className={css.image} />
+
+                  <Text className={css.noDeploymentText} margin={{ top: 'medium', bottom: 'small' }}>
+                    {getString(isCIModule ? 'pipeline.noBuildsText' : 'pipeline.noDeploymentText')}
+                  </Text>
+                  <Text className={css.aboutDeployment} margin={{ top: 'xsmall', bottom: 'xlarge' }}>
+                    {getString(isCIModule ? 'noBuildsText' : 'noDeploymentText')}
+                  </Text>
+                  <RbacButton
+                    intent="primary"
+                    text={getString('pipeline.runAPipeline')}
+                    onClick={props.onRunPipeline}
+                    permission={{
+                      permission: PermissionIdentifier.EXECUTE_PIPELINE,
+                      resource: {
+                        resourceType: ResourceType.PIPELINE,
+                        resourceIdentifier: pipelineIdentifier || queryParams.pipelineIdentifier
+                      },
+                      options: {
+                        skipCondition: ({ resourceIdentifier }) => !resourceIdentifier
+                      }
+                    }}
+                  />
+                </Layout.Vertical>
+              )}
+            </div>
+          ) : (
+            <React.Fragment>
+              <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary?.content} />
+              <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
+            </React.Fragment>
+          )}
+        </FilterContextProvider>
+      </Page.Body>
+    </GitSyncStoreProvider>
   )
 }

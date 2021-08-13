@@ -1,34 +1,32 @@
-import type { FormikErrors } from 'formik'
+import { FormikErrors, yupToFormErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import isEmpty from 'lodash-es/isEmpty'
+import * as Yup from 'yup'
 import set from 'lodash-es/set'
 import reduce from 'lodash-es/reduce'
 import isObject from 'lodash-es/isObject'
 import memoize from 'lodash-es/memoize'
 import get from 'lodash-es/get'
 import type {
-  NgPipeline,
   StageElementConfig,
-  StageElementWrapper,
   ExecutionWrapperConfig,
-  StepElement,
-  ExecutionWrapper,
   PipelineInfoConfig,
-  StageElementWrapperConfig,
   DeploymentStageConfig,
-  Infrastructure
+  Infrastructure,
+  StageElementWrapperConfig
 } from 'services/cd-ng'
 
 import type { UseStringsReturn } from 'framework/strings'
+import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 // eslint-disable-next-line no-restricted-imports
 import '@cd/components/PipelineSteps'
 // eslint-disable-next-line no-restricted-imports
 import '@ci/components/PipelineSteps'
-import type { StepViewType } from '../AbstractSteps/Step'
+import { StepViewType } from '../AbstractSteps/Step'
 
-export const clearRuntimeInput = (template: NgPipeline): NgPipeline => {
+export const clearRuntimeInput = (template: PipelineInfoConfig): PipelineInfoConfig => {
   return JSON.parse(
     JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
   )
@@ -42,7 +40,7 @@ export function getStepFromStage(stepId: string, steps?: ExecutionWrapperConfig[
     } else if (item.stepGroup?.identifier === stepId) {
       responseStep = item
     } else if (item.parallel) {
-      return (item.parallel as unknown as StepElement[]).forEach((node: ExecutionWrapper) => {
+      return item.parallel.forEach(node => {
         if (node.step?.identifier === stepId || node.stepGroup?.identifier === stepId) {
           responseStep = node
         }
@@ -62,7 +60,7 @@ export function getStageFromPipeline(
       if (item.stage && item.stage.identifier === stageId) {
         responseStage = item
       } else if (item.parallel) {
-        return (item.parallel as unknown as StageElementWrapperConfig[]).forEach(node => {
+        return item.parallel.forEach(node => {
           if (node.stage?.identifier === stageId) {
             responseStage = node
           }
@@ -104,13 +102,13 @@ const validateStep = ({
         set(errors, `steps[${index}].step`, errorResponse)
       }
     } else if (stepObj.parallel) {
-      ;(stepObj.parallel as unknown as StepElement[]).forEach((stepParallel, indexP) => {
+      stepObj.parallel.forEach((stepParallel, indexP) => {
         if (stepParallel.step) {
           const originalStep = getStepFromStage(stepParallel.step.identifier || '', originalSteps)
           const pipelineStep = factory.getStep(originalStep?.step?.type)
           const errorResponse = pipelineStep?.validateInputSet({
             data: stepParallel.step,
-            template: (template?.[index]?.parallel as unknown as StepElement[])?.[indexP]?.step,
+            template: template?.[index]?.parallel?.[indexP]?.step,
             getString,
             viewType
           })
@@ -153,7 +151,7 @@ const validateStep = ({
 
 interface ValidateStageProps {
   stage: StageElementConfig
-  template: StageElementConfig
+  template?: StageElementConfig
   viewType: StepViewType
   originalStage?: StageElementConfig
   getString?: UseStringsReturn['getString']
@@ -171,7 +169,7 @@ const validateStage = ({
   // Validation for infrastructure namespace
   // For CD spec is DeploymentStageConfig
   const stageConfig = stage.spec as DeploymentStageConfig | undefined
-  const templateStageConfig = template.spec as DeploymentStageConfig | undefined
+  const templateStageConfig = template?.spec as DeploymentStageConfig | undefined
   const originalStageConfig = originalStage?.spec as DeploymentStageConfig | undefined
   if (
     isEmpty((stageConfig?.infrastructure as Infrastructure)?.spec?.namespace) &&
@@ -289,10 +287,10 @@ const validateStage = ({
 }
 
 interface ValidatePipelineProps {
-  pipeline: NgPipeline
-  template: NgPipeline
+  pipeline: PipelineInfoConfig
+  template: PipelineInfoConfig
   viewType: StepViewType
-  originalPipeline?: NgPipeline
+  originalPipeline?: PipelineInfoConfig
   getString?: UseStringsReturn['getString']
   path?: string
 }
@@ -304,7 +302,7 @@ export const validatePipeline = ({
   viewType,
   getString,
   path
-}: ValidatePipelineProps): FormikErrors<NgPipeline> => {
+}: ValidatePipelineProps): FormikErrors<PipelineInfoConfig> => {
   const errors = {}
 
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
@@ -350,6 +348,27 @@ export const validatePipeline = ({
     }
   }
 
+  if (getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME) {
+    let timeoutSchema = getDurationValidationSchema({ minimum: '10s' })
+    if (viewType === StepViewType.DeploymentForm) {
+      timeoutSchema = timeoutSchema.required(getString?.('validation.timeout10SecMinimum'))
+    }
+    const timeout = Yup.object().shape({
+      timeout: timeoutSchema
+    })
+
+    try {
+      timeout.validateSync(pipeline)
+    } catch (e) {
+      /* istanbul ignore else */
+      if (e instanceof Yup.ValidationError) {
+        const err = yupToFormErrors(e)
+
+        Object.assign(errors, err)
+      }
+    }
+  }
+
   if (pipeline?.variables) {
     const step = factory.getStep(StepType.CustomVariable)
     const errorsResponse: any = step?.validateInputSet({ data: pipeline, template, getString, viewType })
@@ -373,7 +392,7 @@ export const validatePipeline = ({
       }
     }
     if (stageObj.parallel) {
-      stageObj.parallel.forEach((stageP: StageElementWrapper, indexP: number) => {
+      stageObj.parallel.forEach((stageP, indexP: number) => {
         if (stageP.stage) {
           const originalStage = getStageFromPipeline(stageP.stage.identifier, originalPipeline)
           const errorsResponse = validateStage({

@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Color, Container, Text } from '@wings-software/uicore'
+import { Container, Text } from '@wings-software/uicore'
 import moment from 'moment'
 import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
@@ -53,12 +53,8 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
   }, [deploymentSummary])
 
   const renderContent = () => {
-    if (deploymentSummary?.progressPercentage === 0) {
-      return (
-        <Text color={Color.BLACK} font={{ weight: 'bold', size: 'medium' }}>
-          {getString('pipeline.verification.waitForAnalysis')}
-        </Text>
-      )
+    if (deploymentSummary?.progressPercentage === 0 && deploymentSummary.status === 'IN_PROGRESS') {
+      return <Text className={css.waitAFew}>{getString('pipeline.verification.waitForAnalysis')}</Text>
     }
 
     if (deploymentNodesData) {

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { getIconBySourceType } from '../../admin/setup/SetupUtils'
+import { getIconBySourceType } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export interface DeploymentDrilldownViewHeaderProps {

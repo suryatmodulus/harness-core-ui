@@ -12,10 +12,7 @@ import {
   Text,
   Table,
   Color,
-  Tabs,
-  Tab,
   Button,
-  Switch,
   Icon,
   Card,
   useModalHook,
@@ -35,14 +32,12 @@ import COHelpSidebar from '@ce/components/COHelpSidebar/COHelpSidebar'
 import { Utils } from '@ce/common/Utils'
 import {
   ASGMinimal,
-  HealthCheck,
   PortConfig,
   Service,
   ServiceDep,
   useAllResourcesOfAccount,
   useGetAllASGs,
-  useGetServices,
-  useSecurityGroupsOfInstances
+  useGetServices
 } from 'services/lw'
 import { String, StringKeys, useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -51,9 +46,8 @@ import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils
 import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { Connectors } from '@connectors/constants'
 import { FeatureFlag } from '@common/featureFlags'
+import { DEFAULT_ACCESS_DETAILS } from '@ce/constants'
 import { ConnectorInfoDTO, ConnectorResponse, useGetConnectorListV2 } from 'services/cd-ng'
-import CORoutingTable from './CORoutingTable'
-import COHealthCheckTable from './COHealthCheckTable'
 import odIcon from './images/ondemandIcon.svg'
 import spotIcon from './images/spotIcon.svg'
 import CORuleDendencySelector from './CORuleDependencySelector'
@@ -61,8 +55,6 @@ import COGatewayConfigStep from './COGatewayConfigStep'
 import COAsgSelector from '../COAsgSelector'
 // import COFixedDrawer from '../COGatewayAccess/COFixedDrawer'
 import COK8sClusterSelector from '../COK8sClusterSelector/COK8sClusterSelector'
-import KubernetesRuleYamlEditor from './KubernetesRuleYamlEditor'
-import { getK8sIngressTemplate } from './GetK8sYamlSchema'
 import css from './COGatewayConfig.module.scss'
 
 interface COGatewayConfigProps {
@@ -93,10 +85,6 @@ const instanceTypeCardData: CardData[] = [
     providers: ['aws', 'azure']
   }
 ]
-const portProtocolMap: { [key: number]: string } = {
-  80: 'http',
-  443: 'https'
-}
 
 enum RESOURCES {
   INSTANCES = 'INSTANCES',
@@ -105,12 +93,13 @@ enum RESOURCES {
 }
 
 const managedResources = [
-  { label: 'Instances', value: RESOURCES.INSTANCES, providers: ['aws', 'azure'] },
+  { label: 'EC2 VM(s)', value: RESOURCES.INSTANCES, providers: ['aws'] },
+  { label: 'VM(s)', value: RESOURCES.INSTANCES, providers: ['azure'] },
   { label: 'Auto scaling groups', value: RESOURCES.ASG, providers: ['aws'] },
   {
     label: 'Kubernetes Cluster',
     value: RESOURCES.KUBERNETES,
-    providers: ['aws', 'azure'],
+    providers: ['aws'],
     ffDependencies: ['CE_AS_KUBERNETES_ENABLED']
   }
 ]
@@ -133,6 +122,11 @@ const CONFIG_STEP_IDS = ['configStep1', 'configStep2', 'configStep3', 'configSte
 const DEFAULT_TOTAL_STEP_COUNT = 4
 const MODIFIED_TOTAL_STEP_COUNT = 3
 
+const IDLE_TIME_CONSTRAINTS = {
+  MIN: 5,
+  MAX: 480
+}
+
 const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const { getString } = useStrings()
   const { trackEvent } = useTelemetry()
@@ -143,8 +137,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   const [selectedInstances, setSelectedInstances] = useState<InstanceDetails[]>(props.gatewayDetails.selectedInstances)
   const [filteredInstances, setFilteredInstances] = useState<InstanceDetails[]>([])
   const [allInstances, setAllInstances] = useState<InstanceDetails[]>([])
-  const [healthCheck, setHealthCheck] = useState<boolean>(props.gatewayDetails.healthCheck ? true : false)
-  const [healthCheckPattern, setHealthCheckPattern] = useState<HealthCheck | null>(props.gatewayDetails.healthCheck)
   const [gatewayName, setGatewayName] = useState<string>(props.gatewayDetails.name)
   const [idleTime, setIdleTime] = useState<number>(props.gatewayDetails.idleTimeMins)
   const [fullfilment, setFullfilment] = useState<string>(props.gatewayDetails.fullfilment)
@@ -154,7 +146,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   // const [usePrivateIP, setUsePrivateIP] = useState<boolean>(
   //   props.gatewayDetails.opts.alwaysUsePrivateIP ? props.gatewayDetails.opts.alwaysUsePrivateIP : false
   // )
-  const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
+  // const [routingRecords, setRoutingRecords] = useState<PortConfig[]>(props.gatewayDetails.routing.ports)
   const [serviceDependencies, setServiceDependencies] = useState<ServiceDep[]>(props.gatewayDetails.deps || [])
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false)
   const [totalStepsCount, setTotalStepsCount] = useState<number>(DEFAULT_TOTAL_STEP_COUNT)
@@ -165,7 +157,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       ? RESOURCES.INSTANCES
       : !_isEmpty(props.gatewayDetails.routing?.instance?.scale_group)
       ? RESOURCES.ASG
-      : !_isEmpty(props.gatewayDetails.routing?.k8s?.RuleJson)
+      : Utils.isK8sRule(props.gatewayDetails)
       ? RESOURCES.KUBERNETES
       : null
   )
@@ -176,7 +168,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   )
   const configContEl = useRef<HTMLDivElement>(null)
   const [activeDrawerIds, setActiveDrawerIds] = useState<string[]>([CONFIG_STEP_IDS[0], CONFIG_STEP_IDS[1]])
-  const [activeConfigTabId, setActiveConfigTabId] = useState<string | undefined>(props.activeStepDetails?.tabId)
   const [asgToShow, setAsgToShow] = useState<ASGMinimal[]>([])
   const [allAsg, setAllAsg] = useState<ASGMinimal[]>([])
   const [selectedAsg, setSelectedAsg] = useState<ASGMinimal | undefined>(
@@ -184,14 +175,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   )
 
   const [selectedConnector, setSelectedConnector] = useState<ConnectorResponse | undefined>()
-  const [yamlData, setYamlData] = useState<Record<any, any>>(
-    props.gatewayDetails.routing.k8s?.RuleJson ? JSON.parse(props.gatewayDetails.routing.k8s.RuleJson) : undefined
-  )
 
   const isK8sSelected = selectedResource === RESOURCES.KUBERNETES
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { showError, showSuccess } = useToaster()
+  const { accountId } = useParams<ProjectPathProps>()
+  const { showError } = useToaster()
   function TableCell(tableProps: CellProps<InstanceDetails>): JSX.Element {
     return (
       <Text lineClamp={3} color={Color.BLACK}>
@@ -224,8 +212,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   }
 
   const { mutate: getInstances, loading: loadingInstances } = useAllResourcesOfAccount({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -235,8 +221,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   })
 
   const { mutate: fetchAllASGs, loading: loadingFetchASGs } = useGetAllASGs({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
@@ -259,8 +243,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   })
 
   const { data: servicesData, error } = useGetServices({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -300,7 +283,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         />
       </Dialog>
     )
-  }, [filteredInstances, selectedInstances, loadingInstances])
+  }, [filteredInstances, selectedInstances, loadingInstances, props.gatewayDetails])
 
   const handleAsgSearch = (text: string) => {
     if (!text) {
@@ -324,6 +307,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
       (item.connector as ConnectorInfoDTO).name?.toLowerCase().includes(text)
     )
     setConnectorsToShow(filteredConnectors)
+  }
+
+  const setRoutingRecords = (records: PortConfig[]) => {
+    props.gatewayDetails.routing.ports = records
+    props.setGatewayDetails(props.gatewayDetails)
   }
 
   const [openAsgModal, closeAsgModal] = useModalHook(() => {
@@ -357,7 +345,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         />
       </Dialog>
     )
-  }, [allAsg, asgToShow, selectedAsg, loadingFetchASGs])
+  }, [allAsg, asgToShow, selectedAsg, loadingFetchASGs, props.gatewayDetails])
 
   const [openClusterModal, closeClusterModal] = useModalHook(() => {
     return (
@@ -392,7 +380,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         />
       </Dialog>
     )
-  }, [allConnectors, connectorsToShow, selectedConnector, loadingConnectors])
+  }, [allConnectors, connectorsToShow, selectedConnector, loadingConnectors, props.gatewayDetails.metadata])
 
   useLayoutEffect(() => {
     const observeScrollHandler = _debounce(() => {
@@ -429,17 +417,14 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
   }, [])
 
   useEffect(() => {
-    props.gatewayDetails.routing.ports = routingRecords
-    props.setGatewayDetails(props.gatewayDetails)
-  }, [routingRecords])
-  useEffect(() => {
     props.gatewayDetails.deps = serviceDependencies
     props.setGatewayDetails(props.gatewayDetails)
   }, [serviceDependencies])
-  useEffect(() => {
-    const updatedGatewayDetails = { ...props.gatewayDetails, healthCheck: healthCheckPattern }
-    props.setGatewayDetails(updatedGatewayDetails)
-  }, [healthCheckPattern])
+
+  // useEffect(() => {
+  //   const updatedGatewayDetails = { ...props.gatewayDetails, healthCheck: healthCheckPattern }
+  //   props.setGatewayDetails(updatedGatewayDetails)
+  // }, [healthCheckPattern])
 
   const refreshInstances = async (): Promise<void> => {
     try {
@@ -511,128 +496,72 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     }
   }
 
-  const updateNameInYaml = React.useCallback(
-    _debounce((_nameString: string) => {
-      // updated only in case of k8s
-      if (isK8sSelected) {
-        const yamlRuleName = yamlData?.metadata?.name
-        const updatedName = yamlRuleName && Utils.getHyphenSpacedString(_nameString)
-        if (updatedName && yamlRuleName !== updatedName) {
-          const updatedYaml = {
-            ...yamlData,
-            metadata: {
-              ...yamlData.metadata,
-              name: updatedName,
-              annotations: {
-                ...yamlData.metadata.annotations,
-                'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${orgIdentifier}-${projectIdentifier}-${updatedName}";`
-              }
-            }
-          }
-          setYamlData(updatedYaml)
-          const updatedGatewayDetails: GatewayDetails = {
-            ...props.gatewayDetails,
-            name: _nameString,
-            routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(updatedYaml) } }
-          }
-          props.setGatewayDetails(updatedGatewayDetails)
-        }
-      }
-    }, 500),
-    [isK8sSelected, yamlData]
-  )
+  // const updateNameInYaml = React.useCallback(
+  //   _debounce((_nameString: string) => {
+  //     // updated only in case of k8s
+  //     if (isK8sSelected) {
+  //       const yamlRuleName = yamlData?.metadata?.name
+  //       const updatedName = yamlRuleName && Utils.getHyphenSpacedString(_nameString)
+  //       if (updatedName && yamlRuleName !== updatedName) {
+  //         const updatedYaml = {
+  //           ...yamlData,
+  //           metadata: {
+  //             ...yamlData.metadata,
+  //             name: updatedName,
+  //             annotations: {
+  //               ...yamlData.metadata.annotations,
+  //               'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${orgIdentifier}-${projectIdentifier}-${updatedName}";`
+  //             }
+  //           }
+  //         }
+  //         setYamlData(updatedYaml)
+  //         const updatedGatewayDetails: GatewayDetails = {
+  //           ...props.gatewayDetails,
+  //           name: _nameString,
+  //           routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(updatedYaml) } }
+  //         }
+  //         props.setGatewayDetails(updatedGatewayDetails)
+  //       }
+  //     }
+  //   }, 500),
+  //   [isK8sSelected, yamlData]
+  // )
 
-  useEffect(() => {
-    updateNameInYaml(gatewayName)
-  }, [gatewayName])
-
-  const { mutate: getSecurityGroups, loading } = useSecurityGroupsOfInstances({
-    org_id: orgIdentifier, // eslint-disable-line
-    account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    queryParams: {
-      cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-      accountIdentifier: accountId
-    }
-  })
-  const fetchInstanceSecurityGroups = async (): Promise<void> => {
-    const emptyRecords: PortConfig[] = []
-    try {
-      let text = `id = ['${
-        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].id : ''
-      }']\nregions = ['${
-        props.gatewayDetails.selectedInstances ? props.gatewayDetails.selectedInstances[0].region : ''
-      }']`
-
-      if (isAzureProvider) {
-        text += `\nresource_groups=['${
-          props.gatewayDetails.selectedInstances
-            ? props.gatewayDetails.selectedInstances[0].metadata?.resourceGroup
-            : ''
-        }']`
-      }
-
-      const result = await getSecurityGroups({
-        text
-      })
-      if (result && result.response) {
-        Object.keys(result.response).forEach(instance => {
-          result.response?.[instance].forEach(sg => {
-            sg?.inbound_rules?.forEach(rule => {
-              if (rule.protocol == '-1' || rule.from === '*') {
-                addAllPorts()
-                return
-              } else if (rule && rule.from && [80, 443].includes(+rule.from)) {
-                const fromRule = +rule.from
-                const toRule = +(rule.to ? rule.to : 0)
-                emptyRecords.push({
-                  protocol: portProtocolMap[fromRule],
-                  port: fromRule,
-                  action: 'forward',
-                  target_protocol: portProtocolMap[fromRule], // eslint-disable-line
-                  target_port: toRule, // eslint-disable-line
-                  server_name: '', // eslint-disable-line
-                  redirect_url: '', // eslint-disable-line
-                  routing_rules: [] // eslint-disable-line
-                })
-                const routes = [...emptyRecords]
-                if (routes.length) setRoutingRecords(routes)
-              }
-            })
-          })
-        })
-      }
-    } catch (e) {
-      showError(e.data?.message || e.message, undefined, 'ce.creaetap.result.error')
-    }
-  }
+  // useEffect(() => {
+  //   updateNameInYaml(gatewayName)
+  // }, [gatewayName])
 
   function isValid(): boolean {
     return (
       (selectedInstances.length > 0 || !_isEmpty(selectedAsg) || !_isEmpty(selectedConnector)) &&
-      (selectedResource !== RESOURCES.KUBERNETES ? routingRecords.length > 0 : true) &&
       gatewayName != '' &&
-      idleTime >= 5 &&
+      idleTime >= IDLE_TIME_CONSTRAINTS.MIN &&
+      idleTime <= IDLE_TIME_CONSTRAINTS.MAX &&
       (selectedResource === RESOURCES.INSTANCES ? fullfilment != '' : true) &&
       (!_isEmpty(serviceDependencies)
         ? serviceDependencies.every(_dep => !isNaN(_dep.dep_id) && !isNaN(_dep.delay_secs))
-        : true) &&
-      (selectedResource === RESOURCES.KUBERNETES ? !_isEmpty(yamlData) : true)
+        : true)
     )
   }
 
   const resetSelectedInstancesDetails = () => {
     setRoutingRecords([])
     setSelectedInstances([])
-    const updatedGatewayDetails = { ...props.gatewayDetails }
-    updatedGatewayDetails.selectedInstances = []
+    const updatedGatewayDetails = {
+      ...props.gatewayDetails,
+      metadata: { ...props.gatewayDetails.metadata, access_details: DEFAULT_ACCESS_DETAILS },
+      selectedInstances: []
+    }
     props.setGatewayDetails(updatedGatewayDetails)
   }
 
   const resetSelectedAsgDetails = () => {
     setRoutingRecords([])
     setSelectedAsg(undefined)
-    const updatedGatewayDetails = { ...props.gatewayDetails }
+    const updatedGatewayDetails = {
+      ...props.gatewayDetails,
+      metadata: { ...props.gatewayDetails.metadata, access_details: DEFAULT_ACCESS_DETAILS }
+    }
     delete updatedGatewayDetails.routing.instance.scale_group
     props.setGatewayDetails(updatedGatewayDetails)
   }
@@ -696,15 +625,8 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
 
   useEffect(() => {
     // run only in case of selecting instances
-    if (selectedResource === RESOURCES.INSTANCES) {
-      if (!selectedInstances.length) {
-        setRoutingRecords([])
-        return
-      }
-      if (routingRecords.length) {
-        return
-      }
-      fetchInstanceSecurityGroups()
+    if (selectedResource === RESOURCES.INSTANCES && !selectedInstances.length) {
+      setRoutingRecords([])
     }
   }, [selectedInstances])
 
@@ -718,6 +640,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     isAwsProvider && fetchAndSetAsgItems()
     isKubernetesEnabled && fetchAndSetConnectors()
   }, [props.gatewayDetails.provider])
+
   useEffect(() => {
     if (isValid()) {
       props.setValidity(true)
@@ -726,16 +649,15 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     }
   }, [
     selectedInstances,
-    routingRecords,
     gatewayName,
     idleTime,
     fullfilment,
     selectedAsg,
     serviceDependencies,
-    yamlData,
     selectedResource,
     selectedConnector
   ])
+
   function handleSearch(text: string): void {
     if (!text) {
       setFilteredInstances(allInstances)
@@ -753,37 +675,7 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
     })
     setFilteredInstances(instances)
   }
-  function addPort(): void {
-    routingRecords.push({
-      protocol: 'http',
-      port: 80,
-      action: 'forward',
-      target_protocol: 'http', // eslint-disable-line
-      target_port: 80, // eslint-disable-line
-      redirect_url: '', // eslint-disable-line
-      server_name: '', // eslint-disable-line
-      routing_rules: [] // eslint-disable-line
-    })
-    const routes = [...routingRecords]
-    setRoutingRecords(routes)
-  }
-  function addAllPorts(): void {
-    const emptyRecords: PortConfig[] = []
-    Object.keys(portProtocolMap).forEach(item => {
-      emptyRecords.push({
-        protocol: portProtocolMap[+item],
-        port: +item,
-        action: 'forward',
-        target_protocol: portProtocolMap[+item], // eslint-disable-line
-        target_port: +item, // eslint-disable-line
-        server_name: '', // eslint-disable-line
-        redirect_url: '', // eslint-disable-line
-        routing_rules: [] // eslint-disable-line
-      })
-    })
-    const routes = [...emptyRecords]
-    if (routes.length) setRoutingRecords(routes)
-  }
+
   function addDependency(): void {
     serviceDependencies.push({
       delay_secs: 5 // eslint-disable-line
@@ -836,20 +728,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         break
     }
   }
-
-  const handleHealthCheckToggle = (toggleStatus: boolean) => {
-    setHealthCheckPattern(toggleStatus ? Utils.getDefaultRuleHealthCheck() : null)
-    setHealthCheck(toggleStatus)
-  }
-
-  const step4Title =
-    selectedResource === RESOURCES.KUBERNETES
-      ? `${getString('ce.co.gatewayReview.routing')} and ${getString(
-          'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
-        )}`
-      : `${getString('ce.co.gatewayReview.routing')}, ${getString('ce.co.gatewayConfig.healthCheck')} and ${getString(
-          'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
-        )}`
 
   const getSelectedResourceText = (resource: string) => {
     switch (resource) {
@@ -968,16 +846,6 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
         {data.lastModifiedAt ? <ReactTimeago date={data.lastModifiedAt} /> : null}
       </Layout.Horizontal>
     )
-  }
-
-  const handleYamlSave = (_data: Record<any, any>) => {
-    setYamlData(_data)
-    const updatedGatewayDetails: GatewayDetails = {
-      ...props.gatewayDetails,
-      routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(_data) } }
-    }
-    props.setGatewayDetails(updatedGatewayDetails)
-    showSuccess(getString('ce.savedYamlSuccess'))
   }
 
   const isFFEnabledForResource = (flags: string[] | undefined) => {
@@ -1107,7 +975,11 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
                       isK8sSelected ? /[a-z0-9]([-a-z0-9]*[a-z0-9])?/ : /.*/,
                       'Name should not contain special characters'
                     ),
-                  idleTime: Yup.number().typeError('Idle time must be a number').required('Idle Time is required field')
+                  idleTime: Yup.number()
+                    .min(IDLE_TIME_CONSTRAINTS.MIN)
+                    .max(IDLE_TIME_CONSTRAINTS.MAX)
+                    .typeError('Idle time must be a number')
+                    .required('Idle Time is required field')
                 })}
               ></Formik>
               {/* </Layout.Vertical> */}
@@ -1418,144 +1290,33 @@ const COGatewayConfig: React.FC<COGatewayConfigProps> = props => {
           )}
           <COGatewayConfigStep
             count={isK8sSelected ? MODIFIED_TOTAL_STEP_COUNT : DEFAULT_TOTAL_STEP_COUNT}
-            title={`${getString('ce.co.autoStoppingRule.configuration.step4.setup')} ${step4Title}`}
+            title={`${getString('ce.co.autoStoppingRule.configuration.step4.setup')} ${getString(
+              'ce.co.autoStoppingRule.configuration.step4.advancedConfiguration'
+            )}`}
+            subTitle={getString('ce.co.gatewayConfig.advancedConfigDescription')}
             totalStepsCount={totalStepsCount}
             id={CONFIG_STEP_IDS[3]}
           >
-            {selectedInstances.length || !_isEmpty(selectedAsg) || !_isEmpty(selectedConnector) ? (
-              <Container style={{ justifyContent: 'center', maxWidth: '947px' }}>
-                <Container className={css.configTab}>
-                  <Tabs
-                    id="tabsId1"
-                    selectedTabId={activeConfigTabId}
-                    onChange={tabId => tabId !== activeConfigTabId && setActiveConfigTabId(tabId as string)}
-                  >
-                    <Tab
-                      id="routing"
-                      title="Routing"
-                      panel={
-                        <Container style={{ backgroundColor: '#FBFBFB' }}>
-                          {!isK8sSelected && (
-                            <Layout.Vertical spacing="large">
-                              {!selectedAsg && loading ? (
-                                <Icon
-                                  name="spinner"
-                                  size={24}
-                                  color="blue500"
-                                  style={{ alignSelf: 'center', marginTop: '10px' }}
-                                />
-                              ) : (
-                                <CORoutingTable routingRecords={routingRecords} setRoutingRecords={setRoutingRecords} />
-                              )}
-                              <Container className={css.rowItem}>
-                                <Text
-                                  onClick={() => {
-                                    addPort()
-                                  }}
-                                >
-                                  {getString('ce.co.gatewayConfig.addPortLabel')}
-                                </Text>
-                              </Container>
-                            </Layout.Vertical>
-                          )}
-                          {isK8sSelected && (
-                            <KubernetesRuleYamlEditor
-                              existingData={
-                                yamlData ||
-                                getK8sIngressTemplate({
-                                  name: props.gatewayDetails.name,
-                                  idleTime: props.gatewayDetails.idleTimeMins,
-                                  cloudConnectorId: props.gatewayDetails.cloudAccount.id,
-                                  orgId: orgIdentifier,
-                                  projectId: projectIdentifier
-                                })
-                              }
-                              handleSave={handleYamlSave}
-                            />
-                          )}
-                        </Container>
-                      }
-                    />
-                    {selectedResource !== RESOURCES.KUBERNETES && (
-                      <Tab
-                        id="healthcheck"
-                        title="Health check"
-                        panel={
-                          <Container style={{ backgroundColor: '#FBFBFB', maxWidth: '523px', marginLeft: '210px' }}>
-                            <Layout.Vertical spacing="large" padding="large">
-                              <Switch
-                                label={getString('ce.co.gatewayConfig.healthCheck')}
-                                className={css.switchFont}
-                                onChange={e => {
-                                  handleHealthCheckToggle(e.currentTarget.checked)
-                                }}
-                                checked={healthCheck}
-                              />
-                              {healthCheck && (
-                                <COHealthCheckTable
-                                  pattern={healthCheckPattern}
-                                  updatePattern={setHealthCheckPattern}
-                                />
-                              )}
-                            </Layout.Vertical>
-                          </Container>
-                        }
-                      />
-                    )}
-                    <Tab
-                      id="advanced"
-                      title="Advanced Configuration"
-                      panel={
-                        <Container style={{ backgroundColor: '#FBFBFB', width: '595px', marginLeft: '175px' }}>
-                          <Layout.Vertical spacing="medium" style={{ padding: '32px' }}>
-                            {/* <Switch
-                              label={getString('ce.co.gatewayConfig.allowTraffic')}
-                              width="50%"
-                              className={css.switchFont}
-                              checked={matchSubdomains}
-                              onChange={e => {
-                                props.gatewayDetails.matchAllSubdomains = e.currentTarget.checked
-                                setMatchSubdomains(e.currentTarget.checked)
-                                props.setGatewayDetails(props.gatewayDetails)
-                              }}
-                            />
-                            <Switch
-                              label={getString('ce.co.gatewayConfig.usePrivateIP')}
-                              width="50%"
-                              className={css.switchFont}
-                              checked={usePrivateIP}
-                              onChange={e => {
-                                props.gatewayDetails.opts.alwaysUsePrivateIP = e.currentTarget.checked
-                                setUsePrivateIP(e.currentTarget.checked)
-                                props.setGatewayDetails(props.gatewayDetails)
-                              }}
-                            /> */}
-                            {serviceDependencies && serviceDependencies.length ? (
-                              <CORuleDendencySelector
-                                deps={serviceDependencies}
-                                setDeps={setServiceDependencies}
-                                service_id={props.gatewayDetails.id}
-                                allServices={servicesData?.response as Service[]}
-                              ></CORuleDendencySelector>
-                            ) : null}
-                            <Container>
-                              <Text
-                                onClick={() => {
-                                  addDependency()
-                                }}
-                                style={{ color: 'var(--primary-7)', cursor: 'pointer' }}
-                              >
-                                {'+ add dependency'}
-                              </Text>
-                            </Container>
-                          </Layout.Vertical>
-                        </Container>
-                      }
-                    />
-                  </Tabs>
-                </Container>
-              </Container>
-            ) : null}
+            <Layout.Vertical spacing="medium">
+              {serviceDependencies && serviceDependencies.length ? (
+                <CORuleDendencySelector
+                  deps={serviceDependencies}
+                  setDeps={setServiceDependencies}
+                  service_id={props.gatewayDetails.id}
+                  allServices={servicesData?.response as Service[]}
+                ></CORuleDendencySelector>
+              ) : null}
+              <Button
+                intent="none"
+                onClick={() => {
+                  addDependency()
+                }}
+                icon={'plus'}
+                style={{ maxWidth: '180px' }}
+              >
+                {' add dependency'}
+              </Button>
+            </Layout.Vertical>
           </COGatewayConfigStep>
         </Layout.Vertical>
       </Container>

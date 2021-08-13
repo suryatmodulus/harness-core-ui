@@ -9,5 +9,7 @@ declare const styles: {
   readonly tableTitle: string
   readonly disabled: string
   readonly breadCrumbLink: string
+  readonly sourceTypeIcon: string
+  readonly tableLoader: string
 }
 export default styles

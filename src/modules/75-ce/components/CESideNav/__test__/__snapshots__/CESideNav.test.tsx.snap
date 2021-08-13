@@ -6,78 +6,70 @@ exports[`side nav tests side nav renders without error when no project is select
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="projectSelector"
+      class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-medium StyledProps--padding-bottom-xlarge StyledProps--padding-right-medium StyledProps--border StyledProps--border-bottom"
     >
-      <button
-        class="bp3-button bp3-disabled bp3-minimal button projectButton"
-        disabled=""
-        tabindex="-1"
-        type="button"
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
-        <span
-          class="bp3-button-text"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-            >
-              projectLabel
-            </p>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 115px;"
-            >
-              selectProject
-            </p>
-          </div>
-        </span>
-      </button>
-      <div
-        class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+        Account
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-white"
+        style="padding-top: 10px;"
       >
-        <div
-          class="bp3-popover-target"
-        >
-          <div
-            class=""
-          >
-            <button
-              class="bp3-button bp3-minimal button selectButton"
-              data-testid="project-select-dropdown"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-caret-right"
-                icon="caret-right"
-              >
-                <svg
-                  data-icon="caret-right"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    caret-right
-                  </desc>
-                  <path
-                    d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
+        
+      </p>
     </div>
-    <div
-      class="pickProjectHelp"
-      style="background-image: url(test-file-stub);"
+    <a
+      class="link"
+      href="/account/accountId/ce/overview"
     >
-      pickProject
-    </div>
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/perspectives"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.perspectives.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/recommendations"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.recommendation.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/autostopping-rules"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.co.breadCrumb.rules
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/access-points"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.co.accessPoint.loadbalancers
+      </p>
+    </a>
     <button
       class="launchButtonPosition"
       type="button"
@@ -94,81 +86,53 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="projectSelector"
+      class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-medium StyledProps--padding-bottom-xlarge StyledProps--padding-right-medium StyledProps--border StyledProps--border-bottom"
     >
-      <button
-        class="bp3-button bp3-disabled bp3-minimal button projectButton"
-        disabled=""
-        tabindex="-1"
-        type="button"
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
-        <span
-          class="bp3-button-text"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-            >
-              projectLabel
-            </p>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 115px;"
-            >
-              selectProject
-            </p>
-          </div>
-        </span>
-      </button>
-      <div
-        class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+        Account
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-white"
+        style="padding-top: 10px;"
       >
-        <div
-          class="bp3-popover-target"
-        >
-          <div
-            class=""
-          >
-            <button
-              class="bp3-button bp3-minimal button selectButton"
-              data-testid="project-select-dropdown"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-caret-right"
-                icon="caret-right"
-              >
-                <svg
-                  data-icon="caret-right"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    caret-right
-                  </desc>
-                  <path
-                    d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="pickProjectHelp"
-      style="background-image: url(test-file-stub);"
-    >
-      pickProject
+        
+      </p>
     </div>
     <a
       class="link"
-      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+      href="/account/accountId/ce/overview"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/perspectives"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.perspectives.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/recommendations"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.recommendation.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/autostopping-rules"
     >
       <p
         class="StyledProps--font StyledProps--main text"
@@ -177,14 +141,13 @@ exports[`side nav tests side nav renders without error when on Access Point tab 
       </p>
     </a>
     <a
-      aria-current="page"
-      class="link selected"
-      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/access-points"
+      class="link"
+      href="/account/accountId/ce/access-points"
     >
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        ce.co.accessPoint.loadbalancer
+        ce.co.accessPoint.loadbalancers
       </p>
     </a>
     <button
@@ -203,82 +166,53 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
     class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
   >
     <div
-      class="projectSelector"
+      class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge StyledProps--padding-left-medium StyledProps--padding-bottom-xlarge StyledProps--padding-right-medium StyledProps--border StyledProps--border-bottom"
     >
-      <button
-        class="bp3-button bp3-disabled bp3-minimal button projectButton"
-        disabled=""
-        tabindex="-1"
-        type="button"
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-small"
       >
-        <span
-          class="bp3-button-text"
-        >
-          <div
-            class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
-          >
-            <p
-              class="StyledProps--font StyledProps--main StyledProps--font-size-small"
-            >
-              projectLabel
-            </p>
-            <p
-              class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-size-normal"
-              style="--text-line-clamp: 1; width: 115px;"
-            >
-              selectProject
-            </p>
-          </div>
-        </span>
-      </button>
-      <div
-        class="bp3-popover-wrapper projectSelect bp3-dark bp3-fill"
+        Account
+      </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--color StyledProps--color-white"
+        style="padding-top: 10px;"
       >
-        <div
-          class="bp3-popover-target"
-        >
-          <div
-            class=""
-          >
-            <button
-              class="bp3-button bp3-minimal button selectButton"
-              data-testid="project-select-dropdown"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-caret-right"
-                icon="caret-right"
-              >
-                <svg
-                  data-icon="caret-right"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    caret-right
-                  </desc>
-                  <path
-                    d="M11 8c0-.15-.07-.28-.17-.37l-4-3.5A.495.495 0 006 4.5v7a.495.495 0 00.83.37l4-3.5c.1-.09.17-.22.17-.37z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div
-      class="pickProjectHelp"
-      style="background-image: url(test-file-stub);"
-    >
-      pickProject
+        
+      </p>
     </div>
     <a
-      aria-current="page"
-      class="link selected"
-      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/autostopping-rules"
+      class="link"
+      href="/account/accountId/ce/overview"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        overview
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/perspectives"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.perspectives.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/recommendations"
+    >
+      <p
+        class="StyledProps--font StyledProps--main text"
+      >
+        ce.recommendation.sideNavText
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/accountId/ce/autostopping-rules"
     >
       <p
         class="StyledProps--font StyledProps--main text"
@@ -288,12 +222,12 @@ exports[`side nav tests side nav renders without error when on AutoStopping Rule
     </a>
     <a
       class="link"
-      href="/account/accountId/ce/orgs/orgIdentifier/projects/projectIdentifier/access-points"
+      href="/account/accountId/ce/access-points"
     >
       <p
         class="StyledProps--font StyledProps--main text"
       >
-        ce.co.accessPoint.loadbalancer
+        ce.co.accessPoint.loadbalancers
       </p>
     </a>
     <button

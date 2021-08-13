@@ -9,8 +9,7 @@ import {
   FormikForm,
   Container,
   Heading,
-  FormInput,
-  Text
+  FormInput
 } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import { isEmpty, pick, get, omit } from 'lodash-es'
@@ -32,6 +31,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import GitContextForm, { GitContextProps, IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
+import ShowConnectorError from '../ShowConnectorError'
 import css from '../../CreateCeAzureConnector_new.module.scss'
 
 export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'> & GitContextProps
@@ -274,42 +274,20 @@ const ExistingConnectorMessage = (props: ConnectorResponse) => {
   }
 
   return (
-    <div className={css.connectorExistBox}>
-      <Layout.Vertical spacing="medium">
-        <Text
-          inline
-          icon="circle-cross"
-          iconProps={{ size: 18, color: 'red700', padding: { right: 'small' } }}
-          color="red700"
-        >
-          {getString('connectors.ceAzure.overview.alreadyExist')}
-        </Text>
-        <Container>
-          <Text inline font={'small'} icon="info" iconProps={{ size: 16, padding: { right: 'small' } }} color="grey700">
-            {getString('connectors.ceAzure.overview.existingConnectorInfo', {
-              accountId,
-              name,
-              featureText
-            })}
-          </Text>
-        </Container>
-        <Container>
-          <Text
-            inline
-            font={{ size: 'small', weight: 'semi-bold' }}
-            icon="lightbulb"
-            iconProps={{ size: 16, padding: { right: 'small' } }}
-            color="grey700"
-          >
-            {getString('connectors.ceAzure.overview.trySuggestion')}
-          </Text>
-          <Text padding={{ left: 'xlarge' }} color="grey700" font={'small'}>
-            {getString('connectors.ceAzure.overview.editConnector')} <a href="#">{name}</a>{' '}
-            {getString('connectors.ceAzure.overview.required')}
-          </Text>
-        </Container>
-      </Layout.Vertical>
-    </div>
+    <ShowConnectorError
+      title={getString('connectors.ceAzure.overview.alreadyExist')}
+      reason={getString('connectors.ceAzure.overview.existingConnectorInfo', {
+        accountId,
+        name,
+        featureText
+      })}
+      suggestion={
+        <>
+          {getString('connectors.ceAzure.overview.editConnector')} <a href="#">{name}</a>{' '}
+          {getString('connectors.ceAzure.overview.required')}
+        </>
+      }
+    />
   )
 }
 

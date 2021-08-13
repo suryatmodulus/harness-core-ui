@@ -1,17 +1,11 @@
 import type React from 'react'
 import type { tagsType } from '@common/utils/types'
-import type { StageElementWrapper } from 'services/cd-ng'
-
-export enum ApprovalType {
-  HARNESS = 'HARNESS',
-  JIRA = 'JIRA',
-  SERVICENOW = 'SERVICENOW'
-}
+import type { ApprovalStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 
 export interface ApprovalStageMinimalModeProps {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
-  onChange?: (values: StageElementWrapper) => void
+  data?: StageElementWrapper<ApprovalStageElementConfig>
+  onSubmit?: (values: StageElementWrapper<ApprovalStageElementConfig>, identifier: string) => void
+  onChange?: (values: ApprovalStageMinimalValues) => void
 }
 
 export interface ApprovalStageMinimalValues {
@@ -19,7 +13,7 @@ export interface ApprovalStageMinimalValues {
   name: string
   description?: string
   tags?: tagsType
-  approvalType: ApprovalType
+  approvalType: string
 }
 
 export interface ApprovalStageOverviewProps {

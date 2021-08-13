@@ -1,11 +1,11 @@
 import React from 'react'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useModalHook, Text, Icon, Layout, Color, Button, SelectOption } from '@wings-software/uicore'
+import { useModalHook, Text, Icon, Layout, Button, SelectOption, Container } from '@wings-software/uicore'
 import { useHistory, useParams, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { isEmpty, isEqual, merge, omit } from 'lodash-es'
-import type { NgPipeline, PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -43,20 +43,20 @@ import { InputSetSummaryResponse, useGetInputsetYaml } from 'services/pipeline-n
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, DrawerTypes } from '../PipelineContext/PipelineActions'
-import { RightBar } from '../RightBar/RightBar'
 import PipelineYamlView from '../PipelineYamlView/PipelineYamlView'
+import { RightBar } from '../RightBar/RightBar'
 import StageBuilder from '../StageBuilder/StageBuilder'
 import { usePipelineSchema } from '../PipelineSchema/PipelineSchemaContext'
 import css from './PipelineCanvas.module.scss'
 
 interface OtherModalProps {
-  onSubmit?: (values: NgPipeline) => void
-  initialValues?: NgPipeline
+  onSubmit?: (values: PipelineInfoConfig) => void
+  initialValues?: PipelineInfoConfig
   onClose?: () => void
 }
 
 interface SavePipelineObj {
-  pipeline: PipelineInfoConfig | NgPipeline
+  pipeline: PipelineInfoConfig | PipelineInfoConfig
 }
 
 interface PipelineWithGitContextFormProps extends PipelineInfoConfig {
@@ -87,7 +87,7 @@ export interface PipelineCanvasProps {
   toPipelineList: PathFn<PipelineType<ProjectPathProps>>
   toPipelineProject: PathFn<PipelineType<ProjectPathProps>>
   getOtherModal?: (
-    onSubmit: (values: NgPipeline, gitDetails?: EntityGitDetails) => void,
+    onSubmit: (values: PipelineInfoConfig, gitDetails?: EntityGitDetails) => void,
     onClose: () => void
   ) => React.ReactElement<OtherModalProps>
 }
@@ -244,7 +244,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   }
 
   const saveAndPublishPipeline = async (
-    latestPipeline: NgPipeline,
+    latestPipeline: PipelineInfoConfig,
     updatedGitDetails?: SaveToGitFormInterface,
     lastObject?: { lastObjectId?: string }
   ): Promise<UseSaveSuccessResponse> => {
@@ -300,7 +300,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
     if (isYaml && yamlHandler) {
       try {
-        latestPipeline = payload?.pipeline || (parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline)
+        latestPipeline = payload?.pipeline || (parse(yamlHandler.getLatestYaml()).pipeline as PipelineInfoConfig)
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.gitinfo.error')
       }
@@ -336,7 +336,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         return
       }
       try {
-        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
+        latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as PipelineInfoConfig
       } /* istanbul ignore next */ catch (err) {
         showError(err.message || err, undefined, 'pipeline.save.pipeline.error')
       }
@@ -393,31 +393,40 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     if (getOtherModal) {
       pipeline.identifier = ''
       updatePipeline(pipeline)
-      return getOtherModal(onSubmit, onCloseCreate)
+      return (
+        <PipelineVariablesContextProvider pipeline={pipeline}>
+          {getOtherModal(onSubmit, onCloseCreate)}
+        </PipelineVariablesContextProvider>
+      )
     } else {
       return (
-        <Dialog
-          style={{
-            width: isGitSyncEnabled ? '614px' : '385px',
-            background: 'var(--form-bg)'
-          }}
-          enforceFocus={false}
-          isOpen={true}
-          className={'padded-dialog'}
-          onClose={onCloseCreate}
-          title={
-            pipelineIdentifier === DefaultNewPipelineId
-              ? getString('moduleRenderer.newPipeLine')
-              : getString('editPipeline')
-          }
-        >
-          <CreatePipelines
-            afterSave={onSubmit}
-            initialValues={merge(pipeline, { repo: gitDetails.repoIdentifier || '', branch: gitDetails.branch || '' })}
-            closeModal={onCloseCreate}
-            gitDetails={gitDetails as IGitContextFormProps}
-          />
-        </Dialog>
+        <PipelineVariablesContextProvider pipeline={pipeline}>
+          <Dialog
+            style={{
+              width: isGitSyncEnabled ? '614px' : '385px',
+              background: 'var(--form-bg)'
+            }}
+            enforceFocus={false}
+            isOpen={true}
+            className={'padded-dialog'}
+            onClose={onCloseCreate}
+            title={
+              pipelineIdentifier === DefaultNewPipelineId
+                ? getString('moduleRenderer.newPipeLine')
+                : getString('editPipeline')
+            }
+          >
+            <CreatePipelines
+              afterSave={onSubmit}
+              initialValues={merge(pipeline, {
+                repo: gitDetails.repoIdentifier || '',
+                branch: gitDetails.branch || ''
+              })}
+              closeModal={onCloseCreate}
+              gitDetails={gitDetails as IGitContextFormProps}
+            />
+          </Dialog>
+        </PipelineVariablesContextProvider>
       )
     }
   }, [pipeline?.identifier, pipeline])
@@ -485,9 +494,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   ])
 
   const onSubmit = React.useCallback(
-    (data: NgPipeline, updatedGitDetails?: EntityGitDetails) => {
+    (data: PipelineInfoConfig, updatedGitDetails?: EntityGitDetails) => {
       pipeline.name = data.name
       pipeline.description = data.description
+      pipeline.timeout = data.timeout
       pipeline.identifier = data.identifier
       pipeline.tags = data.tags ?? {}
       delete (pipeline as PipelineWithGitContextFormProps).repo
@@ -666,26 +676,54 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
 
   const RenderGitDetails: React.FC = React.useCallback(() => {
     if (gitDetails?.objectId || (pipelineIdentifier === DefaultNewPipelineId && gitDetails.repoIdentifier)) {
+      const repoName: string = getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''
+      const folderName = `${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`
       return (
-        <Layout.Horizontal border={{ left: true, color: Color.GREY_300 }} spacing="medium" className={css.gitDetails}>
+        <Layout.Horizontal spacing="medium" className={css.gitDetails}>
           <Layout.Horizontal spacing="small" className={css.repoDetails}>
             <Icon name="repository" margin={{ left: 'medium' }}></Icon>
             {pipelineIdentifier === DefaultNewPipelineId && !loadingRepos ? (
-              <Text>{getRepoDetailsByIndentifier(gitDetails?.repoIdentifier, gitSyncRepos)?.name || ''}</Text>
+              <Text
+                style={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '145px'
+                }}
+                tooltip={repoName}
+              >
+                {repoName}
+              </Text>
             ) : (
-              <Text lineClamp={1} width="200px">{`${gitDetails?.rootFolder || ''}${gitDetails?.filePath || ''}`}</Text>
+              <Text
+                style={{
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace: 'nowrap',
+                  maxWidth: '190px'
+                }}
+                tooltip={folderName}
+              >
+                {folderName}
+              </Text>
             )}
           </Layout.Horizontal>
 
-          <Layout.Horizontal
-            border={{ left: true, color: Color.GREY_300 }}
-            spacing="small"
-            className={css.branchDetails}
-          >
+          <Layout.Horizontal spacing="small" className={css.branchDetails}>
             {pipelineIdentifier === DefaultNewPipelineId || isReadonly ? (
               <>
                 <Icon name="git-new-branch" margin={{ left: 'medium' }}></Icon>
-                <Text>{gitDetails?.branch}</Text>
+                <Text
+                  style={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: '145px'
+                  }}
+                  tooltip={gitDetails?.branch}
+                >
+                  {gitDetails?.branch}
+                </Text>
               </>
             ) : (
               <GitFilters
@@ -710,6 +748,22 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         <div /> {/* this empty div is required for rendering layout correctly */}
       </React.Fragment>
     )
+  }
+
+  const getPipelineNameTextContainerWidth = (): number | undefined => {
+    if (isGitSyncEnabled) {
+      if (pipelineIdentifier === DefaultNewPipelineId) {
+        if (!isEmpty(pipeline?.tags)) {
+          return 150
+        }
+        return 175
+      }
+      if (!isEmpty(pipeline?.tags)) {
+        return 125
+      }
+      return 155
+    }
+    return 400
   }
 
   return (
@@ -767,29 +821,50 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         />
         <div className={css.titleBar}>
           <div className={css.breadcrumbsMenu}>
-            <div className={css.pipelineNameContainer}>
-              <div>
+            <div className={css.pipelineMetadataContainer}>
+              <Layout.Horizontal className={css.pipelineNameContainer}>
                 <Icon className={css.pipelineIcon} padding={{ right: 'small' }} name="pipeline" size={32} />
-                <Text className={css.pipelineName} max-width="100%" lineClamp={1}>
+                <Text
+                  className={css.pipelineName}
+                  style={{
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace: 'nowrap',
+                    maxWidth: getPipelineNameTextContainerWidth()
+                  }}
+                  tooltip={pipeline?.name}
+                >
                   {pipeline?.name}
                 </Text>
-                {!isEmpty(pipeline?.tags) && pipeline.tags && <TagsPopover tags={pipeline.tags} />}
-                {isYaml || isReadonly ? null : (
-                  <Button minimal icon="Edit" withoutBoxShadow iconProps={{ size: 12 }} onClick={showModal} />
+                {!isEmpty(pipeline?.tags) && pipeline.tags && (
+                  <Container className={css.tagsContainer}>
+                    <TagsPopover tags={pipeline.tags} />
+                  </Container>
                 )}
-              </div>
+                {isYaml || isReadonly ? null : (
+                  <Button
+                    className={css.pipelineEditBtn}
+                    minimal
+                    icon="Edit"
+                    withoutBoxShadow
+                    iconProps={{ size: 16 }}
+                    onClick={showModal}
+                    withoutCurrentColor={true}
+                  />
+                )}
+              </Layout.Horizontal>
 
               {isGitSyncEnabled && <RenderGitDetails />}
             </div>
-
-            <VisualYamlToggle
-              initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
-              beforeOnChange={(nextMode, callback) => {
-                const shoudSwitchcMode = handleViewChange(nextMode)
-                shoudSwitchcMode && callback(nextMode)
-              }}
-            />
           </div>
+          <VisualYamlToggle
+            className={css.visualYamlToggle}
+            initialSelectedView={isYaml ? SelectedView.YAML : SelectedView.VISUAL}
+            beforeOnChange={(nextMode, callback) => {
+              const shoudSwitchcMode = handleViewChange(nextMode)
+              shoudSwitchcMode && callback(nextMode)
+            }}
+          />
           <div>
             <div className={css.savePublishContainer}>
               {isReadonly && (
@@ -801,7 +876,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
               {isUpdated && !isReadonly && <div className={css.tagRender}>{getString('unsavedChanges')}</div>}
               <div>
                 {!isReadonly && (
-                  <Button intent="primary" text={getString('save')} onClick={saveAndPublish} icon="send-data" />
+                  <Button
+                    intent="primary"
+                    text={getString('save')}
+                    onClick={saveAndPublish}
+                    icon="send-data"
+                    className={css.saveButton}
+                  />
                 )}
                 {pipelineIdentifier !== DefaultNewPipelineId && !isReadonly && (
                   <Button
@@ -844,8 +925,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           </div>
         </div>
         {isYaml ? <PipelineYamlView /> : <StageBuilder />}
-        <RightBar />
       </div>
+      <RightBar />
     </PipelineVariablesContextProvider>
   )
 }

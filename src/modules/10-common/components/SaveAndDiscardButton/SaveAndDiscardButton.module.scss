@@ -1,0 +1,38 @@
+.saveButton {
+  width: 70px !important;
+  height: 24px !important;
+  border-radius: var(--spacing-2);
+  font-size: var(--font-size-small) !important;
+}
+
+.tagRender {
+  color: var(--orange-600);
+  margin-right: var(--spacing-xlarge);
+  font-size: var(--font-size-small);
+  line-height: 15px;
+  &::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: var(--orange-600);
+    display: inline-block;
+    margin: 0 var(--spacing-2);
+  }
+}
+
+.saveHeader {
+  display: flex;
+  background: var(--white);
+  align-items: center;
+}
+
+.discardBtn {
+  width: 78px !important;
+  height: 24px !important;
+  border-radius: var(--spacing-2);
+  font-size: var(--font-size-small) !important;
+  border: 1px solid var(--primary-6) !important;
+  color: var(--primary-7) !important;
+  margin-left: var(--spacing-3) !important;
+}

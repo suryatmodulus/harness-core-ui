@@ -53,7 +53,7 @@ jest.mock('services/lw', () => ({
 
 describe('AWS Access Point Configuration screen first', () => {
   // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('render and fill form', () => {
+  test('render and fill form', () => {
     const { container } = render(
       <TestWrapper pathParams={params}>
         <LBFormStepFirst
@@ -82,5 +82,28 @@ describe('AWS Access Point Configuration screen first', () => {
       fireEvent.change(customDomainInput, { target: { value: 'test.lwtest.com' } })
     })
     expect(customDomainInput.value).toBe('test.lwtest.com')
+  })
+
+  describe('Import access point flow', () => {
+    test('name field should be disabled and value should be of given access point', () => {
+      const { container } = render(
+        <TestWrapper pathParams={params}>
+          <LBFormStepFirst
+            cloudAccountId={'currCloudAccountId'}
+            handleCancel={jest.fn()}
+            createMode={false}
+            handleSubmit={jest.fn()}
+            loadBalancer={{ ...initialLoadBalancer, name: 'Mock Access Point' }}
+            handleCloudConnectorChange={jest.fn()}
+            isSaving={false}
+          />
+        </TestWrapper>
+      )
+      expect(container).toMatchSnapshot()
+
+      const nameInput = container.querySelector('input[name="lbName"]') as HTMLInputElement
+      expect(nameInput.value).toEqual('Mock Access Point')
+      expect(nameInput.attributes.getNamedItem('disabled')).toBeTruthy()
+    })
   })
 })

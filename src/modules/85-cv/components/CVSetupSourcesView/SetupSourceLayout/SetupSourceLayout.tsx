@@ -5,8 +5,8 @@ import { useStrings } from 'framework/strings'
 import css from './SetupSourceLayout.module.scss'
 
 export interface FooterCTAProps {
-  onNext?: () => void
-  onPrevious?: () => void
+  onNext?: () => Promise<void> | void
+  onPrevious?: () => Promise<void> | void
   isSubmit?: boolean
   className?: string
 }

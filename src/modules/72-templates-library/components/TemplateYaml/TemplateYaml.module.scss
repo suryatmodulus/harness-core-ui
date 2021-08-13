@@ -1,0 +1,20 @@
+.main {
+  padding: 0;
+}
+
+.titleHolder {
+  display: flex;
+  align-items: center;
+  margin: var(--spacing-large);
+  margin-bottom: var(--spacing-medium);
+
+  .numberOfInputs {
+    margin-left: auto !important;
+  }
+}
+
+.editor {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}

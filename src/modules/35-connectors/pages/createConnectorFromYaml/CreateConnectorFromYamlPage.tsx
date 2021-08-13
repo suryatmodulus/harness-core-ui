@@ -143,7 +143,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
         <Container className={css.container}>
           <Button icon="cross" minimal className={css.closeModal} onClick={hideModal} />
           <Text padding="large" font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-            {getString('connectors.createFromYaml')}
+            {getString('newConnector')}
           </Text>
           <Container padding="xsmall" className={css.layout}>
             <div>
@@ -219,7 +219,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
         title={
           <Layout.Horizontal flex={{ justifyContent: 'flex-start' }}>
             <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-              {getString('connectors.createFromYaml')}
+              {getString('newConnector')}
             </Text>
 
             {!isSMCtr ? (

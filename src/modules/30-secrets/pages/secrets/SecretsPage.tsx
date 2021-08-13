@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Layout, Popover, Icon, TextInput, Container } from '@wings-software/uicore'
+import { Layout, Popover, Icon, ExpandingSearchInput, Container } from '@wings-software/uicore'
 import { Menu, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper, Error } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
@@ -9,10 +9,10 @@ import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateS
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { useStrings } from 'framework/strings'
-
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
-import type { Module, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModulePathParams, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -22,12 +22,11 @@ import SecretsList from './views/SecretsListView/SecretsList'
 import css from './SecretsPage.module.scss'
 
 interface SecretsPageProps {
-  module?: Module
   mock?: UseGetMockData<ResponsePageSecretResponseWrapper>
 }
 
-const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
+const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
+  const { accountId, orgIdentifier, projectIdentifier, module } = useParams<ProjectPathProps & ModulePathParams>()
   const history = useHistory()
   const { getString } = useStrings()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
@@ -66,7 +65,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
 
   return (
     <>
-      <Page.Header title={getString('common.secrets')} />
+      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('common.secrets')} />
       <Layout.Horizontal flex className={css.header}>
         <Layout.Horizontal spacing="small">
           <Popover minimal position={Position.BOTTOM_LEFT} interactionKind={PopoverInteractionKind.CLICK_TARGET_ONLY}>
@@ -107,6 +106,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
           </Popover>
           <RbacButton
             text={getString('createViaYaml')}
+            minimal
             onClick={
               /* istanbul ignore next */ () => {
                 history.push(routes.toCreateSecretFromYaml({ accountId, orgIdentifier, projectIdentifier, module }))
@@ -123,21 +123,19 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ module, mock }) => {
                 projectIdentifier
               }
             }}
+            withoutBoxShadow
           />
         </Layout.Horizontal>
-        <Layout.Horizontal spacing="small">
-          <TextInput
-            leftIcon="search"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchTerm(e.target.value.trim())
-              setPage(0)
-            }}
-          />
-        </Layout.Horizontal>
+        <ExpandingSearchInput
+          alwaysExpanded
+          onChange={text => {
+            setSearchTerm(text.trim())
+            setPage(0)
+          }}
+          width={250}
+        />
       </Layout.Horizontal>
-      <Page.Body>
+      <Page.Body className={css.body}>
         {loading ? (
           <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
             <PageSpinner />

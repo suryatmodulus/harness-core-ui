@@ -12,7 +12,8 @@ export interface StackedColumnChartProps {
 
 const getDefaultOptions = (data: DataType): Highcharts.Options => ({
   chart: {
-    type: 'column'
+    type: 'column',
+    spacing: [25, 25, 25, 25]
   },
   title: {
     text: ''
@@ -21,29 +22,53 @@ const getDefaultOptions = (data: DataType): Highcharts.Options => ({
     enabled: false
   },
   xAxis: {
-    visible: false,
-    categories: []
+    labels: {
+      formatter: function () {
+        return `${this.pos + 1}`
+      },
+      style: {
+        fontSize: 'var(--font-size-xsmall)',
+        color: 'var(--grey-400)'
+      }
+    },
+    tickInterval: 1
   },
   yAxis: {
     title: {
       text: null
     },
-    gridLineWidth: 0
-  },
-  tooltip: {
-    enabled: false
+    gridLineWidth: 1,
+    gridLineColor: 'var(--grey-200)',
+    labels: {
+      style: {
+        fontSize: 'var(--font-size-xsmall)',
+        color: 'var(--grey-400)'
+      }
+    }
   },
   plotOptions: {
     column: {
-      pointPadding: 0.2,
-      borderWidth: 0,
-      pointWidth: 5,
+      pointPadding: 0,
+      borderWidth: 3,
+      borderRadius: 4,
+      pointWidth: 10,
       stacking: 'normal',
-      animation: false
+      animation: false,
+      events: {
+        legendItemClick: function () {
+          return false
+        }
+      }
     }
   },
   legend: {
-    padding: 0
+    maxHeight: 80,
+    itemStyle: {
+      color: 'var(--grey-500)',
+      fontSize: 'var(--font-size-small)',
+      fontWeight: '500',
+      textOverflow: 'ellipsis'
+    }
   },
   series: data as SeriesColumnOptions[]
 })

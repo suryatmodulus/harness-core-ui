@@ -1,6 +1,6 @@
 .defaultNode {
   display: block;
-  width: 126px;
+  width: 128px;
   height: 80px;
   cursor: default;
 
@@ -8,7 +8,6 @@
     cursor: pointer;
     margin: 0 auto;
     position: relative;
-    border: 1px solid var(--pipeline-grey-border);
     background-color: var(--white);
     border-radius: 8px;
     width: 64px;
@@ -16,11 +15,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: -1px 4px 7px 0 rgba(135, 149, 159, 0.27);
+    box-shadow: 0px 2px 4px 0px #60617029;
 
     &.selected {
-      border-width: 2px;
-      border-color: var(--diagram-selected) !important;
+      background: linear-gradient(123.92deg, #0092e4 32.53%, #0778fc 112.21%);
+    }
+  }
+
+  &:hover {
+    .defaultCard {
+      box-shadow: 0px 8px 16px 0px #60617029;
     }
   }
 
@@ -45,6 +49,12 @@
   }
 
   .inComplete {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+
+  .template {
     position: absolute;
     top: 2px;
     right: 2px;
@@ -83,19 +93,26 @@
     transition: opacity 0.2s ease-in-out;
     display: flex;
     justify-content: center;
-    left: -19px;
-    background-color: var(--grey-250) !important;
-    min-width: 17px !important;
-    min-height: 17px !important;
-    height: 17px !important;
+    left: -15px;
+    background-color: var(--primary-7) !important;
+    min-width: 14px !important;
+    min-height: 14px !important;
+    height: 14px !important;
     padding: 0 !important;
     align-items: center;
     z-index: 1;
     cursor: pointer;
+
+    :global {
+      span.bp3-icon {
+        color: var(--white) !important;
+      }
+    }
   }
 
   .addNode {
-    border: 1px dashed var(--diagram-add-node-color);
+    background: var(--white);
+    border: 2px dashed var(--diagram-add-node-color);
     border-radius: 8px;
     display: flex;
     justify-content: center;

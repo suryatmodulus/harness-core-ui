@@ -37,6 +37,7 @@ remove: Remove
 member: Member
 showMore: Show More
 showLess: Show Less
+moreInfo: More Info
 PermissibleActions: Permissible Actions
 My: My
 ok: OK
@@ -47,12 +48,14 @@ instanceValidation:
   maximumCountInstance: Instances must be less than or equal to {{ maximum }}
   minimumCountPercentage: Percentage must be greater than or equal to 1
   maximumCountPercentage: Percentage must be less than or equal to 100
-selectStrategy: Select a Strategy
 performAction: Perform Action
 jexlExpression: JEXL Expression
+bash: Bash
+shell: Shell
 input: Input
 refresh: Refresh
 loading: Loading, please wait...
+switchAccountError: Unable to switch accounts. Please try again.
 logs:
   noLogsText: 'No logs found'
   delegateSelectionLogs: Delegate selection logs
@@ -91,6 +94,7 @@ datePickerShortcuts:
   Last2Months: Last 2 Months
 validation:
   namePatternIsNotValid: 'Name can only contain alphanumerics, _ and -'
+  harnessFolderNamePatternIsNotValid: 'Harness Folder name can only contain alphanumerics, underscore, hyphen or a whitespace'
   nameIsRequired: Name is required
   valueIsRequired: Value is required
   typeIsRequired: Type is required
@@ -127,18 +131,21 @@ ce:
   optimization: Optimization
   visibility: Visibility
   visibilityWarning: Cost Visibility is currently only available in CE First Generation
-  visibilityLaunchButton: Launch CE First Generation
+  visibilityLaunchButton: Launch CCM First Generation
+  autostopping: 'AutoStopping'
 launchFirstGen: 'Launch {{module}} First Generation'
 startTrial: 'Start 14 day {{module}} Enterprise trial'
 new: new
 purpose:
-  welcome: 'Welcome, let’s get you started!'
+  welcome: 'Hello there, welcome to Harness'
   howToProceed: 'How would you like to proceed?'
   continuous: CONTINUOUS
+  change: CHANGE
   moduleSuccess: Module Added Successfully
   startATrial: Start A Trial
   setup: 15 min setup
-  selectAModule: Select a module
+  selectAModule: Select a module below to get started
+  changeSelection: Change Selection
   cd:
     delivery: Delivery
     subtitle: Deploy your services with blazingly fast pipelines.
@@ -158,7 +165,7 @@ purpose:
     verification: Verification
     subtitle: Deploy in peace - verify activities that take place in your system. Identify risk early.
     description: CV description placeholder
-    continuous: Continuous Verification
+    continuous: '{{ $.common.changeIntelligence }}'
 
   ci:
     integration: Integration
@@ -177,7 +184,7 @@ purpose:
     management: Management
     efficiency: Efficiency
     subtitle: Spot and quickly debug inefficiencies and optimize them to reduce costs.
-    continuous: Continuous Efficiency
+    continuous: Cloud Cost Management
     descriptionOnly: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc'
     description: 'Gain Cloud cost visibilty and optimize costs across projects, environments, clusters, deployments, etc
       <br><br>You can access this module via your free trial. Benefits include: Your software delivery pipeline can now include build stages, Test intelligence - faster and more reliable build processes'
@@ -305,6 +312,10 @@ savedSuccessfully: Saved Successfully
 submittingRequest: Submitting request and pushing changes to Git
 submittingRequestToGitViaDelegate: Submitting request and pushing changes to Git from Delegate
 local: Local
+location: Location
+subscribed: Subscribed
+overSubscribed: Oversubscribed
+totalHarnessUser: Total Harness users
 subscriptions:
   title: Subscriptions
   tabs:
@@ -317,7 +328,7 @@ subscriptions:
     expiry: Trial Expiry Date
     subscribe: Subscribe
   featureFlags:
-    users: '{{ users }} Feature Flag users'
+    users: '{{ users }} Feature Flag developers'
     mau: '{{ maus }} Monthly Active users'
   ci:
     developers: '{{ developers }} Developers'
@@ -328,6 +339,19 @@ subscriptions:
   enterpriseTrial: Enterprise (14 day trial)
   enterprisePaid: Enterprise
   noActiveSubscription: No Active Subscription
+  usage:
+    header: Activity & Usage
+    last60days: Last 60 days
+    services: Active Services
+    srvcInst: Active Service Instances
+    cdUsers: Active CD Users
+    ciUsers: Active CI Users
+    ffUsers: Feature Flags Developers
+    monthlyUsers: Monthly Active Users
+    developers: Active Developers
+    cloudSpend: Active Cloud Spend
+    ccmUsers: Active CCM Users
+current: Current
 banners:
   email:
     description: Please check your email and follow the link to verify your email. Didn’t receive it?
@@ -391,8 +415,10 @@ artifactTag: tag
 clientId: Client ID
 filters:
   saveNewFilter: Save New Filter
+  unsavedFilter: Unsaved Filter
   noMatchingFilterData: No Results found matching the Filter criteria
   clearFilters: Clear Filters
+  noFilterSaved: No Filter Saved
 in: in
 on: on
 at: at
@@ -455,3 +481,34 @@ frequency: 'Frequency'
 last7days: Last 7 days
 instanceLabel: Instances
 reportNameRequired: Report name is required
+selectUserGroups: Select User Group(s)
+totalSelected: 'Total Selected'
+accountSettings: Account Settings
+myProfile: My Profile
+accountResources: Account Resources
+accountResourcesPage:
+  line1: 'Account Resources are shared and available for use within any organization or projects within your account.'
+  line2: 'For better isolation of resources, it is recommended that you create resources at the organization or project levels respectively.'
+changeIntelligence: Change Intelligence
+channel: Channel
+webhookURL: Webhook URL
+selectAChannel: Select a Channel
+slack: Slack
+pagerDuty: PagerDuty
+notificationPreferences: Notification Preferences
+videoNotSupportedError: Your browser doesn't support HTML5 video.
+sidecarArtifactsText: '{{$.sidecarArtifactText}}s'
+serviceCreated: Service created successfully
+serviceUpdated: Service updated successfully
+environmentCreated: Environment created successfully
+environmentUpdated: Environment updated successfully
+discard: Discard
+default: Default
+searchPlaceholder: Search by name or ID
+monthly: Monthly
+yearly: Yearly
+billed: Billed
+plans:
+  title: Upgrade to get the most out of Harness
+  featureComparison: Show All Feature Comparison
+  faq: View Pricing FAQs

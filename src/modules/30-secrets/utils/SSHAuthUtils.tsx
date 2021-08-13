@@ -1,6 +1,5 @@
 import React from 'react'
 import { pick } from 'lodash-es'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { String } from 'framework/strings'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
 import type { DetailsForm } from '@secrets/modals/CreateSSHCredModal/views/StepDetails'
@@ -66,17 +65,6 @@ export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData)
               } as SSHConfigDTO)
       } as SSHAuthDTO
     } as SSHKeySpecDTO
-  }
-}
-
-export const getReference = (scope?: Scope, identifier?: string): string | undefined => {
-  switch (scope) {
-    case Scope.PROJECT:
-      return identifier
-    case Scope.ORG:
-      return `org.${identifier}`
-    case Scope.ACCOUNT:
-      return `account.${identifier}`
   }
 }
 

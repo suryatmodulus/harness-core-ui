@@ -4,6 +4,7 @@ import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
 
 import { findLeafToParentPath } from '../../utils/YamlUtils'
+import type { YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 
 /**
  * Get YAML from editor with placeholder added at current position in editor
@@ -33,30 +34,32 @@ const getYAMLFromEditor = (editor: any, shouldAddPlaceholder: boolean): string |
   return null
 }
 
-function getJSONFromYAML(yaml: string): Record<string, any> {
-  try {
-    return parse(yaml)
-  } catch (error) {
-    throw error
-  }
-}
-
 /**
  * Get current property to parent json path
  * @param editor
+ * @param onErrorCallback
  * @param shouldAddPlaceholder
  */
-const getMetaDataForKeyboardEventProcessing = (
-  editor: any,
-  shouldAddPlaceholder: boolean = false
-): Record<string, string | undefined> | undefined => {
+const getMetaDataForKeyboardEventProcessing = ({
+  editor,
+  onErrorCallback,
+  shouldAddPlaceholder = false
+}: {
+  editor: any
+  onErrorCallback?: YamlBuilderProps['onErrorCallback']
+  shouldAddPlaceholder?: boolean
+}): Record<string, string | undefined> | undefined => {
   const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder)
   if (yamlInEditor) {
-    const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(yamlInEditor)
-    const textInCurrentEditorLine = editor.getModel()?.getLineContent(editor.getPosition().lineNumber)
-    const currentProperty = textInCurrentEditorLine?.split(':').map((item: string) => item.trim())[0]
-    const parentToCurrentPropertyPath = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
-    return { currentProperty, yamlInEditor, parentToCurrentPropertyPath }
+    try {
+      const jsonEquivalentOfYAMLInEditor = parse(yamlInEditor)
+      const textInCurrentEditorLine = editor.getModel()?.getLineContent(editor.getPosition().lineNumber)
+      const currentProperty = textInCurrentEditorLine?.split(':').map((item: string) => item.trim())[0]
+      const parentToCurrentPropertyPath = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
+      return { currentProperty, yamlInEditor, parentToCurrentPropertyPath }
+    } catch (e) {
+      onErrorCallback?.(e)
+    }
   }
 }
 

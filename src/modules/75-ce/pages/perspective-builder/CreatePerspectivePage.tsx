@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Heading, Layout, Tabs, Tab, Icon, Text } from '@wings-software/uicore'
 import { PageSpinner } from '@common/components'
@@ -6,7 +6,7 @@ import { PageHeader } from '@common/components/Page/PageHeader'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
 import { PageBody } from '@common/components/Page/PageBody'
-import { useGetPerspective } from 'services/ce/'
+import { useGetPerspective, CEView } from 'services/ce/'
 
 import PerspectiveBuilder from '../../components/PerspectiveBuilder'
 import ReportsAndBudgets from '../../components/PerspectiveReportsAndBudget/PerspectiveReportsAndBudgets'
@@ -42,8 +42,11 @@ const CreatePerspectivePage: React.FC = () => {
   const tabHeadings = ['1. Perspective Builder', '2. Reports and Budget']
   const [selectedTabId, setSelectedTabId] = useState(tabHeadings[0])
 
+  const [perspectiveData, setPerspectiveData] = useState<CEView | null>(null)
+
   const { perspectiveId } = useParams<{
     perspectiveId: string
+    accountId: string
   }>()
 
   const {
@@ -56,7 +59,14 @@ const CreatePerspectivePage: React.FC = () => {
     }
   })
 
-  const perspectiveData = perspectiveRes?.resource
+  useEffect(() => {
+    if (perspectiveRes?.resource) {
+      const data = perspectiveRes.resource
+      setPerspectiveData(data)
+    }
+  }, [perspectiveRes?.resource])
+
+  // const perspectiveData = perspectiveRes?.resource
 
   if (error) {
     const errorMessage = (error.data as any).message
@@ -86,9 +96,7 @@ const CreatePerspectivePage: React.FC = () => {
       <PageBody>
         {perspectiveData && (
           <div className={css.mainContainer}>
-            <div>
-              <div className={css.filler}></div>
-            </div>
+            <div></div>
             <Tabs
               id="perspectiveBuilder"
               onChange={(id: string) => setSelectedTabId(id)}
@@ -100,7 +108,10 @@ const CreatePerspectivePage: React.FC = () => {
                 panel={
                   <PerspectiveBuilder
                     perspectiveData={perspectiveData}
-                    onNext={() => setSelectedTabId(tabHeadings[1])}
+                    onNext={resource => {
+                      setSelectedTabId(tabHeadings[1])
+                      setPerspectiveData(resource)
+                    }}
                   />
                 }
                 panelClassName={css.panelClass}

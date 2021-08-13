@@ -14,5 +14,6 @@ declare const styles: {
   readonly noLogs: string
   readonly selectedSearchResult: string
   readonly search: string
+  readonly logViewer: string
 }
 export default styles

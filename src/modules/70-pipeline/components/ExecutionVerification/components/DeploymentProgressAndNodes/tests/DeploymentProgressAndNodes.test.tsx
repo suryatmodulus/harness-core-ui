@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import { cloneDeep } from 'lodash-es'
 import { Classes } from '@blueprintjs/core'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
@@ -184,7 +185,7 @@ describe('Deployment progress and nodes unit tests', () => {
     )
 
     await waitFor(() => expect(getByText('CANARY')).not.toBeNull())
-    fireEvent.click(container.querySelector('[class*="canaryNodes"] [data-name="popoverContainer"]')!)
+    fireEvent.click(container.querySelector('[class*="canaryNodes"] [class~="hexagonContainer"]')!)
     await waitFor(() =>
       expect(onSelectMock).toHaveBeenLastCalledWith({
         anomalousLogClustersCount: 0,
@@ -202,7 +203,22 @@ describe('Deployment progress and nodes unit tests', () => {
       </TestWrapper>
     )
 
-    fireEvent.click(container2.querySelector('[data-name="popoverContainer"]')!)
+    fireEvent.click(container2.querySelector('[class~="hexagonContainer"]')!)
     await waitFor(() => expect(container2.querySelector('[class*="hexagonContainer"][class*="selected"]')).toBeNull())
+  })
+
+  test('Ensure that correct messaging is displayed when progress is 0', async () => {
+    const onSelectMock = jest.fn()
+    const clonedMock = cloneDeep(CanaryDeploymentMockData)
+    clonedMock.deploymentSummary!.progressPercentage = 0
+    clonedMock.deploymentSummary!.status = 'IN_PROGRESS'
+
+    const { getByText } = render(
+      <TestWrapper>
+        <DeploymentProgressAndNodes {...clonedMock} onSelectNode={onSelectMock} />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('pipeline.verification.waitForAnalysis')).not.toBeNull())
   })
 })

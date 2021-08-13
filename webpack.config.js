@@ -166,6 +166,14 @@ const config = {
       {
         test: /\.gql$/,
         type: 'asset/source'
+      },
+      {
+        test: /\.(mp4)$/,
+        use: [
+          {
+            loader: 'file-loader'
+          }
+        ]
       }
     ]
   },

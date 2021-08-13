@@ -45,15 +45,17 @@ exports[`Custom Variables can add a string variable 1`] = `
       class="variableListTable"
     >
       <p
-        class="StyledProps--font Text--lineclamp StyledProps--main"
+        class="StyledProps--font Text--lineclamp StyledProps--main variable-name-cell"
         style="--text-line-clamp: 1;"
       >
-        <span>
-          customVariables.variableAndType
+        <span
+          class=""
+        >
+          myVar
         </span>
       </p>
       <div
-        class="valueRow"
+        class="valueRow variable-value-cell"
       >
         <div>
           <div
@@ -64,7 +66,8 @@ exports[`Custom Variables can add a string variable 1`] = `
               class="bp3-form-content"
             >
               <div
-                class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                class="Layout--horizontal StyledProps--main MultiTypeInput--mini"
+                style="width: 264px;"
               >
                 <div
                   class="bp3-input-group MultiTypeInput--input"
@@ -84,7 +87,7 @@ exports[`Custom Variables can add a string variable 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="MultiTypeInput--btn MultiTypeInput--FIXED"
+                      class="MultiTypeInput--miniBtn MultiTypeInput--FIXED"
                     >
                       <span
                         class="bp3-icon StyledProps--main"
@@ -109,9 +112,11 @@ exports[`Custom Variables can add a string variable 1`] = `
             </div>
           </div>
         </div>
-        <div>
+        <div
+          class="actionButtons"
+        >
           <section
-            class="actionButtons"
+            class="actionButtons alignIcons"
           >
             <span
               class="bp3-popover-wrapper"
@@ -179,6 +184,9 @@ exports[`Custom Variables can add a string variable 1`] = `
               </span>
             </span>
           </section>
+          <div
+            class="alignIcons configureButton"
+          />
         </div>
       </div>
     </div>

@@ -30,6 +30,7 @@ import {
 } from './Utils'
 import useToggleRuleState from './useToggleRuleState'
 // import SpotvsODChart from './SpotvsODChart'
+import DownloadCLI from '../DownloadCLI/DownloadCLI'
 import css from './COGatewayList.module.scss'
 interface COGatewayAnalyticsProps {
   service: { data: Service; index: number } | null | undefined
@@ -134,17 +135,15 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
   const [idleHourSeries, setIdleHourSeries] = useState<number[]>([])
   const [actualHoursSeries, setActualHoursSeries] = useState<number[]>([])
   const { data, loading } = useSavingsOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service?.data.id as number,
+    account_id: accountId,
+    rule_id: props.service?.data.id as number,
     queryParams: {
       accountIdentifier: accountId
     }
   })
   const { data: graphData, loading: graphLoading } = useSavingsOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service?.data.id as number,
+    account_id: accountId,
+    rule_id: props.service?.data.id as number,
     queryParams: {
       accountIdentifier: accountId,
       from: moment(startOfDay(today().subtract(7, 'days'))).format(DATE_FORMAT),
@@ -153,9 +152,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     }
   })
   const { data: healthData, loading: healthDataLoading } = useHealthOfService({
-    org_id: orgIdentifier, // eslint-disable-line
-    projectID: projectIdentifier, // eslint-disable-line
-    serviceID: props.service?.data.id as number,
+    account_id: accountId,
+    rule_id: props.service?.data.id as number,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -166,9 +164,8 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
     loading: resourcesLoading,
     error: resourceError
   } = useAllServiceResources({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    service_id: props.service?.data.id as number, // eslint-disable-line
+    account_id: accountId,
+    rule_id: props.service?.data.id as number, // eslint-disable-line
     debounce: 300
   })
 
@@ -248,7 +245,9 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
           {/* <Avatar email="john.doe@harnes.io" size={'small'} />
           {'John Doe '} */}
         </Text>
-        <Heading level={3}>DETAILS</Heading>
+        <Heading level={3} className={css.analyticsSubHeader}>
+          DETAILS
+        </Heading>
         <Layout.Horizontal spacing="large" padding="medium">
           <Layout.Vertical spacing="large" padding="medium">
             <Text>Connector</Text>
@@ -315,6 +314,14 @@ const COGatewayAnalytics: React.FC<COGatewayAnalyticsProps> = props => {
             ) : null}
           </Layout.Vertical>
         </Layout.Horizontal>
+        {props.service?.data.fulfilment !== 'kubernetes' && (
+          <>
+            <Heading level={3} className={css.analyticsSubHeader}>
+              {getString('ce.co.autoStoppingRule.setupAccess.helpText.ssh.setup.download')}
+            </Heading>
+            <DownloadCLI />
+          </>
+        )}
         <Container padding="medium" style={{ backgroundColor: '#f7fbfe' }}>
           <Layout.Horizontal spacing="large">
             {loading ? (

@@ -4,8 +4,8 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import SideNav from '../SideNav'
 
-jest.mock('@common/navigation/ProjectSelector/ProjectSelector', () => ({
-  ...(jest.requireActual('@common/navigation/ProjectSelector/ProjectSelector') as any),
+jest.mock('@projects-orgs/components/ProjectSelector/ProjectSelector.tsx', () => ({
+  ...(jest.requireActual('@projects-orgs/components/ProjectSelector/ProjectSelector') as any),
   ProjectSelector: function P(props: any) {
     return (
       <Container>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -53,14 +53,8 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}>
               {getString('pipelineSteps.connectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.connectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -85,9 +79,13 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.image`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'image'
+              }}
+            >
               {getString('imageLabel')}
-              <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -105,9 +103,8 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
         <MultiTypeFieldSelector
           name={`${isEmpty(path) ? '' : `${path}.`}spec.command`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'runCommand' }}>
               {getString('commandLabel')}
-              <Button icon="question" minimal tooltip={getString('commandInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           defaultValueToReset=""
@@ -142,12 +139,10 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           label={getString('ci.privileged')}
           disabled={readonly}
           multiTypeTextbox={{
-            children: (
-              <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
-            ),
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
+          tooltipProps={{ dataTooltipId: 'privileged' }}
           setToFalseWhenEmpty={true}
         />
       )}
@@ -160,14 +155,8 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'reportPaths' }}>
                 {getString('pipelineSteps.reportPathsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.reportPathsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -186,14 +175,11 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'environmentVariables' }}
+              >
                 {getString('environmentVariables')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('environmentVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -213,14 +199,11 @@ export const RunStepInputSet: React.FC<RunStepProps> = ({ template, path, readon
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'outputVariables' }}
+              >
                 {getString('pipelineSteps.outputVariablesLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.outputVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]

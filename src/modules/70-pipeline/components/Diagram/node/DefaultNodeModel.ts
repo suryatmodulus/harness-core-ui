@@ -24,6 +24,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   isInComplete?: boolean
   skipCondition?: string
   conditionalExecutionEnabled?: boolean
+  isTemplate?: boolean
   secondaryIcon?: IconName | null
   secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: CSSProperties

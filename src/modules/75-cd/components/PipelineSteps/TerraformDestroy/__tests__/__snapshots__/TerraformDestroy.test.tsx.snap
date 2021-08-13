@@ -6,7 +6,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -69,7 +69,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -163,6 +163,9 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
       </div>
     </div>
     <div
+      class="divider"
+    />
+    <div
       class="formGroup md"
     >
       <div
@@ -174,7 +177,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -199,7 +202,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.configuration.type"
-                  placeholder="pipelineSteps.configurationType"
+                  placeholder="- pipelineSteps.configurationType -"
                   style="padding-right: 0px;"
                   type="text"
                   value="inline"
@@ -208,20 +211,20 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -245,7 +248,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -394,7 +397,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                        data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.workspace"
                       >
                         pipelineSteps.workspace (optional)
                       </span>
@@ -847,41 +850,17 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                         <div
                           class="formLabel"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="dependencyEnvironmentVariables"
                           >
-                            optionalField
-                            <span
-                              class="bp3-popover-wrapper"
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                             >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="question"
-                                  >
-                                    <svg
-                                      height="14"
-                                      viewBox="0 0 14 14"
-                                      width="14"
-                                    >
-                                      <path
-                                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                        fill="#9AA5B5"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </span>
-                          </p>
+                              optionalField
+                            </p>
+                          </div>
                         </div>
                          
                         <span
@@ -1048,7 +1027,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -1111,7 +1090,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -1205,6 +1184,9 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
       </div>
     </div>
     <div
+      class="divider"
+    />
+    <div
       class="formGroup md"
     >
       <div
@@ -1216,7 +1198,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -1241,7 +1223,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.configuration.type"
-                  placeholder="pipelineSteps.configurationType"
+                  placeholder="- pipelineSteps.configurationType -"
                   style="padding-right: 0px;"
                   type="text"
                   value="inline"
@@ -1250,20 +1232,20 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -1287,7 +1269,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -1436,7 +1418,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                        data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.workspace"
                       >
                         pipelineSteps.workspace (optional)
                       </span>
@@ -1889,41 +1871,17 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                         <div
                           class="formLabel"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="dependencyEnvironmentVariables"
                           >
-                            optionalField
-                            <span
-                              class="bp3-popover-wrapper"
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                             >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="question"
-                                  >
-                                    <svg
-                                      height="14"
-                                      viewBox="0 0 14 14"
-                                      width="14"
-                                    >
-                                      <path
-                                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                        fill="#9AA5B5"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </span>
-                          </p>
+                              optionalField
+                            </p>
+                          </div>
                         </div>
                          
                         <span
@@ -2090,7 +2048,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2153,7 +2111,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -2247,6 +2205,9 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
       </div>
     </div>
     <div
+      class="divider"
+    />
+    <div
       class="formGroup md"
     >
       <div
@@ -2258,7 +2219,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -2283,7 +2244,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.configuration.type"
-                  placeholder="pipelineSteps.configurationType"
+                  placeholder="- pipelineSteps.configurationType -"
                   style="padding-right: 0px;"
                   type="text"
                   value="pipelineSteps.configTypes.fromPlan"
@@ -2292,20 +2253,20 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -2329,7 +2290,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -2397,7 +2358,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2460,7 +2421,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -2554,6 +2515,9 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
       </div>
     </div>
     <div
+      class="divider"
+    />
+    <div
       class="formGroup md"
     >
       <div
@@ -2565,7 +2529,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -2590,7 +2554,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.configuration.type"
-                  placeholder="pipelineSteps.configurationType"
+                  placeholder="- pipelineSteps.configurationType -"
                   style="padding-right: 0px;"
                   type="text"
                   value="pipelineSteps.configTypes.fromApply"
@@ -2599,20 +2563,20 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -2636,7 +2600,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -2704,7 +2668,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -2765,7 +2729,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -2859,6 +2823,9 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
       </div>
     </div>
     <div
+      class="divider"
+    />
+    <div
       class="formGroup md"
     >
       <div
@@ -2870,7 +2837,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -2895,7 +2862,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.configuration.type"
-                  placeholder="pipelineSteps.configurationType"
+                  placeholder="- pipelineSteps.configurationType -"
                   style="padding-right: 0px;"
                   type="text"
                   value="pipelineSteps.configTypes.fromApply"
@@ -2904,20 +2871,20 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -2941,7 +2908,7 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -3177,111 +3144,135 @@ exports[`Test TerraformDestroy should render inputSet View 1`] = `
 exports[`Test TerraformDestroy should render variable view 1`] = `
 <div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL2"
   />
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL2"
   >
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.terraformDestroy.configuration.spec.workspace
+        <div
+          class="text variable-name-cell"
+        >
+          <span
+            class=""
+          >
+            workspace
+          </span>
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span
-          class="bp3-popover-target"
+          class=""
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
-            >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+          testworkspace
         </span>
-      </div>
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      testworkspace
-    </p>
   </div>
   <div
-    class="variablesListTable"
+    class="variablesListTable variablePaddingL2"
   >
     <div
-      class="main"
+      class="variableListRow"
     >
       <div
-        class="text"
+        class="main"
       >
-        step.terraformDestroy.configuration.spec.configFiles.store.spec.branch
+        <div
+          class="text variable-name-cell"
+        >
+          <span
+            class=""
+          >
+            branch
+          </span>
+        </div>
+        <div
+          class="bp3-popover-wrapper btnWrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="copy-alt"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 8 9"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </div>
       </div>
-      <div
-        class="bp3-popover-wrapper btnWrapper"
+      <p
+        class="StyledProps--font Text--lineclamp StyledProps--main"
+        style="--text-line-clamp: 1;"
       >
         <span
-          class="bp3-popover-target"
+          class=""
         >
-          <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="bp3-icon StyledProps--main"
-              data-icon="copy-alt"
-            >
-              <svg
-                fill="none"
-                height="16"
-                viewBox="0 0 8 9"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M7.273 1.403c0-.109-.073-.181-.182-.181H3.453c-.108 0-.181.072-.181.18v.181a.363.363 0 01-.727 0v-.361c0-.397.328-.722.728-.722h4c.4 0 .727.325.728.721v5.42a.726.726 0 01-.728.722h-1.09a.364.364 0 01-.365-.36c0-.2.165-.362.364-.362h.91c.108 0 .18-.072.18-.18V1.403zM0 7.847V2.958c0-.359.337-.652.748-.652h4.114c.411 0 .749.293.749.652v4.89c0 .359-.338.652-.749.652H.748C.337 8.5 0 8.207 0 7.847z"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
+          main
         </span>
-      </div>
+      </p>
     </div>
-    <p
-      class="StyledProps--font Text--lineclamp StyledProps--main"
-      style="--text-line-clamp: 1;"
-    >
-      main
-    </p>
   </div>
 </div>
 `;

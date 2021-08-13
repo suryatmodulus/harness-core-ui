@@ -3,5 +3,6 @@
 declare const styles: {
   readonly main: string
   readonly card: string
+  readonly delegateName: string
 }
 export default styles

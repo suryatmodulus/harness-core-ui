@@ -6,7 +6,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
     class="OverlaySpinner--overlaySpinner"
   >
     <div
-      class="formGroup md"
+      class="formGroup lg"
     >
       <div
         class="InputWithIdentifier--txtNameContainer TextInput--main"
@@ -69,7 +69,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
           >
             <span
               class="Tooltip--acenter"
-              data-tooltip-id="terraformEdit_name"
+              data-tooltip-id="terraformEdit-TerraformDestroy-_name"
             >
               name
             </span>
@@ -163,6 +163,9 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
       </div>
     </div>
     <div
+      class="divider"
+    />
+    <div
       class="formGroup md"
     >
       <div
@@ -174,7 +177,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.configuration.type"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.type"
           >
             pipelineSteps.configurationType
           </span>
@@ -199,7 +202,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                   autocomplete="off"
                   class="bp3-input"
                   name="spec.configuration.type"
-                  placeholder="pipelineSteps.configurationType"
+                  placeholder="- pipelineSteps.configurationType -"
                   style="padding-right: 0px;"
                   type="text"
                   value="inline"
@@ -208,20 +211,20 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -245,7 +248,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
         >
           <span
             class="Tooltip--acenter"
-            data-tooltip-id="terraformEdit_spec.provisionerIdentifier"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.provisionerIdentifier"
           >
             pipelineSteps.provisionerIdentifier
           </span>
@@ -394,7 +397,7 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                     >
                       <span
                         class="Tooltip--acenter"
-                        data-tooltip-id="terraformEdit_spec.configuration.spec.workspace"
+                        data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.workspace"
                       >
                         pipelineSteps.workspace (optional)
                       </span>
@@ -969,41 +972,17 @@ exports[`Test TerraformDestroy with inline var file and expand the varfiles sect
                         <div
                           class="formLabel"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="dependencyEnvironmentVariables"
                           >
-                            optionalField
-                            <span
-                              class="bp3-popover-wrapper"
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
                             >
-                              <span
-                                class="bp3-popover-target"
-                              >
-                                <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                                  tabindex="0"
-                                  type="button"
-                                >
-                                  <span
-                                    class="bp3-icon StyledProps--main"
-                                    data-icon="question"
-                                  >
-                                    <svg
-                                      height="14"
-                                      viewBox="0 0 14 14"
-                                      width="14"
-                                    >
-                                      <path
-                                        d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
-                                        fill="#9AA5B5"
-                                      />
-                                    </svg>
-                                  </span>
-                                </button>
-                              </span>
-                            </span>
-                          </p>
+                              optionalField
+                            </p>
+                          </div>
                         </div>
                          
                         <span

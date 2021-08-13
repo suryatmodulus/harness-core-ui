@@ -14,6 +14,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 
+import type { StringsMap } from 'stringTypes'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
 import {
@@ -59,6 +60,7 @@ export class TerraformApply extends PipelineStep<TFFormData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Apply'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformApply'
   /* istanbul ignore next */
   validateInputSet({
     data,

@@ -29,31 +29,10 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectAppGateway
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"
@@ -76,7 +55,7 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="accessPoint"
-                            placeholder="Search..."
+                            placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -85,20 +64,20 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
                             >
                               <svg
-                                data-icon="caret-down"
+                                data-icon="chevron-down"
                                 height="14"
                                 viewBox="0 0 16 16"
                                 width="14"
                               >
                                 <desc>
-                                  caret-down
+                                  chevron-down
                                 </desc>
                                 <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                   fill-rule="evenodd"
                                 />
                               </svg>
@@ -113,6 +92,159 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                     >
                       +ce.co.accessPoint.newAppGateway
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -148,12 +280,6 @@ exports[`Azure DNS setup render azure dns setup page 1`] = `
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"
@@ -254,31 +380,10 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectLb
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"
@@ -301,7 +406,7 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="accessPoint"
-                            placeholder="Search..."
+                            placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -310,20 +415,20 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
                             >
                               <svg
-                                data-icon="caret-down"
+                                data-icon="chevron-down"
                                 height="14"
                                 viewBox="0 0 16 16"
                                 width="14"
                               >
                                 <desc>
-                                  caret-down
+                                  chevron-down
                                 </desc>
                                 <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                   fill-rule="evenodd"
                                 />
                               </svg>
@@ -338,6 +443,159 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                     >
                       +ce.co.accessPoint.new
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -373,12 +631,6 @@ exports[`Use DNS for Setup No Access Point is available 1`] = `
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"
@@ -479,31 +731,10 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectLb
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"
@@ -526,7 +757,7 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="accessPoint"
-                            placeholder="Search..."
+                            placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -535,20 +766,20 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
                             >
                               <svg
-                                data-icon="caret-down"
+                                data-icon="chevron-down"
                                 height="14"
                                 viewBox="0 0 16 16"
                                 width="14"
                               >
                                 <desc>
-                                  caret-down
+                                  chevron-down
                                 </desc>
                                 <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                   fill-rule="evenodd"
                                 />
                               </svg>
@@ -563,6 +794,159 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                     >
                       +ce.co.accessPoint.new
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -598,12 +982,6 @@ exports[`Use DNS for Setup No hosted zone is available 1`] = `
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"
@@ -704,31 +1082,10 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                 level="3"
               >
                 ce.co.autoStoppingRule.setupAccess.selectLb
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="info"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      clip-rule="evenodd"
-                      d="M0 6a6 6 0 1012 0A6 6 0 000 6zm.75 0a5.25 5.25 0 1010.5 0A5.25 5.25 0 00.75 6zm4.206 3.104v.646h2.682v-.646l-.836-.144V4.203H4.956v.65l.836.144V8.96l-.836.144zm1.846-7.352v1.03h-1.01v-1.03h1.01z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
               </h3>
               <div
                 class="Layout--horizontal StyledProps--main selectLoadBalancerContainer"
               >
-                <img
-                  class="helperImage"
-                  src="test-file-stub"
-                />
                 <div>
                   <p
                     class="StyledProps--font StyledProps--main helpText"
@@ -751,7 +1108,7 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                             autocomplete="off"
                             class="bp3-input"
                             name="accessPoint"
-                            placeholder="Search..."
+                            placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -760,20 +1117,20 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
                             >
                               <svg
-                                data-icon="caret-down"
+                                data-icon="chevron-down"
                                 height="14"
                                 viewBox="0 0 16 16"
                                 width="14"
                               >
                                 <desc>
-                                  caret-down
+                                  chevron-down
                                 </desc>
                                 <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                   fill-rule="evenodd"
                                 />
                               </svg>
@@ -788,6 +1145,159 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                     >
                       +ce.co.accessPoint.new
                     </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main dnsLinkContainer"
+            >
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_routing"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="routing"
+                    id="bp3-tab-title_tabsId1_routing"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Routing
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_tabsId1_healthcheck"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="healthcheck"
+                    id="bp3-tab-title_tabsId1_healthcheck"
+                    role="tab"
+                    tabindex="0"
+                  >
+                    Health check
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_tabsId1_routing"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_tabsId1_routing"
+                  role="tabpanel"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main"
+                    style="background-color: rgb(251, 251, 251);"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main titleHelpTextDescription"
+                    >
+                      ce.co.gatewayConfig.routingDescription
+                    </p>
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-large StyledProps--main"
+                    >
+                      <table
+                        class="bp3-html-table bp3-interactive routingTable"
+                        role="table"
+                      >
+                        <thead>
+                          <tr
+                            role="row"
+                          >
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              LISTEN PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              ACTION
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PROTOCOL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              TARGET PORT
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              REDIRECT URL
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              SERVER NAME
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            >
+                              PATH MATCH
+                            </th>
+                            <th
+                              colspan="1"
+                              role="columnheader"
+                              style="width: 16.5%;"
+                            />
+                          </tr>
+                        </thead>
+                        <tbody
+                          role="rowgroup"
+                        />
+                      </table>
+                      <div
+                        class="StyledProps--font StyledProps--main rowItem"
+                      >
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          ce.co.gatewayConfig.addPortLabel
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -823,12 +1333,6 @@ exports[`Use DNS for Setup renders without crashing 1`] = `
                 <div
                   class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="font-weight: 500; line-height: 20px;"
-                  >
-                    ce.co.dnsSetup.autoURL
-                  </p>
                   <p
                     class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500"
                     style="font-size: 12px; font-weight: 400; line-height: 18px;"

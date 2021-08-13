@@ -28,6 +28,7 @@ const FormConnectorReference = (props: FormConnectorFieldProps): React.ReactElem
         )
       }}
       error={error as string}
+      disabled={disabled}
     />
   )
 }

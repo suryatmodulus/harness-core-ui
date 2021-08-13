@@ -2,7 +2,7 @@ import * as yup from 'yup'
 import type { StringSchema, Lazy, ArraySchema, Schema } from 'yup'
 import type { FormikErrors } from 'formik'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
-import { get, set, uniq, uniqBy, isEmpty } from 'lodash-es'
+import { get, set, uniq, uniqBy, isEmpty, isUndefined } from 'lodash-es'
 import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
@@ -20,7 +20,10 @@ export enum Types {
   LimitMemory,
   LimitCPU,
   Timeout,
-  Boolean
+  Boolean,
+  ImagePullPolicy,
+  Shell,
+  Numeric
 }
 
 interface Field {
@@ -130,6 +133,47 @@ function generateSchemaForList(
       }
     })
   }
+}
+
+// function generateSchemaForSelect(
+//   { label, isRequired = false }: Field,
+//   { getString }: GenerateSchemaDependencies
+// ): StringSchema {
+//   return yup.array.test(`${label} is required.`, `${label} is required.`, function (field) {
+//     if (!isRequired) {
+//       return true
+//     }
+//     const value = typeof field === 'string' ? field : field?.value
+
+//     return !isUndefined(value)
+//   })
+//   if (!isRequired) {
+//     return true
+//   }
+
+//   return NameSchemaWithoutHook(getString) as StringSchema
+// }
+
+export function generateSchemaForNumeric(
+  { label: labelReference, isRequired }: Field,
+  { getString }: GenerateSchemaDependencies
+): Lazy {
+  return yup.string().test(
+    'Must be a number and allows runtimeinput or expression',
+    labelReference
+      ? getString?.('pipeline.stepCommonFields.validation.mustBeANumber', {
+          label: labelReference && getString?.(labelReference as any)
+        })
+      : getString?.('common.validation.valueMustBeANumber'),
+    function (runAsUser) {
+      if (!isRequired && isUndefined(runAsUser)) {
+        return true
+      } else if (runAsUser.startsWith('<+')) {
+        return true
+      }
+      return !isNaN(runAsUser)
+    }
+  )
 }
 
 function generateSchemaForMap(
@@ -311,6 +355,9 @@ export function generateSchemaFields(
 
     if (type === Types.Boolean) {
       validationRule = generateSchemaForBoolean()
+    }
+    if (type === Types.Numeric) {
+      validationRule = generateSchemaForNumeric(field, { getString })
     }
 
     if (type === Types.Text) {

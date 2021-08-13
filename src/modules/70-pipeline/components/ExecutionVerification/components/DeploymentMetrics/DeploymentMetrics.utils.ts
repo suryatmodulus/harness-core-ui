@@ -22,7 +22,7 @@ export function transformMetricData(
   const startOfRange = range.start.valueOf()
 
   for (const analysisData of metricData.resource?.pageResponse?.content || []) {
-    const { nodes, transactionMetric } = analysisData || {}
+    const { nodes, transactionMetric, dataSourceType } = analysisData || {}
     if (!nodes?.length || !transactionMetric?.metricName || !transactionMetric.transactionName) continue
 
     const increment = Math.floor(range.diff() / Math.max(nodes.length - 1, 1))
@@ -51,7 +51,7 @@ export function transformMetricData(
       testData: testPoints,
       transactionName: transactionMetric.transactionName,
       metricName: transactionMetric.metricName,
-      healthSourceType: 'APP_DYNAMICS'
+      healthSourceType: dataSourceType
     })
   }
 

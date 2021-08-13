@@ -188,7 +188,11 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<unkn
               <ExecutionMetadata />
             </header>
             <ExecutionTabs />
-            <div className={css.childContainer} id="pipeline-execution-container">
+            <div
+              className={css.childContainer}
+              data-view={queryParams.view || 'graph'}
+              id="pipeline-execution-container"
+            >
               {props.children}
             </div>
           </div>

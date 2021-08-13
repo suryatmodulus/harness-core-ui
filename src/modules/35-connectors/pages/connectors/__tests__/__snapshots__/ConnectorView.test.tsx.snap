@@ -204,7 +204,7 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                             class="bp3-input"
                             disabled=""
                             name="repoIdentifier"
-                            placeholder="Search..."
+                            placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -213,20 +213,20 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
                             >
                               <svg
-                                data-icon="caret-down"
+                                data-icon="chevron-down"
                                 height="14"
                                 viewBox="0 0 16 16"
                                 width="14"
                               >
                                 <desc>
-                                  caret-down
+                                  chevron-down
                                 </desc>
                                 <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                   fill-rule="evenodd"
                                 />
                               </svg>
@@ -273,7 +273,7 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                             class="bp3-input"
                             disabled=""
                             name="rootFolder"
-                            placeholder="Search..."
+                            placeholder="- Select -"
                             style="padding-right: 0px;"
                             type="text"
                             value=""
@@ -282,20 +282,20 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                             class="bp3-input-action"
                           >
                             <span
-                              class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                              icon="caret-down"
+                              class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                              icon="chevron-down"
                             >
                               <svg
-                                data-icon="caret-down"
+                                data-icon="chevron-down"
                                 height="14"
                                 viewBox="0 0 16 16"
                                 width="14"
                               >
                                 <desc>
-                                  caret-down
+                                  chevron-down
                                 </desc>
                                 <path
-                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                   fill-rule="evenodd"
                                 />
                               </svg>
@@ -481,7 +481,7 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                                 class="bp3-input"
                                 disabled=""
                                 name="targetBranch"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 style="padding-right: 0px;"
                                 type="text"
                                 value=""
@@ -490,20 +490,20 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                  icon="caret-down"
+                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                  icon="chevron-down"
                                 >
                                   <svg
-                                    data-icon="caret-down"
+                                    data-icon="chevron-down"
                                     height="14"
                                     viewBox="0 0 16 16"
                                     width="14"
                                   >
                                     <desc>
-                                      caret-down
+                                      chevron-down
                                     </desc>
                                     <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                       fill-rule="evenodd"
                                     />
                                   </svg>
@@ -725,12 +725,17 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
         >
           <div
             class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
           >
             visual
           </div>
           <div
             class="item"
-            data-test="connectorViewYaml"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
           >
             yaml
           </div>
@@ -896,12 +901,17 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
         >
           <div
             class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
           >
             visual
           </div>
           <div
             class="item"
-            data-test="connectorViewYaml"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
           >
             yaml
           </div>
@@ -1067,12 +1077,17 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
         >
           <div
             class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
           >
             visual
           </div>
           <div
             class="item"
-            data-test="connectorViewYaml"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
           >
             yaml
           </div>

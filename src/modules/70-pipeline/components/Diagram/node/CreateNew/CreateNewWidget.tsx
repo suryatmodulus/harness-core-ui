@@ -29,9 +29,14 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
   const options: CreateNewModelOptions = props.node.getOptions()
   const { disabled = false } = options
   const [dropable, setDropable] = React.useState(false)
+
+  // NOTE: adjust x position node in order to get node box cornet at x zero position
+  const marginAdjustment = -(128 - (options?.width || 64)) / 2
+
   return (
     <div
       className={cx(cssDefault.defaultNode, css.createNode)}
+      style={{ marginLeft: `${marginAdjustment}px` }}
       onClick={e => !disabled && onClickNode(e, props.node)}
       onMouseDown={e => {
         e.stopPropagation()
@@ -58,7 +63,7 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
           cssDefault.defaultCard,
           css.createNew,
           { [css.disabled]: disabled },
-          { [cssDefault.selected]: props.node.isSelected() },
+          { [css.selected]: props.node.isSelected() },
           { [cssDefault.selected]: dropable }
         )}
         style={{
@@ -69,7 +74,7 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
         }}
       >
         <div>
-          <Icon icon="plus" iconSize={20} color={'var(--diagram-grey)'} />
+          <Icon icon="plus" iconSize={22} color={'var(--diagram-add-node-color)'} />
 
           <div>
             <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
@@ -84,7 +89,7 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
       {!isEmpty(options.name) && (
         <Text
           font={{ align: 'center' }}
-          padding="xsmall"
+          padding={{ top: 'small' }}
           lineClamp={2}
           style={{ marginLeft: '-30px', marginRight: '-30px' }}
         >

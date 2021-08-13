@@ -72,7 +72,7 @@ describe('AWS Access Point Configuration screen first', () => {
     const regionsDropdown = container.querySelector('input[name="accessPointRegion"]') as HTMLInputElement
     const regionsCaret = container
       .querySelector(`input[name="accessPointRegion"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(regionsCaret!)
     })
@@ -85,7 +85,7 @@ describe('AWS Access Point Configuration screen first', () => {
     const certificatesDropdown = container.querySelector('input[name="certificate"]') as HTMLInputElement
     const certificatesCaret = container
       .querySelector(`input[name="certificate"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(certificatesCaret!)
     })
@@ -99,7 +99,7 @@ describe('AWS Access Point Configuration screen first', () => {
     const vpcDropdown = container.querySelector('input[name="vpc"]') as HTMLInputElement
     const vpcCaret = container
       .querySelector(`input[name="vpc"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(vpcCaret!)
     })

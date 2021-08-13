@@ -139,66 +139,64 @@ const InputSetList: React.FC = (): JSX.Element => {
 
   return (
     <>
-      <Page.Header
-        title={
-          <Layout.Horizontal>
-            <Popover
-              minimal
-              content={
-                <Menu className={css.menuList}>
-                  <MenuItem
-                    text={getString('inputSets.inputSetLabel')}
-                    onClick={() => {
-                      goToInputSetForm()
-                    }}
-                  />
-                  <MenuItem
-                    text={getString('inputSets.overlayInputSet')}
-                    onClick={() => {
-                      setSelectedInputSet({ identifier: '', repoIdentifier, branch })
-                      showOverlayInputSetForm()
-                    }}
-                  />
-                </Menu>
-              }
-              position={Position.BOTTOM}
-              disabled={!canUpdateInputSet || !pipelineHasRuntimeInputs}
-            >
-              <RbacButton
-                text={getString('inputSets.newInputSet')}
-                rightIcon="caret-down"
-                intent="primary"
-                permission={{
-                  resource: {
-                    resourceType: ResourceType.PIPELINE,
-                    resourceIdentifier: pipelineIdentifier
-                  },
-                  permission: PermissionIdentifier.EDIT_PIPELINE
-                }}
-                disabled={!pipelineHasRuntimeInputs}
-                tooltip={
-                  !pipelineHasRuntimeInputs ? (
-                    <Text padding="medium">{getString('pipeline.inputSets.noRuntimeInputsCurrently')}</Text>
-                  ) : undefined
-                }
-              />
-            </Popover>
-          </Layout.Horizontal>
-        }
-        toolbar={
-          <Layout.Horizontal spacing="small">
-            <TextInput
-              leftIcon="search"
-              placeholder={getString('inputSets.searchInputSet')}
-              className={css.search}
-              value={searchParam}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSearchParam(e.target.value.trim())
+      <Page.SubHeader>
+        <Layout.Horizontal>
+          <Popover
+            minimal
+            content={
+              <Menu className={css.menuList}>
+                <MenuItem
+                  text={getString('inputSets.inputSetLabel')}
+                  onClick={() => {
+                    goToInputSetForm()
+                  }}
+                />
+                <MenuItem
+                  text={getString('inputSets.overlayInputSet')}
+                  onClick={() => {
+                    setSelectedInputSet({ identifier: '', repoIdentifier, branch })
+                    showOverlayInputSetForm()
+                  }}
+                />
+              </Menu>
+            }
+            position={Position.BOTTOM}
+            disabled={!canUpdateInputSet || !pipelineHasRuntimeInputs}
+          >
+            <RbacButton
+              text={getString('inputSets.newInputSet')}
+              rightIcon="caret-down"
+              intent="primary"
+              permission={{
+                resource: {
+                  resourceType: ResourceType.PIPELINE,
+                  resourceIdentifier: pipelineIdentifier
+                },
+                permission: PermissionIdentifier.EDIT_PIPELINE
               }}
+              disabled={!pipelineHasRuntimeInputs}
+              tooltip={
+                !pipelineHasRuntimeInputs ? (
+                  <Text padding="medium">{getString('pipeline.inputSets.noRuntimeInputsCurrently')}</Text>
+                ) : undefined
+              }
             />
-          </Layout.Horizontal>
-        }
-      />
+          </Popover>
+        </Layout.Horizontal>
+
+        <Layout.Horizontal spacing="small">
+          <TextInput
+            leftIcon="search"
+            placeholder={getString('inputSets.searchInputSet')}
+            className={css.search}
+            value={searchParam}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchParam(e.target.value.trim())
+            }}
+          />
+        </Layout.Horizontal>
+      </Page.SubHeader>
+
       <Page.Body
         loading={loading}
         error={error?.message}

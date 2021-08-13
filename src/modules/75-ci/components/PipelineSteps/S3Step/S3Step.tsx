@@ -8,6 +8,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type { MultiTypeConnectorRef, Resources } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { S3StepBaseWithRef } from './S3StepBase'
 import { S3StepInputSet } from './S3StepInputSet'
 import { S3StepVariables, S3StepVariablesProps } from './S3StepVariables'
@@ -23,6 +24,7 @@ export interface S3StepSpec {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface S3StepData {
@@ -37,6 +39,7 @@ export interface S3StepSpecUI extends Omit<S3StepSpec, 'connectorRef' | 'pull' |
   connectorRef: MultiTypeConnectorRef
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
@@ -65,6 +68,7 @@ export class S3Step extends PipelineStep<S3StepData> {
   protected type = StepType.S3
   protected stepName = 'Upload Artifacts to S3'
   protected stepIcon: IconName = 'service-service-s3'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.S3'
   protected stepPaletteVisible = false
 
   protected defaultValues: S3StepData = {

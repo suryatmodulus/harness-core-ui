@@ -15,11 +15,13 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useGetPipelineList, PagePMSPipelineSummaryResponse } from 'services/pipeline-ng'
 import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDTrial/useCDTrialModal'
 import routes from '@common/RouteDefinitions'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import CDTrialHomePage from './CDTrialHomePage'
 import bgImageURL from './images/cd.svg'
 
 export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
 
   const { accountId } = useParams<AccountPathProps>()
 
@@ -163,11 +165,13 @@ export const CDHomePage: React.FC = () => {
     return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
   }
 
-  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
+  const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
+
+  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
     return <CDTrialHomePage />
   }
 
-  if (createdFromNG && data && data.data && trial) {
+  if (showTrialPages && data && data.data && trial) {
     return (
       <TrialInProgressTemplate
         title={getString('cd.continuous')}

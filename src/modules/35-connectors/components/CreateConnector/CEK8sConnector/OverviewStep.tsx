@@ -48,6 +48,8 @@ type Params = {
   orgIdentifier: string
 }
 
+type OverviewDetailsForm = DetailsForm & { referenceConnector: string }
+
 const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams<Params>()
@@ -88,8 +90,8 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
     mounted.current = true
     const spec = {
-      featuresEnabled: ['OPTIMIZATION'],
-      connectorRef: selectedConnector?.value
+      featuresEnabled: ['VISIBILITY'],
+      connectorRef: selectedConnector?.value || formData.referenceConnector
     }
     if (isEdit) {
       //In edit mode validateTheIdentifierIsUnique API not required
@@ -142,7 +144,8 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
         name: '',
         description: '',
         identifier: '',
-        tags: {}
+        tags: {},
+        referenceConnector: props.prevStepData?.spec?.connectorRef
       }
     }
   }
@@ -153,7 +156,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
       <ModalErrorHandler bind={setModalErrorHandler} />
       <div className={overviewCss.infoSection}>{getString('connectors.ceK8.infoText')}</div>
       <Container padding="small" className={css.connectorForm}>
-        <Formik<DetailsForm>
+        <Formik<OverviewDetailsForm>
           formName="overViewStepForm"
           onSubmit={formData => {
             handleSubmit(formData)
@@ -171,7 +174,7 @@ const OverviewStep: React.FC<StepProps<ConnectorConfigDTO> & OverviewStepProps> 
             referenceConnector: Yup.string().required('Select a connector')
           })}
           initialValues={{
-            ...(getInitialValues() as DetailsForm),
+            ...(getInitialValues() as OverviewDetailsForm),
             ...prevStepData,
             ...props.formData
           }}

@@ -1,10 +1,10 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { Container, Text, Button } from '@wings-software/uicore'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Link, useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
 
-import { useGetUser, useSetDefaultAccountForCurrentUser, RestResponseUser } from 'services/portal'
+import { useGetUser, useSetDefaultAccountForCurrentUser, RestResponseUser, useNewSwitchAccount } from 'services/portal'
 import type { User, Account } from 'services/portal'
 
 import { Table, PageSpinner } from '@common/components'
@@ -37,20 +37,41 @@ const SwitchAccount: React.FC<SwitchAccountProps> = ({ searchString = '', mock }
   const { accountId } = useParams<AccountPathProps>()
   const [user, setUser] = useState<User>()
   const { showError } = useToaster()
+  const history = useHistory()
 
   const { getString } = useStrings()
   const { data, loading, error, refetch } = useGetUser({
     mock
   })
   const { mutate: setDefaultAccount, loading: settingDefault } = useSetDefaultAccountForCurrentUser({ accountId })
+  const { mutate: switchAccount, loading: switchAccountLoading } = useNewSwitchAccount({
+    // requestOptions: { headers: { 'content-type': 'application/json' } }
+  })
 
   const RenderColumnAccountName: Renderer<CellProps<Account>> = ({ row }) => {
     const account = row.original
-    // currently logged in account should not be actionable
-    return account.uuid === accountId ? (
-      <Text lineClamp={1}>{account.accountName}</Text>
-    ) : (
-      <Link to={routes.toHome({ accountId: account.uuid })}>{account.accountName}</Link>
+
+    const handleSwitchAccount = async (): Promise<void> => {
+      try {
+        const response = await switchAccount({ accountId: account.uuid })
+        if (response.resource) {
+          history.push(routes.toHome({ accountId: account.uuid }))
+        } else {
+          showError(getString('common.switchAccountError'))
+        }
+      } catch (err) {
+        showError(getString('common.switchAccountError'))
+      }
+    }
+
+    return (
+      <Button
+        onClick={handleSwitchAccount}
+        text={account.accountName}
+        loading={switchAccountLoading}
+        disabled={account.uuid === accountId}
+        minimal={account.uuid === accountId}
+      />
     )
   }
 

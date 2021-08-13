@@ -37,12 +37,12 @@ const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
       {data.type === 'SSHKey' ? <Icon name="secret-ssh" size={28} margin={{ top: 'xsmall', right: 'small' }} /> : null}
       <Layout.Vertical>
         <Layout.Horizontal spacing="small" width={230}>
-          <Text color={Color.BLACK} lineClamp={1}>
+          <Text color={Color.BLACK} lineClamp={1} className={css.secretName}>
             {data.name}
           </Text>
           {data.tags && Object.keys(data.tags).length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
-        <Text color={Color.GREY_400} width={230} lineClamp={1}>
+        <Text color={Color.GREY_600} font={{ size: 'small' }} width={230} lineClamp={1}>
           {data.identifier}
         </Text>
       </Layout.Vertical>
@@ -60,7 +60,9 @@ const RenderColumnDetails: Renderer<CellProps<SecretResponseWrapper>> = ({ row }
         </Text>
       ) : null}
       {/* TODO {Abhinav} display SM name */}
-      <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>
+      <Text color={Color.GREY_600} font={{ size: 'small' }}>
+        {getStringForType(data.type)}
+      </Text>
     </>
   )
 }
@@ -68,7 +70,7 @@ const RenderColumnDetails: Renderer<CellProps<SecretResponseWrapper>> = ({ row }
 const RenderColumnActivity: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
   const data = row.original
   return data.updatedAt ? (
-    <Layout.Horizontal spacing="small">
+    <Layout.Horizontal spacing="small" color={Color.GREY_600}>
       <Icon name="activity" />
       <ReactTimeago date={data.updatedAt} />
     </Layout.Horizontal>
@@ -89,12 +91,13 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
     return (
       <Button
         font="small"
-        text={<String stringID="secrets.testconnection" />}
+        text={<String stringID="common.labelTestConnection" />}
         onClick={e => {
           e.stopPropagation()
           openVerifyModal(data)
           return
         }}
+        withoutBoxShadow
       />
     )
 
@@ -165,7 +168,7 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
           setMenuOpen(nextOpenState)
         }}
         className={Classes.DARK}
-        position={Position.BOTTOM_RIGHT}
+        position={Position.RIGHT_TOP}
       >
         <Button
           minimal

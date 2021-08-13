@@ -49,6 +49,11 @@ export const DelegateOverview: React.FC<DelegateOverviewProps> = ({ delegate, de
       <SectionLabelValuePair label={getString('delegate.delegateName')} value={delegate.groupName} />
 
       <SectionLabelValuePair
+        label={getString('delegates.delegateIdentifier')}
+        value={delegate.delegateGroupIdentifier}
+      />
+
+      <SectionLabelValuePair
         label={getString('delegate.delegateConfiguration')}
         value={
           <Text style={{ fontSize: '14px', lineHeight: '24px', color: '#25A6F7', letterSpacing: '-0.01px' }}>

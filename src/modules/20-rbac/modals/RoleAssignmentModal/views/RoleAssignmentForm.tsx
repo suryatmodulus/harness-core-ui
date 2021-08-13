@@ -1,8 +1,7 @@
-import React, { useState, useMemo, useRef } from 'react'
+import React, { useMemo, useRef } from 'react'
 import { Container, Layout, Text, FieldArray, Select, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
-import { produce } from 'immer'
 import { useDeleteRoleAssignment, useGetRoleList } from 'services/rbac'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -29,7 +28,6 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
   const { getString } = useStrings()
   const { showSuccess, showError } = useToaster()
   const defaultResourceGroup = useRef<SelectOption>()
-  const [defaultRoleRows, setDefaultRoleRows] = useState<Set<number>>(new Set())
 
   const { mutate: deleteRoleAssignment } = useDeleteRoleAssignment({
     queryParams: {
@@ -102,18 +100,11 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
         placeholder={noRoleAssignmentsText}
         insertRowAtBeginning={false}
         isDeleteOfRowAllowed={row => !(row as Assignment).role.managedRoleAssignment}
-        onDeleteOfRow={async (row, rowIndex) => {
+        onDeleteOfRow={async row => {
           const assignment = (row as Assignment).role.assignmentIdentifier
           if (assignment) {
             const deleted = await handleRoleAssignmentDelete(assignment)
             if (!deleted) return false
-          }
-          if (defaultRoleRows.has(rowIndex)) {
-            setDefaultRoleRows(
-              produce(defaultRoleRows, draft => {
-                draft.delete(rowIndex)
-              })
-            )
           }
           return true
         }}
@@ -133,22 +124,7 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
                     placeholder: getString('rbac.usersPage.selectRole')
                   }}
                   disabled={(value as RoleOption).assignmentIdentifier ? true : false}
-                  onChange={props => {
-                    handleChange(props)
-                    const selectedItem = props as RoleOption
-                    if (selectedItem.managed)
-                      setDefaultRoleRows(
-                        produce(defaultRoleRows, draft => {
-                          draft.add(_index)
-                        })
-                      )
-                    else
-                      setDefaultRoleRows(
-                        produce(defaultRoleRows, draft => {
-                          draft.delete(_index)
-                        })
-                      )
-                  }}
+                  onChange={handleChange}
                 />
                 {errorCheck('assignments', formik) && error ? (
                   <Text intent="danger" font="xsmall">
@@ -164,14 +140,12 @@ const RoleAssignmentForm: React.FC<RoleAssignmentFormProps> = ({ noRoleAssignmen
             defaultValue: defaultResourceGroup.current,
             // eslint-disable-next-line react/display-name
             renderer: (value, _index, handleChange, error) => {
-              const managed = defaultRoleRows.has(_index)
               return (
                 <Layout.Vertical flex={{ alignItems: 'end' }} spacing="xsmall">
                   <Select
                     items={resourceGroups}
                     value={value}
                     popoverClassName={css.selectPopover}
-                    disabled={managed || (value as RoleOption).assignmentIdentifier ? true : false}
                     inputProps={{
                       placeholder: getString('rbac.usersPage.selectResourceGroup')
                     }}

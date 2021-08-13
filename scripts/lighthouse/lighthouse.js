@@ -95,23 +95,11 @@ async function run() {
     let page = await browser.newPage()
     await page.setDefaultNavigationTimeout(300000) // 5 minutes timeout
     await page.goto(passedUrl)
-    if (passedUrl === QA_URL) {
-      const emailInput = await page.$('#email')
-      await emailInput.type(emailId)
-      const passwordInput = await page.$('#password')
-      await passwordInput.type(passWord)
-      await page.$eval('input[type="submit"]', form => form.click())
-    } else {
-      const emailInput = await page.$('#root_login')
-      await emailInput.type(emailId)
-      await page.$eval('button', form => form.click())
-      await page.waitForSelector('#root_password', {
-        visible: true
-      })
-      const passwordInput = await page.$('input[type="password"]')
-      await passwordInput.type(passWord)
-      await page.$eval('button', form => form.click())
-    }
+    const emailInput = await page.$('#email')
+    await emailInput.type(emailId)
+    const passwordInput = await page.$('#password')
+    await passwordInput.type(passWord)
+    await page.$eval('input[type="submit"]', form => form.click())
     await page.waitForNavigation()
     await page.waitForXPath("//span[text()='Main Dashboard']")
     let results = await runLightHouseNtimes(numberOfTimes, passedUrl)

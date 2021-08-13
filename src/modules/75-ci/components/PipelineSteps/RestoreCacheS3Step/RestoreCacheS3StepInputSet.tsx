@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -42,14 +42,11 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'restoreCacheAwsConnector' }}
+            >
               {getString('pipelineSteps.awsConnectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.restoreCacheAwsConnectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={'Aws'}
@@ -73,14 +70,8 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.region`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'region' }}>
               {getString('regionLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.regionInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -99,14 +90,8 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.bucket`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 's3Bucket' }}>
               {getString('pipelineSteps.bucketLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.S3BucketInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -124,14 +109,8 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.key`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'restoreCacheKey' }}>
               {getString('keyLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.restoreCacheKeyInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -147,17 +126,7 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
       {getMultiTypeFromValue(template?.spec?.endpoint) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField
           name={`${isEmpty(path) ? '' : `${path}.`}spec.endpoint`}
-          label={
-            <Text>
-              {getString('pipelineSteps.endpointLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.endpointInfo')}
-                iconProps={{ size: 14 }}
-              />
-            </Text>
-          }
+          label={<Text tooltipProps={{ dataTooltipId: 'endpoint' }}>{getString('pipelineSteps.endpointLabel')}</Text>}
           multiTextInputProps={{
             placeholder: getString('pipelineSteps.endpointPlaceholder'),
             multiTextInputProps: {
@@ -174,9 +143,8 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.archiveFormat`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'archiveFormat' }}>
               {getString('archiveFormat')}
-              <Button icon="question" minimal tooltip={getString('archiveFormatInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTypeInputProps={{
@@ -201,6 +169,7 @@ export const RestoreCacheS3StepInputSet: React.FC<RestoreCacheS3StepProps> = ({ 
           }}
           style={{ marginBottom: 'var(--spacing-small)' }}
           setToFalseWhenEmpty={true}
+          tooltipProps={{ dataTooltipId: 'pathStyle' }}
         />
       )}
       {getMultiTypeFromValue(template?.spec?.failIfKeyNotFound) === MultiTypeInputType.RUNTIME && (

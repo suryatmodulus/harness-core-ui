@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -50,14 +50,8 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'connector' }}>
               {getString('pipelineSteps.connectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.connectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -81,9 +75,13 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.image`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'pluginImageInfo'
+              }}
+            >
               {getString('imageLabel')}
-              <Button icon="question" minimal tooltip={getString('pluginImageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -102,12 +100,10 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
           label={getString('ci.privileged')}
           multiTypeTextbox={{
-            children: (
-              <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
-            ),
             expressions,
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
           }}
+          tooltipProps={{ dataTooltipId: 'privileged' }}
           disabled={readonly}
           setToFalseWhenEmpty={true}
         />
@@ -121,14 +117,11 @@ export const PluginStepInputSet: React.FC<PluginStepProps> = ({ template, path, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'pluginSettings' }}
+              >
                 {getString('settingsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.settingsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]

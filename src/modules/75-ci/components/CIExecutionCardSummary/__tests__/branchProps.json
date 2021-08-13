@@ -1,0 +1,34 @@
+{
+  "data": {
+    "branch": "master",
+    "ciExecutionInfoDTO": {
+      "event": "branch",
+      "author": {
+        "id": "yc147",
+        "name": "",
+        "email": "",
+        "avatar": "https://avatars.githubusercontent.com/u/81607640?v=4"
+      },
+      "branch": {
+        "name": "master",
+        "link": "https://github.com/wings-software/nextgenui",
+        "state": null,
+        "commits": [
+          {
+            "id": "15953724c19abb82c391bb380f4470a23da6412a",
+            "link": "https://github.com/wings-software/nextgenui/commit/15953724c19abb82c391bb380f4470a23da6412a",
+            "message": "fix: [CDNG-11399]: setting page number as 1 for polling (#4731)",
+            "ownerName": "Yogesh Chaudhary",
+            "ownerId": "yc147",
+            "ownerEmail": "81607640+yc147@users.noreply.github.com",
+            "timeStamp": 1627885784000
+          }
+        ]
+      }
+    },
+    "repoName": "nextgenui"
+  },
+  "nodeMap": {},
+  "startingNodeId": "2qZBrvnRRBisHCG7WCAgtw",
+  "variant": "Default"
+}

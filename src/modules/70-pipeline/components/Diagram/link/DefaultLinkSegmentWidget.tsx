@@ -84,7 +84,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
     ...props.extras,
     ref: pathRef,
     'data-linkid': props.link.getID(),
-    strokeOpacity: props.selected ? 0.1 : 0,
+    strokeOpacity: 0, // props.selected ? 0.1 : 0,
     strokeWidth: 20,
     fill: 'none',
     onContextMenu,

@@ -1,0 +1,19 @@
+.container {
+  div[class*='Table-module_header'] {
+    display: none;
+  }
+  .dashboardDetail {
+    padding: var(--spacing-small) !important;
+    border: 1px solid var(--grey-200);
+    border-radius: 5px;
+    color: var(--grey-600) !important;
+    min-width: 180px;
+    margin-right: var(--spacing-4) !important;
+    justify-content: space-between;
+  }
+}
+div[class*='useAddResourceModal-module_dialog'] {
+  div[class*='ExpandingSearchInput'] {
+    display: none;
+  }
+}

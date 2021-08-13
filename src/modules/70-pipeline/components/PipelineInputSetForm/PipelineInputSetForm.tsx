@@ -2,10 +2,11 @@ import React from 'react'
 import { Layout, getMultiTypeFromValue, MultiTypeInputType, Text, Icon, Color, IconName } from '@wings-software/uicore'
 import { isEmpty, get } from 'lodash-es'
 import cx from 'classnames'
-import type { DeploymentStageConfig, NgPipeline, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
+import type { DeploymentStageConfig, PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { AllNGVariables } from '@pipeline/utils/types'
 
+import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StageInputSetForm } from './StageInputSetForm'
 import { CICodebaseInputSetForm } from './CICodebaseInputSetForm'
 import { StepWidget } from '../AbstractSteps/StepWidget'
@@ -19,13 +20,16 @@ import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '../AbstractSteps/Step'
 import { getStageFromPipeline } from '../PipelineStudio/StepUtil'
 import { PipelineVariablesContextProvider } from '../PipelineVariablesContext/PipelineVariablesContext'
+import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
 import css from './PipelineInputSetForm.module.scss'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface PipelineInputSetFormProps {
-  originalPipeline: NgPipeline
+  originalPipeline: PipelineInfoConfig
   template: PipelineInfoConfig
   path?: string
   readonly?: boolean
+  maybeContainerClass?: string
 }
 
 const stageTypeToIconMap: Record<string, IconName> = {
@@ -33,7 +37,7 @@ const stageTypeToIconMap: Record<string, IconName> = {
   ci: 'ci-main',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom',
-  Approval: 'pipeline-approval'
+  Approval: 'approval-stage-icon'
 }
 
 function StageForm({
@@ -97,18 +101,35 @@ function StageForm({
   )
 }
 
-export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
-  const { originalPipeline, template, path = '', readonly } = props
+const PipelineInputSetFormInternal: React.FC<PipelineInputSetFormProps> = props => {
+  const { originalPipeline, template, path = '', readonly, maybeContainerClass = '' } = props
   const { getString } = useStrings()
 
   const isCloneCodebaseEnabledAtLeastAtOneStage = originalPipeline?.stages?.some(stage =>
     get(stage, 'stage.spec.cloneCodebase')
   )
+  const { expressions } = useVariablesExpression()
 
   return (
     <PipelineVariablesContextProvider pipeline={originalPipeline}>
-      <Layout.Vertical spacing="medium" padding="xlarge" className={css.container}>
-        {(template as any)?.variables?.length > 0 && (
+      <Layout.Vertical spacing="medium" className={cx(css.container, maybeContainerClass)}>
+        {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
+          <div className={cx(stepCss.formGroup, stepCss.sm)}>
+            <FormMultiTypeDurationField
+              multiTypeDurationProps={{
+                enableConfigureOptions: false,
+                allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
+                expressions,
+                disabled: readonly
+              }}
+              className={stepCss.checkbox}
+              label={getString('pipelineSteps.timeoutLabel')}
+              name="timeout"
+              disabled={readonly}
+            />
+          </div>
+        ) : null}
+        {template?.variables && template?.variables?.length > 0 && (
           <>
             <div className={css.subheading}>{getString('customVariables.pipelineVariablesTitle')}</div>
             <StepWidget<CustomVariablesData, CustomVariableInputSetExtraProps>
@@ -152,7 +173,7 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
                 </Layout.Vertical>
               )
             } else if (stageObj.parallel) {
-              return (stageObj.parallel as unknown as StageElementWrapperConfig[]).map((stageP, indexp) => {
+              return stageObj.parallel.map((stageP, indexp) => {
                 const allValues = getStageFromPipeline(stageP?.stage?.identifier || '', originalPipeline)
                 return (
                   <Layout.Vertical key={`${stageObj?.stage?.identifier}-${stageP.stage?.identifier}-${indexp}`}>
@@ -169,6 +190,13 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
           })}
         </>
       </Layout.Vertical>
+    </PipelineVariablesContextProvider>
+  )
+}
+export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
+  return (
+    <PipelineVariablesContextProvider pipeline={props.originalPipeline}>
+      <PipelineInputSetFormInternal {...props} />
     </PipelineVariablesContextProvider>
   )
 }

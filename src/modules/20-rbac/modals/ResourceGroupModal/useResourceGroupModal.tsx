@@ -25,8 +25,8 @@ export const useResourceGroupModal = ({ onSuccess }: UseResourceGroupModalProps)
         enforceFocus={false}
         title={
           resourceGroupData
-            ? getString('resourceGroup.updateResourceGroupDialogTitle')
-            : getString('resourceGroup.newResourceGroup')
+            ? getString('rbac.resourceGroup.updateResourceGroupDialogTitle')
+            : getString('rbac.resourceGroup.newResourceGroup')
         }
         onClose={() => {
           hideModal()
@@ -42,7 +42,7 @@ export const useResourceGroupModal = ({ onSuccess }: UseResourceGroupModalProps)
         />
       </Dialog>
     ),
-    [resourceGroupData]
+    [resourceGroupData, onSuccess]
   )
   const open = useCallback(
     (_resourceGroup?: ResourceGroupDTO) => {

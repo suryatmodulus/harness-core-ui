@@ -1,13 +1,5 @@
 import React from 'react'
-import {
-  fireEvent,
-  getAllByText,
-  getByTestId,
-  getByText,
-  queryByAttribute,
-  render,
-  waitFor
-} from '@testing-library/react'
+import { fireEvent, getByTestId, getByText, queryByAttribute, render, waitFor } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { useLocation } from 'react-router'
 
@@ -98,13 +90,9 @@ describe('<PipelineDeploymentListHeader /> test', () => {
   })
 
   test('test deployment list tabs by click on those tabs', async () => {
-    const myTabBtn = getByText(renderedComponent, 'common.My').parentElement?.parentElement
+    const myDeploymentsCheckbox = getByText(renderedComponent, 'pipeline.myDeploymentsText')
     await act(async () => {
-      fireEvent.click(myTabBtn!)
-    })
-    const allTabBtn = getAllByText(renderedComponent, 'all')[0].parentElement?.parentElement
-    await act(async () => {
-      fireEvent.click(allTabBtn!)
+      fireEvent.click(myDeploymentsCheckbox!)
     })
     // Status
     const statusSelect = getByTestId(renderedComponent, 'status-select')
@@ -126,7 +114,7 @@ describe('<PipelineDeploymentListHeader /> test', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?status=Aborted&page=1
+        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?myDeployments=true&status=Aborted&page=1
       </div>
     `)
 
@@ -149,7 +137,7 @@ describe('<PipelineDeploymentListHeader /> test', () => {
       <div
         data-testid="location"
       >
-        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?status=Aborted&page=1&pipelineIdentifier=pipeline1
+        /account/testAcc/cd/orgs/testOrg/projects/test/pipelines?myDeployments=true&status=Aborted&page=1&pipelineIdentifier=pipeline1
       </div>
     `)
   })

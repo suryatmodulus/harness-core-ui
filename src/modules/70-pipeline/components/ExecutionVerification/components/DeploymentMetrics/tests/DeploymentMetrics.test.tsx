@@ -324,7 +324,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -344,7 +347,7 @@ describe('Unit tests for Deployment metrics', () => {
     const [anomalousFilter, healthSourceFilter] = container.querySelectorAll('[class*="maxDropDownWidth"]')
 
     // select anomalous filter
-    fireEvent.click(anomalousFilter.querySelector('[data-icon="caret-down"]')!)
+    fireEvent.click(anomalousFilter.querySelector('[data-icon="chevron-down"]')!)
     await waitFor(() => expect(document.querySelector('[class*="menuItem"]')).not.toBeNull())
     fireEvent.click(getByText(MetricTypeOptions[1].label))
 
@@ -362,7 +365,7 @@ describe('Unit tests for Deployment metrics', () => {
     )
 
     // select stackdriver health source
-    fireEvent.click(healthSourceFilter.querySelector('[data-icon="caret-down"]')!)
+    fireEvent.click(healthSourceFilter.querySelector('[data-icon="chevron-down"]')!)
     await waitFor(() => expect(document.querySelector('[class*="menuItem"]')).not.toBeNull())
     fireEvent.click(getByText('Google Cloud Operations (Metrics)'))
 
@@ -394,7 +397,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -451,7 +457,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -472,7 +481,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -497,7 +509,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, getByText } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -519,7 +534,10 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container, rerender } = render(
       <TestWrapper>
-        <DeploymentMetrics step={MockExecutionNode} />
+        <DeploymentMetrics
+          step={MockExecutionNode}
+          activityId={MockExecutionNode!.progressData!.activityId as unknown as string}
+        />
       </TestWrapper>
     )
 
@@ -556,7 +574,7 @@ describe('Unit tests for Deployment metrics', () => {
     clonedStep.progressData!.activityId = '12312_activityId' as any
     rerender(
       <TestWrapper>
-        <DeploymentMetrics step={clonedStep} />
+        <DeploymentMetrics step={clonedStep} activityId={clonedStep!.progressData!.activityId as unknown as string} />
       </TestWrapper>
     )
 
@@ -590,7 +608,7 @@ describe('Unit tests for Deployment metrics', () => {
 
     const { container } = render(
       <TestWrapper>
-        <DeploymentMetrics step={clonedNode} />
+        <DeploymentMetrics step={clonedNode} activityId={clonedNode!.progressData!.activityId as unknown as string} />
       </TestWrapper>
     )
 

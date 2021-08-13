@@ -22,11 +22,7 @@ export default function SideNav(props: React.PropsWithChildren<SideNavProps>): R
         ) : null}
         <div className={css.titleContainer}>
           <Layout.Vertical>
-            {props.subtitle ? (
-              <Text font={{ size: 'small' }} color={Color.GREY_400}>
-                {props.subtitle}
-              </Text>
-            ) : null}
+            {props.subtitle ? <Text className={css.subTitle}>{props.subtitle}</Text> : null}
             {props.title ? (
               <Text color={Color.WHITE} className={css.title}>
                 {props.title}

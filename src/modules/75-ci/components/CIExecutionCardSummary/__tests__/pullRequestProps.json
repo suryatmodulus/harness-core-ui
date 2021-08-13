@@ -1,0 +1,29 @@
+{
+  "data": {
+    "branch": "master",
+    "ciExecutionInfoDTO": {
+      "event": "pullRequest",
+      "author": {
+        "id": "devinder-harness",
+        "name": "",
+        "email": "",
+        "avatar": "https://avatars.githubusercontent.com/u/73119310?v=4"
+      },
+      "pullRequest": {
+        "id": 4728,
+        "link": "https://github.com/wings-software/nextgenui",
+        "title": "feat:  [PIE-5]: variables ux update",
+        "body": "",
+        "sourceRepo": null,
+        "sourceBranch": "feat/variables-ux",
+        "targetBranch": "master",
+        "state": "closed",
+        "commits": []
+      }
+    },
+    "repoName": "nextgenui"
+  },
+  "nodeMap": {},
+  "startingNodeId": "d7fCLQfjS_OT5BU22D8OPQ",
+  "variant": "Default"
+}

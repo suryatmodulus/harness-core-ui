@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { Button, Heading, Layout, Container, Icon } from '@wings-software/uicore'
+import cx from 'classnames'
+import { Button, Heading, Layout, Container, Text, Color } from '@wings-software/uicore'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
@@ -14,8 +15,10 @@ import {
   QlceViewFieldInputInput,
   useFetchperspectiveGridQuery,
   ViewChartType,
-  ViewTimeRangeType
+  ViewType,
+  QlceViewAggregateOperation
 } from 'services/ce/services'
+import { useStrings } from 'framework/strings'
 import { PageBody } from '@common/components/Page/PageBody'
 import { PageSpinner } from '@common/components'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
@@ -29,10 +32,17 @@ import {
   getGroupByFilter,
   getTimeRangeFilter,
   getFilters,
-  DEFAULT_GROUP_BY
+  DEFAULT_GROUP_BY,
+  perspectiveDefaultTimeRangeMapper
 } from '@ce/utils/perspectiveUtils'
 import { AGGREGATE_FUNCTION } from '@ce/components/PerspectiveGrid/Columns'
-import { DATE_RANGE_SHORTCUTS } from '@ce/utils/momentUtils'
+import {
+  DATE_RANGE_SHORTCUTS,
+  getGMTStartDateTime,
+  getGMTEndDateTime,
+  CE_DATE_FORMAT_INTERNAL
+} from '@ce/utils/momentUtils'
+import EmptyView from '@ce/images/empty-state.svg'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import { DAYS_FOR_TICK_INTERVAL } from '@ce/components/CloudCostInsightChart/Chart'
 import css from './PerspectiveDetailsPage.module.scss'
@@ -40,11 +50,16 @@ import css from './PerspectiveDetailsPage.module.scss'
 interface PerspectiveParams {
   perspectiveId: string
   perspectiveName: string
+  accountId: string
 }
 
-const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
+const PerspectiveHeader: React.FC<{ title: string; viewType: string }> = ({ title, viewType }) => {
   const { perspectiveId, accountId } = useParams<{ perspectiveId: string; accountId: string }>()
   const history = useHistory()
+
+  const { getString } = useStrings()
+
+  const isDefaultPerspective = viewType === ViewType.Default
 
   const goToEditPerspective: () => void = () => {
     history.push(
@@ -58,11 +73,11 @@ const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
   return (
     <Layout.Horizontal
       spacing="medium"
-      width="100%"
       style={{
         alignItems: 'center'
       }}
       flex={true}
+      className={css.perspectiveHeader}
     >
       <Container
         style={{
@@ -73,7 +88,7 @@ const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
           links={[
             {
               url: routes.toCEPerspectives({ accountId }),
-              label: 'Perspectives'
+              label: getString('ce.perspectives.sideNavText')
             },
             {
               label: '',
@@ -86,14 +101,21 @@ const PerspectiveHeader: React.FC<{ title: string }> = ({ title }) => {
         </Heading>
       </Container>
 
-      <Button text="Edit" icon="edit" intent="primary" onClick={goToEditPerspective} />
-      <Button text="Share" />
+      <Button
+        disabled={isDefaultPerspective}
+        text={getString('edit')}
+        icon="edit"
+        intent="primary"
+        onClick={goToEditPerspective}
+      />
     </Layout.Horizontal>
   )
 }
 
 const PerspectiveDetailsPage: React.FC = () => {
-  const { perspectiveId } = useParams<PerspectiveParams>()
+  const history = useHistory()
+  const { perspectiveId, accountId } = useParams<PerspectiveParams>()
+  const { getString } = useStrings()
 
   const { data: perspectiveRes, loading } = useGetPerspective({
     queryParams: {
@@ -113,16 +135,10 @@ const PerspectiveDetailsPage: React.FC = () => {
   const [groupBy, setGroupBy] = useState<QlceViewFieldInputInput>(DEFAULT_GROUP_BY)
   const [filters, setFilters] = useState<QlceViewFilterInput[]>([])
   const [columnSequence, setColumnSequence] = useState<string[]>([])
-  const [timeRange, setTimeRange] = useState<{ to: number; from: number }>({
-    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].valueOf(),
-    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].valueOf()
+  const [timeRange, setTimeRange] = useState<{ to: string; from: string }>({
+    to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
+    from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
-
-  const timeRangeMapper: Record<string, moment.Moment[]> = {
-    [ViewTimeRangeType.Last_7]: DATE_RANGE_SHORTCUTS.LAST_7_DAYS,
-    [ViewTimeRangeType.Last_30]: DATE_RANGE_SHORTCUTS.LAST_30_DAYS,
-    [ViewTimeRangeType.LastMonth]: DATE_RANGE_SHORTCUTS.LAST_MONTH
-  }
 
   useEffect(() => {
     if (perspectiveData) {
@@ -138,12 +154,12 @@ const PerspectiveDetailsPage: React.FC = () => {
 
       const dateRange =
         (perspectiveData.viewTimeRange?.viewTimeRangeType &&
-          timeRangeMapper[perspectiveData.viewTimeRange?.viewTimeRangeType]) ||
+          perspectiveDefaultTimeRangeMapper[perspectiveData.viewTimeRange?.viewTimeRangeType]) ||
         DATE_RANGE_SHORTCUTS.LAST_7_DAYS
 
       setTimeRange({
-        to: dateRange[1].valueOf(),
-        from: dateRange[0].valueOf()
+        to: dateRange[1].format(CE_DATE_FORMAT_INTERNAL),
+        from: dateRange[0].format(CE_DATE_FORMAT_INTERNAL)
       })
     }
   }, [perspectiveData])
@@ -163,7 +179,7 @@ const PerspectiveDetailsPage: React.FC = () => {
     variables: {
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ],
       limit: 12,
@@ -173,20 +189,35 @@ const PerspectiveDetailsPage: React.FC = () => {
 
   const [summaryResult] = useFetchPerspectiveDetailsSummaryQuery({
     variables: {
+      isClusterQuery: false, // TODO: confirm with Jenil and Shubhanshu
+      aggregateFunction: [
+        { operationType: QlceViewAggregateOperation.Sum, columnName: 'cost' },
+        { operationType: QlceViewAggregateOperation.Max, columnName: 'startTime' },
+        { operationType: QlceViewAggregateOperation.Min, columnName: 'startTime' }
+      ],
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ]
     }
   })
 
+  const getAggregationFunc = () => {
+    const af = AGGREGATE_FUNCTION[groupBy.fieldId]
+    if (!af) {
+      return isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT
+    }
+
+    return af
+  }
+
   const [gridResults] = useFetchperspectiveGridQuery({
     variables: {
-      aggregateFunction: isClusterOnly ? AGGREGATE_FUNCTION.CLUSTER : AGGREGATE_FUNCTION.DEFAULT,
+      aggregateFunction: getAggregationFunc(),
       filters: [
         getViewFilterForId(perspectiveId),
-        ...getTimeFilters(timeRange.from, timeRange.to),
+        ...getTimeFilters(getGMTStartDateTime(timeRange.from), getGMTEndDateTime(timeRange.to)),
         ...getFilters(filters)
       ],
       isClusterOnly: isClusterOnly,
@@ -200,9 +231,35 @@ const PerspectiveDetailsPage: React.FC = () => {
   const { data: gridData, fetching: gridFetching } = gridResults
   const { data: summaryData, fetching: summaryFetching } = summaryResult
 
+  const goToWorkloadDetails = (clusterName: string, namespace: string, workloadName: string) => {
+    history.push(
+      routes.toCEPerspectiveWorkloadDetails({
+        accountId,
+        perspectiveId,
+        perspectiveName: perspectiveData?.name || perspectiveId,
+        clusterName,
+        namespace,
+        workloadName
+      })
+    )
+  }
+
+  const isChartGridEmpty =
+    chartData?.perspectiveTimeSeriesStats?.stats?.length === 0 &&
+    gridData?.perspectiveGrid?.data?.length === 0 &&
+    !chartFetching &&
+    !gridFetching
+
   return (
     <>
-      <PageHeader title={<PerspectiveHeader title={perspectiveData?.name || perspectiveId} />} />
+      <PageHeader
+        title={
+          <PerspectiveHeader
+            title={perspectiveData?.name || perspectiveId}
+            viewType={perspectiveData?.viewType || ViewType.Default}
+          />
+        }
+      />
       <PageBody>
         {loading && <PageSpinner />}
         <PersepectiveExplorerFilters
@@ -211,45 +268,60 @@ const PerspectiveDetailsPage: React.FC = () => {
           setAggregation={setAggregation}
           aggregation={aggregation}
           setTimeRange={setTimeRange}
+          timeRange={timeRange}
         />
-        <PerspectiveSummary data={summaryData?.perspectiveTrendStats} fetching={summaryFetching} />
+        <PerspectiveSummary data={summaryData?.perspectiveTrendStats as any} fetching={summaryFetching} />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>
-          <Container padding="small">
-            <PerspectiveExplorerGroupBy
-              chartType={chartType}
-              setChartType={setChartType}
-              groupBy={groupBy}
-              setGroupBy={setGroupBy}
-            />
-            {chartFetching ? (
-              <Container className={css.chartLoadingContainer}>
-                <Icon name="spinner" color="blue500" size={30} />
-              </Container>
-            ) : null}
-            {!chartFetching && chartData?.perspectiveTimeSeriesStats ? (
+          {!isChartGridEmpty && (
+            <Container padding="small">
+              <PerspectiveExplorerGroupBy
+                chartType={chartType}
+                setChartType={setChartType}
+                groupBy={groupBy}
+                setGroupBy={setGroupBy}
+              />
               <CloudCostInsightChart
                 showLegends={true}
                 chartType={chartType}
                 columnSequence={columnSequence}
                 setFilterUsingChartClick={setFilterUsingChartClick}
                 fetching={chartFetching}
-                data={chartData.perspectiveTimeSeriesStats}
+                data={chartData?.perspectiveTimeSeriesStats as any}
                 aggregation={aggregation}
-                xAxisPointCount={chartData?.perspectiveTimeSeriesStats.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
+                xAxisPointCount={chartData?.perspectiveTimeSeriesStats?.stats?.length || DAYS_FOR_TICK_INTERVAL + 1}
               />
-            ) : !chartFetching ? (
-              <Container className={css.chartLoadingContainer}>
-                <Icon name="deployment-failed-legacy" size={30} />
-              </Container>
-            ) : null}
-          </Container>
-          <PerspectiveGrid
-            gridData={gridData?.perspectiveGrid?.data as any}
-            gridFetching={gridFetching}
-            columnSequence={columnSequence}
-            setColumnSequence={colSeq => setColumnSequence(colSeq)}
-            groupBy={groupBy}
-          />
+            </Container>
+          )}
+          {!isChartGridEmpty && (
+            <PerspectiveGrid
+              goToWorkloadDetails={goToWorkloadDetails}
+              isClusterOnly={isClusterOnly}
+              gridData={gridData?.perspectiveGrid?.data as any}
+              gridFetching={gridFetching}
+              columnSequence={columnSequence}
+              setColumnSequence={colSeq => setColumnSequence(colSeq)}
+              groupBy={groupBy}
+            />
+          )}
+          {isChartGridEmpty && (
+            <Container className={cx(css.chartGridContainer, css.empty)}>
+              <img src={EmptyView} />
+              <Text
+                margin={{
+                  top: 'large',
+                  bottom: 'xsmall'
+                }}
+                font="small"
+                style={{
+                  fontWeight: 600
+                }}
+                color={Color.GREY_500}
+              >
+                {getString('ce.pageErrorMsg.noDataMsg')}
+              </Text>
+              <Text font="small">{getString('ce.pageErrorMsg.perspectiveNoData')}</Text>
+            </Container>
+          )}
         </Container>
       </PageBody>
     </>

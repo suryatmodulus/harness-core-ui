@@ -1,14 +1,16 @@
+import formatCost from '@ce/utils/formatCost'
+
 export const CE_COLOR_CONST = [
-  '#25A6F7',
-  '#0BC8D6',
-  '#7FB800',
-  '#8A77DE',
-  '#FF479F',
-  '#36D068',
-  '#FFBC08',
-  '#F25C61',
-  '#35D6CB',
-  '#ED61B5'
+  '#25A6F7', // blue
+  '#8A77DE', // pruple
+  '#FF479F', // pink
+  '#FFBC08', // yellow
+  '#0BC8D6', // teal
+  '#F25C61', // red
+  '#7FB800', // green 2
+  '#ED61B5', // pink 2
+  '#35D6CB', // teal 2
+  '#36D068' // green
 ]
 
 export const CE_CHARTS_ENTITY_LIMIT = 30
@@ -18,6 +20,9 @@ export default {
     height: 300,
     animation: {
       duration: 100
+    },
+    style: {
+      fontFamily: 'var(--font-family)'
     }
   },
   boost: {
@@ -50,4 +55,46 @@ export default {
     enabled: false
   },
   colors: CE_COLOR_CONST
+}
+
+export function getRadialChartOptions(
+  series: Array<Record<string, string | number>> = [],
+  colors: string[],
+  options: Record<string, any> = {}
+): Highcharts.Options {
+  const data: Array<Record<string, string | number>> = series.map(row => ({
+    name: row.name,
+    id: row.name,
+    y: row.value || row.cost
+  }))
+
+  return {
+    chart: options.chart || { height: 260, width: 300 },
+    tooltip: {
+      useHTML: true,
+      enabled: options.tooltipDisabled !== false,
+      headerFormat: '',
+      pointFormatter: function (this: Record<string, string | any>) {
+        return `<b>${this.name}</b>: ${formatCost(this.y)}`
+      }
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: false
+        }
+      }
+    },
+    series: [
+      {
+        name: 'Cost',
+        innerSize: '80%',
+        type: 'pie',
+        data
+      }
+    ],
+    colors
+  }
 }

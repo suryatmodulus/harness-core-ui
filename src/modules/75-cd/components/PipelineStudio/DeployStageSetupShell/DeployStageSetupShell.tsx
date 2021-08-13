@@ -2,7 +2,6 @@ import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uicore'
 import cx from 'classnames'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
-import type { StageElementWrapper } from 'services/cd-ng'
 import ExecutionGraph, {
   ExecutionGraphAddStepEvent,
   ExecutionGraphEditStepEvent,
@@ -26,7 +25,7 @@ import css from './DeployStageSetupShell.module.scss'
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Deployment: 'pipeline-deploy',
   CI: 'pipeline-build-select',
-  Approval: 'pipeline-approval',
+  Approval: 'approval-stage-icon',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
 }
@@ -138,25 +137,16 @@ export default function DeployStageSetupShell(): JSX.Element {
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
   const navBtns = (
     <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
-      <Button
-        text={getString('previous')}
-        icon="chevron-left"
-        disabled={selectedTabId === DeployTabs.OVERVIEW}
-        onClick={() => {
-          handleTabChange(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
-        }}
-      />
-      {selectedTabId === DeployTabs.ADVANCED ? (
+      {selectedTabId !== DeployTabs.OVERVIEW && (
         <Button
-          text={getString('done')}
-          intent="primary"
+          text={getString('previous')}
+          icon="chevron-left"
           onClick={() => {
-            checkErrorsForTab(selectedTabId).then(_ => {
-              updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
-            })
+            handleTabChange(TabsOrder[Math.max(0, TabsOrder.indexOf(selectedTabId) - 1)])
           }}
         />
-      ) : (
+      )}
+      {selectedTabId !== DeployTabs.ADVANCED && (
         <Button
           text={selectedTabId === DeployTabs.EXECUTION ? getString('save') : getString('next')}
           intent="primary"
@@ -247,8 +237,8 @@ export default function DeployStageSetupShell(): JSX.Element {
               pathToStage={`${stagePath}.stage.spec.execution`}
               // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
               stage={selectedStage!}
-              updateStage={(stageData: StageElementWrapper) => {
-                updateStage(stageData.stage)
+              updateStage={stageData => {
+                if (stageData.stage) updateStage(stageData.stage)
               }}
               onAddStep={(event: ExecutionGraphAddStepEvent) => {
                 updatePipelineView({
@@ -278,7 +268,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                     type: DrawerTypes.StepConfig,
                     data: {
                       stepConfig: {
-                        node: event.node,
+                        node: event.node as any,
                         stepsMap: event.stepsMap,
                         onUpdate: executionRef.current?.stepGroupUpdated,
                         isStepGroup: event.isStepGroup,

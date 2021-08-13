@@ -9,6 +9,7 @@ import type { VariableMergeServiceResponse, YamlProperties } from 'services/pipe
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
+import VariableAccordionSummary from '@pipeline/components/PipelineStudio/PipelineVariables/VariableAccordionSummary'
 import type { AbstractStepFactory } from '@pipeline/components/AbstractSteps/AbstractStepFactory'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type {
@@ -18,7 +19,7 @@ import type {
 import type { AllNGVariables } from '@pipeline/utils/types'
 
 import css from './K8sServiceSpec.module.scss'
-
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 export interface K8sServiceSpecVariablesFormProps {
   initialValues: ServiceSpec
   stepsFactory: AbstractStepFactory
@@ -27,6 +28,7 @@ export interface K8sServiceSpecVariablesFormProps {
   metadataMap: Required<VariableMergeServiceResponse>['metadataMap']
   variablesData: ServiceSpec
   readonly?: boolean
+  path?: string
 }
 
 export interface VariableRowProps {
@@ -36,42 +38,69 @@ export interface VariableRowProps {
 }
 
 export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormProps): React.ReactElement {
-  const { initialValues, stepsFactory, stageIdentifier, onUpdate, variablesData, metadataMap, readonly } = props
+  const { initialValues, stepsFactory, onUpdate, variablesData, metadataMap, readonly, path } = props
   const { manifests, artifacts, variables } = initialValues
   const { getString } = useStrings()
 
   const primaryArtifactVariables = variablesData?.artifacts?.primary?.spec
   const sidecarArtifactVariables = variablesData?.artifacts?.sidecars
   const manifestsVariables = variablesData.manifests
-
   return (
     <React.Fragment>
       {artifacts && !isEmpty(omit(variablesData?.artifacts, 'uuid')) ? (
         <NestedAccordionPanel
           isDefaultOpen
           addDomId
-          id={`Stage.${stageIdentifier}.Service.Artifacts`}
-          summary="Artifacts"
+          id={`${path}.Artifacts`}
+          summary={<VariableAccordionSummary> {getString('artifacts')}</VariableAccordionSummary>}
+          summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
           details={
             variablesData?.artifacts && (
               <>
-                <div className={css.artifactHeader}>Primary Artifact</div>
-                <VariablesListTable
-                  data={primaryArtifactVariables}
-                  originalData={initialValues?.artifacts?.primary?.spec}
-                  metadataMap={metadataMap}
-                />
-
-                <div className={cx(css.artifactHeader, css.mtop)}>Sidecar Artifacts</div>
-                {Array.isArray(sidecarArtifactVariables) &&
-                  sidecarArtifactVariables.map(({ sidecar }, index) => (
+                <NestedAccordionPanel
+                  isDefaultOpen
+                  addDomId
+                  collapseProps={{ keepChildrenMounted: true }}
+                  id={`${path}.Artifacts.Primary`}
+                  summary={<VariableAccordionSummary> {getString('primaryArtifactText')}</VariableAccordionSummary>}
+                  summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
+                  details={
                     <VariablesListTable
-                      key={index}
-                      data={sidecar}
-                      originalData={initialValues?.artifacts?.sidecars?.[index] || ({} as any)}
+                      className={pipelineVariableCss.variablePaddingL3}
+                      data={primaryArtifactVariables}
+                      originalData={initialValues?.artifacts?.primary?.spec}
                       metadataMap={metadataMap}
                     />
-                  ))}
+                  }
+                />
+
+                {!!sidecarArtifactVariables?.length && (
+                  <>
+                    <NestedAccordionPanel
+                      isDefaultOpen
+                      addDomId
+                      id={`${path}..Artifacts.Sidecars`}
+                      summary={
+                        <VariableAccordionSummary> {getString('common.sidecarArtifactsText')}</VariableAccordionSummary>
+                      }
+                      summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL3)}
+                      details={
+                        Array.isArray(sidecarArtifactVariables) &&
+                        sidecarArtifactVariables.map(({ sidecar }, index) => {
+                          return (
+                            <VariablesListTable
+                              className={pipelineVariableCss.variablePaddingL3}
+                              key={index}
+                              data={sidecar?.spec}
+                              originalData={initialValues?.artifacts?.sidecars?.[index]?.sidecar?.spec}
+                              metadataMap={metadataMap}
+                            />
+                          )
+                        })
+                      }
+                    />
+                  </>
+                )}
               </>
             )
           }
@@ -81,15 +110,16 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
         <NestedAccordionPanel
           isDefaultOpen
           addDomId
-          id={`Stage.${stageIdentifier}.Service.Manifests`}
-          summary="Manifests"
+          id={`${path}.Manifests`}
+          summary={<VariableAccordionSummary> {getString('manifests')}</VariableAccordionSummary>}
+          summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
           details={
-            manifestsVariables && (
+            !!manifestsVariables?.length && (
               <>
                 {manifestsVariables?.map(({ manifest }, index) => (
                   <VariablesListTable
                     key={index}
-                    className={css.manifestVariablesTable}
+                    className={cx(css.manifestVariablesTable, pipelineVariableCss.variablePaddingL2)}
                     data={manifest?.spec?.store?.spec}
                     originalData={initialValues?.manifests?.[index]?.manifest?.spec?.store?.spec}
                     metadataMap={metadataMap}
@@ -103,8 +133,9 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
       <NestedAccordionPanel
         isDefaultOpen
         addDomId
-        id={`Stage.${stageIdentifier}.Service.Variables`}
-        summary="Variables"
+        id={`${path}.Variables`}
+        summary={<VariableAccordionSummary> {getString('variablesText')}</VariableAccordionSummary>}
+        summaryClassName={cx(css.variableBorderBottom, pipelineVariableCss.accordianSummaryL2)}
         details={
           <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
             factory={stepsFactory}
@@ -118,8 +149,9 @@ export function K8sServiceSpecVariablesForm(props: K8sServiceSpecVariablesFormPr
             readonly={readonly}
             customStepProps={{
               variableNamePrefix: 'serviceConfig.variables.',
-              className: css.customVariables,
-              heading: <b>{getString('customVariables.title')}</b>,
+              className: cx(css.customVariables, pipelineVariableCss.customVarPadL2),
+              path: path,
+              // heading: <b>{getString('customVariables.title')}</b>,
               yamlProperties: (variablesData?.variables as AllNGVariables[])?.map(
                 variable => metadataMap?.[variable.value || '']?.yamlProperties || {}
               )

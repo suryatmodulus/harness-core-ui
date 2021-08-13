@@ -10,18 +10,25 @@ import {
   mockedMonitoredServiceAndHealthSources,
   PipelineResponse,
   verifyStepInitialValues,
-  verifyStepInitialValuesWithRunTimeFields
+  verifyStepInitialValuesWithRunTimeFields,
+  mockedCreatedMonitoredService
 } from './ContinousVerificationMocks'
 import { getSpecYamlData } from '../utils'
 
 jest.mock('services/cv', () => ({
   useGetMonitoredServiceFromServiceAndEnvironment: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: mockedMonitoredServiceAndHealthSources, error: false })),
+    .mockImplementation(() => ({ loading: false, data: mockedMonitoredServiceAndHealthSources, error: null })),
   useCreateDefaultMonitoredService: jest.fn().mockImplementation(() => ({
-    metaData: {},
-    resource: {},
-    responseMessages: []
+    error: null,
+    loading: false,
+    mutate: jest.fn().mockImplementation(() => {
+      return {
+        metaData: {},
+        resource: mockedCreatedMonitoredService,
+        responseMessages: []
+      }
+    })
   })),
   useListBaselineExecutions: jest.fn().mockImplementation(() => ({
     metaData: {},
@@ -52,33 +59,6 @@ describe('Test ContinousVerificationStep Step', () => {
       <TestStepWidget initialValues={{}} type={StepType.Verify} stepViewType={StepViewType.Edit} />
     )
     expect(container).toMatchSnapshot()
-  })
-
-  test('Verify if generating yaml spec works correctly', () => {
-    const specInfo = {
-      sensitivity: {
-        label: 'High',
-        value: 'HIGH'
-      },
-      duration: {
-        label: '30 min',
-        value: '30m'
-      },
-      baseline: {
-        label: 'Last Successful job run',
-        value: 'LAST'
-      },
-      deploymentTag: '<+serviceConfig.artifacts.primary.tag>',
-      trafficsplit: ''
-    }
-    const type = 'LoadTest'
-    const recievedYamlSpec = getSpecYamlData(specInfo, type)
-    expect(recievedYamlSpec).toEqual({
-      sensitivity: 'HIGH',
-      duration: '30m',
-      baseline: 'LAST',
-      deploymentTag: '<+serviceConfig.artifacts.primary.tag>'
-    })
   })
 
   test('should render editView when current step is being edited', () => {
@@ -137,6 +117,60 @@ describe('Test ContinousVerificationStep Step', () => {
     expect(container).toMatchSnapshot()
   })
 
+  test('Verify if generating yaml spec works correctly and traffic split field is omitted when verification type is LoadTest', () => {
+    const specInfo = {
+      sensitivity: {
+        label: 'High',
+        value: 'HIGH'
+      },
+      duration: {
+        label: '30 min',
+        value: '30m'
+      },
+      baseline: {
+        label: 'Last Successful job run',
+        value: 'LAST'
+      },
+      deploymentTag: '<+serviceConfig.artifacts.primary.tag>',
+      trafficsplit: ''
+    }
+    const type = 'LoadTest'
+    const recievedYamlSpec = getSpecYamlData(specInfo, type)
+    expect(recievedYamlSpec).toEqual({
+      sensitivity: 'HIGH',
+      duration: '30m',
+      baseline: 'LAST',
+      deploymentTag: '<+serviceConfig.artifacts.primary.tag>'
+    })
+  })
+
+  test('Verify if generating yaml spec works correctly and baseline field is omitted when verification type is Bluegreen/Canary', () => {
+    const specInfo = {
+      sensitivity: {
+        label: 'High',
+        value: 'HIGH'
+      },
+      duration: {
+        label: '30 min',
+        value: '30m'
+      },
+      baseline: {
+        label: 'Last Successful job run',
+        value: 'LAST'
+      },
+      deploymentTag: '<+serviceConfig.artifacts.primary.tag>',
+      trafficsplit: '5%'
+    }
+    const type = 'Bluegreen'
+    const recievedYamlSpec = getSpecYamlData(specInfo, type)
+    expect(recievedYamlSpec).toEqual({
+      sensitivity: 'HIGH',
+      duration: '30m',
+      trafficsplit: '5%',
+      deploymentTag: '<+serviceConfig.artifacts.primary.tag>'
+    })
+  })
+
   test('Verify when Monitored service and HealthSource is present for a given service and environment and selected type is rolling update.', async () => {
     const onUpdate = jest.fn()
     const ref = React.createRef<StepFormikRef<unknown>>()
@@ -174,7 +208,7 @@ describe('Test ContinousVerificationStep Step', () => {
     const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
       .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })
@@ -184,7 +218,7 @@ describe('Test ContinousVerificationStep Step', () => {
     })
     expect(verificationTypeDropdown.value).toBe('Rolling Update')
 
-    // verify if the correct fields are present for the selected verification type
+    // verify if the correct fields are present for the selected verification type of rolling update
     await waitFor(() => {
       const sensitivityDropdown = container.querySelector('input[name="spec.spec.sensitivity"]') as HTMLInputElement
       const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
@@ -235,7 +269,7 @@ describe('Test ContinousVerificationStep Step', () => {
     const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
       .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })
@@ -245,7 +279,7 @@ describe('Test ContinousVerificationStep Step', () => {
     })
     expect(verificationTypeDropdown.value).toBe('Load Test')
 
-    // verify if the correct fields are present for the selected verification type
+    // verify if the correct fields are present for the selected verification type of Load Test
     await waitFor(() => {
       const sensitivityDropdown = container.querySelector('input[name="spec.spec.sensitivity"]') as HTMLInputElement
       const durationDropdown = container.querySelector('input[name="spec.spec.duration"]') as HTMLInputElement
@@ -293,13 +327,19 @@ describe('Test ContinousVerificationStep Step', () => {
     await waitFor(() => {
       expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
       expect(getByText('connectors.cdng.healthSources.noHealthSourcesDefined')).toBeTruthy()
+      const AddHealthSourceLink = getByText('plusAdd')
+      expect(AddHealthSourceLink).toBeTruthy()
+
+      // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
+      AddHealthSourceLink.click()
+      expect(getByText('cv.healthSource.addHealthSource')).toBeTruthy()
     })
 
     //verify if the continous verification type is getting selected correctly.
     const verificationTypeDropdown = container.querySelector('input[name="spec.type"]') as HTMLInputElement
     const selectCaret = container
       .querySelector(`[name="spec.type"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(selectCaret!)
     })
@@ -346,12 +386,34 @@ describe('Test ContinousVerificationStep Step', () => {
     const queryByNameAttribute = (name: string): HTMLElement | null => queryByAttribute('name', container, name)
     fireEvent.change(queryByNameAttribute('name')!, { target: { value: 'CV Step' } })
 
-    // Verify that no monitoring source is present
+    // Verify that no monitoring source is present and autocreate link is present to create the monitored service
+    let autoCreateMonitoredServiceLink: HTMLElement
     await waitFor(() => {
       expect(getByText('connectors.cdng.monitoredService.label')).toBeTruthy()
-      //Verify to see if autocreate Monitored service link is present.
-      const autoCreateMonitoredServiceLink = getByText('connectors.cdng.monitoredService.autoCreateMonitoredService')
+      autoCreateMonitoredServiceLink = getByText('connectors.cdng.monitoredService.autoCreateMonitoredService')
       expect(autoCreateMonitoredServiceLink).toBeTruthy()
+    })
+
+    // Auto creating the monitored service and verify if correct monitored service is created.
+    await waitFor(() => {
+      autoCreateMonitoredServiceLink.click()
+      const createdMonitoredService = container.querySelector(
+        'input[name="spec.monitoredServiceRef"]'
+      ) as HTMLInputElement
+
+      expect(createdMonitoredService.value).toEqual(mockedCreatedMonitoredService.monitoredService.name)
+    })
+
+    // Verify if no health sources are present.
+    await waitFor(() => {
+      expect(getByText('connectors.cdng.healthSources.label')).toBeTruthy()
+      expect(getByText('connectors.cdng.healthSources.noHealthSourcesDefined')).toBeTruthy()
+      const AddHealthSourceLink = getByText('plusAdd')
+      expect(AddHealthSourceLink).toBeTruthy()
+
+      // Clicking on Add Health Source Link and verifying if the drawer opens for adding the health source.
+      AddHealthSourceLink.click()
+      expect(getByText('cv.healthSource.addHealthSource')).toBeTruthy()
     })
   })
 })

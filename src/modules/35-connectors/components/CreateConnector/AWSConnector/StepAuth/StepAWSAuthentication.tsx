@@ -6,24 +6,14 @@ import { useStrings } from 'framework/strings'
 import { DelegateTypes, setupAWSFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { PageSpinner } from '@common/components'
-import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO, AwsCredential } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO, AwsCredential } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import TextReference, { TextReferenceInterface, ValueType } from '@secrets/components/TextReference/TextReference'
 
+import type { ConnectorDetailsProps } from '@connectors/interfaces/ConnectorInterface'
 import css from './StepAWSAuthentication.module.scss'
 interface StepAWSAuthenticationProps extends ConnectorInfoDTO {
   name: string
-}
-
-interface AWSAuthenticationProps {
-  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
-  isEditMode: boolean
-  setIsEditMode: (val: boolean) => void
-  setFormData?: (formData: ConnectorConfigDTO) => void
-  connectorInfo: ConnectorInfoDTO | void
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
 }
 
 interface AWSFormInterface {
@@ -44,7 +34,7 @@ const defaultInitialFormData: AWSFormInterface = {
   externalId: ''
 }
 
-const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & AWSAuthenticationProps> = props => {
+const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & ConnectorDetailsProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()

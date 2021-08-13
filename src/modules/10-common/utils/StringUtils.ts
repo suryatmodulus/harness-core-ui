@@ -41,6 +41,12 @@ export const regexName = /^[A-Za-z0-9_-][A-Za-z0-9 _-]*$/
 
 export const regexIdentifier = /^[a-zA-Z_.][0-9a-zA-Z_$]*$/
 
+export const HarnessFolderName = /^[A-Za-z0-9_\-/][A-Za-z0-9 _\-/]*$/
+
+export const GitSuffixRegex = /.git(\/)*$/g
+
+export const HarnessFolderNameSanityRegex = /(\/+)([A-Za-z0-9_-])*/g
+
 export const UNIQUE_ID_MAX_LENGTH = 64
 export function toVariableStr(str: string): string {
   return `<+${str}>`

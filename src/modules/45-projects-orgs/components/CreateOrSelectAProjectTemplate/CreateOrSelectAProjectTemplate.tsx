@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Layout, Color, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 
-import css from '@common/navigation/ProjectSelector/ProjectSelector.module.scss'
+import css from '@projects-orgs/components/ProjectSelector/ProjectSelector.module.scss'
 
 interface CreateOrSelectAProjectTemplateProps {
   onCreateProject: () => void

@@ -1,0 +1,90 @@
+.container {
+  width: 620px;
+  min-height: 160px;
+
+  .tabsContainer {
+    margin-top: var(--spacing-large);
+    padding-top: var(--spacing-small);
+    padding-bottom: var(--spacing-medium);
+    margin-bottom: var(--spacing-large);
+    border-top: 1px solid var(--grey-250);
+    border-bottom: 1px solid var(--grey-250);
+    height: 300px;
+    :global {
+      .bp3-tab[aria-selected='true'] p {
+        font-weight: normal !important;
+      }
+      .bp3-tab-panel {
+        width: 100%;
+        height: calc(300px - var(--spacing-large));
+        margin-left: var(--spacing-small);
+        padding-left: var(--spacing-small);
+        border-left: 1px solid var(--grey-250);
+      }
+    }
+  }
+
+  .referenceListOverflow {
+    overflow-y: scroll;
+  }
+
+  .referenceList {
+    width: 420px;
+    height: calc(300px - var(--spacing-large));
+    .listItem {
+      box-sizing: border-box;
+      padding: 7.5px var(--spacing-small) 7px var(--spacing-small);
+      border: 1px solid transparent;
+      border-bottom: 1px solid var(--grey-250);
+      display: flex;
+      align-items: center;
+      &:hover {
+        background-color: var(--primary-1);
+      }
+    }
+    .selectedItem {
+      border: 1px solid var(--grey-200);
+      background-color: var(--primary-2) !important;
+    }
+  }
+  .searchBox {
+    display: flex;
+    .search {
+      flex: 1;
+      > div {
+        > span {
+          > svg {
+            margin-top: 1px;
+          }
+        }
+      }
+    }
+  }
+  .iconMargin {
+    margin-right: var(--spacing-xsmall) !important;
+  }
+
+  .checkbox {
+    margin-left: var(--spacing-small) !important;
+    width: 100%;
+    align-items: center;
+    display: flex;
+    :global {
+      .bp3-control-indicator,
+      .bp3-control-indicator::before {
+        width: var(--spacing-medium) !important;
+        height: var(--spacing-medium) !important;
+      }
+    }
+  }
+  .tabWidth {
+    :global {
+      .bp3-tab {
+        width: 180px !important;
+      }
+      bp3-tab-indicator-wrapper {
+        width: 180px !important;
+      }
+    }
+  }
+}

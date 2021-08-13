@@ -1,11 +1,11 @@
 import React from 'react'
 import { first } from 'lodash-es'
 import { Text, Button, Icon, Utils } from '@wings-software/uicore'
-import { Collapse } from '@blueprintjs/core'
+import { Collapse, Tooltip } from '@blueprintjs/core'
 
 import type { CIBuildCommit } from 'services/ci'
 import { UserLabel } from '@common/components/UserLabel/UserLabel'
-import { String } from 'framework/strings'
+import { String, useStrings } from 'framework/strings'
 
 import css from './CommitsInfo.module.scss'
 
@@ -14,11 +14,32 @@ export interface CommitIdProps {
 }
 
 export function CommitId({ commitId }: CommitIdProps): React.ReactElement {
+  const [copied, setCopied] = React.useState(false)
+  const { getString } = useStrings()
+
+  function handleCopy(e: React.SyntheticEvent): void {
+    e.stopPropagation()
+    Utils.copy(commitId || '')
+    setCopied(true)
+  }
+
+  function onClosed(): void {
+    setCopied(false)
+  }
+
   return (
-    <div className={css.commitId} onClick={() => Utils.copy(commitId || '')}>
-      <Icon name="clipboard-alt" size={10} />
-      <div className={css.sha}>{commitId?.slice(0, 6)}</div>
-    </div>
+    <Tooltip
+      wrapperTagName="div"
+      targetTagName="div"
+      content={getString(copied ? 'copiedToClipboard' : 'clickToCopy')}
+      onClosed={onClosed}
+      position="top"
+    >
+      <div className={css.commitId} onClick={handleCopy}>
+        <Icon name="clipboard-alt" size={10} />
+        <div className={css.sha}>{commitId?.slice(0, 6)}</div>
+      </div>
+    </Tooltip>
   )
 }
 
@@ -46,18 +67,15 @@ export function CommitsInfo(props: CommitsInfoProps): React.ReactElement | null 
 
   const [showCommits, setShowCommits] = React.useState(false)
 
-  function toggleCommits(): void {
-    setShowCommits(status => !status)
-  }
-
-  function killEvent(e: React.SyntheticEvent): void {
+  function toggleCommits(e: React.SyntheticEvent): void {
     e.stopPropagation()
+    setShowCommits(status => !status)
   }
 
   if (!lastCommit) return null
 
   return (
-    <div className={css.commitsInfo} onClick={killEvent}>
+    <div className={css.commitsInfo}>
       <LastCommit lastCommit={lastCommit} />
       {commits && commits.length > 1 ? (
         <React.Fragment>

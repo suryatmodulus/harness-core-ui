@@ -14,7 +14,8 @@ import {
   MultiTypeInputType,
   Button,
   SelectOption,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -217,7 +218,7 @@ const FormContent = ({
           />
         )}
       </div>
-      <div className={stepCss.noLookDivider} />
+      <div className={stepCss.divider} />
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormMultiTypeConnectorField
           name="spec.connectorRef"
@@ -455,19 +456,21 @@ function JiraUpdateStepMode(props: JiraUpdateStepModeProps, formikRef: StepFormi
       {(formik: FormikProps<JiraUpdateData>) => {
         setFormikRef(formikRef, formik)
         return (
-          <FormContent
-            formik={formik}
-            refetchProjects={refetchProjects}
-            refetchStatuses={refetchStatuses}
-            fetchingProjects={fetchingProjects}
-            fetchingStatuses={fetchingStatuses}
-            statusResponse={statusResponse}
-            projectsResponse={projectsResponse}
-            projectsFetchError={projectsFetchError}
-            statusFetchError={statusFetchError}
-            isNewStep={isNewStep}
-            readonly={readonly}
-          />
+          <FormikForm>
+            <FormContent
+              formik={formik}
+              refetchProjects={refetchProjects}
+              refetchStatuses={refetchStatuses}
+              fetchingProjects={fetchingProjects}
+              fetchingStatuses={fetchingStatuses}
+              statusResponse={statusResponse}
+              projectsResponse={projectsResponse}
+              projectsFetchError={projectsFetchError}
+              statusFetchError={statusFetchError}
+              isNewStep={isNewStep}
+              readonly={readonly}
+            />
+          </FormikForm>
         )
       }}
     </Formik>

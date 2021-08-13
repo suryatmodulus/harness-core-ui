@@ -41,11 +41,17 @@
     transform: translate(-50%, -50%);
   }
 
-  .noData > div {
+  .noData > div:first-child {
     height: unset !important;
     > div {
       margin-top: 0 !important;
     }
+  }
+
+  .noActivityId > div:first-child {
+    height: unset !important;
+    position: relative;
+    top: 200px;
   }
 
   .analysisRow {

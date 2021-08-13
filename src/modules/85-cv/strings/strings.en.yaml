@@ -47,6 +47,7 @@ throughput: Throughput
 responseTime: Response Time
 query: Query
 addNew: + Add New
+turnService: Turn service
 serviceDashboardPage:
   fiveMinutes: 5 Minutes
   fifteenMinutes: 15 Minutes
@@ -260,6 +261,7 @@ monitoringSources:
   serviceValidation: Service is required.
   buildYourQuery: Build your Query
   serviceInstanceIdentifier: Service Instance Identifier
+  optionalServiceInstanceLabel: (only needed for CV)
   addMetric: Add Metric
   addQuery: Add Query
   totalMappedQueries: '{{total}} {{query}} mapped'
@@ -282,7 +284,7 @@ monitoringSources:
     validation: VALIDATION
     tiersMappedToServices: tiers mapped to services
     errorsFound: errors found
-    verificationsInProgress: Verification in progress
+    verificationsInProgress: Validation in progress
     noData: No data
     searchPlaceholderApplications: Search for Applications
     validationsPassed: Validation passed
@@ -350,8 +352,6 @@ monitoringSources:
     reviewPage:
       mappedMetrics: '{{metricCount}} metric(s) mapped to {{serviceCount}} service(s)'
       gcoMetrics: Google Cloud Operation metrics
-    tabName:
-      selectDashboards: 'Select Dashboards'
   newRelic:
     mapNewRelicAppsToServicesAndEnvs: Map New Relic Applications to Harness Environments and Services
     mappingServiceAndEnvSubheading: Select Harness Environments and Services to map to New Relic Applications
@@ -416,7 +416,7 @@ monitoringSources:
     gcoLogsQuery: GCO Logs Query
     addQueryTooltip: Fill all required fields before adding a new query
     serviceInstance: Identify Service Instance
-    messageIdentifier: Identifty Message
+    messageIdentifier: Identify Message
     selectRecords: After fetching records click on the plus icon ...
     validation:
       queryNameUnique: Query name must be unique.
@@ -526,6 +526,9 @@ monitoredServices:
   title: Monitored Services
   filterlabel: 'Environment:'
   noData: No Monitored Service
+  nameValidation: Monitored service name is required
+  environmentValidation: Environment is required
+  serviceValidation: Service is required
   serviceAndEnvironment: Service And Environment
   monitoredServiceDetails: Monitored Service Details
   monitoredServiceName: Monitored service name
@@ -536,11 +539,16 @@ monitoredServices:
   deleteMonitoredService: Delete Monitored Service
   monitoredServiceCreated: Monitoring Service created
   monitoredServiceUpdated: Monitoring Service updated
+  monitoredServiceToggle: 'Monitored Service successfully {{enabled}}'
   serviceCount: Showing {{serviceCount}} Services
+  riskLabel:
+    lowRisk: Low risk
+    mediumRisk: Medium risk
+    highRisk: High risk
   table:
     serviceName: Service Name
-    lastestHealthTrend: Last 24HR Health Trends
-    serviceHealthScore: service HealthScore
+    lastestHealthTrend: Last 24 HR Health Trends
+    serviceHealthScore: service Health Score
     healthMonitoring: Health Monitoring
 healthSource:
   nameLabel: Health Source Name
@@ -552,9 +560,9 @@ healthSource:
   serviceLabel: Create or Select a Service
   addHealthSource: Add New Health Source
   editHealthSource: Edit Health Source
-  backtoMonitoredService: Back to Monitoring services
+  backtoMonitoredService: Back to monitored service
   connectHealthSource: Connect Health Source
-  selectHealthSource: Select health source
+  selectHealthSource: Select health source type
   defineYourSource: Define Your Sources
   defineHealthSource: Define Health Source
   customizeHealthSource: Customize Health Source
@@ -566,7 +574,9 @@ healthSource:
     serviceMapping: Service Mapping
     environmentMapping: Environment Mapping
   connectors:
-    createConnector: Add new {{sourceType}} connector
+    selectConnector: Select {{sourceType}} connector
+    NewRelic:
+      applicationLabel: Find an NewRelic application
     AppDynamics:
       applicationsAndTiers: Applications & Tiers
       applicationLabel: Find an AppDynamics application
@@ -577,3 +587,5 @@ healthSource:
       validation:
         application: Please select applications
         tier: Please select tier
+    gco:
+      selectDashboardTab: 'Select Dashboards'

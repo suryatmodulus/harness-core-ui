@@ -1,17 +1,25 @@
-import React, { useState, useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Switch, Text, Icon, Container } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
+import { Switch, Container } from '@wings-software/uicore'
 import { useToaster } from '@common/exports'
 import { RestResponseHealthMonitoringFlagResponse, useSetHealthMonitoringFlag } from 'services/cv'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { useStrings } from 'framework/strings'
 
-export default function ToggleMonitoring({ identifier, enable }: { identifier: string; enable: boolean }): JSX.Element {
+export default function ToggleMonitoring({
+  identifier,
+  enable,
+  refetch
+}: {
+  identifier: string
+  enable: boolean
+  refetch: () => void
+}): JSX.Element {
   const params = useParams<ProjectPathProps>()
-  const { showError, clear } = useToaster()
-  const [isEnabled, setIsEnabled] = useState(enable)
+  const { showError, showSuccess, clear } = useToaster()
   const { getString } = useStrings()
-  const { mutate: toggleMonitoringService, loading } = useSetHealthMonitoringFlag({
+  const [isEnabled, setIsEnabled] = useState(enable)
+  const { mutate: toggleMonitoringService } = useSetHealthMonitoringFlag({
     identifier
   })
 
@@ -27,22 +35,24 @@ export default function ToggleMonitoring({ identifier, enable }: { identifier: s
         }
       })
       setIsEnabled(!!output.resource?.healthMonitoringEnabled)
+      refetch()
+      showSuccess(
+        getString('cv.monitoredServices.monitoredServiceToggle', {
+          enabled: output.resource?.healthMonitoringEnabled ? 'enabled' : 'disabled'
+        })
+      )
     } catch (err) {
       clear()
       showError(err?.data?.message)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <>
-      {loading ? (
-        <Icon name="steps-spinner" />
-      ) : (
-        <Container width={120} flex onClick={e => e.stopPropagation()}>
-          <Switch checked={isEnabled} onChange={onToggleMonitoringSource} />
-          <Text>{isEnabled ? getString('enable') : getString('common.disable')}</Text>
-        </Container>
-      )}
+      <Container onClick={e => e.stopPropagation()}>
+        <Switch checked={isEnabled} onChange={onToggleMonitoringSource} />
+      </Container>
     </>
   )
 }

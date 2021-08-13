@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for ServiceInstanceLabel Ensure label is rendered correctly 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main main"
+  >
+    <p
+      class="StyledProps--font StyledProps--main primaryLabel"
+    >
+      cv.monitoringSources.serviceInstanceIdentifier
+    </p>
+    <p
+      class="StyledProps--font StyledProps--main secondaryLabel"
+    >
+      cv.monitoringSources.optionalServiceInstanceLabel
+    </p>
+  </div>
+</div>
+`;

@@ -25,6 +25,7 @@ import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterfa
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
 import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox/MultiTypeCheckbox'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 interface K8sRollingRollbackData extends StepElementConfig {
@@ -81,7 +82,7 @@ function K8sRollingRollbackWidget(
 
           return (
             <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
                   isIdentifierEditable={isNewStep}
@@ -172,6 +173,7 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
     this._hasStepVariables = true
     this._hasDelegateSelectionVisible = true
   }
+
   renderStep(props: StepProps<K8sRollingRollbackData>): JSX.Element {
     const { initialValues, onUpdate, stepViewType, inputSetData, formikRef, customStepProps, isNewStep, readonly } =
       props
@@ -243,6 +245,7 @@ export class K8sRollingRollbackStep extends PipelineStep<K8sRollingRollbackData>
   protected type = StepType.K8sRollingRollback
   protected stepName = 'K8s Rollout Rollback'
   protected stepIcon: IconName = 'undo'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sRollingRollback'
 
   protected defaultValues: K8sRollingRollbackData = {
     identifier: '',

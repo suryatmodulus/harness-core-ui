@@ -10,7 +10,6 @@ import { NavigationCheck } from './NavigationCheck/NavigationCheck'
 import { NameIdDescriptionTags } from './NameIdDescriptionTags/NameIdDescriptionTags'
 import { PageSpinner } from './Page/PageSpinner'
 import { Page } from './Page/Page'
-import { ProjectSelector } from '../navigation/ProjectSelector/ProjectSelector'
 import { ReferenceSelect } from './ReferenceSelect/ReferenceSelect'
 import SnippetSection from './SnippetSection/SnippetSection'
 import Table from './Table/Table'
@@ -18,6 +17,7 @@ import TagsPopover from './TagsPopover/TagsPopover'
 import Toothpick from './Toothpick/Toothpick'
 import TimeSelect from './TimeSelect/TimeSelect'
 import { TimeAgo } from './TimeAgo/TimeAgo'
+import { TimeAgoPopover } from './TimeAgoPopover/TimeAgoPopover'
 import { useToaster } from './Toaster/useToaster'
 import { UserLabel } from './UserLabel/UserLabel'
 import { FormMultiTypeTextAreaField, MultiTypeTextArea } from './MultiTypeTextArea/MultiTypeTextArea'
@@ -42,12 +42,12 @@ export {
   NavigationCheck,
   Page,
   PageSpinner,
-  ProjectSelector,
   ReferenceSelect,
   SnippetSection,
   Table,
   TagsPopover,
   TimeAgo,
+  TimeAgoPopover,
   TimeSelect,
   Toothpick,
   useToaster,

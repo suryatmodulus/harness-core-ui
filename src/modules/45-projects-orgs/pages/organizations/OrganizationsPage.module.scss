@@ -11,7 +11,4 @@
 .search {
   margin-right: var(--spacing-small) !important;
   height: var(--spacing-xxlarge) !important;
-  & > input:focus {
-    width: 350px !important;
-  }
 }

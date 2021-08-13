@@ -754,21 +754,37 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: container 1`
           type="button"
         >
           <span
-            class="bp3-icon bp3-icon-play StyledProps--main"
-            icon="play"
+            class="bp3-icon StyledProps--main"
+            data-icon="play"
           >
             <svg
-              data-icon="play"
+              fill="none"
               height="16"
-              viewBox="0 0 16 16"
+              viewBox="0 0 44 43"
               width="16"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <desc>
-                play
-              </desc>
               <path
-                d="M12 8c0-.35-.19-.64-.46-.82l.01-.02-6-4-.01.02A.969.969 0 005 3c-.55 0-1 .45-1 1v8c0 .55.45 1 1 1 .21 0 .39-.08.54-.18l.01.02 6-4-.01-.02c.27-.18.46-.47.46-.82z"
-                fill-rule="evenodd"
+                d="M43.553 21c0 11.786-10.018 21.53-21.553 21.53-11.536 0-20.947-8.86-20.947-20.646C1.053 10.098 10.965 1 22.5 1c11.536 0 21.053 8.214 21.053 20z"
+                fill="#fff"
+              />
+              <path
+                d="M17.607 12.066v17.63L31 21.099c-2.143-1.255-13.393-9.033-13.393-9.033z"
+                fill="currentColor"
+              />
+              <path
+                d="M17.607 29.696v-17.63m0 17.63L31 21.099c-2.143-1.255-13.393-9.033-13.393-9.033m0 17.63L16 31.029m1.607-18.963L16 11.03"
+                stroke="#000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M24.578 1.115C5.133 1.115-.284 15.295 1.243 24.11c1.18 6.806 4.573 12.204 10.558 15.32 11.906 6.2 24.283.825 29.506-10.984 5.684-12.855-4.254-23.415-10.5-25.85C25.67.592 18.353.436 13.017 2.56"
+                stroke="#000"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
               />
             </svg>
           </span>

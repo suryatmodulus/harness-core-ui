@@ -5,8 +5,8 @@ declare const styles: {
   readonly innerContainer: string
   readonly createBtn: string
   readonly loader: string
-  readonly tableCtn: string
   readonly icon: string
+  readonly tableCtn: string
   readonly popoverContent: string
 }
 export default styles

@@ -1,0 +1,292 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CIExecutionCardSummary /> tests branch snapshot 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="main"
+    >
+      <div
+        class="badge"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-branch StyledProps--main icon"
+          icon="git-branch"
+        >
+          <svg
+            data-icon="git-branch"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              git-branch
+            </desc>
+            <path
+              d="M12 1c-1.66 0-3 1.34-3 3 0 1.25.76 2.32 1.85 2.77A2.02 2.02 0 019 8H7c-.73 0-1.41.2-2 .55V5.82C6.16 5.4 7 4.3 7 3c0-1.66-1.34-3-3-3S1 1.34 1 3c0 1.3.84 2.4 2 2.82v4.37c-1.16.4-2 1.51-2 2.81 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.04-.53-1.95-1.32-2.49.35-.31.81-.51 1.32-.51h2c1.92 0 3.52-1.35 3.91-3.15A2.996 2.996 0 0012 1zM4 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 12c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="branchName"
+        >
+          master
+        </span>
+      </div>
+      <div
+        class="badge"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-commit StyledProps--main icon"
+          icon="git-commit"
+        >
+          <svg
+            data-icon="git-commit"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              git-commit
+            </desc>
+            <path
+              d="M15 7h-3.14c-.45-1.72-2-3-3.86-3S4.59 5.28 4.14 7H1c-.55 0-1 .45-1 1s.45 1 1 1h3.14c.45 1.72 2 3 3.86 3s3.41-1.28 3.86-3H15c.55 0 1-.45 1-1s-.45-1-1-1zm-7 3c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span>
+          1595372
+        </span>
+      </div>
+    </div>
+    <div
+      class="commitsInfo"
+    >
+      <div
+        class="lastCommit"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-commit StyledProps--main icon"
+          icon="git-commit"
+        >
+          <svg
+            data-icon="git-commit"
+            height="14"
+            viewBox="0 0 16 16"
+            width="14"
+          >
+            <desc>
+              git-commit
+            </desc>
+            <path
+              d="M15 7h-3.14c-.45-1.72-2-3-3.86-3S4.59 5.28 4.14 7H1c-.55 0-1 .45-1 1s.45 1 1 1h3.14c.45 1.72 2 3 3.86 3s3.41-1.28 3.86-3H15c.55 0 1-.45 1-1s-.45-1-1-1zm-7 3c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps--font StyledProps--main message"
+        >
+          fix: [CDNG-11399]: setting page number as 1 for polling (#4731)
+        </p>
+        <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <div
+              class="commitId"
+              tabindex="0"
+            >
+              <span
+                class="bp3-icon StyledProps--main"
+                data-icon="clipboard-alt"
+              >
+                <svg
+                  fill="none"
+                  height="10"
+                  viewBox="0 0 10 12"
+                  width="10"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M3.833.751a.292.292 0 00-.291.292v.875c0 .161.13.292.291.292h2.625c.161 0 .292-.13.292-.292v-.875a.292.292 0 00-.292-.292H3.833zm-.875.292c0-.483.392-.875.875-.875h2.625c.484 0 .875.392.875.875v.292H8.5c.483 0 .875.391.875.875v8.166a.875.875 0 01-.875.875h-7a.875.875 0 01-.875-.875V2.21c0-.484.392-.875.875-.875h1.458v-.292zm0 .875H1.5a.292.292 0 00-.292.292v8.166c0 .161.13.292.292.292h7c.161 0 .292-.13.292-.292V2.21a.292.292 0 00-.292-.292H7.333a.875.875 0 01-.875.875H3.833a.875.875 0 01-.875-.875z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <div
+                class="sha"
+              >
+                159537
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<CIExecutionCardSummary /> tests default snapshot 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="main"
+    >
+      <div
+        class="badge"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-branch StyledProps--main icon"
+          icon="git-branch"
+        >
+          <svg
+            data-icon="git-branch"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              git-branch
+            </desc>
+            <path
+              d="M12 1c-1.66 0-3 1.34-3 3 0 1.25.76 2.32 1.85 2.77A2.02 2.02 0 019 8H7c-.73 0-1.41.2-2 .55V5.82C6.16 5.4 7 4.3 7 3c0-1.66-1.34-3-3-3S1 1.34 1 3c0 1.3.84 2.4 2 2.82v4.37c-1.16.4-2 1.51-2 2.81 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.04-.53-1.95-1.32-2.49.35-.31.81-.51 1.32-.51h2c1.92 0 3.52-1.35 3.91-3.15A2.996 2.996 0 0012 1zM4 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 12c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="branchName"
+        >
+          master
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<CIExecutionCardSummary /> tests pull request snapshot 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div
+      class="main"
+    >
+      <div
+        class="badge"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-branch StyledProps--main icon"
+          icon="git-branch"
+        >
+          <svg
+            data-icon="git-branch"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              git-branch
+            </desc>
+            <path
+              d="M12 1c-1.66 0-3 1.34-3 3 0 1.25.76 2.32 1.85 2.77A2.02 2.02 0 019 8H7c-.73 0-1.41.2-2 .55V5.82C6.16 5.4 7 4.3 7 3c0-1.66-1.34-3-3-3S1 1.34 1 3c0 1.3.84 2.4 2 2.82v4.37c-1.16.4-2 1.51-2 2.81 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.04-.53-1.95-1.32-2.49.35-.31.81-.51 1.32-.51h2c1.92 0 3.52-1.35 3.91-3.15A2.996 2.996 0 0012 1zM4 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 12c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="ellipsis sourceBranch"
+        >
+          feat/variables-ux
+        </span>
+      </div>
+      <span>
+        ⟶
+      </span>
+      <div
+        class="badge"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-branch StyledProps--main icon"
+          icon="git-branch"
+        >
+          <svg
+            data-icon="git-branch"
+            height="10"
+            viewBox="0 0 16 16"
+            width="10"
+          >
+            <desc>
+              git-branch
+            </desc>
+            <path
+              d="M12 1c-1.66 0-3 1.34-3 3 0 1.25.76 2.32 1.85 2.77A2.02 2.02 0 019 8H7c-.73 0-1.41.2-2 .55V5.82C6.16 5.4 7 4.3 7 3c0-1.66-1.34-3-3-3S1 1.34 1 3c0 1.3.84 2.4 2 2.82v4.37c-1.16.4-2 1.51-2 2.81 0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.04-.53-1.95-1.32-2.49.35-.31.81-.51 1.32-.51h2c1.92 0 3.52-1.35 3.91-3.15A2.996 2.996 0 0012 1zM4 2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm0 12c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm8-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="ellipsis targetBranch"
+        >
+          master
+        </span>
+      </div>
+    </div>
+    <div
+      class="pullRequestInfo"
+    >
+      <span
+        class="bp3-icon bp3-icon-git-pull StyledProps--main icon"
+        icon="git-pull"
+      >
+        <svg
+          data-icon="git-pull"
+          height="14"
+          viewBox="0 0 16 16"
+          width="14"
+        >
+          <desc>
+            git-pull
+          </desc>
+          <path
+            d="M3 1C1.34 1 0 2.34 0 4c0 1.3.84 2.4 2 2.82v3.37C.84 10.6 0 11.7 0 13c0 1.66 1.34 3 3 3s3-1.34 3-3c0-1.3-.84-2.4-2-2.82V6.82C5.16 6.4 6 5.3 6 4c0-1.66-1.34-3-3-3zm0 13c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm0-9c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm11 5.18V6c0-1.66-1.34-3-3-3H9.41l1.29-1.29c.19-.18.3-.43.3-.71A1.003 1.003 0 009.29.29l-3 3C6.11 3.47 6 3.72 6 4c0 .28.11.53.29.71l3 3a1.003 1.003 0 001.42-1.42L9.41 5H11c.55 0 1 .45 1 1v4.18A2.996 2.996 0 0013 16c1.66 0 3-1.34 3-3 0-1.3-.84-2.4-2-2.82zM13 14c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <p
+        class="StyledProps--font StyledProps--main"
+      >
+        feat:  [PIE-5]: variables ux update
+      </p>
+      <a
+        class="prNumber"
+        href="https://github.com/wings-software/nextgenui"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        ci.prSymbol
+        4728
+      </a>
+      <div
+        class="pullRequestStatus"
+      >
+        closed
+      </div>
+    </div>
+  </div>
+</div>
+`;

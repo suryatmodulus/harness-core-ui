@@ -66,6 +66,7 @@ const OverviewStep: React.FC<OverviewProps> = props => {
   const [existingConnectorName, setExistingConnectorName] = useState<string>('')
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [featureText, setFeatureText] = useState<string>('')
 
   const defaultQueryParams: GetConnectorListV2QueryParams = {
     pageIndex: 0,
@@ -139,6 +140,13 @@ const OverviewStep: React.FC<OverviewProps> = props => {
           setAwsAccountID(formData?.awsAccountId)
           setIsUniqueConnnector(false)
           setExistingConnectorName(response?.data?.content?.[0]?.connector?.name || '')
+          const featuresEnabled = response?.data?.content?.[0]?.connector?.spec?.featuresEnabled || []
+          let newFeatureText = featuresEnabled.join(' and ')
+          if (featuresEnabled.length > 2) {
+            featuresEnabled.push(`and ${featuresEnabled.pop()}`)
+            newFeatureText = featuresEnabled.join(', ')
+          }
+          setFeatureText(newFeatureText)
         }
       } else {
         throw response as Failure
@@ -180,11 +188,17 @@ const OverviewStep: React.FC<OverviewProps> = props => {
             <FormikForm>
               <ModalErrorHandler bind={setModalErrorHandler} />
               <Container className={css.main}>
-                <FormInput.InputWithIdentifier
-                  inputLabel={getString('connectors.name')}
-                  isIdentifierEditable={!isEditMode}
+                <div style={{ width: '65%' }}>
+                  <FormInput.InputWithIdentifier
+                    inputLabel={getString('connectors.name')}
+                    isIdentifierEditable={!isEditMode}
+                  />
+                </div>
+                <FormInput.Text
+                  className={css.dataFields}
+                  name={'awsAccountId'}
+                  label={getString('connectors.ceAws.overview.awsAccountId')}
                 />
-                <FormInput.Text name={'awsAccountId'} label={getString('connectors.ceAws.overview.awsAccountId')} />
                 <Description />
                 <Tags />
               </Container>
@@ -193,20 +207,23 @@ const OverviewStep: React.FC<OverviewProps> = props => {
                   <Layout.Vertical spacing="large">
                     <div style={{ color: 'red' }}>
                       <Icon name="circle-cross" color="red700" style={{ paddingRight: 5 }}></Icon>
-                      {getString('connectors.ceAws.overview.alreadyExist')}
+                      <span style={{ fontSize: 'var(--font-size-normal)' }}>
+                        {getString('connectors.ceAws.overview.alreadyExist')}
+                      </span>
                     </div>
                     <div>
                       <Icon name="info" style={{ paddingRight: 5 }}></Icon>
                       {getString('connectors.ceAws.overview.alreadyExistInfo', {
                         awsAccountID,
-                        existingConnectorName
+                        existingConnectorName,
+                        featureText
                       })}
                     </div>
                     <div>
                       <Icon name="lightbulb" style={{ paddingRight: 5 }}></Icon>
                       {getString('connectors.ceAws.overview.trySuggestion')}
                       <div>
-                        {getString('connectors.ceAws.overview.alreadyExist')} <a>{existingConnectorName}</a>{' '}
+                        {getString('connectors.ceAws.overview.editConnector')} <a>{existingConnectorName}</a>{' '}
                         {getString('connectors.ceAws.overview.ifReq')}
                       </div>
                     </div>

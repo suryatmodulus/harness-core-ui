@@ -56,6 +56,8 @@ allowpaths:
   - /activity-source/list
   - /activity/{identifier}
   - /activity/{activityId}/details
+  - /activity/{activityId}/clusters
+  - /activity/{activityId}/deployment-log-analysis-data
   - /setup/supported-providers
   - /verification-job-instance/baseline-executions
   - /verification-job/default-health-job

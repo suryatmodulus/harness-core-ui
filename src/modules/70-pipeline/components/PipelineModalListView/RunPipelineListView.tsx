@@ -75,7 +75,6 @@ export default function RunPipelineListView({ data, refetch, gotoPage }: Pipelin
 
   const RenderLastRunDate: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     const rowdata = row.original
-
     return (
       <Layout.Vertical spacing="xsmall">
         <Text color={Color.GREY_400}>

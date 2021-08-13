@@ -65,7 +65,9 @@
 }
 .top-accordion {
   box-shadow: none !important;
-  padding: var(--spacing-large);
+  margin: var(--spacing-large);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--spacing-2);
 }
 .nested-accordions {
   box-shadow: none !important;
@@ -77,6 +79,7 @@
       padding-right: 0;
       margin-left: 0;
       margin-right: 0;
+      border: none;
     }
   }
 }

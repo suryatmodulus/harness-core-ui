@@ -8,13 +8,15 @@ interface NavExpandableProps {
   title: string
   route: string
   className?: string
+  withoutBorder?: boolean
 }
 
 const NavExpandable: React.FC<React.PropsWithChildren<NavExpandableProps>> = ({
   title,
   route,
   children,
-  className
+  className,
+  withoutBorder = false
 }) => {
   const [mouseEnter, setMouseEnter] = useState<boolean>(false)
   const { pathname } = useLocation()
@@ -29,21 +31,24 @@ const NavExpandable: React.FC<React.PropsWithChildren<NavExpandableProps>> = ({
   }
 
   return (
-    <Layout.Vertical
-      className={cx(className, css.main)}
-      onMouseEnter={() => handleMouseEvent(true)}
-      onMouseLeave={() => handleMouseEvent(false)}
-    >
-      <Text
-        rightIcon={isSelected || mouseEnter ? 'chevron-down' : 'chevron-up'}
-        className={css.text}
-        font="xsmall"
-        flex={{ alignItems: 'flex-start', justifyContent: 'space-between' }}
+    <div>
+      {!withoutBorder && <div className={css.border} />}
+      <Layout.Vertical
+        className={cx(className, css.main)}
+        onMouseEnter={() => handleMouseEvent(true)}
+        onMouseLeave={() => handleMouseEvent(false)}
       >
-        {title}
-      </Text>
-      {isSelected || mouseEnter ? children : null}
-    </Layout.Vertical>
+        <Text
+          rightIcon={isSelected || mouseEnter ? 'chevron-up' : 'chevron-down'}
+          className={css.text}
+          font="xsmall"
+          flex={{ alignItems: 'flex-start', justifyContent: 'space-between' }}
+        >
+          {title}
+        </Text>
+        {isSelected || mouseEnter ? children : null}
+      </Layout.Vertical>
+    </div>
   )
 }
 

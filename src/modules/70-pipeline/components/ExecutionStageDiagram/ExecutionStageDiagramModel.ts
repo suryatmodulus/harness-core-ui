@@ -18,13 +18,12 @@ import {
   getParallelNodesStatusForInLine,
   getParallelNodesStatusForOutLines
 } from './ExecutionStageDiagramUtils'
+import { STATIC_SERVICE_GROUP_NAME } from '../PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import * as Diagram from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
 
 const SPACE_AFTER_GROUP = 0.2
 const GROUP_HEADER_DEPTH = 0.3
-
-const LINE_SEGMENT_LENGTH = 50
 
 export interface NodeStyleInterface {
   width: number
@@ -46,8 +45,38 @@ export interface Listeners {
 
 export const EmptyNodeSeparator = '$node$'
 
+export interface ExecutionStageDiagramConfiguration {
+  FIRST_AND_LAST_SEGMENT_LENGTH: number
+  SPACE_BETWEEN_ELEMENTS: number
+  FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH: number
+  LINE_SEGMENT_LENGTH: number
+  PARALLEL_LINES_WIDTH: number
+  LEFT_AND_RIGHT_GAP_IN_SERVICE_GROUP: number
+  NODE_WIDTH: number
+  START_AND_END_NODE_WIDTH: number
+  ALLOW_PORT_HIDE: boolean
+  NODE_HAS_BORDER: boolean
+}
+
+interface RenderGraphNodesProps<T> {
+  node: ExecutionPipelineNode<T>
+  startX: number
+  startY: number
+  selectedStageId?: string
+  disableCollapseButton?: boolean
+  diagramContainerHeight?: number
+  prevNodes?: Diagram.DefaultNodeModel[]
+  showEndNode?: boolean
+  groupStage?: Map<string, GroupState<T>> // = new Map(),
+  verticalStepGroup?: boolean // = false,
+  isRootGroup?: boolean // = true
+  isFirstNode?: boolean
+  isFirstStepGroupNode?: boolean
+  isParallelNode?: boolean
+}
 export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
   nodeStyle: NodeStyleInterface = { width: 200, height: 200 }
+  protected diagConfig: ExecutionStageDiagramConfiguration
 
   constructor() {
     super({
@@ -57,6 +86,19 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       gapX: 200,
       gapY: 140
     })
+
+    this.diagConfig = {
+      FIRST_AND_LAST_SEGMENT_LENGTH: 48,
+      SPACE_BETWEEN_ELEMENTS: 72,
+      FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH: 48,
+      LINE_SEGMENT_LENGTH: 30,
+      PARALLEL_LINES_WIDTH: 60, // NOTE: PARALLEL_LINES_WIDTH >= 2 * LINE_SEGMENT_LENGTH
+      LEFT_AND_RIGHT_GAP_IN_SERVICE_GROUP: 56, // 56
+      NODE_WIDTH: 64,
+      START_AND_END_NODE_WIDTH: 30,
+      ALLOW_PORT_HIDE: true,
+      NODE_HAS_BORDER: true
+    }
   }
 
   setGridStyle(style: GridStyleInterface): void {
@@ -67,19 +109,40 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     this.nodeStyle = style
   }
 
-  renderGraphNodes<T>(
-    node: ExecutionPipelineNode<T>,
-    startX: number,
-    startY: number,
-    selectedStageId?: string,
-    disableCollapseButton?: boolean,
-    diagramContainerHeight?: number,
-    prevNodes?: Diagram.DefaultNodeModel[],
-    showEndNode?: boolean,
-    groupStage: Map<string, GroupState<T>> = new Map(),
-    verticalStepGroup = false,
-    isRootGroup = true
-  ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
+  setGraphConfiguration(diagConfig: Partial<ExecutionStageDiagramConfiguration>): void {
+    Object.assign(this.diagConfig, diagConfig)
+  }
+
+  renderGraphNodes<T>(props: RenderGraphNodesProps<T>): {
+    startX: number
+    startY: number
+    prevNodes?: Diagram.DefaultNodeModel[]
+  } {
+    const {
+      node,
+      selectedStageId,
+      disableCollapseButton,
+      diagramContainerHeight,
+      showEndNode,
+      groupStage = new Map(),
+      verticalStepGroup = false,
+      isRootGroup = true,
+      isFirstNode = false,
+      isFirstStepGroupNode = false,
+      isParallelNode = false
+    } = props
+    const {
+      FIRST_AND_LAST_SEGMENT_LENGTH,
+      SPACE_BETWEEN_ELEMENTS,
+      FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH,
+      LEFT_AND_RIGHT_GAP_IN_SERVICE_GROUP,
+      LINE_SEGMENT_LENGTH,
+      PARALLEL_LINES_WIDTH,
+      NODE_WIDTH,
+      ALLOW_PORT_HIDE,
+      NODE_HAS_BORDER
+    } = this.diagConfig
+    let { startX, startY, prevNodes } = props
     const { nodeStyle } = this
     if (!node) {
       return { startX, startY, prevNodes: [] }
@@ -87,13 +150,23 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     if (node.item && !node.parallel) {
       const { item: stage } = node
       const { type } = stage
-      startX += this.gapX
+
+      startX += verticalStepGroup
+        ? LEFT_AND_RIGHT_GAP_IN_SERVICE_GROUP
+        : isFirstNode
+        ? FIRST_AND_LAST_SEGMENT_LENGTH
+        : isFirstStepGroupNode
+        ? FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH
+        : isParallelNode
+        ? PARALLEL_LINES_WIDTH
+        : SPACE_BETWEEN_ELEMENTS
+
       const isSelected = selectedStageId === stage.identifier
       const statusProps = getStatusProps(stage.status, type)
       const tertiaryIconProps = getTertiaryIconProps(stage)
       let nodeRender = this.getNodeFromId(stage.identifier)
       const commonOption: Diagram.DiamondNodeModelOptions = {
-        customNodeStyle: getNodeStyles(isSelected, stage.status, type),
+        customNodeStyle: getNodeStyles(isSelected, stage.status, type, NODE_HAS_BORDER),
         canDelete: false,
         ...statusProps,
         ...tertiaryIconProps,
@@ -107,7 +180,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         conditionalExecutionEnabled: getConditionalExecutionFlag(stage.when!),
         disableClick: stage.disableClick
       }
-
       if (!nodeRender) {
         nodeRender =
           type === ExecutionPipelineNodeType.ICON
@@ -116,8 +188,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 id: stage.identifier,
                 ...commonOption,
                 customNodeStyle: {
-                  // Without this doesn't look straight
-                  marginTop: '2.5px',
                   ...commonOption.customNodeStyle,
                   border: 'none'
                 },
@@ -127,7 +197,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 icon: stage.icon,
                 iconSize: stage.iconSize,
                 iconStyle: {
-                  marginBottom: '38px'
+                  marginBottom: '30px'
                 }
               })
             : type === ExecutionPipelineNodeType.DIAMOND
@@ -135,11 +205,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 identifier: stage.identifier,
                 id: stage.identifier,
                 ...commonOption,
-                width: 64,
-                height: 64,
+                width: 57,
+                height: 57,
                 customNodeStyle: {
-                  // Without this doesn't look straight
-                  marginTop: '2.5px',
                   ...commonOption.customNodeStyle
                 },
                 name: stage.name
@@ -166,6 +234,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         })
       }
       nodeRender.setPosition(startX, startY)
+      startX +=
+        type === ExecutionPipelineNodeType.DIAMOND || type === ExecutionPipelineNodeType.ICON
+          ? NODE_WIDTH + 30
+          : NODE_WIDTH
 
       /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
@@ -205,7 +277,15 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               hideOutPort: true
             })
           this.addNode(emptyNodeStart)
-          newX += verticalStepGroup ? this.gapX / 2 : this.gapX
+
+          newX += verticalStepGroup
+            ? 0
+            : isFirstNode
+            ? FIRST_AND_LAST_SEGMENT_LENGTH
+            : isFirstStepGroupNode
+            ? FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH
+            : SPACE_BETWEEN_ELEMENTS
+
           emptyNodeStart.setPosition(newX, newY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
             this.connectedParentToNode(
@@ -217,23 +297,23 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             )
           })
           prevNodes = [emptyNodeStart]
-          newX = newX - this.gapX / 2 - 20
         }
         const prevNodesAr: Diagram.DefaultNodeModel[] = []
         parallel.forEach((nodeP, pIdx) => {
-          const resp = this.renderGraphNodes(
-            nodeP,
-            newX,
-            newY,
-            selectedStageId,
-            disableCollapseButton,
-            diagramContainerHeight,
-            prevNodes,
-            showEndNode,
-            groupStage,
-            verticalStepGroup,
-            isRootGroup && pIdx == 0
-          )
+          const resp = this.renderGraphNodes({
+            node: nodeP,
+            startX: newX,
+            startY: newY,
+            selectedStageId: selectedStageId,
+            disableCollapseButton: disableCollapseButton,
+            diagramContainerHeight: diagramContainerHeight,
+            prevNodes: prevNodes,
+            showEndNode: showEndNode,
+            groupStage: groupStage,
+            verticalStepGroup: verticalStepGroup,
+            isRootGroup: isRootGroup && pIdx == 0,
+            isParallelNode: true
+          })
 
           startX = Math.max(startX, resp.startX)
 
@@ -254,7 +334,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               name: 'Empty',
               showPorts: !verticalStepGroup,
               hideInPort: true,
-              hideOutPort: !outLinesStatus.displayLines
+              hideOutPort: !outLinesStatus.displayLines && ALLOW_PORT_HIDE
             })
           // NOTE: this does not work
           // emptyNodeEnd.setOptions({
@@ -263,12 +343,12 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           // })
 
           // NOTE: workaround solution to show out port
-          if (outLinesStatus.displayLines && !verticalStepGroup) {
+          if (outLinesStatus.displayLines && !verticalStepGroup && ALLOW_PORT_HIDE) {
             makeVisibleOutPortOnEmptyNode(emptyNodeId)
           }
 
           this.addNode(emptyNodeEnd)
-          startX += verticalStepGroup ? this.gapX / 2 : this.gapX
+          startX += verticalStepGroup ? 0 : PARALLEL_LINES_WIDTH
           emptyNodeEnd.setPosition(startX, startY)
           prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
             this.connectedParentToNode(
@@ -285,11 +365,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             )
           })
           prevNodes = [emptyNodeEnd]
-          startX = startX - this.gapX / 2 - 20
         }
       } else {
-        return this.renderGraphNodes(
-          parallel[0],
+        return this.renderGraphNodes({
+          node: parallel[0],
           startX,
           startY,
           selectedStageId,
@@ -300,7 +379,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           groupStage,
           verticalStepGroup,
           isRootGroup
-        )
+        })
       }
       return { startX, startY, prevNodes }
     } /* istanbul ignore else */ else if (node.group) {
@@ -342,7 +421,13 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         })
 
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
-          startX += this.gapX
+          startX += isFirstNode
+            ? FIRST_AND_LAST_SEGMENT_LENGTH
+            : isFirstStepGroupNode
+            ? FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH
+            : isParallelNode
+            ? PARALLEL_LINES_WIDTH
+            : SPACE_BETWEEN_ELEMENTS
           stepGroupLayer.startNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
             this.connectedParentToNode(
@@ -355,15 +440,14 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             )
           })
           prevNodes = [stepGroupLayer.startNode]
-          startX = startX - this.gapX / 2 - 20
         }
         this.useStepGroupLayer(stepGroupLayer)
 
         // Check if step group has nodes
         /* istanbul ignore else */ if (node.group.items?.length > 0) {
-          node.group.items.forEach(step => {
-            const resp = this.renderGraphNodes(
-              step,
+          node.group.items.forEach((step, index) => {
+            const resp = this.renderGraphNodes({
+              node: step,
               startX,
               startY,
               selectedStageId,
@@ -372,9 +456,11 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               prevNodes,
               showEndNode,
               groupStage,
-              node.group?.verticalStepGroup,
-              false
-            )
+              verticalStepGroup: node.group?.verticalStepGroup,
+              isRootGroup: false,
+              isFirstStepGroupNode: index === 0
+            })
+
             startX = resp.startX
             startY = resp.startY
             /* istanbul ignore else */ if (resp.prevNodes) {
@@ -383,7 +469,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           })
         }
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
-          startX += this.gapX
+          startX += node.group?.verticalStepGroup
+            ? LEFT_AND_RIGHT_GAP_IN_SERVICE_GROUP
+            : FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH
+
           stepGroupLayer.endNode.setPosition(startX, startY)
 
           // NOTE: this cleanup line that is connected from last node in the group with stepGroupLayer.endNode
@@ -407,14 +496,20 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             )
           })
           prevNodes = [stepGroupLayer.endNode]
-          startX = startX - this.gapX / 2 - 20
         }
         this.useNormalLayer()
         return { startX, startY, prevNodes: prevNodes }
       } else {
         this.clearAllStageGroups(node)
 
-        startX += this.gapX
+        startX += isFirstNode
+          ? FIRST_AND_LAST_SEGMENT_LENGTH
+          : isFirstStepGroupNode
+          ? FIRST_AND_LAST_SEGMENT_IN_GROUP_LENGTH
+          : isParallelNode
+          ? PARALLEL_LINES_WIDTH
+          : SPACE_BETWEEN_ELEMENTS
+
         const nodeRender =
           this.getNodeFromId(node.group.identifier) ||
           new Diagram.DefaultNodeModel({
@@ -430,6 +525,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           })
         this.addNode(nodeRender)
         nodeRender.setPosition(startX, startY)
+        startX += NODE_WIDTH
+
         if (!isEmpty(prevNodes) && prevNodes) {
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
             this.connectedParentToNode(
@@ -437,7 +534,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               prevNode,
               false,
               0,
-              getArrowsColor(node.group?.status || ExecutionStatusEnum.NotStarted)
+              getArrowsColor(node.group?.status || ExecutionStatusEnum.NotStarted),
+              { type: 'in', size: LINE_SEGMENT_LENGTH }
             )
           })
         }
@@ -493,12 +591,13 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     groupStage?: Map<string, GroupState<T>>,
     hideCollapseButton?: boolean
   ): void {
-    const { gapX } = this
+    const { FIRST_AND_LAST_SEGMENT_LENGTH, START_AND_END_NODE_WIDTH } = this.diagConfig
     let { startX, startY } = this
 
     /* istanbul ignore if */ if (pipeline.items.length === 0) {
       return
     }
+
     // Unlock Graph
     this.setLocked(false)
     this.clearAllListeners()
@@ -510,24 +609,23 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       startNode.setPosition(startX, startY)
       // this.clearAllLinksForNode('start-new')
       this.addNode(startNode)
-      startX -= gapX / 2
+      startX += START_AND_END_NODE_WIDTH
       prevNodes = [startNode]
-    } else {
-      startX -= gapX
     }
 
-    pipeline.items?.forEach(node => {
-      const resp = this.renderGraphNodes(
+    pipeline.items?.forEach((node, index) => {
+      const resp = this.renderGraphNodes({
         node,
         startX,
         startY,
-        selectedId,
-        hideCollapseButton,
+        selectedStageId: selectedId,
+        disableCollapseButton: hideCollapseButton,
         diagramContainerHeight,
         prevNodes,
         showEndNode,
-        groupStage
-      )
+        groupStage,
+        isFirstNode: index === 0
+      })
       startX = resp.startX
       startY = resp.startY
       /* istanbul ignore else */ if (resp.prevNodes) {
@@ -540,7 +638,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const stopNode =
         this.getNodeFromId('stop-node') || new Diagram.NodeStartModel({ id: 'stop-node', icon: 'stop', isStart: false })
       // this.clearAllLinksForNode('stop-node')
-      stopNode.setPosition(startX + gapX, startY)
+      startX += FIRST_AND_LAST_SEGMENT_LENGTH
+      stopNode.setPosition(startX, startY)
       const lastNode = last(prevNodes)
       /* istanbul ignore else */ if (lastNode) {
         this.connectedParentToNode(
@@ -564,6 +663,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const node = nodes[key]
       if (
         pipeline.allNodes.indexOf(node.getID()) === -1 &&
+        node.getID() !== STATIC_SERVICE_GROUP_NAME &&
         !(node instanceof Diagram.NodeStartModel) &&
         !(node instanceof Diagram.EmptyNodeModel)
       ) {

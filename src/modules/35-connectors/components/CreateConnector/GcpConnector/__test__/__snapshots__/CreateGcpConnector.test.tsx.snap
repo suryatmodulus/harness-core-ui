@@ -686,7 +686,7 @@ exports[`Create GCP connector Wizard Should render form 2`] = `
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               createOrSelectSecret
@@ -1433,7 +1433,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                             </svg>
                           </span>
                           <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                           >
                             <div>
                               secret.configureSecret
@@ -1452,7 +1452,7 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
                             class="bp3-button-text"
                           >
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                              class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                               icon="edit"
                             >
                               <svg

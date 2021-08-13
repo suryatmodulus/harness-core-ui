@@ -490,9 +490,11 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                 <div
                   class="bp3-form-content"
                 >
-                  <div>
+                  <div
+                    class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                  >
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         checked=""
@@ -506,7 +508,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                       SSH_KEY
                     </label>
                     <label
-                      class="bp3-control bp3-radio bp3-inline Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="authScheme"
@@ -674,7 +676,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
                             createOrSelectSecret
@@ -733,7 +735,7 @@ exports[`Create SSH Cred Wizard should render form 2`] = `
                           </svg>
                         </span>
                         <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                         >
                           <div>
                             createOrSelectSecret

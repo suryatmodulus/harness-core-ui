@@ -1,11 +1,19 @@
 import React from 'react'
 import { Icon, IconName } from '@wings-software/uicore'
+import { defaultTo } from 'lodash-es'
 
 import { Duration } from '@common/components'
 
 import css from './GroupHeader.module.scss'
 
-export type LogViewerAccordionStatus = 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'NOT_STARTED' | 'LOADING' | 'QUEUED'
+export type LogViewerAccordionStatus =
+  | 'SUCCESS'
+  | 'FAILURE'
+  | 'RUNNING'
+  | 'NOT_STARTED'
+  | 'LOADING'
+  | 'QUEUED'
+  | 'EXPIRED'
 
 export interface GroupHeaderProps {
   title: React.ReactNode
@@ -23,7 +31,8 @@ const statusIconMap: Record<LogViewerAccordionStatus, IconName> = {
   RUNNING: 'spinner',
   QUEUED: 'spinner',
   NOT_STARTED: 'circle',
-  LOADING: 'circle'
+  LOADING: 'circle',
+  EXPIRED: 'expired'
 }
 
 /**
@@ -57,11 +66,7 @@ export function GroupHeader(props: GroupHeaderProps): React.ReactElement {
     <div className={css.groupedHeader} data-open={open} data-status={status?.toLowerCase()}>
       <div className={css.sectionSummary} onClick={toggleStatus}>
         <Icon className={css.chevron} name={isLoading ? 'spinner' : 'chevron-right'} />
-        <Icon
-          className={css.status}
-          name={status && status in statusIconMap ? statusIconMap[status] : 'circle'}
-          size={12}
-        />
+        <Icon className={css.status} name={defaultTo(statusIconMap[status], 'circle')} size={12} />
         <div className={css.text}>
           <div>{title}</div>
           {startTime ? (

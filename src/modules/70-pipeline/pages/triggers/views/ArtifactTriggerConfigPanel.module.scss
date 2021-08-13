@@ -1,0 +1,28 @@
+.artifactTriggerConfigContainer {
+  min-width: 800px;
+  padding: var(--spacing-large) var(--spacing-xxlarge) !important;
+  section [class*='bp3-input-group'],
+  .nameIdDescriptionTags {
+    width: 324px;
+  }
+
+  .heading {
+    margin-top: 0;
+    padding-bottom: var(--spacing-xsmall);
+  }
+
+  .listenOnNewWebhook {
+    padding-bottom: var(--spacing-small) !important;
+    border-bottom: 1px solid var(--grey-300);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: var(--white);
+    z-index: 1;
+    box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
+  }
+}

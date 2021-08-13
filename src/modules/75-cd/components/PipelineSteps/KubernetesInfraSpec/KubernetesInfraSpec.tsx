@@ -41,7 +41,7 @@ import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/
 import { getNameSpaceSchema, getReleaseNameSchema } from '../PipelineStepsUtil'
 import css from './KubernetesInfraSpec.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
-
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 const logger = loggerFor(ModuleName.CD)
 type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
 interface KubernetesInfraSpecEditableProps {
@@ -139,7 +139,6 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   multiTypeProps={{ expressions, disabled: readonly }}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  className={css.connectorRef}
                   width={450}
                   enableConfigureOptions={false}
                   style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-medium)' }}
@@ -327,6 +326,7 @@ const KubernetesInfraSpecVariablesForm: React.FC<KubernetesInfraSpecEditableProp
       data={infraVariables}
       originalData={initialValues?.infrastructureDefinition?.spec || initialValues}
       metadataMap={metadataMap}
+      className={pipelineVariableCss.variablePaddingL1}
     />
   ) : null
 }

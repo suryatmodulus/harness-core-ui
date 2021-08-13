@@ -14,8 +14,9 @@ import { getCDPipelineStages } from '@cd/components/PipelineStudio/CDPipelineSta
 import { useStrings } from 'framework/strings'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
+import { TemplateDrawer } from '@templates-library/components/TemplateDrawer/TemplateDrawer'
 import { getCDTrialDialog, TrialType } from '@cd/modals/CDTrial/useCDTrialModal'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { FeatureFlag } from '@common/featureFlags'
@@ -30,7 +31,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
   const history = useHistory()
 
   const getTrialPipelineCreateForm = (
-    onSubmit: (values: NgPipeline) => void,
+    onSubmit: (values: PipelineInfoConfig) => void,
     onClose: () => void
   ): React.ReactElement => {
     return getCDTrialDialog({
@@ -86,6 +87,7 @@ const CDPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineList={routes.toPipelines}
         getOtherModal={getOtherModal}
       />
+      <TemplateDrawer />
     </PipelineProvider>
   )
 }

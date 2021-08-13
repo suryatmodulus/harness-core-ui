@@ -1,6 +1,3 @@
-"Directs the executor to include this field or fragment only when the `if` argument is true"
-directive @include("Included when true." if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
-
 "Directs the executor to skip this field or fragment when the `if`'argument is true."
 directive @skip("Skipped when true." if: Boolean!) on FIELD | FRAGMENT_SPREAD | INLINE_FRAGMENT
 
@@ -89,6 +86,22 @@ type BillingDataDemo {
   starttime: Long
 }
 
+type CCMMetaData {
+  applicationDataPresent: Boolean!
+  awsConnectorsPresent: Boolean!
+  azureConnectorsPresent: Boolean!
+  cloudDataPresent: Boolean!
+  clusterDataPresent: Boolean!
+  defaultAwsPerspectiveId: String
+  defaultAzurePerspectiveId: String
+  defaultClusterPerspectiveId: String
+  defaultGcpPerspectiveId: String
+  gcpConnectorsPresent: Boolean!
+  inventoryDataPresent: Boolean!
+  isSampleClusterPresent: Boolean!
+  k8sClusterConnectorPresent: Boolean!
+}
+
 type ClusterData {
   appId: String
   appName: String
@@ -101,6 +114,7 @@ type ClusterData {
   clusterName: String
   clusterType: String
   costTrend: Float
+  cpuActualIdleCost: Float
   cpuBillingAmount: Float
   cpuIdleCost: Float
   cpuUnallocatedCost: Float
@@ -111,9 +125,13 @@ type ClusterData {
   environment: String
   id: String
   idleCost: Float
+  instanceId: String
+  instanceName: String
+  instanceType: String
   launchType: String
   maxCpuUtilization: Float
   maxMemoryUtilization: Float
+  memoryActualIdleCost: Float
   memoryBillingAmount: Float
   memoryIdleCost: Float
   memoryUnallocatedCost: Float
@@ -129,12 +147,28 @@ type ClusterData {
   storageRequest: Float
   storageUnallocatedCost: Float
   storageUtilizationValue: Float
+  systemCost: Float
+  taskId: String
   totalCost: Float
   trendType: String
   type: String
   unallocatedCost: Float
   workloadName: String
   workloadType: String
+}
+
+type ClusterRecommendationAccuracy {
+  cpu: Float
+  masterPrice: Float
+  memory: Float
+  nodes: Long
+  regularNodes: Long
+  regularPrice: Float
+  spotNodes: Long
+  spotPrice: Float
+  totalPrice: Float
+  workerPrice: Float
+  zone: String
 }
 
 type ContainerHistogramDTO {
@@ -165,6 +199,12 @@ type DataPoint {
   value: BigDecimal!
 }
 
+type EfficiencyScoreStats {
+  statsLabel: String
+  statsTrend: BigDecimal
+  statsValue: String
+}
+
 type FilterStatsDTO {
   key: String
   values: [String]
@@ -187,14 +227,65 @@ type InstanceDataDemo {
   region: String
 }
 
-type NodeRecommendationDTO {
-  currentCloudProvider: String
-  currentService: String
+type InstanceDetails {
+  cloudProviderInstanceId: String
+  clusterId: String
+  clusterName: String
+  cpuAllocatable: Float!
+  cpuBillingAmount: Float!
+  cpuIdleCost: Float!
+  cpuRequested: Float!
+  cpuUnallocatedCost: Float!
+  cpuUnitPrice: Float!
+  createTime: Long!
+  deleteTime: Long!
   id: String
-  maxCpu: Int
-  maxMemory: Int
-  sumCpu: Int
-  sumMemory: Int
+  idleCost: Float!
+  instanceCategory: String
+  machineType: String
+  memoryAllocatable: Float!
+  memoryBillingAmount: Float!
+  memoryIdleCost: Float!
+  memoryRequested: Float!
+  memoryUnallocatedCost: Float!
+  memoryUnitPrice: Float!
+  name: String
+  namespace: String
+  networkCost: Float!
+  node: String
+  nodeId: String
+  nodePoolName: String
+  podCapacity: String
+  qosClass: String
+  storageActualIdleCost: Float!
+  storageCost: Float!
+  storageRequest: Float!
+  storageUnallocatedCost: Float!
+  storageUtilizationValue: Float!
+  systemCost: Float!
+  totalCost: Float!
+  unallocatedCost: Float!
+  workload: String
+}
+
+type NodePool {
+  role: String
+  sumNodes: Long
+  vm: VirtualMachine
+  vmClass: String
+}
+
+type NodePoolId {
+  clusterid: String!
+  nodepoolname: String!
+}
+
+type NodeRecommendationDTO {
+  current: RecommendationResponse
+  id: String
+  nodePoolId: NodePoolId
+  recommended: RecommendationResponse
+  resourceRequirement: RecommendClusterRequest
 }
 
 type PerspectiveData {
@@ -220,11 +311,22 @@ type PerspectiveOverviewStatsData {
 }
 
 type PerspectiveTimeSeriesData {
+  cpuLimit: [TimeSeriesDataPoints]
+  cpuRequest: [TimeSeriesDataPoints]
+  cpuUtilValues: [TimeSeriesDataPoints]
+  memoryLimit: [TimeSeriesDataPoints]
+  memoryRequest: [TimeSeriesDataPoints]
+  memoryUtilValues: [TimeSeriesDataPoints]
   stats: [TimeSeriesDataPoints]
 }
 
 type PerspectiveTrendStats {
   cost: StatsInfo
+  efficiencyScoreStats: EfficiencyScoreStats
+  idleCost: StatsInfo
+  systemCost: StatsInfo
+  unallocatedCost: StatsInfo
+  utilizedCost: StatsInfo
 }
 
 type QLCEView {
@@ -249,7 +351,9 @@ type QLCEViewEntityStatsDataPoint {
   cost: BigDecimal
   costTrend: BigDecimal
   id: String
+  instanceDetails: InstanceDetails
   name: String
+  storageDetails: StorageDetails
 }
 
 type QLCEViewField {
@@ -269,7 +373,22 @@ type QLCEViewFieldIdentifierData {
 type Query {
   billingData(request: GridRequestInput): [BillingData]
   billingdata(clusterid: String, endTime: OffsetTime, startTime: OffsetTime): [BillingDataDemo]
+  "Fetch CCM MetaData for account"
+  ccmMetaData: CCMMetaData
   instancedata(instanceid: String!): InstanceDataDemo
+  nodeRecommendationRequest(
+    "defaults to Now()"
+    endTime: OffsetDateTime
+    nodePoolId: NodePoolIdInput!
+    "defaults to Now().minusDays(7)"
+    startTime: OffsetDateTime
+  ): RecommendClusterRequest
+  "Table for perspective"
+  overviewTimeSeriesStats(
+    aggregateFunction: [QLCEViewAggregationInput]
+    filters: [QLCEViewFilterWrapperInput]
+    groupBy: [QLCEViewGroupByInput]
+  ): PerspectiveTimeSeriesData
   "Fields for perspective explorer"
   perspectiveFields(filters: [QLCEViewFilterWrapperInput]): PerspectiveFieldsData
   "Filter values for perspective"
@@ -277,15 +396,23 @@ type Query {
     aggregateFunction: [QLCEViewAggregationInput]
     filters: [QLCEViewFilterWrapperInput]
     groupBy: [QLCEViewGroupByInput]
+    isClusterQuery: Boolean
     limit: Int
     offset: Int
     sortCriteria: [QLCEViewSortCriteriaInput]
   ): PerspectiveFilterData
+  "Forecast cost for perspective"
+  perspectiveForecastCost(
+    aggregateFunction: [QLCEViewAggregationInput]
+    filters: [QLCEViewFilterWrapperInput]
+    isClusterQuery: Boolean
+  ): PerspectiveTrendStats
   "Table for perspective"
   perspectiveGrid(
     aggregateFunction: [QLCEViewAggregationInput]
     filters: [QLCEViewFilterWrapperInput]
     groupBy: [QLCEViewGroupByInput]
+    isClusterQuery: Boolean
     limit: Int
     offset: Int
     sortCriteria: [QLCEViewSortCriteriaInput]
@@ -298,6 +425,7 @@ type Query {
     filters: [QLCEViewFilterWrapperInput]
     groupBy: [QLCEViewGroupByInput]
     includeOthers: Boolean!
+    isClusterQuery: Boolean
     limit: Int
     offset: Int
     sortCriteria: [QLCEViewSortCriteriaInput]
@@ -306,6 +434,7 @@ type Query {
   perspectiveTrendStats(
     aggregateFunction: [QLCEViewAggregationInput]
     filters: [QLCEViewFilterWrapperInput]
+    isClusterQuery: Boolean
   ): PerspectiveTrendStats
   "Fetch perspectives for account"
   perspectives: PerspectiveData
@@ -358,11 +487,29 @@ type Query {
   recommendationsV2(filter: K8sRecommendationFilterDTOInput = { limit: 10, offset: 0 }): RecommendationsDTO
 }
 
+type RecommendClusterRequest {
+  allowBurst: Boolean
+  allowOlderGen: Boolean
+  category: [String]
+  excludes: [String]
+  includes: [String]
+  maxNodes: Long
+  minNodes: Long
+  networkPerf: [String]
+  onDemandPct: Long
+  sameSize: Boolean
+  sumCpu: Float
+  sumGpu: Long
+  sumMem: Float
+  zone: String
+}
+
 type RecommendationItemDTO {
   clusterName: String
   id: String!
   monthlyCost: Float
   monthlySaving: Float
+  namespace: String
   "recommendation details/drillDown"
   recommendationDetails(
     "defaults to Now()"
@@ -375,11 +522,25 @@ type RecommendationItemDTO {
 }
 
 type RecommendationOverviewStats {
+  "generic count query RecommendationOverviewStats context"
+  count: Int!
   totalMonthlyCost: Float!
   totalMonthlySaving: Float!
 }
 
+type RecommendationResponse {
+  accuracy: ClusterRecommendationAccuracy
+  instanceCategory: InstanceCategory
+  nodePools: [NodePool]
+  provider: String
+  region: String
+  service: String
+  zone: String
+}
+
 type RecommendationsDTO {
+  "generic count query RecommendationsDTO context"
+  count: Int!
   items: [RecommendationItemDTO]
   limit: Long!
   offset: Long!
@@ -402,14 +563,53 @@ type ResourceRequirement {
 type StatsInfo {
   statsDescription: String!
   statsLabel: String!
-  statsTrend: BigDecimal!
+  statsTrend: BigDecimal
   statsValue: String!
-  value: BigDecimal!
+  value: BigDecimal
+}
+
+type StorageDetails {
+  capacity: Float!
+  claimName: String
+  claimNamespace: String
+  cloudProvider: String
+  clusterId: String
+  clusterName: String
+  createTime: Long!
+  deleteTime: Long!
+  id: String
+  instanceId: String
+  instanceName: String
+  region: String
+  storageActualIdleCost: Float!
+  storageClass: String
+  storageCost: Float!
+  storageRequest: Float!
+  storageUnallocatedCost: Float!
+  storageUtilizationValue: Float!
+  volumeType: String
 }
 
 type TimeSeriesDataPoints {
   time: Long!
   values: [DataPoint]!
+}
+
+type VirtualMachine {
+  allocatableCpusPerVm: Float
+  allocatableMemPerVm: Float
+  avgPrice: Float
+  burst: Boolean
+  category: String
+  cpusPerVm: Float
+  currentGen: Boolean
+  gpusPerVm: Float
+  memPerVm: Float
+  networkPerf: String
+  networkPerfCategory: String
+  onDemandPrice: Float
+  type: String
+  zones: [String]
 }
 
 type WorkloadRecommendationDTO {
@@ -438,6 +638,12 @@ enum FilterOperator {
   NOT_NULL
   TIME_AFTER
   TIME_BEFORE
+}
+
+enum InstanceCategory {
+  ON_DEMAND
+  RESERVED
+  SPOT
 }
 
 enum QLCESortOrder {
@@ -519,6 +725,7 @@ enum ViewTimeRangeType {
 
 enum ViewType {
   CUSTOMER
+  DEFAULT
   DEFAULT_AZURE
   SAMPLE
 }
@@ -579,6 +786,11 @@ input K8sRecommendationFilterDTOInput {
   namespaces: [String]
   offset: Long
   resourceTypes: [ResourceType]
+}
+
+input NodePoolIdInput {
+  clusterid: String!
+  nodepoolname: String!
 }
 
 input QLCEViewAggregationInput {

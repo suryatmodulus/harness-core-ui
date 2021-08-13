@@ -1,6 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
-import { useTable, usePagination, Column, useBlockLayout } from 'react-table'
+import { useTable, usePagination, Column, useBlockLayout, Row } from 'react-table'
 import { useSticky } from 'react-table-sticky'
 import { Pagination } from '@wings-software/uicore'
 import css from './Grid.module.scss'
@@ -9,10 +9,11 @@ interface GridProps<T extends Record<string, unknown>> {
   columns: Column<T>[]
   data: T[]
   showPagination?: boolean
+  onRowClick?: (row: Row<T>) => void
 }
 
 const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Element => {
-  const { showPagination = true } = props
+  const { showPagination = true, onRowClick } = props
   const defaultColumn = React.useMemo(
     () => ({
       minWidth: 150,
@@ -61,7 +62,14 @@ const Grid = <T extends Record<string, unknown>>(props: GridProps<T>): JSX.Eleme
           {page.map((row, idx) => {
             prepareRow(row)
             return (
-              <div {...row.getRowProps()} className={css.tr} key={idx}>
+              <div
+                {...row.getRowProps()}
+                className={css.tr}
+                key={idx}
+                onClick={() => {
+                  onRowClick && onRowClick(row)
+                }}
+              >
                 {row.cells.map((cell, id) => (
                   <div {...cell.getCellProps()} className={cx(css.td, (cell.column as any).className)} key={id}>
                     <div className={css.cellValue}>{cell.render('Cell')}</div>

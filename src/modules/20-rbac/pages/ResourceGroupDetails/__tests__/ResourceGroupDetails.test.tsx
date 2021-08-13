@@ -1,6 +1,6 @@
 import React from 'react'
-import { render, act, fireEvent, waitFor, RenderResult, queryByAttribute } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { render, act, fireEvent, RenderResult, queryByAttribute, getByText } from '@testing-library/react'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, resourceGroupPathProps } from '@common/utils/routeUtils'
 import {
@@ -55,22 +55,56 @@ describe('Resource Groups Page', () => {
     expect(container).toMatchSnapshot()
   })
   test('test projects selection and save', async () => {
-    const { getByText, getAllByText, container } = renderObj
+    const { getAllByText, container } = renderObj
     const project = queryByAttribute('data-testid', container, 'CHECK-BOX-PROJECT')
     expect(project).toBeTruthy()
-    fireEvent.click(project!)
-    await waitFor(() => {
-      expect(getAllByText('resourceGroup.all')[0]).toBeDefined()
-    })
     act(() => {
-      fireEvent.click(getByText('applyChanges'))
+      fireEvent.click(project!)
+    })
+    expect(getAllByText('rbac.resourceGroup.all')[0]).toBeTruthy()
+    await act(async () => {
+      fireEvent.click(getByText(container, 'applyChanges'))
     })
     expect(updateResourceGroupDetails).toBeCalledWith({
       accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
       orgIdentifier: null,
       projectIdentifier: null,
       identifier: 'ewrewew',
-      name: 'ewrewew',
+      name: 'nameewrewew',
+      resourceSelectors: [
+        { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
+        { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
+      ],
+      tags: {},
+      description: '',
+      color: '#0063f7'
+    })
+  })
+  test('test orgs selection and save', async () => {
+    const { container, getByTestId } = renderObj
+    const addResources = getByTestId('addResources-ORGANIZATION')
+    expect(addResources).toBeTruthy()
+    act(() => {
+      fireEvent.click(addResources)
+    })
+    let form = findDialogContainer()
+    expect(form).toBeTruthy()
+
+    act(() => {
+      fireEvent.click(getByText(form!, 'cancel'))
+    })
+    form = findDialogContainer()
+    expect(form).toBeFalsy()
+
+    await act(async () => {
+      fireEvent.click(getByText(container, 'applyChanges'))
+    })
+    expect(updateResourceGroupDetails).toBeCalledWith({
+      accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+      orgIdentifier: null,
+      projectIdentifier: null,
+      identifier: 'ewrewew',
+      name: 'nameewrewew',
       resourceSelectors: [
         { type: 'DynamicResourceSelector', resourceType: 'ORGANIZATION' },
         { type: 'DynamicResourceSelector', resourceType: 'PROJECT' }
@@ -93,8 +127,6 @@ test('with harness managed resources', async () => {
       <ResourceGroupDetails />
     </TestWrapper>
   )
-  await waitFor(() => {
-    expect(queryByText('All Organizations')).toBeDefined()
-  })
-  expect(queryByText('Apply Changes')).toBeNull()
+  const applyChanges = queryByText('applyChanges')
+  expect(applyChanges).toBeFalsy()
 })

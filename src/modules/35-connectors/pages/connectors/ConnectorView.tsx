@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { isEmpty, noop, omit } from 'lodash-es'
 import { Button, Layout, Container, Icon, Text, Color } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import cx from 'classnames'
 import moment from 'moment'
 import { useToaster, useConfirmationDialog, StringUtils } from '@common/exports'
 import {
@@ -19,6 +18,7 @@ import {
   useUpdateConnector,
   CreateConnectorQueryParams
 } from 'services/cd-ng'
+import VisualYamlToggle, { SelectedView } from '@common/components/VisualYamlToggle/VisualYamlToggle'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
@@ -60,12 +60,7 @@ interface ConnectorViewState {
   connector: ConnectorInfoDTO
   setConnector: (object: ConnectorInfoDTO) => void
   selectedView: string
-  setSelectedView: (selection: string) => void
-}
-
-const SelectedView = {
-  VISUAL: 'VISUAL',
-  YAML: 'YAML'
+  setSelectedView: (selection: SelectedView) => void
 }
 
 const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) => {
@@ -79,7 +74,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     queryParams: { accountIdentifier: accountId }
   })
   const [enableEdit, setEnableEdit] = useState(false)
-  const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
+  const [selectedView, setSelectedView] = useState<SelectedView>(SelectedView.VISUAL)
   const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
   const [connectorForYaml, setConnectorForYaml] = useState<ConnectorInfoDTO>(
     props.response?.connector || ({} as ConnectorInfoDTO)
@@ -121,19 +116,21 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
     setSelectedView
   }
 
-  const handleModeSwitch = (targetMode: string): void => {
-    if (targetMode === SelectedView.VISUAL) {
+  const handleModeSwitch = (newView: SelectedView): boolean => {
+    if (newView === selectedView) return false
+    if (newView === SelectedView.VISUAL) {
       try {
         const connectorJSONEq = props.response?.connector || ({} as ConnectorInfoDTO)
-        setSelectedView(targetMode)
+        setSelectedView(newView)
         setConnector(connectorJSONEq)
         setConnectorForYaml(connectorJSONEq)
       } /* istanbul ignore next */ catch (err) {
         showError(err.name ? `${err.name}: ${err.message}` : err)
       }
     } else {
-      setSelectedView(targetMode)
+      setSelectedView(SelectedView.YAML)
     }
+    return true
   }
 
   const { openSaveToGitDialog } = useSaveToGitDialog<Connector>({
@@ -341,25 +338,13 @@ const ConnectorView: React.FC<ConnectorViewProps> = (props: ConnectorViewProps) 
       <Layout.Vertical width={enableEdit && selectedView === SelectedView.YAML ? '100%' : '67%'} padding="small">
         <Container className={css.buttonContainer}>
           {state.enableEdit ? null : (
-            <div className={css.optionBtns}>
-              <div
-                className={cx(
-                  css.item,
-                  { [css.selected]: selectedView === SelectedView.VISUAL },
-                  { [css.disabled]: !isValidYAML }
-                )}
-                onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-              >
-                {getString('visual')}
-              </div>
-              <div
-                className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                onClick={() => handleModeSwitch(SelectedView.YAML)}
-                data-test="connectorViewYaml"
-              >
-                {getString('yaml')}
-              </div>
-            </div>
+            <VisualYamlToggle
+              initialSelectedView={SelectedView.VISUAL}
+              beforeOnChange={(nextMode, callback) => {
+                const shouldSwitchMode = handleModeSwitch(nextMode)
+                shouldSwitchMode && callback(nextMode)
+              }}
+            />
           )}
           {state.enableEdit || isHarnessManaged ? null : (
             <RbacButton

@@ -18,7 +18,7 @@ const AppDURL = 'https://appd.com/api/v1/'
 async function updateApiClientAuthType(authType: string) {
   const caret = document.body
     .querySelector(`[name="authType"] + [class*="bp3-input-action"]`)
-    ?.querySelector('[data-icon="caret-down"]')
+    ?.querySelector('[data-icon="chevron-down"]')
 
   // set authtype drop down
   fireEvent.click(caret!)

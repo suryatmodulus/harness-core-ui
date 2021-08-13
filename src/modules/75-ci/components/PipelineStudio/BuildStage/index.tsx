@@ -16,10 +16,11 @@ const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttr
 const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsReturn['getString']) => (
   <BuildStage
     icon={'ci-main'}
+    hoverIcon={'build-stage'}
     iconsStyle={{ color: 'var(--pipeline-build-stage-color)' }}
     name={getString('buildText')}
     type={StageType.BUILD}
-    title={getString('pipelineSteps.build.create.buildStageName')}
+    title={getString('buildText')}
     description={getString('ci.description')}
     isDisabled={false}
     isHidden={!isEnabled}

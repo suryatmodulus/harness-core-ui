@@ -68,7 +68,7 @@ describe('Azure Access Point Form', () => {
     const regionsDropdown = container.querySelector('input[name="region"]') as HTMLInputElement
     const regionsCaret = container
       .querySelector(`input[name="region"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(regionsCaret!)
     })
@@ -82,7 +82,7 @@ describe('Azure Access Point Form', () => {
     const resourceGroupDropdown = container.querySelector('input[name="resourceGroup"]') as HTMLInputElement
     const resourceGroupCaret = container
       .querySelector(`input[name="resourceGroup"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(resourceGroupCaret!)
     })
@@ -110,7 +110,7 @@ describe('Azure Access Point Form', () => {
     const vpcDropdown = container.querySelector('input[name="virtualNetwork"]') as HTMLInputElement
     const vpcCaret = container
       .querySelector(`input[name="virtualNetwork"] + [class*="bp3-input-action"]`)
-      ?.querySelector('[data-icon="caret-down"]')
+      ?.querySelector('[data-icon="chevron-down"]')
     await waitFor(() => {
       fireEvent.click(vpcCaret!)
     })

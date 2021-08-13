@@ -17,7 +17,7 @@ exports[`InfraProvisioning  click on checkbox- should open up prov popup 1`] = `
             class="bp3-form-content"
           >
             <label
-              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox provisionerEnabledCheckbox StyledProps--main StyledProps--inline"
+              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox provisionerEnabledCheckbox StyledProps--main StyledProps--inline"
             >
               <input
                 name="provisionerEnabled"

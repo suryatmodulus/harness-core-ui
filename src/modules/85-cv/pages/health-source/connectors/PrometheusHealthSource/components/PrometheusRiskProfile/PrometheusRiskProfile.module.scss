@@ -1,0 +1,19 @@
+.main {
+  .groupLabel {
+    color: var(--grey-600) !important;
+    font-size: var(--form-input-font-size) !important;
+    font-weight: 500;
+    margin-bottom: var(--spacing-small) !important;
+  }
+
+  .checkBoxGroup {
+    > div {
+      position: relative;
+      left: 27px;
+      label {
+        font-size: var(--font-size-small) !important;
+        color: var(--black) !important;
+      }
+    }
+  }
+}

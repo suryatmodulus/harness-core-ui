@@ -32,6 +32,10 @@ export const transformValuesFieldsConfig = [
   //   type: TransformValuesTypes.Pull
   // },
   {
+    name: 'spec.runAsUser',
+    type: TransformValuesTypes.Text
+  },
+  {
     name: 'spec.limitMemory',
     type: TransformValuesTypes.LimitMemory
   },
@@ -77,6 +81,11 @@ export const editViewValidateFieldsConfig = [
     isRequired: true
   },
   {
+    label: 'pipeline.stepCommonFields.runAsUser',
+    name: 'spec.runAsUser',
+    type: ValidationFieldTypes.Numeric
+  },
+  {
     name: 'spec.limitMemory',
     type: ValidationFieldTypes.LimitMemory
   },
@@ -111,6 +120,10 @@ export function getInputSetViewValidateFieldsConfig(
       type: ValidationFieldTypes.Text,
       label: 'pipelineSteps.sourcePathLabel',
       isRequired
+    },
+    {
+      name: 'spec.runAsUser',
+      type: ValidationFieldTypes.Numeric
     },
     {
       name: 'spec.resources.limits.memory',

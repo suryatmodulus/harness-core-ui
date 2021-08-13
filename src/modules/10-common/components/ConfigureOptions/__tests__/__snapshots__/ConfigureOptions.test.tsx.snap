@@ -120,7 +120,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="defaultValue"
-                  placeholder="Search..."
+                  placeholder="- Select -"
                   style="padding-right: 0px;"
                   type="text"
                   value=""
@@ -129,20 +129,20 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -177,9 +177,11 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
           <div
             class="bp3-form-content"
           >
-            <div>
+            <div
+              class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+            >
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   checked=""
@@ -193,7 +195,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
                 none
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -206,7 +208,7 @@ exports[`Test ConfigureOptions should render configure options 1`] = `
                 allowedValues
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -365,9 +367,11 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
           <div
             class="bp3-form-content"
           >
-            <div>
+            <div
+              class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+            >
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -380,7 +384,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
                 none
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   checked=""
@@ -394,7 +398,7 @@ exports[`Test ConfigureOptions test allowed advanced values 1`] = `
                 allowedValues
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -618,7 +622,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="defaultValue"
-                  placeholder="Search..."
+                  placeholder="- Select -"
                   style="padding-right: 0px;"
                   type="text"
                   value=""
@@ -627,20 +631,20 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -658,7 +662,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
           class="bp3-form-content"
         >
           <label
-            class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox Checkbox--checkbox checkbox StyledProps--main StyledProps--inline"
+            class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox checkbox StyledProps--main StyledProps--inline"
           >
             <input
               checked=""
@@ -701,9 +705,11 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
           <div
             class="bp3-form-content"
           >
-            <div>
+            <div
+              class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+            >
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -716,7 +722,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                 none
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   checked=""
@@ -730,7 +736,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                 allowedValues
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -814,7 +820,7 @@ exports[`Test ConfigureOptions test allowed values 1`] = `
                           autocomplete="off"
                           class="bp3-input-ghost bp3-multi-select-tag-input-input"
                           name="allowedValues"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           value=""
                         />
                       </div>
@@ -981,7 +987,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
                   autocomplete="off"
                   class="bp3-input"
                   name="defaultValue"
-                  placeholder="Search..."
+                  placeholder="- Select -"
                   style="padding-right: 0px;"
                   type="text"
                   value=""
@@ -990,20 +996,20 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
                   class="bp3-input-action"
                 >
                   <span
-                    class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                    icon="caret-down"
+                    class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                    icon="chevron-down"
                   >
                     <svg
-                      data-icon="caret-down"
+                      data-icon="chevron-down"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
                     >
                       <desc>
-                        caret-down
+                        chevron-down
                       </desc>
                       <path
-                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                         fill-rule="evenodd"
                       />
                     </svg>
@@ -1038,9 +1044,11 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
           <div
             class="bp3-form-content"
           >
-            <div>
+            <div
+              class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+            >
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -1053,7 +1061,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
                 none
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   name="validation"
@@ -1066,7 +1074,7 @@ exports[`Test ConfigureOptions test regex expression 1`] = `
                 allowedValues
               </label>
               <label
-                class="bp3-control bp3-radio Radio--radio"
+                class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
               >
                 <input
                   checked=""

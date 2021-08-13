@@ -13,6 +13,15 @@
   max-height: 340px;
   overflow: scroll;
 
+  .menuItem {
+    padding: var(--spacing-small);
+    &:hover,
+    &:active {
+      background: var(--primary-1) !important;
+      color: var(--black) !important;
+    }
+  }
+
   .costInput {
     margin-top: var(--spacing-small);
   }

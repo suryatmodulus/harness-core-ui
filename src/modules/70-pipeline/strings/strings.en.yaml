@@ -1,7 +1,7 @@
 verificationResult: 'Verification result:'
 estimatedTimeRemaining: 'Estimated time remaining:'
 progressPercentage: 'Progress percentage:'
-discard: Discard
+discard: '{{ $.common.discard }}'
 serviceDependencyText: Service Dependency
 serviceDependenciesText: Service Dependencies
 stepLabel: '{{name}} (ID: {{identifier}})'
@@ -12,7 +12,6 @@ clickHere: Click here
 stepDetails: Step details
 scriptInputVariables: Script Input Variables
 scriptOutputVariables: Script Output Variables
-namespaceTooltip: Namespace must exist
 executionTarget: Execution Target
 collapseIsDisabledWhileStageIsRunning: Collapse is disable while stage is running
 onlyPositiveInteger: Only positive integer values
@@ -20,12 +19,15 @@ depth: Depth
 sslVerify: SSL Verify
 noPipelineText: There are no pipelines in your project
 noDeploymentText: There are no deployments in your project
+runModalNoPipelineText: There are no pipelines in your project. Please create a new pipeline
 noBuildsText: There are no builds in your project
 runAPipeline: Run a Pipeline
 regionPlaceholder: Select Region
 repositoryUrlPlaceholder: Enter Repository URL
 lastSevenDays: In Last 7 days
+neverRan: This pipeline never ran
 startedOn: Started On
+poweredByHarness: powered by Harness
 outOf: Out Of
 approvalStage:
   settingUpStage: Getting stage data
@@ -164,6 +166,7 @@ manifestType:
   folderPathRequired: Folder Path is required
   chartPathRequired: Chart Path is required
   kustomizePathRequired: Kustomize Path is required
+  kustomizeFolderPathRequired: Kustomize Folder Path is required
   pathRequired: File Path is required
   bucketNameRequired: Bucket Name is required
   path: '{{$.common.path}}'
@@ -171,7 +174,9 @@ manifestType:
   osTemplatePathPlaceHolder: Enter Template File Path
   osTemplatePathRequired: Template File Path is required
   bucketNamePlaceholder: Enter Bucket Name
+  bucketPlaceHolder: Select or Add bucket name
   pathPlaceholder: Enter File Path
+  chartPathPlaceholder: Enter Chart Path
   bucketName: Bucket Name
   gitFetchTypeLabel: Git Fetch Type
   commitId: Commit Id
@@ -179,6 +184,8 @@ manifestType:
   commitPlaceholder: Enter Commit Id
   filePathPlaceholder: Enter File or Folder Path
   kustomizeFolderPath: Kustomize Folder Path
+  kustomizeFolderPathPlaceholder: Enter Kustomize Folder Path
+  kustomizePluginPathPlaceholder: Enter Kustomize Plugin Path
   repoNamePlaceholder: Enter Repository Name
   http:
     chartName: 'Chart Name'
@@ -198,7 +205,6 @@ manifestToConnectorLabelMap:
   AWSLabel: AWS
   GCPLabel: GCP
 failureStrategies:
-  selectStrategy: '{{ $.common.selectStrategy }}'
   performAction: '{{ $.common.performAction }}'
   title: Failure Strategy
   helpText: |
@@ -368,7 +374,9 @@ triggers:
   lastActivationAt: 'Last activation at'
   showAllTriggers: 'Show all Triggers'
   onNewWebhookTitle: 'On New Webhook'
-  onNewArtifactTitle: 'On New Artifact/Manifest'
+  onNewArtifactTitleWhole: 'On New Artifact'
+  onNewManifestTitleWhole: 'On New Manifest'
+  onNewArtifactTitle: 'On New {{artifact}}'
   onNewScheduleTitle: 'On New Schedule'
   newArtifactLabel: 'New Artifact'
   newManifestLabel: 'New Manifest'
@@ -384,7 +392,6 @@ triggers:
   pageNotFound: 'Page not found'
   triggerLabel: 'Trigger'
   lastActivationLabel: 'LAST ACTIVATION'
-  enableLabel: 'ENABLE'
   activityActivation: '{{numActivations}} Activations in'
   activityDays: 'Last {{numDays}} days'
   copyAsUrl: 'Copy as Webhook URL'
@@ -402,6 +409,7 @@ triggers:
     matchesValue: 'Matches Value is required with Operator.'
     payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
     headerConditions: 'Each header condition requires values for Attribute, Operator, and Matches Value.'
+    selectedArtifact: '{{artifact}} is required.'
     cronExpression: 'Valid cron expression is required.'
   toast:
     successfulCreate: 'Successfully created {{name}}.'
@@ -453,8 +461,8 @@ triggers:
     hourlyTabTitle: 'Hourly'
     dailyTabTitle: 'Daily'
     weeklyTabTitle: 'Weekly'
-    monthlyTabTitle: 'Monthly'
-    yearlyTabTitle: 'Yearly'
+    monthlyTabTitle: '{{$.common.monthly}}'
+    yearlyTabTitle: '{{$.common.yearly}}'
     runEvery: 'Run every'
     runDailyAt: 'Run daily at'
     runAt: 'Run at'
@@ -482,6 +490,22 @@ triggers:
     SUN: 'SUN'
     expressionBreakdown: 'Expression Breakdown'
     cronExpression: 'Cron Expression'
+  artifactTriggerConfigPanel:
+    artifact: 'Artifact'
+    artifactRepository: '{{artifact}} Repository'
+    buildTag: 'Build/Tag'
+    configureInput: 'Configure Input'
+    listenOnNewArtifact: 'Listen on New {{artifact}}'
+    plusSelect: '+ Select {{artifact}}'
+    selectAnArtifact: 'Select an Artifact Reference'
+    selectAManifest: 'Select a Manifest Reference'
+    configureArtifactRuntimeInputs: 'Configure {{artifact}} Runtime Inputs'
+    noSelectableArtifactsFound: 'No selectable {{artifact}}s found. Please add in the pipeline.'
+    noArtifacts: No artifacts for selected stage.
+    configureInputs: Configure inputs
+    hasRuntimeInputs: 'Has Runtime Inputs'
+    runtimeInput: 'Runtime Input'
+    chartVersionRuntimeInput: Some {{artifact}} references may be unselectable because Chart Version must be a runtime input.
 dashboards:
   failedBuilds: Failed Builds
   activeBuilds: Active Builds
@@ -579,8 +603,14 @@ inputSets:
   aboutInputSets: Harness Input Sets are collections of variables/values that can be provided to one or more Pipelines before execution.
 provisionerSteps: Provisioner Steps
 addStage:
-  title: Select a Stage
-  description: In a pipeline, a stage involves a series of tasks or tests that must be satisfied in order to proceed to the next stage.
+  title: Select stage type
+  description: Hover over stage type for more info.
+pipelineSteps:
+  customStage: Custom Stage
+  chainedPipeline: Chained Pipeline
+  deployStageDescription: Deploy services, serverless functions or execute workloads.
+  featureStageDescription: Enable or disable functionality remotely without redeploying code.
+  approvalStageDescription: Approve or reject changes during Pipeline executions.
 aboutYourStage:
   stageNamePlaceholder: Enter Stage Name
 infraSpecifications:
@@ -636,4 +666,121 @@ verification:
   analysisTab:
     metrics: 'Metrics'
     logs: 'Logs'
+  logs:
+    logCluster: Log cluster
+    filterByClusterType: Filter by cluster type
+    knownEvent: Known Event
+    unknownEvent: Unknown Event
+    unexpectedFrequency: Unexpected Frequency
+    noAnalysis: No analysis
+    clusterType: CLUSTER TYPE
+    sampleMessage: MESSAGE
+    messageFrequency: MESSAGE FREQUENCY
+    messageCount: COUNT
+    actions: ACTIONS
+    risk: RISK
+    copyURL: Copy url
+    urlCopied: URL copied
+    share: share
+    sampleEvent: Sample event
+    trend: trend
+stepCommonFields:
+  runAsUser: Run as User
+  ifNotPresent: 'If Not Present'
+  validation:
+    mustBeANumber: '{{label}} must be a number'
+ciCodebase:
+  prCloneStrategy: Pull Request Clone Strategy
 tagDependencyRequired: required to fetch the tags
+myDeploymentsText: My Deployments
+myBuildsText: My Builds
+noBuckets: No buckets found with given region
+gitRepos: Git Repos
+buildRepo: Build Repo
+stepDescription:
+  HTTP: Run HTTP requests containing URLs, methods, headers, assertions, and variables.
+  SHELLSCRIPT: Execute scripts in the shell session. The scripts can be executed on the pod/instance running a Harness Delegate or on a remote host in the infrastructure.
+  Barrier: Synchronize multiple Pipelines to coordinate deployments systematically.
+  K8sRollingRollback: Roll back the workloads deployed by the stage.
+  K8sBlueGreenDeploy: Deploy your new app version to the stage environment.
+  K8sCanaryDeploy: Define how many pods are deployed for a Canary test of your new service version.
+  K8sBGSwapServices: Swap services to route production traffic to the new version of the application and stage traffic to the old version.
+  K8sScale: Update the number of pods running for a workload by count or percentage.
+  K8sApply: Deploy individual Kubernetes workloads from your stage's Service.
+  K8sCanaryDelete: Clean up the workload deployed by the Canary Deployment step.
+  K8sDelete: Delete Kubernetes resources by name, manifest path, and release name.
+  K8sRollingDeploy: Use a rolling update to schedule new pods on nodes with available resources. This step uses the number of replicas you specified in the Deployment manifest.
+  Plugin: Use Docker containers to perform predefined tasks like deploy code, publish artifacts, send notifications, and more.
+  Run: Execute one or more commands on a container image in a CI stage.
+  GCR: Build an image and push it to Google Container Registry (GCR).
+  ECR: Build an image and push it to AWS Elastic Container Registry (ECR).
+  SaveCacheGCS: Preserve files and directories between builds using Google Cloud Storage (GCS).
+  RestoreCacheGCS: Restore saved files and directories between builds using Google Cloud Storage (GCS).
+  SaveCacheS3: Preserve files and directories between builds using AWS S3.
+  RestoreCacheS3: Restore saved files and directories between builds using AWS S3.
+  DockerHub: Build a Docker image from a Dockerfile and push it to a Docker registry.
+  GCS: Upload artifacts to Google Cloud Storage (GCS).
+  S3: Upload artifacts to AWS S3.
+  JFrogArtifactory: Upload artifacts to JFrog Artifactory.
+  RunTests: Execute unit, integration, and other tests on a CI container image.
+  HarnessApproval: Add manual approvals as steps and stages.
+  JiraApproval: Use Jira issues to approve steps and stages.
+  Verify: Verify a deployment using your monitoring tools.
+  JiraCreate: Create a Jira issue as a step in the execution of a Pipeline.
+  JiraUpdate: Update a Jira issue as a step in the execution of a Pipeline.
+  TerraformRollback: Roll back your provisioned infrastructure and resources and return your environment to its pre-deployment state.
+  TerraformDestroy: Remove any infrastructure you've provisioned using Harness.
+  TerraformPlan: Run a Terraform script as a Terraform plan.
+  TerraformApply: Apply a Terraform plan or script.
+  ResourceConstraint: Queue the number of resources Harness requests during a deployment by placing capacity limits on the requests.
+  FlagConfiguration: Create a Boolean or Multivariate Feature Flag.
+executionStrategy:
+  executionStrategies: Execution Strategies
+  useStrategy: Use Strategy
+  strategies:
+    rolling:
+      description: All pods/instances in a single environment are incrementally replaced with a new service version without downtime.
+      learnMoreLink: https://ngdocs.harness.io/article/0zsf97lo3c-deployment-concepts#rolling_deployment
+      steps:
+        step1:
+          description: Test the new version.
+        step2:
+          description: Approve the new version.
+        step3:
+          description: Replace new version.
+    blueGreen:
+      description: 'Two identical environments for staging and production traffic run simultaneously with different versions of the service. Deployment of a new service version is first done to the staging environment. Once the new version is verified, network traffic is switched between the two environments. The staging environment is now the production environment.'
+      learnMoreLink: https://ngdocs.harness.io/article/0zsf97lo3c-deployment-concepts#blue_green_deployment
+      steps:
+        step1:
+          description: Maintain two identical fleets of servers.
+        step2:
+          description: Verify the services in the blue environment.
+        step3:
+          description: After verification, switch the load balancer to point to the newly-deployed fleet.
+    canary:
+      description: 'Harness performs a two phase deployment: Phase 1 adds new pods/instances with the new service version to a single environment. Phase 2 performs a Rolling Update in the same environment.'
+      learnMoreLink: https://ngdocs.harness.io/article/0zsf97lo3c-deployment-concepts#canary_deployment
+      steps:
+        step1:
+          title: 'Canary deployment:'
+          description: 'Add canary pods until they guarantee you their safety'
+        step2:
+          title: 'Canary delete:'
+          description: 'Update 50% new instances in phase 2 and verify it.'
+        step3:
+          title: 'Rolling Update:'
+          description: 'Update all new instances in phase 3 and verify it.'
+    default:
+      actualName: '{{$.common.default}}'
+      displayName: Blank Canvas
+      description: A blank slate for custom processes. You can use any combination of steps. Only recommended for advanced users.
+      learnMoreLink: https://ngdocs.harness.io/article/0zsf97lo3c-deployment-concepts#basic_deployment
+    common:
+      steps:
+        step1:
+          title: 'Step 1:'
+        step2:
+          title: 'Step 2:'
+        step3:
+          title: 'Step 3:'

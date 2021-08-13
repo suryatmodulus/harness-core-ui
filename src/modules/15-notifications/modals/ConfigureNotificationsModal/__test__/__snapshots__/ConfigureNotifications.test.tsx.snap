@@ -46,33 +46,31 @@ exports[`ConfigureNotifications Email 1`] = `
           </div>
           <div
             class="bp3-form-group"
-            data-id="userGroups-1"
+            data-id="null-1"
           >
-            <label
-              class="bp3-label"
-              for="userGroups"
-            >
-              notifications.labelEmailUserGroups
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
               class="bp3-form-content"
             >
               <div
-                class="bp3-input bp3-tag-input"
+                class="Layout--vertical StyledProps--main"
               >
-                <div
-                  class="bp3-tag-input-values"
+                <label
+                  class="bp3-label"
                 >
-                  <input
-                    class="bp3-input-ghost"
-                    data-mentions="multi-input-userGroups}"
-                    placeholder="notifications.userGroupsPlaceholder"
-                    value=""
-                  />
+                  notifications.labelSlackUserGroups
+                </label>
+                <div
+                  class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main pointer"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                    >
+                      common.selectUserGroups
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -232,33 +230,31 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
           </div>
           <div
             class="bp3-form-group"
-            data-id="userGroups-1"
+            data-id="null-1"
           >
-            <label
-              class="bp3-label"
-              for="userGroups"
-            >
-              notifications.labelPDUserGroups
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
               class="bp3-form-content"
             >
               <div
-                class="bp3-input bp3-tag-input"
+                class="Layout--vertical StyledProps--main"
               >
-                <div
-                  class="bp3-tag-input-values"
+                <label
+                  class="bp3-label"
                 >
-                  <input
-                    class="bp3-input-ghost"
-                    data-mentions="multi-input-userGroups}"
-                    placeholder="notifications.userGroupsPlaceholder"
-                    value=""
-                  />
+                  notifications.labelSlackUserGroups
+                </label>
+                <div
+                  class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main pointer"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                    >
+                      common.selectUserGroups
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -408,33 +404,31 @@ exports[`ConfigureNotifications Slack 1`] = `
           </div>
           <div
             class="bp3-form-group"
-            data-id="userGroups-1"
+            data-id="null-1"
           >
-            <label
-              class="bp3-label"
-              for="userGroups"
-            >
-              notifications.labelSlackUserGroups
-               
-              <span
-                class="bp3-text-muted"
-              />
-            </label>
             <div
               class="bp3-form-content"
             >
               <div
-                class="bp3-input bp3-tag-input"
+                class="Layout--vertical StyledProps--main"
               >
-                <div
-                  class="bp3-tag-input-values"
+                <label
+                  class="bp3-label"
                 >
-                  <input
-                    class="bp3-input-ghost"
-                    data-mentions="multi-input-userGroups}"
-                    placeholder="notifications.userGroupsPlaceholder"
-                    value=""
-                  />
+                  notifications.labelSlackUserGroups
+                </label>
+                <div
+                  class="StyledProps--font StyledProps--main bp3-input userGroupInputContainer StyledProps--border StyledProps--padding-xsmall"
+                >
+                  <div
+                    class="StyledProps--font StyledProps--main pointer"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main selectBtn StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-xsmall"
+                    >
+                      common.selectUserGroups
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

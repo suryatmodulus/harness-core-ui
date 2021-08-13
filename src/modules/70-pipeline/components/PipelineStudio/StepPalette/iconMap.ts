@@ -40,10 +40,12 @@ export const iconMap: iconMapOptions = {
 
 // This is temporary, need to get types as above for icons
 export const iconMapByName: iconMapOptions = {
-  Kubernetes: 'service-kubernetes',
+  Kubernetes: 'step-kubernetes',
   'Infrastructure Provisioners': 'yaml-builder-env',
   'Issue Tracking': 'error',
   Notification: 'notifications',
-  'Flow Control': 'flow-branch',
-  Utilities: 'utility'
+  FlowControl: 'settings',
+  Utilities: 'utility',
+  'Continuous Integration': 'ci-solid-current-color',
+  'Continuous Verification': 'cv-solid-current-color'
 }

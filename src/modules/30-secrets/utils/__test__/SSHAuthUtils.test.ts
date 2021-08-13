@@ -1,5 +1,6 @@
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { getSSHDTOFromFormData, getReference, buildAuthConfig } from '../SSHAuthUtils'
+import { getReference } from '@common/utils/utils'
+import { getSSHDTOFromFormData, buildAuthConfig } from '../SSHAuthUtils'
 
 describe('SSHAuthUtils', () => {
   test('getSSHDTOFromFormData for SSH', () => {

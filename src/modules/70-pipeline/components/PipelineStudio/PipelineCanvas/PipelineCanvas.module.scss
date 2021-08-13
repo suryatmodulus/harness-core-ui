@@ -1,7 +1,7 @@
 .content {
   display: grid;
   grid-template-rows: 48px 1fr;
-  grid-template-columns: 1fr 64px;
+  grid-template-columns: 1fr;
   height: 100%;
   position: relative;
   overflow: hidden;
@@ -18,12 +18,12 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--pipeline-light-grey);
-  padding: 0px var(--spacing-large);
+  padding: 0px var(--spacing-xlarge);
   background-color: var(--white);
+  height: 49px;
 }
 
 .breadcrumbsMenu {
-  width: 55%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -71,33 +71,14 @@
       border-color: transparent transparent #fff transparent;
     }
   }
-
-  .optionBtns {
-    display: inline-block;
-    font-size: var(--font-size-xsmall);
-    line-height: 14px;
-    width: 136px;
-
-    .item {
-      display: inline-block;
-      padding: 4px 8px;
-      border-radius: 10px;
-      margin: 2px;
-      cursor: pointer;
-      border: solid 1px var(--primary-9);
-      color: var(--primary-9);
-      background: #fff;
-      width: 55px;
-    }
-
-    .selected {
-      font-weight: bold;
-      background-color: var(--primary-9);
-      color: var(--white);
-      cursor: default;
-    }
-  }
 }
+
+.visualYamlToggle {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 .savePublishContainer {
   text-align: right;
   padding: 8px 0px;
@@ -120,34 +101,50 @@
     }
   }
 
+  .saveButton {
+    width: 70px !important;
+    height: 24px !important;
+    border-radius: 4px;
+    font-size: 13px !important;
+  }
+
   .tagRender {
-    color: var(--orange-700);
+    color: var(--orange-600);
     margin-right: var(--spacing-xlarge);
     font-size: var(--font-size-small);
+    line-height: 15px;
     &::before {
       content: '';
       width: 10px;
       height: 10px;
       border-radius: 100%;
-      background: var(--orange-700);
+      background: var(--orange-600);
       display: inline-block;
       margin: 0 4px;
     }
   }
 
   .runPipelineBtn {
-    background-color: var(--green-500) !important;
-    border-color: var(--green-500) !important;
-    margin-left: var(--spacing-medium) !important;
+    width: 64px !important;
+    height: 24px !important;
+    border-radius: 4px;
+    font-size: 13px !important;
+    background-color: var(--green-600) !important;
+    border-color: var(--green-600) !important;
+    margin-left: var(--spacing-3) !important;
   }
   .discardBtn {
+    width: 78px !important;
+    height: 24px !important;
+    border-radius: 4px;
+    font-size: 13px !important;
     border: 1px solid var(--primary-6) !important;
     color: var(--primary-7) !important;
-    margin-left: var(--spacing-medium) !important;
+    margin-left: var(--spacing-3) !important;
   }
 }
 
-.pipelineNameContainer {
+.pipelineMetadataContainer {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -155,14 +152,26 @@
     display: flex;
     align-items: center;
   }
-  .pipelineName {
-    display: inline-flex;
-    font-size: var(--font-size-medium) !important;
-    color: var(--grey-900) !important;
-    margin-right: var(--spacing-small) !important;
-  }
-  .pipelineIcon {
-    vertical-align: middle;
+  .pipelineNameContainer {
+    .pipelineName {
+      font-size: 20px !important;
+      font-weight: 600 !important;
+      color: var(--grey-700) !important;
+      line-height: 28px !important;
+      margin-right: var(--spacing-small);
+    }
+    .tagsContainer {
+      margin-right: var(--spacing-small);
+    }
+    .pipelineEditBtn {
+      min-width: 24px !important;
+      width: 24px !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+    }
+    .pipelineIcon {
+      vertical-align: middle;
+    }
   }
   .gitDetails {
     display: flex;
@@ -175,7 +184,7 @@
     .branchDetails {
       color: var(--grey-900) !important;
       .branchSelector {
-        width: 150px;
+        width: 125px;
         input {
           border: none;
           color: var(--grey-900);

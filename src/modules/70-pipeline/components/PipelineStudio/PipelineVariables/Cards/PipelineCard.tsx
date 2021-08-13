@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card } from '@wings-software/uicore'
-
-import type { NgPipeline } from 'services/cd-ng'
+import { Card, NestedAccordionPanel } from '@wings-software/uicore'
+import cx from 'classnames'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
@@ -13,16 +13,16 @@ import type {
 import { useStrings } from 'framework/strings'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import type { AllNGVariables } from '@pipeline/utils/types'
-
+import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
 export interface PipelineCardProps {
-  variablePipeline: NgPipeline
-  pipeline: NgPipeline
+  variablePipeline: PipelineInfoConfig
+  pipeline: PipelineInfoConfig
   stepsFactory: AbstractStepFactory
   metadataMap: PipelineVariablesData['metadataMap']
-  updatePipeline(pipeline: NgPipeline): void
+  updatePipeline(pipeline: PipelineInfoConfig): void
   readonly?: boolean
 }
 
@@ -32,26 +32,45 @@ export default function PipelineCard(props: PipelineCardProps): React.ReactEleme
 
   return (
     <Card className={css.variableCard} id="Pipeline-panel">
-      <VariablesListTable data={variablePipeline} originalData={pipeline} metadataMap={metadataMap} />
+      <VariablesListTable
+        data={variablePipeline}
+        className={css.variablePaddingL0}
+        originalData={pipeline}
+        metadataMap={metadataMap}
+      />
 
-      <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
-        factory={stepsFactory}
-        initialValues={{ variables: (pipeline.variables || []) as AllNGVariables[], canAddVariable: true }}
-        type={StepType.CustomVariable}
-        stepViewType={StepViewType.InputVariable}
-        readonly={readonly}
-        onUpdate={({ variables }: CustomVariablesData) => {
-          updatePipeline({ ...pipeline, variables })
+      <NestedAccordionPanel
+        isDefaultOpen
+        key={`pipeline.variables`}
+        id={`pipeline.variables`}
+        addDomId
+        collapseProps={{
+          keepChildrenMounted: true
         }}
-        customStepProps={{
-          variableNamePrefix: 'pipeline.variables.',
-          domId: 'Pipeline.Variables-panel',
-          className: css.customVariables,
-          heading: <b>{getString('customVariables.title')}</b>,
-          yamlProperties: (variablePipeline.variables as AllNGVariables[])?.map(
-            variable => metadataMap[variable.value || '']?.yamlProperties || {}
-          )
-        }}
+        summary={<VariableAccordionSummary>{getString('customVariables.title')}</VariableAccordionSummary>}
+        summaryClassName={css.variableBorderBottom}
+        details={
+          <StepWidget<CustomVariablesData, CustomVariableEditableExtraProps>
+            factory={stepsFactory}
+            initialValues={{ variables: (pipeline.variables || []) as AllNGVariables[], canAddVariable: true }}
+            type={StepType.CustomVariable}
+            stepViewType={StepViewType.InputVariable}
+            readonly={readonly}
+            onUpdate={({ variables }: CustomVariablesData) => {
+              updatePipeline({ ...pipeline, variables })
+            }}
+            customStepProps={{
+              variableNamePrefix: 'pipeline.variables.',
+              domId: 'Pipeline.Variables-panel',
+              className: cx(css.customVariables, css.customVarPadL1),
+              // heading: <b>{getString('customVariables.title')}</b>,
+              path: 'pipeline.variables',
+              yamlProperties: (variablePipeline.variables as AllNGVariables[])?.map(
+                variable => metadataMap[variable.value || '']?.yamlProperties || {}
+              )
+            }}
+          />
+        }
       />
     </Card>
   )

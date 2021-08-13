@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`GitPopover matches snapshot 1`] = `
+exports[`GitPopover should return popover icon and content 1`] = `
 <div>
   <span
     class="bp3-popover-wrapper"

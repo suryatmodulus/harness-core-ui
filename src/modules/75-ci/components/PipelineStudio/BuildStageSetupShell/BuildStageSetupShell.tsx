@@ -4,7 +4,6 @@ import produce from 'immer'
 import { Tabs, Tab, Icon, Button, Layout, Color } from '@wings-software/uicore'
 import type { HarnessIconName } from '@wings-software/uicore/dist/icons/HarnessIcons'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-import type { StageElementWrapper } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import ExecutionGraph, {
@@ -19,15 +18,19 @@ import {
 } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import { StepType as StepsStepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { AdvancedPanels } from '@pipeline/components/PipelineStudio/StepCommands/StepCommandTypes'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import BuildInfraSpecifications from '../BuildInfraSpecifications/BuildInfraSpecifications'
 import BuildStageSpecifications from '../BuildStageSpecifications/BuildStageSpecifications'
 import BuildAdvancedSpecifications from '../BuildAdvancedSpecifications/BuildAdvancedSpecifications'
+import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildStageSetupShell.module.scss'
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Deployment: 'pipeline-deploy',
   CI: 'pipeline-build-select',
-  Approval: 'pipeline-approval',
+  Approval: 'approval-stage-icon',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
 }
@@ -41,8 +44,7 @@ interface StagesFilledStateFlags {
 export default function BuildStageSetupShell(): JSX.Element {
   const { getString } = useStrings()
 
-  const stageNames: string[] = [getString('overview'), getString('ci.infraLabel'), getString('ci.executionLabel')]
-  const [selectedTabId, setSelectedTabId] = React.useState<string>(getString('overview'))
+  const [selectedTabId, setSelectedTabId] = React.useState<BuildTabs>(BuildTabs.OVERVIEW)
   const [filledUpStages, setFilledUpStages] = React.useState<StagesFilledStateFlags>({
     specifications: false,
     infra: false,
@@ -67,47 +69,54 @@ export default function BuildStageSetupShell(): JSX.Element {
   } = React.useContext(PipelineContext)
 
   const stagePath = getStagePathFromPipeline(selectedStageId || '', 'pipeline.stages')
-  const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
+  const [stageData, setStageData] = React.useState<BuildStageElementConfig | undefined>()
 
   React.useEffect(() => {
     if (selectedStepId) {
-      setSelectedTabId(getString('ci.executionLabel'))
+      setSelectedTabId(BuildTabs.EXECUTION)
     }
   }, [selectedStepId])
 
   React.useEffect(() => {
     // @TODO: add CI Codebase field check if Clone Codebase is checked
     // once it is added to BuildStageSpecifications (CI-757)
-    const specifications = stageData?.name && stageData?.identifier
-    const infra =
-      (stageData?.spec?.infrastructure?.spec?.connectorRef && stageData?.spec?.infrastructure?.spec?.namespace) ||
-      stageData?.spec?.infrastructure?.useFromStage
+    const specifications = !!(stageData?.name && stageData?.identifier)
+    const infra = !!(
+      ((stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef &&
+        (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace) ||
+      (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage
+    )
     const execution = !!stageData?.spec?.execution?.steps?.length
     setFilledUpStages({ specifications, infra, execution })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     stageData?.name,
     stageData?.identifier,
-    stageData?.spec?.infrastructure?.spec?.connectorRef,
-    stageData?.spec?.infrastructure?.spec?.namespace,
-    stageData?.spec?.infrastructure?.useFromStage,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.connectorRef,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as K8sDirectInfraYaml)?.spec?.namespace,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    (stageData?.spec?.infrastructure as UseFromStageInfraYaml)?.useFromStage,
     stageData?.spec?.execution?.steps?.length
   ])
 
   React.useEffect(() => {
     if (selectedStageId && isSplitViewOpen) {
-      const { stage } = cloneDeep(getStageFromPipeline(selectedStageId))
+      const { stage } = cloneDeep(getStageFromPipeline<BuildStageElementConfig>(selectedStageId))
       const key = Object.keys(stage || {})[0]
-      if (key && stage && !isEqual(stage[key], stageData)) {
-        setStageData(stage[key])
+      if (key && stage && !isEqual(stage[key as 'stage'], stageData)) {
+        setStageData(stage[key as 'stage'])
       }
     }
-    if (stageNames.indexOf(selectedStageId) !== -1) {
-      setSelectedTabId(selectedStageId)
-    }
-  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
+  }, [selectedStageId, pipeline, isSplitViewOpen])
 
-  const handleTabChange = (data: string) => {
-    setSelectedTabId(data)
+  const { checkErrorsForTab } = React.useContext(StageErrorContext)
+
+  const handleTabChange = (data: BuildTabs) => {
+    checkErrorsForTab(selectedTabId).then(_ => {
+      setSelectedTabId(data)
+    })
   }
 
   React.useEffect(() => {
@@ -120,13 +129,13 @@ export default function BuildStageSetupShell(): JSX.Element {
   }, [selectedTabId])
 
   const executionRef = React.useRef<ExecutionGraphRefObj | null>(null)
-  const selectedStage = getStageFromPipeline(selectedStageId).stage
-  const originalStage = getStageFromPipeline(selectedStageId, originalPipeline).stage
+  const selectedStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId).stage
+  const originalStage = getStageFromPipeline<BuildStageElementConfig>(selectedStageId, originalPipeline).stage
   const infraHasWarning = !filledUpStages.infra
   const executionHasWarning = !filledUpStages.execution
 
   // NOTE: set empty arrays, required by ExecutionGraph
-  const selectedStageClone = cloneDeep(selectedStage || {})
+  const selectedStageClone = cloneDeep(selectedStage)
   if (selectedStageClone) {
     if (!selectedStageClone.stage?.spec?.serviceDependencies) {
       set(selectedStageClone, 'stage.spec.serviceDependencies', [])
@@ -141,18 +150,18 @@ export default function BuildStageSetupShell(): JSX.Element {
       <Button
         text={getString('ci.previous')}
         icon="chevron-left"
-        disabled={selectedTabId === getString('overview')}
+        disabled={selectedTabId === BuildTabs.OVERVIEW}
         onClick={() =>
-          setSelectedTabId(
-            selectedTabId === getString('ci.advancedLabel')
-              ? getString('ci.executionLabel')
-              : selectedTabId === getString('ci.executionLabel')
-              ? getString('ci.infraLabel')
-              : getString('overview')
+          handleTabChange(
+            selectedTabId === BuildTabs.ADVANCED
+              ? BuildTabs.EXECUTION
+              : selectedTabId === BuildTabs.EXECUTION
+              ? BuildTabs.INFRASTRUCTURE
+              : BuildTabs.OVERVIEW
           )
         }
       />
-      {selectedTabId === getString('ci.advancedLabel') ? (
+      {selectedTabId === BuildTabs.ADVANCED ? (
         <Button
           text="Done"
           intent="primary"
@@ -162,16 +171,14 @@ export default function BuildStageSetupShell(): JSX.Element {
         />
       ) : (
         <Button
-          text={selectedTabId === getString('ci.executionLabel') ? getString('ci.save') : getString('ci.next')}
+          text={selectedTabId === BuildTabs.EXECUTION ? getString('ci.save') : getString('ci.next')}
           intent="primary"
           rightIcon="chevron-right"
           onClick={() => {
-            if (selectedTabId === getString('ci.executionLabel')) {
+            if (selectedTabId === BuildTabs.EXECUTION) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
-              setSelectedTabId(
-                selectedTabId === getString('overview') ? getString('ci.infraLabel') : getString('ci.executionLabel')
-              )
+              handleTabChange(selectedTabId === BuildTabs.OVERVIEW ? BuildTabs.INFRASTRUCTURE : BuildTabs.EXECUTION)
             }
           }}
         />
@@ -183,7 +190,7 @@ export default function BuildStageSetupShell(): JSX.Element {
     <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
       <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
         <Tab
-          id={getString('overview')}
+          id={BuildTabs.OVERVIEW}
           panel={<BuildStageSpecifications>{navBtns}</BuildStageSpecifications>}
           title={
             <span className={css.tab}>
@@ -202,7 +209,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('ci.infraLabel')}
+          id={BuildTabs.INFRASTRUCTURE}
           title={
             <span className={css.tab}>
               <Icon
@@ -225,7 +232,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('ci.executionLabel')}
+          id={BuildTabs.EXECUTION}
           title={
             <span className={css.tab}>
               <Icon
@@ -237,18 +244,18 @@ export default function BuildStageSetupShell(): JSX.Element {
             </span>
           }
           panel={
-            <ExecutionGraph
-              allowAddGroup={false}
-              hasRollback={false}
-              isReadonly={isReadonly}
-              hasDependencies={true}
-              stepsFactory={stepsFactory}
-              stage={selectedStageClone}
-              originalStage={originalStage}
-              ref={executionRef}
-              updateStage={(newStageData: StageElementWrapper) => {
-                updateStage(
-                  produce(newStageData, draft => {
+            selectedStageClone ? (
+              <ExecutionGraph
+                allowAddGroup={false}
+                hasRollback={false}
+                isReadonly={isReadonly}
+                hasDependencies={true}
+                stepsFactory={stepsFactory}
+                stage={selectedStageClone}
+                originalStage={originalStage}
+                ref={executionRef}
+                updateStage={newStageData => {
+                  const newData = produce(newStageData, draft => {
                     // cleanup rollbackSteps (note: rollbackSteps does not exist on CI stage at all)
                     if (draft?.stage?.spec?.execution?.rollbackSteps) {
                       delete draft.stage.spec.execution.rollbackSteps
@@ -257,80 +264,84 @@ export default function BuildStageSetupShell(): JSX.Element {
                     if (draft?.stage?.spec?.serviceDependencies && isEmpty(draft?.stage?.spec?.serviceDependencies)) {
                       delete draft.stage.spec.serviceDependencies
                     }
-                  }).stage
-                )
-              }}
-              // Check and update the correct stage path here
-              pathToStage={`${stagePath}.stage.spec.execution`}
-              onAddStep={(event: ExecutionGraphAddStepEvent) => {
-                if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
+                  })
+
+                  if (newData.stage) {
+                    updateStage(newData.stage)
+                  }
+                }}
+                // Check and update the correct stage path here
+                pathToStage={`${stagePath}.stage.spec.execution`}
+                onAddStep={(event: ExecutionGraphAddStepEvent) => {
+                  if (event.parentIdentifier === STATIC_SERVICE_GROUP_NAME) {
+                    updatePipelineView({
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.ConfigureService,
+                        data: {
+                          stepConfig: {
+                            node: {
+                              type: StepsStepType.Dependency,
+                              name: '',
+                              identifier: generateRandomString(StepsStepType.Dependency)
+                            },
+                            stepsMap: event.stepsMap,
+                            onUpdate: executionRef.current?.stepGroupUpdated,
+                            addOrEdit: 'add',
+                            isStepGroup: false,
+                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                          }
+                        }
+                      }
+                    })
+                  } else {
+                    updatePipelineView({
+                      ...pipelineView,
+                      isDrawerOpened: true,
+                      drawerData: {
+                        type: DrawerTypes.AddStep,
+                        data: {
+                          paletteData: {
+                            entity: event.entity,
+                            stepsMap: event.stepsMap,
+                            onUpdate: executionRef.current?.stepGroupUpdated,
+                            // isAddStepOverride: true,
+                            isRollback: event.isRollback,
+                            isParallelNodeClicked: event.isParallel,
+                            hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
+                          }
+                        }
+                      }
+                    })
+                  }
+                }}
+                onEditStep={(event: ExecutionGraphEditStepEvent) => {
                   updatePipelineView({
                     ...pipelineView,
                     isDrawerOpened: true,
                     drawerData: {
-                      type: DrawerTypes.ConfigureService,
+                      type: event.stepType === StepType.STEP ? DrawerTypes.StepConfig : DrawerTypes.ConfigureService,
                       data: {
                         stepConfig: {
-                          node: {
-                            type: StepsStepType.Dependency,
-                            name: '',
-                            identifier: generateRandomString(StepsStepType.Dependency)
-                          },
+                          node: event.node as any,
                           stepsMap: event.stepsMap,
                           onUpdate: executionRef.current?.stepGroupUpdated,
-                          addOrEdit: 'add',
-                          isStepGroup: false,
+                          isStepGroup: event.isStepGroup,
+                          isUnderStepGroup: event.isUnderStepGroup,
+                          addOrEdit: event.addOrEdit,
                           hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
                         }
                       }
                     }
                   })
-                } else {
-                  updatePipelineView({
-                    ...pipelineView,
-                    isDrawerOpened: true,
-                    drawerData: {
-                      type: DrawerTypes.AddStep,
-                      data: {
-                        paletteData: {
-                          entity: event.entity,
-                          stepsMap: event.stepsMap,
-                          onUpdate: executionRef.current?.stepGroupUpdated,
-                          // isAddStepOverride: true,
-                          isRollback: event.isRollback,
-                          isParallelNodeClicked: event.isParallel,
-                          hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
-                        }
-                      }
-                    }
-                  })
-                }
-              }}
-              onEditStep={(event: ExecutionGraphEditStepEvent) => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isDrawerOpened: true,
-                  drawerData: {
-                    type: event.stepType === StepType.STEP ? DrawerTypes.StepConfig : DrawerTypes.ConfigureService,
-                    data: {
-                      stepConfig: {
-                        node: event.node,
-                        stepsMap: event.stepsMap,
-                        onUpdate: executionRef.current?.stepGroupUpdated,
-                        isStepGroup: event.isStepGroup,
-                        isUnderStepGroup: event.isUnderStepGroup,
-                        addOrEdit: event.addOrEdit,
-                        hiddenAdvancedPanels: [AdvancedPanels.PreRequisites, AdvancedPanels.DelegateSelectors]
-                      }
-                    }
-                  }
-                })
-              }}
-              onSelectStep={(stepId: string) => {
-                setSelectedStepId(stepId)
-              }}
-              selectedStepId={selectedStepId}
-            />
+                }}
+                onSelectStep={(stepId: string) => {
+                  setSelectedStepId(stepId)
+                }}
+                selectedStepId={selectedStepId}
+              />
+            ) : undefined
           }
           data-testid={getString('ci.executionLabel')}
         />
@@ -343,7 +354,7 @@ export default function BuildStageSetupShell(): JSX.Element {
           style={{ alignSelf: 'center' }}
         />
         <Tab
-          id={getString('ci.advancedLabel')}
+          id={BuildTabs.ADVANCED}
           title={
             <span className={css.tab}>
               <Icon name="advanced" height={20} size={20} />

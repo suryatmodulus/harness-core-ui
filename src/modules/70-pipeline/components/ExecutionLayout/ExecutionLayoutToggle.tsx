@@ -6,7 +6,7 @@ import { StringKeys, useStrings } from 'framework/strings'
 
 import { ExecutionLayoutState, useExecutionLayoutContext } from './ExecutionLayoutContext'
 
-import css from './ExecutionLayout.module.scss'
+import css from './ExecutionLayoutToggle.module.scss'
 
 export interface ExecutionLayoutToggleProps {
   className?: string
@@ -28,7 +28,7 @@ const labelMap: Record<ExecutionLayoutState, StringKeys> = {
 
 const layouts: ExecutionLayoutState[] = [
   ExecutionLayoutState.RIGHT,
-  // ExecutionLayoutState.BOTTOM,
+  ExecutionLayoutState.BOTTOM,
   ExecutionLayoutState.FLOATING,
   ExecutionLayoutState.MINIMIZE
 ]

@@ -4,6 +4,7 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { accountPathProps, pipelineModuleParams, pipelinePathProps } from '@common/utils/routeUtils'
+import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import filters from '@pipeline/pages/pipeline-deployment-list/__tests__/filters.json'
 import services from '@pipeline/pages/pipelines/__tests__/mocks/services.json'
 import environments from '@pipeline/pages/pipelines/__tests__/mocks/environments.json'
@@ -48,13 +49,25 @@ jest.mock('services/pipeline-ng', () => ({
   }))
 }))
 
+const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
+const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+
 jest.mock('services/cd-ng', () => ({
   useGetServiceListForProject: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
   useGetEnvironmentListForProject: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
+    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
+  useListGitSync: jest.fn().mockImplementation(() => {
+    return { data: gitConfigs, refetch: getListGitSync }
+  }),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
+    return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+  }),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: sourceCodeManagers, refetch: jest.fn() }
+  })
 }))
 
 // eslint-disable-next-line jest/no-disabled-tests

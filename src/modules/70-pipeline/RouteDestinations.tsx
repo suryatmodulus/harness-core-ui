@@ -15,6 +15,7 @@ import EnvironmentResourceModal from '@pipeline/components/RbacResourceModals/En
 import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/views/HarnessApprovalView/HarnessApprovalView'
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
+import { ExecutionVerificationView } from '@pipeline/components/ExecutionVerification/ExecutionVerificationView'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
 import { ExecutionVerificationSummary } from './components/ExecutionVerification/components/ExecutionVerificationSummary/ExecutionVerificationSummary'
 
@@ -75,4 +76,8 @@ ExecFactory.registerStepDetails(StepType.JiraApproval, {
 
 ExecFactory.registerStepDetails(StepType.Verify, {
   component: ExecutionVerificationSummary
+})
+
+ExecFactory.registerConsoleViewStepDetails(StepType.Verify, {
+  component: ExecutionVerificationView
 })

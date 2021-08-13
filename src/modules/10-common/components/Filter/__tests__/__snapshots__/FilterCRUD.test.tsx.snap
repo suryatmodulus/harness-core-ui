@@ -102,7 +102,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -297,9 +297,11 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                 <div
                   class="bp3-form-content"
                 >
-                  <div>
+                  <div
+                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                  >
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -312,7 +314,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                       filters.visibileToOnlyMe
                     </label>
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -462,7 +464,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -707,7 +709,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -902,9 +904,11 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                 <div
                   class="bp3-form-content"
                 >
-                  <div>
+                  <div
+                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                  >
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -917,7 +921,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                       filters.visibileToOnlyMe
                     </label>
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -1067,7 +1071,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -1312,7 +1316,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -1507,9 +1511,11 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                 <div
                   class="bp3-form-content"
                 >
-                  <div>
+                  <div
+                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                  >
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -1522,7 +1528,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                       filters.visibileToOnlyMe
                     </label>
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -1672,7 +1678,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -1917,7 +1923,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -2162,7 +2168,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>
@@ -2357,9 +2363,11 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                 <div
                   class="bp3-form-content"
                 >
-                  <div>
+                  <div
+                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                  >
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -2372,7 +2380,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                       filters.visibileToOnlyMe
                     </label>
                     <label
-                      class="bp3-control bp3-radio Radio--radio"
+                      class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                     >
                       <input
                         name="filterVisibility"
@@ -2522,7 +2530,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
         <span
           class="bp3-button-text"
         >
-          common.filters.saveNewFilter
+          filters.newFilter
         </span>
       </button>
     </div>

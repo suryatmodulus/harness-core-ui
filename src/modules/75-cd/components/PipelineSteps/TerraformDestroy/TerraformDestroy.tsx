@@ -13,6 +13,7 @@ import type { StringNGVariable } from 'services/cd-ng'
 
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
+import type { StringsMap } from 'stringTypes'
 import TerraformInputStep from '../Common/Terraform/TerraformInputStep'
 import { TerraformVariableStep } from '../Common/Terraform/TerraformVariableView'
 import {
@@ -47,6 +48,7 @@ export class TerraformDestroy extends PipelineStep<TFDestroyData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Destroy'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformDestroy'
   validateInputSet({
     data,
     template,

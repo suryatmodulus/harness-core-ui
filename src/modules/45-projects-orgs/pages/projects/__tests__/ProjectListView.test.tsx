@@ -7,6 +7,7 @@ import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import ProjectListView from '@projects-orgs/pages/projects/views/ProjectListView/ProjectListView'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { projectPageMock } from './ProjectPageMock'
 
 const openProjectModal = jest.fn()
@@ -45,7 +46,7 @@ describe('Project List', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path="/account/:accountId/projects"
+        path={routes.toProjects({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >

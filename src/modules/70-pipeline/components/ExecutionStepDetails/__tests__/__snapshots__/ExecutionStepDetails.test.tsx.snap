@@ -61,6 +61,46 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
           </label>
           <label
             class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
             title="pipeline.execution.layouts.float"
           >
             <input
@@ -249,33 +289,33 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span
-                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
-                    icon="search"
+                    class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    data-icon="thinner-search"
                   >
                     <svg
-                      data-icon="search"
+                      fill="none"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        search
-                      </desc>
                       <path
-                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                        fill-rule="evenodd"
+                        d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
                     </svg>
                   </span>
                   <input
-                    class="bp3-input "
+                    class="bp3-input  ExpandingSearchInput--find"
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 164px;"
+                    style="padding-right: 98px;"
                     type="search"
                     value=""
                   />
@@ -325,6 +365,45 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
         class="actions"
       >
         <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              data-status=""
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                pipeline.execution.retryStepCount
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main retryStatusIcon"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
           class="toggle"
         >
           <label
@@ -361,6 +440,46 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                   />
                   <path
                     d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
                     fill="#9ea9b4"
                   />
                 </g>
@@ -443,39 +562,6 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
               </svg>
             </span>
           </label>
-        </div>
-        <div
-          class="bp3-popover-wrapper"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
-              data-testid="retry-logs"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-more StyledProps--main"
-                icon="more"
-              >
-                <svg
-                  data-icon="more"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    more
-                  </desc>
-                  <path
-                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -590,33 +676,33 @@ exports[`<ExecutionStepDetails /> tests retried steps does not fetches data for 
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span
-                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
-                    icon="search"
+                    class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    data-icon="thinner-search"
                   >
                     <svg
-                      data-icon="search"
+                      fill="none"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        search
-                      </desc>
                       <path
-                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                        fill-rule="evenodd"
+                        d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
                     </svg>
                   </span>
                   <input
-                    class="bp3-input "
+                    class="bp3-input  ExpandingSearchInput--find"
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 164px;"
+                    style="padding-right: 98px;"
                     type="search"
                     value=""
                   />
@@ -666,6 +752,45 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
         class="actions"
       >
         <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              data-status=""
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                pipeline.execution.retryStepCount
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main retryStatusIcon"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
           class="toggle"
         >
           <label
@@ -702,6 +827,46 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                   />
                   <path
                     d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
                     fill="#9ea9b4"
                   />
                 </g>
@@ -784,39 +949,6 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
               </svg>
             </span>
           </label>
-        </div>
-        <div
-          class="bp3-popover-wrapper"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
-              data-testid="retry-logs"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-more StyledProps--main"
-                icon="more"
-              >
-                <svg
-                  data-icon="more"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    more
-                  </desc>
-                  <path
-                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -931,33 +1063,33 @@ exports[`<ExecutionStepDetails /> tests retried steps fetches data for retry ste
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span
-                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
-                    icon="search"
+                    class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    data-icon="thinner-search"
                   >
                     <svg
-                      data-icon="search"
+                      fill="none"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        search
-                      </desc>
                       <path
-                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                        fill-rule="evenodd"
+                        d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
                     </svg>
                   </span>
                   <input
-                    class="bp3-input "
+                    class="bp3-input  ExpandingSearchInput--find"
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 164px;"
+                    style="padding-right: 98px;"
                     type="search"
                     value=""
                   />
@@ -1006,6 +1138,45 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
         class="actions"
       >
         <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              data-status=""
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                pipeline.execution.retryStepCount
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main retryStatusIcon"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
           class="toggle"
         >
           <label
@@ -1042,6 +1213,46 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
                   />
                   <path
                     d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
                     fill="#9ea9b4"
                   />
                 </g>
@@ -1124,39 +1335,6 @@ exports[`<ExecutionStepDetails /> tests retried steps shows loader while loading
               </svg>
             </span>
           </label>
-        </div>
-        <div
-          class="bp3-popover-wrapper"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
-              data-testid="retry-logs"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-more StyledProps--main"
-                icon="more"
-              >
-                <svg
-                  data-icon="more"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    more
-                  </desc>
-                  <path
-                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -1207,6 +1385,45 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
         class="actions"
       >
         <div
+          class="bp3-popover-wrapper"
+        >
+          <div
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main retry Button--with-current-color Button--iconOnly Button--without-shadow"
+              data-status=""
+              data-testid="retry-logs"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                pipeline.execution.retryStepCount
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main retryStatusIcon"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
           class="toggle"
         >
           <label
@@ -1243,6 +1460,46 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                   />
                   <path
                     d="M12 1h7v14h-7z"
+                    fill="#9ea9b4"
+                  />
+                </g>
+              </svg>
+            </span>
+          </label>
+          <label
+            class="label"
+            title="pipeline.execution.layouts.bottom"
+          >
+            <input
+              name="layout"
+              type="radio"
+              value="BOTTOM"
+            />
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="layout-bottom"
+            >
+              <svg
+                height="16"
+                viewBox="0 0 4.233 4.233"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  transform="matrix(.21166 0 0 .21166 0 .423)"
+                >
+                  <rect
+                    fill="#f2f2f2"
+                    height="15"
+                    rx="0.5"
+                    stroke="#9ea9b4"
+                    width="19"
+                    x="0.5"
+                    y="0.5"
+                  />
+                  <path
+                    d="M1 10h18v5H1z"
                     fill="#9ea9b4"
                   />
                 </g>
@@ -1325,39 +1582,6 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
               </svg>
             </span>
           </label>
-        </div>
-        <div
-          class="bp3-popover-wrapper"
-        >
-          <div
-            class="bp3-popover-target"
-          >
-            <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn more Button--with-current-color Button--iconOnly Button--without-shadow"
-              data-testid="retry-logs"
-              type="button"
-            >
-              <span
-                class="bp3-icon bp3-icon-more StyledProps--main"
-                icon="more"
-              >
-                <svg
-                  data-icon="more"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  width="16"
-                >
-                  <desc>
-                    more
-                  </desc>
-                  <path
-                    d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -1472,33 +1696,33 @@ exports[`<ExecutionStepDetails /> tests retried steps shows step selection 1`] =
                 class="rhs"
               >
                 <div
-                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
+                  class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
                   data-name=""
                 >
                   <span
-                    class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
-                    icon="search"
+                    class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                    data-icon="thinner-search"
                   >
                     <svg
-                      data-icon="search"
+                      fill="none"
                       height="14"
                       viewBox="0 0 16 16"
                       width="14"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        search
-                      </desc>
                       <path
-                        d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                        fill-rule="evenodd"
+                        d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
                       />
                     </svg>
                   </span>
                   <input
-                    class="bp3-input "
+                    class="bp3-input  ExpandingSearchInput--find"
                     dir="auto"
                     placeholder="Search"
-                    style="padding-right: 164px;"
+                    style="padding-right: 98px;"
                     type="search"
                     value=""
                   />

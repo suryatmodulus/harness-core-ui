@@ -1,0 +1,113 @@
+{
+  "data": {
+    "overviewTimeSeriesStats": {
+      "data": [
+        {
+          "values": [
+            {
+              "key": {
+                "id": "CLUSTER",
+                "name": "CLUSTER",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 89.3,
+              "__typename": "DataPoint"
+            },
+            {
+              "key": {
+                "id": "CLOUD",
+                "name": "CLOUD",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 9692.88,
+              "__typename": "DataPoint"
+            }
+          ],
+          "time": 1624665600000,
+          "__typename": "TimeSeriesDataPoints"
+        },
+        {
+          "values": [
+            {
+              "key": {
+                "id": "CLOUD",
+                "name": "CLOUD",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 10221.98,
+              "__typename": "DataPoint"
+            },
+            {
+              "key": {
+                "id": "CLUSTER",
+                "name": "CLUSTER",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 86.55,
+              "__typename": "DataPoint"
+            }
+          ],
+          "time": 1626393600000,
+          "__typename": "TimeSeriesDataPoints"
+        },
+        {
+          "values": [
+            {
+              "key": {
+                "id": "CLUSTER",
+                "name": "CLUSTER",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 101.86,
+              "__typename": "DataPoint"
+            },
+            {
+              "key": {
+                "id": "CLOUD",
+                "name": "CLOUD",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 10035.19,
+              "__typename": "DataPoint"
+            }
+          ],
+          "time": 1626480000000,
+          "__typename": "TimeSeriesDataPoints"
+        },
+        {
+          "values": [
+            {
+              "key": {
+                "id": "CLOUD",
+                "name": "CLOUD",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 19452.8,
+              "__typename": "DataPoint"
+            },
+            {
+              "key": {
+                "id": "CLUSTER",
+                "name": "CLUSTER",
+                "type": "PROVIDERS",
+                "__typename": "Reference"
+              },
+              "value": 88.69,
+              "__typename": "DataPoint"
+            }
+          ],
+          "time": 1626566400000,
+          "__typename": "TimeSeriesDataPoints"
+        }
+      ],
+      "__typename": "PerspectiveTimeSeriesData"
+    }
+  }
+}

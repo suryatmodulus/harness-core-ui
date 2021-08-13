@@ -9,7 +9,6 @@ declare const styles: {
   readonly cardTags: string
   readonly wrap: string
   readonly projectInfo: string
-  readonly previewProjectInfo: string
   readonly projectAvatarGroup: string
   readonly tagClassName: string
 }

@@ -125,9 +125,67 @@
             {
               "item": {
                 "identifier": "step_3_2",
+                "name": "Success",
+                "status": "Success",
+                "data": { "startTs": 100, "endTs": 799824 }
+              }
+            }
+          ]
+        },
+        {
+          "parallel": [
+            {
+              "item": {
+                "identifier": "step_3_3",
+                "name": "Success",
+                "status": "Success",
+                "data": { "startTs": 100, "endTs": 218582 }
+              }
+            },
+            {
+              "item": {
+                "identifier": "step_3_4",
+                "name": "Failed",
+                "status": "Failed",
+                "data": { "startTs": 100, "endTs": 799824 }
+              }
+            }
+          ]
+        },
+        {
+          "parallel": [
+            {
+              "item": {
+                "identifier": "step_3_5",
+                "name": "Success",
+                "status": "Success",
+                "data": { "startTs": 100, "endTs": 218582 }
+              }
+            },
+            {
+              "item": {
+                "identifier": "step_3_6",
                 "name": "Running",
                 "status": "Running",
                 "data": { "startTs": 100, "endTs": 799824 }
+              }
+            },
+            {
+              "group": {
+                "identifier": "step_3_7",
+                "name": "Step 3_7",
+                "status": "Success",
+                "data": { "startTs": 100, "endTs": 371951 },
+                "items": [
+                  {
+                    "item": {
+                      "identifier": "step_3_7_1",
+                      "name": "Success",
+                      "status": "Success",
+                      "data": { "startTs": 100, "endTs": 799824 }
+                    }
+                  }
+                ]
               }
             }
           ]
@@ -138,7 +196,6 @@
   {
     "group": {
       "identifier": "step_4",
-      "name": "Step 4",
       "status": "RUNNING",
       "data": { "startTs": 100, "endTs": 515665 },
       "items": [
@@ -160,8 +217,8 @@
               {
                 "item": {
                   "identifier": "step_4_1_2",
-                  "name": "Running",
-                  "status": "Running",
+                  "name": "step_4_1_2",
+                  "status": "NotStarted",
                   "data": { "startTs": 100, "endTs": 752391 }
                 }
               }

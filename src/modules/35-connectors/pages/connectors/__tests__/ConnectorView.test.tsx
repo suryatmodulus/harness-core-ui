@@ -84,7 +84,7 @@ describe('Connector Details Page', () => {
     const getYamlBuilderContainer = () => container.querySelector('[data-test="yamlBuilderContainer"]')
     expect(getYamlBuilderContainer()).toBeFalsy()
     await waitFor(() => {
-      const switchToYAML = container.querySelector('[data-test="connectorViewYaml"]')
+      const switchToYAML = container.querySelector('[data-name="yaml-btn"]')
       expect(switchToYAML).toBeTruthy()
       fireEvent.click(switchToYAML!)
     })
@@ -94,7 +94,7 @@ describe('Connector Details Page', () => {
   test('Edit and save connector YAML', async () => {
     const { container } = setup()
     await waitFor(() => {
-      const switchToYAML = container.querySelector('[data-test="connectorViewYaml"]')
+      const switchToYAML = container.querySelector('[data-name="yaml-btn"]')
       expect(switchToYAML).toBeTruthy()
       fireEvent.click(switchToYAML!)
       const editDetailsBtn = container?.querySelector('#editDetailsBtn')
@@ -123,7 +123,7 @@ describe('Connector Details Page', () => {
       </GitSyncTestWrapper>
     )
     await waitFor(() => {
-      const switchToYAML = container.querySelector('[data-test="connectorViewYaml"]')
+      const switchToYAML = container.querySelector('[data-name="yaml-btn"]')
       expect(switchToYAML).toBeTruthy()
       fireEvent.click(switchToYAML!)
       const editDetailsBtn = container?.querySelector('#editDetailsBtn')

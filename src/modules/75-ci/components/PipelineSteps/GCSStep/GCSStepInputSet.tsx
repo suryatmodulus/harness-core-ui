@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -35,14 +35,8 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'gcsConnector' }}>
               {getString('pipelineSteps.gcpConnectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.gcsConnectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={'Gcp'}
@@ -66,14 +60,8 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.bucket`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'gcsBucket' }}>
               {getString('pipelineSteps.bucketLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.GCSBucketInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -91,14 +79,8 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.sourcePath`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'sourcePath' }}>
               {getString('pipelineSteps.sourcePathLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.sourcePathInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -116,14 +98,8 @@ export const GCSStepInputSet: React.FC<GCSStepProps> = ({ template, path, readon
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'gcsS3Target' }}>
               {getString('pipelineSteps.targetLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.artifactsTargetInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{

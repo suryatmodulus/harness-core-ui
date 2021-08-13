@@ -34,7 +34,7 @@ export const setFieldValue = async ({ container, type, fieldId, value }: FormInp
       }
       const selectCaret = document.body
         .querySelector(`[name="${fieldId}"] + [class*="bp3-input-action"]`)
-        ?.querySelector('[data-icon="caret-down"]')
+        ?.querySelector('[data-icon="chevron-down"]')
 
       expect(selectCaret).toBeTruthy()
       if (selectCaret) {

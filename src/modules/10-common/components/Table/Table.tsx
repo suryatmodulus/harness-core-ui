@@ -19,6 +19,7 @@ export interface TableProps<Data extends Record<string, any>> {
   hideHeaders?: boolean
   pagination?: PaginationProps
   onRowClick?: (data: Data, index: number) => void
+  rowDataTestID?: (data: Data, index: number) => string
   /**
    * Removes the "card" UI from rows
    * @default false
@@ -27,7 +28,7 @@ export interface TableProps<Data extends Record<string, any>> {
 }
 
 const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React.ReactElement => {
-  const { columns, data, className, sortable = false, hideHeaders = false, pagination } = props
+  const { columns, data, className, sortable = false, hideHeaders = false, pagination, rowDataTestID } = props
   const { headerGroups, page, prepareRow } = useTable(
     {
       columns,
@@ -96,6 +97,7 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
               onClick={() => {
                 props.onRowClick?.(row.original, row.index)
               }}
+              data-testid={rowDataTestID?.(row.original, row.index)}
             >
               {row.cells.map((cell, index) => {
                 return (

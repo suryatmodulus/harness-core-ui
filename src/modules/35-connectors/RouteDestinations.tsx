@@ -10,11 +10,11 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { String } from 'framework/strings'
-import { HomeSideNavProps } from '@common/RouteDestinations'
+import { AccountSideNavProps } from '@common/RouteDestinations'
 import ConnectorResourceModalBody from './components/ConnectorResourceModalBody/ConnectorResourceModalBody'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
-  icon: 'lock',
+  icon: 'res-connectors',
   label: 'connectorsLabel',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
@@ -29,18 +29,18 @@ RbacFactory.registerResourceTypeHandler(ResourceType.CONNECTOR, {
 
 export default (
   <>
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toConnectors({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toConnectors({ ...accountPathProps })} exact>
       <ConnectorsPage />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={routes.toConnectorDetails({ ...accountPathProps, ...connectorPathProps })}
       exact
     >
       <ConnectorDetailsPage />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={routes.toCreateConnectorFromYaml({ ...accountPathProps })}
       exact
     >

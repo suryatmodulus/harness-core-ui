@@ -8,15 +8,16 @@ import {
   Heading,
   Layout,
   StepProps,
-  Icon,
-  FormInput
+  FormInput,
+  Text
 } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { AwsCurAttributes, CEAwsConnector } from 'services/cd-ng'
-import { DialogExtensionContext } from '../DialogExtention'
+import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
+import LabelWithTooltip from '@connectors/common/LabelWithTooltip/LabelWithTooltip'
+import CostUsageReportExtention from './CostUsageReportExtenstion'
 import CostUsageReportExisting from './CostUsageReportExisting'
 import type { CEAwsConnectorDTO } from './OverviewStep'
-import TextInputWithToolTip from '../TextInputWithToolTip'
 import css from '../CreateCeAwsConnector.module.scss'
 
 const CostUsageStep: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
@@ -59,37 +60,42 @@ const CostUsageStep: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   }
 
   useEffect(() => {
-    if (!isExistingCostUsageReport) triggerExtension('CostUsageEx')
+    if (!isExistingCostUsageReport) triggerExtension(<CostUsageReportExtention />)
   }, [isExistingCostUsageReport])
 
   return (
-    <Layout.Vertical className={css.stepContainer} spacing="medium">
+    <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
         {getString('connectors.ceAws.cur.heading')}
       </Heading>
-      <div style={{ paddingBottom: 10 }}>{getString('connectors.ceAws.cur.subheading')}</div>
+      <Text className={css.subHeader}>{getString('connectors.ceAws.cur.subheading')}</Text>
 
       {!isExistingCostUsageReport && (
         <div>
-          <div style={{ display: 'flex' }}>
-            <Icon name="info-sign" color="primary5" style={{ paddingRight: 5 }}></Icon>
-            <div style={{ paddingRight: 10, color: '#0278D5' }}>
-              {getString('connectors.ceAws.cur.followInstruction')}
-            </div>
-          </div>
-          <Container style={{ paddingBottom: 10, paddingTop: 10 }}>
-            <Layout.Vertical style={{ width: 500 }}>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Button
-                  className={css.launchTemplateBut}
-                  text={getString('connectors.ceAws.cur.launchTemplate')}
-                  rightIcon="chevron-right"
-                  onClick={() => {
-                    window.open('https://console.aws.amazon.com/console/home')
-                  }}
-                />
-              </div>
-              <div style={{ textAlign: 'center' }}>{getString('connectors.ceAws.cur.login')}</div>
+          <Text
+            font="small"
+            className={css.info}
+            color="primary7"
+            inline
+            icon="info-sign"
+            iconProps={{ size: 15, color: 'primary7', margin: { right: 'xsmall' } }}
+          >
+            {getString('connectors.ceAws.cur.followInstruction')}
+          </Text>
+          <Container padding={{ bottom: 35 }}>
+            <Layout.Vertical style={{ width: '65%' }}>
+              <Button
+                className={css.launchTemplateBut}
+                text={getString('connectors.ceAws.cur.launchTemplate')}
+                icon="main-share"
+                iconProps={{ size: 12, margin: { right: 'xsmall' } }}
+                onClick={() => {
+                  window.open('https://console.aws.amazon.com/billing/home?#/reports')
+                }}
+              />
+              <Text font="small" style={{ textAlign: 'center' }}>
+                {getString('connectors.ceAws.cur.login')}
+              </Text>
             </Layout.Vertical>
           </Container>
         </div>
@@ -127,9 +133,9 @@ const CostUsageStep: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
                   <FormInput.Text
                     name={'reportName'}
                     label={
-                      <TextInputWithToolTip
+                      <LabelWithTooltip
                         label={getString('connectors.ceAws.cur.reportName')}
-                        extentionName="CostUsageEx"
+                        extentionComponent={CostUsageReportExtention}
                       />
                     }
                     className={css.dataFields}
@@ -137,9 +143,9 @@ const CostUsageStep: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
                   <FormInput.Text
                     name={'s3BucketName'}
                     label={
-                      <TextInputWithToolTip
+                      <LabelWithTooltip
                         label={getString('connectors.ceAws.cur.bucketName')}
-                        extentionName="CostUsageEx"
+                        extentionComponent={CostUsageReportExtention}
                       />
                     }
                     className={css.dataFields}

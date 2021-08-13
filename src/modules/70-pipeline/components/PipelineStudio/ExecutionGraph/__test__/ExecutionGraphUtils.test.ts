@@ -1,4 +1,5 @@
 import type { DefaultNodeModel } from '@pipeline/components/Diagram'
+import type { DependencyElement } from 'services/ci'
 import {
   addService,
   DependenciesWrapper,
@@ -11,9 +12,10 @@ import {
 
 describe('ExecutionGraphUtils', () => {
   test('getDependencyFromNode()', () => {
-    const servicesData: DependenciesWrapper[] = [
+    const servicesData: DependencyElement[] = [
       {
-        identifier: 'id1'
+        identifier: 'id1',
+        type: 'Service'
       }
     ]
 

@@ -7,7 +7,7 @@ import type { ScopingRuleDetails } from 'services/portal'
 import { useStrings } from 'framework/strings'
 import type { DelegateProfileDetailsNg } from 'services/cd-ng'
 import type { dataObj } from '../CreateDelegateConfigWizard'
-import DelegateConfigScope from '../../DelegateConfigScope'
+import DelegateConfigScopeEdit from '../../DelegateConfigScope/DelegateConfigScopeEdit'
 
 import css from './DelegateConfigSteps.module.scss'
 
@@ -51,7 +51,7 @@ const DelegateConfigScopeStep: React.FC<DelegateConfigScopeStepProps> = ({ onFin
 
   return (
     <Layout.Vertical className={css.stepContainer} padding="xxlarge">
-      <DelegateConfigScope onChange={onScopeChange} />
+      <DelegateConfigScopeEdit onChange={onScopeChange} />
       <Layout.Horizontal spacing="xsmall">
         <Button type="button" text={getString('back')} onClick={onPreviousStep} />
         <Button type="button" intent="primary" text={getString('finish')} onClick={createDelegateProfile} />

@@ -13,6 +13,7 @@ import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { orgMockData } from '@projects-orgs/pages/organizations/__tests__/OrganizationsMockData'
 import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import ProjectsListPage from '../ProjectsPage'
 import {
@@ -99,7 +100,7 @@ describe('Project Page List', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path="/account/:accountId/projects"
+        path={routes.toProjects({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -154,7 +155,7 @@ describe('Project Page List', () => {
     test('Invite Collaborators', async () => {
       const menu = container
         .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const invite = getByText(popover as HTMLElement, 'projectsOrgs.invite')
@@ -172,7 +173,7 @@ describe('Project Page List', () => {
       deleteProject.mockReset()
       const menu = container
         .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'delete')
@@ -189,7 +190,7 @@ describe('Project Page List', () => {
     test('Edit Project', async () => {
       const menu = container
         .querySelector(`[data-testid="project-card-${project.identifier + project.orgIdentifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const edit = getByTestId('edit-project')
       await act(async () => {

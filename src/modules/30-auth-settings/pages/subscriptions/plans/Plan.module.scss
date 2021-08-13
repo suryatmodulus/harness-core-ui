@@ -1,0 +1,36 @@
+.plan {
+  width: 33%;
+  border-radius: 8px;
+  padding-top: var(--spacing-huge) !important;
+}
+
+.icon svg {
+  width: 40px;
+  height: 40px;
+}
+
+.desc {
+  text-align: center;
+}
+
+.ul {
+  list-style: none;
+}
+
+.li {
+  &::marker {
+    content: '\2022  ';
+    color: var(--primary-6);
+  }
+  padding-bottom: var(--spacing-small) !important;
+}
+
+.centerText {
+  text-align: center;
+}
+
+.accordion {
+  :global(.Accordion--summary) {
+    justify-content: center;
+  }
+}

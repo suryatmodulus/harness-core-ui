@@ -1,36 +1,37 @@
+import { defaultTo } from 'lodash-es'
 import type { MultiSelectOption, SelectOption } from '@wings-software/uicore'
-import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
+import type { PipelineInfoConfig, StageElementWrapperConfig } from 'services/cd-ng'
 import { EmptyStageName } from '../PipelineConstants'
 
 export interface StageSelectOption extends SelectOption {
-  node: StageElementWrapper
+  node: any
   type: string
 }
 
-export function getStagesMultiSelectOptionFromPipeline(pipeline: NgPipeline): MultiSelectOption[] {
+export function getStagesMultiSelectOptionFromPipeline(pipeline: PipelineInfoConfig): MultiSelectOption[] {
   return getStagesFromPipeline(pipeline).map(node => ({
-    label: node.stage.name,
-    value: node.stage.identifier
+    label: defaultTo(node.stage?.name, ''),
+    value: defaultTo(node.stage?.identifier, '')
   }))
 }
 
-export function getSelectStageOptionsFromPipeline(pipeline: NgPipeline): StageSelectOption[] {
+export function getSelectStageOptionsFromPipeline(pipeline: PipelineInfoConfig): StageSelectOption[] {
   return getStagesFromPipeline(pipeline).map(node => ({
-    label: node.stage.name,
-    value: node.stage.identifier,
+    label: defaultTo(node.stage?.name, ''),
+    value: defaultTo(node.stage?.identifier, ''),
     node: node,
-    type: node.stage.type
+    type: defaultTo(node.stage?.type, '')
   }))
 }
 
-export function getStagesFromPipeline(pipeline: NgPipeline): StageElementWrapper[] {
-  const stages: StageElementWrapper[] = []
+export function getStagesFromPipeline(pipeline: PipelineInfoConfig): StageElementWrapperConfig[] {
+  const stages: StageElementWrapperConfig[] = []
   if (pipeline.stages) {
-    pipeline.stages.forEach((node: StageElementWrapper) => {
+    pipeline.stages.forEach((node: StageElementWrapperConfig) => {
       if (node.stage && node.stage.name !== EmptyStageName) {
         stages.push(node)
       } else if (node.parallel) {
-        node.parallel.forEach((parallelNode: StageElementWrapper) => {
+        node.parallel.forEach((parallelNode: StageElementWrapperConfig) => {
           if (parallelNode.stage && parallelNode.stage.name !== EmptyStageName) {
             stages.push(parallelNode)
           }

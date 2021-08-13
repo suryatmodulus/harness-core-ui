@@ -1,0 +1,52 @@
+{
+  "nodes": [
+    {
+      "item": {
+        "identifier": "step_1",
+        "name": "Step 1",
+        "status": "Success",
+        "data": {
+          "startTs": 100,
+          "endTs": 551124,
+          "interruptHistories": [
+            {
+              "interruptConfig": {
+                "retryInterruptConfig": {
+                  "retryId": "retrystep_1"
+                }
+              }
+            },
+            {
+              "interruptConfig": {
+                "retryInterruptConfig": {
+                  "retryId": "retrystep_2"
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "allNodeMap": {
+    "retrystep_1": {
+      "startTs": 100,
+      "endTs": 551124
+    },
+    "retrystep_2": {
+      "startTs": 100,
+      "endTs": 551124,
+      "interruptHistories": [
+        {
+          "interruptConfig": {
+            "retryInterruptConfig": {
+              "retryId": "retrystep_1"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "retryStep": "retrystep_1",
+  "selectedStep": "step_1"
+}

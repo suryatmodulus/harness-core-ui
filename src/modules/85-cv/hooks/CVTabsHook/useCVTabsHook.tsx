@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
-import { ONBOARDING_ENTITIES, BaseSetupTabsObject } from '@cv/pages/admin/setup/SetupUtils'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
+import { OnboardingEntites } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs.constants'
 import { getRoutePathByType } from '@cv/utils/routeUtils'
 import { useIndexedDBHook, CVObjectStoreNames } from '../IndexedDBHook/IndexedDBHook'
 
@@ -11,6 +11,12 @@ export type OnClickHandlerParams<T> = {
   data?: T & BaseSetupTabsObject
   prevTab?: number
   newTab?: number
+}
+export interface BaseSetupTabsObject {
+  name?: string
+  identifier?: string
+  sourceType?: 'CHANGE_SOURCE' | 'MONITORING_SOURCE' | 'VERIFICATION_JOBS'
+  type?: string // Replace with types in apis
 }
 
 type CVTabsHookReturnType<T> = {
@@ -130,15 +136,15 @@ export default function useCVTabsHook<T>(props?: UseCVTabsHookProps): CVTabsHook
               await dbInstance.put(CVObjectStoreNames.SETUP, {
                 setupID: entryKey,
                 monitoringSources:
-                  data?.sourceType === ONBOARDING_ENTITIES.MONITORING_SOURCE
+                  data?.sourceType === OnboardingEntites.MONITORING_SOURCE
                     ? addItemToCache(resultData?.monitoringSources, item)
                     : resultData?.monitoringSources,
                 activitySources:
-                  data?.sourceType === ONBOARDING_ENTITIES.CHANGE_SOURCE
+                  data?.sourceType === OnboardingEntites.CHANGE_SOURCE
                     ? addItemToCache(resultData?.activitySources, item)
                     : resultData?.activitySources,
                 verificationJobs:
-                  data?.sourceType === ONBOARDING_ENTITIES.VERIFICATION_JOBS
+                  data?.sourceType === OnboardingEntites.VERIFICATION_JOBS
                     ? addItemToCache(resultData?.verificationJobs, item)
                     : resultData?.verificationJobs
               })

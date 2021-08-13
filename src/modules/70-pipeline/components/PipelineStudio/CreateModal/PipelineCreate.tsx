@@ -7,7 +7,7 @@ import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { NameIdDescriptionTags } from '@common/components'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
@@ -15,17 +15,22 @@ import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext
 import GitContextForm, { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
 import type { EntityGitDetails } from 'services/pipeline-ng'
 
+import {
+  FormMultiTypeDurationField,
+  getDurationValidationSchema
+} from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
 
 const logger = loggerFor(ModuleName.CD)
 
-interface NgPipelineWithGitDetails extends NgPipeline {
+interface PipelineInfoConfigWithGitDetails extends PipelineInfoConfig {
   repo: string
   branch: string
 }
 export interface PipelineCreateProps {
-  afterSave?: (values: NgPipeline, gitDetails?: EntityGitDetails) => void
-  initialValues?: NgPipelineWithGitDetails
+  afterSave?: (values: PipelineInfoConfig, gitDetails?: EntityGitDetails) => void
+  initialValues?: PipelineInfoConfigWithGitDetails
   closeModal?: () => void
   gitDetails?: IGitContextFormProps
 }
@@ -39,6 +44,7 @@ export default function CreatePipelines({
   const { getString } = useStrings()
   const { pipelineIdentifier } = useParams<{ pipelineIdentifier: string }>()
   const { isGitSyncEnabled } = useAppStore()
+  const { expressions } = useVariablesExpression()
 
   const identifier = initialValues?.identifier
   if (identifier === DefaultNewPipelineId) {
@@ -46,12 +52,13 @@ export default function CreatePipelines({
   }
   const isEdit = (initialValues?.identifier?.length || '') > 0
   return (
-    <Formik
+    <Formik<PipelineInfoConfigWithGitDetails>
       initialValues={initialValues}
       formName="pipelineCreate"
       validationSchema={Yup.object().shape({
         name: NameSchema({ requiredErrorMsg: getString('createPipeline.pipelineNameRequired') }),
         identifier: IdentifierSchema(),
+        timeout: getDurationValidationSchema({ minimum: '10s' }),
         ...(isGitSyncEnabled
           ? {
               repo: Yup.string().trim().required(getString('common.git.validation.repoRequired')),
@@ -75,6 +82,12 @@ export default function CreatePipelines({
             identifierProps={{
               isIdentifierEditable: pipelineIdentifier === DefaultNewPipelineId
             }}
+          />
+          <FormMultiTypeDurationField
+            name="timeout"
+            isOptional
+            label={getString('pipelineSteps.timeoutLabel')}
+            multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
           />
           {isGitSyncEnabled && (
             <GitSyncStoreProvider>

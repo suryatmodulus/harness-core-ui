@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Layout, Text, Button, Container } from '@wings-software/uicore'
 import { DateRangePicker } from '@blueprintjs/datetime'
 import moment from 'moment'
+import cx from 'classnames'
 import { Popover, Position, Classes } from '@blueprintjs/core'
 import { useStrings, UseStringsReturn } from 'framework/strings'
-import { DATE_RANGE_SHORTCUTS, DATE_RANGE_SHORTCUTS_NAME, CE_DATE_FORMAT_INTERNAL } from '@ce/utils/momentUtils'
+import {
+  DATE_RANGE_SHORTCUTS,
+  DATE_RANGE_SHORTCUTS_NAME,
+  CE_DATE_FORMAT_INTERNAL,
+  getStartDateTime,
+  getEndDateTime
+} from '@ce/utils/momentUtils'
 import css from './PerspectiveTimeRangePicker.module.scss'
 
 const getDateLabelToDisplayText: (getString: UseStringsReturn['getString']) => Record<string, string> = getString => {
@@ -97,7 +104,7 @@ const DateLabelRenderer: React.FC<DateLabelRendererProps> = ({ text, dateRange, 
 
   const labelToTextMapping = getDateLabelToDisplayText(getString)
   return (
-    <Container onClick={onClick} className={Classes.POPOVER_DISMISS}>
+    <Container onClick={onClick} className={cx(css.dateLabelContainer, Classes.POPOVER_DISMISS)}>
       <Layout.Horizontal
         style={{
           justifyContent: 'space-between'
@@ -118,29 +125,53 @@ const DateLabelRenderer: React.FC<DateLabelRendererProps> = ({ text, dateRange, 
 interface PerspectiveTimeRangePickerProps {
   setTimeRange: React.Dispatch<
     React.SetStateAction<{
-      to: number
-      from: number
+      to: string
+      from: string
     }>
   >
+  timeRange: {
+    to: string
+    from: string
+  }
 }
 
-const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({ setTimeRange }) => {
+const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({ timeRange, setTimeRange }) => {
   const { getString } = useStrings()
 
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean | undefined>()
 
   const labelToTextMapping = getDateLabelToDisplayText(getString)
 
-  const [selectedTimeRange, setSelectedTimeRange] = useState<{ key: DATE_RANGE_SHORTCUTS_NAME; text: string }>({
-    key: DATE_RANGE_SHORTCUTS_NAME.LAST_7_DAYS,
-    text: labelToTextMapping[DATE_RANGE_SHORTCUTS_NAME.LAST_7_DAYS]
-  })
+  const { dateLabelText } = useMemo(() => {
+    const filteredArray = Object.keys(DATE_RANGE_SHORTCUTS).filter(short => {
+      const date = DATE_RANGE_SHORTCUTS[short]
+      if (
+        timeRange.from === date[0].format(CE_DATE_FORMAT_INTERNAL) &&
+        timeRange.to === date[1].format(CE_DATE_FORMAT_INTERNAL)
+      ) {
+        return true
+      }
+    })
+    if (filteredArray.length) {
+      return {
+        dateLabelKey: filteredArray[0],
+        dateLabelText: labelToTextMapping[filteredArray[0]]
+      }
+    }
+    return {
+      dateLabelKey: DATE_RANGE_SHORTCUTS_NAME.LAST_7_DAYS,
+      dateLabelText: `${timeRange.from} - ${timeRange.to}`
+    }
+  }, [timeRange])
+
+  const fromDate: Date | undefined = new Date(getStartDateTime(timeRange.from))
+  const toDate: Date | undefined = new Date(getEndDateTime(timeRange.to))
 
   const maxDate = new Date(moment().add(30, 'day').valueOf())
 
   return (
     <Popover
-      position={Position.BOTTOM_LEFT}
+      position={Position.BOTTOM_RIGHT}
       modifiers={{
         arrow: { enabled: false },
         flip: { enabled: true },
@@ -152,14 +183,28 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
       }}
       isOpen={isPopoverOpen}
       content={
-        <Layout.Vertical padding="large" spacing="large">
+        <Layout.Vertical
+          spacing="large"
+          padding={{
+            top: 'small',
+            bottom: 'small'
+          }}
+        >
           <Layout.Vertical
-            spacing="medium"
             margin={{
-              bottom: 'small'
+              bottom: 'medium'
             }}
           >
-            <Text font={{ weight: 'semi-bold' }} color="grey800">
+            <Text
+              padding={{
+                top: 'small',
+                bottom: 'small',
+                left: 'large',
+                right: 'large'
+              }}
+              font={{ weight: 'semi-bold' }}
+              color="grey800"
+            >
               {getString('ce.perspectives.timeRange.recommended')}
             </Text>
             {RECOMMENDED_DATES.map(item => {
@@ -171,12 +216,8 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
                   text={item.label}
                   onClick={() => {
                     setTimeRange({
-                      from: item.dateRange[0].valueOf(),
-                      to: item.dateRange[1].valueOf()
-                    })
-                    setSelectedTimeRange({
-                      key: item.label,
-                      text: labelToTextMapping[item.label]
+                      from: item.dateRange[0].format(CE_DATE_FORMAT_INTERNAL),
+                      to: item.dateRange[1].format(CE_DATE_FORMAT_INTERNAL)
                     })
                   }}
                 />
@@ -193,20 +234,18 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
               isOpen={isPopoverOpen}
               content={
                 <DateRangePicker
+                  defaultValue={[fromDate, toDate]}
                   contiguousCalendarMonths={false}
                   shortcuts={false}
                   maxDate={maxDate}
                   onChange={val => {
                     if (val[0] && val[1]) {
+                      const from = moment(val[0]).format(CE_DATE_FORMAT_INTERNAL)
+                      const to = moment(val[1]).format(CE_DATE_FORMAT_INTERNAL)
+
                       setTimeRange({
-                        from: val[0].valueOf(),
-                        to: val[1].valueOf()
-                      })
-                      setSelectedTimeRange({
-                        key: DATE_RANGE_SHORTCUTS_NAME.CUSTOM,
-                        text: `${moment.utc(val[0]).format(CE_DATE_FORMAT_INTERNAL)} - ${moment
-                          .utc(val[1])
-                          .format(CE_DATE_FORMAT_INTERNAL)} `
+                        from: from,
+                        to: to
                       })
                       setIsPopoverOpen(false)
                     }
@@ -214,19 +253,36 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
                 />
               }
             >
-              <Text color="primary7" className={css.pointerText}>
+              <Text
+                padding={{
+                  top: 'small',
+                  bottom: 'small',
+                  left: 'large',
+                  right: 'large'
+                }}
+                color="primary7"
+                className={css.pointerText}
+              >
                 {getString('ce.perspectives.timeRange.selectCustomRange')}
               </Text>
             </Popover>
           </Layout.Vertical>
 
           <Layout.Vertical
-            spacing="medium"
             margin={{
-              bottom: 'small'
+              bottom: 'medium'
             }}
           >
-            <Text font={{ weight: 'semi-bold' }} color="grey800">
+            <Text
+              padding={{
+                top: 'small',
+                bottom: 'small',
+                left: 'large',
+                right: 'large'
+              }}
+              font={{ weight: 'semi-bold' }}
+              color="grey800"
+            >
               {getString('ce.perspectives.timeRange.relativeDates')}
             </Text>
             {RELATIVE_DATES.map(item => {
@@ -238,12 +294,8 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
                   text={item.label}
                   onClick={() => {
                     setTimeRange({
-                      from: item.dateRange[0].valueOf(),
-                      to: item.dateRange[1].valueOf()
-                    })
-                    setSelectedTimeRange({
-                      key: item.label,
-                      text: labelToTextMapping[item.label]
+                      from: item.dateRange[0].format(CE_DATE_FORMAT_INTERNAL),
+                      to: item.dateRange[1].format(CE_DATE_FORMAT_INTERNAL)
                     })
                   }}
                 />
@@ -251,8 +303,17 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
             })}
           </Layout.Vertical>
 
-          <Layout.Vertical spacing="medium">
-            <Text font={{ weight: 'semi-bold' }} color="grey800">
+          <Layout.Vertical>
+            <Text
+              padding={{
+                top: 'small',
+                bottom: 'small',
+                left: 'large',
+                right: 'large'
+              }}
+              font={{ weight: 'semi-bold' }}
+              color="grey800"
+            >
               {getString('ce.perspectives.timeRange.calendarMonths')}
             </Text>
             {CALENDAR_MONTH_DATES.map(item => {
@@ -264,12 +325,8 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
                   text={item.label}
                   onClick={() => {
                     setTimeRange({
-                      from: item.dateRange[0].valueOf(),
-                      to: item.dateRange[1].valueOf()
-                    })
-                    setSelectedTimeRange({
-                      key: item.label,
-                      text: labelToTextMapping[item.label]
+                      from: item.dateRange[0].format(CE_DATE_FORMAT_INTERNAL),
+                      to: item.dateRange[1].format(CE_DATE_FORMAT_INTERNAL)
                     })
                   }}
                 />
@@ -284,7 +341,7 @@ const PerspectiveTimeRangePicker: React.FC<PerspectiveTimeRangePickerProps> = ({
         minimal
         padding="small"
         className={css.timeRangeButton}
-        text={selectedTimeRange.text}
+        text={dateLabelText}
         icon="calendar"
         iconProps={{
           size: 16

@@ -137,7 +137,7 @@ describe('Git Sync - repo tab', () => {
       fireEvent.change(rootfolderInput!, { target: { value: 'src' } })
     })
 
-    const icons = container.querySelectorAll('[icon="caret-down"]')
+    const icons = container.querySelectorAll('[icon="chevron-down"]')
     const branchInputIcon = icons[icons.length - 1]
     expect(branchInputIcon).toBeDefined()
 

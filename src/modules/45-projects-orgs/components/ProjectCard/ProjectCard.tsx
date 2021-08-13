@@ -4,17 +4,10 @@ import { Card, Text, Layout, CardBody, Container, Color } from '@wings-software/
 import { Classes } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
-import { ModuleName } from 'framework/types/ModuleName'
-import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import type { Project, ProjectAggregateDTO } from 'services/cd-ng'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
-import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
-import CIRenderer from '@projects-orgs/components/ModuleRenderer/ci/CIRenderer'
-import CDRenderer from '@projects-orgs/components/ModuleRenderer/cd/CDRenderer'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
 import routes from '@common/RouteDefinitions'
-import CERenderer from '@projects-orgs/components/ModuleRenderer/ce/CERenderer'
-import CFRenderer from '@projects-orgs/components/ModuleRenderer/cf/CFRenderer'
 import useDeleteProjectDialog from '@projects-orgs/pages/projects/DeleteProject'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -26,6 +19,9 @@ import css from './ProjectCard.module.scss'
 export interface ProjectCardProps {
   data: ProjectAggregateDTO
   isPreview?: boolean
+  minimal?: boolean
+  selected?: boolean
+  onClick?: () => void
   className?: string
   reloadProjects?: () => Promise<void>
   editProject?: (project: Project) => void
@@ -33,7 +29,16 @@ export interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data: projectAggregateDTO, isPreview, reloadProjects, editProject, handleInviteCollaborators } = props
+  const {
+    data: projectAggregateDTO,
+    isPreview,
+    reloadProjects,
+    editProject,
+    handleInviteCollaborators,
+    minimal,
+    selected,
+    onClick
+  } = props
   const [menuOpen, setMenuOpen] = useState(false)
   const {
     projectResponse,
@@ -43,9 +48,9 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     harnessManagedOrg
   } = projectAggregateDTO
   const data = projectResponse.project || null
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
+  const allowInteraction = !isPreview && !minimal
   const history = useHistory()
   const invitePermission = {
     resourceScope: {
@@ -66,9 +71,12 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
     <Card
       className={cx(css.projectCard, { [css.previewProjectCard]: isPreview }, props.className)}
       data-testid={`project-card-${data.identifier + data.orgIdentifier}`}
+      onClick={onClick}
+      selected={selected}
+      interactive={!isPreview}
     >
-      <Container padding="xlarge" className={cx(css.projectInfo, { [css.previewProjectInfo]: isPreview })}>
-        {!isPreview ? (
+      <Container padding="xlarge" className={css.projectInfo}>
+        {allowInteraction ? (
           <CardBody.Menu
             menuContent={
               <ContextMenu
@@ -91,7 +99,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         ) : null}
         <Container
           onClick={() => {
-            !isPreview &&
+            allowInteraction &&
               history.push({
                 pathname: routes.toProjectDetails({
                   projectIdentifier: data.identifier,
@@ -153,7 +161,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 permission={{
                   ...invitePermission,
                   options: {
-                    skipCondition: _permissionRequest => (isPreview ? true : false)
+                    skipCondition: () => !allowInteraction
                   }
                 }}
               />
@@ -174,7 +182,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 permission={{
                   ...invitePermission,
                   options: {
-                    skipCondition: _permissionRequest => (isPreview ? true : false)
+                    skipCondition: () => !allowInteraction
                   }
                 }}
               />
@@ -182,12 +190,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           </Layout.Horizontal>
         </Container>
       </Container>
-      {!data.modules?.length ? <DefaultRenderer /> : null}
-      {CDNG_ENABLED && data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
-      {CVNG_ENABLED && data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
-      {CING_ENABLED && data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
-      {CFNG_ENABLED && data.modules?.includes(ModuleName.CF) ? <CFRenderer data={data} isPreview={isPreview} /> : null}
-      {CENG_ENABLED && data.modules?.includes(ModuleName.CE) ? <CERenderer data={data} isPreview={isPreview} /> : null}
+      <DefaultRenderer />
     </Card>
   )
 }

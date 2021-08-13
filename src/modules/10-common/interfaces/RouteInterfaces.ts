@@ -44,6 +44,8 @@ export interface TriggerPathProps extends PipelinePathProps {
   triggerIdentifier: string
   triggerType?: string
   sourceRepo?: string
+  artifactType?: string
+  manifestType?: string
 }
 
 export interface ExecutionPathProps extends PipelinePathProps {
@@ -71,7 +73,7 @@ export interface ResourceGroupPathProps {
   resourceGroupIdentifier: string
 }
 export interface DelegatePathProps {
-  delegateId: string
+  delegateIdentifier: string
 }
 
 export interface DelegateConfigProps {

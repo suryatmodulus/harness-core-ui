@@ -8,5 +8,9 @@ declare const styles: {
   readonly active: string
   readonly userLink: string
   readonly userName: string
+  readonly settings: string
+  readonly hoverNavLink: string
+  readonly hiddenText: string
+  readonly text: string
 }
 export default styles

@@ -3,12 +3,16 @@
 exports[`EmailVerificationBanner email verify fails 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
-    />
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      />
+    </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
     >
@@ -64,12 +68,16 @@ exports[`EmailVerificationBanner email verify fails 1`] = `
 exports[`EmailVerificationBanner email verify success 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard page sendSuccess StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard page sendSuccess StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
-    />
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      />
+    </div>
     <p
       class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500 StyledProps--font-weight-semi-bold"
       style="display: flex; align-items: center;"
@@ -111,12 +119,16 @@ exports[`EmailVerificationBanner email verify success 1`] = `
 exports[`EmailVerificationBanner render 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard page notSend StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
-    />
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      />
+    </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
     >

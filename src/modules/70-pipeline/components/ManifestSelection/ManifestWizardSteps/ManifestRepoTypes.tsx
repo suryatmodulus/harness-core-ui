@@ -4,7 +4,7 @@ import {
   Color,
   Container,
   Formik,
-  Heading,
+  Text,
   IconName,
   Layout,
   StepProps,
@@ -57,9 +57,9 @@ export const ManifestRepoTypes: React.FC<StepProps<ConnectorConfigDTO> & Manifes
 
   return (
     <Container className={css.optionsViewContainer}>
-      <Heading level={2} style={{ color: Color.BLACK, fontSize: 24 }} margin={{ bottom: 'large' }}>
+      <Text font="large" color={Color.GREY_1000} margin={{ bottom: 'medium' }}>
         {stepName}
-      </Heading>
+      </Text>
       <Formik
         initialValues={{ manifestType: selectedManifestType }}
         formName="manifestType"

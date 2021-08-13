@@ -1,0 +1,31 @@
+.main {
+  margin-bottom: 90px !important;
+  .manualQueryLink {
+    float: right;
+    margin-left: var(--spacing-small) !important;
+    text-transform: none !important;
+    cursor: pointer;
+  }
+}
+
+.loadingErrorNoData {
+  position: absolute;
+  top: 50%;
+  left: 52%;
+  transform: translateX(-50%);
+}
+
+.columnContainer {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+
+  .filterStyle p {
+    margin-right: var(--spacing-xsmall) !important;
+  }
+}
+
+.footer {
+  left: 330px !important;
+}

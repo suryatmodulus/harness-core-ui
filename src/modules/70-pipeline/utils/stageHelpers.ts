@@ -7,7 +7,7 @@ import type { StringKeys } from 'framework/strings'
 export enum StageType {
   DEPLOY = 'Deployment',
   BUILD = 'CI',
-  FEATURE = 'Feature',
+  FEATURE = 'FeatureFlag',
   PIPELINE = 'Pipeline',
   APPROVAL = 'Approval',
   CUSTOM = 'Custom'

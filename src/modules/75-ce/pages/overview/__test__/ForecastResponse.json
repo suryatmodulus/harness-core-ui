@@ -1,0 +1,14 @@
+{
+  "data": {
+    "perspectiveForecastCost": {
+      "cost": {
+        "statsLabel": "Forecasted Cost",
+        "statsTrend": 10,
+        "statsValue": "$10,000",
+        "statsDescription": "",
+        "__typename": "StatsInfo"
+      },
+      "__typename": "PerspectiveTrendStats"
+    }
+  }
+}

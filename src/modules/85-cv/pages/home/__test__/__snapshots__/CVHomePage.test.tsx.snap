@@ -16,10 +16,10 @@ exports[`CVHomePage snapshot test should render properly 1`] = `
         <h1
           class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--font-weight-bold StyledProps--font-size-large StyledProps--color StyledProps--color-black100"
         >
-          cv.continuous
+          common.changeIntelligence
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cv.dashboard.subHeading
         </p>

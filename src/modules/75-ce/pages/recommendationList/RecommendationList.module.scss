@@ -1,0 +1,14 @@
+.errorContainer {
+  height: calc(100vh - 262px);
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .errorText {
+    margin-top: var(--spacing-xxlarge) !important;
+    display: flex;
+    width: 550px;
+    text-align: center;
+  }
+}

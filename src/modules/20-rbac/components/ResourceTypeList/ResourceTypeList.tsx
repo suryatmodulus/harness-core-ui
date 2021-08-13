@@ -45,66 +45,64 @@ const ResourceTypeList: React.FC<ResourceTypeListProps> = props => {
           const resourceTypes = resourceCategoryMap.get(resourceCategory)
           return (
             resourceCategoryHandler && (
-              <>
-                <Card
-                  className={css.resourceTypeCard}
-                  key={resourceCategory}
-                  draggable={!disableAddingResources}
-                  onDragStart={e => {
-                    e.dataTransfer.setData('text/plain', resourceCategory)
-                    e.dataTransfer.dropEffect = 'copy'
-                  }}
-                >
-                  <Layout.Vertical>
-                    <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
-                      <Checkbox
-                        data-testid={`CHECK-BOX-${resourceCategory}`}
-                        key={resourceCategory}
-                        disabled={disableAddingResources}
-                        checked={getChecked(resourceCategory, resourceTypes)}
-                        indeterminate={
-                          resourceTypes
-                            ? getIntermittent(resourceTypes) && !getChecked(resourceCategory, resourceTypes)
-                            : undefined
-                        }
-                        className={css.checkBox}
-                        onChange={e => {
-                          if (resourceTypes) onResourceCategorySelect(resourceTypes, e.currentTarget.checked)
-                          else onResourceSelectionChange(resourceCategory as ResourceType, e.currentTarget.checked)
-                        }}
-                        value={resourceCategory}
-                      />
+              <Card
+                className={css.resourceTypeCard}
+                key={resourceCategory}
+                draggable={!disableAddingResources}
+                onDragStart={e => {
+                  e.dataTransfer.setData('text/plain', resourceCategory)
+                  e.dataTransfer.dropEffect = 'copy'
+                }}
+              >
+                <Layout.Vertical>
+                  <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+                    <Checkbox
+                      data-testid={`CHECK-BOX-${resourceCategory}`}
+                      key={resourceCategory}
+                      disabled={disableAddingResources}
+                      checked={getChecked(resourceCategory, resourceTypes)}
+                      indeterminate={
+                        resourceTypes
+                          ? getIntermittent(resourceTypes) && !getChecked(resourceCategory, resourceTypes)
+                          : undefined
+                      }
+                      className={css.checkBox}
+                      onChange={e => {
+                        if (resourceTypes) onResourceCategorySelect(resourceTypes, e.currentTarget.checked)
+                        else onResourceSelectionChange(resourceCategory as ResourceType, e.currentTarget.checked)
+                      }}
+                      value={resourceCategory}
+                    />
 
-                      <Text
-                        color={Color.BLACK}
-                        icon={resourceCategoryHandler.icon}
-                        iconProps={{ padding: { right: 'small' } }}
-                      >
-                        {getString(resourceCategoryHandler.label)}
-                      </Text>
-                    </Layout.Horizontal>
-                    {resourceTypes &&
-                      Array.from(resourceTypes).map(resource => {
-                        const resourceHandler = RbacFactory.getResourceTypeHandler(resource)
-                        return (
-                          resourceHandler && (
-                            <Layout.Horizontal key={resource} className={css.resourceSubList}>
-                              <Checkbox
-                                data-testid={`CHECK-BOX-${resource}`}
-                                disabled={disableAddingResources}
-                                onChange={e => {
-                                  onResourceSelectionChange(resource, e.currentTarget.checked)
-                                }}
-                                checked={getChecked(resource)}
-                              />
-                              <Text color={Color.BLACK}>{getString(resourceHandler.label)}</Text>
-                            </Layout.Horizontal>
-                          )
+                    <Text
+                      color={Color.BLACK}
+                      icon={resourceCategoryHandler.icon}
+                      iconProps={{ padding: { right: 'small' } }}
+                    >
+                      {getString(resourceCategoryHandler.label)}
+                    </Text>
+                  </Layout.Horizontal>
+                  {resourceTypes &&
+                    Array.from(resourceTypes).map(resource => {
+                      const resourceHandler = RbacFactory.getResourceTypeHandler(resource)
+                      return (
+                        resourceHandler && (
+                          <Layout.Horizontal key={resource} className={css.resourceSubList}>
+                            <Checkbox
+                              data-testid={`CHECK-BOX-${resource}`}
+                              disabled={disableAddingResources}
+                              onChange={e => {
+                                onResourceSelectionChange(resource, e.currentTarget.checked)
+                              }}
+                              checked={getChecked(resource)}
+                            />
+                            <Text color={Color.BLACK}>{getString(resourceHandler.label)}</Text>
+                          </Layout.Horizontal>
                         )
-                      })}
-                  </Layout.Vertical>
-                </Card>
-              </>
+                      )
+                    })}
+                </Layout.Vertical>
+              </Card>
             )
           )
         })}

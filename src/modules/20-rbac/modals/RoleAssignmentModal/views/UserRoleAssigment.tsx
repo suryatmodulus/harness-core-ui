@@ -26,7 +26,8 @@ import {
 } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailSchema } from '@common/utils/Validation'
-import { UserItemRenderer, handleInvitationResponse } from '@rbac/utils/utils'
+import { UserItemRenderer, handleInvitationResponse, getScopeBasedDefaultAssignment } from '@rbac/utils/utils'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import RoleAssignmentForm, { InviteType } from './RoleAssignmentForm'
 
 interface UserRoleAssignmentData {
@@ -111,7 +112,11 @@ const UserRoleAssignment: React.FC<UserRoleAssignmentData> = props => {
           assignmentIdentifier: roleAssignment.identifier
         }
       }
-    }) || /* istanbul ignore next */ []
+    }) ||
+    /* istanbul ignore next */ getScopeBasedDefaultAssignment(
+      getScopeFromDTO({ accountIdentifier: accountId, orgIdentifier, projectIdentifier }),
+      getString
+    )
 
   const handleRoleAssignment = async (values: UserRoleAssignmentValues, userInfo: string): Promise<void> => {
     const dataToSubmit: RBACRoleAssignment[] = values.assignments.map(value => {

@@ -3,33 +3,37 @@
 exports[`GitSync Page render GitSync page for new user with no pipeline created 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container medium StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container medium StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--padding-top-large StyledProps--padding-bottom-large"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+        class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--padding-top-large StyledProps--padding-bottom-large"
       >
-        <a
-          href="/account/dummyAccount/projects/dummyProject/orgs/default/details"
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
         >
-          dummy
-        </a>
-        <span>
-          /
-        </span>
+          <a
+            href="/account/dummyAccount/projects/dummyProject/orgs/default/details"
+          >
+            dummy
+          </a>
+          <span>
+            /
+          </span>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            gitManagement
+          </p>
+        </div>
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium"
         >
           gitManagement
         </p>
       </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium"
-      >
-        gitManagement
-      </p>
     </div>
   </div>
   <div
@@ -89,33 +93,37 @@ exports[`GitSync Page render GitSync page for new user with no pipeline created 
 exports[`GitSync Page render GitSync page for new user with pipeline created 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container medium StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container medium StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--padding-top-large StyledProps--padding-bottom-large"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+        class="Layout--vertical StyledProps--main StyledProps--padding-left-small StyledProps--padding-top-large StyledProps--padding-bottom-large"
       >
-        <a
-          href="/account/dummyAccount/projects/dummyProject/orgs/default/details"
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
         >
-          dummy
-        </a>
-        <span>
-          /
-        </span>
+          <a
+            href="/account/dummyAccount/projects/dummyProject/orgs/default/details"
+          >
+            dummy
+          </a>
+          <span>
+            /
+          </span>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            gitManagement
+          </p>
+        </div>
         <p
-          class="StyledProps--font StyledProps--main"
+          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium"
         >
           gitManagement
         </p>
       </div>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium"
-      >
-        gitManagement
-      </p>
     </div>
   </div>
   <div

@@ -1,0 +1,39 @@
+{
+  "data": {
+    "perspectiveTrendStats": {
+      "cost": {
+        "statsDescription": "of Jun 26 - Jul 24",
+        "statsLabel": "Total Cost",
+        "statsTrend": 5.54,
+        "statsValue": "$2,452.03",
+        "value": 2452.03,
+        "__typename": "StatsInfo"
+      },
+      "idleCost": {
+        "statsLabel": "Idle Cost",
+        "statsValue": "$582.92",
+        "value": 582.92,
+        "__typename": "StatsInfo"
+      },
+      "unallocatedCost": {
+        "statsLabel": "Unallocated Cost",
+        "statsValue": "$838.51",
+        "value": 838.51,
+        "__typename": "StatsInfo"
+      },
+      "utilizedCost": {
+        "statsLabel": "Utilized Cost",
+        "statsValue": "$1,030.6",
+        "value": 1030.6,
+        "__typename": "StatsInfo"
+      },
+      "efficiencyScoreStats": {
+        "statsLabel": "Efficiency Score",
+        "statsTrend": 1.56,
+        "statsValue": "65",
+        "__typename": "EfficiencyScoreStats"
+      },
+      "__typename": "PerspectiveTrendStats"
+    }
+  }
+}

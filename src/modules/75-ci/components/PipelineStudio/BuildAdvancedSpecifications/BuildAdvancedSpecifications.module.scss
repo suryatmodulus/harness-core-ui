@@ -72,7 +72,7 @@
 .content-section {
   padding: 48px;
   height: 100%;
-  background: var(--grey-50);
+  background: var(--form-bg);
 }
 
 .stage-create {
@@ -101,7 +101,7 @@
   width: 1024px;
   margin-bottom: 20px;
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
-  background-color: var(--grey-50);
+  background-color: var(--white);
 }
 .create-stage-grid {
   display: grid;

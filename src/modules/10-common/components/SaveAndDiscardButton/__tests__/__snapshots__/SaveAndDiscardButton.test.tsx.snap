@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Validate SaveAndDiscardButton SaveAndDiscardButton isUpdated false 1`] = `
+<div>
+  <div
+    class="saveHeader"
+  >
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color"
+      type="button"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+        data-icon="send-data"
+      >
+        <svg
+          fill="none"
+          height="16"
+          viewBox="0 0 9 12"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.533 5.013L2.279 6.301a.653.653 0 01-.94 0 .696.696 0 010-.966l2.394-2.46a.655.655 0 01.94 0l2.394 2.46c.127.13.194.302.194.48a.7.7 0 01-.194.48.655.655 0 01-.94 0l-1.26-1.282v5.94c0 .377-.3.686-.668.686a.678.678 0 01-.666-.685v-5.94z"
+            fill="#25A6F7"
+          />
+          <path
+            d="M.5.775h7.005v.2H.5v-.2z"
+            stroke="#25A6F7"
+          />
+        </svg>
+      </span>
+      <span
+        class="bp3-button-text"
+      >
+        save
+      </span>
+    </button>
+    <button
+      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main discardBtn Button--with-current-color"
+      disabled=""
+      tabindex="-1"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        common.discard
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Validate SaveAndDiscardButton SaveAndDiscardButton isUpdated true 1`] = `
+<div>
+  <div
+    class="saveHeader"
+  >
+    <div
+      class="tagRender"
+    >
+      unsavedChanges
+    </div>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main saveButton StyledProps--intent-primary Button--with-current-color"
+      type="button"
+    >
+      <span
+        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+        data-icon="send-data"
+      >
+        <svg
+          fill="none"
+          height="16"
+          viewBox="0 0 9 12"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M3.533 5.013L2.279 6.301a.653.653 0 01-.94 0 .696.696 0 010-.966l2.394-2.46a.655.655 0 01.94 0l2.394 2.46c.127.13.194.302.194.48a.7.7 0 01-.194.48.655.655 0 01-.94 0l-1.26-1.282v5.94c0 .377-.3.686-.668.686a.678.678 0 01-.666-.685v-5.94z"
+            fill="#25A6F7"
+          />
+          <path
+            d="M.5.775h7.005v.2H.5v-.2z"
+            stroke="#25A6F7"
+          />
+        </svg>
+      </span>
+      <span
+        class="bp3-button-text"
+      >
+        save
+      </span>
+    </button>
+    <button
+      class="bp3-button Button--button StyledProps--font StyledProps--main discardBtn Button--with-current-color"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        common.discard
+      </span>
+    </button>
+  </div>
+</div>
+`;

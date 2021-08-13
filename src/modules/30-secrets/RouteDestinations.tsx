@@ -16,10 +16,10 @@ import type { ModulePathParams, ProjectPathProps, SecretsPathProps } from '@comm
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
 import SecretResourceRenderer from '@secrets/components/SecretResourceRenderer/SecretResourceRenderer'
-import { HomeSideNavProps } from '@common/RouteDestinations'
+import { AccountSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.SECRET, {
-  icon: 'lock',
+  icon: 'res-secrets',
   label: 'common.secrets',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
@@ -45,11 +45,11 @@ const RedirectToSecretDetailHome = () => {
 
 export default (
   <>
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSecrets({ ...accountPathProps })} exact>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={routes.toSecrets({ ...accountPathProps })} exact>
       <SecretsPage />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={routes.toSecretDetails({
         ...accountPathProps,
         ...secretPathProps
@@ -59,7 +59,7 @@ export default (
       <RedirectToSecretDetailHome />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={routes.toSecretDetailsOverview({
         ...accountPathProps,
         ...secretPathProps
@@ -71,7 +71,7 @@ export default (
       </SecretDetailsHomePage>
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={routes.toSecretDetailsReferences({
         ...accountPathProps,
         ...secretPathProps
@@ -83,7 +83,7 @@ export default (
       </SecretDetailsHomePage>
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={routes.toCreateSecretFromYaml({ ...accountPathProps })}
       exact
     >

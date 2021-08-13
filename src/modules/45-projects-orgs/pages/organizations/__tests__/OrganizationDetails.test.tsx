@@ -2,7 +2,7 @@ import React from 'react'
 import { act, fireEvent, getAllByText, render, RenderResult, waitFor } from '@testing-library/react'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
-
+import { orgPathProps } from '@common/utils/routeUtils'
 import OrganizationDetailsPage from '../OrganizationDetails/OrganizationDetailsPage'
 import {
   getOrgAggregateMockData as getOrgMockData,
@@ -36,7 +36,7 @@ describe('Organization Details', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path="/account/:accountId/organizations/:orgIdentifier"
+        path={routes.toOrganizationDetails({ ...orgPathProps })}
         pathParams={{ accountId: 'testAcc', orgIdentifier: 'testOrg' }}
       >
         <OrganizationDetailsPage />
@@ -49,20 +49,8 @@ describe('Organization Details', () => {
   test('Render', async () => {
     expect(container).toMatchSnapshot()
   })
-  test('View Projects', async () => {
-    const viewProjects = getByText('projectsOrgs.viewProjects')
-    fireEvent.click(viewProjects)
-    await waitFor(() => getByTestId('location'))
-    expect(
-      getByTestId('location').innerHTML.endsWith(
-        `${routes.toProjects({ accountId: 'testAcc' })}?orgIdentifier=${
-          getOrgMockData.data.data.organizationResponse.organization.identifier
-        }`
-      )
-    ).toBeTruthy()
-  })
   test('Manage Organizations', async () => {
-    const back = getByText('projectsOrgs.manage')
+    const back = getByText('orgsText')
     fireEvent.click(back)
     await waitFor(() => getByTestId('location'))
     expect(getByTestId('location').innerHTML.endsWith(routes.toOrganizations({ accountId: 'testAcc' }))).toBeTruthy()

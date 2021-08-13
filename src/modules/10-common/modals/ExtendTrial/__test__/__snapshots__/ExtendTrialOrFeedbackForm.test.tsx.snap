@@ -71,9 +71,11 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
             <div
               class="bp3-form-content"
             >
-              <div>
+              <div
+                class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+              >
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -86,7 +88,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
                   common.extendTrial.feedback.answers.useful
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -99,7 +101,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
                   common.extendTrial.feedback.answers.needMore
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -115,7 +117,32 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for ExtendT
               <div
                 class="bp3-form-helper-text"
               >
-                validation.thisIsARequiredField
+                <div
+                  class="FormError--errorDiv"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                    data-icon="circle-cross"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 13 13"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="FormError--error"
+                  >
+                    validation.thisIsARequiredField
+                  </span>
+                </div>
               </div>
             </div>
           </div>
@@ -221,9 +248,11 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
             <div
               class="bp3-form-content"
             >
-              <div>
+              <div
+                class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+              >
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -236,7 +265,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
                   common.extendTrial.feedback.answers.useful
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -249,7 +278,7 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
                   common.extendTrial.feedback.answers.needMore
                 </label>
                 <label
-                  class="bp3-control bp3-radio Radio--radio"
+                  class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                 >
                   <input
                     name="experience"
@@ -265,7 +294,32 @@ exports[`ExtendTrialOrFeedbackForm Validation experience is required for FeedBac
               <div
                 class="bp3-form-helper-text"
               >
-                validation.thisIsARequiredField
+                <div
+                  class="FormError--errorDiv"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                    data-icon="circle-cross"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 13 13"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="FormError--error"
+                  >
+                    validation.thisIsARequiredField
+                  </span>
+                </div>
               </div>
             </div>
           </div>

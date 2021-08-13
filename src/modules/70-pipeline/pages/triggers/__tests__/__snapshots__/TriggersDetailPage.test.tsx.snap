@@ -9,23 +9,66 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
     >
       <div
-        class="breadcrumbs"
+        class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
       >
-        <div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
           <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
+            class="Breadcrumbs--breadcrumb"
+            href="/account/testAcc/cd"
           >
-            test
+            <span
+              class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+              data-icon="cd-main"
+            >
+              <svg
+                fill="none"
+                height="16"
+                viewBox="0 0 27 29"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                  fill="url(#cd-main_svg__paint0_linear)"
+                  fill-rule="evenodd"
+                />
+                <defs>
+                  <lineargradient
+                    gradientUnits="userSpaceOnUse"
+                    id="cd-main_svg__paint0_linear"
+                    x1="4.551"
+                    x2="19.517"
+                    y1="0"
+                    y2="27.642"
+                  >
+                    <stop
+                      stop-color="#62F91F"
+                    />
+                    <stop
+                      offset="1"
+                      stop-color="#45BD35"
+                    />
+                  </lineargradient>
+                </defs>
+              </svg>
+            </span>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+            >
+              test
+            </p>
           </a>
           <span
-            class="bp3-icon StyledProps--main separator"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
             data-icon="main-chevron-right"
           >
             <svg
-              height="11"
+              height="12"
               viewBox="0 0 8 14"
-              width="11"
+              width="12"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -35,21 +78,27 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             </svg>
           </span>
         </div>
-        <div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
           <a
-            class="breadcrumb"
+            class="Breadcrumbs--breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
           >
-            pipelines
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+            >
+              pipelines
+            </p>
           </a>
           <span
-            class="bp3-icon StyledProps--main separator"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
             data-icon="main-chevron-right"
           >
             <svg
-              height="11"
+              height="12"
               viewBox="0 0 8 14"
-              width="11"
+              width="12"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -59,21 +108,27 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
             </svg>
           </span>
         </div>
-        <div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
           <a
-            class="breadcrumb"
+            class="Breadcrumbs--breadcrumb"
             href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
           >
-            testsdfsdf
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+            >
+              testsdfsdf
+            </p>
           </a>
           <span
-            class="bp3-icon StyledProps--main separator"
+            class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
             data-icon="main-chevron-right"
           >
             <svg
-              height="11"
+              height="12"
               viewBox="0 0 8 14"
-              width="11"
+              width="12"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -81,13 +136,6 @@ exports[`Test Trigger Details Page Test should test snapshot view 1`] = `
                 fill="#4d5969"
               />
             </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          >
-            Trigger__1
           </span>
         </div>
       </div>

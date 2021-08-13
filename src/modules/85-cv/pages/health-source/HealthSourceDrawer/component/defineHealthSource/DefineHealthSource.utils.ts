@@ -1,22 +1,32 @@
 import * as Yup from 'yup'
 import type { UseStringsReturn } from 'framework/strings'
 import { Connectors } from '@connectors/constants'
-import { SelectOrCreateConnectorFieldNames } from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
-import { GCOProduct } from '@cv/pages/monitoring-source/google-cloud-operations/GoogleCloudOperationsMonitoringSourceUtils'
 import { HealthSourceTypes } from '@cv/pages/health-source/types'
+import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import { GCOProduct } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
+import { PrometheusProductNames } from '@cv/pages/health-source/connectors/PrometheusHealthSource/PrometheusHealthSource.constants'
+import { NewRelicProductNames, ConnectorRefFieldName } from './DefineHealthSource.constant'
+import type { DefineHealthSourceFormInterface } from './DefineHealthSource.types'
 
-export const validate = (isEdit: boolean, getString: UseStringsReturn['getString']) => {
+export const validate = (getString: UseStringsReturn['getString']) => {
   return Yup.object().shape({
     sourceType: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.source')),
     healthSourceName: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.name')),
     product: Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.product')),
-    [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: isEdit
-      ? Yup.string().trim().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
-      : Yup.object().required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
+    [ConnectorRefFieldName]: Yup.string()
+      .nullable()
+      .required(getString('cv.onboarding.selectProductScreen.validationText.connectorRef'))
   })
 }
 
-export const getFeatureOption = (type: string, getString: UseStringsReturn['getString']) => {
+export const validateDuplicateIdentifier = (values: DefineHealthSourceFormInterface): any => {
+  const { healthSourceIdentifier, healthSourceList } = values
+  if (healthSourceList?.some(item => item.identifier === healthSourceIdentifier)) {
+    return { healthSourceName: 'identifier already exist' }
+  }
+}
+
+export const getFeatureOption = (type: string, getString: UseStringsReturn['getString']): SelectOption[] => {
   switch (type) {
     case Connectors.APP_DYNAMICS:
       return [
@@ -43,6 +53,20 @@ export const getFeatureOption = (type: string, getString: UseStringsReturn['getS
           label: getString('cv.monitoringSources.gco.product.logs')
         }
       ]
+    case Connectors.PROMETHEUS:
+      return [
+        {
+          label: PrometheusProductNames.APM,
+          value: getString('connectors.prometheusLabel')
+        }
+      ]
+    case Connectors.NEW_RELIC:
+      return [
+        {
+          value: NewRelicProductNames.APM,
+          label: getString('connectors.newRelic.products.fullStackObservability')
+        }
+      ]
     default:
       return []
   }
@@ -53,6 +77,9 @@ export const getInitialValues = (sourceData: any): any => {
     (el: any) => el?.identifier === sourceData?.healthSourceIdentifier
   )
   const selectedFeature = currentHealthSource?.spec?.feature
-  const initialValues = { ...sourceData, product: { label: selectedFeature, value: selectedFeature } }
+  const initialValues = {
+    ...sourceData,
+    product: selectedFeature ? { label: selectedFeature, value: selectedFeature } : { ...sourceData?.product }
+  }
   return initialValues
 }

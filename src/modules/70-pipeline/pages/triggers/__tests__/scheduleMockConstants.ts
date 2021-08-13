@@ -1,4 +1,4 @@
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import type { TriggerOverviewPanelPropsInterface } from '../views/TriggerOverviewPanel'
 import { scheduleTabsId } from '../views/subviews/ScheduleUtils'
 
@@ -97,7 +97,7 @@ export const getTriggerConfigInitialValues = ({
 }): {
   identifier: string
   triggerType: string
-  originalPipeline: NgPipeline
+  originalPipeline: PipelineInfoConfig
   expression: string | undefined
   selectedScheduleTab: string
   amPm: string
@@ -106,7 +106,7 @@ export const getTriggerConfigInitialValues = ({
   hours: string
   minutes: string
   month: string
-  pipeline: NgPipeline
+  pipeline: PipelineInfoConfig
 } => ({
   identifier: identifier || '',
   triggerType: 'Scheduled',

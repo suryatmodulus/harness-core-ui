@@ -9,6 +9,7 @@ import services from '@pipeline/pages/pipelines/__tests__/mocks/services.json'
 import environments from '@pipeline/pages/pipelines/__tests__/mocks/environments.json'
 import filters from '@pipeline/pages/pipeline-deployment-list/__tests__/filters.json'
 import pipelines from '@pipeline/components/PipelineModalListView/__tests__/RunPipelineListViewMocks'
+import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import CIPipelineDeploymentList from '../CIPipelineDeploymentList'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
@@ -54,13 +55,25 @@ jest.mock('services/pipeline-ng', () => ({
   }))
 }))
 
+const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
+const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+
 jest.mock('services/cd-ng', () => ({
   useGetServiceListForProject: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
   useGetEnvironmentListForProject: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
+    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
+  useListGitSync: jest.fn().mockImplementation(() => {
+    return { data: gitConfigs, refetch: getListGitSync }
+  }),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
+    return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+  }),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: sourceCodeManagers, refetch: jest.fn() }
+  })
 }))
 
 function ComponentWrapper(): React.ReactElement {

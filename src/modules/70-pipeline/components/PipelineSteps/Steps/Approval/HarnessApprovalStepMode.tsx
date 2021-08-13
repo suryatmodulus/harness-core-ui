@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
-import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import { Menu } from '@blueprintjs/core'
 import { FieldArray, FormikProps } from 'formik'
 import {
   Formik,
@@ -11,11 +9,8 @@ import {
   Accordion,
   FormInput,
   Button,
-  MultiSelectOption,
-  Layout,
-  Avatar,
-  Text,
-  getMultiTypeFromValue
+  getMultiTypeFromValue,
+  FormikForm
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -27,8 +22,7 @@ import {
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
-import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { useGetUserGroupList } from 'services/cd-ng'
+import { FormMultiTypeUserGroupInput } from '@common/components/UserGroupsInput/FormMultitypeUserGroupInput'
 import { isApprovalStepFieldDisabled } from '../ApprovalCommons'
 import type {
   HarnessApprovalStepModeProps,
@@ -36,57 +30,12 @@ import type {
   ApproverInputsSubmitCallInterface,
   HarnessApprovalFormContentProps
 } from './types'
-import { isArrayOfStrings } from './helper'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './HarnessApproval.module.scss'
 
-const FormContent = ({
-  formik,
-  userGroupsFetchError,
-  userGroupsResponse,
-  fetchingUserGroups,
-  isNewStep,
-  readonly
-}: HarnessApprovalFormContentProps) => {
+const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContentProps) => {
   const { getString } = useStrings()
   const { expressions } = useVariablesExpression()
-  const [userGroupOptions, setUserGroupOptions] = useState<MultiSelectOption[]>([])
-
-  const setOptionsInForm = (userGroupIds: string[]) => {
-    // When we open the form, we'll get the userGroups as string[] as saved in BE
-    // Convert the same as MultiSelectOption[], and update the formik values for auto populate
-    const selectedUgOptions: MultiSelectOption[] = []
-    userGroupIds.forEach(ugIdentifier => {
-      const matchedOption = userGroupOptions.find(opt => opt.value === ugIdentifier)
-      if (matchedOption) {
-        selectedUgOptions.push(matchedOption)
-      }
-    })
-    formik.setFieldValue('spec.approvers.userGroups', selectedUgOptions)
-  }
-
-  useEffect(() => {
-    // When moving back from advanced tab
-    if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups)) {
-      setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
-    }
-  }, [formik.initialValues])
-
-  useEffect(() => {
-    if (isArrayOfStrings(formik.initialValues.spec.approvers.userGroups) && userGroupOptions.length) {
-      setOptionsInForm(formik.initialValues.spec.approvers.userGroups)
-    }
-  }, [userGroupOptions])
-
-  useEffect(() => {
-    if (userGroupsResponse?.data?.content) {
-      const userGroupsContent = userGroupsResponse?.data?.content
-      const options: MultiSelectOption[] = userGroupsContent
-        ? userGroupsContent.map(ug => ({ label: ug.name || '', value: ug.identifier || '' }))
-        : []
-      setUserGroupOptions(options)
-    }
-  }, [userGroupsResponse?.data?.content])
 
   return (
     <React.Fragment>
@@ -124,8 +73,7 @@ const FormContent = ({
         )}
       </div>
 
-      <div className={stepCss.noLookDivider} />
-
+      <div className={stepCss.stepSubSectionHeading}>Approval Message</div>
       <div className={cx(stepCss.formGroup)}>
         <FormMultiTypeTextAreaField
           name="spec.approvalMessage"
@@ -149,74 +97,23 @@ const FormContent = ({
         )}
       </div>
       <FormInput.CheckBox
-        className={css.execHistoryCheckbox}
         name="spec.includePipelineExecutionHistory"
         label={getString('pipeline.approvalStep.includePipelineExecutionHistory')}
         disabled={isApprovalStepFieldDisabled(readonly)}
       />
 
+      <div className={stepCss.stepSubSectionHeading}>Approvers</div>
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
-        <FormInput.MultiSelectTypeInput
-          className={css.multiSelect}
+        <FormMultiTypeUserGroupInput
           name="spec.approvers.userGroups"
           label={getString('common.userGroups')}
+          formik={formik}
+          tooltipProps={{ dataTooltipId: 'harnessApproval_spec.approvers.userGroups' }}
           disabled={isApprovalStepFieldDisabled(readonly)}
-          selectItems={
-            fetchingUserGroups
-              ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
-              : userGroupOptions
-          }
-          multiSelectTypeInputProps={{
-            expressions,
-            multiSelectProps: {
-              allowCreatingNewItems: true,
-              tagInputProps: {
-                placeholder: fetchingUserGroups
-                  ? getString('pipeline.approvalStep.fetchingUserGroups')
-                  : userGroupsFetchError?.message
-                  ? getString('pipeline.approvalStep.fetchUserGroupsFailed')
-                  : getString('pipeline.approvalStep.addUserGroups')
-              },
-              items: fetchingUserGroups
-                ? [{ label: getString('pipeline.approvalStep.fetchingUserGroups'), value: '', disabled: true }]
-                : userGroupOptions,
-              // eslint-disable-next-line react/display-name
-              tagRenderer: item => (
-                <Layout.Horizontal key={item.label?.toString()} spacing="small">
-                  <Avatar email={item.label?.toString()} size="xsmall" hoverCard={false} />
-                  <Text>{item.label}</Text>
-                </Layout.Horizontal>
-              ),
-              // eslint-disable-next-line react/display-name
-              itemRender: (item, { handleClick }) => (
-                <div key={item.label.toString()}>
-                  <Menu.Item
-                    text={
-                      <Layout.Horizontal spacing="small" className={css.align}>
-                        <Avatar email={item.label?.toString()} size="small" hoverCard={false} />
-                        <Text>{item.label}</Text>
-                      </Layout.Horizontal>
-                    }
-                    onClick={handleClick}
-                  />
-                </div>
-              )
-            }
-          }}
+          expressions={expressions}
         />
-        {getMultiTypeFromValue(formik.values.spec.approvers?.userGroups as string) === MultiTypeInputType.RUNTIME && (
-          <ConfigureOptions
-            value={formik.values.spec.approvers?.userGroups as string}
-            type="Array"
-            variableName="spec.approvers.userGroups"
-            showRequiredField={false}
-            showDefaultField={false}
-            showAdvanced={true}
-            onChange={value => formik.setFieldValue('spec.approvers.userGroups', value)}
-            isReadonly={readonly}
-          />
-        )}
       </div>
+
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormInput.MultiTextInput
           name="spec.approvers.minimumCount"
@@ -243,7 +140,6 @@ const FormContent = ({
         )}
       </div>
       <FormInput.CheckBox
-        className={css.execHistoryCheckbox}
         name="spec.approvers.disallowPipelineExecutor"
         label={getString('pipeline.approvalStep.disallowPipelineExecutor')}
         disabled={isApprovalStepFieldDisabled(readonly)}
@@ -262,6 +158,7 @@ const FormContent = ({
                 render={({ push, remove }) => {
                   return (
                     <div>
+                      <div className={stepCss.stepSubSectionHeading}>Approver Inputs</div>
                       {isEmpty(formik.values.spec.approverInputs) ? null : (
                         <>
                           <div className={css.headerRow}>
@@ -330,20 +227,6 @@ function HarnessApprovalStepMode(
 ) {
   const { onUpdate, isNewStep = true, readonly } = props
   const { getString } = useStrings()
-  const { accountId, projectIdentifier, orgIdentifier } =
-    useParams<PipelineType<PipelinePathProps & AccountPathProps>>()
-
-  const {
-    data: userGroupsResponse,
-    loading: fetchingUserGroups,
-    error: userGroupsFetchError
-  } = useGetUserGroupList({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier
-    }
-  })
 
   return (
     <Formik<HarnessApprovalData>
@@ -370,14 +253,9 @@ function HarnessApprovalStepMode(
         */
         setFormikRef(formikRef, formik)
         return (
-          <FormContent
-            formik={formik}
-            userGroupsResponse={userGroupsResponse}
-            fetchingUserGroups={fetchingUserGroups}
-            userGroupsFetchError={userGroupsFetchError}
-            isNewStep={isNewStep}
-            readonly={readonly}
-          />
+          <FormikForm>
+            <FormContent formik={formik} isNewStep={isNewStep} readonly={readonly} />
+          </FormikForm>
         )
       }}
     </Formik>

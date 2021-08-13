@@ -4,7 +4,7 @@ import { waitFor, render, fireEvent } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import * as dbHook from '@cv/hooks/IndexedDBHook/IndexedDBHook'
-import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
+import { OnboardingEntites } from '../SetupSourceTabs.constants'
 import {
   SetupSourceTabs,
   SetupSourceTabsContext,
@@ -77,12 +77,12 @@ function MockComponentThatHitPrevious(): JSX.Element {
 
 describe('Unit tests for SetupSourceTabs', () => {
   test('Ensure typeToSetupSourceType returns correct value', async () => {
-    expect(typeToSetupSourceType('HARNESS_CD10')).toEqual(ONBOARDING_ENTITIES.CHANGE_SOURCE)
-    expect(typeToSetupSourceType('KUBERNETES')).toEqual(ONBOARDING_ENTITIES.CHANGE_SOURCE)
-    expect(typeToSetupSourceType('APP_DYNAMICS')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
-    expect(typeToSetupSourceType('NEW_RELIC')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
-    expect(typeToSetupSourceType('SPLUNK')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
-    expect(typeToSetupSourceType('STACKDRIVER')).toEqual(ONBOARDING_ENTITIES.MONITORING_SOURCE)
+    expect(typeToSetupSourceType('HARNESS_CD10')).toEqual(OnboardingEntites.CHANGE_SOURCE)
+    expect(typeToSetupSourceType('KUBERNETES')).toEqual(OnboardingEntites.CHANGE_SOURCE)
+    expect(typeToSetupSourceType('APP_DYNAMICS')).toEqual(OnboardingEntites.MONITORING_SOURCE)
+    expect(typeToSetupSourceType('NEW_RELIC')).toEqual(OnboardingEntites.MONITORING_SOURCE)
+    expect(typeToSetupSourceType('SPLUNK')).toEqual(OnboardingEntites.MONITORING_SOURCE)
+    expect(typeToSetupSourceType('STACKDRIVER')).toEqual(OnboardingEntites.MONITORING_SOURCE)
   })
 
   test('Ensure getSetupSourceRoutingIndex returns correct value', async () => {
@@ -99,7 +99,7 @@ describe('Unit tests for SetupSourceTabs', () => {
     expect(
       buildObjectToStore(
         {
-          type: ONBOARDING_ENTITIES.CHANGE_SOURCE,
+          type: OnboardingEntites.CHANGE_SOURCE,
           name: 'sdfs',
           identifier: 'sdfsfsdf'
         },
@@ -123,7 +123,7 @@ describe('Unit tests for SetupSourceTabs', () => {
           ],
           verificationJobs: []
         },
-        ONBOARDING_ENTITIES.CHANGE_SOURCE,
+        OnboardingEntites.CHANGE_SOURCE,
         { orgIdentifier: '134_org', projectIdentifier: '1234_sdf', accountId: '123_accountId' }
       )
     ).toEqual({
@@ -151,7 +151,7 @@ describe('Unit tests for SetupSourceTabs', () => {
     expect(
       buildObjectToStore(
         {
-          type: ONBOARDING_ENTITIES.VERIFICATION_JOBS,
+          type: OnboardingEntites.VERIFICATION_JOBS,
           name: 'sdfs',
           identifier: 'sdfsfsdf'
         },
@@ -163,19 +163,19 @@ describe('Unit tests for SetupSourceTabs', () => {
               identifier: '97689656u7',
               name: 'sdrgfhfghfs',
               routeUrl: 'fghf',
-              type: ONBOARDING_ENTITIES.VERIFICATION_JOBS
+              type: OnboardingEntites.VERIFICATION_JOBS
             },
             {
               identifier: 'ioretureoitueoit',
               name: 'fgdfgdfg',
               routeUrl:
                 '/account/123_accountId/cv/orgs/134_org/projects/1234_sdf/admin/setup/activity-source-setup//activity-sourceId/sdfsfsdf',
-              type: ONBOARDING_ENTITIES.VERIFICATION_JOBS
+              type: OnboardingEntites.VERIFICATION_JOBS
             }
           ],
           changeSources: []
         },
-        ONBOARDING_ENTITIES.VERIFICATION_JOBS,
+        OnboardingEntites.VERIFICATION_JOBS,
         { orgIdentifier: '134_org', projectIdentifier: '1234_sdf', accountId: '123_accountId' }
       )
     ).toEqual({
@@ -187,20 +187,20 @@ describe('Unit tests for SetupSourceTabs', () => {
           identifier: '97689656u7',
           name: 'sdrgfhfghfs',
           routeUrl: 'fghf',
-          type: ONBOARDING_ENTITIES.VERIFICATION_JOBS
+          type: OnboardingEntites.VERIFICATION_JOBS
         },
         {
           identifier: 'ioretureoitueoit',
           name: 'fgdfgdfg',
           routeUrl:
             '/account/123_accountId/cv/orgs/134_org/projects/1234_sdf/admin/setup/activity-source-setup//activity-sourceId/sdfsfsdf',
-          type: ONBOARDING_ENTITIES.VERIFICATION_JOBS
+          type: OnboardingEntites.VERIFICATION_JOBS
         },
         {
           identifier: 'sdfsfsdf',
           name: 'sdfs',
           routeUrl: '',
-          type: ONBOARDING_ENTITIES.VERIFICATION_JOBS
+          type: OnboardingEntites.VERIFICATION_JOBS
         }
       ]
     })
@@ -345,10 +345,10 @@ describe('Unit tests for SetupSourceTabs', () => {
                 semi: {},
                 auto: {},
                 m: {},
-                type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                type: OnboardingEntites.MONITORING_SOURCE,
                 monitoringSources: [
                   {
-                    type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                    type: OnboardingEntites.MONITORING_SOURCE,
                     name: 'some name',
                     identifier: 'ident',
                     routeUrl: 'dsfsf'
@@ -439,10 +439,10 @@ describe('Unit tests for SetupSourceTabs', () => {
                 semi: {},
                 auto: {},
                 m: {},
-                type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                type: OnboardingEntites.MONITORING_SOURCE,
                 monitoringSources: [
                   {
-                    type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                    type: OnboardingEntites.MONITORING_SOURCE,
                     name: 'some name',
                     identifier: 'ident',
                     routeUrl: 'dsfsf'
@@ -509,10 +509,10 @@ describe('Unit tests for SetupSourceTabs', () => {
                 semi: {},
                 auto: {},
                 m: {},
-                type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                type: OnboardingEntites.MONITORING_SOURCE,
                 monitoringSources: [
                   {
-                    type: ONBOARDING_ENTITIES.MONITORING_SOURCE,
+                    type: OnboardingEntites.MONITORING_SOURCE,
                     name: 'some name',
                     identifier: 'ident',
                     routeUrl: 'dsfsf'

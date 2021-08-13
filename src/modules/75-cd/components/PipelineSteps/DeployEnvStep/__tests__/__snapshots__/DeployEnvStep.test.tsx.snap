@@ -75,7 +75,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                       class="bp3-editable-text-content"
                       style="height: 1px; line-height: 1px; min-width: 0;"
                     >
-                      pass_env
+                      New_Project
                     </span>
                   </div>
                 </span>
@@ -110,7 +110,7 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
                     class="bp3-input"
                     name="name"
                     type="text"
-                    value="Pass Env"
+                    value="New Project"
                   />
                 </div>
               </div>
@@ -245,81 +245,104 @@ exports[`Test DeployEnvironment Step should render edit Environment view (enviro
           </div>
         </div>
         <div
-          class="bp3-form-group"
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
         >
           <label
-            class="bp3-label"
-            for="type"
+            class="Label--main"
+            style="font-size: 13px; font-weight: normal;"
           >
             envType
-             
-            <span
-              class="bp3-text-muted"
-            />
           </label>
           <div
-            class="bp3-form-content"
+            class="bp3-form-group ThumbnailSelect--mainContainer thumbnailSelect"
           >
             <div
-              class="grid"
+              class="bp3-form-content"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                data-index="0"
-                tabindex="0"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                <label
+                  class="Thumbnail--squareCardContainer Thumbnail--bigger"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-align-center"
-                    style="font-size: 12px;"
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
                   >
-                    production
-                  </p>
-                </div>
-              </div>
-              <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--selected Card--interactive"
-                data-index="1"
-                tabindex="0"
-              >
-                <span
-                  class="Card--corner"
+                    <span
+                      class="Card--corner"
+                    >
+                      <span
+                        class="Card--badge"
+                      />
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="main-tick"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 11 8"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                    >
+                      nonProduction
+                    </p>
+                  </div>
+                  <input
+                    checked=""
+                    name="type"
+                    type="checkbox"
+                    value="PreProduction"
+                  />
+                </label>
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  data-testid="thumbnail-select-change"
+                  type="button"
                 >
                   <span
-                    class="Card--badge"
-                  />
-                  <span
-                    class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
-                    icon="tick"
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    data-icon="Edit"
                   >
                     <svg
-                      data-icon="tick"
-                      height="9"
-                      viewBox="0 0 16 16"
-                      width="9"
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        tick
-                      </desc>
-                      <path
-                        d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
+                      <g
+                        fill="none"
                         fill-rule="evenodd"
-                      />
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                          stroke="#555770"
+                        />
+                        <path
+                          d="M6.583 5.146l2.063-2.063"
+                          opacity="0.3"
+                          stroke="#606170"
+                        />
+                      </g>
                     </svg>
                   </span>
-                </span>
-                <div
-                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
-                >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-align-center"
-                    style="font-size: 12px;"
+                  <span
+                    class="bp3-button-text"
                   >
-                    nonProduction
-                  </p>
-                </div>
+                    Change
+                  </span>
+                </button>
               </div>
             </div>
           </div>
@@ -555,55 +578,61 @@ exports[`Test DeployEnvironment Step should render environment view and save 1`]
           </div>
         </div>
         <div
-          class="bp3-form-group"
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
         >
           <label
-            class="bp3-label"
-            for="type"
+            class="Label--main"
+            style="font-size: 13px; font-weight: normal;"
           >
             envType
-             
-            <span
-              class="bp3-text-muted"
-            />
           </label>
           <div
-            class="bp3-form-content"
+            class="bp3-form-group ThumbnailSelect--mainContainer thumbnailSelect"
           >
             <div
-              class="grid"
+              class="bp3-form-content"
             >
               <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                data-index="0"
-                tabindex="0"
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
               >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                <label
+                  class="Thumbnail--squareCardContainer Thumbnail--bigger"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-align-center"
-                    style="font-size: 12px;"
+                  <div
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+                    tabindex="0"
                   >
-                    production
-                  </p>
-                </div>
-              </div>
-              <div
-                class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                data-index="1"
-                tabindex="0"
-              >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-large StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                    <p
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                    >
+                      production
+                    </p>
+                  </div>
+                  <input
+                    name="type"
+                    type="checkbox"
+                    value="Production"
+                  />
+                </label>
+                <label
+                  class="Thumbnail--squareCardContainer Thumbnail--bigger"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-align-center"
-                    style="font-size: 12px;"
+                  <div
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Thumbnail--squareCard Card--interactive"
+                    tabindex="0"
                   >
-                    nonProduction
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                    >
+                      nonProduction
+                    </p>
+                  </div>
+                  <input
+                    name="type"
+                    type="checkbox"
+                    value="PreProduction"
+                  />
+                </label>
               </div>
             </div>
           </div>

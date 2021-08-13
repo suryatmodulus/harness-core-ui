@@ -11,12 +11,18 @@ import { TrialLicenseBanner } from '@common/components/Banners/TrialLicenseBanne
 import { Page } from '../Page/Page'
 import css from './HomePageTemplate.module.scss'
 
-interface TrialBannerProps {
+export interface TrialBannerProps {
   expiryTime?: number
   licenseType?: string
   module: ModuleName
   refetch?: () => void
 }
+
+interface CTAProps {
+  text?: string
+  onClick?: () => void
+}
+
 interface HomePageTemplate {
   title: string
   subTitle: string
@@ -24,6 +30,8 @@ interface HomePageTemplate {
   documentText: string
   documentURL?: string
   trialBannerProps: TrialBannerProps
+  ctaProps?: CTAProps
+  disableAdditionalCta?: boolean
 }
 
 export const HomePageTemplate: React.FC<HomePageTemplate> = ({
@@ -63,7 +71,9 @@ export const HomePageTemplate: React.FC<HomePageTemplate> = ({
             <Heading font={{ weight: 'bold', size: 'large' }} color={Color.BLACK_100}>
               {title}
             </Heading>
-            <Text color={'var(--grey-500)'}>{subTitle}</Text>
+            <Text color={'var(--grey-500)'} className={css.subTitle}>
+              {subTitle}
+            </Text>
             <ExternalLink
               className={css.link}
               color={'var(--primary-6)'}

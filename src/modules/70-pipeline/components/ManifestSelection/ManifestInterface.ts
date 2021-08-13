@@ -1,13 +1,13 @@
 import type { SelectOption } from '@wings-software/uicore'
 import type { ConnectorSelectedValue } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import type {
-  ConnectorInfoDTO,
   ManifestConfig,
   ManifestConfigWrapper,
   PageConnectorResponse,
+  PipelineInfoConfig,
   StageElementConfig
 } from 'services/cd-ng'
-import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
+import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 
 export type ManifestTypes =
   | 'K8sManifest'
@@ -28,7 +28,7 @@ export interface ManifestSelectionProps {
 }
 
 export interface ManifestListViewProps {
-  pipeline: NgPipeline
+  pipeline: PipelineInfoConfig
   isForOverrideSets: boolean
   updateStage: (stage: StageElementConfig) => Promise<void>
   identifierName?: string
@@ -44,7 +44,7 @@ export interface ManifestListViewProps {
 
 export interface ManifestStepInitData {
   connectorRef: string | undefined | ConnectorSelectedValue
-  store: ConnectorInfoDTO['type'] | string
+  store: ManifestStores | string
   selectedManifest: ManifestTypes | null
 }
 export interface ManifestDetailDataType {

@@ -3,56 +3,100 @@
 exports[`CD Pipeline Page List render card view 1`] = `
 <div>
   <div
-    class="pageheader"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="breadcrumbs"
+      class="Layout--vertical StyledProps--main"
     >
-      <div>
-        <a
-          class="breadcrumb"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
-        >
-          test
-        </a>
-        <span
-          class="bp3-icon StyledProps--main separator"
-          data-icon="main-chevron-right"
-        >
-          <svg
-            height="11"
-            viewBox="0 0 8 14"
-            width="11"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-              fill="#4d5969"
-            />
-          </svg>
-        </span>
-      </div>
-      <div>
-        <span
-          class="lastBreadcrumb"
-        >
-          pipelines
-        </span>
-      </div>
-    </div>
-    <div
-      class="ng-tooltip-native"
-    >
-      <h2
-        data-tooltip-id="pipelinesPageHeading"
+      <div
+        class="breadcrumbsDiv"
       >
-         
-        pipelines
-      </h2>
+        <div
+          class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="cd-main"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 27 29"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                    fill="url(#cd-main_svg__paint0_linear)"
+                    fill-rule="evenodd"
+                  />
+                  <defs>
+                    <lineargradient
+                      gradientUnits="userSpaceOnUse"
+                      id="cd-main_svg__paint0_linear"
+                      x1="4.551"
+                      x2="19.517"
+                      y1="0"
+                      y2="27.642"
+                    >
+                      <stop
+                        stop-color="#62F91F"
+                      />
+                      <stop
+                        offset="1"
+                        stop-color="#45BD35"
+                      />
+                    </lineargradient>
+                  </defs>
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                test
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ng-tooltip-native"
+      >
+        <h2
+          data-tooltip-id="pipelinesPageHeading"
+        >
+           
+          pipelines
+        </h2>
+      </div>
     </div>
   </div>
   <div
-    class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
+    class="Layout--horizontal StyledProps--main container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -79,84 +123,86 @@ exports[`CD Pipeline Page List render card view 1`] = `
       style="align-items: center;"
     >
       <div
-        class="expandSearch"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded"
+        data-name=""
+        style="width: 200px; max-width: 200px;"
       >
-        <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
-          data-name=""
+        <span
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          data-icon="thinner-search"
         >
-          <span
-            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
-            icon="search"
+          <svg
+            fill="none"
+            height="14"
+            viewBox="0 0 16 16"
+            width="14"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              data-icon="search"
-              height="14"
-              viewBox="0 0 16 16"
-              width="14"
-            >
-              <desc>
-                search
-              </desc>
-              <path
-                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <input
-            class="bp3-input "
-            dir="auto"
-            placeholder="search"
-            style="padding-right: 0px;"
-            type="search"
-            value=""
-          />
-        </div>
+            <path
+              d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <input
+          class="bp3-input  ExpandingSearchInput--filter"
+          dir="auto"
+          placeholder="search"
+          style="padding-right: 36px;"
+          type="search"
+          value=""
+        />
       </div>
       <div
         class="Layout--horizontal StyledProps--main StyledProps--padding-left-small StyledProps--padding-right-small"
       >
         <div
-          class="bp3-popover-wrapper filterSelector Select--main bp3-fill"
+          class="bp3-popover-wrapper DropDown--main DropDown--disabled"
         >
           <div
             class="bp3-popover-target"
           >
             <div
-              class="bp3-input-group"
+              class=""
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="filters.selectFilter"
-                style="padding-right: 0px;"
-                type="text"
-                value=""
-              />
-              <span
-                class="bp3-input-action"
+              <div
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
+                data-testid="filter-select"
+                style="min-width: 220px;"
               >
-                <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
+                <div
+                  class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
                 >
-                  <svg
-                    data-icon="caret-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                  <p
+                    class="StyledProps--font StyledProps--main DropDown--label"
+                    data-testid="dropdown-value"
                   >
-                    <desc>
-                      caret-down
-                    </desc>
-                    <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
+                    common.filters.noFilterSaved
+                  </p>
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    data-icon="main-chevron-down"
+                  >
+                    <svg
+                      height="8"
+                      viewBox="0 0 14 8"
+                      width="8"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -205,7 +251,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -231,7 +277,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -285,7 +331,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
             <input
               autocomplete="off"
               class="bp3-input"
-              placeholder="Search..."
+              placeholder="- Select -"
               style="padding-right: 0px;"
               type="text"
               value="lastUpdatedSort"
@@ -294,20 +340,20 @@ exports[`CD Pipeline Page List render card view 1`] = `
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                icon="caret-down"
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                icon="chevron-down"
               >
                 <svg
-                  data-icon="caret-down"
+                  data-icon="chevron-down"
                   height="14"
                   viewBox="0 0 16 16"
                   width="14"
                 >
                   <desc>
-                    caret-down
+                    chevron-down
                   </desc>
                   <path
-                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                     fill-rule="evenodd"
                   />
                 </svg>
@@ -333,26 +379,68 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="sectionMargin sectionBorder"
+              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
-                class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
+                class="Card--cardMenu"
               >
-                <span>
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-more StyledProps--main"
+                          icon="more"
+                        >
+                          <svg
+                            data-icon="more"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              more
+                            </desc>
+                            <path
+                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+                >
                   <span
                     class="bp3-icon StyledProps--main"
                     data-icon="cd-main"
                   >
                     <svg
                       fill="none"
-                      height="20"
-                      viewBox="0 0 26 21"
-                      width="20"
+                      height="14"
+                      viewBox="0 0 27 29"
+                      width="14"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                         fill="url(#cd-main_svg__paint0_linear)"
                         fill-rule="evenodd"
                       />
@@ -360,17 +448,17 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         <lineargradient
                           gradientUnits="userSpaceOnUse"
                           id="cd-main_svg__paint0_linear"
-                          x1="3.557"
-                          x2="8.848"
-                          y1="9.622"
-                          y2="18.787"
+                          x1="4.551"
+                          x2="19.517"
+                          y1="0"
+                          y2="27.642"
                         >
                           <stop
                             stop-color="#62F91F"
                           />
                           <stop
                             offset="1"
-                            stop-color="#5EAA53"
+                            stop-color="#45BD35"
                           />
                         </lineargradient>
                       </defs>
@@ -382,14 +470,14 @@ exports[`CD Pipeline Page List render card view 1`] = `
                   >
                     <svg
                       fill="none"
-                      height="16"
-                      viewBox="0 0 20 20"
-                      width="16"
+                      height="14"
+                      viewBox="0 0 27 26"
+                      width="14"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M12.005 10.97a2.9 2.9 0 01-3.003-2.96 2.9 2.9 0 013.002-3.008 2.927 2.927 0 012.994 3.007 2.882 2.882 0 01-2.993 2.989v-.027zM6 .9a9.987 9.987 0 014.203-.9C15.56-.053 19.945 4.258 20 9.63v.144A9.928 9.928 0 0119.103 14l-3.092-3.102a5.15 5.15 0 00.762-2.697 4.743 4.743 0 00-4.93-4.937 5.013 5.013 0 00-2.688.765L6 .899zM3.991 2.2l-.099.09L7.36 5.734a5.16 5.16 0 00-.766 2.762c-.081 2.635 1.977 4.838 4.597 4.921.116.003.232.002.349-.002a5.116 5.116 0 002.774-.77L17.8 16.13A9.792 9.792 0 019.91 20c-5.393.08-9.829-4.25-9.908-9.673L0 10.153A9.645 9.645 0 013.99 2.2z"
+                        d="M26.142 13a13.36 13.36 0 01-.83 4.6.371.371 0 01-.619.13l-3.875-3.94a.546.546 0 01-.083-.628c.42-.827.63-1.773.63-2.762.055-3.222-2.526-5.878-5.71-5.878-1.011 0-1.938.26-2.743.706a.503.503 0 01-.605-.08l-3.45-3.504c-.243-.247-.169-.668.15-.794A12.11 12.11 0 0113.513 0c6.973 0 12.629 5.822 12.629 13zM6.204 2.42a.553.553 0 01.725.072l3.92 4.035c.173.178.188.46.053.67a5.951 5.951 0 00-.958 3.26c0 3.278 2.581 5.934 5.766 5.934a5.548 5.548 0 003.166-.985.505.505 0 01.65.054l4.244 4.368a.595.595 0 01.063.756C21.503 23.86 17.787 26 13.513 26 6.54 26 .885 20.178.885 13c0-4.403 2.082-8.231 5.319-10.58zm9.506 11.71c2.141 0 3.843-1.752 3.843-3.956 0-2.204-1.702-3.957-3.843-3.957-2.142 0-3.844 1.753-3.844 3.957 0 2.204 1.702 3.956 3.844 3.956z"
                         fill="url(#ci-main_svg__paint0_linear)"
                         fill-rule="evenodd"
                       />
@@ -397,10 +485,10 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         <lineargradient
                           gradientUnits="userSpaceOnUse"
                           id="ci-main_svg__paint0_linear"
-                          x1="-6.46"
-                          x2="6.46"
-                          y1="6.46"
-                          y2="26.46"
+                          x1="-7.274"
+                          x2="9.718"
+                          y1="8.398"
+                          y2="33.949"
                         >
                           <stop
                             stop-color="#73DFE7"
@@ -413,12 +501,70 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       </defs>
                     </svg>
                   </span>
-                </span>
+                </div>
                 <div
-                  class="Card--cardMenu menu"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
-                    class="Card--dots"
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
+                      data-testid="pipeline1"
+                      style="--text-line-clamp: 1;"
+                    >
+                      pipeline1
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      style="--text-line-clamp: 1;"
+                    >
+                      idLabel
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              />
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
+                  >
+                    services
+                  </p>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
+                    nginx service
+                  </p>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--padding-top-medium StyledProps--padding-bottom-xlarge"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
+                  >
+                    lastRunAtDate
+                  </p>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
                   >
                     <span
                       class="bp3-popover-wrapper bp3-dark"
@@ -426,155 +572,55 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       <span
                         class="bp3-popover-target"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                          type="button"
+                        <span
+                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-black"
+                          tabindex="0"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="Options"
-                          >
-                            <svg
-                              fill="none"
-                              height="16"
-                              viewBox="0 0 4 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          dummy date
+                        </span>
                       </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger"
+                      icon="warning-sign"
+                    >
+                      <svg
+                        data-icon="warning-sign"
+                        height="12"
+                        viewBox="0 0 16 16"
+                        width="12"
+                      >
+                        <desc>
+                          warning-sign
+                        </desc>
+                        <path
+                          d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                 </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
-              >
                 <div
-                  class="pipelineNameSections"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-grey800"
-                    data-testid="pipeline1"
-                    style="--text-line-clamp: 2;"
-                  >
-                    pipeline1
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                  >
-                    idLabel
-                    pipeline1
-                  </p>
-                </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-large"
-              >
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
-                  style="--text-line-clamp: 2;"
-                >
-                  pipeline1
-                </p>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                >
-                  services
-                </p>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey900"
-                  style="--text-line-clamp: 1;"
-                >
-                  nginx service
-                </p>
-              </div>
-            </div>
-            <div
-              class="sectionMargin sectionBorder"
-            >
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-medium StyledProps--padding-bottom-small"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                >
-                  <span
-                    color="grey500"
-                    style="width: 100px;"
-                  >
-                    lastRunAtDate
-                  </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-                  >
-                    1612888596211
-                  </p>
-                  <span
-                    class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger"
-                    icon="warning-sign"
-                  >
-                    <svg
-                      data-icon="warning-sign"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      width="20"
-                    >
-                      <desc>
-                        warning-sign
-                      </desc>
-                      <path
-                        d="M19.86 17.52l.01-.01-9-16-.01.01C10.69 1.21 10.37 1 10 1s-.69.21-.86.52l-.01-.01-9 16 .01.01c-.08.14-.14.3-.14.48 0 .55.45 1 1 1h18c.55 0 1-.45 1-1 0-.18-.06-.34-.14-.48zM11 17H9v-2h2v2zm0-3H9V6h2v8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-medium StyledProps--padding-bottom-small"
-                  style="align-items: flex-end;"
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-xsmall StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="StyledProps--font StyledProps--main label"
+                    style="width: 80px;"
                   >
-                    <div
-                      style="margin-right: 12px; width: 90px;"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        executionsText
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        (
-                        pipeline.lastSevenDays
-                        )
-                      </p>
-                    </div>
                     <p
-                      class="StyledProps--font StyledProps--main clickable StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-small"
                     >
-                      1
+                      executionsText
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-xsmall"
+                    >
+                      pipeline.lastSevenDays
                     </p>
                   </div>
-                  <span
-                    class="activityChart"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end"
                   >
                     <div
                       class="StyledProps--font StyledProps--main SparkChart--main"
@@ -584,7 +630,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="container vertical rounded"
                       >
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -601,7 +647,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -618,7 +664,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -635,7 +681,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -652,7 +698,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -669,7 +715,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -686,7 +732,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -704,71 +750,54 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         </div>
                       </div>
                     </div>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="sectionMargin"
-            >
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-space-between StyledProps--padding-top-large"
-              >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--round"
-                  data-testid="card-run-pipeline"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                    data-icon="run-pipeline"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    <p
+                      class="StyledProps--font StyledProps--main deploymentsCount StyledProps--color StyledProps--color-primary7 StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                     >
-                      <defs>
-                        <path
-                          d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                          id="run-pipeline_svg__a"
-                        />
-                      </defs>
-                      <clippath
-                        id="run-pipeline_svg__b"
-                      >
-                        <use
-                          overflow="visible"
-                          xlink:href="#run-pipeline_svg__a"
-                        />
-                      </clippath>
-                      <path
-                        clip-path="url(#run-pipeline_svg__b)"
-                        d="M-5-5h26v26H-5z"
-                        fill="#54b610"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
+                      1
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
+                >
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color"
+                    data-testid="card-run-pipeline"
+                    type="button"
                   >
-                    <span>
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      data-icon="command-start"
+                    >
+                      <svg
+                        height="9"
+                        viewBox="0 0 8 10"
+                        width="9"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 5c0-.3-.1-.5-.3-.6L1 .1C.9.1.8 0 .7 0 .3 0 0 .3 0 .7v8.6c0 .4.3.7.7.7.1 0 .2-.1.3-.1l6.7-4.3c.2-.1.3-.3.3-.6z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
                       runPipelineText
                     </span>
-                  </span>
-                </button>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main viewExecutionBtn StyledProps--color StyledProps--color-primary7 StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--round"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
+                  </button>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
+                    type="button"
                   >
-                    viewExecutions
-                  </span>
-                </button>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      viewExecutions
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -782,26 +811,68 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="sectionMargin sectionBorder"
+              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
-                class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
+                class="Card--cardMenu"
               >
-                <span>
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-more StyledProps--main"
+                          icon="more"
+                        >
+                          <svg
+                            data-icon="more"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              more
+                            </desc>
+                            <path
+                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+                >
                   <span
                     class="bp3-icon StyledProps--main"
                     data-icon="cd-main"
                   >
                     <svg
                       fill="none"
-                      height="20"
-                      viewBox="0 0 26 21"
-                      width="20"
+                      height="14"
+                      viewBox="0 0 27 29"
+                      width="14"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                         fill="url(#cd-main_svg__paint0_linear)"
                         fill-rule="evenodd"
                       />
@@ -809,28 +880,86 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         <lineargradient
                           gradientUnits="userSpaceOnUse"
                           id="cd-main_svg__paint0_linear"
-                          x1="3.557"
-                          x2="8.848"
-                          y1="9.622"
-                          y2="18.787"
+                          x1="4.551"
+                          x2="19.517"
+                          y1="0"
+                          y2="27.642"
                         >
                           <stop
                             stop-color="#62F91F"
                           />
                           <stop
                             offset="1"
-                            stop-color="#5EAA53"
+                            stop-color="#45BD35"
                           />
                         </lineargradient>
                       </defs>
                     </svg>
                   </span>
-                </span>
+                </div>
                 <div
-                  class="Card--cardMenu menu"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
-                    class="Card--dots"
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
+                      data-testid="First_pipeline"
+                      style="--text-line-clamp: 1;"
+                    >
+                      First pipeline
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      style="--text-line-clamp: 1;"
+                    >
+                      idLabel
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              />
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
+                  >
+                    services
+                  </p>
+                  <p
+                    class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-black"
+                    style="--text-line-clamp: 1;"
+                  >
+                    nginx service
+                  </p>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--padding-top-medium StyledProps--padding-bottom-xlarge"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
+                  >
+                    lastRunAtDate
+                  </p>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
                   >
                     <span
                       class="bp3-popover-wrapper bp3-dark"
@@ -838,154 +967,64 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       <span
                         class="bp3-popover-target"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                          type="button"
+                        <span
+                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-black"
+                          tabindex="0"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="Options"
-                          >
-                            <svg
-                              fill="none"
-                              height="16"
-                              viewBox="0 0 4 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          dummy date
+                        </span>
                       </span>
+                    </span>
+                    <span
+                      class="bp3-icon StyledProps--main"
+                      data-icon="deployment-success-legacy"
+                    >
+                      <svg
+                        height="12"
+                        viewBox="0 0 14 14"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="7"
+                          cy="7"
+                          fill="#38d168"
+                          r="7"
+                        />
+                        <circle
+                          cx="7"
+                          cy="7"
+                          fill="#fff"
+                          r="5.2"
+                        />
+                        <path
+                          d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                          fill="#38d168"
+                        />
+                      </svg>
                     </span>
                   </div>
                 </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
-              >
                 <div
-                  class="pipelineNameSections"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-grey800"
-                    data-testid="First_pipeline"
-                    style="--text-line-clamp: 2;"
-                  >
-                    First pipeline
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                  >
-                    idLabel
-                    First_pipeline
-                  </p>
-                </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium StyledProps--padding-right-medium"
-              >
-                <p
-                  class="StyledProps--font StyledProps--main serviceLabel StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                >
-                  services
-                </p>
-                <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main serviceName StyledProps--color StyledProps--color-grey900"
-                  style="--text-line-clamp: 1;"
-                >
-                  nginx service
-                </p>
-              </div>
-            </div>
-            <div
-              class="sectionMargin sectionBorder"
-            >
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-medium StyledProps--padding-bottom-small"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                >
-                  <span
-                    color="grey500"
-                    style="width: 100px;"
-                  >
-                    lastRunAtDate
-                  </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-                  >
-                    1612867219333
-                  </p>
-                  <span
-                    class="bp3-icon StyledProps--main"
-                    data-icon="deployment-success-legacy"
-                  >
-                    <svg
-                      height="20"
-                      viewBox="0 0 14 14"
-                      width="20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <circle
-                        cx="7"
-                        cy="7"
-                        fill="#38d168"
-                        r="7"
-                      />
-                      <circle
-                        cx="7"
-                        cy="7"
-                        fill="#fff"
-                        r="5.2"
-                      />
-                      <path
-                        d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
-                        fill="#38d168"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-medium StyledProps--padding-bottom-small"
-                  style="align-items: flex-end;"
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-xsmall StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="StyledProps--font StyledProps--main label"
+                    style="width: 80px;"
                   >
-                    <div
-                      style="margin-right: 12px; width: 90px;"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        executionsText
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        (
-                        pipeline.lastSevenDays
-                        )
-                      </p>
-                    </div>
                     <p
-                      class="StyledProps--font StyledProps--main clickable StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-small"
                     >
-                      9
+                      executionsText
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-xsmall"
+                    >
+                      pipeline.lastSevenDays
                     </p>
                   </div>
-                  <span
-                    class="activityChart"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end"
                   >
                     <div
                       class="StyledProps--font StyledProps--main SparkChart--main"
@@ -995,7 +1034,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="container vertical rounded"
                       >
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1012,7 +1051,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1029,7 +1068,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1046,7 +1085,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1063,7 +1102,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1080,7 +1119,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1097,7 +1136,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1115,71 +1154,54 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         </div>
                       </div>
                     </div>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="sectionMargin"
-            >
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-space-between StyledProps--padding-top-large"
-              >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--round"
-                  data-testid="card-run-pipeline"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                    data-icon="run-pipeline"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    <p
+                      class="StyledProps--font StyledProps--main deploymentsCount StyledProps--color StyledProps--color-primary7 StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                     >
-                      <defs>
-                        <path
-                          d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                          id="run-pipeline_svg__a"
-                        />
-                      </defs>
-                      <clippath
-                        id="run-pipeline_svg__b"
-                      >
-                        <use
-                          overflow="visible"
-                          xlink:href="#run-pipeline_svg__a"
-                        />
-                      </clippath>
-                      <path
-                        clip-path="url(#run-pipeline_svg__b)"
-                        d="M-5-5h26v26H-5z"
-                        fill="#54b610"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
+                      9
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
+                >
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color"
+                    data-testid="card-run-pipeline"
+                    type="button"
                   >
-                    <span>
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      data-icon="command-start"
+                    >
+                      <svg
+                        height="9"
+                        viewBox="0 0 8 10"
+                        width="9"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 5c0-.3-.1-.5-.3-.6L1 .1C.9.1.8 0 .7 0 .3 0 0 .3 0 .7v8.6c0 .4.3.7.7.7.1 0 .2-.1.3-.1l6.7-4.3c.2-.1.3-.3.3-.6z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
                       runPipelineText
                     </span>
-                  </span>
-                </button>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main viewExecutionBtn StyledProps--color StyledProps--color-primary7 StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--round"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
+                  </button>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
+                    type="button"
                   >
-                    viewExecutions
-                  </span>
-                </button>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      viewExecutions
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1193,26 +1215,68 @@ exports[`CD Pipeline Page List render card view 1`] = `
             tabindex="0"
           >
             <div
-              class="sectionMargin sectionBorder"
+              class="StyledProps--font StyledProps--main pipelineInfo StyledProps--padding-xlarge StyledProps--border StyledProps--border-bottom"
             >
               <div
-                class="StyledProps--font StyledProps--main pipelineTitle StyledProps--padding-bottom-medium"
+                class="Card--cardMenu"
               >
-                <span>
+                <div
+                  class="Card--dots"
+                >
+                  <span
+                    class="bp3-popover-wrapper bp3-dark"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-more StyledProps--main"
+                          icon="more"
+                        >
+                          <svg
+                            data-icon="more"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              more
+                            </desc>
+                            <path
+                              d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-bottom-small"
+                >
                   <span
                     class="bp3-icon StyledProps--main"
                     data-icon="cd-main"
                   >
                     <svg
                       fill="none"
-                      height="20"
-                      viewBox="0 0 26 21"
-                      width="20"
+                      height="14"
+                      viewBox="0 0 27 29"
+                      width="14"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         clip-rule="evenodd"
-                        d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                        d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                         fill="url(#cd-main_svg__paint0_linear)"
                         fill-rule="evenodd"
                       />
@@ -1220,28 +1284,85 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         <lineargradient
                           gradientUnits="userSpaceOnUse"
                           id="cd-main_svg__paint0_linear"
-                          x1="3.557"
-                          x2="8.848"
-                          y1="9.622"
-                          y2="18.787"
+                          x1="4.551"
+                          x2="19.517"
+                          y1="0"
+                          y2="27.642"
                         >
                           <stop
                             stop-color="#62F91F"
                           />
                           <stop
                             offset="1"
-                            stop-color="#5EAA53"
+                            stop-color="#45BD35"
                           />
                         </lineargradient>
                       </defs>
                     </svg>
                   </span>
-                </span>
+                </div>
                 <div
-                  class="Card--cardMenu menu"
+                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                 >
                   <div
-                    class="Card--dots"
+                    class="StyledProps--font StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800"
+                      data-testid="Second_Pipeline"
+                      style="--text-line-clamp: 1;"
+                    >
+                      Second Pipeline
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-xsmall"
+                      style="--text-line-clamp: 1;"
+                    >
+                      idLabel
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps--font StyledProps--main StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              />
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--border StyledProps--border-bottom StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+              >
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
+                  >
+                    services
+                  </p>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
+                  >
+                    none
+                  </p>
+                </div>
+              </div>
+              <div
+                class="StyledProps--font StyledProps--main infoContainer StyledProps--padding-top-medium StyledProps--padding-bottom-xlarge"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main label StyledProps--font-small StyledProps--color StyledProps--color-grey700"
+                    style="width: 80px;"
+                  >
+                    lastRunAtDate
+                  </p>
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
                   >
                     <span
                       class="bp3-popover-wrapper bp3-dark"
@@ -1249,130 +1370,55 @@ exports[`CD Pipeline Page List render card view 1`] = `
                       <span
                         class="bp3-popover-target"
                       >
-                        <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
-                          type="button"
+                        <span
+                          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--font-small StyledProps--color StyledProps--color-black"
+                          tabindex="0"
                         >
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="Options"
-                          >
-                            <svg
-                              fill="none"
-                              height="16"
-                              viewBox="0 0 4 16"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                clip-rule="evenodd"
-                                d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                                fill="currentColor"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                          dummy date
+                        </span>
                       </span>
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger"
+                      icon="warning-sign"
+                    >
+                      <svg
+                        data-icon="warning-sign"
+                        height="12"
+                        viewBox="0 0 16 16"
+                        width="12"
+                      >
+                        <desc>
+                          warning-sign
+                        </desc>
+                        <path
+                          d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
                     </span>
                   </div>
                 </div>
-              </div>
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--padding-bottom-medium"
-              >
                 <div
-                  class="pipelineNameSections"
-                >
-                  <p
-                    class="StyledProps--font Text--lineclamp StyledProps--main pipelineName StyledProps--font-medium StyledProps--color StyledProps--color-grey800"
-                    data-testid="Second_Pipeline"
-                    style="--text-line-clamp: 2;"
-                  >
-                    Second Pipeline
-                  </p>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--font-small StyledProps--color StyledProps--color-grey500"
-                  >
-                    idLabel
-                    Second_Pipeline
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="sectionMargin sectionBorder"
-            >
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-medium StyledProps--padding-bottom-small"
-              >
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
-                >
-                  <span
-                    color="grey500"
-                    style="width: 100px;"
-                  >
-                    lastRunAtDate
-                  </span>
-                  <p
-                    class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
-                  >
-                    1612787988402
-                  </p>
-                  <span
-                    class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--intent-danger"
-                    icon="warning-sign"
-                  >
-                    <svg
-                      data-icon="warning-sign"
-                      height="20"
-                      viewBox="0 0 20 20"
-                      width="20"
-                    >
-                      <desc>
-                        warning-sign
-                      </desc>
-                      <path
-                        d="M19.86 17.52l.01-.01-9-16-.01.01C10.69 1.21 10.37 1 10 1s-.69.21-.86.52l-.01-.01-9 16 .01.01c-.08.14-.14.3-.14.48 0 .55.45 1 1 1h18c.55 0 1-.45 1-1 0-.18-.06-.34-.14-.48zM11 17H9v-2h2v2zm0-3H9V6h2v8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--flex StyledProps--flex-distribution-space-between StyledProps--padding-top-medium StyledProps--padding-bottom-small"
-                  style="align-items: flex-end;"
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-top-xsmall StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-end"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main"
+                    class="StyledProps--font StyledProps--main label"
+                    style="width: 80px;"
                   >
-                    <div
-                      style="margin-right: 12px; width: 90px;"
-                    >
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        executionsText
-                      </p>
-                      <p
-                        class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
-                        style="--text-line-clamp: 2;"
-                      >
-                        (
-                        pipeline.lastSevenDays
-                        )
-                      </p>
-                    </div>
                     <p
-                      class="StyledProps--font StyledProps--main clickable StyledProps--color StyledProps--color-primary7 StyledProps--font-medium"
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey700 StyledProps--font-small"
                     >
-                      1
+                      executionsText
+                    </p>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-xsmall"
+                    >
+                      pipeline.lastSevenDays
                     </p>
                   </div>
-                  <span
-                    class="activityChart"
+                  <div
+                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-end"
                   >
                     <div
                       class="StyledProps--font StyledProps--main SparkChart--main"
@@ -1382,7 +1428,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         class="container vertical rounded"
                       >
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1399,7 +1445,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1416,7 +1462,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1433,7 +1479,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1450,7 +1496,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1467,7 +1513,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1484,7 +1530,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
                           </div>
                         </div>
                         <div
-                          class="progress-bar"
+                          class="progress-bar sparkChart"
                           role="spark"
                         >
                           <div
@@ -1502,71 +1548,54 @@ exports[`CD Pipeline Page List render card view 1`] = `
                         </div>
                       </div>
                     </div>
-                  </span>
-                </div>
-              </div>
-            </div>
-            <div
-              class="sectionMargin"
-            >
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-space-between StyledProps--padding-top-large"
-              >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main runPipelineBtn StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--round"
-                  data-testid="card-run-pipeline"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
-                    data-icon="run-pipeline"
-                  >
-                    <svg
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                      xmlns="http://www.w3.org/2000/svg"
-                      xmlns:xlink="http://www.w3.org/1999/xlink"
+                    <p
+                      class="StyledProps--font StyledProps--main deploymentsCount StyledProps--color StyledProps--color-primary7 StyledProps--font-size-medium StyledProps--font-weight-semi-bold"
                     >
-                      <defs>
-                        <path
-                          d="M7.2 10.6V5.4L10.6 8l-3.4 2.6zm4.4-3.3L7.4 4.1c-.3-.2-.6-.2-.9-.1-.3.2-.5.5-.5.8v6.4c0 .3.2.6.5.8.3.1.6.1.9-.1l4.2-3.2c.2-.2.3-.4.3-.7s-.1-.5-.3-.7zm1.1 5.4c-2.2 2.2-5.7 2.6-8.4.8s-3.6-5.1-2.4-8c1.2-2.9 4.3-4.6 7.4-4 3.1.6 5.3 3.3 5.3 6.5.1 1.8-.6 3.4-1.9 4.7zm2.7-7.8C13.8 1.1 9.6-.9 5.7.4 1.7 1.6-.7 5.6.2 9.6s4.5 6.8 8.6 6.4c4.1-.4 7.2-3.8 7.2-8 0-1.1-.2-2.1-.6-3.1z"
-                          id="run-pipeline_svg__a"
-                        />
-                      </defs>
-                      <clippath
-                        id="run-pipeline_svg__b"
-                      >
-                        <use
-                          overflow="visible"
-                          xlink:href="#run-pipeline_svg__a"
-                        />
-                      </clippath>
-                      <path
-                        clip-path="url(#run-pipeline_svg__b)"
-                        d="M-5-5h26v26H-5z"
-                        fill="#54b610"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
+                      1
+                    </p>
+                  </div>
+                </div>
+                <div
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--margin-top-small StyledProps--flex"
+                >
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns runBtn Button--with-current-color"
+                    data-testid="card-run-pipeline"
+                    type="button"
                   >
-                    <span>
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                      data-icon="command-start"
+                    >
+                      <svg
+                        height="9"
+                        viewBox="0 0 8 10"
+                        width="9"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 5c0-.3-.1-.5-.3-.6L1 .1C.9.1.8 0 .7 0 .3 0 0 .3 0 .7v8.6c0 .4.3.7.7.7.1 0 .2-.1.3-.1l6.7-4.3c.2-.1.3-.3.3-.6z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
                       runPipelineText
                     </span>
-                  </span>
-                </button>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main viewExecutionBtn StyledProps--color StyledProps--color-primary7 StyledProps--font StyledProps--font-size-normal Button--with-current-color Button--round"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
+                  </button>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main cardBtns viewExecutionsBtn Button--with-current-color"
+                    type="button"
                   >
-                    viewExecutions
-                  </span>
-                </button>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      viewExecutions
+                    </span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -1600,56 +1629,100 @@ exports[`CD Pipeline Page List render card view 1`] = `
 exports[`CD Pipeline Page List render list view 1`] = `
 <div>
   <div
-    class="pageheader"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="breadcrumbs"
+      class="Layout--vertical StyledProps--main"
     >
-      <div>
-        <a
-          class="breadcrumb"
-          href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
-        >
-          test
-        </a>
-        <span
-          class="bp3-icon StyledProps--main separator"
-          data-icon="main-chevron-right"
-        >
-          <svg
-            height="11"
-            viewBox="0 0 8 14"
-            width="11"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-              fill="#4d5969"
-            />
-          </svg>
-        </span>
-      </div>
-      <div>
-        <span
-          class="lastBreadcrumb"
-        >
-          pipelines
-        </span>
-      </div>
-    </div>
-    <div
-      class="ng-tooltip-native"
-    >
-      <h2
-        data-tooltip-id="pipelinesPageHeading"
+      <div
+        class="breadcrumbsDiv"
       >
-         
-        pipelines
-      </h2>
+        <div
+          class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd"
+            >
+              <span
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="cd-main"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 27 29"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                    fill="url(#cd-main_svg__paint0_linear)"
+                    fill-rule="evenodd"
+                  />
+                  <defs>
+                    <lineargradient
+                      gradientUnits="userSpaceOnUse"
+                      id="cd-main_svg__paint0_linear"
+                      x1="4.551"
+                      x2="19.517"
+                      y1="0"
+                      y2="27.642"
+                    >
+                      <stop
+                        stop-color="#62F91F"
+                      />
+                      <stop
+                        offset="1"
+                        stop-color="#45BD35"
+                      />
+                    </lineargradient>
+                  </defs>
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                test
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="ng-tooltip-native"
+      >
+        <h2
+          data-tooltip-id="pipelinesPageHeading"
+        >
+           
+          pipelines
+        </h2>
+      </div>
     </div>
   </div>
   <div
-    class="Layout--horizontal StyledProps--main header StyledProps--flex StyledProps--flex-distribution-space-between"
+    class="Layout--horizontal StyledProps--main container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"
@@ -1676,84 +1749,86 @@ exports[`CD Pipeline Page List render list view 1`] = `
       style="align-items: center;"
     >
       <div
-        class="expandSearch"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded"
+        data-name=""
+        style="width: 200px; max-width: 200px;"
       >
-        <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
-          data-name=""
+        <span
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          data-icon="thinner-search"
         >
-          <span
-            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
-            icon="search"
+          <svg
+            fill="none"
+            height="14"
+            viewBox="0 0 16 16"
+            width="14"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <svg
-              data-icon="search"
-              height="14"
-              viewBox="0 0 16 16"
-              width="14"
-            >
-              <desc>
-                search
-              </desc>
-              <path
-                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-          <input
-            class="bp3-input "
-            dir="auto"
-            placeholder="search"
-            style="padding-right: 0px;"
-            type="search"
-            value=""
-          />
-        </div>
+            <path
+              d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </span>
+        <input
+          class="bp3-input  ExpandingSearchInput--filter"
+          dir="auto"
+          placeholder="search"
+          style="padding-right: 36px;"
+          type="search"
+          value=""
+        />
       </div>
       <div
         class="Layout--horizontal StyledProps--main StyledProps--padding-left-small StyledProps--padding-right-small"
       >
         <div
-          class="bp3-popover-wrapper filterSelector Select--main bp3-fill"
+          class="bp3-popover-wrapper DropDown--main DropDown--disabled"
         >
           <div
             class="bp3-popover-target"
           >
             <div
-              class="bp3-input-group"
+              class=""
             >
-              <input
-                autocomplete="off"
-                class="bp3-input"
-                placeholder="filters.selectFilter"
-                style="padding-right: 0px;"
-                type="text"
-                value=""
-              />
-              <span
-                class="bp3-input-action"
+              <div
+                class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
+                data-testid="filter-select"
+                style="min-width: 220px;"
               >
-                <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
+                <div
+                  class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
                 >
-                  <svg
-                    data-icon="caret-down"
-                    height="14"
-                    viewBox="0 0 16 16"
-                    width="14"
+                  <p
+                    class="StyledProps--font StyledProps--main DropDown--label"
+                    data-testid="dropdown-value"
                   >
-                    <desc>
-                      caret-down
-                    </desc>
-                    <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
-                </span>
-              </span>
+                    common.filters.noFilterSaved
+                  </p>
+                </div>
+                <div
+                  class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    data-icon="main-chevron-down"
+                  >
+                    <svg
+                      height="8"
+                      viewBox="0 0 14 8"
+                      width="8"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1802,7 +1877,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridUnselected Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridUnselected GridListToggle--gridButton Button--with-current-color Button--iconOnly Button--without-shadow"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -1828,7 +1903,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -1882,7 +1957,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
             <input
               autocomplete="off"
               class="bp3-input"
-              placeholder="Search..."
+              placeholder="- Select -"
               style="padding-right: 0px;"
               type="text"
               value="lastUpdatedSort"
@@ -1891,20 +1966,20 @@ exports[`CD Pipeline Page List render list view 1`] = `
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                icon="caret-down"
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                icon="chevron-down"
               >
                 <svg
-                  data-icon="caret-down"
+                  data-icon="chevron-down"
                   height="14"
                   viewBox="0 0 16 16"
                   width="14"
                 >
                   <desc>
-                    caret-down
+                    chevron-down
                   </desc>
                   <path
-                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                     fill-rule="evenodd"
                   />
                 </svg>
@@ -1985,13 +2060,13 @@ exports[`CD Pipeline Page List render list view 1`] = `
                   <svg
                     fill="none"
                     height="20"
-                    viewBox="0 0 26 21"
+                    viewBox="0 0 27 29"
                     width="20"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
-                      d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                      d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                       fill="url(#cd-main_svg__paint0_linear)"
                       fill-rule="evenodd"
                     />
@@ -1999,17 +2074,17 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       <lineargradient
                         gradientUnits="userSpaceOnUse"
                         id="cd-main_svg__paint0_linear"
-                        x1="3.557"
-                        x2="8.848"
-                        y1="9.622"
-                        y2="18.787"
+                        x1="4.551"
+                        x2="19.517"
+                        y1="0"
+                        y2="27.642"
                       >
                         <stop
                           stop-color="#62F91F"
                         />
                         <stop
                           offset="1"
-                          stop-color="#5EAA53"
+                          stop-color="#45BD35"
                         />
                       </lineargradient>
                     </defs>
@@ -2022,13 +2097,13 @@ exports[`CD Pipeline Page List render list view 1`] = `
                   <svg
                     fill="none"
                     height="16"
-                    viewBox="0 0 20 20"
+                    viewBox="0 0 27 26"
                     width="16"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
-                      d="M12.005 10.97a2.9 2.9 0 01-3.003-2.96 2.9 2.9 0 013.002-3.008 2.927 2.927 0 012.994 3.007 2.882 2.882 0 01-2.993 2.989v-.027zM6 .9a9.987 9.987 0 014.203-.9C15.56-.053 19.945 4.258 20 9.63v.144A9.928 9.928 0 0119.103 14l-3.092-3.102a5.15 5.15 0 00.762-2.697 4.743 4.743 0 00-4.93-4.937 5.013 5.013 0 00-2.688.765L6 .899zM3.991 2.2l-.099.09L7.36 5.734a5.16 5.16 0 00-.766 2.762c-.081 2.635 1.977 4.838 4.597 4.921.116.003.232.002.349-.002a5.116 5.116 0 002.774-.77L17.8 16.13A9.792 9.792 0 019.91 20c-5.393.08-9.829-4.25-9.908-9.673L0 10.153A9.645 9.645 0 013.99 2.2z"
+                      d="M26.142 13a13.36 13.36 0 01-.83 4.6.371.371 0 01-.619.13l-3.875-3.94a.546.546 0 01-.083-.628c.42-.827.63-1.773.63-2.762.055-3.222-2.526-5.878-5.71-5.878-1.011 0-1.938.26-2.743.706a.503.503 0 01-.605-.08l-3.45-3.504c-.243-.247-.169-.668.15-.794A12.11 12.11 0 0113.513 0c6.973 0 12.629 5.822 12.629 13zM6.204 2.42a.553.553 0 01.725.072l3.92 4.035c.173.178.188.46.053.67a5.951 5.951 0 00-.958 3.26c0 3.278 2.581 5.934 5.766 5.934a5.548 5.548 0 003.166-.985.505.505 0 01.65.054l4.244 4.368a.595.595 0 01.063.756C21.503 23.86 17.787 26 13.513 26 6.54 26 .885 20.178.885 13c0-4.403 2.082-8.231 5.319-10.58zm9.506 11.71c2.141 0 3.843-1.752 3.843-3.956 0-2.204-1.702-3.957-3.843-3.957-2.142 0-3.844 1.753-3.844 3.957 0 2.204 1.702 3.956 3.844 3.956z"
                       fill="url(#ci-main_svg__paint0_linear)"
                       fill-rule="evenodd"
                     />
@@ -2036,10 +2111,10 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       <lineargradient
                         gradientUnits="userSpaceOnUse"
                         id="ci-main_svg__paint0_linear"
-                        x1="-6.46"
-                        x2="6.46"
-                        y1="6.46"
-                        y2="26.46"
+                        x1="-7.274"
+                        x2="9.718"
+                        y1="8.398"
+                        y2="33.949"
                       >
                         <stop
                           stop-color="#73DFE7"
@@ -2397,13 +2472,13 @@ exports[`CD Pipeline Page List render list view 1`] = `
                   <svg
                     fill="none"
                     height="20"
-                    viewBox="0 0 26 21"
+                    viewBox="0 0 27 29"
                     width="20"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
-                      d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                      d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                       fill="url(#cd-main_svg__paint0_linear)"
                       fill-rule="evenodd"
                     />
@@ -2411,17 +2486,17 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       <lineargradient
                         gradientUnits="userSpaceOnUse"
                         id="cd-main_svg__paint0_linear"
-                        x1="3.557"
-                        x2="8.848"
-                        y1="9.622"
-                        y2="18.787"
+                        x1="4.551"
+                        x2="19.517"
+                        y1="0"
+                        y2="27.642"
                       >
                         <stop
                           stop-color="#62F91F"
                         />
                         <stop
                           offset="1"
-                          stop-color="#5EAA53"
+                          stop-color="#45BD35"
                         />
                       </lineargradient>
                     </defs>
@@ -2772,13 +2847,13 @@ exports[`CD Pipeline Page List render list view 1`] = `
                   <svg
                     fill="none"
                     height="20"
-                    viewBox="0 0 26 21"
+                    viewBox="0 0 27 29"
                     width="20"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
                       clip-rule="evenodd"
-                      d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                      d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                       fill="url(#cd-main_svg__paint0_linear)"
                       fill-rule="evenodd"
                     />
@@ -2786,17 +2861,17 @@ exports[`CD Pipeline Page List render list view 1`] = `
                       <lineargradient
                         gradientUnits="userSpaceOnUse"
                         id="cd-main_svg__paint0_linear"
-                        x1="3.557"
-                        x2="8.848"
-                        y1="9.622"
-                        y2="18.787"
+                        x1="4.551"
+                        x2="19.517"
+                        y1="0"
+                        y2="27.642"
                       >
                         <stop
                           stop-color="#62F91F"
                         />
                         <stop
                           offset="1"
-                          stop-color="#5EAA53"
+                          stop-color="#45BD35"
                         />
                       </lineargradient>
                     </defs>

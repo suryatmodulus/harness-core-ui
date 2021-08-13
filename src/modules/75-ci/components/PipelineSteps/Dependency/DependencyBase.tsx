@@ -3,10 +3,10 @@ import {
   Text,
   Formik,
   FormInput,
-  Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
-  FormikForm
+  FormikForm,
+  Accordion
 } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
@@ -20,7 +20,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
-import StepCommonFields /*,{ /*usePullOptions }*/ from '@pipeline/components/StepCommonFields/StepCommonFields'
+import StepCommonFields, { GetImagePullPolicyOptions } from '@pipeline/components/StepCommonFields/StepCommonFields'
 import {
   getInitialValuesInCorrectFormat,
   getFormValuesInCorrectFormat
@@ -28,6 +28,7 @@ import {
 import { validate } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import { transformValuesFieldsConfig, editViewValidateFieldsConfig } from './DependencyFunctionConfigs'
 import type { DependencyProps, DependencyData, DependencyDataUI } from './Dependency'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
@@ -53,21 +54,14 @@ export const DependencyBase = (
     accountId: string
   }>()
 
-  const { stage: currentStage } = getStageFromPipeline(selectedStageId || '')
-
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const pullOptions = usePullOptions()
-
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // const values = getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(initialValues, transformValuesFieldsConfig, {
-  //   pullOptions
-  // })
+  const { stage: currentStage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   return (
     <Formik<DependencyDataUI>
       initialValues={getInitialValuesInCorrectFormat<DependencyData, DependencyDataUI>(
         initialValues,
-        transformValuesFieldsConfig
+        transformValuesFieldsConfig,
+        { imagePullPolicyOptions: GetImagePullPolicyOptions() }
       )}
       formName="dependencyBase"
       validate={valuesToValidate => {
@@ -93,7 +87,7 @@ export const DependencyBase = (
 
         return (
           <FormikForm>
-            <div className={css.fieldsSection}>
+            <div style={{ padding: 'var(--spacing-large)' }}>
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
@@ -113,14 +107,13 @@ export const DependencyBase = (
               />
               <FormMultiTypeConnectorField
                 label={
-                  <Text style={{ display: 'flex', alignItems: 'center' }}>
+                  <Text
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    tooltipProps={{
+                      dataTooltipId: 'dependencyConnector'
+                    }}
+                  >
                     {getString('pipelineSteps.connectorLabel')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.dependencyConnectorInfo')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 }
                 type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -139,9 +132,13 @@ export const DependencyBase = (
               <MultiTypeTextField
                 name="spec.image"
                 label={
-                  <Text margin={{ top: 'small' }}>
+                  <Text
+                    margin={{ top: 'small' }}
+                    tooltipProps={{
+                      dataTooltipId: 'image'
+                    }}
+                  >
                     {getString('imageLabel')}
-                    <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
                   </Text>
                 }
                 multiTextInputProps={{
@@ -160,69 +157,72 @@ export const DependencyBase = (
                   }
                 }}
               />
-            </div>
-            <div className={css.fieldsSection} style={{ paddingBottom: 0, marginBottom: 0 }}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {getString('pipelineSteps.optionalConfiguration')}
-              </Text>
-              <FormMultiTypeCheckboxField
-                name="spec.privileged"
-                className={css.checkboxField}
-                label={getString('ci.privileged')}
-                multiTypeTextbox={{
-                  children: (
-                    <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
-                  ),
-                  expressions
-                }}
-                disabled={readonly}
-              />
-              <MultiTypeMap
-                name="spec.envVariables"
-                valueMultiTextInputProps={{ expressions }}
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('environmentVariables')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                        iconProps={{ size: 14 }}
+              <Accordion className={css.accordion}>
+                <Accordion.Panel
+                  id="optional-config"
+                  summary={getString('common.optionalConfig')}
+                  details={
+                    <>
+                      <FormMultiTypeCheckboxField
+                        name="spec.privileged"
+                        label={getString('ci.privileged')}
+                        multiTypeTextbox={{
+                          expressions
+                        }}
+                        tooltipProps={{ dataTooltipId: 'privileged' }}
+                        disabled={readonly}
                       />
-                    </Text>
-                  )
-                }}
-                disabled={readonly}
-              />
-              <MultiTypeList
-                name="spec.entrypoint"
-                multiTextInputProps={{ expressions }}
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('entryPointLabel')}
-                      <Button icon="question" minimal tooltip={getString('entryPointInfo')} iconProps={{ size: 14 }} />
-                    </Text>
-                  )
-                }}
-                disabled={readonly}
-                style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
-              />
-              <MultiTypeList
-                name="spec.args"
-                multiTextInputProps={{ expressions }}
-                multiTypeFieldSelectorProps={{
-                  label: (
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('argsLabel')}
-                      <Button icon="question" minimal tooltip={getString('argsInfo')} iconProps={{ size: 14 }} />
-                    </Text>
-                  )
-                }}
-                disabled={readonly}
-              />
-              <StepCommonFields withoutTimeout disabled={readonly} />
+                      <MultiTypeMap
+                        name="spec.envVariables"
+                        valueMultiTextInputProps={{ expressions }}
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyEnvironmentVariables' }}
+                            >
+                              {getString('environmentVariables')}
+                            </Text>
+                          )
+                        }}
+                        disabled={readonly}
+                      />
+                      <MultiTypeList
+                        name="spec.entrypoint"
+                        multiTextInputProps={{ expressions }}
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyEntryPoint' }}
+                            >
+                              {getString('entryPointLabel')}
+                            </Text>
+                          )
+                        }}
+                        disabled={readonly}
+                        style={{ marginTop: 'var(--spacing-small)', marginBottom: 'var(--spacing-small)' }}
+                      />
+                      <MultiTypeList
+                        name="spec.args"
+                        multiTextInputProps={{ expressions }}
+                        multiTypeFieldSelectorProps={{
+                          label: (
+                            <Text
+                              style={{ display: 'flex', alignItems: 'center' }}
+                              tooltipProps={{ dataTooltipId: 'dependencyArgs' }}
+                            >
+                              {getString('argsLabel')}
+                            </Text>
+                          )
+                        }}
+                        disabled={readonly}
+                      />
+                      <StepCommonFields enableFields={['spec.imagePullPolicy']} withoutTimeout disabled={readonly} />
+                    </>
+                  }
+                />
+              </Accordion>
             </div>
           </FormikForm>
         )

@@ -33,7 +33,7 @@ query FetchperspectiveGrid(
         clusterType
         costTrend
         cpuBillingAmount
-        cpuIdleCost
+        cpuActualIdleCost
         cpuUnallocatedCost
         efficiencyScore
         efficiencyScoreTrendPercentage
@@ -46,7 +46,7 @@ query FetchperspectiveGrid(
         maxCpuUtilization
         maxMemoryUtilization
         memoryBillingAmount
-        memoryIdleCost
+        memoryActualIdleCost
         memoryUnallocatedCost
         name
         namespace
@@ -55,6 +55,7 @@ query FetchperspectiveGrid(
         region
         serviceId
         serviceName
+        storageCost
         storageActualIdleCost
         storageRequest
         storageUnallocatedCost
@@ -65,6 +66,53 @@ query FetchperspectiveGrid(
         unallocatedCost
         workloadName
         workloadType
+      }
+      instanceDetails @include(if: $isClusterOnly) {
+        name
+        id
+        nodeId
+        clusterName
+        clusterId
+        nodePoolName
+        cloudProviderInstanceId
+        podCapacity
+        totalCost
+        idleCost
+        systemCost
+        unallocatedCost
+        cpuAllocatable
+        memoryAllocatable
+        instanceCategory
+        machineType
+        createTime
+        deleteTime
+        memoryBillingAmount
+        cpuBillingAmount
+        memoryUnallocatedCost
+        cpuUnallocatedCost
+        memoryIdleCost
+        cpuIdleCost
+      }
+      storageDetails @include(if: $isClusterOnly) {
+        id
+        instanceId
+        instanceName
+        claimName
+        claimNamespace
+        clusterName
+        clusterId
+        storageClass
+        volumeType
+        cloudProvider
+        region
+        storageCost
+        storageActualIdleCost
+        storageUnallocatedCost
+        capacity
+        storageRequest
+        storageUtilizationValue
+        createTime
+        deleteTime
       }
     }
   }

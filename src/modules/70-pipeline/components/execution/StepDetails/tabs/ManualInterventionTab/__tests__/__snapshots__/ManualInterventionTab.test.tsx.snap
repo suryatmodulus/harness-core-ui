@@ -41,8 +41,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           </span>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-          style="text-align: center;"
+          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
         >
           pipeline.failureStrategies.strategiesLabel.Ignore
         </p>
@@ -80,8 +79,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           </span>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-          style="text-align: center;"
+          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
         >
           pipeline.failureStrategies.strategiesLabel.Abort
         </p>
@@ -119,8 +117,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           </span>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-          style="text-align: center;"
+          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
         >
           pipeline.failureStrategies.strategiesLabel.StageRollback
         </p>
@@ -158,8 +155,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           </span>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-          style="text-align: center;"
+          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
         >
           pipeline.failureStrategies.strategiesLabel.StepGroupRollback
         </p>
@@ -197,8 +193,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           </span>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-          style="text-align: center;"
+          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
         >
           pipeline.failureStrategies.strategiesLabel.Retry
         </p>
@@ -240,8 +235,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           </span>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-          style="text-align: center;"
+          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
         >
           pipeline.failureStrategies.strategiesLabel.ManualIntervention
         </p>
@@ -279,8 +273,7 @@ exports[`<ManualInterventionTab /> tests snapshot test 1`] = `
           </span>
         </div>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--color StyledProps--color-grey600"
-          style="text-align: center;"
+          class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
         >
           pipeline.failureStrategies.strategiesLabel.MarkAsSuccess
         </p>

@@ -113,6 +113,9 @@ const WebhookTriggerConfigPanel: React.FC<WebhookTriggerConfigPanelPropsInterfac
           identifierProps={{
             isIdentifierEditable: !isEdit
           }}
+          tooltipProps={{
+            dataTooltipId: 'webhookTrigger'
+          }}
         />
         <Heading className={css.listenOnNewWebhook} style={{ marginTop: '0!important' }} level={2}>
           {getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')}

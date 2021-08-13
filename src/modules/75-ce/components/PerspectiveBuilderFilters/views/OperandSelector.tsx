@@ -1,19 +1,78 @@
 import React from 'react'
 import { Container, Layout, Icon } from '@wings-software/uicore'
 import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
-import { QlceViewFieldIdentifierData, ViewFieldIdentifier } from 'services/ce/services'
+import {
+  QlceViewFieldIdentifierData,
+  ViewFieldIdentifier,
+  useFetchPerspectiveFiltersValueQuery,
+  QlceViewFilterWrapperInput,
+  QlceViewField
+} from 'services/ce/services'
 import CustomMenuItem from '@ce/components/CustomMenu/CustomMenuItem'
 import { FIELD_TO_ICON_MAPPING } from '@ce/components/PerspectiveFilters/constants'
 import type { ProviderType } from '../PerspectiveBuilderFilter'
 
 import css from '../PerspectiveBuilderFilter.module.scss'
 
-interface PopoverContentProps {
-  fieldValuesList: QlceViewFieldIdentifierData[]
+interface LabelSelectorProps {
+  service: QlceViewField
+  labelData: any
   setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) => void
 }
 
-const PopoverContent: React.FC<PopoverContentProps> = ({ fieldValuesList, setProviderAndIdentifier }) => {
+const LabelSelector: (props: LabelSelectorProps) => JSX.Element = ({
+  service,
+  labelData,
+  setProviderAndIdentifier
+}) => {
+  return (
+    <Popover
+      key={service.fieldId}
+      interactionKind={PopoverInteractionKind.HOVER}
+      position={Position.RIGHT_TOP}
+      modifiers={{
+        flip: { boundariesElement: 'viewport', padding: 20 },
+        offset: { offset: -5 },
+        preventOverflow: { boundariesElement: 'viewport', padding: 20 }
+      }}
+      hoverCloseDelay={0}
+      minimal={true}
+      fill={true}
+      usePortal={false}
+      content={
+        <div className={css.groupByLabel}>
+          {labelData.length &&
+            labelData.map((label: string) => (
+              <CustomMenuItem
+                hidePopoverOnClick={true}
+                key={label}
+                text={label}
+                onClick={() => {
+                  setProviderAndIdentifier({ id: 'LABEL', name: 'label' }, { id: 'labels.value', name: label || '' })
+                }}
+              />
+            ))}
+        </div>
+      }
+    >
+      <CustomMenuItem
+        key={service?.fieldId}
+        fontSize={'normal'}
+        text={service?.fieldName || ''}
+        rightIcon={'chevron-right'}
+      />
+    </Popover>
+  )
+}
+
+interface PopoverContentProps {
+  fieldValuesList: QlceViewFieldIdentifierData[]
+  setProviderAndIdentifier: (providerData: ProviderType, serviceData: ProviderType) => void
+  labelData: any
+  labelFetching: boolean
+}
+
+const PopoverContent: React.FC<PopoverContentProps> = ({ fieldValuesList, setProviderAndIdentifier, labelData }) => {
   const nonCustomFields = fieldValuesList.filter(field => field.identifier !== ViewFieldIdentifier.Custom)
 
   const defaultPanelFields = (
@@ -24,6 +83,7 @@ const PopoverContent: React.FC<PopoverContentProps> = ({ fieldValuesList, setPro
             key={field.identifier}
             interactionKind={PopoverInteractionKind.HOVER}
             position={Position.RIGHT_TOP}
+            hoverCloseDelay={0}
             modifiers={{
               flip: { boundariesElement: 'viewport', padding: 20 },
               offset: { offset: -5 },
@@ -35,6 +95,15 @@ const PopoverContent: React.FC<PopoverContentProps> = ({ fieldValuesList, setPro
             content={
               <Container>
                 {field.values.map(service => {
+                  if (service?.fieldId === 'label') {
+                    return (
+                      <LabelSelector
+                        service={service}
+                        labelData={labelData}
+                        setProviderAndIdentifier={setProviderAndIdentifier}
+                      />
+                    )
+                  }
                   return (
                     <CustomMenuItem
                       hidePopoverOnClick={true}
@@ -60,7 +129,7 @@ const PopoverContent: React.FC<PopoverContentProps> = ({ fieldValuesList, setPro
               text={field.identifierName}
               iconName={FIELD_TO_ICON_MAPPING[field.identifier]}
               fontSize={'normal'}
-              rightIcon={'caret-right'}
+              rightIcon={'chevron-right'}
             ></CustomMenuItem>
           </Popover>
         )
@@ -104,6 +173,28 @@ const OperandSelector: React.FC<OperandSelectorProps> = ({
   fieldValuesList,
   setProviderAndIdentifier
 }) => {
+  const [labelResult] = useFetchPerspectiveFiltersValueQuery({
+    variables: {
+      filters: [
+        {
+          idFilter: {
+            field: {
+              fieldId: 'labels.key',
+              fieldName: '',
+              identifier: 'LABEL'
+            },
+            operator: 'IN',
+            values: []
+          }
+        } as unknown as QlceViewFilterWrapperInput
+      ],
+      offset: 0,
+      limit: 1000
+    }
+  })
+
+  const { data: labelResData, fetching: labelFetching } = labelResult
+
   return (
     <Popover
       className={css.operandContainer}
@@ -115,9 +206,17 @@ const OperandSelector: React.FC<OperandSelectorProps> = ({
         keepTogether: { enabled: true },
         preventOverflow: { enabled: true }
       }}
+      hoverCloseDelay={0}
       fill={true}
       usePortal={true}
-      content={<PopoverContent fieldValuesList={fieldValuesList} setProviderAndIdentifier={setProviderAndIdentifier} />}
+      content={
+        <PopoverContent
+          labelData={labelResData?.perspectiveFilters?.values || []}
+          labelFetching={labelFetching}
+          fieldValuesList={fieldValuesList}
+          setProviderAndIdentifier={setProviderAndIdentifier}
+        />
+      }
     >
       <div className={css.operandSelectorContainer}>
         {provider?.id && service?.id ? `${provider.name || provider.id} > ${service.name}` : 'Choose Operand'}

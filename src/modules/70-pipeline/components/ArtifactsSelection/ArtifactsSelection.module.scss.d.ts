@@ -4,8 +4,6 @@ declare const styles: {
   readonly tableHeader: string
   readonly rowItem: string
   readonly type: string
-  readonly actionGrid: string
-  readonly cloneIcon: string
   readonly locationField: string
   readonly connectorNameField: string
   readonly connectorName: string

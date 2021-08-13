@@ -9,6 +9,7 @@ import ArtifactsSelection from '../ArtifactsSelection'
 import pipelineContextMock from './pipelineContext.json'
 import connectorsData from './connectors_mock.json'
 import ArtifactListView from '../ArtifactListView/ArtifactListView'
+import type { ArtifactListViewProps } from '../ArtifactInterface'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
@@ -20,7 +21,7 @@ const getContextValue = (): PipelineContextInterface => {
     })
   } as any
 }
-const fetchConnectors = () => Promise.resolve({})
+const fetchConnectors = (): Promise<unknown> => Promise.resolve({})
 
 jest.mock('services/cd-ng', () => ({
   useGetConnectorListV2: jest.fn().mockImplementation(() => ({ mutate: fetchConnectors })),
@@ -42,6 +43,7 @@ describe('ArtifactsSelection tests', () => {
 
     expect(container).toMatchSnapshot()
   })
+
   test(`renders artifact without crashing`, async () => {
     const { container } = render(
       <TestWrapper>
@@ -54,16 +56,68 @@ describe('ArtifactsSelection tests', () => {
     expect(primaryArtifactContainer).toBeDefined()
   })
 
-  test(`renders artifact with override without crashing`, async () => {
+  test(`renders artifact when isForOverrideSets is true`, async () => {
     const { container } = render(
       <TestWrapper>
         <PipelineContext.Provider value={getContextValue()}>
-          <ArtifactsSelection isForOverrideSets={true} />
+          <ArtifactsSelection isForOverrideSets={true} identifierName={'overrideSetIdentifier'} />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const primaryArtifact =
+      pipelineContextMock.state.pipeline.stages[0].stage.spec.serviceConfig.serviceDefinition.spec.artifactOverrideSets.map(
+        elem => elem.overrideSet.artifacts.primary
+      )[0]
+    expect(primaryArtifact.type).toBe('Dockerhub')
+    const primaryArtifactContainer = await findByText(container, 'primary')
+    expect(primaryArtifactContainer).toBeDefined()
+  })
+
+  test(`renders artifact when isPropagating is true`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection isForOverrideSets={false} identifierName={'overrideSetIdentifier'} isPropagating={true} />
         </PipelineContext.Provider>
       </TestWrapper>
     )
 
-    expect(container).toMatchSnapshot('renders artifact with override without crashing')
+    const addPrimaryArtifact = await findByText(container, 'pipelineSteps.serviceTab.artifactList.addPrimary')
+    expect(addPrimaryArtifact).toBeDefined()
+  })
+
+  test(`renders artifact when  isForPredefinedSets is true`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection
+            isForOverrideSets={false}
+            identifierName={'overrideSetIdentifier'}
+            isPropagating={false}
+            isForPredefinedSets={true}
+          />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    const addPrimaryArtifact = await findByText(container, 'pipelineSteps.serviceTab.artifactList.addPrimary')
+    expect(addPrimaryArtifact).toBeDefined()
+  })
+
+  test(`renders artifact when overrideSetIdentifier and identifierName has some value`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection
+            isForOverrideSets={false}
+            identifierName={'identifierName'}
+            isPropagating={false}
+            isForPredefinedSets={false}
+            overrideSetIdentifier={'overrideSetIdentifier'}
+          />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
   })
 
   test(`renders add Artifact option without crashing`, async () => {
@@ -113,7 +167,7 @@ describe('ArtifactsSelection tests', () => {
     )
     const primaryArtifactContainer = await findByText(container, 'primary')
     expect(primaryArtifactContainer).toBeDefined()
-    const editButton = container.querySelector('span[data-icon="Edit"]')
+    const editButton = container.querySelector('[data-icon="edit"]')
     expect(editButton).toBeDefined()
     fireEvent.click(editButton as HTMLElement)
     const artifactEditModalTitle = await waitFor(() => findByText(container, 'artifactRepository'))
@@ -121,14 +175,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`renders Artifact Listview without crashing`, () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'DockerRegistry' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -148,14 +201,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`renders Artifact Listview with connectors Data`, () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -174,8 +226,7 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`artifact list renders with proper payload`, async () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         type: 'Ecr' as 'DockerRegistry' | 'Gcr' | 'Ecr',
         spec: {
@@ -198,7 +249,7 @@ describe('ArtifactsSelection tests', () => {
           }
         }
       ],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -217,7 +268,7 @@ describe('ArtifactsSelection tests', () => {
       </TestWrapper>
     )
 
-    const deleteArtifactBtn = container.querySelector('[data-icon="bin-main"]') as Element
+    const deleteArtifactBtn = container.querySelector('[data-icon="main-trash"]') as Element
     expect(deleteArtifactBtn).toBeDefined()
     fireEvent.click(deleteArtifactBtn)
 
@@ -225,14 +276,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`delete artifact list works correctly`, async () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -251,7 +301,7 @@ describe('ArtifactsSelection tests', () => {
       </TestWrapper>
     )
 
-    const deleteArtifactBtn = container.querySelector('[data-icon="bin-main"]') as Element
+    const deleteArtifactBtn = container.querySelector('[data-icon="main-trash"]') as Element
     expect(deleteArtifactBtn).toBeDefined()
     fireEvent.click(deleteArtifactBtn)
 
@@ -259,14 +309,13 @@ describe('ArtifactsSelection tests', () => {
   })
 
   test(`edit artifact list works correctly`, async () => {
-    const props = {
-      updateStage: jest.fn(),
+    const props: ArtifactListViewProps = {
       primaryArtifact: {
         spec: {},
         type: 'Gcr' as 'DockerRegistry' | 'Gcr' | 'Ecr'
       },
       sideCarArtifact: [],
-      stage: pipelineContextMock.state.pipeline.stages[0],
+      stage: pipelineContextMock.state.pipeline.stages[0] as any,
       addNewArtifact: jest.fn(),
       editArtifact: jest.fn(),
       removePrimary: jest.fn(),
@@ -283,10 +332,26 @@ describe('ArtifactsSelection tests', () => {
       </TestWrapper>
     )
 
-    const editArtifactBtn = container.querySelector('[data-icon="Edit"]') as Element
+    const editArtifactBtn = container.querySelector('[data-icon="edit"]') as Element
     expect(editArtifactBtn).toBeDefined()
     fireEvent.click(editArtifactBtn)
 
     expect(container).toMatchSnapshot()
+  })
+
+  test(`remove artifact list works correctly`, async () => {
+    const { container } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getContextValue()}>
+          <ArtifactsSelection isForOverrideSets={false} />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+
+    const deleteArtifactList = container.querySelectorAll('[data-icon="main-trash"]')
+    expect(deleteArtifactList.length).toBe(3)
+    const remove = container.querySelectorAll('[data-icon="main-trash"]')[1]
+
+    expect(remove).toBeDefined()
   })
 })

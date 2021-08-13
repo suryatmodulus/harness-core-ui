@@ -1,0 +1,30 @@
+{
+  "data": {
+    "perspectiveGrid": {
+      "data": [
+        {
+          "name": "GCP",
+          "id": "GCP",
+          "cost": 315150.39,
+          "costTrend": 6.33,
+          "__typename": "QLCEViewEntityStatsDataPoint"
+        },
+        {
+          "name": "AZURE",
+          "id": "AZURE",
+          "cost": 5407.3,
+          "costTrend": 3.26,
+          "__typename": "QLCEViewEntityStatsDataPoint"
+        },
+        {
+          "name": "AWS",
+          "id": "AWS",
+          "cost": 5168.4,
+          "costTrend": 0,
+          "__typename": "QLCEViewEntityStatsDataPoint"
+        }
+      ],
+      "__typename": "PerspectiveEntityStatsData"
+    }
+  }
+}

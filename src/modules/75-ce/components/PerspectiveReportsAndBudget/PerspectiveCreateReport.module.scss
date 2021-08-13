@@ -9,10 +9,13 @@
       color: var(--grey-800) !important;
       font-size: 14px !important;
     }
+
+    .Label--main {
+      margin: 0 !important;
+    }
   }
 
   .cronLabel {
-    margin-bottom: 10px !important;
     color: var(--grey-800) !important;
     font-size: 14px !important;
     font-weight: normal !important;
@@ -23,6 +26,7 @@
     textarea {
       min-height: 100px !important;
       min-width: 100% !important;
+      max-height: 300px;
     }
   }
 }

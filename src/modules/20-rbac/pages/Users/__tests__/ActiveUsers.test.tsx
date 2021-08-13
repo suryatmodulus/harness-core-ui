@@ -82,6 +82,23 @@ describe('UsersPage Test', () => {
   test('render data', () => {
     expect(container).toMatchSnapshot()
   })
+  test('Invite a User', async () => {
+    createUser.mockReset()
+    const addUser = getByText(container, 'rbac.user')
+    expect(addUser).toBeTruthy()
+    fireEvent.click(addUser!)
+    const form = findDialogContainer()
+    expect(form).toBeTruthy()
+    const selectCaret = document.body.querySelector('[data-icon="chevron-down"]')
+    expect(selectCaret).toBeTruthy()
+    fireEvent.click(selectCaret!)
+    const popover = findPopoverContainer()
+    fireEvent.click(getByText(popover!, 'admin@harness.io'))
+    await act(async () => {
+      clickSubmit(form!)
+    })
+    expect(createUser).toBeCalled()
+  })
   test('Delete Active User', async () => {
     deleteActiveUser.mockReset()
     const menu = container.querySelector(`[data-testid="menu-${activeUserMock.data?.content?.[0].user.uuid}"]`)
@@ -107,7 +124,6 @@ describe('UsersPage Test', () => {
     })
     const form = findDialogContainer()
     expect(form).toBeTruthy()
-
     const addButton = form?.querySelector('button[data-id="btn-add"]')
 
     expect(addButton).toBeTruthy()

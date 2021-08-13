@@ -7,6 +7,7 @@ import { findDialogContainer } from '@common/utils/testUtils'
 import { fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
 import { DeployEnvironment } from '../DeployEnvStep.stories'
 import environments from './mock.json'
+import inputSetEnvironments from './envMock'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 
@@ -14,10 +15,30 @@ jest.mock('services/cd-ng', () => ({
   useGetEnvironmentList: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
+  useGetEnvironmentAccessList: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, data: inputSetEnvironments, refetch: jest.fn() })),
   useCreateEnvironmentV2: jest.fn().mockImplementation(() => ({
     cancel: jest.fn(),
     loading: false,
-    mutate: jest.fn().mockImplementation(() => {
+    mutate: jest.fn().mockImplementation(obj => {
+      environments.data.content.push({
+        environment: {
+          accountId: 'AQ8xhfNCRtGIUjq5bSM8Fg',
+          orgIdentifier: 'default',
+          projectIdentifier: 'asdasd',
+          identifier: obj.identifier,
+          name: obj.name,
+          description: null,
+          color: '#0063F7',
+          type: obj.type,
+          deleted: false,
+          tags: {},
+          version: 1
+        },
+        createdAt: null,
+        lastModifiedAt: null
+      })
       return {
         status: 'SUCCESS'
       }
@@ -35,7 +56,7 @@ jest.mock('services/cd-ng', () => ({
 }))
 describe('Test DeployEnvironment Step', () => {
   test('should render environment view and save', async () => {
-    const { container } = render(
+    const { container, getByLabelText } = render(
       <DeployEnvironment type={StepType.DeployEnvironment} initialValues={{}} stepViewType={StepViewType.Edit} />
     )
     fireEvent.click(getByText(container, 'pipelineSteps.environmentTab.newEnvironment'))
@@ -49,7 +70,7 @@ describe('Test DeployEnvironment Step', () => {
         value: 'New Project'
       }
     ])
-    fireEvent.click(getByText(dialog!, 'production'))
+    fireEvent.click(getByLabelText('production'))
     await act(async () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
@@ -59,10 +80,10 @@ describe('Test DeployEnvironment Step', () => {
     `)
   })
   test('should render edit Environment view (environment ref), then update and then save', async () => {
-    const { container } = render(
+    const { container, getByLabelText } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
-        initialValues={{ environmentRef: 'selected_env' }}
+        initialValues={{ environmentRef: 'New_Project' }}
         stepViewType={StepViewType.Edit}
       />
     )
@@ -76,23 +97,24 @@ describe('Test DeployEnvironment Step', () => {
         value: 'New Environment'
       }
     ])
-    fireEvent.click(getByText(dialog!, 'nonProduction'))
+    fireEvent.click(getByText(dialog!, 'Change'))
+    fireEvent.click(getByLabelText('nonProduction'))
     await act(async () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: selected_env
+      "environmentRef: New_Project
       "
     `)
   })
   test('should render edit Environment view (environment), then update and then save', async () => {
-    const { container } = render(
+    const { container, getByLabelText } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
         initialValues={{
           environment: {
-            identifier: 'pass_env',
-            name: 'Pass Env',
+            identifier: 'New_Project',
+            name: 'New Project',
             description: 'test',
             type: 'PreProduction',
             tags: {
@@ -107,7 +129,8 @@ describe('Test DeployEnvironment Step', () => {
     fireEvent.click(getByText(container, 'editEnvironment'))
     const dialog = findDialogContainer()
     expect(dialog).toMatchSnapshot()
-    fireEvent.click(getByText(dialog!, 'production'))
+    fireEvent.click(getByText(dialog!, 'Change'))
+    fireEvent.click(getByLabelText('production'))
     fillAtForm([
       {
         container: dialog!,
@@ -120,7 +143,7 @@ describe('Test DeployEnvironment Step', () => {
       fireEvent.click(getByText(dialog!, 'save'))
     })
     expect(container.querySelector('pre')?.innerHTML).toMatchInlineSnapshot(`
-      "environmentRef: pass_env
+      "environmentRef: New_Project
       "
     `)
   })
@@ -129,7 +152,7 @@ describe('Test DeployEnvironment Step', () => {
     const { container } = render(
       <DeployEnvironment
         type={StepType.DeployEnvironment}
-        initialValues={{ environmentRef: 'selected_env' }}
+        initialValues={{ environmentRef: 'New_Project' }}
         stepViewType={StepViewType.Edit}
       />
     )

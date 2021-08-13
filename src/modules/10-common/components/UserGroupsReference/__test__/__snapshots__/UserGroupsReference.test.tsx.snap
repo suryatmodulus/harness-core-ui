@@ -1,0 +1,1497 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test full flow should render rows with checkbox and return selected data back 1`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main container main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="searchBox"
+      >
+        <div
+          class="TextInput--main search"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <span
+              class="bp3-icon bp3-icon-search StyledProps--main"
+              icon="search"
+            >
+              <svg
+                data-icon="search"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  search
+                </desc>
+                <path
+                  d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input"
+              placeholder="search"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="tabsContainer tabWidth"
+    >
+      <div
+        class="bp3-tabs bp3-vertical Tabs--main Tabs--vertical"
+      >
+        <div
+          class="bp3-tab-list"
+          role="tablist"
+        >
+          <div
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_selectScope_account"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="account"
+            id="bp3-tab-title_selectScope_account"
+            role="tab"
+            tabindex="0"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--flex StyledProps--flex-alignItems-center"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                <span
+                  class="bp3-icon bp3-icon-layers StyledProps--main iconMargin"
+                  icon="layers"
+                >
+                  <svg
+                    data-icon="layers"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      layers
+                    </desc>
+                    <path
+                      d="M.55 4.89l7 3.5c.14.07.29.11.45.11s.31-.04.45-.11l7-3.5a.998.998 0 00-.06-1.81L8.4.08a1.006 1.006 0 00-.79 0l-6.99 3a.992.992 0 00-.07 1.81zM15 10c-.16 0-.31.04-.45.11L8 13.38 1.45 10.1c-.14-.06-.29-.1-.45-.1-.55 0-1 .45-1 1 0 .39.23.73.55.89l7 3.5c.14.07.29.11.45.11s.31-.04.45-.11l7-3.5c.32-.16.55-.5.55-.89 0-.55-.45-1-1-1zm0-3.5c-.16 0-.31.04-.45.11L8 9.88 1.45 6.61A.997.997 0 001 6.5c-.55 0-1 .45-1 1 0 .39.23.73.55.89l7 3.5c.14.07.29.11.45.11s.31-.04.45-.11l7-3.5c.32-.16.55-.5.55-.89 0-.55-.45-1-1-1z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                account
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_selectScope_account"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_selectScope_account"
+          role="tabpanel"
+        >
+          <div
+            class="referenceList referenceListOverflow"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      Chirag Account UG
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      Chirag_Account_UG
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              C
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              S
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      asdfs
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      asdfs
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              NN
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              M
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              H
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              RK
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      abcd
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      abcd
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              S
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug hello
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug_hello
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              R
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              D
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              M
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              M
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              D
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      + 8
+                    </p>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      User Group 1
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug1
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      arvind-test
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      arvindtest
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      User Group 2
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug2
+                    </p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+      >
+        <button
+          class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          disabled=""
+          tabindex="-1"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            entityReference.apply
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      >
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline"
+        >
+          common.totalSelected
+        </span>
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall StyledProps--flex StyledProps--flex-align-center-center StyledProps--background-primary7 StyledProps--color StyledProps--color-white StyledProps--border"
+        >
+          0
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Test full flow should render rows with checkbox and return selected data back 2`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main container main"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+    >
+      <div
+        class="searchBox"
+      >
+        <div
+          class="TextInput--main search"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <span
+              class="bp3-icon bp3-icon-search StyledProps--main"
+              icon="search"
+            >
+              <svg
+                data-icon="search"
+                height="12"
+                viewBox="0 0 16 16"
+                width="12"
+              >
+                <desc>
+                  search
+                </desc>
+                <path
+                  d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input"
+              placeholder="search"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="tabsContainer tabWidth"
+    >
+      <div
+        class="bp3-tabs bp3-vertical Tabs--main Tabs--vertical"
+      >
+        <div
+          class="bp3-tab-list"
+          role="tablist"
+        >
+          <div
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_selectScope_account"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="account"
+            id="bp3-tab-title_selectScope_account"
+            role="tab"
+            tabindex="0"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--padding-medium StyledProps--flex StyledProps--flex-alignItems-center"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                <span
+                  class="bp3-icon bp3-icon-layers StyledProps--main iconMargin"
+                  icon="layers"
+                >
+                  <svg
+                    data-icon="layers"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      layers
+                    </desc>
+                    <path
+                      d="M.55 4.89l7 3.5c.14.07.29.11.45.11s.31-.04.45-.11l7-3.5a.998.998 0 00-.06-1.81L8.4.08a1.006 1.006 0 00-.79 0l-6.99 3a.992.992 0 00-.07 1.81zM15 10c-.16 0-.31.04-.45.11L8 13.38 1.45 10.1c-.14-.06-.29-.1-.45-.1-.55 0-1 .45-1 1 0 .39.23.73.55.89l7 3.5c.14.07.29.11.45.11s.31-.04.45-.11l7-3.5c.32-.16.55-.5.55-.89 0-.55-.45-1-1-1zm0-3.5c-.16 0-.31.04-.45.11L8 9.88 1.45 6.61A.997.997 0 001 6.5c-.55 0-1 .45-1 1 0 .39.23.73.55.89l7 3.5c.14.07.29.11.45.11s.31-.04.45-.11l7-3.5c.32-.16.55-.5.55-.89 0-.55-.45-1-1-1z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                account
+              </p>
+              <span
+                class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--margin-left-small StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall StyledProps--flex StyledProps--flex-align-center-center StyledProps--background-primary7 StyledProps--color StyledProps--color-white StyledProps--border"
+                style="height: 19px;"
+              >
+                1
+              </span>
+            </div>
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_selectScope_account"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_selectScope_account"
+          role="tabpanel"
+        >
+          <div
+            class="referenceList referenceListOverflow"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      Chirag Account UG
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      Chirag_Account_UG
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              C
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              S
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      asdfs
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      asdfs
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              NN
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              M
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              H
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              RK
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      abcd
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      abcd
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              S
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug hello
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug_hello
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              R
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              D
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              M
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              M
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              D
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                    >
+                      + 8
+                    </p>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem selectedItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-primary7"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      User Group 1
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug1
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      arvind-test
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      arvindtest
+                    </p>
+                  </div>
+                  <div
+                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+                  >
+                    <div
+                      class="AvatarGroup--stack"
+                      style="--avatar-over-lap: -13px;"
+                    >
+                      <div
+                        class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                      >
+                        <span
+                          class="bp3-popover-wrapper Avatar--avatarPopOver"
+                        >
+                          <span
+                            class="bp3-popover-target"
+                          >
+                            <div
+                              class="Avatar--AvatarInner"
+                              style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                              tabindex="0"
+                            >
+                              A
+                            </div>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main listItem StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+            >
+              <label
+                class="bp3-control bp3-checkbox bp3-large StyledProps--font Checkbox--checkbox checkbox StyledProps--main"
+              >
+                <input
+                  type="checkbox"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                  >
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-black"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      User Group 2
+                    </p>
+                    <p
+                      class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
+                      style="--text-line-clamp: 1; width: 160px;"
+                    >
+                      ug2
+                    </p>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+    >
+      <div
+        class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+      >
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            entityReference.apply
+          </span>
+        </button>
+      </div>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+      >
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline"
+        >
+          common.totalSelected
+        </span>
+        <span
+          class="StyledProps--font StyledProps--main StyledProps--inline StyledProps--padding-left-xsmall StyledProps--padding-right-xsmall StyledProps--flex StyledProps--flex-align-center-center StyledProps--background-primary7 StyledProps--color StyledProps--color-white StyledProps--border"
+        >
+          1
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;

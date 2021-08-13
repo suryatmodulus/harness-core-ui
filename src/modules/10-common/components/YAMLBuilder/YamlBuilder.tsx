@@ -118,7 +118,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
     onEnableEditMode,
     theme = 'LIGHT',
     yamlSanityConfig,
-    onChange
+    onChange,
+    onErrorCallback
   } = props
   setUpEditor(theme)
   const params = useParams()
@@ -412,20 +413,27 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = (props: YamlBuilderProps): JSX.E
       if (shiftKey) {
         // this is to invoke expressions callback
         if (shouldInvokeExpressions(editor, event)) {
-          const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
+          const yamlPath = getMetaDataForKeyboardEventProcessing({
+            editor,
+            onErrorCallback
+          })?.parentToCurrentPropertyPath
           disposePreviousSuggestions()
           registerCompletionItemProviderForExpressions(editor, TRIGGER_CHARS_FOR_NEW_EXPR, yamlPath)
         }
         // this is to invoke run-time inputs as suggestions
         else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap && invocationMap.size > 0) {
-          const yamlPath = getMetaDataForKeyboardEventProcessing(editor, true)?.parentToCurrentPropertyPath
+          const yamlPath = getMetaDataForKeyboardEventProcessing({
+            editor,
+            onErrorCallback,
+            shouldAddPlaceholder: true
+          })?.parentToCurrentPropertyPath
           disposePreviousSuggestions()
           invokeCallBackForMatchingYAMLPaths(editor, yamlPath)
         }
       }
       // this is to invoke partial expressions callback e.g. invoke expressions callback on hitting a period(.) after an expression: expr1.expr2. <-
       if (code === KEY_CODE_FOR_PERIOD) {
-        const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
+        const yamlPath = getMetaDataForKeyboardEventProcessing({ editor, onErrorCallback })?.parentToCurrentPropertyPath
         disposePreviousSuggestions()
         registerCompletionItemProviderForExpressions(
           editor,

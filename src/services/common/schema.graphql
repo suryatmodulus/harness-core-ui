@@ -1,0 +1,4724 @@
+input FileInfoInput {
+  name: String
+  alternativeText: String
+  caption: String
+}
+
+type UsersPermissionsMe {
+  id: ID!
+  username: String!
+  email: String!
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+}
+
+input UsersPermissionsRegisterInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input UsersPermissionsLoginInput {
+  identifier: String!
+  password: String!
+  provider: String = "local"
+}
+
+type UsersPermissionsLoginPayload {
+  jwt: String
+  user: UsersPermissionsMe!
+}
+
+type UserPermissionsPasswordPayload {
+  ok: Boolean!
+}
+
+type AboutUs {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageTitleZone
+  awards: [ComponentPageModules]
+  executiveTeam: [ComponentPageExecutiveZone]
+  joinTeam: ComponentPageTeamZone
+  coreValues: [ComponentPageModules]
+  investors: ComponentPageSimpleZone
+  offices: [ComponentPageAdressZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input AboutUsInput {
+  hero: ComponentPageTitleZoneInput
+  awards: [ComponentPageModuleInput]
+  executiveTeam: [ComponentPageExecutiveZoneInput]
+  joinTeam: ComponentPageTeamZoneInput
+  coreValues: [ComponentPageModuleInput]
+  investors: ComponentPageSimpleZoneInput
+  offices: [ComponentPageAdressZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editAboutUsInput {
+  hero: editComponentPageTitleZoneInput
+  awards: [editComponentPageModuleInput]
+  executiveTeam: [editComponentPageExecutiveZoneInput]
+  joinTeam: editComponentPageTeamZoneInput
+  coreValues: [editComponentPageModuleInput]
+  investors: editComponentPageSimpleZoneInput
+  offices: [editComponentPageAdressZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateAboutUsInput {
+  data: editAboutUsInput
+}
+
+type updateAboutUsPayload {
+  aboutUs: AboutUs
+}
+
+type deleteAboutUsPayload {
+  aboutUs: AboutUs
+}
+
+type BackgroundColor {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  colorName: String
+  colorCode: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type BackgroundColorConnection {
+  values: [BackgroundColor]
+  groupBy: BackgroundColorGroupBy
+  aggregate: BackgroundColorAggregator
+}
+
+type BackgroundColorAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type BackgroundColorGroupBy {
+  id: [BackgroundColorConnectionId]
+  created_at: [BackgroundColorConnectionCreated_at]
+  updated_at: [BackgroundColorConnectionUpdated_at]
+  colorName: [BackgroundColorConnectionColorName]
+  colorCode: [BackgroundColorConnectionColorCode]
+  published_at: [BackgroundColorConnectionPublished_at]
+  created_by: [BackgroundColorConnectionCreated_by]
+  updated_by: [BackgroundColorConnectionUpdated_by]
+}
+
+type BackgroundColorConnectionId {
+  key: ID
+  connection: BackgroundColorConnection
+}
+
+type BackgroundColorConnectionCreated_at {
+  key: DateTime
+  connection: BackgroundColorConnection
+}
+
+type BackgroundColorConnectionUpdated_at {
+  key: DateTime
+  connection: BackgroundColorConnection
+}
+
+type BackgroundColorConnectionColorName {
+  key: String
+  connection: BackgroundColorConnection
+}
+
+type BackgroundColorConnectionColorCode {
+  key: String
+  connection: BackgroundColorConnection
+}
+
+type BackgroundColorConnectionPublished_at {
+  key: DateTime
+  connection: BackgroundColorConnection
+}
+
+type BackgroundColorConnectionCreated_by {
+  key: ID
+  connection: BackgroundColorConnection
+}
+
+type BackgroundColorConnectionUpdated_by {
+  key: ID
+  connection: BackgroundColorConnection
+}
+
+input BackgroundColorInput {
+  colorName: String
+  colorCode: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editBackgroundColorInput {
+  colorName: String
+  colorCode: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createBackgroundColorInput {
+  data: BackgroundColorInput
+}
+
+type createBackgroundColorPayload {
+  backgroundColor: BackgroundColor
+}
+
+input updateBackgroundColorInput {
+  where: InputID
+  data: editBackgroundColorInput
+}
+
+type updateBackgroundColorPayload {
+  backgroundColor: BackgroundColor
+}
+
+input deleteBackgroundColorInput {
+  where: InputID
+}
+
+type deleteBackgroundColorPayload {
+  backgroundColor: BackgroundColor
+}
+
+type Careers {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  joinTeam: ComponentPageTeamZone
+  events: [ComponentPageTextImageZone]
+  benefits: [ComponentPageModules]
+  harnessIs: [ComponentPageModules]
+  caseStudies: [ComponentPageCaseStudyZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input CareerInput {
+  joinTeam: ComponentPageTeamZoneInput
+  events: [ComponentPageTextImageZoneInput]
+  benefits: [ComponentPageModuleInput]
+  harnessIs: [ComponentPageModuleInput]
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editCareerInput {
+  joinTeam: editComponentPageTeamZoneInput
+  events: [editComponentPageTextImageZoneInput]
+  benefits: [editComponentPageModuleInput]
+  harnessIs: [editComponentPageModuleInput]
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateCareerInput {
+  data: editCareerInput
+}
+
+type updateCareerPayload {
+  career: Careers
+}
+
+type deleteCareerPayload {
+  career: Careers
+}
+
+type CaseStudy {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: String
+  description: String
+  videoLink: String
+  companyLogo: UploadFile
+  industry: Industry
+  background_color: BackgroundColor
+  company_size: CompanySize
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+  harness_modules(sort: String, limit: Int, start: Int, where: JSON): [HarnessModule]
+  integrations(sort: String, limit: Int, start: Int, where: JSON): [Integration]
+  outcomes(sort: String, limit: Int, start: Int, where: JSON): [Outcome]
+}
+
+type CaseStudyConnection {
+  values: [CaseStudy]
+  groupBy: CaseStudyGroupBy
+  aggregate: CaseStudyAggregator
+}
+
+type CaseStudyAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type CaseStudyGroupBy {
+  id: [CaseStudyConnectionId]
+  created_at: [CaseStudyConnectionCreated_at]
+  updated_at: [CaseStudyConnectionUpdated_at]
+  title: [CaseStudyConnectionTitle]
+  description: [CaseStudyConnectionDescription]
+  videoLink: [CaseStudyConnectionVideoLink]
+  companyLogo: [CaseStudyConnectionCompanyLogo]
+  industry: [CaseStudyConnectionIndustry]
+  background_color: [CaseStudyConnectionBackground_color]
+  company_size: [CaseStudyConnectionCompany_size]
+  published_at: [CaseStudyConnectionPublished_at]
+  created_by: [CaseStudyConnectionCreated_by]
+  updated_by: [CaseStudyConnectionUpdated_by]
+}
+
+type CaseStudyConnectionId {
+  key: ID
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionCreated_at {
+  key: DateTime
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionUpdated_at {
+  key: DateTime
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionTitle {
+  key: String
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionDescription {
+  key: String
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionVideoLink {
+  key: String
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionCompanyLogo {
+  key: ID
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionIndustry {
+  key: ID
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionBackground_color {
+  key: ID
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionCompany_size {
+  key: ID
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionPublished_at {
+  key: DateTime
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionCreated_by {
+  key: ID
+  connection: CaseStudyConnection
+}
+
+type CaseStudyConnectionUpdated_by {
+  key: ID
+  connection: CaseStudyConnection
+}
+
+input CaseStudyInput {
+  title: String
+  description: String
+  videoLink: String
+  companyLogo: ID
+  harness_modules: [ID]
+  industry: ID
+  integrations: [ID]
+  outcomes: [ID]
+  background_color: ID
+  company_size: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editCaseStudyInput {
+  title: String
+  description: String
+  videoLink: String
+  companyLogo: ID
+  harness_modules: [ID]
+  industry: ID
+  integrations: [ID]
+  outcomes: [ID]
+  background_color: ID
+  company_size: ID
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createCaseStudyInput {
+  data: CaseStudyInput
+}
+
+type createCaseStudyPayload {
+  caseStudy: CaseStudy
+}
+
+input updateCaseStudyInput {
+  where: InputID
+  data: editCaseStudyInput
+}
+
+type updateCaseStudyPayload {
+  caseStudy: CaseStudy
+}
+
+input deleteCaseStudyInput {
+  where: InputID
+}
+
+type deleteCaseStudyPayload {
+  caseStudy: CaseStudy
+}
+
+type CompanySize {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  item: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type CompanySizeConnection {
+  values: [CompanySize]
+  groupBy: CompanySizeGroupBy
+  aggregate: CompanySizeAggregator
+}
+
+type CompanySizeAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type CompanySizeGroupBy {
+  id: [CompanySizeConnectionId]
+  created_at: [CompanySizeConnectionCreated_at]
+  updated_at: [CompanySizeConnectionUpdated_at]
+  item: [CompanySizeConnectionItem]
+  published_at: [CompanySizeConnectionPublished_at]
+  created_by: [CompanySizeConnectionCreated_by]
+  updated_by: [CompanySizeConnectionUpdated_by]
+}
+
+type CompanySizeConnectionId {
+  key: ID
+  connection: CompanySizeConnection
+}
+
+type CompanySizeConnectionCreated_at {
+  key: DateTime
+  connection: CompanySizeConnection
+}
+
+type CompanySizeConnectionUpdated_at {
+  key: DateTime
+  connection: CompanySizeConnection
+}
+
+type CompanySizeConnectionItem {
+  key: String
+  connection: CompanySizeConnection
+}
+
+type CompanySizeConnectionPublished_at {
+  key: DateTime
+  connection: CompanySizeConnection
+}
+
+type CompanySizeConnectionCreated_by {
+  key: ID
+  connection: CompanySizeConnection
+}
+
+type CompanySizeConnectionUpdated_by {
+  key: ID
+  connection: CompanySizeConnection
+}
+
+input CompanySizeInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editCompanySizeInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createCompanySizeInput {
+  data: CompanySizeInput
+}
+
+type createCompanySizePayload {
+  companySize: CompanySize
+}
+
+input updateCompanySizeInput {
+  where: InputID
+  data: editCompanySizeInput
+}
+
+type updateCompanySizePayload {
+  companySize: CompanySize
+}
+
+input deleteCompanySizeInput {
+  where: InputID
+}
+
+type deleteCompanySizePayload {
+  companySize: CompanySize
+}
+
+enum ENUM_COMPETITORCOMPARISON_HARNESSMODULE {
+  Continuous_Integration
+  Continuous_Delivery
+  Feature_Flags_Management
+  Cloud_Cost_Management
+}
+
+type CompetitorComparison {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  harnessModule: ENUM_COMPETITORCOMPARISON_HARNESSMODULE
+  competitor: String
+  harnessSummary: ComponentCompetitorComparisonPageProductSummaryZone
+  harnessLogo: UploadFile
+  competitorLogo: UploadFile
+  featureComparison: ComponentCompetitorComparisonPageFeatureComparison
+  slug: String!
+  detailedFeatureComparison: ComponentCompetitorComparisonPageDetailedFeatureComparison
+  caseStudy: ComponentCompetitorComparisonPageComparisonCaseStudy
+  screenshot: ComponentPageScreenshotZone
+  recommended: ComponentPageScreenshotZone
+  competitorSummary: ComponentCompetitorComparisonPageProductSummaryZone
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type CompetitorComparisonConnection {
+  values: [CompetitorComparison]
+  groupBy: CompetitorComparisonGroupBy
+  aggregate: CompetitorComparisonAggregator
+}
+
+type CompetitorComparisonAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type CompetitorComparisonGroupBy {
+  id: [CompetitorComparisonConnectionId]
+  created_at: [CompetitorComparisonConnectionCreated_at]
+  updated_at: [CompetitorComparisonConnectionUpdated_at]
+  harnessModule: [CompetitorComparisonConnectionHarnessModule]
+  competitor: [CompetitorComparisonConnectionCompetitor]
+  harnessSummary: [CompetitorComparisonConnectionHarnessSummary]
+  harnessLogo: [CompetitorComparisonConnectionHarnessLogo]
+  competitorLogo: [CompetitorComparisonConnectionCompetitorLogo]
+  featureComparison: [CompetitorComparisonConnectionFeatureComparison]
+  slug: [CompetitorComparisonConnectionSlug]
+  detailedFeatureComparison: [CompetitorComparisonConnectionDetailedFeatureComparison]
+  caseStudy: [CompetitorComparisonConnectionCaseStudy]
+  screenshot: [CompetitorComparisonConnectionScreenshot]
+  recommended: [CompetitorComparisonConnectionRecommended]
+  competitorSummary: [CompetitorComparisonConnectionCompetitorSummary]
+  published_at: [CompetitorComparisonConnectionPublished_at]
+  created_by: [CompetitorComparisonConnectionCreated_by]
+  updated_by: [CompetitorComparisonConnectionUpdated_by]
+}
+
+type CompetitorComparisonConnectionId {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionCreated_at {
+  key: DateTime
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionUpdated_at {
+  key: DateTime
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionHarnessModule {
+  key: String
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionCompetitor {
+  key: String
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionHarnessSummary {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionHarnessLogo {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionCompetitorLogo {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionFeatureComparison {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionSlug {
+  key: String
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionDetailedFeatureComparison {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionCaseStudy {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionScreenshot {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionRecommended {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionCompetitorSummary {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionPublished_at {
+  key: DateTime
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionCreated_by {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+type CompetitorComparisonConnectionUpdated_by {
+  key: ID
+  connection: CompetitorComparisonConnection
+}
+
+input CompetitorComparisonInput {
+  harnessModule: ENUM_COMPETITORCOMPARISON_HARNESSMODULE
+  competitor: String
+  harnessSummary: ComponentCompetitorComparisonPageProductSummaryZoneInput
+  harnessLogo: ID
+  competitorLogo: ID
+  featureComparison: ComponentCompetitorComparisonPageFeatureComparisonInput
+  slug: String!
+  detailedFeatureComparison: ComponentCompetitorComparisonPageDetailedFeatureComparisonInput
+  caseStudy: ComponentCompetitorComparisonPageComparisonCaseStudyInput
+  screenshot: ComponentPageScreenshotZoneInput
+  recommended: ComponentPageScreenshotZoneInput
+  competitorSummary: ComponentCompetitorComparisonPageProductSummaryZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editCompetitorComparisonInput {
+  harnessModule: ENUM_COMPETITORCOMPARISON_HARNESSMODULE
+  competitor: String
+  harnessSummary: editComponentCompetitorComparisonPageProductSummaryZoneInput
+  harnessLogo: ID
+  competitorLogo: ID
+  featureComparison: editComponentCompetitorComparisonPageFeatureComparisonInput
+  slug: String
+  detailedFeatureComparison: editComponentCompetitorComparisonPageDetailedFeatureComparisonInput
+  caseStudy: editComponentCompetitorComparisonPageComparisonCaseStudyInput
+  screenshot: editComponentPageScreenshotZoneInput
+  recommended: editComponentPageScreenshotZoneInput
+  competitorSummary: editComponentCompetitorComparisonPageProductSummaryZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createCompetitorComparisonInput {
+  data: CompetitorComparisonInput
+}
+
+type createCompetitorComparisonPayload {
+  competitorComparison: CompetitorComparison
+}
+
+input updateCompetitorComparisonInput {
+  where: InputID
+  data: editCompetitorComparisonInput
+}
+
+type updateCompetitorComparisonPayload {
+  competitorComparison: CompetitorComparison
+}
+
+input deleteCompetitorComparisonInput {
+  where: InputID
+}
+
+type deleteCompetitorComparisonPayload {
+  competitorComparison: CompetitorComparison
+}
+
+type ContactSale {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  firstName: String
+  lastName: String
+  title: String
+  company: String
+  phone: String
+  email: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type ContactSaleConnection {
+  values: [ContactSale]
+  groupBy: ContactSaleGroupBy
+  aggregate: ContactSaleAggregator
+}
+
+type ContactSaleAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type ContactSaleGroupBy {
+  id: [ContactSaleConnectionId]
+  created_at: [ContactSaleConnectionCreated_at]
+  updated_at: [ContactSaleConnectionUpdated_at]
+  firstName: [ContactSaleConnectionFirstName]
+  lastName: [ContactSaleConnectionLastName]
+  title: [ContactSaleConnectionTitle]
+  company: [ContactSaleConnectionCompany]
+  phone: [ContactSaleConnectionPhone]
+  email: [ContactSaleConnectionEmail]
+  published_at: [ContactSaleConnectionPublished_at]
+  created_by: [ContactSaleConnectionCreated_by]
+  updated_by: [ContactSaleConnectionUpdated_by]
+}
+
+type ContactSaleConnectionId {
+  key: ID
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionCreated_at {
+  key: DateTime
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionUpdated_at {
+  key: DateTime
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionFirstName {
+  key: String
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionLastName {
+  key: String
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionTitle {
+  key: String
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionCompany {
+  key: String
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionPhone {
+  key: String
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionEmail {
+  key: String
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionPublished_at {
+  key: DateTime
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionCreated_by {
+  key: ID
+  connection: ContactSaleConnection
+}
+
+type ContactSaleConnectionUpdated_by {
+  key: ID
+  connection: ContactSaleConnection
+}
+
+input ContactSaleInput {
+  firstName: String
+  lastName: String
+  title: String
+  company: String
+  phone: String
+  email: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editContactSaleInput {
+  firstName: String
+  lastName: String
+  title: String
+  company: String
+  phone: String
+  email: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createContactSaleInput {
+  data: ContactSaleInput
+}
+
+type createContactSalePayload {
+  contactSale: ContactSale
+}
+
+input updateContactSaleInput {
+  where: InputID
+  data: editContactSaleInput
+}
+
+type updateContactSalePayload {
+  contactSale: ContactSale
+}
+
+input deleteContactSaleInput {
+  where: InputID
+}
+
+type deleteContactSalePayload {
+  contactSale: ContactSale
+}
+
+type ContactUs {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  firstName: String
+  lastName: String
+  title: String
+  company: String
+  phone: String
+  email: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type ContactUsConnection {
+  values: [ContactUs]
+  groupBy: ContactUsGroupBy
+  aggregate: ContactUsAggregator
+}
+
+type ContactUsAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type ContactUsGroupBy {
+  id: [ContactUsConnectionId]
+  created_at: [ContactUsConnectionCreated_at]
+  updated_at: [ContactUsConnectionUpdated_at]
+  firstName: [ContactUsConnectionFirstName]
+  lastName: [ContactUsConnectionLastName]
+  title: [ContactUsConnectionTitle]
+  company: [ContactUsConnectionCompany]
+  phone: [ContactUsConnectionPhone]
+  email: [ContactUsConnectionEmail]
+  published_at: [ContactUsConnectionPublished_at]
+  created_by: [ContactUsConnectionCreated_by]
+  updated_by: [ContactUsConnectionUpdated_by]
+}
+
+type ContactUsConnectionId {
+  key: ID
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionCreated_at {
+  key: DateTime
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionUpdated_at {
+  key: DateTime
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionFirstName {
+  key: String
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionLastName {
+  key: String
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionTitle {
+  key: String
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionCompany {
+  key: String
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionPhone {
+  key: String
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionEmail {
+  key: String
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionPublished_at {
+  key: DateTime
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionCreated_by {
+  key: ID
+  connection: ContactUsConnection
+}
+
+type ContactUsConnectionUpdated_by {
+  key: ID
+  connection: ContactUsConnection
+}
+
+input ContactUsInput {
+  firstName: String
+  lastName: String
+  title: String
+  company: String
+  phone: String
+  email: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editContactUsInput {
+  firstName: String
+  lastName: String
+  title: String
+  company: String
+  phone: String
+  email: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createContactUsInput {
+  data: ContactUsInput
+}
+
+type createContactUsPayload {
+  contactUs: ContactUs
+}
+
+input updateContactUsInput {
+  where: InputID
+  data: editContactUsInput
+}
+
+type updateContactUsPayload {
+  contactUs: ContactUs
+}
+
+input deleteContactUsInput {
+  where: InputID
+}
+
+type deleteContactUsPayload {
+  contactUs: ContactUs
+}
+
+type Customer {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: ComponentPageTitleZone
+  caseStudy: [ComponentPageCaseStudyZone]
+  feature: [ComponentPageHarnessModule]
+  logoRow1: [ComponentPageCustomerLogoZone]
+  logoRow2: [ComponentPageCustomerLogoZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input CustomerInput {
+  title: ComponentPageTitleZoneInput
+  caseStudy: [ComponentPageCaseStudyZoneInput]
+  feature: [ComponentPageHarnessModuleInput]
+  logoRow1: [ComponentPageCustomerLogoZoneInput]
+  logoRow2: [ComponentPageCustomerLogoZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editCustomerInput {
+  title: editComponentPageTitleZoneInput
+  caseStudy: [editComponentPageCaseStudyZoneInput]
+  feature: [editComponentPageHarnessModuleInput]
+  logoRow1: [editComponentPageCustomerLogoZoneInput]
+  logoRow2: [editComponentPageCustomerLogoZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateCustomerInput {
+  data: editCustomerInput
+}
+
+type updateCustomerPayload {
+  customer: Customer
+}
+
+type deleteCustomerPayload {
+  customer: Customer
+}
+
+type DevOpsTools {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageTitleImgZone
+  introTitle: String
+  introDesc: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input DevOpsToolInput {
+  hero: ComponentPageTitleImgZoneInput
+  introTitle: String
+  introDesc: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editDevOpsToolInput {
+  hero: editComponentPageTitleImgZoneInput
+  introTitle: String
+  introDesc: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateDevOpsToolInput {
+  data: editDevOpsToolInput
+}
+
+type updateDevOpsToolPayload {
+  devOpsTool: DevOpsTools
+}
+
+type deleteDevOpsToolPayload {
+  devOpsTool: DevOpsTools
+}
+
+enum ENUM_HARNESSMODULE_MODULESTYLE {
+  deployment
+  builds
+  cloudcost
+  featureflag
+  changeintel
+}
+
+type HarnessModule {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  moduleName: String
+  moduleDesc: String
+  link: String
+  moduleStyle: ENUM_HARNESSMODULE_MODULESTYLE
+  item: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+  moduleLogo(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+}
+
+type HarnessModuleConnection {
+  values: [HarnessModule]
+  groupBy: HarnessModuleGroupBy
+  aggregate: HarnessModuleAggregator
+}
+
+type HarnessModuleAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type HarnessModuleGroupBy {
+  id: [HarnessModuleConnectionId]
+  created_at: [HarnessModuleConnectionCreated_at]
+  updated_at: [HarnessModuleConnectionUpdated_at]
+  moduleName: [HarnessModuleConnectionModuleName]
+  moduleDesc: [HarnessModuleConnectionModuleDesc]
+  link: [HarnessModuleConnectionLink]
+  moduleStyle: [HarnessModuleConnectionModuleStyle]
+  item: [HarnessModuleConnectionItem]
+  published_at: [HarnessModuleConnectionPublished_at]
+  created_by: [HarnessModuleConnectionCreated_by]
+  updated_by: [HarnessModuleConnectionUpdated_by]
+}
+
+type HarnessModuleConnectionId {
+  key: ID
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionCreated_at {
+  key: DateTime
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionUpdated_at {
+  key: DateTime
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionModuleName {
+  key: String
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionModuleDesc {
+  key: String
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionLink {
+  key: String
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionModuleStyle {
+  key: String
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionItem {
+  key: String
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionPublished_at {
+  key: DateTime
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionCreated_by {
+  key: ID
+  connection: HarnessModuleConnection
+}
+
+type HarnessModuleConnectionUpdated_by {
+  key: ID
+  connection: HarnessModuleConnection
+}
+
+input HarnessModuleInput {
+  moduleName: String
+  moduleLogo: [ID]
+  moduleDesc: String
+  link: String
+  moduleStyle: ENUM_HARNESSMODULE_MODULESTYLE
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editHarnessModuleInput {
+  moduleName: String
+  moduleLogo: [ID]
+  moduleDesc: String
+  link: String
+  moduleStyle: ENUM_HARNESSMODULE_MODULESTYLE
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createHarnessModuleInput {
+  data: HarnessModuleInput
+}
+
+type createHarnessModulePayload {
+  harnessModule: HarnessModule
+}
+
+input updateHarnessModuleInput {
+  where: InputID
+  data: editHarnessModuleInput
+}
+
+type updateHarnessModulePayload {
+  harnessModule: HarnessModule
+}
+
+input deleteHarnessModuleInput {
+  where: InputID
+}
+
+type deleteHarnessModulePayload {
+  harnessModule: HarnessModule
+}
+
+type HarnessSubscription {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  mainBody: ComponentPageRichTextZone
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input HarnessSubscriptionInput {
+  mainBody: ComponentPageRichTextZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editHarnessSubscriptionInput {
+  mainBody: editComponentPageRichTextZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateHarnessSubscriptionInput {
+  data: editHarnessSubscriptionInput
+}
+
+type updateHarnessSubscriptionPayload {
+  harnessSubscription: HarnessSubscription
+}
+
+type deleteHarnessSubscriptionPayload {
+  harnessSubscription: HarnessSubscription
+}
+
+type Home {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: ComponentPageTitleZone
+  feature: [ComponentPageTextZone]
+  explore: [ComponentPageOptionZone]
+  customerLogos: [ComponentPageCustomerLogoZone]
+  caseStudies: [ComponentPageCaseStudyZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input HomeInput {
+  title: ComponentPageTitleZoneInput
+  feature: [ComponentPageTextZoneInput]
+  explore: [ComponentPageOptionZoneInput]
+  customerLogos: [ComponentPageCustomerLogoZoneInput]
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editHomeInput {
+  title: editComponentPageTitleZoneInput
+  feature: [editComponentPageTextZoneInput]
+  explore: [editComponentPageOptionZoneInput]
+  customerLogos: [editComponentPageCustomerLogoZoneInput]
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateHomeInput {
+  data: editHomeInput
+}
+
+type updateHomePayload {
+  home: Home
+}
+
+type deleteHomePayload {
+  home: Home
+}
+
+type Industry {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  item: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type IndustryConnection {
+  values: [Industry]
+  groupBy: IndustryGroupBy
+  aggregate: IndustryAggregator
+}
+
+type IndustryAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type IndustryGroupBy {
+  id: [IndustryConnectionId]
+  created_at: [IndustryConnectionCreated_at]
+  updated_at: [IndustryConnectionUpdated_at]
+  item: [IndustryConnectionItem]
+  published_at: [IndustryConnectionPublished_at]
+  created_by: [IndustryConnectionCreated_by]
+  updated_by: [IndustryConnectionUpdated_by]
+}
+
+type IndustryConnectionId {
+  key: ID
+  connection: IndustryConnection
+}
+
+type IndustryConnectionCreated_at {
+  key: DateTime
+  connection: IndustryConnection
+}
+
+type IndustryConnectionUpdated_at {
+  key: DateTime
+  connection: IndustryConnection
+}
+
+type IndustryConnectionItem {
+  key: String
+  connection: IndustryConnection
+}
+
+type IndustryConnectionPublished_at {
+  key: DateTime
+  connection: IndustryConnection
+}
+
+type IndustryConnectionCreated_by {
+  key: ID
+  connection: IndustryConnection
+}
+
+type IndustryConnectionUpdated_by {
+  key: ID
+  connection: IndustryConnection
+}
+
+input IndustryInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editIndustryInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createIndustryInput {
+  data: IndustryInput
+}
+
+type createIndustryPayload {
+  industry: Industry
+}
+
+input updateIndustryInput {
+  where: InputID
+  data: editIndustryInput
+}
+
+type updateIndustryPayload {
+  industry: Industry
+}
+
+input deleteIndustryInput {
+  where: InputID
+}
+
+type deleteIndustryPayload {
+  industry: Industry
+}
+
+type Integration {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  item: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type IntegrationConnection {
+  values: [Integration]
+  groupBy: IntegrationGroupBy
+  aggregate: IntegrationAggregator
+}
+
+type IntegrationAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type IntegrationGroupBy {
+  id: [IntegrationConnectionId]
+  created_at: [IntegrationConnectionCreated_at]
+  updated_at: [IntegrationConnectionUpdated_at]
+  item: [IntegrationConnectionItem]
+  published_at: [IntegrationConnectionPublished_at]
+  created_by: [IntegrationConnectionCreated_by]
+  updated_by: [IntegrationConnectionUpdated_by]
+}
+
+type IntegrationConnectionId {
+  key: ID
+  connection: IntegrationConnection
+}
+
+type IntegrationConnectionCreated_at {
+  key: DateTime
+  connection: IntegrationConnection
+}
+
+type IntegrationConnectionUpdated_at {
+  key: DateTime
+  connection: IntegrationConnection
+}
+
+type IntegrationConnectionItem {
+  key: String
+  connection: IntegrationConnection
+}
+
+type IntegrationConnectionPublished_at {
+  key: DateTime
+  connection: IntegrationConnection
+}
+
+type IntegrationConnectionCreated_by {
+  key: ID
+  connection: IntegrationConnection
+}
+
+type IntegrationConnectionUpdated_by {
+  key: ID
+  connection: IntegrationConnection
+}
+
+input IntegrationInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editIntegrationInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createIntegrationInput {
+  data: IntegrationInput
+}
+
+type createIntegrationPayload {
+  integration: Integration
+}
+
+input updateIntegrationInput {
+  where: InputID
+  data: editIntegrationInput
+}
+
+type updateIntegrationPayload {
+  integration: Integration
+}
+
+input deleteIntegrationInput {
+  where: InputID
+}
+
+type deleteIntegrationPayload {
+  integration: Integration
+}
+
+type MarketingSite {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  heroTitle: String
+  heroSubTitle: String
+  name: String
+  piplineTitle: String
+  pipelineDesc: String
+  developerTitle: String
+  developerDesc: String
+  aiTitle: String
+  aiDesc: String
+  governaceTitle: String
+  governaceDesc: String
+  cdTitle: String
+  cdSubTitle: String
+  cdDesc: String
+  ciTitle: String
+  ciSubTitle: String
+  ciDesc: String
+  cloudCostTitle: String
+  cloudCostSubTitle: String
+  cloudCostDesc: String
+  featureFlagsTitle: String
+  featureFlagsSubTitle: String
+  featureFlagsDesc: String
+  chIntelTitle: String
+  chIntelSubTitle: String
+  chIntelDesc: String
+  caseStudy1: String
+  caseStudy1Client: String
+  caseStudy2: String
+  caseStudy2Client: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type MarketingSiteConnection {
+  values: [MarketingSite]
+  groupBy: MarketingSiteGroupBy
+  aggregate: MarketingSiteAggregator
+}
+
+type MarketingSiteAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type MarketingSiteGroupBy {
+  id: [MarketingSiteConnectionId]
+  created_at: [MarketingSiteConnectionCreated_at]
+  updated_at: [MarketingSiteConnectionUpdated_at]
+  heroTitle: [MarketingSiteConnectionHeroTitle]
+  heroSubTitle: [MarketingSiteConnectionHeroSubTitle]
+  name: [MarketingSiteConnectionName]
+  piplineTitle: [MarketingSiteConnectionPiplineTitle]
+  pipelineDesc: [MarketingSiteConnectionPipelineDesc]
+  developerTitle: [MarketingSiteConnectionDeveloperTitle]
+  developerDesc: [MarketingSiteConnectionDeveloperDesc]
+  aiTitle: [MarketingSiteConnectionAiTitle]
+  aiDesc: [MarketingSiteConnectionAiDesc]
+  governaceTitle: [MarketingSiteConnectionGovernaceTitle]
+  governaceDesc: [MarketingSiteConnectionGovernaceDesc]
+  cdTitle: [MarketingSiteConnectionCdTitle]
+  cdSubTitle: [MarketingSiteConnectionCdSubTitle]
+  cdDesc: [MarketingSiteConnectionCdDesc]
+  ciTitle: [MarketingSiteConnectionCiTitle]
+  ciSubTitle: [MarketingSiteConnectionCiSubTitle]
+  ciDesc: [MarketingSiteConnectionCiDesc]
+  cloudCostTitle: [MarketingSiteConnectionCloudCostTitle]
+  cloudCostSubTitle: [MarketingSiteConnectionCloudCostSubTitle]
+  cloudCostDesc: [MarketingSiteConnectionCloudCostDesc]
+  featureFlagsTitle: [MarketingSiteConnectionFeatureFlagsTitle]
+  featureFlagsSubTitle: [MarketingSiteConnectionFeatureFlagsSubTitle]
+  featureFlagsDesc: [MarketingSiteConnectionFeatureFlagsDesc]
+  chIntelTitle: [MarketingSiteConnectionChIntelTitle]
+  chIntelSubTitle: [MarketingSiteConnectionChIntelSubTitle]
+  chIntelDesc: [MarketingSiteConnectionChIntelDesc]
+  caseStudy1: [MarketingSiteConnectionCaseStudy1]
+  caseStudy1Client: [MarketingSiteConnectionCaseStudy1Client]
+  caseStudy2: [MarketingSiteConnectionCaseStudy2]
+  caseStudy2Client: [MarketingSiteConnectionCaseStudy2Client]
+  published_at: [MarketingSiteConnectionPublished_at]
+  created_by: [MarketingSiteConnectionCreated_by]
+  updated_by: [MarketingSiteConnectionUpdated_by]
+}
+
+type MarketingSiteConnectionId {
+  key: ID
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCreated_at {
+  key: DateTime
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionUpdated_at {
+  key: DateTime
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionHeroTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionHeroSubTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionName {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionPiplineTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionPipelineDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionDeveloperTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionDeveloperDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionAiTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionAiDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionGovernaceTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionGovernaceDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCdTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCdSubTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCdDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCiTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCiSubTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCiDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCloudCostTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCloudCostSubTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCloudCostDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionFeatureFlagsTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionFeatureFlagsSubTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionFeatureFlagsDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionChIntelTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionChIntelSubTitle {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionChIntelDesc {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCaseStudy1 {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCaseStudy1Client {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCaseStudy2 {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCaseStudy2Client {
+  key: String
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionPublished_at {
+  key: DateTime
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionCreated_by {
+  key: ID
+  connection: MarketingSiteConnection
+}
+
+type MarketingSiteConnectionUpdated_by {
+  key: ID
+  connection: MarketingSiteConnection
+}
+
+input MarketingSiteInput {
+  heroTitle: String
+  heroSubTitle: String
+  name: String
+  piplineTitle: String
+  pipelineDesc: String
+  developerTitle: String
+  developerDesc: String
+  aiTitle: String
+  aiDesc: String
+  governaceTitle: String
+  governaceDesc: String
+  cdTitle: String
+  cdSubTitle: String
+  cdDesc: String
+  ciTitle: String
+  ciSubTitle: String
+  ciDesc: String
+  cloudCostTitle: String
+  cloudCostSubTitle: String
+  cloudCostDesc: String
+  featureFlagsTitle: String
+  featureFlagsSubTitle: String
+  featureFlagsDesc: String
+  chIntelTitle: String
+  chIntelSubTitle: String
+  chIntelDesc: String
+  caseStudy1: String
+  caseStudy1Client: String
+  caseStudy2: String
+  caseStudy2Client: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editMarketingSiteInput {
+  heroTitle: String
+  heroSubTitle: String
+  name: String
+  piplineTitle: String
+  pipelineDesc: String
+  developerTitle: String
+  developerDesc: String
+  aiTitle: String
+  aiDesc: String
+  governaceTitle: String
+  governaceDesc: String
+  cdTitle: String
+  cdSubTitle: String
+  cdDesc: String
+  ciTitle: String
+  ciSubTitle: String
+  ciDesc: String
+  cloudCostTitle: String
+  cloudCostSubTitle: String
+  cloudCostDesc: String
+  featureFlagsTitle: String
+  featureFlagsSubTitle: String
+  featureFlagsDesc: String
+  chIntelTitle: String
+  chIntelSubTitle: String
+  chIntelDesc: String
+  caseStudy1: String
+  caseStudy1Client: String
+  caseStudy2: String
+  caseStudy2Client: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createMarketingSiteInput {
+  data: MarketingSiteInput
+}
+
+type createMarketingSitePayload {
+  marketingSite: MarketingSite
+}
+
+input updateMarketingSiteInput {
+  where: InputID
+  data: editMarketingSiteInput
+}
+
+type updateMarketingSitePayload {
+  marketingSite: MarketingSite
+}
+
+input deleteMarketingSiteInput {
+  where: InputID
+}
+
+type deleteMarketingSitePayload {
+  marketingSite: MarketingSite
+}
+
+type Outcome {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  item: String
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type OutcomeConnection {
+  values: [Outcome]
+  groupBy: OutcomeGroupBy
+  aggregate: OutcomeAggregator
+}
+
+type OutcomeAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type OutcomeGroupBy {
+  id: [OutcomeConnectionId]
+  created_at: [OutcomeConnectionCreated_at]
+  updated_at: [OutcomeConnectionUpdated_at]
+  item: [OutcomeConnectionItem]
+  published_at: [OutcomeConnectionPublished_at]
+  created_by: [OutcomeConnectionCreated_by]
+  updated_by: [OutcomeConnectionUpdated_by]
+}
+
+type OutcomeConnectionId {
+  key: ID
+  connection: OutcomeConnection
+}
+
+type OutcomeConnectionCreated_at {
+  key: DateTime
+  connection: OutcomeConnection
+}
+
+type OutcomeConnectionUpdated_at {
+  key: DateTime
+  connection: OutcomeConnection
+}
+
+type OutcomeConnectionItem {
+  key: String
+  connection: OutcomeConnection
+}
+
+type OutcomeConnectionPublished_at {
+  key: DateTime
+  connection: OutcomeConnection
+}
+
+type OutcomeConnectionCreated_by {
+  key: ID
+  connection: OutcomeConnection
+}
+
+type OutcomeConnectionUpdated_by {
+  key: ID
+  connection: OutcomeConnection
+}
+
+input OutcomeInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editOutcomeInput {
+  item: String
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input createOutcomeInput {
+  data: OutcomeInput
+}
+
+type createOutcomePayload {
+  outcome: Outcome
+}
+
+input updateOutcomeInput {
+  where: InputID
+  data: editOutcomeInput
+}
+
+type updateOutcomePayload {
+  outcome: Outcome
+}
+
+input deleteOutcomeInput {
+  where: InputID
+}
+
+type deleteOutcomePayload {
+  outcome: Outcome
+}
+
+type Partners {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageSimpleTitleZone
+  features: [ComponentPageMultiImgListZone]
+  harnessPlatform: ComponentPageSimpleTitleZone
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input PartnerInput {
+  hero: ComponentPageSimpleTitleZoneInput
+  features: [ComponentPageMultiImgListZoneInput]
+  harnessPlatform: ComponentPageSimpleTitleZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editPartnerInput {
+  hero: editComponentPageSimpleTitleZoneInput
+  features: [editComponentPageMultiImgListZoneInput]
+  harnessPlatform: editComponentPageSimpleTitleZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updatePartnerInput {
+  data: editPartnerInput
+}
+
+type updatePartnerPayload {
+  partner: Partners
+}
+
+type deletePartnerPayload {
+  partner: Partners
+}
+
+type PressAndNews {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageSimpleTitleZone
+  news: [ComponentPageNewsZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input PressAndNewInput {
+  hero: ComponentPageSimpleTitleZoneInput
+  news: [ComponentPageNewsZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editPressAndNewInput {
+  hero: editComponentPageSimpleTitleZoneInput
+  news: [editComponentPageNewsZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updatePressAndNewInput {
+  data: editPressAndNewInput
+}
+
+type updatePressAndNewPayload {
+  pressAndNew: PressAndNews
+}
+
+type deletePressAndNewPayload {
+  pressAndNew: PressAndNews
+}
+
+type Pricing {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageMiniTitleZone
+  ciPlans: [ComponentPricingPagePlansZone]
+  cdPlans: [ComponentPricingPagePlansZone]
+  ffPlans: [ComponentPricingPagePlansZone]
+  ccPlans: [ComponentPricingPagePlansZone]
+  chIntelPlans: [ComponentPricingPagePlansZone]
+  caseStudies: [ComponentPageCaseStudyZone]
+  ciSaasPlans: [ComponentPricingPagePlansZone]
+  ciFeatureGroup: [ComponentPricingPageFeatureGroup]
+  ciFeatureCaption: [ComponentPricingPageFeatureCaption]
+  cdFeatureCaption: [ComponentPricingPageFeatureCaption]
+  cdFeatureGroup: [ComponentPricingPageFeatureGroup]
+  ccFeatureCaption: [ComponentPricingPageFeatureCaption]
+  ccFeatureGroup: [ComponentPricingPageFeatureGroup]
+  ffFeatureCaption: [ComponentPricingPageFeatureCaption]
+  ffFeatureGroup: [ComponentPricingPageFeatureGroup]
+  ciSaasFeatureCaption: [ComponentPricingPageFeatureCaption]
+  ciSaasFeatureGroup: [ComponentPricingPageFeatureGroup]
+  chIntelFeatureCaption: [ComponentPricingPageFeatureCaption]
+  chIntelFeatureGroup: [ComponentPricingPageFeatureGroup]
+  cdFaq: [ComponentPricingPageFaq]
+  ciFaq: [ComponentPricingPageFaq]
+  ffFaq: [ComponentPricingPageFaq]
+  ccFaq: [ComponentPricingPageFaq]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input PricingInput {
+  hero: ComponentPageMiniTitleZoneInput
+  ciPlans: [ComponentPricingPagePlansZoneInput]
+  cdPlans: [ComponentPricingPagePlansZoneInput]
+  ffPlans: [ComponentPricingPagePlansZoneInput]
+  ccPlans: [ComponentPricingPagePlansZoneInput]
+  chIntelPlans: [ComponentPricingPagePlansZoneInput]
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  ciSaasPlans: [ComponentPricingPagePlansZoneInput]
+  ciFeatureGroup: [ComponentPricingPageFeatureGroupInput]
+  ciFeatureCaption: [ComponentPricingPageFeatureCaptionInput]
+  cdFeatureCaption: [ComponentPricingPageFeatureCaptionInput]
+  cdFeatureGroup: [ComponentPricingPageFeatureGroupInput]
+  ccFeatureCaption: [ComponentPricingPageFeatureCaptionInput]
+  ccFeatureGroup: [ComponentPricingPageFeatureGroupInput]
+  ffFeatureCaption: [ComponentPricingPageFeatureCaptionInput]
+  ffFeatureGroup: [ComponentPricingPageFeatureGroupInput]
+  ciSaasFeatureCaption: [ComponentPricingPageFeatureCaptionInput]
+  ciSaasFeatureGroup: [ComponentPricingPageFeatureGroupInput]
+  chIntelFeatureCaption: [ComponentPricingPageFeatureCaptionInput]
+  chIntelFeatureGroup: [ComponentPricingPageFeatureGroupInput]
+  cdFaq: [ComponentPricingPageFaqInput]
+  ciFaq: [ComponentPricingPageFaqInput]
+  ffFaq: [ComponentPricingPageFaqInput]
+  ccFaq: [ComponentPricingPageFaqInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editPricingInput {
+  hero: editComponentPageMiniTitleZoneInput
+  ciPlans: [editComponentPricingPagePlansZoneInput]
+  cdPlans: [editComponentPricingPagePlansZoneInput]
+  ffPlans: [editComponentPricingPagePlansZoneInput]
+  ccPlans: [editComponentPricingPagePlansZoneInput]
+  chIntelPlans: [editComponentPricingPagePlansZoneInput]
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  ciSaasPlans: [editComponentPricingPagePlansZoneInput]
+  ciFeatureGroup: [editComponentPricingPageFeatureGroupInput]
+  ciFeatureCaption: [editComponentPricingPageFeatureCaptionInput]
+  cdFeatureCaption: [editComponentPricingPageFeatureCaptionInput]
+  cdFeatureGroup: [editComponentPricingPageFeatureGroupInput]
+  ccFeatureCaption: [editComponentPricingPageFeatureCaptionInput]
+  ccFeatureGroup: [editComponentPricingPageFeatureGroupInput]
+  ffFeatureCaption: [editComponentPricingPageFeatureCaptionInput]
+  ffFeatureGroup: [editComponentPricingPageFeatureGroupInput]
+  ciSaasFeatureCaption: [editComponentPricingPageFeatureCaptionInput]
+  ciSaasFeatureGroup: [editComponentPricingPageFeatureGroupInput]
+  chIntelFeatureCaption: [editComponentPricingPageFeatureCaptionInput]
+  chIntelFeatureGroup: [editComponentPricingPageFeatureGroupInput]
+  cdFaq: [editComponentPricingPageFaqInput]
+  ciFaq: [editComponentPricingPageFaqInput]
+  ffFaq: [editComponentPricingPageFaqInput]
+  ccFaq: [editComponentPricingPageFaqInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updatePricingInput {
+  data: editPricingInput
+}
+
+type updatePricingPayload {
+  pricing: Pricing
+}
+
+type deletePricingPayload {
+  pricing: Pricing
+}
+
+type ProductCd {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageProductTitleZone
+  customerLogos: [ComponentPageCustomerLogoZone]
+  featureScreenshots: [ComponentPageOptionZone]
+  features: [ComponentPageModules]
+  integrations: ComponentPageMultiImgZone
+  caseStudies: [ComponentPageCaseStudyZone]
+  plans: [ComponentPricingPagePlansZone]
+  morePlans: [ComponentPricingPageMorePlansZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input ProductCdInput {
+  hero: ComponentPageProductTitleZoneInput
+  customerLogos: [ComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [ComponentPageOptionZoneInput]
+  features: [ComponentPageModuleInput]
+  integrations: ComponentPageMultiImgZoneInput
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  plans: [ComponentPricingPagePlansZoneInput]
+  morePlans: [ComponentPricingPageMorePlansZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editProductCdInput {
+  hero: editComponentPageProductTitleZoneInput
+  customerLogos: [editComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [editComponentPageOptionZoneInput]
+  features: [editComponentPageModuleInput]
+  integrations: editComponentPageMultiImgZoneInput
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  plans: [editComponentPricingPagePlansZoneInput]
+  morePlans: [editComponentPricingPageMorePlansZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateProductCdInput {
+  data: editProductCdInput
+}
+
+type updateProductCdPayload {
+  productCd: ProductCd
+}
+
+type deleteProductCdPayload {
+  productCd: ProductCd
+}
+
+type ProductChangeIntelligence {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageProductTitleZone
+  customerLogos: [ComponentPageCustomerLogoZone]
+  featureScreenshots: [ComponentPageOptionZone]
+  features: [ComponentPageModules]
+  integrations: ComponentPageMultiImgZone
+  caseStudies: [ComponentPageCaseStudyZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input ProductChangeIntelligenceInput {
+  hero: ComponentPageProductTitleZoneInput
+  customerLogos: [ComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [ComponentPageOptionZoneInput]
+  features: [ComponentPageModuleInput]
+  integrations: ComponentPageMultiImgZoneInput
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editProductChangeIntelligenceInput {
+  hero: editComponentPageProductTitleZoneInput
+  customerLogos: [editComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [editComponentPageOptionZoneInput]
+  features: [editComponentPageModuleInput]
+  integrations: editComponentPageMultiImgZoneInput
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateProductChangeIntelligenceInput {
+  data: editProductChangeIntelligenceInput
+}
+
+type updateProductChangeIntelligencePayload {
+  productChangeIntelligence: ProductChangeIntelligence
+}
+
+type deleteProductChangeIntelligencePayload {
+  productChangeIntelligence: ProductChangeIntelligence
+}
+
+type ProductCi {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageProductTitleZone
+  customerLogos: [ComponentPageCustomerLogoZone]
+  featureScreenshots: [ComponentPageOptionZone]
+  features: [ComponentPageModules]
+  integrations: ComponentPageMultiImgZone
+  caseStudies: [ComponentPageCaseStudyZone]
+  plans: [ComponentPricingPagePlansZone]
+  morePlans: [ComponentPricingPageMorePlansZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input ProductCiInput {
+  hero: ComponentPageProductTitleZoneInput
+  customerLogos: [ComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [ComponentPageOptionZoneInput]
+  features: [ComponentPageModuleInput]
+  integrations: ComponentPageMultiImgZoneInput
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  plans: [ComponentPricingPagePlansZoneInput]
+  morePlans: [ComponentPricingPageMorePlansZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editProductCiInput {
+  hero: editComponentPageProductTitleZoneInput
+  customerLogos: [editComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [editComponentPageOptionZoneInput]
+  features: [editComponentPageModuleInput]
+  integrations: editComponentPageMultiImgZoneInput
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  plans: [editComponentPricingPagePlansZoneInput]
+  morePlans: [editComponentPricingPageMorePlansZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateProductCiInput {
+  data: editProductCiInput
+}
+
+type updateProductCiPayload {
+  productCi: ProductCi
+}
+
+type deleteProductCiPayload {
+  productCi: ProductCi
+}
+
+type ProductCloudCost {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageProductTitleZone
+  customerLogos: [ComponentPageCustomerLogoZone]
+  featureScreenshots: [ComponentPageOptionZone]
+  costTransparency: [ComponentPageModules]
+  integrations: ComponentPageMultiImgZone
+  caseStudies: [ComponentPageCaseStudyZone]
+  optimization: [ComponentPageModules]
+  governance: [ComponentPageModules]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input ProductCloudCostInput {
+  hero: ComponentPageProductTitleZoneInput
+  customerLogos: [ComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [ComponentPageOptionZoneInput]
+  costTransparency: [ComponentPageModuleInput]
+  integrations: ComponentPageMultiImgZoneInput
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  optimization: [ComponentPageModuleInput]
+  governance: [ComponentPageModuleInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editProductCloudCostInput {
+  hero: editComponentPageProductTitleZoneInput
+  customerLogos: [editComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [editComponentPageOptionZoneInput]
+  costTransparency: [editComponentPageModuleInput]
+  integrations: editComponentPageMultiImgZoneInput
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  optimization: [editComponentPageModuleInput]
+  governance: [editComponentPageModuleInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateProductCloudCostInput {
+  data: editProductCloudCostInput
+}
+
+type updateProductCloudCostPayload {
+  productCloudCost: ProductCloudCost
+}
+
+type deleteProductCloudCostPayload {
+  productCloudCost: ProductCloudCost
+}
+
+type ProductFeatureFlags {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  hero: ComponentPageProductTitleZone
+  customerLogos: [ComponentPageCustomerLogoZone]
+  featureScreenshots: [ComponentPageOptionZone]
+  features: [ComponentPageModules]
+  integrations: ComponentPageMultiImgZone
+  caseStudies: [ComponentPageCaseStudyZone]
+  plans: [ComponentPricingPagePlansZone]
+  morePlans: [ComponentPricingPageMorePlansZone]
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input ProductFeatureFlagInput {
+  hero: ComponentPageProductTitleZoneInput
+  customerLogos: [ComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [ComponentPageOptionZoneInput]
+  features: [ComponentPageModuleInput]
+  integrations: ComponentPageMultiImgZoneInput
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  plans: [ComponentPricingPagePlansZoneInput]
+  morePlans: [ComponentPricingPageMorePlansZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editProductFeatureFlagInput {
+  hero: editComponentPageProductTitleZoneInput
+  customerLogos: [editComponentPageCustomerLogoZoneInput]
+  featureScreenshots: [editComponentPageOptionZoneInput]
+  features: [editComponentPageModuleInput]
+  integrations: editComponentPageMultiImgZoneInput
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  plans: [editComponentPricingPagePlansZoneInput]
+  morePlans: [editComponentPricingPageMorePlansZoneInput]
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateProductFeatureFlagInput {
+  data: editProductFeatureFlagInput
+}
+
+type updateProductFeatureFlagPayload {
+  productFeatureFlag: ProductFeatureFlags
+}
+
+type deleteProductFeatureFlagPayload {
+  productFeatureFlag: ProductFeatureFlags
+}
+
+type ProductPlatform {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  title: ComponentPageTitleZone
+  modules: [ComponentPageModules]
+  caseStudies: [ComponentPageCaseStudyZone]
+  features: [ComponentPageModules]
+  platformModules: ComponentPageTitleZone
+  supportedPlatforms: ComponentPageMultiImgZone
+  hostingOptions: ComponentPageOptionZone
+  integrations: ComponentPageMultiImgZone
+  published_at: DateTime
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+input ProductPlatformInput {
+  title: ComponentPageTitleZoneInput
+  modules: [ComponentPageModuleInput]
+  caseStudies: [ComponentPageCaseStudyZoneInput]
+  features: [ComponentPageModuleInput]
+  platformModules: ComponentPageTitleZoneInput
+  supportedPlatforms: ComponentPageMultiImgZoneInput
+  hostingOptions: ComponentPageOptionZoneInput
+  integrations: ComponentPageMultiImgZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input editProductPlatformInput {
+  title: editComponentPageTitleZoneInput
+  modules: [editComponentPageModuleInput]
+  caseStudies: [editComponentPageCaseStudyZoneInput]
+  features: [editComponentPageModuleInput]
+  platformModules: editComponentPageTitleZoneInput
+  supportedPlatforms: editComponentPageMultiImgZoneInput
+  hostingOptions: editComponentPageOptionZoneInput
+  integrations: editComponentPageMultiImgZoneInput
+  published_at: DateTime
+  created_by: ID
+  updated_by: ID
+}
+
+input updateProductPlatformInput {
+  data: editProductPlatformInput
+}
+
+type updateProductPlatformPayload {
+  productPlatform: ProductPlatform
+}
+
+type deleteProductPlatformPayload {
+  productPlatform: ProductPlatform
+}
+
+type UploadFile {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  name: String!
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String!
+  ext: String
+  mime: String!
+  size: Float!
+  url: String!
+  previewUrl: String
+  provider: String!
+  provider_metadata: JSON
+  created_by: AdminUser
+  updated_by: AdminUser
+  related(sort: String, limit: Int, start: Int, where: JSON): [Morph]
+}
+
+type UploadFileConnection {
+  values: [UploadFile]
+  groupBy: UploadFileGroupBy
+  aggregate: UploadFileAggregator
+}
+
+type UploadFileAggregator {
+  count: Int
+  totalCount: Int
+  sum: UploadFileAggregatorSum
+  avg: UploadFileAggregatorAvg
+  min: UploadFileAggregatorMin
+  max: UploadFileAggregatorMax
+}
+
+type UploadFileAggregatorSum {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileAggregatorAvg {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileAggregatorMin {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileAggregatorMax {
+  width: Float
+  height: Float
+  size: Float
+}
+
+type UploadFileGroupBy {
+  id: [UploadFileConnectionId]
+  created_at: [UploadFileConnectionCreated_at]
+  updated_at: [UploadFileConnectionUpdated_at]
+  name: [UploadFileConnectionName]
+  alternativeText: [UploadFileConnectionAlternativeText]
+  caption: [UploadFileConnectionCaption]
+  width: [UploadFileConnectionWidth]
+  height: [UploadFileConnectionHeight]
+  formats: [UploadFileConnectionFormats]
+  hash: [UploadFileConnectionHash]
+  ext: [UploadFileConnectionExt]
+  mime: [UploadFileConnectionMime]
+  size: [UploadFileConnectionSize]
+  url: [UploadFileConnectionUrl]
+  previewUrl: [UploadFileConnectionPreviewUrl]
+  provider: [UploadFileConnectionProvider]
+  provider_metadata: [UploadFileConnectionProvider_metadata]
+  created_by: [UploadFileConnectionCreated_by]
+  updated_by: [UploadFileConnectionUpdated_by]
+}
+
+type UploadFileConnectionId {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCreated_at {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUpdated_at {
+  key: DateTime
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionName {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionAlternativeText {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCaption {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionWidth {
+  key: Int
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionHeight {
+  key: Int
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionFormats {
+  key: JSON
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionHash {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionExt {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionMime {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionSize {
+  key: Float
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUrl {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionPreviewUrl {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionProvider {
+  key: String
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionProvider_metadata {
+  key: JSON
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionCreated_by {
+  key: ID
+  connection: UploadFileConnection
+}
+
+type UploadFileConnectionUpdated_by {
+  key: ID
+  connection: UploadFileConnection
+}
+
+input FileInput {
+  name: String!
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String!
+  ext: String
+  mime: String!
+  size: Float!
+  url: String!
+  previewUrl: String
+  provider: String!
+  provider_metadata: JSON
+  related: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input editFileInput {
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  previewUrl: String
+  provider: String
+  provider_metadata: JSON
+  related: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input deleteFileInput {
+  where: InputID
+}
+
+type deleteFilePayload {
+  file: UploadFile
+}
+
+type UsersPermissionsPermission {
+  id: ID!
+  type: String!
+  controller: String!
+  action: String!
+  enabled: Boolean!
+  policy: String
+  role: UsersPermissionsRole
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type UsersPermissionsRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+  created_by: AdminUser
+  updated_by: AdminUser
+  permissions(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsPermission]
+  users(sort: String, limit: Int, start: Int, where: JSON): [UsersPermissionsUser]
+}
+
+type UsersPermissionsRoleConnection {
+  values: [UsersPermissionsRole]
+  groupBy: UsersPermissionsRoleGroupBy
+  aggregate: UsersPermissionsRoleAggregator
+}
+
+type UsersPermissionsRoleAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UsersPermissionsRoleGroupBy {
+  id: [UsersPermissionsRoleConnectionId]
+  name: [UsersPermissionsRoleConnectionName]
+  description: [UsersPermissionsRoleConnectionDescription]
+  type: [UsersPermissionsRoleConnectionType]
+  created_by: [UsersPermissionsRoleConnectionCreated_by]
+  updated_by: [UsersPermissionsRoleConnectionUpdated_by]
+}
+
+type UsersPermissionsRoleConnectionId {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionName {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionDescription {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionType {
+  key: String
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionCreated_by {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+type UsersPermissionsRoleConnectionUpdated_by {
+  key: ID
+  connection: UsersPermissionsRoleConnection
+}
+
+input RoleInput {
+  name: String!
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input editRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+  created_by: ID
+  updated_by: ID
+}
+
+input createRoleInput {
+  data: RoleInput
+}
+
+type createRolePayload {
+  role: UsersPermissionsRole
+}
+
+input updateRoleInput {
+  where: InputID
+  data: editRoleInput
+}
+
+type updateRolePayload {
+  role: UsersPermissionsRole
+}
+
+input deleteRoleInput {
+  where: InputID
+}
+
+type deleteRolePayload {
+  role: UsersPermissionsRole
+}
+
+enum ENUM_USERSPERMISSIONSUSER_OCCUPATION {
+  designer
+  engineer
+  CIO
+}
+
+enum ENUM_USERSPERMISSIONSUSER_INTEREST {
+  CI
+  CD
+  CV
+  CE
+  CF
+}
+
+type UsersPermissionsUser {
+  id: ID!
+  created_at: DateTime!
+  updated_at: DateTime!
+  username: String!
+  email: String!
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmationToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsRole
+  company: String
+  occupation: ENUM_USERSPERMISSIONSUSER_OCCUPATION
+  interest: ENUM_USERSPERMISSIONSUSER_INTEREST
+  created_by: AdminUser
+  updated_by: AdminUser
+}
+
+type UsersPermissionsUserConnection {
+  values: [UsersPermissionsUser]
+  groupBy: UsersPermissionsUserGroupBy
+  aggregate: UsersPermissionsUserAggregator
+}
+
+type UsersPermissionsUserAggregator {
+  count: Int
+  totalCount: Int
+}
+
+type UsersPermissionsUserGroupBy {
+  id: [UsersPermissionsUserConnectionId]
+  created_at: [UsersPermissionsUserConnectionCreated_at]
+  updated_at: [UsersPermissionsUserConnectionUpdated_at]
+  username: [UsersPermissionsUserConnectionUsername]
+  email: [UsersPermissionsUserConnectionEmail]
+  provider: [UsersPermissionsUserConnectionProvider]
+  password: [UsersPermissionsUserConnectionPassword]
+  resetPasswordToken: [UsersPermissionsUserConnectionResetPasswordToken]
+  confirmationToken: [UsersPermissionsUserConnectionConfirmationToken]
+  confirmed: [UsersPermissionsUserConnectionConfirmed]
+  blocked: [UsersPermissionsUserConnectionBlocked]
+  role: [UsersPermissionsUserConnectionRole]
+  company: [UsersPermissionsUserConnectionCompany]
+  occupation: [UsersPermissionsUserConnectionOccupation]
+  interest: [UsersPermissionsUserConnectionInterest]
+  created_by: [UsersPermissionsUserConnectionCreated_by]
+  updated_by: [UsersPermissionsUserConnectionUpdated_by]
+}
+
+type UsersPermissionsUserConnectionId {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionCreated_at {
+  key: DateTime
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionUpdated_at {
+  key: DateTime
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionUsername {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionEmail {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionProvider {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionPassword {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionResetPasswordToken {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionConfirmationToken {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionConfirmed {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionBlocked {
+  key: Boolean
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionRole {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionCompany {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionOccupation {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionInterest {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionCreated_by {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionUpdated_by {
+  key: ID
+  connection: UsersPermissionsUserConnection
+}
+
+input UserInput {
+  username: String!
+  email: String!
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmationToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  company: String
+  occupation: ENUM_USERSPERMISSIONSUSER_OCCUPATION
+  interest: ENUM_USERSPERMISSIONSUSER_INTEREST
+  created_by: ID
+  updated_by: ID
+}
+
+input editUserInput {
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmationToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+  company: String
+  occupation: ENUM_USERSPERMISSIONSUSER_OCCUPATION
+  interest: ENUM_USERSPERMISSIONSUSER_INTEREST
+  created_by: ID
+  updated_by: ID
+}
+
+input createUserInput {
+  data: UserInput
+}
+
+type createUserPayload {
+  user: UsersPermissionsUser
+}
+
+input updateUserInput {
+  where: InputID
+  data: editUserInput
+}
+
+type updateUserPayload {
+  user: UsersPermissionsUser
+}
+
+input deleteUserInput {
+  where: InputID
+}
+
+type deleteUserPayload {
+  user: UsersPermissionsUser
+}
+
+type ComponentCompetitorComparisonPageComparisonCaseStudy {
+  id: ID!
+  title: String
+  desc: String
+  caseStudy: [ComponentPageCaseStudyZone]
+}
+
+input ComponentCompetitorComparisonPageComparisonCaseStudyInput {
+  title: String
+  desc: String
+  caseStudy: [ComponentPageCaseStudyZoneInput]
+}
+
+input editComponentCompetitorComparisonPageComparisonCaseStudyInput {
+  id: ID
+  title: String
+  desc: String
+  caseStudy: [editComponentPageCaseStudyZoneInput]
+}
+
+type ComponentCompetitorComparisonPageDetailedFeatureComparison {
+  id: ID!
+  title: String
+  subTitle: String
+  detailedFeature: [ComponentCompetitorComparisonPageProductDetailedFeature]
+  note: String
+}
+
+input ComponentCompetitorComparisonPageDetailedFeatureComparisonInput {
+  title: String
+  subTitle: String
+  detailedFeature: [ComponentCompetitorComparisonPageProductDetailedFeatureInput]
+  note: String
+}
+
+input editComponentCompetitorComparisonPageDetailedFeatureComparisonInput {
+  id: ID
+  title: String
+  subTitle: String
+  detailedFeature: [editComponentCompetitorComparisonPageProductDetailedFeatureInput]
+  note: String
+}
+
+type ComponentCompetitorComparisonPageFeatureComparison {
+  id: ID!
+  title: String
+  subTitle: String
+  productFeature: [ComponentCompetitorComparisonPageProductFeature]
+}
+
+input ComponentCompetitorComparisonPageFeatureComparisonInput {
+  title: String
+  subTitle: String
+  productFeature: [ComponentCompetitorComparisonPageProductFeatureInput]
+}
+
+input editComponentCompetitorComparisonPageFeatureComparisonInput {
+  id: ID
+  title: String
+  subTitle: String
+  productFeature: [editComponentCompetitorComparisonPageProductFeatureInput]
+}
+
+type ComponentCompetitorComparisonPageProductDetailedFeature {
+  id: ID!
+  title: String
+  desc: String
+  link: String
+}
+
+input ComponentCompetitorComparisonPageProductDetailedFeatureInput {
+  title: String
+  desc: String
+  link: String
+}
+
+input editComponentCompetitorComparisonPageProductDetailedFeatureInput {
+  id: ID
+  title: String
+  desc: String
+  link: String
+}
+
+enum ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_VALUE {
+  NA
+  Yes
+  No
+  Maybe
+}
+
+enum ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_COMPETITORVALUE {
+  NA
+  Yes
+  No
+  Maybe
+}
+
+type ComponentCompetitorComparisonPageProductFeature {
+  id: ID!
+  label: String
+  value: ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_VALUE
+  text: String
+  link: String
+  competitorValue: ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_COMPETITORVALUE
+  competitorText: String
+}
+
+input ComponentCompetitorComparisonPageProductFeatureInput {
+  label: String
+  value: ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_VALUE
+  text: String
+  link: String
+  competitorValue: ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_COMPETITORVALUE
+  competitorText: String
+}
+
+input editComponentCompetitorComparisonPageProductFeatureInput {
+  id: ID
+  label: String
+  value: ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_VALUE
+  text: String
+  link: String
+  competitorValue: ENUM_COMPONENTCOMPETITORCOMPARISONPAGEPRODUCTFEATURE_COMPETITORVALUE
+  competitorText: String
+}
+
+type ComponentCompetitorComparisonPageProductSummaryZone {
+  id: ID!
+  name: String
+  desc: String
+  companySize: String
+  founded: String
+  funding: String
+  categorized: String
+  link: String
+  logo: UploadFile
+}
+
+input ComponentCompetitorComparisonPageProductSummaryZoneInput {
+  name: String
+  desc: String
+  companySize: String
+  founded: String
+  funding: String
+  categorized: String
+  link: String
+  logo: ID
+}
+
+input editComponentCompetitorComparisonPageProductSummaryZoneInput {
+  id: ID
+  name: String
+  desc: String
+  companySize: String
+  founded: String
+  funding: String
+  categorized: String
+  link: String
+  logo: ID
+}
+
+type ComponentPageAdressZone {
+  id: ID!
+  name: String
+  address: String
+}
+
+input ComponentPageAdressZoneInput {
+  name: String
+  address: String
+}
+
+input editComponentPageAdressZoneInput {
+  id: ID
+  name: String
+  address: String
+}
+
+enum ENUM_COMPONENTPAGECASELISTZONE_MODULECOLOR {
+  deployment
+  builds
+  cloudcost
+  featureflag
+  changeintel
+  filters
+}
+
+type ComponentPageCaseListZone {
+  id: ID!
+  caseTitle: String
+  caseDescription: String
+  link: String
+  videoLink: String
+  moduleColor: ENUM_COMPONENTPAGECASELISTZONE_MODULECOLOR
+}
+
+input ComponentPageCaseListZoneInput {
+  caseTitle: String
+  caseDescription: String
+  link: String
+  videoLink: String
+  moduleColor: ENUM_COMPONENTPAGECASELISTZONE_MODULECOLOR
+}
+
+input editComponentPageCaseListZoneInput {
+  id: ID
+  caseTitle: String
+  caseDescription: String
+  link: String
+  videoLink: String
+  moduleColor: ENUM_COMPONENTPAGECASELISTZONE_MODULECOLOR
+}
+
+type ComponentPageCaseStudyZone {
+  id: ID!
+  quote: String
+  client: String
+  link: String
+  clientPic: UploadFile
+  background_color: BackgroundColor
+  harness_modules(sort: String, limit: Int, start: Int, where: JSON): [HarnessModule]
+}
+
+input ComponentPageCaseStudyZoneInput {
+  quote: String
+  client: String
+  link: String
+  clientPic: ID
+  harness_modules: [ID]
+  background_color: ID
+}
+
+input editComponentPageCaseStudyZoneInput {
+  id: ID
+  quote: String
+  client: String
+  link: String
+  clientPic: ID
+  harness_modules: [ID]
+  background_color: ID
+}
+
+type ComponentPageCustomerLogoZone {
+  id: ID!
+  customerName: String
+  link: String
+  logo: UploadFile
+}
+
+input ComponentPageCustomerLogoZoneInput {
+  customerName: String
+  link: String
+  logo: ID
+}
+
+input editComponentPageCustomerLogoZoneInput {
+  id: ID
+  customerName: String
+  link: String
+  logo: ID
+}
+
+type ComponentPageExecutiveZone {
+  id: ID!
+  name: String
+  title: String
+  img: UploadFile
+  bio: String
+}
+
+input ComponentPageExecutiveZoneInput {
+  name: String
+  title: String
+  img: ID
+  bio: String
+}
+
+input editComponentPageExecutiveZoneInput {
+  id: ID
+  name: String
+  title: String
+  img: ID
+  bio: String
+}
+
+type ComponentPageFeatureLIstZone {
+  id: ID!
+  title: String
+  link: String
+}
+
+input ComponentPageFeatureLIstZoneInput {
+  title: String
+  link: String
+}
+
+input editComponentPageFeatureLIstZoneInput {
+  id: ID
+  title: String
+  link: String
+}
+
+type ComponentPageHarnessModule {
+  id: ID!
+  title: String
+  harness_modules(sort: String, limit: Int, start: Int, where: JSON): [HarnessModule]
+}
+
+input ComponentPageHarnessModuleInput {
+  harness_modules: [ID]
+  title: String
+}
+
+input editComponentPageHarnessModuleInput {
+  id: ID
+  harness_modules: [ID]
+  title: String
+}
+
+type ComponentPageImageZone {
+  id: ID!
+  name: String
+  link: String
+  img: UploadFile
+}
+
+input ComponentPageImageZoneInput {
+  name: String
+  link: String
+  img: ID
+}
+
+input editComponentPageImageZoneInput {
+  id: ID
+  name: String
+  link: String
+  img: ID
+}
+
+type ComponentPageMiniTitleZone {
+  id: ID!
+  title: String
+  subTitle: String
+  desc: String
+}
+
+input ComponentPageMiniTitleZoneInput {
+  title: String
+  subTitle: String
+  desc: String
+}
+
+input editComponentPageMiniTitleZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  desc: String
+}
+
+type ComponentPageModules {
+  id: ID!
+  title: String
+  desc: String
+  link: String
+  img: UploadFile
+}
+
+input ComponentPageModuleInput {
+  title: String
+  desc: String
+  link: String
+  img: ID
+}
+
+input editComponentPageModuleInput {
+  id: ID
+  title: String
+  desc: String
+  link: String
+  img: ID
+}
+
+type ComponentPageMultiImgListZone {
+  id: ID!
+  title: String
+  desc: String
+  list: [ComponentPageFeatureLIstZone]
+  img: [ComponentPageImageZone]
+}
+
+input ComponentPageMultiImgListZoneInput {
+  title: String
+  desc: String
+  list: [ComponentPageFeatureLIstZoneInput]
+  img: [ComponentPageImageZoneInput]
+}
+
+input editComponentPageMultiImgListZoneInput {
+  id: ID
+  title: String
+  desc: String
+  list: [editComponentPageFeatureLIstZoneInput]
+  img: [editComponentPageImageZoneInput]
+}
+
+type ComponentPageMultiImgZone {
+  id: ID!
+  title: String
+  link: String
+  secondaryLink: String
+  desc: String
+  subTitle: String
+  img(sort: String, limit: Int, start: Int, where: JSON): [UploadFile]
+}
+
+input ComponentPageMultiImgZoneInput {
+  title: String
+  link: String
+  secondaryLink: String
+  desc: String
+  img: [ID]
+  subTitle: String
+}
+
+input editComponentPageMultiImgZoneInput {
+  id: ID
+  title: String
+  link: String
+  secondaryLink: String
+  desc: String
+  img: [ID]
+  subTitle: String
+}
+
+type ComponentPageNewsZone {
+  id: ID!
+  year: Int
+  title: String
+  media: String
+  link: String
+  logo: UploadFile
+  img: UploadFile
+  featured: Boolean
+}
+
+input ComponentPageNewsZoneInput {
+  year: Int
+  title: String
+  media: String
+  link: String
+  logo: ID
+  img: ID
+  featured: Boolean
+}
+
+input editComponentPageNewsZoneInput {
+  id: ID
+  year: Int
+  title: String
+  media: String
+  link: String
+  logo: ID
+  img: ID
+  featured: Boolean
+}
+
+type ComponentPageOptionZone {
+  id: ID!
+  optionSubTitle: String
+  optionTitle: String
+  optionDescription: String
+  screenshot: UploadFile
+}
+
+input ComponentPageOptionZoneInput {
+  optionSubTitle: String
+  optionTitle: String
+  optionDescription: String
+  screenshot: ID
+}
+
+input editComponentPageOptionZoneInput {
+  id: ID
+  optionSubTitle: String
+  optionTitle: String
+  optionDescription: String
+  screenshot: ID
+}
+
+type ComponentPageProductTitleZone {
+  id: ID!
+  title: String
+  subTitle: String
+  desc: String
+  img: UploadFile
+  backgroundImg: UploadFile
+  link: String
+  video: String
+}
+
+input ComponentPageProductTitleZoneInput {
+  title: String
+  subTitle: String
+  desc: String
+  img: ID
+  backgroundImg: ID
+  link: String
+  video: String
+}
+
+input editComponentPageProductTitleZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  desc: String
+  img: ID
+  backgroundImg: ID
+  link: String
+  video: String
+}
+
+type ComponentPageQuoteZone {
+  id: ID!
+  quoteText: String
+  quoteName: String
+}
+
+input ComponentPageQuoteZoneInput {
+  quoteText: String
+  quoteName: String
+}
+
+input editComponentPageQuoteZoneInput {
+  id: ID
+  quoteText: String
+  quoteName: String
+}
+
+type ComponentPageRichTextZone {
+  id: ID!
+  pageTitle: String
+  bodyText: String
+  dateText: String
+}
+
+input ComponentPageRichTextZoneInput {
+  pageTitle: String
+  bodyText: String
+  dateText: String
+}
+
+input editComponentPageRichTextZoneInput {
+  id: ID
+  pageTitle: String
+  bodyText: String
+  dateText: String
+}
+
+type ComponentPageScreenshotZone {
+  id: ID!
+  title: String
+  img: [ComponentPageImageZone]
+  desc: String
+}
+
+input ComponentPageScreenshotZoneInput {
+  title: String
+  img: [ComponentPageImageZoneInput]
+  desc: String
+}
+
+input editComponentPageScreenshotZoneInput {
+  id: ID
+  title: String
+  img: [editComponentPageImageZoneInput]
+  desc: String
+}
+
+type ComponentPageSimpleTitleZone {
+  id: ID!
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  secondaryLink: String
+}
+
+input ComponentPageSimpleTitleZoneInput {
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  secondaryLink: String
+}
+
+input editComponentPageSimpleTitleZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  secondaryLink: String
+}
+
+type ComponentPageSimpleZone {
+  id: ID!
+  title: String
+  desc: String
+  investorList: [ComponentPageCustomerLogoZone]
+}
+
+input ComponentPageSimpleZoneInput {
+  title: String
+  desc: String
+  investorList: [ComponentPageCustomerLogoZoneInput]
+}
+
+input editComponentPageSimpleZoneInput {
+  id: ID
+  title: String
+  desc: String
+  investorList: [editComponentPageCustomerLogoZoneInput]
+}
+
+type ComponentPageTeamZone {
+  id: ID!
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  secondaryLink: String
+  teamPics: [ComponentPageImageZone]
+}
+
+input ComponentPageTeamZoneInput {
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  secondaryLink: String
+  teamPics: [ComponentPageImageZoneInput]
+}
+
+input editComponentPageTeamZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  secondaryLink: String
+  teamPics: [editComponentPageImageZoneInput]
+}
+
+type ComponentPageTextImageZone {
+  id: ID!
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  img: UploadFile
+}
+
+input ComponentPageTextImageZoneInput {
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  img: ID
+}
+
+input editComponentPageTextImageZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  desc: String
+  link: String
+  img: ID
+}
+
+type ComponentPageTextZone {
+  id: ID!
+  featureTitle: String
+  FeatureIntro: String
+  imageName: String
+  link: String
+}
+
+input ComponentPageTextZoneInput {
+  featureTitle: String
+  FeatureIntro: String
+  imageName: String
+  link: String
+}
+
+input editComponentPageTextZoneInput {
+  id: ID
+  featureTitle: String
+  FeatureIntro: String
+  imageName: String
+  link: String
+}
+
+type ComponentPageTitleImgZone {
+  id: ID!
+  title: String
+  subTitle: String
+  desc: String
+  img: UploadFile
+}
+
+input ComponentPageTitleImgZoneInput {
+  title: String
+  subTitle: String
+  desc: String
+  img: ID
+}
+
+input editComponentPageTitleImgZoneInput {
+  id: ID
+  title: String
+  subTitle: String
+  desc: String
+  img: ID
+}
+
+type ComponentPageTitleZone {
+  id: ID!
+  title: String
+  description: String
+  subTitle: String
+  desktopHeroAnimation: UploadFile
+  mobileHeroAnimation: UploadFile
+  img: UploadFile
+}
+
+input ComponentPageTitleZoneInput {
+  title: String
+  description: String
+  subTitle: String
+  desktopHeroAnimation: ID
+  mobileHeroAnimation: ID
+  img: ID
+}
+
+input editComponentPageTitleZoneInput {
+  id: ID
+  title: String
+  description: String
+  subTitle: String
+  desktopHeroAnimation: ID
+  mobileHeroAnimation: ID
+  img: ID
+}
+
+type ComponentPricingPageCallOut {
+  id: ID!
+  title: String
+  desc: String
+}
+
+input ComponentPricingPageCallOutInput {
+  title: String
+  desc: String
+}
+
+input editComponentPricingPageCallOutInput {
+  id: ID
+  title: String
+  desc: String
+}
+
+enum ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_COMMUNITYVALUE {
+  Yes
+  No
+}
+
+enum ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_FREEVALUE {
+  Yes
+  No
+}
+
+enum ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_TEAMVALUE {
+  Yes
+  No
+}
+
+enum ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_ENTERPRISEVALUE {
+  Yes
+  No
+}
+
+type ComponentPricingPageDetailedFeature {
+  id: ID!
+  title: String
+  communityValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_COMMUNITYVALUE
+  communityText: String
+  freeValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_FREEVALUE
+  freeText: String
+  teamValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_TEAMVALUE
+  teamText: String
+  enterpriseValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_ENTERPRISEVALUE
+  enterpriseText: String
+  link: String
+}
+
+input ComponentPricingPageDetailedFeatureInput {
+  title: String
+  communityValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_COMMUNITYVALUE
+  communityText: String
+  freeValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_FREEVALUE
+  freeText: String
+  teamValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_TEAMVALUE
+  teamText: String
+  enterpriseValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_ENTERPRISEVALUE
+  enterpriseText: String
+  link: String
+}
+
+input editComponentPricingPageDetailedFeatureInput {
+  id: ID
+  title: String
+  communityValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_COMMUNITYVALUE
+  communityText: String
+  freeValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_FREEVALUE
+  freeText: String
+  teamValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_TEAMVALUE
+  teamText: String
+  enterpriseValue: ENUM_COMPONENTPRICINGPAGEDETAILEDFEATURE_ENTERPRISEVALUE
+  enterpriseText: String
+  link: String
+}
+
+type ComponentPricingPageFaq {
+  id: ID!
+  faqTitle: String
+  faqAnswer: String
+  anchor: String
+}
+
+input ComponentPricingPageFaqInput {
+  faqTitle: String
+  faqAnswer: String
+  anchor: String
+}
+
+input editComponentPricingPageFaqInput {
+  id: ID
+  faqTitle: String
+  faqAnswer: String
+  anchor: String
+}
+
+type ComponentPricingPageFeatureCaption {
+  id: ID!
+  title: String
+  btnText: String
+  btnLink: String
+  primaryButton: Boolean
+}
+
+input ComponentPricingPageFeatureCaptionInput {
+  title: String
+  btnText: String
+  btnLink: String
+  primaryButton: Boolean
+}
+
+input editComponentPricingPageFeatureCaptionInput {
+  id: ID
+  title: String
+  btnText: String
+  btnLink: String
+  primaryButton: Boolean
+}
+
+type ComponentPricingPageFeatureGroup {
+  id: ID!
+  title: String
+  detailedFeature: [ComponentPricingPageDetailedFeature]
+}
+
+input ComponentPricingPageFeatureGroupInput {
+  title: String
+  detailedFeature: [ComponentPricingPageDetailedFeatureInput]
+}
+
+input editComponentPricingPageFeatureGroupInput {
+  id: ID
+  title: String
+  detailedFeature: [editComponentPricingPageDetailedFeatureInput]
+}
+
+type ComponentPricingPageMorePlansZone {
+  id: ID!
+  title: String
+  link: String
+  servicesSupported: String
+  users: String
+  deploymentVerification: Boolean
+  managementAtScale: String
+  security: String
+  support: String
+  deplymentUnits: String
+  deplymentPerDay: String
+  buttonText: String
+  primaryButton: Boolean
+  enterpriseGovernance: String
+}
+
+input ComponentPricingPageMorePlansZoneInput {
+  title: String
+  link: String
+  servicesSupported: String
+  users: String
+  deploymentVerification: Boolean
+  managementAtScale: String
+  security: String
+  support: String
+  deplymentUnits: String
+  deplymentPerDay: String
+  buttonText: String
+  primaryButton: Boolean
+  enterpriseGovernance: String
+}
+
+input editComponentPricingPageMorePlansZoneInput {
+  id: ID
+  title: String
+  link: String
+  servicesSupported: String
+  users: String
+  deploymentVerification: Boolean
+  managementAtScale: String
+  security: String
+  support: String
+  deplymentUnits: String
+  deplymentPerDay: String
+  buttonText: String
+  primaryButton: Boolean
+  enterpriseGovernance: String
+}
+
+type ComponentPricingPagePlansZone {
+  id: ID!
+  title: String
+  img: UploadFile
+  price: String
+  unit: String
+  link: String
+  featureListZone: [ComponentPageFeatureLIstZone]
+  buttonText: String
+  primaryButton: Boolean
+  yearlyPrice: String
+  desc: String
+  comingSoon: Boolean
+  priceTips: String
+  support: String
+  featureTitle: String
+  callOut: ComponentPricingPageCallOut
+}
+
+input ComponentPricingPagePlansZoneInput {
+  title: String
+  img: ID
+  price: String
+  unit: String
+  link: String
+  featureListZone: [ComponentPageFeatureLIstZoneInput]
+  buttonText: String
+  primaryButton: Boolean
+  yearlyPrice: String
+  desc: String
+  comingSoon: Boolean
+  priceTips: String
+  support: String
+  featureTitle: String
+  callOut: ComponentPricingPageCallOutInput
+}
+
+input editComponentPricingPagePlansZoneInput {
+  id: ID
+  title: String
+  img: ID
+  price: String
+  unit: String
+  link: String
+  featureListZone: [editComponentPageFeatureLIstZoneInput]
+  buttonText: String
+  primaryButton: Boolean
+  yearlyPrice: String
+  desc: String
+  comingSoon: Boolean
+  priceTips: String
+  support: String
+  featureTitle: String
+  callOut: editComponentPricingPageCallOutInput
+}
+
+union Morph =
+    UsersPermissionsMe
+  | UsersPermissionsMeRole
+  | UsersPermissionsLoginPayload
+  | UserPermissionsPasswordPayload
+  | AboutUs
+  | updateAboutUsPayload
+  | deleteAboutUsPayload
+  | BackgroundColor
+  | BackgroundColorConnection
+  | BackgroundColorAggregator
+  | BackgroundColorGroupBy
+  | BackgroundColorConnectionId
+  | BackgroundColorConnectionCreated_at
+  | BackgroundColorConnectionUpdated_at
+  | BackgroundColorConnectionColorName
+  | BackgroundColorConnectionColorCode
+  | BackgroundColorConnectionPublished_at
+  | BackgroundColorConnectionCreated_by
+  | BackgroundColorConnectionUpdated_by
+  | createBackgroundColorPayload
+  | updateBackgroundColorPayload
+  | deleteBackgroundColorPayload
+  | Careers
+  | updateCareerPayload
+  | deleteCareerPayload
+  | CaseStudy
+  | CaseStudyConnection
+  | CaseStudyAggregator
+  | CaseStudyGroupBy
+  | CaseStudyConnectionId
+  | CaseStudyConnectionCreated_at
+  | CaseStudyConnectionUpdated_at
+  | CaseStudyConnectionTitle
+  | CaseStudyConnectionDescription
+  | CaseStudyConnectionVideoLink
+  | CaseStudyConnectionCompanyLogo
+  | CaseStudyConnectionIndustry
+  | CaseStudyConnectionBackground_color
+  | CaseStudyConnectionCompany_size
+  | CaseStudyConnectionPublished_at
+  | CaseStudyConnectionCreated_by
+  | CaseStudyConnectionUpdated_by
+  | createCaseStudyPayload
+  | updateCaseStudyPayload
+  | deleteCaseStudyPayload
+  | CompanySize
+  | CompanySizeConnection
+  | CompanySizeAggregator
+  | CompanySizeGroupBy
+  | CompanySizeConnectionId
+  | CompanySizeConnectionCreated_at
+  | CompanySizeConnectionUpdated_at
+  | CompanySizeConnectionItem
+  | CompanySizeConnectionPublished_at
+  | CompanySizeConnectionCreated_by
+  | CompanySizeConnectionUpdated_by
+  | createCompanySizePayload
+  | updateCompanySizePayload
+  | deleteCompanySizePayload
+  | CompetitorComparison
+  | CompetitorComparisonConnection
+  | CompetitorComparisonAggregator
+  | CompetitorComparisonGroupBy
+  | CompetitorComparisonConnectionId
+  | CompetitorComparisonConnectionCreated_at
+  | CompetitorComparisonConnectionUpdated_at
+  | CompetitorComparisonConnectionHarnessModule
+  | CompetitorComparisonConnectionCompetitor
+  | CompetitorComparisonConnectionHarnessSummary
+  | CompetitorComparisonConnectionHarnessLogo
+  | CompetitorComparisonConnectionCompetitorLogo
+  | CompetitorComparisonConnectionFeatureComparison
+  | CompetitorComparisonConnectionSlug
+  | CompetitorComparisonConnectionDetailedFeatureComparison
+  | CompetitorComparisonConnectionCaseStudy
+  | CompetitorComparisonConnectionScreenshot
+  | CompetitorComparisonConnectionRecommended
+  | CompetitorComparisonConnectionCompetitorSummary
+  | CompetitorComparisonConnectionPublished_at
+  | CompetitorComparisonConnectionCreated_by
+  | CompetitorComparisonConnectionUpdated_by
+  | createCompetitorComparisonPayload
+  | updateCompetitorComparisonPayload
+  | deleteCompetitorComparisonPayload
+  | ContactSale
+  | ContactSaleConnection
+  | ContactSaleAggregator
+  | ContactSaleGroupBy
+  | ContactSaleConnectionId
+  | ContactSaleConnectionCreated_at
+  | ContactSaleConnectionUpdated_at
+  | ContactSaleConnectionFirstName
+  | ContactSaleConnectionLastName
+  | ContactSaleConnectionTitle
+  | ContactSaleConnectionCompany
+  | ContactSaleConnectionPhone
+  | ContactSaleConnectionEmail
+  | ContactSaleConnectionPublished_at
+  | ContactSaleConnectionCreated_by
+  | ContactSaleConnectionUpdated_by
+  | createContactSalePayload
+  | updateContactSalePayload
+  | deleteContactSalePayload
+  | ContactUs
+  | ContactUsConnection
+  | ContactUsAggregator
+  | ContactUsGroupBy
+  | ContactUsConnectionId
+  | ContactUsConnectionCreated_at
+  | ContactUsConnectionUpdated_at
+  | ContactUsConnectionFirstName
+  | ContactUsConnectionLastName
+  | ContactUsConnectionTitle
+  | ContactUsConnectionCompany
+  | ContactUsConnectionPhone
+  | ContactUsConnectionEmail
+  | ContactUsConnectionPublished_at
+  | ContactUsConnectionCreated_by
+  | ContactUsConnectionUpdated_by
+  | createContactUsPayload
+  | updateContactUsPayload
+  | deleteContactUsPayload
+  | Customer
+  | updateCustomerPayload
+  | deleteCustomerPayload
+  | DevOpsTools
+  | updateDevOpsToolPayload
+  | deleteDevOpsToolPayload
+  | HarnessModule
+  | HarnessModuleConnection
+  | HarnessModuleAggregator
+  | HarnessModuleGroupBy
+  | HarnessModuleConnectionId
+  | HarnessModuleConnectionCreated_at
+  | HarnessModuleConnectionUpdated_at
+  | HarnessModuleConnectionModuleName
+  | HarnessModuleConnectionModuleDesc
+  | HarnessModuleConnectionLink
+  | HarnessModuleConnectionModuleStyle
+  | HarnessModuleConnectionItem
+  | HarnessModuleConnectionPublished_at
+  | HarnessModuleConnectionCreated_by
+  | HarnessModuleConnectionUpdated_by
+  | createHarnessModulePayload
+  | updateHarnessModulePayload
+  | deleteHarnessModulePayload
+  | HarnessSubscription
+  | updateHarnessSubscriptionPayload
+  | deleteHarnessSubscriptionPayload
+  | Home
+  | updateHomePayload
+  | deleteHomePayload
+  | Industry
+  | IndustryConnection
+  | IndustryAggregator
+  | IndustryGroupBy
+  | IndustryConnectionId
+  | IndustryConnectionCreated_at
+  | IndustryConnectionUpdated_at
+  | IndustryConnectionItem
+  | IndustryConnectionPublished_at
+  | IndustryConnectionCreated_by
+  | IndustryConnectionUpdated_by
+  | createIndustryPayload
+  | updateIndustryPayload
+  | deleteIndustryPayload
+  | Integration
+  | IntegrationConnection
+  | IntegrationAggregator
+  | IntegrationGroupBy
+  | IntegrationConnectionId
+  | IntegrationConnectionCreated_at
+  | IntegrationConnectionUpdated_at
+  | IntegrationConnectionItem
+  | IntegrationConnectionPublished_at
+  | IntegrationConnectionCreated_by
+  | IntegrationConnectionUpdated_by
+  | createIntegrationPayload
+  | updateIntegrationPayload
+  | deleteIntegrationPayload
+  | MarketingSite
+  | MarketingSiteConnection
+  | MarketingSiteAggregator
+  | MarketingSiteGroupBy
+  | MarketingSiteConnectionId
+  | MarketingSiteConnectionCreated_at
+  | MarketingSiteConnectionUpdated_at
+  | MarketingSiteConnectionHeroTitle
+  | MarketingSiteConnectionHeroSubTitle
+  | MarketingSiteConnectionName
+  | MarketingSiteConnectionPiplineTitle
+  | MarketingSiteConnectionPipelineDesc
+  | MarketingSiteConnectionDeveloperTitle
+  | MarketingSiteConnectionDeveloperDesc
+  | MarketingSiteConnectionAiTitle
+  | MarketingSiteConnectionAiDesc
+  | MarketingSiteConnectionGovernaceTitle
+  | MarketingSiteConnectionGovernaceDesc
+  | MarketingSiteConnectionCdTitle
+  | MarketingSiteConnectionCdSubTitle
+  | MarketingSiteConnectionCdDesc
+  | MarketingSiteConnectionCiTitle
+  | MarketingSiteConnectionCiSubTitle
+  | MarketingSiteConnectionCiDesc
+  | MarketingSiteConnectionCloudCostTitle
+  | MarketingSiteConnectionCloudCostSubTitle
+  | MarketingSiteConnectionCloudCostDesc
+  | MarketingSiteConnectionFeatureFlagsTitle
+  | MarketingSiteConnectionFeatureFlagsSubTitle
+  | MarketingSiteConnectionFeatureFlagsDesc
+  | MarketingSiteConnectionChIntelTitle
+  | MarketingSiteConnectionChIntelSubTitle
+  | MarketingSiteConnectionChIntelDesc
+  | MarketingSiteConnectionCaseStudy1
+  | MarketingSiteConnectionCaseStudy1Client
+  | MarketingSiteConnectionCaseStudy2
+  | MarketingSiteConnectionCaseStudy2Client
+  | MarketingSiteConnectionPublished_at
+  | MarketingSiteConnectionCreated_by
+  | MarketingSiteConnectionUpdated_by
+  | createMarketingSitePayload
+  | updateMarketingSitePayload
+  | deleteMarketingSitePayload
+  | Outcome
+  | OutcomeConnection
+  | OutcomeAggregator
+  | OutcomeGroupBy
+  | OutcomeConnectionId
+  | OutcomeConnectionCreated_at
+  | OutcomeConnectionUpdated_at
+  | OutcomeConnectionItem
+  | OutcomeConnectionPublished_at
+  | OutcomeConnectionCreated_by
+  | OutcomeConnectionUpdated_by
+  | createOutcomePayload
+  | updateOutcomePayload
+  | deleteOutcomePayload
+  | Partners
+  | updatePartnerPayload
+  | deletePartnerPayload
+  | PressAndNews
+  | updatePressAndNewPayload
+  | deletePressAndNewPayload
+  | Pricing
+  | updatePricingPayload
+  | deletePricingPayload
+  | ProductCd
+  | updateProductCdPayload
+  | deleteProductCdPayload
+  | ProductChangeIntelligence
+  | updateProductChangeIntelligencePayload
+  | deleteProductChangeIntelligencePayload
+  | ProductCi
+  | updateProductCiPayload
+  | deleteProductCiPayload
+  | ProductCloudCost
+  | updateProductCloudCostPayload
+  | deleteProductCloudCostPayload
+  | ProductFeatureFlags
+  | updateProductFeatureFlagPayload
+  | deleteProductFeatureFlagPayload
+  | ProductPlatform
+  | updateProductPlatformPayload
+  | deleteProductPlatformPayload
+  | UploadFile
+  | UploadFileConnection
+  | UploadFileAggregator
+  | UploadFileAggregatorSum
+  | UploadFileAggregatorAvg
+  | UploadFileAggregatorMin
+  | UploadFileAggregatorMax
+  | UploadFileGroupBy
+  | UploadFileConnectionId
+  | UploadFileConnectionCreated_at
+  | UploadFileConnectionUpdated_at
+  | UploadFileConnectionName
+  | UploadFileConnectionAlternativeText
+  | UploadFileConnectionCaption
+  | UploadFileConnectionWidth
+  | UploadFileConnectionHeight
+  | UploadFileConnectionFormats
+  | UploadFileConnectionHash
+  | UploadFileConnectionExt
+  | UploadFileConnectionMime
+  | UploadFileConnectionSize
+  | UploadFileConnectionUrl
+  | UploadFileConnectionPreviewUrl
+  | UploadFileConnectionProvider
+  | UploadFileConnectionProvider_metadata
+  | UploadFileConnectionCreated_by
+  | UploadFileConnectionUpdated_by
+  | deleteFilePayload
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsRoleConnection
+  | UsersPermissionsRoleAggregator
+  | UsersPermissionsRoleGroupBy
+  | UsersPermissionsRoleConnectionId
+  | UsersPermissionsRoleConnectionName
+  | UsersPermissionsRoleConnectionDescription
+  | UsersPermissionsRoleConnectionType
+  | UsersPermissionsRoleConnectionCreated_by
+  | UsersPermissionsRoleConnectionUpdated_by
+  | createRolePayload
+  | updateRolePayload
+  | deleteRolePayload
+  | UsersPermissionsUser
+  | UsersPermissionsUserConnection
+  | UsersPermissionsUserAggregator
+  | UsersPermissionsUserGroupBy
+  | UsersPermissionsUserConnectionId
+  | UsersPermissionsUserConnectionCreated_at
+  | UsersPermissionsUserConnectionUpdated_at
+  | UsersPermissionsUserConnectionUsername
+  | UsersPermissionsUserConnectionEmail
+  | UsersPermissionsUserConnectionProvider
+  | UsersPermissionsUserConnectionPassword
+  | UsersPermissionsUserConnectionResetPasswordToken
+  | UsersPermissionsUserConnectionConfirmationToken
+  | UsersPermissionsUserConnectionConfirmed
+  | UsersPermissionsUserConnectionBlocked
+  | UsersPermissionsUserConnectionRole
+  | UsersPermissionsUserConnectionCompany
+  | UsersPermissionsUserConnectionOccupation
+  | UsersPermissionsUserConnectionInterest
+  | UsersPermissionsUserConnectionCreated_by
+  | UsersPermissionsUserConnectionUpdated_by
+  | createUserPayload
+  | updateUserPayload
+  | deleteUserPayload
+  | ComponentCompetitorComparisonPageComparisonCaseStudy
+  | ComponentCompetitorComparisonPageDetailedFeatureComparison
+  | ComponentCompetitorComparisonPageFeatureComparison
+  | ComponentCompetitorComparisonPageProductDetailedFeature
+  | ComponentCompetitorComparisonPageProductFeature
+  | ComponentCompetitorComparisonPageProductSummaryZone
+  | ComponentPageAdressZone
+  | ComponentPageCaseListZone
+  | ComponentPageCaseStudyZone
+  | ComponentPageCustomerLogoZone
+  | ComponentPageExecutiveZone
+  | ComponentPageFeatureLIstZone
+  | ComponentPageHarnessModule
+  | ComponentPageImageZone
+  | ComponentPageMiniTitleZone
+  | ComponentPageModules
+  | ComponentPageMultiImgListZone
+  | ComponentPageMultiImgZone
+  | ComponentPageNewsZone
+  | ComponentPageOptionZone
+  | ComponentPageProductTitleZone
+  | ComponentPageQuoteZone
+  | ComponentPageRichTextZone
+  | ComponentPageScreenshotZone
+  | ComponentPageSimpleTitleZone
+  | ComponentPageSimpleZone
+  | ComponentPageTeamZone
+  | ComponentPageTextImageZone
+  | ComponentPageTextZone
+  | ComponentPageTitleImgZone
+  | ComponentPageTitleZone
+  | ComponentPricingPageCallOut
+  | ComponentPricingPageDetailedFeature
+  | ComponentPricingPageFaq
+  | ComponentPricingPageFeatureCaption
+  | ComponentPricingPageFeatureGroup
+  | ComponentPricingPageMorePlansZone
+  | ComponentPricingPagePlansZone
+
+input InputID {
+  id: ID!
+}
+
+enum PublicationState {
+  LIVE
+  PREVIEW
+}
+
+type AdminUser {
+  id: ID!
+  username: String
+  firstname: String!
+  lastname: String!
+}
+
+type Query {
+  aboutUs(publicationState: PublicationState): AboutUs
+  backgroundColor(id: ID!, publicationState: PublicationState): BackgroundColor
+  backgroundColors(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [BackgroundColor]
+  backgroundColorsConnection(sort: String, limit: Int, start: Int, where: JSON): BackgroundColorConnection
+  career(publicationState: PublicationState): Careers
+  caseStudy(id: ID!, publicationState: PublicationState): CaseStudy
+  caseStudies(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [CaseStudy]
+  caseStudiesConnection(sort: String, limit: Int, start: Int, where: JSON): CaseStudyConnection
+  companySize(id: ID!, publicationState: PublicationState): CompanySize
+  companySizes(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [CompanySize]
+  companySizesConnection(sort: String, limit: Int, start: Int, where: JSON): CompanySizeConnection
+  competitorComparison(id: ID!, publicationState: PublicationState): CompetitorComparison
+  competitorComparisons(
+    sort: String
+    limit: Int
+    start: Int
+    where: JSON
+    publicationState: PublicationState
+  ): [CompetitorComparison]
+  competitorComparisonsConnection(sort: String, limit: Int, start: Int, where: JSON): CompetitorComparisonConnection
+  contactSale(id: ID!, publicationState: PublicationState): ContactSale
+  contactSales(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [ContactSale]
+  contactSalesConnection(sort: String, limit: Int, start: Int, where: JSON): ContactSaleConnection
+  contactUs(id: ID!, publicationState: PublicationState): ContactUs
+  contactuses(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [ContactUs]
+  contactusesConnection(sort: String, limit: Int, start: Int, where: JSON): ContactUsConnection
+  customer(publicationState: PublicationState): Customer
+  devOpsTool(publicationState: PublicationState): DevOpsTools
+  harnessModule(id: ID!, publicationState: PublicationState): HarnessModule
+  harnessModules(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [HarnessModule]
+  harnessModulesConnection(sort: String, limit: Int, start: Int, where: JSON): HarnessModuleConnection
+  harnessSubscription(publicationState: PublicationState): HarnessSubscription
+  home(publicationState: PublicationState): Home
+  industry(id: ID!, publicationState: PublicationState): Industry
+  industries(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Industry]
+  industriesConnection(sort: String, limit: Int, start: Int, where: JSON): IndustryConnection
+  integration(id: ID!, publicationState: PublicationState): Integration
+  integrations(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Integration]
+  integrationsConnection(sort: String, limit: Int, start: Int, where: JSON): IntegrationConnection
+  marketingSite(id: ID!, publicationState: PublicationState): MarketingSite
+  marketingSites(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [MarketingSite]
+  marketingSitesConnection(sort: String, limit: Int, start: Int, where: JSON): MarketingSiteConnection
+  outcome(id: ID!, publicationState: PublicationState): Outcome
+  outcomes(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [Outcome]
+  outcomesConnection(sort: String, limit: Int, start: Int, where: JSON): OutcomeConnection
+  partner(publicationState: PublicationState): Partners
+  pressAndNew(publicationState: PublicationState): PressAndNews
+  pricing(publicationState: PublicationState): Pricing
+  productCd(publicationState: PublicationState): ProductCd
+  productChangeIntelligence(publicationState: PublicationState): ProductChangeIntelligence
+  productCi(publicationState: PublicationState): ProductCi
+  productCloudCost(publicationState: PublicationState): ProductCloudCost
+  productFeatureFlag(publicationState: PublicationState): ProductFeatureFlags
+  productPlatform(publicationState: PublicationState): ProductPlatform
+  files(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UploadFile]
+  filesConnection(sort: String, limit: Int, start: Int, where: JSON): UploadFileConnection
+  role(id: ID!, publicationState: PublicationState): UsersPermissionsRole
+
+  """
+  Retrieve all the existing roles. You can't apply filters on this query.
+  """
+  roles(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsRole]
+  rolesConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsRoleConnection
+  user(id: ID!, publicationState: PublicationState): UsersPermissionsUser
+  users(sort: String, limit: Int, start: Int, where: JSON, publicationState: PublicationState): [UsersPermissionsUser]
+  usersConnection(sort: String, limit: Int, start: Int, where: JSON): UsersPermissionsUserConnection
+  me: UsersPermissionsMe
+}
+
+type Mutation {
+  updateAboutUs(input: updateAboutUsInput): updateAboutUsPayload
+  deleteAboutUs: deleteAboutUsPayload
+  createBackgroundColor(input: createBackgroundColorInput): createBackgroundColorPayload
+  updateBackgroundColor(input: updateBackgroundColorInput): updateBackgroundColorPayload
+  deleteBackgroundColor(input: deleteBackgroundColorInput): deleteBackgroundColorPayload
+  updateCareer(input: updateCareerInput): updateCareerPayload
+  deleteCareer: deleteCareerPayload
+  createCaseStudy(input: createCaseStudyInput): createCaseStudyPayload
+  updateCaseStudy(input: updateCaseStudyInput): updateCaseStudyPayload
+  deleteCaseStudy(input: deleteCaseStudyInput): deleteCaseStudyPayload
+  createCompanySize(input: createCompanySizeInput): createCompanySizePayload
+  updateCompanySize(input: updateCompanySizeInput): updateCompanySizePayload
+  deleteCompanySize(input: deleteCompanySizeInput): deleteCompanySizePayload
+  createCompetitorComparison(input: createCompetitorComparisonInput): createCompetitorComparisonPayload
+  updateCompetitorComparison(input: updateCompetitorComparisonInput): updateCompetitorComparisonPayload
+  deleteCompetitorComparison(input: deleteCompetitorComparisonInput): deleteCompetitorComparisonPayload
+  createContactSale(input: createContactSaleInput): createContactSalePayload
+  updateContactSale(input: updateContactSaleInput): updateContactSalePayload
+  deleteContactSale(input: deleteContactSaleInput): deleteContactSalePayload
+  createContactUs(input: createContactUsInput): createContactUsPayload
+  updateContactUs(input: updateContactUsInput): updateContactUsPayload
+  deleteContactUs(input: deleteContactUsInput): deleteContactUsPayload
+  updateCustomer(input: updateCustomerInput): updateCustomerPayload
+  deleteCustomer: deleteCustomerPayload
+  updateDevOpsTool(input: updateDevOpsToolInput): updateDevOpsToolPayload
+  deleteDevOpsTool: deleteDevOpsToolPayload
+  createHarnessModule(input: createHarnessModuleInput): createHarnessModulePayload
+  updateHarnessModule(input: updateHarnessModuleInput): updateHarnessModulePayload
+  deleteHarnessModule(input: deleteHarnessModuleInput): deleteHarnessModulePayload
+  updateHarnessSubscription(input: updateHarnessSubscriptionInput): updateHarnessSubscriptionPayload
+  deleteHarnessSubscription: deleteHarnessSubscriptionPayload
+  updateHome(input: updateHomeInput): updateHomePayload
+  deleteHome: deleteHomePayload
+  createIndustry(input: createIndustryInput): createIndustryPayload
+  updateIndustry(input: updateIndustryInput): updateIndustryPayload
+  deleteIndustry(input: deleteIndustryInput): deleteIndustryPayload
+  createIntegration(input: createIntegrationInput): createIntegrationPayload
+  updateIntegration(input: updateIntegrationInput): updateIntegrationPayload
+  deleteIntegration(input: deleteIntegrationInput): deleteIntegrationPayload
+  createMarketingSite(input: createMarketingSiteInput): createMarketingSitePayload
+  updateMarketingSite(input: updateMarketingSiteInput): updateMarketingSitePayload
+  deleteMarketingSite(input: deleteMarketingSiteInput): deleteMarketingSitePayload
+  createOutcome(input: createOutcomeInput): createOutcomePayload
+  updateOutcome(input: updateOutcomeInput): updateOutcomePayload
+  deleteOutcome(input: deleteOutcomeInput): deleteOutcomePayload
+  updatePartner(input: updatePartnerInput): updatePartnerPayload
+  deletePartner: deletePartnerPayload
+  updatePressAndNew(input: updatePressAndNewInput): updatePressAndNewPayload
+  deletePressAndNew: deletePressAndNewPayload
+  updatePricing(input: updatePricingInput): updatePricingPayload
+  deletePricing: deletePricingPayload
+  updateProductCd(input: updateProductCdInput): updateProductCdPayload
+  deleteProductCd: deleteProductCdPayload
+  updateProductChangeIntelligence(input: updateProductChangeIntelligenceInput): updateProductChangeIntelligencePayload
+  deleteProductChangeIntelligence: deleteProductChangeIntelligencePayload
+  updateProductCi(input: updateProductCiInput): updateProductCiPayload
+  deleteProductCi: deleteProductCiPayload
+  updateProductCloudCost(input: updateProductCloudCostInput): updateProductCloudCostPayload
+  deleteProductCloudCost: deleteProductCloudCostPayload
+  updateProductFeatureFlag(input: updateProductFeatureFlagInput): updateProductFeatureFlagPayload
+  deleteProductFeatureFlag: deleteProductFeatureFlagPayload
+  updateProductPlatform(input: updateProductPlatformInput): updateProductPlatformPayload
+  deleteProductPlatform: deleteProductPlatformPayload
+
+  """
+  Delete one file
+  """
+  deleteFile(input: deleteFileInput): deleteFilePayload
+
+  """
+  Create a new role
+  """
+  createRole(input: createRoleInput): createRolePayload
+
+  """
+  Update an existing role
+  """
+  updateRole(input: updateRoleInput): updateRolePayload
+
+  """
+  Delete an existing role
+  """
+  deleteRole(input: deleteRoleInput): deleteRolePayload
+
+  """
+  Create a new user
+  """
+  createUser(input: createUserInput): createUserPayload
+
+  """
+  Update an existing user
+  """
+  updateUser(input: updateUserInput): updateUserPayload
+
+  """
+  Delete an existing user
+  """
+  deleteUser(input: deleteUserInput): deleteUserPayload
+  upload(refId: ID, ref: String, field: String, source: String, file: Upload!): UploadFile!
+  multipleUpload(refId: ID, ref: String, field: String, source: String, files: [Upload]!): [UploadFile]!
+  updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
+  login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
+  register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
+  forgotPassword(email: String!): UserPermissionsPasswordPayload
+  resetPassword(password: String!, passwordConfirmation: String!, code: String!): UsersPermissionsLoginPayload
+  emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+"""
+A time string with format: HH:mm:ss.SSS
+"""
+scalar Time
+
+"""
+A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar Date
+
+"""
+The `Long` scalar type represents 52-bit integers
+"""
+scalar Long
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload

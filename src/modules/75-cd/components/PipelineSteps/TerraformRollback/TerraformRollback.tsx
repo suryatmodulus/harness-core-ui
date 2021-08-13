@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 
@@ -21,9 +21,10 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { ConfigureOptions } from '@common/components/ConfigureOptions/ConfigureOptions'
 import type { VariableMergeServiceResponse } from 'services/pipeline-ng'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import type { StringsMap } from 'stringTypes'
 import type { TFRollbackData } from '../Common/Terraform/TerraformInterfaces'
-
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 
 interface TerraformRollbackProps {
   initialValues: TFRollbackData
@@ -88,57 +89,55 @@ function TerraformRollbackWidget(
 
           return (
             <>
-              <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
-                </div>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
+                <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
+              </div>
 
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormInput.MultiTextInput
-                    name="spec.provisionerIdentifier"
-                    label={getString('pipelineSteps.provisionerIdentifier')}
-                    multiTextInputProps={{ expressions }}
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      /* istanbul ignore next */
+                      setFieldValue('timeout', value)
+                    }}
+                    isReadonly={readonly}
                   />
-                  {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.spec.provisionerIdentifier}
-                      type="String"
-                      variableName="spec.provisionerIdentifier"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        /* istanbul ignore next */
-                        setFieldValue('spec.provisionerIdentifier', value)
-                      }}
-                      isReadonly={readonly}
-                    />
-                  )}
-                </div>
-
-                <div className={cx(stepCss.formGroup, stepCss.md)}>
-                  <FormMultiTypeDurationField
-                    name="timeout"
-                    label={getString('pipelineSteps.timeoutLabel')}
-                    multiTypeDurationProps={{ enableConfigureOptions: false, expressions }}
+                )}
+              </div>
+              <div className={stepCss.divider} />
+              <div className={cx(stepCss.formGroup, stepCss.md)}>
+                <FormInput.MultiTextInput
+                  name="spec.provisionerIdentifier"
+                  label={getString('pipelineSteps.provisionerIdentifier')}
+                  multiTextInputProps={{ expressions }}
+                />
+                {getMultiTypeFromValue(values.spec.provisionerIdentifier) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.spec.provisionerIdentifier}
+                    type="String"
+                    variableName="spec.provisionerIdentifier"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      /* istanbul ignore next */
+                      setFieldValue('spec.provisionerIdentifier', value)
+                    }}
+                    isReadonly={readonly}
                   />
-                  {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                    <ConfigureOptions
-                      value={values.timeout as string}
-                      type="String"
-                      variableName="step.timeout"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={value => {
-                        /* istanbul ignore next */
-                        setFieldValue('timeout', value)
-                      }}
-                      isReadonly={readonly}
-                    />
-                  )}
-                </div>
-              </Layout.Vertical>
+                )}
+              </div>
             </>
           )
         }}
@@ -178,7 +177,14 @@ const TerraformRollbackVariableStep: React.FC<TerraformRollbackVariableStepProps
   metadataMap,
   initialValues
 }) => {
-  return <VariablesListTable data={variablesData.spec} originalData={initialValues.spec} metadataMap={metadataMap} />
+  return (
+    <VariablesListTable
+      className={pipelineVariableCss.variablePaddingL2}
+      data={variablesData.spec}
+      originalData={initialValues.spec}
+      metadataMap={metadataMap}
+    />
+  )
 }
 
 const TerraformRollbackWidgetWithRef = React.forwardRef(TerraformRollbackWidget)
@@ -202,6 +208,7 @@ export class TerraformRollback extends PipelineStep<TFRollbackData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Rollback'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformRollback'
 
   validateInputSet({
     data,

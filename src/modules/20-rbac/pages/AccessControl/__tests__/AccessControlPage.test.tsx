@@ -12,11 +12,7 @@ describe('Access Control Page', () => {
 
   beforeEach(async () => {
     const renderObj = render(
-      <TestWrapper
-        path={routes.toAccessControl({ ...accountPathProps })}
-        pathParams={{ accountId: 'testAcc' }}
-        defaultAppStoreValues={{ featureFlags: { NG_SERVICE_ACCOUNT: true } }}
-      >
+      <TestWrapper path={routes.toAccessControl({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
         <AccessControlPage />
       </TestWrapper>
     )

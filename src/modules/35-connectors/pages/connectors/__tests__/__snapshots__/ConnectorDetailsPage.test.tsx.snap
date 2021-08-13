@@ -3,86 +3,90 @@
 exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
+        class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall"
       >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/dummy/home/setup/connectors"
-          >
-            resources
-          </a>
+        <div
+          class="breadcrumbs"
+        >
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/dummy/settings/resources/connectors"
+            >
+              resources
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            >
+              connectorsLabel
+            </span>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        >
           <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
+            class="bp3-icon StyledProps--main StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall"
+            data-icon="service-dockerhub"
           >
             <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
+              height="35"
+              viewBox="0 0 14 10"
+              width="35"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
+                d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
+              />
+              <path
+                d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
+              />
+              <path
+                d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
               />
             </svg>
           </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          >
-            connectorsLabel
-          </span>
-        </div>
-      </div>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-      >
-        <span
-          class="bp3-icon StyledProps--main StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall"
-          data-icon="service-dockerhub"
-        >
-          <svg
-            height="35"
-            viewBox="0 0 14 10"
-            width="35"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
-            />
-            <path
-              d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
-            />
-            <path
-              d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
-            />
-          </svg>
-        </span>
-        <div
-          class="StyledProps--font StyledProps--main"
-        >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium StyledProps--font-weight-bold"
-          >
-            Sample
-          </p>
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="StyledProps--font StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium StyledProps--font-weight-bold"
             >
               Sample
             </p>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              >
+                Sample
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -143,12 +147,17 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
           >
             <div
               class="item selected"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
             >
               visual
             </div>
             <div
               class="item"
-              data-test="connectorViewYaml"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
             >
               yaml
             </div>
@@ -454,108 +463,112 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render 1`
 exports[`Connector DetailsPage Page Test Initial snapshot should match render at org level 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container large header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
+        class="Layout--vertical StyledProps--main StyledProps--padding-left-xsmall"
       >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/dummy/home/organizations/dummyOrg/details"
-          />
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/dummy/home/organizations/dummyOrg/setup/connectors"
-          >
-            resources
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          >
-            connectorsLabel
-          </span>
-        </div>
-      </div>
-      <div
-        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-      >
-        <span
-          class="bp3-icon StyledProps--main StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall"
-          data-icon="service-dockerhub"
-        >
-          <svg
-            height="35"
-            viewBox="0 0 14 10"
-            width="35"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
-            />
-            <path
-              d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
-            />
-            <path
-              d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
-            />
-          </svg>
-        </span>
         <div
-          class="StyledProps--font StyledProps--main"
+          class="breadcrumbs"
         >
-          <p
-            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium StyledProps--font-weight-bold"
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/dummy/settings/organizations/dummyOrg/details"
+            />
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <a
+              class="breadcrumb"
+              href="/account/dummy/settings/organizations/dummyOrg/setup/resources/connectors"
+            >
+              resources
+            </a>
+            <span
+              class="bp3-icon StyledProps--main separator"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="11"
+                viewBox="0 0 8 14"
+                width="11"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div>
+            <span
+              class="lastBreadcrumb"
+            >
+              connectorsLabel
+            </span>
+          </div>
+        </div>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+        >
+          <span
+            class="bp3-icon StyledProps--main StyledProps--margin-left-xsmall StyledProps--margin-right-xsmall"
+            data-icon="service-dockerhub"
           >
-            Sample
-          </p>
+            <svg
+              height="35"
+              viewBox="0 0 14 10"
+              width="35"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.8 3.3h1.3v1.3H5.8zM7.2 3.3h1.3v1.3H7.2zM4.3 3.3h1.3v1.3H4.3zM2.9 3.3h1.3v1.3H2.9zM1.4 3.3h1.3v1.3H1.4zM5.8 1.9h1.3v1.3H5.8zM5.8.4h1.3v1.3H5.8zM4.3 1.9h1.3v1.3H4.3zM2.9 1.9h1.3v1.3H2.9z"
+              />
+              <path
+                d="M.8 7.7c-.1-.2-.2-.3-.3-.4l-.1-.2c0-.1-.1-.2-.1-.4v-.2C.1 6.1 0 5.7 0 5.2v-.4h9.5c.7 0 1.4-.2 1.7-.5-.2-.2-.4-.6-.4-1 0-.5.1-1 .3-1.3l.1-.1.1.1c.3.2.9.8.9 1.6.3-.1.5-.1.8-.1.4 0 .7.1.9.2h.1v.1c-.3.6-1 .9-1.8.9h-.3c-1.2 3-3.7 4.6-7.3 4.6-.6 0-1.2-.1-1.8-.3-.7-.2-1.3-.6-1.8-1.1zm4.4 1.4c-.9-.4-1.3-.9-1.6-1.5-.4.1-.7.1-1.2.2H1.2C2 8.6 3 9.1 4.8 9.1zm-1-2.4c-.2 0-.3.2-.3.3 0 .2.2.3.3.3.2 0 .3-.2.3-.3s-.1-.3-.3-.3z"
+              />
+              <path
+                d="M4.2 6.8s.1 0 0 0c.1 0 .1.1 0 0 .1.2.1.2.2.2 0 0 .1 0 .1-.1V7c0 .1-.1.3-.3.3S4 7.2 4 7c0-.1.1-.2.2-.2"
+              />
+            </svg>
+          </span>
           <div
-            class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            class="StyledProps--font StyledProps--main"
           >
             <p
-              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-size-medium StyledProps--font-weight-bold"
             >
               Sample
             </p>
+            <div
+              class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              >
+                Sample
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -616,12 +629,17 @@ exports[`Connector DetailsPage Page Test Initial snapshot should match render at
           >
             <div
               class="item selected"
+              data-name="visual-btn"
+              role="button"
+              tabindex="0"
             >
               visual
             </div>
             <div
               class="item"
-              data-test="connectorViewYaml"
+              data-name="yaml-btn"
+              role="button"
+              tabindex="0"
             >
               yaml
             </div>

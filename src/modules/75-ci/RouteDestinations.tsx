@@ -91,6 +91,7 @@ import BuildCommits from './pages/build/sections/commits/BuildCommits'
 import CITrialHomePage from './pages/home/CITrialHomePage'
 import { CIExecutionCardSummary } from './components/CIExecutionCardSummary/CIExecutionCardSummary'
 import { CIExecutionSummary } from './components/CIExecutionSummary/CIExecutionSummary'
+import { CIStageDetails } from './components/CIStageDetails/CIStageDetails'
 
 executionFactory.registerCardInfo(StageType.BUILD, {
   icon: 'ci-main',
@@ -99,6 +100,10 @@ executionFactory.registerCardInfo(StageType.BUILD, {
 
 executionFactory.registerSummary(StageType.BUILD, {
   component: CIExecutionSummary
+})
+
+executionFactory.registerStageDetails(StageType.BUILD, {
+  component: CIStageDetails
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -114,8 +119,9 @@ const RedirectToCIProject = (): React.ReactElement => {
   if (selectedProject?.modules?.includes(ModuleName.CI)) {
     return (
       <Redirect
-        to={routes.toCIProjectOverview({
+        to={routes.toProjectOverview({
           accountId,
+          module: 'ci',
           orgIdentifier: selectedProject.orgIdentifier || '',
           projectIdentifier: selectedProject.identifier
         })}
@@ -237,7 +243,7 @@ export default (
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       sidebarProps={CISideNavProps}
-      path={routes.toCIProjectOverview({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toProjectOverview({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
       <CIDashboardPageOrRedirect />
@@ -326,7 +332,7 @@ export default (
       sidebarProps={CISideNavProps}
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <SecretsPage module="ci" />
+      <SecretsPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact

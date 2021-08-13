@@ -361,7 +361,7 @@ describe('Unit tests for createNewRelicConnector', () => {
     )
 
     await waitFor(() => expect(getByText('connectors.newRelic.urlFieldLabel')).not.toBeNull())
-    expect(document.body.querySelector('input[placeholder="loading"]')).not.toBeNull()
+    expect(document.body.querySelector('input[placeholder="- loading -"]')).not.toBeNull()
   })
 
   test('Ensure error is displayed when new relic endpoints api fails', async () => {

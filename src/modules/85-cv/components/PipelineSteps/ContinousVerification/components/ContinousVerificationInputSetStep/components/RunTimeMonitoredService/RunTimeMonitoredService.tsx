@@ -9,14 +9,14 @@ import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable'
 import type { MonitoringSourceData, RunTimeMonitoredServiceProps } from './RunTimeMonitoredService.types'
-import { updateMonitoredServiceData } from './RunTimeMonitoredService.utils'
+// import { updateMonitoredServiceData } from './RunTimeMonitoredService.utils'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './RunTimeMonitoredService.module.scss'
 
 export default function RunTimeMonitoredService({
   serviceIdentifier,
   envIdentifier,
-  onUpdate,
+  // onUpdate,
   prefix,
   initialValues
 }: RunTimeMonitoredServiceProps): JSX.Element {
@@ -39,7 +39,10 @@ export default function RunTimeMonitoredService({
 
   useEffect(() => {
     if (!loading && !error && envIdentifier && serviceIdentifier) {
-      updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
+      // Note - This code is commented as we decided to not to pass Monitored service
+      // and health sources in yaml. This could be useful in future depending on product requirements.
+
+      // updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
       setMonitoringSourceData(monitoredServiceData as MonitoringSourceData)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -47,7 +50,7 @@ export default function RunTimeMonitoredService({
 
   const onSuccess = useCallback(
     (updatedMonitoredService: MonitoredServiceResponse) => {
-      updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
+      // updateMonitoredServiceData(initialValues, onUpdate, monitoredServiceData)
       setMonitoringSourceData(updatedMonitoredService as MonitoringSourceData)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,13 +105,13 @@ export default function RunTimeMonitoredService({
         <HealthSourceTable
           isEdit={true}
           shouldRenderAtVerifyStep={true}
-          value={monitoredServiceData?.monitoredService?.sources?.healthSources as HealthSource[]}
+          value={monitoringSource?.monitoredService?.sources?.healthSources as HealthSource[]}
           onSuccess={onSuccess}
-          serviceRef={{ label: serviceIdentifier, value: serviceIdentifier }}
-          environmentRef={{ label: envIdentifier, value: envIdentifier }}
-          monitoringSourcRef={{
-            monitoredServiceIdentifier: monitoringSource?.monitoredService?.identifier,
-            monitoredServiceName: monitoringSource?.monitoredService?.name
+          serviceRef={serviceIdentifier}
+          environmentRef={envIdentifier}
+          monitoredServiceRef={{
+            identifier: monitoringSource?.monitoredService?.identifier,
+            name: monitoringSource?.monitoredService?.name
           }}
           breadCrumbRoute={{ routeTitle: getString('connectors.cdng.runTimeMonitoredService.backToRunPipeline') }}
           isRunTimeInput={true}

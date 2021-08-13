@@ -16,9 +16,9 @@ const testWrapperProps: TestWrapperProps = {
 describe('HealthSource table', () => {
   test('should matchsnapshot', () => {
     const props = {
-      serviceRef: { label: 'service1', value: 'service1' },
-      environmentRef: { label: 'environment1', value: 'environment1' },
-      monitoringSourcRef: { monitoredServiceIdentifier: 'ms 101', monitoredServiceName: 'ms_101' },
+      serviceRef: 'service1',
+      environmentRef: 'environment1',
+      monitoredServiceRef: { identifier: 'ms 101', name: 'ms_101' },
       setModalOpen: () => false,
       onSuccess: () => {
         return 'sucess'

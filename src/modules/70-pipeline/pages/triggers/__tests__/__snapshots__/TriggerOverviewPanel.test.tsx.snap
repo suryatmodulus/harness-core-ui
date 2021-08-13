@@ -110,6 +110,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
             >
               <label
                 class="Label--main"
+                data-tooltip-id="triggerOverview_description"
                 style="font-size: 13px; font-weight: normal;"
               >
                 optionalField
@@ -141,6 +142,7 @@ exports[`TriggerOverviewPanel Triggers tests Renders/snapshots Initial Render - 
             >
               <label
                 class="Label--main"
+                data-tooltip-id="triggerOverview_tags"
                 style="font-size: 13px; font-weight: normal;"
               >
                 optionalField

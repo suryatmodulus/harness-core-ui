@@ -47,7 +47,7 @@ const RenderColumnLastUpdated: Renderer<CellProps<ResourceGroupResponse>> = ({ r
   if (data.harnessManaged) {
     return (
       <Text color={Color.BLACK} lineClamp={1}>
-        {getString('resourceGroup.builtInResourceGroup')}
+        {getString('rbac.resourceGroup.builtInResourceGroup')}
       </Text>
     )
   }
@@ -66,7 +66,7 @@ const RenderColumnSummary: Renderer<CellProps<ResourceGroupResponse>> = ({ row, 
     const label = RbacFactory.getResourceTypeHandler(resource?.resourceType)?.label
     if (label) {
       if (get(resource, 'type') === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR) {
-        return getString('resourceGroup.all', {
+        return getString('rbac.resourceGroup.all', {
           name: getString(label)
         })
       }
@@ -120,14 +120,14 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
   const columns: Column<ResourceGroupResponse>[] = useMemo(
     () => [
       {
-        Header: getString('resourceGroup.resourceGroupColumn'),
+        Header: getString('rbac.resourceGroup.resourceGroupColumn'),
         accessor: row => row?.resourceGroup?.name,
         id: 'name',
         width: '32%',
         Cell: RenderColumnDetails
       },
       {
-        Header: getString('resourceGroup.summary'),
+        Header: getString('rbac.resourceGroup.summary'),
         accessor: row => row?.resourceGroup?.resourceSelectors,
         id: 'summary',
         width: '32%',
@@ -171,7 +171,7 @@ const ResourceGroupListView: React.FC<ResourceGroupListViewProps> = props => {
       }}
     />
   ) : (
-    <NoDataCard icon="resources-icon" message={getString('resourceGroup.noResourceGroup')}></NoDataCard>
+    <NoDataCard icon="resources-icon" message={getString('rbac.resourceGroup.noResourceGroup')}></NoDataCard>
   )
 }
 

@@ -164,7 +164,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       this.stepGroupLayers.push(stepGroupLayers)
       this.addLayer(stepGroupLayers)
     }
-    this.activeNodeLayer = stepGroupLayers
+    this.activeNodeLayer = stepGroupLayers as any
   }
 
   useNormalLayer(): void {

@@ -2,14 +2,15 @@ import React, { useMemo, useState } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import moment from 'moment'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Icon, Text, Layout, Button, Popover, Container } from '@wings-software/uicore'
+import { Icon, Text, Layout, Button, Popover, Container, IconName } from '@wings-software/uicore'
 import { Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import routes from '@common/RouteDefinitions'
-import { QlceView, ViewTimeRangeType, ViewState } from 'services/ce/services'
+import { QlceView, ViewTimeRangeType, ViewState, ViewType } from 'services/ce/services'
 import { SOURCE_ICON_MAPPING } from '@ce/utils/perspectiveUtils'
 import formatCost from '@ce/utils/formatCost'
 import { useStrings } from 'framework/strings'
+import css from './PerspectiveListView.module.scss'
 
 interface PerspectiveListViewProps {
   pespectiveData: QlceView[]
@@ -81,15 +82,29 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
 
   const NameCell: Renderer<CellProps<QlceView>> = cell => {
     const viewState = (cell as any).row?.original?.viewState
+    const viewType = (cell as any).row?.original?.viewType
+    let iconName: IconName | undefined
+    if (viewState === ViewState.Draft) {
+      iconName = 'deployment-incomplete-new'
+    }
+    if (viewType === ViewType.Default) {
+      iconName = 'harness'
+    }
     return cell.value ? (
-      <Text icon={viewState === ViewState.Draft ? 'deployment-incomplete-new' : undefined} color="grey800">
-        {cell.value}
-      </Text>
+      <Container className={css.nameContainer}>
+        <Text icon={iconName} color="grey800">
+          {cell.value}
+        </Text>
+        {viewType === ViewType.Default && <Container className={css.sampleRibbon}></Container>}
+      </Container>
     ) : null
   }
 
   const RenderColumnMenu: Renderer<CellProps<QlceView>> = ({ row }) => {
     const [menuOpen, setMenuOpen] = useState(false)
+
+    const viewType = row?.original?.viewType
+    const disableActions = viewType === ViewType.Default ? true : false
 
     const editClick: () => void = () => {
       row.original.id && onEditClick(row.original.id)
@@ -125,9 +140,9 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
           />
           <Container>
             <Menu>
-              <Menu.Item onClick={editClick} icon="edit" text="Edit" />
+              <Menu.Item disabled={disableActions} onClick={editClick} icon="edit" text="Edit" />
               <Menu.Item onClick={onCloneClick} icon="duplicate" text="Clone" />
-              <Menu.Item onClick={onDeleteClick} icon="trash" text="Delete" />
+              <Menu.Item disabled={disableActions} onClick={onDeleteClick} icon="trash" text="Delete" />
             </Menu>
           </Container>
         </Popover>

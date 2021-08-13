@@ -24,7 +24,20 @@
     color: var(--grey-400) !important;
   }
 }
+.requestBody {
+  :global {
+    textarea {
+      min-height: 50px;
+      max-height: 120px;
+      height: 75px !important;
+    }
 
-.variablesList {
-  margin-top: var(--spacing-large);
+    .bp3-input {
+      height: 75px !important;
+    }
+
+    .MultiTypeInput--btn {
+      height: 30px !important;
+    }
+  }
 }

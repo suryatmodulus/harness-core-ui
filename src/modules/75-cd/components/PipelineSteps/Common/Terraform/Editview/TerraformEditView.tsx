@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Button,
   Formik,
   FormInput,
   Text,
@@ -37,6 +36,8 @@ import MultiTypeMap from '@common/components/MultiTypeMap/MultiTypeMap'
 
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import MultiTypeFieldSelector from '@common/components/MultiTypeFieldSelector/MultiTypeFieldSelector'
+import { useQueryParams } from '@common/hooks'
+
 import { TFMonaco } from './TFMonacoEditor'
 
 import TfVarFileList from './TFVarFileList'
@@ -96,6 +97,9 @@ export default function TerraformEditView(
 
   const [showModal, setShowModal] = React.useState(false)
 
+  const query = useQueryParams()
+  const sectionId = (query as any).sectionId || ''
+
   const modalProps = {
     isOpen: true,
     canEscapeKeyClose: true,
@@ -111,7 +115,7 @@ export default function TerraformEditView(
           }
           onUpdate?.(payload as any)
         }}
-        formName="terraformEdit"
+        formName={`terraformEdit-${stepType}-${sectionId}`}
         initialValues={setInitialValues(initialValues as any)}
         validationSchema={stepType === StepType.TerraformPlan ? planValidationSchema : regularValidationSchema}
       >
@@ -121,7 +125,7 @@ export default function TerraformEditView(
 
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
 
@@ -146,6 +150,8 @@ export default function TerraformEditView(
                   />
                 )}
               </div>
+
+              <div className={stepCss.divider} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.Select
@@ -311,14 +317,11 @@ export default function TerraformEditView(
                                 multiTypeFieldSelectorProps={{
                                   disableTypeSelection: true,
                                   label: (
-                                    <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
+                                    <Text
+                                      style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}
+                                      tooltipProps={{ dataTooltipId: 'dependencyEnvironmentVariables' }}
+                                    >
                                       {getString('optionalField', { name: getString('environmentVariables') })}
-                                      <Button
-                                        icon="question"
-                                        minimal
-                                        tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                                        iconProps={{ size: 14 }}
-                                      />
                                     </Text>
                                   )
                                 }}

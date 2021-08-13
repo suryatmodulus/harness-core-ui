@@ -3,7 +3,7 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { CurrentLocation, TestWrapper } from '@common/utils/testUtils'
 import CISideNav from '../CISideNav'
 
-jest.mock('@common/navigation/ProjectSelector/ProjectSelector', () => ({
+jest.mock('@projects-orgs/components/ProjectSelector/ProjectSelector', () => ({
   ProjectSelector: function ProjectSelectorComp(props: any) {
     return (
       <button

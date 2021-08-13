@@ -27,11 +27,7 @@
 }
 
 .simultaneousDeployment {
-  input {
-    margin-left: var(--spacing-medium);
-    position: relative;
-    margin-top: var(--spacing-small);
-  }
+  display: inline-flex !important;
 }
 
 .clusterInputWrapper {

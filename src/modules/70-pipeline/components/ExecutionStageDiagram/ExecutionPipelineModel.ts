@@ -27,10 +27,6 @@ export interface ExecutionPipelineItem<T> {
   skipCondition?: string
   when?: NodeRunInfo
   barrierFound?: boolean
-  /**
-   * @default false
-   */
-  showInLabel?: boolean
   disableClick?: boolean
   cssProps?: CSSProperties
   data?: T
@@ -49,7 +45,6 @@ export interface ExecutionPipelineGroupInfo<T> {
   containerCss?: CSSProperties
   textCss?: CSSProperties
   verticalStepGroup?: boolean
-  showInLabel?: boolean // Default = true
   status: ExecutionStatus
   isOpen: boolean
   items: Array<ExecutionPipelineNode<T>>

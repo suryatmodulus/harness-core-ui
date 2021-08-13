@@ -53,13 +53,13 @@ const RoleForm: React.FC<RoleModalData> = props => {
       if (isEdit) {
         const updated = await editRole(values)
         /* istanbul ignore else */ if (updated) {
-          showSuccess(getString('roleForm.updateSuccess'))
+          showSuccess(getString('rbac.roleForm.updateSuccess'))
           onSubmit?.(values)
         }
       } else {
         const created = await createRole(values)
         /* istanbul ignore else */ if (created) {
-          showSuccess(getString('roleForm.createSuccess'))
+          showSuccess(getString('rbac.roleForm.createSuccess'))
           onSubmit?.(values)
         }
       }

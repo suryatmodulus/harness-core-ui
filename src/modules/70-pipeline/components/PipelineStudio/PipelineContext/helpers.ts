@@ -1,11 +1,12 @@
-import type { PipelineInfoConfig, StageElementWrapper } from 'services/cd-ng'
+import type { PipelineStageWrapper } from '@pipeline/utils/pipelineTypes'
+import type { PipelineInfoConfig, StageElementConfig, StageElementWrapperConfig } from 'services/cd-ng'
 
-export function getStageFromPipeline(
+export function getStageFromPipeline<T extends StageElementConfig = StageElementConfig>(
   stageId: string,
   localPipeline: PipelineInfoConfig
-): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } {
-  let stage: StageElementWrapper | undefined = undefined
-  let parent: StageElementWrapper | undefined = undefined
+): PipelineStageWrapper<T> {
+  let stage: StageElementWrapperConfig | undefined = undefined
+  let parent: StageElementWrapperConfig | undefined = undefined
   if (localPipeline?.stages) {
     localPipeline.stages?.some?.(item => {
       if (item?.stage && item.stage.identifier === stageId) {

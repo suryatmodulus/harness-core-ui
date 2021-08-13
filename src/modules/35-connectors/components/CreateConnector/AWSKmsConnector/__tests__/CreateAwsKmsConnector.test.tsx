@@ -23,6 +23,15 @@ const mockRegions = {
   resource: [{ name: 'region1', value: 'region1' }]
 }
 
+const commonProps = {
+  accountId: 'dummy',
+  orgIdentifier: '',
+  projectIdentifier: '',
+  setIsEditMode: noop,
+  onClose: noop,
+  onSuccess: noop
+}
+
 jest.mock('services/cd-ng', () => ({
   useUpdateConnector: jest.fn().mockImplementation(() => ({
     mutate: async () => {
@@ -57,7 +66,7 @@ describe('Create Secret Manager Wizard', () => {
   test('should be able to render first and second step form', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateAwsKmsConnector onClose={noop} onSuccess={noop} mock={true} isEditMode={false} />
+        <CreateAwsKmsConnector {...commonProps} isEditMode={false} connectorInfo={undefined} />
       </TestWrapper>
     )
 

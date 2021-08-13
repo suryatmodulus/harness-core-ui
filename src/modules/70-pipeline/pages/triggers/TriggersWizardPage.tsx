@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { Layout, SelectOption, Heading, Text, Switch } from '@wings-software/uicore'
 import { parse } from 'yaml'
-import { isEmpty, isUndefined, merge } from 'lodash-es'
+import { isEmpty, isUndefined, merge, cloneDeep } from 'lodash-es'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { Page, useToaster } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -11,7 +11,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { connectorUrlType } from '@connectors/constants'
 import routes from '@common/RouteDefinitions'
 import {
-  NgPipeline,
+  PipelineInfoConfig,
   useGetConnector,
   GetConnectorQueryParams,
   getConnectorListV2Promise,
@@ -54,15 +54,23 @@ import {
   getConnectorName,
   getConnectorValue,
   isRowFilled,
-  CUSTOM
+  CUSTOM,
+  isArtifactOrManifestTrigger,
+  FlatValidArtifactFormikValuesInterface,
+  clearRuntimeInputValue,
+  replaceTriggerDefaultBuild,
+  TriggerDefaultFieldList
 } from './utils/TriggersWizardPageUtils'
 import {
+  ArtifactTriggerConfigPanel,
   WebhookTriggerConfigPanel,
   WebhookConditionsPanel,
   WebhookPipelineInputPanel,
   SchedulePanel,
   TriggerOverviewPanel
 } from './views'
+import ArtifactConditionsPanel from './views/ArtifactConditionsPanel'
+
 import {
   clearNullUndefined,
   ConnectorRefInterface,
@@ -97,7 +105,12 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const { getString } = useStrings()
   // use passed params on new trigger
   const queryParamsOnNew = location?.search ? getQueryParamsOnNew(location.search) : undefined
-  const { sourceRepo: sourceRepoOnNew, triggerType: triggerTypeOnNew } = queryParamsOnNew || {}
+  const {
+    sourceRepo: sourceRepoOnNew,
+    triggerType: triggerTypeOnNew,
+    manifestType,
+    artifactType
+  } = queryParamsOnNew || {}
 
   const { data: template } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
@@ -165,6 +178,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       const res = getScheduleTriggerYaml({ values })
 
       return { trigger: res }
+    } else if (values.triggerType === TriggerTypes.MANIFEST) {
+      const res = getArtifactTriggerYaml({ values, persistIncomplete: true })
+
+      return { trigger: res }
     }
   }
 
@@ -183,18 +200,22 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
 
   const [enabledStatus, setEnabledStatus] = useState<boolean>(true)
   const [getTriggerErrorMessage, setGetTriggerErrorMessage] = useState<string>('')
-  const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: NgPipeline } | undefined>(undefined)
+  const [currentPipeline, setCurrentPipeline] = useState<{ pipeline?: PipelineInfoConfig } | undefined>(undefined)
   const [wizardKey, setWizardKey] = useState<number>(0)
+  const [artifactManifestType, setArtifactManifestType] = useState<string | undefined>(undefined)
   const [mergedPipelineKey, setMergedPipelineKey] = useState<number>(0)
 
   const [onEditInitialValues, setOnEditInitialValues] = useState<
     | FlatOnEditValuesInterface
     | {
         triggerType: NGTriggerSourceV2['type']
-        pipeline?: NgPipeline | Record<string, never>
-        originalPipeline?: NgPipeline
+        pipeline?: PipelineInfoConfig | Record<string, never>
+        originalPipeline?: PipelineInfoConfig
         identifier?: string
         connectorRef?: { identifier?: string; scope?: string }
+        inputSetTemplateYamlObj?: {
+          pipeline: PipelineInfoConfig | Record<string, never>
+        }
       }
   >({ triggerType: triggerTypeOnNew })
 
@@ -213,13 +234,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         onEditInitialValues.pipeline || {}
       )
       const newPipeline = clearRuntimeInput(newOnEditPipeline)
-      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as NgPipeline })
+      setOnEditInitialValues({ ...onEditInitialValues, pipeline: newPipeline as unknown as PipelineInfoConfig })
       setCurrentPipeline({ pipeline: newPipeline }) // will reset initialValues
       setMergedPipelineKey(1)
     } else if (template?.data?.inputSetTemplateYaml) {
       setCurrentPipeline(
         merge(clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')), currentPipeline || {}) as {
-          pipeline: NgPipeline
+          pipeline: PipelineInfoConfig
         }
       )
     }
@@ -236,7 +257,9 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const originalPipeline: NgPipeline | undefined = parse((pipelineResponse?.data?.yamlPipeline as any) || '')?.pipeline
+  const originalPipeline: PipelineInfoConfig | undefined = parse(
+    (pipelineResponse?.data?.yamlPipeline as any) || ''
+  )?.pipeline
 
   useEffect(() => {
     if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.WEBHOOK) {
@@ -249,8 +272,13 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         triggerResponseYaml: triggerResponse.data.yaml
       })
       setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
+    } else if (triggerResponse?.data?.yaml && triggerResponse.data.type === TriggerTypes.MANIFEST) {
+      const newOnEditInitialValues = getArtifactTriggerValues({
+        triggerResponseYaml: triggerResponse?.data?.yaml
+      })
+      setOnEditInitialValues({ ...onEditInitialValues, ...newOnEditInitialValues })
     }
-  }, [triggerIdentifier, triggerResponse])
+  }, [triggerIdentifier, triggerResponse, template])
 
   const returnToTriggersPage = (): void => {
     history.push(
@@ -694,6 +722,68 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     }
   }
 
+  const getArtifactTriggerValues = ({
+    triggerResponseYaml,
+    triggerYaml
+  }: {
+    triggerResponseYaml?: string
+    triggerYaml?: { trigger: NGTriggerConfigV2 }
+  }): FlatOnEditValuesInterface | undefined => {
+    let newOnEditInitialValues: FlatOnEditValuesInterface | undefined
+    try {
+      const triggerResponseJson = triggerYaml ? triggerYaml : triggerResponseYaml ? parse(triggerResponseYaml) : {}
+      const {
+        trigger: {
+          name,
+          identifier,
+          description,
+          tags,
+          inputYaml,
+          source: { type },
+          source
+        }
+      } = triggerResponseJson
+      let selectedArtifact
+
+      if (type === TriggerTypes.MANIFEST) {
+        const { manifestRef, type: _manifestType, spec } = source?.spec || {}
+        if (_manifestType) {
+          setArtifactManifestType(_manifestType)
+        }
+        selectedArtifact = {
+          identifier: manifestRef,
+          type: artifactManifestType || _manifestType,
+          spec
+        }
+      }
+
+      let pipelineJson = undefined
+      try {
+        pipelineJson = parse(inputYaml)?.pipeline
+      } catch (e) {
+        // set error
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+      }
+
+      newOnEditInitialValues = {
+        name,
+        identifier,
+        description,
+        tags,
+        pipeline: pipelineJson,
+        triggerType: TriggerTypes.MANIFEST as unknown as NGTriggerSourceV2['type'],
+        manifestType: selectedArtifact?.type,
+        stageId: source?.spec?.stageIdentifier,
+        inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
+        selectedArtifact,
+        eventConditions: source?.spec?.spec?.eventConditions || []
+      }
+      return newOnEditInitialValues
+    } catch (e) {
+      // set error
+      setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseTriggersData'))
+    }
+  }
   const getScheduleTriggerYaml = ({
     values: val
   }: {
@@ -731,6 +821,79 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       },
       inputYaml: stringifyPipelineRuntimeInput
     })
+  }
+
+  const getArtifactTriggerYaml = ({
+    values: val,
+    persistIncomplete = false
+  }: {
+    values: any
+    persistIncomplete?: boolean
+  }): TriggerConfigDTO => {
+    const {
+      name,
+      identifier,
+      description,
+      tags,
+      pipeline: pipelineRuntimeInput,
+      triggerType: formikValueTriggerType,
+      selectedArtifact,
+      stageId,
+      eventConditions = [],
+      manifestType: onEditManifestType
+    } = val
+
+    // actions will be required thru validation
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
+
+    if (selectedArtifact?.spec?.chartVersion) {
+      // hardcode manifest chart version to default
+      selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
+        chartVersion: selectedArtifact?.spec?.chartVersion
+      })
+    } else if (!isEmpty(selectedArtifact) && selectedArtifact?.spec?.chartVersion === '') {
+      selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion
+    }
+
+    // clears any runtime inputs
+    const artifactSourceSpec = clearRuntimeInputValue(
+      cloneDeep(
+        parse(
+          JSON.stringify({
+            spec: selectedArtifact?.spec
+          }) || ''
+        )
+      )
+    )
+
+    const triggerYaml: NGTriggerConfigV2 = {
+      name,
+      identifier,
+      enabled: enabledStatus,
+      description,
+      tags,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      source: {
+        type: formikValueTriggerType as unknown as NGTriggerSourceV2['type'],
+        spec: {
+          stageIdentifier: stageId,
+          manifestRef: selectedArtifact?.identifier,
+          type: onEditManifestType || manifestType,
+          ...artifactSourceSpec
+        }
+      },
+      inputYaml: stringifyPipelineRuntimeInput
+    }
+
+    if (triggerYaml.source?.spec?.spec) {
+      triggerYaml.source.spec.spec.eventConditions = persistIncomplete
+        ? eventConditions
+        : eventConditions.filter((eventCondition: AddConditionInterface) => isRowFilled(eventCondition))
+    }
+
+    return clearNullUndefined(triggerYaml)
   }
 
   // TriggerConfigDTO is NGTriggerConfigV2 with optional identifier
@@ -786,6 +949,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     submitTrigger(triggerYaml)
   }
 
+  const handleArtifactSubmit = async (val: FlatValidArtifactFormikValuesInterface): Promise<void> => {
+    const triggerYaml = getArtifactTriggerYaml({ values: val })
+    submitTrigger(triggerYaml)
+  }
+
   const getInitialValues = (triggerType: NGTriggerSourceV2['type']): FlatInitialValuesInterface | any => {
     if (triggerType === TriggerTypes.WEBHOOK) {
       const newPipeline: any = { ...(currentPipeline?.pipeline || {}) }
@@ -817,6 +985,20 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         originalPipeline,
         ...getDefaultExpressionBreakdownValues(scheduleTabsId.MINUTES)
       }
+    } else if (isArtifactOrManifestTrigger(triggerType)) {
+      const inputSetTemplateYamlObj = parse(template?.data?.inputSetTemplateYaml || '')
+
+      return {
+        triggerType: triggerTypeOnNew,
+        identifier: '',
+        tags: {},
+        artifactType,
+        manifestType,
+        pipeline: currentPipeline?.pipeline,
+        originalPipeline,
+        inputSetTemplateYamlObj,
+        selectedArtifact: {}
+      }
     }
     return {}
   }
@@ -839,15 +1021,31 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
     ) {
       try {
         const newOriginalPipeline = parse(yamlPipeline)?.pipeline
+        const additionalValues: {
+          inputSetTemplateYamlObj?: {
+            pipeline: PipelineInfoConfig | Record<string, never>
+          }
+        } = {}
+
+        if (isArtifactOrManifestTrigger(initialValues?.triggerType)) {
+          const inputSetTemplateYamlObj = parse(template?.data?.inputSetTemplateYaml || '')
+          additionalValues.inputSetTemplateYamlObj = inputSetTemplateYamlObj
+        }
+
         if (onEditInitialValues?.identifier) {
           const newPipeline = currentPipeline?.pipeline ? currentPipeline.pipeline : onEditInitialValues.pipeline || {}
           setOnEditInitialValues({
             ...onEditInitialValues,
             originalPipeline: newOriginalPipeline,
-            pipeline: newPipeline
+            pipeline: newPipeline,
+            ...{ additionalValues }
           })
         } else {
-          setInitialValues({ ...initialValues, originalPipeline: newOriginalPipeline })
+          setInitialValues({
+            ...initialValues,
+            originalPipeline: newOriginalPipeline,
+            ...{ additionalValues }
+          })
         }
       } catch (e) {
         // set error
@@ -931,6 +1129,20 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       try {
         const triggerYaml = parse(yaml)
         setInitialValues({ ...initialValues, ...getScheduleTriggerValues({ triggerYaml }) })
+        setWizardKey(wizardKey + 1)
+      } catch (e) {
+        setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
+      }
+    }
+  }
+
+  const handleArtifactModeSwitch = (view: SelectedView, yamlHandler?: YamlBuilderHandlerBinding): void => {
+    if (view === SelectedView.VISUAL) {
+      const yaml = yamlHandler?.getLatestYaml() || /* istanbul ignore next */ ''
+      setErrorToasterMessage('')
+      try {
+        const triggerYaml = parse(yaml)
+        setInitialValues({ ...initialValues, ...getArtifactTriggerValues({ triggerYaml }) })
         setWizardKey(wizardKey + 1)
       } catch (e) {
         setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
@@ -1038,6 +1250,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         wizardMap={wizardMap}
         tabWidth="218px"
         onHide={returnToTriggersPage}
+        wizardType="webhook"
         // defaultTabId="Schedule"
         submitLabel={
           isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
@@ -1060,6 +1273,53 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       >
         <WebhookTriggerConfigPanel />
         <WebhookConditionsPanel />
+        <WebhookPipelineInputPanel />
+      </Wizard>
+    )
+  }
+
+  const renderArtifactWizard = (): JSX.Element | undefined => {
+    const isEdit = !!onEditInitialValues?.identifier
+    if (!wizardMap) return undefined
+    return (
+      <Wizard
+        key={wizardKey} // re-renders with yaml to visual initialValues
+        formikInitialProps={{
+          initialValues,
+          onSubmit: (val: FlatValidArtifactFormikValuesInterface) => handleArtifactSubmit(val),
+          validationSchema: getValidationSchema(
+            initialValues.triggerType as unknown as NGTriggerSourceV2['type'],
+            getString
+          ),
+          enableReinitialize: true
+        }}
+        className={css.tabs}
+        wizardMap={wizardMap}
+        tabWidth="218px"
+        onHide={returnToTriggersPage}
+        // defaultTabId="Schedule"
+        submitLabel={
+          isEdit ? getString('pipeline.triggers.updateTrigger') : getString('pipeline.triggers.createTrigger')
+        }
+        wizardType="artifacts"
+        disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading || isTriggerRbacDisabled}
+        isEdit={isEdit}
+        errorToasterMessage={errorToasterMessage}
+        visualYamlProps={{
+          handleModeSwitch: handleArtifactModeSwitch,
+          yamlBuilderReadOnlyModeProps,
+          yamlObjectKey: 'trigger',
+          showVisualYaml: true,
+          convertFormikValuesToYaml,
+          schema: triggerSchema?.data,
+          onYamlSubmit: submitTrigger,
+          loading: loadingYamlSchema,
+          invocationMap: invocationMapWebhook
+        }}
+        leftNav={titleWithSwitch}
+      >
+        <ArtifactTriggerConfigPanel />
+        <ArtifactConditionsPanel />
         <WebhookPipelineInputPanel />
       </Wizard>
     )
@@ -1089,6 +1349,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         }
         disableSubmit={loadingGetTrigger || createTriggerLoading || updateTriggerLoading}
         isEdit={isEdit}
+        wizardType="scheduled"
         errorToasterMessage={errorToasterMessage}
         leftNav={titleWithSwitch}
         visualYamlProps={{
@@ -1135,6 +1396,11 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           !getTriggerErrorMessage &&
           initialValues.triggerType === TriggerTypes.SCHEDULE &&
           renderScheduleWizard()}
+
+        {!loadingGetTrigger &&
+          !getTriggerErrorMessage &&
+          isArtifactOrManifestTrigger(initialValues.triggerType) &&
+          renderArtifactWizard()}
       </Page.Body>
     </>
   )

@@ -1,0 +1,322 @@
+query fetchPlans {
+  pricing {
+    id
+    published_at
+    created_at
+    updated_at
+    hero {
+      title
+      desc
+      subTitle
+    }
+    ciPlans {
+      title
+      desc
+      img {
+        url
+        width
+        height
+      }
+      price
+      yearlyPrice
+      unit
+      link
+      featureListZone {
+        id
+        title
+        link
+      }
+      buttonText
+      primaryButton
+      comingSoon
+      priceTips
+      support
+      featureTitle
+      callOut {
+        title
+        desc
+      }
+    }
+    ciSaasPlans {
+      title
+      desc
+      img {
+        url
+        width
+        height
+      }
+      price
+      yearlyPrice
+      unit
+      link
+      featureListZone {
+        id
+        title
+        link
+      }
+      buttonText
+      primaryButton
+      comingSoon
+      priceTips
+      support
+      featureTitle
+      callOut {
+        title
+        desc
+      }
+    }
+
+    cdPlans {
+      title
+      desc
+      img {
+        url
+        width
+        height
+      }
+      price
+      yearlyPrice
+      unit
+      link
+      featureListZone {
+        id
+        title
+        link
+      }
+      buttonText
+      primaryButton
+      comingSoon
+      priceTips
+      support
+      featureTitle
+      callOut {
+        title
+        desc
+      }
+    }
+    ccPlans {
+      title
+      desc
+      img {
+        url
+        width
+        height
+      }
+      price
+      yearlyPrice
+      unit
+      link
+      featureListZone {
+        id
+        title
+        link
+      }
+      buttonText
+      primaryButton
+      comingSoon
+      priceTips
+      support
+      featureTitle
+      callOut {
+        title
+        desc
+      }
+    }
+    ffPlans {
+      title
+      desc
+      img {
+        url
+        width
+        height
+      }
+      price
+      yearlyPrice
+      unit
+      link
+      featureListZone {
+        id
+        title
+        link
+      }
+      buttonText
+      primaryButton
+      comingSoon
+      priceTips
+      support
+      featureTitle
+      callOut {
+        title
+        desc
+      }
+    }
+    chIntelPlans {
+      title
+      desc
+      img {
+        url
+        width
+        height
+      }
+      price
+      yearlyPrice
+      unit
+      link
+      featureListZone {
+        id
+        title
+        link
+      }
+      buttonText
+      primaryButton
+      comingSoon
+      priceTips
+      support
+      featureTitle
+      callOut {
+        title
+        desc
+      }
+    }
+
+    ciFeatureCaption {
+      title
+      btnText
+      btnLink
+      primaryButton
+    }
+    ciFeatureGroup {
+      title
+      detailedFeature {
+        title
+        link
+        communityValue
+        communityText
+        freeValue
+        freeText
+        teamValue
+        teamText
+        enterpriseValue
+        enterpriseText
+      }
+    }
+
+    cdFeatureCaption {
+      title
+      btnText
+      btnLink
+      primaryButton
+    }
+    cdFeatureGroup {
+      title
+      detailedFeature {
+        title
+        link
+        communityValue
+        communityText
+        freeValue
+        freeText
+        teamValue
+        teamText
+        enterpriseValue
+        enterpriseText
+      }
+    }
+    ccFeatureCaption {
+      title
+      btnText
+      btnLink
+      primaryButton
+    }
+    ccFeatureGroup {
+      title
+      detailedFeature {
+        title
+        link
+        communityValue
+        communityText
+        freeValue
+        freeText
+        teamValue
+        teamText
+        enterpriseValue
+        enterpriseText
+      }
+    }
+    ffFeatureCaption {
+      title
+      btnText
+      btnLink
+      primaryButton
+    }
+    ffFeatureGroup {
+      title
+      detailedFeature {
+        title
+        link
+        communityValue
+        communityText
+        freeValue
+        freeText
+        teamValue
+        teamText
+        enterpriseValue
+        enterpriseText
+      }
+    }
+    ciSaasFeatureCaption {
+      title
+      btnText
+      btnLink
+      primaryButton
+    }
+    ciSaasFeatureGroup {
+      title
+      detailedFeature {
+        title
+        link
+        communityValue
+        communityText
+        freeValue
+        freeText
+        teamValue
+        teamText
+        enterpriseValue
+        enterpriseText
+      }
+    }
+    chIntelFeatureCaption {
+      title
+      btnText
+      btnLink
+      primaryButton
+    }
+    chIntelFeatureGroup {
+      title
+      detailedFeature {
+        title
+        link
+        communityValue
+        communityText
+        freeValue
+        freeText
+        teamValue
+        teamText
+        enterpriseValue
+        enterpriseText
+      }
+    }
+
+    caseStudies {
+      id
+      quote
+      client
+      link
+      clientPic {
+        width
+        height
+        url
+      }
+    }
+  }
+}

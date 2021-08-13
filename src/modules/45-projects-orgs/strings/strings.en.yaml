@@ -1,4 +1,5 @@
 createProject: Create Project
+youHaveNoProjects: You have no projects
 noCollaborators: No Collaborators
 moduleSuccess: '{{$.common.purpose.moduleSuccess}}'
 placeholder: '23'
@@ -26,6 +27,7 @@ purposeList:
   moduleSuccess: '{{$.common.purpose.moduleSuccess}}'
   name: 'Which Harness modules would you like to enable for this project?'
   continuous: '{{$.common.purpose.continuous}}'
+  change: '{{$.common.purpose.change}}'
   time: '{{$.common.purpose.setup}}'
   selectAModule: '{{$.common.purpose.selectAModule}}'
 
@@ -64,7 +66,6 @@ pendingInvitation: '{{$.common.pendingInvitation}}'
 requestAccess: 'Requesting Access'
 noProjectRole: 'No project role assigned'
 roleAssigned: 'Role Assigned:'
-manage: 'Manage organizations /'
 viewProjects: 'View Projects'
 capsAllValue: '{{$.common.capsAll}}'
 tabOrgs: 'Organizations:'
@@ -87,3 +88,13 @@ gotoBuilds: Go to Builds
 gotoFeatureFlags: '{{ $.projectsOrgs.gotoCF }}'
 gotoCloudCosts: Go to Cloud Costs
 goto: Go to
+orgResources:
+  label: Organization Resources
+  description1: Organization Resources are shared and available for use within any projects within this organization.
+  description2: For better isolation of resources, it is recommended that you create resources at the project level.
+orgAccessControl: Organization Level Access Control
+viewAllProjects: View All Projects
+searchProjectPlaceHolder: Search your project by name or ID
+projectsInOrg: projects under <br/> your organization
+createAProject: Create a Project
+manageAProject: Click to manage project

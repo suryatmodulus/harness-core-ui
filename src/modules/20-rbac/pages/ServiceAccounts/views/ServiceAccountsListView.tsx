@@ -276,6 +276,7 @@ const ServiceAccountsListView: React.FC<ServiceAccountsListViewProps> = ({
           })
         )
       }}
+      rowDataTestID={serviceAcc => `row-${serviceAcc.serviceAccount.identifier}`}
       pagination={{
         itemCount: data?.totalItems || 0,
         pageSize: data?.pageSize || 10,

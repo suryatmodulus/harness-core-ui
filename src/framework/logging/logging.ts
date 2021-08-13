@@ -26,11 +26,13 @@ function log(type: string, module: ModuleName, subModule?: string) {
     // This format will make it easier to query logs against a module
     const _message = `${module}${subModule ? `/${subModule}` : ''}: ${message}`
 
-    // Log to Bugsnag if it's available
-    window.bugsnagClient?.notify?.(new Error(_message), {
-      severity: type === ERROR ? 'error' : type === WARN ? 'warning' : 'info',
-      user: obj
-    })
+    if (type === ERROR || type === WARN) {
+      // Log to Bugsnag if it's available
+      window.bugsnagClient?.notify?.(new Error(_message), {
+        severity: type === ERROR ? 'error' : 'warning',
+        user: obj
+      })
+    }
 
     if (type === ERROR) {
       console.error(_message, obj) // eslint-disable-line

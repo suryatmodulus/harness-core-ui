@@ -24,7 +24,9 @@ export enum Types {
   LimitMemory,
   LimitCPU,
   Provisioner,
-  Boolean
+  Boolean,
+  ImagePullPolicy,
+  Shell
 }
 
 interface Field {
@@ -57,7 +59,14 @@ export function removeEmptyKeys<T>(object: { [key: string]: any }): T {
 export function getInitialValuesInCorrectFormat<T, U>(
   initialValues: T,
   fields: Field[],
-  { archiveFormatOptions, pullOptions, buildToolOptions, languageOptions }: Dependencies = {}
+  {
+    archiveFormatOptions,
+    pullOptions,
+    buildToolOptions,
+    languageOptions,
+    imagePullPolicyOptions,
+    shellOptions
+  }: Dependencies = {}
 ): U {
   const values = {}
 
@@ -145,6 +154,24 @@ export function getInitialValuesInCorrectFormat<T, U>(
           : value
 
       set(values, name, buildTool)
+    }
+
+    if (type === Types.ImagePullPolicy) {
+      const imagePullPolicy =
+        getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
+          ? imagePullPolicyOptions?.find((option: SelectOption) => option.value === value)
+          : value
+
+      set(values, name, imagePullPolicy)
+    }
+
+    if (type === Types.Shell) {
+      const shell =
+        getMultiTypeFromValue(value) === MultiTypeInputType.FIXED
+          ? shellOptions?.find((option: SelectOption) => option.value === value)
+          : value
+
+      set(values, name, shell)
     }
 
     if (type === Types.Language) {
@@ -248,8 +275,15 @@ export function getFormValuesInCorrectFormat<T, U>(formValues: T, fields: Field[
       const connectorRef = typeof value === 'string' ? value : value?.value
       set(values, name, connectorRef)
     }
-
-    if (type === Types.ArchiveFormat || type === Types.Pull || type === Types.BuildTool || type === Types.Language) {
+    // Set Select field values
+    if (
+      type === Types.ArchiveFormat ||
+      type === Types.Pull ||
+      type === Types.BuildTool ||
+      type === Types.Language ||
+      type === Types.Shell ||
+      type === Types.ImagePullPolicy
+    ) {
       const value = get(formValues, name) as MultiTypeSelectOption
 
       const pull = typeof value === 'string' ? value : value?.value

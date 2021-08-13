@@ -35,6 +35,7 @@ import css from './DeploymentMetrics.module.scss'
 
 interface DeploymentMetricsProps {
   step: ExecutionNode
+  activityId: string
   selectedNode?: DeploymentNodeAnalysisResult
 }
 
@@ -99,13 +100,14 @@ export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Elem
 }
 
 export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
-  const { step, selectedNode } = props
+  const { step, selectedNode, activityId } = props
   const { getString } = useStrings()
   const { accountId } = useParams<ProjectPathProps>()
   const [queryParams, setQueryParams] = useState<GetDeploymentMetricsQueryParams>({
     accountId,
     anomalousMetricsOnly: false,
     hostName: selectedNode?.hostName,
+    pageNumber: 0,
     pageSize: PAGE_SIZE
   })
   const [pollingIntervalId, setPollingIntervalId] = useState(-1)
@@ -117,11 +119,20 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
       currentViewData: []
     }
   )
-  const activityId = (step?.progressData?.activityId as unknown as string) || ''
   const { loading, error, data, refetch } = useGetDeploymentMetrics({
     queryParams,
     activityId
   })
+
+  useEffect(() => {
+    setPollingIntervalId(-1)
+    setUpdateViewInfo({ currentViewData: [], hasNewData: false, shouldUpdateView: true, showSpinner: true })
+    setQueryParams(oldParams => ({
+      ...oldParams,
+      hostName: undefined,
+      pageNumber: 0
+    }))
+  }, [activityId])
 
   useEffect(() => {
     let intervalId = pollingIntervalId
@@ -135,26 +146,17 @@ export function DeploymentMetrics(props: DeploymentMetricsProps): JSX.Element {
   }, [step?.status, queryParams])
 
   useEffect(() => {
-    setQueryParams(oldParams => ({ ...oldParams, hostName: selectedNode?.hostName }))
+    const updatedQueryParams = { ...queryParams, hostName: selectedNode?.hostName }
+    if (!isEqual(updatedQueryParams, queryParams)) {
+      setQueryParams(updatedQueryParams)
+    }
     setUpdateViewInfo(oldState => ({ ...oldState, shouldUpdateView: true, showSpinner: true }))
   }, [selectedNode])
 
   useEffect(() => {
-    setPollingIntervalId(-1)
-    setUpdateViewInfo({ currentViewData: [], hasNewData: false, shouldUpdateView: true, showSpinner: true })
-    setQueryParams(oldParams => ({
-      ...oldParams,
-      hostName: undefined,
-      pageNumber: 0
-    }))
-  }, [step?.progressData?.activityId])
-
-  useEffect(() => {
-    if (error || loading) {
-      return
-    }
-
+    if (error || loading) return
     const updatedProps = transformMetricData(data)
+
     if (shouldUpdateView) {
       setUpdateViewInfo({
         hasNewData: false,

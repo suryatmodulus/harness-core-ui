@@ -1,22 +1,13 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly failedBuildCard: string
-  readonly titleAndMessage: string
-  readonly title: string
-  readonly leftBorder: string
-  readonly branchAndCommitWrap: string
-  readonly linkWrap: string
-  readonly activeBuildCard: string
-  readonly buildIcon: string
-  readonly statusLabel: string
-  readonly statusLabelIcon: string
-  readonly pendingLabel: string
-  readonly runningLabel: string
   readonly times: string
   readonly timeIcon: string
   readonly timesColored: string
   readonly repositoryCard: string
+  readonly titleAndMessage: string
+  readonly title: string
+  readonly leftBorder: string
   readonly mainContent: string
   readonly cardStats: string
   readonly statHeader: string

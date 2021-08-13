@@ -9,6 +9,7 @@ import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import type { OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { PageSpinner } from '@common/components'
+import { useQueryParams } from '@common/hooks'
 import ProjectForm from './ProjectForm'
 
 interface CreateModalData {
@@ -16,7 +17,9 @@ interface CreateModalData {
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
-  const { accountId, orgIdentifier } = useParams<OrgPathProps>()
+  const { accountId, orgIdentifier: orgIdPathParam } = useParams<OrgPathProps>()
+  const { orgIdentifier: orgIdQueryParam } = useQueryParams<OrgPathProps>()
+  const orgIdentifier = orgIdPathParam || orgIdQueryParam
   const { nextStep, modules } = props
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
@@ -29,7 +32,8 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { data: orgData } = useGetOrganizationList({
     queryParams: {
-      accountIdentifier: accountId
+      accountIdentifier: accountId,
+      searchTerm: orgIdentifier
     }
   })
 

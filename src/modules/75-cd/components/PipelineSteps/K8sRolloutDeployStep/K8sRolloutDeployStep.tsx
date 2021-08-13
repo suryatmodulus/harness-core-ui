@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType, Layout } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import cx from 'classnames'
 import * as Yup from 'yup'
 
@@ -24,6 +24,8 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import type { StringsMap } from 'stringTypes'
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8RolloutDeployData extends StepElementConfig {
@@ -72,8 +74,8 @@ function K8RolloutDeployWidget(
           setFormikRef(formikRef, formik)
           const { values, setFieldValue } = formik
           return (
-            <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+            <>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
                   isIdentifierEditable={isNewStep && !readonly}
@@ -102,6 +104,7 @@ function K8RolloutDeployWidget(
                   />
                 )}
               </div>
+              <div className={stepCss.divider} />
               <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormMultiTypeCheckboxField
                   multiTypeTextbox={{ expressions }}
@@ -110,7 +113,7 @@ function K8RolloutDeployWidget(
                   disabled={readonly}
                 />
               </div>
-            </Layout.Vertical>
+            </>
           )
         }}
       </Formik>
@@ -170,7 +173,7 @@ const K8RolloutDeployVariableStep: React.FC<K8RolloutDeployVariableStepProps> = 
 }) => {
   return (
     <VariablesListTable
-      className={stepCss.topSpacingLarge}
+      className={pipelineVariableCss.variablePaddingL2}
       data={variablesData.spec}
       originalData={initialValues.spec}
       metadataMap={metadataMap}
@@ -259,6 +262,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
   protected type = StepType.K8sRollingDeploy
   protected stepName = 'K8s Rollout Deploy'
   protected stepIcon: IconName = 'rolling'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sRollingDeploy'
   protected isHarnessSpecific = true
 
   protected defaultValues: K8RolloutDeployData = {

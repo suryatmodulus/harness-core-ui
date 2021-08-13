@@ -44,5 +44,7 @@ export enum StepType {
   TerraformApply = 'TerraformApply',
   InfraProvisioning = 'InfraProvisioning',
   KubernetesGcp = 'KubernetesGcp',
-  ResourceConstraint = 'ResourceConstraint'
+  ResourceConstraint = 'ResourceConstraint',
+  FlagConfiguration = 'FlagConfiguration',
+  TemplateStep = 'TemplateStep'
 }

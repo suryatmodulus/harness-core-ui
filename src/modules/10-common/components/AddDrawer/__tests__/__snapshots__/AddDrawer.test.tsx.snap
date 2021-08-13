@@ -4,7 +4,6 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
 <body
   class="bp3-overlay-open"
 >
-  <x-mentions />
   <div>
     <div
       class="StyledProps--font StyledProps--main"
@@ -46,14 +45,13 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
               >
                 <div
                   class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main paletteCardHeader"
-                  style="align-items: center;"
                 >
                   <div
                     class="Layout--vertical StyledProps--main"
                   >
                     <p
                       class="StyledProps--font StyledProps--main"
-                      style="width: 185px; font-size: 14px; line-height: 24px;"
+                      style="width: 185px; font-size: 14px; line-height: 24px; font-weight: 500;"
                     >
                       Triggers
                     </p>
@@ -64,40 +62,37 @@ exports[`AddDrawer Triggers tests Renders/snapshots Initial Render - Trigger Lis
                     </p>
                   </div>
                   <div
-                    class="expandSearch"
+                    class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip "
+                    data-name=""
+                    style="max-width: 200px;"
                   >
-                    <div
-                      class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
-                      data-name=""
+                    <span
+                      class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                      data-icon="thinner-search"
                     >
-                      <span
-                        class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
-                        icon="search"
+                      <svg
+                        fill="none"
+                        height="14"
+                        viewBox="0 0 16 16"
+                        width="14"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <svg
-                          data-icon="search"
-                          height="14"
-                          viewBox="0 0 16 16"
-                          width="14"
-                        >
-                          <desc>
-                            search
-                          </desc>
-                          <path
-                            d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                      <input
-                        class="bp3-input "
-                        dir="auto"
-                        placeholder="Search"
-                        style="padding-right: 0px;"
-                        type="search"
-                        value=""
-                      />
-                    </div>
+                        <path
+                          d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                          stroke="currentColor"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                    <input
+                      class="bp3-input  ExpandingSearchInput--filter"
+                      dir="auto"
+                      placeholder="Search"
+                      style="padding-right: 0px;"
+                      type="search"
+                      value=""
+                    />
                   </div>
                 </div>
                 <section

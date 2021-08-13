@@ -199,14 +199,12 @@ interface IState {
   hours: number // 12:00 AM (0), 5:30 PM (17.5), ..
 }
 
-const date = new Date()
-const curHours = date.getHours() + Math.ceil(date.getMinutes() / 60)
 const initialState: IState = {
   frequency: 'week',
-  month: date.getMonth() + 1,
-  dayOfWeek: date.getDay(),
-  dayOfMonth: date.getDate(),
-  hours: curHours > 23 ? 0 : curHours
+  month: 1,
+  dayOfWeek: 1,
+  dayOfMonth: 1,
+  hours: 0
 }
 
 const reducer = (state: IState, action: Action) => {

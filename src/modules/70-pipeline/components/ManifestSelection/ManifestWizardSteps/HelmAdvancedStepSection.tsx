@@ -97,7 +97,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
             render={({ push, remove }) => (
               <Layout.Vertical>
                 {formik.values?.commandFlags?.map((commandFlag: CommandFlags, index: number) => (
-                  <Layout.Horizontal key={commandFlag.id} spacing="xxlarge" flex margin={{ top: 'small' }}>
+                  <Layout.Horizontal key={commandFlag.id} spacing="xxlarge" margin={{ top: 'small' }}>
                     <div className={helmcss.halfWidth}>
                       <FormInput.MultiTypeInput
                         name={`commandFlags[${index}].commandType`}
@@ -121,7 +121,7 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                       />
                     </div>
                     <div className={helmcss.halfWidth}>
-                      <Layout.Horizontal>
+                      <Layout.Horizontal flex={{ justifyContent: 'flex-start', alignItems: 'flex-start' }}>
                         <FormInput.MultiTextInput
                           label={index === 0 ? getString('flag') : ''}
                           name={`commandFlags[${index}].flag`}
@@ -136,20 +136,24 @@ const HelmAdvancedStepSection: React.FC<HelmAdvancedStepProps> = ({
                         />
                         {getMultiTypeFromValue(formik.values?.commandFlags?.[index]?.flag) ===
                           MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={(formik.values?.commandFlags?.[index].flag || '') as unknown as string}
-                            type="String"
-                            variableName={`CommandFlag-${index}`}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value =>
-                              formik.setFieldValue(`formik.values?.commandFlags?.[${index}].flag`, value)
-                            }
-                            style={{ alignSelf: 'center' }}
-                            className={cx(css.addmarginTop)}
-                            isReadonly={isReadonly}
-                          />
+                          <div
+                            className={cx({
+                              [css.addmarginTop]: index === 0
+                            })}
+                          >
+                            <ConfigureOptions
+                              value={(formik.values?.commandFlags?.[index].flag || '') as unknown as string}
+                              type="String"
+                              variableName={`CommandFlag-${index}`}
+                              showRequiredField={false}
+                              showDefaultField={false}
+                              showAdvanced={true}
+                              onChange={value =>
+                                formik.setFieldValue(`formik.values?.commandFlags?.[${index}].flag`, value)
+                              }
+                              isReadonly={isReadonly}
+                            />
+                          </div>
                         )}
                         {index !== 0 && (
                           <Button

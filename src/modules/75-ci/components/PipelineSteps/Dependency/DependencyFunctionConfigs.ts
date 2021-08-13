@@ -38,11 +38,14 @@ export const transformValuesFieldsConfig = [
     name: 'spec.args',
     type: TransformValuesTypes.List
   },
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // {
-  //   name: 'spec.pull',
-  //   type: TransformValuesTypes.Pull
-  // },
+  {
+    name: 'spec.imagePullPolicy',
+    type: TransformValuesTypes.ImagePullPolicy
+  },
+  {
+    name: 'spec.runAsUser',
+    type: TransformValuesTypes.Text
+  },
   {
     name: 'spec.limitMemory',
     type: TransformValuesTypes.LimitMemory
@@ -95,6 +98,11 @@ export const editViewValidateFieldsConfig = [
     type: ValidationFieldTypes.List
   },
   {
+    label: 'pipeline.stepCommonFields.runAsUser',
+    name: 'spec.runAsUser',
+    type: ValidationFieldTypes.Numeric
+  },
+  {
     name: 'spec.limitMemory',
     type: ValidationFieldTypes.LimitMemory
   },
@@ -135,6 +143,14 @@ export function getInputSetViewValidateFieldsConfig(
     {
       name: 'spec.args',
       type: ValidationFieldTypes.List
+    },
+    {
+      name: 'spec.imagePullPolicy',
+      type: ValidationFieldTypes.ImagePullPolicy
+    },
+    {
+      name: 'spec.runAsUser',
+      type: ValidationFieldTypes.Numeric
     },
     {
       name: 'spec.resources.limits.memory',

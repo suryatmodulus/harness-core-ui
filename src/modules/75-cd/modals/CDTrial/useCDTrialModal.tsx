@@ -11,14 +11,14 @@ import { CreatePipelineForm } from '@pipeline/components/CreatePipelineForm/Crea
 import { SelectOrCreatePipelineForm } from '@pipeline/components/SelectOrCreatePipelineForm/SelectOrCreatePipelineForm'
 import { TrialModalTemplate } from '@common/components/TrialModalTemplate/TrialModalTemplate'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import cdImage from '../images/illustration.png'
 import css from './useCDTrialModal.module.scss'
 
 type CreateOrSelectProjectProps = {
   onCreateProject: () => void
 }
-type onCreatePipeline = (values: NgPipeline) => void
+type onCreatePipeline = (values: PipelineInfoConfig) => void
 type onSelectPipeline = (value: string) => void
 type PipelineProps = {
   onSuccess: onCreatePipeline | onSelectPipeline

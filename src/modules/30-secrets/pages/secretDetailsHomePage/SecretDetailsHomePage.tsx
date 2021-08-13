@@ -1,12 +1,11 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Layout, Text, Color, Icon, TabNavigation } from '@wings-software/uicore'
-
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import type { Module, ModulePathParams, ProjectPathProps, SecretsPathProps } from '@common/interfaces/RouteInterfaces'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { ResponseSecretResponseWrapper, SecretDTOV2, useGetSecretV2 } from 'services/cd-ng'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { UseGetMockData } from '@common/utils/testUtils'
@@ -54,19 +53,15 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
       {
         url: getSecretsUrl({ accountId, projectIdentifier, orgIdentifier, module }),
         label: getString('common.secrets')
-      },
-      {
-        url: '#',
-        label: ''
       }
     ]
-    /* istanbul ignore else */ if (projectIdentifier) {
+    /* istanbul ignore else */ if (projectIdentifier && !module) {
       breadCrumbArray.unshift({
         url: getProjectUrl({ accountId, projectIdentifier, orgIdentifier, module }),
         label: selectedProject ? selectedProject.name : ''
       })
     }
-    return <Breadcrumbs links={breadCrumbArray} />
+    return <NGBreadcrumbs links={breadCrumbArray} />
   }
 
   const renderIcon = (type: SecretDTOV2['type']) => {
@@ -85,23 +80,19 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
       <Page.Header
         size="large"
         className={css.header}
+        breadcrumbs={renderBreadCrumb(props)}
         title={
-          <Layout.Vertical>
-            {renderBreadCrumb(props)}
-
-            <Layout.Horizontal spacing="small">
-              {secretType ? renderIcon(secretType) : null}
-
-              <Container>
-                <Text color={Color.GREY_800} font="medium">
-                  {data?.data?.secret.name || ''}
-                </Text>
-                <Text color={Color.GREY_400} font="small">
-                  {data?.data?.secret.identifier || ''}
-                </Text>
-              </Container>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+          <Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+            {secretType ? renderIcon(secretType) : null}
+            <Container>
+              <Text color={Color.GREY_800} font="medium">
+                {data?.data?.secret.name || ''}
+              </Text>
+              <Text color={Color.GREY_400} font="small">
+                {data?.data?.secret.identifier || ''}
+              </Text>
+            </Container>
+          </Layout.Horizontal>
         }
         toolbar={
           <TabNavigation

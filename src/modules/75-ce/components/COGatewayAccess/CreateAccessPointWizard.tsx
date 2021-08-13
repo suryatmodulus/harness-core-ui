@@ -43,7 +43,7 @@ interface MapToProviderProps {
 }
 const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => {
   const { accessPoint } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams<{
+  const { accountId } = useParams<{
     accountId: string
     orgIdentifier: string
     projectIdentifier: string
@@ -53,9 +53,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     loading: hostedZonesLoading,
     refetch: loadHostedZones
   } = useAllHostedZones({
-    org_id: orgIdentifier, // eslint-disable-line
     account_id: accountId, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
     queryParams: {
       cloud_account_id: props.accessPoint.cloud_account_id as string, // eslint-disable-line
       region: 'us-east-1',
@@ -79,9 +77,8 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
     refetch,
     loading: accessPointStatusLoading
   } = useGetAccessPoint({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    access_point_id: props.accessPoint.id as string, //eslint-disable-line
+    account_id: accountId,
+    lb_id: props.accessPoint.id as string, //eslint-disable-line
     queryParams: {
       accountIdentifier: accountId
     },
@@ -136,8 +133,7 @@ const MapToProvider: React.FC<StepProps<MapToProviderProps> & Props> = props => 
   }, [accessPointData, refetch, accessPointStatusLoading, accessPointID])
 
   const { mutate: createAccessPoint } = useCreateAccessPoint({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier // eslint-disable-line
+    account_id: accountId
   })
 
   const onSave = async (): Promise<void> => {

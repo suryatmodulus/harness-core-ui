@@ -1,28 +1,18 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
-import { noop, find, isNil, debounce } from 'lodash-es'
+import { noop, isNil, debounce } from 'lodash-es'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import { Button, Layout, Icon } from '@wings-software/uicore'
-import { Select } from '@blueprintjs/select'
-import { Tooltip } from '@blueprintjs/core'
 import { GraphCanvasState, useExecutionContext } from '@pipeline/context/ExecutionContext'
-import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
-import { usePermission } from '@rbac/hooks/usePermission'
-import { ResourceType } from '@rbac/interfaces/ResourceType'
-import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { useDeepCompareEffect, useUpdateQueryParams } from '@common/hooks'
 import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
-import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import type {
-  ExecutionPipeline,
-  ExecutionPipelineGroupInfo,
-  ExecutionPipelineItem,
-  StageOptions
-} from './ExecutionPipelineModel'
-import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
-import ExecutionActions from '../ExecutionActions/ExecutionActions'
+import type { ExecutionPipeline, ExecutionPipelineGroupInfo, ExecutionPipelineItem } from './ExecutionPipelineModel'
+import {
+  ExecutionStageDiagramConfiguration,
+  ExecutionStageDiagramModel,
+  GridStyleInterface,
+  NodeStyleInterface
+} from './ExecutionStageDiagramModel'
 import {
   focusRunningNode,
   getGroupsFromData,
@@ -55,8 +45,6 @@ abstract class GroupEvent<T> extends Event {
     this.stageTarget = target
   }
 }
-
-const StageSelection = Select.ofType<StageOptions>()
 
 export class ItemClickEvent<T> extends ItemEvent<T> {
   constructor(stage: ExecutionPipelineItem<T>, target: HTMLElement) {
@@ -91,6 +79,7 @@ export interface ExecutionStageDiagramProps<T> {
   nodeStyle?: NodeStyleInterface
   /** grid style */
   gridStyle: GridStyleInterface
+  graphConfiguration?: Partial<ExecutionStageDiagramConfiguration>
   loading?: boolean
   showStartEndNode?: boolean // Default: true
   showEndNode?: boolean // Default: true
@@ -103,10 +92,6 @@ export interface ExecutionStageDiagramProps<T> {
   canvasListener?: (action: CanvasButtonsActions) => void
   isWhiteBackground?: boolean // Default: false
   className?: string
-  showStageSelection?: boolean // Default: false
-  selectedStage?: StageOptions
-  stageSelectionOptions?: StageOptions[]
-  onChangeStageSelection?: (value: StageOptions) => void
   canvasBtnsClass?: string
   graphCanvasState?: GraphCanvasState
   setGraphCanvasState?: (state: GraphCanvasState) => void
@@ -119,6 +104,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     className,
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
+    graphConfiguration = {},
     gridStyle,
     diagramContainerHeight,
     showStartEndNode = true,
@@ -130,10 +116,6 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     mouseLeaveStepGroupTitle = noop,
     canvasListener = noop,
     loading = false,
-    selectedStage,
-    showStageSelection = false,
-    stageSelectionOptions,
-    onChangeStageSelection,
     isWhiteBackground = false,
     canvasBtnsClass = '',
     graphCanvasState,
@@ -148,19 +130,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     }, 250),
     []
   )
-
-  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier, module } =
-    useParams<PipelineType<ExecutionPathProps>>()
-
-  const {
-    pipelineStagesMap,
-    refetch,
-    pipelineExecutionDetail,
-    allNodeMap,
-    queryParams,
-    selectedStageId,
-    selectedStepId
-  } = useExecutionContext()
+  const { queryParams, selectedStageId, selectedStepId } = useExecutionContext()
   const { replaceQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
   const [autoPosition, setAutoPosition] = React.useState(true)
 
@@ -184,7 +154,6 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     setGroupState(stageData)
   }, [data])
 
-  const currentStage = pipelineStagesMap.get(selectedStage?.value || '')
   const updateGroupStage = (event: Diagram.DefaultNodeEvent): void => {
     const group = groupState?.get(event.entity.getIdentifier())
     if (group && groupState) {
@@ -197,11 +166,18 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   }
 
   //setup the diagram engine
-  const engine = React.useMemo(() => Diagram.createEngine({}), [])
+  const engine = React.useMemo(
+    () =>
+      Diagram.createEngine({
+        registerDefaultZoomCanvasAction: false
+      }),
+    []
+  )
 
   //setup the diagram model
   const model = React.useMemo(() => new ExecutionStageDiagramModel(), [])
   model.setDefaultNodeStyle(nodeStyle)
+  model.setGraphConfiguration(graphConfiguration)
   model.setGridStyle(gridStyle)
 
   // Graph position and zoom set (set values from context)
@@ -322,26 +298,9 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     showEndNode
   ])
 
-  const [canEdit, canExecute] = usePermission(
-    {
-      resourceScope: {
-        accountIdentifier: accountId,
-        orgIdentifier,
-        projectIdentifier
-      },
-      resource: {
-        resourceType: ResourceType.PIPELINE,
-        resourceIdentifier: pipelineIdentifier as string
-      },
-      permissions: [PermissionIdentifier.EDIT_PIPELINE, PermissionIdentifier.EXECUTE_PIPELINE]
-    },
-    [orgIdentifier, projectIdentifier, accountId, pipelineIdentifier]
-  )
-
   //Load model into engine
   engine.setModel(model)
   autoPosition && focusRunningNode(engine, data)
-  const stageNode = find(allNodeMap, node => node.setupId === selectedStage?.value)
 
   return (
     <div
@@ -352,100 +311,6 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
       onClick={stopAutoSelection}
     >
       <Diagram.CanvasWidget engine={engine} className={css.canvas} />
-      {showStageSelection && selectedStage && selectedStage?.value?.length > 0 && (
-        <Layout.Horizontal spacing="xxlarge" className={css.stageSelection}>
-          <div className={css.groupLabels}>
-            <StageSelection
-              itemRenderer={(item, { handleClick, modifiers: { disabled } }) => (
-                <div key={item.value}>
-                  <Button
-                    icon={item.icon?.name}
-                    text={item.label}
-                    className={css.stageItem}
-                    disabled={disabled}
-                    minimal
-                    onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
-                  />
-                </div>
-              )}
-              itemDisabled={item => {
-                return item.disabled ?? false
-              }}
-              itemPredicate={(query, item, _index, exactMatch) => {
-                const normalizedValue = item.value.toLowerCase()
-                const normalizedQuery = query.toLowerCase()
-                /* istanbul ignore if */ if (exactMatch) {
-                  return normalizedValue === normalizedQuery
-                } else {
-                  return (
-                    normalizedValue.indexOf(normalizedQuery) > -1 ||
-                    item.label.toLowerCase().indexOf(normalizedQuery) > -1
-                  )
-                }
-              }}
-              items={stageSelectionOptions || /* istanbul ignore next */ []}
-              onItemSelect={item => onChangeStageSelection?.(item)}
-            >
-              <Button
-                className={css.stageButton}
-                icon={selectedStage.icon?.name}
-                text={selectedStage.label}
-                rightIcon="caret-down"
-                minimal
-              />
-            </StageSelection>
-            <ExecutionActions
-              executionStatus={stageNode?.status as ExecutionStatus}
-              refetch={refetch}
-              params={{
-                orgIdentifier,
-                pipelineIdentifier,
-                projectIdentifier,
-                accountId,
-                executionIdentifier,
-                module,
-                repoIdentifier: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.repoIdentifier,
-                branch: pipelineExecutionDetail?.pipelineExecutionSummary?.gitDetails?.branch
-              }}
-              noMenu
-              stageName={stageNode?.name}
-              stageId={stageNode?.uuid}
-              canEdit={canEdit}
-              canExecute={canExecute}
-            />
-          </div>
-          {groupState && groupState.size > 1 && (
-            // Do not render groupStage if the size is less than 1
-            // In approval stage, we do not have service/infra/execution sections
-            <div className={css.groupLabels}>
-              {[...groupState]
-                .filter(item => item[1].showInLabel)
-                .map(item => (
-                  <span
-                    onClick={e => {
-                      e.currentTarget.classList.add(css.selectedLabel)
-                      moveStageToFocus(engine, item[1].identifier)
-                    }}
-                    onAnimationEnd={e => {
-                      e.currentTarget.classList.remove(css.selectedLabel)
-                    }}
-                    className={css.label}
-                    key={item[0]}
-                  >
-                    {item[1].name}
-                  </span>
-                ))}
-            </div>
-          )}
-          {currentStage?.failureInfo?.message && (
-            <div>
-              <Tooltip content={currentStage?.failureInfo?.message} portalClassName={css.errorTooltip}>
-                <Icon data-testId="stage-error-tooltip" className={css.stageError} name="warning-sign" size={18} />
-              </Tooltip>
-            </div>
-          )}
-        </Layout.Horizontal>
-      )}
       <CanvasButtons
         engine={engine}
         className={canvasBtnsClass}

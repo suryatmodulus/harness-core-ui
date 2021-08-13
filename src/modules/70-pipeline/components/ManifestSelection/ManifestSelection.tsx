@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Layout, Text } from '@wings-software/uicore'
 
 import { useParams } from 'react-router-dom'
-import { get, set } from 'lodash-es'
+import { get } from 'lodash-es'
 import { useGetConnectorListV2, PageConnectorResponse } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 
@@ -11,6 +11,8 @@ import { getIdentifierFromValue, getScopeFromValue } from '@common/components/En
 
 import { useStrings } from 'framework/strings'
 import type { Scope } from '@common/interfaces/SecretsInterface'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import { useDeepCompareEffect } from '@common/hooks'
 import type { ManifestSelectionProps } from './ManifestInterface'
 import ManifestListView from './ManifestListView'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
@@ -32,7 +34,7 @@ export default function ManifestSelection({
     isReadonly
   } = React.useContext(PipelineContext)
 
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const [fetchedConnectorResponse, setFetchedConnectorResponse] = React.useState<PageConnectorResponse | undefined>()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams<
@@ -54,15 +56,6 @@ export default function ManifestSelection({
   const { mutate: fetchConnectors } = useGetConnectorListV2({
     queryParams: defaultQueryParams
   })
-
-  useEffect(() => {
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets')) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifestOverrideSets', [])
-    }
-    if (!get(stage, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests')) {
-      set(stage as any, 'stage.spec.serviceConfig.serviceDefinition.spec.manifests', [])
-    }
-  }, [])
 
   const listOfManifests = useMemo(() => {
     if (overrideSetIdentifier?.length) {
@@ -120,9 +113,9 @@ export default function ManifestSelection({
 
   const { getString } = useStrings()
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     refetchConnectorList()
-  }, [stage])
+  }, [stage, listOfManifests])
 
   return (
     <Layout.Vertical>

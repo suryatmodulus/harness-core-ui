@@ -1,5 +1,7 @@
 continuous: '{{$.common.purpose.cf.continuous}}'
 shared:
+  on: ON
+  off: OFF
   individual: Individual
   target: '{{ $.pipelineSteps.targetLabel }}'
   targets: '{{ $.pipeline.targets.title }}'
@@ -11,7 +13,7 @@ shared:
   variation: Variation
   variations: Variations
   prerequisites: Prerequisites
-  selectEnvironment: Select environment
+  selectEnvironment: Select Environment
   evaluations: Evaluations
   flags: '{{$.common.purpose.cf.flags}}'
   rules: Rules
@@ -308,6 +310,7 @@ environments:
     addKeyTitle: Create SDK Key
     message: 'Secrets are only visible right after creation and redacted once you leave the page. Please make sure to copy and store your secret somewhere safe'
     title: 'SDK Keys'
+    emptyName: 'SDK Key name is required'
     addKey: '+ Add Key'
     clientType: '{{ $.cf.testTheFlag.sdkClient }}'
     serverType: '{{ $.cf.testTheFlag.sdkServer }}'
@@ -369,12 +372,49 @@ noEnvironment:
   title: No Environment Available
   message: Create an environment and let’s start configuring the targeting rules of your flag
 pipeline:
-  default: Default Setting # Placeholder, not a real text
-  stages:
-    setup:
-      title: Flag Setup # Placeholder, not a real text
-    execution:
-      title: Flag Execution # Placeholder, not a real text
+  listing: Pipeline Listing
+  rollloutStrategy:
+    title: Rollout Strategy
+  advanced:
+    title: '{{ $.advancedTitle }}'
+  variationMapping:
+    targetTargetGroup: 'Targets/Target Groups {{count}}'
+    selectVariation: Select Variation
+    targetTargetGroupRequired: Target/Target Group is required
+    variationRequired: Variation is required
+    placeholder: Search target or target group by name...
+  flagConfiguration:
+    fixedInput: Fixed Input List
+    runtimeInput: Runtime Input List
+    environmentRequired: An environment is required
+    flagRequired: A feature flag is required
+    flagState: Feature flag state is required
+    stepName: 'Step Name '
+    selectEnvironment: '{{ $.cf.shared.selectEnvironment }}'
+    flagSwitchRuntime: Your flag switch setting will be configured at runtime.
+    selectFlag: Select Flag
+    viewDetail: View Flag Details
+    whatToConfigure: What are you configuring?
+    flagSwitch: Flag Switch
+    conditionalRules: Conditional Rules
+    serveMapping: Serve Variation to Targets/Target Groups
+    switchTo: Set Flag Switch To
+    variationMappingRuntime: Variation to Target/Target Groups setting will be configured at runtime.
+    addVariationMappingTitle: Add Variations Served to Targets/Target Groups
+    editVariationMappingTitle: Edit Variations Served to Targets/Target Groups
+    addEditMapping: + Add/edit specific variation to Targets/Target Groups
+    addNewMapping: + Add variation to Target/Target Groups
+    removeMapping: '- Remove specific variation from Targets/Target Groups'
+    conditionRuntime: Conditional rules setting will be configured at runtime.
+    addOrEdit: + Add/edit
+    remove: '- Remove'
+    configureMore: + Configure More
+    addConditionalRules: '+ Add conditional rules'
+    allRuntimeInput:
+      Flag switch, default and custom targeting rules for this step are defined during runtime. You can also make the
+      values static by updating your option to Fixed Input List to test things out.
+    serve: Serve
+    toGroups: to Target(s)/Target Group(s)
 segmentDetail:
   directlyAdded: Directly Added
   autoAdded: Automatically Added Through Conditions

@@ -5,14 +5,13 @@ import { renderHook } from '@testing-library/react-hooks'
 import { TestWrapper } from '@common/utils/testUtils'
 import { useStrings } from 'framework/strings'
 import { NameIdDescriptionTags } from '@common/components'
-import type { FormikForNameIdDescriptionTags } from '../NameIdDescriptionTagsConstants'
 
 const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactElement => (
   <TestWrapper>{children}</TestWrapper>
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
-const onEditInitialValues: FormikForNameIdDescriptionTags = {
+const onEditInitialValues = {
   name: 'name-123',
   identifier: 'name123',
   description: 'test description',
@@ -21,7 +20,7 @@ const onEditInitialValues: FormikForNameIdDescriptionTags = {
   }
 }
 
-function WrapperComponent(props: { initialValues: FormikForNameIdDescriptionTags }): JSX.Element {
+function WrapperComponent(props: { initialValues: any }): JSX.Element {
   const { initialValues } = props || {}
   return (
     <TestWrapper>

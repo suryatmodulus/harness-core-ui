@@ -8,7 +8,7 @@ import { useGetUserGroupAggregate, UserGroupAggregateDTO } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
@@ -20,6 +20,7 @@ import { useLinkToSSOProviderModal } from '@rbac/modals/LinkToSSOProviderModal/u
 import MemberList from '@rbac/pages/UserGroupDetails/views/MemberList'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import ManagePrincipalButton from '@rbac/components/ManagePrincipalButton/ManagePrincipalButton'
+import NotificationList from '@rbac/components/NotificationList/NotificationList'
 import css from './UserGroupDetails.module.scss'
 
 const UserGroupDetails: React.FC = () => {
@@ -61,35 +62,31 @@ const UserGroupDetails: React.FC = () => {
       <Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('common.userGroups')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toUserGroups({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('common.userGroups')
-                },
-                {
-                  url: '#',
-                  label: userGroup.name
-                }
-              ]}
-            />
-            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
-              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
-                <Text color={Color.BLACK} font="medium">
-                  {userGroup.name}
-                </Text>
-                <Text>{userGroup.description}</Text>
-                <Layout.Horizontal padding={{ top: 'small' }}>
-                  <TagsRenderer tags={userGroup.tags || /* istanbul ignore next */ {}} length={6} />
-                </Layout.Horizontal>
-              </Layout.Vertical>
-            </Layout.Horizontal>
+          <Layout.Vertical spacing="xsmall">
+            <Text color={Color.BLACK} font="medium">
+              {userGroup.name}
+            </Text>
+            {userGroup.description && <Text>{userGroup.description}</Text>}
+            {userGroup.tags && (
+              <Layout.Horizontal padding={{ top: 'small' }}>
+                <TagsRenderer tags={userGroup.tags || /* istanbul ignore next */ {}} length={6} />
+              </Layout.Horizontal>
+            )}
           </Layout.Vertical>
         }
         toolbar={
@@ -184,6 +181,12 @@ const UserGroupDetails: React.FC = () => {
                 resourceIdentifier={userGroupIdentifier}
               />
             </Layout.Horizontal>
+          </Layout.Vertical>
+          <Layout.Vertical spacing="medium">
+            <Text color={Color.BLACK} font={{ size: 'medium', weight: 'bold' }}>
+              {getString('common.notificationPreferences')}
+            </Text>
+            <NotificationList userGroup={userGroup} onSubmit={refetch} />
           </Layout.Vertical>
         </Container>
       </Page.Body>

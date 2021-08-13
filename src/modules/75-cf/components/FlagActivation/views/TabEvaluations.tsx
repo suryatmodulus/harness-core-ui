@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Container, Icon, Layout } from '@wings-software/uicore'
+import { Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import cx from 'classnames'
 import { clone } from 'lodash-es'
@@ -126,6 +126,7 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
 
     return variationSeriesItem
   })
+  const sum = total?.reduce((_sum, entry) => _sum + (entry.count || 0), 0) || 0
 
   return (
     <Container className={css.contentBody}>
@@ -140,7 +141,7 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
             series={series as PlotOptions}
             categories={categories}
             title={getString('cf.featureFlags.metrics.flagEvaluations', {
-              count: formatNumber(total?.reduce((sum, entry) => sum + (entry.count || 0), 0) || 0)
+              count: formatNumber(sum)
             })}
           />
           <Container margin={{ top: 'xxlarge' }}>
@@ -164,7 +165,12 @@ export const TabEvaluations: React.FC<TabEvaluationsProps> = ({ flagData, startD
                           <VariationWithIcon variation={flagData.variations[index]} index={index} />
                         </Layout.Horizontal>
                       </td>
-                      <td>{formatNumber(entry.count || 0, true)}</td>
+                      <td>
+                        {formatNumber(entry.count || 0, true)}{' '}
+                        <Text inline color={Color.GREY_400}>
+                          ({(((entry.count || 0) / sum) * 100).toFixed(2).replace(/0+$/, '')}%)
+                        </Text>
+                      </td>
                     </tr>
                   )
                 })}

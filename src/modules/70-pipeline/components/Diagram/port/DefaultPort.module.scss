@@ -1,18 +1,18 @@
 .port {
   position: absolute;
-  top: calc(50% - 9px);
+  top: calc(50% - 11px);
 
   .portBtn {
     padding: 0 !important;
-    min-width: 10px !important;
-    min-height: 10px !important;
-    height: 10px !important;
+    min-width: 6px !important;
+    min-height: 6px !important;
+    height: 7px !important;
     background-color: var(--white) !important;
   }
   &.portIn {
-    left: -6px;
+    left: -3px;
   }
   &.portOut {
-    right: -6px;
+    right: -3px;
   }
 }

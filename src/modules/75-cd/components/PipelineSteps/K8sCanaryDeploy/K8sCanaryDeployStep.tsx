@@ -1,5 +1,5 @@
 import React from 'react'
-import { IconName, Formik, FormInput, Layout, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
+import { IconName, Formik, FormInput, getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { FormikErrors, FormikProps, yupToFormErrors } from 'formik'
@@ -25,6 +25,7 @@ import { getInstanceDropdownSchema } from '@common/components/InstanceDropdownFi
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
+import type { StringsMap } from 'stringTypes'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
 export interface K8sCanaryDeployData extends StepElementConfig {
@@ -82,14 +83,38 @@ function K8CanaryDeployWidget(
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
           return (
-            <Layout.Vertical padding={{ left: 'xsmall', right: 'xsmall' }}>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+            <>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier
                   inputLabel={getString('name')}
                   isIdentifierEditable={isNewStep}
                   inputGroupProps={{ disabled: readonly }}
                 />
               </div>
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  disabled={readonly}
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  className={stepCss.duration}
+                  multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('timeout', value)
+                    }}
+                    isReadonly={readonly}
+                  />
+                )}
+              </div>
+              <div className={stepCss.divider} />
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInstanceDropdown
                   name={'spec.instanceSelection'}
@@ -118,29 +143,6 @@ function K8CanaryDeployWidget(
                 )}
               </div>
 
-              <div className={cx(stepCss.formGroup, stepCss.sm)}>
-                <FormMultiTypeDurationField
-                  name="timeout"
-                  disabled={readonly}
-                  label={getString('pipelineSteps.timeoutLabel')}
-                  className={stepCss.duration}
-                  multiTypeDurationProps={{ expressions, enableConfigureOptions: false, disabled: readonly }}
-                />
-                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={values.timeout as string}
-                    type="String"
-                    variableName="step.timeout"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      setFieldValue('timeout', value)
-                    }}
-                    isReadonly={readonly}
-                  />
-                )}
-              </div>
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormMultiTypeCheckboxField
                   name="spec.skipDryRun"
@@ -149,7 +151,7 @@ function K8CanaryDeployWidget(
                   disabled={readonly}
                 />
               </div>
-            </Layout.Vertical>
+            </>
           )
         }}
       </Formik>
@@ -263,6 +265,7 @@ export class K8sCanaryDeployStep extends PipelineStep<K8sCanaryDeployData> {
   protected stepName = 'K8s Canary Deploy'
 
   protected stepIcon: IconName = 'canary'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.K8sCanaryDeploy'
   protected isHarnessSpecific = true
 
   processFormData(values: K8sCanaryDeployData): K8sCanaryDeployData {

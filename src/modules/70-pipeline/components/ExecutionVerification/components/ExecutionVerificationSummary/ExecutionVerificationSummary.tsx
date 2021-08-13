@@ -27,13 +27,22 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
   const [pollingIntervalId, setPollingIntervalId] = useState(-1)
   const [showSpinner, setShowSpinner] = useState(true)
   const activityId = step?.progressData?.activityId ? (step.progressData.activityId as unknown as string) : ''
-  const { data, loading, error, refetch } = useGetDeploymentActivitySummary({
+  const { data, error, refetch } = useGetDeploymentActivitySummary({
     queryParams: { accountId },
-    activityId
+    activityId,
+    lazy: true
   })
   const { deploymentVerificationJobInstanceSummary = {} } = data?.resource || {}
 
   useEffect(() => {
+    if (!activityId) {
+      setPollingIntervalId(oldIntervalId => {
+        clearInterval(oldIntervalId)
+        return -1
+      })
+      return
+    }
+
     let intervalId = pollingIntervalId
     clearInterval(intervalId)
 
@@ -42,22 +51,19 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
       setPollingIntervalId(intervalId)
     }
 
-    return () => {
-      clearInterval(intervalId)
-    }
-  }, [deploymentVerificationJobInstanceSummary?.status, step?.progressData?.activityId, step?.status])
+    refetch()
+    return () => clearInterval(intervalId)
+  }, [step?.progressData?.activityId, step?.status])
 
   useEffect(() => {
-    if (data && showSpinner) {
-      setShowSpinner(false)
-    }
-  }, [data])
-
-  useEffect(() => {
-    setShowSpinner(true)
+    setShowSpinner(Boolean(step?.progressData?.activityId))
   }, [step?.progressData?.activityId])
 
-  if (loading && showSpinner) {
+  useEffect(() => {
+    if ((data || error) && showSpinner) setShowSpinner(false)
+  }, [data, error])
+
+  if (showSpinner) {
     return (
       <Container className={cx(css.main, className)}>
         <Icon name="steps-spinner" className={css.loading} color={Color.GREY_400} size={30} />
@@ -65,7 +71,7 @@ export function ExecutionVerificationSummary(props: VerifyExecutionProps): JSX.E
     )
   }
 
-  if (error && activityId) {
+  if (error) {
     return (
       <Container className={cx(css.main, className)}>
         <PageError message={getErrorMessage(error)} onClick={() => refetch()} />

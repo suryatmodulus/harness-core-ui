@@ -8,7 +8,7 @@ import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { usePipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { useStrings } from 'framework/strings'
-
+import VariableAccordionSummary from '../VariableAccordionSummary'
 import type { PipelineVariablesData } from '../types'
 import css from '../PipelineVariables.module.scss'
 
@@ -23,6 +23,7 @@ export interface ServiceCardProps {
   stageIdentifier: string
   onUpdateServiceConfig(data: ServiceSpec): void
   readonly?: boolean
+  path?: string
 }
 
 export function ServiceCard(props: ServiceCardProps): React.ReactElement {
@@ -46,7 +47,8 @@ export function ServiceCard(props: ServiceCardProps): React.ReactElement {
         customStepProps={{
           stageIdentifier,
           metadataMap,
-          variablesData: serviceConfig.serviceDefinition?.spec
+          variablesData: serviceConfig.serviceDefinition?.spec,
+          path: props.path
         }}
       />
     </React.Fragment>
@@ -60,10 +62,14 @@ export function ServiceCardPanel(props: ServiceCardProps): React.ReactElement {
     <NestedAccordionPanel
       isDefaultOpen
       addDomId
-      id={`Stage.${props.stageIdentifier}.Service`}
-      summary={getString('service')}
+      id={`${props.path}.Service`}
+      summary={<VariableAccordionSummary>{getString('service')}</VariableAccordionSummary>}
       panelClassName={css.panel}
-      details={<ServiceCard {...props} />}
+      summaryClassName={css.accordianSummaryL1}
+      details={<ServiceCard {...props} path={`${props.path}.Service`} />}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
     />
   )
 }

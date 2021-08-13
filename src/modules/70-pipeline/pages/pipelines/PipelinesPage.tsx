@@ -34,7 +34,6 @@ import {
 } from 'services/pipeline-ng'
 import { useGetServiceListForProject, useGetEnvironmentListForProject } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { String, useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import type { PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -61,6 +60,7 @@ import { shouldShowError } from '@common/utils/errorUtils'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import GitFilters, { GitFilterScope } from '@common/components/GitFilters/GitFilters'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
 import PipelineFilterForm from '../pipeline-deployment-list/PipelineFilterForm/PipelineFilterForm'
@@ -137,7 +137,6 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     }>
   >()
 
-  const project = selectedProject
   const isCDEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CD') > -1) || false
   const isCIEnabled = (selectedProject?.modules && selectedProject.modules?.indexOf('CI') > -1) || false
   const isCIModule = module === 'ci'
@@ -503,28 +502,17 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
 
   return (
     <>
-      <div className={css.pageheader}>
-        <Breadcrumbs
-          links={[
-            {
-              url: routes.toProjectOverview({
-                orgIdentifier,
-                projectIdentifier,
-                accountId,
-                module
-              }),
-              label: project?.name as string
-            },
-            { url: '#', label: getString('pipelines') }
-          ]}
-        />
-        <div className="ng-tooltip-native">
-          <h2 data-tooltip-id="pipelinesPageHeading"> {getString('pipelines')}</h2>
-          <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
-        </div>
-      </div>
+      <Page.Header
+        title={
+          <div className="ng-tooltip-native">
+            <h2 data-tooltip-id="pipelinesPageHeading"> {getString('pipelines')}</h2>
+            <HarnessDocTooltip tooltipId="pipelinesPageHeading" useStandAlone={true} />
+          </div>
+        }
+        breadcrumbs={<NGBreadcrumbs links={[]} />}
+      ></Page.Header>
       {(!!pipelineList?.content?.length || appliedFilter || isGitSyncEnabled || searchParam) && (
-        <Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}>
+        <Page.SubHeader>
           <Layout.Horizontal>
             <RbacButton
               intent="primary"
@@ -556,15 +544,15 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           </Layout.Horizontal>
           <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
             <>
-              <div className={css.expandSearch}>
-                <ExpandingSearchInput
-                  placeholder={getString('search')}
-                  throttle={200}
-                  onChange={(text: string) => {
-                    setSearchParam(text)
-                  }}
-                />
-              </div>
+              <ExpandingSearchInput
+                alwaysExpanded
+                width={200}
+                placeholder={getString('search')}
+                onChange={(text: string) => {
+                  setSearchParam(text)
+                }}
+                className={css.expandSearch}
+              />
               <Layout.Horizontal padding={{ left: 'small', right: 'small' }}>
                 <FilterSelector<FilterDTO>
                   appliedFilter={appliedFilter}
@@ -578,7 +566,7 @@ const PipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
             </>
             <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
           </Layout.Horizontal>
-        </Layout.Horizontal>
+        </Page.SubHeader>
       )}
       <Page.Body
         className={css.pageBody}

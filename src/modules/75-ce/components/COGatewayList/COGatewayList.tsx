@@ -45,28 +45,11 @@ import spotIcon from './images/spotIcon.svg'
 import { getInstancesLink, getRelativeTime, getStateTag, getRiskGaugeChartOptions } from './Utils'
 import useToggleRuleState from './useToggleRuleState'
 import TextWithToolTip, { textWithToolTipStatus } from '../TextWithTooltip/TextWithToolTip'
-// import landingPageSVG from './images/landingPageGraphic.svg'
-import landingPageBannerImage1 from './images/landingPage/1.svg'
-import landingPageBannerImage2 from './images/landingPage/2.svg'
-import landingPageBannerImage3 from './images/landingPage/3.svg'
-import landingPageBannerImage4 from './images/landingPage/4.svg'
-import landingPageBannerImage5 from './images/landingPage/5.svg'
-import landingPageBannerImage6 from './images/landingPage/6.svg'
-import landingPageBannerImage7 from './images/landingPage/7.svg'
-import landingPageBannerImage8 from './images/landingPage/8.svg'
-import landingPageBannerImage9 from './images/landingPage/9.svg'
-import landingPageBannerImage10 from './images/landingPage/10.svg'
-import landingPageBannerImage11 from './images/landingPage/11.svg'
-import landingPageBannerImage12 from './images/landingPage/12.svg'
-import landingPageBannerImage13 from './images/landingPage/13.svg'
+import landingPageSVG from './images/AutostoppingRuleIllustration.svg'
 import spotDisableIcon from './images/spotDisabled.svg'
 import onDemandDisableIcon from './images/onDemandDisabled.svg'
 import refreshIcon from './images/refresh.svg'
 import css from './COGatewayList.module.scss'
-
-interface AnimatedGraphicContainerProps {
-  imgList: Array<string>
-}
 
 const textColor: { [key: string]: string } = {
   disable: '#6B6D85'
@@ -116,40 +99,6 @@ function NameCell(tableProps: CellProps<Service>): JSX.Element {
   )
 }
 
-const landingPageGraphicsImages: Array<string> = [
-  landingPageBannerImage1,
-  landingPageBannerImage2,
-  landingPageBannerImage3,
-  landingPageBannerImage4,
-  landingPageBannerImage5,
-  landingPageBannerImage6,
-  landingPageBannerImage7,
-  landingPageBannerImage8,
-  landingPageBannerImage9,
-  landingPageBannerImage10,
-  landingPageBannerImage11,
-  landingPageBannerImage12,
-  landingPageBannerImage13
-]
-
-const AnimatedGraphicContainer: React.FC<AnimatedGraphicContainerProps> = props => {
-  const [currImgPos, setCurrImgPos] = React.useState<number>(0)
-  React.useEffect(() => {
-    const animationIntervalId = setInterval(() => {
-      setCurrImgPos(prevImgPos => (prevImgPos === 12 ? 0 : prevImgPos + 1))
-    }, 1000)
-    return () => {
-      clearInterval(animationIntervalId)
-    }
-  }, [])
-
-  return (
-    <>
-      <img src={props?.imgList?.[currImgPos]} height={'224px'} width={'603px'} />
-    </>
-  )
-}
-
 const COGatewayList: React.FC = () => {
   const { getString } = useStrings()
   const history = useHistory()
@@ -171,8 +120,7 @@ const COGatewayList: React.FC = () => {
     loading,
     refetch: refetchServices
   } = useGetServices({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     },
@@ -197,9 +145,8 @@ const COGatewayList: React.FC = () => {
 
   function SavingsCell(tableProps: CellProps<Service>): JSX.Element {
     const { data, loading: savingsLoading } = useSavingsOfService({
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -232,9 +179,8 @@ const COGatewayList: React.FC = () => {
   }
   function ActivityCell(tableProps: CellProps<Service>): JSX.Element {
     const { data, loading: activityLoading } = useRequestsOfService({
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -260,9 +206,8 @@ const COGatewayList: React.FC = () => {
   function ResourcesCell(tableProps: CellProps<Service>): JSX.Element {
     const isK8sRule = tableProps.row.original.kind === 'k8s'
     const { data, loading: healthLoading } = useHealthOfService({
-      org_id: orgIdentifier, // eslint-disable-line
-      projectID: projectIdentifier, // eslint-disable-line
-      serviceID: tableProps.row.original.id as number,
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number,
       queryParams: {
         accountIdentifier: accountId
       },
@@ -274,9 +219,8 @@ const COGatewayList: React.FC = () => {
       loading: resourcesLoading,
       error: resourcesError
     } = useAllServiceResources({
-      org_id: orgIdentifier, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      service_id: tableProps.row.original.id as number, // eslint-disable-line
+      account_id: accountId,
+      rule_id: tableProps.row.original.id as number, // eslint-disable-line
       debounce: 300,
       lazy: isK8sRule
     })
@@ -479,8 +423,6 @@ const COGatewayList: React.FC = () => {
   const handleServiceEdit = (_service: Service) =>
     history.push(
       routes.toCECOEditGateway({
-        orgIdentifier: _service.org_id as string,
-        projectIdentifier: _service.project_id as string,
         accountId: _service.account_identifier as string,
         gatewayIdentifier: _service.id?.toString() as string
       })
@@ -488,10 +430,8 @@ const COGatewayList: React.FC = () => {
 
   const StatusCell = ({ row }: CellProps<Service>) => {
     const { data } = useGetServiceDiagnostics({
-      org_id: orgIdentifier, // eslint-disable-line
       account_id: accountId, // eslint-disable-line
-      project_id: projectIdentifier, // eslint-disable-line
-      service_id: row.original.id as number, // eslint-disable-line
+      rule_id: row.original.id as number, // eslint-disable-line
       queryParams: {
         accountIdentifier: accountId
       }
@@ -521,7 +461,7 @@ const COGatewayList: React.FC = () => {
             className={css.breadCrumb}
             links={[
               {
-                url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+                url: routes.toCECORules({ accountId }),
                 label: getString('ce.co.breadCrumb.rules')
               }
             ]}
@@ -534,8 +474,7 @@ const COGatewayList: React.FC = () => {
               paddingTop: '220px'
             }}
           >
-            {/* <img src={landingPageSVG} alt="" width="300px"></img> */}
-            <AnimatedGraphicContainer imgList={landingPageGraphicsImages} />
+            <img src={landingPageSVG} alt="autostopping-rules" width="500px"></img>
             <Text font="normal" style={{ lineHeight: '24px', textAlign: 'center', width: '760px', marginTop: '20px' }}>
               <String stringID="ce.co.landingPageText" useRichText={true} /> <Link href="/">Learn more</Link>
             </Text>
@@ -546,8 +485,6 @@ const COGatewayList: React.FC = () => {
               onClick={() => {
                 history.push(
                   routes.toCECOCreateGateway({
-                    orgIdentifier: orgIdentifier as string,
-                    projectIdentifier: projectIdentifier as string,
                     accountId
                   })
                 )
@@ -597,8 +534,6 @@ const COGatewayList: React.FC = () => {
                       onClick={() => {
                         history.push(
                           routes.toCECOCreateGateway({
-                            orgIdentifier: orgIdentifier as string,
-                            projectIdentifier: projectIdentifier as string,
                             accountId
                           })
                         )

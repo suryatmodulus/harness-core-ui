@@ -122,7 +122,8 @@ export const projectPageMock = {
         }
       ],
       pageIndex: 0,
-      empty: false
+      empty: false,
+      totalItems: 6
     },
     metaData: undefined,
     correlationId: '370210dc-a345-42fa-b3cf-69bd64eb5073'

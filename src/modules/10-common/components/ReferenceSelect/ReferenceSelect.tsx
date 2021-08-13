@@ -68,7 +68,8 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
         className={css.container}
         style={{ width }}
         withoutCurrentColor={true}
-        rightIcon="caret-down"
+        rightIcon="chevron-down"
+        iconProps={{ size: 14 }}
         disabled={disabled}
         onClick={e => {
           if (disabled) {
@@ -170,7 +171,7 @@ function MultiTypeReferenceInputFixedTypeComponent<T extends MinimalObject>(
     <ReferenceSelect
       {...restProps}
       selected={selected}
-      width={width - 28}
+      width={width}
       onChange={(record, scope) => {
         onChange?.({ record, scope } as any, MultiTypeInputValue.SELECT_OPTION, MultiTypeInputType.FIXED)
       }}

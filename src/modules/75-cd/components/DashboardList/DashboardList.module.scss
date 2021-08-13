@@ -1,0 +1,27 @@
+.container {
+  flex-grow: 1;
+}
+
+.listHeader {
+  border-bottom: 1px solid var(--grey-300) !important;
+}
+
+.expandSearch {
+  margin-right: var(--spacing-medium);
+}
+
+.loader {
+  position: relative;
+  height: 80%;
+}
+
+.timeRangeSelector {
+  position: absolute;
+  left: 40%;
+  justify-content: center;
+}
+
+.separator {
+  width: 100%;
+  border-bottom: 1px solid var(--grey-200);
+}

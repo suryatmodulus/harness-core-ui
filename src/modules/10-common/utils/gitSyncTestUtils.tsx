@@ -25,6 +25,7 @@ export const GitSyncTestWrapper: React.FC<GitSyncTestWrapperProps> = props => {
           modules: ['CI']
         },
         isGitSyncEnabled: true,
+        connectivityMode: 'DELEGATE',
         ...defaultAppStoreValues
       }}
     >

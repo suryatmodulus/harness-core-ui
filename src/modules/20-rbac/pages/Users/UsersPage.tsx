@@ -44,7 +44,7 @@ const UsersPage: React.FC = () => {
     <>
       <Page.Header
         title={
-          <Layout.Horizontal padding={{ left: 'large' }} spacing="small">
+          <Layout.Horizontal padding={{ left: 'large' }} spacing="small" width={350}>
             <RbacButton
               text={getString('rbac.user')}
               intent="primary"
@@ -83,12 +83,14 @@ const UsersPage: React.FC = () => {
           </Layout.Horizontal>
         }
         toolbar={
-          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge" className={css.toolbar}>
+          <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge" className={css.toolbar} width={350}>
             <ExpandingSearchInput
+              alwaysExpanded
               placeholder={getString('rbac.usersPage.search')}
               onChange={text => {
                 setSearchParam(text.trim())
               }}
+              width={250}
             />
           </Layout.Horizontal>
         }

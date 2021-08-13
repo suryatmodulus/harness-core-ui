@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import { getModuleIcon } from '@common/utils/utils'
-import { getModulePurpose } from '@projects-orgs/utils/utils'
+import { getModulePurpose, getModuleTitle } from '@projects-orgs/utils/utils'
 import { String, useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -23,8 +23,8 @@ interface ModuleListCardProps {
 const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier, accountId }) => {
   const { getString } = useStrings()
   const history = useHistory()
-  // currently hiding chart for CI
-  const enableActivityChart = module !== ModuleName.CI
+  // currently initializing enableActivityChart to false to hide the chartView
+  const enableActivityChart = false
   const getModuleLinks = (): React.ReactElement => {
     switch (module) {
       case ModuleName.CD:
@@ -72,16 +72,9 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
           <Layout.Vertical spacing="medium">
             <Button
               minimal
-              text={getString('moduleRenderer.setupChanges')}
-              onClick={() => {
-                history.push(routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier }))
-              }}
-            />
-            <Button
-              minimal
               text={getString('moduleRenderer.monitoringSources')}
               onClick={() => {
-                history.push(`${routes.toCVAdminSetup({ accountId, orgIdentifier, projectIdentifier })}?step=2`)
+                history.push(`${routes.toCVMonitoringServices({ accountId, orgIdentifier, projectIdentifier })}`)
               }}
             />
           </Layout.Vertical>
@@ -151,7 +144,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
       <Card className={css.card}>
         <Layout.Horizontal>
           <Container
-            width="30%"
+            width="50%"
             flex
             border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}
           >
@@ -159,7 +152,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               <Icon name={getModuleIcon(module)} size={70}></Icon>
               <div>
                 <Layout.Vertical padding={{ bottom: 'medium' }}>
-                  <Text font={{ size: 'small' }}>{getString('projectsOrgs.purposeList.continuous')}</Text>
+                  <Text font={{ size: 'small' }}>{getString(getModuleTitle(module))}</Text>
                   <Text font={{ size: 'medium' }} color={Color.BLACK}>
                     {getModulePurpose(module)}
                   </Text>
@@ -171,8 +164,8 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
               </div>
             </Layout.Horizontal>
           </Container>
-          <Container width="40%" border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}>
-            {enableActivityChart ? (
+          {enableActivityChart ? (
+            <Container width="40%" border={{ right: true, color: enableActivityChart ? Color.GREY_300 : Color.WHITE }}>
               <Layout.Vertical flex={{ align: 'center-center' }}>
                 <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xxlarge">
                   <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} className={css.activitychart} />
@@ -188,9 +181,9 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
                   ).toUpperCase()}
                 </Text>
               </Layout.Vertical>
-            ) : null}
-          </Container>
-          <Container width="30%" flex={{ align: 'center-center' }}>
+            </Container>
+          ) : null}
+          <Container width="50%" flex>
             {getModuleLinks()}
           </Container>
         </Layout.Horizontal>

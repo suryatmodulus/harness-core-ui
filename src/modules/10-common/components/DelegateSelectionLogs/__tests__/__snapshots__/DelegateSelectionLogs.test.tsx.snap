@@ -131,7 +131,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   </svg>
                 </span>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-xsmall"
+                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main delegateName StyledProps--padding-left-xsmall"
                 >
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
@@ -240,7 +240,7 @@ exports[`<ExecutionStepDetails /> tests renders normal step 1`] = `
                   </svg>
                 </span>
                 <div
-                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-left-xsmall"
+                  class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main delegateName StyledProps--padding-left-xsmall"
                 >
                   <p
                     class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"

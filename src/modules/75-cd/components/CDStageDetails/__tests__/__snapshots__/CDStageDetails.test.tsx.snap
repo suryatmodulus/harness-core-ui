@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CDStageDetails /> tests snapshot test 1`] = `
+<div>
+  <div
+    class="main"
+  >
+    <div>
+      <div
+        class="title"
+      >
+        serviceOrServices
+      </div>
+      <ul
+        class="values"
+      >
+        <li>
+          <div
+            class="bp3-popover-wrapper serviceWrapper"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class="serviceName"
+                tabindex="0"
+              >
+                Order
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div
+        class="title"
+      >
+        environmentOrEnvironments
+      </div>
+      <ul
+        class="values"
+      >
+        <li>
+          Production
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

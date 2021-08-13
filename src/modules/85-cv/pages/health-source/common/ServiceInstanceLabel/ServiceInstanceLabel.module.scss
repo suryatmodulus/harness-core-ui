@@ -1,0 +1,16 @@
+.main {
+  p {
+    color: var(--grey-600) !important;
+    font-weight: 500;
+    margin-bottom: var(--spacing-small) !important;
+    display: inline;
+  }
+  .primaryLabel {
+    font-size: var(--form-input-font-size) !important;
+  }
+
+  .secondaryLabel {
+    margin-left: var(--spacing-xsmall) !important;
+    font-size: var(--font-size-small) !important;
+  }
+}

@@ -7,5 +7,9 @@ declare const styles: {
   readonly header: string
   readonly enabledModules: string
   readonly pageHeight: string
+  readonly accessControl: string
+  readonly projectsCard: string
+  readonly projectCount: string
+  readonly createBtn: string
 }
 export default styles

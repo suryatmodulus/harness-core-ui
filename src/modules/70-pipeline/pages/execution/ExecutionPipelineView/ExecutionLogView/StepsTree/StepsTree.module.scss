@@ -52,6 +52,7 @@ $height: 40px;
     }
 
     &[data-type='group'] > .step,
+    &[data-type='retry-item'] > .step,
     &[data-type='parallel'] > .step {
       cursor: not-allowed;
     }

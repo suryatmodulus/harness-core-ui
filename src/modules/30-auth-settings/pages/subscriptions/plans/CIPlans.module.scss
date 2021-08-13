@@ -1,0 +1,39 @@
+.ciPlans {
+  :global {
+    .bp3-tab,
+    .bp3-tab-indicator-wrapper {
+      width: 50% !important;
+    }
+  }
+}
+
+.ciBackground {
+  background: linear-gradient(360deg, var(--primary-1) 0%, var(--white) 50%);
+}
+
+.selected {
+  background-color: var(--primary-6) !important;
+  color: var(--white) !important;
+}
+
+.yearly,
+.monthly {
+  &:hover {
+    cursor: pointer;
+  }
+  border: solid 1px;
+  border-color: var(--primary-6);
+}
+
+.yearly {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.monthly {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+.primary6 {
+  color: var(--primary-6) !important;
+}

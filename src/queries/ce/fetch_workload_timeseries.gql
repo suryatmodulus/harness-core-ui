@@ -1,0 +1,80 @@
+query FetchWorkloadTimeSeries(
+  $filters: [QLCEViewFilterWrapperInput]
+  $aggregateFunction: [QLCEViewAggregationInput]
+  $isClusterQuery: Boolean
+) {
+  perspectiveTimeSeriesStats(
+    filters: $filters
+    isClusterQuery: $isClusterQuery
+    aggregateFunction: $aggregateFunction
+    groupBy: [
+      { entityGroupBy: { fieldId: "workloadName", fieldName: "Workload", identifier: CLUSTER } }
+      { entityGroupBy: { fieldId: "clusterName", fieldName: "Cluster Name", identifier: CLUSTER } }
+      { timeTruncGroupBy: { resolution: DAY } }
+    ]
+    limit: 100
+    offset: 0
+    includeOthers: false
+  ) {
+    cpuLimit {
+      time
+      values {
+        key {
+          name
+          id
+        }
+        value
+      }
+    }
+    cpuRequest {
+      time
+      values {
+        key {
+          name
+          id
+        }
+        value
+      }
+    }
+    cpuUtilValues {
+      time
+      values {
+        key {
+          name
+          id
+        }
+        value
+      }
+    }
+    memoryLimit {
+      time
+      values {
+        key {
+          name
+          id
+        }
+        value
+      }
+    }
+    memoryRequest {
+      time
+      values {
+        key {
+          name
+          id
+        }
+        value
+      }
+    }
+    memoryUtilValues {
+      time
+      values {
+        key {
+          name
+          id
+        }
+        value
+      }
+    }
+  }
+}

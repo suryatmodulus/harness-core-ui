@@ -4,4 +4,12 @@
 
 .timeRangeButton {
   padding: var(--spacing-xsmall) !important;
+  white-space: nowrap !important;
+}
+
+.dateLabelContainer {
+  padding: var(--spacing-small) var(--spacing-large) !important;
+  &:hover {
+    background-color: var(--primary-1) !important;
+  }
 }

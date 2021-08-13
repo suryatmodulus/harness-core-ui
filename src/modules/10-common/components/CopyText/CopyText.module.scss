@@ -8,15 +8,13 @@
     text-overflow: ellipsis;
     font-size: var(--font-size-small);
     color: var(--grey-500);
+    display: inline;
   }
 
   .btn-wrapper {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right: var(--spacing-small);
     opacity: 0;
-    transition: opacity 0.2s ease-in-out;
+    display: inline;
+    padding-left: var(--spacing-small);
   }
 
   .copy-icon {

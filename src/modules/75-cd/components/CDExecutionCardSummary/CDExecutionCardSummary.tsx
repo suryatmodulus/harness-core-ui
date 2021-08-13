@@ -7,13 +7,14 @@ import type { ExecutionCardInfoProps } from '@pipeline/factories/ExecutionFactor
 import type { CDPipelineModuleInfo, CDStageModuleInfo, ServiceExecutionSummary } from 'services/cd-ng'
 import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import { ServicePopoverCard } from '@cd/components/ServicePopoverCard/ServicePopoverCard'
+import { CardVariant } from '@pipeline/utils/constants'
 
 import css from './CDExecutionCardSummary.module.scss'
 
 const SERVICES_LIMIT = 5
 
 export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.ReactElement {
-  const { data, nodeMap, startingNodeId } = props
+  const { data, nodeMap, startingNodeId, variant } = props
   const serviceIdentifiers: string[] = ((data as CDPipelineModuleInfo)?.serviceIdentifiers as string[]) || []
   const [showMore, setShowMore] = React.useState(false)
   const servicesMap = React.useMemo(() => {
@@ -22,6 +23,8 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
 
     stagesMap.forEach(stage => {
       const serviceInfo = (stage.moduleInfo?.cd as CDStageModuleInfo)?.serviceInfo
+
+      // istanbul ignore else
       if (serviceInfo?.identifier) {
         map.set(serviceInfo.identifier, serviceInfo)
       }
@@ -32,7 +35,8 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
   const hasMoreItems = serviceIdentifiers.length > SERVICES_LIMIT
   const items = showMore && hasMoreItems ? serviceIdentifiers : serviceIdentifiers?.slice(0, SERVICES_LIMIT)
 
-  function toggleSection(): void {
+  function toggleSection(e: React.SyntheticEvent): void {
+    e.stopPropagation()
     setShowMore(status => !status)
   }
 
@@ -41,7 +45,7 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
   }
 
   return (
-    <div className={css.cardSummary} onClick={killEvent}>
+    <div className={css.cardSummary}>
       <String
         tagName="div"
         className={css.heading}
@@ -53,23 +57,35 @@ export function CDExecutionCardSummary(props: ExecutionCardInfoProps): React.Rea
           <Icon name="services" className={css.servicesIcon} size={16} />
           <div className={css.servicesList}>
             {items.map((identifier: string) => {
-              const service = servicesMap.get(identifier)
+              if (variant === CardVariant.Default) {
+                const service = servicesMap.get(identifier)
 
-              if (!service) return null
+                if (!service) return null
 
-              return (
-                <Popover
-                  key={identifier}
-                  wrapperTagName="div"
-                  targetTagName="div"
-                  interactionKind="hover"
-                  position={Position.BOTTOM_RIGHT}
-                  className={css.serviceWrapper}
-                >
-                  <div className={css.serviceName}>{service.displayName}</div>
-                  <ServicePopoverCard service={service} />
-                </Popover>
-              )
+                return (
+                  <Popover
+                    key={identifier}
+                    wrapperTagName="div"
+                    targetTagName="div"
+                    interactionKind="hover"
+                    position={Position.BOTTOM_RIGHT}
+                    className={css.serviceWrapper}
+                  >
+                    <div className={css.serviceName} onClick={killEvent}>
+                      {service.displayName}
+                    </div>
+                    <ServicePopoverCard service={service} />
+                  </Popover>
+                )
+              } else {
+                return (
+                  <div className={css.serviceWrapper}>
+                    <div key={identifier} className={css.serviceName}>
+                      {identifier}
+                    </div>
+                  </div>
+                )
+              }
             })}
           </div>
           {hasMoreItems ? (

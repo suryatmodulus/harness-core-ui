@@ -230,7 +230,32 @@ exports[`Create Github connector Wizard Creating Github step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            common.validation.nameIsRequired
+                            <div
+                              class="FormError--errorDiv"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                                data-icon="circle-cross"
+                              >
+                                <svg
+                                  height="12"
+                                  viewBox="0 0 13 13"
+                                  width="12"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                              <span
+                                class="FormError--error"
+                              >
+                                common.validation.nameIsRequired
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -514,9 +539,11 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -530,7 +557,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -557,9 +584,11 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -573,7 +602,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -936,9 +965,11 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -952,7 +983,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -979,9 +1010,11 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -995,7 +1028,7 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1112,7 +1145,32 @@ exports[`Create Github connector Wizard Creating Github step one and step two fo
                         <div
                           class="bp3-form-helper-text"
                         >
-                          common.validation.testRepoIsRequired
+                          <div
+                            class="FormError--errorDiv"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                              data-icon="circle-cross"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 13 13"
+                                width="12"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="FormError--error"
+                            >
+                              common.validation.testRepoIsRequired
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1363,9 +1421,11 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1379,7 +1439,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1406,9 +1466,11 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1422,7 +1484,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 1`]
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1785,9 +1847,11 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1801,7 +1865,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1828,9 +1892,11 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1844,7 +1910,7 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1961,7 +2027,32 @@ exports[`Create Github connector Wizard Creating Github step two for SSH key 2`]
                         <div
                           class="bp3-form-helper-text"
                         >
-                          common.validation.testRepoIsRequired
+                          <div
+                            class="FormError--errorDiv"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                              data-icon="circle-cross"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 13 13"
+                                width="12"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="FormError--error"
+                            >
+                              common.validation.testRepoIsRequired
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2565,7 +2656,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="authType"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 style="padding-right: 0px;"
                                 type="text"
                                 value="usernamePassword"
@@ -2574,20 +2665,20 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                  icon="caret-down"
+                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                  icon="chevron-down"
                                 >
                                   <svg
-                                    data-icon="caret-down"
+                                    data-icon="chevron-down"
                                     height="14"
                                     viewBox="0 0 16 16"
                                     width="14"
                                   >
                                     <desc>
-                                      caret-down
+                                      chevron-down
                                     </desc>
                                     <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                       fill-rule="evenodd"
                                     />
                                   </svg>
@@ -2635,7 +2726,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                                       autocomplete="off"
                                       class="bp3-input"
                                       name="usernamefieldType"
-                                      placeholder="Search..."
+                                      placeholder="- Select -"
                                       style="padding-right: 0px;"
                                       type="text"
                                       value="plaintext"
@@ -2644,20 +2735,20 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                        icon="caret-down"
+                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                        icon="chevron-down"
                                       >
                                         <svg
-                                          data-icon="caret-down"
+                                          data-icon="chevron-down"
                                           height="14"
                                           viewBox="0 0 16 16"
                                           width="14"
                                         >
                                           <desc>
-                                            caret-down
+                                            chevron-down
                                           </desc>
                                           <path
-                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                             fill-rule="evenodd"
                                           />
                                         </svg>
@@ -2739,7 +2830,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -2758,7 +2849,7 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -3087,7 +3178,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="authType"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 style="padding-right: 0px;"
                                 type="text"
                                 value="usernameToken"
@@ -3096,20 +3187,20 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                  icon="caret-down"
+                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                  icon="chevron-down"
                                 >
                                   <svg
-                                    data-icon="caret-down"
+                                    data-icon="chevron-down"
                                     height="14"
                                     viewBox="0 0 16 16"
                                     width="14"
                                   >
                                     <desc>
-                                      caret-down
+                                      chevron-down
                                     </desc>
                                     <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                       fill-rule="evenodd"
                                     />
                                   </svg>
@@ -3157,7 +3248,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                       autocomplete="off"
                                       class="bp3-input"
                                       name="usernamefieldType"
-                                      placeholder="Search..."
+                                      placeholder="- Select -"
                                       style="padding-right: 0px;"
                                       type="text"
                                       value="plaintext"
@@ -3166,20 +3257,20 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                        icon="caret-down"
+                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                        icon="chevron-down"
                                       >
                                         <svg
-                                          data-icon="caret-down"
+                                          data-icon="chevron-down"
                                           height="14"
                                           viewBox="0 0 16 16"
                                           width="14"
                                         >
                                           <desc>
-                                            caret-down
+                                            chevron-down
                                           </desc>
                                           <path
-                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                             fill-rule="evenodd"
                                           />
                                         </svg>
@@ -3261,7 +3352,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -3280,7 +3371,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -3366,7 +3457,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               autocomplete="off"
                               class="bp3-input"
                               name="apiAuthType"
-                              placeholder="Search..."
+                              placeholder="- Select -"
                               style="padding-right: 0px;"
                               type="text"
                               value="personalAccessToken"
@@ -3375,20 +3466,20 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                icon="chevron-down"
                               >
                                 <svg
-                                  data-icon="caret-down"
+                                  data-icon="chevron-down"
                                   height="14"
                                   viewBox="0 0 16 16"
                                   width="14"
                                 >
                                   <desc>
-                                    caret-down
+                                    chevron-down
                                   </desc>
                                   <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                     fill-rule="evenodd"
                                   />
                                 </svg>
@@ -3452,7 +3543,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -3471,7 +3562,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -3775,7 +3866,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="authType"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 style="padding-right: 0px;"
                                 type="text"
                                 value="usernameToken"
@@ -3784,20 +3875,20 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                  icon="caret-down"
+                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                  icon="chevron-down"
                                 >
                                   <svg
-                                    data-icon="caret-down"
+                                    data-icon="chevron-down"
                                     height="14"
                                     viewBox="0 0 16 16"
                                     width="14"
                                   >
                                     <desc>
-                                      caret-down
+                                      chevron-down
                                     </desc>
                                     <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                       fill-rule="evenodd"
                                     />
                                   </svg>
@@ -3845,7 +3936,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                       autocomplete="off"
                                       class="bp3-input"
                                       name="usernamefieldType"
-                                      placeholder="Search..."
+                                      placeholder="- Select -"
                                       style="padding-right: 0px;"
                                       type="text"
                                       value="plaintext"
@@ -3854,20 +3945,20 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                        icon="caret-down"
+                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                        icon="chevron-down"
                                       >
                                         <svg
-                                          data-icon="caret-down"
+                                          data-icon="chevron-down"
                                           height="14"
                                           viewBox="0 0 16 16"
                                           width="14"
                                         >
                                           <desc>
-                                            caret-down
+                                            chevron-down
                                           </desc>
                                           <path
-                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                             fill-rule="evenodd"
                                           />
                                         </svg>
@@ -3949,7 +4040,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -3968,7 +4059,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -4054,7 +4145,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               autocomplete="off"
                               class="bp3-input"
                               name="apiAuthType"
-                              placeholder="Search..."
+                              placeholder="- Select -"
                               style="padding-right: 0px;"
                               type="text"
                               value="personalAccessToken"
@@ -4063,20 +4154,20 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                icon="chevron-down"
                               >
                                 <svg
-                                  data-icon="caret-down"
+                                  data-icon="chevron-down"
                                   height="14"
                                   viewBox="0 0 16 16"
                                   width="14"
                                 >
                                   <desc>
-                                    caret-down
+                                    chevron-down
                                   </desc>
                                   <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                     fill-rule="evenodd"
                                   />
                                 </svg>
@@ -4140,7 +4231,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -4159,7 +4250,7 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -4463,7 +4554,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="authType"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 style="padding-right: 0px;"
                                 type="text"
                                 value="usernameToken"
@@ -4472,20 +4563,20 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                  icon="caret-down"
+                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                  icon="chevron-down"
                                 >
                                   <svg
-                                    data-icon="caret-down"
+                                    data-icon="chevron-down"
                                     height="14"
                                     viewBox="0 0 16 16"
                                     width="14"
                                   >
                                     <desc>
-                                      caret-down
+                                      chevron-down
                                     </desc>
                                     <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                       fill-rule="evenodd"
                                     />
                                   </svg>
@@ -4533,7 +4624,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                                       autocomplete="off"
                                       class="bp3-input"
                                       name="usernamefieldType"
-                                      placeholder="Search..."
+                                      placeholder="- Select -"
                                       style="padding-right: 0px;"
                                       type="text"
                                       value="plaintext"
@@ -4542,20 +4633,20 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                        icon="caret-down"
+                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                        icon="chevron-down"
                                       >
                                         <svg
-                                          data-icon="caret-down"
+                                          data-icon="chevron-down"
                                           height="14"
                                           viewBox="0 0 16 16"
                                           width="14"
                                         >
                                           <desc>
-                                            caret-down
+                                            chevron-down
                                           </desc>
                                           <path
-                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                             fill-rule="evenodd"
                                           />
                                         </svg>
@@ -4637,7 +4728,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -4656,7 +4747,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -4742,7 +4833,7 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               autocomplete="off"
                               class="bp3-input"
                               name="apiAuthType"
-                              placeholder="Search..."
+                              placeholder="- Select -"
                               style="padding-right: 0px;"
                               type="text"
                               value="common.git.gitHubApp"
@@ -4751,20 +4842,20 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                icon="chevron-down"
                               >
                                 <svg
-                                  data-icon="caret-down"
+                                  data-icon="chevron-down"
                                   height="14"
                                   viewBox="0 0 16 16"
                                   width="14"
                                 >
                                   <desc>
-                                    caret-down
+                                    chevron-down
                                   </desc>
                                   <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                     fill-rule="evenodd"
                                   />
                                 </svg>
@@ -4859,92 +4950,88 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                   >
                     <div
                       class="bp3-form-group"
-                      data-id="null-9"
+                      data-id="privateKey-9"
                     >
+                      <label
+                        class="bp3-label"
+                        for="privateKey"
+                      >
+                        common.git.privateKey
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
                       <div
                         class="bp3-form-content"
                       >
                         <div
-                          class="Layout--vertical StyledProps--main"
+                          class="Layout--horizontal StyledProps--main MultiTypeInput--main"
+                          style="flex-grow: 1;"
                         >
-                          <label
-                            class="bp3-label"
+                          <button
+                            class="bp3-button Button--button StyledProps--font StyledProps--main value Button--with-current-color Button--iconOnly Button--without-shadow"
+                            data-testid="create-or-select-secret"
+                            type="button"
                           >
-                            common.git.privateKey
-                          </label>
-                          <div
-                            class="StyledProps--font StyledProps--main container StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
-                          >
-                            <a
-                              class="containerLink"
-                              data-testid="privateKey"
-                              href="/account/dummy/resources/connectors"
+                            <span
+                              class="bp3-icon StyledProps--main"
+                              data-icon="key-main"
+                              style="height: 12px;"
                             >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="key-main"
-                                style="height: 12px;"
+                              <svg
+                                height="24"
+                                width="24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <svg
-                                  height="24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
                                 >
-                                  <g
-                                    fill="none"
-                                    stroke="#1C1C28"
-                                    stroke-width="0.5"
-                                  >
-                                    <path
-                                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
-                                    />
-                                    <path
-                                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
-                                    />
-                                  </g>
-                                </svg>
-                              </span>
-                              <p
-                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
-                              >
-                                <div>
-                                  secret.configureSecret
-                                </div>
-                                <div>
-                                  &lt;githubPassword&gt;
-                                </div>
-                              </p>
-                            </a>
-                            <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
-                              data-testid="privateKey-edit"
-                              type="button"
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                            <span
+                              class="bp3-button-text"
                             >
-                              <span
-                                class="bp3-button-text"
+                              account.githubPassword
+                            </span>
+                          </button>
+                          <span
+                            class="bp3-popover-wrapper MultiTypeInput--wrapper"
+                          >
+                            <span
+                              class="bp3-popover-target"
+                            >
+                              <button
+                                class="MultiTypeInput--btn MultiTypeInput--FIXED"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
-                                  icon="edit"
+                                  class="bp3-icon StyledProps--main"
+                                  data-icon="fixed-input"
                                 >
                                   <svg
-                                    data-icon="edit"
-                                    height="16"
-                                    viewBox="0 0 16 16"
-                                    width="16"
+                                    height="12"
+                                    viewBox="0 0 9 9"
+                                    width="12"
+                                    xmlns="http://www.w3.org/2000/svg"
                                   >
-                                    <desc>
-                                      edit
-                                    </desc>
                                     <path
-                                      d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                      fill-rule="evenodd"
+                                      d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                      fill="currentColor"
                                     />
                                   </svg>
                                 </span>
-                              </span>
-                            </button>
-                          </div>
+                              </button>
+                            </span>
+                          </span>
                         </div>
                       </div>
                     </div>

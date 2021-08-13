@@ -36,6 +36,7 @@ const useSwitchAccountModal = (props: SwitchAccountModalProps): ModalReturn => {
               placeholder={getString('common.switchAccountSearch')}
               defaultValue={searchString}
               onChange={str => setSearchString(str.trim())}
+              width={350}
             />
           </Layout.Horizontal>
         }

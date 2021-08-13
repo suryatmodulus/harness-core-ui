@@ -189,7 +189,7 @@ describe('Unit tests for CV service page', () => {
     expect(container.querySelector('[class*="drilldownview"]')).not.toBeNull()
     expect(container.querySelector('[class*="service-heatmap"]')).not.toBeNull()
 
-    const dropdown = container.querySelector('[class*="bp3-icon-caret-down"]')
+    const dropdown = container.querySelector('[class*="bp3-icon-chevron-down"]')
     if (!dropdown) {
       throw Error('No drop down rendred')
     }

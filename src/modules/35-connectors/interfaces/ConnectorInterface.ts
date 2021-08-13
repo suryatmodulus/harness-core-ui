@@ -1,5 +1,6 @@
 import type { Intent, SelectOption } from '@wings-software/uicore'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
+import type { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 export interface KubFormData {
   name?: string
@@ -50,4 +51,19 @@ export interface AwsKmsConfigFormData {
   externalName?: string
   assumeStsRoleDuration?: string
   default: boolean
+}
+
+export interface StepDetailsProps extends ConnectorInfoDTO {
+  name: string
+}
+
+export interface ConnectorDetailsProps {
+  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+  isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
+  setFormData?: (formData: ConnectorConfigDTO) => void
+  connectorInfo: ConnectorInfoDTO | void
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }

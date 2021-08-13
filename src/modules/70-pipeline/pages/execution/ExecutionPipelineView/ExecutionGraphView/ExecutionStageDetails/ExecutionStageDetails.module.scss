@@ -1,7 +1,8 @@
 .main {
-  height: 100%;
   position: relative;
-  border-top: 1px solid var(--primary-3);
+  height: calc(var(--execution-children-height) - var(--execution-stage-details-height));
+  width: 100%;
+  overflow: hidden;
 
   .stepDetails {
     position: absolute;
@@ -15,4 +16,5 @@
 }
 .popoverHeight {
   min-height: fit-content;
+  margin-left: -20px;
 }

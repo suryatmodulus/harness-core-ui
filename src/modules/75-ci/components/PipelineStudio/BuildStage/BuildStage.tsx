@@ -1,12 +1,13 @@
 import React from 'react'
 import { PipelineStage } from '@pipeline/components/PipelineStages/PipelineStage'
-import type { StageElementWrapper } from 'services/cd-ng'
+import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
+import { DeployStageErrorProvider } from '@pipeline/context/StageErrorContext'
 import { EditStageView } from './EditStageView/EditStageView'
 import BuildStageSetupShell from '../BuildStageSetupShell/BuildStageSetupShell'
 
 interface BuildStageProps {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string) => void
+  data?: StageElementWrapper<BuildStageElementConfig>
+  onSubmit?: (values: StageElementWrapper<BuildStageElementConfig>, identifier: string) => void
 }
 
 export class BuildStage extends PipelineStage<BuildStageProps> {
@@ -15,6 +16,10 @@ export class BuildStage extends PipelineStage<BuildStageProps> {
     if (minimal) {
       return <EditStageView {...stageProps} />
     }
-    return <BuildStageSetupShell />
+    return (
+      <DeployStageErrorProvider>
+        <BuildStageSetupShell />
+      </DeployStageErrorProvider>
+    )
   }
 }

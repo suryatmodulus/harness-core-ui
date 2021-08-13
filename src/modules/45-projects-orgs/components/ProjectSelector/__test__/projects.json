@@ -1,0 +1,120 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pageCount": 1,
+    "itemCount": 6,
+    "pageSize": 50,
+    "content": [
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "testOrg",
+            "identifier": "test",
+            "name": "test",
+            "color": "#e6b800",
+            "modules": ["CD"],
+            "description": "test",
+            "tags": { "tag1": "", "tag2": "tag3" }
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1606799067248
+        }
+      },
+
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "Cisco_Meraki",
+            "identifier": "Online_Banking",
+            "name": "Online Banking",
+            "color": "#1c1c28",
+            "modules": ["CD", "CV"],
+            "description": "UI for the Payment",
+            "tags": { "tag1": "", "tag2": "tag3" }
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1606799067248
+        }
+      },
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "Cisco_Meraki",
+            "identifier": "Portal",
+            "name": "Portal",
+            "color": "#ff8800",
+            "modules": ["CV"],
+            "description": "Online users",
+            "tags": { "tag1": "", "tag2": "tag3" }
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1606799067248
+        }
+      },
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "Cisco_Prime",
+            "identifier": "Project_1",
+            "name": "Project 1",
+            "color": "#e6b800",
+            "modules": [],
+            "description": "",
+            "tags": {}
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1606799067248
+        }
+      },
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "Cisco_Prime",
+            "identifier": "Project_Demo",
+            "name": "Project Demo",
+            "color": "#004fc4",
+            "modules": [],
+            "description": "Demo project",
+            "tags": { "tag1": "", "tag2": "tag3" }
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1606799067248
+        }
+      },
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "Harness",
+            "identifier": "Drone_Data_Supplier",
+            "name": "Drone Data Supplier",
+            "color": "#e67a00",
+            "modules": ["CD", "CV", "CI", "CE", "CF"],
+            "description": "Drone",
+            "tags": { "tag1": "", "tag2": "tag3" }
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1606799067248
+        }
+      },
+      {
+        "projectResponse": {
+          "project": {
+            "orgIdentifier": "Harness",
+            "identifier": "Swagger",
+            "name": "Swagger",
+            "color": "#e6b800",
+            "modules": ["CI"],
+            "description": "Swagger 2.0",
+            "tags": { "tag1": "", "tag2": "tag3" }
+          },
+          "createdAt": null,
+          "lastModifiedAt": 1606799067248
+        }
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "370210dc-a345-42fa-b3cf-69bd64eb5073"
+}

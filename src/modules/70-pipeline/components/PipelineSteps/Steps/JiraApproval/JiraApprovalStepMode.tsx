@@ -3,7 +3,14 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
-import { Formik, Accordion, FormInput, MultiTypeInputType, getMultiTypeFromValue } from '@wings-software/uicore'
+import {
+  Formik,
+  Accordion,
+  FormInput,
+  MultiTypeInputType,
+  getMultiTypeFromValue,
+  FormikForm
+} from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 import {
@@ -191,7 +198,7 @@ const FormContent = ({
         )}
       </div>
 
-      <div className={stepCss.noLookDivider} />
+      <div className={stepCss.divider} />
 
       <div className={cx(stepCss.formGroup, stepCss.lg)}>
         <FormMultiTypeConnectorField
@@ -257,6 +264,12 @@ const FormContent = ({
           isOptional={true}
           multiTypeInputProps={{
             allowableTypes: [MultiTypeInputType.FIXED],
+            selectProps: {
+              items: fetchingProjects
+                ? [{ label: getString('pipeline.jiraApprovalStep.fetchingProjectsPlaceholder'), value: '' }]
+                : projectOptions,
+              addClearBtn: true
+            },
             onChange: (value: unknown) => {
               // Clear dependent fields
               if ((value as JiraProjectSelectOption)?.key !== projectKeyFixedValue) {
@@ -289,6 +302,12 @@ const FormContent = ({
           }
           disabled={isApprovalStepFieldDisabled(readonly, fetchingProjectMetadata)}
           multiTypeInputProps={{
+            selectProps: {
+              addClearBtn: true,
+              items: fetchingProjectMetadata
+                ? [{ label: getString('pipeline.jiraApprovalStep.fetchingIssueTypePlaceholder'), value: '' }]
+                : setIssueTypeOptions(projectMetadata?.issuetypes)
+            },
             allowableTypes: [MultiTypeInputType.FIXED],
             onChange: (value: unknown) => {
               // Clear dependent fields
@@ -327,7 +346,6 @@ const FormContent = ({
         )}
       </div>
 
-      <div className={stepCss.divider} />
       <ApprovalRejectionCriteria
         statusList={statusList}
         fieldList={fieldList}
@@ -441,19 +459,21 @@ function JiraApprovalStepMode(props: JiraApprovalStepModeProps, formikRef: StepF
       {(formik: FormikProps<JiraApprovalData>) => {
         setFormikRef(formikRef, formik)
         return (
-          <FormContent
-            formik={formik}
-            refetchProjects={refetchProjects}
-            refetchProjectMetadata={refetchProjectMetadata}
-            fetchingProjects={fetchingProjects}
-            fetchingProjectMetadata={fetchingProjectMetadata}
-            projectMetaResponse={projectMetaResponse}
-            projectsResponse={projectsResponse}
-            projectsFetchError={projectsFetchError}
-            projectMetadataFetchError={projectMetadataFetchError}
-            readonly={readonly}
-            isNewStep={isNewStep}
-          />
+          <FormikForm>
+            <FormContent
+              formik={formik}
+              refetchProjects={refetchProjects}
+              refetchProjectMetadata={refetchProjectMetadata}
+              fetchingProjects={fetchingProjects}
+              fetchingProjectMetadata={fetchingProjectMetadata}
+              projectMetaResponse={projectMetaResponse}
+              projectsResponse={projectsResponse}
+              projectsFetchError={projectsFetchError}
+              projectMetadataFetchError={projectMetadataFetchError}
+              readonly={readonly}
+              isNewStep={isNewStep}
+            />
+          </FormikForm>
         )
       }}
     </Formik>

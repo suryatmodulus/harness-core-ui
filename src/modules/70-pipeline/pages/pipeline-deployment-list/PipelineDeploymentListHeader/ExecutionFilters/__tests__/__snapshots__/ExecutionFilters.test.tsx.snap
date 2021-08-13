@@ -3,45 +3,50 @@
 exports[`<ExecutionFilters /> test snapshot testing 1`] = `
 <div>
   <div
-    class="bp3-popover-wrapper filterSelector Select--main bp3-fill"
+    class="bp3-popover-wrapper DropDown--main DropDown--disabled"
   >
     <div
       class="bp3-popover-target"
     >
       <div
-        class="bp3-input-group"
+        class=""
       >
-        <input
-          autocomplete="off"
-          class="bp3-input"
-          placeholder="filters.selectFilter"
-          style="padding-right: 0px;"
-          type="text"
-          value=""
-        />
-        <span
-          class="bp3-input-action"
+        <div
+          class="Layout--horizontal StyledProps--main DropDown--dropdownButton StyledProps--flex"
+          data-testid="filter-select"
+          style="min-width: 220px;"
         >
-          <span
-            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-            icon="caret-down"
+          <div
+            class="Layout--horizontal StyledProps--main DropDown--labelWrapper StyledProps--flex"
           >
-            <svg
-              data-icon="caret-down"
-              height="14"
-              viewBox="0 0 16 16"
-              width="14"
+            <p
+              class="StyledProps--font StyledProps--main DropDown--label"
+              data-testid="dropdown-value"
             >
-              <desc>
-                caret-down
-              </desc>
-              <path
-                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
-        </span>
+              common.filters.noFilterSaved
+            </p>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main DropDown--btnWrapper StyledProps--flex"
+          >
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+              data-icon="main-chevron-down"
+            >
+              <svg
+                height="8"
+                viewBox="0 0 14 8"
+                width="8"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M13 0c-.3 0-.5.1-.7.3L7 5.6 1.7.3C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7l6 6c.2.2.4.3.7.3s.5-.1.7-.3l6-6c.2-.2.3-.4.3-.7 0-.6-.4-1-1-1z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

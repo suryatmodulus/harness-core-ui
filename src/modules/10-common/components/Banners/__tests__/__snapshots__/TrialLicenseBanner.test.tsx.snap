@@ -5,12 +5,16 @@ exports[`TrialLicenseBanner should NOT render banner if api call returns NOT TRI
 exports[`TrialLicenseBanner should render banner and provide feedback button if api call returns TRIAL and not expired 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard trialLicenseBanner notExpired StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard trialLicenseBanner notExpired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
-    />
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      />
+    </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
     >
@@ -94,12 +98,16 @@ exports[`TrialLicenseBanner should render banner and provide feedback button if 
 exports[`TrialLicenseBanner should render expired banner BUT NO extend trial button if it is expired more than 14 days 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
-    />
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      />
+    </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
     >
@@ -173,12 +181,16 @@ exports[`TrialLicenseBanner should render expired banner BUT NO extend trial but
 exports[`TrialLicenseBanner should render expired banner and extend trial button if it is expired less than or equal to 14 days 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard trialLicenseBanner expired StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
-    />
+    <div
+      class="Layout--vertical StyledProps--main"
+    >
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      />
+    </div>
     <div
       class="Layout--horizontal Layout--layout-spacing-xxxlarge StyledProps--main"
     >

@@ -1,0 +1,21 @@
+.healthScoreCardContainer {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: var(--spacing-large);
+}
+
+.healthScoreCard {
+  height: 31px;
+  width: 31px;
+  border-radius: var(--spacing-xsmall);
+  font-size: var(--font-size-small);
+  padding-top: var(--spacing-small);
+  color: var(--white);
+  text-align: center;
+  margin-right: var(--spacing-small);
+}
+
+.tagsText {
+  text-transform: capitalize;
+}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Card, Color, Container, Icon, Layout, Text } from '@wings-software/uicore'
-
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
@@ -16,7 +15,7 @@ import {
   useUpdateRole,
   useGetPermissionResourceTypesList
 } from 'services/rbac'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import PermissionCard from '@rbac/components/PermissionCard/PermissionCard'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
@@ -99,14 +98,28 @@ const RoleDetails: React.FC = () => {
   }
 
   const onChangePermission = async (permission: string, isAdd: boolean): Promise<void> => {
-    if (isAdd) setPermissions(_permissions => [...permissions, permission])
-    else {
+    if (isAdd) {
+      if (
+        permission === PermissionIdentifier.EDIT_DASHBOARD ||
+        permissions.indexOf(PermissionIdentifier.EDIT_DASHBOARD) !== -1
+      ) {
+        setPermissions(_permissions => [...permissions, permission, PermissionIdentifier.VIEW_DASHBOARD])
+      } else {
+        setPermissions(_permissions => [...permissions, permission])
+      }
+    } else if (
+      !(
+        permission === PermissionIdentifier.VIEW_DASHBOARD &&
+        permissions.indexOf(PermissionIdentifier.EDIT_DASHBOARD) !== -1
+      )
+    ) {
       setPermissions(_permissions =>
         produce(_permissions, draft => {
           draft?.splice(permissions.indexOf(permission), 1)
         })
       )
     }
+
     setIsUpdated(true)
   }
 
@@ -115,7 +128,7 @@ const RoleDetails: React.FC = () => {
     try {
       const updated = await addPermissions(role)
       /* istanbul ignore else */ if (updated) {
-        showSuccess(getString('roleDetails.permissionUpdatedSuccess'))
+        showSuccess(getString('rbac.roleDetails.permissionUpdatedSuccess'))
         refetch()
       }
     } catch (e) {
@@ -137,37 +150,35 @@ const RoleDetails: React.FC = () => {
       <Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('roles')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toRoles({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('roles')
-                },
-                {
-                  url: '#',
-                  label: role.name
-                }
-              ]}
-            />
-            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
-              <Icon name={getRoleIcon(role.identifier)} size={40} />
-              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall" className={css.details}>
-                <Text color={Color.BLACK} font="medium">
-                  {role.name}
-                </Text>
-                <Text lineClamp={2}>{role.description}</Text>
+          <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
+            <Icon name={getRoleIcon(role.identifier)} size={40} />
+            <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall" className={css.details}>
+              <Text color={Color.BLACK} font="medium">
+                {role.name}
+              </Text>
+              {role.description && <Text lineClamp={2}>{role.description}</Text>}
+              {role.tags && (
                 <Layout.Horizontal padding={{ top: 'small' }}>
                   <TagsRenderer tags={role.tags || /* istanbul ignore next */ {}} length={6} />
                 </Layout.Horizontal>
-              </Layout.Vertical>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+              )}
+            </Layout.Vertical>
+          </Layout.Horizontal>
         }
         toolbar={
           <Layout.Horizontal flex>
@@ -226,7 +237,7 @@ const RoleDetails: React.FC = () => {
             <Layout.Vertical>
               <Layout.Horizontal flex padding="medium" spacing="medium">
                 <Text color={Color.BLACK} font={{ size: 'medium', weight: 'semi-bold' }} padding={{ left: 'medium' }}>
-                  {getString('roleDetails.updateRolePermissions')}
+                  {getString('rbac.roleDetails.updateRolePermissions')}
                 </Text>
                 <Layout.Horizontal flex={{ justifyContent: 'flex-end' }} spacing="small">
                   {isUpdated && <Text color={Color.BLACK}>{getString('unsavedChanges')}</Text>}

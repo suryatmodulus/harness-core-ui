@@ -27,5 +27,8 @@ export const getIconsForPipeline = (data: PMSPipelineSummaryResponse): IconProps
   if (data.modules?.includes('ci')) {
     icons.push({ icon: 'ci-main', size: 16 })
   }
+  if (data.modules?.includes('cv')) {
+    icons.push({ icon: 'cv-main', size: 16 })
+  }
   return icons
 }

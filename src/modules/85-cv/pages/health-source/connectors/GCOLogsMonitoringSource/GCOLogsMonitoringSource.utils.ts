@@ -11,7 +11,7 @@ export function createGCOLogsHealthSourcePayload(setupSource: GCOMonitoringSourc
     identifier: setupSource?.identifier as string,
     name: setupSource?.name as string,
     spec: {
-      connectorRef: setupSource.connectorRef?.value as string,
+      connectorRef: setupSource.connectorRef as string,
       feature: 'Cloud Logs',
       queries: []
     }

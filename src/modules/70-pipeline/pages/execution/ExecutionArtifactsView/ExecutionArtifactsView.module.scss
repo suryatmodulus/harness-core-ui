@@ -10,3 +10,18 @@
   margin-top: var(--spacing-xxxlarge);
   margin-bottom: var(--spacing-xxxlarge);
 }
+
+.emptyArtifacts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-huge) !important;
+  p {
+    margin-top: var(--spacing-medium) !important;
+  }
+}
+
+.stageSelector {
+  margin-bottom: var(--spacing-medium);
+  width: 300px !important;
+}

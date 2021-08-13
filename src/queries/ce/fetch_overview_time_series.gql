@@ -1,0 +1,19 @@
+query FetchOverviewTimeSeries(
+  $filters: [QLCEViewFilterWrapperInput]
+  $aggregateFunction: [QLCEViewAggregationInput]
+  $groupBy: [QLCEViewGroupByInput]
+) {
+  overviewTimeSeriesStats(aggregateFunction: $aggregateFunction, filters: $filters, groupBy: $groupBy) {
+    data: stats {
+      values {
+        key {
+          id
+          name
+          type
+        }
+        value
+      }
+      time
+    }
+  }
+}

@@ -1,8 +1,21 @@
 overwrite: true
-schema: 'src/services/ce/schema.graphql'
-documents: 'src/queries/ce/**/*.gql'
 generates:
-  src/services/ce/services.ts:
+  ./src/services/ce/services.ts:
+    documents: 'src/queries/ce/**/*.gql'
+    schema: 'src/services/ce/schema.graphql'
+    hooks:
+      afterOneFileWrite:
+        - prettier --write
+    plugins:
+      - 'typescript-urql'
+      - 'typescript-operations'
+      - 'typescript'
+    config:
+      preResolveTypes: true
+      avoidOptionals: true
+  ./src/services/common/services.ts:
+    documents: 'src/queries/common/**/*.gql'
+    schema: 'src/services/common/schema.graphql'
     hooks:
       afterOneFileWrite:
         - prettier --write

@@ -4,7 +4,7 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 
 import { getConfig } from '../config'
-export const SPEC_VERSION = '7.8'
+export const SPEC_VERSION = '1.0'
 export interface APMFetchConfig {
   body?: string
   guid?: string
@@ -47,6 +47,7 @@ export interface APMSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -76,7 +77,6 @@ export interface APMSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -138,6 +138,11 @@ export interface APMSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -158,6 +163,14 @@ export interface APMSetupTestNodeData {
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
   toTime?: number
   workflowId?: string
+}
+
+export type ARMInfrastructureProvisioner = InfrastructureProvisioner & {
+  gitFileConfig?: GitFileConfig
+  resourceType?: 'ARM' | 'BLUEPRINT'
+  scopeType?: 'RESOURCE_GROUP' | 'SUBSCRIPTION' | 'MANAGEMENT_GROUP' | 'TENANT'
+  sourceType?: 'TEMPLATE_BODY' | 'GIT'
+  templateBody?: string
 }
 
 export interface Aws {
@@ -181,6 +194,31 @@ export interface AzureVmss {
   publicDns?: string
 }
 
+export interface AzureWebapp {
+  appName?: string
+  appServicePlanId?: string
+  deploySlot?: string
+  deploySlotId?: string
+  instanceHostName?: string
+  instanceId?: string
+  instanceName?: string
+  instanceType?: string
+  ip?: string
+}
+
+export interface AccessRequestDTO {
+  accessActive?: boolean
+  accessEndAt?: number
+  accessRequestId?: string
+  accessStartAt?: number
+  accessType?: 'GROUP_ACCESS' | 'MEMBER_ACCESS'
+  accountId?: string
+  emailIds?: string[]
+  harnessUserGroupId?: string
+  harnessUserGroupName?: string
+  hours?: number
+}
+
 export interface AccessTokenBean {
   expirationTimeMillis?: number
   projectId?: string
@@ -190,13 +228,18 @@ export interface AccessTokenBean {
 export interface Account {
   accountEvents?: AccountEvent[]
   accountName: string
+  accountPreferences?: AccountPreferences
   appId: string
+  authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
   ceAutoCollectK8sEvents?: boolean
   ceLicenseInfo?: CeLicenseInfo
   cloudCostEnabled?: boolean
   companyName: string
   createdAt?: number
   createdBy?: EmbeddedUser
+  createdFromNG?: boolean
+  dataRetentionDurationMs?: number
+  defaultExperience?: 'NG' | 'CG'
   defaults?: {
     [key: string]: string
   }
@@ -204,12 +247,15 @@ export interface Account {
   forImport?: boolean
   harnessSupportAccessAllowed?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   licenseId?: string
   licenseInfo?: LicenseInfo
   localEncryptionEnabled?: boolean
   migratedToClusterUrl?: string
+  nextGenEnabled?: boolean
   oauthEnabled?: boolean
   povAccount?: boolean
+  serviceAccountConfig?: ServiceAccountConfig
   serviceGuardLimit?: number
   subdomainUrl?: string
   techStacks?: TechStack[]
@@ -222,6 +268,17 @@ export interface Account {
 export interface AccountAuditFilter {
   resourceIds?: string[]
   resourceTypes?: string[]
+}
+
+export interface AccountDetails {
+  accountId?: string
+  accountName?: string
+  ceLicenseInfo?: CeLicenseInfo
+  cluster?: string
+  companyName?: string
+  createdFromNG?: boolean
+  defaultExperience?: 'NG' | 'CG'
+  licenseInfo?: LicenseInfo
 }
 
 export interface AccountEvent {
@@ -253,6 +310,18 @@ export interface AccountJoinRequest {
   email?: string
   name?: string
   note?: string
+}
+
+export interface AccountLicenseDTO {
+  accountId?: string
+  allModuleLicenses?: {
+    [key: string]: ModuleLicenseDTO[]
+  }
+  createdAt?: number
+  lastUpdatedAt?: number
+  moduleLicenses?: {
+    [key: string]: ModuleLicenseDTO
+  }
 }
 
 export interface AccountPermissionSummary {
@@ -288,6 +357,7 @@ export interface AccountPermissionSummary {
     | 'MANAGE_CONFIG_AS_CODE'
     | 'MANAGE_SECRETS'
     | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_SSH_AND_WINRM'
     | 'MANAGE_AUTHENTICATION_SETTINGS'
     | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
     | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
@@ -299,6 +369,7 @@ export interface AccountPermissionSummary {
     | 'MANAGE_TAGS'
     | 'MANAGE_CUSTOM_DASHBOARDS'
     | 'CREATE_CUSTOM_DASHBOARDS'
+    | 'MANAGE_RESTRICTED_ACCESS'
   )[]
 }
 
@@ -335,6 +406,7 @@ export interface AccountPermissions {
     | 'MANAGE_CONFIG_AS_CODE'
     | 'MANAGE_SECRETS'
     | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_SSH_AND_WINRM'
     | 'MANAGE_AUTHENTICATION_SETTINGS'
     | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
     | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
@@ -346,6 +418,7 @@ export interface AccountPermissions {
     | 'MANAGE_TAGS'
     | 'MANAGE_CUSTOM_DASHBOARDS'
     | 'CREATE_CUSTOM_DASHBOARDS'
+    | 'MANAGE_RESTRICTED_ACCESS'
   )[]
 }
 
@@ -366,6 +439,10 @@ export interface AccountPlugin {
   )[]
   type?: string
   version?: Version
+}
+
+export interface AccountPreferences {
+  delegateSecretsCacheTTLInHours?: number
 }
 
 export interface AccountRole {
@@ -438,7 +515,13 @@ export interface Activity {
     | 'AZURE_VMSS_SETUP'
     | 'AZURE_VMSS_DEPLOY'
     | 'AZURE_VMSS_SWAP'
+    | 'AZURE_APP_SERVICE_SLOT_SETUP'
+    | 'AZURE_APP_SERVICE_SLOT_TRAFFIC_SHIFT'
+    | 'AZURE_APP_SERVICE_SLOT_SWAP'
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+    | 'AZURE_ARM_DEPLOYMENT'
+    | 'AZURE_BLUEPRINT_DEPLOYMENT'
+    | 'TERRAGRUNT_PROVISION'
   commandUnits: CommandUnit[]
   createdAt?: number
   createdBy?: EmbeddedUser
@@ -446,6 +529,7 @@ export interface Activity {
   environmentName?: string
   environmentType: 'PROD' | 'NON_PROD' | 'ALL'
   hostName?: string
+  infrastructureDefinitionId?: string
   lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
   logPurged?: boolean
@@ -491,6 +575,12 @@ export interface Activity {
 
 export type AddOperation = PatchOperation & {
   value?: JsonNode
+}
+
+export interface AdditionalMetadata {
+  values?: {
+    [key: string]: { [key: string]: any }
+  }
 }
 
 export interface AdvancedSearchQuery {
@@ -563,6 +653,7 @@ export interface Alert {
     | 'CONTINUOUS_VERIFICATION_ALERT'
     | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
     | 'MANIFEST_COLLECTION_FAILED'
+    | 'DEPLOYMENT_FREEZE_EVENT'
   uuid: string
   validUntil?: string
 }
@@ -597,6 +688,7 @@ export interface AlertFilter {
     | 'CONTINUOUS_VERIFICATION_ALERT'
     | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
     | 'MANIFEST_COLLECTION_FAILED'
+    | 'DEPLOYMENT_FREEZE_EVENT'
   conditions?: Conditions
 }
 
@@ -609,6 +701,7 @@ export interface AlertNotificationRule {
   createdBy?: EmbeddedUser
   default?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   userGroupsToNotify?: string[]
   uuid: string
 }
@@ -627,7 +720,10 @@ export interface AlertThreshold {
   alertsSent?: number
   basedOn?: 'ACTUAL_COST' | 'FORECASTED_COST'
   crossedAt?: number
+  emailAddresses?: string[]
   percentage?: number
+  slackWebhooks?: string[]
+  userGroupIds?: string[]
 }
 
 export interface AlertType {
@@ -656,9 +752,18 @@ export interface AlertType {
     | 'CONTINUOUS_VERIFICATION_ALERT'
     | 'CONTINUOUS_VERIFICATION_DATA_COLLECTION_ALERT'
     | 'MANIFEST_COLLECTION_FAILED'
+    | 'DEPLOYMENT_FREEZE_EVENT'
   category?: 'All' | 'Setup' | 'Approval' | 'ManualIntervention' | 'ContinuousVerification'
   severity?: 'Warning' | 'Error'
 }
+
+export type AllAppFilter = ApplicationFilter & {}
+
+export type AllEnvFilter = EnvironmentFilter & {}
+
+export type AllNonProdEnvFilter = EnvironmentFilter & {}
+
+export type AllProdEnvFilter = EnvironmentFilter & {}
 
 export interface ApiKeyAuditDetails {
   apiKeyId?: string
@@ -672,6 +777,7 @@ export interface ApiKeyEntry {
   encryptedKey?: string[]
   hashOfKey?: string
   name?: string
+  sha256Hash?: string
   userGroupIds?: string[]
   userGroups?: UserGroup[]
   uuid?: string
@@ -696,6 +802,7 @@ export interface AppContainer {
   fileUuid?: string
   hardened?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   mimeType?: string
   name?: string
   size?: number
@@ -707,22 +814,15 @@ export interface AppContainer {
   version?: string
 }
 
-export interface AppDynamicsApplication {
-  id?: number
-  name?: string
-}
-
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
-  accountId: string
   accountname: string
+  authType?: 'UsernamePassword' | 'ApiClientToken'
+  clientId?: string
+  clientSecretRef?: string
   controllerUrl: string
-  passwordRef: string
-  username: string
-}
-
-export interface AppDynamicsTier {
-  id?: number
-  name?: string
+  delegateSelectors?: string[]
+  passwordRef?: string
+  username?: string
 }
 
 export interface AppEnvRestriction {
@@ -740,6 +840,7 @@ export interface AppPermission {
     | 'EXECUTE'
     | 'EXECUTE_WORKFLOW'
     | 'EXECUTE_PIPELINE'
+    | 'EXECUTE_WORKFLOW_ROLLBACK'
     | 'DEFAULT'
   )[]
   appFilter?: GenericEntityFilter
@@ -776,6 +877,7 @@ export interface AppPermission {
     | 'MANAGE_CONFIG_AS_CODE'
     | 'MANAGE_SECRETS'
     | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_SSH_AND_WINRM'
     | 'MANAGE_AUTHENTICATION_SETTINGS'
     | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
     | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
@@ -787,6 +889,7 @@ export interface AppPermission {
     | 'MANAGE_TAGS'
     | 'MANAGE_CUSTOM_DASHBOARDS'
     | 'CREATE_CUSTOM_DASHBOARDS'
+    | 'MANAGE_RESTRICTED_ACCESS'
 }
 
 export interface AppPermissionSummaryForUI {
@@ -805,6 +908,7 @@ export interface AppPermissionSummaryForUI {
       | 'EXECUTE'
       | 'EXECUTE_WORKFLOW'
       | 'EXECUTE_PIPELINE'
+      | 'EXECUTE_WORKFLOW_ROLLBACK'
       | 'DEFAULT'
     )[]
   }
@@ -818,6 +922,7 @@ export interface AppPermissionSummaryForUI {
       | 'EXECUTE'
       | 'EXECUTE_WORKFLOW'
       | 'EXECUTE_PIPELINE'
+      | 'EXECUTE_WORKFLOW_ROLLBACK'
       | 'DEFAULT'
     )[]
   }
@@ -831,6 +936,7 @@ export interface AppPermissionSummaryForUI {
       | 'EXECUTE'
       | 'EXECUTE_WORKFLOW'
       | 'EXECUTE_PIPELINE'
+      | 'EXECUTE_WORKFLOW_ROLLBACK'
       | 'DEFAULT'
     )[]
   }
@@ -844,6 +950,7 @@ export interface AppPermissionSummaryForUI {
       | 'EXECUTE'
       | 'EXECUTE_WORKFLOW'
       | 'EXECUTE_PIPELINE'
+      | 'EXECUTE_WORKFLOW_ROLLBACK'
       | 'DEFAULT'
     )[]
   }
@@ -857,6 +964,7 @@ export interface AppPermissionSummaryForUI {
       | 'EXECUTE'
       | 'EXECUTE_WORKFLOW'
       | 'EXECUTE_PIPELINE'
+      | 'EXECUTE_WORKFLOW_ROLLBACK'
       | 'DEFAULT'
     )[]
   }
@@ -870,6 +978,7 @@ export interface AppPermissionSummaryForUI {
       | 'EXECUTE'
       | 'EXECUTE_WORKFLOW'
       | 'EXECUTE_PIPELINE'
+      | 'EXECUTE_WORKFLOW_ROLLBACK'
       | 'DEFAULT'
     )[]
   }
@@ -880,18 +989,6 @@ export interface AppRestrictionsSummary {
   environments?: EntityReference[]
   hasAllNonProdEnvAccess?: boolean
   hasAllProdEnvAccess?: boolean
-}
-
-export interface AppdynamicsMetricPackDataValidationRequest {
-  connector?: ConnectorConfigDTO
-  metricPacks?: MetricPackDTO[]
-}
-
-export interface AppdynamicsMetricValueValidationResponse {
-  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
-  errorMessage?: string
-  metricName?: string
-  value?: number
 }
 
 export interface AppdynamicsSetupTestNodeData {
@@ -928,6 +1025,7 @@ export interface AppdynamicsSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -957,7 +1055,6 @@ export interface AppdynamicsSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -1019,6 +1116,11 @@ export interface AppdynamicsSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -1052,12 +1154,6 @@ export interface AppdynamicsTier {
   type?: string
 }
 
-export interface AppdynamicsValidationResponse {
-  metricPackName?: string
-  overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
-  values?: AppdynamicsMetricValueValidationResponse[]
-}
-
 export interface Application {
   accountId?: string
   appId: string
@@ -1068,8 +1164,10 @@ export interface Application {
   }
   description?: string
   environments?: Environment[]
+  isManualTriggerAuthorized?: boolean
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   nextDeploymentOn?: number
   notifications?: Notification[]
@@ -1093,25 +1191,54 @@ export type ApplicationBudgetScope = BudgetScope & {
   environmentType?: 'PROD' | 'NON_PROD' | 'ALL'
 }
 
+export interface ApplicationFilter {
+  envSelection?: EnvironmentFilter
+  filterType?: 'ALL' | 'CUSTOM'
+}
+
 export interface ApplicationManifest {
   accountId?: string
   appId: string
   collectionStatus?: 'UNSTABLE' | 'COLLECTING' | 'STABLE'
   createdAt?: number
   createdBy?: EmbeddedUser
+  customSourceConfig?: CustomSourceConfig
   envId?: string
   failedAttempts?: number
   gitFileConfig?: GitFileConfig
   helmChartConfig?: HelmChartConfig
-  kind?: 'VALUES' | 'K8S_MANIFEST' | 'PCF_OVERRIDE' | 'HELM_CHART_OVERRIDE' | 'OC_PARAMS'
+  helmCommandFlag?: HelmCommandFlagConfig
+  helmValuesYamlFilePaths?: string
+  kind?:
+    | 'VALUES'
+    | 'K8S_MANIFEST'
+    | 'PCF_OVERRIDE'
+    | 'AZURE_APP_SERVICE_MANIFEST'
+    | 'AZURE_APP_SETTINGS_OVERRIDE'
+    | 'AZURE_CONN_STRINGS_OVERRIDE'
+    | 'HELM_CHART_OVERRIDE'
+    | 'OC_PARAMS'
   kustomizeConfig?: KustomizeConfig
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
   perpetualTaskId?: string
   pollForChanges?: boolean
   serviceId?: string
   serviceName?: string
-  storeType?: 'Local' | 'Remote' | 'HelmSourceRepo' | 'HelmChartRepo' | 'KustomizeSourceRepo' | 'OC_TEMPLATES'
+  skipVersioningForAllK8sObjects?: boolean
+  storeType?:
+    | 'Local'
+    | 'Remote'
+    | 'HelmSourceRepo'
+    | 'HelmChartRepo'
+    | 'KustomizeSourceRepo'
+    | 'OC_TEMPLATES'
+    | 'CUSTOM'
+    | 'CUSTOM_OPENSHIFT_TEMPLATE'
+    | 'VALUES_YAML_FROM_HELM_REPO'
   uuid: string
+  validationMessage?: string
 }
 
 export interface ApplicationManifestSummary {
@@ -1162,6 +1289,7 @@ export interface Artifact {
   createdBy?: EmbeddedUser
   description?: string
   displayName?: string
+  duplicate?: boolean
   errorMessage?: string
   fileName?: string
   key?: string
@@ -1169,6 +1297,7 @@ export interface Artifact {
     [key: string]: string
   }
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   metadata?: {
     [key: string]: string
   }
@@ -1195,6 +1324,7 @@ export interface ArtifactFile {
   fileName?: string
   fileUuid?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   mimeType?: string
   name?: string
   size?: number
@@ -1247,6 +1377,7 @@ export interface ArtifactStream {
   failedCronAttempts?: number
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   metadataOnly?: boolean
   name?: string
   nextCleanupIteration?: number
@@ -1394,6 +1525,8 @@ export interface ArtifactVariable {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   fixed?: boolean
   lastDeployedArtifactInfo?: LastDeployedArtifactInformation
   mandatory?: boolean
@@ -1414,13 +1547,20 @@ export interface ArtifactoryAuthCredentials {
 }
 
 export interface ArtifactoryAuthentication {
-  spec: ArtifactoryAuthCredentials
-  type: 'UsernamePassword'
+  spec?: ArtifactoryAuthCredentials
+  type: 'UsernamePassword' | 'Anonymous'
 }
 
 export type ArtifactoryConnector = ConnectorConfigDTO & {
   artifactoryServerUrl: string
   auth?: ArtifactoryAuthentication
+  delegateSelectors?: string[]
+}
+
+export type ArtifactoryUsernamePasswordAuth = ArtifactoryAuthCredentials & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
 }
 
 export interface AtomicInteger {
@@ -1441,6 +1581,9 @@ export interface AuditHeader {
   component?: Service
   createdAt?: number
   createdBy?: EmbeddedUser
+  details?: {
+    [key: string]: { [key: string]: any }
+  }
   entityAuditRecords?: EntityAuditRecord[]
   environment?: Environment
   errorCode?: string
@@ -1448,6 +1591,7 @@ export interface AuditHeader {
   gitAuditDetails?: GitAuditDetails
   headerString?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   localHostName?: string
   localIpAddress?: string
   queryParams?: string
@@ -1526,18 +1670,57 @@ export interface AwsCFTemplateParamsData {
   paramType?: string
 }
 
+export interface AwsCodeCommitAuthenticationDTO {
+  spec: AwsCodeCommitCredentialsDTO
+  type: 'HTTPS'
+}
+
+export type AwsCodeCommitConnectorDTO = ConnectorConfigDTO & {
+  authentication: AwsCodeCommitAuthenticationDTO
+  delegateSelectors?: string[]
+  type: 'Repo' | 'Region'
+  url: string
+}
+
+export interface AwsCodeCommitCredentialsDTO {
+  [key: string]: any
+}
+
+export type AwsCodeCommitHttpsCredentialsDTO = AwsCodeCommitCredentialsDTO & {
+  spec: AwsCodeCommitHttpsCredentialsSpecDTO
+  type: 'AWSCredentials'
+}
+
+export interface AwsCodeCommitHttpsCredentialsSpecDTO {
+  [key: string]: any
+}
+
+export type AwsCodeCommitSecretKeyAccessKeyDTO = AwsCodeCommitHttpsCredentialsSpecDTO & {
+  accessKey?: string
+  accessKeyRef?: string
+  secretKeyRef: string
+}
+
 export type AwsConnector = ConnectorConfigDTO & {
   credential: AwsCredential
+  delegateSelectors?: string[]
 }
 
 export interface AwsCredential {
   crossAccountAccess?: CrossAccountAccess
-  spec: AwsCredentialSpec
+  spec?: AwsCredentialSpec
   type: 'InheritFromDelegate' | 'ManualConfig'
 }
 
 export interface AwsCredentialSpec {
   [key: string]: any
+}
+
+export interface AwsCurAttributes {
+  region?: string
+  reportName: string
+  s3BucketName: string
+  s3Prefix?: string
 }
 
 export type AwsEcsInfrastructure = InfraMappingInfrastructureProvider & {
@@ -1592,6 +1775,39 @@ export type AwsInstanceInfrastructure = InfraMappingInfrastructureProvider & {
   usePublicDns?: boolean
 }
 
+export interface AwsKmsConnectorCredential {
+  spec?: AwsKmsCredentialSpec
+  type: 'AssumeIAMRole' | 'AssumeSTSRole' | 'ManualConfig'
+}
+
+export type AwsKmsConnectorDTO = ConnectorConfigDTO & {
+  credential?: AwsKmsConnectorCredential
+  default?: boolean
+  delegateSelectors?: string[]
+  kmsArn: string
+  region?: string
+}
+
+export interface AwsKmsCredentialSpec {
+  [key: string]: any
+}
+
+export type AwsKmsCredentialSpecAssumeIAM = AwsKmsCredentialSpec & {
+  delegateSelectors: string[]
+}
+
+export type AwsKmsCredentialSpecAssumeSTS = AwsKmsCredentialSpec & {
+  assumeStsRoleDuration?: number
+  delegateSelectors: string[]
+  externalName?: string
+  roleArn: string
+}
+
+export type AwsKmsCredentialSpecManualConfig = AwsKmsCredentialSpec & {
+  accessKey: string
+  secretKey: string
+}
+
 export interface AwsLambdaExecutionSummary {
   functionMeta?: FunctionMeta
   success?: boolean
@@ -1623,6 +1839,12 @@ export interface AwsLoadBalancerDetails {
   vpcId?: string
 }
 
+export type AwsManualConfigSpec = AwsCredentialSpec & {
+  accessKey?: string
+  accessKeyRef?: string
+  secretKeyRef: string
+}
+
 export interface AwsRoute53HostedZoneData {
   hostedZoneId?: string
   hostedZoneName?: string
@@ -1631,11 +1853,26 @@ export interface AwsRoute53HostedZoneData {
 export interface AwsSecretsManagerConfig {
   accessKey?: string
   accountId?: string
+  assumeIamRoleOnDelegate?: boolean
+  assumeStsRoleDuration?: number
+  assumeStsRoleOnDelegate?: boolean
   createdAt?: number
   createdBy?: EmbeddedUser
   default?: boolean
+  delegateSelectors?: string[]
   encryptedBy?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
+  externalName?: string
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
   manuallyEnteredSecretEngineMigrationIteration?: number
@@ -1643,6 +1880,7 @@ export interface AwsSecretsManagerConfig {
   nextTokenRenewIteration?: number
   numOfEncryptedValue?: number
   region?: string
+  roleArn?: string
   scopedToAccount?: boolean
   secretKey?: string
   secretNamePrefix?: string
@@ -1665,6 +1903,21 @@ export interface AwsSubnet {
 export interface AwsVPC {
   id?: string
   name?: string
+}
+
+export interface AzureAppDeploymentData {
+  appName?: string
+  appServicePlanId?: string
+  deploySlot?: string
+  deploySlotId?: string
+  hostName?: string
+  instanceId?: string
+  instanceIp?: string
+  instanceName?: string
+  instanceState?: string
+  instanceType?: string
+  resourceGroup?: string
+  subscriptionId?: string
 }
 
 export interface AzureArtifactsFeed {
@@ -1719,6 +1972,17 @@ export type AzureInstanceInfrastructure = InfraMappingInfrastructureProvider & {
   winRmConnectionAttributes?: string
 }
 
+export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
+  azureEnvironmentType?: 'AZURE' | 'AZURE_US_GOVERNMENT'
+  clientId: string
+  default?: boolean
+  delegateSelectors?: string[]
+  secretKey: string
+  subscription: string
+  tenantId: string
+  vaultName: string
+}
+
 export type AzureKubernetesCluster = Cluster & {
   resourceGroup?: string
   subscriptionId?: string
@@ -1767,8 +2031,19 @@ export interface AzureVaultConfig {
   createdAt?: number
   createdBy?: EmbeddedUser
   default?: boolean
+  delegateSelectors?: string[]
   encryptedBy?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
   manuallyEnteredSecretEngineMigrationIteration?: number
@@ -1787,13 +2062,11 @@ export interface AzureVaultConfig {
 }
 
 export type AzureWebAppInfra = InfraMappingInfrastructureProvider & {
-  deploymentSlot?: string
   expressions?: {
     [key: string]: string
   }
   resourceGroup?: string
   subscriptionId?: string
-  webApp?: string
 }
 
 export interface Bar {
@@ -1828,6 +2101,66 @@ export type BasicOrchestrationWorkflow = OrchestrationWorkflow & {
   workflowPhases?: WorkflowPhase[]
 }
 
+export interface BillingExportSpec {
+  containerName: string
+  directoryName: string
+  reportName: string
+  storageAccountName: string
+  subscriptionId: string
+}
+
+export interface BitbucketApiAccess {
+  spec: BitbucketApiAccessSpecDTO
+  type: 'UsernameToken'
+}
+
+export interface BitbucketApiAccessSpecDTO {
+  [key: string]: any
+}
+
+export interface BitbucketAuthentication {
+  spec: BitbucketCredentialsDTO
+  type: 'Http' | 'Ssh'
+}
+
+export type BitbucketConnector = ConnectorConfigDTO & {
+  apiAccess?: BitbucketApiAccess
+  authentication: BitbucketAuthentication
+  delegateSelectors?: string[]
+  type: 'Account' | 'Repo'
+  url: string
+  validationRepo?: string
+}
+
+export interface BitbucketCredentialsDTO {
+  [key: string]: any
+}
+
+export type BitbucketHttpCredentials = BitbucketCredentialsDTO & {
+  spec: BitbucketHttpCredentialsSpecDTO
+  type: 'UsernamePassword'
+}
+
+export interface BitbucketHttpCredentialsSpecDTO {
+  [key: string]: any
+}
+
+export type BitbucketSshCredentials = BitbucketCredentialsDTO & {
+  sshKeyRef: string
+}
+
+export type BitbucketUsernamePassword = BitbucketHttpCredentialsSpecDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
+}
+
+export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
+  tokenRef: string
+  username?: string
+  usernameRef?: string
+}
+
 export type BlueGreenOrchestrationWorkflow = OrchestrationWorkflow & {
   derivedVariables?: Variable[]
   failureStrategies?: FailureStrategy[]
@@ -1851,11 +2184,13 @@ export interface BlueprintProperty {
 
 export interface Budget {
   accountId?: string
-  alertIteration?: number
+  actualCost?: number
   alertThresholds?: AlertThreshold[]
   budgetAmount?: number
   createdAt?: number
   emailAddresses?: string[]
+  forecastCost?: number
+  lastMonthCost?: number
   lastUpdatedAt?: number
   name?: string
   notifyOnSlack?: boolean
@@ -1866,7 +2201,9 @@ export interface Budget {
 }
 
 export interface BudgetScope {
-  budgetScopeFilter?: QLBillingDataFilter
+  budgetScopeType?: string
+  entityIds?: string[]
+  entityNames?: string[]
 }
 
 export interface BugsnagApplication {
@@ -1912,6 +2249,7 @@ export interface BugsnagSetupTestData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -1941,7 +2279,6 @@ export interface BugsnagSetupTestData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -2003,6 +2340,11 @@ export interface BugsnagSetupTestData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -2057,21 +2399,6 @@ export interface BuildExecutionSummary {
   revision?: string
 }
 
-export interface BuildSourceExecutionResponse {
-  artifactStreamId?: string
-  buildSourceResponse?: BuildSourceResponse
-  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
-  delegateMetaInfo?: DelegateMetaInfo
-  errorMessage?: string
-}
-
-export interface BuildSourceResponse {
-  buildDetails?: BuildDetails[]
-  cleanup?: boolean
-  stable?: boolean
-  toBeDeletedKeys?: string[]
-}
-
 export type BuildWorkflow = OrchestrationWorkflow & {
   derivedVariables?: Variable[]
   failureStrategies?: FailureStrategy[]
@@ -2084,6 +2411,25 @@ export type BuildWorkflow = OrchestrationWorkflow & {
   }
   systemVariables?: Variable[]
   workflowPhases?: WorkflowPhase[]
+}
+
+export type CDModuleLicenseDTO = ModuleLicenseDTO & {
+  deploymentsPerDay?: number
+  workloads?: number
+}
+
+export type CEAwsConnector = ConnectorConfigDTO & {
+  awsAccountId?: string
+  crossAccountAccess: CrossAccountAccess
+  curAttributes?: AwsCurAttributes
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+}
+
+export type CEAzureConnector = ConnectorConfigDTO & {
+  billingExportSpec?: BillingExportSpec
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  subscriptionId: string
+  tenantId: string
 }
 
 export interface CECommunications {
@@ -2099,7 +2445,7 @@ export interface CECommunications {
 
 export interface CEDelegateStatus {
   ceEnabled?: boolean
-  connections?: DelegateConnectionInner[]
+  connections?: DelegateConnectionDetails[]
   delegateName?: string
   delegateType?: string
   found?: boolean
@@ -2108,6 +2454,15 @@ export interface CEDelegateStatus {
   permissionRuleList?: Rule[]
   status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
   uuid?: string
+}
+
+export type CEKubernetesClusterConfig = ConnectorConfigDTO & {
+  connectorRef: string
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+}
+
+export type CEModuleLicenseDTO = ModuleLicenseDTO & {
+  spendLimit?: number
 }
 
 export interface CEReportSchedule {
@@ -2122,6 +2477,7 @@ export interface CEReportSchedule {
   nextExecution?: string
   recipients?: string[]
   userCron?: string
+  userCronTimeZone?: string
   uuid?: string
   viewsId: string[]
 }
@@ -2130,6 +2486,7 @@ export interface CESlackWebhook {
   accountId?: string
   createdAt?: number
   lastUpdatedAt?: number
+  sendAnomalyAlerts?: boolean
   sendCostReport?: boolean
   uuid?: string
   webhookUrl?: string
@@ -2139,16 +2496,27 @@ export interface CEView {
   accountId?: string
   createdAt?: number
   createdBy?: EmbeddedUser
+  dataSources?: ('CLUSTER' | 'AWS' | 'GCP' | 'AZURE' | 'COMMON' | 'CUSTOM' | 'LABEL')[]
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
   name?: string
+  totalCost?: number
   uuid?: string
   viewRules?: ViewRule[]
   viewState?: 'DRAFT' | 'COMPLETED'
   viewTimeRange?: ViewTimeRange
-  viewType?: 'SAMPLE' | 'CUSTOMER'
+  viewType?: 'SAMPLE' | 'CUSTOMER' | 'DEFAULT_AZURE' | 'DEFAULT'
   viewVersion?: string
   viewVisualization?: ViewVisualization
+}
+
+export type CFModuleLicenseDTO = ModuleLicenseDTO & {
+  numberOfClientMAUs?: number
+  numberOfUsers?: number
+}
+
+export type CIModuleLicenseDTO = ModuleLicenseDTO & {
+  numberOfCommitters?: number
 }
 
 export interface CVActivityLog {
@@ -2208,6 +2576,7 @@ export interface CVConfiguration {
   envId: string
   envName?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name: string
   numOfOccurrencesForAlert?: number
   serviceId: string
@@ -2237,6 +2606,7 @@ export interface CVConfiguration {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -2266,7 +2636,6 @@ export interface CVConfiguration {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -2328,6 +2697,11 @@ export interface CVConfiguration {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -2413,6 +2787,15 @@ export interface CVFeedbackRecord {
   uuid?: string
 }
 
+export type CVModuleLicenseDTO = ModuleLicenseDTO & {}
+
+export interface CVNGPerpetualTaskDTO {
+  accountId?: string
+  cvngPerpetualTaskState?: 'TASK_UNASSIGNED' | 'TASK_TO_REBALANCE' | 'TASK_PAUSED' | 'TASK_ASSIGNED'
+  cvngPerpetualTaskUnassignedReason?: 'NO_DELEGATE_INSTALLED' | 'NO_DELEGATE_AVAILABLE' | 'NO_ELIGIBLE_DELEGATES'
+  delegateId?: string
+}
+
 export type CanaryOrchestrationWorkflow = OrchestrationWorkflow & {
   derivedVariables?: Variable[]
   failureStrategies?: FailureStrategy[]
@@ -2440,6 +2823,28 @@ export interface CapacityReservationTargetResponse {
 export interface CeLicenseInfo {
   expiryTime?: number
   licenseType?: 'FULL_TRIAL' | 'LIMITED_TRIAL' | 'PAID'
+}
+
+export interface CgEventConfig {
+  accountId?: string
+  appId: string
+  config: WebHookEventConfig
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  delegateSelectors?: string[]
+  enabled?: boolean
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  name?: string
+  rule?: CgEventRule
+  summary?: string
+  uuid: string
+}
+
+export interface CgEventRule {
+  pipelineRule?: PipelineRule
+  type?: 'PIPELINE' | 'WORKFLOW' | 'ALL'
+  workflowRule?: WorkflowRule
 }
 
 export interface ChangeSetDTO {
@@ -2553,6 +2958,7 @@ export interface CloudWatchSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -2582,7 +2988,6 @@ export interface CloudWatchSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -2644,6 +3049,11 @@ export interface CloudWatchSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -2703,6 +3113,7 @@ export interface Command {
     | 'WAR'
     | 'TAR'
     | 'ZIP'
+    | 'NUGET'
     | 'DOCKER'
     | 'RPM'
     | 'AWS_LAMBDA'
@@ -2745,6 +3156,8 @@ export interface Command {
     | 'AZURE_VMSS_DUMMY'
     | 'AZURE_WEBAPP'
     | 'FETCH_INSTANCES_DUMMY'
+    | 'AZURE_ARM'
+    | 'TERRAGRUNT_PROVISION'
   commandUnits?: CommandUnit[]
   containerFamily?: 'TOMCAT' | 'JBOSS'
   createdAt?: number
@@ -2752,6 +3165,7 @@ export interface Command {
   deploymentType?: string
   graph?: Graph
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   originEntityId?: string
   referenceId?: string
@@ -2811,6 +3225,8 @@ export interface CommandUnit {
     | 'AZURE_VMSS_DUMMY'
     | 'AZURE_WEBAPP'
     | 'FETCH_INSTANCES_DUMMY'
+    | 'AZURE_ARM'
+    | 'TERRAGRUNT_PROVISION'
   deploymentType?: string
   name?: string
   variables?: Variable[]
@@ -2848,9 +3264,23 @@ export interface CommandUnitDetails {
     | 'AZURE_VMSS_SETUP'
     | 'AZURE_VMSS_DEPLOY'
     | 'AZURE_VMSS_SWAP'
+    | 'AZURE_APP_SERVICE_SLOT_SETUP'
+    | 'AZURE_APP_SERVICE_SLOT_TRAFFIC_SHIFT'
+    | 'AZURE_APP_SERVICE_SLOT_SWAP'
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
+    | 'AZURE_ARM_DEPLOYMENT'
+    | 'AZURE_BLUEPRINT_DEPLOYMENT'
+    | 'TERRAGRUNT_PROVISION'
   name?: string
   variables?: Variable[]
+}
+
+export interface CompareEnvironmentAggregationInfo {
+  count?: string
+  get_id?: Id
+  serviceId?: string
+  serviceInfoSummaries?: ServiceInfoSummary[]
+  serviceName?: string
 }
 
 export interface ConcurrencyStrategy {
@@ -2867,7 +3297,7 @@ export interface ConcurrentExecutionResponse {
   infrastructureDetails?: {
     [key: string]: { [key: string]: any }
   }
-  state?: 'BLOCKED' | 'ACTIVE' | 'FINISHED'
+  state?: 'BLOCKED' | 'ACTIVE' | 'FINISHED' | 'REJECTED'
   unitType?: 'INFRA' | 'CUSTOM' | 'NONE'
 }
 
@@ -2891,7 +3321,17 @@ export interface ConfigFile {
   encrypted?: boolean
   encryptedBy?: string
   encryptedFileId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   entityId?: string
   entityType:
     | 'SERVICE'
@@ -2979,6 +3419,8 @@ export interface ConfigFile {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   envId?: string
   envIdVersionMap?: {
     [key: string]: EntityVersion
@@ -2988,6 +3430,7 @@ export interface ConfigFile {
   fileUuid?: string
   instances?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   mimeType?: string
   name?: string
   notes?: string
@@ -3051,6 +3494,7 @@ export interface ConfigFile {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -3065,9 +3509,12 @@ export interface ConfigFile {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
   size?: number
   targetToAllEnv?: boolean
   templateId?: string
@@ -3079,10 +3526,16 @@ export interface ConnectivityValidationAttributes {
 }
 
 export interface ConnectorConfigDTO {
-  accountId: string
-  passwordRef: string
-  splunkUrl?: string
-  username?: string
+  [key: string]: any
+}
+
+export interface ConnectorHeartbeatDelegateResponse {
+  accountIdentifier?: string
+  connectorValidationResult?: ConnectorValidationResult
+  identifier?: string
+  name?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export interface ConnectorInfoDTO {
@@ -3092,26 +3545,47 @@ export interface ConnectorInfoDTO {
   orgIdentifier?: string
   projectIdentifier?: string
   spec: ConnectorConfigDTO
-  tags?: string[]
+  tags?: {
+    [key: string]: string
+  }
   type:
     | 'K8sCluster'
     | 'Git'
     | 'Splunk'
     | 'AppDynamics'
+    | 'Prometheus'
+    | 'Dynatrace'
     | 'Vault'
+    | 'AzureKeyVault'
     | 'DockerRegistry'
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
-    | 'Awssecretsmanager'
-    | 'Azurevault'
-    | 'Cyberark'
-    | 'CustomSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
     | 'Jira'
     | 'Nexus'
+    | 'Github'
+    | 'Gitlab'
+    | 'Bitbucket'
+    | 'Codecommit'
+    | 'CEAws'
+    | 'CEAzure'
+    | 'GcpCloudCost'
+    | 'CEK8sCluster'
+    | 'HttpHelmRepo'
+    | 'NewRelic'
+    | 'Datadog'
+    | 'SumoLogic'
+}
+
+export interface ConnectorValidationResult {
+  delegateId?: string
+  errorSummary?: string
+  errors?: ErrorDetail[]
+  status?: 'SUCCESS' | 'FAILURE' | 'PARTIAL' | 'UNKNOWN'
+  testedAt?: number
 }
 
 export interface ContainerDefinition {
@@ -3131,6 +3605,7 @@ export interface ContainerInfo {
   ecsContainerDetails?: EcsContainerDetails
   hostName?: string
   ip?: string
+  namespace?: string
   newContainer?: boolean
   podName?: string
   releaseName?: string
@@ -3152,6 +3627,7 @@ export interface ContainerTask {
   createdBy?: EmbeddedUser
   deploymentType?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   serviceId?: string
   uuid: string
 }
@@ -3193,7 +3669,9 @@ export interface ContextElement {
     | 'SHELL_SCRIPT_PROVISION'
     | 'K8S'
     | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
     | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
   name?: string
@@ -3246,6 +3724,7 @@ export interface ContinuousVerificationExecutionMetaData {
     | 'EXPIRED'
     | 'PREPARING'
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   manualOverride?: boolean
   noData?: boolean
   phaseId?: string
@@ -3281,6 +3760,7 @@ export interface ContinuousVerificationExecutionMetaData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -3310,7 +3790,6 @@ export interface ContinuousVerificationExecutionMetaData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -3372,6 +3851,11 @@ export interface ContinuousVerificationExecutionMetaData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -3435,16 +3919,14 @@ export interface CurrentActiveInstances {
   workflow?: EntitySummary
 }
 
+export type CustomAppFilter = ApplicationFilter & {
+  apps?: string[]
+}
+
 export type CustomArtifactSourceTemplate = ArtifactSource & {
   customRepositoryMapping?: CustomRepositoryMapping
   script?: string
   timeoutSeconds?: string
-}
-
-export interface CustomCommitAttributes {
-  authorEmail?: string
-  authorName?: string
-  commitMessage?: string
 }
 
 export interface CustomDeploymentTypeDTO {
@@ -3459,6 +3941,10 @@ export type CustomDeploymentTypeTemplate = BaseTemplate & {
     [key: string]: string
   }
   hostObjectArrayPath?: string
+}
+
+export type CustomEnvFilter = EnvironmentFilter & {
+  environments?: string[]
 }
 
 export type CustomInfrastructure = InfraMappingInfrastructureProvider & {
@@ -3502,6 +3988,7 @@ export interface CustomLogSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -3531,7 +4018,6 @@ export interface CustomLogSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -3593,6 +4079,11 @@ export interface CustomLogSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -3637,7 +4128,17 @@ export interface CustomSecretsManagerConfig {
   delegateSelectors?: string[]
   encryptedBy?: string
   encryptionServiceUrl?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   executeOnDelegate?: boolean
   host?: string
   lastUpdatedAt?: number
@@ -3664,6 +4165,12 @@ export interface CustomSecretsManagerShellScript {
   variables?: string[]
 }
 
+export interface CustomSourceConfig {
+  delegateSelectors?: string[]
+  path?: string
+  script?: string
+}
+
 export interface CyberArkConfig {
   accountId?: string
   appId?: string
@@ -3675,7 +4182,17 @@ export interface CyberArkConfig {
   default?: boolean
   encryptedBy?: string
   encryptionServiceUrl?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
   manuallyEnteredSecretEngineMigrationIteration?: number
@@ -3714,10 +4231,10 @@ export interface DashboardSettings {
 
 export interface DataCollectionConnectorBundle {
   connectorDTO?: ConnectorInfoDTO
+  connectorIdentifier?: string
   dataCollectionType?: 'CV' | 'KUBERNETES'
-  params?: {
-    [key: string]: string
-  }
+  dataCollectionWorkerId?: string
+  sourceIdentifier?: string
 }
 
 export interface DataCollectionInfoV2 {
@@ -3741,14 +4258,24 @@ export interface DataCollectionInfoV2 {
 
 export interface DataCollectionRequest {
   baseUrl?: string
-  connectorConfigDTO?: ConnectorConfigDTO
   connectorInfoDTO?: ConnectorInfoDTO
   dsl?: string
-  dslEnvVariables?: {
-    [key: string]: { [key: string]: any }
-  }
   tracingId?: string
-  type?: 'SPLUNK_SAVED_SEARCHES'
+  type?:
+    | 'SPLUNK_SAVED_SEARCHES'
+    | 'STACKDRIVER_DASHBOARD_LIST'
+    | 'STACKDRIVER_DASHBOARD_GET'
+    | 'STACKDRIVER_SAMPLE_DATA'
+    | 'STACKDRIVER_LOG_SAMPLE_DATA'
+    | 'APPDYNAMICS_FETCH_APPS'
+    | 'APPDYNAMICS_FETCH_TIERS'
+    | 'APPDYNAMICS_GET_METRIC_DATA'
+    | 'NEWRELIC_APPS_REQUEST'
+    | 'NEWRELIC_VALIDATION_REQUEST'
+    | 'PROMETHEUS_METRIC_LIST_GET'
+    | 'PROMETHEUS_LABEL_NAMES_GET'
+    | 'PROMETHEUS_LABEL_VALUES_GET'
+    | 'PROMETHEUS_SAMPLE_DATA'
 }
 
 export interface DataDogSetupTestNodeData {
@@ -3801,6 +4328,7 @@ export interface DataDogSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -3830,7 +4358,6 @@ export interface DataDogSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -3892,6 +4419,11 @@ export interface DataDogSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -3922,15 +4454,18 @@ export interface DataPoint {
   totalInvocationCount?: number
 }
 
+export type DatadogConnectorDTO = ConnectorConfigDTO & {
+  apiKeyRef: string
+  applicationKeyRef: string
+  delegateSelectors?: string[]
+  url: string
+}
+
 export interface DayStat {
   date?: number
   failedCount?: number
   instancesCount?: number
   totalCount?: number
-}
-
-export interface DecryptableEntity {
-  [key: string]: any
 }
 
 export interface DefaultSpecification {
@@ -3941,9 +4476,11 @@ export interface DefaultSpecification {
 
 export interface Delegate {
   accountId?: string
+  capabilitiesCheckNextIteration?: number
   ceEnabled?: boolean
   createdAt?: number
   currentlyExecutingDelegateTasks?: string[]
+  delegateGroupId?: string
   delegateGroupName?: string
   delegateName?: string
   delegateProfileId?: string
@@ -3958,6 +4495,8 @@ export interface Delegate {
   keywords?: string[]
   lastHeartBeat?: number
   location?: string
+  ng?: boolean
+  owner?: DelegateEntityOwner
   polllingModeEnabled?: boolean
   profileError?: boolean
   profileExecutedAt?: number
@@ -3965,6 +4504,8 @@ export interface Delegate {
   proxy?: boolean
   sampleDelegate?: boolean
   sequenceNum?: string
+  sessionIdentifier?: string
+  sizeDetails?: DelegateSizeDetails
   status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
   supportedTaskTypes?: string[]
   tags?: string[]
@@ -3976,8 +4517,14 @@ export interface Delegate {
 }
 
 export interface DelegateConfiguration {
+  action?: 'SELF_DESTRUCT'
   delegateVersions?: string[]
-  watcherVersion?: string
+}
+
+export interface DelegateConnectionDetails {
+  lastHeartbeat?: number
+  uuid?: string
+  version?: string
 }
 
 export interface DelegateConnectionHeartbeat {
@@ -3986,21 +4533,19 @@ export interface DelegateConnectionHeartbeat {
   version?: string
 }
 
-export interface DelegateConnectionInner {
-  lastHeartbeat?: number
-  uuid?: string
-  version?: string
-}
-
-export interface DelegateConnectionResult {
+export interface DelegateConnectionResultDetail {
   accountId?: string
   criteria?: string
   delegateId?: string
   duration?: number
-  lastUpdatedAt: number
+  lastUpdatedAt?: number
   uuid?: string
   validUntil?: string
   validated?: boolean
+}
+
+export interface DelegateEntityOwner {
+  identifier?: string
 }
 
 export interface DelegateFile {
@@ -4011,6 +4556,7 @@ export interface DelegateFile {
     | 'ARTIFACTS'
     | 'AUDITS'
     | 'CONFIGS'
+    | 'CUSTOM_MANIFEST'
     | 'LOGS'
     | 'PLATFORMS'
     | 'TERRAFORM_STATE'
@@ -4039,13 +4585,21 @@ export interface DelegateGroupDetails {
   activelyConnected?: boolean
   delegateConfigurationId?: string
   delegateDescription?: string
+  delegateGroupIdentifier?: string
   delegateInsightsDetails?: DelegateInsightsDetails
   delegateInstanceDetails?: DelegateInner[]
   delegateType?: string
+  groupCustomSelectors?: string[]
   groupHostName?: string
   groupId?: string
   groupImplicitSelectors?: {
-    [key: string]: 'PROFILE_NAME' | 'DELEGATE_NAME' | 'HOST_NAME' | 'GROUP_NAME' | 'PROFILE_SELECTORS'
+    [key: string]:
+      | 'PROFILE_NAME'
+      | 'DELEGATE_NAME'
+      | 'HOST_NAME'
+      | 'GROUP_NAME'
+      | 'GROUP_SELECTORS'
+      | 'PROFILE_SELECTORS'
   }
   groupName?: string
   lastHeartBeat?: number
@@ -4061,6 +4615,15 @@ export interface DelegateHeartbeatDetails {
   numberOfRegisteredDelegates?: number
 }
 
+export interface DelegateHeartbeatResponse {
+  delegateId?: string
+  delegateRandomToken?: string
+  jreVersion?: string
+  sequenceNumber?: string
+  status?: string
+  useCdn?: boolean
+}
+
 export interface DelegateInitializationDetails {
   delegateId?: string
   hostname?: string
@@ -4072,7 +4635,7 @@ export interface DelegateInitializationDetails {
 export interface DelegateInner {
   activelyConnected?: boolean
   ceEnabled?: boolean
-  connections?: DelegateConnectionInner[]
+  connections?: DelegateConnectionDetails[]
   delegateGroupName?: string
   delegateName?: string
   delegateProfileId?: string
@@ -4081,7 +4644,13 @@ export interface DelegateInner {
   excludeScopes?: DelegateScope[]
   hostName?: string
   implicitSelectors?: {
-    [key: string]: 'PROFILE_NAME' | 'DELEGATE_NAME' | 'HOST_NAME' | 'GROUP_NAME' | 'PROFILE_SELECTORS'
+    [key: string]:
+      | 'PROFILE_NAME'
+      | 'DELEGATE_NAME'
+      | 'HOST_NAME'
+      | 'GROUP_NAME'
+      | 'GROUP_SELECTORS'
+      | 'PROFILE_SELECTORS'
   }
   includeScopes?: DelegateScope[]
   ip?: string
@@ -4114,11 +4683,13 @@ export interface DelegateParams {
   accountId?: string
   ceEnabled?: boolean
   currentlyExecutingDelegateTasks?: string[]
+  delegateGroupId?: string
   delegateGroupName?: string
   delegateId?: string
   delegateName?: string
   delegateProfileId?: string
   delegateRandomToken?: string
+  delegateSize?: string
   delegateType?: string
   description?: string
   hostName?: string
@@ -4126,10 +4697,13 @@ export interface DelegateParams {
   keepAlivePacket?: boolean
   lastHeartBeat?: number
   location?: string
-  polllingModeEnabled?: boolean
+  orgIdentifier?: string
+  pollingModeEnabled?: boolean
+  projectIdentifier?: string
   proxy?: boolean
   sampleDelegate?: boolean
   sequenceNum?: string
+  sessionIdentifier?: string
   version?: string
 }
 
@@ -4139,9 +4713,12 @@ export interface DelegateProfile {
   createdAt?: number
   createdBy?: EmbeddedUser
   description?: string
+  identifier?: string
   lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
   name?: string
+  ng?: boolean
+  owner?: DelegateEntityOwner
   primary?: boolean
   scopingRules?: DelegateProfileScopingRule[]
   selectors?: string[]
@@ -4152,7 +4729,10 @@ export interface DelegateProfile {
 export interface DelegateProfileDetails {
   accountId?: string
   approvalRequired?: boolean
+  createdBy?: EmbeddedUserDetails
   description?: string
+  identifier?: string
+  lastUpdatedBy?: EmbeddedUserDetails
   name?: string
   primary?: boolean
   scopingRules?: ScopingRuleDetails[]
@@ -4231,6 +4811,7 @@ export interface DelegateScope {
     | 'AZURE_ARTIFACTS'
     | 'AZURE_VMSS'
     | 'AZURE_APP_SERVICE'
+    | 'AZURE_ARM'
     | 'ELK'
     | 'LOGZ'
     | 'SUMO'
@@ -4248,6 +4829,7 @@ export interface DelegateScope {
     | 'LOG'
     | 'CLOUD_FORMATION'
     | 'TERRAFORM'
+    | 'TERRAGRUNT'
     | 'AWS'
     | 'LDAP'
     | 'K8S'
@@ -4270,6 +4852,15 @@ export interface DelegateScope {
     | 'CAPABILITY_VALIDATION'
     | 'JIRA_NG'
     | 'CVNG'
+    | 'NOTIFICATION'
+    | 'HTTP_NG'
+    | 'SHELL_SCRIPT_NG'
+    | 'GIT_NG'
+    | 'BATCH_CAPABILITY_CHECK'
+    | 'CUSTOM_MANIFEST_VALUES_FETCH_TASK'
+    | 'CUSTOM_MANIFEST_FETCH_TASK'
+    | 'TERRAFORM_NG'
+    | 'CE'
   )[]
   uuid: string
   valid?: boolean
@@ -4311,12 +4902,14 @@ export interface DelegateSelectionLogResponse {
 export interface DelegateSetupDetails {
   delegateConfigurationId: string
   description?: string
+  identifier?: string
   k8sConfigDetails?: K8sConfigDetails
   name: string
   orgIdentifier?: string
   projectIdentifier?: string
   sessionIdentifier?: string
   size: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
+  tags?: string[]
 }
 
 export interface DelegateSizeDetails {
@@ -4325,15 +4918,6 @@ export interface DelegateSizeDetails {
   ram?: number
   replicas?: number
   size?: 'EXTRA_SMALL' | 'LAPTOP' | 'SMALL' | 'MEDIUM' | 'LARGE'
-  taskLimit?: number
-}
-
-export interface DelegateSizesResponse {
-  cpu?: number
-  label?: string
-  ram?: number
-  replicas?: number
-  size?: string
   taskLimit?: number
 }
 
@@ -4354,6 +4938,9 @@ export interface DelegateTaskDetails {
   selectedDelegateHostName?: string
   selectedDelegateId?: string
   selectedDelegateName?: string
+  setupAbstractions?: {
+    [key: string]: string
+  }
   taskDescription?: string
   taskType?: string
 }
@@ -4364,9 +4951,15 @@ export interface DelegateTaskEvent {
   sync?: boolean
 }
 
+export interface DelegateTaskEventsResponse {
+  delegateTaskEvents?: DelegateTaskEvent[]
+  processTaskEventsAsync?: boolean
+}
+
 export interface DelegateTaskPackage {
   accountId?: string
   data?: TaskData
+  delegateCallbackToken?: string
   delegateId?: string
   delegateTaskId?: string
   encryptionConfigs?: {
@@ -4387,6 +4980,24 @@ export interface DelegateTaskResponse {
   accountId?: string
   response?: DelegateResponseData
   responseCode?: 'OK' | 'FAILED' | 'RETRY_ON_OTHER_DELEGATE'
+}
+
+export interface DelegateTokenDetails {
+  accountId?: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  name?: string
+  status?: 'ACTIVE' | 'REVOKED'
+  uuid?: string
+  value?: string
+}
+
+export interface DeploymentFreezeInfo {
+  allEnvFrozenApps?: string[]
+  appEnvs?: {
+    [key: string]: string[]
+  }
+  freezeAll?: boolean
 }
 
 export interface DeploymentHistory {
@@ -4443,6 +5054,11 @@ export type DeploymentPreference = Preference & {
   workflowIds?: string[]
 }
 
+export interface DeploymentSlotData {
+  name?: string
+  type?: string
+}
+
 export interface DeploymentStatistics {
   statsMap?: {
     [key: string]: AggregatedDayStats
@@ -4490,17 +5106,22 @@ export interface DockerAuthCredentialsDTO {
 }
 
 export interface DockerAuthenticationDTO {
-  spec: DockerAuthCredentialsDTO
-  type: 'UsernamePassword'
+  spec?: DockerAuthCredentialsDTO
+  type: 'UsernamePassword' | 'Anonymous'
 }
 
 export type DockerConnectorDTO = ConnectorConfigDTO & {
   auth?: DockerAuthenticationDTO
+  delegateSelectors?: string[]
   dockerRegistryUrl: string
+  providerType: 'DockerHub' | 'Harbor' | 'Quay' | 'Other'
 }
 
-// tslint:disable-next-line:no-empty-interface
-export interface DownloadYaml {}
+export type DockerUserNamePasswordDTO = DockerAuthCredentialsDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
+}
 
 export interface Duration {
   nano?: number
@@ -4550,6 +5171,7 @@ export interface DynaTraceSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -4579,7 +5201,6 @@ export interface DynaTraceSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -4641,6 +5262,11 @@ export interface DynaTraceSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -4661,6 +5287,12 @@ export interface DynaTraceSetupTestNodeData {
     | 'CUSTOM_DEPLOYMENT_FETCH_INSTANCES'
   toTime?: number
   workflowId?: string
+}
+
+export type DynatraceConnectorDTO = ConnectorConfigDTO & {
+  apiTokenRef: string
+  delegateSelectors?: string[]
+  url: string
 }
 
 export interface EbsInstanceBlockDevice {
@@ -4706,6 +5338,7 @@ export interface EcsServiceSpecification {
   createdAt?: number
   createdBy?: EmbeddedUser
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   schedulingStrategy?: string
   serviceId: string
   serviceSpecJson?: string
@@ -4815,6 +5448,7 @@ export interface ElkSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -4844,7 +5478,6 @@ export interface ElkSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -4906,6 +5539,11 @@ export interface ElkSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -4931,6 +5569,12 @@ export interface ElkSetupTestNodeData {
 }
 
 export interface EmbeddedUser {
+  email?: string
+  name?: string
+  uuid?: string
+}
+
+export interface EmbeddedUserDetails {
   email?: string
   name?: string
   uuid?: string
@@ -4991,6 +5635,7 @@ export interface EncryptableSetting {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -5005,13 +5650,17 @@ export interface EncryptableSetting {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
 }
 
 export interface EncryptedData {
   accountId?: string
+  additionalMetadata?: AdditionalMetadata
   appIds?: string[]
   backupEncryptedValue?: string[]
   backupEncryptionKey?: string
@@ -5023,7 +5672,9 @@ export interface EncryptedData {
     | 'AZURE_VAULT'
     | 'CYBERARK'
     | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
     | 'CUSTOM'
+    | 'VAULT_SSH'
   backupKmsId?: string
   base64Encoded?: boolean
   changeLog?: number
@@ -5033,7 +5684,17 @@ export interface EncryptedData {
   encryptedBy?: string
   encryptedValue?: string[]
   encryptionKey?: string
-  encryptionType: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   envIds?: string[]
   fileSize?: number
   hideFromListing?: boolean
@@ -5044,7 +5705,9 @@ export interface EncryptedData {
   lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
   name?: string
+  nextAwsKmsToGcpKmsMigrationIteration?: number
   nextAwsToGcpKmsMigrationIteration?: number
+  nextLocalToGcpKmsMigrationIteration?: number
   nextMigrationIteration?: number
   ngMetadata?: NGEncryptedDataMetadata
   parameterizedSecret?: boolean
@@ -5113,6 +5776,7 @@ export interface EncryptedData {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -5127,29 +5791,14 @@ export interface EncryptedData {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
   usageRestrictions?: UsageRestrictions
   uuid: string
-}
-
-export interface EncryptedDataDTO {
-  account?: string
-  description?: string
-  draft?: boolean
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  identifier?: string
-  lastUpdatedAt?: number
-  name?: string
-  org?: string
-  project?: string
-  secretManager?: string
-  secretManagerName?: string
-  tags?: string[]
-  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
-  value?: string
-  valueType?: 'Inline' | 'Reference'
 }
 
 export interface EncryptedDataDetail {
@@ -5220,6 +5869,7 @@ export interface EncryptedDataParent {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -5234,12 +5884,16 @@ export interface EncryptedDataParent {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
 }
 
 export interface EncryptedRecord {
+  additionalMetadata?: AdditionalMetadata
   backupEncryptedValue?: string[]
   backupEncryptionKey?: string
   backupEncryptionType?:
@@ -5250,12 +5904,24 @@ export interface EncryptedRecord {
     | 'AZURE_VAULT'
     | 'CYBERARK'
     | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
     | 'CUSTOM'
+    | 'VAULT_SSH'
   backupKmsId?: string
   base64Encoded?: boolean
   encryptedValue?: string[]
   encryptionKey?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   kmsId?: string
   name?: string
   parameters?: EncryptedDataParams[]
@@ -5264,6 +5930,7 @@ export interface EncryptedRecord {
 }
 
 export interface EncryptedRecordData {
+  additionalMetadata?: AdditionalMetadata
   backupEncryptedValue?: string[]
   backupEncryptionKey?: string
   backupEncryptionType?:
@@ -5274,12 +5941,24 @@ export interface EncryptedRecordData {
     | 'AZURE_VAULT'
     | 'CYBERARK'
     | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
     | 'CUSTOM'
+    | 'VAULT_SSH'
   backupKmsId?: string
   base64Encoded?: boolean
   encryptedValue?: string[]
   encryptionKey?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   kmsId?: string
   name?: string
   parameters?: EncryptedDataParams[]
@@ -5291,11 +5970,21 @@ export interface EncryptionConfig {
   accountId?: string
   default?: boolean
   encryptionServiceUrl?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   globalKms?: boolean
   name?: string
   numOfEncryptedValue?: number
-  type?: 'KMS' | 'VAULT' | 'CUSTOM'
+  type?: 'KMS' | 'VAULT' | 'CUSTOM' | 'SSH'
   uuid?: string
   validationCriteria?: string
 }
@@ -5432,8 +6121,11 @@ export interface EntityVersion {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   entityUuid?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   uuid: string
   version?: number
 }
@@ -5533,8 +6225,11 @@ export interface EntityVersionCollection {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   entityUuid?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   uuid: string
   version?: number
 }
@@ -5570,12 +6265,17 @@ export interface Environment {
   infrastructureDefinitions?: InfrastructureDefinition[]
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   sample?: boolean
   serviceTemplates?: ServiceTemplate[]
   setup?: Setup
   tagLinks?: HarnessTagLink[]
   uuid: string
+}
+
+export interface EnvironmentFilter {
+  filterType?: 'ALL_PROD' | 'ALL_NON_PROD' | 'ALL' | 'CUSTOM'
 }
 
 export interface EnvironmentRole {
@@ -5592,6 +6292,7 @@ export interface EnvironmentRole {
       | 'EXECUTE'
       | 'EXECUTE_WORKFLOW'
       | 'EXECUTE_PIPELINE'
+      | 'EXECUTE_WORKFLOW_ROLLBACK'
       | 'DEFAULT'
   }
 }
@@ -5601,6 +6302,12 @@ export interface EnvironmentSummary {
   name?: string
   prod?: boolean
   type?: string
+}
+
+export interface ErrorDetail {
+  code?: number
+  message?: string
+  reason?: string
 }
 
 export interface ExecutionArgs {
@@ -5661,6 +6368,7 @@ export interface ExecutionCapability {
     | 'SFTP'
     | 'PCF_AUTO_SCALAR'
     | 'PCF_CONNECTIVITY'
+    | 'PCF_INSTALL'
     | 'POWERSHELL'
     | 'HELM_COMMAND'
     | 'CLUSTER_MASTER_URL'
@@ -5670,6 +6378,10 @@ export interface ExecutionCapability {
     | 'SMB'
     | 'SELECTORS'
     | 'GIT_CONNECTION_NG'
+    | 'GIT_INSTALLATION'
+    | 'LITE_ENGINE'
+  maxValidityPeriod?: Duration
+  periodUntilNextValidation?: Duration
 }
 
 export interface ExecutionCredential {
@@ -5701,6 +6413,7 @@ export interface ExecutionInterrupt {
     | 'RESUME_ALL'
     | 'RETRY'
     | 'IGNORE'
+    | 'WAITING_FOR_MANUAL_INTERVENTION'
     | 'MARK_FAILED'
     | 'MARK_SUCCESS'
     | 'ROLLBACK'
@@ -5760,6 +6473,7 @@ export interface ExpAnalysisInfo {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -5789,7 +6503,6 @@ export interface ExpAnalysisInfo {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -5851,6 +6564,11 @@ export interface ExpAnalysisInfo {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -5963,6 +6681,7 @@ export interface ExperimentalMetricRecord {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -5992,7 +6711,6 @@ export interface ExperimentalMetricRecord {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -6054,6 +6772,11 @@ export interface ExperimentalMetricRecord {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -6103,6 +6826,26 @@ export interface FailureCriteria {
 }
 
 export interface FailureStrategy {
+  actionAfterTimeout?:
+    | 'ABORT'
+    | 'ABORT_ALL'
+    | 'PAUSE'
+    | 'PAUSE_FOR_INPUTS'
+    | 'PAUSE_ALL'
+    | 'RESUME'
+    | 'RESUME_ALL'
+    | 'RETRY'
+    | 'IGNORE'
+    | 'WAITING_FOR_MANUAL_INTERVENTION'
+    | 'MARK_FAILED'
+    | 'MARK_SUCCESS'
+    | 'ROLLBACK'
+    | 'NEXT_STEP'
+    | 'END_EXECUTION'
+    | 'ROLLBACK_DONE'
+    | 'MARK_EXPIRED'
+    | 'CONTINUE_WITH_DEFAULTS'
+    | 'CONTINUE_PIPELINE_STAGE'
   executionScope?: 'WORKFLOW' | 'WORKFLOW_PHASE'
   failureCriteria?: FailureCriteria
   failureTypes: (
@@ -6113,7 +6856,9 @@ export interface FailureStrategy {
     | 'VERIFICATION_FAILURE'
     | 'APPLICATION_ERROR'
     | 'AUTHORIZATION_ERROR'
+    | 'TIMEOUT_ERROR'
   )[]
+  manualInterventionTimeout?: number
   repairActionCode?:
     | 'MANUAL_INTERVENTION'
     | 'ROLLBACK_WORKFLOW'
@@ -6158,6 +6903,7 @@ export interface FeaturesUsageComplianceReport {
 }
 
 export interface FileOperationStatus {
+  entityId?: string
   errorMssg?: string
   status?: 'FAILED' | 'SUCCESS' | 'SKIPPED'
   yamlFilePath?: string
@@ -6195,12 +6941,23 @@ export interface GcpBillingAccount {
   uuid?: string
 }
 
+export interface GcpBillingExportSpec {
+  datasetId: string
+}
+
+export type GcpCloudCostConnector = ConnectorConfigDTO & {
+  billingExportSpec?: GcpBillingExportSpec
+  featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
+  projectId: string
+}
+
 export type GcpConnector = ConnectorConfigDTO & {
   credential?: GcpConnectorCredential
+  delegateSelectors?: string[]
 }
 
 export interface GcpConnectorCredential {
-  spec: GcpCredentialSpec
+  spec?: GcpCredentialSpec
   type: 'InheritFromDelegate' | 'ManualConfig'
 }
 
@@ -6208,25 +6965,10 @@ export interface GcpCredentialSpec {
   [key: string]: any
 }
 
-export type GcpKmsConfigDTO = SecretManagerConfigDTO & {
-  credentials?: string[]
-  keyName?: string
-  keyRing?: string
-  projectId?: string
-  region?: string
-}
-
-export type GcpKmsConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
-  credentials?: string[]
-  keyName?: string
-  keyRing?: string
-  projectId?: string
-  region?: string
-}
-
 export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
-  credentials?: string[]
+  credentials: string
   default?: boolean
+  delegateSelectors?: string[]
   keyName?: string
   keyRing?: string
   projectId?: string
@@ -6234,6 +6976,10 @@ export type GcpKmsConnectorDTO = ConnectorConfigDTO & {
 }
 
 export type GcpKubernetesCluster = Cluster & {}
+
+export type GcpManualDetails = GcpCredentialSpec & {
+  secretKeyRef: string
+}
 
 export interface GcpOrganization {
   accountId?: string
@@ -6263,10 +7009,11 @@ export interface GitAuthenticationDTO {
 export type GitConfigDTO = ConnectorConfigDTO & {
   branchName?: string
   connectionType: 'Account' | 'Repo'
-  gitSync?: GitSyncConfig
+  delegateSelectors?: string[]
   spec: GitAuthenticationDTO
   type: 'Http' | 'Ssh'
   url: string
+  validationRepo?: string
 }
 
 export interface GitDetail {
@@ -6360,6 +7107,8 @@ export interface GitDetail {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   gitCommitId?: string
   gitConnectorId?: string
   repositoryInfo?: GitRepositoryInfo
@@ -6372,7 +7121,7 @@ export interface GitFileActivity {
   appId?: string
   branchName?: string
   changeFromAnotherCommit?: boolean
-  changeType?: 'ADD' | 'RENAME' | 'MODIFY' | 'DELETE'
+  changeType?: 'ADD' | 'RENAME' | 'MODIFY' | 'DELETE' | 'NONE'
   commitId?: string
   commitMessage?: string
   connectorName?: string
@@ -6432,6 +7181,12 @@ export interface GitFileProcessingSummary {
   totalCount?: number
 }
 
+export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
+}
+
 export interface GitProcessingError {
   accountId?: string
   branchName?: string
@@ -6449,10 +7204,8 @@ export interface GitRepositoryInfo {
   url?: string
 }
 
-export interface GitSyncConfig {
-  customCommitAttributes?: CustomCommitAttributes
-  enabled?: boolean
-  syncEnabled?: boolean
+export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
+  sshKeyRef: string
 }
 
 export interface GitSyncError {
@@ -6472,6 +7225,7 @@ export interface GitSyncError {
   gitSyncDirection?: string
   lastAttemptedYaml?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   nextIteration?: number
   repositoryInfo?: GitRepositoryInfo
   repositoryName?: string
@@ -6494,6 +7248,7 @@ export interface GitSyncWebhook {
   createdBy?: EmbeddedUser
   entityId?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   uuid: string
   webhookToken?: string
 }
@@ -6511,6 +7266,128 @@ export interface GitToHarnessErrorCommitStats {
   repositoryName?: string
 }
 
+export interface GithubApiAccess {
+  spec?: GithubApiAccessSpecDTO
+  type: 'GithubApp' | 'Token'
+}
+
+export interface GithubApiAccessSpecDTO {
+  [key: string]: any
+}
+
+export type GithubAppSpec = GithubApiAccessSpecDTO & {
+  applicationId: string
+  installationId: string
+  privateKeyRef: string
+}
+
+export interface GithubAuthentication {
+  spec: GithubCredentialsDTO
+  type: 'Http' | 'Ssh'
+}
+
+export type GithubConnector = ConnectorConfigDTO & {
+  apiAccess?: GithubApiAccess
+  authentication: GithubAuthentication
+  delegateSelectors?: string[]
+  type: 'Account' | 'Repo'
+  url: string
+  validationRepo?: string
+}
+
+export interface GithubCredentialsDTO {
+  [key: string]: any
+}
+
+export type GithubHttpCredentials = GithubCredentialsDTO & {
+  spec: GithubHttpCredentialsSpecDTO
+  type: 'UsernamePassword' | 'UsernameToken'
+}
+
+export interface GithubHttpCredentialsSpecDTO {
+  [key: string]: any
+}
+
+export type GithubSshCredentials = GithubCredentialsDTO & {
+  sshKeyRef: string
+}
+
+export type GithubTokenSpec = GithubApiAccessSpecDTO & {
+  tokenRef: string
+}
+
+export type GithubUsernamePassword = GithubHttpCredentialsSpecDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
+}
+
+export type GithubUsernameToken = GithubHttpCredentialsSpecDTO & {
+  tokenRef: string
+  username?: string
+  usernameRef?: string
+}
+
+export interface GitlabApiAccess {
+  spec?: GitlabApiAccessSpecDTO
+  type: 'Token'
+}
+
+export interface GitlabApiAccessSpecDTO {
+  [key: string]: any
+}
+
+export interface GitlabAuthentication {
+  spec: GitlabCredentialsDTO
+  type: 'Http' | 'Ssh'
+}
+
+export type GitlabConnector = ConnectorConfigDTO & {
+  apiAccess?: GitlabApiAccess
+  authentication: GitlabAuthentication
+  delegateSelectors?: string[]
+  type: 'Account' | 'Repo'
+  url: string
+  validationRepo?: string
+}
+
+export interface GitlabCredentialsDTO {
+  [key: string]: any
+}
+
+export type GitlabHttpCredentials = GitlabCredentialsDTO & {
+  spec: GitlabHttpCredentialsSpecDTO
+  type: 'UsernamePassword' | 'UsernameToken' | 'Kerberos'
+}
+
+export interface GitlabHttpCredentialsSpecDTO {
+  [key: string]: any
+}
+
+export type GitlabKerberos = GitlabHttpCredentialsSpecDTO & {
+  kerberosKeyRef: string
+}
+
+export type GitlabSshCredentials = GitlabCredentialsDTO & {
+  sshKeyRef: string
+}
+
+export type GitlabTokenSpec = GitlabApiAccessSpecDTO & {
+  tokenRef: string
+}
+
+export type GitlabUsernamePassword = GitlabHttpCredentialsSpecDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
+}
+
+export type GitlabUsernameToken = GitlabHttpCredentialsSpecDTO & {
+  tokenRef: string
+  username?: string
+  usernameRef?: string
+}
+
 export type GoogleKubernetesEngine = InfraMappingInfrastructureProvider & {
   clusterName?: string
   expressions?: {
@@ -6522,8 +7399,13 @@ export type GoogleKubernetesEngine = InfraMappingInfrastructureProvider & {
 
 export interface GovernanceConfig {
   accountId?: string
+  appId: string
   deploymentFreeze?: boolean
+  enableNextCloseIterations?: boolean
+  enableNextIterations?: boolean
   lastUpdatedBy?: EmbeddedUser
+  nextCloseIterations?: number[]
+  nextIterations?: number[]
   timeRangeBasedFreezeConfigs?: TimeRangeBasedFreezeConfig[]
   uuid?: string
   weeklyFreezeConfigs?: WeeklyFreezeConfig[]
@@ -6658,6 +7540,12 @@ export type HarnessImportedTemplateDetails = ImportedTemplateDetails & {
   tags?: string[]
 }
 
+export interface HarnessSupportUserDTO {
+  emailId?: string
+  id?: string
+  name?: string
+}
+
 export interface HarnessTag {
   accountId?: string
   allowedValues?: string[]
@@ -6770,12 +7658,35 @@ export interface HarnessTagLink {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   key?: string
   lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
   tagType?: 'USER' | 'HARNESS'
   uuid?: string
   value?: string
+}
+
+export interface HarnessUserGroup {
+  accountIds?: string[]
+  appId: string
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  description?: string
+  groupType?: 'DEFAULT' | 'RESTRICTED'
+  lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  memberIds?: string[]
+  name?: string
+  uuid: string
+}
+
+export interface HarnessUserGroupDTO {
+  accountIds?: string[]
+  description?: string
+  emailIds?: string[]
+  name?: string
 }
 
 export interface HeatMap {
@@ -6848,8 +7759,15 @@ export interface HelmChartSpecification {
   createdAt?: number
   createdBy?: EmbeddedUser
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   serviceId?: string
   uuid: string
+}
+
+export interface HelmCommandFlagConfig {
+  valueMap: {
+    [key: string]: string
+  }
 }
 
 export interface HelmExecutionSummary {
@@ -6884,6 +7802,7 @@ export interface Host {
   infraDefinitionId?: string
   infraMappingId?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   properties?: {
     [key: string]: { [key: string]: any }
   }
@@ -6932,7 +7851,9 @@ export interface HostElement {
     | 'SHELL_SCRIPT_PROVISION'
     | 'K8S'
     | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
     | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
   hostName?: string
@@ -6945,6 +7866,7 @@ export interface HostElement {
   }
   publicDns?: string
   uuid?: string
+  webAppInstance?: AzureAppDeploymentData
 }
 
 export interface HostInstanceKey {
@@ -6969,14 +7891,44 @@ export interface HostValidationResponse {
   status?: string
 }
 
+export interface HttpHelmAuthCredentialsDTO {
+  [key: string]: any
+}
+
+export interface HttpHelmAuthenticationDTO {
+  spec?: HttpHelmAuthCredentialsDTO
+  type: 'UsernamePassword' | 'Anonymous'
+}
+
+export type HttpHelmConnectorDTO = ConnectorConfigDTO & {
+  auth?: HttpHelmAuthenticationDTO
+  delegateSelectors?: string[]
+  helmRepoUrl: string
+}
+
+export type HttpHelmUsernamePasswordDTO = HttpHelmAuthCredentialsDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
+}
+
 export type HttpTemplate = BaseTemplate & {
   assertion?: string
   body?: string
   executeWithPreviousSteps?: boolean
   header?: string
+  headers?: KeyValuePair[]
   method?: string
   timeoutMillis?: number
   url?: string
+}
+
+export interface Id {
+  envId?: string
+  infraMappingId?: string
+  lastArtifactBuildNum?: string
+  lastWorkflowExecutionId?: string
+  serviceId?: string
 }
 
 export interface IamInstanceProfile {
@@ -7030,6 +7982,7 @@ export interface ImmutablePairResourceTypeAction {
     | 'K8S_LABEL'
     | 'K8S_EVENT_YAML_DIFF'
     | 'K8S_RECOMMENDATION'
+    | 'CE_ANOMALIES'
     | 'CE_CLUSTER'
     | 'CE_CONNECTOR'
     | 'CE_BATCH'
@@ -7067,6 +8020,7 @@ export interface ImmutablePairResourceTypeAction {
     | 'K8S_LABEL'
     | 'K8S_EVENT_YAML_DIFF'
     | 'K8S_RECOMMENDATION'
+    | 'CE_ANOMALIES'
     | 'CE_CLUSTER'
     | 'CE_CONNECTOR'
     | 'CE_BATCH'
@@ -7080,6 +8034,7 @@ export interface ImmutablePairResourceTypeAction {
     | 'EXECUTE'
     | 'EXECUTE_WORKFLOW'
     | 'EXECUTE_PIPELINE'
+    | 'EXECUTE_WORKFLOW_ROLLBACK'
     | 'DEFAULT'
   value?:
     | 'ALL'
@@ -7090,6 +8045,7 @@ export interface ImmutablePairResourceTypeAction {
     | 'EXECUTE'
     | 'EXECUTE_WORKFLOW'
     | 'EXECUTE_PIPELINE'
+    | 'EXECUTE_WORKFLOW_ROLLBACK'
     | 'DEFAULT'
 }
 
@@ -7239,6 +8195,7 @@ export interface InfrastructureMapping {
   infraMappingType?: string
   infrastructureDefinitionId?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   provisionerId?: string
   sample?: boolean
@@ -7297,6 +8254,7 @@ export interface InfrastructureMapping {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -7311,9 +8269,12 @@ export interface InfrastructureMapping {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
   uuid: string
 }
 
@@ -7351,6 +8312,7 @@ export interface InfrastructureProvisioner {
   description?: string
   infrastructureProvisionerType?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   mappingBlueprints?: InfrastructureMappingBlueprint[]
   name?: string
   tagLinks?: HarnessTagLink[]
@@ -7359,6 +8321,7 @@ export interface InfrastructureProvisioner {
 }
 
 export interface InfrastructureProvisionerDetails {
+  azureARMResourceType?: 'ARM' | 'BLUEPRINT'
   cloudFormationSourceType?: string
   description?: string
   infrastructureProvisionerType?: string
@@ -7369,14 +8332,6 @@ export interface InfrastructureProvisionerDetails {
   }
   tagLinks?: HarnessTagLink[]
   uuid?: string
-}
-
-export interface InitializationResponse {
-  delegateId?: string
-  hostname?: string
-  initialized?: boolean
-  profileError?: boolean
-  profileExecutedAt?: string
 }
 
 export interface InstanaApplicationParams {
@@ -7424,6 +8379,7 @@ export interface InstanaSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -7453,7 +8409,6 @@ export interface InstanaSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -7515,6 +8470,11 @@ export interface InstanaSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -7602,8 +8562,9 @@ export interface InstanceBlockDeviceMapping {
 export interface InstanceDetails {
   aws?: Aws
   azureVmss?: AzureVmss
+  azureWebapp?: AzureWebapp
   hostName?: string
-  instanceType?: 'PCF' | 'AWS' | 'K8s' | 'PHYSICAL_HOST' | 'AZURE_VMSS'
+  instanceType?: 'PCF' | 'AWS' | 'K8s' | 'PHYSICAL_HOST' | 'AZURE_VMSS' | 'AZURE_WEBAPP'
   k8s?: K8s
   newInstance?: boolean
   pcf?: Pcf
@@ -7658,12 +8619,15 @@ export interface InstanceElement {
     | 'SHELL_SCRIPT_PROVISION'
     | 'K8S'
     | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
     | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
   host?: HostElement
   hostName?: string
   name?: string
+  namespace?: string
   newInstance?: boolean
   podName?: string
   serviceTemplateElement?: ServiceTemplateElement
@@ -7692,13 +8656,17 @@ export interface InstanceExecutionHistory {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
     | 'TOKEN_ALREADY_REFRESHED_ONCE'
     | 'ACCESS_DENIED'
+    | 'NG_ACCESS_DENIED'
     | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
     | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
     | 'INVALID_KEYPATH'
     | 'INVALID_VARIABLE'
     | 'UNKNOWN_HOST'
@@ -7706,6 +8674,7 @@ export interface InstanceExecutionHistory {
     | 'INVALID_PORT'
     | 'SSH_SESSION_TIMEOUT'
     | 'SOCKET_CONNECTION_ERROR'
+    | 'CONNECTION_ERROR'
     | 'SOCKET_CONNECTION_TIMEOUT'
     | 'CONNECTION_TIMEOUT'
     | 'SSH_CONNECTION_ERROR'
@@ -7730,6 +8699,10 @@ export interface InstanceExecutionHistory {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
+    | 'FILTER_CREATION_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'PLAN_CREATION_ERROR'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -7746,6 +8719,7 @@ export interface InstanceExecutionHistory {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -7786,7 +8760,13 @@ export interface InstanceExecutionHistory {
     | 'AWS_ACCESS_DENIED'
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
+    | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
+    | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -7800,6 +8780,7 @@ export interface InstanceExecutionHistory {
     | 'ARTIFACT_SERVER_ERROR'
     | 'ENCRYPT_DECRYPT_ERROR'
     | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
     | 'KMS_OPERATION_ERROR'
     | 'GCP_KMS_OPERATION_ERROR'
     | 'VAULT_OPERATION_ERROR'
@@ -7837,6 +8818,7 @@ export interface InstanceExecutionHistory {
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'FILE_NOT_FOUND_ERROR'
     | 'USAGE_LIMITS_EXCEEDED'
     | 'EVENT_PUBLISH_FAILED'
     | 'JIRA_ERROR'
@@ -7846,6 +8828,7 @@ export interface InstanceExecutionHistory {
     | 'INCORRECT_SIGN_IN_MECHANISM'
     | 'OAUTH_LOGIN_FAILED'
     | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'TERRAFORM_EXECUTION_ERROR'
     | 'FILE_READ_FAILED'
     | 'FILE_SIZE_EXCEEDS_LIMIT'
     | 'CLUSTER_NOT_FOUND'
@@ -7867,6 +8850,7 @@ export interface InstanceExecutionHistory {
     | 'INVALID_AZURE_VAULT_CONFIGURATION'
     | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
     | 'INVALID_ROLLBACK'
+    | 'DATA_COLLECTION_ERROR'
     | 'SUMO_DATA_COLLECTION_ERROR'
     | 'DEPLOYMENT_GOVERNANCE_ERROR'
     | 'BATCH_PROCESSING_ERROR'
@@ -7888,6 +8872,7 @@ export interface InstanceExecutionHistory {
     | 'SHELL_EXECUTION_EXCEPTION'
     | 'TEMPLATE_NOT_FOUND'
     | 'AZURE_SERVICE_EXCEPTION'
+    | 'AZURE_CLIENT_EXCEPTION'
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
     | 'TIMEOUT_ENGINE_EXCEPTION'
     | 'NO_AVAILABLE_DELEGATES'
@@ -7897,7 +8882,48 @@ export interface InstanceExecutionHistory {
     | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
     | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
     | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
+    | 'NG_PIPELINE_CREATE_EXCEPTION'
     | 'RESOURCE_NOT_FOUND_EXCEPTION'
+    | 'PMS_INITIALIZE_SDK_EXCEPTION'
+    | 'UNEXPECTED_SNIPPET_EXCEPTION'
+    | 'UNEXPECTED_SCHEMA_EXCEPTION'
+    | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
+    | 'GCP_SECRET_OPERATION_ERROR'
+    | 'GIT_OPERATION_ERROR'
+    | 'TASK_FAILURE_ERROR'
+    | 'INSTANCE_STATS_PROCESS_ERROR'
+    | 'INSTANCE_STATS_MIGRATION_ERROR'
+    | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'INSTANCE_STATS_AGGREGATION_ERROR'
+    | 'UNRESOLVED_EXPRESSIONS_ERROR'
+    | 'KRYO_HANDLER_NOT_FOUND_ERROR'
+    | 'DELEGATE_ERROR_HANDLER_EXCEPTION'
+    | 'UNEXPECTED_TYPE_ERROR'
+    | 'EXCEPTION_HANDLER_NOT_FOUND'
+    | 'CONNECTOR_NOT_FOUND_EXCEPTION'
+    | 'GCP_SERVER_ERROR'
+    | 'HTTP_RESPONSE_EXCEPTION'
+    | 'SCM_NOT_FOUND_ERROR'
+    | 'SCM_CONFLICT_ERROR'
+    | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
+    | 'SCM_UNAUTHORIZED'
+    | 'DATA'
+    | 'CONTEXT'
+    | 'PR_CREATION_ERROR'
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   executionInterruptType?:
     | 'ABORT'
     | 'ABORT_ALL'
@@ -7908,6 +8934,7 @@ export interface InstanceExecutionHistory {
     | 'RESUME_ALL'
     | 'RETRY'
     | 'IGNORE'
+    | 'WAITING_FOR_MANUAL_INTERVENTION'
     | 'MARK_FAILED'
     | 'MARK_SUCCESS'
     | 'ROLLBACK'
@@ -8082,6 +9109,7 @@ export interface InvocationCount {
 export interface JiraConfig {
   accountId?: string
   baseUrl?: string
+  certValidationRequired?: boolean
   encryptedPassword?: string
   password?: string[]
   settingType?:
@@ -8137,6 +9165,7 @@ export interface JiraConfig {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -8151,17 +9180,22 @@ export interface JiraConfig {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
   type?: string
   username?: string
 }
 
 export type JiraConnector = ConnectorConfigDTO & {
+  delegateSelectors?: string[]
   jiraUrl: string
   passwordRef: string
   username?: string
+  usernameRef?: string
 }
 
 export interface JiraCustomFieldValue {
@@ -8194,6 +9228,7 @@ export interface JiraTaskParameters {
     | 'GET_STATUSES'
     | 'GET_CREATE_METADATA'
     | 'FETCH_ISSUE'
+    | 'FETCH_ISSUE_DATA'
     | 'CHECK_APPROVAL'
   jiraConfig?: JiraConfig
   labels?: string[]
@@ -8255,14 +9290,43 @@ export interface K8sConfigDetails {
   namespace?: string
 }
 
+export interface K8sEventCollectionBundle {
+  cloudProviderId?: string
+  clusterId?: string
+  clusterName?: string
+  connectorIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface KeyValuePair {
+  key?: string
+  value?: string
+}
+
 export interface KmsConfig {
   accessKey?: string
   accountId?: string
+  assumeIamRoleOnDelegate?: boolean
+  assumeStsRoleDuration?: number
+  assumeStsRoleOnDelegate?: boolean
   createdAt?: number
   createdBy?: EmbeddedUser
   default?: boolean
+  delegateSelectors?: string[]
   encryptedBy?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
+  externalName?: string
   kmsArn?: string
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
@@ -8271,6 +9335,7 @@ export interface KmsConfig {
   nextTokenRenewIteration?: number
   numOfEncryptedValue?: number
   region?: string
+  roleArn?: string
   scopedToAccount?: boolean
   secretKey?: string
   templatized?: boolean
@@ -8279,21 +9344,35 @@ export interface KmsConfig {
   uuid: string
 }
 
-export interface KubDelegateYaml {
-  delegateConfigurationId?: string
-  description?: string
-  identifier?: string
-  name?: string
-  sessionIdentifier?: string
-  size?: string
+export interface KubernetesAuthCredentialDTO {
+  [key: string]: any
+}
+
+export interface KubernetesAuthDTO {
+  spec: KubernetesAuthCredentialDTO
+  type: 'UsernamePassword' | 'ClientKeyCert' | 'ServiceAccount' | 'OpenIdConnect'
+}
+
+export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
+  caCertRef?: string
+  clientCertRef: string
+  clientKeyAlgo?: string
+  clientKeyPassphraseRef?: string
+  clientKeyRef: string
 }
 
 export type KubernetesClusterConfigDTO = ConnectorConfigDTO & {
-  credential?: KubernetesCredentialDTO
+  credential: KubernetesCredentialDTO
+  delegateSelectors?: string[]
+}
+
+export type KubernetesClusterDetailsDTO = KubernetesCredentialSpecDTO & {
+  auth: KubernetesAuthDTO
+  masterUrl: string
 }
 
 export interface KubernetesCredentialDTO {
-  spec: KubernetesCredentialSpecDTO
+  spec?: KubernetesCredentialSpecDTO
   type: 'InheritFromDelegate' | 'ManualConfig'
 }
 
@@ -8301,8 +9380,28 @@ export interface KubernetesCredentialSpecDTO {
   [key: string]: any
 }
 
+export type KubernetesOpenIdConnectDTO = KubernetesAuthCredentialDTO & {
+  oidcClientIdRef: string
+  oidcIssuerUrl?: string
+  oidcPasswordRef: string
+  oidcScopes?: string
+  oidcSecretRef?: string
+  oidcUsername?: string
+  oidcUsernameRef?: string
+}
+
 export interface KubernetesPayload {
   advancedConfig?: string
+}
+
+export type KubernetesServiceAccountDTO = KubernetesAuthCredentialDTO & {
+  serviceAccountTokenRef: string
+}
+
+export type KubernetesUserNamePasswordDTO = KubernetesAuthCredentialDTO & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
 }
 
 export interface KustomizeConfig {
@@ -8335,6 +9434,7 @@ export interface LambdaSpecification {
   defaults?: DefaultSpecification
   functions?: FunctionSpecification[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   serviceId?: string
   uuid: string
 }
@@ -8410,6 +9510,8 @@ export interface LdapSettings {
   groupSettings?: LdapGroupSettings
   groupSettingsList?: LdapGroupSettings[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  nextIteration?: number
   type: 'SAML' | 'LDAP' | 'OAUTH'
   url?: string
   userSettings?: LdapUserSettings
@@ -8466,8 +9568,6 @@ export interface ListInfraDefinitionParams {
   serviceIds?: string[]
 }
 
-export type LocalConfigDTO = SecretManagerConfigDTO & {}
-
 export type LocalConnectorDTO = ConnectorConfigDTO & {
   default?: boolean
 }
@@ -8520,6 +9620,7 @@ export interface LogDataRecord {
   cvConfigId?: string
   host?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   logCollectionMinute?: number
   logMD5Hash?: string
   logMessage?: string
@@ -8549,6 +9650,7 @@ export interface LogDataRecord {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -8578,7 +9680,6 @@ export interface LogDataRecord {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -8640,6 +9741,11 @@ export interface LogDataRecord {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -8709,6 +9815,7 @@ export interface LogMLAnalysisSummary {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -8738,7 +9845,6 @@ export interface LogMLAnalysisSummary {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -8800,6 +9906,11 @@ export interface LogMLAnalysisSummary {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -8883,6 +9994,7 @@ export interface LogMLFeedbackRecord {
   envId?: string
   jiraLink?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   logMD5Hash?: string
   logMLFeedbackType?:
     | 'IGNORE_SERVICE'
@@ -8922,6 +10034,7 @@ export interface LogMLFeedbackRecord {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -8951,7 +10064,6 @@ export interface LogMLFeedbackRecord {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -9013,6 +10125,11 @@ export interface LogMLFeedbackRecord {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -9082,6 +10199,7 @@ export interface LoginTypeRequest {
 
 export interface LoginTypeResponse {
   authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
+  defaultExperience?: 'NG' | 'CG'
   oauthEnabled?: boolean
   showCaptcha?: boolean
   ssorequest?: SSORequest
@@ -9113,6 +10231,7 @@ export interface LogsCVConfiguration {
   envName?: string
   is247LogsV2?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name: string
   numOfOccurrencesForAlert?: number
   query?: string
@@ -9143,6 +10262,7 @@ export interface LogsCVConfiguration {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -9172,7 +10292,6 @@ export interface LogsCVConfiguration {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -9234,6 +10353,11 @@ export interface LogsCVConfiguration {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -9260,21 +10384,6 @@ export interface LoopParams {
   [key: string]: any
 }
 
-export interface ManifestCollectionExecutionResponse {
-  appId?: string
-  appManifestId?: string
-  commandExecutionStatus?: 'SUCCESS' | 'FAILURE' | 'RUNNING' | 'QUEUED' | 'SKIPPED'
-  delegateMetaInfo?: DelegateMetaInfo
-  errorMessage?: string
-  manifestCollectionResponse?: ManifestCollectionResponse
-}
-
-export interface ManifestCollectionResponse {
-  helmCharts?: HelmChart[]
-  stable?: boolean
-  toBeDeletedKeys?: string[]
-}
-
 export interface ManifestFile {
   accountId?: string
   appId: string
@@ -9284,11 +10393,13 @@ export interface ManifestFile {
   fileContent?: string
   fileName?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   uuid: string
 }
 
 export interface ManifestSelection {
   appManifestId?: string
+  appManifestName?: string
   pipelineId?: string
   pipelineName?: string
   serviceId?: string
@@ -9300,6 +10411,7 @@ export interface ManifestSelection {
 }
 
 export interface ManifestSummary {
+  appManifestName?: string
   name?: string
   source?: string
   uuid?: string
@@ -9308,6 +10420,7 @@ export interface ManifestSummary {
 
 export type ManifestTriggerCondition = TriggerCondition & {
   appManifestId?: string
+  appManifestName?: string
   serviceId?: string
   serviceName?: string
   versionRegex?: string
@@ -9317,7 +10430,7 @@ export interface ManifestVariable {
   allowMultipleValues?: boolean
   allowedList?: string[]
   allowedValues?: string
-  applicationManifestSummary?: ApplicationManifestSummary
+  applicationManifestSummary?: ApplicationManifestSummary[]
   artifactStreamSummaries?: ArtifactStreamSummary[]
   description?: string
   fixed?: boolean
@@ -9365,28 +10478,22 @@ export interface MetricCollectionInfo {
   tag?: string
 }
 
-export interface MetricDefinitionDTO {
-  included?: boolean
-  name?: string
-  path?: string
-  thresholds?: TimeSeriesThresholdDTO[]
-  type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
-  validationPath?: string
-}
-
-export interface MetricPackDTO {
-  accountId?: string
-  category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
-  identifier?: string
-  metrics?: MetricDefinitionDTO[]
-  projectIdentifier?: string
-  thresholds?: TimeSeriesThresholdDTO[]
-}
-
 export interface MetricsServerCheck {
   isInstalled?: boolean
   message?: string
+}
+
+export interface ModuleLicenseDTO {
+  accountIdentifier?: string
+  createdAt?: number
+  edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
+  expiryTime?: number
+  id?: string
+  lastModifiedAt?: number
+  licenseType?: 'TRIAL' | 'PAID'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  startTime?: number
+  status?: 'ACTIVE' | 'DELETED' | 'EXPIRED'
 }
 
 export interface Monitoring {
@@ -9407,18 +10514,6 @@ export type MultiServiceOrchestrationWorkflow = OrchestrationWorkflow & {
   workflowPhases?: WorkflowPhase[]
 }
 
-export interface NGAccess {
-  accountIdentifier?: string
-  identifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface NGAccessWithEncryptionConsumer {
-  decryptableEntity?: DecryptableEntity
-  ngAccess?: NGAccess
-}
-
 export interface NGEncryptedDataMetadata {
   accountIdentifier?: string
   description?: string
@@ -9433,11 +10528,18 @@ export interface NGEncryptedDataMetadata {
 
 export interface NGSecretManagerMetadata {
   accountIdentifier?: string
+  deleted?: boolean
   description?: string
+  harnessManaged?: boolean
   identifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  tags?: string[]
+  tags?: NGTag[]
+}
+
+export interface NGTag {
+  key: string
+  value: string
 }
 
 export interface NameValuePair {
@@ -9457,6 +10559,13 @@ export interface NewRelicApplicationInstance {
   host?: string
   id?: number
   port?: number
+}
+
+export type NewRelicConnectorDTO = ConnectorConfigDTO & {
+  apiKeyRef: string
+  delegateSelectors?: string[]
+  newRelicAccountId: string
+  url: string
 }
 
 export interface NewRelicMetric {
@@ -9483,6 +10592,7 @@ export interface NewRelicMetricAnalysisRecord {
   dependencyPath?: string
   groupName?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   message?: string
   metricAnalyses?: NewRelicMetricAnalysis[]
   mlAnalysisType?: 'COMPARATIVE' | 'PREDICTIVE' | 'TIMESERIES_24x7'
@@ -9513,6 +10623,7 @@ export interface NewRelicMetricAnalysisRecord {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -9542,7 +10653,6 @@ export interface NewRelicMetricAnalysisRecord {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -9604,6 +10714,11 @@ export interface NewRelicMetricAnalysisRecord {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -9683,6 +10798,7 @@ export interface NewRelicSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -9712,7 +10828,6 @@ export interface NewRelicSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -9774,6 +10889,11 @@ export interface NewRelicSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -9801,14 +10921,21 @@ export interface NexusAuthCredentials {
 }
 
 export interface NexusAuthentication {
-  spec: NexusAuthCredentials
-  type: 'UsernamePassword'
+  spec?: NexusAuthCredentials
+  type: 'UsernamePassword' | 'Anonymous'
 }
 
 export type NexusConnector = ConnectorConfigDTO & {
   auth?: NexusAuthentication
+  delegateSelectors?: string[]
   nexusServerUrl: string
   version: string
+}
+
+export type NexusUsernamePasswordAuth = NexusAuthCredentials & {
+  passwordRef: string
+  username?: string
+  usernameRef?: string
 }
 
 export interface Notification {
@@ -9905,6 +11032,8 @@ export interface Notification {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   environmentId?: string
   eventType?:
     | 'USER_INVITED_FROM_EXISTING_ACCOUNT'
@@ -9943,6 +11072,7 @@ export interface Notification {
     | 'SECRET_MANAGER_TYPE'
     | 'USER_INVITE_ACCEPTED_FOR_TRIAL_ACCOUNT'
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   notificationTemplateId?: string
   notificationTemplateVariables?: {
     [key: string]: string
@@ -9962,6 +11092,7 @@ export interface NotificationGroup {
   defaultNotificationGroupForAccount?: boolean
   editable?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name: string
   roles?: Role[]
   uuid: string
@@ -10014,10 +11145,6 @@ export interface NotificationSettings {
   useIndividualEmails?: boolean
 }
 
-export interface Number {
-  [key: string]: any
-}
-
 export interface OauthSettings {
   accountId?: string
   allowedProviders?: ('AZURE' | 'BITBUCKET' | 'GITHUB' | 'GITLAB' | 'GOOGLE' | 'LINKEDIN')[]
@@ -10027,6 +11154,8 @@ export interface OauthSettings {
   displayName?: string
   filter?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  nextIteration?: number
   type: 'SAML' | 'LDAP' | 'OAUTH'
   url?: string
   uuid: string
@@ -10146,6 +11275,8 @@ export interface OrchestrationWorkflow {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   )[]
   serviceIds?: string[]
   userVariables?: Variable[]
@@ -10162,6 +11293,13 @@ export interface Pcf {
 export interface PhysicalHost {
   instanceId?: string
   publicDns?: string
+}
+
+export interface Pair {
+  key?: { [key: string]: any }
+  left?: { [key: string]: any }
+  right?: { [key: string]: any }
+  value?: { [key: string]: any }
 }
 
 export interface PairDelegateInsightsTypeLong {
@@ -10253,7 +11391,9 @@ export interface PcfInstanceElement {
     | 'SHELL_SCRIPT_PROVISION'
     | 'K8S'
     | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
     | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
   instanceIndex?: string
@@ -10273,6 +11413,7 @@ export interface PcfServiceSpecification {
   createdAt?: number
   createdBy?: EmbeddedUser
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   manifestYaml: string
   serviceId: string
   uuid: string
@@ -10289,6 +11430,7 @@ export interface Permission {
     | 'EXECUTE'
     | 'EXECUTE_WORKFLOW'
     | 'EXECUTE_PIPELINE'
+    | 'EXECUTE_WORKFLOW_ROLLBACK'
     | 'DEFAULT'
   appId?: string
   envId?: string
@@ -10325,6 +11467,7 @@ export interface Permission {
     | 'MANAGE_CONFIG_AS_CODE'
     | 'MANAGE_SECRETS'
     | 'MANAGE_SECRET_MANAGERS'
+    | 'MANAGE_SSH_AND_WINRM'
     | 'MANAGE_AUTHENTICATION_SETTINGS'
     | 'MANAGE_USER_AND_USER_GROUPS_AND_API_KEYS'
     | 'VIEW_USER_AND_USER_GROUPS_AND_API_KEYS'
@@ -10336,6 +11479,7 @@ export interface Permission {
     | 'MANAGE_TAGS'
     | 'MANAGE_CUSTOM_DASHBOARDS'
     | 'CREATE_CUSTOM_DASHBOARDS'
+    | 'MANAGE_RESTRICTED_ACCESS'
   resourceType?:
     | 'APPLICATION'
     | 'SERVICE'
@@ -10369,10 +11513,52 @@ export interface Permission {
     | 'K8S_LABEL'
     | 'K8S_EVENT_YAML_DIFF'
     | 'K8S_RECOMMENDATION'
+    | 'CE_ANOMALIES'
     | 'CE_CLUSTER'
     | 'CE_CONNECTOR'
     | 'CE_BATCH'
     | 'LINKED_ACCOUNT'
+}
+
+export interface PerpetualTaskClientContext {
+  clientId?: string
+  clientParams?: {
+    [key: string]: string
+  }
+  executionBundle?: string[]
+  lastContextUpdated?: number
+}
+
+export interface PerpetualTaskRecord {
+  accountId?: string
+  assignerIterations?: number[]
+  clientContext?: PerpetualTaskClientContext
+  createdAt?: number
+  delegateId?: string
+  intervalSeconds?: number
+  lastHeartbeat?: number
+  lastUpdatedAt?: number
+  perpetualTaskType?: string
+  rebalanceIteration?: number
+  state?:
+    | 'TASK_UNASSIGNED'
+    | 'TASK_TO_REBALANCE'
+    | 'TASK_PAUSED'
+    | 'TASK_ASSIGNED'
+    | 'NO_DELEGATE_INSTALLED'
+    | 'NO_DELEGATE_AVAILABLE'
+    | 'NO_ELIGIBLE_DELEGATES'
+    | 'TASK_RUN_SUCCEEDED'
+    | 'TASK_RUN_FAILED'
+  taskDescription?: string
+  timeoutMillis?: number
+  unassignedReason?: 'NO_DELEGATE_INSTALLED' | 'NO_DELEGATE_AVAILABLE' | 'NO_ELIGIBLE_DELEGATES'
+  uuid?: string
+}
+
+export type PerspectiveBudgetScope = BudgetScope & {
+  viewId?: string
+  viewName?: string
 }
 
 export interface PhaseStep {
@@ -10429,9 +11615,8 @@ export interface PhaseStep {
     | 'AZURE_VMSS_SWITCH_ROLLBACK'
     | 'CUSTOM_DEPLOYMENT_PHASE_STEP'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
-    | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
+    | 'AZURE_WEBAPP_SLOT_TRAFFIC_SHIFT'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
   rollback?: boolean
   statusForRollback?:
@@ -10513,6 +11698,7 @@ export interface Pipeline {
   infraMappingIds?: string[]
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name: string
   pipelineStages?: PipelineStage[]
   pipelineVariables?: Variable[]
@@ -10591,6 +11777,13 @@ export interface PipelineReportCard {
   ruleStatuses?: GovernanceRuleStatus[]
 }
 
+export interface PipelineRule {
+  allEvents?: boolean
+  allPipelines?: boolean
+  events?: string[]
+  pipelineIds?: string[]
+}
+
 export interface PipelineStage {
   looped?: boolean
   loopedVarName?: string
@@ -10620,13 +11813,16 @@ export interface PipelineStageElement {
 }
 
 export interface PipelineStageExecution {
+  disableAssertionInspection?: StateInspection
   endTs?: number
   estimatedTime?: number
   expiryTs?: number
   looped?: boolean
   message?: string
+  needsInputButNotReceivedYet?: boolean
   parallelInfo?: ParallelInfo
   pipelineStageElementId?: string
+  skipCondition?: string
   startTs?: number
   stateExecutionData?: StateExecutionData
   stateName?: string
@@ -10700,6 +11896,7 @@ export interface Preference {
   createdAt?: number
   createdBy?: EmbeddedUser
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   preferenceType?: string
   userId?: string
@@ -10715,6 +11912,11 @@ export interface ProfileScopingRulesDetails {
   profileId?: string
   profileName?: string
   scopingRulesDescriptions?: string[]
+}
+
+export type PrometheusConnectorDTO = ConnectorConfigDTO & {
+  delegateSelectors?: string[]
+  url: string
 }
 
 export interface PrometheusSetupTestNodeData {
@@ -10750,6 +11952,7 @@ export interface PrometheusSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -10779,7 +11982,6 @@ export interface PrometheusSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -10841,6 +12043,11 @@ export interface PrometheusSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -10872,71 +12079,6 @@ export interface ProvisionStep {
 export interface PublicUser {
   inviteAccepted?: boolean
   user?: User
-}
-
-export interface QLBillingDataFilter {
-  alertTime?: QLTimeFilter
-  application?: QLIdFilter
-  cloudProvider?: QLIdFilter
-  cloudServiceName?: QLIdFilter
-  cluster?: QLIdFilter
-  endTime?: QLTimeFilter
-  envType?: QLCEEnvironmentTypeFilter
-  environment?: QLIdFilter
-  instanceName?: QLIdFilter
-  instanceType?: QLIdFilter
-  label?: QLBillingDataLabelFilter
-  labelSearch?: QLIdFilter
-  launchType?: QLIdFilter
-  namespace?: QLIdFilter
-  nodeInstanceId?: QLIdFilter
-  parentInstanceId?: QLIdFilter
-  podInstanceId?: QLIdFilter
-  service?: QLIdFilter
-  startTime?: QLTimeFilter
-  tag?: QLBillingDataTagFilter
-  tagSearch?: QLIdFilter
-  taskId?: QLIdFilter
-  workloadName?: QLIdFilter
-}
-
-export interface QLBillingDataLabelFilter {
-  labels?: QLK8sLabelInput[]
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  values?: { [key: string]: any }[]
-}
-
-export interface QLBillingDataTagFilter {
-  entityType?: 'APPLICATION' | 'SERVICE' | 'ENVIRONMENT'
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  tags?: QLTagInput[]
-  values?: { [key: string]: any }[]
-}
-
-export interface QLCEEnvironmentTypeFilter {
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  values?: { [key: string]: any }[]
-}
-
-export interface QLIdFilter {
-  operator?: 'EQUALS' | 'IN' | 'NOT_NULL' | 'NOT_IN' | 'LIKE'
-  values?: string[]
-}
-
-export interface QLK8sLabelInput {
-  name?: string
-  values?: string[]
-}
-
-export interface QLTagInput {
-  name?: string
-  value?: string
-}
-
-export interface QLTimeFilter {
-  operator?: 'EQUALS' | 'BEFORE' | 'AFTER'
-  value?: Number
-  values?: Number[]
 }
 
 export interface RateLimit {
@@ -11049,6 +12191,8 @@ export interface RequiredExecutionArgs {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   )[]
 }
 
@@ -11058,12 +12202,12 @@ export interface ResendInvitationEmailRequest {
 
 export interface ResetPasswordRequest {
   email?: string
+  isNG?: boolean
 }
 
 export interface ResourceConstraint {
   accountId?: string
   capacity?: number
-  claimant?: string
   createdAt?: number
   createdBy?: EmbeddedUser
   harnessOwned?: boolean
@@ -11089,6 +12233,20 @@ export interface ResourceLookup {
   resourceType?: string
   tags?: NameValuePair[]
   uuid: string
+}
+
+export interface Response {
+  correlationId?: string
+  data?: { [key: string]: any }
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseBoolean {
+  correlationId?: string
+  data?: boolean
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
 export interface ResponseMapping {
@@ -11120,13 +12278,17 @@ export interface ResponseMessage {
     | 'EMAIL_NOT_VERIFIED'
     | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
     | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
     | 'INVALID_CAPTCHA_TOKEN'
     | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
     | 'EXPIRED_TOKEN'
     | 'TOKEN_ALREADY_REFRESHED_ONCE'
     | 'ACCESS_DENIED'
+    | 'NG_ACCESS_DENIED'
     | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
     | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
     | 'INVALID_KEYPATH'
     | 'INVALID_VARIABLE'
     | 'UNKNOWN_HOST'
@@ -11134,6 +12296,7 @@ export interface ResponseMessage {
     | 'INVALID_PORT'
     | 'SSH_SESSION_TIMEOUT'
     | 'SOCKET_CONNECTION_ERROR'
+    | 'CONNECTION_ERROR'
     | 'SOCKET_CONNECTION_TIMEOUT'
     | 'CONNECTION_TIMEOUT'
     | 'SSH_CONNECTION_ERROR'
@@ -11158,6 +12321,10 @@ export interface ResponseMessage {
     | 'PLATFORM_SOFTWARE_DELETE_ERROR'
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
+    | 'FILTER_CREATION_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'PLAN_CREATION_ERROR'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -11174,6 +12341,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -11214,7 +12382,13 @@ export interface ResponseMessage {
     | 'AWS_ACCESS_DENIED'
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
+    | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
+    | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -11228,6 +12402,7 @@ export interface ResponseMessage {
     | 'ARTIFACT_SERVER_ERROR'
     | 'ENCRYPT_DECRYPT_ERROR'
     | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
     | 'KMS_OPERATION_ERROR'
     | 'GCP_KMS_OPERATION_ERROR'
     | 'VAULT_OPERATION_ERROR'
@@ -11265,6 +12440,7 @@ export interface ResponseMessage {
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'FILE_NOT_FOUND_ERROR'
     | 'USAGE_LIMITS_EXCEEDED'
     | 'EVENT_PUBLISH_FAILED'
     | 'JIRA_ERROR'
@@ -11274,6 +12450,7 @@ export interface ResponseMessage {
     | 'INCORRECT_SIGN_IN_MECHANISM'
     | 'OAUTH_LOGIN_FAILED'
     | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'TERRAFORM_EXECUTION_ERROR'
     | 'FILE_READ_FAILED'
     | 'FILE_SIZE_EXCEEDS_LIMIT'
     | 'CLUSTER_NOT_FOUND'
@@ -11295,6 +12472,7 @@ export interface ResponseMessage {
     | 'INVALID_AZURE_VAULT_CONFIGURATION'
     | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
     | 'INVALID_ROLLBACK'
+    | 'DATA_COLLECTION_ERROR'
     | 'SUMO_DATA_COLLECTION_ERROR'
     | 'DEPLOYMENT_GOVERNANCE_ERROR'
     | 'BATCH_PROCESSING_ERROR'
@@ -11316,6 +12494,7 @@ export interface ResponseMessage {
     | 'SHELL_EXECUTION_EXCEPTION'
     | 'TEMPLATE_NOT_FOUND'
     | 'AZURE_SERVICE_EXCEPTION'
+    | 'AZURE_CLIENT_EXCEPTION'
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
     | 'TIMEOUT_ENGINE_EXCEPTION'
     | 'NO_AVAILABLE_DELEGATES'
@@ -11325,26 +12504,75 @@ export interface ResponseMessage {
     | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
     | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
     | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
+    | 'NG_PIPELINE_CREATE_EXCEPTION'
     | 'RESOURCE_NOT_FOUND_EXCEPTION'
+    | 'PMS_INITIALIZE_SDK_EXCEPTION'
+    | 'UNEXPECTED_SNIPPET_EXCEPTION'
+    | 'UNEXPECTED_SCHEMA_EXCEPTION'
+    | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
+    | 'GCP_SECRET_OPERATION_ERROR'
+    | 'GIT_OPERATION_ERROR'
+    | 'TASK_FAILURE_ERROR'
+    | 'INSTANCE_STATS_PROCESS_ERROR'
+    | 'INSTANCE_STATS_MIGRATION_ERROR'
+    | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'INSTANCE_STATS_AGGREGATION_ERROR'
+    | 'UNRESOLVED_EXPRESSIONS_ERROR'
+    | 'KRYO_HANDLER_NOT_FOUND_ERROR'
+    | 'DELEGATE_ERROR_HANDLER_EXCEPTION'
+    | 'UNEXPECTED_TYPE_ERROR'
+    | 'EXCEPTION_HANDLER_NOT_FOUND'
+    | 'CONNECTOR_NOT_FOUND_EXCEPTION'
+    | 'GCP_SERVER_ERROR'
+    | 'HTTP_RESPONSE_EXCEPTION'
+    | 'SCM_NOT_FOUND_ERROR'
+    | 'SCM_CONFLICT_ERROR'
+    | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
+    | 'SCM_UNAUTHORIZED'
+    | 'DATA'
+    | 'CONTEXT'
+    | 'PR_CREATION_ERROR'
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   exception?: Throwable
+  failureTypes?: (
+    | 'EXPIRED'
+    | 'DELEGATE_PROVISIONING'
+    | 'CONNECTIVITY'
+    | 'AUTHENTICATION'
+    | 'VERIFICATION_FAILURE'
+    | 'APPLICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
+    | 'TIMEOUT_ERROR'
+  )[]
   level?: 'INFO' | 'ERROR'
   message?: string
 }
 
-export interface RestDelegateSizeResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DelegateSizesResponse[]
-  responseMessages?: ResponseMessage[]
+export interface ResponsePerpetualTaskRecord {
+  correlationId?: string
+  data?: PerpetualTaskRecord
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
-export interface RestInitializationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: InitializationResponse[]
-  responseMessages?: ResponseMessage[]
+export interface ResponseString {
+  correlationId?: string
+  data?: string
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
 export interface RestResponse {
@@ -11352,6 +12580,14 @@ export interface RestResponse {
     [key: string]: { [key: string]: any }
   }
   resource?: { [key: string]: any }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccessRequestDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccessRequestDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -11368,6 +12604,22 @@ export interface RestResponseAccount {
     [key: string]: { [key: string]: any }
   }
   resource?: Account
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccountDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccountDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseAccountLicenseDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccountLicenseDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -11555,6 +12807,22 @@ export interface RestResponseCVConfiguration {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseCVNGPerpetualTaskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CVNGPerpetualTaskDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseCgEventConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CgEventConfig
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseClusterRecord {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -11699,6 +12967,14 @@ export interface RestResponseDelegateHeartbeatDetails {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseDelegateHeartbeatResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateHeartbeatResponse
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseDelegateProfile {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -11771,6 +13047,22 @@ export interface RestResponseDelegateStatus {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseDelegateTokenDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateTokenDetails
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseDeploymentFreezeInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentFreezeInfo
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseDeploymentMetadata {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -11803,19 +13095,19 @@ export interface RestResponseDirectoryNode {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseDouble {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: number
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseEcsServiceSpecification {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: EcsServiceSpecification
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseEncryptedDataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EncryptedDataDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -11864,6 +13156,14 @@ export interface RestResponseExportExecutionsRequestSummary {
     [key: string]: { [key: string]: any }
   }
   resource?: ExportExecutionsRequestSummary
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseFeatureFlag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: FeatureFlag
   responseMessages?: ResponseMessage[]
 }
 
@@ -11942,6 +13242,14 @@ export interface RestResponseHarnessTag {
     [key: string]: { [key: string]: any }
   }
   resource?: HarnessTag
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseHarnessUserGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HarnessUserGroup
   responseMessages?: ResponseMessage[]
 }
 
@@ -12052,6 +13360,8 @@ export interface RestResponseInviteOperationResponse {
     | 'USER_ALREADY_ADDED'
     | 'USER_ALREADY_INVITED'
     | 'FAIL'
+    | 'INVITE_EXPIRED'
+    | 'INVITE_INVALID'
   responseMessages?: ResponseMessage[]
 }
 
@@ -12062,16 +13372,6 @@ export interface RestResponseJobDetails {
   resource?: JobDetails
   responseMessages?: ResponseMessage[]
 }
-
-export interface RestResponseKubDelegateYaml {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: KubDelegateYaml
-  responseMessages?: ResponseMessage[]
-}
-
-export type RestResponseKubDownload = string
 
 export interface RestResponseLambdaSpecification {
   metaData?: {
@@ -12123,6 +13423,14 @@ export interface RestResponseLinkedHashMapLongLinkedHashMapStringLinkedHashMapSt
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListAccessRequestDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AccessRequestDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListAccount {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -12152,14 +13460,6 @@ export interface RestResponseListAlertType {
     [key: string]: { [key: string]: any }
   }
   resource?: AlertType[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListAppDynamicsApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppDynamicsApplication[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -12395,6 +13695,14 @@ export interface RestResponseListCVFeedbackRecord {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListCgEventConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CgEventConfig[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListChangeSetDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -12435,14 +13743,6 @@ export interface RestResponseListCommandUnitDetails {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListConfigFile {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ConfigFile[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListCustomDeploymentTypeDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -12475,6 +13775,22 @@ export interface RestResponseListDelegateSizeDetails {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListDelegateTokenDetails {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DelegateTokenDetails[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListDeploymentSlotData {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentSlotData[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListDynaTraceApplication {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -12488,14 +13804,6 @@ export interface RestResponseListElastiGroup {
     [key: string]: { [key: string]: any }
   }
   resource?: ElastiGroup[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListEncryptedDataDetail {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EncryptedDataDetail[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -12589,6 +13897,8 @@ export interface RestResponseListEntityType {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   )[]
   responseMessages?: ResponseMessage[]
 }
@@ -12617,6 +13927,14 @@ export interface RestResponseListFailureStrategy {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListFeatureFlag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: FeatureFlag[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListGcpBillingAccount {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -12638,6 +13956,22 @@ export interface RestResponseListGitSyncError {
     [key: string]: { [key: string]: any }
   }
   resource?: GitSyncError[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListHarnessSupportUserDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HarnessSupportUserDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListHarnessUserGroup {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: HarnessUserGroup[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -12700,6 +14034,8 @@ export interface RestResponseListInviteOperationResponse {
     | 'USER_ALREADY_ADDED'
     | 'USER_ALREADY_INVITED'
     | 'FAIL'
+    | 'INVITE_EXPIRED'
+    | 'INVITE_INVALID'
   )[]
   responseMessages?: ResponseMessage[]
 }
@@ -12873,14 +14209,6 @@ export interface RestResponseListSecretManagerConfig {
     [key: string]: { [key: string]: any }
   }
   resource?: SecretManagerConfig[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListSecretManagerConfigDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerConfigDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -13110,6 +14438,7 @@ export interface RestResponseMapDeploymentTypeListSettingVariableTypes {
       | 'SECRET_TEXT'
       | 'YAML_GIT_SYNC'
       | 'VAULT'
+      | 'VAULT_SSH'
       | 'AWS_SECRETS_MANAGER'
       | 'CYBERARK'
       | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -13124,9 +14453,12 @@ export interface RestResponseMapDeploymentTypeListSettingVariableTypes {
       | 'CUSTOM'
       | 'CE_AWS'
       | 'CE_GCP'
+      | 'CE_AZURE'
       | 'AZURE_VAULT'
       | 'KUBERNETES_CLUSTER_NG'
       | 'GIT_NG'
+      | 'GCP_SECRETS_MANAGER'
+      | 'TRIGGER'
     )[]
   }
   responseMessages?: ResponseMessage[]
@@ -13204,6 +14536,16 @@ export interface RestResponseMapStringListCVFeedbackRecord {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseMapStringListHelmChart {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: HelmChart[]
+  }
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseMapStringListString {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -13258,6 +14600,14 @@ export interface RestResponseMapStringString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseModuleLicenseDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ModuleLicenseDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseNewRelicApplication {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -13303,14 +14653,6 @@ export interface RestResponseObject {
     [key: string]: { [key: string]: any }
   }
   resource?: { [key: string]: any }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseOptionalUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: User
   responseMessages?: ResponseMessage[]
 }
 
@@ -13402,6 +14744,14 @@ export interface RestResponsePageResponseCVEnabledService {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponsePageResponseCompareEnvironmentAggregationInfo {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CompareEnvironmentAggregationInfo[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponsePageResponseConfigFile {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -13471,14 +14821,6 @@ export interface RestResponsePageResponseEncryptedData {
     [key: string]: { [key: string]: any }
   }
   resource?: EncryptedData[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseEncryptedDataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EncryptedDataDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -13559,14 +14901,6 @@ export interface RestResponsePageResponseHarnessTagLink {
     [key: string]: { [key: string]: any }
   }
   resource?: HarnessTagLink[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponsePageResponseHelmChart {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: HelmChart[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -13802,14 +15136,6 @@ export interface RestResponsePageResponseTrigger {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponsePageResponseUser {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: User[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponsePageResponseUserDataSpecification {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -13970,22 +15296,6 @@ export interface RestResponseSecretManagerConfig {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseSecretManagerConfigDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerConfigDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseSecretManagerMetadataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SecretManagerMetadataDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseServerInfo {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -14066,14 +15376,6 @@ export interface RestResponseServiceVariable {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseSetAppDynamicsTier {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppDynamicsTier[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseSetAppdynamicsTier {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -14082,19 +15384,31 @@ export interface RestResponseSetAppdynamicsTier {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseSetAppdynamicsValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppdynamicsValidationResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseSetBugsnagApplication {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: BugsnagApplication[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetHelmSubCommand {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: (
+    | 'INSTALL'
+    | 'UPGRADE'
+    | 'ROLLBACK'
+    | 'HISTORY'
+    | 'DELETE'
+    | 'UNINSTALL'
+    | 'LIST'
+    | 'VERSION'
+    | 'PULL'
+    | 'FETCH'
+    | 'TEMPLATE'
+  )[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -14143,6 +15457,14 @@ export interface RestResponseSettingAttribute {
     [key: string]: { [key: string]: any }
   }
   resource?: SettingAttribute
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSmtpConfigResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SmtpConfigResponse
   responseMessages?: ResponseMessage[]
 }
 
@@ -14514,14 +15836,6 @@ export interface RestResponseZendeskSsoLoginResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestVerificationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationResponse
-  responseMessages?: ResponseMessage[]
-}
-
 export interface Restriction {
   appIds?: string[]
   tags?: Tag[]
@@ -14544,6 +15858,7 @@ export interface Role {
   createdBy?: EmbeddedUser
   description?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   permissions?: Permission[]
   roleType?: 'ACCOUNT_ADMIN' | 'APPLICATION_ADMIN' | 'PROD_SUPPORT' | 'NON_PROD_SUPPORT' | 'CUSTOM'
@@ -14607,6 +15922,49 @@ export interface RuntimeInputsConfig {
   userGroupIds?: string[]
 }
 
+export interface SSHVaultConfig {
+  accountId?: string
+  appRoleId?: string
+  authToken?: string
+  certValidationRequired?: boolean
+  createdAt?: number
+  createdBy?: EmbeddedUser
+  default?: boolean
+  delegateSelectors?: string[]
+  encryptedBy?: string
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
+  engineManuallyEntered?: boolean
+  lastUpdatedAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  manuallyEnteredSecretEngineMigrationIteration?: number
+  name?: string
+  namespace?: string
+  nextTokenRenewIteration?: number
+  numOfEncryptedValue?: number
+  renewalInterval?: number
+  renewedAt?: number
+  scopedToAccount?: boolean
+  secretEngineName?: string
+  secretId?: string
+  sinkPath?: string
+  templatized?: boolean
+  templatizedFields?: string[]
+  usageRestrictions?: UsageRestrictions
+  useVaultAgent?: boolean
+  uuid: string
+  vaultUrl?: string
+}
+
 export interface SSOConfig {
   accountId?: string
   authenticationMechanism?: 'USER_PASSWORD' | 'SAML' | 'LDAP' | 'OAUTH'
@@ -14626,6 +15984,8 @@ export interface SSOSettings {
   createdBy?: EmbeddedUser
   displayName?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
+  nextIteration?: number
   type: 'SAML' | 'LDAP' | 'OAUTH'
   url?: string
   uuid: string
@@ -14790,6 +16150,8 @@ export interface SearchResult {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
 }
 
 export interface SearchResults {
@@ -14830,7 +16192,17 @@ export interface SecretManagerConfig {
   default?: boolean
   encryptedBy?: string
   encryptionServiceUrl?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
   manuallyEnteredSecretEngineMigrationIteration?: number
@@ -14844,46 +16216,6 @@ export interface SecretManagerConfig {
   usageRestrictions?: UsageRestrictions
   uuid: string
   validationCriteria?: string
-}
-
-export interface SecretManagerConfigDTO {
-  accountIdentifier?: string
-  default?: boolean
-  description?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  identifier?: string
-  name?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  tags?: string[]
-}
-
-export interface SecretManagerConfigUpdateDTO {
-  default?: boolean
-  description?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  tags?: string[]
-}
-
-export interface SecretManagerMetadataDTO {
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  spec?: SecretManagerMetadataSpecDTO
-}
-
-export interface SecretManagerMetadataRequestDTO {
-  encryptionType: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  identifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  spec: SecretManagerMetadataRequestSpecDTO
-}
-
-export interface SecretManagerMetadataRequestSpecDTO {
-  [key: string]: any
-}
-
-export interface SecretManagerMetadataSpecDTO {
-  [key: string]: any
 }
 
 export interface SecretSetupUsage {
@@ -14943,6 +16275,7 @@ export interface SecretSetupUsage {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -14957,12 +16290,16 @@ export interface SecretSetupUsage {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
 }
 
 export interface SecretText {
+  additionalMetadata?: AdditionalMetadata
   hideFromListing?: boolean
   inheritScopesFromSM?: boolean
   inlineSecret?: boolean
@@ -14980,30 +16317,6 @@ export interface SecretText {
   value?: string
 }
 
-export interface SecretTextDTO {
-  account?: string
-  description?: string
-  identifier?: string
-  name?: string
-  org?: string
-  project?: string
-  secretManager?: string
-  tags?: string[]
-  type: 'SecretFile' | 'SecretText' | 'SSHKey'
-  value?: string
-  valueType: 'Inline' | 'Reference'
-}
-
-export interface SecretTextUpdateDTO {
-  description?: string
-  draft?: boolean
-  name: string
-  path?: string
-  tags?: string[]
-  value: string
-  valueType: 'Inline' | 'Reference'
-}
-
 export interface SecretUniqueIdentifier {
   kmsId?: string
 }
@@ -15018,6 +16331,7 @@ export interface SecretUsageLog {
   envId?: string
   lastUpdatedAt: number
   lastUpdatedBy?: EmbeddedUser
+  pipelineExecution?: boolean
   uuid: string
   validUntil?: string
   workflowExecutionId?: string
@@ -15080,6 +16394,7 @@ export interface Service {
   accountId?: string
   appContainer?: AppContainer
   appId: string
+  artifactFromManifest?: boolean
   artifactStreamBindings?: ArtifactStreamBinding[]
   artifactStreamIds?: string[]
   artifactStreams?: ArtifactStream[]
@@ -15088,6 +16403,7 @@ export interface Service {
     | 'WAR'
     | 'TAR'
     | 'ZIP'
+    | 'NUGET'
     | 'DOCKER'
     | 'RPM'
     | 'AWS_LAMBDA'
@@ -15100,6 +16416,7 @@ export interface Service {
     | 'OTHER'
     | 'IIS_APP'
     | 'IIS_VirtualDirectory'
+  cfCliVersion?: 'V6' | 'V7'
   configFiles?: ConfigFile[]
   configMapYaml?: string
   createdAt?: number
@@ -15128,15 +16445,22 @@ export interface Service {
   lastDeploymentActivity?: Activity
   lastProdDeploymentActivity?: Activity
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   pcfV2?: boolean
   sample?: boolean
   serviceCommands?: ServiceCommand[]
+  serviceId?: string
   serviceVariables?: ServiceVariable[]
   setup?: Setup
   tagLinks?: HarnessTagLink[]
   uuid: string
   version?: number
+}
+
+export interface ServiceAccountConfig {
+  apiKeyLimit?: number
+  tokenLimit?: number
 }
 
 export interface ServiceCommand {
@@ -15151,6 +16475,7 @@ export interface ServiceCommand {
   }
   importedTemplateDetails?: ImportedTemplateDetails
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   serviceId?: string
   targetToAllEnv?: boolean
@@ -15198,7 +16523,9 @@ export interface ServiceElement {
     | 'SHELL_SCRIPT_PROVISION'
     | 'K8S'
     | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
     | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
   name?: string
@@ -15213,6 +16540,16 @@ export interface ServiceGuardTimeSeries {
   timeSeriesSet?: TransactionTimeSeries[]
   totalRecords?: number
   transactionsInAnalysis?: string[]
+}
+
+export interface ServiceInfoSummary {
+  envId?: string
+  infraMappingId?: string
+  infraMappingName?: string
+  lastArtifactBuildNum?: string
+  lastWorkflowExecutionId?: string
+  lastWorkflowExecutionName?: string
+  serviceName?: string
 }
 
 export interface ServiceInfraWorkflow {
@@ -15286,6 +16623,7 @@ export interface ServiceInstance {
     | 'PREPARING'
   lastDeployedOn?: number
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   publicDns?: string
   serviceId?: string
   serviceName?: string
@@ -15317,8 +16655,12 @@ export interface ServiceSummary {
 export interface ServiceTemplate {
   accountId?: string
   appId: string
+  appSettingOverrideManifest?: ApplicationManifest
+  appSettingsOverrideManifestFile?: ManifestFile
   configFilesOverrides?: ConfigFile[]
   configMapYamlOverride?: string
+  connStringsOverrideManifest?: ApplicationManifest
+  connStringsOverrideManifestFile?: ManifestFile
   createdAt?: number
   createdBy?: EmbeddedUser
   defaultServiceTemplate?: boolean
@@ -15328,6 +16670,7 @@ export interface ServiceTemplate {
   helmValueYamlOverride?: string
   infrastructureMappings?: InfrastructureMapping[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   ocParamsOverrideAppManifest?: ApplicationManifest
   ocParamsOverrideFile?: ManifestFile
@@ -15336,6 +16679,7 @@ export interface ServiceTemplate {
     | 'WAR'
     | 'TAR'
     | 'ZIP'
+    | 'NUGET'
     | 'DOCKER'
     | 'RPM'
     | 'AWS_LAMBDA'
@@ -15394,7 +16738,9 @@ export interface ServiceTemplateElement {
     | 'SHELL_SCRIPT_PROVISION'
     | 'K8S'
     | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
     | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
   name?: string
@@ -15411,7 +16757,17 @@ export interface ServiceVariable {
   createdBy?: EmbeddedUser
   encryptedBy?: string
   encryptedValue?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   entityId?: string
   entityType:
     | 'SERVICE'
@@ -15499,10 +16855,13 @@ export interface ServiceVariable {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   envId?: string
   expression?: string
   instances?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   overriddenServiceVariable?: ServiceVariable
   overrideType?: 'ALL' | 'INSTANCES' | 'CUSTOM'
@@ -15562,6 +16921,7 @@ export interface ServiceVariable {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -15576,9 +16936,12 @@ export interface ServiceVariable {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
   templateId?: string
   type?: 'TEXT' | 'LB' | 'ENCRYPTED_TEXT' | 'ARTIFACT'
   uuid: string
@@ -15596,7 +16959,17 @@ export interface SettingAttribute {
   createdAt?: number
   createdBy?: EmbeddedUser
   encryptedBy?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   envId?: string
   lastUpdatedAt: number
   name?: string
@@ -15611,6 +16984,7 @@ export interface SettingAttribute {
 }
 
 export interface SettingValue {
+  certValidationRequired?: boolean
   settingType?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
@@ -15664,6 +17038,7 @@ export interface SettingValue {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -15678,9 +17053,12 @@ export interface SettingValue {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
   type?: string
 }
 
@@ -15704,6 +17082,7 @@ export type ShellScriptTemplate = BaseTemplate & {
   outputVars?: string
   scriptString?: string
   scriptType?: string
+  secretOutputVars?: string
   timeoutMillis?: number
 }
 
@@ -15712,10 +17091,27 @@ export interface SlackNotificationSetting {
   outgoingWebhookUrl: string
 }
 
-export type SplunkConnectorDTO = ConnectorConfigDTO & {
+export interface SmtpConfig {
+  encryptedPassword?: string
+  fromAddress?: string
+  host?: string
+  password?: string[]
+  port?: number
+  type?: string
+  useSSL?: boolean
+  username?: string
+}
+
+export interface SmtpConfigResponse {
+  encryptionDetails?: EncryptedDataDetail[]
+  smtpConfig?: SmtpConfig
+}
+
+export interface SplunkConnectorDTO {
   accountId: string
+  delegateSelectors?: string[]
   passwordRef: string
-  splunkUrl?: string
+  splunkUrl: string
   username?: string
 }
 
@@ -15769,6 +17165,7 @@ export interface SplunkSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -15798,7 +17195,6 @@ export interface SplunkSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -15860,6 +17256,11 @@ export interface SplunkSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -15967,6 +17368,7 @@ export interface StackDriverSetupTestNodeData {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -15996,7 +17398,6 @@ export interface StackDriverSetupTestNodeData {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -16058,6 +17459,11 @@ export interface StackDriverSetupTestNodeData {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -16131,7 +17537,9 @@ export interface State {
     | 'SHELL_SCRIPT_PROVISION'
     | 'K8S'
     | 'TERRAFORM_INHERIT_PLAN'
+    | 'TERRAGRUNT_INHERIT_PLAN'
     | 'AZURE_VMSS_SETUP'
+    | 'AZURE_WEBAPP_SETUP'
     | 'HELM_CHART'
     | 'MANIFEST_VARIABLE'
   requiredExecutionArgumentTypes?: (
@@ -16220,6 +17628,8 @@ export interface State {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   )[]
   rollback?: boolean
   selectionLogsTrackingForTasksEnabled?: boolean
@@ -16304,6 +17714,26 @@ export interface StateExecutionElement {
 
 export interface StateExecutionInstance {
   accountId?: string
+  actionAfterManualInterventionTimeout?:
+    | 'ABORT'
+    | 'ABORT_ALL'
+    | 'PAUSE'
+    | 'PAUSE_FOR_INPUTS'
+    | 'PAUSE_ALL'
+    | 'RESUME'
+    | 'RESUME_ALL'
+    | 'RETRY'
+    | 'IGNORE'
+    | 'WAITING_FOR_MANUAL_INTERVENTION'
+    | 'MARK_FAILED'
+    | 'MARK_SUCCESS'
+    | 'ROLLBACK'
+    | 'NEXT_STEP'
+    | 'END_EXECUTION'
+    | 'ROLLBACK_DONE'
+    | 'MARK_EXPIRED'
+    | 'CONTINUE_WITH_DEFAULTS'
+    | 'CONTINUE_PIPELINE_STAGE'
   actionOnTimeout?:
     | 'MANUAL_INTERVENTION'
     | 'ROLLBACK_WORKFLOW'
@@ -16387,6 +17817,7 @@ export interface StateExecutionInstance {
   subGraphFilterId?: string
   uuid?: string
   waitingForInputs?: boolean
+  waitingForManualIntervention?: boolean
   workflowId?: string
 }
 
@@ -16509,6 +17940,8 @@ export interface Stencil {
     | 'STAGING_ORIGINAL_EXECUTION'
     | 'AZURE_VMSS'
     | 'AZURE_WEBAPP'
+    | 'AZURE_ARM'
+    | 'TERRAGRUNT_PROVISION'
   type?: string
   uiSchema?: { [key: string]: any }
 }
@@ -16536,6 +17969,13 @@ export interface StreamingOutput {
 
 export interface SubdomainUrl {
   url?: string
+}
+
+export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
+  accessIdRef: string
+  accessKeyRef: string
+  delegateSelectors?: string[]
+  url: string
 }
 
 export interface SumoLogicSetupTestNodedata {
@@ -16573,6 +18013,7 @@ export interface SumoLogicSetupTestNodedata {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -16602,7 +18043,6 @@ export interface SumoLogicSetupTestNodedata {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -16664,6 +18104,11 @@ export interface SumoLogicSetupTestNodedata {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -16686,6 +18131,10 @@ export interface SumoLogicSetupTestNodedata {
   workflowId?: string
 }
 
+export interface SwitchAccountRequest {
+  accountId?: string
+}
+
 export interface SyncStatus {
   appId: string
   createdAt?: number
@@ -16696,6 +18145,7 @@ export interface SyncStatus {
   lastSuccessfullySyncedAt?: number
   lastSyncedAt?: number
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   serviceId?: string
   syncFailureReason?: string
   uuid: string
@@ -16775,6 +18225,7 @@ export interface TaskSelectorMap {
     | 'AZURE_ARTIFACTS'
     | 'AZURE_VMSS'
     | 'AZURE_APP_SERVICE'
+    | 'AZURE_ARM'
     | 'ELK'
     | 'LOGZ'
     | 'SUMO'
@@ -16792,6 +18243,7 @@ export interface TaskSelectorMap {
     | 'LOG'
     | 'CLOUD_FORMATION'
     | 'TERRAFORM'
+    | 'TERRAGRUNT'
     | 'AWS'
     | 'LDAP'
     | 'K8S'
@@ -16814,6 +18266,15 @@ export interface TaskSelectorMap {
     | 'CAPABILITY_VALIDATION'
     | 'JIRA_NG'
     | 'CVNG'
+    | 'NOTIFICATION'
+    | 'HTTP_NG'
+    | 'SHELL_SCRIPT_NG'
+    | 'GIT_NG'
+    | 'BATCH_CAPABILITY_CHECK'
+    | 'CUSTOM_MANIFEST_VALUES_FETCH_TASK'
+    | 'CUSTOM_MANIFEST_FETCH_TASK'
+    | 'TERRAFORM_NG'
+    | 'CE'
   uuid: string
 }
 
@@ -16836,6 +18297,7 @@ export interface Template {
   importedTemplateDetails?: ImportedTemplateDetails
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name: string
   referencedTemplateId?: string
   referencedTemplateUri?: string
@@ -16871,6 +18333,7 @@ export interface TemplateFolder {
   galleryId?: string
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   nodeType?: string
   parentId?: string
@@ -16889,6 +18352,7 @@ export interface TemplateGallery {
   global?: boolean
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   referencedGalleryId?: string
   uuid: string
@@ -16918,6 +18382,7 @@ export interface TemplateVersion {
   galleryId?: string
   importedTemplateVersion?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   templateName?: string
   templateType?: string
   templateUuid?: string
@@ -16937,6 +18402,7 @@ export type TerraformInfrastructureProvisioner = InfrastructureProvisioner & {
   backendConfigs?: NameValuePair[]
   commitId?: string
   environmentVariables?: NameValuePair[]
+  kmsId?: string
   normalizedPath?: string
   path: string
   repoName?: string
@@ -16945,6 +18411,18 @@ export type TerraformInfrastructureProvisioner = InfrastructureProvisioner & {
   sourceRepoSettingId?: string
   templatized?: boolean
   workspaces?: string[]
+}
+
+export type TerragruntInfrastructureProvisioner = InfrastructureProvisioner & {
+  commitId?: string
+  normalizedPath?: string
+  path: string
+  repoName?: string
+  secretManagerId?: string
+  skipRefreshBeforeApplyingPlan?: boolean
+  sourceRepoBranch?: string
+  sourceRepoSettingId?: string
+  templatized?: boolean
 }
 
 export interface ThirdPartyApiCallField {
@@ -17005,6 +18483,11 @@ export interface Throwable {
 }
 
 export interface TimeRange {
+  duration?: number
+  durationBased?: boolean
+  endTime?: number
+  expires?: boolean
+  freezeOccurrence?: 'DAILY' | 'WEEKLY' | 'MONTHLY' | 'ANNUAL'
   from?: number
   label?: string
   timeZone?: string
@@ -17013,9 +18496,15 @@ export interface TimeRange {
 
 export interface TimeRangeBasedFreezeConfig {
   appIds?: string[]
+  appSelections?: ApplicationFilter[]
+  applicable?: boolean
+  description?: string
   environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
   freezeForAllApps?: boolean
+  name?: string
   timeRange?: TimeRange
+  userGroups?: string[]
+  uuid?: string
 }
 
 export interface TimeSeries {
@@ -17067,6 +18556,7 @@ export interface TimeSeriesMLTransactionThresholds {
   cvConfigId?: string
   groupName?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   metricName?: string
   serviceId?: string
   stateType?:
@@ -17092,6 +18582,7 @@ export interface TimeSeriesMLTransactionThresholds {
     | 'SUMO'
     | 'DATA_DOG'
     | 'DATA_DOG_LOG'
+    | 'CVNG'
     | 'CLOUD_WATCH'
     | 'AWS_LAMBDA_VERIFICATION'
     | 'APM_VERIFICATION'
@@ -17121,7 +18612,6 @@ export interface TimeSeriesMLTransactionThresholds {
     | 'AZURE_VMSS_SWITCH_ROUTES'
     | 'AZURE_VMSS_SWITCH_ROUTES_ROLLBACK'
     | 'AZURE_WEBAPP_SLOT_SETUP'
-    | 'AZURE_WEBAPP_SLOT_RESIZE'
     | 'AZURE_WEBAPP_SLOT_SWAP'
     | 'AZURE_WEBAPP_SLOT_SHIFT_TRAFFIC'
     | 'AZURE_WEBAPP_SLOT_ROLLBACK'
@@ -17183,6 +18673,11 @@ export interface TimeSeriesMLTransactionThresholds {
     | 'PCF_PLUGIN'
     | 'TERRAFORM_PROVISION'
     | 'TERRAFORM_APPLY'
+    | 'TERRAGRUNT_PROVISION'
+    | 'TERRAGRUNT_DESTROY'
+    | 'TERRAGRUNT_ROLLBACK'
+    | 'ARM_CREATE_RESOURCE'
+    | 'ARM_ROLLBACK'
     | 'SHELL_SCRIPT_PROVISION'
     | 'TERRAFORM_DESTROY'
     | 'CLOUD_FORMATION_CREATE_STACK'
@@ -17237,25 +18732,6 @@ export interface TimeSeriesRisk {
   startTime?: number
 }
 
-export interface TimeSeriesThresholdCriteria {
-  action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
-  criteria?: string
-  occurrenceCount?: number
-  type?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
-}
-
-export interface TimeSeriesThresholdDTO {
-  accountId?: string
-  action?: 'IGNORE' | 'FAIL'
-  criteria?: TimeSeriesThresholdCriteria
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
-  metricGroupName?: string
-  metricName?: string
-  metricPackIdentifier?: string
-  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
-  projectIdentifier?: string
-}
-
 export interface TopConsumer {
   appId?: string
   appName?: string
@@ -17299,8 +18775,10 @@ export interface Trigger {
   disabled?: boolean
   excludeHostsWithSameArtifact?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   manifestSelections?: ManifestSelection[]
   name?: string
+  nextIterations?: number[]
   pipelineId?: string
   pipelineName?: string
   serviceInfraWorkflows?: ServiceInfraWorkflow[]
@@ -17382,6 +18860,7 @@ export interface User {
   lastAppId?: string
   lastLogin?: number
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   name?: string
   oauthProvider?: string
   password?: string[]
@@ -17408,6 +18887,7 @@ export interface UserDataSpecification {
   createdBy?: EmbeddedUser
   data: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   serviceId?: string
   uuid: string
 }
@@ -17423,6 +18903,7 @@ export interface UserGroup {
   description?: string
   importedByScim?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   linkedSsoDisplayName?: string
   linkedSsoId?: string
   linkedSsoType?: 'SAML' | 'LDAP' | 'OAUTH'
@@ -17446,13 +18927,16 @@ export interface UserInvite {
   country?: string
   createdAt?: number
   createdBy?: EmbeddedUser
+  createdFromNG?: boolean
   email?: string
   familyName?: string
   freemiumAssistedOption?: boolean
   freemiumProducts?: string[]
   givenName?: string
   importedByScim?: boolean
+  intent?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   marketPlaceToken?: string
   name?: string
   password?: string[]
@@ -17463,6 +18947,14 @@ export interface UserInvite {
   userGroups?: UserGroup[]
   utmInfo?: UtmInfo
   uuid: string
+}
+
+export interface UserInviteDTO {
+  accountId: string
+  email: string
+  name: string
+  password?: string
+  token: string
 }
 
 export interface UserInviteSource {
@@ -17538,13 +19030,25 @@ export interface VaultConfig {
   createdAt?: number
   createdBy?: EmbeddedUser
   default?: boolean
+  delegateSelectors?: string[]
   encryptedBy?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  encryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'GCP_SECRETS_MANAGER'
+    | 'CUSTOM'
+    | 'VAULT_SSH'
   engineManuallyEntered?: boolean
   lastUpdatedAt?: number
   lastUpdatedBy?: EmbeddedUser
   manuallyEnteredSecretEngineMigrationIteration?: number
   name?: string
+  namespace?: string
   nextTokenRenewIteration?: number
   numOfEncryptedValue?: number
   readOnly?: boolean
@@ -17555,44 +19059,25 @@ export interface VaultConfig {
   secretEngineName?: string
   secretEngineVersion?: number
   secretId?: string
+  sinkPath?: string
   templatized?: boolean
   templatizedFields?: string[]
   usageRestrictions?: UsageRestrictions
+  useVaultAgent?: boolean
   uuid: string
   vaultUrl?: string
 }
 
-export type VaultConfigDTO = SecretManagerConfigDTO & {
-  appRoleId?: string
-  authToken?: string
-  basePath?: string
-  readOnly?: boolean
-  renewIntervalHours?: number
-  secretEngineName?: string
-  secretEngineVersion?: number
-  secretId?: string
-  vaultUrl?: string
-}
-
-export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
-  appRoleId?: string
-  authToken?: string
-  basePath?: string
-  readOnly?: boolean
-  renewIntervalHours?: number
-  secretEngineName?: string
-  secretEngineVersion?: number
-  secretId?: string
-  vaultUrl?: string
-}
-
 export type VaultConnectorDTO = ConnectorConfigDTO & {
+  accessType?: 'APP_ROLE' | 'TOKEN'
   appRoleId?: string
   authToken?: string
   basePath?: string
   default?: boolean
+  delegateSelectors?: string[]
   readOnly?: boolean
-  renewIntervalHours?: number
+  renewalIntervalMinutes?: number
+  secretEngineManuallyConfigured?: boolean
   secretEngineName?: string
   secretEngineVersion?: number
   secretId?: string
@@ -17635,11 +19120,6 @@ export interface VerificationNodeDataSetupResponse {
   dataForNode?: { [key: string]: any }
   loadResponse?: VerificationLoadResponse
   providerReachable?: boolean
-}
-
-export interface VerificationResponse {
-  numberOfConnectedDelegates?: number
-  numberOfRegisteredDelegates?: number
 }
 
 export interface VerificationStateAnalysisExecutionData {
@@ -17705,6 +19185,7 @@ export interface VersionInfo {
   buildNo?: string
   gitBranch?: string
   gitCommit?: string
+  patch?: string
   timestamp?: string
   version?: string
 }
@@ -17722,6 +19203,7 @@ export interface VersionedTemplate {
   galleryId?: string
   importedTemplateVersion?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   templateId?: string
   templateObject: BaseTemplate
   uuid: string
@@ -17750,14 +19232,14 @@ export interface ViewCustomField {
 export interface ViewField {
   fieldId?: string
   fieldName?: string
-  identifier?: 'CLUSTER' | 'AWS' | 'GCP' | 'COMMON' | 'CUSTOM' | 'LABEL'
+  identifier?: 'CLUSTER' | 'AWS' | 'GCP' | 'AZURE' | 'COMMON' | 'CUSTOM' | 'LABEL'
   identifierName?: string
 }
 
 export type ViewIdCondition = ViewCondition & {
   values?: string[]
   viewField?: ViewField
-  viewOperator?: 'IN' | 'NOT_IN' | 'NOT_NULL'
+  viewOperator?: 'IN' | 'NOT_IN' | 'NOT_NULL' | 'NULL'
 }
 
 export interface ViewRule {
@@ -17767,11 +19249,11 @@ export interface ViewRule {
 export interface ViewTimeRange {
   endTime?: number
   startTime?: number
-  viewTimeRangeType?: 'CUSTOM' | 'LAST_7' | 'LAST_30' | 'LAST_MONTH'
+  viewTimeRangeType?: 'LAST_7' | 'LAST_30' | 'LAST_MONTH' | 'CURRENT_MONTH' | 'CUSTOM'
 }
 
 export interface ViewVisualization {
-  chartType?: 'STACKED_TIME_SERIES'
+  chartType?: 'STACKED_TIME_SERIES' | 'STACKED_LINE_CHART'
   granularity?: 'DAY' | 'MONTH'
   groupBy?: ViewField
 }
@@ -17784,6 +19266,14 @@ export interface VirtualMachineScaleSetData {
 
 export interface Void {
   [key: string]: any
+}
+
+export interface WebHookEventConfig {
+  headers?: KeyValuePair[]
+  socketTimeoutMillis?: number
+  tags?: string[]
+  url?: string
+  useProxy?: boolean
 }
 
 export interface WebHookRequest {
@@ -17871,8 +19361,9 @@ export type WebHookTriggerCondition = TriggerCondition & {
   }
   releaseActions?: ('CREATED' | 'PUBLISHED' | 'RELEASED' | 'UNPUBLISHED' | 'EDITED' | 'DELETED' | 'PRE_RELEASED')[]
   repoName?: string
+  webHookSecret?: string
   webHookToken?: WebHookToken
-  webhookSource?: 'GITHUB' | 'GITLAB' | 'BITBUCKET'
+  webhookSource?: 'GITHUB' | 'GITLAB' | 'BITBUCKET' | 'AZURE_DEVOPS'
 }
 
 export interface WebhookParameters {
@@ -17882,8 +19373,14 @@ export interface WebhookParameters {
 
 export interface WeeklyFreezeConfig {
   appIds?: string[]
+  appSelections?: ApplicationFilter[]
+  applicable?: boolean
+  description?: string
   environmentTypes?: ('PROD' | 'NON_PROD' | 'ALL')[]
   freezeForAllApps?: boolean
+  name?: string
+  userGroups?: string[]
+  uuid?: string
   weeklyRange?: WeeklyRange
 }
 
@@ -17903,6 +19400,7 @@ export interface Whitelist {
   description?: string
   filter?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   status?: 'ACTIVE' | 'DISABLED'
   uuid: string
 }
@@ -17942,6 +19440,7 @@ export interface Workflow {
   infraMappingId?: string
   keywords?: string[]
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   linkedArtifactStreamIds?: string[]
   linkedTemplateUuids?: string[]
   name: string
@@ -18009,6 +19508,7 @@ export interface WorkflowExecution {
   errorStrategy?: 'CONTINUE' | 'FAIL' | 'PAUSE' | 'RETRY'
   executionArgs?: ExecutionArgs
   executionNode?: GraphNode
+  failureDetails?: string
   graph?: Graph
   helmCharts?: HelmChart[]
   helmExecutionSummary?: HelmExecutionSummary
@@ -18027,6 +19527,7 @@ export interface WorkflowExecution {
   pipelineResumeId?: string
   pipelineSummary?: PipelineSummary
   releaseNo?: string
+  rollbackArtifacts?: Artifact[]
   rollbackDuration?: number
   rollbackStartTs?: number
   serviceExecutionSummaries?: ElementExecutionSummary[]
@@ -18077,6 +19578,7 @@ export interface WorkflowExecutionBaseline {
   createdBy?: EmbeddedUser
   envId?: string
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   pipelineExecutionId?: string
   serviceId?: string
   uuid: string
@@ -18133,6 +19635,13 @@ export interface WorkflowPhase {
   valid?: boolean
   validationMessage?: string
   variableOverrides?: NameValuePair[]
+}
+
+export interface WorkflowRule {
+  allEvents?: boolean
+  allWorkflows?: boolean
+  events?: string[]
+  workflowIds?: string[]
 }
 
 export interface WorkflowStepMeta {
@@ -18253,9 +19762,12 @@ export interface YamlGitConfig {
     | 'SECRET'
     | 'CONNECTOR'
     | 'CLOUD_PROVIDER'
+    | 'GOVERNANCE_FREEZE_CONFIG'
+    | 'GOVERNANCE_CONFIG'
   gitConnectorId?: string
   keyAuth?: boolean
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   password?: string[]
   repositoryName?: string
   settingType?:
@@ -18311,6 +19823,7 @@ export interface YamlGitConfig {
     | 'SECRET_TEXT'
     | 'YAML_GIT_SYNC'
     | 'VAULT'
+    | 'VAULT_SSH'
     | 'AWS_SECRETS_MANAGER'
     | 'CYBERARK'
     | 'WINRM_CONNECTION_ATTRIBUTES'
@@ -18325,9 +19838,12 @@ export interface YamlGitConfig {
     | 'CUSTOM'
     | 'CE_AWS'
     | 'CE_GCP'
+    | 'CE_AZURE'
     | 'AZURE_VAULT'
     | 'KUBERNETES_CLUSTER_NG'
     | 'GIT_NG'
+    | 'GCP_SECRETS_MANAGER'
+    | 'TRIGGER'
   sshSettingId?: string
   syncMode?: 'GIT_TO_HARNESS' | 'HARNESS_TO_GIT' | 'BOTH' | 'NONE'
   url?: string
@@ -18361,6 +19877,7 @@ export interface YamlVersion {
   inEffectEnd?: number
   inEffectStart?: number
   lastUpdatedAt: number
+  lastUpdatedBy?: EmbeddedUser
   type?:
     | 'SETUP'
     | 'APP'
@@ -18387,6 +19904,7 @@ export interface YamlVersion {
     | 'TAGS'
     | 'GLOBAL_TEMPLATE_LIBRARY'
     | 'APPLICATION_TEMPLATE_LIBRARY'
+    | 'GOVERNANCE_CONFIG'
   uuid: string
   version?: number
   yaml?: string
@@ -18450,6 +19968,8 @@ export interface ZoneRules {
   transitions?: ZoneOffsetTransition[]
 }
 
+export type AccessRequestDTORequestBody = AccessRequestDTO
+
 export type AccountRequestBody = Account
 
 export type AlertNotificationRuleRequestBody = AlertNotificationRule
@@ -18478,9 +19998,9 @@ export type CVConfigurationRequestBody = CVConfiguration
 
 export type CVFeedbackRecordRequestBody = CVFeedbackRecord
 
-export type CloneMetadataRequestBody = CloneMetadata
+export type CgEventConfigRequestBody = CgEventConfig
 
-export type ConnectorConfigDTORequestBody = ConnectorConfigDTO
+export type CloneMetadataRequestBody = CloneMetadata
 
 export type ContainerTaskRequestBody = ContainerTask
 
@@ -18494,13 +20014,23 @@ export type DataCollectionConnectorBundleRequestBody = DataCollectionConnectorBu
 
 export type DelegateRequestBody = Delegate
 
+export type DelegateGroupDetailsRequestBody = DelegateGroupDetails
+
+export type DelegateParamsRequestBody = DelegateParams
+
 export type DelegateProfileRequestBody = DelegateProfile
 
 export type DelegateProfileDetailsRequestBody = DelegateProfileDetails
 
+export type DelegateResponseDataRequestBody = DelegateResponseData
+
 export type DelegateScopeRequestBody = DelegateScope
 
+export type DelegateScopesRequestBody = DelegateScopes
+
 export type DelegateSetupDetailsRequestBody = DelegateSetupDetails
+
+export type DelegateTagsRequestBody = DelegateTags
 
 export type EcsServiceSpecificationRequestBody = EcsServiceSpecification
 
@@ -18518,6 +20048,8 @@ export type HarnessTagRequestBody = HarnessTag
 
 export type HarnessTagLinkRequestBody = HarnessTagLink
 
+export type HarnessUserGroupDTORequestBody = HarnessUserGroupDTO
+
 export type HelmChartSpecificationRequestBody = HelmChartSpecification
 
 export type InfrastructureDefinitionRequestBody = InfrastructureDefinition
@@ -18525,6 +20057,8 @@ export type InfrastructureDefinitionRequestBody = InfrastructureDefinition
 export type InfrastructureMappingRequestBody = InfrastructureMapping
 
 export type InfrastructureProvisionerRequestBody = InfrastructureProvisioner
+
+export type K8sEventCollectionBundleRequestBody = K8sEventCollectionBundle
 
 export type KmsConfigRequestBody = KmsConfig
 
@@ -18544,6 +20078,8 @@ export type LoginRequestRequestBody = LoginRequest
 
 export type ManifestFileRequestBody = ManifestFile
 
+export type ModuleLicenseDTORequestBody = ModuleLicenseDTO
+
 export type NotificationGroupRequestBody = NotificationGroup
 
 export type OauthSettingsRequestBody = OauthSettings
@@ -18562,6 +20098,8 @@ export type ResourceConstraintRequestBody = ResourceConstraint
 
 export type RoleRequestBody = Role
 
+export type SSHVaultConfigRequestBody = SSHVaultConfig
+
 export type ScimGroupRequestBody = ScimGroup
 
 export type ScimUserRequestBody = ScimUser
@@ -18576,6 +20114,8 @@ export type ServiceVariableRequestBody = ServiceVariable
 
 export type SettingAttributeRequestBody = SettingAttribute
 
+export type SplunkConnectorDTORequestBody = SplunkConnectorDTO
+
 export type StackDriverSetupTestNodeDataRequestBody = StackDriverSetupTestNodeData
 
 export type TaskSelectorMapRequestBody = TaskSelectorMap
@@ -18587,8 +20127,6 @@ export type TemplateFolderRequestBody = TemplateFolder
 export type TemplateGalleryRequestBody = TemplateGallery
 
 export type TriggerRequestBody = Trigger
-
-export type UpdatePasswordRequestRequestBody = UpdatePasswordRequest
 
 export type UserRequestBody = User
 
@@ -18616,29 +20154,31 @@ export type YamlPayloadRequestBody = YamlPayload
 
 export type GcpSignUpRequestBody = void
 
+export type GetDelegatePropertiesBodyRequestBody = string[]
+
 export type ImportAccountDataRequestBody = void
 
-export type SaveApiCallLogsBodyRequestBody = string[]
+export type SaveGcpSecretsManagerConfigRequestBody = void
 
-export type SaveGlobalKmsConfigRequestBody = void
+export type SaveGcpSecretsManagerConfig1RequestBody = void
 
 export interface SaveMessageComparisonListBodyRequestBody {
   [key: string]: string
 }
 
-export interface UpdateCVConfigurationBodyRequestBody {
+export interface UpdateAccountPreferenceBodyRequestBody {
   [key: string]: any
 }
 
-export type UpdateDescriptionBodyRequestBody = string
-
-export type UpdatePlatformRequestBody = void
-
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
-export type Update26RequestBody = void
+export type Update29RequestBody = void
+
+export type UploadPlatformRequestBody = void
 
 export type UploadSamlMetaDataRequestBody = void
+
+export type ValidateBodyRequestBody = string
 
 export interface GetListApplicationsQueryParams {
   offset?: string
@@ -19364,28 +20904,15 @@ export interface GenerateKubernetesYamlQueryParams {
   accountId?: string
   orgId?: string
   projectId?: string
-  fileFormat?: string
 }
 
 export type GenerateKubernetesYamlProps = Omit<
-  MutateProps<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >,
+  MutateProps<void, void, GenerateKubernetesYamlQueryParams, DelegateSetupDetailsRequestBody, void>,
   'path' | 'verb'
 >
 
 export const GenerateKubernetesYaml = (props: GenerateKubernetesYamlProps) => (
-  <Mutate<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >
+  <Mutate<void, void, GenerateKubernetesYamlQueryParams, DelegateSetupDetailsRequestBody, void>
     verb="POST"
     path={`/setup/delegates/generate-kubernetes-yaml`}
     base={getConfig('api')}
@@ -19394,30 +20921,21 @@ export const GenerateKubernetesYaml = (props: GenerateKubernetesYamlProps) => (
 )
 
 export type UseGenerateKubernetesYamlProps = Omit<
-  UseMutateProps<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >,
+  UseMutateProps<void, void, GenerateKubernetesYamlQueryParams, DelegateSetupDetailsRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useGenerateKubernetesYaml = (props: UseGenerateKubernetesYamlProps) =>
-  useMutate<
-    RestResponseDelegateSetupDetails,
-    void,
-    GenerateKubernetesYamlQueryParams,
-    DelegateSetupDetailsRequestBody,
-    void
-  >('POST', `/setup/delegates/generate-kubernetes-yaml`, { base: getConfig('api'), ...props })
+  useMutate<void, void, GenerateKubernetesYamlQueryParams, DelegateSetupDetailsRequestBody, void>(
+    'POST',
+    `/setup/delegates/generate-kubernetes-yaml`,
+    { base: getConfig('api'), ...props }
+  )
 
 export interface DeleteDelegateGroupQueryParams {
   accountId?: string
   orgId?: string
   projectId?: string
-  forceDelete?: boolean
 }
 
 export type DeleteDelegateGroupProps = Omit<
@@ -19473,6 +20991,93 @@ export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNam
     `/setup/delegates/kubernetes-delegates`,
     { base: getConfig('api'), ...props }
   )
+
+export interface GetDelegateGroupsNGV2QueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type GetDelegateGroupsNGV2Props = Omit<
+  GetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>,
+  'path'
+>
+
+export const GetDelegateGroupsNGV2 = (props: GetDelegateGroupsNGV2Props) => (
+  <Get<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>
+    path={`/setup/delegates/ng/v2`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupsNGV2Props = Omit<
+  UseGetProps<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateGroupsNGV2 = (props: UseGetDelegateGroupsNGV2Props) =>
+  useGet<RestResponseDelegateGroupListing, unknown, GetDelegateGroupsNGV2QueryParams, void>(`/setup/delegates/ng/v2`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export interface GetDelegateGroupByIdentifierQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export interface GetDelegateGroupByIdentifierPathParams {
+  identifier: string
+}
+
+export type GetDelegateGroupByIdentifierProps = Omit<
+  GetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupByIdentifierPathParams
+
+export const GetDelegateGroupByIdentifier = ({ identifier, ...props }: GetDelegateGroupByIdentifierProps) => (
+  <Get<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >
+    path={`/setup/delegates/ng/v2/${identifier}`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateGroupByIdentifierProps = Omit<
+  UseGetProps<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >,
+  'path'
+> &
+  GetDelegateGroupByIdentifierPathParams
+
+export const useGetDelegateGroupByIdentifier = ({ identifier, ...props }: UseGetDelegateGroupByIdentifierProps) =>
+  useGet<
+    RestResponseDelegateGroupDetails,
+    unknown,
+    GetDelegateGroupByIdentifierQueryParams,
+    GetDelegateGroupByIdentifierPathParams
+  >((paramsInPath: GetDelegateGroupByIdentifierPathParams) => `/setup/delegates/ng/v2/${paramsInPath.identifier}`, {
+    base: getConfig('api'),
+    pathParams: { identifier },
+    ...props
+  })
 
 export interface GetDelegatesStatusQueryParams {
   accountId?: string
@@ -19646,6 +21251,38 @@ export const useGetDelegateGroupFromIdV2 = ({ delegateGroupId, ...props }: UseGe
     pathParams: { delegateGroupId },
     ...props
   })
+
+export interface DeleteDelegateGroupByIdentifierQueryParams {
+  accountId?: string
+  orgId?: string
+  projectId?: string
+}
+
+export type DeleteDelegateGroupByIdentifierProps = Omit<
+  MutateProps<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const DeleteDelegateGroupByIdentifier = (props: DeleteDelegateGroupByIdentifierProps) => (
+  <Mutate<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>
+    verb="DELETE"
+    path={`/setup/delegates/v3/groups`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseDeleteDelegateGroupByIdentifierProps = Omit<
+  UseMutateProps<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteDelegateGroupByIdentifier = (props: UseDeleteDelegateGroupByIdentifierProps) =>
+  useMutate<RestResponseVoid, unknown, DeleteDelegateGroupByIdentifierQueryParams, string, void>(
+    'DELETE',
+    `/setup/delegates/v3/groups`,
+    { base: getConfig('api'), ...props }
+  )
 
 export interface ValidateKubernetesYamlQueryParams {
   accountId?: string
@@ -19859,6 +21496,53 @@ export const useSetDefaultAccountForCurrentUser = ({ accountId, ...props }: UseS
     (paramsInPath: SetDefaultAccountForCurrentUserPathParams) => `/users/set-default-account/${paramsInPath.accountId}`,
     { base: getConfig('api'), pathParams: { accountId }, ...props }
   )
+
+export interface SwitchAccountQueryParams {
+  accountId?: string
+}
+
+export type SwitchAccountProps = Omit<GetProps<RestResponseUser, unknown, SwitchAccountQueryParams, void>, 'path'>
+
+export const SwitchAccount = (props: SwitchAccountProps) => (
+  <Get<RestResponseUser, unknown, SwitchAccountQueryParams, void>
+    path={`/users/switch-account`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseSwitchAccountProps = Omit<UseGetProps<RestResponseUser, unknown, SwitchAccountQueryParams, void>, 'path'>
+
+export const useSwitchAccount = (props: UseSwitchAccountProps) =>
+  useGet<RestResponseUser, unknown, SwitchAccountQueryParams, void>(`/users/switch-account`, {
+    base: getConfig('api'),
+    ...props
+  })
+
+export type NewSwitchAccountProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>,
+  'path' | 'verb'
+>
+
+export const NewSwitchAccount = (props: NewSwitchAccountProps) => (
+  <Mutate<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>
+    verb="POST"
+    path={`/users/switch-account`}
+    base={getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseNewSwitchAccountProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>,
+  'path' | 'verb'
+>
+
+export const useNewSwitchAccount = (props: UseNewSwitchAccountProps) =>
+  useMutate<RestResponseBoolean, unknown, void, SwitchAccountRequest, void>('POST', `/users/switch-account`, {
+    base: getConfig('api'),
+    ...props
+  })
 
 export type GetUserProps = Omit<GetProps<RestResponseUser, unknown, void, void>, 'path'>
 

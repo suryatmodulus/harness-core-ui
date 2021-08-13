@@ -6,7 +6,8 @@ import {
   MultiTypeInputType,
   DataTooltipInterface,
   HarnessDocTooltip,
-  Container
+  Container,
+  FormError
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -54,6 +55,7 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   setRefValue?: boolean
   style?: React.CSSProperties
   tooltipProps?: DataTooltipInterface
+  multitypeInputValue?: MultiTypeInputType
 }
 export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
@@ -80,12 +82,13 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     style,
     gitScope,
     multiTypeProps = {},
+    multitypeInputValue,
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? <FormError errorMessage={get(formik?.errors, name)} /> : null,
     disabled,
     ...rest
   } = restProps
@@ -140,6 +143,9 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
     if (multiType === MultiTypeInputType.FIXED && getMultiTypeFromValue(selected) === MultiTypeInputType.FIXED) {
       if (typeof selected === 'string' && selected.length > 0) {
         refetch()
+      }
+      if (multitypeInputValue !== undefined) {
+        setSelectedValue(selected)
       }
     } else {
       setSelectedValue(selected)
@@ -316,6 +322,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
           onChange?.(val, valueType, type1)
         }}
         value={selectedValue}
+        multitypeInputValue={multitypeInputValue}
         {...multiTypeProps}
       />
     </FormGroup>

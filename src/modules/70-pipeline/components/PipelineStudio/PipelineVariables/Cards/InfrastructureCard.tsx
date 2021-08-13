@@ -1,6 +1,6 @@
 import React from 'react'
 import { NestedAccordionPanel } from '@wings-software/uicore'
-
+import cx from 'classnames'
 import type { PipelineInfrastructure, Infrastructure, ExecutionElementConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -11,6 +11,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 
 import { ExecutionCardPanel } from './ExecutionCard'
 import type { PipelineVariablesData } from '../types'
+import VariableAccordionSummary from '../VariableAccordionSummary'
 import css from '../PipelineVariables.module.scss'
 
 export interface InfrastructureCardProps {
@@ -20,7 +21,7 @@ export interface InfrastructureCardProps {
   stageIdentifier: string
   onUpdateInfrastructure(data: Infrastructure): void
   onUpdateInfrastructureProvisioner(data: ExecutionElementConfig): void
-
+  path?: string
   readonly?: boolean
 }
 
@@ -32,7 +33,8 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
     onUpdateInfrastructureProvisioner,
     stageIdentifier,
     metadataMap,
-    readonly
+    readonly,
+    path
   } = props
   const { stepsFactory } = usePipelineContext()
   const { getString } = useStrings()
@@ -40,7 +42,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
   return (
     <React.Fragment>
       <VariablesListTable
-        className={css.variablesTable}
+        className={cx(css.variablesTable, css.variablePaddingL2)}
         data={infrastructure.environment}
         originalData={originalInfrastructure.environment}
         metadataMap={metadataMap}
@@ -55,12 +57,13 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
         customStepProps={{
           stageIdentifier,
           metadataMap,
-          variablesData: infrastructure
+          variablesData: infrastructure,
+          path
         }}
       />
       {infrastructure.infrastructureDefinition && originalInfrastructure.infrastructureDefinition ? (
         <ExecutionCardPanel
-          id={`Stage.${stageIdentifier}.Provisioner`}
+          id={`${props.path}.Provisioner`}
           title={getString('common.provisioner')}
           execution={infrastructure.infrastructureDefinition.provisioner || ({} as any)}
           originalExecution={originalInfrastructure.infrastructureDefinition.provisioner || ({} as any)}
@@ -68,6 +71,7 @@ export function InfrastructureCard(props: InfrastructureCardProps): React.ReactE
           stageIdentifier={stageIdentifier}
           readonly={readonly}
           onUpdateExecution={onUpdateInfrastructureProvisioner}
+          path={`${props.path}.Provisioner`}
         />
       ) : /* istanbul ignore next */ null}
     </React.Fragment>
@@ -80,10 +84,14 @@ export function InfrastructureCardPanel(props: InfrastructureCardProps): React.R
     <NestedAccordionPanel
       isDefaultOpen
       addDomId
-      id={`Stage.${props.stageIdentifier}.Infrastructure`}
-      summary={getString('infrastructureText')}
+      id={`${props.path}`}
+      summary={<VariableAccordionSummary>{getString('infrastructureText')}</VariableAccordionSummary>}
       panelClassName={css.panel}
+      summaryClassName={css.accordianSummaryL1}
       details={<InfrastructureCard {...props} />}
+      collapseProps={{
+        keepChildrenMounted: true
+      }}
     />
   )
 }

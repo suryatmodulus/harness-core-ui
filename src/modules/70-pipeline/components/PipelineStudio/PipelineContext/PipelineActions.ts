@@ -1,10 +1,11 @@
 import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
-import type { ExecutionWrapper, YamlSnippetMetaData, PipelineInfoConfig } from 'services/cd-ng'
+import type { YamlSnippetMetaData, PipelineInfoConfig, StepElementConfig, StepGroupElementConfig } from 'services/cd-ng'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import type * as Diagram from '@pipeline/components/Diagram'
 import type { EntityGitDetails } from 'services/pipeline-ng'
-import type { DependenciesWrapper, StepState } from '../ExecutionGraph/ExecutionGraphUtil'
+import type { DependencyElement } from 'services/ci'
+import type { StepState } from '../ExecutionGraph/ExecutionGraphUtil'
 import type { AdvancedPanels } from '../StepCommands/StepCommandTypes'
 
 export enum PipelineActions {
@@ -13,6 +14,7 @@ export enum PipelineActions {
   Initialize = 'Initialize',
   Fetching = 'Fetching',
   UpdatePipelineView = 'UpdatePipelineView',
+  UpdateTemplateView = 'UpdateTemplateView',
   UpdatePipeline = 'UpdatePipeline',
   SetYamlHandler = 'SetYamlHandler',
   PipelineSaved = 'PipelineSaved',
@@ -21,6 +23,10 @@ export enum PipelineActions {
   Error = 'Error'
 }
 export const DefaultNewPipelineId = '-1'
+
+export enum TemplateDrawerTypes {
+  UseTemplate = 'UseTemplate'
+}
 
 export enum DrawerTypes {
   StepConfig = 'StepConfig',
@@ -36,14 +42,18 @@ export enum DrawerTypes {
   AddProvisionerStep = 'AddProvisionerStep'
 }
 
+export const TemplateDrawerSizes: Record<TemplateDrawerTypes, React.CSSProperties['width']> = {
+  [TemplateDrawerTypes.UseTemplate]: 700
+}
+
 export const DrawerSizes: Record<DrawerTypes, React.CSSProperties['width']> = {
   [DrawerTypes.StepConfig]: 600,
   [DrawerTypes.AddStep]: 700,
   [DrawerTypes.ProvisionerStepConfig]: 600,
   [DrawerTypes.AddProvisionerStep]: 700,
-  [DrawerTypes.PipelineVariables]: 'calc(100% - 270px - 60px)', // has 60px more offset from right
+  [DrawerTypes.PipelineVariables]: 876, // has 60px more offset from right
   [DrawerTypes.Templates]: 450,
-  [DrawerTypes.ExecutionStrategy]: 1000,
+  [DrawerTypes.ExecutionStrategy]: 1136,
   [DrawerTypes.AddService]: 485,
   [DrawerTypes.ConfigureService]: 600,
   [DrawerTypes.PipelineNotifications]: 'calc(100% - 270px - 60px)', // has 60px more offset from right
@@ -60,22 +70,46 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
     paletteData?: {
       isRollback: boolean
       isParallelNodeClicked: boolean
-      onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      onUpdate?: (stepOrGroup: StepElementConfig | StepGroupElementConfig | DependencyElement) => void
       entity: Diagram.DefaultNodeModel
       stepsMap: Map<string, StepState>
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
     stepConfig?: {
-      node: ExecutionWrapper | DependenciesWrapper
+      node: StepElementConfig | StepGroupElementConfig | DependencyElement
       addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
       stepsMap: Map<string, StepState>
-      onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      onUpdate?: (stepOrGroup: StepElementConfig | StepGroupElementConfig | DependencyElement) => void
       isUnderStepGroup?: boolean
       hiddenAdvancedPanels?: AdvancedPanels[]
     }
   }
 }
+
+export interface TemplateDrawerData extends Omit<IDrawerProps, 'isOpen'> {
+  type: TemplateDrawerTypes
+  data?: {
+    paletteData?: {
+      //isRollback: boolean
+      //isParallelNodeClicked: boolean
+      //onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      //entity: Diagram.DefaultNodeModel
+      //stepsMap: Map<string, StepState>
+      //hiddenAdvancedPanels?: AdvancedPanels[]
+    }
+    stepConfig?: {
+      //node: ExecutionWrapper | DependenciesWrapper
+      //addOrEdit: 'add' | 'edit'
+      //isStepGroup: boolean
+      //stepsMap: Map<string, StepState>
+      //onUpdate?: (stepOrGroup: ExecutionWrapper) => void
+      //isUnderStepGroup?: boolean
+      //hiddenAdvancedPanels?: AdvancedPanels[]
+    }
+  }
+}
+
 export interface PipelineViewData {
   isSplitViewOpen: boolean
   isYamlEditable: boolean
@@ -84,6 +118,11 @@ export interface PipelineViewData {
   }
   isDrawerOpened: boolean
   drawerData: DrawerData
+}
+
+export interface TemplateViewData {
+  isTemplateDrawerOpened: boolean
+  templateDrawerData: TemplateDrawerData
 }
 
 export interface SelectionState {
@@ -97,6 +136,7 @@ export interface PipelineReducerState {
   yamlHandler?: YamlBuilderHandlerBinding
   originalPipeline: PipelineInfoConfig
   pipelineView: PipelineViewData
+  templateView: TemplateViewData
   pipelineIdentifier: string
   error?: string
   schemaErrors: boolean
@@ -125,6 +165,7 @@ export interface ActionResponse {
   originalPipeline?: PipelineInfoConfig
   isBEPipelineUpdated?: boolean
   pipelineView?: PipelineViewData
+  templateView?: TemplateViewData
   selectionState?: SelectionState
 }
 
@@ -137,6 +178,10 @@ const dbInitialized = (): ActionReturnType => ({ type: PipelineActions.DBInitial
 const initialized = (): ActionReturnType => ({ type: PipelineActions.Initialize })
 const updatePipelineView = (response: ActionResponse): ActionReturnType => ({
   type: PipelineActions.UpdatePipelineView,
+  response
+})
+const updateTemplateView = (response: ActionResponse): ActionReturnType => ({
+  type: PipelineActions.UpdateTemplateView,
   response
 })
 const setYamlHandler = (response: ActionResponse): ActionReturnType => ({
@@ -167,6 +212,7 @@ export const PipelineContextActions = {
   fetching,
   pipelineSavedAction,
   updatePipelineView,
+  updateTemplateView,
   setYamlHandler,
   success,
   error,
@@ -186,6 +232,10 @@ export const initialState: PipelineReducerState = {
     drawerData: {
       type: DrawerTypes.AddStep
     }
+  },
+  templateView: {
+    isTemplateDrawerOpened: false,
+    templateDrawerData: { type: TemplateDrawerTypes.UseTemplate }
   },
   schemaErrors: false,
   gitDetails: {},
@@ -231,6 +281,14 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
           ? clone({ ...state.pipelineView, ...response?.pipelineView })
           : state.pipelineView
       }
+    case PipelineActions.UpdateTemplateView:
+      return {
+        ...state,
+        templateView: response?.templateView
+          ? clone({ ...state.templateView, ...response?.templateView })
+          : state.templateView
+      }
+
     case PipelineActions.UpdatePipeline:
       return {
         ...state,

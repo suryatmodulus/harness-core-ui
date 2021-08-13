@@ -21,6 +21,10 @@ declare module '*.gif' {
   export default value
 }
 
+declare module '*.mp4' {
+  const value: string
+  export default value
+}
 declare module '*.yaml' {
   const value: Record<string, any>
   export default value

@@ -1,6 +1,6 @@
 import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import { Icon, Text, Button } from '@wings-software/uicore'
+import { Icon, Text, Button, Color } from '@wings-software/uicore'
 import cx from 'classnames'
 import { Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -8,6 +8,7 @@ import type { DefaultNodeModel } from './DefaultNodeModel'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import { Event, DiagramDrag } from '../Constants'
+import { TemplateIcon } from './assets/TemplateIcon'
 import css from './DefaultNode.module.scss'
 
 export interface DefaultNodeProps {
@@ -117,9 +118,13 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
     }
   }, [options.selected])
 
+  // NOTE: adjust x position node in order to get node box cornet at x zero position
+  const marginAdjustment = -(128 - (options?.width || 64)) / 2
+
   return (
     <div
       className={css.defaultNode}
+      style={{ marginLeft: `${marginAdjustment}px` }}
       ref={nodeRef}
       onClick={e => {
         if (!options.disableClick) {
@@ -253,7 +258,12 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             </Text>
           </div>
         )}
-
+        {options.isTemplate && (
+          <div className={css.template}>
+            {/* TODO: move icon to uicore */}
+            <TemplateIcon />
+          </div>
+        )}
         {options.canDelete && (
           <Button
             className={css.closeNode}
@@ -266,8 +276,9 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       </div>
       <Text
         font={{ size: 'normal', align: 'center' }}
-        style={{ cursor: 'pointer', lineHeight: '1.6', overflowWrap: 'break-word' }}
-        padding="xsmall"
+        color={options.selected ? Color.GREY_900 : Color.GREY_600}
+        style={{ cursor: 'pointer', lineHeight: '1.5', overflowWrap: 'break-word', height: 55 }}
+        padding={'small'}
         width={125}
         lineClamp={2}
         tooltipProps={{ position: Position.RIGHT, portalClassName: css.hoverName }}
@@ -287,10 +298,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             width: options.width,
             height: options.height,
             display: showAdd ? 'flex' : 'none',
-            marginLeft: (126 - (options.width || 64)) / 2
+            marginLeft: (128 - (options.width || 64)) / 2
           }}
         >
-          <Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} />
+          <Icon name="plus" size={22} color={'var(--diagram-add-node-color)'} />
         </div>
       )}
     </div>

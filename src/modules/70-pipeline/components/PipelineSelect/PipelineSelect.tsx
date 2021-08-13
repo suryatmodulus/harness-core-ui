@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Select as BPSelect, ItemRenderer, ItemListRenderer } from '@blueprintjs/select'
+import { Select as BPSelect, ItemRenderer, ItemListRenderer, IItemListRendererProps } from '@blueprintjs/select'
 import { Button, Menu, Spinner } from '@blueprintjs/core'
 
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -60,23 +60,34 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
     ? (data?.content || []).find(item => item.identifier === props.selectedPipeline)
     : null
 
-  const itemListRender: ItemListRenderer<PMSPipelineSummaryResponse> = itemListProps => (
-    <Menu>
-      {loading ? (
-        <Spinner size={20} />
-      ) : itemListProps.items.length > 0 ? (
+  const getMenuItem = (itemListProps: IItemListRendererProps<PMSPipelineSummaryResponse>) => {
+    if (loading) {
+      return <Spinner size={20} />
+    }
+    if (itemListProps.items.length > 0) {
+      return (
         <React.Fragment>
           {selectedValue ? <Menu.Item text="Clear Selection" icon="cross" onClick={clearSelection} /> : null}
           {itemListProps.items.map((item, i) => itemListProps.renderItem(item, i))}
         </React.Fragment>
-      ) : (
-        <Menu.Item text="No Results" disabled />
-      )}
-    </Menu>
+      )
+    }
+    return <Menu.Item text="No Results" disabled />
+  }
+
+  const itemListRender: ItemListRenderer<PMSPipelineSummaryResponse> = itemListProps => (
+    <Menu>{getMenuItem(itemListProps)}</Menu>
   )
 
   function handleSelect(item: PMSPipelineSummaryResponse): void {
     props.onPipelineSelect(item.identifier || '')
+  }
+
+  const getSelectedItem = () => {
+    if (selectedValue) {
+      return selectedValue.name
+    }
+    return defaultSelect ? defaultSelect : <String stringID="pipelines" />
   }
 
   const { defaultSelect, className } = props
@@ -95,7 +106,7 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
       className={className}
     >
       <Button className={css.main} rightIcon="chevron-down" data-testid="pipeline-select">
-        {selectedValue ? selectedValue?.name : defaultSelect ? defaultSelect : <String stringID="all" />}
+        {getSelectedItem()}
       </Button>
     </Select>
   )

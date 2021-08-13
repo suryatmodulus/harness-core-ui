@@ -7,7 +7,7 @@ import { String } from 'framework/strings'
 import { useLocalStorage } from '@common/hooks'
 
 import { ExecutionLayoutState, useExecutionLayoutContext } from './ExecutionLayoutContext'
-import css from './ExecutionLayout.module.scss'
+import css from './ExecutionLayoutFloatingView.module.scss'
 
 /**
  * This component will only be rendered when layout === 'FLOATING'

@@ -7,6 +7,5 @@ declare const styles: {
   readonly stageSelectionMenu: string
   readonly stageTree: string
   readonly logContent: string
-  readonly logViewer: string
 }
 export default styles

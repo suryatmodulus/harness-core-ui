@@ -65,7 +65,7 @@ describe('Context Menu test', () => {
     test('Go to CD ', async () => {
       fireEvent.click(getByText('projectsOrgs.gotoCD'))
       expect(
-        getByTestId('location').innerHTML.endsWith(routes.toCDProjectOverview({ ...routeParams, module: 'cd' }))
+        getByTestId('location').innerHTML.endsWith(routes.toProjectOverview({ ...routeParams, module: 'cd' }))
       ).toBeTruthy()
     }),
     test('Go to CE ', async () => {
@@ -74,7 +74,9 @@ describe('Context Menu test', () => {
     }),
     test('Go to CI ', async () => {
       fireEvent.click(getByText('projectsOrgs.gotoCI'))
-      expect(getByTestId('location').innerHTML.endsWith(routes.toCIProjectOverview(routeParams))).toBeTruthy()
+      expect(
+        getByTestId('location').innerHTML.endsWith(routes.toProjectOverview({ ...routeParams, module: 'ci' }))
+      ).toBeTruthy()
     }),
     test('Go to CF ', async () => {
       fireEvent.click(getByText('projectsOrgs.gotoCF'))

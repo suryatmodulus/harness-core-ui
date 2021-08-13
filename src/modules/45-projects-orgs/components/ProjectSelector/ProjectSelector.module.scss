@@ -1,0 +1,105 @@
+.projectSelector {
+  border: 0.5px solid var(--grey-500);
+  border-radius: 2px;
+  height: 26px;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+}
+
+.selectProjectDisplay {
+  grid-template-columns: 1fr;
+}
+
+.projectText {
+  word-break: break-all;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.pickProjectHelp {
+  padding: var(--spacing-huge) var(--spacing-xlarge);
+  background-position: center 0;
+  background-size: 35px;
+  background-repeat: no-repeat;
+  line-height: 20px;
+}
+
+.projectContainer {
+  column-count: 2;
+  column-gap: 0em;
+  box-sizing: content-box;
+}
+
+.projectContainerWrapper {
+  height: calc(100vh - 125px);
+  justify-content: space-between;
+  margin: var(--spacing-xlarge) var(--spacing-none) !important;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background: var(--grey-200);
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    opacity: 0.6;
+  }
+}
+
+.projectCard {
+  margin-bottom: 2em;
+}
+
+.selectContainer {
+  height: 100vh;
+  padding-bottom: var(--spacing-none) !important;
+  background: #f3f8fb !important;
+}
+
+.popover {
+  transform: translate3d(21px, -5px, 0px) !important;
+}
+
+.popoverTarget {
+  border-radius: 0;
+  height: 24px !important;
+  width: 100%;
+  min-height: unset;
+  padding: var(--spacing-none) !important;
+
+  &:hover {
+    background: rgba(217, 218, 230, 0.15) !important;
+    color: var(--primary-6) !important;
+    box-shadow: none !important;
+  }
+
+  &:active,
+  &[class*='active'] {
+    background: rgba(217, 218, 230, 0.15) !important;
+    color: var(--primary-7) !important;
+    box-shadow: none !important;
+  }
+}
+
+.selectButton {
+  width: 100%;
+  justify-content: space-between;
+  color: var(--white) !important;
+  &:hover {
+    color: var(--white) !important;
+  }
+}
+
+.selectedProject {
+  justify-content: flex-start;
+}

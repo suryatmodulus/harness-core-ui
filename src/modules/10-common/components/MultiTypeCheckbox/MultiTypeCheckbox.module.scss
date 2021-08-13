@@ -1,10 +1,12 @@
 .input {
-  width: 100%;
-  background-color: var(--grey-100) !important;
-  height: 36px;
-  padding-top: var(--spacing-small) !important;
-  padding-left: var(--spacing-xxxlarge) !important;
-
+  &:global(.bp3-checkbox) {
+    width: 100%;
+    background-color: var(--grey-100) !important;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    padding-left: var(--spacing-4) !important;
+  }
   ~ :global(span .bp3-popover-target > button::before) {
     background-color: var(--grey-100) !important;
   }

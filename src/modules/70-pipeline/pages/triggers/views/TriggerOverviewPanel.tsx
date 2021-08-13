@@ -35,6 +35,9 @@ const TriggerOverviewPanel: React.FC<TriggerOverviewPanelPropsInterface> = ({
         identifierProps={{
           isIdentifierEditable: !isEdit
         }}
+        tooltipProps={{
+          dataTooltipId: 'triggerOverview'
+        }}
       />
     </Layout.Vertical>
   )

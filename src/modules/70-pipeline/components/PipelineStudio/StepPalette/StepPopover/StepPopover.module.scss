@@ -1,0 +1,18 @@
+.paletteCard {
+  width: 64px;
+  height: 64px;
+  background: var(--white) !important;
+  border-radius: 8px !important;
+  box-shadow: var(--elevation-2) !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.stepHarnessLogo {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: -6px !important;
+  margin-right: -6px !important;
+}

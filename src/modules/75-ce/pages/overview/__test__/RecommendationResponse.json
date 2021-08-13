@@ -1,0 +1,134 @@
+{
+  "data": {
+    "recommendationStatsV2": {
+      "totalMonthlyCost": 647.2199999999999,
+      "totalMonthlySaving": 359.94,
+      "__typename": "RecommendationOverviewStats"
+    },
+    "recommendationsV2": {
+      "items": [
+        {
+          "id": "c4zIELdlReKh3bHW-i87OA",
+          "resourceType": "WORKLOAD",
+          "resourceName": "ce-test-dontdelete-kmpysm",
+          "monthlyCost": 22.41,
+          "monthlySaving": 14.27,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "MnxHWx7ISTe_Azw6WKrqcw",
+          "resourceType": "WORKLOAD",
+          "resourceName": "aks-cluster-smwbar",
+          "monthlyCost": 29.88,
+          "monthlySaving": 14.13,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "aoRfb1qPSXiZos8U1IY8vw",
+          "resourceType": "WORKLOAD",
+          "resourceName": "ce-aks-zeaakf",
+          "monthlyCost": 24.81,
+          "monthlySaving": 7.63,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "ID54SLhjSV-FCtkwyi018A",
+          "resourceType": "WORKLOAD",
+          "resourceName": "aks-ce-ddbksb",
+          "monthlyCost": 22.41,
+          "monthlySaving": 7.04,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "_sKzjwhfQMG58Kx7zM5ldQ",
+          "resourceType": "WORKLOAD",
+          "resourceName": "ce-dev-wfhxhd",
+          "monthlyCost": 11.28,
+          "monthlySaving": 6.79,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "FYCQ1vFSTYa2KARxwcXfkA",
+          "resourceType": "WORKLOAD",
+          "resourceName": "ce-dev-wfhxhd",
+          "monthlyCost": 11.28,
+          "monthlySaving": 6.79,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "N3WwugVEQC-DAxmawRzdAQ",
+          "resourceType": "WORKLOAD",
+          "resourceName": "ce-dev-wfhxhd",
+          "monthlyCost": 11.28,
+          "monthlySaving": 6.79,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "DFLIMPfdSgKE925JZoKpzg",
+          "resourceType": "WORKLOAD",
+          "resourceName": "ce-dev-wfhxhd",
+          "monthlyCost": 11.28,
+          "monthlySaving": 6.79,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "sYUqqry6RBeunJ3OmQKcdQ",
+          "resourceType": "WORKLOAD",
+          "resourceName": "fluentbit-gke",
+          "monthlyCost": 13.75,
+          "monthlySaving": 5.88,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "Jqh9JMvbTpO6dBI-ZihmsQ",
+          "resourceType": "WORKLOAD",
+          "resourceName": "fluentbit-gke",
+          "monthlyCost": 13.75,
+          "monthlySaving": 5.88,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "uTQ7PbqzRpSr_XWR6b7j_Q",
+          "resourceType": "WORKLOAD",
+          "resourceName": "fluentbit-gke",
+          "monthlyCost": 13.75,
+          "monthlySaving": 5.88,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "wN-itw6mRyKkl6bxdwnQ8A",
+          "resourceType": "WORKLOAD",
+          "resourceName": "fluentbit-gke",
+          "monthlyCost": 13.65,
+          "monthlySaving": 5.83,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "LjdKwN2MTSOfz0CVMh8Cxg",
+          "resourceType": "WORKLOAD",
+          "resourceName": "next-gen-ui",
+          "monthlyCost": 4.81,
+          "monthlySaving": 4.44,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "HH9pe2R5TxatUlZCrm4yJw",
+          "resourceType": "WORKLOAD",
+          "resourceName": "next-gen-ui",
+          "monthlyCost": 4.81,
+          "monthlySaving": 4.44,
+          "__typename": "RecommendationItemDTO"
+        },
+        {
+          "id": "dFtxc-yOTNmR42xNsbODew",
+          "resourceType": "WORKLOAD",
+          "resourceName": "next-gen-ui",
+          "monthlyCost": 4.81,
+          "monthlySaving": 4.44,
+          "__typename": "RecommendationItemDTO"
+        }
+      ],
+      "__typename": "RecommendationsDTO"
+    }
+  }
+}

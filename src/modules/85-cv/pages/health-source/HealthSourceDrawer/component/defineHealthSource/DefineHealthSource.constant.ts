@@ -1,17 +1,28 @@
 import { Connectors } from '@connectors/constants'
 import { getConnectorIconByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
+import { HealthSourceTypes } from '@cv/pages/health-source/types'
 
 export const HEALTHSOURCE_LIST = [
   {
-    name: Connectors.APP_DYNAMICS,
+    name: HealthSourceTypes.AppDynamics,
     icon: getConnectorIconByType(Connectors.APP_DYNAMICS)
   },
   {
-    name: 'Splunk',
-    icon: 'service-splunk'
+    name: HealthSourceTypes.GoogleCloudOperations,
+    icon: 'service-stackdriver'
   },
   {
-    name: Connectors.GCP,
-    icon: getConnectorIconByType(Connectors.GCP)
+    name: HealthSourceTypes.Prometheus,
+    icon: getConnectorIconByType(Connectors.PROMETHEUS)
+  },
+  {
+    name: HealthSourceTypes.NewRelic,
+    icon: getConnectorIconByType(Connectors.NEW_RELIC)
   }
 ]
+
+export const NewRelicProductNames = {
+  APM: 'apm'
+}
+
+export const ConnectorRefFieldName = 'connectorRef'

@@ -25,6 +25,11 @@ export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, 
   UseGetProps<TData, TError, TQueryParams, TPathParams>
 >['mock']
 
+export interface UseGetMockDataWithMutateAndRefetch<T> extends UseGetMockData<T> {
+  mutate: () => Record<string, unknown>
+  refetch: () => Record<string, unknown>
+}
+
 export interface UseMutateMockData<TData, TRequestBody = unknown> {
   loading?: boolean
   mutate?: (data?: TRequestBody) => Promise<TData>
@@ -47,6 +52,8 @@ export interface TestWrapperProps {
   defaultPermissionValues?: Partial<PermissionsContextProps>
   projects?: Project[]
   enableBrowserView?: boolean
+  stringsData?: Record<string, string>
+  getString?(key: string): string
 }
 
 export const prependAccountPath = (path: string): string => withAccountId(() => path)(accountPathProps)
@@ -101,7 +108,9 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
     defaultAppStoreValues,
     queryParams = {},
     defaultLicenseStoreValues,
-    defaultPermissionValues
+    defaultPermissionValues,
+    stringsData = {},
+    getString = (key: string) => key
   } = props
 
   const search = qs.stringify(queryParams, { addQueryPrefix: true })
@@ -117,7 +126,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
   // }, [path, pathParams, queryParams])
 
   return (
-    <StringsContext.Provider value={{ data: {} as any, getString: key => key }}>
+    <StringsContext.Provider value={{ data: stringsData as any, getString }}>
       <AppStoreContext.Provider
         value={{
           featureFlags: {},
@@ -131,6 +140,7 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
             licenseInformation: {},
             CI_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
             FF_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
+            CCM_LICENSE_STATE: LICENSE_STATE_VALUES.ACTIVE,
             updateLicenseStore: () => void 0,
             ...defaultLicenseStoreValues
           }}

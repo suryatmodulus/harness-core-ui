@@ -10,6 +10,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import type {
+  MultiTypeSelectOption,
   MultiTypeMapType,
   MultiTypeMapUIType,
   MultiTypeListType,
@@ -37,8 +38,8 @@ export interface DependencySpec {
   envVariables?: MultiTypeMapType
   entrypoint?: MultiTypeListType
   args?: MultiTypeListType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypePullOption
+  imagePullPolicy?: MultiTypeSelectOption
+  runAsUser?: string
   resources?: Resources
 }
 
@@ -56,8 +57,8 @@ export interface DependencySpecUI
   envVariables?: MultiTypeMapUIType
   entrypoint?: MultiTypeListUIType
   args?: MultiTypeListUIType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypeSelectOption
+  imagePullPolicy?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }

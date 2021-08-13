@@ -79,6 +79,17 @@ export interface ApproversDTO {
   userGroups?: string[]
 }
 
+export type ArtifactTriggerConfig = NGTriggerSpecV2 & {
+  artifactRef?: string
+  spec?: ArtifactTypeSpec
+  stageIdentifier?: string
+  type?: 'GCR'
+}
+
+export interface ArtifactTypeSpec {
+  [key: string]: any
+}
+
 export interface AsyncExecutableResponse {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -202,6 +213,10 @@ export type BitbucketPushSpec = BitbucketEventSpec & {
 export type BitbucketSpec = WebhookTriggerSpecV2 & {
   spec?: BitbucketEventSpec
   type?: 'PullRequest' | 'Push'
+}
+
+export interface BuildStoreTypeSpec {
+  [key: string]: any
 }
 
 export interface ByteString {
@@ -640,6 +655,7 @@ export interface Error {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -809,6 +825,9 @@ export interface Error {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -986,6 +1005,11 @@ export interface ExecutionNode {
     | 'APPROVAL_WAITING'
     | 'APPROVAL_REJECTED'
     | 'WAITING'
+  stepDetails?: {
+    [key: string]: {
+      [key: string]: { [key: string]: any }
+    }
+  }
   stepParameters?: {
     [key: string]: { [key: string]: any }
   }
@@ -1189,6 +1213,7 @@ export interface Failure {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1358,6 +1383,9 @@ export interface Failure {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1579,6 +1607,13 @@ export interface FilterProperties {
   }
 }
 
+export type GcrArtifactSpec = ArtifactTypeSpec & {
+  connectorRef?: string
+  eventConditions?: TriggerEventDataCondition[]
+  registryHostname?: string
+  tag?: string
+}
+
 export interface GithubEventSpec {
   [key: string]: any
 }
@@ -1720,6 +1755,16 @@ export type HarnessApprovalInstanceDetails = ApprovalInstanceDetailsDTO & {
   includePipelineExecutionHistory?: boolean
 }
 
+export type HelmManifestSpec = ManifestTypeSpec & {
+  chartName?: string
+  chartVersion?: string
+  eventDataConditions?: TriggerEventDataCondition[]
+  spec?: BuildStoreTypeSpec
+  type?: 'HTTP'
+}
+
+export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & { [key: string]: any }
+
 export interface InputSetError {
   fieldName?: string
   identifierOfErrorSource?: string
@@ -1745,6 +1790,7 @@ export interface InputSetResponse {
   identifier?: string
   inputSetErrorWrapper?: InputSetErrorWrapper
   inputSetYaml?: string
+  invalid?: boolean
   name?: string
   orgIdentifier?: string
   pipelineIdentifier?: string
@@ -1770,6 +1816,7 @@ export interface InputSetSummaryResponse {
 
 export interface InputSetTemplateResponse {
   inputSetTemplateYaml?: string
+  inputSetYaml?: string
 }
 
 export interface InterruptConfig {
@@ -1810,6 +1857,7 @@ export interface InterruptEffect {
     | 'END_EXECUTION'
     | 'MARK_EXPIRED'
     | 'CUSTOM_FAILURE'
+    | 'EXPIRE_ALL'
     | 'UNRECOGNIZED'
   tookEffectAt: number
 }
@@ -1908,6 +1956,17 @@ export interface LastTriggerExecutionDetails {
   planExecutionId?: string
 }
 
+export type ManifestTriggerConfig = NGTriggerSpecV2 & {
+  manifestRef?: string
+  spec?: ManifestTypeSpec
+  stageIdentifier?: string
+  type?: 'HelmChart'
+}
+
+export interface ManifestTypeSpec {
+  [key: string]: any
+}
+
 export interface ManualIssuer {
   allFields?: {
     [key: string]: { [key: string]: any }
@@ -1916,10 +1975,14 @@ export interface ManualIssuer {
   descriptorForType?: Descriptor
   emailId?: string
   emailIdBytes?: ByteString
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
   parserForType?: ParserManualIssuer
   serializedSize?: number
+  type?: string
+  typeBytes?: ByteString
   unknownFields?: UnknownFieldSet
   userId?: string
   userIdBytes?: ByteString
@@ -1933,8 +1996,12 @@ export interface ManualIssuerOrBuilder {
   descriptorForType?: Descriptor
   emailId?: string
   emailIdBytes?: ByteString
+  identifier?: string
+  identifierBytes?: ByteString
   initializationErrorString?: string
   initialized?: boolean
+  type?: string
+  typeBytes?: ByteString
   unknownFields?: UnknownFieldSet
   userId?: string
   userIdBytes?: ByteString
@@ -2065,10 +2132,11 @@ export interface NGTriggerDetailsResponse {
   identifier?: string
   lastTriggerExecutionDetails?: LastTriggerExecutionDetails
   name?: string
+  registrationStatus?: 'SUCCESS' | 'FAILED' | 'ERROR' | 'TIMEOUT' | 'UNAVAILABLE'
   tags?: {
     [key: string]: string
   }
-  type?: 'Webhook' | 'Scheduled'
+  type?: 'Webhook' | 'Artifact' | 'Manifest' | 'Scheduled'
   webhookDetails?: WebhookDetails
   webhookUrl?: string
   yaml?: string
@@ -2083,14 +2151,14 @@ export interface NGTriggerResponse {
   orgIdentifier?: string
   projectIdentifier?: string
   targetIdentifier?: string
-  type?: 'Webhook' | 'Scheduled'
+  type?: 'Webhook' | 'Artifact' | 'Manifest' | 'Scheduled'
   version?: number
   yaml?: string
 }
 
 export interface NGTriggerSourceV2 {
   spec?: NGTriggerSpecV2
-  type?: 'Webhook' | 'Scheduled'
+  type?: 'Webhook' | 'Artifact' | 'Manifest' | 'Scheduled'
 }
 
 export interface NGTriggerSpecV2 {
@@ -2195,6 +2263,7 @@ export interface OverlayInputSetResponse {
   gitDetails?: EntityGitDetails
   identifier?: string
   inputSetReferences?: string[]
+  invalid?: boolean
   invalidInputSetReferences?: {
     [key: string]: string
   }
@@ -2503,6 +2572,7 @@ export interface PipelineEvent {
     | 'PipelineStart'
     | 'PipelineSuccess'
     | 'PipelineFailed'
+    | 'PipelineEnd'
     | 'PipelinePaused'
     | 'StageSuccess'
     | 'StageFailed'
@@ -2738,7 +2808,7 @@ export interface PreFlightResolution {
 
 export interface Principal {
   identifier: string
-  type: 'USER' | 'SYSTEM' | 'API_KEY'
+  type: 'USER' | 'SYSTEM' | 'API_KEY' | 'SERVICE_ACCOUNT'
 }
 
 export interface RerunInfo {
@@ -3117,6 +3187,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -3286,6 +3357,9 @@ export interface ResponseMessage {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -4108,6 +4182,7 @@ export interface PipelineExecutionInterrupt {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 
@@ -5830,6 +5905,7 @@ export interface HandleInterruptQueryParams {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 
@@ -5914,6 +5990,7 @@ export interface HandleStageInterruptQueryParams {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 
@@ -6025,6 +6102,7 @@ export interface HandleManualInterventionInterruptQueryParams {
     | 'StageRollback'
     | 'StepGroupRollback'
     | 'MarkAsSuccess'
+    | 'ExpireAll'
     | 'Retry'
 }
 
@@ -6929,6 +7007,81 @@ export const getInputsetYamlPromise = (
     props,
     signal
   )
+
+export interface GetInputsetYamlV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  resolveExpressions?: boolean
+}
+
+export interface GetInputsetYamlV2PathParams {
+  planExecutionId: string
+}
+
+export type GetInputsetYamlV2Props = Omit<
+  GetProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  >,
+  'path'
+> &
+  GetInputsetYamlV2PathParams
+
+/**
+ * Gets  inputsetYaml
+ */
+export const GetInputsetYamlV2 = ({ planExecutionId, ...props }: GetInputsetYamlV2Props) => (
+  <Get<ResponseInputSetTemplateResponse, Failure | Error, GetInputsetYamlV2QueryParams, GetInputsetYamlV2PathParams>
+    path={`/pipelines/execution/${planExecutionId}/inputsetV2`}
+    base={getConfig('pipeline/api')}
+    {...props}
+  />
+)
+
+export type UseGetInputsetYamlV2Props = Omit<
+  UseGetProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  >,
+  'path'
+> &
+  GetInputsetYamlV2PathParams
+
+/**
+ * Gets  inputsetYaml
+ */
+export const useGetInputsetYamlV2 = ({ planExecutionId, ...props }: UseGetInputsetYamlV2Props) =>
+  useGet<ResponseInputSetTemplateResponse, Failure | Error, GetInputsetYamlV2QueryParams, GetInputsetYamlV2PathParams>(
+    (paramsInPath: GetInputsetYamlV2PathParams) => `/pipelines/execution/${paramsInPath.planExecutionId}/inputsetV2`,
+    { base: getConfig('pipeline/api'), pathParams: { planExecutionId }, ...props }
+  )
+
+/**
+ * Gets  inputsetYaml
+ */
+export const getInputsetYamlV2Promise = (
+  {
+    planExecutionId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponseInputSetTemplateResponse,
+    Failure | Error,
+    GetInputsetYamlV2QueryParams,
+    GetInputsetYamlV2PathParams
+  >(getConfig('pipeline/api'), `/pipelines/execution/${planExecutionId}/inputsetV2`, props, signal)
 
 export interface GetExecutionNodeQueryParams {
   accountIdentifier: string

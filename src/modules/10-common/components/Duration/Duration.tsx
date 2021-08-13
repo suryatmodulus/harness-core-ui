@@ -6,7 +6,7 @@ import { useStrings } from 'framework/strings'
 export interface DurationProps extends Omit<TextProps, 'icon'> {
   startTime?: number
   endTime?: number // if endTime is nullable, endTime is Date.now() and the duration is re-calculated by an interval
-  durationText?: string // optional text to override the default `Duration: ` prefix
+  durationText?: React.ReactNode // optional text to override the default `Duration: ` prefix: ;
   showMilliSeconds?: boolean
   showZeroSecondsResult?: boolean
   icon?: TextProps['icon'] | null

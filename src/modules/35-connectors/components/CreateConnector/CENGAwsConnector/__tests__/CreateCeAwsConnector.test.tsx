@@ -58,9 +58,13 @@ jest.mock('services/ce', () => ({
   useAwsaccountconnectiondetail: jest.fn().mockImplementation(() => ({
     status: 'SUCCESS',
     data: {
-      externalId: 'harness:108817434118:kmpySmUISimoRrJL6NL73w',
-      stackLaunchTemplateLink: 'https://mock.com'
-    }
+      status: 'SUCCESS',
+      data: {
+        externalId: 'harness:108817434118:kmpySmUISimoRrJL6NL73w',
+        stackLaunchTemplateLink: 'https://mock.com'
+      }
+    },
+    loading: false
   }))
 }))
 
@@ -98,7 +102,7 @@ describe('Create Secret Manager Wizard', () => {
     expect(getAllByText(container, 'connectors.ceAws.cur.heading')[0]).toBeDefined()
 
     //Check if the extention opens
-    expect(getAllByText(container, 'How to Create Cost and Usage Report?')[0]).toBeDefined()
+    expect(getAllByText(container, 'connectors.ceAws.curExtention.heading')[0]).toBeDefined()
 
     expect(container).toMatchSnapshot()
 
@@ -133,7 +137,7 @@ describe('Create Secret Manager Wizard', () => {
     expect(getAllByText(container, 'connectors.ceAws.crossAccountRoleStep2.heading')[0]).toBeDefined()
 
     //Check if the extention opens
-    expect(getAllByText(container, 'Create cross-account IAM role using AWS CloudFormation template')[0]).toBeDefined()
+    expect(getAllByText(container, 'connectors.ceAws.crossAccountRoleExtention.heading')[0]).toBeDefined()
 
     expect(container).toMatchSnapshot()
 

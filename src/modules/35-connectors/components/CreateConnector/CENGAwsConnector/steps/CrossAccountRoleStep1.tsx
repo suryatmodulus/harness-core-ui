@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName } from '@wings-software/uicore'
+import { Button, Heading, Layout, StepProps, CardSelect, Icon, IconName, Container, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { CEAwsConnectorDTO } from './OverviewStep'
 import css from '../CreateCeAwsConnector.module.scss'
@@ -25,19 +25,20 @@ const CrossAccountRoleStep1: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
 
   const cardData: CardData[] = [
     {
-      icon: 'main-main-zoom_in',
-      text: getString('connectors.ceAws.crossAccountRoleStep1.visibilityDes'),
+      icon: 'ce-visibility',
+      text: getString('connectors.ceAzure.chooseRequirements.visibilityCardDesc'),
       value: 'VISIBILITY',
       heading: getString('connectors.ceAws.crossAccountRoleStep1.visibility')
     },
     {
-      icon: 'gear',
-      text: getString('connectors.ceAws.crossAccountRoleStep1.optimizationDes'),
+      icon: 'nav-settings',
+      text: getString('connectors.ceAzure.chooseRequirements.optimizationCardDesc'),
       value: 'OPTIMIZATION',
       heading: getString('connectors.ceAws.crossAccountRoleStep1.optimization')
     }
   ]
 
+  const [cardsSelected, setCardsSelected] = useState<CardData[]>([])
   const prevSelected: CardData[] = []
   useEffect(() => {
     if (prevStepData?.spec?.featuresEnabled) {
@@ -48,9 +49,8 @@ const CrossAccountRoleStep1: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
         }
       })
     }
-  })
-
-  const [cardsSelected, setCardsSelected] = useState<CardData[]>(prevSelected)
+    setCardsSelected(prevSelected)
+  }, [prevStepData])
 
   const handleSubmit = () => {
     const featuresEnabled: FeaturesString[] = cardsSelected.map(card => card.value)
@@ -71,7 +71,12 @@ const CrossAccountRoleStep1: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
 
   const handleCardSelection = (item: CardData) => {
     const selectedAr = [...cardsSelected]
-    const index = selectedAr.indexOf(item)
+    let index = -1
+    selectedAr.forEach((card, ind) => {
+      if (card.value == item.value) {
+        index = ind
+      }
+    })
     if (index > -1) {
       selectedAr.splice(index, 1)
     } else {
@@ -84,49 +89,61 @@ const CrossAccountRoleStep1: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
     <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
         {getString('connectors.ceAws.crossAccountRoleStep1.heading')}
+        <span>{getString('connectors.ceAws.crossAccountRoleStep1.choosePermissions')}</span>
       </Heading>
       <div className={css.infobox}>{getString('connectors.ceAws.crossAccountRoleStep1.subHeading')}</div>
-      <div style={{ padding: 5, paddingBottom: 20 }}>
-        {getString('connectors.ceAws.crossAccountRoleStep1.description')}
-      </div>
-      <div style={{ flex: 1 }}>
-        <CardSelect
-          data={cardData}
-          selected={cardsSelected}
-          multi={true}
-          className={css.grid}
-          onChange={item => {
-            handleCardSelection(item)
-          }}
-          cornerSelected={true}
-          renderItem={item => (
-            <div>
-              <div style={{ display: 'flex', paddingBottom: 7 }}>
-                <Icon name={item.icon} size={32} color="primary5" style={{ paddingRight: 10 }}></Icon>
-                <p>
-                  <div style={{ fontSize: 8, fontFamily: 'inter' }}>
-                    {getString('connectors.ceAws.crossAccountRoleStep1.cost')}
-                  </div>{' '}
-                  <div style={{ fontSize: 14, fontFamily: 'inter' }}>{item.heading}</div>
-                </p>
-              </div>
-              <p>{item.text}</p>
-            </div>
-          )}
-        ></CardSelect>
+      <Container>
+        <Heading level={3} className={css.mtbxxlarge}>
+          {getString('connectors.ceAws.crossAccountRoleStep1.description')}
+        </Heading>
+        <div style={{ flex: 1 }}>
+          <CardSelect
+            data={cardData}
+            selected={cardsSelected}
+            multi={true}
+            className={css.grid}
+            onChange={item => {
+              handleCardSelection(item)
+            }}
+            cornerSelected={true}
+            renderItem={item => <Card {...item} />}
+          ></CardSelect>
 
-        <Layout.Horizontal className={css.buttonPanel} spacing="small">
-          <Button text={getString('previous')} icon="chevron-left" onClick={handleprev}></Button>
-          <Button
-            type="submit"
-            intent="primary"
-            text={getString('continue')}
-            rightIcon="chevron-right"
-            onClick={handleSubmit}
-            disabled={!prevStepData?.includeBilling && cardsSelected.length == 0}
-          />
-        </Layout.Horizontal>
-      </div>
+          <Layout.Horizontal className={css.buttonPanel} spacing="small">
+            <Button text={getString('previous')} icon="chevron-left" onClick={handleprev}></Button>
+            <Button
+              type="submit"
+              intent="primary"
+              text={getString('continue')}
+              rightIcon="chevron-right"
+              onClick={handleSubmit}
+              disabled={!prevStepData?.includeBilling && cardsSelected.length == 0}
+            />
+          </Layout.Horizontal>
+        </div>
+      </Container>
+    </Layout.Vertical>
+  )
+}
+
+const Card = (props: CardData) => {
+  const { icon, heading, text } = props
+  return (
+    <Layout.Vertical spacing="medium">
+      <Layout.Horizontal spacing="small">
+        <Icon name={icon} size={32} />
+        <Container>
+          <Text color="grey900" style={{ fontSize: 9, fontWeight: 600 }}>
+            COST
+          </Text>
+          <Text color="grey900" style={{ fontSize: 16, fontWeight: 500 }}>
+            {heading}
+          </Text>
+        </Container>
+      </Layout.Horizontal>
+      <Text font={'small'} style={{ lineHeight: '20px' }}>
+        {text}
+      </Text>
     </Layout.Vertical>
   )
 }

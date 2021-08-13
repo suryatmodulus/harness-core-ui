@@ -93,16 +93,5 @@
 }
 
 .expandSearch {
-  width: 200px;
-  display: flex;
-  justify-content: flex-end;
-  :global {
-    input[type='search'] {
-      border: 0;
-    }
-    input[type='search']:focus {
-      border: 1px solid var(--grey-200);
-      border-radius: 5px !important;
-    }
-  }
+  margin-right: var(--spacing-medium);
 }

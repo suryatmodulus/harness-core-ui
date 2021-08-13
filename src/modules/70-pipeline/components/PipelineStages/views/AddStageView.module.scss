@@ -1,19 +1,28 @@
 .create-new-content {
-  max-width: 500px;
+  max-width: 530px;
   background: #fff;
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 320px 210px;
   &.parallel {
     .create-new-cards {
       grid-template-columns: 66px 66px 66px;
     }
+  }
+  .stageTypeSection {
+    border-right: dashed 1px #ccc;
+    padding: var(--spacing-xxlarge);
+  }
+  .hoverStageSection {
+    padding: var(--spacing-xxlarge);
+  }
+  .emptyStageView {
+    margin: auto;
   }
 
   .create-new-cards {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: var(--spacing-xlarge);
-    padding: var(--spacing-xxlarge);
 
     .card-new {
       width: 72px;
@@ -32,32 +41,39 @@
       justify-content: center;
       display: grid;
       padding: 8px;
+      text-align: center;
       &.selected {
         font-weight: 600 !important;
       }
     }
   }
-
-  .create-new-message {
-    font-size: var(--font-size-normal);
-    border-left: dashed 1px #ccc;
-    padding: var(--spacing-xlarge);
-    .stageTitle {
-      font-size: var(--font-size-medium);
-      font-weight: 600;
-      color: var(--grey-600);
-      margin-bottom: 12px;
-    }
-    .stageDescription {
-      font-size: var(--font-size-small);
-      color: var(--grey-500);
-      margin-bottom: 12px;
-    }
+  .stageTitle {
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    color: var(--grey-800);
+    margin-bottom: 24px;
   }
-}
-.closeIcon {
-  position: absolute;
-  right: 11px;
-  top: 10px;
-  cursor: pointer;
+
+  .hoverTitle {
+    font-size: var(--font-size-medium);
+    font-weight: 600;
+    color: var(--grey-800);
+    margin-bottom: 8px;
+  }
+
+  .stageDescription {
+    font-size: var(--font-size-normal);
+    color: var(--grey-800);
+    font-weight: 400;
+    height: 60px;
+  }
+  .hoverStageDescription {
+    text-align: center;
+  }
+  .closeIcon {
+    cursor: pointer;
+    position: absolute;
+    top: 18px;
+    right: 18px;
+  }
 }

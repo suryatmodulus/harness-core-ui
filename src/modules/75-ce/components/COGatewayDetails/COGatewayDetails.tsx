@@ -10,7 +10,7 @@ import COGatewayReview from '@ce/components/COGatewayReview/COGatewayReview'
 import type { GatewayDetails } from '@ce/components/COCreateGateway/models'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
-import { useSaveService, Service, useAttachTags, RoutingData } from 'services/lw'
+import { useSaveService, Service, RoutingData } from 'services/lw'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { Utils } from '@ce/common/Utils'
 import { ASRuleTabs, GatewayKindType } from '@ce/constants'
@@ -41,50 +41,24 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
     projectIdentifier: string
   }>()
   const { mutate: saveGateway } = useSaveService({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
+    account_id: accountId,
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
-  const tagKey = 'lightwingRule'
-  const { mutate: assignFilterTags } = useAttachTags({
-    org_id: orgIdentifier, // eslint-disable-line
-    project_id: projectIdentifier, // eslint-disable-line
-    account_id: accountId // eslint-disable-line
-  })
-
-  const setInstancesFilterTags = async (tagValue: string) => {
-    const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
-    await assignFilterTags(
-      {
-        Text: `id = [${instanceIDs}]` // eslint-disable-line
-      },
-      {
-        queryParams: {
-          cloud_account_id: props.gatewayDetails.cloudAccount.id, // eslint-disable-line
-          accountIdentifier: accountId,
-          tagKey,
-          tagValue
-        }
-      }
-    )
-  }
-
   const onSave = async (): Promise<void> => {
-    const tagValue = Utils.randomString()
     try {
       setSaveInProgress(true)
       const hasInstances = !_isEmpty(props.gatewayDetails.selectedInstances)
-      const isK8sRule = !_isEmpty(props.gatewayDetails.routing.k8s?.RuleJson)
+      const isK8sRule = Utils.isK8sRule(props.gatewayDetails)
       const routing: RoutingData = { ports: props.gatewayDetails.routing.ports, lb: undefined }
       if (isK8sRule) {
         routing.k8s = props.gatewayDetails.routing.k8s
       } else if (hasInstances) {
-        await setInstancesFilterTags(tagValue)
+        const instanceIDs = props.gatewayDetails.selectedInstances.map(instance => `'${instance.id}'`).join(',')
         routing.instance = {
-          filter_text: `[tags]\n${tagKey} = "${tagValue}"` // eslint-disable-line
+          filter_text: `id = [${instanceIDs}]` // eslint-disable-line
         }
       } else {
         routing.instance = {
@@ -127,8 +101,6 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         }
         history.push(
           routes.toCECORules({
-            orgIdentifier: orgIdentifier as string,
-            projectIdentifier: projectIdentifier as string,
             accountId
           })
         )
@@ -179,7 +151,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
       if (tabDetails.metaData?.activeStepCount) {
         activeStepDetails['count'] = tabDetails.metaData.activeStepCount
       }
-      if (tabDetails.metaData?.activeStepCount) {
+      if (tabDetails.metaData?.activeStepTabId) {
         activeStepDetails['tabId'] = tabDetails.metaData.activeStepTabId
       }
       setActiveConfigStep(activeStepDetails)
@@ -192,7 +164,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         className={css.breadCrumb}
         links={[
           {
-            url: routes.toCECORules({ orgIdentifier, projectIdentifier, accountId }),
+            url: routes.toCECORules({ accountId }),
             label: getString('ce.co.breadCrumb.rules')
           },
           {
@@ -246,6 +218,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
                   setValidity={setValidAccessSetup}
                   gatewayDetails={props.gatewayDetails}
                   setGatewayDetails={props.setGatewayDetails}
+                  activeStepDetails={activeConfigStep}
                 />
               }
             />

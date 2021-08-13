@@ -13,15 +13,15 @@ describe('Unit tests for MetricAnalysisFilter', () => {
     )
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
 
-    // press caret icoon and select all metrics option
-    const caretIcon = container.querySelector('[class*="bp3-input-action"] [data-icon="caret-down"]')
-    if (!caretIcon) {
+    // press chevron icoon and select all metrics option
+    const icon = container.querySelector('[class*="bp3-input-action"] [data-icon="chevron-down"]')
+    if (!icon) {
       throw Error('Drop down was not rendered.')
     }
 
-    fireEvent.click(caretIcon)
-    await waitFor(() => expect(document.body.querySelector('[class*="menuItem"]')).not.toBeNull())
-    const options = document.querySelectorAll('[class*="menuItem"]')
+    fireEvent.click(icon)
+    await waitFor(() => expect(document.body.querySelector('[class*="menuItemLabel"]')).not.toBeNull())
+    const options = document.querySelectorAll('[class*="menuItemLabel"]')
     fireEvent.click(options[1])
     await waitFor(() => expect(onChangeMock).toHaveBeenCalledWith(MetricAnalysisFilterType.ALL_METRICS))
   })

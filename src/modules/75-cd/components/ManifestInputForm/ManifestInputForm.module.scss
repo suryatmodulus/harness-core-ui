@@ -1,0 +1,50 @@
+.inputWidth {
+  width: 50% !important;
+}
+
+.inputheader {
+  font-weight: 600 !important;
+  font-size: var(--font-size-small) !important;
+  padding-bottom: var(--spacing-medium) !important;
+}
+
+.nopad-left {
+  padding-left: 0 !important;
+}
+
+.card-section {
+  width: 1024px;
+  margin-bottom: 20px;
+  box-shadow: 0px 0px 1px rgb(40 41 61 / 4%), 0px 2px 4px rgb(96 97 112 / 16%);
+}
+
+.accordionSummary {
+  width: 100%;
+  background: var(--white);
+  margin-top: 0 !important;
+}
+
+.listLabel {
+  margin-bottom: var(--spacing-small);
+}
+
+.serviceDefinition {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.subheading {
+  font-weight: 600;
+}
+
+.layoutVerticalSpacing {
+  margin-top: var(--spacing-main) !important;
+  .vertical-spacing-input {
+    margin-bottom: var(--spacing-small);
+  }
+  :global {
+    .bp3-form-group {
+      margin-bottom: 0;
+    }
+  }
+}

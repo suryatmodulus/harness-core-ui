@@ -15,6 +15,7 @@ import type {
   MultiTypeArchiveFormatOption,
   MultiTypeSelectOption
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { SaveCacheGCSStepBaseWithRef } from './SaveCacheGCSStepBase'
 import { SaveCacheGCSStepInputSet } from './SaveCacheGCSStepInputSet'
 import { SaveCacheGCSStepVariables, SaveCacheGCSStepVariablesProps } from './SaveCacheGCSStepVariables'
@@ -28,6 +29,7 @@ export interface SaveCacheGCSStepSpec {
   archiveFormat?: MultiTypeArchiveFormatOption
   override?: boolean
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface SaveCacheGCSStepData {
@@ -43,6 +45,7 @@ export interface SaveCacheGCSStepSpecUI
   connectorRef: MultiTypeConnectorRef
   sourcePaths: MultiTypeListUIType
   archiveFormat?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
@@ -71,6 +74,7 @@ export class SaveCacheGCSStep extends PipelineStep<SaveCacheGCSStepData> {
   protected type = StepType.SaveCacheGCS
   protected stepName = 'Save Cache to GCS'
   protected stepIcon: IconName = 'save-cache-gcs'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.SaveCacheGCS'
   protected stepPaletteVisible = false
 
   protected defaultValues: SaveCacheGCSStepData = {

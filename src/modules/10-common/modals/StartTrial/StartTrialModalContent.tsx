@@ -6,6 +6,9 @@ import { useQueryParams } from '@common/hooks'
 import type { StringsMap } from 'stringTypes'
 import type { Module } from '@common/interfaces/RouteInterfaces'
 import ModuleInfoCards, { ModuleInfoCard, getInfoCardsProps } from '@common/components/ModuleInfoCards/ModuleInfoCards'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import { useUpdateAccountDefaultExperienceNG } from 'services/cd-ng'
+import { Experiences } from '@common/constants/Utils'
 
 export interface StartTrialModalContentProps {
   handleStartTrial?: () => void
@@ -16,19 +19,26 @@ const StartTrialModalContent: React.FC<StartTrialModalContentProps> = props => {
   const { handleStartTrial, module } = props
 
   const { getString } = useStrings()
+  const { GTM_CD_ENABLED } = useFeatureFlags()
   const { accountId } = useParams<{
     accountId: string
   }>()
   const { source } = useQueryParams<{ source?: string }>()
-  const moduleInfoCards = getInfoCardsProps(accountId)[module]
+  const { mutate: updateDefaultExperience } = useUpdateAccountDefaultExperienceNG({
+    accountIdentifier: accountId
+  })
+  const moduleInfoCards = getInfoCardsProps(accountId, GTM_CD_ENABLED)[module]
   const initialSelectedInfoCard = moduleInfoCards ? moduleInfoCards[0] : undefined
   const [selectedInfoCard, setSelectedInfoCard] = useState<ModuleInfoCard | undefined>(initialSelectedInfoCard)
 
   function getModuleButton(): React.ReactElement {
-    function handleOnClick(): void {
+    async function handleOnClick(): Promise<void> {
       if (!selectedInfoCard || selectedInfoCard?.isNgRoute) {
         handleStartTrial?.()
       } else if (selectedInfoCard?.route) {
+        await updateDefaultExperience({
+          defaultExperience: Experiences.CG
+        })
         window.location.href = selectedInfoCard.route?.()
         return
       }

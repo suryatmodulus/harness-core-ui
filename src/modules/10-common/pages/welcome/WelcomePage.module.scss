@@ -1,0 +1,97 @@
+.container {
+  height: 100vh;
+  background-size: cover !important;
+}
+
+.card {
+  &:hover {
+    cursor: pointer;
+  }
+  display: inline-grid !important;
+  width: 260px;
+  height: 190px;
+  border-radius: 12px;
+  background-color: rgba(7, 27, 55, 1) !important;
+  margin: var(--spacing-huge);
+  justify-content: center;
+
+  .icon {
+    margin-top: 4px !important;
+    margin-right: var(--spacing-xsmall) !important;
+  }
+}
+
+.moduleList {
+  height: 100%;
+  display: inline-grid;
+  grid-template-columns: auto auto auto auto auto;
+  margin-left: -48px !important;
+}
+
+.moduleInfo {
+  display: grid;
+}
+
+.moduleInfoLeft {
+  width: 45%;
+  border-right: 1px solid var(--grey-300);
+}
+
+.moduleInfoRight {
+  width: 55%;
+}
+
+.continueButton {
+  cursor: pointer;
+  background-color: var(--primary-7);
+  width: 100px;
+  border-radius: 4px;
+  line-height: 2.5;
+  text-align: center;
+  color: var(--white) !important;
+  text-decoration: none;
+}
+
+.moduleInfoDescription {
+  line-height: 2;
+  color: var(--white) !important;
+  font-size: small;
+}
+
+.moduleInfoCards {
+  background-color: rgba(7, 27, 55, 1) !important;
+}
+
+.changeSelection {
+  &:hover {
+    cursor: pointer;
+  }
+  height: 20px;
+  margin-top: var(--spacing-huge) !important;
+}
+
+.selectedModuleInfoCard {
+  margin-left: unset !important;
+  margin-right: var(--spacing-medium) !important;
+  pointer-events: none !important;
+}
+
+.titleIcon {
+  display: block;
+  margin-top: -20px !important;
+  > svg > g {
+    fill: white;
+  }
+}
+
+.bodyIcon {
+  display: block;
+  margin-top: -30px !important;
+  margin-left: 20px !important;
+  margin-right: unset !important;
+}
+
+.iconContainer {
+  display: block;
+  justify-content: center !important;
+}

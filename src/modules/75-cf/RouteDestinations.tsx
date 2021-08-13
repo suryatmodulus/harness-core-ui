@@ -30,7 +30,7 @@ import type {
   ProjectPathProps
 } from '@common/interfaces/RouteInterfaces'
 import { MinimalLayout } from '@common/layouts'
-
+import DeploymentsList from '@pipeline/pages/deployments-list/DeploymentsList'
 import CFHomePage from '@cf/pages/home/CFHomePage'
 import FeatureFlagsPage from '@cf/pages/feature-flags/FeatureFlagsPage'
 import FeatureFlagsDetailPage from '@cf/pages/feature-flags-detail/FeatureFlagsDetailPage'
@@ -77,8 +77,11 @@ import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 
-import './components/PipelineStudio/FeatureFlagStage'
+import './pages/pipeline-studio/views/FeatureFlagStage'
+import './components/PipelineSteps/index'
 import CFTrialHomePage from './pages/home/CFTrialHomePage'
+import CFPipelineDeploymentList from './pages/pipeline-deployment-list/CFPipelineDeploymentList'
+import { CFPipelineContainer } from './pages/pipeline-studio/CFPipelineContainer'
 
 const RedirectToCFHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -349,27 +352,31 @@ export default (
       sidebarProps={CFSideNavProps}
       path={routes.toPipelines({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
-      <PipelinesPage />
+      <CFPipelineContainer>
+        <PipelinesPage />
+      </CFPipelineContainer>
     </RouteWithLayout>
 
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       exact
       sidebarProps={CFSideNavProps}
+      path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <CFPipelineContainer>
+        <DeploymentsList />
+      </CFPipelineContainer>
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      licenseRedirectData={licenseRedirectData}
+      sidebarProps={CFSideNavProps}
+      exact
       path={routes.toInputSetList({ ...accountPathProps, ...pipelinePathProps, ...pipelineModuleParams })}
     >
       <PipelineDetails>
         <InputSetList />
       </PipelineDetails>
-    </RouteWithLayout>
-
-    <RouteWithLayout
-      licenseRedirectData={licenseRedirectData}
-      sidebarProps={CFSideNavProps}
-      path={routes.toDeployments({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
-      exact
-    >
-      {/*<DeploymentsList />*/}
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -476,7 +483,9 @@ export default (
       })}
       exact
     >
-      <PipelineDetails>{/*<CFPipelineDeploymentList />*/}</PipelineDetails>
+      <PipelineDetails>
+        <CFPipelineDeploymentList />
+      </PipelineDetails>
     </RouteWithLayout>
 
     <RouteWithLayout
@@ -524,7 +533,7 @@ export default (
       path={routes.toSecrets({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
       exact
     >
-      <SecretsPage module="cf" />
+      <SecretsPage />
     </RouteWithLayout>
 
     <RouteWithLayout

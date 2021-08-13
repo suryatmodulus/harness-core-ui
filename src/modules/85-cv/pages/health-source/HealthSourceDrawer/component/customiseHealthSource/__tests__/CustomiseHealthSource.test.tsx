@@ -4,7 +4,7 @@ import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import { Connectors } from '@connectors/constants'
+import { sourceData } from './CustomiseHealthSource.mock'
 import CustomiseHealthSource from '../CustomiseHealthSource'
 
 const testWrapperProps: TestWrapperProps = {
@@ -24,7 +24,7 @@ jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', (
   get SetupSourceTabsContext() {
     return React.createContext({
       tabsInfo: [],
-      sourceData: { sourceType: Connectors.APP_DYNAMICS },
+      sourceData,
       onNext: onNextMock,
       onPrevious: onPrevious
     })
@@ -45,7 +45,7 @@ jest.mock('services/cv', () => ({
 }))
 describe('CustomiseHealthSource', () => {
   test('Validate AppDynamics loads', () => {
-    const { container, getByText } = render(
+    const { getByText } = render(
       <TestWrapper {...testWrapperProps}>
         <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
           <CustomiseHealthSource onSuccess={jest.fn()} />
@@ -55,6 +55,5 @@ describe('CustomiseHealthSource', () => {
     // Appdynamcis loads
     expect(getByText('metricPacks')).toBeVisible()
     expect(getByText('cv.healthSource.connectors.AppDynamics.applicationsAndTiers')).toBeVisible()
-    expect(container).toMatchSnapshot()
   })
 })

@@ -1,22 +1,25 @@
 import React from 'react'
-import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, Button } from '@wings-software/uicore'
+import { Label, FormInput, MultiTypeInputType, Icon, Layout, Text, getMultiTypeFromValue } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get, set, isEmpty, pickBy, identity } from 'lodash-es'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import { FormMultiTypeDurationField } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type {
   DeploymentStageConfig,
   ServiceSpec,
-  StepElement,
-  ExecutionWrapper,
   ExecutionWrapperConfig,
   ServiceConfig,
   PipelineInfrastructure,
   Infrastructure,
-  StageOverridesConfig
+  StageOverridesConfig,
+  StepElementConfig
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
+import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
+import MultiTypeDelegateSelector from '@common/components/MultiTypeDelegateSelector/MultiTypeDelegateSelector'
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
 
@@ -25,6 +28,7 @@ import { getStepFromStage } from '../PipelineStudio/StepUtil'
 import { StepWidget } from '../AbstractSteps/StepWidget'
 import { StepViewType } from '../AbstractSteps/Step'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
+import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './PipelineInputSetForm.module.scss'
 
 function ServiceDependencyForm({
@@ -53,7 +57,7 @@ function ServiceDependencyForm({
         {getString('pipeline.serviceDependencyText')}: {getString('pipeline.stepLabel', allValues)}
       </Label>
       <div>
-        <StepWidget<ExecutionWrapper>
+        <StepWidget<any>
           factory={factory}
           readonly={readonly}
           path={path}
@@ -80,11 +84,13 @@ function StepForm({
   template?: ExecutionWrapperConfig
   allValues?: ExecutionWrapperConfig
   values?: ExecutionWrapperConfig
-  onUpdate: (data: ExecutionWrapper) => void
+  onUpdate: (data: any) => void
   readonly?: boolean
   path: string
 }): JSX.Element {
   const { getString } = useStrings()
+  const { projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
+  const { expressions } = useVariablesExpression()
   return (
     <Layout.Vertical spacing="medium" padding={{ top: 'medium' }}>
       <Label>
@@ -96,7 +102,7 @@ function StepForm({
         {getString('pipeline.stepLabel', allValues?.step)}
       </Label>
       <div>
-        <StepWidget<ExecutionWrapper>
+        <StepWidget<Partial<StepElementConfig>>
           factory={factory}
           readonly={readonly}
           path={path}
@@ -107,6 +113,18 @@ function StepForm({
           onUpdate={onUpdate}
           stepViewType={StepViewType.InputSet}
         />
+        {getMultiTypeFromValue(template?.step?.spec?.delegateSelectors) === MultiTypeInputType.RUNTIME && (
+          <div className={cx(stepCss.formGroup, stepCss.sm)}>
+            <MultiTypeDelegateSelector
+              expressions={expressions}
+              inputProps={{ projectIdentifier, orgIdentifier }}
+              allowableTypes={[MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]}
+              label={getString('delegate.DelegateSelector')}
+              name={`${path}.spec.delegateSelectors`}
+              disabled={readonly}
+            />
+          </div>
+        )}
       </div>
     </Layout.Vertical>
   )
@@ -175,7 +193,7 @@ function ExecutionWrapperInputSetForm(props: {
             />
           ) : null
         } else if (item.parallel) {
-          return (item.parallel as unknown as StepElement[]).map((nodep: ExecutionWrapper, indexp) => {
+          return item.parallel.map((nodep, indexp) => {
             if (nodep.step) {
               const originalStep = getStepFromStage(nodep.step?.identifier || '', allValues)
               const initialValues = getStepFromStage(nodep.step?.identifier || '', values)
@@ -378,14 +396,8 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
             {(deploymentStageTemplate.infrastructure as any).spec?.namespace && (
               <FormInput.MultiTextInput
                 label={
-                  <Text flex font="small" margin={{ bottom: 'xsmall' }}>
+                  <Text flex font="small" margin={{ bottom: 'xsmall' }} tooltipProps={{ dataTooltipId: 'namespace' }}>
                     {getString('pipelineSteps.build.infraSpecifications.namespace')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipeline.namespaceTooltip')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 }
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.namespace`}
@@ -407,17 +419,26 @@ export const StageInputSetFormInternal: React.FC<StageInputSetFormProps> = ({
                 disabled={readonly}
               />
             )}
+            {(deploymentStageTemplate.infrastructure as any).spec?.runAsUser && (
+              <MultiTypeTextField
+                label={<Text margin={{ bottom: 'xsmall' }}>{getString('pipeline.stepCommonFields.runAsUser')}</Text>}
+                name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.runAsUser`}
+                style={{ marginBottom: 'var(--spacing-xsmall)' }}
+                multiTextInputProps={{
+                  multiTextInputProps: {
+                    expressions,
+                    allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+                  },
+                  disabled: readonly,
+                  placeholder: '1000'
+                }}
+              />
+            )}
             {(deploymentStageTemplate.infrastructure as any).spec?.initTimeout && (
               <FormMultiTypeDurationField
                 label={
-                  <Text flex={{ justifyContent: 'start' }} font="small">
+                  <Text flex={{ justifyContent: 'start' }} font="small" tooltipProps={{ dataTooltipId: 'timeout' }}>
                     {getString('pipeline.infraSpecifications.initTimeout')}
-                    <Button
-                      icon="question"
-                      minimal
-                      tooltip={getString('pipelineSteps.timeoutInfo')}
-                      iconProps={{ size: 14 }}
-                    />
                   </Text>
                 }
                 name={`${isEmpty(path) ? '' : `${path}.`}infrastructure.spec.initTimeout`}

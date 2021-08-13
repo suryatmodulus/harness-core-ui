@@ -51,10 +51,11 @@ describe('YAMLBuilder Utils test', () => {
   test('Test getMetaDataForKeyboardEventProcessing method', async () => {
     const editorContent =
       'name: K8sConnector\r\nidentifier: SampleK8s\r\ndescription: Sample K8s connectors\r\naccountIdentifier: ACCOUNT_ID\r\ntags:\r\n  - dev-ops\r\n  - env\r\nlastModifiedAt: 123456789\r\ntype: K8s\r\nspec:\r\n  type: InheritFromDelegate\r\n  spec:\r\n    delegateName: delegatek8s'
-    const { currentProperty } = getMetaDataForKeyboardEventProcessing(
-      setupMockEditor(editorContent, { lineNumber: 17, column: 19 }),
-      true
-    ) as { currentProperty: string; yamlInEditor: string; parentToCurrentPropertyPath: string | null }
+    const { currentProperty } = getMetaDataForKeyboardEventProcessing({
+      editor: setupMockEditor(editorContent, { lineNumber: 17, column: 19 }),
+      onErrorCallback: () => {},
+      shouldAddPlaceholder: true
+    }) as { currentProperty: string; yamlInEditor: string; parentToCurrentPropertyPath: string | null }
     expect(currentProperty).toEqual('delegateName17')
   })
 

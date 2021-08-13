@@ -28,8 +28,10 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { AccountPathProps, OrgPathProps } from '@common/interfaces/RouteInterfaces'
 import { EmailVerificationBanner } from '@common/components/Banners/EmailVerificationBanner'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
+import ProjectsEmptyState from './projects-empty-state.png'
 import css from './ProjectsPage.module.scss'
 
 const CustomSelect = Select.ofType<SelectOption>()
@@ -140,53 +142,56 @@ const ProjectsListPage: React.FC = () => {
   return (
     <Container className={css.projectsPage} height="inherit">
       <EmailVerificationBanner />
-      <Page.Header title={getString('projectsText')} />
-      <Layout.Horizontal spacing="large" className={css.header}>
-        <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
-        <CustomSelect
-          disabled={loading}
-          items={organizations}
-          filterable={false}
-          itemRenderer={(item, { handleClick }) => (
-            <div key={item.value.toString()}>
-              <Menu.Item text={item.label} onClick={handleClick} />
-            </div>
-          )}
-          onItemSelect={item => {
-            history.push({
-              pathname: routes.toProjects({ accountId }),
-              search: `?orgIdentifier=${item.value.toString()}`
-            })
-          }}
-          popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-        >
-          <Button
-            inline
-            round
-            rightIcon="chevron-down"
+      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('projectsText')} />
+      {data?.data?.totalItems || searchParam || loading || error ? (
+        <Layout.Horizontal spacing="large" className={css.header}>
+          <Button intent="primary" text={getString('projectLabel')} icon="plus" onClick={() => openProjectModal()} />
+          <CustomSelect
             disabled={loading}
-            className={css.orgSelect}
-            text={
-              <Layout.Horizontal spacing="xsmall">
-                <Text color={Color.BLACK}>{getString('projectsOrgs.tabOrgs')}</Text>
-                <Text>{orgFilter.label}</Text>
-              </Layout.Horizontal>
-            }
+            items={organizations}
+            filterable={false}
+            itemRenderer={(item, { handleClick }) => (
+              <div key={item.value.toString()}>
+                <Menu.Item text={item.label} onClick={handleClick} />
+              </div>
+            )}
+            onItemSelect={item => {
+              history.push({
+                pathname: routes.toProjects({ accountId }),
+                search: `?orgIdentifier=${item.value.toString()}`
+              })
+            }}
+            popoverProps={{ minimal: true, popoverClassName: css.customselect }}
+          >
+            <Button
+              inline
+              round
+              rightIcon="chevron-down"
+              disabled={loading}
+              className={css.orgSelect}
+              text={
+                <Layout.Horizontal spacing="xsmall">
+                  <Text color={Color.BLACK}>{getString('projectsOrgs.tabOrgs')}</Text>
+                  <Text>{orgFilter.label}</Text>
+                </Layout.Horizontal>
+              }
+            />
+          </CustomSelect>
+
+          <div style={{ flex: 1 }}></div>
+
+          <ExpandingSearchInput
+            flip
+            placeholder={getString('projectsOrgs.search')}
+            onChange={text => {
+              setSearchParam(text.trim())
+            }}
+            className={css.expandSearch}
+            width={350}
           />
-        </CustomSelect>
-
-        <div style={{ flex: 1 }}></div>
-
-        <ExpandingSearchInput
-          placeholder={getString('projectsOrgs.search')}
-          onChange={text => {
-            setSearchParam(text.trim())
-          }}
-          className={css.search}
-        />
-        <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
-      </Layout.Horizontal>
-
+          <GridListToggle initialSelectedView={Views.GRID} onViewToggle={setView} />
+        </Layout.Horizontal>
+      ) : null}
       <Page.Body
         loading={loading}
         retryOnError={() => refetch()}
@@ -195,15 +200,18 @@ const ProjectsListPage: React.FC = () => {
           !searchParam && openProjectModal
             ? {
                 when: () => !data?.data?.content?.length,
-                icon: 'nav-project',
+                image: ProjectsEmptyState,
+                imageClassName: css.imageClassName,
+                messageTitle: getString('projectsOrgs.youHaveNoProjects'),
                 message: getString('projectDescription'),
-                buttonText: getString('addProject'),
+                buttonText: getString('projectsOrgs.createAProject'),
                 onClick: () => openProjectModal?.()
               }
             : {
                 when: () => !data?.data?.content?.length,
-                icon: 'nav-project',
-                message: getString('noProjects')
+                image: ProjectsEmptyState,
+                imageClassName: css.imageClassName,
+                messageTitle: getString('noProjects')
               }
         }
         className={bodyClassName}

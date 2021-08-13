@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -42,14 +42,13 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'dependencyConnectorInfo'
+              }}
+            >
               {getString('pipelineSteps.connectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.dependencyConnectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={['Gcp', 'Aws', 'DockerRegistry']}
@@ -72,9 +71,13 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.image`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{
+                dataTooltipId: 'image'
+              }}
+            >
               {getString('imageLabel')}
-              <Button icon="question" minimal tooltip={getString('imageInfo')} iconProps={{ size: 14 }} />
             </Text>
           }
           multiTextInputProps={{
@@ -93,12 +96,10 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           name={`${isEmpty(path) ? '' : `${path}.`}spec.privileged`}
           label={getString('ci.privileged')}
           multiTypeTextbox={{
-            children: (
-              <Button icon="question" minimal tooltip={getString('ci.privilegedInfo')} iconProps={{ size: 14 }} />
-            ),
             allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED],
             expressions
           }}
+          tooltipProps={{ dataTooltipId: 'privileged' }}
           disabled={readonly}
           setToFalseWhenEmpty={true}
         />
@@ -112,14 +113,13 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{
+                  dataTooltipId: 'dependencyEnvironmentVariables'
+                }}
+              >
                 {getString('environmentVariables')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('environmentVariablesInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -137,9 +137,11 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'dependencyEntryPoint' }}
+              >
                 {getString('entryPointLabel')}
-                <Button icon="question" minimal tooltip={getString('entryPointInfo')} iconProps={{ size: 14 }} />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -157,9 +159,11 @@ export const DependencyInputSet: React.FC<DependencyProps> = ({ template, path, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text
+                style={{ display: 'flex', alignItems: 'center' }}
+                tooltipProps={{ dataTooltipId: 'dependencyArgs' }}
+              >
                 {getString('argsLabel')}
-                <Button icon="question" minimal tooltip={getString('argsInfo')} iconProps={{ size: 14 }} />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]

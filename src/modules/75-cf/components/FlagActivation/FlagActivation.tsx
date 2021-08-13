@@ -140,17 +140,21 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
   const onSaveChanges = useCallback(
     (values: Values, formikActions: FormikActions<Values>): void => {
+      // handle flag state changed - e.g. toggled from off to on
       if (values.state !== initialValues.state) {
         patch.feature.addInstruction(patch.creators.setFeatureFlagState(values?.state as FeatureState))
       }
+      // handle flag off variation changed
       if (!isEqual(values.offVariation, initialValues.offVariation)) {
         patch.feature.addInstruction(patch.creators.updateOffVariation(values.offVariation as string))
       }
+      // handle flag default on variation changed - if not set to percentage rollout
       if (!isEqual(values.onVariation, initialValues.onVariation)) {
         if (values.onVariation !== 'percentage') {
           patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
         }
       }
+      // handle flag default on variation changed - if set to percentage rollout
       if (!isEqual(values.defaultServe, initialValues.defaultServe) && values.onVariation === 'percentage') {
         patch.feature.addInstruction(
           patch.creators.updateDefaultServeByBucket(
@@ -159,6 +163,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
           )
         )
       }
+      // handle custom rules changed (does not include target variations)
       if (!isEqual(values.customRules, initialValues.customRules)) {
         const toClauseData = (c: Clause): ClauseData => {
           if (c.op === extraOperatorReference.customRules.matchSegment.value) {
@@ -175,25 +180,11 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
           }
         }
 
+        // handle removed custom rules
         patch.feature.addAllInstructions(
           initialValues.customRules
             .filter(rule => !values.customRules.find(r => r.ruleId === rule.ruleId))
             .map(r => patch.creators.removeRule(r.ruleId))
-        )
-
-        patch.feature.addAllInstructions(
-          values.customRules
-            .filter(rule =>
-              initialValues.customRules.find(
-                oldRule => oldRule.ruleId === rule.ruleId && oldRule.serve.variation !== rule.serve.variation
-              )
-            )
-            .map(rule => {
-              const variation =
-                (rule.serve.distribution as { bucketBy: string; variations: WeightedVariation[] }) ??
-                rule.serve.variation
-              return patch.creators.updateRuleVariation(rule.ruleId, variation)
-            })
         )
 
         const newRuleIds: string[] = []
@@ -207,6 +198,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         })
         const isNewRule = (id: string) => newRuleIds.includes(id)
 
+        // handle newly added custom rules
         patch.feature.addAllInstructions(
           values.customRules
             .filter(rule => isNewRule(rule.ruleId))
@@ -220,19 +212,23 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
             )
         )
 
+        // handle updates to existing rules
         values.customRules
           .filter(rule => !isNewRule(rule.ruleId))
           .map(rule => [initialValues.customRules.find(r => r.ruleId === rule.ruleId), rule])
           .filter(([initial, current]) => !isEqual(initial, current))
-          .map(([initial, current]) => {
+          .forEach(([initial, current]) => {
+            // handle clause added to existing rule
             current?.clauses
               .filter(c => !c.id)
               .forEach(c => patch.feature.addInstruction(patch.creators.addClause(current.ruleId, toClauseData(c))))
 
+            // handle clause removed from existing rule
             initial?.clauses
               .filter(c => !current?.clauses.find(cl => cl.id === c.id))
               .forEach(c => patch.feature.addInstruction(patch.creators.removeClause(initial.ruleId, c.id)))
 
+            // handle clause changed on existing rule
             initial?.clauses
               .reduce((acc: any, prev) => {
                 const currentValue = current?.clauses.find(c => c.id === prev.id)
@@ -244,6 +240,15 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               .forEach(([c, updated]: [Clause, Clause]) =>
                 patch.feature.addInstruction(patch.creators.updateClause(initial.ruleId, c.id, toClauseData(updated)))
               )
+
+            // handle update to existing rule serve value (true/false/percentage rollout)
+            if (!isEqual(initial?.serve, current?.serve) && current) {
+              const variation =
+                (current.serve.distribution as { bucketBy: string; variations: WeightedVariation[] }) ??
+                current.serve.variation
+
+              patch.feature.addAllInstructions([patch.creators.updateRuleVariation(current?.ruleId, variation)])
+            }
           })
       }
 
@@ -258,6 +263,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       const normalizedInitialVariationMap = normalize(initialValues.variationMap)
       const normalizedVariationMap = normalize(values.variationMap)
 
+      // handle target variations updated
       if (!isEqual(normalizedVariationMap, normalizedInitialVariationMap)) {
         const initial = fromVariationMapToObj(normalizedInitialVariationMap)
         const updated = fromVariationMapToObj(normalizedVariationMap)
@@ -268,9 +274,11 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
             initial[variation]?.targets || [],
             updated[variation]?.targets || []
           )
+          // handle newly added target variations
           if (added.length > 0) {
             patch.feature.addInstruction(patch.creators.addTargetsToVariationTargetMap(variation, added))
           }
+          // handle removed target variations
           if (removed.length > 0) {
             patch.feature.addInstruction(patch.creators.removeTargetsToVariationTargetMap(variation, removed))
           }
@@ -279,6 +287,7 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
 
       const prevOrder = initialValues.customRules.map(x => x.ruleId)
       const newOrder = values.customRules.map(x => x.ruleId)
+      // handle reordered custom rules
       if (!isEqual(prevOrder, newOrder)) {
         patch.feature.addInstruction(patch.creators.reorderRules(newOrder))
       }

@@ -3,9 +3,7 @@
 }
 
 .mainContainer {
-  display: grid;
-  grid-template-columns: 20px 1fr 135px 1px 90px;
-  grid-gap: var(--spacing-small);
+  display: flex;
   align-items: center;
 
   .timeGranularityButton {

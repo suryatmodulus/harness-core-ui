@@ -30,7 +30,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Search..."
+                placeholder="- Select -"
                 style="padding-right: 0px;"
                 type="text"
                 value="Step: 0 (Stage: 0)"
@@ -39,20 +39,20 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="bp3-input-action"
               >
                 <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                  icon="chevron-down"
                 >
                   <svg
-                    data-icon="caret-down"
+                    data-icon="chevron-down"
                     height="14"
                     viewBox="0 0 16 16"
                     width="14"
                   >
                     <desc>
-                      caret-down
+                      chevron-down
                     </desc>
                     <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                       fill-rule="evenodd"
                     />
                   </svg>
@@ -34368,7 +34368,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      placeholder="Search..."
+                      placeholder="- Select -"
                       style="padding-right: 0px;"
                       type="text"
                       value="common.failureRate"
@@ -34377,20 +34377,20 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                        icon="caret-down"
+                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                        icon="chevron-down"
                       >
                         <svg
-                          data-icon="caret-down"
+                          data-icon="chevron-down"
                           height="14"
                           viewBox="0 0 16 16"
                           width="14"
                         >
                           <desc>
-                            caret-down
+                            chevron-down
                           </desc>
                           <path
-                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                             fill-rule="evenodd"
                           />
                         </svg>
@@ -34411,7 +34411,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -36559,7 +36559,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </span>
                     </button>
                     <div
-                      class="bp3-popover-wrapper Select--main bp3-fill"
+                      class="bp3-popover-wrapper SelectV2--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -36626,7 +36626,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -36746,7 +36746,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -36866,7 +36866,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -36986,7 +36986,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37106,7 +37106,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37226,7 +37226,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37346,7 +37346,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37466,7 +37466,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37586,7 +37586,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37706,7 +37706,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37826,7 +37826,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -37946,7 +37946,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -38066,7 +38066,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -38186,7 +38186,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -38376,7 +38376,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                 </span>
               </button>
               <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
+                class="bp3-popover-wrapper SelectV2--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"
@@ -38471,7 +38471,7 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Search..."
+                placeholder="- Select -"
                 style="padding-right: 0px;"
                 type="text"
                 value="Step: 0 (Stage: 0)"
@@ -38480,20 +38480,20 @@ exports[`BuildTests snapshot test should render TI UI 1`] = `
                 class="bp3-input-action"
               >
                 <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                  icon="chevron-down"
                 >
                   <svg
-                    data-icon="caret-down"
+                    data-icon="chevron-down"
                     height="14"
                     viewBox="0 0 16 16"
                     width="14"
                   >
                     <desc>
-                      caret-down
+                      chevron-down
                     </desc>
                     <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                       fill-rule="evenodd"
                     />
                   </svg>
@@ -38777,7 +38777,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               <input
                 autocomplete="off"
                 class="bp3-input"
-                placeholder="Search..."
+                placeholder="- Select -"
                 style="padding-right: 0px;"
                 type="text"
                 value="Step: 0 (Stage: 0)"
@@ -38786,20 +38786,20 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="bp3-input-action"
               >
                 <span
-                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                  icon="caret-down"
+                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                  icon="chevron-down"
                 >
                   <svg
-                    data-icon="caret-down"
+                    data-icon="chevron-down"
                     height="14"
                     viewBox="0 0 16 16"
                     width="14"
                   >
                     <desc>
-                      caret-down
+                      chevron-down
                     </desc>
                     <path
-                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                       fill-rule="evenodd"
                     />
                   </svg>
@@ -73197,7 +73197,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                     <input
                       autocomplete="off"
                       class="bp3-input"
-                      placeholder="Search..."
+                      placeholder="- Select -"
                       style="padding-right: 0px;"
                       type="text"
                       value="common.failureRate"
@@ -73206,20 +73206,20 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       class="bp3-input-action"
                     >
                       <span
-                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                        icon="caret-down"
+                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                        icon="chevron-down"
                       >
                         <svg
-                          data-icon="caret-down"
+                          data-icon="chevron-down"
                           height="14"
                           viewBox="0 0 16 16"
                           width="14"
                         >
                           <desc>
-                            caret-down
+                            chevron-down
                           </desc>
                           <path
-                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                             fill-rule="evenodd"
                           />
                         </svg>
@@ -73240,7 +73240,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -75388,7 +75388,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                       </span>
                     </button>
                     <div
-                      class="bp3-popover-wrapper Select--main bp3-fill"
+                      class="bp3-popover-wrapper SelectV2--main bp3-fill"
                     >
                       <div
                         class="bp3-popover-target"
@@ -75455,7 +75455,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -75575,7 +75575,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -75695,7 +75695,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -75815,7 +75815,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -75935,7 +75935,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76055,7 +76055,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76175,7 +76175,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76295,7 +76295,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76415,7 +76415,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76535,7 +76535,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76655,7 +76655,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76775,7 +76775,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -76895,7 +76895,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -77015,7 +77015,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
               >
                 <p
-                  class="StyledProps--font StyledProps--main testSuiteHeading StyledProps--color StyledProps--color-grey500"
+                  class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
                   style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                 >
                   <button
@@ -77205,7 +77205,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                 </span>
               </button>
               <div
-                class="bp3-popover-wrapper Select--main bp3-fill"
+                class="bp3-popover-wrapper SelectV2--main bp3-fill"
               >
                 <div
                   class="bp3-popover-target"

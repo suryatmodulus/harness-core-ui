@@ -95,7 +95,7 @@ describe('<ExecutionActions /> tests', () => {
     })
 
     act(() => {
-      const btn = result!.container.querySelector(`[icon="${icon}"]`)?.closest('button')
+      const btn = result!.container.querySelector(`[data-icon="${icon}"]`)?.closest('button')
       fireEvent.click(btn!)
     })
 

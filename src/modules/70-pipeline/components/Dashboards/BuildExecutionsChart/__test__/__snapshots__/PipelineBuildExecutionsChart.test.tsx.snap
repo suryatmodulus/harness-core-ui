@@ -22,7 +22,7 @@ exports[`PipelineBuildExecutionsChart shows data correctly 1`] = `
         </div>
       </p>
       <div
-        class="bp3-popover-wrapper rangeSelector Select--main bp3-fill"
+        class="bp3-popover-wrapper rangeSelector SelectV2--main bp3-fill"
       >
         <div
           class="bp3-popover-target"

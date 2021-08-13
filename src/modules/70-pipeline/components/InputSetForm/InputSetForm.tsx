@@ -1,11 +1,20 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { cloneDeep, isEmpty, isNull, isUndefined, omit, omitBy } from 'lodash-es'
-import { Button, Container, Formik, FormikForm, Layout, Text, NestedAccordionProvider } from '@wings-software/uicore'
+import {
+  Button,
+  Container,
+  Formik,
+  FormikForm,
+  Layout,
+  NestedAccordionProvider,
+  Heading,
+  Color
+} from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { FormikErrors } from 'formik'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import {
   useGetTemplateFromPipeline,
   useGetPipeline,
@@ -24,12 +33,11 @@ import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interf
 import type { InputSetGitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageHeader } from '@common/components/Page/PageHeader'
 import { PageBody } from '@common/components/Page/PageBody'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { NameIdDescriptionTags } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import { useStrings } from 'framework/strings'
-import { AppStoreContext, useAppStore } from 'framework/AppStore/AppStoreContext'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -42,6 +50,7 @@ import VisualYamlToggle from '@common/components/VisualYamlToggle/VisualYamlTogg
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { changeEmptyValuesToRunTimeInput } from '@pipeline/utils/stageHelpers'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import { clearRuntimeInput, validatePipeline } from '../PipelineStudio/StepUtil'
 import { factory } from '../PipelineSteps/Steps/__tests__/StepTestUtil'
@@ -53,7 +62,7 @@ import { StepViewType } from '../AbstractSteps/Step'
 import css from './InputSetForm.module.scss'
 
 export interface InputSetDTO extends Omit<InputSetResponse, 'identifier' | 'pipeline'> {
-  pipeline?: NgPipeline
+  pipeline?: PipelineInfoConfig
   identifier?: string
   repo?: string
   branch?: string
@@ -63,7 +72,11 @@ interface SaveInputSetDTO {
   inputSet: InputSetDTO
 }
 
-const getDefaultInputSet = (template: NgPipeline, orgIdentifier: string, projectIdentifier: string): InputSetDTO => ({
+const getDefaultInputSet = (
+  template: PipelineInfoConfig,
+  orgIdentifier: string,
+  projectIdentifier: string
+): InputSetDTO => ({
   name: undefined,
   identifier: '',
   description: undefined,
@@ -226,10 +239,19 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
   })
 
   const inputSet = React.useMemo(() => {
-    if (inputSetResponse?.data && mergeTemplate) {
+    if (inputSetResponse?.data) {
       const inputSetObj = inputSetResponse?.data
-      const inputYamlObj =
-        parse(mergeTemplate || /* istanbul ignore next */ '')?.pipeline || /* istanbul ignore next */ {}
+
+      const parsedInputSetObj = parse(inputSetObj?.inputSetYaml || '')
+      /*
+        Context of the below if block
+        We need to populate existing values of input set in the form.
+        The values are to be filled come from 'merge' API i.e. mergeTemplate object
+        But if the merge API fails (due to invalid input set or any other reason) - we populate the value from the input set response recevied (parsedInputSetObj).
+      */
+      const parsedPipelineWithValues = mergeTemplate
+        ? parse(mergeTemplate || /* istanbul ignore next */ '')?.pipeline || /* istanbul ignore next */ {}
+        : parsedInputSetObj?.inputSet?.pipeline
 
       return {
         name: inputSetObj.name,
@@ -238,7 +260,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
         description: inputSetObj?.description,
         orgIdentifier,
         projectIdentifier,
-        pipeline: clearRuntimeInput(inputYamlObj),
+        pipeline: clearRuntimeInput(parsedPipelineWithValues),
         gitDetails: inputSetObj.gitDetails ?? {}
       }
     }
@@ -260,6 +282,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = (props): JSX.Element =>
           setMergeTemplate(response.data?.pipelineYaml)
         })
         .catch(e => {
+          setMergeTemplate(undefined)
           showError(e?.data?.message || e?.message, undefined, 'pipeline.get.template')
         })
     } else {
@@ -584,20 +607,36 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
   const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier, module } = useParams<
     PipelineType<InputSetPathProps> & { accountId: string }
   >()
-  const { selectedProject: project } = useAppStore()
   const { getString } = useStrings()
 
   return (
     <React.Fragment>
-      <PageHeader
-        title={
-          <Layout.Vertical spacing="xsmall">
-            <Breadcrumbs
+      <GitSyncStoreProvider>
+        <PageHeader
+          title={
+            <Layout.Horizontal>
+              <Heading level={2} color={Color.GREY_800} font={{ weight: 'bold' }}>
+                {isEdit
+                  ? getString('inputSets.editTitle', { name: inputSet.name })
+                  : getString('inputSets.newInputSetLabel')}
+              </Heading>
+              {isGitSyncEnabled && isEdit && (
+                <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
+              )}
+              <div className={css.optionBtns}>
+                <VisualYamlToggle
+                  initialSelectedView={selectedView}
+                  beforeOnChange={(nextMode, callback) => {
+                    handleModeSwitch(nextMode)
+                    callback(nextMode)
+                  }}
+                ></VisualYamlToggle>
+              </div>
+            </Layout.Horizontal>
+          }
+          breadcrumbs={
+            <NGBreadcrumbs
               links={[
-                {
-                  url: routes.toCDProjectOverview({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: project?.name as string
-                },
                 {
                   url: routes.toPipelines({ orgIdentifier, projectIdentifier, accountId, module }),
                   label: getString('pipelines')
@@ -613,33 +652,12 @@ export function InputSetFormWrapper(props: InputSetFormWrapperProps): React.Reac
                     repoIdentifier: pipeline?.data?.gitDetails?.repoIdentifier
                   }),
                   label: parse(pipeline?.data?.yamlPipeline || '')?.pipeline.name || ''
-                },
-                { url: '#', label: isEdit ? inputSet.name : getString('inputSets.newInputSetLabel') }
+                }
               ]}
             />
-            <Layout.Horizontal>
-              <Text font="medium">
-                {isEdit
-                  ? getString('inputSets.editTitle', { name: inputSet.name })
-                  : getString('inputSets.newInputSetLabel')}
-              </Text>
-              {isGitSyncEnabled && isEdit && (
-                <GitPopover data={inputSet.gitDetails || {}} iconProps={{ margin: { left: 'small', top: 'xsmall' } }} />
-              )}
-              <div className={css.optionBtns}>
-                <VisualYamlToggle
-                  initialSelectedView={selectedView}
-                  beforeOnChange={(nextMode, callback) => {
-                    handleModeSwitch(nextMode)
-                    callback(nextMode)
-                  }}
-                ></VisualYamlToggle>
-              </div>
-            </Layout.Horizontal>
-          </Layout.Vertical>
-        }
-      />
-
+          }
+        />
+      </GitSyncStoreProvider>
       <PageBody loading={loading}>{children}</PageBody>
     </React.Fragment>
   )

@@ -2,11 +2,13 @@ import { Card, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import { produce } from 'immer'
+import { set } from 'lodash-es'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
 import ConditionalExecution from '@pipeline/components/PipelineStudio/ConditionalExecution/ConditionalExecution'
 import { useStrings } from 'framework/strings'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import css from './BuildAdvancedSpecifications.module.scss'
 
 export interface AdvancedSpecifications {
@@ -41,12 +43,15 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
                     isReadonly={isReadonly}
                     selectedStage={stage}
                     onUpdate={when => {
-                      const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
+                      const { stage: pipelineStage } = getStageFromPipeline<BuildStageElementConfig>(
+                        selectedStageId || ''
+                      )
                       if (pipelineStage && pipelineStage.stage) {
                         const stageData = produce(pipelineStage, draft => {
-                          draft.stage.when = when
+                          set(draft, 'stage.when', when)
                         })
-                        updateStage(stageData.stage)
+
+                        if (stageData.stage) updateStage(stageData.stage)
                       }
                     }}
                   />
@@ -68,9 +73,10 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
                     const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                     if (pipelineStage && pipelineStage.stage) {
                       const stageData = produce(pipelineStage, draft => {
-                        draft.stage.failureStrategies = failureStrategies
+                        set(draft, 'stage.failureStrategies', failureStrategies)
                       })
-                      updateStage(stageData.stage)
+
+                      if (stageData.stage) updateStage(stageData.stage)
                     }
                   }}
                 />

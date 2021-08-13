@@ -12,6 +12,7 @@ import {
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
+import { projectPathProps } from '@common/utils/routeUtils'
 import ProjectDetails from '../views/ProjectDetails/ProjectDetails'
 import {
   createMockData,
@@ -72,7 +73,7 @@ describe('Project Details', () => {
   test('render with modules and edit menu', async () => {
     const { container } = render(
       <TestWrapper
-        path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+        path={routes.toProjectDetails({ ...projectPathProps })}
         pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -96,7 +97,7 @@ describe('Project Details', () => {
       noModule = true
       const { container } = render(
         <TestWrapper
-          path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+          path={routes.toProjectDetails({ ...projectPathProps })}
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >
@@ -121,7 +122,7 @@ describe('Project Details', () => {
     test('Manage Projects', async () => {
       const { container, getByTestId: localGetByTestId } = render(
         <TestWrapper
-          path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+          path={routes.toProjectDetails({ ...projectPathProps })}
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >
@@ -136,7 +137,7 @@ describe('Project Details', () => {
     test('Click on Add Admin', async () => {
       const { container } = render(
         <TestWrapper
-          path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+          path={routes.toProjectDetails({ ...projectPathProps })}
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >
@@ -154,7 +155,7 @@ describe('Project Details', () => {
     test('Click on Add Collaborator', async () => {
       const { container } = render(
         <TestWrapper
-          path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+          path={routes.toProjectDetails({ ...projectPathProps })}
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
           defaultAppStoreValues={defaultAppStoreValues}
         >

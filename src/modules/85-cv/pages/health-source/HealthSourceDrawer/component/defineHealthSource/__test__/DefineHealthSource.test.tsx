@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, fireEvent, act, waitFor } from '@testing-library/react'
-import { Container, FormInput } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
@@ -19,25 +18,6 @@ const createModeProps: TestWrapperProps = {
 const onNextMock = jest.fn().mockResolvedValue(jest.fn())
 const onPrevious = jest.fn().mockResolvedValue(jest.fn())
 
-const MockConnectorObj = {
-  connector: {
-    identifier: '1234_ident',
-    name: 'connector'
-  }
-}
-
-jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector', () => ({
-  ...(jest.requireActual('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector') as any),
-  ConnectorSelection: function MockComponent(props: any) {
-    return (
-      <Container className="mockInput">
-        <FormInput.Text name="connectorRef" />
-        <button onClick={() => props.onSuccess(MockConnectorObj)} />
-      </Container>
-    )
-  }
-}))
-
 jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', () => ({
   ...(jest.requireActual('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs') as any),
   get SetupSourceTabsContext() {
@@ -52,7 +32,7 @@ jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', (
 
 describe('DefineHealthSource', () => {
   test('should have proper validation', async () => {
-    const { container, getByText } = render(
+    const { getByText } = render(
       <TestWrapper {...createModeProps}>
         <SetupSourceTabs data={{}} tabTitles={['Tab1']} determineMaxTab={() => 1}>
           <DefineHealthSource />
@@ -71,6 +51,5 @@ describe('DefineHealthSource', () => {
         expect(getByText('cv.onboarding.selectProductScreen.validationText.connectorRef')).not.toBeNull()
       )
     })
-    expect(container).toMatchSnapshot()
   })
 })

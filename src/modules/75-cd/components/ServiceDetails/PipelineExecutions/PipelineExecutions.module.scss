@@ -1,0 +1,19 @@
+.executionCardContainer {
+  position: relative;
+  flex-grow: 1;
+  & > * {
+    margin-top: var(--spacing-medium);
+    margin-bottom: var(--spacing-medium);
+  }
+  .pipelineExecutionsEmptyStateContainer {
+    width: 100%;
+    height: 100%;
+    .dataCard {
+      height: 100%;
+    }
+    .pipelineExecutionsEmptyStateImage {
+      width: 150px;
+      height: 100px;
+    }
+  }
+}

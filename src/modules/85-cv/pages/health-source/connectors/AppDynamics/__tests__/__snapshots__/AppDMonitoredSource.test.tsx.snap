@@ -129,7 +129,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                   autocomplete="off"
                                   class="bp3-input"
                                   name="appdApplication"
-                                  placeholder="cv.healthSource.connectors.AppDynamics.applicationPlaceholder"
+                                  placeholder="- cv.healthSource.connectors.AppDynamics.applicationPlaceholder -"
                                   style="padding-left: 0px; padding-right: 0px;"
                                   type="text"
                                   value="Harness-Dev"
@@ -235,7 +235,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                   autocomplete="off"
                                   class="bp3-input"
                                   name="appDTier"
-                                  placeholder="cv.healthSource.connectors.AppDynamics.tierPlaceholder"
+                                  placeholder="- cv.healthSource.connectors.AppDynamics.tierPlaceholder -"
                                   style="padding-left: 0px; padding-right: 0px;"
                                   type="text"
                                   value="manager"
@@ -330,60 +330,67 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main horizontalCenterAlign"
                     >
                       <div
-                        class="StyledProps--font StyledProps--main metricPack"
+                        class="bp3-form-group"
+                        data-id="metricData.Errors-2"
                       >
                         <div
-                          class="bp3-form-group"
-                          data-id="metricAppD.Errors-2"
+                          class="bp3-form-content"
                         >
                           <div
-                            class="bp3-form-content"
+                            class="StyledProps--font StyledProps--main metricPack"
                           >
-                            <label
-                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+                            <div
+                              class="bp3-form-group"
+                              data-id="metricData.Errors-3"
                             >
-                              <input
-                                checked=""
-                                name="metricAppD.Errors"
-                                type="checkbox"
-                              />
-                              <span
-                                class="bp3-control-indicator"
-                              />
-                              <span
-                                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="appDHealthSourceform_metricAppD.Errors"
+                              <div
+                                class="bp3-form-content"
                               >
-                                Errors
-                              </span>
-                            </label>
-                          </div>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="metricAppD.Performance-3"
-                        >
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <label
-                              class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+                                <label
+                                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+                                >
+                                  <input
+                                    name="metricData.Errors"
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    class="bp3-control-indicator"
+                                  />
+                                  <span
+                                    class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                    data-tooltip-id="appDHealthSourceform_metricData.Errors"
+                                  >
+                                    Errors
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
+                            <div
+                              class="bp3-form-group"
+                              data-id="metricData.Performance-4"
                             >
-                              <input
-                                checked=""
-                                name="metricAppD.Performance"
-                                type="checkbox"
-                              />
-                              <span
-                                class="bp3-control-indicator"
-                              />
-                              <span
-                                class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
-                                data-tooltip-id="appDHealthSourceform_metricAppD.Performance"
+                              <div
+                                class="bp3-form-content"
                               >
-                                Performance
-                              </span>
-                            </label>
+                                <label
+                                  class="bp3-control bp3-checkbox StyledProps--font Checkbox--checkbox StyledProps--main StyledProps--inline"
+                                >
+                                  <input
+                                    name="metricData.Performance"
+                                    type="checkbox"
+                                  />
+                                  <span
+                                    class="bp3-control-indicator"
+                                  />
+                                  <span
+                                    class="Tooltip--acenter FormikForm--checkBoxDocTooltipLabel"
+                                    data-tooltip-id="appDHealthSourceform_metricData.Performance"
+                                  >
+                                    Performance
+                                  </span>
+                                </label>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

@@ -92,7 +92,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="gitFetchType"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Latest from Branch"
@@ -101,20 +101,20 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -235,7 +235,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -309,7 +309,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="helmVersion"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Version 2"
@@ -318,20 +318,20 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -500,7 +500,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                               class="Layout--vertical StyledProps--main"
                             >
                               <div
-                                class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--margin-top-small"
+                                class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main StyledProps--margin-top-small"
                               >
                                 <div
                                   class="halfWidth"
@@ -610,7 +610,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                                   class="halfWidth"
                                 >
                                   <div
-                                    class="Layout--horizontal StyledProps--main"
+                                    class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-flex-start StyledProps--flex-alignItems-flex-start"
                                   >
                                     <div
                                       class="bp3-form-group"
@@ -852,7 +852,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="gitFetchType"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Latest from Branch"
@@ -861,20 +861,20 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -995,7 +995,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1069,7 +1069,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="helmVersion"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Version 2"
@@ -1078,20 +1078,20 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -1298,7 +1298,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="gitFetchType"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Latest from Branch"
@@ -1307,20 +1307,20 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -1441,7 +1441,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1515,7 +1515,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="helmVersion"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Version 2"
@@ -1524,20 +1524,20 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -1744,7 +1744,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="gitFetchType"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Latest from Branch"
@@ -1753,20 +1753,20 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>
@@ -1887,7 +1887,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                         autocomplete="off"
                         class="bp3-input"
                         name="folderPath"
-                        placeholder="pipeline.manifestType.pathPlaceholder"
+                        placeholder="pipeline.manifestType.chartPathPlaceholder"
                         type="text"
                         value=""
                       />
@@ -1961,7 +1961,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                           autocomplete="off"
                           class="bp3-input"
                           name="helmVersion"
-                          placeholder="Search..."
+                          placeholder="- Select -"
                           style="padding-right: 0px;"
                           type="text"
                           value="Version 2"
@@ -1970,20 +1970,20 @@ exports[`helm with GIT tests renders without crashing 1`] = `
                           class="bp3-input-action"
                         >
                           <span
-                            class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                            icon="caret-down"
+                            class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                            icon="chevron-down"
                           >
                             <svg
-                              data-icon="caret-down"
+                              data-icon="chevron-down"
                               height="14"
                               viewBox="0 0 16 16"
                               width="14"
                             >
                               <desc>
-                                caret-down
+                                chevron-down
                               </desc>
                               <path
-                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                 fill-rule="evenodd"
                               />
                             </svg>

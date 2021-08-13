@@ -1,26 +1,33 @@
-import type { SelectOption } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
-import type { AppDynamicsHealthSourceSpec, HealthSource, MonitoredServiceResponse } from 'services/cv'
+import type { MonitoredServiceRef } from '@cv/pages/monitored-service/component/MonitoredService.types'
+import type {
+  HealthSource,
+  AppDynamicsHealthSourceSpec,
+  MonitoredServiceResponse,
+  PrometheusHealthSourceSpec,
+  NewRelicHealthSourceSpec,
+  StackdriverMetricHealthSourceSpec
+} from 'services/cv'
 import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
 
 export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
-  spec: AppDynamicsHealthSourceSpec | GCOLogsHealthSourceSpec
+  spec:
+    | AppDynamicsHealthSourceSpec
+    | GCOLogsHealthSourceSpec
+    | PrometheusHealthSourceSpec
+    | NewRelicHealthSourceSpec
+    | StackdriverMetricHealthSourceSpec
 }
 
 export interface RowData extends HealthSource {
-  service?: string
-  environment?: string
   serviceRef?: string
   environmentRef?: string
 }
 
 export interface SourceDataInterface {
   isEdit: boolean
-  serviceName: string
-  serviceIdentifier: string
-  environmentIdentifier: string
-  environmentName: string
-  monitoringSourceName: string
-  monitoredServiceIdentifier: string
+  serviceRef: string
+  environmentRef: string
+  monitoredServiceRef: MonitoredServiceRef
   rowData?: RowData | null
   tableData?: Array<RowData>
   modalOpen?: boolean
@@ -36,10 +43,10 @@ export interface SourceDataInterface {
 export interface HealthSourceDrawerInterface {
   rowData?: RowData | null
   tableData: Array<RowData>
-  serviceRef: SelectOption | undefined
-  environmentRef: SelectOption | undefined
-  monitoringSourcRef: { monitoredServiceIdentifier: string; monitoredServiceName: string }
-  onSuccess: (data: MonitoredServiceResponse) => void
+  serviceRef: string
+  environmentRef: string
+  monitoredServiceRef: MonitoredServiceRef
+  onSuccess: (data: MonitoredServiceResponse | UpdatedHealthSource) => void
   modalOpen: boolean
   createHeader: () => JSX.Element
   onClose: (val: any) => void

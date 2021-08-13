@@ -18,6 +18,7 @@ import type {
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import type { StringsMap } from 'stringTypes'
 import { RestoreCacheGCSStepBaseWithRef } from './RestoreCacheGCSStepBase'
 import { RestoreCacheGCSStepInputSet } from './RestoreCacheGCSStepInputSet'
 import { RestoreCacheGCSStepVariables, RestoreCacheGCSStepVariablesProps } from './RestoreCacheGCSStepVariables'
@@ -33,6 +34,7 @@ export interface RestoreCacheGCSStepSpec {
   archiveFormat?: MultiTypeArchiveFormatOption
   failIfKeyNotFound?: boolean
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface RestoreCacheGCSStepData {
@@ -47,6 +49,7 @@ export interface RestoreCacheGCSStepSpecUI
   extends Omit<RestoreCacheGCSStepSpec, 'connectorRef' | 'archiveFormat' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
   archiveFormat?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
@@ -77,6 +80,7 @@ export class RestoreCacheGCSStep extends PipelineStep<RestoreCacheGCSStepData> {
   protected type = StepType.RestoreCacheGCS
   protected stepName = 'Restore Cache from GCS'
   protected stepIcon: IconName = 'restore-cache-gcs'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.RestoreCacheGCS'
   protected stepPaletteVisible = false
 
   protected defaultValues: RestoreCacheGCSStepData = {

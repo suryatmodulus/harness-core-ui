@@ -19,3 +19,8 @@
     opacity: 1;
   }
 }
+
+.border {
+  margin: var(--spacing-small) var(--spacing-xlarge) var(--spacing-xsmall) var(--spacing-xxlarge) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}

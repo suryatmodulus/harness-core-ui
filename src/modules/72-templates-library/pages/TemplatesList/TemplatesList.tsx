@@ -8,13 +8,14 @@ import { TemplatesListHeader } from '@templates-library/pages/TemplatesList/Tepl
 import { TemplatesGridView } from '@templates-library/pages/TemplatesList/TemplatesGridView/TemplatesGridView'
 import templatesMock from '@templates-library/temporary-mock/templates-list.json'
 import { Sort, SortFields } from '@templates-library/pages/TemplatesList/TemplatesListUtils'
-import { TemplateDetails } from '@templates-library/components/TemplateDetails/TemplateDetails'
+import { TemplateDetailsDrawer } from '@templates-library/components/TemplateDetailDrawer/TemplateDetailDrawer'
 
 import css from './TemplatesList.module.scss'
 
 export default function TemplatesList(): React.ReactElement {
   const { getString } = useStrings()
-  // TODO: remove mock
+
+  // TODO: mock
   const { data, loading, error, refetch } = useGet<TemplatesPageSummaryResponse>('', {
     mock: { loading: false, data: templatesMock as TemplatesPageSummaryResponse }
   })
@@ -110,11 +111,12 @@ export default function TemplatesList(): React.ReactElement {
               gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
               data={data}
               onSelect={setSelectedTemplate}
+              selectedIdentifier={selectedTemplate}
             />
           </React.Fragment>
         )}
       </Page.Body>
-      <TemplateDetails templateIdentifier={selectedTemplate} onClose={() => setSelectedTemplate(undefined)} />
+      <TemplateDetailsDrawer templateIdentifier={selectedTemplate} onClose={() => setSelectedTemplate(undefined)} />
     </>
   )
 }

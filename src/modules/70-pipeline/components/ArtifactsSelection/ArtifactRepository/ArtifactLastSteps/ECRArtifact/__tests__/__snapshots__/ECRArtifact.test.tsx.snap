@@ -239,9 +239,11 @@ exports[`ECR Artifact tests renders correctly in edit case 1`] = `
               <div
                 class="bp3-form-content"
               >
-                <div>
+                <div
+                  class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                >
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       checked=""
@@ -255,7 +257,7 @@ exports[`ECR Artifact tests renders correctly in edit case 1`] = `
                     Value
                   </label>
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       name="tagType"
@@ -676,9 +678,11 @@ exports[`ECR Artifact tests renders while adding step first time 1`] = `
               <div
                 class="bp3-form-content"
               >
-                <div>
+                <div
+                  class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                >
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       checked=""
@@ -692,7 +696,7 @@ exports[`ECR Artifact tests renders while adding step first time 1`] = `
                     Value
                   </label>
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       name="tagType"
@@ -1113,9 +1117,11 @@ exports[`ECR Artifact tests renders without crashing 1`] = `
               <div
                 class="bp3-form-content"
               >
-                <div>
+                <div
+                  class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                >
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       checked=""
@@ -1129,7 +1135,7 @@ exports[`ECR Artifact tests renders without crashing 1`] = `
                     Value
                   </label>
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       name="tagType"

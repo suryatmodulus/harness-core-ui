@@ -23,6 +23,7 @@ import {
   useCreateServicesV2,
   ServiceRequestDTO,
   useGetServiceList,
+  useGetServiceAccessList,
   getServiceListPromise,
   useUpsertServiceV2
 } from 'services/cd-ng'
@@ -274,16 +275,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [hideModal])
 
   React.useEffect(() => {
-    const identifier = initialValues.service?.identifier
-    const isExist = services.filter(service => service.value === identifier).length > 0
-    if (initialValues.service && identifier && !isExist) {
-      const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
-      services.push(value)
-      setService([...services])
-    }
-  }, [initialValues.service, initialValues.service?.identifier, services])
-
-  React.useEffect(() => {
     if (!loading) {
       const serviceList: SelectOption[] = []
       if (serviceResponse?.data?.content?.length) {
@@ -294,15 +285,30 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
           })
         })
       }
-      const identifier = initialValues.service?.identifier
-      const isExist = serviceList.filter(service => service.value === identifier).length > 0
-      if (initialValues.service && identifier && !isExist) {
-        const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
-        serviceList.push(value)
+      if (initialValues.serviceRef) {
+        if (getMultiTypeFromValue(initialValues.serviceRef) === MultiTypeInputType.FIXED) {
+          const doesExist = serviceList.filter(service => service.value === initialValues.serviceRef).length > 0
+          if (!doesExist) {
+            formikRef.current?.setFieldValue('serviceRef', '')
+          }
+        }
+      } else {
+        const identifier = initialValues.service?.identifier
+        const isExist = serviceList.filter(service => service.value === identifier).length > 0
+        if (initialValues.service && identifier && !isExist) {
+          const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
+          serviceList.push(value)
+        }
       }
       setService(serviceList)
     }
-  }, [loading, initialValues.service, serviceResponse, serviceResponse?.data?.content?.length])
+  }, [
+    loading,
+    serviceResponse,
+    serviceResponse?.data?.content?.length,
+    initialValues.service,
+    initialValues.serviceRef
+  ])
 
   if (error?.message) {
     showError(error.message, undefined, 'cd.svc.list.error')
@@ -336,6 +342,10 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const serviceRef = initialValues?.service?.identifier || initialValues?.serviceRef
+
+  const [type, setType] = React.useState<MultiTypeInputType>(getMultiTypeFromValue(serviceRef))
+
   return (
     <>
       <Formik<DeployServiceData>
@@ -350,9 +360,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         }}
         initialValues={{
           ...initialValues,
-          ...{
-            serviceRef: initialValues.service?.identifier || initialValues.serviceRef
-          }
+          ...{ serviceRef }
         }}
         validationSchema={Yup.object().shape({
           serviceRef: Yup.string().trim().required(getString('pipelineSteps.serviceTab.serviceIsRequired'))
@@ -372,6 +380,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 disabled={readonly}
                 placeholder={getString('pipelineSteps.serviceTab.selectService')}
                 multiTypeInputProps={{
+                  onTypeChange: setType,
                   width: 300,
                   expressions,
                   onChange: val => {
@@ -387,7 +396,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 }}
                 selectItems={services}
               />
-              {getMultiTypeFromValue(values?.serviceRef) === MultiTypeInputType.FIXED ? (
+              {type === MultiTypeInputType.FIXED ? (
                 <Button
                   minimal
                   intent="primary"
@@ -455,7 +464,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
     data: serviceResponse,
     error,
     refetch
-  } = useGetServiceList({
+  } = useGetServiceAccessList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
     lazy: true
   })
@@ -467,15 +476,15 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
   }, [])
 
   React.useEffect(() => {
-    if (serviceResponse?.data?.content?.length) {
+    if (serviceResponse?.data?.length) {
       setService(
-        serviceResponse.data.content.map(service => ({
+        serviceResponse.data.map(service => ({
           label: service.service?.name || '',
           value: service.service?.identifier || ''
         }))
       )
     }
-  }, [serviceResponse, serviceResponse?.data?.content?.length])
+  }, [serviceResponse, serviceResponse?.data?.length])
 
   const [canEdit] = usePermission({
     resource: {
@@ -568,7 +577,7 @@ const DeployServiceInputStep: React.FC<DeployServiceProps & { formik?: any }> = 
                   setState({
                     isEdit,
                     isService: false,
-                    data: serviceResponse?.data?.content?.filter(
+                    data: serviceResponse?.data?.filter(
                       service => service.service?.identifier === initialValues.serviceRef
                     )?.[0]?.service as ServiceRequestDTO
                   })

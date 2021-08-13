@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import type { Module } from '@common/interfaces/RouteInterfaces'
@@ -44,9 +44,6 @@ describe('StartTrialModalContent', () => {
       )
       expect(getByText('common.purpose.ce.description')).toBeDefined()
 
-      fireEvent.click(getByText('common.ce.visibility'))
-
-      await waitFor(() => expect(getByText('common.ce.visibilityWarning')).toBeDefined())
       expect(container).toMatchSnapshot()
     })
 

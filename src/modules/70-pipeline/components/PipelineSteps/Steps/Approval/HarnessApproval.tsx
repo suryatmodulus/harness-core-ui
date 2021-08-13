@@ -12,6 +12,7 @@ import { ModuleName } from 'framework/types/ModuleName'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
+import type { StringsMap } from 'stringTypes'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
 import { flatObject } from '../ApprovalCommons'
@@ -19,8 +20,10 @@ import { processFormData, processForInitialValues } from './helper'
 import HarnessApprovalDeploymentMode from './HarnessApprovalDeploymentMode'
 import HarnessApprovalStepModeWithRef from './HarnessApprovalStepMode'
 import type { HarnessApprovalData, HarnessApprovalVariableListModeProps } from './types'
+
 const UserGroupRegex = /^.+step\.spec\.approvers\.userGroups$/
 const logger = loggerFor(ModuleName.CD)
+
 export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   protected invocationMap: Map<
     RegExp,
@@ -36,6 +39,7 @@ export class HarnessApproval extends PipelineStep<HarnessApprovalData> {
   protected type = StepType.HarnessApproval
   protected stepName = 'Manual Approval'
   protected stepIcon: IconName = 'harness-with-color'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.HarnessApproval'
   // initialValues on mount
   protected defaultValues: HarnessApprovalData = {
     identifier: '',

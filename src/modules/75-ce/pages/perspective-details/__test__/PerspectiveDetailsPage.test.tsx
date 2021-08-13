@@ -7,7 +7,8 @@ import { TestWrapper } from '@common/utils/testUtils'
 import {
   FetchPerspectiveTimeSeriesDocument,
   FetchPerspectiveDetailsSummaryDocument,
-  FetchViewFieldsDocument
+  FetchViewFieldsDocument,
+  FetchperspectiveGridDocument
 } from 'services/ce/services'
 // import { useGetPerspective } from 'services/ce'
 import PerspectiveDetailsPage from '../PerspectiveDetailsPage'
@@ -38,6 +39,47 @@ describe('test cases for Perspective details Page', () => {
       executeQuery: ({ query }: { query: DocumentNode }) => {
         if (query === FetchPerspectiveTimeSeriesDocument) {
           return fromValue(ChartResponseData)
+        }
+        if (query === FetchPerspectiveDetailsSummaryDocument) {
+          return fromValue(SummaryResponseData)
+        }
+        if (query === FetchViewFieldsDocument) {
+          return fromValue(ViewFieldResponseData)
+        }
+        return fromValue({})
+      }
+    }
+
+    const { container } = render(
+      <TestWrapper pathParams={params}>
+        <Provider value={responseState as any}>
+          <PerspectiveDetailsPage />
+        </Provider>
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should be able to render no data page', async () => {
+    const responseState = {
+      executeQuery: ({ query }: { query: DocumentNode }) => {
+        if (query === FetchPerspectiveTimeSeriesDocument) {
+          return fromValue({
+            data: {
+              perspectiveTimeSeriesStats: {
+                stats: []
+              }
+            }
+          })
+        }
+        if (query === FetchperspectiveGridDocument) {
+          return fromValue({
+            data: {
+              perspectiveGrid: {
+                data: []
+              }
+            }
+          })
         }
         if (query === FetchPerspectiveDetailsSummaryDocument) {
           return fromValue(SummaryResponseData)

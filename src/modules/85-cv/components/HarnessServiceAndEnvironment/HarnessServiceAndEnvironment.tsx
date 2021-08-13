@@ -13,10 +13,13 @@ import {
 } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import {
-  EnvironmentSelect,
-  EnvironmentSelectProps
-} from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
-import { ServiceSelectOrCreate, ServiceSelectOrCreateProps } from '../ServiceSelectOrCreate/ServiceSelectOrCreate'
+  ServiceSelectOrCreate,
+  ServiceSelectOrCreateProps
+} from './components/ServiceSelectOrCreate/ServiceSelectOrCreate'
+import {
+  EnvironmentSelectOrCreate,
+  EnvironmentSelectOrCreateProps
+} from './components/EnvironmentSelectOrCreate/EnvironmentSelectOrCreate'
 import css from './HarnessServiceAndEnvironment.module.scss'
 
 export function useGetHarnessServices() {
@@ -97,8 +100,8 @@ export function HarnessService(props: ServiceSelectOrCreateProps): JSX.Element {
   return <ServiceSelectOrCreate {...props} className={cx(css.serviceEnvDropdown, props.className)} />
 }
 
-export function HarnessEnvironment(props: EnvironmentSelectProps): JSX.Element {
-  return <EnvironmentSelect {...props} className={cx(css.serviceEnvDropdown, props.className)} />
+export function HarnessEnvironment(props: EnvironmentSelectOrCreateProps): JSX.Element {
+  return <EnvironmentSelectOrCreate {...props} className={cx(css.serviceEnvDropdown, props.className)} />
 }
 
 export function HarnessServiceAsFormField(props: {
@@ -126,7 +129,7 @@ export function HarnessServiceAsFormField(props: {
 
 export function HarnessEnvironmentAsFormField(props: {
   customRenderProps: Omit<CustomRenderProps, 'render'>
-  environmentProps: EnvironmentSelectProps
+  environmentProps: EnvironmentSelectOrCreateProps
 }): JSX.Element {
   const { customRenderProps, environmentProps } = props
 
@@ -135,7 +138,7 @@ export function HarnessEnvironmentAsFormField(props: {
       {...customRenderProps}
       key={`${environmentProps.item?.value as string}`}
       render={formikProps => (
-        <EnvironmentSelect
+        <EnvironmentSelectOrCreate
           {...environmentProps}
           onSelect={selectedOption => {
             formikProps.setFieldValue(customRenderProps.name, selectedOption)

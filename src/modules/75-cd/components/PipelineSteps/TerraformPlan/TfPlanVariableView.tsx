@@ -5,7 +5,7 @@ import { VariablesListTable } from '@pipeline/components/VariablesListTable/Vari
 import type { TFPlanFormData, TerraformPlanVariableStepProps } from '../Common/Terraform/TerraformInterfaces'
 import { ConfigVariables } from './Variableview/TfPlanConfigSection'
 import css from '@cd/components/PipelineSteps/Common/Terraform/TerraformStep.module.scss'
-
+import pipelineVariableCss from '@pipeline/components/PipelineStudio/PipelineVariables/PipelineVariables.module.scss'
 export function TerraformVariableStep(props: TerraformPlanVariableStepProps): React.ReactElement {
   const { variablesData = {} as TFPlanFormData, metadataMap, initialValues } = props
 
@@ -16,6 +16,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
         data={variablesData.spec?.provisionerIdentifier}
         originalData={initialValues.spec?.provisionerIdentifier}
         metadataMap={metadataMap}
+        className={pipelineVariableCss.variablePaddingL2}
       />
       <ConfigVariables {...props} />
       {variablesData?.spec?.configuration?.backendConfig?.spec && (
@@ -25,6 +26,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
             data={variablesData?.spec?.configuration?.backendConfig?.spec}
             originalData={initialValues.spec?.configuration?.backendConfig?.spec}
             metadataMap={metadataMap}
+            className={pipelineVariableCss.variablePaddingL2}
           />
         </>
       )}
@@ -39,6 +41,7 @@ export function TerraformVariableStep(props: TerraformPlanVariableStepProps): Re
             data={variablesData.spec?.configuration?.environmentVariables?.[index]}
             originalData={initialValues.spec?.configuration?.environmentVariables?.[index]}
             metadataMap={metadataMap}
+            className={pipelineVariableCss.variablePaddingL2}
           />
         )
       })}

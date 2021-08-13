@@ -1,0 +1,26 @@
+.timeRangeSelector {
+  display: flex;
+  justify-content: center;
+  border-radius: 4px;
+  height: 30px;
+  .timeRangeButton {
+    height: 100%;
+    padding: 0 !important;
+    white-space: nowrap !important;
+    color: var(--gray-500) !important;
+    font-weight: bold !important;
+    :first-child {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+  .dateRangePicker {
+    padding: var(--spacing-large);
+  }
+}
+
+.nonMinimalStyles {
+  background: var(--white);
+  padding: 0 var(--spacing-small);
+  border: 1px solid var(--grey-200);
+}

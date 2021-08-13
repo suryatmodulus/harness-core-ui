@@ -41,8 +41,6 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
   const [memReqVal, setMemReqVal] = useState(50)
   const [memLimitVal, setMemLimitVal] = useState(95)
 
-  // DANGER: Remove both the constants, this are mocked values
-
   const { cpu: cpuCost, memory: memoryCost } = histogramData.containerRecommendation?.lastDayCost || {}
 
   const [reRenderChart, setRerenderChart] = useState(false)
@@ -67,30 +65,27 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
 
   const isLastDayCostDefined = cpuCost && memoryCost
 
-  const lastDayCost = isLastDayCostDefined ? Number(cpuCost) + Number(memoryCost) : null
-
   const numCPUCost = Number(cpuCost)
   const numMemCost = Number(memoryCost)
-  const numLastDayCost = Number(lastDayCost)
 
   const currentSavings = isLastDayCostDefined
-    ? numLastDayCost -
-      (((currentCPUResource - getCPUValueInCPUFromExpression(cpuReqValue)) / currentCPUResource) * numCPUCost +
-        ((currentMemResource - getMemoryValueInGBFromExpression(memReqValue)) / currentMemResource) * numMemCost)
+    ? (((currentCPUResource - getCPUValueInCPUFromExpression(cpuReqValue)) / currentCPUResource) * numCPUCost +
+        ((currentMemResource - getMemoryValueInGBFromExpression(memReqValue)) / currentMemResource) * numMemCost) *
+      30
     : -1
 
   const performanceOptimizedSavings = isLastDayCostDefined
-    ? numLastDayCost -
-      (((currentCPUResource - getCPUValueInCPUFromExpression(perfCPUReqValue)) / currentCPUResource) * numCPUCost +
-        ((currentMemResource - getMemoryValueInGBFromExpression(perfMemReqValue)) / currentMemResource) * numMemCost)
+    ? (((currentCPUResource - getCPUValueInCPUFromExpression(perfCPUReqValue)) / currentCPUResource) * numCPUCost +
+        ((currentMemResource - getMemoryValueInGBFromExpression(perfMemReqValue)) / currentMemResource) * numMemCost) *
+      30
     : -1
 
   const costOptimizedSavings = isLastDayCostDefined
-    ? numLastDayCost -
-      (((currentCPUResource - getCPUValueInCPUFromExpression(costOptimisedCPUReqValue)) / currentCPUResource) *
+    ? (((currentCPUResource - getCPUValueInCPUFromExpression(costOptimisedCPUReqValue)) / currentCPUResource) *
         numCPUCost +
         ((currentMemResource - getMemoryValueInGBFromExpression(costOptimisedMemReqValue)) / currentMemResource) *
-          numMemCost)
+          numMemCost) *
+      30
     : -1
 
   const isCostOptimizedCustomized =

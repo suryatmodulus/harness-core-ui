@@ -2,16 +2,8 @@
   position: sticky;
   top: 0;
   z-index: 3;
-  padding: var(--spacing-large) var(--spacing-large);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: var(--white);
-  border-bottom: 1px solid var(--grey-200);
-
-  .runText {
-    margin-left: var(--spacing-small);
-  }
+  border: none;
+  box-shadow: var(--elevation-2);
 
   .lhs {
     display: flex;
@@ -24,15 +16,29 @@
     align-items: center;
   }
 
-  .filterGroup {
-    position: relative;
+  .runButton {
+    &:global(.bp3-disabled) {
+      border: none !important;
+    }
+  }
 
-    .label {
-      position: absolute;
-      bottom: calc(100% + 2px);
-      left: 0;
-      font-size: var(--font-size-xsmall);
-      color: var(--grey-500);
+  .expandSearch {
+    margin-right: var(--spacing-medium);
+  }
+
+  .myDeploymentsCheckbox {
+    &:global(.bp3-checkbox) {
+      display: flex;
+      align-items: center;
+      height: var(--spacing-8);
+      padding: 0 var(--spacing-4) 0 var(--spacing-3) !important;
+      background-color: var(--primary-bg);
+      border: 1px solid var(--grey-200);
+      border-radius: 4px;
+    }
+    &.selected {
+      border-color: var(--primary-7);
+      background-color: var(--primary-1);
     }
   }
 

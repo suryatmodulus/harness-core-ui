@@ -2,11 +2,10 @@
 
 exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Trigger List 1`] = `
 <body>
-  <x-mentions />
   <div />
   <div>
     <div
-      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+      class="Layout--horizontal StyledProps--main container StyledProps--flex"
     >
       <button
         class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
@@ -125,7 +124,7 @@ exports[`TriggersPage Triggers tests Renders/snapshots Initial Render - Shows Tr
             <div
               class="textCentered"
             >
-              pipeline.triggers.enableLabel
+              ENABLEDLABEL
             </div>
           </div>
           <div

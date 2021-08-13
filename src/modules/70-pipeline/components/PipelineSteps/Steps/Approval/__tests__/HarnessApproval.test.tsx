@@ -130,6 +130,7 @@ describe('Harness Approval tests', () => {
     expect(queryByText('validation.timeout10SecMinimum')).toBeTruthy()
 
     await act(() => ref.current?.submitForm())
+
     await waitFor(() => expect(queryByText('pipeline.approvalStep.validation.userGroups')).toBeTruthy())
   })
 
@@ -152,7 +153,7 @@ describe('Harness Approval tests', () => {
   test('On submit call', async () => {
     const ref = React.createRef<StepFormikRef<unknown>>()
     const props = getHarnessApprovalEditModePropsWithValues()
-    const { queryByDisplayValue, queryByText, getByText } = render(
+    const { container, queryByDisplayValue, getByText } = render(
       <TestStepWidget
         initialValues={props.initialValues}
         type={StepType.HarnessApproval}
@@ -162,14 +163,7 @@ describe('Harness Approval tests', () => {
       />
     )
 
-    expect(queryByDisplayValue('10m')).toBeTruthy()
-    expect(queryByDisplayValue('harness approval step')).toBeTruthy()
-
-    expect(queryByDisplayValue('Approving pipeline <+pname>')).toBeTruthy()
-
-    expect(queryByDisplayValue('1')).toBeTruthy()
-    expect(queryByText('ug1')).toBeTruthy()
-    expect(queryByText('ug2')).toBeTruthy()
+    expect(container).toMatchSnapshot('values populating on edit')
 
     // Open third accordion
     act(() => {
@@ -192,7 +186,7 @@ describe('Harness Approval tests', () => {
         includePipelineExecutionHistory: true,
         approverInputs: [{ name: 'somekey', defaultValue: 'somevalue' }],
         approvers: {
-          userGroups: ['ug1', 'ug2'],
+          userGroups: ['ug1', 'org.ug2', 'org.ug3', 'ug4', 'account.ug5', 'account.ug6'],
           minimumCount: 1,
           disallowPipelineExecutor: true
         }

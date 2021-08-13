@@ -1,7 +1,18 @@
 import { IDrawerProps, Position } from '@blueprintjs/core'
-
+import type { TextAreaProps } from '@wings-software/uicore/dist/components/FormikForm/FormikForm'
 import type { TimeSeriesSampleDTO } from 'services/cv'
 import type { RecordsProps } from '../Records/types'
+
+export interface QueryContentProps {
+  handleFetchRecords: () => void
+  query?: string
+  loading?: boolean
+  isDialogOpen?: boolean
+  onEditQuery?: () => void
+  textAreaProps?: TextAreaProps['textArea']
+  textAreaName?: string
+  onClickExpand: (isOpen: boolean) => void
+}
 
 export interface QueryViewerProps {
   isManualQuery?: boolean

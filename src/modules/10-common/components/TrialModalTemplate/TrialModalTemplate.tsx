@@ -3,10 +3,11 @@ import { Text, Layout, Icon, Container, Color, IconName } from '@wings-software/
 import { useStrings } from 'framework/strings'
 
 interface TrialModalTemplateProps {
-  iconName: string
+  iconName?: string
   title: string
-  description: string
+  description?: string
   imgSrc: string
+  hideTrialBadge?: boolean
   children: React.ReactElement
   rightWidth?: string
 }
@@ -16,6 +17,7 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
   title,
   description,
   imgSrc,
+  hideTrialBadge,
   children,
   rightWidth = '30%'
 }) => {
@@ -24,21 +26,27 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
   return (
     <Layout.Vertical padding={{ top: 'large', right: 'large' }}>
       <Layout.Horizontal padding={{ top: 'large', left: 'xxxlarge' }} spacing="small">
-        <Icon name={iconName as IconName} size={20} />
-        <Text color={Color.BLACK} font={'medium'}>
-          {title}
-        </Text>
-        <Text
-          background={Color.ORANGE_500}
-          color={Color.WHITE}
-          width={120}
-          border={{ radius: 3 }}
-          margin={{ left: 30 }}
-          inline
-          font={{ align: 'center' }}
-        >
-          {getString('common.trialInProgress')}
-        </Text>
+        {iconName && (
+          <>
+            <Icon name={iconName as IconName} size={20} />
+            <Text color={Color.BLACK} font={'medium'}>
+              {title}
+            </Text>
+          </>
+        )}
+        {!hideTrialBadge && (
+          <Text
+            background={Color.ORANGE_500}
+            color={Color.WHITE}
+            width={120}
+            border={{ radius: 3 }}
+            margin={{ left: 30 }}
+            inline
+            font={{ align: 'center' }}
+          >
+            {getString('common.trialInProgress')}
+          </Text>
+        )}
       </Layout.Horizontal>
       <Layout.Horizontal padding={{ top: 'large' }}>
         <Container
@@ -51,15 +59,17 @@ export const TrialModalTemplate: React.FC<TrialModalTemplateProps> = ({
             backgroundPositionY: 'center'
           }}
         >
-          <Text
-            padding={{ left: 'xxxlarge' }}
-            font={{ size: 'normal' }}
-            width={380}
-            margin={{ left: 30 }}
-            style={{ lineHeight: 2 }}
-          >
-            {description}
-          </Text>
+          {description && (
+            <Text
+              padding={{ left: 'xxxlarge' }}
+              font={{ size: 'normal' }}
+              width={380}
+              margin={{ left: 30 }}
+              style={{ lineHeight: 2 }}
+            >
+              {description}
+            </Text>
+          )}
         </Container>
         <div
           style={{

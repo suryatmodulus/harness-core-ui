@@ -84,7 +84,7 @@ export const StepTypeIconsMap: { [key in NodeType]: IconName } = {
   INFRASTRUCTURE: 'search-infra-prov',
   NG_FORK: 'fork',
   DEPLOYMENT_STAGE_STEP: 'circle',
-  APPROVAL_STAGE: 'pipeline-approval'
+  APPROVAL_STAGE: 'approval-stage-icon'
 }
 
 export const ExecutionStatusIconMap: Record<ExecutionStatus, IconName> = {
@@ -458,7 +458,6 @@ const processNodeData = (
           containerCss: {
             ...(isRollback ? RollbackContainerCss : {})
           },
-          showInLabel: false,
           status: nodeData.status as ExecutionStatus,
           isOpen: true,
           skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
@@ -513,7 +512,6 @@ const processNodeData = (
             name: nodeDataNext.name || /* istanbul ignore next */ '',
             identifier: id,
             data: nodeDataNext,
-            showInLabel: false,
             containerCss: {
               ...(isRollbackNext ? RollbackContainerCss : {})
             },
@@ -585,27 +583,38 @@ export const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPip
             const liteTaskEngineId = nodeAdjacencyListMap?.[nodeId]?.children?.[0] || ''
             processLiteEngineTask(graph?.nodeMap?.[liteTaskEngineId], items, nodeData)
           } else if (!isEmpty(nodeAdjacencyListMap[nodeId].children)) {
-            items.push({
-              group: {
-                name: nodeData.name || /* istanbul ignore next */ '',
-                identifier: nodeId,
-                data: nodeData,
-                skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
-                when: nodeData.nodeRunInfo,
-                containerCss: {
-                  ...(RollbackIdentifier === nodeData.identifier || isRollback ? RollbackContainerCss : {})
-                },
-                status: nodeData.status as ExecutionStatus,
-                isOpen: true,
-                ...getIconDataBasedOnType(nodeData),
-                items: processNodeData(
+            if (nodeData.identifier === 'execution') {
+              items.push(
+                ...processNodeData(
                   nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
                   graph?.nodeMap,
                   graph?.nodeAdjacencyListMap,
                   items
                 )
-              }
-            })
+              )
+            } else {
+              items.push({
+                group: {
+                  name: nodeData.name || /* istanbul ignore next */ '',
+                  identifier: nodeId,
+                  data: nodeData,
+                  skipCondition: nodeData.skipInfo?.evaluatedCondition ? nodeData.skipInfo.skipCondition : undefined,
+                  when: nodeData.nodeRunInfo,
+                  containerCss: {
+                    ...(RollbackIdentifier === nodeData.identifier || isRollback ? RollbackContainerCss : {})
+                  },
+                  status: nodeData.status as ExecutionStatus,
+                  isOpen: true,
+                  ...getIconDataBasedOnType(nodeData),
+                  items: processNodeData(
+                    nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
+                    graph?.nodeMap,
+                    graph?.nodeAdjacencyListMap,
+                    items
+                  )
+                }
+              })
+            }
           }
         } else if (nodeData.stepType === NodeType.FORK) {
           items.push({
@@ -666,7 +675,7 @@ export function getIconDataBasedOnType(nodeData?: ExecutionNode): {
   if (nodeData) {
     if (nodeData.stepType === StepType.Barrier) {
       return nodeData.status === 'Success'
-        ? { icon: 'barrier-close', iconSize: 72 }
+        ? { icon: 'barrier-close', iconSize: 57 }
         : { icon: 'barrier-open', iconSize: 70, iconStyle: { marginBottom: '38px' } }
     }
     if (nodeData.stepType === StepType.ResourceConstraint) {

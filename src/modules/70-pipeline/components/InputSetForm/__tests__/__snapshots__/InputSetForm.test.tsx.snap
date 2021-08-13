@@ -3,102 +3,155 @@
 exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
+        class="breadcrumbsDiv"
       >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
+        <div
+          class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            test
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
-          >
-            pipelines
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="cd-main"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 27 29"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                    fill="url(#cd-main_svg__paint0_linear)"
+                    fill-rule="evenodd"
+                  />
+                  <defs>
+                    <lineargradient
+                      gradientUnits="userSpaceOnUse"
+                      id="cd-main_svg__paint0_linear"
+                      x1="4.551"
+                      x2="19.517"
+                      y1="0"
+                      y2="27.642"
+                    >
+                      <stop
+                        stop-color="#62F91F"
+                      />
+                      <stop
+                        offset="1"
+                        stop-color="#45BD35"
+                      />
+                    </lineargradient>
+                  </defs>
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                test
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            testsdfsdf
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                pipelines
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            asd
-          </span>
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                testsdfsdf
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
       <div
         class="Layout--horizontal StyledProps--main"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium"
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
         >
           inputSets.editTitle
-        </p>
+        </h2>
         <div
           class="optionBtns"
         >
@@ -215,100 +268,155 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
 exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expanded 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
+        class="breadcrumbsDiv"
       >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
+        <div
+          class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            test
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
-          >
-            pipelines
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="cd-main"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 27 29"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                    fill="url(#cd-main_svg__paint0_linear)"
+                    fill-rule="evenodd"
+                  />
+                  <defs>
+                    <lineargradient
+                      gradientUnits="userSpaceOnUse"
+                      id="cd-main_svg__paint0_linear"
+                      x1="4.551"
+                      x2="19.517"
+                      y1="0"
+                      y2="27.642"
+                    >
+                      <stop
+                        stop-color="#62F91F"
+                      />
+                      <stop
+                        offset="1"
+                        stop-color="#45BD35"
+                      />
+                    </lineargradient>
+                  </defs>
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                test
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            testsdfsdf
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
-          />
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                pipelines
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                testsdfsdf
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
       <div
         class="Layout--horizontal StyledProps--main"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium"
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
         >
           inputSets.editTitle
-        </p>
+        </h2>
         <div
           class="optionBtns"
         >
@@ -382,12 +490,14 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-editable-text bp3-disabled bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
                               >
                                 <span
                                   class="bp3-editable-text-content"
                                   style="height: 1px; line-height: 1px; min-width: 0;"
-                                />
+                                >
+                                  asd
+                                </span>
                               </div>
                             </span>
                           </span>
@@ -422,7 +532,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                 class="bp3-input"
                                 name="name"
                                 type="text"
-                                value=""
+                                value="asd"
                               />
                             </div>
                           </div>
@@ -430,34 +540,32 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 0px;"
                       >
                         <label
                           class="Label--main"
                           style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                            data-name="edit"
-                            data-testid="description-edit"
-                            icon="edit"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
                         </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="description-1"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              maxlength="1024"
+                              name="description"
+                              placeholder="common.descriptionPlaceholder"
+                            >
+                              asd
+                            </textarea>
+                          </div>
+                        </div>
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
@@ -492,7 +600,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                       </div>
                     </div>
                     <div
-                      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-xlarge"
+                      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
                     >
                       <div
                         class="Layout--vertical StyledProps--main"
@@ -510,13 +618,13 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                               <svg
                                 fill="none"
                                 height="18"
-                                viewBox="0 0 26 21"
+                                viewBox="0 0 27 29"
                                 width="18"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   clip-rule="evenodd"
-                                  d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                                  d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                                   fill="url(#cd-main_svg__paint0_linear)"
                                   fill-rule="evenodd"
                                 />
@@ -524,17 +632,17 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                   <lineargradient
                                     gradientUnits="userSpaceOnUse"
                                     id="cd-main_svg__paint0_linear"
-                                    x1="3.557"
-                                    x2="8.848"
-                                    y1="9.622"
-                                    y2="18.787"
+                                    x1="4.551"
+                                    x2="19.517"
+                                    y1="0"
+                                    y2="27.642"
                                   >
                                     <stop
                                       stop-color="#62F91F"
                                     />
                                     <stop
                                       offset="1"
-                                      stop-color="#5EAA53"
+                                      stop-color="#45BD35"
                                     />
                                   </lineargradient>
                                 </defs>
@@ -587,7 +695,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                       >
                                         <div
                                           class="bp3-form-group connectorMargin"
-                                          data-id="undefined-1"
+                                          data-id="undefined-2"
                                           style="margin-bottom: 0px;"
                                         >
                                           <div
@@ -600,33 +708,83 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               <button
                                                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                                                 data-testid="cr-field-pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.connectorRef"
-                                                style="width: 417px;"
+                                                style="width: 445px;"
                                                 type="button"
                                               >
                                                 <span
                                                   class="bp3-button-text"
                                                 >
-                                                  <span
-                                                    class="placeholder"
+                                                  <div
+                                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                                   >
-                                                    connectors.selectConnector
-                                                  </span>
+                                                    <span
+                                                      class="bp3-popover-wrapper"
+                                                    >
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <p
+                                                          class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                                          tabindex="0"
+                                                        >
+                                                          tesa1
+                                                        </p>
+                                                      </span>
+                                                    </span>
+                                                    <div
+                                                      class="rightStatus"
+                                                    >
+                                                      <span
+                                                        class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        data-testid="crf-status"
+                                                        icon="full-circle"
+                                                      >
+                                                        <svg
+                                                          data-icon="full-circle"
+                                                          height="6"
+                                                          viewBox="0 0 16 16"
+                                                          width="6"
+                                                        >
+                                                          <desc>
+                                                            full-circle
+                                                          </desc>
+                                                          <path
+                                                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                                            fill-rule="evenodd"
+                                                          />
+                                                        </svg>
+                                                      </span>
+                                                      <span
+                                                        class="Tag--main"
+                                                      >
+                                                        <span
+                                                          class="bp3-tag bp3-minimal tag"
+                                                        >
+                                                          <span
+                                                            class="bp3-text-overflow-ellipsis bp3-fill"
+                                                          >
+                                                            org
+                                                          </span>
+                                                        </span>
+                                                      </span>
+                                                    </div>
+                                                  </div>
                                                 </span>
                                                 <span
-                                                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                                                  icon="caret-down"
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+                                                  icon="chevron-down"
                                                 >
                                                   <svg
-                                                    data-icon="caret-down"
-                                                    height="16"
+                                                    data-icon="chevron-down"
+                                                    height="14"
                                                     viewBox="0 0 16 16"
-                                                    width="16"
+                                                    width="14"
                                                   >
                                                     <desc>
-                                                      caret-down
+                                                      chevron-down
                                                     </desc>
                                                     <path
-                                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                                       fill-rule="evenodd"
                                                     />
                                                   </svg>
@@ -671,7 +829,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-2"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-3"
                                     >
                                       <label
                                         class="bp3-label"
@@ -703,7 +861,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                               placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
@@ -743,7 +901,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-3"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-4"
                                     >
                                       <label
                                         class="bp3-label"
@@ -775,7 +933,7 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view: expand
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                               placeholder="cd.steps.common.releaseNamePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
@@ -906,7 +1064,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               autocomplete="off"
               class="bp3-input"
               name="inputSetReferences[0]"
-              placeholder="pipeline.inputSets.inputSetPlaceholder"
+              placeholder="- pipeline.inputSets.inputSetPlaceholder -"
               style="padding-right: 0px;"
               type="text"
               value="asd"
@@ -915,20 +1073,20 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                icon="caret-down"
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                icon="chevron-down"
               >
                 <svg
-                  data-icon="caret-down"
+                  data-icon="chevron-down"
                   height="14"
                   viewBox="0 0 16 16"
                   width="14"
                 >
                   <desc>
-                    caret-down
+                    chevron-down
                   </desc>
                   <path
-                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                     fill-rule="evenodd"
                   />
                 </svg>
@@ -994,7 +1152,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               autocomplete="off"
               class="bp3-input"
               name="inputSetReferences[0]"
-              placeholder="pipeline.inputSets.inputSetPlaceholder"
+              placeholder="- pipeline.inputSets.inputSetPlaceholder -"
               style="padding-right: 0px;"
               type="text"
               value="asd"
@@ -1003,20 +1161,20 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and 
               class="bp3-input-action"
             >
               <span
-                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                icon="caret-down"
+                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                icon="chevron-down"
               >
                 <svg
-                  data-icon="caret-down"
+                  data-icon="chevron-down"
                   height="14"
                   viewBox="0 0 16 16"
                   width="14"
                 >
                   <desc>
-                    caret-down
+                    chevron-down
                   </desc>
                   <path
-                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                     fill-rule="evenodd"
                   />
                 </svg>
@@ -1334,7 +1492,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[0]"
-                                    placeholder="pipeline.inputSets.inputSetPlaceholder"
+                                    placeholder="- pipeline.inputSets.inputSetPlaceholder -"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="asd"
@@ -1343,20 +1501,20 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
+                                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                      icon="chevron-down"
                                     >
                                       <svg
-                                        data-icon="caret-down"
+                                        data-icon="chevron-down"
                                         height="14"
                                         viewBox="0 0 16 16"
                                         width="14"
                                       >
                                         <desc>
-                                          caret-down
+                                          chevron-down
                                         </desc>
                                         <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                           fill-rule="evenodd"
                                         />
                                       </svg>
@@ -1445,7 +1603,7 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[1]"
-                                    placeholder="pipeline.inputSets.inputSetPlaceholder"
+                                    placeholder="- pipeline.inputSets.inputSetPlaceholder -"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="test"
@@ -1454,20 +1612,20 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
+                                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                      icon="chevron-down"
                                     >
                                       <svg
-                                        data-icon="caret-down"
+                                        data-icon="chevron-down"
                                         height="14"
                                         viewBox="0 0 16 16"
                                         width="14"
                                       >
                                         <desc>
-                                          caret-down
+                                          chevron-down
                                         </desc>
                                         <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                           fill-rule="evenodd"
                                         />
                                       </svg>
@@ -1553,102 +1711,155 @@ exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view
 exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
-      class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+      class="Layout--vertical StyledProps--main"
     >
       <div
-        class="breadcrumbs"
+        class="breadcrumbsDiv"
       >
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/dashboard"
+        <div
+          class="Layout--horizontal StyledProps--main Breadcrumbs--breadcrumbs StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            test
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
-          >
-            pipelines
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+              <span
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                data-icon="cd-main"
+              >
+                <svg
+                  fill="none"
+                  height="16"
+                  viewBox="0 0 27 29"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
+                    fill="url(#cd-main_svg__paint0_linear)"
+                    fill-rule="evenodd"
+                  />
+                  <defs>
+                    <lineargradient
+                      gradientUnits="userSpaceOnUse"
+                      id="cd-main_svg__paint0_linear"
+                      x1="4.551"
+                      x2="19.517"
+                      y1="0"
+                      y2="27.642"
+                    >
+                      <stop
+                        stop-color="#62F91F"
+                      />
+                      <stop
+                        offset="1"
+                        stop-color="#45BD35"
+                      />
+                    </lineargradient>
+                  </defs>
+                </svg>
+              </span>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                test
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <a
-            class="breadcrumb"
-            href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            testsdfsdf
-          </a>
-          <span
-            class="bp3-icon StyledProps--main separator"
-            data-icon="main-chevron-right"
-          >
-            <svg
-              height="11"
-              viewBox="0 0 8 14"
-              width="11"
-              xmlns="http://www.w3.org/2000/svg"
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines"
             >
-              <path
-                d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
-                fill="#4d5969"
-              />
-            </svg>
-          </span>
-        </div>
-        <div>
-          <span
-            class="lastBreadcrumb"
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                pipelines
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-justifyContent-flex-start"
           >
-            inputSets.newInputSetLabel
-          </span>
+            <a
+              class="Breadcrumbs--breadcrumb"
+              href="/account/testAcc/cd/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              >
+                testsdfsdf
+              </p>
+            </a>
+            <span
+              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-xsmall StyledProps--padding-left-xsmall"
+              data-icon="main-chevron-right"
+            >
+              <svg
+                height="12"
+                viewBox="0 0 8 14"
+                width="12"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                  fill="#4d5969"
+                />
+              </svg>
+            </span>
+          </div>
         </div>
       </div>
       <div
         class="Layout--horizontal StyledProps--main"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium"
+        <h2
+          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+          level="2"
         >
           inputSets.newInputSetLabel
-        </p>
+        </h2>
         <div
           class="optionBtns"
         >
@@ -1722,13 +1933,15 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                               class="bp3-popover-target"
                             >
                               <div
-                                class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                class="bp3-editable-text InputWithIdentifier--idValue"
                                 tabindex="0"
                               >
                                 <span
                                   class="bp3-editable-text-content"
                                   style="height: 1px; line-height: 1px; min-width: 0;"
-                                />
+                                >
+                                  asd
+                                </span>
                               </div>
                             </span>
                           </span>
@@ -1783,7 +1996,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                 class="bp3-input"
                                 name="name"
                                 type="text"
-                                value=""
+                                value="asd"
                               />
                             </div>
                           </div>
@@ -1791,34 +2004,32 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
+                        style="margin-bottom: 0px;"
                       >
                         <label
                           class="Label--main"
                           style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
-                            data-name="edit"
-                            data-testid="description-edit"
-                            icon="edit"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
                         </label>
+                        <div
+                          class="bp3-form-group"
+                          data-id="description-1"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              maxlength="1024"
+                              name="description"
+                              placeholder="common.descriptionPlaceholder"
+                            >
+                              asd
+                            </textarea>
+                          </div>
+                        </div>
                       </div>
                       <div
                         class="StyledProps--font StyledProps--main"
@@ -1853,7 +2064,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                       </div>
                     </div>
                     <div
-                      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container StyledProps--padding-xlarge"
+                      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main container"
                     >
                       <div
                         class="Layout--vertical StyledProps--main"
@@ -1871,13 +2082,13 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                               <svg
                                 fill="none"
                                 height="18"
-                                viewBox="0 0 26 21"
+                                viewBox="0 0 27 29"
                                 width="18"
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <path
                                   clip-rule="evenodd"
-                                  d="M15.201 2.9a5.325 5.325 0 00-2.498 3.256l-.34 1.273 2.656.712.34-1.273a2.615 2.615 0 013.2-1.847 2.617 2.617 0 011.847 3.2 2.614 2.614 0 01-3.199 1.847l-.03-.008-7.673-2.057a5.325 5.325 0 00-4.069.535 5.325 5.325 0 00-2.497 3.256 5.328 5.328 0 00.536 4.07 5.328 5.328 0 003.256 2.499 5.325 5.325 0 004.069-.535 5.325 5.325 0 002.498-3.256l.34-1.274-2.656-.712-.34 1.273a2.614 2.614 0 01-3.2 1.847 2.617 2.617 0 01-1.847-3.2 2.604 2.604 0 011.218-1.585 2.604 2.604 0 011.98-.262l7.704 2.066a5.325 5.325 0 004.069-.535 5.325 5.325 0 002.497-3.257 5.329 5.329 0 00-.536-4.07 5.329 5.329 0 00-3.256-2.498 5.325 5.325 0 00-4.069.534z"
+                                  d="M23.642 5.06c1.558.91 2.515 2.616 2.5 4.46l-.075 8.934c-.015 1.797-.953 3.451-2.464 4.35l-7.774 4.618a4.806 4.806 0 01-4.891.021l-7.553-4.402c-1.558-.909-2.515-2.615-2.5-4.458L.96 9.648c.015-1.797.952-3.452 2.464-4.35L11.197.68A4.806 4.806 0 0116.09.66l7.553 4.402zm-2.748 6.938c-.409 1.586-1.971 2.538-3.5 2.141l-7.274-2.026a4.449 4.449 0 00-3.517.48 4.76 4.76 0 00-2.158 2.925 4.96 4.96 0 00.465 3.664c.622 1.12 1.624 1.917 2.822 2.251a4.448 4.448 0 003.517-.48 4.76 4.76 0 002.158-2.924l.254-1.047a.25.25 0 00-.172-.302l-1.223-.34a.242.242 0 00-.299.18l-.248 1.025c-.413 1.602-2.005 2.556-3.547 2.127-1.537-.428-2.45-2.073-2.04-3.67.41-1.586 1.972-2.538 3.5-2.142l7.275 2.027a4.448 4.448 0 003.516-.48 4.76 4.76 0 002.159-2.925 4.96 4.96 0 00-.466-3.664 4.639 4.639 0 00-2.821-2.251 4.448 4.448 0 00-3.517.48A4.76 4.76 0 0013.62 9.97l-.24.828a.251.251 0 00.169.312l1.222.34a.242.242 0 00.296-.169l.24-.827c.414-1.602 2.006-2.557 3.547-2.127 1.538.428 2.451 2.073 2.04 3.67z"
                                   fill="url(#cd-main_svg__paint0_linear)"
                                   fill-rule="evenodd"
                                 />
@@ -1885,17 +2096,17 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                   <lineargradient
                                     gradientUnits="userSpaceOnUse"
                                     id="cd-main_svg__paint0_linear"
-                                    x1="3.557"
-                                    x2="8.848"
-                                    y1="9.622"
-                                    y2="18.787"
+                                    x1="4.551"
+                                    x2="19.517"
+                                    y1="0"
+                                    y2="27.642"
                                   >
                                     <stop
                                       stop-color="#62F91F"
                                     />
                                     <stop
                                       offset="1"
-                                      stop-color="#5EAA53"
+                                      stop-color="#45BD35"
                                     />
                                   </lineargradient>
                                 </defs>
@@ -1948,7 +2159,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                       >
                                         <div
                                           class="bp3-form-group connectorMargin"
-                                          data-id="undefined-1"
+                                          data-id="undefined-2"
                                           style="margin-bottom: 0px;"
                                         >
                                           <div
@@ -1961,33 +2172,83 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               <button
                                                 class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
                                                 data-testid="cr-field-pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.connectorRef"
-                                                style="width: 417px;"
+                                                style="width: 445px;"
                                                 type="button"
                                               >
                                                 <span
                                                   class="bp3-button-text"
                                                 >
-                                                  <span
-                                                    class="placeholder"
+                                                  <div
+                                                    class="Layout--horizontal Layout--layout-spacing-small StyledProps--main selectWrapper StyledProps--flex StyledProps--flex-distribution-space-between"
                                                   >
-                                                    connectors.selectConnector
-                                                  </span>
+                                                    <span
+                                                      class="bp3-popover-wrapper"
+                                                    >
+                                                      <span
+                                                        class="bp3-popover-target"
+                                                      >
+                                                        <p
+                                                          class="StyledProps--font StyledProps--main label StyledProps--color StyledProps--color-grey800"
+                                                          tabindex="0"
+                                                        >
+                                                          tesa1
+                                                        </p>
+                                                      </span>
+                                                    </span>
+                                                    <div
+                                                      class="rightStatus"
+                                                    >
+                                                      <span
+                                                        class="bp3-icon bp3-icon-full-circle StyledProps--main status redStatus"
+                                                        data-testid="crf-status"
+                                                        icon="full-circle"
+                                                      >
+                                                        <svg
+                                                          data-icon="full-circle"
+                                                          height="6"
+                                                          viewBox="0 0 16 16"
+                                                          width="6"
+                                                        >
+                                                          <desc>
+                                                            full-circle
+                                                          </desc>
+                                                          <path
+                                                            d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                                            fill-rule="evenodd"
+                                                          />
+                                                        </svg>
+                                                      </span>
+                                                      <span
+                                                        class="Tag--main"
+                                                      >
+                                                        <span
+                                                          class="bp3-tag bp3-minimal tag"
+                                                        >
+                                                          <span
+                                                            class="bp3-text-overflow-ellipsis bp3-fill"
+                                                          >
+                                                            org
+                                                          </span>
+                                                        </span>
+                                                      </span>
+                                                    </div>
+                                                  </div>
                                                 </span>
                                                 <span
-                                                  class="bp3-icon bp3-icon-caret-down StyledProps--main"
-                                                  icon="caret-down"
+                                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main"
+                                                  icon="chevron-down"
                                                 >
                                                   <svg
-                                                    data-icon="caret-down"
-                                                    height="16"
+                                                    data-icon="chevron-down"
+                                                    height="14"
                                                     viewBox="0 0 16 16"
-                                                    width="16"
+                                                    width="14"
                                                   >
                                                     <desc>
-                                                      caret-down
+                                                      chevron-down
                                                     </desc>
                                                     <path
-                                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                                       fill-rule="evenodd"
                                                     />
                                                   </svg>
@@ -2032,7 +2293,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-2"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace-3"
                                     >
                                       <label
                                         class="bp3-label"
@@ -2064,7 +2325,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.namespace"
                                               placeholder="pipeline.infraSpecifications.namespacePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
@@ -2104,7 +2365,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                   >
                                     <div
                                       class="bp3-form-group"
-                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-3"
+                                      data-id="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName-4"
                                     >
                                       <label
                                         class="bp3-label"
@@ -2136,7 +2397,7 @@ exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
                                               name="pipeline.stages[0].stage.spec.infrastructure.infrastructureDefinition.spec.releaseName"
                                               placeholder="cd.steps.common.releaseNamePlaceholder"
                                               type="text"
-                                              value=""
+                                              value="asd"
                                             />
                                           </div>
                                           <span
@@ -2568,7 +2829,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[0]"
-                                    placeholder="pipeline.inputSets.inputSetPlaceholder"
+                                    placeholder="- pipeline.inputSets.inputSetPlaceholder -"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value="asd"
@@ -2577,20 +2838,20 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
+                                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                      icon="chevron-down"
                                     >
                                       <svg
-                                        data-icon="caret-down"
+                                        data-icon="chevron-down"
                                         height="14"
                                         viewBox="0 0 16 16"
                                         width="14"
                                       >
                                         <desc>
-                                          caret-down
+                                          chevron-down
                                         </desc>
                                         <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                           fill-rule="evenodd"
                                         />
                                       </svg>
@@ -2678,7 +2939,7 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="inputSetReferences[1]"
-                                    placeholder="pipeline.inputSets.inputSetPlaceholder"
+                                    placeholder="- pipeline.inputSets.inputSetPlaceholder -"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value=""
@@ -2687,20 +2948,20 @@ exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] 
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
+                                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                      icon="chevron-down"
                                     >
                                       <svg
-                                        data-icon="caret-down"
+                                        data-icon="chevron-down"
                                         height="14"
                                         viewBox="0 0 16 16"
                                         width="14"
                                       >
                                         <desc>
-                                          caret-down
+                                          chevron-down
                                         </desc>
                                         <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                           fill-rule="evenodd"
                                         />
                                       </svg>

@@ -55,7 +55,9 @@ const COHealthCheckTable: React.FC<COHealthCheckTableProps> = props => {
     }
     setHealthCheckPattern([pattern])
   }
-  const updateInput = useCallback(debounce(updateHealthCheckPattern, 1000), [])
+
+  const updateInput = useCallback(debounce(updateHealthCheckPattern, 1000), [healthCheckPattern])
+
   function getItembyValue(items: SelectItem[], value: string): SelectItem {
     return items.filter(x => x.value == value)[0]
   }

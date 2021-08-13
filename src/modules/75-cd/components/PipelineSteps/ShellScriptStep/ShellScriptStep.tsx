@@ -16,6 +16,7 @@ import { getDurationValidationSchema } from '@common/components/MultiTypeDuratio
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import type { StringsMap } from 'stringTypes'
 import { shellScriptType } from './BaseShellScript'
 
 import type { ShellScriptData, ShellScriptFormData } from './shellScriptTypes'
@@ -165,6 +166,7 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   protected type = StepType.SHELLSCRIPT
   protected stepName = 'Shell Script'
   protected stepIcon: IconName = 'command-shell-script'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.SHELLSCRIPT'
   protected isHarnessSpecific = true
   protected invocationMap: Map<
     RegExp,

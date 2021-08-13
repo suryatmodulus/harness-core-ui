@@ -1,0 +1,21 @@
+.popoverContent {
+  width: 300px;
+  font-size: var(--font-size-xsmall);
+  padding: var(--spacing-small) var(--spacing-large);
+  .btnCtn {
+    text-align: right;
+    .instructionBtn {
+      color: var(--primary-4) !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+:global(.bp3-popover-wrapper) {
+  margin-top: 0 !important;
+}
+
+.dataFields {
+  width: 500px;
+  margin-bottom: var(--spacing-large) !important;
+}

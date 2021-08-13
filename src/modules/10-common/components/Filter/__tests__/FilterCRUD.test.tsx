@@ -7,6 +7,7 @@ import filtersData from '../mocks/filters-mock.json'
 
 const props = {
   filters: filtersData?.data?.content as any,
+  isLeftFilterDirty: false,
   initialValues: { name: '', visible: undefined, identifier: '' },
   onSaveOrUpdate: jest.fn(),
   onDelete: jest.fn(),
@@ -35,7 +36,7 @@ describe('Test FilterCRUD component', () => {
 
   test('Enable edit mode', async () => {
     const { container, getByText } = setup()
-    const newfilterBtn = getByText('common.filters.saveNewFilter')
+    const newfilterBtn = getByText('filters.newFilter')
     await act(async () => {
       fireEvent.click(newfilterBtn)
     })
@@ -46,7 +47,7 @@ describe('Test FilterCRUD component', () => {
     const filterName = 'filterWithUserOnlyVisibility'
     const { container, getByText } = setup()
     /* Adding a new filter */
-    const newfilterBtn = getByText('common.filters.saveNewFilter')
+    const newfilterBtn = getByText('filters.newFilter')
     await act(async () => {
       fireEvent.click(newfilterBtn!)
     })
@@ -94,7 +95,7 @@ describe('Test FilterCRUD component', () => {
     const filterName = 'filterWithUserOnlyVisibility'
     const { container, getByText } = setup()
     /* Adding a new filter */
-    const newfilterBtn = getByText('common.filters.saveNewFilter')
+    const newfilterBtn = getByText('filters.newFilter')
     await act(async () => {
       fireEvent.click(newfilterBtn!)
     })

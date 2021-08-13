@@ -5,15 +5,11 @@
     "stepsData": [],
     "stepCategories": [
       {
-        "name": "Build",
+        "name": "Feature Flags",
         "stepsData": [
           {
-            "type": "Run",
-            "name": "Run"
-          },
-          {
-            "type": "Plugin",
-            "name": "Plugin"
+            "type": "FlagConfiguration",
+            "name": "Flag Configuration"
           }
         ],
         "stepCategories": []

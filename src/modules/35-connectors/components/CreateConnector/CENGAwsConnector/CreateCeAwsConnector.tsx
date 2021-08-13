@@ -3,19 +3,18 @@ import { StepWizard } from '@wings-software/uicore'
 import { Connectors, CreateConnectorModalProps } from '@connectors/constants'
 import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import { useStrings } from 'framework/strings'
+import DialogExtention from '@connectors/common/ConnectorExtention/DialogExtention'
 import OverviewStep, { CEAwsConnectorDTO } from './steps/OverviewStep'
 import CostUsageStep from './steps/CostUsageReport'
-import CostUsageReportExtension from './steps/CostUsageReportExtenstion'
 import CrossAccountRoleStep1 from './steps/CrossAccountRoleStep1'
 import CrossAccountRoleStep2 from './steps/CrossAccountRoleStep2'
 import TestConnection from './steps/TestConnection'
-import DialogExtention from './DialogExtention'
 import css from './CreateCeAwsConnector.module.scss'
 
 const CreateCeAwsConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
   return (
-    <DialogExtention renderExtension={CostUsageReportExtension}>
+    <DialogExtention>
       <StepWizard
         icon={getConnectorIconByType(Connectors.CEAWS)}
         iconProps={{ size: 40 }}

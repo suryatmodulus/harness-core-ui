@@ -4,7 +4,7 @@ import { Formik, FormikProps } from 'formik'
 import * as Yup from 'yup'
 import { debounce } from 'lodash-es'
 
-import type { ExecutionWrapper, StageElementWrapperConfig } from 'services/cd-ng'
+import type { StageElementWrapperConfig } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import FailureStrategyPanel, {
   AllFailureStrategyConfig
@@ -64,7 +64,7 @@ export function FailureStrategy(props: FailureStrategyProps, ref: StepCommandsRe
     },
     getValues() {
       if (formikRef.current) {
-        return formikRef.current.values as ExecutionWrapper
+        return formikRef.current.values
       }
 
       return {}

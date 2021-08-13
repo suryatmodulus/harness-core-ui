@@ -15,7 +15,19 @@
 }
 
 .savingsContainer {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
   border-bottom: 1px solid var(--grey-200);
+
+  .costContainer {
+    align-items: flex-end;
+  }
+
+  .viewDetailsButton {
+    border: 1px solid var(--primary-7) !important;
+    border-radius: 14px;
+    margin-top: -8px !important;
+  }
 }
 
 .pageBody {
@@ -24,4 +36,7 @@
   .mainContainer {
     padding-top: 36px !important;
   }
+}
+.subText {
+  padding-bottom: 1px !important;
 }

@@ -10,7 +10,7 @@ import ConditionalExecutionPanelCondition from './ConditionalExecutionCondition'
 import { ConditionalExecutionOption, PipelineOrStageStatus } from './ConditionalExecutionPanelUtils'
 
 export interface ConditionalExecutionPanelProps {
-  formikProps: FormikProps<Values>
+  formikProps: FormikProps<Pick<Values, 'when'>>
   mode: Modes
   isReadonly: boolean
 }
@@ -18,6 +18,7 @@ export interface ConditionalExecutionPanelProps {
 export default function ConditionalExecutionPanel(props: ConditionalExecutionPanelProps): React.ReactElement {
   const { formikProps, mode, isReadonly } = props
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const debouncedUpdate = React.useCallback(
     debounce(({ status, enableJEXL, condition }: ConditionalExecutionOption): void => {
       formikProps.setFieldValue('when', {

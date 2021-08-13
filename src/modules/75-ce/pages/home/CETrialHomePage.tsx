@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useHistory, useParams } from 'react-router-dom'
+import { pick } from 'lodash-es'
+import { useStrings } from 'framework/strings'
+import routes from '@common/RouteDefinitions'
 import { StartTrialTemplate } from '@common/components/TrialHomePageTemplate/StartTrialTemplate'
 import { useStartTrialLicense } from 'services/cd-ng'
-import { useQueryParams } from '@common/hooks'
-import { useStrings } from 'framework/strings'
-import { PageSpinner } from '@common/components/Page/PageSpinner'
-import useStartTrialModal from '@common/modals/StartTrial/StartTrialModal'
-import routes from '@common/RouteDefinitions'
-import { useToaster } from '@common/components'
-import bgImageURL from './ce-homepage-bg.svg'
+import useCreateConnector from '@ce/components/CreateConnector/CreateConnector'
+import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import type { Module } from '@common/interfaces/RouteInterfaces'
+import { ModuleName } from 'framework/types/ModuleName'
+import bgImage from './images/cehomebg.svg'
 
 const CETrialHomePage: React.FC = () => {
   const { getString } = useStrings()
@@ -17,64 +19,68 @@ const CETrialHomePage: React.FC = () => {
     accountId: string
   }>()
   const history = useHistory()
-  const { source } = useQueryParams<{ source?: string }>()
-  const { showError } = useToaster()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
-  const {
-    error,
-    mutate: startTrial,
-    loading
-  } = useStartTrialLicense({
+  const { openModal } = useCreateConnector({
+    onSuccess: () => {
+      history.push(routes.toCEOverview({ accountId }))
+    },
+    onClose: () => {
+      history.push(routes.toCEOverview({ accountId }))
+    }
+  })
+
+  const { mutate: startTrial } = useStartTrialLicense({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
-  async function startTrialAndRouteToModuleHome(): Promise<void> {
-    await startTrial({ moduleType: 'CE' })
-    history.push({
-      pathname: routes.toModuleHome({ accountId, module: 'ce' }),
-      search: '?trial=true'
-    })
-  }
-
-  const { showModal: openStartTrialModal } = useStartTrialModal({
-    module: 'ce',
-    handleStartTrial: source === 'signup' ? undefined : startTrialAndRouteToModuleHome
+  const { showModal, hideModal } = useCETrialModal({
+    onContinue: () => {
+      hideModal()
+      openModal()
+    }
   })
 
+  const handleStartTrial = async (): Promise<void> => {
+    const data = await startTrial({ moduleType: 'CE' })
+
+    const expiryTime = data?.data?.expiryTime
+
+    const updatedLicenseInfo = data?.data && {
+      ...licenseInformation?.['CI'],
+      ...pick(data?.data, ['licenseType', 'edition']),
+      expiryTime
+    }
+
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      ModuleName.CE.toString() as Module,
+      updatedLicenseInfo
+    )
+    showModal()
+  }
+
   const startTrialProps = {
-    description: getString('ce.ceTrialHomePage.startTrial.description'),
+    description: getString('ce.homepage.slogan'),
     learnMore: {
       description: getString('ce.learnMore'),
-      url: 'https://ngdocs.harness.io/article/34bzscs2y9-ce-placeholder'
+      url: 'https://ngdocs.harness.io/category/c9j6jejsws-cd-quickstarts'
     },
     startBtn: {
-      description: source ? getString('common.startTrial') : getString('getStarted'),
-      onClick: source ? undefined : openStartTrialModal
+      description: getString('common.startTrial'),
+      onClick: handleStartTrial
     }
-  }
-
-  useEffect(() => {
-    if (source === 'signup') {
-      openStartTrialModal()
-    }
-  }, [openStartTrialModal, source])
-
-  if (loading) {
-    return <PageSpinner />
-  }
-
-  if (error) {
-    showError((error.data as Error)?.message || error.message, undefined, 'ce.start.trial.error')
   }
 
   return (
     <StartTrialTemplate
-      title={getString('ce.continuous')}
-      bgImageUrl={bgImageURL}
+      title={getString('common.purpose.ce.continuous')}
+      bgImageUrl={bgImage}
       startTrialProps={startTrialProps}
-      module="ce"
+      module="cd"
     />
   )
 }

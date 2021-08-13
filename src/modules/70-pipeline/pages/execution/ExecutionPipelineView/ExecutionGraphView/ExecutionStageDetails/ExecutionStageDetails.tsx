@@ -8,11 +8,11 @@ import {
   useGetResourceConstraintsExecutionInfo
 } from 'services/pipeline-ng'
 import { PageSpinner } from '@common/components'
-import { getIconFromStageModule, processExecutionData } from '@pipeline/utils/executionUtils'
+import { processExecutionData } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import { useExecutionLayoutContext } from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
 import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
-import type { StageOptions, ExecutionPipeline } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import type { ExecutionPipeline } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { DynamicPopoverHandlerBinding } from '@common/components/DynamicPopover/DynamicPopover'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { isExecutionPaused, isExecutionRunning } from '@pipeline/utils/statusHelpers'
@@ -20,9 +20,9 @@ import { DynamicPopover } from '@common/exports'
 import HoverCard from '@pipeline/components/HoverCard/HoverCard'
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
+import ConditionalExecutionTooltipWrapper from '@pipeline/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import BarrierStepTooltip from './components/BarrierStepTooltip'
 import ResourceConstraintTooltip from './components/ResourceConstraints/ResourceConstraints'
-import ConditionalExecutionTooltipWrapper from '../common/components/ConditionalExecutionToolTip/ConditionalExecutionTooltipWrapper'
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {
@@ -49,13 +49,6 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<unknown> | undefined
   >()
-
-  const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
-    label: item[1].nodeIdentifier || /* istanbul ignore next */ '',
-    value: item[1].nodeUuid || /* istanbul ignore next */ '',
-    icon: { name: getIconFromStageModule(item[1].module, item[1].nodeType) },
-    disabled: item[1].status === 'NotStarted'
-  }))
 
   const { executionIdentifier, accountId } = useParams<ExecutionPathProps>()
   const stage = pipelineStagesMap.get(selectedStageId)
@@ -189,11 +182,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
             startX: 50,
             startY: 150
           }}
-          showStageSelection={true}
-          selectedStage={{
-            label: stage?.nodeIdentifier || /* istanbul ignore next */ '',
-            value: stage?.nodeUuid || /* istanbul ignore next */ '',
-            icon: { name: getIconFromStageModule(stage?.module, stage?.nodeType) }
+          graphConfiguration={{
+            NODE_HAS_BORDER: false
           }}
           itemMouseEnter={onMouseEnter}
           itemMouseLeave={() => {
@@ -203,10 +193,6 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
           mouseEnterStepGroupTitle={onMouseEnter}
           mouseLeaveStepGroupTitle={() => {
             dynamicPopoverHandler?.hide()
-          }}
-          stageSelectionOptions={stagesOptions}
-          onChangeStageSelection={(item: StageOptions) => {
-            props.onStageSelect(item.value as string)
           }}
           canvasBtnsClass={css.canvasBtns}
           setGraphCanvasState={state => setStepsGraphCanvasState?.(state)}

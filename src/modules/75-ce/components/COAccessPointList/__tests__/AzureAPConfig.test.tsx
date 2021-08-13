@@ -84,4 +84,22 @@ describe('Azure Access Point Configuration', () => {
     })
     expect(container).toMatchSnapshot()
   })
+
+  test('Name field should be disabled and should contain load balancer name in case of import', () => {
+    const { container } = render(
+      <TestWrapper pathParams={params}>
+        <AzureAPConfig
+          cloudAccountId={'connectorIdentifier'}
+          onSave={jest.fn()}
+          createMode={false}
+          onClose={jest.fn()}
+          loadBalancer={{ ...initialLoadBalancer, name: 'Mock App Gateway' }}
+        />
+      </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+    const nameInput = container.querySelector('input[name="name"]') as HTMLInputElement
+    expect(nameInput.value).toEqual('Mock App Gateway')
+    expect(nameInput.attributes.getNamedItem('disabled')).toBeTruthy()
+  })
 })

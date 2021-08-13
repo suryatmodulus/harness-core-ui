@@ -12,3 +12,33 @@
   right: var(--spacing-large);
   top: var(--spacing-large);
 }
+
+.titleText {
+  color: var(--black) !important;
+  font-size: var(--font-size-large) !important;
+  font-weight: bold !important;
+}
+
+.description {
+  color: var(--gray-600) !important;
+  font-size: 15px !important;
+}
+
+.trialBadge {
+  margin-bottom: 15px !important;
+}
+
+.expiryText {
+  margin-right: 6px !important;
+  color: var(--gray-400) !important;
+  font-size: var(--font-size-small) !important;
+}
+
+.expiryDate {
+  color: var(--black) !important;
+  font-size: var(--font-size-small) !important;
+}
+
+.descriptionBlock {
+  margin-top: 30px !important;
+}

@@ -1,44 +1,58 @@
-import { Container } from '@wings-software/uicore'
 import React from 'react'
+import { Container, Heading } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import css from '../CreateCeAwsConnector.module.scss'
 
-const CrossAccountRoleExtension = () => {
+const CrossAccountRoleExtension = (props: { previewTemplateLink?: string }) => {
+  const { getString } = useStrings()
+  const { previewTemplateLink } = props
   return (
     <Container className={css.extention}>
-      <span>
-        <h2>Create cross-account IAM role using AWS CloudFormation template</h2>
-        <div className={css.listPoints}>
-          <p>Login to your master account to launch template and create stack. </p>
-          <ol>
+      <Heading level={2} className={css.header}>
+        {getString('connectors.ceAws.crossAccountRoleExtention.heading')}
+      </Heading>
+      <p>{getString('connectors.ceAws.crossAccountRoleExtention.subHeading')}</p>
+      <ol>
+        <li>
+          {getString('connectors.ceAws.crossAccountRoleExtention.step1.p1')}
+          <a href={previewTemplateLink || ''} target="_blank" rel="noreferrer">
+            {getString('connectors.ceAws.crossAccountRoleExtention.step1.p2')}
+          </a>{' '}
+          {getString('connectors.ceAws.crossAccountRoleExtention.step1.p3')}
+        </li>
+        <li>
+          {getString('connectors.ceAws.crossAccountRoleExtention.step2.heading')}
+          <ul>
+            <li>{getString('connectors.ceAws.crossAccountRoleExtention.step2.subStep1')}</li>
             <li>
-              You can <a>Preview Template</a> to understand all the permissions involved
+              {getString('connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p1')}
+              <span className={css.gray}>
+                {getString('connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p2')}
+              </span>
             </li>
-            <li>
-              Review and Lauch Harness specified AWS CloudFormation template on AWS console
-              <ul>
-                <li>Click on the checkbox to acknowledge the IAM role creation.</li>
-                <li>
-                  Click on <span className={css.gray}>Create stack</span>
-                </li>
-              </ul>
-            </li>
-            <li>
-              On stack details page click on <span className={css.gray}>Outputs</span> tab and copy{' '}
-              <span className={css.gray}>IAM ARN</span>.
-            </li>
-            <li>Provide that IAM ARN in Harness UI.</li>
-            <li>External ID is a random unique value to provide additional secure authentication.</li>
-          </ol>
-          <span>
-            More help:
-            <ul>
-              <li>
-                <a>Harness Documentation</a>
-              </li>
-            </ul>
-          </span>
-        </div>
-      </span>
+          </ul>
+        </li>
+        <li>
+          {getString('connectors.ceAws.crossAccountRoleExtention.step3.p1')}{' '}
+          <span className={css.gray}>{getString('connectors.ceAws.crossAccountRoleExtention.step3.p2')}</span>{' '}
+          {getString('connectors.ceAws.crossAccountRoleExtention.step3.p3')}
+          <span className={css.gray}>{getString('connectors.ceAws.crossAccountRoleExtention.step3.p4')}</span>.
+        </li>
+        <li>{getString('connectors.ceAws.crossAccountRoleExtention.step4')}</li>
+        <li>{getString('connectors.ceAws.crossAccountRoleExtention.step5')}</li>
+      </ol>
+      <p>{getString('connectors.ceAws.curExtention.moreHelp.heading')}</p>
+      <ul>
+        <li>
+          <a
+            href="https://docs.harness.io/article/5ql31pdjcm-enable-continuous-efficiency-for-aws"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {getString('connectors.ceAws.curExtention.moreHelp.step2')}
+          </a>
+        </li>
+      </ul>
     </Container>
   )
 }

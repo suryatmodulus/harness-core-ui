@@ -22,6 +22,12 @@ const deleteMemberMock = (): ResponseBoolean => {
   return mockResponse
 }
 
+const updateUG = jest.fn()
+const updateUGMock = (): ResponseBoolean => {
+  updateUG()
+  return mockResponse
+}
+
 const linkToSSo = jest.fn()
 const linkToSSoMock = (): ResponseBoolean => {
   linkToSSo()
@@ -43,6 +49,9 @@ jest.mock('services/cd-ng', () => ({
   }),
   useGetAuthenticationSettings: jest.fn().mockImplementation(() => {
     return mockSSOSettings
+  }),
+  usePutUserGroup: jest.fn().mockImplementation(() => {
+    return { mutate: updateUGMock }
   }),
   useLinkToSamlGroup: jest.fn().mockImplementation(() => {
     return { mutate: linkToSSoMock }
@@ -108,7 +117,7 @@ describe('UserGroupDetails Test', () => {
     await act(async () => {
       fireEvent.click(linkSSOButton)
       const modal = findDialogContainer()!
-      const ssoProvider = queryByAttribute('data-icon', modal, 'caret-down')!
+      const ssoProvider = queryByAttribute('data-icon', modal, 'chevron-down')!
       fireEvent.click(ssoProvider)
       await waitFor(() => {
         fireEvent.click(getByText(modal, 'mock_SSO_Provider'))
@@ -116,7 +125,7 @@ describe('UserGroupDetails Test', () => {
           target: { value: 'test_sso_group_name' }
         })
       })
-      fireEvent.click(queryByAttribute('data-testId', modal, 'submitLinkSSOProvider')!)
+      fireEvent.click(queryByAttribute('data-testid', modal, 'submitLinkSSOProvider')!)
       await waitFor(() => expect(linkToSSo).toBeCalled())
     })
   })
@@ -142,7 +151,7 @@ describe('UserGroupDetails Test', () => {
     fireEvent.click(unLinkSSOButton)
     await act(async () => {
       const modal = findDialogContainer()!
-      fireEvent.click(queryByAttribute('data-testId', modal, 'submitLinkSSOProvider')!)
+      fireEvent.click(queryByAttribute('data-testid', modal, 'submitLinkSSOProvider')!)
       await waitFor(() => expect(unLinkToSSo).toBeCalled())
     })
   })

@@ -16,5 +16,6 @@ declare const styles: {
   readonly stageButton: string
   readonly stageError: string
   readonly errorTooltip: string
+  readonly rotate: string
 }
 export default styles

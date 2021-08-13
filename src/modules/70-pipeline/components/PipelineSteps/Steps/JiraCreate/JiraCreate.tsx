@@ -6,6 +6,7 @@ import { getMultiTypeFromValue, IconName, MultiTypeInputType } from '@wings-soft
 import { StepProps, StepViewType, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 import { VariablesListTable } from '@pipeline/components/VariablesListTable/VariablesListTable'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
+import type { StringsMap } from 'stringTypes'
 import { PipelineStep } from '../../PipelineStep'
 import { StepType } from '../../PipelineStepInterface'
 import { flatObject } from '../ApprovalCommons'
@@ -18,12 +19,14 @@ export class JiraCreate extends PipelineStep<JiraCreateData> {
   constructor() {
     super()
     this._hasStepVariables = true
+    this._hasDelegateSelectionVisible = true
   }
 
   protected isHarnessSpecific = true
   protected type = StepType.JiraCreate
   protected stepName = 'Jira Create'
   protected stepIcon: IconName = 'service-jira'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.JiraCreate'
   // initialValues on mount
   protected defaultValues: JiraCreateData = {
     identifier: '',

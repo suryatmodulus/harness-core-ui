@@ -15,6 +15,7 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { ECRStepBaseWithRef } from './ECRStepBase'
 import { ECRStepInputSet } from './ECRStepInputSet'
 import { ECRStepVariables, ECRStepVariablesProps } from './ECRStepVariables'
@@ -36,6 +37,7 @@ export interface ECRStepSpec {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface ECRStepData {
@@ -54,6 +56,7 @@ export interface ECRStepSpecUI
   buildArgs?: MultiTypeMapUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
@@ -82,6 +85,7 @@ export class ECRStep extends PipelineStep<ECRStepData> {
   protected type = StepType.ECR
   protected stepName = 'Build and Push to ECR'
   protected stepIcon: IconName = 'ecr-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.ECR'
   protected stepPaletteVisible = false
 
   protected defaultValues: ECRStepData = {

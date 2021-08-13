@@ -12,16 +12,18 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   StepProps,
-  Icon
+  Icon,
+  Text
 } from '@wings-software/uicore'
 import { pick } from 'lodash-es'
 import { useStrings } from 'framework/strings'
 import { CrossAccountAccess, useCreateConnector, useUpdateConnector, Failure } from 'services/cd-ng'
 import { useAwsaccountconnectiondetail } from 'services/ce/index'
-import { DialogExtensionContext } from '../DialogExtention'
+import LabelWithTooltip from '@connectors/common/LabelWithTooltip/LabelWithTooltip'
+import { DialogExtensionContext } from '@connectors/common/ConnectorExtention/DialogExtention'
 import type { FeaturesString } from './CrossAccountRoleStep1'
 import type { CEAwsConnectorDTO } from './OverviewStep'
-import TextInputWithToolTip from '../TextInputWithToolTip'
+import CrossAccountRoleExtension from './CrossAccountRoleExtension'
 import css from '../CreateCeAwsConnector.module.scss'
 
 const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
@@ -50,8 +52,12 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   }
 
   useEffect(() => {
-    triggerExtension('CrossAccountEx')
-  }, [])
+    if (awsUrlTemplateData?.status == 'SUCCESS') {
+      triggerExtension(
+        <CrossAccountRoleExtension previewTemplateLink={awsUrlTemplateData?.data?.cloudFormationTemplateLink} />
+      )
+    }
+  }, [awsUrlTemplateLoading])
 
   useEffect(() => {
     if (awsUrlTemplateData?.status == 'SUCCESS' && !prevStepData?.isEditMode)
@@ -63,11 +69,18 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   const visibiltyStatus = featuresEnabled.includes('VISIBILITY')
   const optimizationStatus = featuresEnabled.includes('OPTIMIZATION')
 
+  const getRoleName = (roleArn: string) => {
+    if (roleArn == undefined) return
+    return roleArn.split('/')[1]
+  }
+
   const makeTemplateUrl = () => {
     const baseurl = awsUrlTemplateData?.data?.stackLaunchTemplateLink
     const bucketName = prevStepData?.spec?.curAttributes?.s3BucketName || ''
     const rand = randomString()
-    const roleName = `HarnessCERole-${rand}`
+    const roleName = prevStepData?.isEditMode
+      ? getRoleName(prevStepData?.spec.crossAccountAccess.crossAccountRoleArn)
+      : `HarnessCERole-${rand}`
     const url = `${baseurl}&param_ExternalId=${externalId}&param_BucketName=${bucketName}&param_BillingEnabled=${curStatus}&param_EventsEnabled=${visibiltyStatus}&param_OptimizationEnabled=${optimizationStatus}&param_RoleName=${roleName}`
     window.open(url)
   }
@@ -110,25 +123,29 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
   }
 
   return (
-    <Layout.Vertical className={css.stepContainer} spacing="medium">
+    <Layout.Vertical className={css.stepContainer}>
       <Heading level={2} className={css.header}>
         {getString('connectors.ceAws.crossAccountRoleStep2.heading')}
+        <span>{getString('connectors.ceAws.crossAccountRoleStep2.createRole')}</span>
       </Heading>
-      <div className={css.infobox}>{getString('connectors.ceAws.crossAccountRoleStep2.subHeading')}</div>
-      <Container style={{ paddingBottom: 10, paddingTop: 10 }}>
-        <Layout.Vertical style={{ width: 500 }}>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Button
-              className={css.launchTemplateBut}
-              text={getString('connectors.ceAws.cur.launchTemplate')}
-              rightIcon="chevron-right"
-              disabled={awsUrlTemplateLoading}
-              onClick={() => {
-                makeTemplateUrl()
-              }}
-            />
-          </div>
-          <div style={{ textAlign: 'center' }}>{getString('connectors.ceAws.cur.login')}</div>
+      <div style={{ marginBottom: 25 }} className={css.infobox}>
+        {getString('connectors.ceAws.crossAccountRoleStep2.subHeading')}
+      </div>
+      <Container style={{ paddingBottom: 40 }}>
+        <Layout.Vertical style={{ width: '65%' }}>
+          <Button
+            className={css.launchTemplateBut}
+            text={getString('connectors.ceAws.crossAccountRoleStep2.launchTemplate')}
+            icon="main-share"
+            iconProps={{ size: 12, margin: { right: 'xsmall' } }}
+            disabled={awsUrlTemplateLoading}
+            onClick={() => {
+              makeTemplateUrl()
+            }}
+          />
+          <Text font="small" style={{ textAlign: 'center' }}>
+            {getString('connectors.ceAws.crossAccountRoleStep2.followInstructions')}
+          </Text>
         </Layout.Vertical>
       </Container>
       <div style={{ flex: 1 }}>
@@ -158,9 +175,13 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
                 <FormInput.Text
                   name="crossAccountRoleArn"
                   label={
-                    <TextInputWithToolTip
+                    <LabelWithTooltip
                       label={getString('connectors.ceAws.crossAccountRoleStep2.roleArn')}
-                      extentionName="CrossAccountEx"
+                      extentionComponent={
+                        <CrossAccountRoleExtension
+                          previewTemplateLink={awsUrlTemplateData?.data?.cloudFormationTemplateLink}
+                        />
+                      }
                     />
                   }
                   className={css.dataFields}
@@ -169,9 +190,13 @@ const CrossAccountRoleStep2: React.FC<StepProps<CEAwsConnectorDTO>> = props => {
                 <FormInput.Text
                   name="externalId"
                   label={
-                    <TextInputWithToolTip
+                    <LabelWithTooltip
                       label={getString('connectors.ceAws.crossAccountRoleStep2.extId')}
-                      extentionName="CrossAccountEx"
+                      extentionComponent={
+                        <CrossAccountRoleExtension
+                          previewTemplateLink={awsUrlTemplateData?.data?.cloudFormationTemplateLink}
+                        />
+                      }
                     />
                   }
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

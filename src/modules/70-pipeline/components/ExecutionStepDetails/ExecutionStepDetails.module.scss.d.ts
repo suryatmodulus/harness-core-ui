@@ -6,6 +6,8 @@ declare const styles: {
   readonly btn: string
   readonly actions: string
   readonly title: string
-  readonly more: string
+  readonly retry: string
+  readonly retryStatusIcon: string
+  readonly retryMenu: string
 }
 export default styles

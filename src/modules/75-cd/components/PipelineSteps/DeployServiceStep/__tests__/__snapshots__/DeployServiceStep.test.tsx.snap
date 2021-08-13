@@ -72,7 +72,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
                     class="bp3-editable-text-content"
                     style="height: 1px; line-height: 1px; min-width: 0;"
                   >
-                    pass_service
+                    New_Service
                   </span>
                 </div>
               </span>
@@ -107,7 +107,7 @@ exports[`Test DeployService Step Should be able save even if there is 63 charact
                   class="bp3-input"
                   name="name"
                   type="text"
-                  value="Pass Service"
+                  value="New Service"
                 />
               </div>
             </div>
@@ -344,7 +344,7 @@ exports[`Test DeployService Step should render edit service view (service), then
                     class="bp3-editable-text-content"
                     style="height: 1px; line-height: 1px; min-width: 0;"
                   >
-                    pass_service
+                    New_Service
                   </span>
                 </div>
               </span>
@@ -379,7 +379,7 @@ exports[`Test DeployService Step should render edit service view (service), then
                   class="bp3-input"
                   name="name"
                   type="text"
-                  value="Pass Service"
+                  value="New Service"
                 />
               </div>
             </div>

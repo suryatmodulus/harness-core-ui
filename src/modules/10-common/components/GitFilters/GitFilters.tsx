@@ -115,7 +115,7 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loading])
+  }, [response])
 
   useEffect(() => {
     if (selectedGitRepo) {
@@ -260,7 +260,8 @@ const GitFilters: React.FC<GitFiltersProps> = props => {
             items={repoSelectOptions}
             onChange={(selected: SelectOption) => {
               setSelectedGitRepo(selected.value as string)
-              !selected.value && props.onChange({ repo: '', branch: '' })
+              // Default branch will be selected after loading branches for new repo and event will be dispatched
+              selected.value ? setSelectedGitBranch('') : props.onChange({ repo: '', branch: '' })
             }}
           ></Select>
         </>

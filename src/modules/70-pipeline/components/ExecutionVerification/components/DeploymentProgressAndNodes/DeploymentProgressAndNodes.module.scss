@@ -3,6 +3,13 @@
   margin-bottom: var(--spacing-small) !important;
   height: 130px !important;
 
+  .waitAFew {
+    font-weight: bold !important;
+    font-size: var(--font-size-medium) !important;
+    margin: var(--spacing-large) 0 !important;
+    color: var(--black) !important;
+  }
+
   .durationAndStatus {
     margin-bottom: var(--spacing-small) !important;
     display: flex;

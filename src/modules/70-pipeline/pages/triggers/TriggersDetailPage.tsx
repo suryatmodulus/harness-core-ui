@@ -161,8 +161,12 @@ export default function TriggersDetailPage(): JSX.Element {
   const payloadConditionsArr: string[] = triggerObj?.source?.spec?.spec?.payloadConditions?.length
     ? getTriggerConditionsStr(triggerObj.source.spec.spec.payloadConditions)
     : []
+  const eventConditionsArr: string[] = triggerObj?.source?.spec?.spec?.eventConditions?.length
+    ? getTriggerConditionsStr(triggerObj.source.spec.spec.eventConditions)
+    : []
   conditionsArr = conditionsArr.concat(headerConditionsArr)
   conditionsArr = conditionsArr.concat(payloadConditionsArr)
+  conditionsArr = conditionsArr.concat(eventConditionsArr)
   const jexlCondition = triggerObj?.source?.spec?.spec?.jexlCondition
   const cronExpression = triggerObj?.source?.spec?.spec?.expression
   const { data: pipeline } = useGetPipelineSummary({
@@ -184,7 +188,7 @@ export default function TriggersDetailPage(): JSX.Element {
         background={Color.PRIMARY_1}
       >
         <Layout.Vertical spacing="medium">
-          <TriggerBreadcrumbs triggerResponse={triggerResponse} pipelineResponse={pipeline} />
+          <TriggerBreadcrumbs pipelineResponse={pipeline} />
           <div>
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
               <Icon

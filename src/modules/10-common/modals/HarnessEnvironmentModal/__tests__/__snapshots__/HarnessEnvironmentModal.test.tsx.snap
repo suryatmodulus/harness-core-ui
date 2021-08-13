@@ -1,0 +1,943 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test should validate edit mode snapshot 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+  >
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main main"
+        >
+          <div
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+                :
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    >
+                      Environment_101
+                    </span>
+                  </div>
+                </span>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployEnv_name"
+                >
+                  name
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value="Environment 102"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px; font-weight: normal;"
+            >
+              optionalField
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                data-name="edit"
+                data-testid="description-edit"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px; font-weight: normal;"
+            >
+              optionalField
+            </label>
+            <div
+              class="bp3-form-group"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input bp3-tag-input"
+                >
+                  <div
+                    class="bp3-tag-input-values"
+                  >
+                    <span
+                      class="bp3-tag"
+                      data-tag-index="0"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        tag1
+                      </span>
+                      <button
+                        class="bp3-tag-remove"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-cross"
+                          icon="small-cross"
+                        >
+                          <svg
+                            data-icon="small-cross"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              small-cross
+                            </desc>
+                            <path
+                              d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                    <span
+                      class="bp3-tag"
+                      data-tag-index="1"
+                    >
+                      <span
+                        class="bp3-text-overflow-ellipsis bp3-fill"
+                      >
+                        tag2
+                      </span>
+                      <button
+                        class="bp3-tag-remove"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-cross"
+                          icon="small-cross"
+                        >
+                          <svg
+                            data-icon="small-cross"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              small-cross
+                            </desc>
+                            <path
+                              d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                    <input
+                      class="bp3-input-ghost"
+                      data-mentions="kv-tag-input-tags}"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <label
+            class="Label--main"
+            style="font-size: 13px; font-weight: normal;"
+          >
+            envType
+          </label>
+          <div
+            class="bp3-form-group ThumbnailSelect--mainContainer"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+              >
+                <label
+                  class="Thumbnail--squareCardContainer Thumbnail--bigger"
+                >
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
+                  >
+                    <span
+                      class="Card--corner"
+                    >
+                      <span
+                        class="Card--badge"
+                      />
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="main-tick"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 11 8"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                    >
+                      production
+                    </p>
+                  </div>
+                  <input
+                    checked=""
+                    name="type"
+                    type="checkbox"
+                    value="Production"
+                  />
+                </label>
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  data-testid="thumbnail-select-change"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    data-icon="Edit"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                          stroke="#555770"
+                        />
+                        <path
+                          d="M6.583 5.146l2.063-2.063"
+                          opacity="0.3"
+                          stroke="#606170"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Change
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            data-id="environment-save"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              save
+            </span>
+          </button>
+             
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cancel
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`test should validate save 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+  >
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main main"
+        >
+          <div
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+                :
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    >
+                      New_Environment
+                    </span>
+                  </div>
+                </span>
+              </span>
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main"
+                icon="edit"
+                style="vertical-align: middle; cursor: pointer;"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployEnv_name"
+                >
+                  name
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value="New Environment"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px; font-weight: normal;"
+            >
+              optionalField
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                data-name="edit"
+                data-testid="description-edit"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px; font-weight: normal;"
+            >
+              optionalField
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                data-name="edit"
+                data-testid="tags-edit"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <label
+            class="Label--main"
+            style="font-size: 13px; font-weight: normal;"
+          >
+            envType
+          </label>
+          <div
+            class="bp3-form-group ThumbnailSelect--mainContainer"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+              >
+                <label
+                  class="Thumbnail--squareCardContainer Thumbnail--bigger"
+                >
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
+                  >
+                    <span
+                      class="Card--corner"
+                    >
+                      <span
+                        class="Card--badge"
+                      />
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="main-tick"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 11 8"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                    >
+                      production
+                    </p>
+                  </div>
+                  <input
+                    name="type"
+                    type="checkbox"
+                    value="Production"
+                  />
+                </label>
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  data-testid="thumbnail-select-change"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    data-icon="Edit"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                          stroke="#555770"
+                        />
+                        <path
+                          d="M6.583 5.146l2.063-2.063"
+                          opacity="0.3"
+                          stroke="#606170"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Change
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            data-id="environment-save"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              save
+            </span>
+          </button>
+             
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cancel
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`test validation are present if submited with empty value  1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+  >
+    <div
+      class="OverlaySpinner--overlaySpinner"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="StyledProps--font StyledProps--main main"
+        >
+          <div
+            class="InputWithIdentifier--txtNameContainer TextInput--main"
+          >
+            <div
+              class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+            >
+              <p
+                class="StyledProps--font StyledProps--main"
+              >
+                ID
+                :
+              </p>
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class="bp3-editable-text InputWithIdentifier--idValue"
+                    tabindex="0"
+                  >
+                    <span
+                      class="bp3-editable-text-content"
+                      style="height: 1px; line-height: 1px; min-width: 0;"
+                    >
+                      Environment_102
+                    </span>
+                  </div>
+                </span>
+              </span>
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main"
+                icon="edit"
+                style="vertical-align: middle; cursor: pointer;"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="deployEnv_name"
+                >
+                  name
+                </span>
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value="Environment 102"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px; font-weight: normal;"
+            >
+              optionalField
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                data-name="edit"
+                data-testid="description-edit"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main"
+          >
+            <label
+              class="Label--main"
+              style="font-size: 13px; font-weight: normal;"
+            >
+              optionalField
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                data-name="edit"
+                data-testid="tags-edit"
+                icon="edit"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </label>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
+        >
+          <label
+            class="Label--main"
+            style="font-size: 13px; font-weight: normal;"
+          >
+            envType
+          </label>
+          <div
+            class="bp3-form-group ThumbnailSelect--mainContainer"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+              >
+                <label
+                  class="Thumbnail--squareCardContainer Thumbnail--bigger"
+                >
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card Thumbnail--squareCard Card--selected"
+                  >
+                    <span
+                      class="Card--corner"
+                    >
+                      <span
+                        class="Card--badge"
+                      />
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                        data-icon="main-tick"
+                      >
+                        <svg
+                          height="10"
+                          viewBox="0 0 11 8"
+                          width="10"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                      </span>
+                    </span>
+                    <p
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--color StyledProps--color-grey900"
+                    >
+                      production
+                    </p>
+                  </div>
+                  <input
+                    name="type"
+                    type="checkbox"
+                    value="Production"
+                  />
+                </label>
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  data-testid="thumbnail-select-change"
+                  type="button"
+                >
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                    data-icon="Edit"
+                  >
+                    <svg
+                      height="12"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                          stroke="#555770"
+                        />
+                        <path
+                          d="M6.583 5.146l2.063-2.063"
+                          opacity="0.3"
+                          stroke="#606170"
+                        />
+                      </g>
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Change
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="StyledProps--font StyledProps--main StyledProps--padding-top-xlarge"
+        >
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            data-id="environment-save"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              save
+            </span>
+          </button>
+             
+          <button
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              cancel
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

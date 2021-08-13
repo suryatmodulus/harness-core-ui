@@ -4,7 +4,7 @@ import { Layout } from '@wings-software/uicore'
 import { compile } from 'path-to-regexp'
 
 import routes from '@common/RouteDefinitions'
-import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelector'
+import { ProjectSelector } from '@projects-orgs/components/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { useStrings } from 'framework/strings'
@@ -60,34 +60,6 @@ export default function CVSideNav(): React.ReactElement {
           <SidebarLink
             label={getString('cv.monitoredServices.title')}
             to={routes.toCVMonitoringServices({ accountId, projectIdentifier, orgIdentifier })}
-          />
-          <SidebarLink
-            label={getString('cv.navLinks.adminSideNavLinks.setup')}
-            to={routes.toCVAdminSetup({
-              projectIdentifier,
-              orgIdentifier,
-              accountId
-            })}
-          />
-          <SidebarLink
-            label="Notifications"
-            to={routes.toCVAdminNotifications({
-              projectIdentifier,
-              orgIdentifier,
-              accountId
-            })}
-          />
-          <SidebarLink
-            label={getString('cv.navLinks.adminSideNavLinks.activitySources')}
-            to={routes.toCVAdminActivitySources({ projectIdentifier, orgIdentifier, accountId })}
-          />
-          <SidebarLink
-            label={getString('cv.navLinks.adminSideNavLinks.monitoringSources')}
-            to={routes.toCVAdminMonitoringSources({ projectIdentifier, orgIdentifier, accountId })}
-          />
-          <SidebarLink
-            label={getString('verificationJobs')}
-            to={routes.toCVAdminVerificationJobs({ projectIdentifier, orgIdentifier, accountId })}
           />
           <ProjectSetupMenu module="cv" />
         </React.Fragment>

@@ -74,6 +74,26 @@ export const mockedMonitoredService = {
   }
 }
 
+export const mockedCreatedMonitoredService = {
+  createdAt: 1628423966496,
+  lastModifiedAt: 1628423966496,
+  monitoredService: {
+    orgIdentifier: 'CV',
+    projectIdentifier: 'Harshil',
+    identifier: 'service280_env280',
+    name: 'service280_env280',
+    type: 'Application',
+    description: 'Default Monitored Service',
+    serviceRef: 'service280',
+    environmentRef: 'env280',
+    tags: {},
+    sources: {
+      healthSources: []
+    },
+    dependencies: []
+  }
+}
+
 export const verifyStepInitialValues = {
   name: '',
   type: StepType.Verify,

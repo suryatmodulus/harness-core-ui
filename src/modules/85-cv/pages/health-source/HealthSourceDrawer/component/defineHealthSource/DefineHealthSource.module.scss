@@ -4,6 +4,12 @@
   align-items: center;
   width: 64px;
   margin-right: 64px;
+
+  .healthSourceName {
+    white-space: nowrap !important;
+    font-size: var(--font-size-small) !important;
+    text-align: center;
+  }
 }
 
 .disabled {
@@ -23,6 +29,16 @@
 }
 
 .connectorField {
+  span[icon='chevron-down'] {
+    position: relative !important;
+    right: calc(-1 * var(--spacing-small));
+  }
+
+  button[data-testid='cr-field-connectorRef'] div {
+    position: relative !important;
+    right: calc(-1 * var(--spacing-small));
+  }
+
   button[data-testid='cr-field-connectorRef'] {
     width: 400px !important;
   }

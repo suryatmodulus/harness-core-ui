@@ -3,7 +3,6 @@ import {
   IconName,
   Formik,
   FormInput,
-  Layout,
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption
@@ -36,6 +35,7 @@ import { useVariablesExpression } from '@pipeline/components/PipelineStudio/Pipl
 
 import type { GitQueryParams, InputSetPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
+import type { StringsMap } from 'stringTypes'
 import css from './Barrier.module.scss'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 
@@ -137,10 +137,38 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
           setFormikRef(formikRef, formik)
           return (
             <>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{
+                    enableConfigureOptions: false,
+                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+                  }}
+                />
+                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={values.timeout as string}
+                    type="String"
+                    variableName="step.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('timeout', value)
+                    }}
+                    isReadonly={props.isReadonly}
+                  />
+                )}
+              </div>
+
+              <div className={stepCss.divider} />
+
+              <div className={cx(stepCss.formGroup, stepCss.sm)}>
                 <FormInput.MultiTypeInput
                   label={getString('pipeline.barrierStep.barrierReference')}
                   name="spec.barrierRef"
@@ -163,32 +191,7 @@ function BarrierWidget(props: BarrierProps, formikRef: StepFormikFowardRef<Barri
                     isReadonly={props.isReadonly}
                   />
                 )}
-              </Layout.Horizontal>
-              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                <FormMultiTypeDurationField
-                  name="timeout"
-                  label={getString('pipelineSteps.timeoutLabel')}
-                  className={css.width25}
-                  multiTypeDurationProps={{
-                    enableConfigureOptions: false,
-                    allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
-                  }}
-                />
-                {getMultiTypeFromValue(values.timeout) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={values.timeout as string}
-                    type="String"
-                    variableName="step.timeout"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => {
-                      setFieldValue('timeout', value)
-                    }}
-                    isReadonly={props.isReadonly}
-                  />
-                )}
-              </Layout.Horizontal>
+              </div>
             </>
           )
         }}
@@ -332,6 +335,7 @@ export class BarrierStep extends PipelineStep<BarrierData> {
   protected type = StepType.Barrier
   protected stepName = 'Synchronization Barrier'
   protected stepIcon: IconName = 'barrier-open'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Barrier'
 
   protected defaultValues: BarrierData = {
     identifier: '',

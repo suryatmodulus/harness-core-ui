@@ -15,6 +15,7 @@ import type {
   MultiTypeConnectorRef,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { GCRStepBaseWithRef } from './GCRStepBase'
 import { GCRStepInputSet } from './GCRStepInputSet'
 import { GCRStepVariables, GCRStepVariablesProps } from './GCRStepVariables'
@@ -36,6 +37,7 @@ export interface GCRStepSpec {
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypePullOption
   resources?: Resources
+  runAsUser?: string
 }
 
 export interface GCRStepData {
@@ -54,6 +56,7 @@ export interface GCRStepSpecUI
   buildArgs?: MultiTypeMapUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
@@ -82,6 +85,7 @@ export class GCRStep extends PipelineStep<GCRStepData> {
   protected type = StepType.GCR
   protected stepName = 'Build and Push to GCR'
   protected stepIcon: IconName = 'gcr-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.GCR'
   protected stepPaletteVisible = false
 
   protected defaultValues: GCRStepData = {

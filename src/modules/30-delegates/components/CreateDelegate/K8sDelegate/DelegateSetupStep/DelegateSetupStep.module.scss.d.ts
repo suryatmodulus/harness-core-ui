@@ -1,6 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
+  readonly baseContainer: string
+  readonly leftPanel: string
   readonly delegateSizeWrapper: string
   readonly delegateForm: string
   readonly delegateSizeLabel: string
@@ -28,6 +30,7 @@ declare const styles: {
   readonly permissionsTitle: string
   readonly permissionSelect: string
   readonly permissionSelectTitle: string
+  readonly permissionSelectDetails: string
   readonly namespace: string
   readonly profileSelectorsItemsContainer: string
   readonly textCenter: string

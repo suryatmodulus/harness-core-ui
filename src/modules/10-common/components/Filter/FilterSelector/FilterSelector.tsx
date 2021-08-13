@@ -1,7 +1,7 @@
 import React from 'react'
-import { MenuItem, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { truncate } from 'lodash-es'
-import { Select, SelectOption, Layout, Popover, Button } from '@wings-software/uicore'
+import { SelectOption, Layout, Popover, Button, DropDown } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { getFilterSummary, MAX_FILTER_NAME_LENGTH, getFilterSize } from '@common/components/Filter/utils/FilterUtils'
 import type { FilterInterface } from '../Constants'
@@ -41,25 +41,25 @@ export default function FilterSelector<T extends FilterInterface>(props: FilterS
 
   const fieldCountInAppliedFilter = getFilterSize(filterWithValidFields)
 
+  const getItems = React.useMemo(
+    () =>
+      filters?.map(item => ({
+        label: truncate(item?.name, { length: MAX_FILTER_NAME_LENGTH }),
+        value: item?.identifier
+      })) as SelectOption[],
+    [filters]
+  )
+
   return (
     <>
-      <Select
-        className={css.filterSelector}
-        items={
-          filters?.map((item: T) => {
-            return {
-              label: truncate(item?.name, { length: MAX_FILTER_NAME_LENGTH }),
-              value: item?.identifier
-            } as SelectOption
-          }) || []
-        }
+      <DropDown
+        buttonTestId={'filter-select'}
         onChange={onFilterSelect}
-        addClearBtn={true}
-        value={{ label: appliedFilter?.name || '', value: appliedFilter?.identifier || '' }}
-        inputProps={{
-          placeholder: getString('filters.selectFilter')
-        }}
-        noResults={<MenuItem disabled={true} text={getString('filters.noFilterFound')} />}
+        value={appliedFilter ? appliedFilter.identifier : null}
+        items={getItems}
+        placeholder={filters?.length ? getString('filters.selectFilter') : getString('common.filters.noFilterSaved')}
+        minWidth={220}
+        usePortal={true}
       />
       <div className={css.filterButtonContainer}>
         {fieldCountInAppliedFilter ? (

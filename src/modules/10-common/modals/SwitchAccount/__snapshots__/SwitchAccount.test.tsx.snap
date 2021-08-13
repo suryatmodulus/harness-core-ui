@@ -21,30 +21,31 @@ exports[`Switch Account render 1`] = `
           </span>
         </p>
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main  "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main   "
           data-name=""
+          style="max-width: 350px;"
         >
           <span
-            class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
-            icon="search"
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+            data-icon="thinner-search"
           >
             <svg
-              data-icon="search"
+              fill="none"
               height="14"
               viewBox="0 0 16 16"
               width="14"
+              xmlns="http://www.w3.org/2000/svg"
             >
-              <desc>
-                search
-              </desc>
               <path
-                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                fill-rule="evenodd"
+                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
               />
             </svg>
           </span>
           <input
-            class="bp3-input "
+            class="bp3-input  ExpandingSearchInput--filter"
             dir="auto"
             placeholder="common.switchAccountSearch"
             style="padding-right: 0px;"
@@ -135,11 +136,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/zEaak-FLS425IEO7OLzMUg/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              Harness.io
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                Harness.io
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -185,11 +191,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/XICOBc_qRa2PJmVaWOx-cQ/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              AutomationOne
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                AutomationOne
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -241,11 +252,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/px7xd_BFRCi-pfWPYXVjvw/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              harness-dev
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                harness-dev
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -297,11 +313,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/nqqlJ_62S0q7wFnYSmwNpQ/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              abc1
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                abc1
+              </span>
+            </button>
           </div>
           <div
             class="cell"
@@ -353,11 +374,16 @@ exports[`Switch Account render 1`] = `
             role="cell"
             style="width: 30%;"
           >
-            <a
-              href="/account/3P9jX4EfQ3moXBbQfORaLw/home"
+            <button
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              type="button"
             >
-              raj-ng-defaul-experience-1
-            </a>
+              <span
+                class="bp3-button-text"
+              >
+                raj-ng-defaul-experience-1
+              </span>
+            </button>
           </div>
           <div
             class="cell"

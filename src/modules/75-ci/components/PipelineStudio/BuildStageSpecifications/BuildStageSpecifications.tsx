@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 import * as yup from 'yup'
-import { Layout, Button, Formik, FormikForm, FormInput, Switch, Text, Card, Accordion } from '@wings-software/uicore'
+import { Formik, FormikForm, Switch, Text, Card, Accordion, HarnessDocTooltip } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { isEqual, debounce, cloneDeep } from 'lodash-es'
+import { isEqual, debounce, cloneDeep, defaultTo } from 'lodash-es'
 import cx from 'classnames'
 import { produce } from 'immer'
+import type { FormikProps } from 'formik'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { StepWidget } from '@pipeline/components/AbstractSteps/StepWidget'
 import type { AllNGVariables } from '@pipeline/utils/types'
-import type { StageElementConfig } from 'services/cd-ng'
+import type { NGVariable, StageElementConfig, StringNGVariable } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import type { CustomVariablesData } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
@@ -19,7 +21,10 @@ import { ModuleName } from 'framework/types/ModuleName'
 import { NameSchema } from '@common/utils/Validation'
 import MultiTypeList from '@common/components/MultiTypeList/MultiTypeList'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
-import type { StageElementWrapper } from 'services/cd-ng'
+import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
+import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildStageSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -31,8 +36,6 @@ export interface Variable {
 }
 
 export default function BuildStageSpecifications({ children }: React.PropsWithChildren<unknown>): JSX.Element {
-  const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
-
   const { variablesPipeline, metadataMap } = usePipelineVariables()
 
   const { getString } = useStrings()
@@ -49,16 +52,16 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
-  const { stage = {} } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<BuildStageElementConfig>(selectedStageId || '')
 
   const getInitialValues = (): {
     identifier: string
     name: string
     description: string
+    tags?: { [key: string]: string }
     cloneCodebase: boolean
     sharedPaths: string[]
-    variables: { name: string; type: string; value?: string }[]
-    skipCondition: string
+    variables: NGVariable[]
   } => {
     const pipelineData = stage?.stage || null
     const spec = stage?.stage?.spec || null
@@ -66,7 +69,8 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
     const identifier = pipelineData?.identifier || ''
     const name = pipelineData?.name || ''
     const description = pipelineData?.description || ''
-    const cloneCodebase = spec?.cloneCodebase
+    const tags = pipelineData?.tags
+    const cloneCodebase = !!spec?.cloneCodebase
     const sharedPaths =
       typeof spec?.sharedPaths === 'string'
         ? spec?.sharedPaths
@@ -77,18 +81,26 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
               value: _value
             })) || []
     const variables = pipelineData?.variables || []
-    const skipCondition = pipelineData?.skipCondition || ''
 
     return {
       identifier,
       name,
       description,
+      tags,
       cloneCodebase,
-      sharedPaths,
-      variables,
-      skipCondition
+      sharedPaths: sharedPaths as any,
+      variables
     }
   }
+
+  const { subscribeForm, unSubscribeForm } = React.useContext(StageErrorContext)
+
+  const formikRef = React.useRef<FormikProps<unknown> | null>(null)
+
+  React.useEffect(() => {
+    subscribeForm({ tab: BuildTabs.OVERVIEW, form: formikRef })
+    return () => unSubscribeForm({ tab: BuildTabs.OVERVIEW, form: formikRef })
+  }, [])
 
   const validationSchema = yup.object().shape({
     name: NameSchema()
@@ -107,6 +119,12 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
           stageData.description = values.description
         } else {
           delete stageData.description
+        }
+
+        if (values.tags) {
+          stageData.tags = values.tags
+        } else {
+          delete stageData.tags
         }
 
         spec.cloneCodebase = values.cloneCodebase
@@ -146,7 +164,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   ).current
 
   const handleStepWidgetUpdate = React.useCallback(
-    debounce((values: StageElementWrapper): void => {
+    debounce((values: StageElementConfig): void => {
       updateStage({ ...stage?.stage, ...values })
     }, 300),
     [stage?.stage, updateStage]
@@ -163,6 +181,7 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
 
   return (
     <div className={css.wrapper}>
+      <ErrorsStripBinded />
       <div className={css.contentSection} ref={scrollRef}>
         <Formik
           initialValues={getInitialValues()}
@@ -171,98 +190,67 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
           formName="ciBuildStage"
           onSubmit={values => logger.info(JSON.stringify(values))}
         >
-          {({ values: formValues, setFieldValue }) => (
-            <>
-              <div className={css.tabHeading} id="stageDetails">
-                {getString('stageDetails')}
-              </div>
-              <Card className={cx(css.sectionCard)} disabled={isReadonly}>
-                <FormikForm>
-                  <Layout.Horizontal spacing="medium">
-                    <FormInput.InputWithIdentifier
-                      inputName="name"
-                      inputLabel={getString('stageNameLabel')}
-                      inputGroupProps={{
-                        className: css.fields,
-                        placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder'),
-                        disabled: isReadonly
+          {formik => {
+            const { values: formValues, setFieldValue } = formik
+            window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: BuildTabs.OVERVIEW }))
+            formikRef.current = formik
+            return (
+              <>
+                <div className={css.tabHeading} id="stageDetails">
+                  {getString('stageDetails')}
+                </div>
+                <Card className={cx(css.sectionCard)} disabled={isReadonly}>
+                  <FormikForm>
+                    <NameIdDescriptionTags
+                      formikProps={formik}
+                      identifierProps={{
+                        isIdentifierEditable: false,
+                        inputGroupProps: { disabled: isReadonly }
                       }}
-                      isIdentifierEditable={false}
+                      descriptionProps={{ disabled: isReadonly }}
+                      tagsProps={{ disabled: isReadonly }}
                     />
-                    <div className={css.addDataLinks}>
-                      {!isDescriptionVisible && !formValues.description && (
-                        <Button
-                          minimal
-                          text={getString('pipelineSteps.build.stageSpecifications.addDescription')}
-                          icon="plus"
-                          onClick={() => setDescriptionVisible(true)}
-                          disabled={isReadonly}
-                        />
-                      )}
+
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Switch
+                        checked={formValues.cloneCodebase}
+                        label={getString('cloneCodebaseLabel')}
+                        onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                        disabled={isReadonly}
+                      />
+                      <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
                     </div>
-                  </Layout.Horizontal>
+                  </FormikForm>
+                </Card>
 
-                  {(isDescriptionVisible || formValues.description) && (
-                    <div className={css.fields}>
-                      {!isReadonly && (
-                        <span
-                          onClick={() => {
-                            setDescriptionVisible(false)
-                            setFieldValue('description', '')
-                          }}
-                          className={css.removeLink}
-                        >
-                          {getString('removeLabel')}
-                        </span>
-                      )}
-                      <FormInput.TextArea name={'description'} label={getString('description')} disabled={isReadonly} />
-                    </div>
-                  )}
+                <div className={css.tabHeading} id="sharedPaths">
+                  {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+                </div>
+                <Card disabled={isReadonly} className={cx(css.sectionCard)}>
+                  <FormikForm className={cx(css.fields, css.contentCard)}>
+                    <MultiTypeList
+                      name="sharedPaths"
+                      multiTextInputProps={{ expressions }}
+                      multiTypeFieldSelectorProps={{
+                        label: (
+                          <Text tooltipProps={{ dataTooltipId: 'stageSpecificationsSharedPaths' }}>
+                            {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
+                          </Text>
+                        )
+                      }}
+                      disabled={isReadonly}
+                    />
+                  </FormikForm>
+                </Card>
 
-                  <Switch
-                    checked={formValues.cloneCodebase}
-                    label={getString('cloneCodebaseLabel')}
-                    onChange={e => setFieldValue('cloneCodebase', e.currentTarget.checked)}
-                    disabled={isReadonly}
-                  />
-                </FormikForm>
-              </Card>
-
-              <div className={css.tabHeading} id="sharedPaths">
-                {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
-              </div>
-              <Card disabled={isReadonly} className={cx(css.sectionCard)}>
-                <FormikForm className={cx(css.fields, css.contentCard)}>
-                  <MultiTypeList
-                    name="sharedPaths"
-                    multiTextInputProps={{ expressions }}
-                    multiTypeFieldSelectorProps={{
-                      label: (
-                        <Text style={{ display: 'flex', alignItems: 'center', minWidth: '171px' }}>
-                          {getString('pipelineSteps.build.stageSpecifications.sharedPaths')}
-                          <Button
-                            icon="question"
-                            minimal
-                            tooltip={getString('pipelineSteps.build.stageSpecifications.sharedPathsInfo')}
-                            iconProps={{ size: 14 }}
-                          />
-                        </Text>
-                      )
-                    }}
-                    disabled={isReadonly}
-                  />
-                </FormikForm>
-              </Card>
-
-              <Accordion className={css.accordionTitle} activeId="advanced">
-                <Accordion.Panel
-                  id="advanced"
-                  addDomId={true}
-                  summary={'Advanced'}
-                  details={
-                    <Card className={css.sectionCard} id="variables">
-                      <div className={css.tabSubHeading}>Stage Variables</div>
-                      <Layout.Horizontal>
+                <Accordion className={css.accordionTitle} activeId="advanced">
+                  <Accordion.Panel
+                    id="advanced"
+                    addDomId={true}
+                    summary={'Advanced'}
+                    details={
+                      <Card className={css.sectionCard} id="variables">
+                        <div className={css.tabSubHeading}>Stage Variables</div>
                         <div className={css.stageSection}>
                           <div className={css.stageDetails}>
                             <StepWidget<CustomVariablesData>
@@ -278,25 +266,27 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                                 handleStepWidgetUpdate({ ...stage?.stage, variables } as StageElementConfig)
                               }}
                               customStepProps={{
-                                yamlProperties:
-                                  getStageFromPipeline(
-                                    stage?.stage?.identifier,
+                                yamlProperties: defaultTo(
+                                  getStageFromPipeline<BuildStageElementConfig>(
+                                    stage?.stage?.identifier || '',
                                     variablesPipeline
-                                  )?.stage?.variables?.map?.(
-                                    (variable: AllNGVariables) =>
-                                      metadataMap[variable.value || '']?.yamlProperties || {}
-                                  ) || []
+                                  )?.stage?.stage?.variables?.map?.(
+                                    variable =>
+                                      metadataMap[(variable as StringNGVariable).value || '']?.yamlProperties || {}
+                                  ),
+                                  []
+                                )
                               }}
                             />
                           </div>
                         </div>
-                      </Layout.Horizontal>
-                    </Card>
-                  }
-                />
-              </Accordion>
-            </>
-          )}
+                      </Card>
+                    }
+                  />
+                </Accordion>
+              </>
+            )
+          }}
         </Formik>
         <div className={css.navigationButtons}>{children}</div>
       </div>

@@ -108,7 +108,6 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
                 identifier: 'Step-Group',
                 name: 'Step Group HTTP',
                 isOpen: true,
-                showInLabel: false,
                 status: ExecutionStatusEnum.Running,
                 data: {
                   label: 'step-group'
@@ -162,12 +161,6 @@ const getProps = (): ExecutionStageDiagramProps<Data> => ({
     allNodes: []
   },
   selectedIdentifier: 'qaStage',
-  showStageSelection: true,
-  selectedStage: { label: 'QA', value: 'qa', icon: { name: 'add' } },
-  stageSelectionOptions: [
-    { label: 'QA', value: 'qa', icon: { name: 'add' } },
-    { label: 'Prod', value: 'prod', icon: { name: 'minus' } }
-  ],
   gridStyle: { startX: 50, startY: 50 }
 })
 jest.mock('resize-observer-polyfill', () => {

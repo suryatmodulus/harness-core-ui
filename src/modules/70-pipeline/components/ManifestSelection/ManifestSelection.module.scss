@@ -28,25 +28,6 @@
     margin-top: 2px;
     padding-left: var(--spacing-xsmall);
   }
-  .lastColumn {
-    justify-content: end;
-    display: grid;
-  }
-
-  .actionGrid {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    align-items: center;
-    justify-items: center;
-    .cloneIcon {
-      -webkit-transform: scaleX(-1) !important;
-      transform: scaleX(-1) !important;
-    }
-    > span {
-      color: #000;
-      cursor: pointer;
-    }
-  }
   .connectorNameField {
     display: flex;
     align-items: center;
@@ -69,11 +50,17 @@
 
 .manifestList {
   display: grid;
-  grid-template-columns: 200px 200px 300px minmax(10px, 1fr) 100px;
-
+  grid-template-columns: 200px 200px 300px minmax(10px, 1fr) 80px;
+  align-items: center;
   &.list-header {
     border-bottom: solid 1px #d9dae5;
     padding-bottom: var(--spacing-medium);
+  }
+  .manifestLocation {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 

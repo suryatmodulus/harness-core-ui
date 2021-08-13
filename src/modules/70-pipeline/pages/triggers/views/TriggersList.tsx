@@ -11,7 +11,9 @@ import type { GitQueryParams, PipelineType } from '@common/interfaces/RouteInter
 import { usePermission } from '@rbac/hooks/usePermission'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
+import { manifestTypeIcons, manifestTypeLabels } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSection'
+
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
 import css from './TriggersList.module.scss'
@@ -19,6 +21,8 @@ import css from './TriggersList.module.scss'
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
 }
+// This is temporary feature flag for NewArtifact Trigger
+const NG_NEWARTIFACT_TRIGGER = (false && window.location.href.includes('localhost')) || false
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
   const { onNewTriggerClick, repoIdentifier, branch } = props
 
@@ -51,6 +55,26 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
   })
   const triggerList = triggerListResponse?.data?.content || undefined
   const history = useHistory()
+
+  /*
+    this is used temporarily for mocking newArtifact trigger data
+  */
+
+  // if (NG_NEWARTIFACT_TRIGGER) {
+  //   triggerList?.push({
+  //     name: 'test-newartifact-trigger',
+  //     description: "",
+  //     enabled: true,
+  //     executions: [0, 0, 0, 0, 0, 0, 0],
+  //     identifier: "testnewArtifactTrigger",
+  //     tags: {},
+  //     type: "NewArtifact",
+  //     webhookDetails: { webhookSecret: 'test', webhookSourceRepo: "NewArtifact" },
+  //     webhookUrl: "http://localhost:12001/api/webhook/custom?accountIdentifier=kmpySmUISimoRrJL6NL73w&orgIdentifier=default&projectIdentifier=test&pipelineIdentifier=K8sRolling&triggerIdentifier=testcustomtrigger",
+  //     yaml: "trigger:\n    name: test-custom-trigger\n    identifier: testcustomtrigger\n    enabled: true\n    description: \"\"\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: test\n    pipelineIdentifier: K8sRolling\n    source:\n        type: Webhook\n        spec:\n            type: Custom\n            spec:\n                payloadConditions: []\n                headerConditions:\n                    - key: test\n                      operator: NotEquals\n                      value: \"123\"\n                jexlCondition: test\n    inputYaml: |\n        pipeline:\n            identifier: K8sRolling\n            stages:\n                - stage:\n                      identifier: stagea\n                      type: Deployment\n                      spec:\n                          serviceConfig:\n                              serviceDefinition:\n                                  type: Kubernetes\n                                  spec:\n                                      manifests:\n                                          - manifest:\n                                                identifier: dsfsf\n                                                type: Kustomize\n                                                spec:\n                                                    store:\n                                                        type: Git\n                                                        spec:\n                                                            folderPath: sdsf\n                                                            repoName: test\n                                          - manifest:\n                                                identifier: dsfsdf\n                                                type: Kustomize\n                                                spec:\n                                                    store:\n                                                        type: Git\n                                                        spec:\n                                                            folderPath: sdfd\n                                                    pluginPath: dsfd\n                          infrastructure:\n                              infrastructureDefinition:\n                                  type: KubernetesDirect\n                                  spec:\n                                      namespace: sdfds\n                                      releaseName: sdfds\n                              infrastructureKey: \"\"\n"
+
+  //   })
+  // }
 
   const [isEditable] = usePermission(
     {
@@ -107,14 +131,31 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
         hideDrawer()
         onNewTriggerClick({
           triggerType: val.categoryValue,
-          sourceRepo: (val.categoryValue === TriggerTypes.WEBHOOK && val.value) || undefined
+          sourceRepo: (val.categoryValue === TriggerTypes.WEBHOOK && val.value) || undefined,
+          artifactType: (val.categoryValue === TriggerTypes.ARTIFACT && val.value) || undefined,
+          manifestType: (val.categoryValue === TriggerTypes.MANIFEST && val.value) || undefined
         })
       }
     }
 
+    const categoryItems = getCategoryItems(getString)
+    if (NG_NEWARTIFACT_TRIGGER) {
+      categoryItems.categories.splice(1, 0, {
+        categoryLabel: getString('manifestsText'),
+        categoryValue: 'Manifest',
+        items: [
+          {
+            itemLabel: getString(manifestTypeLabels.HelmChart),
+            value: 'HelmChart',
+            iconName: manifestTypeIcons.HelmChart
+          }
+        ]
+      })
+    }
+
     return (
       <AddDrawer
-        addDrawerMap={getCategoryItems(getString)}
+        addDrawerMap={categoryItems}
         onSelect={onSelect}
         onClose={hideDrawer}
         drawerContext={DrawerContext.STUDIO}
@@ -124,28 +165,25 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
 
   return (
     <>
-      <Page.Header
-        title={
-          <Button
-            disabled={!isEditable}
-            text={getString('pipeline.triggers.newTrigger')}
-            intent="primary"
-            onClick={openDrawer}
-          ></Button>
-        }
-        toolbar={
-          <TextInput
-            leftIcon="search"
-            placeholder={getString('search')}
-            data-name="search"
-            className={css.search}
-            value={searchParam}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setSearchParam(e.target.value.trim())
-            }}
-          />
-        }
-      />
+      <Page.SubHeader>
+        <Button
+          disabled={!isEditable}
+          text={getString('pipeline.triggers.newTrigger')}
+          intent="primary"
+          onClick={openDrawer}
+        ></Button>
+        <TextInput
+          leftIcon="search"
+          placeholder={getString('search')}
+          data-name="search"
+          className={css.search}
+          value={searchParam}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchParam(e.target.value.trim())
+          }}
+        />
+      </Page.SubHeader>
+
       <Page.Body
         loading={loading}
         error={error?.message}

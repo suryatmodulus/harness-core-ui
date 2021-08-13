@@ -1,4 +1,5 @@
 label: 'Git Sync'
+connectivityModeLabel: 'Connectivity: Through {{connectivityMode}}'
 defaultBranch: Default branch
 rootfolderLabel: Default Root folder
 rootFolderUpdatedSuccessfully: Root folders for repository {{name}} updated successfully

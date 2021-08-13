@@ -1,6 +1,7 @@
 import type { IconName } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
+import type { StringsMap } from 'stringTypes'
 import type { Step } from './Step'
 
 export interface StepData {
@@ -68,6 +69,10 @@ export abstract class AbstractStepFactory {
       return this.stepBank.get(type) as Step<T>
     }
     return
+  }
+
+  getStepDescription(type: string): keyof StringsMap | undefined {
+    return this.stepBank.get(type)?.getDescription()
   }
 
   getStepIcon(type: string): IconName {

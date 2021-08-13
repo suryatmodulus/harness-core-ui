@@ -1,27 +1,37 @@
 import React from 'react'
+import cx from 'classnames'
 import { Container, Layout, Pagination } from '@wings-software/uicore'
 import { TemplateCard } from '@templates-library/pages/TemplatesList/TemplateCard/TemplateCard'
-import type { TemplatesPageSummaryResponse, TemplatesSummaryResponse } from '@templates-library/temporary-mock/model'
+import type { TemplatesPageSummaryResponse, TemplateSummaryResponse } from '@templates-library/temporary-mock/model'
 import css from './TemplatesGridView.module.scss'
 
 interface TemplateGridViewProps {
   data?: TemplatesPageSummaryResponse | null
+  selectedIdentifier?: string
   gotoPage: (pageNumber: number) => void
-  onSelect: (templateIdentifier: string) => void
+  onSelect: (template: string) => void
+  gridLayoutClass?: string
 }
 
 export const TemplatesGridView: React.FC<TemplateGridViewProps> = (props): JSX.Element => {
-  const { data, gotoPage, onSelect } = props
+  const { data, gridLayoutClass, selectedIdentifier, gotoPage, onSelect } = props
 
   return (
     <>
-      <Container className={css.gridLayout}>
+      <Container className={cx(css.gridLayout, gridLayoutClass)}>
         <Layout.Masonry
+          width={500}
           center
           gutter={25}
           items={data?.content || []}
-          renderItem={(item: TemplatesSummaryResponse) => <TemplateCard template={item} onSelect={onSelect} />}
-          keyOf={(item: TemplatesSummaryResponse) => item.identifier}
+          renderItem={(item: TemplateSummaryResponse) => (
+            <TemplateCard
+              template={item}
+              onSelect={onSelect}
+              className={cx({ [css.selectedTemplate]: item.identifier === selectedIdentifier })}
+            />
+          )}
+          keyOf={(item: TemplateSummaryResponse) => item.identifier}
         />
       </Container>
       <Container className={css.pagination}>

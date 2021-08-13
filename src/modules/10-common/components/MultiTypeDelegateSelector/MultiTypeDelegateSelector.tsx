@@ -23,15 +23,7 @@ export interface ConnectedMultiTypeDelegateSelectorProps extends MultiTypeDelega
 }
 
 export function MultiTypeDelegateSelector(props: ConnectedMultiTypeDelegateSelectorProps): React.ReactElement {
-  const {
-    formik,
-    label,
-    name,
-    allowableTypes = [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION],
-    expressions = [],
-    inputProps,
-    ...restProps
-  } = props
+  const { formik, label, name, expressions = [], inputProps, ...restProps } = props
 
   const value = get(formik.values, name)
   const hasError = errorCheck(name, formik)
@@ -55,7 +47,6 @@ export function MultiTypeDelegateSelector(props: ConnectedMultiTypeDelegateSelec
         disabled={disabled}
         onChange={handleChange}
         expressions={expressions}
-        allowableTypes={allowableTypes}
         style={{ flexGrow: 1 }}
         fixedTypeComponentProps={{
           ...inputProps,
@@ -65,6 +56,7 @@ export function MultiTypeDelegateSelector(props: ConnectedMultiTypeDelegateSelec
         }}
         fixedTypeComponent={DelegateSelectors as any}
         defaultValueToReset={[]}
+        allowableTypes={props.allowableTypes}
       />
     </FormGroup>
   )

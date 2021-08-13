@@ -33,6 +33,12 @@
                     "artifactOverrideSets": [],
                     "manifestOverrideSets": []
                   }
+                },
+                "infrastructure": {
+                  "spec": {
+                    "connectorRef": "account.harnessciplatform",
+                    "namespace": "harness-delegate-prod"
+                  }
                 }
               }
             }

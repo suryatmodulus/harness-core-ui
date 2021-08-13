@@ -16,7 +16,7 @@ import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import RbacAvatarGroup from '@rbac/components/RbacAvatarGroup/RbacAvatarGroup'
@@ -124,29 +124,31 @@ const ProjectDetails: React.FC = () => {
     <>
       <Page.Header
         size="xlarge"
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toProjects({ accountId }),
+                label: getString('projectsText')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical spacing="small" padding="medium" className={css.title}>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toProjects({ accountId }),
-                  label: getString('projectsText')
-                },
-                {
-                  url: '#',
-                  label: projectData.name
-                }
-              ]}
-            />
+          <Layout.Vertical spacing="small" className={css.title}>
             <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK} lineClamp={1}>
               {projectData.name}
             </Text>
-            <Text font="small" lineClamp={2}>
-              {projectData.description}
-            </Text>
-            <Layout.Horizontal padding={{ top: 'small' }}>
-              <TagsRenderer tags={projectData.tags || {}} length={6} />
-            </Layout.Horizontal>
+            {projectData.description && (
+              <Text font="small" lineClamp={2}>
+                {projectData.description}
+              </Text>
+            )}
+            {projectData.tags && (
+              <Layout.Horizontal padding={{ top: 'small' }}>
+                <TagsRenderer tags={projectData.tags || {}} length={6} />
+              </Layout.Horizontal>
+            )}
           </Layout.Vertical>
         }
         toolbar={

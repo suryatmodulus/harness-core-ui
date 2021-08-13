@@ -1,12 +1,15 @@
 .tabs {
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  margin-top: var(--spacing-large);
+  margin: var(--spacing-medium) var(--spacing-medium) var(--spacing-medium) 26px;
 }
 
 .tab {
   cursor: pointer;
+  width: 150px;
+  color: var(--grey-800) !important;
+  font-weight: 500 !important;
+  font-size: var(--spacing-4) !important;
 }
 
 .selectedTab {
@@ -17,7 +20,7 @@
 .alignConditions {
   display: flex;
   align-items: center;
-  margin: var(--spacing-xxlarge) 0 !important;
+  margin: var(--spacing-small) 0 var(--spacing-xxlarge) 0 !important;
 
   span {
     color: var(--black) !important;

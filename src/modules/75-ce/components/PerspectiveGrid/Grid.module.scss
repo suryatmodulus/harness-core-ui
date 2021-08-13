@@ -85,4 +85,11 @@
       }
     }
   }
+
+  :global {
+    .Pagination--container {
+      border-top: 0;
+      padding: var(--spacing-medium) !important;
+    }
+  }
 }

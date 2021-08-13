@@ -1,53 +1,72 @@
 import React from 'react'
-import { NestedAccordionProvider, useNestedAccordion, Icon } from '@wings-software/uicore'
-import type { ITreeNode } from '@blueprintjs/core'
+import { Icon, NestedAccordionPanel, NestedAccordionProvider, ExpandingSearchInput } from '@wings-software/uicore'
 import { get } from 'lodash-es'
-import cx from 'classnames'
 
-import type { StageElementWrapper } from 'services/cd-ng'
+import type {} from 'services/cd-ng'
+import { Tooltip } from '@blueprintjs/core'
 import { PageSpinner } from '@common/components'
 import { String, useStrings } from 'framework/strings'
 import { GitSyncStoreProvider } from 'framework/GitRepoStore/GitSyncStoreContext'
-
 import { PageError } from '@common/components/Page/PageError'
 import { usePipelineVariables } from '@pipeline/components/PipelineVariablesContext/PipelineVariablesContext'
-import StagesTree, { stagesTreeNodeClasses } from '@pipeline/components/StagesTree/StagesTree'
 import { usePipelineContext } from '../PipelineContext/PipelineContext'
-import { getPipelineTree } from '../PipelineUtils'
 import PipelineCard from './Cards/PipelineCard'
 import StageCard from './Cards/StageCard'
-
+import VariableAccordionSummary from './VariableAccordionSummary'
+// import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './PipelineVariables.module.scss'
 
 export const PipelineVariables: React.FC = (): JSX.Element => {
   const {
     updatePipeline,
     stepsFactory,
-    state: { pipeline: originalPipeline },
+    state: {
+      pipeline: originalPipeline
+      // pipelineView
+    },
     isReadonly
+
+    // updatePipelineView,
+    // fetchPipeline
   } = usePipelineContext()
-  const { variablesPipeline, metadataMap, error, initLoading } = usePipelineVariables()
+  const {
+    variablesPipeline,
+    metadataMap,
+    error,
+    initLoading,
+    onSearchInputChange,
+    searchIndex = 0,
+    searchResults = [],
+    goToNextSearchResult,
+    goToPrevSearchResult
+  } = usePipelineVariables()
   const { getString } = useStrings()
-  const { openNestedPath } = useNestedAccordion()
-  const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
-  const [isSidebarCollapsed, setSidebarCollapsed] = React.useState(false)
-  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('Pipeline_Variables')
-
-  function toggleSidebar(): void {
-    setSidebarCollapsed(status => !status)
-  }
-
   React.useEffect(() => {
-    updateNodes(getPipelineTree(originalPipeline, stagesTreeNodeClasses, getString))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [originalPipeline])
-
+    setTimeout(
+      () =>
+        (pipelineVariablesRef.current as any)?.scrollTo({
+          top: 0,
+          left: 0
+        }),
+      500
+    )
+  }, [])
+  const pipelineVariablesRef = React.useRef()
+  React.useLayoutEffect(() => {
+    if (searchIndex === null && pipelineVariablesRef.current) {
+      ;(pipelineVariablesRef.current as any)?.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+      })
+    }
+  }, [searchIndex])
   const stagesCards: JSX.Element[] = []
   /* istanbul ignore else */
   if (variablesPipeline.stages && variablesPipeline.stages?.length > 0) {
     variablesPipeline.stages?.forEach((data, i) => {
       if (data.parallel && data.parallel.length > 0) {
-        data.parallel.forEach((nodeP: StageElementWrapper, j: number) => {
+        data.parallel.forEach((nodeP, j: number) => {
           nodeP.stage &&
             stagesCards.push(
               <StageCard
@@ -55,6 +74,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
                 key={nodeP.stage.identifier}
                 stage={nodeP.stage}
                 metadataMap={metadataMap}
+                path="pipeline"
               />
             )
         })
@@ -66,17 +86,11 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
             originalStage={get(originalPipeline, `stages[${i}].stage`)}
             metadataMap={metadataMap}
             readonly={isReadonly}
+            path="pipeline"
           />
         )
       }
     })
-  }
-
-  function handleSelectionChange(id: string): void {
-    setSelectedTreeNodeId(id)
-    openNestedPath(id)
-
-    document.getElementById(`${id}-panel`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
   if (initLoading) return <PageSpinner />
@@ -86,48 +100,72 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
       {error ? (
         <PageError message={(error?.data as Error)?.message || error?.message} />
       ) : (
-        <div className={cx(css.content, { [css.closed]: isSidebarCollapsed })}>
-          <div className={css.lhs}>
-            <String tagName="div" className={css.title} stringID="variablesText" />
-            <StagesTree
-              className={css.stagesTree}
-              contents={nodes}
-              selectedId={selectedTreeNodeId}
-              selectionChange={handleSelectionChange}
-            />
-            <div className={css.collapse} onClick={toggleSidebar}>
-              <Icon name="chevron-left" />
+        <div className={css.content}>
+          <div className={css.variablePanelHeader}>
+            <div className={css.variableTitle}>
+              <div>
+                <Icon name="pipeline-variables" />
+                <String stringID="variablesText" />
+                <Tooltip
+                  content={getString('customVariables.pipelineVariablesDescription')}
+                  portalClassName={css.descriptionTooltip}
+                >
+                  <Icon size={12} name="info" className={css.description} />
+                </Tooltip>
+              </div>
             </div>
-          </div>
+            <div>
+              {/* WIP Variabes Search */}
+              <ExpandingSearchInput
+                alwaysExpanded
+                onChange={onSearchInputChange}
+                showPrevNextButtons
+                className={css.searchInput}
+                fixedText={`${Math.min((searchIndex || 0) + 1, searchResults?.length)} / ${searchResults?.length}`}
+                onNext={goToNextSearchResult}
+                onPrev={goToPrevSearchResult}
+                onEnter={goToNextSearchResult}
+                placeholder="Find..."
+              />
+            </div>
 
-          <div className={css.variableList}>
-            <String tagName="h4" className="bp3-heading" stringID="customVariables.pipelineVariablesTitle" />
-            <String className={css.description} stringID="customVariables.pipelineVariablesDescription" />
-            <String stringID="common.pipeline" className={css.title} />
-            <div className={css.variableListHeader}>
-              <String stringID="variableLabel" />
-              <String stringID="valueLabel" />
-            </div>
+            <div className={css.searchActions}></div>
+          </div>
+          <div className={css.variableList} ref={pipelineVariablesRef as any}>
             <GitSyncStoreProvider>
-              <PipelineCard
-                variablePipeline={variablesPipeline}
-                pipeline={originalPipeline}
-                stepsFactory={stepsFactory}
-                updatePipeline={updatePipeline}
-                metadataMap={metadataMap}
-                readonly={isReadonly}
+              <NestedAccordionPanel
+                isDefaultOpen
+                key="pipeline"
+                id="pipeline"
+                addDomId
+                collapseProps={{
+                  keepChildrenMounted: true
+                }}
+                summary={<VariableAccordionSummary>{getString('common.pipeline')}</VariableAccordionSummary>}
+                summaryClassName={css.stageSummary}
+                detailsClassName={css.pipelineDetails}
+                panelClassName={css.pipelineMarginBottom}
+                details={
+                  <>
+                    <div className={css.variableListHeader}>
+                      <String stringID="variableLabel" />
+                      <String stringID="valueLabel" />
+                    </div>
+
+                    <PipelineCard
+                      variablePipeline={variablesPipeline}
+                      pipeline={originalPipeline}
+                      stepsFactory={stepsFactory}
+                      updatePipeline={updatePipeline}
+                      metadataMap={metadataMap}
+                      readonly={isReadonly}
+                    />
+
+                    {stagesCards.length > 0 ? stagesCards : null}
+                  </>
+                }
               />
             </GitSyncStoreProvider>
-            {stagesCards.length > 0 ? (
-              <React.Fragment key="stages">
-                <String stringID="stages" className={css.title} />
-                <div className={css.variableListHeader}>
-                  <String stringID="variableLabel" />
-                  <String stringID="valueLabel" />
-                </div>
-                {stagesCards}
-              </React.Fragment>
-            ) : /* istanbul ignore next */ null}
           </div>
         </div>
       )}

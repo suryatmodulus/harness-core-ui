@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useQuery } from 'urql'
 
-import { Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, Layout, Text, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { Page } from '@common/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
@@ -72,14 +72,16 @@ const RecommendationHelperText: React.FC = () => {
   )
 }
 
-const CostDetails: React.FC<{ costName: string; totalCost: string; isSavingsCost?: boolean }> = ({
+const CostDetails: React.FC<{ costName: string; totalCost: React.ReactNode; isSavingsCost?: boolean }> = ({
   costName,
   totalCost,
   isSavingsCost
 }) => {
   return (
-    <Layout.Vertical spacing="medium">
-      <Text font="normal">{costName}</Text>
+    <Layout.Vertical spacing="small">
+      <Text font="normal" color="grey400">
+        {costName}
+      </Text>
       <Text
         font="medium"
         color={isSavingsCost ? 'green600' : 'grey800'}
@@ -92,45 +94,144 @@ const CostDetails: React.FC<{ costName: string; totalCost: string; isSavingsCost
   )
 }
 
+interface WorkloadDataType {
+  clusterName?: string
+  namespace?: string
+  id?: string
+  resourceName?: string
+}
 interface RecommendationSavingsComponentProps {
   recommendationStats: RecommendationOverviewStats
+  workloadData: WorkloadDataType
 }
 
-const RecommendationSavingsComponent: React.FC<RecommendationSavingsComponentProps> = ({ recommendationStats }) => {
+const RecommendationSavingsComponent: React.FC<RecommendationSavingsComponentProps> = ({
+  recommendationStats,
+  workloadData
+}) => {
   const { getString } = useStrings()
+  const history = useHistory()
+  const { recommendation, accountId, recommendationName } = useParams<{
+    recommendation: string
+    recommendationName: string
+    accountId: string
+  }>()
 
   const { totalMonthlyCost, totalMonthlySaving } = recommendationStats
 
   return (
     <Container padding="xlarge" className={css.savingsContainer}>
-      <Layout.Horizontal spacing="large">
+      <Container>
         {totalMonthlyCost ? (
           <CostDetails
             costName={getString('ce.recommendation.listPage.monthlySavingsText')}
-            totalCost={formatCost(totalMonthlyCost)}
+            totalCost={
+              <Layout.Horizontal
+                spacing="xsmall"
+                style={{
+                  alignItems: 'flex-end'
+                }}
+                className={css.costContainer}
+              >
+                <Text color="green600" className={css.subText}>
+                  {getString('ce.recommendation.listPage.uptoText')}
+                </Text>
+                <Text font="medium" color="green600">
+                  {formatCost(totalMonthlySaving)}
+                </Text>
+              </Layout.Horizontal>
+            }
             isSavingsCost={true}
           />
         ) : null}
         {totalMonthlySaving ? (
-          <CostDetails
-            costName={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
-            totalCost={formatCost(totalMonthlySaving)}
-          />
+          <Container padding={{ top: 'xlarge' }}>
+            <CostDetails
+              totalCost={
+                <Layout.Horizontal
+                  spacing="xsmall"
+                  style={{
+                    alignItems: 'flex-end'
+                  }}
+                >
+                  <Text font="medium" color="grey800">
+                    {formatCost(totalMonthlyCost)}
+                  </Text>
+                  <Text className={css.subText} color="grey300">
+                    {getString('ce.recommendation.listPage.forecatedCostSubText')}
+                  </Text>
+                </Layout.Horizontal>
+              }
+              costName={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
+            />
+          </Container>
         ) : null}
-        {/* <CostDetails costName={getString('ce.recommendation.detailsPage.idleCost')} totalCost={formatCost(25000)} /> */}
-      </Layout.Horizontal>
+      </Container>
+      {/* <FlexExpander /> */}
+      <Container
+        padding={{
+          left: 'large'
+        }}
+      >
+        <Layout.Horizontal spacing="huge">
+          <Text color={Color.GREY_400}>{getString('ce.perspectives.workloadDetails.workloadDetailsText')}</Text>
+          <Button
+            className={css.viewDetailsButton}
+            round
+            font="small"
+            minimal
+            intent="primary"
+            text={getString('ce.recommendation.detailsPage.viewMoreDetailsText')}
+            border={true}
+            onClick={() => {
+              workloadData.clusterName &&
+                workloadData.resourceName &&
+                workloadData.namespace &&
+                history.push(
+                  routes.toCERecommendationWorkloadDetails({
+                    accountId,
+                    recommendation,
+                    recommendationName,
+                    clusterName: workloadData.clusterName,
+                    namespace: workloadData.namespace,
+                    workloadName: workloadData.resourceName
+                  })
+                )
+            }}
+          />
+        </Layout.Horizontal>
+        <Container>
+          <Text color={Color.GREY_400}>{getString('ce.recommendation.listPage.filters.clusterName')}</Text>
+          <Text
+            padding={{
+              top: 'xsmall'
+            }}
+          >
+            {workloadData.clusterName}
+          </Text>
+        </Container>
+        <Container padding={{ top: 'large' }}>
+          <Text color={Color.GREY_400}>{getString('ce.perspectives.workloadDetails.fieldNames.workload')}</Text>
+          <Text
+            padding={{
+              top: 'xsmall'
+            }}
+          >
+            {workloadData.resourceName}
+          </Text>
+        </Container>
+      </Container>
     </Container>
   )
 }
 
 const RecommendationDetailsPage: React.FC = () => {
-  const { projectIdentifier, recommendation, orgIdentifier, accountId } = useParams<{
-    projectIdentifier: string
+  const { recommendation, accountId, recommendationName } = useParams<{
     recommendation: string
-    orgIdentifier: string
+    recommendationName: string
     accountId: string
   }>()
-
+  const { getString } = useStrings()
   const [timeRange, setTimeRange] = useState<TimeRangeValue>({ value: TimeRangeType.LAST_7, label: TimeRange.LAST_7 })
 
   const timeRangeFilter = GET_DATE_RANGE[timeRange.value]
@@ -143,10 +244,9 @@ const RecommendationDetailsPage: React.FC = () => {
   const { data, fetching } = result
 
   const recommendationDetails = (data?.recommendationDetails as RecommendationDetails) || []
-
-  const recommendationStats = data?.recommendationStats as RecommendationOverviewStats
-
+  const recommendationStats = data?.recommendationStatsV2 as RecommendationOverviewStats
   const recommendationItems = recommendationDetails?.items || []
+  const workloadData = data?.recommendationsV2?.items?.length && data?.recommendationsV2?.items[0]
 
   return (
     <Container className={css.pageBody} style={{ overflow: 'scroll', height: '100vh' }}>
@@ -156,38 +256,41 @@ const RecommendationDetailsPage: React.FC = () => {
           className={css.breadCrumb}
           links={[
             {
-              url: routes.toCEProject({ accountId, orgIdentifier, projectIdentifier }),
-              label: projectIdentifier
-            },
-            {
-              url: routes.toCERecommendations({ accountId, orgIdentifier, projectIdentifier }),
-              label: 'Recommendation'
+              url: routes.toCERecommendations({ accountId }),
+              label: getString('ce.recommendation.sideNavText')
             },
             {
               url: '',
-              label: recommendation
+              label: recommendationName
             }
           ]}
         />
-        {recommendationStats ? <RecommendationSavingsComponent recommendationStats={recommendationStats} /> : null}
+        {recommendationStats ? (
+          <RecommendationSavingsComponent
+            recommendationStats={recommendationStats}
+            workloadData={workloadData as WorkloadDataType}
+          />
+        ) : null}
       </Container>
       <Container padding="xlarge" className={css.mainContainer}>
         <Layout.Vertical spacing="xlarge">
           {recommendationItems.length ? (
             <Container className={css.detailsContainer}>
-              {recommendationItems.map((item, index) => {
-                const { containerName } = item
-                const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
-                return (
-                  <RecommendationDetails
-                    key={`${item.containerName}-${index}-${timeRange.label}`}
-                    histogramData={item}
-                    currentResources={currentResources}
-                    timeRange={timeRange}
-                    setTimeRange={setTimeRange}
-                  />
-                )
-              })}
+              <Layout.Vertical spacing="huge">
+                {recommendationItems.map((item, index) => {
+                  const { containerName } = item
+                  const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
+                  return (
+                    <RecommendationDetails
+                      key={`${item.containerName}-${index}-${timeRange.label}`}
+                      histogramData={item}
+                      currentResources={currentResources}
+                      timeRange={timeRange}
+                      setTimeRange={setTimeRange}
+                    />
+                  )
+                })}
+              </Layout.Vertical>
               <RecommendationHelperText />
             </Container>
           ) : null}

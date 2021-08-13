@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import * as Yup from 'yup'
 import {
   StepProps,
-  ModalErrorHandlerBinding,
-  ModalErrorHandler,
   Container,
   Text,
   SelectOption,
@@ -13,34 +11,24 @@ import {
   Layout,
   Button
 } from '@wings-software/uicore'
-import { useParams } from 'react-router-dom'
-import { pick } from 'lodash-es'
 
-import { useToaster } from '@common/exports'
-import { ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
 import { setupAwsKmsFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import { AwsKmsConfigFormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
-import { DelegateSelectors, PageSpinner } from '@common/components'
-import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-
+import {
+  AwsKmsConfigFormData,
+  ConnectorDetailsProps,
+  CredTypeValues,
+  StepDetailsProps
+} from '@connectors/interfaces/ConnectorInterface'
+import { PageSpinner } from '@common/components'
 import AwsKmsAccessKeyForm from './AwsKmsAccessKeyForm'
-import type { CreateAwsKmsConnectorProps, StepSecretManagerProps } from '../CreateAwsKmsConnector'
 
 const externalIdRegExpression = /^\S*$/
 
-const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsConnectorProps> = ({
-  prevStepData,
-  previousStep,
-  nextStep,
-  isEditMode,
-  onSuccess,
-  connectorInfo
-}) => {
-  const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
-  const { showSuccess } = useToaster()
+const AwsKmsConfig: React.FC<StepProps<StepDetailsProps> & ConnectorDetailsProps> = props => {
+  const { accountId, prevStepData, nextStep, previousStep } = props
+
   const { getString } = useStrings()
-  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
   const credTypeOptions: SelectOption[] = [
     {
@@ -62,7 +50,6 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
     awsArn: undefined,
     region: undefined,
     credType: credTypeOptions[0].value as string,
-    delegate: undefined,
     roleArn: undefined,
     externalName: undefined,
     assumeStsRoleDuration: undefined,
@@ -70,105 +57,38 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
   }
 
   const [initialValues, setInitialValues] = useState(defaultInitialFormData)
-  const [loadingFormData, setLoadingFormData] = useState(isEditMode)
-
-  const { mutate: CreateAwsKMSConnector, loading: createLoading } = useCreateConnector({
-    queryParams: { accountIdentifier }
-  })
-  const { mutate: updateSecretManager, loading: updateLoading } = useUpdateConnector({
-    queryParams: { accountIdentifier }
-  })
+  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(props.isEditMode)
 
   React.useEffect(() => {
-    if (isEditMode && connectorInfo) {
-      setupAwsKmsFormData(connectorInfo, accountIdentifier).then(data => {
-        setInitialValues(data as AwsKmsConfigFormData)
-        setLoadingFormData(false)
-      })
-    }
-  }, [isEditMode, connectorInfo])
-
-  const handleSubmit = async (formData: AwsKmsConfigFormData): Promise<void> => {
-    modalErrorHandler?.hide()
-    if (prevStepData) {
-      const credTypeValue = formData?.credType as string
-      let cred = {}
-      if (credTypeValue === CredTypeValues.ManualConfig) {
-        cred = {
-          type: credTypeValue,
-          spec: {
-            accessKey: formData?.accessKey?.referenceString,
-            secretKey: formData?.secretKey?.referenceString
-          }
-        }
-      } else if (credTypeValue === CredTypeValues.AssumeIAMRole) {
-        cred = {
-          type: credTypeValue,
-          spec: {
-            delegateSelectors: formData.delegate
-          }
-        }
-      } else if (credTypeValue === CredTypeValues.AssumeRoleSTS) {
-        const assumeStsRoleDuration = formData.assumeStsRoleDuration
-          ? typeof formData.assumeStsRoleDuration === 'string'
-            ? parseInt(formData.assumeStsRoleDuration.trim())
-            : formData.assumeStsRoleDuration
-          : undefined
-        cred = {
-          type: credTypeValue,
-          spec: {
-            delegateSelectors: formData.delegate,
-            roleArn: formData.roleArn?.trim(),
-            externalName: formData.externalName?.trim() || undefined,
-            assumeStsRoleDuration
-          }
-        }
-      }
-
-      const dataToSubmit: ConnectorRequestBody = {
-        connector: {
-          orgIdentifier,
-          projectIdentifier,
-          ...pick(prevStepData, ['name', 'identifier', 'description', 'tags']),
-          type: 'AwsKms',
-          spec: {
-            credential: cred,
-            kmsArn: formData?.awsArn?.referenceString,
-            region: formData?.region as SelectOption,
-            default: formData.default
-          }
-        }
-      }
-
-      try {
-        if (!isEditMode && prevStepData.isEdit != true) {
-          const response = await CreateAwsKMSConnector(dataToSubmit)
-          nextStep?.({ ...prevStepData, spec: { ...formData }, isEdit: true })
-          onSuccess(response.data)
-          showSuccess(getString('secretManager.createmessageSuccess'))
+    if (loadingConnectorSecrets) {
+      if (props.isEditMode) {
+        if (props.connectorInfo) {
+          setupAwsKmsFormData(props.connectorInfo, accountId).then(data => {
+            setInitialValues(data as AwsKmsConfigFormData)
+            setLoadingConnectorSecrets(false)
+          })
         } else {
-          const response = await updateSecretManager(dataToSubmit)
-          nextStep?.({ ...prevStepData, spec: { ...formData }, isEdit: true })
-          onSuccess(response.data)
-          showSuccess(getString('secretManager.editmessageSuccess'))
+          setLoadingConnectorSecrets(false)
         }
-      } catch (err) {
-        /* istanbul ignore next */
-        modalErrorHandler?.showDanger(err?.data?.message)
       }
     }
-  }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loadingConnectorSecrets])
 
-  return (
+  return loadingConnectorSecrets ? (
+    <PageSpinner />
+  ) : (
     <Container padding={{ top: 'medium' }} width="64%">
       <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
         {getString('details')}
       </Text>
-      <ModalErrorHandler bind={setModalErrorHandler} />
 
       <Formik
         enableReinitialize
-        initialValues={initialValues}
+        initialValues={{
+          ...initialValues,
+          ...prevStepData
+        }}
         formName="awsKmsConfigForm"
         validationSchema={Yup.object().shape({
           accessKey: Yup.object().when(['credType'], {
@@ -181,10 +101,6 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           }),
           awsArn: Yup.object().required(getString('connectors.awsKms.validation.selectAWSArn')),
           region: Yup.string().trim().required(getString('connectors.awsKms.validation.selectRegion')),
-          delegate: Yup.string().when(['credType'], {
-            is: credentials => credentials === credTypeOptions[1].value || credentials === credTypeOptions[2].value,
-            then: Yup.string().trim().required(getString('connectors.awsKms.validation.selectDelegate'))
-          }),
           roleArn: Yup.string().when(['credType'], {
             is: credentials => credentials === credTypeOptions[2].value,
             then: Yup.string().trim().required(getString('connectors.aws.validation.crossAccountRoleArn'))
@@ -207,7 +123,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
           })
         })}
         onSubmit={formData => {
-          handleSubmit(formData)
+          nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData } as StepDetailsProps)
         }}
       >
         {formik => {
@@ -215,7 +131,7 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
             <FormikForm>
               <Container style={{ minHeight: 420, maxWidth: 600 }} margin={{ top: 'medium', bottom: 'xxlarge' }}>
                 <FormInput.Select name="credType" label={getString('credType')} items={credTypeOptions} />
-                <AwsKmsAccessKeyForm formik={formik} accountId={accountIdentifier} />
+                <AwsKmsAccessKeyForm formik={formik} accountId={accountId} />
                 {formik.values?.credType === credTypeOptions[2].value && (
                   <>
                     <FormInput.Text name="roleArn" label={getString('connectors.awsKms.roleArnLabel')} />
@@ -227,24 +143,6 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
                   </>
                 )}
 
-                {(formik.values?.credType === credTypeOptions[1].value ||
-                  formik.values?.credType === credTypeOptions[2].value) && (
-                  <Layout.Vertical spacing="xsmall" margin={{ bottom: 'small' }}>
-                    <Text lineClamp={1}>{getString('delegate.DelegateSelector')}</Text>
-                    <DelegateSelectors
-                      fill
-                      allowNewTag={false}
-                      orgIdentifier={orgIdentifier}
-                      projectIdentifier={projectIdentifier}
-                      placeholder={getString('connectors.delegate.delegateselectionPlaceholder')}
-                      selectedItems={formik.values.delegate}
-                      onChange={tags => {
-                        formik.setFieldValue('delegate', tags)
-                      }}
-                    ></DelegateSelectors>
-                    <Text intent="danger">{formik.errors.delegate}</Text>
-                  </Layout.Vertical>
-                )}
                 <FormInput.CheckBox
                   name="default"
                   label={getString('connectors.hashiCorpVault.defaultVault')}
@@ -253,19 +151,12 @@ const AwsKmsConfig: React.FC<StepProps<StepSecretManagerProps> & CreateAwsKmsCon
               </Container>
               <Layout.Horizontal spacing="medium">
                 <Button text={getString('back')} onClick={() => previousStep?.(prevStepData)} />
-                <Button
-                  type="submit"
-                  intent="primary"
-                  rightIcon="chevron-right"
-                  text={getString('saveAndContinue')}
-                  disabled={updateLoading || createLoading || loadingFormData}
-                />
+                <Button type="submit" intent="primary" rightIcon="chevron-right" text={getString('continue')} />
               </Layout.Horizontal>
             </FormikForm>
           )
         }}
       </Formik>
-      {loadingFormData ? <PageSpinner /> : null}
     </Container>
   )
 }

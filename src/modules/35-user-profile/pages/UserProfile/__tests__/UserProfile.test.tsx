@@ -43,75 +43,80 @@ const disableAuthMock = (): ResponseBoolean => {
   return mockResponse
 }
 
-jest.spyOn(cdngServices, 'useGetCurrentUserInfo').mockImplementation(() => {
-  return { data: userMockData, refetch: jest.fn() } as any
-})
-jest.spyOn(cdngServices, 'useSaveSourceCodeManagers').mockImplementation(() => {
-  return { mutate: createSCM } as any
-})
-jest.spyOn(cdngServices, 'useDeleteSourceCodeManagers').mockImplementation(() => {
-  return { mutate: () => Promise.resolve(mockResponse) } as any
-})
-jest.spyOn(cdngServices, 'useUpdateUserInfo').mockImplementation(() => {
-  return { mutate: () => Promise.resolve(mockResponse) } as any
-})
-jest.spyOn(cdngServices, 'useUpdateSourceCodeManagers').mockImplementation(() => {
-  return { data: [], refetch: jest.fn() } as any
-})
-jest.spyOn(cdngServices, 'useGetConnectorList').mockImplementation(() => {
-  return { ...connectorMockData, refetch: jest.fn(), error: null, loading: false } as any
-})
-jest.spyOn(cdngServices, 'useGetTwoFactorAuthSettings').mockImplementation(() => {
-  return { data: twoFactorAuthSettings, refetch: jest.fn() } as any
-})
-jest.spyOn(cdngServices, 'useEnableTwoFactorAuth').mockImplementation(() => {
-  return { mutate: enableAuthMock } as any
-})
-jest.spyOn(cdngServices, 'useDisableTwoFactorAuth').mockImplementation(() => {
-  return { mutate: disableAuthMock } as any
-})
-jest.spyOn(cdngServices, 'listSecretsV2Promise').mockImplementation(() => Promise.resolve(mockSecretList) as any),
-  jest.spyOn(cdngServices, 'useGetSecretV2').mockImplementation(() => {
-    return { data: mockSecretList, refetch: jest.fn() } as any
-  })
-jest.spyOn(cdngServices, 'useGetConnector').mockImplementation(() => {
-  return { data: {}, refetch: jest.fn() } as any
-})
-jest
-  .spyOn(cdngServices, 'usePostSecret')
-  .mockImplementation(() => ({ mutate: () => Promise.resolve(mockResponse) } as any))
-jest.spyOn(cdngServices, 'usePutSecret').mockImplementation(() => ({ mutate: jest.fn() } as any))
-jest.spyOn(cdngServices, 'usePostSecretFileV2').mockImplementation(() => ({ mutate: jest.fn() } as any))
-jest.spyOn(cdngServices, 'usePutSecretFileV2').mockImplementation(() => ({ mutate: jest.fn() } as any))
-jest.spyOn(cdngServices, 'useGetAuthenticationSettings').mockImplementation(() => {
-  return { data: passwordStrengthPolicy } as any
-})
-jest.spyOn(cdngServices, 'useGetUserProjectInfo').mockImplementation(() => {
-  return { data: mockMyProfiles } as any
-})
-jest.spyOn(cdngServices, 'useChangeUserPassword').mockImplementation(() => {
-  return {
-    mutate: () =>
-      Promise.resolve({
-        data: ChangePasswordResponse.PASSWORD_CHANGED
+jest.mock('services/cd-ng', () => ({
+  useGetCurrentUserInfo: jest.fn().mockImplementation(() => {
+    return { data: userMockData, refetch: jest.fn() }
+  }),
+  useSaveSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { mutate: createSCM }
+  }),
+  useDeleteSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve(mockResponse) }
+  }),
+  useUpdateSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve(mockResponse) }
+  }),
+  useUpdateUserInfo: jest.fn().mockImplementation(() => {
+    return { mutate: () => Promise.resolve(mockResponse) }
+  }),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: emptySourceCodeManagers, refetch: jest.fn() }
+  }),
+  useGetConnectorList: jest.fn().mockImplementation(() => {
+    return { ...connectorMockData, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useGetTwoFactorAuthSettings: jest.fn().mockImplementation(() => {
+    return { data: twoFactorAuthSettings, refetch: jest.fn() }
+  }),
+  useEnableTwoFactorAuth: jest.fn().mockImplementation(() => {
+    return { mutate: enableAuthMock }
+  }),
+  useDisableTwoFactorAuth: jest.fn().mockImplementation(() => {
+    return { mutate: disableAuthMock }
+  }),
+  listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecretList)),
+  useGetSecretV2: jest.fn().mockImplementation(() => {
+    return { data: mockSecretList, refetch: jest.fn() }
+  }),
+  useGetConnector: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn() }
+  }),
+  usePostSecret: jest.fn().mockImplementation(() => ({ mutate: () => Promise.resolve(mockResponse) })),
+  usePutSecret: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePostSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  usePutSecretFileV2: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useGetAuthenticationSettings: jest.fn().mockImplementation(() => {
+    return { data: passwordStrengthPolicy }
+  }),
+  useGetUserProjectInfo: jest.fn().mockImplementation(() => {
+    return { data: mockMyProfiles }
+  }),
+  useChangeUserPassword: jest.fn().mockImplementation(() => {
+    return {
+      mutate: () =>
+        Promise.resolve({
+          data: ChangePasswordResponse.PASSWORD_CHANGED
+        })
+    }
+  }),
+  useResendVerifyEmail: jest.fn().mockImplementation(() => {
+    return {
+      cancel: jest.fn(),
+      loading: false,
+      mutate: jest.fn().mockImplementation(() => {
+        return {
+          status: 'SUCCESS'
+        }
       })
-  } as any
-})
-jest.spyOn(cdngServices, 'useResendVerifyEmail').mockImplementation(() => {
-  return {
-    cancel: jest.fn(),
-    loading: false,
-    mutate: jest.fn().mockImplementation(() => {
-      return {
-        status: 'SUCCESS'
-      }
-    })
-  } as any
-})
-
-jest.spyOn(cdngServices, 'useGetSourceCodeManagers').mockImplementation(() => {
-  return { data: emptySourceCodeManagers, refetch: jest.fn() } as any
-})
+    }
+  }),
+  useListAggregatedApiKeys: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn(), error: null, loading: false }
+  }),
+  useListAggregatedTokens: jest.fn().mockImplementation(() => {
+    return { data: {}, refetch: jest.fn(), error: null, loading: false }
+  })
+}))
 
 let enabledAuth = false
 
@@ -120,7 +125,7 @@ describe('User Profile Page', () => {
   let getByText: RenderResult['getByText']
   let getByTestId: RenderResult['getByTestId']
 
-  const testSetup = () => {
+  const testSetup = (): void => {
     const renderObj = render(
       <TestWrapper
         path="/account/:accountId/projects"
@@ -170,7 +175,6 @@ describe('User Profile Page', () => {
     // Only github SCM is supported ATM
     // eslint-disable-next-line jest/no-disabled-tests
     test.skip('Add BitBucket SCM', async () => {
-      testSetup()
       const addSCM = getByText('userProfile.plusSCM')
       expect(addSCM).toBeTruthy()
       act(() => {
@@ -225,8 +229,8 @@ describe('User Profile Page', () => {
       expect(createSCM).toHaveBeenCalled()
     }),
     test('Add SCM should not be visible', async () => {
-      jest.spyOn(cdngServices, 'useGetSourceCodeManagers').mockImplementation(() => {
-        return { data: sourceCodeManagers, refetch: jest.fn() } as any
+      ;(cdngServices.useGetSourceCodeManagers as jest.Mock).mockImplementation(() => {
+        return { data: sourceCodeManagers, refetch: jest.fn() }
       })
       testSetup()
       const addSCM = container.querySelector('[data-test="userProfileAddSCM"]')
@@ -340,8 +344,8 @@ describe('User Profile Page', () => {
       expect(queryByText(document.body, 'userProfile.passwordChangedSuccessfully')).toBeTruthy()
     }),
     test('No Projects Found', () => {
-      jest.spyOn(cdngServices, 'useGetUserProjectInfo').mockImplementation(() => {
-        return { data: { ...mockMyProfiles, data: { content: [] } } } as any
+      ;(cdngServices.useGetUserProjectInfo as jest.Mock).mockImplementation(() => {
+        return { data: { ...mockMyProfiles, data: { content: [] } } }
       })
       testSetup()
       expect(queryByText(document.body, 'noProjects')).toBeTruthy()

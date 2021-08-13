@@ -101,21 +101,20 @@ describe('Connectors Page Test', () => {
 
   /* Connector filters test */
   test('Select and apply a filter', async () => {
-    const { container, getByPlaceholderText } = render(
+    const { container, getByTestId } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <ConnectorsPage {...renderProps} />
       </TestWrapper>
     )
     await act(async () => {
-      const filterSelector = container.querySelector('.bp3-input-action [data-icon="caret-down"]')
-      fireEvent.click(filterSelector!)
+      const filterSelector = getByTestId('filter-select')
+      expect(filterSelector).toBeTruthy()
+      fireEvent.click(filterSelector)
       await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
       const menuItems = document.querySelectorAll('[class*="menuItem"]')
       expect(menuItems?.length).toBe(filters.data.content.length)
       fireEvent.click(menuItems[0])
-      expect((getByPlaceholderText('filters.selectFilter') as HTMLInputElement).value).toBe(
-        filters.data.content[0].name
-      )
+      expect(getByTestId('dropdown-value')).toHaveTextContent(filters.data.content[0].name)
       expect(parseInt((container.querySelector('[class*="fieldCount"]') as HTMLElement).innerHTML)).toBe(1)
     })
     // expect(container).toMatchSnapshot()
@@ -182,8 +181,9 @@ describe('Connectors Page Test', () => {
     )
     const query = 'abcd'
     const searchContainer = container.querySelector('[data-name="connectorSeachContainer"]')
-    const searchIcon = searchContainer?.querySelector('span[icon="search"]')
+    const searchIcon = searchContainer?.querySelector('span[data-icon="thinner-search"]')
     const searchInput = searchContainer?.querySelector('input[placeholder="search"]') as HTMLInputElement
+
     expect(searchIcon).toBeTruthy()
     expect(searchInput).toBeTruthy()
     expect(searchInput?.value).toBe('')

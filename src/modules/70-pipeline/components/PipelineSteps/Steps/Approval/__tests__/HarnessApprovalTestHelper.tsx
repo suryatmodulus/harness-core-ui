@@ -37,7 +37,7 @@ export const getHarnessApprovalEditModePropsWithValues = (): HarnessApprovalStep
         }
       ],
       approvers: {
-        userGroups: ['ug1', 'ug2'],
+        userGroups: ['ug1', 'org.ug2', 'org.ug3', 'ug4', 'account.ug5', 'account.ug6'],
         minimumCount: 1,
         disallowPipelineExecutor: true
       }

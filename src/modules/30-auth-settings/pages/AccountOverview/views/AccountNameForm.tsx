@@ -38,7 +38,7 @@ const AccountNameForm: React.FC<AccountNameFormProps> = ({
   const handleSubmit = async (values: FormValues): Promise<FormValues> => {
     try {
       await updateAcctName({
-        name: values.name
+        name: values.name.trim()
       })
       refetchAcct()
     } catch (err) {

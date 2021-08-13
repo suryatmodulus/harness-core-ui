@@ -8,7 +8,8 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  FormError
 } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get } from 'lodash-es'
@@ -119,7 +120,7 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
 
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? <FormError errorMessage={get(formik?.errors, name)} /> : null,
     disabled,
     ...rest
   } = restProps

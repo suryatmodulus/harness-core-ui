@@ -5,7 +5,7 @@ import { useStrings } from 'framework/strings'
 import { useGetAggregatedUser } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
@@ -47,55 +47,49 @@ const UserDetails: React.FC = () => {
       <Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('users')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toUsers({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('users')
-                },
-                {
-                  url: '#',
-                  label: user.name || user.email
-                }
-              ]}
-            />
-            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
-              {user.locked ? (
-                <Icon
-                  name="lock"
-                  border
-                  className={css.lockIcon}
-                  width={72}
-                  height={72}
-                  size={32}
-                  color={Color.WHITE}
-                  background={Color.GREY_300}
-                  flex={{ align: 'center-center' }}
-                  margin={{ left: 'xsmall', right: 'xsmall' }}
-                />
-              ) : (
-                <Avatar name={user.name || user.email} email={user.email} size="large" hoverCard={false} />
-              )}
+          <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }} spacing="medium">
+            {user.locked ? (
+              <Icon
+                name="lock"
+                border
+                className={css.lockIcon}
+                width={72}
+                height={72}
+                size={32}
+                color={Color.WHITE}
+                background={Color.GREY_300}
+                flex={{ align: 'center-center' }}
+                margin={{ left: 'xsmall', right: 'xsmall' }}
+              />
+            ) : (
+              <Avatar name={user.name || user.email} email={user.email} size="large" hoverCard={false} />
+            )}
 
-              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
-                <Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="xsmall">
-                  <Text color={Color.BLACK} font="medium">
-                    {user.name}
-                  </Text>
-                  {user.locked ? (
-                    <Text color={Color.GREY_400}>{getString('rbac.usersPage.lockedOutLabel')}</Text>
-                  ) : null}
-                </Layout.Horizontal>
-                <Text>{user.email}</Text>
-              </Layout.Vertical>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+            <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
+              <Layout.Horizontal flex={{ alignItems: 'baseline' }} spacing="xsmall">
+                <Text color={Color.BLACK} font="medium">
+                  {user.name}
+                </Text>
+                {user.locked ? <Text color={Color.GREY_400}>{getString('rbac.usersPage.lockedOutLabel')}</Text> : null}
+              </Layout.Horizontal>
+              <Text>{user.email}</Text>
+            </Layout.Vertical>
+          </Layout.Horizontal>
         }
       />
       <Page.Body className={css.body}>

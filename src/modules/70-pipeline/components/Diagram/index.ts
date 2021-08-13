@@ -77,9 +77,9 @@ export const createEngine = (options: CanvasEngineOptions = {}): DiagramEngine =
   const engine = new DiagramEngine(options)
 
   // register model factories
-  engine.getLayerFactories().registerFactory(new NodeLayerFactory())
-  engine.getLayerFactories().registerFactory(new StepGroupNodeLayerFactory())
-  engine.getLayerFactories().registerFactory(new LinkLayerFactory())
+  engine.getLayerFactories().registerFactory(new NodeLayerFactory() as any)
+  engine.getLayerFactories().registerFactory(new StepGroupNodeLayerFactory() as any)
+  engine.getLayerFactories().registerFactory(new LinkLayerFactory() as any)
   engine.getLayerFactories().registerFactory(new SelectionBoxLayerFactory())
 
   engine.getLabelFactories().registerFactory(new DefaultLabelFactory())

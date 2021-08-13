@@ -12,6 +12,8 @@ import {
 } from '@wings-software/uicore'
 import type { StringsMap } from 'stringTypes'
 import type { ResponseListInviteOperationResponse } from 'services/cd-ng'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import type { Assignment } from '@rbac/modals/RoleAssignmentModal/views/UserRoleAssigment'
 
 export interface UserItem extends MultiSelectOption {
   email?: string
@@ -81,5 +83,58 @@ export const handleInvitationResponse = ({
       return showSuccess(getString('rbac.usersPage.userAlreadyInvited'))
     default:
       return modalErrorHandler?.showDanger(getString('rbac.usersPage.invitationError'))
+  }
+}
+
+export const getScopeBasedDefaultAssignment = (
+  scope: Scope,
+  getString: (key: keyof StringsMap, vars?: Record<string, any>) => string
+): Assignment[] => {
+  switch (scope) {
+    case Scope.ACCOUNT:
+      return [
+        {
+          role: {
+            label: getString('common.accViewer'),
+            value: '_account_viewer',
+            managed: true,
+            managedRoleAssignment: true
+          },
+          resourceGroup: {
+            label: getString('rbac.allResources'),
+            value: '_all_resources'
+          }
+        }
+      ]
+    case Scope.ORG:
+      return [
+        {
+          role: {
+            label: getString('common.orgViewer'),
+            value: '_organization_viewer',
+            managed: true,
+            managedRoleAssignment: true
+          },
+          resourceGroup: {
+            label: getString('rbac.allResources'),
+            value: '_all_resources'
+          }
+        }
+      ]
+    case Scope.PROJECT:
+      return [
+        {
+          role: {
+            label: getString('common.projectViewer'),
+            value: '_project_viewer',
+            managed: true,
+            managedRoleAssignment: true
+          },
+          resourceGroup: {
+            label: getString('rbac.allResources'),
+            value: '_all_resources'
+          }
+        }
+      ]
   }
 }

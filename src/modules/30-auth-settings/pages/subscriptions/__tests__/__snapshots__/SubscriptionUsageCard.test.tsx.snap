@@ -1,0 +1,1037 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubscriptionUsageCard CCM 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-elevation-0 Card--card outterCard"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+    >
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+      >
+        common.subscriptions.usage.header
+      </h1>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.cloudSpend
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              $
+              2.62M
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 100%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                2.5M
+                 
+                common.subscribed
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-orange500"
+              >
+                5
+                % 
+                common.overSubscribed
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.ccmUsers
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              3
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 30%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                10
+                 
+                common.totalHarnessUser
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SubscriptionUsageCard CD 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-elevation-0 Card--card outterCard"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+    >
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+      >
+        common.subscriptions.usage.header
+      </h1>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.srvcInst
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              42
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 100%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                40
+                 
+                common.subscribed
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-orange500"
+              >
+                5
+                % 
+                common.overSubscribed
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.services
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              25
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 65.78947368421052%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                38
+                 
+                total
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.cdUsers
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              3
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 30%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                10
+                 
+                common.totalHarnessUser
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SubscriptionUsageCard CI 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-elevation-0 Card--card outterCard"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+    >
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+      >
+        common.subscriptions.usage.header
+      </h1>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.developers
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              20
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 80%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                25
+                 
+                common.subscribed
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color"
+              >
+                80
+                % 
+                common.subscribed
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.ciUsers
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              3
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 30%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                10
+                 
+                common.totalHarnessUser
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`SubscriptionUsageCard FF 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-elevation-0 Card--card outterCard"
+  >
+    <div
+      class="Layout--vertical Layout--layout-spacing-xxlarge StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+    >
+      <h1
+        class="StyledProps--font StyledProps--font-h1 StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-medium"
+      >
+        common.subscriptions.usage.header
+      </h1>
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main"
+      >
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.ffUsers
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.subscriptions.usage.last60days
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              2
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 100%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                2
+                 
+                common.subscribed
+              </p>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-orange500"
+              >
+                100
+                % 
+                common.subscribed
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.subscriptions.usage.monthlyUsers
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                March 2021
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              12.5K
+            </p>
+            <div
+              class="StyledProps--font StyledProps--main bar StyledProps--background-grey100 StyledProps--border StyledProps--margin-bottom-small"
+              style="width: 100%; height: 10px;"
+            >
+              <div
+                class="StyledProps--font StyledProps--main StyledProps--background-primary6 StyledProps--border"
+                style="width: 50%; height: 100%;"
+              />
+            </div>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                25K
+                 
+                common.subscribed
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-card bp3-elevation-0 Card--card innerCard"
+        >
+          <div
+            class="Layout--vertical StyledProps--main"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-baseline StyledProps--flex-justifyContent-space-between"
+            >
+              <div
+                class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+              >
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+                >
+                  common.purpose.cf.continuous
+                </p>
+                <span
+                  class="bp3-popover-wrapper"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                      tabindex="0"
+                    >
+                      <span
+                        class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                        data-icon="deployment-incomplete-legacy"
+                      >
+                        <svg
+                          height="15"
+                          viewBox="0 0 14 14"
+                          width="15"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#ff8f3f"
+                            r="7"
+                          />
+                          <circle
+                            cx="7"
+                            cy="7"
+                            fill="#fff"
+                            r="5.2"
+                          />
+                          <path
+                            d="M6.1 9.6c0-.5.3-1 .9-1s.9.4.9 1-.3 1-.9 1-.9-.4-.9-1zm.3-4.5l-.1-1.3h1.5v1.3l-.3 3h-1z"
+                            fill="#ff8f3f"
+                          />
+                        </svg>
+                      </span>
+                    </p>
+                  </span>
+                </span>
+              </div>
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                common.current
+              </p>
+            </div>
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--font-size-large StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
+            >
+              70
+            </p>
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-justifyContent-space-between"
+            >
+              <p
+                class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+              >
+                 
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -274,14 +274,6 @@ export function ExecutionFilters(): React.ReactElement {
         }
         onSuccessfulCrudOperation={() => refetchFilters()}
         validationSchema={Yup.object().shape({
-          sourceBranch: Yup.string().when('buildType', {
-            is: BUILD_TYPE.PULL_OR_MERGE_REQUEST,
-            then: Yup.string().required()
-          }),
-          targetBranch: Yup.string().when('buildType', {
-            is: BUILD_TYPE.PULL_OR_MERGE_REQUEST,
-            then: Yup.string().required()
-          }),
           branch: Yup.string().when('buildType', {
             is: BUILD_TYPE.BRANCH,
             then: Yup.string()

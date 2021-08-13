@@ -7,10 +7,10 @@ import { useListAggregatedServiceAccounts } from 'services/cd-ng'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import TagsRenderer from '@common/components/TagsRenderer/TagsRenderer'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
-import type { PipelineType, ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
+import type { ModulePathParams, ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType, useRoleAssignmentModal } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
@@ -22,8 +22,9 @@ import css from './ServiceAccountDetails.module.scss'
 
 const ServiceAccountDetails: React.FC = () => {
   const { getString } = useStrings()
-  const { accountId, orgIdentifier, projectIdentifier, module, serviceAccountIdentifier } =
-    useParams<PipelineType<ProjectPathProps & ServiceAccountPathProps>>()
+  const { accountId, orgIdentifier, projectIdentifier, module, serviceAccountIdentifier } = useParams<
+    ProjectPathProps & ServiceAccountPathProps & ModulePathParams
+  >()
 
   const { data, loading, error, refetch } = useListAggregatedServiceAccounts({
     queryParams: {
@@ -54,52 +55,48 @@ const ServiceAccountDetails: React.FC = () => {
       <Page.Header
         size="xlarge"
         className={css.header}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('rbac.serviceAccounts.label')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toServiceAccounts({ accountId, orgIdentifier, projectIdentifier, module }),
-                  label: getString('rbac.serviceAccounts.label')
-                },
-                {
-                  url: '#',
-                  label: serviceAccountData.serviceAccount.name
-                }
-              ]}
+          <Layout.Horizontal spacing="medium">
+            <Avatar
+              name={serviceAccountData.serviceAccount.name}
+              email={serviceAccountData.serviceAccount.email}
+              hoverCard={false}
+              size="medium"
             />
-            <Layout.Horizontal spacing="medium">
-              <Avatar
-                name={serviceAccountData.serviceAccount.name}
-                email={serviceAccountData.serviceAccount.email}
-                hoverCard={false}
-                size="medium"
-              />
-              <Layout.Vertical padding={{ left: 'small' }} spacing="xsmall" className={css.width}>
-                <Layout.Horizontal spacing="medium" flex={{ alignItems: 'center', justifyContent: 'start' }}>
-                  <Text color={Color.BLACK} lineClamp={1} font="medium" className={css.wrap}>
-                    {serviceAccountData.serviceAccount.name}
-                  </Text>
-                  <Text icon="main-email" lineClamp={1} className={css.wrap}>
-                    {serviceAccountData.serviceAccount.email}
-                  </Text>
-                </Layout.Horizontal>
-                <Text lineClamp={1} className={css.wrap}>
-                  {serviceAccountData.serviceAccount.description}
+            <Layout.Vertical padding={{ left: 'small' }} spacing="xsmall" className={css.width}>
+              <Layout.Horizontal spacing="medium" flex={{ alignItems: 'center', justifyContent: 'start' }}>
+                <Text color={Color.BLACK} lineClamp={1} font="medium" className={css.wrap}>
+                  {serviceAccountData.serviceAccount.name}
                 </Text>
-                <Layout.Horizontal padding={{ top: 'small' }}>
-                  <TagsRenderer
-                    tags={serviceAccountData.serviceAccount.tags || /* istanbul ignore next */ {}}
-                    length={6}
-                  />
-                </Layout.Horizontal>
-              </Layout.Vertical>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+                <Text icon="main-email" lineClamp={1} className={css.wrap}>
+                  {serviceAccountData.serviceAccount.email}
+                </Text>
+              </Layout.Horizontal>
+              <Text lineClamp={1} className={css.wrap}>
+                {serviceAccountData.serviceAccount.description}
+              </Text>
+              <Layout.Horizontal padding={{ top: 'small' }}>
+                <TagsRenderer
+                  tags={serviceAccountData.serviceAccount.tags || /* istanbul ignore next */ {}}
+                  length={6}
+                />
+              </Layout.Horizontal>
+            </Layout.Vertical>
+          </Layout.Horizontal>
         }
         toolbar={
           <Layout.Horizontal flex>

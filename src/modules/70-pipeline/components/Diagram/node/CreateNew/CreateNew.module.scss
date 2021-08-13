@@ -2,8 +2,11 @@
   display: block;
 
   .createNew {
-    border-width: 2px !important;
-    border-style: dashed !important;
+    border: 2px dashed var(--grey-400) !important;
+
+    &.selected {
+      border-color: var(--primary-7) !important;
+    }
 
     &.disabled {
       background-color: var(--grey-200);

@@ -94,6 +94,7 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
     case Connectors.DOCKER:
       return 'dockerRegistry'
     case Connectors.CEAWS:
+      return 'connectors.title.ceAws'
     case Connectors.AWS:
       return 'connectors.title.aws'
     case Connectors.AWS_CODECOMMIT:
@@ -167,6 +168,7 @@ export const getConnectorIconByType = (type: string): IconName => {
     case Connectors.Jira:
       return 'service-jira'
     case Connectors.GCP:
+    case Connectors.CE_GCP:
     case 'Gcr':
       return 'service-gcp'
     case Connectors.AWS_KMS:

@@ -4,11 +4,27 @@
   overflow-y: scroll;
   height: 700px !important;
 
-  [class*='bp3-tab-panel'] {
+  [class~='bp3-tabs'],
+  .noAnalysis {
+    margin-top: var(--spacing-large) !important;
+  }
+
+  [class*='bp3-tab-panel'],
+  .noAnalysis {
     box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
     border-radius: 3px;
     background-color: var(--white) !important;
     min-height: 400px !important;
+  }
+
+  .noAnalysis {
+    height: 300px !important;
+
+    > div:first-child {
+      position: relative;
+      top: 200px;
+      height: unset !important;
+    }
   }
 
   .executionSummary {

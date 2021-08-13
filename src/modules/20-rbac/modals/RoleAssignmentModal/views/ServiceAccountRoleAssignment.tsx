@@ -19,6 +19,7 @@ import { useStrings } from 'framework/strings'
 import type { RoleAssignmentMetadataDTO, ServiceAccountDTO } from 'services/cd-ng'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import RoleAssignmentForm from './RoleAssignmentForm'
+import type { Assignment } from './UserRoleAssigment'
 
 interface ServiceAccountRoleAssignmentData {
   roleBindings?: RoleAssignmentMetadataDTO[]
@@ -35,11 +36,6 @@ export interface RoleOption extends SelectOption {
 
 export interface ResourceGroupOption extends SelectOption {
   assignmentIdentifier?: string
-}
-
-export interface Assignment {
-  role: RoleOption
-  resourceGroup: ResourceGroupOption
 }
 
 export interface ServiceAccountRoleAssignmentValues extends ServiceAccountDTO {

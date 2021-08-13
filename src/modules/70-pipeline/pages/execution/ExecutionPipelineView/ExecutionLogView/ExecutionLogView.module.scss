@@ -13,6 +13,9 @@
 .stageSelector {
   width: 100%;
   display: block;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 
   :global(.bp3-popover-target) {
     width: 100%;
@@ -67,12 +70,4 @@
       opacity: 0.6;
     }
   }
-}
-
-.logViewer {
-  border: 1px solid var(--black-color-3);
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  background-color: #09090b;
 }

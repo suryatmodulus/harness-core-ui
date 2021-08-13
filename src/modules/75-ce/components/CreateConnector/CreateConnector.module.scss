@@ -1,0 +1,92 @@
+.cloudProviderListContainer {
+  $itemDimension: 65px;
+  .listContainer {
+    display: grid;
+    grid-template-columns: repeat(4, $itemDimension);
+    grid-template-rows: $itemDimension;
+    column-gap: var(--spacing-medium);
+    margin-top: var(--spacing-large);
+    :global {
+      .bp3-card {
+        border: none !important;
+        box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+      }
+    }
+  }
+  .textList {
+    display: grid;
+    grid-template-columns: repeat(4, $itemDimension);
+    // grid-template-rows: $itemDimension;
+    column-gap: var(--spacing-medium);
+    text-align: center;
+    margin-top: var(--spacing-medium);
+    > p {
+      font-size: 12px !important;
+    }
+  }
+}
+
+.createConnectorDialog {
+  padding-bottom: 0px !important;
+  .connectorsSection {
+    position: relative;
+    flex: 1;
+    padding: var(--spacing-xxxlarge) !important;
+    > h1 {
+      font-size: 20px !important;
+      color: #1c1c28;
+      font-weight: 600 !important;
+      margin-bottom: 10px;
+    }
+    > p {
+      margin-bottom: 10px !important;
+      color: #1c1c28;
+    }
+    .selectProviderLabel {
+      color: #627386;
+    }
+    .nextButton {
+      position: absolute;
+      bottom: var(--spacing-xxxlarge);
+      left: var(--spacing-xxxlarge);
+      padding: 7px 40px !important;
+    }
+  }
+  .carouselSection {
+    flex: 1;
+    background: rgba(#f3f3fa, 0.3) !important;
+    padding: var(--spacing-xxxlarge) !important;
+
+    .featuresCarousel {
+      position: relative;
+      height: 100%;
+      :global {
+        .Carousel--carouselLeft,
+        .Carousel--carouselRight {
+          opacity: 0;
+          pointer-events: none;
+        }
+        .Carousel--carouselIndicators {
+          position: absolute;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+      .featureSlide {
+        .title {
+          color: var(--grey-600);
+          padding-bottom: 10px;
+          border-bottom: 1px solid #d9dae6;
+        }
+        .imgContainer {
+          padding: 20px 0;
+          img {
+            width: 320px;
+            height: 170px;
+          }
+        }
+      }
+    }
+  }
+}

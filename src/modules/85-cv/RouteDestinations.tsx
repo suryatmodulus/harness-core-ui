@@ -9,7 +9,6 @@ import {
   projectPathProps,
   connectorPathProps,
   secretPathProps,
-  verificationPathProps,
   delegatePathProps,
   delegateConfigProps,
   resourceGroupPathProps,
@@ -28,12 +27,9 @@ import CVDashboardPage from '@cv/pages/dashboard/CVDashboardPage'
 import DeploymentDrilldownView from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView'
 import ActivityChangesDrilldownView from '@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView'
 import CVServicesPage from '@cv/pages/services/CVServicesPage'
-import CVMonitoringServicesPage from '@cv/pages/monitored-service/CVMonitoringServicesPage'
-import AddAndUpdateMonitoredServicePage from '@cv/pages/monitored-service/AddAndUpdateMonitoredServicePage'
-import ActivitySourceSetup from '@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup'
+import CVMonitoredServiceListingPage from '@cv/pages/monitored-service/CVMonitoredServiceListingPage'
+import MonitoredServicePage from '@cv/pages/monitored-service/MonitoredServicePage'
 import ActivityDashBoardPage from '@cv/pages/activities/dashboard/ActivityDashBoardPage'
-import CVSetupPage from '@cv/pages/admin/setup/CVSetupPage'
-import MonitoringSource from '@cv/pages/monitoring-source/MonitoringSource'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import SideNav from '@cv/components/SideNav/SideNav'
 import ConnectorsPage from '@connectors/pages/connectors/ConnectorsPage'
@@ -47,7 +43,6 @@ import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import { RedirectToSecretDetailHome } from '@secrets/RouteDestinations'
 import SecretReferences from '@secrets/pages/secretReferences/SecretReferences'
 import SecretDetailsHomePage from '@secrets/pages/secretDetailsHomePage/SecretDetailsHomePage'
-import CVActivitySourcesPage from '@cv/pages/admin/activity-sources/CVActivitySourcesPage'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import AccessControlPage from '@rbac/pages/AccessControl/AccessControlPage'
@@ -61,10 +56,6 @@ import UserGroups from '@rbac/pages/UserGroups/UserGroups'
 import UsersPage from '@rbac/pages/Users/UsersPage'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
-import CVVerificationJobsPage from './pages/admin/verification-jobs/CVVerificationJobsPage'
-import CVMonitoringSourcesPage from './pages/admin/monitoring-sources/CVMonitoringSourcesPage'
-import CVNotificationPage from './pages/admin/notifications/CVNotificationPage'
-import VerificationJobs from './pages/verification-jobs/VerificationJobsSetup'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 
 const RedirectToAccessControlHome = (): React.ReactElement => {
@@ -98,15 +89,15 @@ const RedirectToCVProject = (): React.ReactElement => {
   }
 }
 
-const CVSideNavProps: SidebarContext = {
-  navComponent: SideNav,
-  subtitle: 'CONTINUOUS',
-  title: 'Verification',
-  icon: 'cv-main'
-}
-
 const cvModuleParams: ModulePathParams = {
   module: ':module(cv)'
+}
+
+const CVSideNavProps: SidebarContext = {
+  navComponent: SideNav,
+  subtitle: 'CHANGE',
+  title: 'Intelligence',
+  icon: 'cv-main'
 }
 
 export default (
@@ -167,7 +158,7 @@ export default (
       sidebarProps={CVSideNavProps}
       path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps })}
     >
-      <CVMonitoringServicesPage />
+      <CVMonitoredServiceListingPage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -177,26 +168,7 @@ export default (
         routes.toCVAddMonitoringServicesEdit({ ...accountPathProps, ...projectPathProps, identifier: ':identifier' })
       ]}
     >
-      <AddAndUpdateMonitoredServicePage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={[
-        routes.toCVActivitySourceSetup({
-          ...accountPathProps,
-          ...projectPathProps,
-          activitySource: ':activitySource'
-        }),
-        routes.toCVActivitySourceEditSetup({
-          ...accountPathProps,
-          ...projectPathProps,
-          activitySource: ':activitySource',
-          activitySourceId: ':activitySourceId'
-        })
-      ]}
-    >
-      <ActivitySourceSetup />
+      <MonitoredServicePage />
     </RouteWithLayout>
     <RouteWithLayout
       exact
@@ -205,72 +177,6 @@ export default (
     >
       <ActivityDashBoardPage />
     </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminSetup({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVSetupPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={[
-        routes.toCVAdminSetupMonitoringSource({
-          ...accountPathProps,
-          ...projectPathProps,
-          monitoringSource: ':monitoringSource'
-        }),
-        routes.toCVAdminSetupMonitoringSourceEdit({
-          ...accountPathProps,
-          ...projectPathProps,
-          monitoringSource: ':monitoringSource',
-          identifier: ':identifier'
-        })
-      ]}
-    >
-      <MonitoringSource />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminActivitySources({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVActivitySourcesPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminMonitoringSources({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVMonitoringSourcesPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminVerificationJobs({ ...accountPathProps, ...projectPathProps })}
-    >
-      <CVVerificationJobsPage />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminSetupVerificationJob({ ...accountPathProps, ...projectPathProps })}
-    >
-      <VerificationJobs />
-    </RouteWithLayout>
-    <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminSetupVerificationJobEdit({
-        ...accountPathProps,
-        ...projectPathProps,
-        ...verificationPathProps
-      })}
-    >
-      <VerificationJobs />
-    </RouteWithLayout>
-
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
@@ -386,24 +292,12 @@ export default (
       </SecretDetailsHomePage>
     </RouteWithLayout>
     <RouteWithLayout
-      exact
-      sidebarProps={CVSideNavProps}
-      path={routes.toCVAdminNotifications({
-        ...accountPathProps,
-        ...projectPathProps
-      })}
-    >
-      <CVNotificationPage />
-    </RouteWithLayout>
-
-    <RouteWithLayout
       sidebarProps={CVSideNavProps}
       path={[routes.toAccessControl({ ...projectPathProps, ...cvModuleParams })]}
       exact
     >
       <RedirectToAccessControlHome />
     </RouteWithLayout>
-
     <RouteWithLayout
       sidebarProps={CVSideNavProps}
       path={[routes.toUsers({ ...projectPathProps, ...cvModuleParams })]}

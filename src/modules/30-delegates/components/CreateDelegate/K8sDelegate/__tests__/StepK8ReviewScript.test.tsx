@@ -1,16 +1,24 @@
 import React from 'react'
 import { fireEvent, render, waitFor, act } from '@testing-library/react'
-import type { UseMutateReturn } from 'restful-react'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as portalService from 'services/portal'
 import Stepk8ReviewScript from '../StepReviewScript/Stepk8sReviewScript'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')
 const nextStep = jest.fn()
 const previousStep = jest.fn()
-const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve()) as unknown
-const useDeleteKubernetesSourceSpy = jest.spyOn(portalService, 'useGenerateKubernetesYaml') as any
-useDeleteKubernetesSourceSpy.mockReturnValue({ mutate: mockMutateFn } as UseMutateReturn<any, any, any, any, any>)
+const generateYamlMock = jest.fn()
+
+jest.mock('services/portal', () => ({
+  useGenerateKubernetesYaml: jest.fn().mockImplementation(() => {
+    generateYamlMock()
+    return {
+      mutate: jest.fn().mockImplementation(() => {
+        return new Promise(() => new Promise(() => null))
+      })
+    }
+  })
+}))
+
 describe('Create Step Review Script Delegate', () => {
   test('render data', () => {
     const { container } = render(
@@ -46,6 +54,21 @@ describe('Create Step Review Script Delegate', () => {
     })
     await waitFor(() => {
       expect(previousStep).toBeCalled()
+    })
+  })
+  test('Click download button', async () => {
+    const { container } = render(
+      <TestWrapper>
+        <Stepk8ReviewScript previousStep={previousStep} />
+      </TestWrapper>
+    )
+    const stepReviewScriptDownloadYAMLButton = container?.querySelector('#stepReviewScriptDownloadYAMLButton')
+    act(() => {
+      fireEvent.click(stepReviewScriptDownloadYAMLButton!)
+    })
+
+    await waitFor(() => {
+      expect(generateYamlMock).toBeCalled()
     })
   })
 })

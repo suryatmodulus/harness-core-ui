@@ -8,17 +8,19 @@ declare const styles: {
   readonly pipelineStudioTitleContainer: string
   readonly pipelineStudioTitle: string
   readonly rectangle: string
-  readonly optionBtns: string
-  readonly item: string
-  readonly selected: string
+  readonly visualYamlToggle: string
   readonly savePublishContainer: string
   readonly readonlyAccessTag: string
   readonly readonlyAccessText: string
+  readonly saveButton: string
   readonly tagRender: string
   readonly runPipelineBtn: string
   readonly discardBtn: string
+  readonly pipelineMetadataContainer: string
   readonly pipelineNameContainer: string
   readonly pipelineName: string
+  readonly tagsContainer: string
+  readonly pipelineEditBtn: string
   readonly pipelineIcon: string
   readonly gitDetails: string
   readonly repoDetails: string

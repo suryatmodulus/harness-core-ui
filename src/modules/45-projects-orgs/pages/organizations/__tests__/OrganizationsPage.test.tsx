@@ -14,6 +14,8 @@ import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { clickBack, clickSubmit, InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { accountPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import {
   orgMockData,
   getOrgMockData,
@@ -75,7 +77,7 @@ describe('Org Page List', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path="/account/:accountId/admin/organizations"
+        path={routes.toOrganizations({ ...accountPathProps })}
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -114,7 +116,7 @@ describe('Org Page List', () => {
       deleteOrganization.mockReset()
       const menu = container
         .querySelector(`[data-testid="org-card-${organization.identifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const deleteMenu = getByText(popover as HTMLElement, 'delete')
@@ -133,7 +135,7 @@ describe('Org Page List', () => {
     test('Edit Organization', async () => {
       const menu = container
         .querySelector(`[data-testid="org-card-${organization.identifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const edit = queryAllByText(popover as HTMLElement, 'edit')
@@ -151,7 +153,7 @@ describe('Org Page List', () => {
     test('Invite Collaborators', async () => {
       const menu = container
         .querySelector(`[data-testid="org-card-${organization.identifier}"]`)
-        ?.querySelector("[data-icon='Options']")
+        ?.querySelector("[data-icon='more']")
       fireEvent.click(menu!)
       const popover = findPopoverContainer()
       const invite = getByText(popover as HTMLElement, 'projectsOrgs.invite')

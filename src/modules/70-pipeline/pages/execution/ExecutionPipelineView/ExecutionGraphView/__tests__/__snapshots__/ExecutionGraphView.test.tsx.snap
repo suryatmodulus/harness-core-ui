@@ -3,55 +3,50 @@
 exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] = `
 <div>
   <div
-    class="main main"
+    class="main"
     id="execution-layout-test"
   >
     <div
       class="SplitPane splitPane1 horizontal "
-      style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+      style="display: flex; flex: 1; position: static; outline: none; overflow: unset; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
       <div
         class="Pane horizontal Pane1  "
-        style="flex: 0 0 auto; position: relative; outline: none; height: 250px; display: flex;"
+        style="flex: 0 0 auto; position: static; outline: none; height: 250px; display: flex; overflow: unset;"
       >
         <div
-          class="Pane  pane11"
-          style="flex: 1; position: relative; outline: none;"
+          class="main"
         >
           <div
-            class="main"
+            data-testid="execution-stage-diagram-mock"
           >
             <div
-              data-testid="execution-stage-diagram-mock"
+              data-stage="parallel"
             >
               <div
-                data-stage="parallel"
+                data-item="google_1"
+                data-status="Running"
               >
-                <div
-                  data-item="google_1"
-                  data-status="Running"
-                >
-                  google_1
-                </div>
-                <div
-                  data-item="google_2"
-                  data-status="Running"
-                >
-                  google_2
-                </div>
+                google_1
               </div>
               <div
-                data-item="qastage"
-                data-status="NotStarted"
+                data-item="google_2"
+                data-status="Running"
               >
-                qa stage
+                google_2
               </div>
-              <div
-                data-item="6iyMwdTxSWqf4rdF5eqVMw"
-                data-status="NotStarted"
-              >
-                Random
-              </div>
+            </div>
+            <div
+              data-item="qastage"
+              data-status="NotStarted"
+            >
+              qa stage
+            </div>
+            <div
+              data-item="6iyMwdTxSWqf4rdF5eqVMw"
+              data-status="NotStarted"
+            >
+              Random
             </div>
           </div>
         </div>
@@ -62,12 +57,38 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
       />
       <div
         class="Pane horizontal Pane2  "
-        style="flex: 1; position: relative; outline: none;"
+        style="flex: 1; position: static; outline: none; overflow: unset;"
       >
         <div
-          class="Pane  pane12"
-          style="flex: 1; position: relative; outline: none;"
+          class="stageDetails"
         >
+          <div
+            class="main"
+          >
+            <div
+              class="stageDetails"
+            >
+              <div
+                class="lhs"
+                data-has-sibling="false"
+              >
+                <div
+                  class="stageTop"
+                >
+                  <div
+                    class="stageName"
+                  />
+                  <div
+                    class="main"
+                  />
+                </div>
+                <div
+                  class="times"
+                />
+              </div>
+              <div />
+            </div>
+          </div>
           <div
             class="main"
           >
@@ -120,33 +141,28 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CD data 1`] 
 exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] = `
 <div>
   <div
-    class="main main"
+    class="main"
     id="execution-layout-test"
   >
     <div
       class="SplitPane splitPane1 horizontal "
-      style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+      style="display: flex; flex: 1; position: static; outline: none; overflow: unset; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
       <div
         class="Pane horizontal Pane1  "
-        style="flex: 0 0 auto; position: relative; outline: none; height: 250px; display: flex;"
+        style="flex: 0 0 auto; position: static; outline: none; height: 250px; display: flex; overflow: unset;"
       >
         <div
-          class="Pane  pane11"
-          style="flex: 1; position: relative; outline: none;"
+          class="main"
         >
           <div
-            class="main"
+            data-testid="execution-stage-diagram-mock"
           >
             <div
-              data-testid="execution-stage-diagram-mock"
+              data-item="9WDVNOmqRUyUIyidJA_yxA"
+              data-status="Success"
             >
-              <div
-                data-item="9WDVNOmqRUyUIyidJA_yxA"
-                data-status="Success"
-              >
-                testCI
-              </div>
+              testCI
             </div>
           </div>
         </div>
@@ -157,12 +173,38 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
       />
       <div
         class="Pane horizontal Pane2  "
-        style="flex: 1; position: relative; outline: none;"
+        style="flex: 1; position: static; outline: none; overflow: unset;"
       >
         <div
-          class="Pane  pane12"
-          style="flex: 1; position: relative; outline: none;"
+          class="stageDetails"
         >
+          <div
+            class="main"
+          >
+            <div
+              class="stageDetails"
+            >
+              <div
+                class="lhs"
+                data-has-sibling="false"
+              >
+                <div
+                  class="stageTop"
+                >
+                  <div
+                    class="stageName"
+                  />
+                  <div
+                    class="main"
+                  />
+                </div>
+                <div
+                  class="times"
+                />
+              </div>
+              <div />
+            </div>
+          </div>
           <div
             class="main"
           >
@@ -191,21 +233,16 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
                 </div>
               </div>
               <div
-                data-group="Execution"
-                data-stage="group"
+                data-item="_QbGiCUGT4mzbzX0ovfzCw"
+                data-status="Success"
               >
-                <div
-                  data-item="_QbGiCUGT4mzbzX0ovfzCw"
-                  data-status="Success"
-                >
-                  Git clone
-                </div>
-                <div
-                  data-item="EODeJuxnSdOmACdIovay_w"
-                  data-status="Success"
-                >
-                  runtest
-                </div>
+                Git clone
+              </div>
+              <div
+                data-item="EODeJuxnSdOmACdIovay_w"
+                data-status="Success"
+              >
+                runtest
               </div>
             </div>
           </div>
@@ -229,55 +266,50 @@ exports[`<ExecutionGraphView /> tests renders execution graphs with CI data 1`] 
 exports[`<ExecutionGraphView /> tests step details are shown when step is selected 1`] = `
 <div>
   <div
-    class="main main"
+    class="main"
     id="execution-layout-test"
   >
     <div
       class="SplitPane splitPane1 horizontal "
-      style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+      style="display: flex; flex: 1; position: static; outline: none; overflow: unset; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
     >
       <div
         class="Pane horizontal Pane1  "
-        style="flex: 0 0 auto; position: relative; outline: none; height: 250px; display: flex;"
+        style="flex: 0 0 auto; position: static; outline: none; height: 250px; display: flex; overflow: unset;"
       >
         <div
-          class="Pane  pane11"
-          style="flex: 1; position: relative; outline: none;"
+          class="main"
         >
           <div
-            class="main"
+            data-testid="execution-stage-diagram-mock"
           >
             <div
-              data-testid="execution-stage-diagram-mock"
+              data-stage="parallel"
             >
               <div
-                data-stage="parallel"
+                data-item="google_1"
+                data-status="Running"
               >
-                <div
-                  data-item="google_1"
-                  data-status="Running"
-                >
-                  google_1
-                </div>
-                <div
-                  data-item="google_2"
-                  data-status="Running"
-                >
-                  google_2
-                </div>
+                google_1
               </div>
               <div
-                data-item="qastage"
-                data-status="NotStarted"
+                data-item="google_2"
+                data-status="Running"
               >
-                qa stage
+                google_2
               </div>
-              <div
-                data-item="6iyMwdTxSWqf4rdF5eqVMw"
-                data-status="NotStarted"
-              >
-                Random
-              </div>
+            </div>
+            <div
+              data-item="qastage"
+              data-status="NotStarted"
+            >
+              qa stage
+            </div>
+            <div
+              data-item="6iyMwdTxSWqf4rdF5eqVMw"
+              data-status="NotStarted"
+            >
+              Random
             </div>
           </div>
         </div>
@@ -288,54 +320,75 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
       />
       <div
         class="Pane horizontal Pane2  "
-        style="flex: 1; position: relative; outline: none;"
+        style="flex: 1; position: static; outline: none; overflow: unset;"
       >
         <div
-          class="Pane  pane12"
-          style="flex: 1; position: relative; outline: none;"
+          class="stageDetails"
         >
           <div
+            class="main"
+          >
+            <div
+              class="stageDetails"
+            >
+              <div
+                class="lhs"
+                data-has-sibling="false"
+              >
+                <div
+                  class="stageTop"
+                >
+                  <div
+                    class="stageName"
+                  />
+                  <div
+                    class="main"
+                  />
+                </div>
+                <div
+                  class="times"
+                />
+              </div>
+              <div />
+            </div>
+          </div>
+          <div
             class="SplitPane splitPane2 vertical "
-            style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; flex-direction: row; left: 0px; right: 0px;"
+            style="display: flex; flex: 1; position: static; outline: none; overflow: unset; user-select: text; flex-direction: row; left: 0px; right: 0px;"
           >
             <div
               class="Pane vertical Pane1  "
-              style="flex: 1; position: relative; outline: none;"
+              style="flex: 1; position: sticky; outline: none; overflow: unset;"
             >
               <div
-                class="Pane  pane21"
-                style="flex: 1; position: relative; outline: none;"
+                class="main"
               >
                 <div
-                  class="main"
+                  data-testid="execution-stage-diagram-mock"
                 >
                   <div
-                    data-testid="execution-stage-diagram-mock"
+                    data-item="serviceUuid"
+                    data-status="Success"
                   >
-                    <div
-                      data-item="serviceUuid"
-                      data-status="Success"
-                    >
-                      Service
-                    </div>
-                    <div
-                      data-item="infraUuid"
-                      data-status="Success"
-                    >
-                      Infrastructure
-                    </div>
-                    <div
-                      data-item="K8sRollingUuid"
-                      data-status="Running"
-                    >
-                      Rollout Deployment
-                    </div>
-                    <div
-                      data-item="K8sRollingUuid2"
-                      data-status="NotStarted"
-                    >
-                      RolloutSecond
-                    </div>
+                    Service
+                  </div>
+                  <div
+                    data-item="infraUuid"
+                    data-status="Success"
+                  >
+                    Infrastructure
+                  </div>
+                  <div
+                    data-item="K8sRollingUuid"
+                    data-status="Running"
+                  >
+                    Rollout Deployment
+                  </div>
+                  <div
+                    data-item="K8sRollingUuid2"
+                    data-status="NotStarted"
+                  >
+                    RolloutSecond
                   </div>
                 </div>
               </div>
@@ -346,314 +399,349 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
             />
             <div
               class="Pane vertical Pane2  "
-              style="flex: 0 0 auto; position: relative; outline: none; width: 570px;"
+              style="flex: 0 0 auto; position: static; outline: none; width: 570px; overflow: unset;"
             >
               <div
-                class="Pane  pane22"
-                style="flex: 1; position: relative; outline: none;"
+                class="main"
               >
                 <div
-                  class="main"
+                  class="header"
                 >
                   <div
-                    class="header"
+                    class="title"
+                  >
+                    pipeline.execution.stepTitlePrefix
+                    Rollout Deployment
+                  </div>
+                  <div
+                    class="actions"
                   >
                     <div
-                      class="title"
+                      class="toggle"
                     >
-                      pipeline.execution.stepTitlePrefix
-                      Rollout Deployment
+                      <label
+                        class="label"
+                        title="pipeline.execution.layouts.right"
+                      >
+                        <input
+                          checked=""
+                          name="layout"
+                          type="radio"
+                          value="RIGHT"
+                        />
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="layout-right"
+                        >
+                          <svg
+                            height="16"
+                            viewBox="0 0 4.233 4.233"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              transform="translate(0 .423) scale(.21167)"
+                            >
+                              <rect
+                                fill="#f2f2f2"
+                                height="15"
+                                rx="0.5"
+                                stroke="#9ea9b4"
+                                width="19"
+                                x="0.5"
+                                y="0.5"
+                              />
+                              <path
+                                d="M12 1h7v14h-7z"
+                                fill="#9ea9b4"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </label>
+                      <label
+                        class="label"
+                        title="pipeline.execution.layouts.bottom"
+                      >
+                        <input
+                          name="layout"
+                          type="radio"
+                          value="BOTTOM"
+                        />
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="layout-bottom"
+                        >
+                          <svg
+                            height="16"
+                            viewBox="0 0 4.233 4.233"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              transform="matrix(.21166 0 0 .21166 0 .423)"
+                            >
+                              <rect
+                                fill="#f2f2f2"
+                                height="15"
+                                rx="0.5"
+                                stroke="#9ea9b4"
+                                width="19"
+                                x="0.5"
+                                y="0.5"
+                              />
+                              <path
+                                d="M1 10h18v5H1z"
+                                fill="#9ea9b4"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </label>
+                      <label
+                        class="label"
+                        title="pipeline.execution.layouts.float"
+                      >
+                        <input
+                          name="layout"
+                          type="radio"
+                          value="FLOATING"
+                        />
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="layout-float"
+                        >
+                          <svg
+                            height="16"
+                            viewBox="0 0 4.233 4.233"
+                            width="16"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g
+                              fill="none"
+                              transform="translate(0 .403) scale(.20982)"
+                            >
+                              <rect
+                                fill="#000"
+                                fill-opacity="0.05"
+                                height="16.333"
+                                rx="1"
+                                width="20.176"
+                              />
+                              <rect
+                                height="15.333"
+                                rx="0.5"
+                                stroke="#66798b"
+                                stroke-opacity="0.6"
+                                width="19.176"
+                                x="0.5"
+                                y="0.5"
+                              />
+                              <path
+                                d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                                fill="#9ea9b4"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                      </label>
+                      <label
+                        class="label"
+                        title="pipeline.execution.layouts.minimize"
+                      >
+                        <input
+                          name="layout"
+                          type="radio"
+                          value="MINIMIZE"
+                        />
+                        <span
+                          class="bp3-icon bp3-icon-minus StyledProps--main"
+                          icon="minus"
+                        >
+                          <svg
+                            data-icon="minus"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              minus
+                            </desc>
+                            <path
+                              d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </label>
                     </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-tabs tabs"
+                >
+                  <div
+                    class="bp3-tab-list"
+                    role="tablist"
+                  >
                     <div
-                      class="actions"
+                      class="bp3-tab-indicator-wrapper"
+                      style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
                     >
                       <div
-                        class="toggle"
-                      >
-                        <label
-                          class="label"
-                          title="pipeline.execution.layouts.right"
-                        >
-                          <input
-                            checked=""
-                            name="layout"
-                            type="radio"
-                            value="RIGHT"
-                          />
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="layout-right"
-                          >
-                            <svg
-                              height="16"
-                              viewBox="0 0 4.233 4.233"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                transform="translate(0 .423) scale(.21167)"
-                              >
-                                <rect
-                                  fill="#f2f2f2"
-                                  height="15"
-                                  rx="0.5"
-                                  stroke="#9ea9b4"
-                                  width="19"
-                                  x="0.5"
-                                  y="0.5"
-                                />
-                                <path
-                                  d="M12 1h7v14h-7z"
-                                  fill="#9ea9b4"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                        </label>
-                        <label
-                          class="label"
-                          title="pipeline.execution.layouts.float"
-                        >
-                          <input
-                            name="layout"
-                            type="radio"
-                            value="FLOATING"
-                          />
-                          <span
-                            class="bp3-icon StyledProps--main"
-                            data-icon="layout-float"
-                          >
-                            <svg
-                              height="16"
-                              viewBox="0 0 4.233 4.233"
-                              width="16"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <g
-                                fill="none"
-                                transform="translate(0 .403) scale(.20982)"
-                              >
-                                <rect
-                                  fill="#000"
-                                  fill-opacity="0.05"
-                                  height="16.333"
-                                  rx="1"
-                                  width="20.176"
-                                />
-                                <rect
-                                  height="15.333"
-                                  rx="0.5"
-                                  stroke="#66798b"
-                                  stroke-opacity="0.6"
-                                  width="19.176"
-                                  x="0.5"
-                                  y="0.5"
-                                />
-                                <path
-                                  d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
-                                  fill="#9ea9b4"
-                                />
-                              </g>
-                            </svg>
-                          </span>
-                        </label>
-                        <label
-                          class="label"
-                          title="pipeline.execution.layouts.minimize"
-                        >
-                          <input
-                            name="layout"
-                            type="radio"
-                            value="MINIMIZE"
-                          />
-                          <span
-                            class="bp3-icon bp3-icon-minus StyledProps--main"
-                            icon="minus"
-                          >
-                            <svg
-                              data-icon="minus"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              width="16"
-                            >
-                              <desc>
-                                minus
-                              </desc>
-                              <path
-                                d="M13 7H3c-.55 0-1 .45-1 1s.45 1 1 1h10c.55 0 1-.45 1-1s-.45-1-1-1z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </label>
-                      </div>
+                        class="bp3-tab-indicator"
+                      />
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
+                      aria-disabled="false"
+                      aria-expanded="true"
+                      aria-selected="true"
+                      class="bp3-tab"
+                      data-tab-id="STEP_DETAILS"
+                      id="bp3-tab-title_step-details_STEP_DETAILS"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      details
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_step-details_INPUT"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-selected="false"
+                      class="bp3-tab"
+                      data-tab-id="INPUT"
+                      id="bp3-tab-title_step-details_INPUT"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      common.input
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_step-details_OUTPUT"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-selected="false"
+                      class="bp3-tab"
+                      data-tab-id="OUTPUT"
+                      id="bp3-tab-title_step-details_OUTPUT"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      outputLabel
                     </div>
                   </div>
                   <div
-                    class="bp3-tabs tabs"
+                    aria-hidden="false"
+                    aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
+                    class="bp3-tab-panel"
+                    id="bp3-tab-panel_step-details_STEP_DETAILS"
+                    role="tabpanel"
                   >
                     <div
-                      class="bp3-tab-list"
-                      role="tablist"
+                      class="detailsTab"
                     >
+                      <table
+                        class="detailsTable"
+                      >
+                        <tbody>
+                          <tr>
+                            <th>
+                              startedAt
+                            </th>
+                            <td>
+                              DUMMY DATE
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>
+                              endedAt
+                            </th>
+                            <td>
+                              DUMMY DATE
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>
+                              pipeline.duration
+                            </th>
+                            <td>
+                              <span
+                                class="StyledProps--font StyledProps--main timer StyledProps--inline"
+                              >
+                                
+                                
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
                       <div
-                        class="bp3-tab-indicator-wrapper"
-                        style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                        class="main"
+                        data-mode="step-details"
                       >
                         <div
-                          class="bp3-tab-indicator"
-                        />
-                      </div>
-                      <div
-                        aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
-                        aria-disabled="false"
-                        aria-expanded="true"
-                        aria-selected="true"
-                        class="bp3-tab"
-                        data-tab-id="STEP_DETAILS"
-                        id="bp3-tab-title_step-details_STEP_DETAILS"
-                        role="tab"
-                        tabindex="0"
-                      >
-                        details
-                      </div>
-                      <div
-                        aria-controls="bp3-tab-panel_step-details_INPUT"
-                        aria-disabled="false"
-                        aria-expanded="false"
-                        aria-selected="false"
-                        class="bp3-tab"
-                        data-tab-id="INPUT"
-                        id="bp3-tab-title_step-details_INPUT"
-                        role="tab"
-                        tabindex="0"
-                      >
-                        common.input
-                      </div>
-                      <div
-                        aria-controls="bp3-tab-panel_step-details_OUTPUT"
-                        aria-disabled="false"
-                        aria-expanded="false"
-                        aria-selected="false"
-                        class="bp3-tab"
-                        data-tab-id="OUTPUT"
-                        id="bp3-tab-title_step-details_OUTPUT"
-                        role="tab"
-                        tabindex="0"
-                      >
-                        outputLabel
-                      </div>
-                    </div>
-                    <div
-                      aria-hidden="false"
-                      aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
-                      class="bp3-tab-panel"
-                      id="bp3-tab-panel_step-details_STEP_DETAILS"
-                      role="tabpanel"
-                    >
-                      <div
-                        class="detailsTab"
-                      >
-                        <table
-                          class="detailsTable"
+                          class="header"
                         >
-                          <tbody>
-                            <tr>
-                              <th>
-                                startedAt
-                              </th>
-                              <td>
-                                DUMMY DATE
-                              </td>
-                            </tr>
-                            <tr>
-                              <th>
-                                endedAt
-                              </th>
-                              <td>
-                                DUMMY DATE
-                              </td>
-                            </tr>
-                            <tr>
-                              <th>
-                                pipeline.duration
-                              </th>
-                              <td>
-                                <span
-                                  class="StyledProps--font StyledProps--main timer StyledProps--inline"
+                          <div>
+                            execution.stepLogs
+                          </div>
+                          <div
+                            class="rhs"
+                          >
+                            <div
+                              class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
+                              data-name=""
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                                data-icon="thinner-search"
+                              >
+                                <svg
+                                  fill="none"
+                                  height="14"
+                                  viewBox="0 0 16 16"
+                                  width="14"
+                                  xmlns="http://www.w3.org/2000/svg"
                                 >
-                                  
-                                  
-                                </span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                        <div
-                          class="main"
-                          data-mode="step-details"
+                                  <path
+                                    d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                                    stroke="currentColor"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                  />
+                                </svg>
+                              </span>
+                              <input
+                                class="bp3-input  ExpandingSearchInput--find"
+                                dir="auto"
+                                placeholder="Search"
+                                style="padding-right: 98px;"
+                                type="search"
+                                value=""
+                              />
+                            </div>
+                            <a
+                              class="toConsoleView"
+                              href="/?view=log"
+                            >
+                              <span>
+                                consoleView
+                              </span>
+                            </a>
+                          </div>
+                        </div>
+                        <pre
+                          class="container"
                         >
                           <div
-                            class="header"
+                            class="noLogs"
                           >
-                            <div>
-                              execution.stepLogs
-                            </div>
-                            <div
-                              class="rhs"
-                            >
-                              <div
-                                class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip"
-                                data-name=""
-                              >
-                                <span
-                                  class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
-                                  icon="search"
-                                >
-                                  <svg
-                                    data-icon="search"
-                                    height="14"
-                                    viewBox="0 0 16 16"
-                                    width="14"
-                                  >
-                                    <desc>
-                                      search
-                                    </desc>
-                                    <path
-                                      d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-                                      fill-rule="evenodd"
-                                    />
-                                  </svg>
-                                </span>
-                                <input
-                                  class="bp3-input "
-                                  dir="auto"
-                                  placeholder="Search"
-                                  style="padding-right: 164px;"
-                                  type="search"
-                                  value=""
-                                />
-                              </div>
-                              <a
-                                class="toConsoleView"
-                                href="/?view=log"
-                              >
-                                <span>
-                                  consoleView
-                                </span>
-                              </a>
-                            </div>
+                            common.logs.noLogsText
                           </div>
-                          <pre
-                            class="container"
-                          >
-                            <div
-                              class="noLogs"
-                            >
-                              common.logs.noLogsText
-                            </div>
-                          </pre>
-                        </div>
+                        </pre>
                       </div>
                     </div>
                   </div>

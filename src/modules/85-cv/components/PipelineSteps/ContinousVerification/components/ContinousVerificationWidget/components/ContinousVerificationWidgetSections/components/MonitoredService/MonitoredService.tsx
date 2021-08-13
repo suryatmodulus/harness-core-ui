@@ -14,8 +14,10 @@ import { useStrings } from 'framework/strings'
 import Card from '@cv/components/Card/Card'
 import HealthSourceTable from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable'
 import type { RowData } from '@cv/pages/health-source/HealthSourceDrawer/HealthSourceDrawerContent.types'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { MonitoredServiceProps } from './MonitoredService.types'
-import { getNewSpecs } from './MonitoredService.utils'
+import { getNewSpecs, isAnExpression } from './MonitoredService.utils'
+import { MONITORED_SERVICE_EXPRESSION } from './MonitoredService.constants'
 import stepCss from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 import css from './MonitoredService.module.scss'
 
@@ -24,8 +26,8 @@ export default function MonitoredService({
 }: MonitoredServiceProps): JSX.Element {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps & AccountPathProps>()
   const [monitoredService, setMonitoredService] = useState({
-    monitoredServiceIdentifier: '',
-    monitoredServiceName: ''
+    identifier: '',
+    name: ''
   })
   const [healthSourcesList, setHealthSourcesList] = useState<RowData[]>([])
   const { getString } = useStrings()
@@ -35,13 +37,15 @@ export default function MonitoredService({
     },
     getStageFromPipeline
   } = React.useContext(PipelineContext)
-  const selectedStage = getStageFromPipeline(selectedStageId as string)?.stage
+  const selectedStage = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId as string)?.stage
   const environmentIdentifier =
     selectedStage?.stage?.spec?.infrastructure?.environment?.identifier ||
-    selectedStage?.stage?.spec?.infrastructure?.environmentRef
+    selectedStage?.stage?.spec?.infrastructure?.environmentRef ||
+    ''
   const serviceIdentifier =
     selectedStage?.stage?.spec?.serviceConfig?.service?.identifier ||
-    selectedStage?.stage?.spec?.serviceConfig?.serviceRef
+    selectedStage?.stage?.spec?.serviceConfig?.serviceRef ||
+    ''
 
   const createServiceQueryParams = useMemo(
     () => ({
@@ -54,7 +58,11 @@ export default function MonitoredService({
     [accountId, projectIdentifier, orgIdentifier, environmentIdentifier, serviceIdentifier]
   )
 
-  const { mutate: createDefaultMonitoredService } = useCreateDefaultMonitoredService({
+  const {
+    mutate: createDefaultMonitoredService,
+    loading: createMonitoredServiceLoading,
+    error: errorCreatingMonitoredService
+  } = useCreateDefaultMonitoredService({
     queryParams: createServiceQueryParams
   })
 
@@ -71,17 +79,21 @@ export default function MonitoredService({
 
   useEffect(() => {
     if (environmentIdentifier === RUNTIME_INPUT_VALUE || serviceIdentifier === RUNTIME_INPUT_VALUE) {
-      //when serviceIdentifier and environmentIdentifier are runtime
+      //when serviceIdentifier or environmentIdentifier are runtime
       const newSpecs = { ...formValues.spec, monitoredServiceRef: RUNTIME_INPUT_VALUE }
       setFieldValue('spec', newSpecs)
-    } else if (monitoredServiceData && !loading && !error) {
+    } else if (isAnExpression(environmentIdentifier) || isAnExpression(serviceIdentifier)) {
+      //when serviceIdentifier or environmentIdentifier is an expression
+      const newSpecs = { ...formValues.spec, monitoredServiceRef: MONITORED_SERVICE_EXPRESSION }
+      setFieldValue('spec', newSpecs)
+    } else if (!loading && !error) {
       //when monitoredServiceData is derived from service and env.
       const newSpecs = getNewSpecs(monitoredServiceData, formValues)
       setFieldValue('spec', newSpecs)
       setHealthSourcesList(monitoredServiceData?.sources?.healthSources as RowData[])
       setMonitoredService({
-        monitoredServiceIdentifier: monitoredServiceData?.identifier,
-        monitoredServiceName: monitoredServiceData?.name
+        identifier: monitoredServiceData?.identifier as string,
+        name: monitoredServiceData?.name as string
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,8 +108,8 @@ export default function MonitoredService({
     setFieldValue('spec', newSpecs)
 
     setMonitoredService({
-      monitoredServiceIdentifier: createdMonitoredService?.resource?.monitoredService?.identifier as string,
-      monitoredServiceName: createdMonitoredService?.resource?.monitoredService?.name as string
+      identifier: createdMonitoredService?.resource?.monitoredService?.identifier as string,
+      name: createdMonitoredService?.resource?.monitoredService?.name as string
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formValues.spec])
@@ -119,10 +131,22 @@ export default function MonitoredService({
         <>{getString('connectors.cdng.monitoredService.fetchingMonitoredService')}</>
       </Card>
     )
+  } else if (createMonitoredServiceLoading) {
+    return (
+      <Card>
+        <>{getString('connectors.cdng.monitoredService.creatingMonitoredService')}</>
+      </Card>
+    )
   } else if (error) {
     return (
       <Card>
         <>{getString('connectors.cdng.monitoredService.fetchingMonitoredServiceError')}</>
+      </Card>
+    )
+  } else if (errorCreatingMonitoredService) {
+    return (
+      <Card>
+        <>{getString('connectors.cdng.monitoredService.creatingMonitoredServiceError')}</>
       </Card>
     )
   } else if (formValues.spec.monitoredServiceRef) {
@@ -140,7 +164,7 @@ export default function MonitoredService({
                 <div className={css.monitoredServiceText}>
                   {`
                     ${getString('connectors.cdng.monitoredService.monitoredServiceText')}
-                    ${serviceIdentifier} ${getString('and')} ${environmentIdentifier}
+                    ${serviceIdentifier} ${getString('and').toLocaleLowerCase()} ${environmentIdentifier}
                   `}
                 </div>
               ) : null}
@@ -153,9 +177,9 @@ export default function MonitoredService({
             shouldRenderAtVerifyStep={true}
             value={healthSourcesList}
             onSuccess={onSuccess}
-            serviceRef={{ label: serviceIdentifier, value: serviceIdentifier }}
-            environmentRef={{ label: environmentIdentifier, value: environmentIdentifier }}
-            monitoringSourcRef={monitoredService}
+            serviceRef={serviceIdentifier || ''}
+            environmentRef={environmentIdentifier || ''}
+            monitoredServiceRef={monitoredService}
             breadCrumbRoute={{ routeTitle: getString('connectors.cdng.monitoredService.backToVerifyStep') }}
           />
         ) : null}

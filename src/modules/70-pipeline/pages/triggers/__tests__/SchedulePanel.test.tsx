@@ -28,7 +28,7 @@ const fillTimeSelect = async ({
 }): Promise<void> => {
   if (hoursIndex) {
     const hourSelect = document.querySelectorAll(
-      '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
+      '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
     )[0]
 
     if (!hourSelect) {
@@ -43,7 +43,7 @@ const fillTimeSelect = async ({
 
   if (minutesIndex) {
     const minutesSelect = document.querySelectorAll(
-      '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
+      '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
     )[1]
 
     if (!minutesSelect) {
@@ -58,7 +58,7 @@ const fillTimeSelect = async ({
 
   if (amPmIndex) {
     const amPmSelect = document.querySelectorAll(
-      '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
+      '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
     )[2]
 
     if (!amPmSelect) {
@@ -148,7 +148,7 @@ describe('SchedulePanel Triggers tests', () => {
       await waitFor(() =>
         queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.minutesAfterTheHour'))
       )
-      const firstSelect = document.querySelector('[data-name="toothpick"] [icon="caret-down"] svg')
+      const firstSelect = document.querySelector('[data-name="toothpick"] [icon="chevron-down"] svg')
 
       if (!firstSelect) {
         throw Error('No input')
@@ -160,7 +160,7 @@ describe('SchedulePanel Triggers tests', () => {
       fireEvent.click(options[3])
       await waitFor(() => expect(queryByText(container, '0 0/4 * * *')).not.toBeNull())
 
-      const secondSelect = document.querySelectorAll('[data-name="toothpick"] [icon="caret-down"] svg')[1]
+      const secondSelect = document.querySelectorAll('[data-name="toothpick"] [icon="chevron-down"] svg')[1]
 
       if (!secondSelect) {
         throw Error('No input')
@@ -195,7 +195,7 @@ describe('SchedulePanel Triggers tests', () => {
         queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runDailyAt'))
       )
       const hourSelect = document.querySelectorAll(
-        '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
+        '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
       )[0]
 
       if (!hourSelect) {
@@ -209,7 +209,7 @@ describe('SchedulePanel Triggers tests', () => {
       await waitFor(() => expect(queryByText(container, '0 0 * * *')).not.toBeNull())
 
       const minutesSelect = document.querySelectorAll(
-        '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
+        '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
       )[1]
 
       if (!minutesSelect) {
@@ -223,7 +223,7 @@ describe('SchedulePanel Triggers tests', () => {
       await waitFor(() => expect(queryByText(container, '3 0 * * *')).not.toBeNull())
 
       const amPmSelect = document.querySelectorAll(
-        '[data-name="timeselect"] [class*="selectStyle"] [icon="caret-down"] svg'
+        '[data-name="timeselect"] [class*="selectStyle"] [icon="chevron-down"] svg'
       )[2]
 
       if (!amPmSelect) {
@@ -302,7 +302,7 @@ describe('SchedulePanel Triggers tests', () => {
       fillTimeSelect({ hoursIndex: 10, minutesIndex: 5, amPmIndex: 1 })
       await waitFor(() => expect(queryByText(container, '5 23 1 1/1 *')).not.toBeNull())
 
-      const monthSelect = document.querySelector('[class*="selectMonth"] [icon="caret-down"] svg')
+      const monthSelect = document.querySelector('[class*="selectMonth"] [icon="chevron-down"] svg')
 
       if (!monthSelect) {
         throw Error('No month select')
@@ -312,7 +312,7 @@ describe('SchedulePanel Triggers tests', () => {
       const monthOptions = document.querySelectorAll('[class*="bp3-menu"] li')
       fireEvent.click(monthOptions[1]) // February
 
-      const daySelect = document.querySelector('[data-name="toothpick"] [icon="caret-down"] svg')
+      const daySelect = document.querySelector('[data-name="toothpick"] [icon="chevron-down"] svg')
       if (!daySelect) {
         throw Error('No day select')
       }
@@ -323,7 +323,7 @@ describe('SchedulePanel Triggers tests', () => {
 
       await waitFor(() => expect(queryByText(container, '5 23 16 2/1 *')).not.toBeNull())
 
-      const numMonthSelect = document.querySelectorAll('[data-name="toothpick"] [icon="caret-down"] svg')[1]
+      const numMonthSelect = document.querySelectorAll('[data-name="toothpick"] [icon="chevron-down"] svg')[1]
       if (!numMonthSelect) {
         throw Error('No numMonth select')
       }
@@ -356,7 +356,7 @@ describe('SchedulePanel Triggers tests', () => {
         queryByText(container, result.current.getString('pipeline.triggers.schedulePanel.runOnSpecificDayMonth'))
       )
 
-      const monthSelect = document.querySelectorAll('[data-name="toothpick"] [icon="caret-down"] svg')[0]
+      const monthSelect = document.querySelectorAll('[data-name="toothpick"] [icon="chevron-down"] svg')[0]
 
       if (!monthSelect) {
         throw Error('No month select')
@@ -368,7 +368,7 @@ describe('SchedulePanel Triggers tests', () => {
 
       await waitFor(() => expect(queryByText(container, '0 1 1 4 *')).not.toBeNull())
 
-      const daySelect = document.querySelectorAll('[data-name="toothpick"] [icon="caret-down"] svg')[1]
+      const daySelect = document.querySelectorAll('[data-name="toothpick"] [icon="chevron-down"] svg')[1]
       if (!daySelect) {
         throw Error('No day select')
       }

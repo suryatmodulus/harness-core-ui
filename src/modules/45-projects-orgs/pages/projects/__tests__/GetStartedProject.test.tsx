@@ -3,6 +3,8 @@ import { act, fireEvent, queryAllByText, render, waitFor } from '@testing-librar
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { orgMockData } from '@projects-orgs/modals/ProjectModal/views/__tests__/OrgMockData'
 import { clickSubmit, fillAtForm, InputTypes } from '@common/utils/JestFormHelper'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps } from '@common/utils/routeUtils'
 import GetStartedProject from '../views/GetStartedProject/GetStartedProject'
 import { createMockData, projectPageMock } from './ProjectPageMock'
 
@@ -32,7 +34,7 @@ jest.mock('services/cd-ng', () => ({
 describe('Get Started Project test', () => {
   test('Add a new Project ', async () => {
     const { container, getByText } = render(
-      <TestWrapper path="/account/:accountId/projects/getstarted" pathParams={{ accountId: 'testAcc' }}>
+      <TestWrapper path={routes.toGetStarted({ ...accountPathProps })} pathParams={{ accountId: 'testAcc' }}>
         <GetStartedProject />
       </TestWrapper>
     )

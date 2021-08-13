@@ -227,6 +227,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 isReadOnlyMode={false}
                 snippets={snippetData?.data?.yamlSnippets}
                 yamlSanityConfig={yamlSanityConfig}
+                showSnippetSection={false}
               />
             )}
             {!edit && (

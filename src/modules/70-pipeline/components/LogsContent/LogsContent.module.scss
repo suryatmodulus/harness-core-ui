@@ -29,6 +29,7 @@
       align-items: center;
       column-gap: var(--spacing-small);
       --intent-color: var(--red-500);
+      --typography-color: var(--red-500);
 
       :global {
         .bp3-popover-target,
@@ -42,6 +43,7 @@
       .error {
         color: var(--yellow-500);
         --intent-color: var(--yellow-500);
+        --typography-color: var(--yellow-500);
       }
     }
   }
@@ -95,10 +97,12 @@
     font-family: 'Roboto Mono', 'Monaco', 'Ubuntu Mono', monospace;
   }
   .selectedSearchResult {
-    background-color: #f48024;
+    background-color: var(--orange-700);
   }
 
   &[data-mode='step-details'] {
+    height: calc(var(--execution-children-height) - var(--execution-stage-details-height));
+
     .search {
       transform: scale(0.8);
       transform-origin: right center;
@@ -110,4 +114,12 @@
   & :global(.bp3-input) {
     color: var(--white);
   }
+}
+
+.logViewer {
+  border: 1px solid var(--black-color-3);
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  background-color: #09090b;
 }

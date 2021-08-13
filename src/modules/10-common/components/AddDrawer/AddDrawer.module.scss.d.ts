@@ -6,7 +6,6 @@ declare const styles: {
   readonly paletteCardHeader: string
   readonly stepPalette: string
   readonly stepsRenderer: string
-  readonly expandSearch: string
   readonly categorySteps: string
   readonly categoryName: string
   readonly steps: string

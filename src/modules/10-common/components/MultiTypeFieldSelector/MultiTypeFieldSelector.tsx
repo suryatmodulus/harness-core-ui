@@ -7,7 +7,8 @@ import {
   MultiTypeIconSize as TypeIconSize,
   getMultiTypeFromValue,
   RUNTIME_INPUT_VALUE,
-  MultiTypeInputMenu
+  MultiTypeInputMenu,
+  FormError
 } from '@wings-software/uicore'
 import { Popover, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -94,7 +95,7 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
   const labelText = !isOptional ? label : `${label} ${optionalLabel}`
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? <FormError errorMessage={get(formik?.errors, name)} /> : null,
     disabled,
     ...rest
   } = restProps

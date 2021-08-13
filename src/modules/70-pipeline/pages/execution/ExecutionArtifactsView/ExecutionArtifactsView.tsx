@@ -1,7 +1,13 @@
 import React from 'react'
 import { get } from 'lodash-es'
+import { useParams, useHistory } from 'react-router-dom'
+import { Icon, Text, Select, Container, Color } from '@wings-software/uicore'
+import qs from 'qs'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
 import type { ExecutionNode, PipelineExecutionSummary, ExecutionGraph } from 'services/pipeline-ng'
+import { useQueryParams } from '@common/hooks'
+import routes from '@common/RouteDefinitions'
+import { String } from 'framework/strings'
 import ArtifactsComponent from './ArtifactsComponent/ArtifactsComponent'
 import type { ArtifactGroup } from './ArtifactsComponent/ArtifactsComponent'
 import css from './ExecutionArtifactsView.module.scss'
@@ -52,6 +58,28 @@ export const getArtifactGroups: (stages: ExecutionNode[]) => ArtifactGroup[] = s
   })
 }
 
+export function StageSelector(props: { layoutNodeMap?: PipelineExecutionSummary['layoutNodeMap'] }) {
+  const history = useHistory()
+  const params = useParams<any>()
+  const query = useQueryParams<any>()
+  const setupIds = Object.keys(props?.layoutNodeMap ?? {})
+  const options = setupIds.map(value => ({
+    value,
+    label: props.layoutNodeMap![value].name!
+  }))
+  const selectedOption = options.find(option => option.value === query.stage)
+  return (
+    <Select
+      className={css.stageSelector}
+      value={selectedOption}
+      items={options}
+      onChange={val => {
+        history.push(routes.toExecutionArtifactsView(params) + '?' + qs.stringify({ ...query, stage: val.value }))
+      }}
+    />
+  )
+}
+
 export default function ExecutionArtifactsView(): React.ReactElement {
   const context = useExecutionContext()
   const executionSummary = get(context, 'pipelineExecutionDetail.pipelineExecutionSummary')
@@ -61,7 +89,17 @@ export default function ExecutionArtifactsView(): React.ReactElement {
   const artifactGroups = getArtifactGroups(stageNodes)
   return (
     <div className={css.wrapper}>
-      <ArtifactsComponent artifactGroups={artifactGroups as ArtifactGroup[]} />
+      <StageSelector layoutNodeMap={executionSummary?.layoutNodeMap} />
+      {artifactGroups.length ? (
+        <ArtifactsComponent artifactGroups={artifactGroups} />
+      ) : (
+        <Container className={css.emptyArtifacts}>
+          <Icon size={40} name="join-table" color={Color.GREY_300} />
+          <Text>
+            <String stringID="pipeline.triggers.artifactTriggerConfigPanel.noArtifacts" />
+          </Text>
+        </Container>
+      )}
     </div>
   )
 }

@@ -149,7 +149,7 @@ const getK8sYamlSchema = () => ({
   additionalProperties: true
 })
 
-const getK8sIngressTemplate = ({ name, idleTime, projectId, orgId, cloudConnectorId }: Record<string, any>) => {
+const getK8sIngressTemplate = ({ name, idleTime, cloudConnectorId }: Record<string, any>) => {
   const modifiedName = Utils.getHyphenSpacedString(name)
   return {
     apiVersion: 'lightwing.lightwing.io/v1',
@@ -157,10 +157,8 @@ const getK8sIngressTemplate = ({ name, idleTime, projectId, orgId, cloudConnecto
     metadata: {
       name: modifiedName,
       annotations: {
-        'harness.io/project-id': projectId,
-        'harness.io/org-id': orgId,
         'harness.io/cloud-connector-id': cloudConnectorId,
-        'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${orgId}-${projectId}-${modifiedName}";`
+        'nginx.ingress.kubernetes.io/configuration-snippet': `more_set_input_headers "AutoStoppingRule: ${modifiedName}";`
       }
     },
     spec: {

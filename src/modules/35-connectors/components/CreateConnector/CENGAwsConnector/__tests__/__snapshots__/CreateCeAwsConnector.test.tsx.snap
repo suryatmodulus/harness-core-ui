@@ -3,7 +3,7 @@
 exports[`Create Secret Manager Wizard should render form 1`] = `
 <div>
   <div
-    style="display: flex; height: 640px;"
+    style="display: flex; max-height: 700px;"
   >
     <div
       style="width: 1050px; position: relative;"
@@ -47,7 +47,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connectors.title.aws
+            connectors.title.ceAws
           </span>
           <div
             class="StepWizard--navStep StepWizard--activeStep"
@@ -158,93 +158,97 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                       class="StyledProps--font StyledProps--main main"
                     >
                       <div
-                        class="InputWithIdentifier--txtNameContainer TextInput--main"
+                        style="width: 65%;"
                       >
                         <div
-                          class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                          class="InputWithIdentifier--txtNameContainer TextInput--main"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                           >
-                            ID
-                            :
-                          </p>
-                          <span
-                            class="bp3-popover-wrapper"
-                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                              :
+                            </p>
                             <span
-                              class="bp3-popover-target"
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  />
+                                </div>
+                              </span>
+                            </span>
+                            <span
+                              class="bp3-icon bp3-icon-edit StyledProps--main"
+                              icon="edit"
+                              style="vertical-align: middle; cursor: pointer;"
+                            >
+                              <svg
+                                data-icon="edit"
+                                height="12"
+                                viewBox="0 0 16 16"
+                                width="12"
+                              >
+                                <desc>
+                                  edit
+                                </desc>
+                                <path
+                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="connectorsCeAwsOverViewForm_name"
+                              >
+                                connectors.name
+                              </span>
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
                             >
                               <div
-                                class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
-                                tabindex="0"
+                                class="bp3-input-group"
                               >
-                                <span
-                                  class="bp3-editable-text-content"
-                                  style="height: 1px; line-height: 1px; min-width: 0;"
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value=""
                                 />
                               </div>
-                            </span>
-                          </span>
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps--main"
-                            icon="edit"
-                            style="vertical-align: middle; cursor: pointer;"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="name-0"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="name"
-                          >
-                            <span
-                              class="Tooltip--acenter"
-                              data-tooltip-id="connectorsCeAwsOverViewForm_name"
-                            >
-                              connectors.name
-                            </span>
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
-                          <div
-                            class="bp3-form-content"
-                          >
-                            <div
-                              class="bp3-input-group"
-                            >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="name"
-                                type="text"
-                                value=""
-                              />
                             </div>
                           </div>
                         </div>
                       </div>
                       <div
-                        class="bp3-form-group"
+                        class="bp3-form-group dataFields"
                         data-id="awsAccountId-1"
                       >
                         <label
@@ -389,7 +393,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
 exports[`Create Secret Manager Wizard should render form 2`] = `
 <div>
   <div
-    style="display: flex; height: 640px;"
+    style="display: flex; max-height: 700px;"
   >
     <div
       style="width: 1050px; position: relative;"
@@ -433,7 +437,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connectors.title.aws
+            connectors.title.ceAws
           </span>
           <div
             class="StepWizard--navStep StepWizard--completedStep"
@@ -540,7 +544,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
         >
            
           <div
-            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main stepContainer"
+            class="Layout--vertical StyledProps--main stepContainer"
           >
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main header"
@@ -548,25 +552,25 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
             >
               connectors.ceAws.cur.heading
             </h2>
-            <div
-              style="padding-bottom: 10px;"
+            <p
+              class="StyledProps--font StyledProps--main subHeader"
             >
               connectors.ceAws.cur.subheading
-            </div>
+            </p>
             <div>
-              <div
-                style="display: flex;"
+              <span
+                class="StyledProps--font StyledProps--main info StyledProps--font-small StyledProps--color StyledProps--color-primary7 StyledProps--inline"
+                style="display: inline-flex; align-items: center;"
               >
                 <span
-                  class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--color StyledProps--color-primary5"
+                  class="bp3-icon bp3-icon-info-sign StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-primary7 StyledProps--margin-right-xsmall"
                   icon="info-sign"
-                  style="padding-right: 5px;"
                 >
                   <svg
                     data-icon="info-sign"
-                    height="16"
+                    height="15"
                     viewBox="0 0 16 16"
-                    width="16"
+                    width="15"
                   >
                     <desc>
                       info-sign
@@ -577,58 +581,47 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                     />
                   </svg>
                 </span>
-                <div
-                  style="padding-right: 10px; color: rgb(2, 120, 213);"
-                >
-                  connectors.ceAws.cur.followInstruction
-                </div>
-              </div>
+                connectors.ceAws.cur.followInstruction
+              </span>
               <div
                 class="StyledProps--font StyledProps--main"
-                style="padding-bottom: 10px; padding-top: 10px;"
               >
                 <div
                   class="Layout--vertical StyledProps--main"
-                  style="width: 500px;"
+                  style="width: 65%;"
                 >
-                  <div
-                    style="display: flex; justify-content: center;"
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main launchTemplateBut Button--with-current-color"
+                    type="button"
                   >
-                    <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main launchTemplateBut Button--with-current-color"
-                      type="button"
+                    <span
+                      class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
+                      data-icon="main-share"
                     >
-                      <span
-                        class="bp3-button-text"
+                      <svg
+                        height="12"
+                        viewBox="0 0 14 14"
+                        width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        connectors.ceAws.cur.launchTemplate
-                      </span>
-                      <span
-                        class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                        icon="chevron-right"
-                      >
-                        <svg
-                          data-icon="chevron-right"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          width="16"
-                        >
-                          <desc>
-                            chevron-right
-                          </desc>
-                          <path
-                            d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </div>
-                  <div
+                        <path
+                          d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                          fill="#4d5969"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      connectors.ceAws.cur.launchTemplate
+                    </span>
+                  </button>
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-small"
                     style="text-align: center;"
                   >
                     connectors.ceAws.cur.login
-                  </div>
+                  </p>
                 </div>
               </div>
             </div>
@@ -859,187 +852,199 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
         <div
           class="StyledProps--font StyledProps--main extention"
         >
-          <span>
-            <h2>
-              How to Create Cost and Usage Report?
-            </h2>
-            <div
-              class="listPoints"
-            >
-              <p>
-                Once the template is launched in the AWS console:
-              </p>
-              <ol
-                type="A"
+          <h2
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main header"
+            level="2"
+          >
+            connectors.ceAws.curExtention.heading
+          </h2>
+          <p>
+            connectors.ceAws.curExtention.subtext
+          </p>
+          <ol
+            type="A"
+          >
+            <li>
+              <p
+                style="font-weight: 700;"
               >
+                connectors.ceAws.curExtention.stepA.heading
+              </p>
+              <ol>
                 <li>
-                  <h3
-                    style="font-weight: 700;"
+                  connectors.click
+                   
+                  <span
+                    class="gray"
                   >
-                    Creating a Report
-                  </h3>
-                  <ol>
-                    <li>
-                      Click 
-                      <span
-                        class="gray"
-                      >
-                        Create Report
-                      </span>
-                       and provide a Cost and Usage Report Name. Copy this and paste it in the space provided on the left.
-                    </li>
-                    <li>
-                      Check Include resource IDs and keep other selections as is.
-                    </li>
-                    <li>
-                      Click Next.
-                    </li>
-                  </ol>
+                    connectors.ceAws.curExtention.stepA.step1.p1
+                  </span>
+                   
+                  connectors.ceAws.curExtention.stepA.step1.p2
+                </li>
+                <li>
+                  connectors.ceAws.curExtention.stepA.step2
+                </li>
+                <li>
+                  connectors.ceAws.curExtention.stepA.step3
+                </li>
+              </ol>
+            </li>
+            <li>
+               
+              <p
+                style="font-weight: 700;"
+              >
+                connectors.ceAws.curExtention.stepB.heading
+              </p>
+              <ol>
+                <li>
+                  connectors.click
+                   
+                  <span
+                    class="gray"
+                  >
+                    connectors.ceAws.curExtention.stepB.step1.p1
+                  </span>
+                   
+                  connectors.ceAws.curExtention.stepB.step1.p2
+                </li>
+                <li>
+                  connectors.ceAws.curExtention.stepB.step2
                 </li>
                 <li>
                    
-                  <h3
-                    style="font-weight: 700;"
+                  connectors.click
+                   
+                  <span
+                    class="gray"
                   >
-                    Delivery options
-                  </h3>
-                  <ol>
+                    next
+                  </span>
+                  connectors.ceAws.curExtention.stepB.step3.p1
+                  <span
+                    class="gray"
+                  >
+                    save
+                  </span>
+                  .
+                </li>
+                <li>
+                   
+                  connectors.ceAws.curExtention.stepB.step4
+                </li>
+                <li>
+                  connectors.ceAws.curExtention.stepB.step5.heading
+                  <ul>
                     <li>
-                      Click 
-                      <span
-                        class="gray"
-                      >
-                        Configure
-                      </span>
-                       to create an S3 bucket.
-                    </li>
-                    <li>
-                      Provide an S3 bucket name and select Region (preferably US East - N.Virginia).
-                    </li>
-                    <li>
-                       
-                      Click 
-                      <span
-                        class="gray"
-                      >
-                        Next
-                      </span>
-                      , then click 
-                      <span
-                        class="gray"
-                      >
-                        Save
-                      </span>
-                      .
-                    </li>
-                    <li>
-                       Enter a Report path prefix.
-                    </li>
-                    <li>
-                      Configure the report with the following configuration:
-                      <ul>
-                        <li>
-                          Time granularity: 
-                          <span
-                            class="gray"
-                          >
-                            Hourly
-                          </span>
-                        </li>
-                        <li>
-                          Report versioning: 
-                          <span
-                            class="gray"
-                          >
-                            Overwrite Existing Report Version
-                          </span>
-                        </li>
-                        <li>
-                          You do not need to enable any report data integrations.
-                        </li>
-                        <li>
-                          Compression: 
-                          <span
-                            class="gray"
-                          >
-                            GZIP
-                          </span>
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      Click 
-                      <span
-                        class="gray"
-                      >
-                        Next
-                      </span>
-                      , then click
+                      connectors.ceAws.curExtention.stepB.step5.subStep1.p1
                        
                       <span
                         class="gray"
                       >
-                        Review and Complete
+                        connectors.ceAws.curExtention.stepB.step5.subStep1.p2
                       </span>
-                       .
                     </li>
                     <li>
-                      Copy and enter the CUR Report name and S3 bucket name.
+                      connectors.ceAws.curExtention.stepB.step5.subStep2.p1
+                      <span
+                        class="gray"
+                      >
+                        connectors.ceAws.curExtention.stepB.step5.subStep2.p2
+                      </span>
                     </li>
-                  </ol>
+                    <li>
+                      connectors.ceAws.curExtention.stepB.step5.subStep3
+                    </li>
+                    <li>
+                      connectors.ceAws.curExtention.stepB.step5.subStep4.p1
+                      <span
+                        class="gray"
+                      >
+                        connectors.ceAws.curExtention.stepB.step5.subStep4.p2
+                      </span>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  connectors.click
+                   
+                  <span
+                    class="gray"
+                  >
+                    next
+                  </span>
+                  connectors.ceAws.curExtention.stepB.step6.p1
+                  <span
+                    class="gray"
+                  >
+                    connectors.ceAws.curExtention.stepB.step6.p2
+                  </span>
+                   .
+                </li>
+                <li>
+                  connectors.ceAws.curExtention.stepB.step7
                 </li>
               </ol>
-              <span>
-                More help:
-                <ul>
-                  <li>
-                    <a>
-                      Watch help video
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      Harness Documentation
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      Creating Cost and Usage Reports
-                    </a>
-                  </li>
-                  <li>
-                    <a>
-                      Billing and Cost Management Policy Examples
-                    </a>
-                  </li>
-                </ul>
-              </span>
-            </div>
-          </span>
+            </li>
+          </ol>
+          <p>
+            connectors.ceAws.curExtention.moreHelp.heading
+          </p>
+          <ul>
+            <li>
+              <a>
+                connectors.ceAws.curExtention.moreHelp.step1
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://docs.harness.io/article/5ql31pdjcm-enable-continuous-efficiency-for-aws"
+                rel="noreferrer"
+                target="_blank"
+              >
+                connectors.ceAws.curExtention.moreHelp.step2
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://docs.aws.amazon.com/cur/latest/userguide/cur-create.html"
+                rel="noreferrer"
+                target="_blank"
+              >
+                connectors.ceAws.curExtention.moreHelp.step3
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-example-policies.html#example-billing-view-reports"
+                rel="noreferrer"
+                target="_blank"
+              >
+                connectors.ceAws.curExtention.moreHelp.step4
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <span
-        class="closeBtn"
+        class="bp3-icon bp3-icon-chevron-left StyledProps--main closeBtn"
+        icon="chevron-left"
       >
-        <span
-          class="bp3-icon bp3-icon-caret-left StyledProps--main"
-          icon="caret-left"
+        <svg
+          data-icon="chevron-left"
+          height="24"
+          viewBox="0 0 20 20"
+          width="24"
         >
-          <svg
-            data-icon="caret-left"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              caret-left
-            </desc>
-            <path
-              d="M9.5 4c-.13 0-.24.05-.33.13l-4 3.5c-.1.09-.17.22-.17.37s.07.28.17.37l4 3.5a.495.495 0 00.83-.37v-7c0-.28-.22-.5-.5-.5z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
+          <desc>
+            chevron-left
+          </desc>
+          <path
+            d="M8.41 10l5.29-5.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-6 6c-.18.18-.29.43-.29.71 0 .28.11.53.29.71l6 6a1.003 1.003 0 001.42-1.42L8.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
       </span>
     </div>
   </div>
@@ -1049,7 +1054,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
 exports[`Create Secret Manager Wizard should render form 3`] = `
 <div>
   <div
-    style="display: flex; height: 640px;"
+    style="display: flex; max-height: 700px;"
   >
     <div
       style="width: 1050px; position: relative;"
@@ -1093,7 +1098,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connectors.title.aws
+            connectors.title.ceAws
           </span>
           <div
             class="StepWizard--navStep StepWizard--completedStep"
@@ -1225,6 +1230,9 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
               level="2"
             >
               connectors.ceAws.crossAccountRoleStep1.heading
+              <span>
+                connectors.ceAws.crossAccountRoleStep1.choosePermissions
+              </span>
             </h2>
             <div
               class="infobox"
@@ -1232,168 +1240,216 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
               connectors.ceAws.crossAccountRoleStep1.subHeading
             </div>
             <div
-              style="padding: 5px 5px 20px 5px;"
+              class="StyledProps--font StyledProps--main"
             >
-              connectors.ceAws.crossAccountRoleStep1.description
-            </div>
-            <div
-              style="flex: 1;"
-            >
+              <h3
+                class="StyledProps--font StyledProps--font-h3 StyledProps--main mtbxxlarge"
+                level="3"
+              >
+                connectors.ceAws.crossAccountRoleStep1.description
+              </h3>
               <div
-                class="grid"
+                style="flex: 1;"
               >
                 <div
-                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                  data-index="0"
-                  tabindex="0"
+                  class="grid"
                 >
-                  <div>
+                  <div
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+                    data-index="0"
+                    tabindex="0"
+                  >
                     <div
-                      style="display: flex; padding-bottom: 7px;"
+                      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                     >
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
-                        data-icon="main-main-zoom_in"
-                        style="padding-right: 10px;"
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
                       >
-                        <svg
-                          height="32"
-                          viewBox="0 0 14 14"
-                          width="32"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="ce-visibility"
                         >
-                          <path
-                            d="M13.7 12.2l-3.5-3.5c.6-.9 1-2 1-3.2 0-3-2.5-5.5-5.6-5.5S0 2.5 0 5.6s2.5 5.6 5.6 5.6c1.2 0 2.2-.4 3.2-1l3.5 3.5c.2.2.5.3.7.3.6 0 1.1-.5 1.1-1.1-.1-.2-.2-.5-.4-.7zM5.6 9.8c-2.3 0-4.2-1.9-4.2-4.2s1.9-4.2 4.2-4.2 4.2 1.9 4.2 4.2-1.9 4.2-4.2 4.2zm2.1-4.9H6.3V3.5c0-.4-.3-.7-.7-.7s-.7.3-.7.7v1.4H3.5c-.4 0-.7.3-.7.7s.3.7.7.7h1.4v1.4c0 .4.3.7.7.7s.7-.3.7-.7V6.3h1.4c.4 0 .7-.3.7-.7s-.3-.7-.7-.7z"
-                            fill="#4d5969"
-                          />
-                        </svg>
-                      </span>
-                      <p>
+                          <svg
+                            fill="none"
+                            height="32"
+                            width="32"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M0 24.99h3.99V0H0v24.99zm7.98 0h3.99V7.403H7.98V24.99zm7.98-10.181v10.18h3.99V14.81h-3.99z"
+                              fill="#0278D5"
+                              opacity="0.3"
+                            />
+                            <g
+                              clip-path="url(#ce-visibility_svg__clip0)"
+                            >
+                              <path
+                                d="M30.014 27.178l-4.198-3.895c1.008-1.409 1.598-3.096 1.598-4.91 0-4.914-4.31-8.912-9.606-8.912-5.297 0-9.606 3.998-9.606 8.912 0 4.915 4.31 8.913 9.606 8.913 1.955 0 3.773-.547 5.292-1.482l4.196 3.895c.376.348.984.348 1.359 0l1.358-1.26a.846.846 0 000-1.26zm-19.89-8.805c0-3.93 3.447-7.13 7.684-7.13s7.684 3.2 7.684 7.13c0 3.932-3.447 7.13-7.684 7.13s-7.685-3.198-7.685-7.13z"
+                                fill="#0278D5"
+                              />
+                            </g>
+                            <defs>
+                              <clippath
+                                id="ce-visibility_svg__clip0"
+                              >
+                                <path
+                                  d="M0 0h23.054v21.39H0z"
+                                  fill="#fff"
+                                  transform="translate(8.202 9.46)"
+                                />
+                              </clippath>
+                            </defs>
+                          </svg>
+                        </span>
                         <div
-                          style="font-size: 8px; font-family: inter;"
+                          class="StyledProps--font StyledProps--main"
                         >
-                          connectors.ceAws.crossAccountRoleStep1.cost
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
+                            style="font-size: 9px; font-weight: 600;"
+                          >
+                            COST
+                          </p>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
+                            style="font-size: 16px; font-weight: 500;"
+                          >
+                            connectors.ceAws.crossAccountRoleStep1.visibility
+                          </p>
                         </div>
-                         
-                        <div
-                          style="font-size: 14px; font-family: inter;"
-                        >
-                          connectors.ceAws.crossAccountRoleStep1.visibility
-                        </div>
+                      </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        style="line-height: 20px;"
+                      >
+                        connectors.ceAzure.chooseRequirements.visibilityCardDesc
                       </p>
                     </div>
-                    <p>
-                      connectors.ceAws.crossAccountRoleStep1.visibilityDes
-                    </p>
+                  </div>
+                  <div
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
+                    data-index="1"
+                    tabindex="0"
+                  >
+                    <div
+                      class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                    >
+                      <div
+                        class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main"
+                          data-icon="nav-settings"
+                        >
+                          <svg
+                            fill="none"
+                            height="32"
+                            viewBox="0 0 18 18"
+                            width="32"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M16.305 10.942l-1.147-.98a6.286 6.286 0 000-2.025l1.147-.981a.56.56 0 00.163-.617l-.016-.045a7.77 7.77 0 00-1.396-2.415l-.031-.037a.562.562 0 00-.615-.166l-1.424.506a6.172 6.172 0 00-1.745-1.009l-.275-1.488a.561.561 0 00-.452-.45l-.048-.009a7.912 7.912 0 00-2.784 0l-.047.009a.561.561 0 00-.452.45L6.906 3.18a6.16 6.16 0 00-1.734 1.006l-1.434-.51a.56.56 0 00-.614.166l-.032.037a7.809 7.809 0 00-1.396 2.415l-.015.045a.562.562 0 00.162.617l1.161.991a6.16 6.16 0 000 2l-1.16.991a.56.56 0 00-.163.617l.015.045a7.79 7.79 0 001.396 2.415l.032.037c.15.177.395.243.614.166l1.434-.51c.522.43 1.106.77 1.734 1.006l.277 1.495c.042.23.222.409.452.45l.047.01a7.869 7.869 0 002.784 0l.048-.01c.23-.041.41-.22.452-.45l.275-1.488a6.131 6.131 0 001.745-1.009l1.424.506a.56.56 0 00.615-.166l.031-.037a7.809 7.809 0 001.396-2.415l.016-.045a.559.559 0 00-.163-.613zm-2.39-2.8a4.951 4.951 0 010 1.615l-.116.702 1.309 1.12a6.474 6.474 0 01-.746 1.288l-1.626-.576-.55.452a4.896 4.896 0 01-1.388.802l-.667.25-.314 1.699a6.616 6.616 0 01-1.488 0l-.314-1.702-.662-.254a4.955 4.955 0 01-1.378-.8l-.55-.454-1.636.581a6.614 6.614 0 01-.746-1.289l1.323-1.13-.114-.7a5.04 5.04 0 01-.065-.796c0-.268.021-.536.065-.797l.114-.7-1.323-1.13c.198-.457.449-.888.746-1.29l1.636.582.55-.453c.415-.342.88-.612 1.378-.8l.664-.251.313-1.702a6.612 6.612 0 011.489 0l.313 1.698.668.25c.502.19.97.46 1.388.803l.55.452 1.625-.576c.298.4.547.833.746 1.288l-1.308 1.12.114.698z"
+                              fill="#ccc"
+                              fill-rule="evenodd"
+                            />
+                            <path
+                              clip-rule="evenodd"
+                              d="M9.076 5.693a3.082 3.082 0 100 6.165 3.082 3.082 0 000-6.165zm1.387 4.47c-.371.37-.863.574-1.387.574a1.955 1.955 0 01-1.387-.574 1.954 1.954 0 01-.574-1.387c0-.524.205-1.016.574-1.387a1.947 1.947 0 011.387-.575c.524 0 1.016.203 1.387.575.37.371.575.863.575 1.387 0 .523-.205 1.015-.575 1.387z"
+                              fill="#ccc"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
+                            style="font-size: 9px; font-weight: 600;"
+                          >
+                            COST
+                          </p>
+                          <p
+                            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey900"
+                            style="font-size: 16px; font-weight: 500;"
+                          >
+                            connectors.ceAws.crossAccountRoleStep1.optimization
+                          </p>
+                        </div>
+                      </div>
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-small"
+                        style="line-height: 20px;"
+                      >
+                        connectors.ceAzure.chooseRequirements.optimizationCardDesc
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div
-                  class="bp3-card bp3-interactive bp3-elevation-0 Card--card Card--interactive"
-                  data-index="1"
-                  tabindex="0"
+                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main buttonPanel"
                 >
-                  <div>
-                    <div
-                      style="display: flex; padding-bottom: 7px;"
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
+                      icon="chevron-left"
                     >
-                      <span
-                        class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-primary5"
-                        data-icon="gear"
-                        style="padding-right: 10px;"
+                      <svg
+                        data-icon="chevron-left"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
                       >
-                        <svg
-                          height="32"
-                          viewBox="0 0 16 16"
-                          width="32"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M2.687 3.488a.437.437 0 01-.4.16l-.752-.144a.389.389 0 00-.432.24l-.176.48-.176.48c-.064.176 0 .384.176.464l.656.384a.45.45 0 01.208.384c-.016.224 0 .448.016.672a.434.434 0 01-.176.4l-.624.432a.378.378 0 00-.128.48l.208.464.208.464a.38.38 0 00.448.208l.736-.192c.144-.048.304.016.416.128.144.16.32.32.496.464a.437.437 0 01.16.4l-.144.752a.38.38 0 00.24.432l.48.176.48.176c.176.064.384 0 .464-.176l.384-.656c.08-.144.224-.208.384-.208.208.016.432 0 .64-.016a.434.434 0 01.4.176l.432.64c.112.16.304.208.48.128l.464-.208.464-.208a.38.38 0 00.208-.448l-.192-.72a.4.4 0 01.128-.416c.16-.144.32-.32.464-.496a.437.437 0 01.4-.16l.752.144a.38.38 0 00.432-.24l.176-.48.176-.48c.064-.176 0-.384-.176-.464l-.656-.368c-.144-.08-.208-.224-.208-.384.016-.224 0-.448-.016-.672a.434.434 0 01.176-.4l.64-.432a.378.378 0 00.128-.48l-.208-.464-.208-.464a.38.38 0 00-.448-.208l-.72.208c-.16.048-.32 0-.416-.128a4.408 4.408 0 00-.48-.464.437.437 0 01-.16-.4l.144-.752a.38.38 0 00-.24-.432l-.48-.176-.48-.176c-.176-.064-.384 0-.464.176l-.368.64c-.08.144-.224.208-.384.208-.24-.016-.464 0-.704.016a.434.434 0 01-.4-.176l-.432-.624a.378.378 0 00-.48-.128l-.464.208-.464.208a.38.38 0 00-.208.448l.192.736c.048.144-.016.304-.128.416-.176.096-.32.272-.464.448zm1.2 1.872A2.249 2.249 0 016.735 4a2.249 2.249 0 011.36 2.848c-.4 1.168-1.68 1.76-2.848 1.36a2.228 2.228 0 01-1.36-2.848zm10.704 4.816a.264.264 0 00-.016-.304l-.208-.208-.208-.208a.242.242 0 00-.304-.032l-.368.256c-.08.048-.176.064-.256.016a2.553 2.553 0 00-.368-.16c-.08-.032-.16-.112-.16-.192l-.08-.448a.224.224 0 00-.224-.192h-.608a.224.224 0 00-.224.192l-.08.448c-.016.096-.08.176-.176.192-.128.032-.256.096-.368.144-.08.048-.176.032-.256-.016l-.368-.272a.264.264 0 00-.304.016l-.208.208-.208.208a.242.242 0 00-.032.304l.256.368c.048.08.064.176.016.256-.064.128-.128.256-.16.384-.032.096-.096.16-.192.176l-.448.08a.224.224 0 00-.192.224v.608c0 .112.08.208.192.224l.448.08c.096.016.16.08.192.176.048.128.096.256.16.368.048.08.032.176-.016.256l-.272.368a.24.24 0 00.016.288l.208.208.208.208c.08.08.208.096.304.032l.368-.256c.08-.048.176-.064.256-.016.128.064.24.112.368.16.096.032.16.096.176.192l.08.448a.224.224 0 00.224.192h.608c.112 0 .208-.08.224-.192l.08-.448c.016-.096.08-.16.176-.192.128-.048.256-.096.368-.16.08-.048.176-.032.256.016l.368.272a.264.264 0 00.304-.016l.208-.208.208-.208a.242.242 0 00.032-.304l-.256-.368c-.048-.08-.064-.176-.016-.256.064-.112.112-.24.144-.352a.264.264 0 01.192-.176l.448-.08a.224.224 0 00.192-.224v-.608a.224.224 0 00-.192-.224l-.448-.08c-.096-.016-.16-.08-.192-.176-.032-.128-.096-.256-.144-.368-.048-.08-.032-.176.016-.256l.256-.368zm-1.584 2.688a1.318 1.318 0 01-1.872.016 1.318 1.318 0 01-.016-1.872c.512-.512 1.36-.528 1.872-.016s.528 1.344.016 1.872z"
-                            fill="#30AAAF"
-                          />
-                        </svg>
-                      </span>
-                      <p>
-                        <div
-                          style="font-size: 8px; font-family: inter;"
-                        >
-                          connectors.ceAws.crossAccountRoleStep1.cost
-                        </div>
-                         
-                        <div
-                          style="font-size: 14px; font-family: inter;"
-                        >
-                          connectors.ceAws.crossAccountRoleStep1.optimization
-                        </div>
-                      </p>
-                    </div>
-                    <p>
-                      connectors.ceAws.crossAccountRoleStep1.optimizationDes
-                    </p>
-                  </div>
+                        <desc>
+                          chevron-left
+                        </desc>
+                        <path
+                          d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      previous
+                    </span>
+                  </button>
+                  <button
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    type="submit"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      continue
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                      icon="chevron-right"
+                    >
+                      <svg
+                        data-icon="chevron-right"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        width="16"
+                      >
+                        <desc>
+                          chevron-right
+                        </desc>
+                        <path
+                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
                 </div>
-              </div>
-              <div
-                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main buttonPanel"
-              >
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
-                  type="button"
-                >
-                  <span
-                    class="bp3-icon bp3-icon-chevron-left StyledProps--main StyledProps--padding-right-xsmall"
-                    icon="chevron-left"
-                  >
-                    <svg
-                      data-icon="chevron-left"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-left
-                      </desc>
-                      <path
-                        d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                  <span
-                    class="bp3-button-text"
-                  >
-                    previous
-                  </span>
-                </button>
-                <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-                  type="submit"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    continue
-                  </span>
-                  <span
-                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                    icon="chevron-right"
-                  >
-                    <svg
-                      data-icon="chevron-right"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      width="16"
-                    >
-                      <desc>
-                        chevron-right
-                      </desc>
-                      <path
-                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </button>
               </div>
             </div>
           </div>
@@ -1407,7 +1463,7 @@ exports[`Create Secret Manager Wizard should render form 3`] = `
 exports[`Create Secret Manager Wizard should render form 4`] = `
 <div>
   <div
-    style="display: flex; height: 640px;"
+    style="display: flex; max-height: 700px;"
   >
     <div
       style="width: 1050px; position: relative;"
@@ -1451,7 +1507,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connectors.title.aws
+            connectors.title.ceAws
           </span>
           <div
             class="StepWizard--navStep StepWizard--completedStep"
@@ -1594,65 +1650,63 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
         >
            
           <div
-            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main stepContainer"
+            class="Layout--vertical StyledProps--main stepContainer"
           >
             <h2
               class="StyledProps--font StyledProps--font-h2 StyledProps--main header"
               level="2"
             >
               connectors.ceAws.crossAccountRoleStep2.heading
+              <span>
+                connectors.ceAws.crossAccountRoleStep2.createRole
+              </span>
             </h2>
             <div
               class="infobox"
+              style="margin-bottom: 25px;"
             >
               connectors.ceAws.crossAccountRoleStep2.subHeading
             </div>
             <div
               class="StyledProps--font StyledProps--main"
-              style="padding-bottom: 10px; padding-top: 10px;"
+              style="padding-bottom: 40px;"
             >
               <div
                 class="Layout--vertical StyledProps--main"
-                style="width: 500px;"
+                style="width: 65%;"
               >
-                <div
-                  style="display: flex; justify-content: center;"
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main launchTemplateBut Button--with-current-color"
+                  type="button"
                 >
-                  <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main launchTemplateBut Button--with-current-color"
-                    type="button"
+                  <span
+                    class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
+                    data-icon="main-share"
                   >
-                    <span
-                      class="bp3-button-text"
+                    <svg
+                      height="12"
+                      viewBox="0 0 14 14"
+                      width="12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      connectors.ceAws.cur.launchTemplate
-                    </span>
-                    <span
-                      class="bp3-icon bp3-icon-chevron-right StyledProps--main"
-                      icon="chevron-right"
-                    >
-                      <svg
-                        data-icon="chevron-right"
-                        height="16"
-                        viewBox="0 0 16 16"
-                        width="16"
-                      >
-                        <desc>
-                          chevron-right
-                        </desc>
-                        <path
-                          d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
-                          fill-rule="evenodd"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </div>
-                <div
+                      <path
+                        d="M10.5 12.6H1.4V3.5h6.1l1.4-1.4H.7c-.4 0-.7.3-.7.7v10.5c0 .4.3.7.7.7h10.5c.4 0 .7-.3.7-.7V5.1l-1.4 1.4zM13.3 0H8.4c-.4 0-.7.3-.7.7s.3.7.7.7h3.2L6.5 6.5c-.1.1-.2.3-.2.5 0 .4.3.7.7.7.2 0 .4-.1.5-.2l5.1-5.1v3.2c0 .4.3.7.7.7s.7-.3.7-.7V.7c0-.4-.3-.7-.7-.7z"
+                        fill="#4d5969"
+                      />
+                    </svg>
+                  </span>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    connectors.ceAws.crossAccountRoleStep2.launchTemplate
+                  </span>
+                </button>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--font-small"
                   style="text-align: center;"
                 >
-                  connectors.ceAws.cur.login
-                </div>
+                  connectors.ceAws.crossAccountRoleStep2.followInstructions
+                </p>
               </div>
             </div>
             <div
@@ -1801,7 +1855,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
                               class="bp3-input"
                               name="externalId"
                               type="text"
-                              value=""
+                              value="harness:108817434118:kmpySmUISimoRrJL6NL73w"
                             />
                           </div>
                         </div>
@@ -1887,99 +1941,102 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
         <div
           class="StyledProps--font StyledProps--main extention"
         >
-          <span>
-            <h2>
-              Create cross-account IAM role using AWS CloudFormation template
-            </h2>
-            <div
-              class="listPoints"
-            >
-              <p>
-                Login to your master account to launch template and create stack. 
-              </p>
-              <ol>
+          <h2
+            class="StyledProps--font StyledProps--font-h2 StyledProps--main header"
+            level="2"
+          >
+            connectors.ceAws.crossAccountRoleExtention.heading
+          </h2>
+          <p>
+            connectors.ceAws.crossAccountRoleExtention.subHeading
+          </p>
+          <ol>
+            <li>
+              connectors.ceAws.crossAccountRoleExtention.step1.p1
+              <a
+                href=""
+                rel="noreferrer"
+                target="_blank"
+              >
+                connectors.ceAws.crossAccountRoleExtention.step1.p2
+              </a>
+               
+              connectors.ceAws.crossAccountRoleExtention.step1.p3
+            </li>
+            <li>
+              connectors.ceAws.crossAccountRoleExtention.step2.heading
+              <ul>
                 <li>
-                  You can 
-                  <a>
-                    Preview Template
-                  </a>
-                   to understand all the permissions involved
+                  connectors.ceAws.crossAccountRoleExtention.step2.subStep1
                 </li>
                 <li>
-                  Review and Lauch Harness specified AWS CloudFormation template on AWS console
-                  <ul>
-                    <li>
-                      Click on the checkbox to acknowledge the IAM role creation.
-                    </li>
-                    <li>
-                      Click on 
-                      <span
-                        class="gray"
-                      >
-                        Create stack
-                      </span>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  On stack details page click on 
+                  connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p1
                   <span
                     class="gray"
                   >
-                    Outputs
+                    connectors.ceAws.crossAccountRoleExtention.step2.subStep2.p2
                   </span>
-                   tab and copy
-                   
-                  <span
-                    class="gray"
-                  >
-                    IAM ARN
-                  </span>
-                  .
                 </li>
-                <li>
-                  Provide that IAM ARN in Harness UI.
-                </li>
-                <li>
-                  External ID is a random unique value to provide additional secure authentication.
-                </li>
-              </ol>
-              <span>
-                More help:
-                <ul>
-                  <li>
-                    <a>
-                      Harness Documentation
-                    </a>
-                  </li>
-                </ul>
+              </ul>
+            </li>
+            <li>
+              connectors.ceAws.crossAccountRoleExtention.step3.p1
+               
+              <span
+                class="gray"
+              >
+                connectors.ceAws.crossAccountRoleExtention.step3.p2
               </span>
-            </div>
-          </span>
+               
+              connectors.ceAws.crossAccountRoleExtention.step3.p3
+              <span
+                class="gray"
+              >
+                connectors.ceAws.crossAccountRoleExtention.step3.p4
+              </span>
+              .
+            </li>
+            <li>
+              connectors.ceAws.crossAccountRoleExtention.step4
+            </li>
+            <li>
+              connectors.ceAws.crossAccountRoleExtention.step5
+            </li>
+          </ol>
+          <p>
+            connectors.ceAws.curExtention.moreHelp.heading
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://docs.harness.io/article/5ql31pdjcm-enable-continuous-efficiency-for-aws"
+                rel="noreferrer"
+                target="_blank"
+              >
+                connectors.ceAws.curExtention.moreHelp.step2
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
       <span
-        class="closeBtn"
+        class="bp3-icon bp3-icon-chevron-left StyledProps--main closeBtn"
+        icon="chevron-left"
       >
-        <span
-          class="bp3-icon bp3-icon-caret-left StyledProps--main"
-          icon="caret-left"
+        <svg
+          data-icon="chevron-left"
+          height="24"
+          viewBox="0 0 20 20"
+          width="24"
         >
-          <svg
-            data-icon="caret-left"
-            height="16"
-            viewBox="0 0 16 16"
-            width="16"
-          >
-            <desc>
-              caret-left
-            </desc>
-            <path
-              d="M9.5 4c-.13 0-.24.05-.33.13l-4 3.5c-.1.09-.17.22-.17.37s.07.28.17.37l4 3.5a.495.495 0 00.83-.37v-7c0-.28-.22-.5-.5-.5z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
+          <desc>
+            chevron-left
+          </desc>
+          <path
+            d="M8.41 10l5.29-5.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-6 6c-.18.18-.29.43-.29.71 0 .28.11.53.29.71l6 6a1.003 1.003 0 001.42-1.42L8.41 10z"
+            fill-rule="evenodd"
+          />
+        </svg>
       </span>
     </div>
   </div>
@@ -1989,7 +2046,7 @@ exports[`Create Secret Manager Wizard should render form 4`] = `
 exports[`Create Secret Manager Wizard should render form 5`] = `
 <div>
   <div
-    style="display: flex; height: 640px;"
+    style="display: flex; max-height: 700px;"
   >
     <div
       style="width: 1050px; position: relative;"
@@ -2033,7 +2090,7 @@ exports[`Create Secret Manager Wizard should render form 5`] = `
           <span
             class="StepWizard--title StepWizard--header"
           >
-            connectors.title.aws
+            connectors.title.ceAws
           </span>
           <div
             class="StepWizard--navStep StepWizard--completedStep"

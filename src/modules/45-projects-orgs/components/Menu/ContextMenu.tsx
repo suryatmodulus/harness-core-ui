@@ -63,7 +63,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCDProjectOverview({
+      routes.toProjectOverview({
         orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
         projectIdentifier: project.identifier,
         accountId,
@@ -99,10 +99,11 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routes.toCIProjectOverview({
+      routes.toProjectOverview({
         projectIdentifier: project.identifier,
         orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
-        accountId
+        accountId,
+        module: 'ci'
       })
     )
   }
@@ -111,8 +112,6 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     setMenuOpen?.(false)
     history.push(
       routes.toCECORules({
-        projectIdentifier: project.identifier,
-        orgIdentifier: project.orgIdentifier || /* istanbul ignore next */ '',
         accountId
       })
     )

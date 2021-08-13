@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { FormikForm, FormInput, Button, Layout, Container, Icon, Heading } from '@wings-software/uicore'
+import { FormikForm, FormInput, Button, Layout, Container, Icon, Heading, ButtonProps } from '@wings-software/uicore'
 import { Popover, Spinner } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { EmailSchema } from '@common/utils/Validation'
 import { useToaster } from '@common/components'
+import UserGroupsInput from '@common/components/UserGroupsInput/UserGroupsInput'
 import type { EmailNotificationConfiguration } from '@notifications/interfaces/Notifications'
 import { TestStatus } from '@notifications/interfaces/Notifications'
 import { NotificationType } from '@notifications/interfaces/Notifications'
@@ -78,18 +79,15 @@ export const TestEmailConfig: React.FC<TestEmailConfigProps> = props => {
   )
 }
 
-interface EmailNotificationData {
-  emailIds: string
-  userGroups: string[]
-}
-
-const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = props => {
+export const TestEmailNotifications: React.FC<{ onClick?: () => void; buttonProps?: ButtonProps }> = ({
+  onClick,
+  buttonProps
+}) => {
   const [isOpen, setIsOpen] = useState(false)
   const { accountId } = useParams<AccountPathProps>()
   const { getString } = useStrings()
-  const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { showSuccess, showError } = useToaster()
-
+  const [testStatus, setTestStatus] = useState<TestStatus>(TestStatus.INIT)
   const { mutate: testNotificationSetting, loading } = useTestNotificationSetting({})
 
   const handleTest = async (testData: EmailTestConfigData): Promise<void> => {
@@ -116,6 +114,33 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
       setTestStatus(TestStatus.ERROR)
     }
   }
+
+  return (
+    <>
+      <Popover isOpen={isOpen} onInteraction={setIsOpen}>
+        <Button
+          text={loading ? <Spinner size={Spinner.SIZE_SMALL} /> : getString('test')}
+          disabled={loading}
+          onClick={onClick}
+          {...buttonProps}
+        />
+        <TestEmailConfig handleTest={handleTest} />
+      </Popover>
+      {testStatus === TestStatus.SUCCESS ? <Icon name="tick" className={cx(css.statusIcon, css.green)} /> : null}
+      {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
+        <Icon name="cross" className={cx(css.statusIcon, css.red)} />
+      ) : null}
+    </>
+  )
+}
+
+interface EmailNotificationData {
+  emailIds: string
+  userGroups: string[]
+}
+
+const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = props => {
+  const { getString } = useStrings()
 
   const handleSubmit = (formData: EmailNotificationData): void => {
     props.onSuccess(convertFormData(formData))
@@ -151,25 +176,9 @@ const ConfigureEmailNotifications: React.FC<ConfigureEmailNotificationsProps> = 
             return (
               <FormikForm>
                 <FormInput.TextArea name={'emailIds'} label={getString('notifications.emailRecipients')} />
-                <FormInput.MultiInput
-                  name={'userGroups'}
-                  label={getString('notifications.labelEmailUserGroups')}
-                  tagsProps={{ placeholder: getString('notifications.userGroupsPlaceholder') }}
-                />
+                <UserGroupsInput name="userGroups" label={getString('notifications.labelSlackUserGroups')} />
                 <Layout.Horizontal style={{ alignItems: 'center' }}>
-                  <Popover isOpen={isOpen} onInteraction={setIsOpen}>
-                    <Button
-                      text={loading ? <Spinner size={Spinner.SIZE_SMALL} /> : getString('test')}
-                      disabled={loading}
-                    />
-                    <TestEmailConfig handleTest={handleTest} />
-                  </Popover>
-                  {testStatus === TestStatus.SUCCESS ? (
-                    <Icon name="tick" className={cx(css.statusIcon, css.green)} />
-                  ) : null}
-                  {testStatus === TestStatus.FAILED || testStatus === TestStatus.ERROR ? (
-                    <Icon name="cross" className={cx(css.statusIcon, css.red)} />
-                  ) : null}
+                  <TestEmailNotifications />
                 </Layout.Horizontal>
                 {props.isStep ? (
                   <Layout.Horizontal spacing="medium" margin={{ top: 'huge' }}>

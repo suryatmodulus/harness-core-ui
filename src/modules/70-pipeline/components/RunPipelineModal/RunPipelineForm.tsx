@@ -23,7 +23,7 @@ import { pick, merge, isEmpty, isEqual, omit } from 'lodash-es'
 import type { FormikErrors } from 'formik'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { NameIdDescriptionTags } from '@common/components'
-import type { NgPipeline, ResponseJsonNode } from 'services/cd-ng'
+import type { PipelineInfoConfig, ResponseJsonNode } from 'services/cd-ng'
 import {
   useGetPipeline,
   usePostPipelineExecuteWithInputSetYaml,
@@ -80,6 +80,7 @@ export interface RunPipelineFormProps extends PipelineType<PipelinePathProps & G
   onClose?: () => void
   executionView?: boolean
   mockData?: ResponseJsonNode
+  executionInputSetTemplateYaml?: string
 }
 
 const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
@@ -94,8 +95,8 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
 }
 
 interface SaveAsInputSetProps {
-  pipeline?: NgPipeline
-  currentPipeline?: { pipeline?: NgPipeline }
+  pipeline?: PipelineInfoConfig
+  currentPipeline?: { pipeline?: PipelineInfoConfig }
   template: ResponseInputSetTemplateResponse | null
   values: Values
   accountId: string
@@ -316,14 +317,15 @@ function RunPipelineFormBasic({
   module,
   executionView,
   branch,
-  repoIdentifier
+  repoIdentifier,
+  executionInputSetTemplateYaml = ''
 }: RunPipelineFormProps & InputSetGitQueryParams): React.ReactElement {
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [notifyOnlyMe, setNotifyOnlyMe] = React.useState<boolean>(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
   const [formErrors, setFormErrors] = React.useState<FormikErrors<InputSetDTO>>({})
-  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
+  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: PipelineInfoConfig } | undefined>(
     inputSetYAML ? parse(inputSetYAML) : undefined
   )
   const { showError, showSuccess, showWarning } = useToaster()
@@ -463,7 +465,7 @@ function RunPipelineFormBasic({
 
   React.useEffect(() => {
     const toBeUpdated = merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as {
-      pipeline: NgPipeline
+      pipeline: PipelineInfoConfig
     }
     setCurrentPipeline(toBeUpdated)
   }, [template?.data?.inputSetTemplateYaml])
@@ -474,7 +476,7 @@ function RunPipelineFormBasic({
 
   React.useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
-      const parsedTemplate = parse(template?.data?.inputSetTemplateYaml) as { pipeline: NgPipeline }
+      const parsedTemplate = parse(template?.data?.inputSetTemplateYaml) as { pipeline: PipelineInfoConfig }
       if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
           try {
@@ -483,7 +485,7 @@ function RunPipelineFormBasic({
             })
             if (data?.data?.pipelineYaml) {
               const inputSetPortion = parse(data.data.pipelineYaml) as {
-                pipeline: NgPipeline
+                pipeline: PipelineInfoConfig
               }
               const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
               setCurrentPipeline(toBeUpdated)
@@ -509,7 +511,7 @@ function RunPipelineFormBasic({
           if (data?.data?.inputSetYaml) {
             if (selectedInputSets[0].type === 'INPUT_SET') {
               const inputSetPortion = pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as {
-                pipeline: NgPipeline
+                pipeline: PipelineInfoConfig
               }
               const toBeUpdated = mergeTemplateWithInputSetData(parsedTemplate, inputSetPortion)
               setCurrentPipeline(toBeUpdated)
@@ -549,9 +551,9 @@ function RunPipelineFormBasic({
     }
   })
 
-  const pipeline: NgPipeline | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
+  const pipeline: PipelineInfoConfig | undefined = parse(pipelineResponse?.data?.yamlPipeline || '')?.pipeline
 
-  const valuesPipelineRef = useRef<NgPipeline>()
+  const valuesPipelineRef = useRef<PipelineInfoConfig>()
 
   const [showPreflightCheckModal, hidePreflightCheckModal] = useModalHook(() => {
     return (
@@ -581,7 +583,7 @@ function RunPipelineFormBasic({
   }, [])
 
   const handleRunPipeline = React.useCallback(
-    async (valuesPipeline?: NgPipeline, forceSkipFlightCheck = false) => {
+    async (valuesPipeline?: PipelineInfoConfig, forceSkipFlightCheck = false) => {
       if (Object.keys(formErrors).length) {
         return
       }
@@ -651,7 +653,7 @@ function RunPipelineFormBasic({
   const handleModeSwitch = useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
-        const presentPipeline = parse(yamlHandler?.getLatestYaml() || '') as { pipeline: NgPipeline }
+        const presentPipeline = parse(yamlHandler?.getLatestYaml() || '') as { pipeline: PipelineInfoConfig }
         setCurrentPipeline(presentPipeline)
       }
       setSelectedView(view)
@@ -665,7 +667,7 @@ function RunPipelineFormBasic({
         const Interval = window.setInterval(() => {
           const parsedYaml = parse(yamlHandler.getLatestYaml() || '')
           if (!isEqual(lastYaml, parsedYaml)) {
-            setCurrentPipeline(parsedYaml as { pipeline: NgPipeline })
+            setCurrentPipeline(parsedYaml as { pipeline: PipelineInfoConfig })
             setLastYaml(parsedYaml)
           }
         }, POLL_INTERVAL)
@@ -716,6 +718,14 @@ function RunPipelineFormBasic({
     return <PageSpinner />
   }
 
+  const checkIfRuntimeInputsNotPresent = (): string | undefined => {
+    if (executionView && !executionInputSetTemplateYaml) {
+      return getString('pipeline.inputSets.noRuntimeInputsWhileExecution')
+    } else if (!executionView && pipeline && currentPipeline && !template?.data?.inputSetTemplateYaml) {
+      return getString('runPipelineForm.noRuntimeInput')
+    }
+  }
+
   const renderPipelineInputSetForm = () => {
     if (loadingUpdate) {
       return (
@@ -726,28 +736,33 @@ function RunPipelineFormBasic({
       )
     }
     if (currentPipeline?.pipeline && pipeline && template?.data?.inputSetTemplateYaml) {
+      const templateSource = executionView ? executionInputSetTemplateYaml : template?.data?.inputSetTemplateYaml
       return (
-        <PipelineInputSetForm
-          originalPipeline={{ ...pipeline }}
-          template={parse(template.data.inputSetTemplateYaml).pipeline}
-          readonly={executionView}
-          path=""
-        />
+        <>
+          {existingProvide === 'existing' ? <div className={css.divider} /> : null}
+          <PipelineInputSetForm
+            originalPipeline={{ ...pipeline }}
+            template={parse(templateSource)?.pipeline}
+            readonly={executionView}
+            path=""
+            maybeContainerClass={existingProvide === 'provide' ? css.inputSetFormRunPipeline : ''}
+          />
+        </>
       )
     }
   }
 
   const child = (
     <>
-      <Formik
+      <Formik<Values>
         initialValues={
-          pipeline && currentPipeline && template?.data?.inputSetTemplateYaml
+          (pipeline && currentPipeline && template?.data?.inputSetTemplateYaml
             ? currentPipeline?.pipeline
               ? clearRuntimeInput(currentPipeline.pipeline)
               : {}
             : currentPipeline?.pipeline
             ? clearRuntimeInput(currentPipeline.pipeline)
-            : {}
+            : {}) as Values
         }
         formName="runPipeline"
         onSubmit={values => {
@@ -757,14 +772,14 @@ function RunPipelineFormBasic({
         validate={async values => {
           let errors: FormikErrors<InputSetDTO> = formErrors
 
-          setCurrentPipeline({ ...currentPipeline, pipeline: values as NgPipeline })
+          setCurrentPipeline({ ...currentPipeline, pipeline: values as PipelineInfoConfig })
 
           function validateErrors(): Promise<FormikErrors<InputSetDTO>> {
             return new Promise(resolve => {
               setTimeout(() => {
                 const validatedErrors =
                   (validatePipeline({
-                    pipeline: values as NgPipeline,
+                    pipeline: values as PipelineInfoConfig,
                     template: parse(template?.data?.inputSetTemplateYaml || '')?.pipeline,
                     originalPipeline: pipeline,
                     getString,
@@ -784,6 +799,7 @@ function RunPipelineFormBasic({
         }}
       >
         {({ submitForm, values }) => {
+          const noRuntimeInputs = checkIfRuntimeInputsNotPresent()
           return (
             <Layout.Vertical>
               {executionView ? null : (
@@ -798,10 +814,12 @@ function RunPipelineFormBasic({
                       {getString('runPipeline')}
                     </Heading>
                     {isGitSyncEnabled && (
-                      <GitPopover
-                        data={pipelineResponse?.data?.gitDetails ?? {}}
-                        iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
-                      />
+                      <GitSyncStoreProvider>
+                        <GitPopover
+                          data={pipelineResponse?.data?.gitDetails ?? {}}
+                          iconProps={{ margin: { left: 'small', top: 'xsmall' } }}
+                        />
+                      </GitSyncStoreProvider>
                     )}
                     <div className={css.optionBtns}>
                       <VisualYamlToggle
@@ -820,7 +838,11 @@ function RunPipelineFormBasic({
               {selectedView === SelectedView.VISUAL ? (
                 <div className={executionView ? css.runModalFormContentExecutionView : css.runModalFormContent}>
                   <FormikForm>
-                    {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                    {noRuntimeInputs ? (
+                      <Layout.Horizontal padding="medium" margin="medium">
+                        <Text>{noRuntimeInputs}</Text>
+                      </Layout.Horizontal>
+                    ) : (
                       <>
                         {inputSets && inputSets.length > 0 && (
                           <>
@@ -911,14 +933,6 @@ function RunPipelineFormBasic({
                           <div className={css.noPipelineInputSetForm} />
                         )}
                       </>
-                    ) : (
-                      <Layout.Horizontal padding="medium" margin="medium">
-                        <Text>
-                          {executionView
-                            ? getString('pipeline.inputSets.noRuntimeInputsWhileExecution')
-                            : getString('runPipelineForm.noRuntimeInput')}
-                        </Text>
-                      </Layout.Horizontal>
                     )}
                   </FormikForm>
                 </div>
@@ -943,8 +957,8 @@ function RunPipelineFormBasic({
                 <Layout.Horizontal padding={{ left: 'xlarge', right: 'xlarge', top: 'medium', bottom: 'medium' }}>
                   <Checkbox
                     label={getString('pre-flight-check.skipCheckBtn')}
-                    background={skipPreFlightCheck ? Color.PRIMARY_2 : Color.GREY_100}
-                    color={skipPreFlightCheck ? Color.PRIMARY_7 : Color.BLACK}
+                    background={Color.GREY_100}
+                    color={skipPreFlightCheck ? Color.PRIMARY_8 : Color.BLACK}
                     className={css.footerCheckbox}
                     padding={{ top: 'small', bottom: 'small', left: 'xxlarge', right: 'medium' }}
                     checked={skipPreFlightCheck}
@@ -1053,7 +1067,7 @@ function RunPipelineFormBasic({
 
 export interface RunPipelineFormWrapperProps extends PipelineType<PipelinePathProps> {
   children: React.ReactNode
-  pipeline?: NgPipeline
+  pipeline?: PipelineInfoConfig
 }
 
 export function RunPipelineFormWrapper(props: RunPipelineFormWrapperProps): React.ReactElement {

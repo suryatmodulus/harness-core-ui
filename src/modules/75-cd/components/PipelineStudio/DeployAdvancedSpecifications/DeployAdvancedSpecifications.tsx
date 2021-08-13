@@ -2,6 +2,7 @@ import React from 'react'
 import { Card, Layout } from '@wings-software/uicore'
 import cx from 'classnames'
 import { produce } from 'immer'
+import { set } from 'lodash-es'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FailureStrategyWithRef } from '@pipeline/components/PipelineStudio/FailureStrategy/FailureStrategy'
 import type { StepFormikRef } from '@pipeline/components/PipelineStudio/StepCommands/StepCommands'
@@ -58,9 +59,9 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
                         const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                         if (pipelineStage && pipelineStage.stage) {
                           const stageData = produce(pipelineStage, draft => {
-                            draft.stage.when = when
+                            set(draft, 'stage.when', when)
                           })
-                          updateStage(stageData.stage)
+                          if (stageData.stage) updateStage(stageData.stage)
                         }
                       }}
                     />
@@ -82,9 +83,9 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
                       const { stage: pipelineStage } = getStageFromPipeline(selectedStageId || '')
                       if (pipelineStage && pipelineStage.stage) {
                         const stageData = produce(pipelineStage, draft => {
-                          draft.stage.failureStrategies = failureStrategies
+                          set(draft, 'stage.failureStrategies', failureStrategies)
                         })
-                        updateStage(stageData.stage)
+                        if (stageData.stage) updateStage(stageData.stage)
                       }
                     }}
                     tabName={DeployTabs.ADVANCED}

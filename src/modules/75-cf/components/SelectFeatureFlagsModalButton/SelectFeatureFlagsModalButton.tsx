@@ -70,7 +70,7 @@ export const SelectFeatureFlagsModalButton: React.FC<SelectFeatureFlagsModalButt
         org: orgIdentifier,
         project: projectIdentifier,
         environment: environmentIdentifier,
-        queryString,
+        name: queryString,
         sortOrder,
         sortByField,
         pageNumber,

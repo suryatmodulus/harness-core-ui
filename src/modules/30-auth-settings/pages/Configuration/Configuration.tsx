@@ -12,6 +12,7 @@ import RestrictEmailDomains from '@auth-settings/pages/Configuration/RestrictEma
 import { usePermission } from '@rbac/hooks/usePermission'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import css from './Configuration.module.scss'
 
 export interface PermissionRequest {
@@ -59,7 +60,7 @@ const Configuration: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Page.Header title={`${getString('authentication')}: ${getString('configuration')}`} />
+      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('authentication')} />
       <Page.Body
         loading={fetchingAuthSettings || updating}
         loadingMessage={updating ? getString('authSettings.updating') : undefined}

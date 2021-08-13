@@ -1,31 +1,96 @@
 import React, { useState } from 'react'
-import { Card, Text, Layout, Container, Color } from '@wings-software/uicore'
-import { useHistory, useLocation } from 'react-router-dom'
+import { Card, Text, Layout, Container, Color, Icon } from '@wings-software/uicore'
+import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
 
 import { useStrings } from 'framework/strings'
-import { RecommendationItemDto, useRecommendationsQuery, K8sRecommendationFilterDtoInput } from 'services/ce/services'
+import {
+  RecommendationItemDto,
+  useRecommendationsQuery,
+  useRecommendationsSummaryQuery,
+  K8sRecommendationFilterDtoInput,
+  ResourceType
+} from 'services/ce/services'
 
+import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import formatCost from '@ce/utils/formatCost'
+import EmptyView from '@ce/images/empty-state.svg'
+// import OverviewAddCluster from '@ce/components/OverviewPage/OverviewAddCluster'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
+import css from './RecommendationList.module.scss'
 
 interface RecommendationListProps {
   data: Array<RecommendationItemDto>
   setFilters: React.Dispatch<React.SetStateAction<Record<string, string[]>>>
   filters: Record<string, string[]>
   setCostFilters: React.Dispatch<React.SetStateAction<Record<string, number>>>
+  costFilters: Record<string, number>
+  fetching: boolean
+  pagination: {
+    itemCount: number
+    pageSize: number
+    pageCount: number
+    pageIndex: number
+    gotoPage: (pageNumber: number) => void
+  }
 }
 
-const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters, setFilters, setCostFilters }) => {
+const RecommendationsList: React.FC<RecommendationListProps> = ({
+  data,
+  filters,
+  setFilters,
+  setCostFilters,
+  costFilters,
+  pagination,
+  fetching
+}) => {
   const history = useHistory()
-  const { pathname } = useLocation()
+  const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()
 
+  if (fetching) {
+    return (
+      <Card elevation={1} className={css.errorContainer}>
+        <Icon color="blue500" name="spinner" size={30} />
+      </Card>
+    )
+  }
+
+  // Enable it once clusterData being passed as context
+  // if (!clusterData) {
+  //   return (
+  //     <Card elevation={1} className={css.errorContainer}>
+  //       <OverviewAddCluster />
+  //     </Card>
+  //   )
+  // }
+
+  if (!data.length) {
+    return (
+      <Card elevation={1} className={css.errorContainer}>
+        <img src={EmptyView} />
+        <Text className={css.errorText}>{getString('ce.pageErrorMsg.recommendationNoData')}</Text>
+      </Card>
+    )
+  }
+
   const NameCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
-    return <Text>{cell.value}</Text>
+    const originalRowData = cell.row.original
+    const { resourceType, clusterName, namespace } = originalRowData
+    return resourceType === ResourceType.Workload ? (
+      <Layout.Vertical
+        margin={{
+          right: 'medium'
+        }}
+      >
+        <Text>{clusterName}</Text>
+        <Text>{`/ ${namespace}`}</Text>
+        <Text>{`/ ${cell.value}`}</Text>
+      </Layout.Vertical>
+    ) : null
   }
 
   const RecommendationTypeCell: Renderer<CellProps<RecommendationItemDto>> = ({ row }) => {
@@ -57,7 +122,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters,
   }
 
   const SavingCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
-    return cell.value ? (
+    return !isNaN(cell.value) ? (
       <Text color="green500" icon="money-icon" iconProps={{ size: 28 }}>
         {formatCost(cell.value)}
       </Text>
@@ -68,13 +133,26 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters,
     <Card elevation={1}>
       <Layout.Vertical spacing="large">
         <Layout.Horizontal>
-          <Text style={{ flex: 1 }}>{getString('ce.recommendation.listPage.recommnedationBreakdown')}</Text>
-          <RecommendationFilters setCostFilters={setCostFilters} setFilters={setFilters} filters={filters} />
+          <Text style={{ flex: 1 }} color={Color.GREY_400}>
+            {getString('ce.recommendation.listPage.recommnedationBreakdown')}
+          </Text>
+          <RecommendationFilters
+            costFilters={costFilters}
+            setCostFilters={setCostFilters}
+            setFilters={setFilters}
+            filters={filters}
+          />
         </Layout.Horizontal>
 
         <Table<RecommendationItemDto>
           onRowClick={row => {
-            history.push(`${pathname}/${row.id}/details`)
+            history.push(
+              routes.toCERecommendationDetails({
+                accountId,
+                recommendation: row.id,
+                recommendationName: row.resourceName || row.id
+              })
+            )
           }}
           data={data}
           columns={[
@@ -113,6 +191,7 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters,
               width: '15%'
             }
           ]}
+          pagination={pagination}
         ></Table>
       </Layout.Vertical>
     </Card>
@@ -122,52 +201,84 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({ data, filters,
 const RecommendationList: React.FC = () => {
   const [filters, setFilters] = useState<Record<string, string[]>>({})
   const [costFilters, setCostFilters] = useState<Record<string, number>>({})
+  const [page, setPage] = useState(0)
 
-  // const [offset, setOffset] = useState<number>(0)
-  // const [limit, setLimit] = useState<number>(100)
+  const modifiedCostFilters = costFilters['minSaving'] ? costFilters : { ...costFilters, minSaving: 0 }
 
   const [result] = useRecommendationsQuery({
-    requestPolicy: 'network-only',
-    variables: { filters: { ...filters, offset: 0, limit: 100, ...costFilters } as K8sRecommendationFilterDtoInput }
+    variables: {
+      filter: {
+        ...filters,
+        ...modifiedCostFilters,
+        offset: page * 10,
+        limit: 10,
+        resourceTypes: ['WORKLOAD']
+      } as K8sRecommendationFilterDtoInput
+    }
+  })
+
+  const [summaryResult] = useRecommendationsSummaryQuery({
+    variables: {
+      filter: {
+        ...filters,
+        ...modifiedCostFilters,
+        resourceTypes: ['WORKLOAD']
+      } as K8sRecommendationFilterDtoInput
+    }
   })
 
   const { data, fetching } = result
+  const { data: summaryData } = summaryResult
 
   const { getString } = useStrings()
 
-  const totalMonthlyCost = data?.recommendationStatsV2?.totalMonthlyCost || 0
-  const totalSavings = data?.recommendationStatsV2?.totalMonthlySaving || 0
+  const totalMonthlyCost = summaryData?.recommendationStatsV2?.totalMonthlyCost || 0
+  const totalSavings = summaryData?.recommendationStatsV2?.totalMonthlySaving || 0
 
   const recommendationItems = data?.recommendationsV2?.items || []
+
+  const gotoPage = (pageNumber: number) => setPage(pageNumber)
+
+  const pagination = {
+    itemCount: summaryData?.recommendationStatsV2?.count || 0,
+    pageSize: 10,
+    pageCount: summaryData?.recommendationStatsV2?.count
+      ? Math.ceil(summaryData?.recommendationStatsV2?.count / 10)
+      : 0,
+    pageIndex: page,
+    gotoPage: gotoPage
+  }
+
+  const isEmptyView = !fetching && !recommendationItems?.length
 
   return (
     <>
       <Page.Header title="Recommendations"></Page.Header>
       <Page.Body loading={fetching}>
-        <Container padding="xlarge" background={Color.WHITE} height="100%">
-          {recommendationItems.length ? (
-            <Layout.Vertical spacing="large">
-              <Layout.Horizontal spacing="medium">
-                <RecommendationSavingsCard
-                  title={getString('ce.recommendation.listPage.monthlySavingsText')}
-                  amount={formatCost(totalMonthlyCost)}
-                  iconName="money-icon"
-                />
-                <RecommendationSavingsCard
-                  title={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
-                  amount={formatCost(totalSavings)}
-                  subTitle={getString('ce.recommendation.listPage.forecatedCostSubText')}
-                />
-              </Layout.Horizontal>
-
-              <RecommendationsList
-                setFilters={setFilters}
-                filters={filters}
-                setCostFilters={setCostFilters}
-                data={recommendationItems as Array<RecommendationItemDto>}
+        <Container padding="xlarge" height="100%">
+          <Layout.Vertical spacing="large">
+            <Layout.Horizontal spacing="medium">
+              <RecommendationSavingsCard
+                title={getString('ce.recommendation.listPage.monthlySavingsText')}
+                amount={isEmptyView ? '$-' : formatCost(totalMonthlyCost)}
+                iconName="money-icon"
               />
-            </Layout.Vertical>
-          ) : null}
+              <RecommendationSavingsCard
+                title={getString('ce.recommendation.listPage.monthlyForcastedCostText')}
+                amount={isEmptyView ? '$-' : formatCost(totalSavings)}
+                subTitle={getString('ce.recommendation.listPage.forecatedCostSubText')}
+              />
+            </Layout.Horizontal>
+            <RecommendationsList
+              pagination={pagination}
+              setFilters={setFilters}
+              filters={filters}
+              setCostFilters={setCostFilters}
+              costFilters={costFilters}
+              fetching={fetching}
+              data={recommendationItems as Array<RecommendationItemDto>}
+            />
+          </Layout.Vertical>
         </Container>
       </Page.Body>
     </>

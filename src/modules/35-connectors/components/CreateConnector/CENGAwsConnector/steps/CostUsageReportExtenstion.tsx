@@ -1,81 +1,103 @@
 import React from 'react'
-import { Container } from '@wings-software/uicore'
+import { Container, Heading } from '@wings-software/uicore'
+import { useStrings } from 'framework/strings'
 import css from '../CreateCeAwsConnector.module.scss'
 
 const CostUsageReportExtention: React.FC = () => {
+  const { getString } = useStrings()
   return (
     <Container className={css.extention}>
-      <span>
-        <h2>How to Create Cost and Usage Report?</h2>
-        <div className={css.listPoints}>
-          <p>Once the template is launched in the AWS console:</p>
-          <ol type="A">
+      <Heading level={2} className={css.header}>
+        {getString('connectors.ceAws.curExtention.heading')}
+      </Heading>
+      <p>{getString('connectors.ceAws.curExtention.subtext')}</p>
+      <ol type="A">
+        <li>
+          <p style={{ fontWeight: 700 }}>{getString('connectors.ceAws.curExtention.stepA.heading')}</p>
+          <ol>
             <li>
-              <h3 style={{ fontWeight: 700 }}>Creating a Report</h3>
-              <ol>
-                <li>
-                  Click <span className={css.gray}>Create Report</span> and provide a Cost and Usage Report Name. Copy
-                  this and paste it in the space provided on the left.
-                </li>
-                <li>Check Include resource IDs and keep other selections as is.</li>
-                <li>Click Next.</li>
-              </ol>
+              {getString('connectors.click')}{' '}
+              <span className={css.gray}>{getString('connectors.ceAws.curExtention.stepA.step1.p1')}</span>{' '}
+              {getString('connectors.ceAws.curExtention.stepA.step1.p2')}
             </li>
+            <li>{getString('connectors.ceAws.curExtention.stepA.step2')}</li>
+            <li>{getString('connectors.ceAws.curExtention.stepA.step3')}</li>
+          </ol>
+        </li>
+        <li>
+          {' '}
+          <p style={{ fontWeight: 700 }}>{getString('connectors.ceAws.curExtention.stepB.heading')}</p>
+          <ol>
+            <li>
+              {getString('connectors.click')}{' '}
+              <span className={css.gray}>{getString('connectors.ceAws.curExtention.stepB.step1.p1')}</span>{' '}
+              {getString('connectors.ceAws.curExtention.stepB.step1.p2')}
+            </li>
+            <li>{getString('connectors.ceAws.curExtention.stepB.step2')}</li>
             <li>
               {' '}
-              <h3 style={{ fontWeight: 700 }}>Delivery options</h3>
-              <ol>
-                <li>
-                  Click <span className={css.gray}>Configure</span> to create an S3 bucket.
-                </li>
-                <li>Provide an S3 bucket name and select Region (preferably US East - N.Virginia).</li>
-                <li>
-                  {' '}
-                  Click <span className={css.gray}>Next</span>, then click <span className={css.gray}>Save</span>.
-                </li>
-                <li> Enter a Report path prefix.</li>
-                <li>
-                  Configure the report with the following configuration:
-                  <ul>
-                    <li>
-                      Time granularity: <span className={css.gray}>Hourly</span>
-                    </li>
-                    <li>
-                      Report versioning: <span className={css.gray}>Overwrite Existing Report Version</span>
-                    </li>
-                    <li>You do not need to enable any report data integrations.</li>
-                    <li>
-                      Compression: <span className={css.gray}>GZIP</span>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  Click <span className={css.gray}>Next</span>, then click{' '}
-                  <span className={css.gray}>Review and Complete</span> .
-                </li>
-                <li>Copy and enter the CUR Report name and S3 bucket name.</li>
-              </ol>
+              {getString('connectors.click')} <span className={css.gray}>{getString('next')}</span>
+              {getString('connectors.ceAws.curExtention.stepB.step3.p1')}
+              <span className={css.gray}>{getString('save')}</span>.
             </li>
+            <li> {getString('connectors.ceAws.curExtention.stepB.step4')}</li>
+            <li>
+              {getString('connectors.ceAws.curExtention.stepB.step5.heading')}
+              <ul>
+                <li>
+                  {getString('connectors.ceAws.curExtention.stepB.step5.subStep1.p1')}{' '}
+                  <span className={css.gray}>{getString('connectors.ceAws.curExtention.stepB.step5.subStep1.p2')}</span>
+                </li>
+                <li>
+                  {getString('connectors.ceAws.curExtention.stepB.step5.subStep2.p1')}
+                  <span className={css.gray}>{getString('connectors.ceAws.curExtention.stepB.step5.subStep2.p2')}</span>
+                </li>
+                <li>{getString('connectors.ceAws.curExtention.stepB.step5.subStep3')}</li>
+                <li>
+                  {getString('connectors.ceAws.curExtention.stepB.step5.subStep4.p1')}
+                  <span className={css.gray}>{getString('connectors.ceAws.curExtention.stepB.step5.subStep4.p2')}</span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              {getString('connectors.click')} <span className={css.gray}>{getString('next')}</span>
+              {getString('connectors.ceAws.curExtention.stepB.step6.p1')}
+              <span className={css.gray}>{getString('connectors.ceAws.curExtention.stepB.step6.p2')}</span> .
+            </li>
+            <li>{getString('connectors.ceAws.curExtention.stepB.step7')}</li>
           </ol>
-          <span>
-            More help:
-            <ul>
-              <li>
-                <a>Watch help video</a>
-              </li>
-              <li>
-                <a>Harness Documentation</a>
-              </li>
-              <li>
-                <a>Creating Cost and Usage Reports</a>
-              </li>
-              <li>
-                <a>Billing and Cost Management Policy Examples</a>
-              </li>
-            </ul>
-          </span>
-        </div>
-      </span>
+        </li>
+      </ol>
+
+      <p>{getString('connectors.ceAws.curExtention.moreHelp.heading')}</p>
+      <ul>
+        <li>
+          <a>{getString('connectors.ceAws.curExtention.moreHelp.step1')}</a>
+        </li>
+        <li>
+          <a
+            href="https://docs.harness.io/article/5ql31pdjcm-enable-continuous-efficiency-for-aws"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {getString('connectors.ceAws.curExtention.moreHelp.step2')}
+          </a>
+        </li>
+        <li>
+          <a href="https://docs.aws.amazon.com/cur/latest/userguide/cur-create.html" target="_blank" rel="noreferrer">
+            {getString('connectors.ceAws.curExtention.moreHelp.step3')}
+          </a>
+        </li>
+        <li>
+          <a
+            href="https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/billing-example-policies.html#example-billing-view-reports"
+            rel="noreferrer"
+            target="_blank"
+          >
+            {getString('connectors.ceAws.curExtention.moreHelp.step4')}
+          </a>
+        </li>
+      </ul>
     </Container>
   )
 }

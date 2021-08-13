@@ -3,8 +3,7 @@ import { Text, Layout, Container, Color } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import produce from 'immer'
-import type { ResourceGroupDetailsPathProps } from '@common/interfaces/RouteInterfaces'
-
+import type { ModulePathParams, ResourceGroupDetailsPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
 import ResourceTypeList from '@rbac/components/ResourceTypeList/ResourceTypeList'
 import {
@@ -19,7 +18,7 @@ import { useToaster } from '@common/components/Toaster/useToaster'
 import { RbacResourceGroupTypes } from '@rbac/constants/utils'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import ResourcesCard from '@rbac/components/ResourcesCard/ResourcesCard'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import routes from '@common/RouteDefinitions'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
@@ -30,8 +29,9 @@ import { getResourceSelectorsfromMap, getSelectedResourcesMap } from './utils'
 import css from './ResourceGroupDetails.module.scss'
 
 const ResourceGroupDetails: React.FC = () => {
-  const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier } =
-    useParams<ResourceGroupDetailsPathProps>()
+  const { accountId, projectIdentifier, orgIdentifier, resourceGroupIdentifier, module } = useParams<
+    ResourceGroupDetailsPathProps & ModulePathParams
+  >()
   const { getString } = useStrings()
   const { showError, showSuccess } = useToaster()
   const [isUpdated, setIsUpdated] = useState<boolean>(false)
@@ -105,7 +105,7 @@ const ResourceGroupDetails: React.FC = () => {
     try {
       const updated = await updateResourceGroup(dataToSubmit)
       if (updated) {
-        showSuccess(getString('resourceGroup.updateSuccess'))
+        showSuccess(getString('rbac.resourceGroup.updateSuccess'))
         refetch()
       }
     } /* istanbul ignore next */ catch (e) {
@@ -184,43 +184,41 @@ const ResourceGroupDetails: React.FC = () => {
       />
     )
   if (!resourceGroup)
-    return <Page.NoDataCard icon="resources-icon" message={getString('resourceGroup.noResourceGroupFound')} />
+    return <Page.NoDataCard icon="resources-icon" message={getString('rbac.resourceGroup.noResourceGroupFound')} />
 
   return (
     <>
       <Page.Header
         size="xlarge"
         className={css.headerContainer}
+        breadcrumbs={
+          <NGBreadcrumbs
+            links={[
+              {
+                url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('accessControl')
+              },
+              {
+                url: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier, module }),
+                label: getString('resourceGroups')
+              }
+            ]}
+          />
+        }
         title={
-          <Layout.Vertical spacing="small">
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toAccessControl({ accountId, orgIdentifier, projectIdentifier }),
-                  label: getString('accessControl')
-                },
-                {
-                  url: routes.toResourceGroups({ accountId, orgIdentifier, projectIdentifier }),
-                  label: getString('resourceGroups')
-                },
-                {
-                  url: '#',
-                  label: resourceGroup.name || ''
-                }
-              ]}
-            />
-            <Layout.Horizontal spacing="medium" flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
-              <div style={{ backgroundColor: resourceGroup.color }} className={css.colorDiv}></div>
-              <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
-                <Text font="medium" lineClamp={1} color={Color.BLACK} width={700}>
-                  {resourceGroup.name}
-                </Text>
+          <Layout.Horizontal spacing="medium" flex={{ justifyContent: 'flex-start', alignItems: 'center' }}>
+            <div style={{ backgroundColor: resourceGroup.color }} className={css.colorDiv}></div>
+            <Layout.Vertical padding={{ left: 'medium' }} spacing="xsmall">
+              <Text font="medium" lineClamp={1} color={Color.BLACK} width={700}>
+                {resourceGroup.name}
+              </Text>
+              {resourceGroup.description && (
                 <Text lineClamp={1} color={Color.GREY_400} width={700}>
                   {resourceGroup.description}
                 </Text>
-              </Layout.Vertical>
-            </Layout.Horizontal>
-          </Layout.Vertical>
+              )}
+            </Layout.Vertical>
+          </Layout.Horizontal>
         }
         toolbar={
           <Layout.Horizontal flex>
@@ -233,7 +231,7 @@ const ResourceGroupDetails: React.FC = () => {
               <Text lineClamp={1} color={Color.BLACK}>
                 {isHarnessManaged ? (
                   <Text lineClamp={1} color={Color.BLACK}>
-                    {getString('resourceGroup.builtInResourceGroup')}
+                    {getString('rbac.resourceGroup.builtInResourceGroup')}
                   </Text>
                 ) : (
                   <ReactTimeago date={resourceGroupDetails?.data?.createdAt || ''} />
@@ -245,7 +243,7 @@ const ResourceGroupDetails: React.FC = () => {
               <Text lineClamp={1} color={Color.BLACK}>
                 {isHarnessManaged ? (
                   <Text lineClamp={1} color={Color.BLACK}>
-                    {getString('resourceGroup.builtInResourceGroup')}
+                    {getString('rbac.resourceGroup.builtInResourceGroup')}
                   </Text>
                 ) : (
                   <ReactTimeago date={resourceGroupDetails?.data?.lastModifiedAt || ''} />
@@ -312,7 +310,7 @@ const ResourceGroupDetails: React.FC = () => {
             <Layout.Vertical spacing="small" height="100%">
               {Array.from(selectedResourcesMap.keys()).length === 0 && (
                 <Page.NoDataCard
-                  message={getString('resourceGroup.dragAndDropData')}
+                  message={getString('rbac.resourceGroup.dragAndDropData')}
                   icon="drag-handle-horizontal"
                   iconSize={100}
                 />

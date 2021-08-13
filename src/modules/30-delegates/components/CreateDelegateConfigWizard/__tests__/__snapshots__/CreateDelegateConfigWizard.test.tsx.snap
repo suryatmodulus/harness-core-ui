@@ -90,7 +90,7 @@ exports[`Create Delegate Wizard render data 1`] = `
                   delegates.newDelegateConfigWizard.overviewTitle
                 </h2>
                 <div
-                  class="StyledProps--font StyledProps--main main configWizardNameComponent"
+                  class="StyledProps--font StyledProps--main main"
                 >
                   <div
                     class="InputWithIdentifier--txtNameContainer TextInput--main"

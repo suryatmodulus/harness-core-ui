@@ -1,26 +1,21 @@
 import React, { useEffect } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { useStrings } from 'framework/strings'
+import { pick } from 'lodash-es'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
-import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import useCETrialModal from '@ce/modals/CETrialModal/useCETrialModal'
-import { HomePageTemplate } from '@common/components/HomePageTemplate/HomePageTemplate'
+import type { AccountPathProps, Module } from '@common/interfaces/RouteInterfaces'
 import { useGetLicensesAndSummary } from 'services/cd-ng'
-import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
-import { TrialInProgressTemplate } from '@common/components/TrialHomePageTemplate/TrialInProgressTemplate'
 import { useQueryParams } from '@common/hooks'
-import { useGetProjectList } from 'services/cd-ng'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import type { Project } from 'services/cd-ng'
 import routes from '@common/RouteDefinitions'
-import CETrialHomePage from './CETrialHomePage'
-import bgImageURL from './ce-homepage-bg.svg'
+import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 
 const CEHomePage: React.FC = () => {
-  const { getString } = useStrings()
-  const { currentUserInfo, selectedProject, updateAppStore } = useAppStore()
+  const { currentUserInfo } = useAppStore()
+  const { NG_LICENSES_ENABLED } = useFeatureFlags()
+  const { licenseInformation, updateLicenseStore } = useLicenseStore()
 
   const { accountId } = useParams<AccountPathProps>()
 
@@ -29,131 +24,65 @@ const CEHomePage: React.FC = () => {
   const { accounts } = currentUserInfo
   const createdFromNG = accounts?.find(account => account.uuid === accountId)?.createdFromNG
 
-  const {
-    data: projectListData,
-    loading: getProjectListLoading,
-    error: getProjectListError
-  } = useGetProjectList({
-    queryParams: {
-      accountIdentifier: accountId
-    },
-    debounce: 300
-  })
-
   const { data, error, refetch, loading } = useGetLicensesAndSummary({
     queryParams: { moduleType: ModuleName.CE as any },
     accountIdentifier: accountId
   })
+
+  const expiryTime = data?.data?.maxExpiryTime
+  const updatedLicenseInfo = data?.data && {
+    ...licenseInformation?.['CF'],
+    ...pick(data?.data, ['licenseType', 'edition']),
+    expiryTime
+  }
+
+  useEffect(() => {
+    handleUpdateLicenseStore(
+      { ...licenseInformation },
+      updateLicenseStore,
+      ModuleName.CF.toString() as Module,
+      updatedLicenseInfo
+    )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   useEffect(() => {
     refetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [trial])
 
-  function handleSelectProjectFromModal(provider: string, project?: Project): void {
-    history.push({
-      pathname: routes.toCECOCreateGateway({
-        orgIdentifier: project?.orgIdentifier || selectedProject?.orgIdentifier || '',
-        projectIdentifier: project?.orgIdentifier || selectedProject?.identifier || '',
-        accountId
-      }),
-      search: `?provider=${provider}`
-    })
-  }
-
-  function handleRouteToCECO(): void {
-    history.push({
-      pathname: routes.toCECORules({
-        orgIdentifier: selectedProject?.orgIdentifier || '',
-        projectIdentifier: selectedProject?.identifier || '',
-        accountId
-      })
-    })
-  }
-
-  const { openProjectModal, closeProjectModal } = useProjectModal({
-    onWizardComplete: (project?: Project) => {
-      updateAppStore({ selectedProject: project })
-      closeProjectModal()
-      showModal()
-    }
-  })
-
-  function handleOpenProjectModal(): void {
-    hideModal()
-    openProjectModal()
-  }
-
-  const { showModal, hideModal } = useCETrialModal({
-    isProjectSelected: Boolean(selectedProject),
-    openProjectModal: handleOpenProjectModal,
-    routeToCE: handleSelectProjectFromModal,
-    onClose: selectedProject ? handleRouteToCECO : undefined
-  })
-
-  const projectsExist = projectListData?.data?.content?.length !== 0
-
-  useEffect(() => {
-    if (trial && projectsExist) {
-      showModal()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projectsExist, trial])
-
-  const trialInProgressProps = {
-    description: getString('common.trialInProgressDescription'),
-    startBtn: {
-      description: getString('createProject'),
-      onClick: openProjectModal
-    }
-  }
-
   const history = useHistory()
 
-  const trialBannerProps = {
-    expiryTime: data?.data?.maxExpiryTime,
-    licenseType: data?.data?.licenseType,
-    module: ModuleName.CE,
-    refetch
-  }
-
-  if (loading || getProjectListLoading) {
+  if (loading) {
     return <PageSpinner />
   }
 
-  if (error || getProjectListError) {
-    const message =
-      (error?.data as Error)?.message ||
-      error?.message ||
-      (getProjectListError?.data as Error)?.message ||
-      getProjectListError?.message
+  if (error) {
+    const message = (error?.data as Error)?.message || error?.message
     return <PageError message={message} onClick={() => refetch()} />
   }
 
-  if (createdFromNG && data?.status === 'SUCCESS' && !data.data) {
-    return <CETrialHomePage />
-  }
+  const showTrialPages = createdFromNG || NG_LICENSES_ENABLED
 
-  if (createdFromNG && data && data.data && trial) {
-    return (
-      <TrialInProgressTemplate
-        title={getString('ce.continuous')}
-        bgImageUrl={bgImageURL}
-        trialInProgressProps={trialInProgressProps}
-        trialBannerProps={trialBannerProps}
-      />
+  if (showTrialPages && data?.status === 'SUCCESS' && !data.data) {
+    history.push(
+      routes.toModuleTrialHome({
+        accountId,
+        module: 'ce'
+      })
     )
+  } else if (showTrialPages && data && data.data && trial) {
+    history.push(
+      routes.toModuleTrialHome({
+        accountId,
+        module: 'ce'
+      })
+    )
+  } else {
+    history.push(routes.toCEOverview({ accountId }))
   }
 
-  return (
-    <HomePageTemplate
-      title={getString('ce.continuous')}
-      bgImageUrl={bgImageURL}
-      subTitle={getString('ce.homepage.slogan')}
-      documentText={getString('ce.learnMore')}
-      trialBannerProps={trialBannerProps}
-    />
-  )
+  return null
 }
 
 export default CEHomePage

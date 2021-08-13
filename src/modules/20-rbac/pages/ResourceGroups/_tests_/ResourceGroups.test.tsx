@@ -61,7 +61,7 @@ describe('Resource Groups Page', () => {
       fireEvent.click(getByText('delete'))
     })
     await waitFor(() => {
-      expect(getByText('resourceGroup.confirmDeleteTitle')).toBeDefined()
+      expect(getByText('rbac.resourceGroup.confirmDeleteTitle')).toBeDefined()
     })
     await waitFor(() => {
       fireEvent.click(getByText('delete'))

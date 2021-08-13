@@ -8,11 +8,13 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
+  MultiTypeSelectOption,
   MultiTypeMapType,
   MultiTypeMapUIType,
   MultiTypeConnectorRef,
   Resources
 } from '@pipeline/components/PipelineSteps/Steps/StepsTypes'
+import type { StringsMap } from 'stringTypes'
 import { PluginStepBaseWithRef } from './PluginStepBase'
 import { PluginStepInputSet } from './PluginStepInputSet'
 import { PluginStepVariables, PluginStepVariablesProps } from './PluginStepVariables'
@@ -23,8 +25,8 @@ export interface PluginStepSpec {
   image: string
   privileged: boolean
   settings?: MultiTypeMapType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypePullOption
+  imagePullPolicy?: MultiTypeSelectOption
+  runAsUser?: string
   resources?: Resources
 }
 
@@ -42,6 +44,7 @@ export interface PluginStepSpecUI extends Omit<PluginStepSpec, 'connectorRef' | 
   settings?: MultiTypeMapUIType
   // TODO: Right now we do not support Image Pull Policy but will do in the future
   // pull?: MultiTypeSelectOption
+  runAsUser?: string
   limitMemory?: string
   limitCPU?: string
 }
@@ -70,6 +73,8 @@ export class PluginStep extends PipelineStep<PluginStepData> {
   protected type = StepType.Plugin
   protected stepName = 'Configure Plugin Step'
   protected stepIcon: IconName = 'plugin-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Plugin'
+
   protected stepPaletteVisible = false
 
   protected defaultValues: PluginStepData = {

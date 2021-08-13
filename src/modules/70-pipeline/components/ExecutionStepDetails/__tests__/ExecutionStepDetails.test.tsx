@@ -123,11 +123,11 @@ describe('<ExecutionStepDetails /> tests', () => {
 
       fireEvent.click(retryLogs2)
 
-      const current = await findAllByTextGlobal(document.body, 'pipeline.execution.currentExecution', {
+      const current = await findAllByTextGlobal(document.body, 'pipeline.execution.retryStepCount', {
         selector: '.bp3-menu-item > div'
       })
 
-      fireEvent.click(current[0])
+      fireEvent.click(current[current.length - 1])
 
       const loc3 = await findByTestId('location')
 

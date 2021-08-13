@@ -3,6 +3,7 @@ import type { IconName } from '@wings-software/uicore'
 import { parse } from 'yaml'
 import type { AddDrawerMapInterface } from '@common/components/AddDrawer/AddDrawer'
 import type { StringKeys } from 'framework/strings'
+import { manifestTypeIcons } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import { TriggerTypes, AWS_CODECOMMIT, AwsCodeCommit } from './TriggersWizardPageUtils'
 
 export const GitSourceProviders: Record<string, { value: string; iconName: IconName }> = {
@@ -14,14 +15,17 @@ export const GitSourceProviders: Record<string, { value: string; iconName: IconN
 }
 
 const TriggerTypeIcons = {
-  SCHEDULE: 'trigger-schedule'
+  SCHEDULE: 'trigger-schedule',
+  NEW_ARTIFACT: 'new-artifact'
 }
 export const getTriggerIcon = ({
   type,
-  webhookSourceRepo
+  webhookSourceRepo,
+  artifactManifestType
 }: {
   type: string
   webhookSourceRepo?: string // string temporary until backend
+  artifactManifestType?: string
 }): IconName => {
   const updatedWebhookSourceRepo =
     webhookSourceRepo === AwsCodeCommit ? AWS_CODECOMMIT : webhookSourceRepo?.toUpperCase()
@@ -31,6 +35,10 @@ export const getTriggerIcon = ({
     return webhookSourceRepoIconName as IconName
   } else if (type === TriggerTypes.SCHEDULE) {
     return TriggerTypeIcons.SCHEDULE as IconName
+  } else if (type === TriggerTypes.MANIFEST && artifactManifestType) {
+    if (artifactManifestType === 'HelmChart') {
+      return manifestTypeIcons.HelmChart
+    }
   }
   return 'yaml-builder-trigger'
 }
@@ -40,34 +48,8 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
   drawerSubLabel: getString('pipeline.triggers.triggersSubLabel'),
   showAllLabel: getString('pipeline.triggers.showAllTriggers'),
   searchPlaceholder: getString('pipeline.triggers.searchPlaceholder'),
+
   categories: [
-    // {
-    //   categoryLabel: getString('pipeline.triggers.onNewArtifactTitle'),
-    //   categoryValue: 'OnArtifact',
-    //   items: [
-    //     {
-    //       itemLabel: getString('pipeline.triggers.newArtifactLabel'),
-    //       value: 'NewArtifact',
-    //       iconName: 'trigger-artifact' as IconName
-    //     },
-    //     {
-    //       itemLabel: getString('pipeline.triggers.newManifestLabel'),
-    //       value: 'NewManifest',
-    //       iconName: 'trigger-artifact' as IconName
-    //     }
-    //   ]
-    // },
-    {
-      categoryLabel: getString('pipeline.triggers.scheduledLabel'),
-      categoryValue: 'Scheduled',
-      items: [
-        {
-          itemLabel: getString('pipeline.triggers.cronLabel'),
-          value: 'Cron',
-          iconName: TriggerTypeIcons.SCHEDULE as IconName
-        }
-      ]
-    },
     {
       categoryLabel: getString('execution.triggerType.WEBHOOK'),
       categoryValue: 'Webhook',
@@ -98,6 +80,17 @@ const triggerDrawerMap = (getString: (key: StringKeys) => string): AddDrawerMapI
           iconName: GitSourceProviders.CUSTOM.iconName
         }
       ]
+    },
+    {
+      categoryLabel: getString('pipeline.triggers.scheduledLabel'),
+      categoryValue: 'Scheduled',
+      items: [
+        {
+          itemLabel: getString('pipeline.triggers.cronLabel'),
+          value: 'Cron',
+          iconName: TriggerTypeIcons.SCHEDULE as IconName
+        }
+      ]
     }
   ]
 })
@@ -125,7 +118,8 @@ export interface ItemInterface {
 export interface TriggerDataInterface {
   triggerType: string
   sourceRepo?: string
-  // all else optional
+  manifestType?: string
+  artifactType?: string
 }
 
 export const getEnabledStatusTriggerValues = ({

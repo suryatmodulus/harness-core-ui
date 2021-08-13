@@ -1,0 +1,102 @@
+.hiddenField input {
+  display: none;
+}
+
+.setupContainer {
+  margin-bottom: 80px !important;
+
+  .sectionHeading {
+    padding: var(--spacing-small) var(--spacing-xsmall) !important;
+    border-bottom: 1px solid var(--grey-250);
+    font-size: var(--font-size-medium) !important;
+    margin-bottom: var(--spacing-small) !important;
+  }
+
+  .nameAndMetricTagContainer {
+    width: 48% !important;
+    max-width: 550px;
+    margin-right: var(--spacing-medium);
+  }
+
+  .configureRiskProfileContainer {
+    .inlineRadio {
+      label {
+        color: var(--black) !important;
+      }
+      div > div {
+        display: flex;
+        label:not(:last-of-type) {
+          margin-right: var(--spacing-medium) !important;
+        }
+      }
+    }
+    .deviation {
+      .checkboxLabel {
+        margin-bottom: var(--spacing-small) !important;
+      }
+      .checkbox {
+        display: flex;
+        div:first-child {
+          position: relative;
+          left: 13px;
+          margin-right: 25px !important;
+        }
+        [class*='checkBoxDocTooltipLabel'] {
+          width: 200px !important;
+          color: var(--black) !important;
+        }
+      }
+    }
+  }
+
+  .validationContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-large) !important;
+
+    .textAreaLabel {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      > p:nth-child(2) {
+        cursor: pointer;
+      }
+    }
+
+    .query {
+      flex-basis: 48%;
+      max-width: 550px;
+      textarea {
+        resize: none;
+        height: 200px;
+        width: 100%;
+        border: 1px solid var(--grey-250);
+        border-radius: 4px;
+        padding: var(--spacing-small);
+      }
+    }
+
+    .chartContainer {
+      flex-basis: 45%;
+      margin-left: var(--spacing-large) !important;
+      max-width: 550px;
+
+      .tooManyRecords {
+        background: var(--red-100) !important;
+        padding: var(--spacing-xsmall) var(--spacing-small) !important;
+        margin-top: var(--spacing-small) !important;
+        span {
+          margin-right: var(--spacing-xsmall) !important;
+        }
+      }
+    }
+
+    .chartContainer.noDataContainer > div:first-child {
+      height: unset !important;
+    }
+
+    .sampleDataSpinner {
+      margin: 0 auto;
+    }
+  }
+}

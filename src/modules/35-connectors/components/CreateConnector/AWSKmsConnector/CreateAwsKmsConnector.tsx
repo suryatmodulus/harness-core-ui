@@ -5,36 +5,29 @@ import { getConnectorIconByType, getConnectorTitleIdByType } from '@connectors/p
 import {
   Connectors,
   CONNECTOR_CREDENTIALS_STEP_IDENTIFIER,
-  SECRET_MANAGER_TESTCONNECTION_STEP_INDEX
+  CreateConnectorModalProps,
+  TESTCONNECTION_STEP_INDEX
 } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
-import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import type { IGitContextFormProps } from '@common/components/GitContextForm/GitContextForm'
+import DelegateSelectorStep from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelectorStep'
+import { buildAWSKmsSMPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import ConnectorDetailsStep from '../commonSteps/ConnectorDetailsStep'
 import AwsKmsConfig from './views/AwsKmsConfig'
 import css from './CreateAwsKmsConnector.module.scss'
-
-export interface CreateAwsKmsConnectorProps {
-  onClose: () => void
-  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
-  isEditMode: boolean
-  mock?: any
-  connectorInfo?: ConnectorInfoDTO | void
-  gitDetails?: IGitContextFormProps
-}
 
 export interface StepSecretManagerProps extends ConnectorInfoDTO {
   isEdit: boolean
   spec: any
 }
 
-const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
+const CreateAwsKmsConnector: React.FC<CreateConnectorModalProps> = props => {
   const { onClose, onSuccess } = props
   const { getString } = useStrings()
   return (
-    <StepWizard<StepSecretManagerProps>
+    <StepWizard
       icon={getConnectorIconByType(Connectors.AWS_KMS)}
       iconProps={{ size: 37 }}
       title={getString(getConnectorTitleIdByType(Connectors.AWS_KMS))}
@@ -53,8 +46,18 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         name={getString('details')}
         identifier={CONNECTOR_CREDENTIALS_STEP_IDENTIFIER}
         {...props}
-        onSuccess={onSuccess}
         connectorInfo={props.connectorInfo}
+      />
+      <DelegateSelectorStep
+        name={getString('delegate.DelegateselectionLabel')}
+        isEditMode={props.isEditMode}
+        setIsEditMode={props.setIsEditMode}
+        buildPayload={buildAWSKmsSMPayload}
+        hideModal={onClose}
+        onConnectorCreated={onSuccess}
+        connectorInfo={props.connectorInfo}
+        gitDetails={props.gitDetails}
+        disableGitSync={true}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}
@@ -63,7 +66,7 @@ const CreateAwsKmsConnector: React.FC<CreateAwsKmsConnectorProps> = props => {
         onClose={onClose}
         isLastStep={true}
         type={Connectors.AWS_KMS}
-        stepIndex={SECRET_MANAGER_TESTCONNECTION_STEP_INDEX}
+        stepIndex={TESTCONNECTION_STEP_INDEX}
       />
     </StepWizard>
   )

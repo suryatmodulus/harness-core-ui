@@ -16,7 +16,7 @@ import { useStrings } from 'framework/strings'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
 
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useQueryParams } from '@common/hooks'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { FeatureFlag } from '@common/featureFlags'
@@ -29,7 +29,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
   const history = useHistory()
 
   const getTrialPipelineCreateForm = (
-    onSubmit: (values: NgPipeline) => void,
+    onSubmit: (values: PipelineInfoConfig) => void,
     onClose: () => void
   ): React.ReactElement => getCITrialDialog({ onSubmit, onClose, isSelect: false })
 

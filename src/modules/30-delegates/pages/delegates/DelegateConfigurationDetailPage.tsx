@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, Layout, SimpleTagInput, Text, TextInput, useToggle } from '@wings-software/uicore'
+import { Container, Layout, SimpleTagInput, TextInput, useToggle } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import {
   SectionContainer,
@@ -22,7 +22,8 @@ import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
 import { fullSizeContentStyle } from '@delegates/constants'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
 import { useToaster } from '@common/exports'
-import DelegateConfigScope from '@delegates/components/DelegateConfigScope'
+import DelegateConfigScopeEdit from '@delegates/components/DelegateConfigScope/DelegateConfigScopeEdit'
+import DelegateConfigScopePreview from '@delegates/components/DelegateConfigScope/DelegateConfigScopePreview'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -239,6 +240,11 @@ export default function DelegateProfileDetails(): JSX.Element {
                     }
                   />
 
+                  <SectionLabelValuePair
+                    label={getString('delegates.delegateIdentifier')}
+                    value={profile?.identifier}
+                  />
+
                   {/* Description */}
                   {!editMode && profile?.description && (
                     <SectionLabelValuePair label={getString('description')} value={formData.description} />
@@ -291,15 +297,14 @@ export default function DelegateProfileDetails(): JSX.Element {
 
                 <SectionContainer>
                   <SectionContainerTitle>{getString('delegate.Scope')}</SectionContainerTitle>
-                  <Text style={{ fontSize: '14px', color: '#22272D', lineHeight: '24px', fontWeight: 500 }}>
-                    {getString('delegate.ScopeDescription')}
-                  </Text>
-                  {profile && (
-                    <DelegateConfigScope
+                  {profile && editMode ? (
+                    <DelegateConfigScopeEdit
                       onChange={onScopeChange}
-                      scopingRules={profile?.scopingRules || []}
+                      scopingRules={scopingRules}
                       isPreviewOnly={!editMode}
                     />
+                  ) : (
+                    <DelegateConfigScopePreview scopingRules={scopingRules} />
                   )}
                 </SectionContainer>
               </Layout.Vertical>

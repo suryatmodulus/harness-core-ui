@@ -1,19 +1,37 @@
 import type { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import type { StageType } from '@pipeline/utils/stageHelpers'
 
-import type { StepDetailsRegister, ExecutionCardInfoRegister, ExecutionSummaryRegister } from './types'
+import type {
+  StepDetailsRegister,
+  ExecutionCardInfoRegister,
+  ExecutionSummaryRegister,
+  ConsoleViewStepDetailsRegister,
+  StageDetailsRegister
+} from './types'
+
+export interface ExecutionFactoryConstruct {
+  defaultStepDetails: StepDetailsRegister
+  defaultConsoleViewStepDetails: ConsoleViewStepDetailsRegister
+}
 
 export class ExecutionFactory {
   private stepDetailsMap = new Map<StepType, StepDetailsRegister>()
 
-  private defaultStepDetails!: StepDetailsRegister
+  private defaultStepDetails: StepDetailsRegister
 
   private cardInfoMap = new Map<StageType, ExecutionCardInfoRegister>()
 
   private summaryInfoMap = new Map<StageType, ExecutionSummaryRegister>()
 
-  registerDefaultStepDetails(defaultRegister: StepDetailsRegister): void {
-    this.defaultStepDetails = defaultRegister
+  private consoleViewStepDetailsMap = new Map<StepType, ConsoleViewStepDetailsRegister>()
+
+  private defaultConsoleViewStepDetails: ConsoleViewStepDetailsRegister
+
+  private stageDetailsMap = new Map<StageType, StageDetailsRegister>()
+
+  constructor(opt: ExecutionFactoryConstruct) {
+    this.defaultStepDetails = opt.defaultStepDetails
+    this.defaultConsoleViewStepDetails = opt.defaultConsoleViewStepDetails
   }
 
   registerStepDetails(stepType: StepType, stepDetails: StepDetailsRegister): void {
@@ -43,5 +61,21 @@ export class ExecutionFactory {
 
   getSummary(type: StageType): ExecutionSummaryRegister | null {
     return this.summaryInfoMap.get(type) || null
+  }
+
+  registerConsoleViewStepDetails(type: StepType, data: ConsoleViewStepDetailsRegister): void {
+    this.consoleViewStepDetailsMap.set(type, data)
+  }
+
+  getConsoleViewStepDetails(type: StepType): ConsoleViewStepDetailsRegister {
+    return this.consoleViewStepDetailsMap.get(type) || this.defaultConsoleViewStepDetails
+  }
+
+  registerStageDetails(type: StageType, data: StageDetailsRegister): void {
+    this.stageDetailsMap.set(type, data)
+  }
+
+  getStageDetails(type: StageType): StageDetailsRegister | null {
+    return this.stageDetailsMap.get(type) || null
   }
 }

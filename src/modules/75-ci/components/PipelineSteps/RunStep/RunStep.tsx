@@ -10,6 +10,7 @@ import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { validateInputSet } from '@pipeline/components/PipelineSteps/Steps/StepsValidateUtils'
 import { getFormValuesInCorrectFormat } from '@pipeline/components/PipelineSteps/Steps/StepsTransformValuesUtils'
 import type {
+  MultiTypeSelectOption,
   MultiTypeMapType,
   MultiTypeMapUIType,
   MultiTypeListType,
@@ -20,6 +21,7 @@ import type {
 import type { CompletionItemInterface } from '@common/interfaces/YAMLBuilderProps'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import type { StringsMap } from 'stringTypes'
 import { RunStepBaseWithRef } from './RunStepBase'
 import { RunStepInputSet } from './RunStepInputSet'
 import { RunStepVariables, RunStepVariablesProps } from './RunStepVariables'
@@ -46,8 +48,9 @@ export interface RunStepSpec {
   }
   envVariables?: MultiTypeMapType
   outputVariables?: MultiTypeListType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypePullOption
+  imagePullPolicy?: MultiTypeSelectOption
+  shell?: MultiTypeSelectOption
+  runAsUser?: string
   resources?: Resources
 }
 
@@ -61,13 +64,13 @@ export interface RunStepData {
 }
 
 export interface RunStepSpecUI
-  extends Omit<RunStepSpec, 'connectorRef' | 'reports' | 'envVariables' | 'outputVariables' | 'pull' | 'resources'> {
+  extends Omit<RunStepSpec, 'connectorRef' | 'reports' | 'envVariables' | 'outputVariables' | 'resources'> {
   connectorRef: MultiTypeConnectorRef
   reportPaths?: MultiTypeListUIType
   envVariables?: MultiTypeMapUIType
   outputVariables?: MultiTypeListUIType
-  // TODO: Right now we do not support Image Pull Policy but will do in the future
-  // pull?: MultiTypeSelectOption
+  imagePullPolicy?: MultiTypeSelectOption
+  shell?: MultiTypeSelectOption
   limitMemory?: string
   limitCPU?: string
 }
@@ -104,6 +107,7 @@ export class RunStep extends PipelineStep<RunStepData> {
   protected type = StepType.Run
   protected stepName = 'Configure Run Step'
   protected stepIcon: IconName = 'run-step'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Run'
   protected stepPaletteVisible = false
 
   protected defaultValues: RunStepData = {

@@ -30,3 +30,10 @@ export const getCIPipelineStages: (
     </PipelineStages>
   )
 }
+
+export enum BuildTabs {
+  OVERVIEW = 'OVERVIEW',
+  INFRASTRUCTURE = 'INFRASTRUCTURE',
+  EXECUTION = 'EXECUTION',
+  ADVANCED = 'ADVANCED'
+}

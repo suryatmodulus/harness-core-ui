@@ -1,0 +1,13 @@
+.nameContainer {
+  position: relative;
+
+  .sampleRibbon {
+    height: 70px;
+    width: 6px;
+    position: absolute;
+    border-radius: 4px 0px 0px 4px;
+    top: -26px;
+    left: -17px;
+    background: var(--primary-5) !important;
+  }
+}

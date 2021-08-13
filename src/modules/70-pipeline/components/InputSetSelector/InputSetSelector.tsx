@@ -25,7 +25,7 @@ import { useStrings } from 'framework/strings'
 import { useGitSyncStore } from 'framework/GitRepoStore/GitSyncStoreContext'
 import css from './InputSetSelector.module.scss'
 
-interface InputSetValue extends SelectOption {
+export interface InputSetValue extends SelectOption {
   type: InputSetSummaryResponse['inputSetType']
   gitDetails?: EntityGitDetails
 }
@@ -146,8 +146,9 @@ const RenderValue = React.memo(function RenderValue({
                   {index + 1}
                 </Button>
                 <Text
-                  color={Color.PRIMARY_7}
+                  color={Color.PRIMARY_8}
                   icon={getIconByType(item.type)}
+                  className={css.selectedInputSetLabel}
                   iconProps={{ className: css.selectedInputSetTypeIcon }}
                 >
                   {item.label}

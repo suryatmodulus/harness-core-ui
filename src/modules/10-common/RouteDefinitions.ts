@@ -54,13 +54,15 @@ const routes = {
   toUser: withAccountId(() => '/user'),
   toSubscriptions: withAccountId(({ moduleCard }: ModuleCardPathParams) => {
     if (moduleCard) {
-      return `/home/setup/subscriptions?moduleCard=${moduleCard}`
+      return `/settings/subscriptions?moduleCard=${moduleCard}`
     }
-    return '/home/setup/subscriptions'
+    return '/settings/subscriptions'
   }),
-  toAuthenticationSettings: withAccountId(() => '/home/setup/authentication'),
-  toAccountConfiguration: withAccountId(() => '/home/setup/authentication/configuration'),
-  toAccountActivityLog: withAccountId(() => '/home/setup/authentication/activity-log'),
+  toAccountSettings: withAccountId(() => '/settings'),
+  toAccountSettingsOverview: withAccountId(() => '/settings/overview'),
+  toAuthenticationSettings: withAccountId(() => '/settings/authentication'),
+  toAccountConfiguration: withAccountId(() => '/settings/authentication/configuration'),
+  toAccountActivityLog: withAccountId(() => '/settings/authentication/activity-log'),
   toLogin: (): string => '/login',
   toRedirect: (): string => `/redirect`,
   toSignup: (): string => '/signup',
@@ -71,7 +73,7 @@ const routes = {
   // account resources
   toCreateConnectorFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `connectors/yaml/create-connector`
+      const path = `resources/connectors/yaml/create-connector`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -82,9 +84,10 @@ const routes = {
       })
     }
   ),
+  toAccountResources: withAccountId(() => 'settings/resources'),
   toConnectors: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `connectors`
+      const path = `resources/connectors`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -102,7 +105,7 @@ const routes = {
       connectorId,
       module
     }: Partial<ProjectPathProps & ModulePathParams & ConnectorPathProps>) => {
-      const path = `connectors/${connectorId}`
+      const path = `resources/connectors/${connectorId}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -115,7 +118,7 @@ const routes = {
   ),
   toSecrets: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `secrets`
+      const path = `resources/secrets`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -134,7 +137,7 @@ const routes = {
       module,
       secretId
     }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
-      const path = `secrets/${secretId}`
+      const path = `resources/secrets/${secretId}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -147,7 +150,7 @@ const routes = {
   ),
   toDelegates: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `delegates`
+      const path = `resources/delegates`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -162,10 +165,10 @@ const routes = {
     ({
       orgIdentifier,
       projectIdentifier,
-      delegateId,
+      delegateIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegatePathProps>) => {
-      const path = `delegates/${delegateId}`
+      const path = `resources/delegates/${delegateIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -183,7 +186,7 @@ const routes = {
       delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `delegateconfigs/${delegateConfigIdentifier}`
+      const path = `resources/delegateconfigs/${delegateConfigIdentifier}`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -201,7 +204,7 @@ const routes = {
       delegateConfigIdentifier,
       module
     }: Partial<ProjectPathProps & ModulePathParams & DelegateConfigProps>) => {
-      const path = `delegateconfigs/${delegateConfigIdentifier}/edit`
+      const path = `resources/delegateconfigs/${delegateConfigIdentifier}/edit`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -380,9 +383,9 @@ const routes = {
       })
     }
   ),
-  toOrganizations: withAccountId(() => `/home/setup/organizations`),
+  toOrganizations: withAccountId(() => `/settings/organizations`),
   toOrganizationDetails: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/home/organizations/${orgIdentifier}/details`
+    ({ orgIdentifier }: OrgPathProps) => `/settings/organizations/${orgIdentifier}/details`
   ),
   toGovernance: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
@@ -399,7 +402,7 @@ const routes = {
   ),
   toCreateSecretFromYaml: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `secrets/yaml/create-secret`
+      const path = `resources/secrets/yaml/create-secret`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -417,7 +420,7 @@ const routes = {
       module,
       secretId
     }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
-      const path = `secrets/${secretId}/overview`
+      const path = `resources/secrets/${secretId}/overview`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -435,7 +438,7 @@ const routes = {
       module,
       secretId
     }: Partial<ProjectPathProps & ModulePathParams & SecretsPathProps>) => {
-      const path = `secrets/${secretId}/references`
+      const path = `resources/secrets/${secretId}/references`
       return getScopeBasedRoute({
         scope: {
           orgIdentifier,
@@ -462,17 +465,13 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
-  toCDProjectOverview: withAccountId(
+  toProjectOverview: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toDeployments: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/deployments`
-  ),
-  toProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
-      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toPipelineStudio: withAccountId(
     ({
@@ -571,6 +570,8 @@ const routes = {
       triggerIdentifier,
       triggerType,
       sourceRepo,
+      manifestType,
+      artifactType,
       accountId: _accountId,
       module,
       ...rest
@@ -579,7 +580,9 @@ const routes = {
       const queryParams = {
         ...rest,
         ...(isNewTrigger && triggerType && { triggerType }),
-        ...(isNewTrigger && sourceRepo && { sourceRepo })
+        ...(isNewTrigger && sourceRepo && { sourceRepo }),
+        ...(isNewTrigger && manifestType && { manifestType }),
+        ...(isNewTrigger && artifactType && { artifactType })
       }
       const queryString = qs.stringify(queryParams, { skipNulls: true })
       if (queryString.length > 0) {
@@ -693,17 +696,25 @@ const routes = {
       `/cd/orgs/${orgIdentifier}/projects/${projectIdentifier}/`
   ),
   /********************************************************************************************************************/
-  toTemplatesListing: withAccountId(({ orgIdentifier }: OrgPathProps) => `/orgs/${orgIdentifier}/templates`),
+  toTemplatesListing: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `templates`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),
   /********************************************************************************************************************/
   toCI: withAccountId(() => `/ci`),
   toCIHome: withAccountId(() => `/ci/home`),
   toCIProject: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}`
-  ),
-  toCIProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCIPipelineDeploymentList: withAccountId(
     ({ projectIdentifier, orgIdentifier, pipelineIdentifier }: PipelinePathProps) =>
@@ -1017,54 +1028,77 @@ const routes = {
       : routes.toCEDashboard(params as AccountPathProps),
   toCEDashboard: withAccountId(() => `/ce`),
   toCEHome: withAccountId(() => '/ce/home'),
-  toCEProject: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}`
-  ),
-  toCEProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
-  ),
-  toCECODashboard: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
-  ),
-  toCECOCreateGateway: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules/create`
-  ),
+  // toCEProject: withAccountId(
+  //   ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
+  //     `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}`
+  // ),
+  toCEProjectOverview: withAccountId(() => `/ce/dashboard`),
+  toCECODashboard: withAccountId(() => `/ce/dashboard`),
+  toCECOCreateGateway: withAccountId(() => `/ce/autostopping-rules/create`),
   toCECOEditGateway: withAccountId(
-    ({ orgIdentifier, projectIdentifier, gatewayIdentifier }: ProjectPathProps & { gatewayIdentifier: string }) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules/edit/${gatewayIdentifier}`
+    ({ gatewayIdentifier }: { gatewayIdentifier: string }) => `/ce/autostopping-rules/edit/${gatewayIdentifier}`
   ),
-  toCECOAccessPoints: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/access-points`
-  ),
-  toCECORules: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/autostopping-rules`
-  ),
-  toCERecommendations: withAccountId(
-    ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations`
-  ),
+  toCECOAccessPoints: withAccountId(() => `/ce/access-points`),
+  toCECORules: withAccountId(() => `/ce/autostopping-rules`),
+  toCERecommendations: withAccountId(() => `/ce/recommendations`),
   toCERecommendationDetails: withAccountId(
-    ({ orgIdentifier, projectIdentifier, recommendation }: ProjectPathProps & { recommendation: string }) =>
-      `/ce/orgs/${orgIdentifier}/projects/${projectIdentifier}/recommendations/${recommendation}/details`
+    ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
+      `/ce/recommendations/${recommendation}/name/${recommendationName}/details`
+  ),
+  toCERecommendationWorkloadDetails: withAccountId(
+    ({
+      recommendation,
+      clusterName,
+      namespace,
+      workloadName,
+      recommendationName
+    }: {
+      recommendation: string
+      workloadName: string
+      clusterName: string
+      namespace: string
+      recommendationName: string
+    }) =>
+      `/ce/recommendations/${recommendation}/name/${recommendationName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
   toPerspectiveDetails: withAccountId(
     ({ perspectiveId, perspectiveName }: AccountPathProps & { perspectiveId: string; perspectiveName: string }) =>
-      `/ce/perspective/${perspectiveId}/name/${perspectiveName}`
+      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}`
   ),
   toCECreatePerspective: withAccountId(
-    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspective/${perspectiveId}/create`
+    ({ perspectiveId }: AccountPathProps & { perspectiveId: string }) => `/ce/perspectives/${perspectiveId}/create`
   ),
   toCEPerspectives: withAccountId(() => `/ce/perspectives`),
   toCEBudgets: withAccountId(() => '/ce/budgets'),
+  toCEPerspectiveWorkloadDetails: withAccountId(
+    ({
+      perspectiveId,
+      perspectiveName,
+      clusterName,
+      namespace,
+      workloadName
+    }: AccountPathProps & {
+      perspectiveId: string
+      perspectiveName: string
+      clusterName: string
+      namespace: string
+      workloadName: string
+    }) =>
+      `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
+  ),
+  toCEOverview: withAccountId(() => '/ce/overview'),
+  toCEPerspectiveDashboard: withAccountId(() => `/ce/perspective`),
   /********************************************************************************************************************/
-  toCustomDasboard: withAccountId(() => '/home/dashboards'),
-  toViewCustomDashboard: withAccountId(({ viewId }: { viewId: string }) => `/home/dashboards/view/${viewId}`)
+  toCustomDashboard: withAccountId(() => '/dashboards'),
+  toCustomDashboardHome: withAccountId(
+    ({ folderId }: { folderId?: string }) => `/dashboards/folder/${folderId ? folderId : 'shared'}`
+  ),
+  toViewCustomDashboard: withAccountId(
+    ({ viewId, folderId }: { viewId: string; folderId: string }) =>
+      `/dashboards/folder/${folderId ? folderId : 'shared'}/view/${viewId}`
+  ),
+  toCustomFolderHome: withAccountId(() => '/dashboards/folders'),
+  toViewCustomFolder: withAccountId(({ viewId }: { viewId: string }) => `/dashboards/folder/view/${viewId}`)
 
   /****************** Secret Usage************************************************************************************/
 }

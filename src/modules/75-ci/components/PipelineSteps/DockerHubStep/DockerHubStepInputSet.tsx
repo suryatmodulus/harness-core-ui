@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
+import { Text, getMultiTypeFromValue, MultiTypeInputType, FormikForm } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -32,14 +32,11 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <FormMultiTypeConnectorField
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'dockerHubConnector' }}
+            >
               {getString('pipelineSteps.dockerHubConnectorLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.dockerHubConnectorInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           type={'DockerRegistry'}
@@ -63,14 +60,11 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.repo`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'dockerHubRepository' }}
+            >
               {getString('dockerRegistry')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.dockerRegistryInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -92,9 +86,8 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'tags' }}>
                 {getString('tagsLabel')}
-                <Button icon="question" minimal tooltip={getString('tagsInfo')} iconProps={{ size: 14 }} />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -103,19 +96,25 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
+      {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
+        <FormMultiTypeCheckboxField
+          name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
+          label={getString('ci.optimize')}
+          disabled={readonly}
+          multiTypeTextbox={{
+            expressions,
+            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
+          }}
+          setToFalseWhenEmpty={true}
+        />
+      )}
       {getMultiTypeFromValue(template?.spec?.dockerfile) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.dockerfile`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'dockerfile' }}>
               {getString('pipelineSteps.dockerfileLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.dockerfileInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -133,14 +132,8 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.context`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'context' }}>
               {getString('pipelineSteps.contextLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.contextInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -162,14 +155,8 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'labels' }}>
                 {getString('pipelineSteps.labelsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.labelsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -187,14 +174,8 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           }}
           multiTypeFieldSelectorProps={{
             label: (
-              <Text style={{ display: 'flex', alignItems: 'center' }}>
+              <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'buildArgs' }}>
                 {getString('pipelineSteps.buildArgsLabel')}
-                <Button
-                  icon="question"
-                  minimal
-                  tooltip={getString('pipelineSteps.buildArgsInfo')}
-                  iconProps={{ size: 14 }}
-                />
               </Text>
             ),
             allowedTypes: [MultiTypeInputType.FIXED]
@@ -203,31 +184,13 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           style={{ marginBottom: 'var(--spacing-small)' }}
         />
       )}
-      {getMultiTypeFromValue(template?.spec?.optimize) === MultiTypeInputType.RUNTIME && (
-        <FormMultiTypeCheckboxField
-          name={`${isEmpty(path) ? '' : `${path}.`}spec.optimize`}
-          label={getString('ci.optimize')}
-          disabled={readonly}
-          multiTypeTextbox={{
-            expressions,
-            allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
-          }}
-          setToFalseWhenEmpty={true}
-        />
-      )}
       {getMultiTypeFromValue(template?.spec?.target) === MultiTypeInputType.RUNTIME && (
         <MultiTypeTextField
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.target`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'target' }}>
               {getString('pipelineSteps.targetLabel')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('pipelineSteps.targetInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{
@@ -245,14 +208,11 @@ export const DockerHubStepInputSet: React.FC<DockerHubStepProps> = ({ template, 
           className={css.removeBpLabelMargin}
           name={`${isEmpty(path) ? '' : `${path}.`}spec.remoteCacheRepo`}
           label={
-            <Text style={{ display: 'flex', alignItems: 'center' }}>
+            <Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'dockerHubRemoteCache' }}
+            >
               {getString('ci.remoteCacheRepository.label')}
-              <Button
-                icon="question"
-                minimal
-                tooltip={getString('ci.remoteCacheImage.dockerInfo')}
-                iconProps={{ size: 14 }}
-              />
             </Text>
           }
           multiTextInputProps={{

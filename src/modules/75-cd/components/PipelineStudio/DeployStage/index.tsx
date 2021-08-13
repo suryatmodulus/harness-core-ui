@@ -17,11 +17,12 @@ const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttr
 const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsReturn['getString']) => (
   <DeployStage
     icon={'cd-main'}
+    hoverIcon={'deploy-stage'}
     iconsStyle={{ color: 'var(--pipeline-deploy-stage-color)' }}
     name={getString('pipelineSteps.deploy.create.deployStageName')}
     type={StageType.DEPLOY}
     title={getString('pipelineSteps.deploy.create.deployStageName')}
-    description={getString('pipelineSteps.deploy.create.deployStageDescription')}
+    description={getString('pipeline.pipelineSteps.deployStageDescription')}
     isHidden={!isEnabled}
     isDisabled={false}
     isApproval={false}

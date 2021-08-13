@@ -6,9 +6,9 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   Text,
-  Button,
   Icon,
   Layout,
+  Formik,
   Label,
   Color
 } from '@wings-software/uicore'
@@ -20,7 +20,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 
 import { cloneDeep, isEmpty, set } from 'lodash-es'
-import { yupToFormErrors, FormikErrors, FormikProps, Formik } from 'formik'
+import { yupToFormErrors, FormikErrors, FormikProps } from 'formik'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
 import { PipelineStep, StepProps } from '@pipeline/components/PipelineSteps/PipelineStep'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
@@ -53,6 +53,7 @@ import { useQueryParams } from '@common/hooks'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { StringNGVariable } from 'services/cd-ng'
 
+import type { StringsMap } from 'stringTypes'
 import {
   CommandTypes,
   onSubmitTFPlanData,
@@ -100,6 +101,9 @@ function TerraformPlanWidget(
     style: { width: 1000 }
   }
 
+  const query = useQueryParams()
+  const sectionId = (query as any).sectionId || ''
+
   const [showModal, setShowModal] = React.useState(false)
   return (
     <Formik<TFPlanFormData>
@@ -121,6 +125,7 @@ function TerraformPlanWidget(
           })
         })
       })}
+      formName={`terraformPlanEditView-tfPlan-${sectionId}`}
     >
       {(formik: FormikProps<TFPlanFormData>) => {
         const { values, setFieldValue } = formik
@@ -128,7 +133,7 @@ function TerraformPlanWidget(
         return (
           <>
             <>
-              <div className={cx(stepCss.formGroup, stepCss.md)}>
+              <div className={cx(stepCss.formGroup, stepCss.lg)}>
                 <FormInput.InputWithIdentifier inputLabel={getString('name')} isIdentifierEditable={isNewStep} />
               </div>
 
@@ -154,6 +159,8 @@ function TerraformPlanWidget(
                   />
                 )}
               </div>
+
+              <div className={stepCss.divider} />
 
               <div className={cx(stepCss.formGroup, stepCss.md)}>
                 <FormInput.RadioGroup
@@ -324,14 +331,11 @@ function TerraformPlanWidget(
                             multiTypeFieldSelectorProps={{
                               disableTypeSelection: true,
                               label: (
-                                <Text style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}>
+                                <Text
+                                  style={{ display: 'flex', alignItems: 'center', color: 'rgb(11, 11, 13)' }}
+                                  tooltipProps={{ dataTooltipId: 'dependencyEnvironmentVariables' }}
+                                >
                                   {getString('optionalField', { name: getString('environmentVariables') })}
-                                  <Button
-                                    icon="question"
-                                    minimal
-                                    tooltip={getString('dependencyEnvironmentVariablesInfo')}
-                                    iconProps={{ size: 14 }}
-                                  />
                                 </Text>
                               )
                             }}
@@ -417,6 +421,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
   }
   protected stepIcon: IconName = 'terraform-apply-new'
   protected stepName = 'Terraform Plan'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.TerraformPlan'
   /* istanbul ignore next */
   validateInputSet({
     data,
@@ -470,7 +475,7 @@ export class TerraformPlan extends PipelineStep<TFPlanFormData> {
         configuration: {
           ...data.spec?.configuration,
           secretManagerRef: data.spec?.configuration?.secretManagerRef || '',
-          configFiles: data.spec?.configuration?.configFiles || {},
+          configFiles: data.spec?.configuration?.configFiles || ({} as any),
           command: data.spec?.configuration?.command || 'Apply',
           targets: !isTargetRunTime
             ? Array.isArray(data.spec?.configuration?.targets)

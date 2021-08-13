@@ -3,14 +3,18 @@
 exports[`test cases for Perspective details Page should be able to render and switch to list view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      Perspectives
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        Perspectives
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
@@ -48,30 +52,30 @@ exports[`test cases for Perspective details Page should be able to render and sw
       style="flex-grow: 1;"
     />
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
       data-name=""
     >
       <span
-        class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
-        icon="search"
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+        data-icon="thinner-search"
       >
         <svg
-          data-icon="search"
+          fill="none"
           height="14"
           viewBox="0 0 16 16"
           width="14"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <desc>
-            search
-          </desc>
           <path
-            d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-            fill-rule="evenodd"
+            d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           />
         </svg>
       </span>
       <input
-        class="bp3-input "
+        class="bp3-input  ExpandingSearchInput--filter"
         dir="auto"
         placeholder="ce.perspectives.searchPerspectives"
         style="padding-right: 0px;"
@@ -235,11 +239,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name4
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name4
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -407,11 +415,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name3
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name3
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -504,11 +516,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name2
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name2
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -653,11 +669,15 @@ exports[`test cases for Perspective details Page should be able to render and sw
               role="cell"
               style="width: 30%;"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+              <div
+                class="StyledProps--font StyledProps--main nameContainer"
               >
-                name1
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
+                >
+                  name1
+                </p>
+              </div>
             </div>
             <div
               class="cell"
@@ -751,14 +771,18 @@ exports[`test cases for Perspective details Page should be able to render and sw
 exports[`test cases for Perspective details Page should be able to render the details page 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      Perspectives
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        Perspectives
+      </h2>
+    </div>
   </div>
   <div
     class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
@@ -796,30 +820,30 @@ exports[`test cases for Perspective details Page should be able to render the de
       style="flex-grow: 1;"
     />
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
       data-name=""
     >
       <span
-        class="bp3-icon bp3-icon-search StyledProps--main ExpandingSearchInput--icon "
-        icon="search"
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+        data-icon="thinner-search"
       >
         <svg
-          data-icon="search"
+          fill="none"
           height="14"
           viewBox="0 0 16 16"
           width="14"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <desc>
-            search
-          </desc>
           <path
-            d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-            fill-rule="evenodd"
+            d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
           />
         </svg>
       </span>
       <input
-        class="bp3-input "
+        class="bp3-input  ExpandingSearchInput--filter"
         dir="auto"
         placeholder="ce.perspectives.searchPerspectives"
         style="padding-right: 0px;"
@@ -911,20 +935,20 @@ exports[`test cases for Perspective details Page should be able to render the de
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="Options"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
+                      icon="more"
                     >
                       <svg
-                        fill="none"
+                        data-icon="more"
                         height="16"
-                        viewBox="0 0 4 16"
+                        viewBox="0 0 16 16"
                         width="16"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
+                        <desc>
+                          more
+                        </desc>
                         <path
-                          clip-rule="evenodd"
-                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                          fill="currentColor"
+                          d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
                           fill-rule="evenodd"
                         />
                       </svg>
@@ -1071,20 +1095,20 @@ exports[`test cases for Perspective details Page should be able to render the de
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="Options"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
+                      icon="more"
                     >
                       <svg
-                        fill="none"
+                        data-icon="more"
                         height="16"
-                        viewBox="0 0 4 16"
+                        viewBox="0 0 16 16"
                         width="16"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
+                        <desc>
+                          more
+                        </desc>
                         <path
-                          clip-rule="evenodd"
-                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                          fill="currentColor"
+                          d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
                           fill-rule="evenodd"
                         />
                       </svg>
@@ -1143,20 +1167,20 @@ exports[`test cases for Perspective details Page should be able to render the de
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="Options"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
+                      icon="more"
                     >
                       <svg
-                        fill="none"
+                        data-icon="more"
                         height="16"
-                        viewBox="0 0 4 16"
+                        viewBox="0 0 16 16"
                         width="16"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
+                        <desc>
+                          more
+                        </desc>
                         <path
-                          clip-rule="evenodd"
-                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                          fill="currentColor"
+                          d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
                           fill-rule="evenodd"
                         />
                       </svg>
@@ -1280,20 +1304,20 @@ exports[`test cases for Perspective details Page should be able to render the de
                     type="button"
                   >
                     <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="Options"
+                      class="bp3-icon bp3-icon-more StyledProps--main"
+                      icon="more"
                     >
                       <svg
-                        fill="none"
+                        data-icon="more"
                         height="16"
-                        viewBox="0 0 4 16"
+                        viewBox="0 0 16 16"
                         width="16"
-                        xmlns="http://www.w3.org/2000/svg"
                       >
+                        <desc>
+                          more
+                        </desc>
                         <path
-                          clip-rule="evenodd"
-                          d="M2 12.5a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zm2-12a1 1 0 100 2 1 1 0 000-2zm-2 1a2 2 0 114 0 2 2 0 01-4 0zM2 7a1 1 0 100 2 1 1 0 000-2zM0 8a2 2 0 114 0 2 2 0 01-4 0z"
-                          fill="currentColor"
+                          d="M2 6.03a2 2 0 100 4 2 2 0 100-4zM14 6.03a2 2 0 100 4 2 2 0 100-4zM8 6.03a2 2 0 100 4 2 2 0 100-4z"
                           fill-rule="evenodd"
                         />
                       </svg>

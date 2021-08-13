@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import { Button } from '@wings-software/uicore'
 import { Drawer, Intent, Position } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
@@ -8,12 +8,14 @@ import DefineHealthSource from './component/defineHealthSource/DefineHealthSourc
 import CustomiseHealthSource from './component/customiseHealthSource/CustomiseHealthSource'
 import { createHealthSourceDrawerFormData } from './HealthSourceDrawerContent.utils'
 import type { HealthSourceDrawerInterface } from './HealthSourceDrawerContent.types'
+import { GCOProduct } from '../connectors/GCOLogsMonitoringSource/GoogleCloudOperationsMonitoringSourceUtils'
+import { SelectGCODashboards } from '../connectors/GCOMetricsHealthSource/components/SelectGCODashboards/SelectGCODashboards'
 import css from './HealthSourceDrawerContent.module.scss'
 
 function HealthSourceDrawerContent({
   serviceRef,
   environmentRef,
-  monitoringSourcRef,
+  monitoredServiceRef,
   onSuccess,
   modalOpen,
   createHeader,
@@ -26,9 +28,44 @@ function HealthSourceDrawerContent({
   const { getString } = useStrings()
 
   const sourceData = useMemo(
-    () => createHealthSourceDrawerFormData(isEdit, monitoringSourcRef, serviceRef, environmentRef, tableData, rowData),
-    [rowData, tableData, monitoringSourcRef, serviceRef, environmentRef, isEdit]
+    () =>
+      createHealthSourceDrawerFormData({ isEdit, monitoredServiceRef, serviceRef, environmentRef, tableData, rowData }),
+    [rowData, tableData, monitoredServiceRef, serviceRef, environmentRef, isEdit]
   )
+
+  const [selectedProduct, setSelectedProduct] = useState<string | undefined>((sourceData as any).product?.value)
+  const [tabTitles, ...tabs] = useMemo(() => {
+    if (selectedProduct === GCOProduct.CLOUD_METRICS) {
+      return [
+        [
+          getString('cv.healthSource.defineHealthSource'),
+          getString('cv.healthSource.connectors.gco.selectDashboardTab'),
+          getString('cv.healthSource.customizeHealthSource')
+        ],
+        <DefineHealthSource
+          key="defineHealthSource"
+          onSubmit={values => {
+            setSelectedProduct(values.product?.value)
+          }}
+        />,
+        <SelectGCODashboards key="selectGCODashboards" />,
+        <CustomiseHealthSource
+          key="customiseHealthSource"
+          onSuccess={onSuccess}
+          shouldRenderAtVerifyStep={shouldRenderAtVerifyStep}
+        />
+      ]
+    }
+    return [
+      [getString('cv.healthSource.defineHealthSource'), getString('cv.healthSource.customizeHealthSource')],
+      <DefineHealthSource key="defineHealthSource" onSubmit={values => setSelectedProduct(values.product?.value)} />,
+      <CustomiseHealthSource
+        key="customiseHealthSource"
+        onSuccess={onSuccess}
+        shouldRenderAtVerifyStep={shouldRenderAtVerifyStep}
+      />
+    ]
+  }, [selectedProduct])
 
   const determineMaxTabBySourceType = useCallback(() => {
     return isEdit ? 1 : 0
@@ -61,16 +98,8 @@ function HealthSourceDrawerContent({
         isCloseButtonShown={false}
         portalClassName={'health-source-right-drawer'}
       >
-        <SetupSourceTabs
-          data={sourceData}
-          determineMaxTab={determineMaxTabBySourceType}
-          tabTitles={[
-            getString('cv.healthSource.defineHealthSource'),
-            getString('cv.healthSource.customizeHealthSource')
-          ]}
-        >
-          <DefineHealthSource />
-          <CustomiseHealthSource onSuccess={onSuccess} shouldRenderAtVerifyStep={shouldRenderAtVerifyStep} />
+        <SetupSourceTabs data={sourceData} determineMaxTab={determineMaxTabBySourceType} tabTitles={tabTitles}>
+          {tabs}
         </SetupSourceTabs>
       </Drawer>
       {modalOpen && (

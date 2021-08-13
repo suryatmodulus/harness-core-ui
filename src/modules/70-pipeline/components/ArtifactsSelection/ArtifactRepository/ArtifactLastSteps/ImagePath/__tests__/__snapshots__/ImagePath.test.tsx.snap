@@ -136,9 +136,11 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
               <div
                 class="bp3-form-content"
               >
-                <div>
+                <div
+                  class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                >
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       checked=""
@@ -152,7 +154,7 @@ exports[`DockerRegistry Image Path Artifact tests renders correctly in edit case
                     Value
                   </label>
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       name="tagType"
@@ -470,9 +472,11 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
               <div
                 class="bp3-form-content"
               >
-                <div>
+                <div
+                  class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                >
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       checked=""
@@ -486,7 +490,7 @@ exports[`DockerRegistry Image Path Artifact tests renders while adding step firs
                     Value
                   </label>
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       name="tagType"
@@ -804,9 +808,11 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
               <div
                 class="bp3-form-content"
               >
-                <div>
+                <div
+                  class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                >
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       checked=""
@@ -820,7 +826,7 @@ exports[`DockerRegistry Image Path Artifact tests renders without crashing 1`] =
                     Value
                   </label>
                   <label
-                    class="bp3-control bp3-radio bp3-inline Radio--radio"
+                    class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                   >
                     <input
                       name="tagType"

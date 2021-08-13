@@ -103,7 +103,7 @@ export const InfraProvisioningBase = (
                   {(_props: any) => {
                     return (
                       <ExecutionGraph
-                        gridStyle={{ startX: -150, startY: 80 }}
+                        gridStyle={{ startX: 50, startY: 80 }}
                         rollBackPropsStyle={{ top: '10px' }}
                         rollBackBannerStyle={{ top: '10px', backgroundColor: 'rgba(0,0,0,0)' }}
                         canvasButtonsLayout={'horizontal'}
@@ -113,13 +113,13 @@ export const InfraProvisioningBase = (
                         hasRollback={true}
                         hasDependencies={false}
                         stepsFactory={stepsFactory}
-                        stage={formik.values.provisioner}
-                        originalStage={formik.values.originalProvisioner}
+                        stage={formik.values.provisioner as any}
+                        originalStage={formik.values.originalProvisioner as any}
                         ref={executionRef}
                         updateStage={stageData => {
                           formik.setFieldValue('provisioner', stageData)
                           onUpdate?.({
-                            provisioner: stageData.stage.spec.execution,
+                            provisioner: stageData.stage?.spec?.execution || ({} as any),
                             provisionerEnabled: formik.values.provisionerEnabled
                           })
                         }}
@@ -153,7 +153,7 @@ export const InfraProvisioningBase = (
                               type: DrawerTypes.ProvisionerStepConfig,
                               data: {
                                 stepConfig: {
-                                  node: event.node,
+                                  node: event.node as any,
                                   stepsMap: event.stepsMap,
                                   onUpdate: executionRef.current?.stepGroupUpdated,
                                   isStepGroup: event.isStepGroup,

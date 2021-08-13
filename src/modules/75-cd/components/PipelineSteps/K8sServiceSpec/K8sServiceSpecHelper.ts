@@ -1,5 +1,5 @@
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
-import type { NgPipeline } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 
 export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }): string => {
@@ -13,7 +13,7 @@ export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template:
   return JSON.stringify(fields, null, 2)
 }
 
-export const clearRuntimeInputValue = (template: NgPipeline): NgPipeline => {
+export const clearRuntimeInputValue = (template: PipelineInfoConfig): PipelineInfoConfig => {
   return JSON.parse(
     JSON.stringify(template || {}).replace(/"<\+input>.?(?:allowedValues\((.*?)\)|regex\((.*?)\))?"/g, '""')
   )

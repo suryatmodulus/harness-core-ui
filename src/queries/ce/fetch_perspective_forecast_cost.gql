@@ -1,0 +1,13 @@
+query FetchPerspectiveForecastCost(
+  $aggregateFunction: [QLCEViewAggregationInput]
+  $filters: [QLCEViewFilterWrapperInput]
+) {
+  perspectiveForecastCost(aggregateFunction: $aggregateFunction, filters: $filters) {
+    cost {
+      statsLabel
+      statsTrend
+      statsValue
+      statsDescription
+    }
+  }
+}

@@ -201,7 +201,7 @@ const GitDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsS
 
               if (this.parent.connectionType === GitConnectionType.SSH) {
                 const trimmedUrl = _url?.trim() || ''
-                return trimmedUrl.startsWith('git@') || trimmedUrl.startsWith('ssh://git@') ? true : false
+                return trimmedUrl.startsWith('git@') || trimmedUrl.startsWith('ssh://') ? true : false
               }
               try {
                 const url = new URL(_url)

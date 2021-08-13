@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArtifactConditionsPanel Triggers tests Initial Render 1`] = `
+<div>
+  <div
+    class="OverlaySpinner--overlaySpinner"
+  >
+    <form
+      class="FormikForm--main"
+    >
+      <div>
+        <div
+          class="Layout--vertical Layout--layout-spacing-large StyledProps--main webhookConditionsContainer StyledProps--padding-xxlarge"
+        >
+          <h2
+            class="heading"
+          >
+            conditions
+             
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+              style="display: inline-block;"
+            >
+              titleOptional
+            </p>
+          </h2>
+          <p
+            class="StyledProps--font StyledProps--main"
+          >
+            pipeline.triggers.conditionsPanel.subtitle
+          </p>
+          <section
+            data-name="eventConditions"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-weight-bold"
+              level="2"
+            />
+            <div
+              style="margin-top: 20px;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--intent-primary"
+              data-name="plusAdd"
+              style="cursor: pointer; width: 70px;"
+            >
+              plusAdd
+            </p>
+          </section>
+        </div>
+        <button
+          class="bp3-button Button--button StyledProps--font StyledProps--main submitButton Button--with-current-color"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Submit
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

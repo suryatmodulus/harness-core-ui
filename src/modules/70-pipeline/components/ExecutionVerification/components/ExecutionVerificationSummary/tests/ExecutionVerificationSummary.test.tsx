@@ -64,12 +64,14 @@ describe('Unit tests for VerifyExection', () => {
   })
 
   test('Ensure that loading indicator is displayed when api is loading', async () => {
+    const refetchFn = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
-      loading: true
+      loading: true,
+      refetch: refetchFn as unknown
     } as UseGetReturn<any, any, any, any>)
     const { container } = render(
       <TestWrapper>
-        <ExecutionVerificationSummary step={{}} />
+        <ExecutionVerificationSummary step={{ progressData: { activityId: '1234_id' as any } }} />
       </TestWrapper>
     )
 
@@ -90,13 +92,12 @@ describe('Unit tests for VerifyExection', () => {
 
     await waitFor(() => expect(getByText('mockError')).not.toBeNull())
     fireEvent.click(container.querySelector('button')!)
-    await waitFor(() => expect(refetchFn).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(refetchFn).toHaveBeenCalledTimes(2))
   })
 
   test('Ensure that when activity id is not there empty statee is rendered', async () => {
     const refetchFn = jest.fn()
     jest.spyOn(cvService, 'useGetDeploymentActivitySummary').mockReturnValue({
-      error: { data: { message: 'mockError' } },
       refetch: refetchFn as unknown
     } as UseGetReturn<any, any, any, any>)
     const { container } = render(
@@ -105,7 +106,6 @@ describe('Unit tests for VerifyExection', () => {
       </TestWrapper>
     )
 
-    await waitFor(() => expect(container.querySelector('button')).toBeNull())
-    expect(container.querySelector('[data-icon="error"]')).toBeNull()
+    await waitFor(() => expect(container.querySelector('[class*="bp3-progress-meter"]')))
   })
 })

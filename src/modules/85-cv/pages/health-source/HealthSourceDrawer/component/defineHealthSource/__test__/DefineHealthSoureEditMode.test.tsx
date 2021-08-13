@@ -1,6 +1,5 @@
 import React from 'react'
 import { render, fireEvent, waitFor } from '@testing-library/react'
-import { Container, FormInput } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { SetupSourceTabs } from '@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs'
@@ -22,23 +21,13 @@ const editModeProps: TestWrapperProps = {
 const onNextMock = jest.fn().mockResolvedValue(jest.fn())
 const onPrevious = jest.fn().mockResolvedValue(jest.fn())
 
-const MockConnectorObj = {
-  connector: {
-    identifier: '1234_ident',
-    name: 'connector'
-  }
-}
-
-jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector', () => ({
-  ...(jest.requireActual('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector') as any),
-  ConnectorSelection: function MockComponent(props: any) {
-    return (
-      <Container className="mockInput">
-        <FormInput.Text name="connectorRef" />
-        <button onClick={() => props.onSuccess(MockConnectorObj)} />
-      </Container>
-    )
-  }
+jest.mock('services/cd-ng', () => ({
+  useGetConnector: jest.fn().mockImplementation(() => ({ data: {}, refetch: jest.fn() })),
+  getConnectorListPromise: jest.fn().mockImplementation(() => Promise.resolve({})),
+  getListOfBranchesByConnectorPromise: jest
+    .fn()
+    .mockResolvedValue({ data: ['master', 'devBranch'], status: 'SUCCESS' }),
+  useGetTestGitRepoConnectionResult: jest.fn().mockImplementation(() => ({ mutate: jest.fn }))
 }))
 
 jest.mock('@cv/components/CVSetupSourcesView/SetupSourceTabs/SetupSourceTabs', () => ({

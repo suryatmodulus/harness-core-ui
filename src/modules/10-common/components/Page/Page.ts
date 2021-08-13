@@ -1,4 +1,5 @@
 import { PageHeader } from './PageHeader'
+import { PageSubHeader } from './PageSubHeader'
 import { PageBody } from './PageBody'
 import { NoDataCard } from './NoDataCard'
 import { PageSpinner } from './PageSpinner'
@@ -9,5 +10,6 @@ export const Page = {
   Body: PageBody,
   NoDataCard,
   Spinner: PageSpinner,
-  Error: PageError
+  Error: PageError,
+  SubHeader: PageSubHeader
 }

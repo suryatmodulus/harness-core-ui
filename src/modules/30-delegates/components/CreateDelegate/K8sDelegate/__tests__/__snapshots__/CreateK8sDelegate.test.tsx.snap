@@ -99,12 +99,10 @@ exports[`Create K8s Delegate render data 1`] = `
                   class="StyledProps--font StyledProps--main delegateForm"
                 >
                   <div
-                    class="Layout--horizontal StyledProps--main"
-                    style="height: 500px;"
+                    class="Layout--horizontal StyledProps--main baseContainer"
                   >
                     <div
-                      class="Layout--vertical StyledProps--main"
-                      style="width: 50%;"
+                      class="Layout--vertical StyledProps--main leftPanel"
                     >
                       <div
                         class="formGroup"
@@ -119,37 +117,88 @@ exports[`Create K8s Delegate render data 1`] = `
                               class="StyledProps--font StyledProps--main connectorFormNameElm"
                             >
                               <div
-                                class="bp3-form-group"
-                                data-id="name-0"
+                                class="InputWithIdentifier--txtNameContainer TextInput--main"
                               >
-                                <label
-                                  class="bp3-label"
-                                  for="name"
-                                >
-                                  <span
-                                    class="Tooltip--acenter"
-                                    data-tooltip-id="delegateSetupStepForm_name"
-                                  >
-                                    delegate.delegateName
-                                  </span>
-                                   
-                                  <span
-                                    class="bp3-text-muted"
-                                  />
-                                </label>
                                 <div
-                                  class="bp3-form-content"
+                                  class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
                                 >
-                                  <div
-                                    class="bp3-input-group"
+                                  <p
+                                    class="StyledProps--font StyledProps--main"
                                   >
-                                    <input
-                                      autocomplete="off"
-                                      class="bp3-input"
-                                      name="name"
-                                      type="text"
-                                      value=""
+                                    ID
+                                    :
+                                  </p>
+                                  <span
+                                    class="bp3-popover-wrapper"
+                                  >
+                                    <span
+                                      class="bp3-popover-target"
+                                    >
+                                      <div
+                                        class="bp3-editable-text bp3-editable-text-placeholder InputWithIdentifier--idValue"
+                                        tabindex="0"
+                                      >
+                                        <span
+                                          class="bp3-editable-text-content"
+                                          style="height: 1px; line-height: 1px; min-width: 0;"
+                                        />
+                                      </div>
+                                    </span>
+                                  </span>
+                                  <span
+                                    class="bp3-icon bp3-icon-edit StyledProps--main"
+                                    icon="edit"
+                                    style="vertical-align: middle; cursor: pointer;"
+                                  >
+                                    <svg
+                                      data-icon="edit"
+                                      height="12"
+                                      viewBox="0 0 16 16"
+                                      width="12"
+                                    >
+                                      <desc>
+                                        edit
+                                      </desc>
+                                      <path
+                                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                        fill-rule="evenodd"
+                                      />
+                                    </svg>
+                                  </span>
+                                </div>
+                                <div
+                                  class="bp3-form-group"
+                                  data-id="name-0"
+                                >
+                                  <label
+                                    class="bp3-label"
+                                    for="name"
+                                  >
+                                    <span
+                                      class="Tooltip--acenter"
+                                      data-tooltip-id="delegateSetupStepForm_name"
+                                    >
+                                      delegate.delegateName
+                                    </span>
+                                     
+                                    <span
+                                      class="bp3-text-muted"
                                     />
+                                  </label>
+                                  <div
+                                    class="bp3-form-content"
+                                  >
+                                    <div
+                                      class="bp3-input-group"
+                                    >
+                                      <input
+                                        autocomplete="off"
+                                        class="bp3-input"
+                                        name="name"
+                                        type="text"
+                                        value=""
+                                      />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -163,11 +212,13 @@ exports[`Create K8s Delegate render data 1`] = `
                               >
                                 + Description
                               </p>
+                              <p
+                                class="StyledProps--font StyledProps--main fieldToggleLabel StyledProps--color StyledProps--color-primary7"
+                              >
+                                + Tags
+                              </p>
                             </div>
                           </div>
-                          <div
-                            class="StyledProps--font StyledProps--main connectorFormElm"
-                          />
                         </div>
                       </div>
                       <div
@@ -429,7 +480,7 @@ exports[`Create K8s Delegate render data 1`] = `
                                     autocomplete="off"
                                     class="bp3-input"
                                     name="delegateConfigurationId"
-                                    placeholder="Search..."
+                                    placeholder="- Select -"
                                     style="padding-right: 0px;"
                                     type="text"
                                     value=""
@@ -438,20 +489,20 @@ exports[`Create K8s Delegate render data 1`] = `
                                     class="bp3-input-action"
                                   >
                                     <span
-                                      class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                      icon="caret-down"
+                                      class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                      icon="chevron-down"
                                     >
                                       <svg
-                                        data-icon="caret-down"
+                                        data-icon="chevron-down"
                                         height="14"
                                         viewBox="0 0 16 16"
                                         width="14"
                                       >
                                         <desc>
-                                          caret-down
+                                          chevron-down
                                         </desc>
                                         <path
-                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                           fill-rule="evenodd"
                                         />
                                       </svg>
@@ -489,21 +540,18 @@ exports[`Create K8s Delegate render data 1`] = `
                               class="Card--badge"
                             />
                             <span
-                              class="bp3-icon bp3-icon-tick StyledProps--main StyledProps--color StyledProps--color-white"
-                              icon="tick"
+                              class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-white"
+                              data-icon="main-tick"
                             >
                               <svg
-                                data-icon="tick"
-                                height="9"
-                                viewBox="0 0 16 16"
-                                width="9"
+                                height="10"
+                                viewBox="0 0 11 8"
+                                width="10"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <desc>
-                                  tick
-                                </desc>
                                 <path
-                                  d="M14 3c-.28 0-.53.11-.71.29L6 10.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l8-8A1.003 1.003 0 0014 3z"
-                                  fill-rule="evenodd"
+                                  d="M9.219.894c.356-.38.982-.413 1.398-.072.391.32.457.857.167 1.236l-.06.07-5.138 5.486c-.362.386-.993.41-1.403.068l-.07-.064-3.2-3.214A.88.88 0 01.95 3.098a1.045 1.045 0 011.328-.003l.074.067 2.443 2.454L9.22.894z"
+                                  fill="currentColor"
                                 />
                               </svg>
                             </span>
@@ -517,7 +565,7 @@ exports[`Create K8s Delegate render data 1`] = `
                               delegates.delegatePermissions.clusterWriteTitle
                             </div>
                             <p
-                              class="StyledProps--font StyledProps--main"
+                              class="StyledProps--font StyledProps--main permissionSelectDetails"
                             >
                               delegates.delegatePermissions.clusterWriteContent
                             </p>
@@ -537,7 +585,7 @@ exports[`Create K8s Delegate render data 1`] = `
                               delegates.delegatePermissions.clusterReadTitle
                             </div>
                             <p
-                              class="StyledProps--font StyledProps--main"
+                              class="StyledProps--font StyledProps--main permissionSelectDetails"
                             >
                               delegates.delegatePermissions.clusterReadContent
                             </p>
@@ -557,7 +605,7 @@ exports[`Create K8s Delegate render data 1`] = `
                               delegates.delegatePermissions.specificNamespaceTitle
                             </div>
                             <p
-                              class="StyledProps--font StyledProps--main"
+                              class="StyledProps--font StyledProps--main permissionSelectDetails"
                             >
                               delegates.delegatePermissions.specificNamespaceContent
                             </p>

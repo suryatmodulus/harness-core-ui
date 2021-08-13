@@ -20,18 +20,6 @@
     cursor: pointer;
     color: var(--primary-7) !important;
   }
-  .actionGrid {
-    align-items: center;
-    justify-content: flex-end;
-    .cloneIcon {
-      -webkit-transform: scaleX(-1) !important;
-      transform: scaleX(-1) !important;
-    }
-    span {
-      color: #000;
-      cursor: pointer;
-    }
-  }
 
   .locationField {
     display: flex;
@@ -93,7 +81,8 @@
 }
 .artifactList {
   display: grid;
-  grid-template-columns: 230px 300px minmax(10px, 1fr) 100px;
+  grid-template-columns: 230px 300px minmax(10px, 1fr) 80px;
+  align-items: center;
   padding-left: var(--spacing-small);
   &.list-header {
     border-bottom: solid 1px #d9dae5;

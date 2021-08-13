@@ -14,7 +14,7 @@ import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { AWS_CODECOMMIT } from '../utils/TriggersWizardPageUtils'
 import { GitSourceProviders } from '../utils/TriggersListUtils'
-
+import css from './ConnectorSection.module.scss'
 interface ConnectorSectionInterface {
   formikProps?: any
 }
@@ -92,7 +92,7 @@ export const ConnectorSection: React.FC<ConnectorSectionInterface> = ({ formikPr
   }
 
   return (
-    <section>
+    <section className={css.main}>
       <ConnectorReferenceField
         error={formikProps.errors.connectorRef}
         name="connectorRef"

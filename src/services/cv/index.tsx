@@ -49,14 +49,6 @@ export interface ActivitySourceDTO {
   uuid?: string
 }
 
-export interface ActivityStatusDTO {
-  activityId?: string
-  durationMs?: number
-  progressPercentage?: number
-  remainingTimeMs?: number
-  status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
-}
-
 export interface ActivityVerificationResultDTO {
   activityId?: string
   activityName?: string
@@ -152,10 +144,10 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
 }
 
 export type AppDynamicsHealthSourceSpec = HealthSourceSpec & {
-  applicationName: string
+  applicationName?: string
   feature: string
   metricPacks: MetricPackDTO[]
-  tierName: string
+  tierName?: string
 }
 
 export interface AppDynamicsTier {
@@ -363,12 +355,6 @@ export type BitbucketUsernameTokenApiAccess = BitbucketApiAccessSpecDTO & {
   tokenRef: string
   username?: string
   usernameRef?: string
-}
-
-export interface CD10RegisterActivityDTO {
-  activityId?: string
-  envIdentifier?: string
-  serviceIdentifier?: string
 }
 
 export type CEAwsConnector = ConnectorConfigDTO & {
@@ -736,6 +722,12 @@ export interface EnvToServicesDTO {
   services?: ServiceResponseDTO[]
 }
 
+export interface EnvironmentResponse {
+  createdAt?: number
+  environment?: EnvironmentResponseDTO
+  lastModifiedAt?: number
+}
+
 export interface EnvironmentResponseDTO {
   accountId?: string
   color?: string
@@ -1007,6 +999,7 @@ export interface Error {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1301,6 +1294,7 @@ export interface Failure {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -1543,10 +1537,10 @@ export interface HealthMonitoringFlagResponse {
 }
 
 export interface HealthSource {
-  identifier: string
-  name: string
+  identifier?: string
+  name?: string
   spec: HealthSourceSpec
-  type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog'
+  type?: 'AppDynamics' | 'NewRelic' | 'StackdriverLog' | 'Stackdriver' | 'Prometheus' | 'Splunk'
 }
 
 export interface HealthSourceSpec {
@@ -1569,7 +1563,7 @@ export interface Histogram {
 }
 
 export interface HistoricalTrend {
-  healthScores?: number[]
+  healthScores?: RiskData[]
 }
 
 export interface HostData {
@@ -1998,13 +1992,18 @@ export interface MonitoredServiceDTO {
 }
 
 export interface MonitoredServiceListItemDTO {
-  currentHealthScore?: number
+  currentHealthScore?: RiskData
+  environmentName?: string
   environmentRef?: string
   healthMonitoringEnabled?: boolean
   historicalTrend?: HistoricalTrend
   identifier?: string
   name?: string
+  serviceName?: string
   serviceRef?: string
+  tags?: {
+    [key: string]: string
+  }
   type?: 'Application'
 }
 
@@ -2039,8 +2038,8 @@ export type NewRelicConnectorDTO = ConnectorConfigDTO & {
 }
 
 export type NewRelicHealthSourceSpec = HealthSourceSpec & {
-  applicationId: string
-  applicationName: string
+  applicationId?: string
+  applicationName?: string
   feature: string
   metricPacks: MetricPackDTO[]
 }
@@ -2259,7 +2258,6 @@ export type PrometheusConnectorDTO = ConnectorConfigDTO & {
 export interface PrometheusFilter {
   labelName?: string
   labelValue?: string
-  queryFilterString?: string
 }
 
 export type PrometheusHealthSourceSpec = HealthSourceSpec & {
@@ -2290,7 +2288,6 @@ export interface PrometheusSampleData {
 }
 
 export interface QueryDTO {
-  messageIdentifier: string
   name: string
   query: string
   serviceInstanceIdentifier: string
@@ -2320,6 +2317,13 @@ export interface ResponseBoolean {
 export interface ResponseKubernetesActivityDetailsDTO {
   correlationId?: string
   data?: KubernetesActivityDetailsDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseListEnvironmentResponse {
+  correlationId?: string
+  data?: EnvironmentResponse[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2623,6 +2627,7 @@ export interface ResponseMessage {
     | 'CONNECTOR_VALIDATION_EXCEPTION'
     | 'TIMESCALE_NOT_AVAILABLE'
     | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -2797,14 +2802,6 @@ export interface RestResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseActivityStatusDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ActivityStatusDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseActivityVerificationResultDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -2826,14 +2823,6 @@ export interface RestResponseBoolean {
     [key: string]: { [key: string]: any }
   }
   resource?: boolean
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseCD10RegisterActivityDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CD10RegisterActivityDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -3275,6 +3264,12 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
+export interface RiskData {
+  healthScore?: number
+  riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskValue?: number
+}
+
 export interface RiskNotify {
   threshold?: number
 }
@@ -3360,6 +3355,11 @@ export type SplunkConnectorDTO = ConnectorConfigDTO & {
   username?: string
 }
 
+export type SplunkHealthSourceSpec = HealthSourceSpec & {
+  feature: string
+  queries: QueryDTO[]
+}
+
 export interface SplunkSampleResponse {
   errorMessage?: string
   rawSampleLogs?: SampleLog[]
@@ -3399,9 +3399,24 @@ export interface StackdriverDashboardDetail {
   widgetName?: string
 }
 
+export interface StackdriverDefinition {
+  dashboardName?: string
+  dashboardPath?: string
+  isManualQuery?: boolean
+  jsonMetricDefinition?: { [key: string]: any }
+  metricName?: string
+  metricTags?: string[]
+  riskProfile?: RiskProfile
+  serviceInstanceField?: string
+}
+
 export type StackdriverLogHealthSourceSpec = HealthSourceSpec & {
   feature: string
   queries: QueryDTO[]
+}
+
+export type StackdriverMetricHealthSourceSpec = HealthSourceSpec & {
+  metricDefinitions?: StackdriverDefinition[]
 }
 
 export type SumoLogicConnectorDTO = ConnectorConfigDTO & {
@@ -3583,6 +3598,14 @@ export interface TransactionMetricHostData {
 
 export interface TransactionMetricInfo {
   connectorName?: string
+  dataSourceType?:
+    | 'APP_DYNAMICS'
+    | 'SPLUNK'
+    | 'STACKDRIVER'
+    | 'STACKDRIVER_LOG'
+    | 'KUBERNETES'
+    | 'NEW_RELIC'
+    | 'PROMETHEUS'
   nodes?: HostData[]
   transactionMetric?: TransactionMetric
 }
@@ -4443,6 +4466,93 @@ export const getActivityVerificationResultPromise = (
     GetActivityVerificationResultPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/activity-risks`, props, signal)
 
+export interface GetDeploymentLogAnalysisClustersQueryParams {
+  accountId: string
+  hostName?: string
+}
+
+export interface GetDeploymentLogAnalysisClustersPathParams {
+  activityId: string
+}
+
+export type GetDeploymentLogAnalysisClustersProps = Omit<
+  GetProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisClustersPathParams
+
+/**
+ * get logs for given activity
+ */
+export const GetDeploymentLogAnalysisClusters = ({ activityId, ...props }: GetDeploymentLogAnalysisClustersProps) => (
+  <Get<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >
+    path={`/activity/${activityId}/clusters`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentLogAnalysisClustersProps = Omit<
+  UseGetProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisClustersPathParams
+
+/**
+ * get logs for given activity
+ */
+export const useGetDeploymentLogAnalysisClusters = ({
+  activityId,
+  ...props
+}: UseGetDeploymentLogAnalysisClustersProps) =>
+  useGet<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >((paramsInPath: GetDeploymentLogAnalysisClustersPathParams) => `/activity/${paramsInPath.activityId}/clusters`, {
+    base: getConfig('cv/api'),
+    pathParams: { activityId },
+    ...props
+  })
+
+/**
+ * get logs for given activity
+ */
+export const getDeploymentLogAnalysisClustersPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetDeploymentLogAnalysisClustersQueryParams,
+    GetDeploymentLogAnalysisClustersPathParams
+  >(getConfig('cv/api'), `/activity/${activityId}/clusters`, props, signal)
+
 export interface GetDatasourceTypesQueryParams {
   accountId: string
 }
@@ -4587,6 +4697,93 @@ export const getDeploymentActivitySummaryPromise = (
     GetDeploymentActivitySummaryQueryParams,
     GetDeploymentActivitySummaryPathParams
   >(getConfig('cv/api'), `/activity/${activityId}/deployment-activity-summary`, props, signal)
+
+export interface GetDeploymentLogAnalysisResultQueryParams {
+  accountId: string
+  label?: number
+  pageNumber: number
+  pageSize: number
+  hostName?: string
+}
+
+export interface GetDeploymentLogAnalysisResultPathParams {
+  activityId: string
+}
+
+export type GetDeploymentLogAnalysisResultProps = Omit<
+  GetProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisResultPathParams
+
+/**
+ * get logs for given activity
+ */
+export const GetDeploymentLogAnalysisResult = ({ activityId, ...props }: GetDeploymentLogAnalysisResultProps) => (
+  <Get<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >
+    path={`/activity/${activityId}/deployment-log-analysis-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentLogAnalysisResultProps = Omit<
+  UseGetProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysisResultPathParams
+
+/**
+ * get logs for given activity
+ */
+export const useGetDeploymentLogAnalysisResult = ({ activityId, ...props }: UseGetDeploymentLogAnalysisResultProps) =>
+  useGet<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >(
+    (paramsInPath: GetDeploymentLogAnalysisResultPathParams) =>
+      `/activity/${paramsInPath.activityId}/deployment-log-analysis-data`,
+    { base: getConfig('cv/api'), pathParams: { activityId }, ...props }
+  )
+
+/**
+ * get logs for given activity
+ */
+export const getDeploymentLogAnalysisResultPromise = (
+  {
+    activityId,
+    ...props
+  }: GetUsingFetchProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  > & { activityId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysisResultQueryParams,
+    GetDeploymentLogAnalysisResultPathParams
+  >(getConfig('cv/api'), `/activity/${activityId}/deployment-log-analysis-data`, props, signal)
 
 export interface GetDeploymentMetricsQueryParams {
   accountId: string
@@ -7042,7 +7239,7 @@ export interface GetMonitoredServiceListEnvironmentsQueryParams {
 }
 
 export type GetMonitoredServiceListEnvironmentsProps = Omit<
-  GetProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  GetProps<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
   'path'
 >
 
@@ -7050,7 +7247,7 @@ export type GetMonitoredServiceListEnvironmentsProps = Omit<
  * get monitored service list environments data
  */
 export const GetMonitoredServiceListEnvironments = (props: GetMonitoredServiceListEnvironmentsProps) => (
-  <Get<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>
+  <Get<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>
     path={`/monitored-service/environments`}
     base={getConfig('cv/api')}
     {...props}
@@ -7058,7 +7255,7 @@ export const GetMonitoredServiceListEnvironments = (props: GetMonitoredServiceLi
 )
 
 export type UseGetMonitoredServiceListEnvironmentsProps = Omit<
-  UseGetProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  UseGetProps<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
   'path'
 >
 
@@ -7066,7 +7263,7 @@ export type UseGetMonitoredServiceListEnvironmentsProps = Omit<
  * get monitored service list environments data
  */
 export const useGetMonitoredServiceListEnvironments = (props: UseGetMonitoredServiceListEnvironmentsProps) =>
-  useGet<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
+  useGet<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
     `/monitored-service/environments`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -7075,10 +7272,15 @@ export const useGetMonitoredServiceListEnvironments = (props: UseGetMonitoredSer
  * get monitored service list environments data
  */
 export const getMonitoredServiceListEnvironmentsPromise = (
-  props: GetUsingFetchProps<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>,
+  props: GetUsingFetchProps<
+    ResponseListEnvironmentResponse,
+    unknown,
+    GetMonitoredServiceListEnvironmentsQueryParams,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseListString, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
+  getUsingFetch<ResponseListEnvironmentResponse, unknown, GetMonitoredServiceListEnvironmentsQueryParams, void>(
     getConfig('cv/api'),
     `/monitored-service/environments`,
     props,

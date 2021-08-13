@@ -18,6 +18,7 @@ module.exports = {
     '!src/**/*.d.ts',
     '!src/**/*.test.{ts,tsx}',
     '!src/**/*.stories.{ts,tsx}',
+    '!src/**/__test__/**',
     '!src/**/__tests__/**',
     '!src/services/**',
     '!src/**/YamlBuilder.tsx',
@@ -31,7 +32,8 @@ module.exports = {
     '!src/modules/10-common/utils/testUtils.tsx',
     '!src/modules/10-common/utils/JestFormHelper.ts',
     '!src/modules/85-cv/pages/metric-pack/**',
-    '!src/modules/70-pipeline/components/PipelineStudio/PipelineContext/PipelineContext.tsx'
+    '!src/modules/70-pipeline/components/PipelineStudio/PipelineContext/PipelineContext.tsx',
+    '!src/modules/70-pipeline/components/PipelineStudio/ExecutionGraph/**'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {

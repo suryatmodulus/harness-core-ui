@@ -28,6 +28,21 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
   const { expressions } = useVariablesExpression()
   return (
     <React.Fragment>
+      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
+        <div className={cx(stepCss.formGroup, stepCss.sm)}>
+          <FormMultiTypeDurationField
+            label={getString('pipelineSteps.timeoutLabel')}
+            name={`${prefix}timeout`}
+            multiTypeDurationProps={{
+              enableConfigureOptions: false,
+              expressions,
+              disabled: readonly,
+              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
+            }}
+            disabled={readonly}
+          />
+        </div>
+      ) : null}
       {getMultiTypeFromValue(template?.spec?.url) === MultiTypeInputType.RUNTIME ? (
         <div className={cx(stepCss.formGroup, stepCss.md)}>
           <FormInput.MultiTextInput
@@ -84,21 +99,6 @@ export default function HttpInputSetStep(props: HttpInputSetStepProps): React.Re
               disabled: readonly,
               allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
             }}
-          />
-        </div>
-      ) : null}
-      {getMultiTypeFromValue(template?.timeout) === MultiTypeInputType.RUNTIME ? (
-        <div className={cx(stepCss.formGroup, stepCss.sm)}>
-          <FormMultiTypeDurationField
-            label={getString('pipelineSteps.timeoutLabel')}
-            name={`${prefix}timeout`}
-            multiTypeDurationProps={{
-              enableConfigureOptions: false,
-              expressions,
-              disabled: readonly,
-              allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.EXPRESSION]
-            }}
-            disabled={readonly}
           />
         </div>
       ) : null}

@@ -58,6 +58,9 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
           clonePerspective(data, true)
         }
 
+        const viewType = data?.viewType
+        const isDefaultPerspective = viewType === ViewType.Default
+
         return data ? (
           <Card
             key={data?.id}
@@ -75,9 +78,15 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
                   }}
                 >
                   <Menu>
-                    <Menu.Item onClick={editClick} icon="edit" text="Edit" />
+                    <Menu.Item disabled={isDefaultPerspective} onClick={editClick} icon="edit" text="Edit" />
                     <Menu.Item onClick={onCloneClick} icon="duplicate" text="Clone" />
-                    <Menu.Item className={Classes.POPOVER_DISMISS} onClick={onDeleteClick} icon="trash" text="Delete" />
+                    <Menu.Item
+                      disabled={isDefaultPerspective}
+                      className={Classes.POPOVER_DISMISS}
+                      onClick={onDeleteClick}
+                      icon="trash"
+                      text="Delete"
+                    />
                   </Menu>
                 </Container>
               }
@@ -89,11 +98,9 @@ const PerspectiveListView: React.FC<PerspectiveListViewProps> = ({
               </div>
             )}
             <Layout.Vertical spacing="small" className={css.cardContent}>
-              {data?.viewType === ViewType.Sample && <Container className={css.sampleRibbon}></Container>}
+              {isDefaultPerspective && <Container className={css.sampleRibbon}></Container>}
 
-              <Container height={23}>
-                {data?.viewType === ViewType.Sample && <Icon name="harness" size={22} />}
-              </Container>
+              <Container height={23}>{isDefaultPerspective && <Icon name="harness" size={22} />}</Container>
               <Text font={{ weight: 'semi-bold' }} color="grey800" lineClamp={2}>
                 {data?.name}
               </Text>

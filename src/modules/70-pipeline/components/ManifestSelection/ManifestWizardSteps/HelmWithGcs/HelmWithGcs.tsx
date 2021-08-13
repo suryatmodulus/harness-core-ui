@@ -91,7 +91,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [prevStepData?.connectorRef])
 
-  const bucketOptions = Object.keys(bucketData || {}).map(item => ({
+  const bucketOptions = Object.keys(bucketData?.data || {}).map(item => ({
     label: item,
     value: item
   }))
@@ -192,7 +192,7 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
             ...prevStepData,
             ...formData,
             connectorRef: prevStepData?.connectorRef
-              ? getMultiTypeFromValue(prevStepData?.connectorRef) === MultiTypeInputType.RUNTIME
+              ? getMultiTypeFromValue(prevStepData?.connectorRef) !== MultiTypeInputType.FIXED
                 ? prevStepData?.connectorRef
                 : prevStepData?.connectorRef?.value
               : prevStepData?.identifier
@@ -285,9 +285,9 @@ const HelmWithGcs: React.FC<StepProps<ConnectorConfigDTO> & HelmWithGcsPropType>
                   })}
                 >
                   <FormInput.MultiTextInput
-                    label={getString('pipeline.manifestType.path')}
+                    label={getString('chartPath')}
                     multiTextInputProps={{ expressions }}
-                    placeholder={getString('pipeline.manifestType.pathPlaceholder')}
+                    placeholder={getString('pipeline.manifestType.chartPathPlaceholder')}
                     name="folderPath"
                     isOptional={true}
                   />

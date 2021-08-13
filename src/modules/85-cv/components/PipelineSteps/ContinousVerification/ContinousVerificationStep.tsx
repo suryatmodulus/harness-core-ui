@@ -1,11 +1,13 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uicore'
 import { connect, FormikErrors } from 'formik'
+import { omit } from 'lodash-es'
 import { StepViewType, StepProps, ValidateInputSetProps } from '@pipeline/components/AbstractSteps/Step'
 
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'
 
+import type { StringsMap } from 'stringTypes'
 import type { ContinousVerificationData, ContinousVerificationVariableStepProps, spec } from './types'
 import { ContinousVerificationWidgetWithRef } from './components/ContinousVerificationWidget/ContinousVerificationWidget'
 import { ContinousVerificationInputSetStep } from './components/ContinousVerificationInputSetStep/ContinousVerificationInputSetStep'
@@ -23,6 +25,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
   protected type = StepType.Verify
   protected stepName = 'Verify'
   protected stepIcon: IconName = 'cv-main'
+  protected stepDescription: keyof StringsMap = 'pipeline.stepDescription.Verify'
   protected isHarnessSpecific = true
   protected defaultValues: ContinousVerificationData = cvDefaultValues
 
@@ -82,7 +85,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     return {
       ...initialValues,
       spec: {
-        ...initialValues.spec,
+        ...initialValues?.spec,
         spec: getSpecFormData(initialValues?.spec?.spec)
       }
     }
@@ -92,7 +95,7 @@ export class ContinousVerificationStep extends PipelineStep<ContinousVerificatio
     return {
       ...data,
       spec: {
-        ...data.spec,
+        ...omit(data?.spec, ['monitoredServiceRef', 'healthSources']),
         spec: getSpecYamlData(data?.spec?.spec, data?.spec?.type)
       }
     }

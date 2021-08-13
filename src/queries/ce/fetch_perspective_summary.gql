@@ -1,18 +1,35 @@
-query FetchPerspectiveDetailsSummary($filters: [QLCEViewFilterWrapperInput]) {
-  perspectiveTrendStats(
-    filters: $filters
-    aggregateFunction: [
-      { operationType: SUM, columnName: "cost" }
-      { operationType: MAX, columnName: "startTime" }
-      { operationType: MIN, columnName: "startTime" }
-    ]
-  ) {
+query FetchPerspectiveDetailsSummary(
+  $filters: [QLCEViewFilterWrapperInput]
+  $aggregateFunction: [QLCEViewAggregationInput]
+  $isClusterQuery: Boolean
+) {
+  perspectiveTrendStats(filters: $filters, aggregateFunction: $aggregateFunction, isClusterQuery: $isClusterQuery) {
     cost {
       statsDescription
       statsLabel
       statsTrend
       statsValue
       value
+    }
+    idleCost {
+      statsLabel
+      statsValue
+      value
+    }
+    unallocatedCost {
+      statsLabel
+      statsValue
+      value
+    }
+    utilizedCost {
+      statsLabel
+      statsValue
+      value
+    }
+    efficiencyScoreStats {
+      statsLabel
+      statsTrend
+      statsValue
     }
   }
 }

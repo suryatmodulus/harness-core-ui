@@ -2,11 +2,12 @@ import React from 'react'
 import { Color, Container, Formik, Layout } from '@wings-software/uicore'
 import { debounce, noop } from 'lodash-es'
 import type { FormikProps } from 'formik'
-import type { StageElementWrapper, StageWhenCondition } from 'services/cd-ng'
+import type { StageWhenCondition } from 'services/cd-ng'
 import { StepMode as Modes } from '@pipeline/utils/stepUtils'
 import ConditionalExecutionHeader from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionHeader'
 import ConditionalExecutionStatus from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionStatus'
 import ConditionalExecutionCondition from '@pipeline/components/PipelineSteps/AdvancedSteps/ConditionalExecutionPanel/ConditionalExecutionCondition'
+import type { StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import {
   ConditionalExecutionOption,
   PipelineOrStageStatus
@@ -43,9 +44,9 @@ export default function ConditionalExecution(props: ConditionalExecutionProps): 
   return (
     <Formik
       initialValues={{
-        status: stage.when?.pipelineStatus || PipelineOrStageStatus.SUCCESS,
-        enableJEXL: !!stage.when?.condition,
-        condition: stage.when?.condition
+        status: stage?.when?.pipelineStatus || PipelineOrStageStatus.SUCCESS,
+        enableJEXL: !!stage?.when?.condition,
+        condition: stage?.when?.condition || ''
       }}
       formName="condExecStudio"
       onSubmit={noop}

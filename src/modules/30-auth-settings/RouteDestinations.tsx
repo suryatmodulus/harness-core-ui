@@ -1,8 +1,12 @@
 import React from 'react'
-import { Route, useParams, Redirect } from 'react-router-dom'
+import { Route, useParams, Redirect, Switch } from 'react-router-dom'
+import { createClient, Provider, dedupExchange, cacheExchange, fetchExchange } from 'urql'
+import { requestPolicyExchange } from '@urql/exchange-request-policy'
 
 import Configuration from '@auth-settings/pages/Configuration/Configuration'
 import AccountOverview from '@auth-settings/pages/AccountOverview/AccountOverview'
+import NotFoundPage from '@common/pages/404/NotFoundPage'
+import SubscriptionsPage from '@auth-settings/pages/subscriptions/SubscriptionsPage'
 import { RouteWithLayout } from '@common/router'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps } from '@common/utils/routeUtils'
@@ -12,11 +16,11 @@ import RbacFactory from '@rbac/factories/RbacFactory'
 import { ResourceType, ResourceCategory } from '@rbac/interfaces/ResourceType'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
-import { HomeSideNavProps } from '@common/RouteDestinations'
+import { AccountSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.ACCOUNT, {
   icon: 'nav-settings',
-  label: 'rbac.accountSettings.label',
+  label: 'common.accountSettings',
   category: ResourceCategory.ADMINSTRATIVE_FUNCTIONS,
   permissionLabels: {
     [PermissionIdentifier.VIEW_ACCOUNT]: <String stringID="rbac.permissionLabels.view" />,
@@ -40,20 +44,61 @@ const RedirectToConfiguration = (): React.ReactElement => {
   return <Redirect to={routes.toAccountConfiguration(params)} />
 }
 
-export default (
-  <>
-    <Route sidebarProps={HomeSideNavProps} path={routes.toAuthenticationSettings({ ...accountPathProps })} exact>
-      <RedirectToConfiguration />
-    </Route>
-    <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
-      path={routes.toAccountConfiguration({ ...accountPathProps })}
-      exact
-    >
-      <Configuration />
-    </RouteWithLayout>
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toSetup({ ...accountPathProps })} exact>
-      <AccountOverview />
-    </RouteWithLayout>
-  </>
-)
+const RedirectToOverview = (): React.ReactElement => {
+  const params = useParams<AccountPathProps>()
+  return <Redirect to={routes.toAccountSettingsOverview(params)} />
+}
+
+const AuthSettingsRoutes: React.FC = () => {
+  const urqlClient = React.useCallback(() => {
+    const url = 'https://harness.dragonson.com/graphql'
+    return createClient({
+      url,
+      exchanges: [dedupExchange, requestPolicyExchange({}), cacheExchange, fetchExchange],
+      requestPolicy: 'cache-first'
+    })
+  }, [])
+
+  return (
+    <Provider value={urqlClient()}>
+      <Switch>
+        <RouteWithLayout
+          sidebarProps={AccountSideNavProps}
+          path={routes.toAccountSettings({ ...accountPathProps })}
+          exact
+        >
+          <RedirectToOverview />
+        </RouteWithLayout>
+        <Route sidebarProps={AccountSideNavProps} path={routes.toAuthenticationSettings({ ...accountPathProps })} exact>
+          <RedirectToConfiguration />
+        </Route>
+        <RouteWithLayout
+          sidebarProps={AccountSideNavProps}
+          path={routes.toAccountConfiguration({ ...accountPathProps })}
+          exact
+        >
+          <Configuration />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={AccountSideNavProps}
+          path={routes.toAccountSettingsOverview({ ...accountPathProps })}
+          exact
+        >
+          <AccountOverview />
+        </RouteWithLayout>
+        <RouteWithLayout
+          sidebarProps={AccountSideNavProps}
+          path={routes.toSubscriptions({ ...accountPathProps })}
+          exact
+        >
+          <SubscriptionsPage />
+        </RouteWithLayout>
+        <Route path="*">
+          <NotFoundPage />
+        </Route>
+      </Switch>
+    </Provider>
+  )
+}
+
+export default AuthSettingsRoutes

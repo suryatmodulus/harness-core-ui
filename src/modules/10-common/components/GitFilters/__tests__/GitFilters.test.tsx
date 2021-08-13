@@ -1,15 +1,14 @@
 import React from 'react'
-import { render, waitFor, RenderResult, queryByAttribute } from '@testing-library/react'
+import { render, waitFor, RenderResult, queryByAttribute, act, fireEvent, findByText } from '@testing-library/react'
 import { GitSyncTestWrapper } from '@common/utils/gitSyncTestUtils'
+import * as cdService from 'services/cd-ng'
 import GitFilters, { GitFiltersProps } from '../GitFilters'
 import mockBranches from './branchStatusMock.json'
 
 const filterChangeHandler = jest.fn()
-const fetchBranches = jest.fn(() => Promise.resolve(mockBranches))
-
-jest.mock('services/cd-ng', () => ({
-  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => fetchBranches())
-}))
+const fetchBranches = jest.fn(() => {
+  return Object.create(mockBranches)
+})
 
 const pathParams = { accountId: 'dummy', orgIdentifier: 'default', projectIdentifier: 'dummyProject' }
 
@@ -26,6 +25,16 @@ describe('Git filter test for repo and branch selecion', () => {
 
   const queryByNameAttribute = (name: string, container: HTMLElement): HTMLElement | null =>
     queryByAttribute('name', container, name)
+
+  beforeEach(() => {
+    jest.spyOn(cdService, 'useGetListOfBranchesWithStatus').mockImplementation(
+      () =>
+        ({
+          response: mockBranches,
+          refetch: fetchBranches
+        } as any)
+    )
+  })
 
   afterEach(() => {
     fetchBranches.mockReset()
@@ -44,5 +53,48 @@ describe('Git filter test for repo and branch selecion', () => {
     })
     expect(filterChangeHandler).not.toBeCalled()
     expect(container).toMatchSnapshot()
+  })
+
+  test('Test for changing repo and branch', async () => {
+    const { container } = setup()
+
+    await waitFor(() => {
+      const repoName = queryByNameAttribute('repo', container) as HTMLInputElement
+      expect(repoName.value).toEqual('common.gitSync.allRepositories')
+    })
+
+    expect(filterChangeHandler).not.toBeCalled()
+    //changing repo
+    const icons = container.querySelectorAll('[icon="chevron-down"]')
+    const repoSelectIcon = icons[0]
+    act(() => {
+      fireEvent.click(repoSelectIcon!)
+    })
+    const repo = await findByText(container, 'gitSyncRepoTest')
+    await act(async () => {
+      fireEvent.click(repo)
+    })
+    // branch list should be fetched after changing repo
+    waitFor(() => expect(fetchBranches).toBeCalledTimes(1))
+    const branchName = queryByNameAttribute('branch', container) as HTMLInputElement
+    //selecting default branch after repo change
+    waitFor(() => expect(branchName.value).toEqual('master'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Starting with selected repo and branch', async () => {
+    const { container } = setup({ defaultValue: { repo: 'gitSyncRepoTest', branch: 'gitSync' } })
+
+    await waitFor(() => {
+      const repoName = queryByNameAttribute('repo', container) as HTMLInputElement
+      const branchName = queryByNameAttribute('branch', container) as HTMLInputElement
+      expect(repoName.value).toEqual('gitSyncRepoTest')
+      expect(branchName.value).toEqual('gitSync')
+    })
+
+    expect(filterChangeHandler).not.toBeCalled()
+
+    // branch list should be fetched for selected repo
+    expect(fetchBranches).toBeCalledTimes(1)
   })
 })

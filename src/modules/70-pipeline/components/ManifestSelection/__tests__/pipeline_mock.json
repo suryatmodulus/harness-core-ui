@@ -96,7 +96,89 @@
                   }
                 ],
                 "artifactOverrideSets": [],
-                "manifestOverrideSets": []
+                "manifestOverrideSets": [
+                  {
+                    "identifier": "overrideSetIdentifier",
+                    "overrideSets": {
+                      "overrideSet": {
+                        "manifests": [
+                          {
+                            "manifest": {
+                              "identifier": "MID ",
+                              "type": "K8sManifest",
+                              "spec": {
+                                "store": {
+                                  "type": "Git",
+                                  "spec": {
+                                    "connectorRef": "<+input>",
+                                    "gitFetchType": "Branch",
+                                    "branch": "branch",
+                                    "commitId": null,
+                                    "paths": ["1", "2"]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "manifest": {
+                              "identifier": "mid",
+                              "type": "K8sManifest",
+                              "spec": {
+                                "store": {
+                                  "type": "Git",
+                                  "spec": {
+                                    "connectorRef": "<+input>",
+                                    "gitFetchType": "Branch",
+                                    "branch": "branch",
+                                    "commitId": null,
+                                    "paths": ["a1", "b"]
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "manifest": {
+                              "identifier": "mid1",
+                              "type": "K8sManifest",
+                              "spec": {
+                                "store": {
+                                  "type": "Git",
+                                  "spec": {
+                                    "connectorRef": "<+input>",
+                                    "gitFetchType": "Branch",
+                                    "branch": "br1",
+                                    "commitId": null,
+                                    "paths": "<+input>"
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "manifest": {
+                              "identifier": "newmid",
+                              "type": "K8sManifest",
+                              "spec": {
+                                "store": {
+                                  "type": "Git",
+                                  "spec": {
+                                    "connectorRef": "<+input>",
+                                    "gitFetchType": "Branch",
+                                    "branch": "br2",
+                                    "commitId": null,
+                                    "paths": ["p1"]
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
               }
             },
             "tags": {}

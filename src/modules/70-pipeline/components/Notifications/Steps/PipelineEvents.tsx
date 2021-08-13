@@ -14,7 +14,9 @@ export enum PipelineEventType {
   StageSuccess = 'StageSuccess',
   StageFailed = 'StageFailed',
   StageStart = 'StageStart',
-  StepFailed = 'StepFailed'
+  StepFailed = 'StepFailed',
+  PipelineEnd = 'PipelineEnd',
+  PipelineStart = 'PipelineStart'
 }
 
 const pipelineEventItems = [
@@ -22,6 +24,15 @@ const pipelineEventItems = [
     label: startCase(PipelineEventType.ALL_EVENTS),
     value: PipelineEventType.ALL_EVENTS
   },
+  {
+    label: startCase(PipelineEventType.PipelineStart),
+    value: PipelineEventType.PipelineStart
+  },
+  {
+    label: startCase(PipelineEventType.PipelineEnd),
+    value: PipelineEventType.PipelineEnd
+  },
+
   {
     label: startCase(PipelineEventType.PipelineSuccess),
     value: PipelineEventType.PipelineSuccess

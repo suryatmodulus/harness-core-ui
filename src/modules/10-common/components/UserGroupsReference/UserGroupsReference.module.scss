@@ -1,0 +1,8 @@
+.main {
+  margin-top: var(--spacing-large) !important;
+  :global {
+    .bp3-tab-list > *:not(:last-child) {
+      margin-right: 0 !important;
+    }
+  }
+}

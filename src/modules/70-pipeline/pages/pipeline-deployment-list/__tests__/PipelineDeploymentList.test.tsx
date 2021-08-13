@@ -14,6 +14,7 @@ import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
 import { useGetListOfExecutions } from 'services/pipeline-ng'
 
+import { branchStatusMock, gitConfigs, sourceCodeManagers } from '@connectors/mocks/mock'
 import PipelineDeploymentList from '../PipelineDeploymentList'
 import data from './execution-list.json'
 import pipelines from '../../../components/PipelineModalListView/__tests__/RunPipelineListViewMocks'
@@ -60,13 +61,25 @@ jest.mock('services/pipeline-ng', () => ({
   }))
 }))
 
+const getListOfBranchesWithStatus = jest.fn(() => Promise.resolve(branchStatusMock))
+const getListGitSync = jest.fn(() => Promise.resolve(gitConfigs))
+
 jest.mock('services/cd-ng', () => ({
   useGetServiceListForProject: jest
     .fn()
     .mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
   useGetEnvironmentListForProject: jest
     .fn()
-    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() }))
+    .mockImplementation(() => ({ loading: false, data: environments, refetch: jest.fn() })),
+  useListGitSync: jest.fn().mockImplementation(() => {
+    return { data: gitConfigs, refetch: getListGitSync }
+  }),
+  useGetListOfBranchesWithStatus: jest.fn().mockImplementation(() => {
+    return { data: branchStatusMock, refetch: getListOfBranchesWithStatus, loading: false }
+  }),
+  useGetSourceCodeManagers: jest.fn().mockImplementation(() => {
+    return { data: sourceCodeManagers, refetch: jest.fn() }
+  })
 }))
 
 function ComponentWrapper(): React.ReactElement {
@@ -195,7 +208,7 @@ describe('Test Pipeline Deployment list', () => {
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
     const option1 = await findByTextGlobal(document.body, 'pipeline.executionFilters.labels.Failed', {
-      selector: '.bp3-fill > span'
+      selector: '[class*="menuItem"]'
     })
 
     fireEvent.click(option1)
@@ -230,10 +243,7 @@ describe('Test Pipeline Deployment list', () => {
       }
     })
 
-    fireEvent.click(select)
-
-    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option2 = await findByTextGlobal(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+    const option2 = select.getElementsByTagName('button')[0]
 
     fireEvent.click(option2)
 
@@ -280,7 +290,7 @@ describe('Test Pipeline Deployment list', () => {
 
     await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
 
-    const option1 = await findByTextGlobal(document.body, 'pipeline1', { selector: '.bp3-fill' })
+    const option1 = await findByTextGlobal(document.body, 'pipeline1', { selector: '[class*="menuItem"]' })
 
     fireEvent.click(option1)
 
@@ -314,10 +324,7 @@ describe('Test Pipeline Deployment list', () => {
       }
     })
 
-    fireEvent.click(select)
-
-    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
-    const option2 = await findByTextGlobal(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+    const option2 = select.getElementsByTagName('button')[0]
 
     fireEvent.click(option2)
 

@@ -57,6 +57,13 @@
 }
 .connector-label {
   padding-bottom: var(--spacing-small);
+
+  :global(.bp3-icon-chevron-down) {
+    position: absolute;
+    right: var(--spacing-8);
+    opacity: 0.5;
+    padding: var(--spacing-small) !important;
+  }
 }
 .status {
   align-items: center;
@@ -80,6 +87,8 @@
 
 .right-status {
   display: flex;
+  right: 60px;
+  position: absolute;
 }
 .label {
   max-width: 100%;
@@ -91,7 +100,7 @@
   width: 100%;
   :global {
     .bp3-popover-wrapper {
-      max-width: calc(100% - 90px);
+      max-width: calc(100% - 140px);
       align-items: center;
       display: flex;
     }

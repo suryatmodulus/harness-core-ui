@@ -110,7 +110,7 @@ export function useMutateAsGet<
     }
 
     return () => {
-      cancel()
+      cancel?.()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.lazy, props.body, props.queryParams, props.pathParams, props.base, props.mock])

@@ -1,4 +1,17 @@
-import { LayerModel, LayerModelGenerics, LayerModelOptions } from '@projectstorm/react-canvas-core'
+import {
+  AbstractModelFactory,
+  BaseModel,
+  BaseModelGenerics,
+  CanvasEngine,
+  CanvasEngineListener,
+  CanvasModel,
+  CanvasModelGenerics,
+  FactoryBank,
+  FactoryBankListener,
+  LayerModel,
+  LayerModelGenerics,
+  LayerModelOptions
+} from '@projectstorm/react-canvas-core'
 import { DiagramEngine, NodeModel, DiagramModel } from '@projectstorm/react-diagrams-core'
 import { EmptyNodeModel } from '../node/EmptyNode/EmptyNodeModel'
 import type { RollbackToggleSwitchProps } from '../canvas/RollbackToggleSwitch/RollbackToggleSwitch'
@@ -84,10 +97,26 @@ export class StepGroupNodeLayerModel<
     return this.options.identifier
   }
 
-  getChildModelFactoryBank(engine: G['ENGINE']) {
-    return engine.getNodeFactories()
-  }
+  // getChildModelFactoryBank(engine: G['ENGINE']) {
+  //   return engine.getNodeFactories() as AbstractModelFactory<BaseModel<BaseModelGenerics>, CanvasEngine<CanvasEngineListener, CanvasModel<CanvasModelGenerics>>>
+  // }
 
+  getChildModelFactoryBank(
+    engine: G['ENGINE']
+  ): FactoryBank<
+    AbstractModelFactory<
+      BaseModel<BaseModelGenerics>,
+      CanvasEngine<CanvasEngineListener, CanvasModel<CanvasModelGenerics>>
+    >,
+    FactoryBankListener<
+      AbstractModelFactory<
+        BaseModel<BaseModelGenerics>,
+        CanvasEngine<CanvasEngineListener, CanvasModel<CanvasModelGenerics>>
+      >
+    >
+  > {
+    return engine.getNodeFactories() as any
+  }
   getNodes() {
     return this.getModels()
   }

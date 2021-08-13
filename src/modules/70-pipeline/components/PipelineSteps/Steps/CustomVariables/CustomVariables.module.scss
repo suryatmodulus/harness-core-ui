@@ -1,8 +1,17 @@
 .custom-variables {
+  position: relative;
+  &:nth-child(1) {
+    margin-top: -18px !important;
+  }
   .header-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    display: inline-flex;
+    transform: translateY(-48px);
+    margin-left: 85%;
+    width: 200px;
+    height: 0;
+    :global(.bp3-button) {
+      margin-top: var(--spacing-medium);
+    }
   }
 
   .subHeader {
@@ -18,7 +27,7 @@
 
   .value-row {
     display: grid;
-    grid-template-columns: repeat(2, minmax(10px, 1fr));
+    grid-template-columns: 264px 1fr;
     column-gap: var(--spacing-xsmall);
 
     & :global(.bp3-form-group) {
@@ -28,10 +37,6 @@
 
     & :global(.MultiTypeInput--btn) {
       width: 28px !important;
-    }
-
-    & > div {
-      display: flex;
     }
 
     input[type='number']::-webkit-inner-spin-button,
@@ -50,14 +55,61 @@
     grid-auto-flow: column;
     grid-template-columns: repeat(2, minmax(10px, 1fr));
     align-items: baseline;
-    margin-top: var(--spacing-small);
+    padding-top: 3px;
+    // margin-top: var(--spacing-small);
+    border-bottom: solid 1px var(--grey-200);
+    position: relative;
+    &:before {
+      position: absolute;
+      width: 100%;
+      bottom: -1px;
+      content: '';
+      border-bottom: solid 1px var(--grey-200);
+      height: 1px;
+      left: 100%;
+    }
+    &:after {
+      position: absolute;
+      width: 100%;
+      bottom: -1px;
+      content: '';
+      border-bottom: solid 1px var(--grey-200);
+      height: 1px;
+      right: 100%;
+    }
+    :global(.TextInput--main) {
+      margin-bottom: 0;
+    }
   }
+  .alignIcons {
+    margin-top: -5px;
+  }
+  .configureButton {
+    margin-top: 0 !important;
+    width: 30px;
+    height: 27px;
 
+    padding-right: 4px;
+    display: grid;
+    justify-content: center;
+    :global(.bp3-button) {
+      margin-top: -5px;
+      color: var(--grey-450) !important;
+    }
+  }
   .actionButtons {
+    display: grid;
+    grid-template-columns: 1fr 30px;
+
+    section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
     button {
       margin-left: var(--spacing-small);
       border-radius: var(--spacing-xxlarge) !important;
       padding: 0 !important;
+      vertical-align: initial;
       :global {
         svg {
           height: 12px;
@@ -140,6 +192,8 @@
   padding: var(--spacing-large);
   margin: 0 var(--spacing-large);
   background-color: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--spacing-2);
 
   .variable-list-table {
     display: grid;
@@ -154,4 +208,24 @@
       text-overflow: ellipsis;
     }
   }
+}
+.selectedSearchText {
+  background-color: var(--yellow-300);
+}
+.selectedSearchTextValueRow {
+  background-color: var(--yellow-300);
+  .configureButton {
+    background-color: var(--yellow-300);
+  }
+  &:global(.selected-search-text) {
+    background-color: var(--orange-400);
+    :local(.configureButton) {
+      background-color: var(--orange-400) !important;
+    }
+  }
+}
+
+.currentSelection {
+  background-color: var(--orange-400);
+  padding: 0px 2px;
 }

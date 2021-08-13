@@ -5,106 +5,98 @@ import { Get, GetProps, useGet, UseGetProps } from 'restful-react'
 
 import { getConfig, getUsingFetch, GetUsingFetchProps } from '../config'
 export const SPEC_VERSION = '2.0'
-export interface CIBuildAuthor {
-  id?: string
+export type AbortFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'Abort'
+}
+
+export type AddSegmentToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
+  spec: AddSegmentToVariationTargetMapYamlSpec
+  type: 'AddSegmentToVariationTargetMap'
+}
+
+export interface AddSegmentToVariationTargetMapYamlSpec {
+  segments: string[]
+  variation: string
+}
+
+export type AddTargetsToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
+  spec: AddTargetsToVariationTargetMapYamlSpec
+  type: 'AddTargetsToVariationTargetMap'
+}
+
+export interface AddTargetsToVariationTargetMapYamlSpec {
+  targets: string[]
+  variation: string
+}
+
+export type ApprovalStageConfig = StageInfoConfig & {
+  execution: ExecutionElementConfig
+}
+
+export interface ApproverInputInfo {
+  defaultValue?: string
   name?: string
-  email?: string
-  avatar?: string
 }
 
-export interface CIBuildBranchHook {
+export interface Approvers {
+  disallowPipelineExecutor: boolean
+  minimumCount: number
+  userGroups: string[]
+}
+
+export interface AuthorInfo {
   name?: string
-  link?: string
-  state?: string
-  commits?: CIBuildCommit[]
+  url?: string
 }
 
-export interface CIBuildCommit {
-  id?: string
-  link?: string
-  message?: string
-  ownerName?: string
-  ownerId?: string
-  ownerEmail?: string
-  timeStamp?: number
+export type BarrierStepInfo = StepSpecType & {
+  barrierRef: string
 }
 
-export interface CIBuildPRHook {
-  id?: number
-  link?: string
-  title?: string
-  body?: string
-  sourceRepo?: string
-  sourceBranch?: string
-  targetBranch?: string
-  state?: string
-  commits?: CIBuildCommit[]
+export type BranchBuildSpec = BuildSpec & {
+  branch: string
 }
 
-export interface CIBuildPipeline {
-  id?: string
-  name?: string
-  tags?: NGTag[]
+export interface Build {
+  spec: BuildSpec
+  type: 'branch' | 'tag'
 }
 
-export interface CIBuildResponseDTO {
-  id?: number
+export interface BuildActiveInfo {
+  author?: AuthorInfo
+  branch?: string
+  commit?: string
+  commitID?: string
+  endTs?: number
+  pipelineIdentifier?: string
+  piplineName?: string
+  startTs?: number
   status?: string
-  errorMessage?: string
-  startTime?: number
-  endTime?: number
-  pipeline?: CIBuildPipeline
-  triggerType?: string
-  event?: string
-  author?: CIBuildAuthor
-  branch?: CIBuildBranchHook
-  pullRequest?: CIBuildPRHook
 }
 
-export interface NGTag {
-  key: string
-  value: string
+export interface BuildCount {
+  failed?: number
+  success?: number
+  total?: number
 }
 
-export interface Page {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: { [key: string]: any }[]
-  pageIndex?: number
-  empty?: boolean
+export interface BuildExecutionInfo {
+  builds?: BuildCount
+  time?: number
 }
 
-export interface PageCIBuildResponseDTO {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: CIBuildResponseDTO[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface Response {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: { [key: string]: any }
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface ResponsePageCIBuildResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageCIBuildResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface ResponseCIBuildResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: CIBuildResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface BuildFailureInfo {
+  author?: AuthorInfo
+  branch?: string
+  commit?: string
+  commitID?: string
+  endTs?: number
+  pipelineIdentifier?: string
+  piplineName?: string
+  startTs?: number
+  status?: string
 }
 
 export interface BuildHealth {
@@ -113,298 +105,235 @@ export interface BuildHealth {
 }
 
 export interface BuildInfo {
-  total?: BuildHealth
-  success?: BuildHealth
   failed?: BuildHealth
+  success?: BuildHealth
+  total?: BuildHealth
+}
+
+export interface BuildJobEnvInfo {
+  type?: 'K8'
+}
+
+export interface BuildRepositoryCount {
+  count?: number
+}
+
+export interface BuildSpec {
+  [key: string]: any
+}
+
+export interface CIBuildAuthor {
+  avatar?: string
+  email?: string
+  id?: string
+  name?: string
+}
+
+export interface CIBuildBranchHook {
+  commits?: CIBuildCommit[]
+  link?: string
+  name?: string
+  state?: string
+}
+
+export interface CIBuildCommit {
+  id?: string
+  link?: string
+  message?: string
+  ownerEmail?: string
+  ownerId?: string
+  ownerName?: string
+  timeStamp?: number
+}
+
+export interface CIBuildPRHook {
+  body?: string
+  commits?: CIBuildCommit[]
+  id?: number
+  link?: string
+  sourceBranch?: string
+  sourceRepo?: string
+  state?: string
+  targetBranch?: string
+  title?: string
+}
+
+export interface CIPipelineModuleInfo {
+  branch?: string
+  ciExecutionInfoDTO?: CIWebhookInfoDTO
+  repoName?: string
+  tag?: string
+}
+
+export type CIServiceInfo = DependencySpecType & {
+  args?: string[]
+  connectorRef: string
+  entrypoint?: string[]
+  envVariables?: {
+    [key: string]: string
+  }
+  image: string
+  imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
+  privileged?: boolean
+  resources?: ContainerResource
+  runAsUser?: number
+}
+
+export interface CIWebhookInfoDTO {
+  author?: CIBuildAuthor
+  branch?: CIBuildBranchHook
+  event?: string
+  pullRequest?: CIBuildPRHook
+}
+
+export type CleanupStepInfo = StepSpecType & {
+  infrastructure: Infrastructure
+  podName: string
+  runAsUser?: ParameterFieldInteger
+}
+
+export interface CodeBase {
+  build: Build
+  connectorRef: string
+  depth?: number
+  prCloneStrategy?: 'MergeCommit' | 'SourceBranch'
+  repoName?: string
+  resources?: ContainerResource
+  sslVerify?: boolean
+}
+
+export interface Condition {
+  key: string
+  operator: 'equals' | 'not equals' | 'in' | 'not in'
+  value: string
+}
+
+export interface ConnectorConversionInfo {
+  connectorRef?: string
+  envToSecretsMap?: {
+    [key: string]: string
+  }
+}
+
+export interface ContainerDefinitionInfo {
+  args?: string[]
+  commands?: string[]
+  containerImageDetails?: ContainerImageDetails
+  containerResourceParams?: ContainerResourceParams
+  containerType?: 'STEP_EXECUTOR' | 'ADD_ON' | 'RUN' | 'PLUGIN' | 'SERVICE' | 'LITE_ENGINE' | 'TEST_INTELLIGENCE'
+  envVars?: {
+    [key: string]: string
+  }
+  envVarsWithSecretRef?: {
+    [key: string]: string
+  }
+  harnessManagedImage?: boolean
+  imagePullPolicy?: string
+  mainLiteEngine?: boolean
+  name?: string
+  ports?: number[]
+  privileged?: boolean
+  runAsUser?: number
+  secretVariables?: SecretNGVariable[]
+  stepIdentifier?: string
+  stepName?: string
+}
+
+export interface ContainerImageDetails {
+  connectorIdentifier?: string
+  imageDetails?: ImageDetails
+}
+
+export interface ContainerResource {
+  limits: Limits
+}
+
+export interface ContainerResourceParams {
+  resourceLimitMemoryMiB?: number
+  resourceLimitMilliCpu?: number
+  resourceRequestMemoryMiB?: number
+  resourceRequestMilliCpu?: number
+}
+
+export interface CriteriaSpec {
+  [key: string]: any
+}
+
+export interface CriteriaSpecWrapper {
+  spec: CriteriaSpec
+  type: 'Jexl' | 'KeyValues'
+}
+
+export interface DashboardBuildExecutionInfo {
+  buildExecutionInfoList?: BuildExecutionInfo[]
+}
+
+export interface DashboardBuildRepositoryInfo {
+  repositoryInfo?: RepositoryInfo[]
+}
+
+export interface DashboardBuildsActiveAndFailedInfo {
+  active?: BuildActiveInfo[]
+  failed?: BuildFailureInfo[]
 }
 
 export interface DashboardBuildsHealthInfo {
   builds?: BuildInfo
 }
 
-export interface ResponseDashboardBuildsHealthInfo {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: DashboardBuildsHealthInfo
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface DependencyElement {
+  description?: string
+  identifier: string
+  name?: string
+  spec?: DependencySpecType
+  type: 'Service'
 }
 
-export interface Failure {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  code?:
-    | 'DEFAULT_ERROR_CODE'
-    | 'INVALID_ARGUMENT'
-    | 'INVALID_EMAIL'
-    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
-    | 'USER_ALREADY_REGISTERED'
-    | 'USER_INVITATION_DOES_NOT_EXIST'
-    | 'USER_DOES_NOT_EXIST'
-    | 'USER_INVITE_OPERATION_FAILED'
-    | 'USER_DISABLED'
-    | 'ACCOUNT_DOES_NOT_EXIST'
-    | 'INACTIVE_ACCOUNT'
-    | 'ACCOUNT_MIGRATED'
-    | 'USER_DOMAIN_NOT_ALLOWED'
-    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
-    | 'RESOURCE_NOT_FOUND'
-    | 'ROLE_DOES_NOT_EXIST'
-    | 'EMAIL_NOT_VERIFIED'
-    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
-    | 'INVALID_TOKEN'
-    | 'REVOKED_TOKEN'
-    | 'INVALID_CAPTCHA_TOKEN'
-    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
-    | 'EXPIRED_TOKEN'
-    | 'TOKEN_ALREADY_REFRESHED_ONCE'
-    | 'ACCESS_DENIED'
-    | 'NG_ACCESS_DENIED'
-    | 'INVALID_CREDENTIAL'
-    | 'INVALID_KEY'
-    | 'INVALID_KEYPATH'
-    | 'INVALID_VARIABLE'
-    | 'UNKNOWN_HOST'
-    | 'UNREACHABLE_HOST'
-    | 'INVALID_PORT'
-    | 'SSH_SESSION_TIMEOUT'
-    | 'SOCKET_CONNECTION_ERROR'
-    | 'SOCKET_CONNECTION_TIMEOUT'
-    | 'CONNECTION_TIMEOUT'
-    | 'SSH_CONNECTION_ERROR'
-    | 'USER_GROUP_ERROR'
-    | 'INVALID_EXECUTION_ID'
-    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
-    | 'UNEXPECTED'
-    | 'UNKNOWN_ERROR'
-    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
-    | 'DUPLICATE_STATE_NAMES'
-    | 'TRANSITION_NOT_LINKED'
-    | 'TRANSITION_TO_INCORRECT_STATE'
-    | 'TRANSITION_TYPE_NULL'
-    | 'STATES_WITH_DUP_TRANSITIONS'
-    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
-    | 'NON_FORK_STATES'
-    | 'NON_REPEAT_STATES'
-    | 'INITIAL_STATE_NOT_DEFINED'
-    | 'FILE_INTEGRITY_CHECK_FAILED'
-    | 'INVALID_URL'
-    | 'FILE_DOWNLOAD_FAILED'
-    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
-    | 'INVALID_CSV_FILE'
-    | 'INVALID_REQUEST'
-    | 'SCHEMA_VALIDATION_FAILED'
-    | 'INVALID_INFRA_STATE'
-    | 'PIPELINE_ALREADY_TRIGGERED'
-    | 'NON_EXISTING_PIPELINE'
-    | 'DUPLICATE_COMMAND_NAMES'
-    | 'INVALID_PIPELINE'
-    | 'COMMAND_DOES_NOT_EXIST'
-    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
-    | 'DUPLICATE_HOST_NAMES'
-    | 'STATE_NOT_FOR_TYPE'
-    | 'STATE_MACHINE_ISSUE'
-    | 'STATE_DISCONTINUE_FAILED'
-    | 'STATE_PAUSE_FAILED'
-    | 'PAUSE_ALL_ALREADY'
-    | 'RESUME_ALL_ALREADY'
-    | 'ROLLBACK_ALREADY'
-    | 'ABORT_ALL_ALREADY'
-    | 'RETRY_FAILED'
-    | 'UNKNOWN_ARTIFACT_TYPE'
-    | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
-    | 'INIT_TIMEOUT'
-    | 'LICENSE_EXPIRED'
-    | 'NOT_LICENSED'
-    | 'REQUEST_TIMEOUT'
-    | 'WORKFLOW_ALREADY_TRIGGERED'
-    | 'JENKINS_ERROR'
-    | 'INVALID_ARTIFACT_SOURCE'
-    | 'INVALID_ARTIFACT_SERVER'
-    | 'INVALID_CLOUD_PROVIDER'
-    | 'UPDATE_NOT_ALLOWED'
-    | 'DELETE_NOT_ALLOWED'
-    | 'APPDYNAMICS_CONFIGURATION_ERROR'
-    | 'APM_CONFIGURATION_ERROR'
-    | 'SPLUNK_CONFIGURATION_ERROR'
-    | 'ELK_CONFIGURATION_ERROR'
-    | 'LOGZ_CONFIGURATION_ERROR'
-    | 'SUMO_CONFIGURATION_ERROR'
-    | 'INSTANA_CONFIGURATION_ERROR'
-    | 'APPDYNAMICS_ERROR'
-    | 'STACKDRIVER_ERROR'
-    | 'STACKDRIVER_CONFIGURATION_ERROR'
-    | 'NEWRELIC_CONFIGURATION_ERROR'
-    | 'NEWRELIC_ERROR'
-    | 'DYNA_TRACE_CONFIGURATION_ERROR'
-    | 'DYNA_TRACE_ERROR'
-    | 'CLOUDWATCH_ERROR'
-    | 'CLOUDWATCH_CONFIGURATION_ERROR'
-    | 'PROMETHEUS_CONFIGURATION_ERROR'
-    | 'DATA_DOG_CONFIGURATION_ERROR'
-    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
-    | 'ENCRYPTION_NOT_CONFIGURED'
-    | 'UNAVAILABLE_DELEGATES'
-    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
-    | 'PIPELINE_EXECUTION_IN_PROGRESS'
-    | 'AWS_ACCESS_DENIED'
-    | 'AWS_CLUSTER_NOT_FOUND'
-    | 'AWS_SERVICE_NOT_FOUND'
-    | 'IMAGE_NOT_FOUND'
-    | 'IMAGE_TAG_NOT_FOUND'
-    | 'INVALID_YAML_PAYLOAD'
-    | 'UNRECOGNIZED_YAML_FIELDS'
-    | 'COULD_NOT_MAP_BEFORE_YAML'
-    | 'MISSING_BEFORE_YAML'
-    | 'MISSING_YAML'
-    | 'NON_EMPTY_DELETIONS'
-    | 'GENERAL_YAML_ERROR'
-    | 'GENERAL_YAML_INFO'
-    | 'YAML_GIT_SYNC_ERROR'
-    | 'GIT_CONNECTION_ERROR'
-    | 'GIT_ERROR'
-    | 'ARTIFACT_SERVER_ERROR'
-    | 'ENCRYPT_DECRYPT_ERROR'
-    | 'SECRET_MANAGEMENT_ERROR'
-    | 'KMS_OPERATION_ERROR'
-    | 'GCP_KMS_OPERATION_ERROR'
-    | 'VAULT_OPERATION_ERROR'
-    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
-    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
-    | 'CYBERARK_OPERATION_ERROR'
-    | 'UNSUPPORTED_OPERATION_EXCEPTION'
-    | 'FEATURE_UNAVAILABLE'
-    | 'GENERAL_ERROR'
-    | 'BASELINE_CONFIGURATION_ERROR'
-    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
-    | 'INVALID_AUTHENTICATION_MECHANISM'
-    | 'INVALID_SAML_CONFIGURATION'
-    | 'INVALID_OAUTH_CONFIGURATION'
-    | 'INVALID_LDAP_CONFIGURATION'
-    | 'USER_GROUP_SYNC_FAILURE'
-    | 'USER_GROUP_ALREADY_EXIST'
-    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
-    | 'EXPLANATION'
-    | 'HINT'
-    | 'NOT_WHITELISTED_IP'
-    | 'INVALID_TOTP_TOKEN'
-    | 'EMAIL_FAILED'
-    | 'SSL_HANDSHAKE_FAILED'
-    | 'NO_APPS_ASSIGNED'
-    | 'INVALID_INFRA_CONFIGURATION'
-    | 'TEMPLATES_LINKED'
-    | 'USER_HAS_NO_PERMISSIONS'
-    | 'USER_NOT_AUTHORIZED'
-    | 'USER_ALREADY_PRESENT'
-    | 'INVALID_USAGE_RESTRICTION'
-    | 'USAGE_RESTRICTION_ERROR'
-    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
-    | 'DELEGATE_TASK_RETRY'
-    | 'KUBERNETES_YAML_ERROR'
-    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
-    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
-    | 'USAGE_LIMITS_EXCEEDED'
-    | 'EVENT_PUBLISH_FAILED'
-    | 'JIRA_ERROR'
-    | 'EXPRESSION_EVALUATION_FAILED'
-    | 'KUBERNETES_VALUES_ERROR'
-    | 'KUBERNETES_CLUSTER_ERROR'
-    | 'INCORRECT_SIGN_IN_MECHANISM'
-    | 'OAUTH_LOGIN_FAILED'
-    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
-    | 'TERRAFORM_EXECUTION_ERROR'
-    | 'FILE_READ_FAILED'
-    | 'FILE_SIZE_EXCEEDS_LIMIT'
-    | 'CLUSTER_NOT_FOUND'
-    | 'MARKETPLACE_TOKEN_NOT_FOUND'
-    | 'INVALID_MARKETPLACE_TOKEN'
-    | 'INVALID_TICKETING_SERVER'
-    | 'SERVICENOW_ERROR'
-    | 'PASSWORD_EXPIRED'
-    | 'USER_LOCKED'
-    | 'PASSWORD_STRENGTH_CHECK_FAILED'
-    | 'ACCOUNT_DISABLED'
-    | 'INVALID_ACCOUNT_PERMISSION'
-    | 'PAGERDUTY_ERROR'
-    | 'HEALTH_ERROR'
-    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
-    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
-    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
-    | 'DUPLICATE_FIELD'
-    | 'INVALID_AZURE_VAULT_CONFIGURATION'
-    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
-    | 'INVALID_ROLLBACK'
-    | 'SUMO_DATA_COLLECTION_ERROR'
-    | 'DEPLOYMENT_GOVERNANCE_ERROR'
-    | 'BATCH_PROCESSING_ERROR'
-    | 'GRAPHQL_ERROR'
-    | 'FILE_CREATE_ERROR'
-    | 'ILLEGAL_STATE'
-    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
-    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
-    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
-    | 'POD_NOT_FOUND_ERROR'
-    | 'COMMAND_EXECUTION_ERROR'
-    | 'REGISTRY_EXCEPTION'
-    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
-    | 'ENGINE_IO_EXCEPTION'
-    | 'ENGINE_OUTCOME_EXCEPTION'
-    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
-    | 'CACHE_NOT_FOUND_EXCEPTION'
-    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
-    | 'SHELL_EXECUTION_EXCEPTION'
-    | 'TEMPLATE_NOT_FOUND'
-    | 'AZURE_SERVICE_EXCEPTION'
-    | 'AZURE_CLIENT_EXCEPTION'
-    | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
-    | 'TIMEOUT_ENGINE_EXCEPTION'
-    | 'NO_AVAILABLE_DELEGATES'
-    | 'NO_INSTALLED_DELEGATES'
-    | 'DUPLICATE_DELEGATE_EXCEPTION'
-    | 'GCP_MARKETPLACE_EXCEPTION'
-    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
-    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
-    | 'OPTIMISTIC_LOCKING_EXCEPTION'
-    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
-    | 'NG_PIPELINE_CREATE_EXCEPTION'
-    | 'RESOURCE_NOT_FOUND_EXCEPTION'
-    | 'PMS_INITIALIZE_SDK_EXCEPTION'
-    | 'UNEXPECTED_SNIPPET_EXCEPTION'
-    | 'UNEXPECTED_SCHEMA_EXCEPTION'
-    | 'CONNECTOR_VALIDATION_EXCEPTION'
-    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
-    | 'GCP_SECRET_OPERATION_ERROR'
-    | 'GIT_OPERATION_ERROR'
-    | 'TASK_FAILURE_ERROR'
-    | 'INSTANCE_STATS_PROCESS_ERROR'
-    | 'INSTANCE_STATS_MIGRATION_ERROR'
-    | 'DEPLOYMENT_MIGRATION_ERROR'
-    | 'INSTANCE_STATS_AGGREGATION_ERROR'
-    | 'UNRESOLVED_EXPRESSIONS_ERROR'
-    | 'KRYO_HANDLER_NOT_FOUND_ERROR'
-    | 'DELEGATE_ERROR_HANDLER_EXCEPTION'
-    | 'UNEXPECTED_TYPE_ERROR'
-    | 'EXCEPTION_HANDLER_NOT_FOUND'
-    | 'CONNECTOR_NOT_FOUND_EXCEPTION'
-    | 'GCP_SERVER_ERROR'
-    | 'HTTP_RESPONSE_EXCEPTION'
-    | 'SCM_NOT_FOUND_ERROR'
-    | 'SCM_CONFLICT_ERROR'
-    | 'SCM_UNPROCESSABLE_ENTITY'
-    | 'SCM_UNAUTHORIZED'
-    | 'DATA'
-    | 'CONTEXT'
-    | 'PR_CREATION_ERROR'
-  message?: string
-  correlationId?: string
-  errors?: ValidationError[]
+export interface DependencySpecType {
+  [key: string]: any
 }
 
-export interface ValidationError {
-  fieldId?: string
-  error?: string
+export type DockerStepInfo = StepSpecType & {
+  buildArgs?: {
+    [key: string]: string
+  }
+  connectorRef: string
+  context?: string
+  dockerfile?: string
+  labels?: {
+    [key: string]: string
+  }
+  optimize?: boolean
+  remoteCacheRepo?: string
+  repo: string
+  resources?: ContainerResource
+  runAsUser?: number
+  tags: string[]
+  target?: string
+}
+
+export type ECRStepInfo = StepSpecType & {
+  account: string
+  buildArgs?: {
+    [key: string]: string
+  }
+  connectorRef: string
+  context?: string
+  dockerfile?: string
+  imageName: string
+  labels?: {
+    [key: string]: string
+  }
+  optimize?: boolean
+  region: string
+  remoteCacheImage?: string
+  resources?: ContainerResource
+  runAsUser?: number
+  tags: string[]
+  target?: string
 }
 
 export interface Error {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   code?:
     | 'DEFAULT_ERROR_CODE'
     | 'INVALID_ARGUMENT'
@@ -433,7 +362,9 @@ export interface Error {
     | 'ACCESS_DENIED'
     | 'NG_ACCESS_DENIED'
     | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
     | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
     | 'INVALID_KEYPATH'
     | 'INVALID_VARIABLE'
     | 'UNKNOWN_HOST'
@@ -441,6 +372,7 @@ export interface Error {
     | 'INVALID_PORT'
     | 'SSH_SESSION_TIMEOUT'
     | 'SOCKET_CONNECTION_ERROR'
+    | 'CONNECTION_ERROR'
     | 'SOCKET_CONNECTION_TIMEOUT'
     | 'CONNECTION_TIMEOUT'
     | 'SSH_CONNECTION_ERROR'
@@ -466,6 +398,9 @@ export interface Error {
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
     | 'SCHEMA_VALIDATION_FAILED'
+    | 'FILTER_CREATION_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'PLAN_CREATION_ERROR'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -523,8 +458,12 @@ export interface Error {
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
     | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
     | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -538,6 +477,7 @@ export interface Error {
     | 'ARTIFACT_SERVER_ERROR'
     | 'ENCRYPT_DECRYPT_ERROR'
     | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
     | 'KMS_OPERATION_ERROR'
     | 'GCP_KMS_OPERATION_ERROR'
     | 'VAULT_OPERATION_ERROR'
@@ -575,6 +515,7 @@ export interface Error {
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'FILE_NOT_FOUND_ERROR'
     | 'USAGE_LIMITS_EXCEEDED'
     | 'EVENT_PUBLISH_FAILED'
     | 'JIRA_ERROR'
@@ -606,6 +547,7 @@ export interface Error {
     | 'INVALID_AZURE_VAULT_CONFIGURATION'
     | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
     | 'INVALID_ROLLBACK'
+    | 'DATA_COLLECTION_ERROR'
     | 'SUMO_DATA_COLLECTION_ERROR'
     | 'DEPLOYMENT_GOVERNANCE_ERROR'
     | 'BATCH_PROCESSING_ERROR'
@@ -644,6 +586,9 @@ export interface Error {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -663,14 +608,783 @@ export interface Error {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
-  message?: string
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   correlationId?: string
   detailedMessage?: string
+  message?: string
   responseMessages?: ResponseMessage[]
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ExecutionElementConfig {
+  rollbackSteps?: ExecutionWrapperConfig[]
+  steps: ExecutionWrapperConfig[]
+}
+
+export interface ExecutionWrapperConfig {
+  parallel?: ParallelStepElementConfig
+  step?: StepElementConfig
+  stepGroup?: StepGroupElementConfig
+}
+
+export interface Failure {
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'NG_ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
+    | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
+    | 'FILTER_CREATION_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'PLAN_CREATION_ERROR'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
+    | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'FILE_NOT_FOUND_ERROR'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'TERRAFORM_EXECUTION_ERROR'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'DATA_COLLECTION_ERROR'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+    | 'TEMPLATE_NOT_FOUND'
+    | 'AZURE_SERVICE_EXCEPTION'
+    | 'AZURE_CLIENT_EXCEPTION'
+    | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
+    | 'NO_AVAILABLE_DELEGATES'
+    | 'NO_INSTALLED_DELEGATES'
+    | 'DUPLICATE_DELEGATE_EXCEPTION'
+    | 'GCP_MARKETPLACE_EXCEPTION'
+    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
+    | 'NG_PIPELINE_CREATE_EXCEPTION'
+    | 'RESOURCE_NOT_FOUND_EXCEPTION'
+    | 'PMS_INITIALIZE_SDK_EXCEPTION'
+    | 'UNEXPECTED_SNIPPET_EXCEPTION'
+    | 'UNEXPECTED_SCHEMA_EXCEPTION'
+    | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
+    | 'GCP_SECRET_OPERATION_ERROR'
+    | 'GIT_OPERATION_ERROR'
+    | 'TASK_FAILURE_ERROR'
+    | 'INSTANCE_STATS_PROCESS_ERROR'
+    | 'INSTANCE_STATS_MIGRATION_ERROR'
+    | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'INSTANCE_STATS_AGGREGATION_ERROR'
+    | 'UNRESOLVED_EXPRESSIONS_ERROR'
+    | 'KRYO_HANDLER_NOT_FOUND_ERROR'
+    | 'DELEGATE_ERROR_HANDLER_EXCEPTION'
+    | 'UNEXPECTED_TYPE_ERROR'
+    | 'EXCEPTION_HANDLER_NOT_FOUND'
+    | 'CONNECTOR_NOT_FOUND_EXCEPTION'
+    | 'GCP_SERVER_ERROR'
+    | 'HTTP_RESPONSE_EXCEPTION'
+    | 'SCM_NOT_FOUND_ERROR'
+    | 'SCM_CONFLICT_ERROR'
+    | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
+    | 'SCM_UNAUTHORIZED'
+    | 'DATA'
+    | 'CONTEXT'
+    | 'PR_CREATION_ERROR'
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
+  correlationId?: string
+  errors?: ValidationError[]
+  message?: string
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface FailureStrategyActionConfig {
+  type: 'Ignore' | 'Retry' | 'MarkAsSuccess' | 'Abort' | 'StageRollback' | 'StepGroupRollback' | 'ManualIntervention'
+}
+
+export interface FailureStrategyConfig {
+  onFailure: OnFailureConfig
+}
+
+export type FeatureFlagStageConfig = StageInfoConfig & {}
+
+export type FlagConfigurationStepInfo = StepSpecType & {
+  environment: string
+  feature: string
+  instructions: PatchInstruction[]
+}
+
+export type GCRStepInfo = StepSpecType & {
+  buildArgs?: {
+    [key: string]: string
+  }
+  connectorRef: string
+  context?: string
+  dockerfile?: string
+  host: string
+  imageName: string
+  labels?: {
+    [key: string]: string
+  }
+  optimize?: boolean
+  projectID: string
+  remoteCacheImage?: string
+  resources?: ContainerResource
+  runAsUser?: number
+  tags: string[]
+  target?: string
+}
+
+export type HarnessApprovalStepInfo = StepSpecType & {
+  approvalMessage: string
+  approverInputs?: ApproverInputInfo[]
+  approvers: Approvers
+  includePipelineExecutionHistory: boolean
+}
+
+export interface HoldingScope {
+  nodeSetupId: string
+  scope: string
+}
+
+export interface HttpHeaderConfig {
+  key?: string
+  value?: string
+}
+
+export type HttpStepInfo = StepSpecType & {
+  assertion?: string
+  delegateSelectors?: string[]
+  headers?: HttpHeaderConfig[]
+  method: string
+  outputVariables?: NGVariable[]
+  requestBody?: string
+  url: string
+}
+
+export type IgnoreFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'Ignore'
+}
+
+export interface ImageDetails {
+  domainName?: string
+  name?: string
+  password?: string
+  registryUrl?: string
+  sourceName?: string
+  tag?: string
+  username?: string
+  usernameRef?: string
+}
+
+export interface Infrastructure {
+  type?: 'KubernetesDirect' | 'UseFromStage'
+}
+
+export interface InputSetValidator {
+  parameters?: string
+  validatorType?: 'ALLOWED_VALUES' | 'REGEX'
+}
+
+export type IntegrationStageConfig = StageInfoConfig & {
+  cloneCodebase?: boolean
+  infrastructure: Infrastructure
+  serviceDependencies?: DependencyElement[]
+  sharedPaths?: string[]
+}
+
+export type JUnitTestReport = UnitTestReportSpec & {
+  paths?: string[]
+}
+
+export type JexlCriteriaSpec = CriteriaSpec & {
+  expression: string
+}
+
+export type JiraApprovalStepInfo = StepSpecType & {
+  approvalCriteria: CriteriaSpecWrapper
+  connectorRef: string
+  issueKey: string
+  rejectionCriteria?: CriteriaSpecWrapper
+}
+
+export type JiraCreateStepInfo = StepSpecType & {
+  connectorRef: string
+  fields?: JiraField[]
+  issueType: string
+  projectKey: string
+}
+
+export interface JiraField {
+  name?: string
+  value: string
+}
+
+export type JiraUpdateStepInfo = StepSpecType & {
+  connectorRef: string
+  fields?: JiraField[]
+  issueKey: string
+  transitionTo?: TransitionTo
+}
+
+export interface JsonNode {
+  array?: boolean
+  bigDecimal?: boolean
+  bigInteger?: boolean
+  binary?: boolean
+  boolean?: boolean
+  containerNode?: boolean
+  double?: boolean
+  float?: boolean
+  floatingPointNumber?: boolean
+  int?: boolean
+  integralNumber?: boolean
+  long?: boolean
+  missingNode?: boolean
+  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
+  null?: boolean
+  number?: boolean
+  object?: boolean
+  pojo?: boolean
+  short?: boolean
+  textual?: boolean
+  valueNode?: boolean
+}
+
+export type K8BuildJobEnvInfo = BuildJobEnvInfo & {
+  podsSetupInfo?: PodsSetupInfo
+  stepConnectorRefs?: {
+    [key: string]: ConnectorConversionInfo
+  }
+  workDir?: string
+}
+
+export type K8sDirectInfraYaml = Infrastructure & {
+  spec: K8sDirectInfraYamlSpec
+  type: 'KubernetesDirect' | 'UseFromStage'
+}
+
+export interface K8sDirectInfraYamlSpec {
+  annotations?: {
+    [key: string]: string
+  }
+  connectorRef: string
+  initTimeout?: string
+  labels?: {
+    [key: string]: string
+  }
+  namespace: string
+  runAsUser?: number
+  serviceAccountName?: string
+}
+
+export type KeyValuesCriteriaSpec = CriteriaSpec & {
+  conditions: Condition[]
+  matchAnyCondition?: boolean
+}
+
+export interface LastRepositoryInfo {
+  author?: AuthorInfo
+  commit?: string
+  endTime?: number
+  startTime?: number
+  status?: string
+}
+
+export interface Limits {
+  cpu?: string
+  memory?: string
+}
+
+export type LiteEngineTaskStepInfo = StepSpecType & {
+  accountId: string
+  buildJobEnvInfo: BuildJobEnvInfo
+  ciCodebase?: CodeBase
+  executionElementConfig: ExecutionElementConfig
+  infrastructure: Infrastructure
+  skipGitClone: boolean
+  timeout?: number
+  usePVC: boolean
+}
+
+export interface ManualFailureSpecConfig {
+  onTimeout: OnTimeoutConfig
+  timeout: string
+}
+
+export type ManualInterventionFailureActionConfig = FailureStrategyActionConfig & {
+  spec: ManualFailureSpecConfig
+  type: 'ManualIntervention'
+}
+
+export type MarkAsSuccessFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'MarkAsSuccess'
+}
+
+export interface NGVariable {
+  description?: string
+  metadata?: string
+  name?: string
+  required?: boolean
+  type?: 'String' | 'Number' | 'Secret'
+}
+
+export type NumberNGVariable = NGVariable & {
+  default?: number
+  name?: string
+  type?: 'Number'
+  value: number
+}
+
+export interface OnFailureConfig {
+  action: FailureStrategyActionConfig
+  errors: (
+    | 'Unknown'
+    | 'AllErrors'
+    | 'Authentication'
+    | 'Connectivity'
+    | 'Timeout'
+    | 'Authorization'
+    | 'Verification'
+    | 'DelegateProvisioning'
+  )[]
+}
+
+export interface OnRetryFailureConfig {
+  action?: FailureStrategyActionConfig
+}
+
+export interface OnTimeoutConfig {
+  action?: FailureStrategyActionConfig
+}
+
+export interface OutputNGVariable {
+  description?: string
+  name?: string
+}
+
+export interface PVCParams {
+  claimName?: string
+  present?: boolean
+  sizeMib?: number
+  storageClass?: string
+  volumeName?: string
+}
+
+export type ParallelStepElementConfig = ExecutionWrapperConfig[]
+
+export interface ParameterField {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: { [key: string]: any }
+}
+
+export interface ParameterFieldInteger {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: number
+}
+
+export interface ParameterFieldListString {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: string[]
+}
+
+export interface ParameterFieldMapStringString {
+  expression?: boolean
+  expressionValue?: string
+  inputSetValidator?: InputSetValidator
+  jsonResponseField?: boolean
+  responseField?: string
+  typeString?: boolean
+  value?: {
+    [key: string]: string
+  }
+}
+
+export interface PartialSchemaDTO {
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  namespace?: string
+  nodeName?: string
+  nodeType?: string
+  schema?: JsonNode
+}
+
+export interface PatchInstruction {
+  type?:
+    | 'SetFeatureFlagState'
+    | 'AddTargetsToVariationTargetMap'
+    | 'RemoveTargetsToVariationTargetMap'
+    | 'AddSegmentsToVariationTargetMap'
+    | 'RemoveSegmentsToVariationTargetMap'
+}
+
+export type PluginStepInfo = StepSpecType & {
+  connectorRef: string
+  image: string
+  imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
+  privileged?: boolean
+  resources?: ContainerResource
+  runAsUser?: number
+  settings?: {
+    [key: string]: string
+  }
+}
+
+export interface PodSetupInfo {
+  name?: string
+  podSetupParams?: PodSetupParams
+  pvcParamsList?: PVCParams[]
+  serviceGrpcPortList?: number[]
+  serviceIdList?: string[]
+  stageCpuRequest: number
+  stageMemoryRequest: number
+  volumeToMountPath: {
+    [key: string]: string
+  }
+  workDirPath?: string
+}
+
+export interface PodSetupParams {
+  containerDefinitionInfos?: ContainerDefinitionInfo[]
+}
+
+export interface PodsSetupInfo {
+  podSetupInfoList?: PodSetupInfo[]
+}
+
+export type RemoveSegmentToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
+  spec: RemoveSegmentToVariationTargetMapYamlSpec
+  type: 'RemoveSegmentToVariationTargetMap'
+}
+
+export interface RemoveSegmentToVariationTargetMapYamlSpec {
+  segments: string[]
+  variation: string
+}
+
+export type RemoveTargetsToVariationTargetMapYaml = PatchInstruction & {
+  identifier: string
+  spec: RemoveTargetsToVariationTargetMapYamlSpec
+  type: 'RemoveTargetsToVariationTargetMap'
+}
+
+export interface RemoveTargetsToVariationTargetMapYamlSpec {
+  targets: string[]
+  variation: string
+}
+
+export interface RepositoryBuildInfo {
+  builds?: BuildRepositoryCount
+  time?: number
+}
+
+export interface RepositoryInfo {
+  buildCount?: number
+  countList?: RepositoryBuildInfo[]
+  lastRepository?: LastRepositoryInfo
+  name?: string
+  percentSuccess?: number
+  successRate?: number
+}
+
+export type ResourceConstraintStepInfo = StepSpecType & {
+  acquireMode: 'ENSURE' | 'ACCUMULATE'
+  holdingScope: HoldingScope
+  name: string
+  permits: number
+  resourceUnit: string
+}
+
+export interface Response {
+  correlationId?: string
+  data?: { [key: string]: any }
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseCIPipelineModuleInfo {
+  correlationId?: string
+  data?: CIPipelineModuleInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseDashboardBuildExecutionInfo {
+  correlationId?: string
+  data?: DashboardBuildExecutionInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseDashboardBuildRepositoryInfo {
+  correlationId?: string
+  data?: DashboardBuildRepositoryInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseDashboardBuildsActiveAndFailedInfo {
+  correlationId?: string
+  data?: DashboardBuildsActiveAndFailedInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseDashboardBuildsHealthInfo {
+  correlationId?: string
+  data?: DashboardBuildsHealthInfo
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
 export interface ResponseMessage {
@@ -702,7 +1416,9 @@ export interface ResponseMessage {
     | 'ACCESS_DENIED'
     | 'NG_ACCESS_DENIED'
     | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
     | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
     | 'INVALID_KEYPATH'
     | 'INVALID_VARIABLE'
     | 'UNKNOWN_HOST'
@@ -710,6 +1426,7 @@ export interface ResponseMessage {
     | 'INVALID_PORT'
     | 'SSH_SESSION_TIMEOUT'
     | 'SOCKET_CONNECTION_ERROR'
+    | 'CONNECTION_ERROR'
     | 'SOCKET_CONNECTION_TIMEOUT'
     | 'CONNECTION_TIMEOUT'
     | 'SSH_CONNECTION_ERROR'
@@ -735,6 +1452,9 @@ export interface ResponseMessage {
     | 'INVALID_CSV_FILE'
     | 'INVALID_REQUEST'
     | 'SCHEMA_VALIDATION_FAILED'
+    | 'FILTER_CREATION_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'PLAN_CREATION_ERROR'
     | 'INVALID_INFRA_STATE'
     | 'PIPELINE_ALREADY_TRIGGERED'
     | 'NON_EXISTING_PIPELINE'
@@ -792,8 +1512,12 @@ export interface ResponseMessage {
     | 'AWS_CLUSTER_NOT_FOUND'
     | 'AWS_SERVICE_NOT_FOUND'
     | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
     | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
     | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
     | 'UNRECOGNIZED_YAML_FIELDS'
     | 'COULD_NOT_MAP_BEFORE_YAML'
     | 'MISSING_BEFORE_YAML'
@@ -807,6 +1531,7 @@ export interface ResponseMessage {
     | 'ARTIFACT_SERVER_ERROR'
     | 'ENCRYPT_DECRYPT_ERROR'
     | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
     | 'KMS_OPERATION_ERROR'
     | 'GCP_KMS_OPERATION_ERROR'
     | 'VAULT_OPERATION_ERROR'
@@ -844,6 +1569,7 @@ export interface ResponseMessage {
     | 'KUBERNETES_YAML_ERROR'
     | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
     | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'FILE_NOT_FOUND_ERROR'
     | 'USAGE_LIMITS_EXCEEDED'
     | 'EVENT_PUBLISH_FAILED'
     | 'JIRA_ERROR'
@@ -875,6 +1601,7 @@ export interface ResponseMessage {
     | 'INVALID_AZURE_VAULT_CONFIGURATION'
     | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
     | 'INVALID_ROLLBACK'
+    | 'DATA_COLLECTION_ERROR'
     | 'SUMO_DATA_COLLECTION_ERROR'
     | 'DEPLOYMENT_GOVERNANCE_ERROR'
     | 'BATCH_PROCESSING_ERROR'
@@ -913,6 +1640,9 @@ export interface ResponseMessage {
     | 'UNEXPECTED_SNIPPET_EXCEPTION'
     | 'UNEXPECTED_SCHEMA_EXCEPTION'
     | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
     | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
     | 'GCP_SECRET_OPERATION_ERROR'
     | 'GIT_OPERATION_ERROR'
@@ -932,12 +1662,19 @@ export interface ResponseMessage {
     | 'SCM_NOT_FOUND_ERROR'
     | 'SCM_CONFLICT_ERROR'
     | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
     | 'SCM_UNAUTHORIZED'
     | 'DATA'
     | 'CONTEXT'
     | 'PR_CREATION_ERROR'
-  level?: 'INFO' | 'ERROR'
-  message?: string
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
   exception?: Throwable
   failureTypes?: (
     | 'EXPIRED'
@@ -949,149 +1686,29 @@ export interface ResponseMessage {
     | 'AUTHORIZATION_ERROR'
     | 'TIMEOUT_ERROR'
   )[]
-}
-
-export interface StackTraceElement {
-  methodName?: string
-  fileName?: string
-  lineNumber?: number
-  className?: string
-  nativeMethod?: boolean
-}
-
-export interface Throwable {
-  cause?: Throwable
-  stackTrace?: StackTraceElement[]
+  level?: 'INFO' | 'ERROR'
   message?: string
-  localizedMessage?: string
-  suppressed?: Throwable[]
-}
-
-export interface BuildCount {
-  total?: number
-  success?: number
-  failed?: number
-}
-
-export interface BuildExecutionInfo {
-  time?: number
-  builds?: BuildCount
-}
-
-export interface DashboardBuildExecutionInfo {
-  buildExecutionInfoList?: BuildExecutionInfo[]
-}
-
-export interface ResponseDashboardBuildExecutionInfo {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: DashboardBuildExecutionInfo
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface BuildRepositoryCount {
-  count?: number
-}
-
-export interface DashboardBuildRepositoryInfo {
-  repositoryInfo?: RepositoryInfo[]
-}
-
-export interface LastRepositoryInfo {
-  status?: string
-  commit?: string
-  startTime?: number
-  endTime?: number
-}
-
-export interface RepositoryBuildInfo {
-  time?: number
-  builds?: BuildRepositoryCount
-}
-
-export interface RepositoryInfo {
-  name?: string
-  buildCount?: number
-  percentSuccess?: number
-  successRate?: number
-  lastRepository?: LastRepositoryInfo
-  countList?: RepositoryBuildInfo[]
-}
-
-export interface ResponseDashboardBuildRepositoryInfo {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: DashboardBuildRepositoryInfo
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface BuildActiveInfo {
-  piplineName?: string
-  branch?: string
-  commit?: string
-  commitID?: string
-  startTs?: number
-  status?: string
-  endTs?: number
-}
-
-export interface BuildFailureInfo {
-  piplineName?: string
-  branch?: string
-  commit?: string
-  commitID?: string
-  startTs?: number
-  endTs?: number
-}
-
-export interface DashboardBuildsActiveAndFailedInfo {
-  failed?: BuildFailureInfo[]
-  active?: BuildActiveInfo[]
-}
-
-export interface ResponseDashboardBuildsActiveAndFailedInfo {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: DashboardBuildsActiveAndFailedInfo
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface JsonNode {
-  array?: boolean
-  null?: boolean
-  object?: boolean
-  valueNode?: boolean
-  containerNode?: boolean
-  missingNode?: boolean
-  nodeType?: 'ARRAY' | 'BINARY' | 'BOOLEAN' | 'MISSING' | 'NULL' | 'NUMBER' | 'OBJECT' | 'POJO' | 'STRING'
-  pojo?: boolean
-  number?: boolean
-  integralNumber?: boolean
-  floatingPointNumber?: boolean
-  short?: boolean
-  int?: boolean
-  long?: boolean
-  float?: boolean
-  double?: boolean
-  bigDecimal?: boolean
-  bigInteger?: boolean
-  textual?: boolean
-  boolean?: boolean
-  binary?: boolean
-}
-
-export interface PartialSchemaDTO {
-  schema?: JsonNode
-  nodeType?: string
-  nodeName?: string
-  namespace?: string
 }
 
 export interface ResponsePartialSchemaDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  correlationId?: string
   data?: PartialSchemaDTO
   metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseStageElementConfig {
   correlationId?: string
+  data?: StageElementConfig
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseStepElementConfig {
+  correlationId?: string
+  data?: StepElementConfig
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
 
 export interface RestResponse {
@@ -1110,119 +1727,304 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ListBuildsQueryParams {
+export type RestoreCacheGCSStepInfo = StepSpecType & {
+  archiveFormat?: 'Tar' | 'Gzip'
+  bucket: string
+  connectorRef: string
+  failIfKeyNotFound?: boolean
+  key: string
+  resources?: ContainerResource
+  runAsUser?: number
+}
+
+export type RestoreCacheS3StepInfo = StepSpecType & {
+  archiveFormat?: 'Tar' | 'Gzip'
+  bucket: string
+  connectorRef: string
+  endpoint?: string
+  failIfKeyNotFound?: boolean
+  key: string
+  pathStyle?: boolean
+  region?: string
+  resources?: ContainerResource
+  runAsUser?: number
+}
+
+export type RetryFailureActionConfig = FailureStrategyActionConfig & {
+  spec: RetryFailureSpecConfig
+  type: 'Retry'
+}
+
+export interface RetryFailureSpecConfig {
+  onRetryFailure: OnRetryFailureConfig
+  retryCount: number
+  retryIntervals: string[]
+}
+
+export type RunStepInfo = StepSpecType & {
+  command: string
+  connectorRef: string
+  envVariables?: {
+    [key: string]: string
+  }
+  image: string
+  imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
+  outputVariables?: OutputNGVariable[]
+  privileged?: boolean
+  reports?: UnitTestReport
+  resources?: ContainerResource
+  runAsUser?: number
+  shell?: 'Sh' | 'Bash'
+}
+
+export type RunTestsStepInfo = StepSpecType & {
+  args: string
+  buildTool: string
+  connectorRef: string
+  envVariables?: ParameterFieldMapStringString
+  image: string
+  imagePullPolicy?: 'Always' | 'Never' | 'IfNotPresent'
+  language: string
+  outputVariables?: ParameterFieldListString
+  packages: string
+  postCommand?: string
+  preCommand?: string
+  privileged?: boolean
+  reports?: UnitTestReport
+  resources?: ContainerResource
+  runAsUser?: number
+  runOnlySelectedTests?: boolean
+  testAnnotations?: string
+}
+
+export type SaveCacheGCSStepInfo = StepSpecType & {
+  archiveFormat?: 'Tar' | 'Gzip'
+  bucket: string
+  connectorRef: string
+  key: string
+  override?: boolean
+  resources?: ContainerResource
+  runAsUser?: number
+  sourcePaths: string[]
+}
+
+export type SaveCacheS3StepInfo = StepSpecType & {
+  archiveFormat?: 'Tar' | 'Gzip'
+  bucket: string
+  connectorRef: string
+  endpoint?: string
+  key: string
+  override?: boolean
+  pathStyle?: boolean
+  region?: string
+  resources?: ContainerResource
+  runAsUser?: number
+  sourcePaths: string[]
+}
+
+export type SecretNGVariable = NGVariable & {
+  default?: string
+  name?: string
+  type?: 'Secret'
+  value: string
+}
+
+export type SetFeatureFlagStateYaml = PatchInstruction & {
+  identifier: string
+  spec: SetFeatureFlagStateYamlSpec
+  type: 'SetFeatureFlagState'
+}
+
+export interface SetFeatureFlagStateYamlSpec {
+  state: string
+}
+
+export interface StackTraceElement {
+  className?: string
+  fileName?: string
+  lineNumber?: number
+  methodName?: string
+  nativeMethod?: boolean
+}
+
+export interface StageElementConfig {
+  description?: string
+  failureStrategies?: FailureStrategyConfig[]
+  identifier: string
+  name: string
+  spec?: StageInfoConfig
+  tags?: {
+    [key: string]: string
+  }
+  type: string
+  variables?: NGVariable[]
+  when?: StageWhenCondition
+}
+
+export interface StageInfoConfig {
+  execution?: ExecutionElementConfig
+}
+
+export type StageRollbackFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'StageRollback'
+}
+
+export interface StageWhenCondition {
+  condition?: string
+  pipelineStatus: 'Success' | 'Failure' | 'All'
+}
+
+export interface StepElementConfig {
+  description?: string
+  failureStrategies?: FailureStrategyConfig[]
+  identifier: string
+  name: string
+  spec?: StepSpecType
+  timeout?: string
+  type: string
+  when?: StepWhenCondition
+}
+
+export interface StepGroupElementConfig {
+  failureStrategies?: FailureStrategyConfig[]
+  identifier: string
+  name?: string
+  rollbackSteps?: ExecutionWrapperConfig[]
+  steps: ExecutionWrapperConfig[]
+  when?: StepWhenCondition
+}
+
+export type StepGroupFailureActionConfig = FailureStrategyActionConfig & {
+  type: 'StepGroupRollback'
+}
+
+export interface StepSpecType {
+  [key: string]: any
+}
+
+export interface StepWhenCondition {
+  condition?: string
+  stageStatus: 'Success' | 'Failure' | 'All'
+}
+
+export type StringNGVariable = NGVariable & {
+  default?: string
+  name?: string
+  type?: 'String'
+  value: string
+}
+
+export type TagBuildSpec = BuildSpec & {
+  tag: string
+}
+
+export interface Throwable {
+  cause?: Throwable
+  localizedMessage?: string
+  message?: string
+  stackTrace?: StackTraceElement[]
+  suppressed?: Throwable[]
+}
+
+export interface TransitionTo {
+  status: string
+  transitionName?: string
+}
+
+export interface UnitTestReport {
+  spec?: UnitTestReportSpec
+  type?: 'JUnit'
+}
+
+export interface UnitTestReportSpec {
+  [key: string]: any
+}
+
+export type UploadToArtifactoryStepInfo = StepSpecType & {
+  connectorRef: string
+  resources?: ContainerResource
+  runAsUser?: number
+  sourcePath: string
+  target: string
+}
+
+export type UploadToGCSStepInfo = StepSpecType & {
+  bucket: string
+  connectorRef: string
+  resources?: ContainerResource
+  runAsUser?: number
+  sourcePath: string
+  target?: string
+}
+
+export type UploadToS3StepInfo = StepSpecType & {
+  bucket: string
+  connectorRef: string
+  endpoint?: string
+  region?: string
+  resources?: ContainerResource
+  runAsUser?: number
+  sourcePath: string
+  target?: string
+}
+
+export type UseFromStageInfraYaml = Infrastructure & {
+  useFromStage: string
+}
+
+export interface ValidationError {
+  error?: string
+  fieldId?: string
+}
+
+export interface GetBuildExecutionQueryParams {
   accountIdentifier: string
-  orgIdentifier?: string
+  orgIdentifier: string
   projectIdentifier: string
-  userIdentifier?: string
-  branch?: string
-  tags?: string[]
-  page?: number
-  size?: number
-  sort?: string[]
+  startTime: number
+  endTime: number
 }
 
-export type ListBuildsProps = Omit<
-  GetProps<ResponsePageCIBuildResponseDTO, unknown, ListBuildsQueryParams, void>,
+export type GetBuildExecutionProps = Omit<
+  GetProps<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>,
   'path'
 >
 
 /**
- * Get builds list
+ * Get build execution
  */
-export const ListBuilds = (props: ListBuildsProps) => (
-  <Get<ResponsePageCIBuildResponseDTO, unknown, ListBuildsQueryParams, void>
-    path={`/ci/builds`}
+export const GetBuildExecution = (props: GetBuildExecutionProps) => (
+  <Get<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>
+    path={`/ci/buildExecution`}
     base={getConfig('ci')}
     {...props}
   />
 )
 
-export type UseListBuildsProps = Omit<
-  UseGetProps<ResponsePageCIBuildResponseDTO, unknown, ListBuildsQueryParams, void>,
+export type UseGetBuildExecutionProps = Omit<
+  UseGetProps<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>,
   'path'
 >
 
 /**
- * Get builds list
+ * Get build execution
  */
-export const useListBuilds = (props: UseListBuildsProps) =>
-  useGet<ResponsePageCIBuildResponseDTO, unknown, ListBuildsQueryParams, void>(`/ci/builds`, {
-    base: getConfig('ci'),
-    ...props
-  })
-
-/**
- * Get builds list
- */
-export const listBuildsPromise = (
-  props: GetUsingFetchProps<ResponsePageCIBuildResponseDTO, unknown, ListBuildsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageCIBuildResponseDTO, unknown, ListBuildsQueryParams, void>(
-    getConfig('ci'),
-    `/ci/builds`,
-    props,
-    signal
-  )
-
-export interface GetBuildQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetBuildPathParams {
-  buildIdentifier: number
-}
-
-export type GetBuildProps = Omit<
-  GetProps<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>,
-  'path'
-> &
-  GetBuildPathParams
-
-/**
- * Gets a build by identifier
- */
-export const GetBuild = ({ buildIdentifier, ...props }: GetBuildProps) => (
-  <Get<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>
-    path={`/ci/builds/${buildIdentifier}`}
-    base={getConfig('ci')}
-    {...props}
-  />
-)
-
-export type UseGetBuildProps = Omit<
-  UseGetProps<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>,
-  'path'
-> &
-  GetBuildPathParams
-
-/**
- * Gets a build by identifier
- */
-export const useGetBuild = ({ buildIdentifier, ...props }: UseGetBuildProps) =>
-  useGet<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>(
-    (paramsInPath: GetBuildPathParams) => `/ci/builds/${paramsInPath.buildIdentifier}`,
-    { base: getConfig('ci'), pathParams: { buildIdentifier }, ...props }
+export const useGetBuildExecution = (props: UseGetBuildExecutionProps) =>
+  useGet<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>(
+    `/ci/buildExecution`,
+    { base: getConfig('ci'), ...props }
   )
 
 /**
- * Gets a build by identifier
+ * Get build execution
  */
-export const getBuildPromise = (
-  {
-    buildIdentifier,
-    ...props
-  }: GetUsingFetchProps<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams> & {
-    buildIdentifier: number
-  },
+export const getBuildExecutionPromise = (
+  props: GetUsingFetchProps<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>(
+  getUsingFetch<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>(
     getConfig('ci'),
-    `/ci/builds/${buildIdentifier}`,
+    `/ci/buildExecution`,
     props,
     signal
   )
@@ -1279,54 +2081,53 @@ export const getBuildHealthPromise = (
     signal
   )
 
-export interface GetBuildExecutionQueryParams {
+export interface GetBuildsQueryParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
-  startTime: number
-  endTime: number
+  top?: number
 }
 
-export type GetBuildExecutionProps = Omit<
-  GetProps<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>,
+export type GetBuildsProps = Omit<
+  GetProps<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>,
   'path'
 >
 
 /**
- * Get build execution
+ * Get builds
  */
-export const GetBuildExecution = (props: GetBuildExecutionProps) => (
-  <Get<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>
-    path={`/ci/buildExecution`}
+export const GetBuilds = (props: GetBuildsProps) => (
+  <Get<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>
+    path={`/ci/getBuilds`}
     base={getConfig('ci')}
     {...props}
   />
 )
 
-export type UseGetBuildExecutionProps = Omit<
-  UseGetProps<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>,
+export type UseGetBuildsProps = Omit<
+  UseGetProps<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>,
   'path'
 >
 
 /**
- * Get build execution
+ * Get builds
  */
-export const useGetBuildExecution = (props: UseGetBuildExecutionProps) =>
-  useGet<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>(
-    `/ci/buildExecution`,
-    { base: getConfig('ci'), ...props }
-  )
+export const useGetBuilds = (props: UseGetBuildsProps) =>
+  useGet<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>(`/ci/getBuilds`, {
+    base: getConfig('ci'),
+    ...props
+  })
 
 /**
- * Get build execution
+ * Get builds
  */
-export const getBuildExecutionPromise = (
-  props: GetUsingFetchProps<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>,
+export const getBuildsPromise = (
+  props: GetUsingFetchProps<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseDashboardBuildExecutionInfo, Failure | Error, GetBuildExecutionQueryParams, void>(
+  getUsingFetch<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>(
     getConfig('ci'),
-    `/ci/buildExecution`,
+    `/ci/getBuilds`,
     props,
     signal
   )
@@ -1383,56 +2184,30 @@ export const getRepositoryBuildPromise = (
     signal
   )
 
-export interface GetBuildsQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  top?: number
-}
-
-export type GetBuildsProps = Omit<
-  GetProps<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>,
-  'path'
->
+export type GetCIHealthStatusProps = Omit<GetProps<RestResponseString, unknown, void, void>, 'path'>
 
 /**
- * Get builds
+ * get health for CI service
  */
-export const GetBuilds = (props: GetBuildsProps) => (
-  <Get<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>
-    path={`/ci/getBuilds`}
-    base={getConfig('ci')}
-    {...props}
-  />
+export const GetCIHealthStatus = (props: GetCIHealthStatusProps) => (
+  <Get<RestResponseString, unknown, void, void> path={`/health`} base={getConfig('ci')} {...props} />
 )
 
-export type UseGetBuildsProps = Omit<
-  UseGetProps<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>,
-  'path'
->
+export type UseGetCIHealthStatusProps = Omit<UseGetProps<RestResponseString, unknown, void, void>, 'path'>
 
 /**
- * Get builds
+ * get health for CI service
  */
-export const useGetBuilds = (props: UseGetBuildsProps) =>
-  useGet<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>(`/ci/getBuilds`, {
-    base: getConfig('ci'),
-    ...props
-  })
+export const useGetCIHealthStatus = (props: UseGetCIHealthStatusProps) =>
+  useGet<RestResponseString, unknown, void, void>(`/health`, { base: getConfig('ci'), ...props })
 
 /**
- * Get builds
+ * get health for CI service
  */
-export const getBuildsPromise = (
-  props: GetUsingFetchProps<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>,
+export const getCIHealthStatusPromise = (
+  props: GetUsingFetchProps<RestResponseString, unknown, void, void>,
   signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseDashboardBuildsActiveAndFailedInfo, Failure | Error, GetBuildsQueryParams, void>(
-    getConfig('ci'),
-    `/ci/getBuilds`,
-    props,
-    signal
-  )
+) => getUsingFetch<RestResponseString, unknown, void, void>(getConfig('ci'), `/health`, props, signal)
 
 export interface GetPartialYamlSchemaQueryParams {
   projectIdentifier?: string
@@ -1484,27 +2259,138 @@ export const getPartialYamlSchemaPromise = (
     signal
   )
 
-export type GetCIHealthStatusProps = Omit<GetProps<RestResponseString, unknown, void, void>, 'path'>
+export type DummyApiForSwaggerCIPipelineModuleInfoSchemaCheckProps = Omit<
+  GetProps<ResponseCIPipelineModuleInfo, Failure | Error, void, void>,
+  'path'
+>
 
 /**
- * get health for CI service
+ * dummy api for checking CIPipelineModuleInfo
  */
-export const GetCIHealthStatus = (props: GetCIHealthStatusProps) => (
-  <Get<RestResponseString, unknown, void, void> path={`/health`} base={getConfig('ci')} {...props} />
+export const DummyApiForSwaggerCIPipelineModuleInfoSchemaCheck = (
+  props: DummyApiForSwaggerCIPipelineModuleInfoSchemaCheckProps
+) => (
+  <Get<ResponseCIPipelineModuleInfo, Failure | Error, void, void>
+    path={`/partial-yaml-schema/dummyApiForSwaggerCIPipelineModuleInfoSchemaCheck`}
+    base={getConfig('ci')}
+    {...props}
+  />
 )
 
-export type UseGetCIHealthStatusProps = Omit<UseGetProps<RestResponseString, unknown, void, void>, 'path'>
+export type UseDummyApiForSwaggerCIPipelineModuleInfoSchemaCheckProps = Omit<
+  UseGetProps<ResponseCIPipelineModuleInfo, Failure | Error, void, void>,
+  'path'
+>
 
 /**
- * get health for CI service
+ * dummy api for checking CIPipelineModuleInfo
  */
-export const useGetCIHealthStatus = (props: UseGetCIHealthStatusProps) =>
-  useGet<RestResponseString, unknown, void, void>(`/health`, { base: getConfig('ci'), ...props })
+export const useDummyApiForSwaggerCIPipelineModuleInfoSchemaCheck = (
+  props: UseDummyApiForSwaggerCIPipelineModuleInfoSchemaCheckProps
+) =>
+  useGet<ResponseCIPipelineModuleInfo, Failure | Error, void, void>(
+    `/partial-yaml-schema/dummyApiForSwaggerCIPipelineModuleInfoSchemaCheck`,
+    { base: getConfig('ci'), ...props }
+  )
 
 /**
- * get health for CI service
+ * dummy api for checking CIPipelineModuleInfo
  */
-export const getCIHealthStatusPromise = (
-  props: GetUsingFetchProps<RestResponseString, unknown, void, void>,
+export const dummyApiForSwaggerCIPipelineModuleInfoSchemaCheckPromise = (
+  props: GetUsingFetchProps<ResponseCIPipelineModuleInfo, Failure | Error, void, void>,
   signal?: RequestInit['signal']
-) => getUsingFetch<RestResponseString, unknown, void, void>(getConfig('ci'), `/health`, props, signal)
+) =>
+  getUsingFetch<ResponseCIPipelineModuleInfo, Failure | Error, void, void>(
+    getConfig('ci'),
+    `/partial-yaml-schema/dummyApiForSwaggerCIPipelineModuleInfoSchemaCheck`,
+    props,
+    signal
+  )
+
+export type DummyApiForSwaggerStageSchemaCheckProps = Omit<
+  GetProps<ResponseStageElementConfig, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api for checking integration stage
+ */
+export const DummyApiForSwaggerStageSchemaCheck = (props: DummyApiForSwaggerStageSchemaCheckProps) => (
+  <Get<ResponseStageElementConfig, Failure | Error, void, void>
+    path={`/partial-yaml-schema/dummyApiForSwaggerStageSchemaCheck`}
+    base={getConfig('ci')}
+    {...props}
+  />
+)
+
+export type UseDummyApiForSwaggerStageSchemaCheckProps = Omit<
+  UseGetProps<ResponseStageElementConfig, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api for checking integration stage
+ */
+export const useDummyApiForSwaggerStageSchemaCheck = (props: UseDummyApiForSwaggerStageSchemaCheckProps) =>
+  useGet<ResponseStageElementConfig, Failure | Error, void, void>(
+    `/partial-yaml-schema/dummyApiForSwaggerStageSchemaCheck`,
+    { base: getConfig('ci'), ...props }
+  )
+
+/**
+ * dummy api for checking integration stage
+ */
+export const dummyApiForSwaggerStageSchemaCheckPromise = (
+  props: GetUsingFetchProps<ResponseStageElementConfig, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseStageElementConfig, Failure | Error, void, void>(
+    getConfig('ci'),
+    `/partial-yaml-schema/dummyApiForSwaggerStageSchemaCheck`,
+    props,
+    signal
+  )
+
+export type DummyApiForSwaggerStepSchemaCheckProps = Omit<
+  GetProps<ResponseStepElementConfig, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api for checking integration stage
+ */
+export const DummyApiForSwaggerStepSchemaCheck = (props: DummyApiForSwaggerStepSchemaCheckProps) => (
+  <Get<ResponseStepElementConfig, Failure | Error, void, void>
+    path={`/partial-yaml-schema/dummyApiForSwaggerStepSchemaCheck`}
+    base={getConfig('ci')}
+    {...props}
+  />
+)
+
+export type UseDummyApiForSwaggerStepSchemaCheckProps = Omit<
+  UseGetProps<ResponseStepElementConfig, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * dummy api for checking integration stage
+ */
+export const useDummyApiForSwaggerStepSchemaCheck = (props: UseDummyApiForSwaggerStepSchemaCheckProps) =>
+  useGet<ResponseStepElementConfig, Failure | Error, void, void>(
+    `/partial-yaml-schema/dummyApiForSwaggerStepSchemaCheck`,
+    { base: getConfig('ci'), ...props }
+  )
+
+/**
+ * dummy api for checking integration stage
+ */
+export const dummyApiForSwaggerStepSchemaCheckPromise = (
+  props: GetUsingFetchProps<ResponseStepElementConfig, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseStepElementConfig, Failure | Error, void, void>(
+    getConfig('ci'),
+    `/partial-yaml-schema/dummyApiForSwaggerStepSchemaCheck`,
+    props,
+    signal
+  )

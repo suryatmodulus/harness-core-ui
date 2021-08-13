@@ -13,7 +13,7 @@ const RenderColumnDelegateName: Renderer<CellProps<DelegateSelectionLogParams>> 
   return (
     <Layout.Horizontal padding="medium" style={{ paddingLeft: 0 }} data-testid={rowdata.delegateId}>
       <Icon name={delegateTypeToIcon(rowdata.delegateType || '')} size={24} />
-      <Layout.Vertical spacing="xsmall" padding={{ left: 'xsmall' }}>
+      <Layout.Vertical className={css.delegateName} spacing="xsmall" padding={{ left: 'xsmall' }}>
         <Text lineClamp={1} color={Color.BLACK}>
           {rowdata.delegateName}
         </Text>

@@ -3,7 +3,7 @@
 exports[`Input Set List tests render Input Set List view 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container StyledProps--flex"
   >
     <div
       class="Layout--horizontal StyledProps--main"

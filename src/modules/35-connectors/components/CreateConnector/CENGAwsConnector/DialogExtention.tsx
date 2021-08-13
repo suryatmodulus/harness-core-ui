@@ -43,7 +43,7 @@ const DialogExtension: React.FC<ExtensionProps> = props => {
   }
   const closeExtension = () => setShowExtension(false)
   return (
-    <div style={{ display: 'flex', height: props.dialogStyles?.height || 640 }}>
+    <div style={{ display: 'flex', maxHeight: 700 }}>
       <div style={{ width: props.dialogStyles?.width || 1050, position: 'relative' }}>
         <DialogExtensionContext.Provider value={{ triggerExtension, closeExtension }}>
           {props.children}
@@ -54,9 +54,7 @@ const DialogExtension: React.FC<ExtensionProps> = props => {
           <div>
             <SelectExtention exWindow={exWindow} />
           </div>
-          <span className={css.closeBtn} onClick={() => setShowExtension(false)}>
-            <Icon name={'caret-left'} />
-          </span>
+          <Icon name={'chevron-left'} size={24} onClick={() => setShowExtension(false)} className={css.closeBtn} />
         </div>
       )}
     </div>

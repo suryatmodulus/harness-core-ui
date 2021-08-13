@@ -1,13 +1,6 @@
 .started {
-  background: var(--grey-100) !important;
   border-bottom-left-radius: inherit !important;
   border-bottom-right-radius: inherit !important;
-  &:hover {
-    cursor: auto;
-  }
-}
-.grayOutIcons {
-  filter: grayscale(100%);
 }
 
 .pointer {

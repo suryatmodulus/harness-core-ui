@@ -1,7 +1,15 @@
 query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: OffsetDateTime!) {
-  recommendationStats(id: $id) {
+  recommendationStatsV2(filter: { ids: [$id] }) {
     totalMonthlyCost
     totalMonthlySaving
+  }
+  recommendationsV2(filter: { ids: [$id], offset: 0, limit: 10 }) {
+    items {
+      clusterName
+      namespace
+      id
+      resourceName
+    }
   }
   recommendationDetails(id: $id, resourceType: WORKLOAD, startTime: $startTime, endTime: $endTime) {
     ... on WorkloadRecommendationDTO {

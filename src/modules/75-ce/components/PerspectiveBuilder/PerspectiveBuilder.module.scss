@@ -6,6 +6,10 @@
     height: calc(100vh - 124px);
     display: flex;
 
+    & > div {
+      width: 100%;
+    }
+
     .innerContainer {
       height: 100%;
       display: grid;

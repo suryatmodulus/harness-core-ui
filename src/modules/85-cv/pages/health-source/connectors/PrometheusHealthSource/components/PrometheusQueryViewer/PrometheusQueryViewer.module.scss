@@ -1,0 +1,19 @@
+.main {
+  padding: var(--spacing-small) !important;
+}
+
+.labelText {
+  color: var(--black) !important;
+  font-size: var(--font-size-small) !important;
+  margin-bottom: var(--spacing-small) !important;
+}
+
+.chart > div {
+  padding: var(--spacing-large) var(--spacing-medium) !important;
+  padding-right: var(--spacing-xlarge) !important;
+  background-color: var(--white);
+}
+
+.queryViewDialog {
+  padding: var(--spacing-large) !important;
+}

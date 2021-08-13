@@ -1,0 +1,152 @@
+import React from 'react'
+import { Accordion, Layout, Text, Button, Color, Icon, Container } from '@wings-software/uicore'
+import type { CellProps, Column, Renderer } from 'react-table'
+import Table from '@common/components/Table/Table'
+import type { FetchPlansQuery } from 'services/common/services'
+import { useStrings } from 'framework/strings'
+import css from './Plan.module.scss'
+
+interface FeatureComparisonProps {
+  featureCaption?: NonNullable<FetchPlansQuery['pricing']>['ciSaasFeatureCaption']
+  featureGroup?: NonNullable<FetchPlansQuery['pricing']>['ciSaasFeatureGroup']
+}
+
+interface PlanInfo {
+  title: string
+  freeText: string
+  freeValue: string
+  teamText: string
+  teamValue: string
+  enterpriseText: string
+  enterpriseValue: string
+}
+
+const RenderColumnPlans: Renderer<CellProps<PlanInfo>> = ({ row }) => {
+  const data = row.original
+  return <Text color={Color.PRIMARY_6}>{data.title}</Text>
+}
+
+const RenderColumnFree: Renderer<CellProps<PlanInfo>> = ({ row }) => {
+  const data = row.original
+  return getCell(data.freeText, data.freeValue)
+}
+
+const RenderColumnTeam: Renderer<CellProps<PlanInfo>> = ({ row }) => {
+  const data = row.original
+  return getCell(data.teamText, data.teamValue)
+}
+
+const RenderColumnEnterprise: Renderer<CellProps<PlanInfo>> = ({ row }) => {
+  const data = row.original
+  return getCell(data.enterpriseText, data.enterpriseValue)
+}
+
+function getCell(text?: string, value?: string): React.ReactElement {
+  if (text) {
+    return (
+      <Container flex={{ align: 'center-center' }} padding={{ left: 'small', right: 'small' }}>
+        <Text className={css.centerText}>{text}</Text>
+      </Container>
+    )
+  }
+  if (value) {
+    if (value.trim().toLowerCase() === 'yes') {
+      return (
+        <Container flex={{ align: 'center-center' }}>
+          <Icon name="coverage-status-success" size={32} />
+        </Container>
+      )
+    }
+    if (value.trim().toLowerCase() === 'no') {
+      return (
+        <Container flex={{ align: 'center-center' }}>
+          <Icon name="coverage-status-error" size={32} />
+        </Container>
+      )
+    }
+  }
+  return <div></div>
+}
+
+function getHeader(
+  index: number,
+  featureCaptions?: NonNullable<FetchPlansQuery['pricing']>['ciSaasFeatureCaption']
+): React.ReactElement {
+  if (featureCaptions && featureCaptions[index]) {
+    return (
+      <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
+        <Text color={Color.PRIMARY_6} font={{ weight: 'semi-bold' }}>
+          {(featureCaptions as any[])[index].title}
+        </Text>
+        <Button text={(featureCaptions as any[])[index].btnText} />
+      </Layout.Vertical>
+    )
+  }
+  return <div></div>
+}
+
+const FeatureTable: React.FC<FeatureComparisonProps> = ({ featureCaption = [], featureGroup = [] }) => {
+  const { getString } = useStrings()
+  const columns: Column<PlanInfo>[] = [
+    {
+      Header: (
+        <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
+          {getString('common.subscriptions.tabs.plans')}
+        </Text>
+      ),
+      accessor: row => row.title,
+      id: 'plans',
+      width: '25%',
+      Cell: RenderColumnPlans
+    },
+    {
+      Header: getHeader(0, featureCaption),
+      accessor: row => row.freeText,
+      id: 'free',
+      width: '25%',
+      Cell: RenderColumnFree
+    },
+    {
+      Header: getHeader(1, featureCaption),
+      accessor: row => row.teamText,
+      id: 'team',
+      width: '25%',
+      Cell: RenderColumnTeam
+    },
+    {
+      Header: getHeader(2, featureCaption),
+      accessor: row => row.enterpriseText,
+      id: 'enterprise',
+      width: '25%',
+      Cell: RenderColumnEnterprise
+    }
+  ]
+
+  const data: PlanInfo[] = (featureGroup as any[]).reduce((acc, curr) => {
+    curr?.detailedFeature?.forEach((feature: any) => {
+      acc?.push(feature)
+    })
+    return acc
+  }, [] as PlanInfo[])
+
+  return <Table<PlanInfo> columns={columns} data={data} />
+}
+const CIFeatureComparison: React.FC<FeatureComparisonProps> = ({ featureCaption, featureGroup }) => {
+  const { getString } = useStrings()
+
+  return (
+    <Accordion className={css.accordion}>
+      <Accordion.Panel
+        id="feature"
+        summary={
+          <Text color={Color.PRIMARY_6} padding={{ left: 'small' }}>
+            {getString('common.plans.featureComparison')}
+          </Text>
+        }
+        details={<FeatureTable featureCaption={featureCaption} featureGroup={featureGroup} />}
+      />
+    </Accordion>
+  )
+}
+
+export default CIFeatureComparison

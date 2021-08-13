@@ -168,7 +168,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                             autocomplete="off"
                             class="bp3-input-ghost bp3-multi-select-tag-input-input"
                             name="projectsOrgs.collaborator"
-                            placeholder="Search..."
+                            placeholder="- Select -"
                             value=""
                           />
                         </div>

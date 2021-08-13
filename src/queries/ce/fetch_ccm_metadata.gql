@@ -1,0 +1,17 @@
+query FetchCcmMetaData {
+  ccmMetaData {
+    k8sClusterConnectorPresent
+    cloudDataPresent
+    awsConnectorsPresent
+    gcpConnectorsPresent
+    azureConnectorsPresent
+    applicationDataPresent
+    inventoryDataPresent
+    clusterDataPresent
+    isSampleClusterPresent
+    defaultAzurePerspectiveId
+    defaultAwsPerspectiveId
+    defaultGcpPerspectiveId
+    defaultClusterPerspectiveId
+  }
+}

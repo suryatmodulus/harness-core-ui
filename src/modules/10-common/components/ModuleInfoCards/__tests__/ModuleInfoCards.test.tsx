@@ -1,5 +1,5 @@
 import React from 'react'
-import { fireEvent, render, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import type { IconName } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { Module } from '@common/interfaces/RouteInterfaces'
@@ -9,68 +9,39 @@ describe('ModuleInfoCards Test', () => {
   describe('Rendering', () => {
     test('that the module info cards render', () => {
       const props = {
-        module: 'ce' as Module,
+        module: 'cd' as Module,
         setSelectedInfoCard: jest.fn(),
         selectedInfoCard: undefined
       }
 
-      const { container, getByText } = render(
+      const { container } = render(
         <TestWrapper>
           <ModuleInfoCards {...props} />
         </TestWrapper>
       )
-      expect(getByText('common.purpose.howToProceed')).toBeDefined()
       expect(container).toMatchSnapshot()
     })
 
     test('that the module info cards get selected', () => {
       const props = {
-        module: 'ce' as Module,
+        module: 'cd' as Module,
         setSelectedInfoCard: jest.fn(),
         selectedInfoCard: {
-          icon: 'ce-visibility' as IconName,
-          title: 'common.ce.cost',
-          subtitle: 'common.ce.visibility',
-          description: 'common.purpose.ce.visibilityCard.description',
+          icon: 'cd-visibility' as IconName,
+          title: 'common.cd.cost',
+          subtitle: 'common.cd.visibility',
+          description: 'common.purpose.cd',
           route: () => '/continuous-efficiency/settings'
         }
       }
 
-      const { container, getByText } = render(
+      const { container } = render(
         <TestWrapper>
           <ModuleInfoCards {...props} />
         </TestWrapper>
       )
-      expect(getByText('common.purpose.howToProceed')).toBeDefined()
 
       expect(container).toMatchSnapshot()
-    })
-
-    test('that the set selected info card callback is called', async () => {
-      const setSelectedInfoCardMock = jest.fn()
-
-      const props = {
-        module: 'ce' as Module,
-        setSelectedInfoCard: setSelectedInfoCardMock,
-        selectedInfoCard: {
-          icon: 'ce-visibility' as IconName,
-          title: 'common.ce.cost',
-          subtitle: 'common.ce.visibility',
-          description: 'common.purpose.ce.visibilityCard.description',
-          route: () => '/continuous-efficiency/settings'
-        }
-      }
-
-      const { getByText } = render(
-        <TestWrapper>
-          <ModuleInfoCards {...props} />
-        </TestWrapper>
-      )
-      expect(getByText('common.purpose.howToProceed')).toBeDefined()
-
-      fireEvent.click(getByText('common.ce.visibility'))
-
-      await waitFor(() => expect(setSelectedInfoCardMock).toHaveBeenCalled())
     })
 
     test('that nothing is rendered', () => {
@@ -100,7 +71,7 @@ describe('ModuleInfoCards Test', () => {
         module: 'cd' as Module,
         setSelectedInfoCard: jest.fn(),
         selectedInfoCard: {
-          icon: 'cd-main' as IconName,
+          icon: 'cd-solid' as IconName,
           title: 'common.purpose.cd.newGen.title',
           description: 'common.purpose.cd.newGen.description'
         }

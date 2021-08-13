@@ -3,11 +3,45 @@ import cx from 'classnames'
 import { Button, Container, FormInput, Layout, Text } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import { useStrings } from 'framework/strings'
-import { MapGCPLogsToServiceFieldNames } from '@cv/pages/monitoring-source/google-cloud-operations/MapQueriesToHarnessService/constants'
-import type { QueryViewerProps } from './types'
+import { MapGCPLogsToServiceFieldNames } from '@cv/pages/health-source/connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/constants'
+import type { QueryViewerProps, QueryContentProps } from './types'
 import { Records } from '../Records/Records'
 import { QueryViewDialog } from './components/QueryViewDialog'
 import css from './QueryViewer.module.scss'
+
+export function QueryContent(props: QueryContentProps): JSX.Element {
+  const { handleFetchRecords, query, loading, onClickExpand, onEditQuery, isDialogOpen, textAreaProps, textAreaName } =
+    props
+  const { getString } = useStrings()
+  return (
+    <Container className={css.queryContainer}>
+      <Layout.Horizontal className={css.queryIcons} spacing="small">
+        {onEditQuery && (
+          <Button icon="main-edit" iconProps={{ size: 12 }} className={css.action} onClick={() => onEditQuery()} />
+        )}
+        {!isDialogOpen && (
+          <Button
+            icon="fullscreen"
+            iconProps={{ size: 12 }}
+            className={css.action}
+            onClick={() => onClickExpand(true)}
+          />
+        )}
+      </Layout.Horizontal>
+      <FormInput.TextArea
+        name={textAreaName || MapGCPLogsToServiceFieldNames.QUERY}
+        textArea={textAreaProps}
+        className={cx(css.formQueryBox)}
+      />
+      <Button
+        intent="primary"
+        text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
+        onClick={handleFetchRecords}
+        disabled={isEmpty(query) || loading}
+      />
+    </Container>
+  )
+}
 
 export function QueryViewer(props: QueryViewerProps): JSX.Element {
   const { className, records, fetchRecords, loading, error, query, isQueryExecuted, postFetchingRecords } = props
@@ -33,23 +67,13 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
   return (
     <Container className={cx(css.main, className)}>
       <Text className={css.labelText}>{getString('cv.query')}</Text>
-      <Container className={css.queryContainer}>
-        <Layout.Horizontal className={css.queryIcons} spacing="small">
-          <Button
-            icon="fullscreen"
-            iconProps={{ size: 12 }}
-            className={css.action}
-            onClick={() => setIsDialogOpen(true)}
-          />
-        </Layout.Horizontal>
-        <FormInput.TextArea name={MapGCPLogsToServiceFieldNames.QUERY} className={cx(css.formQueryBox)} autoFocus />
-        <Button
-          intent="primary"
-          text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
-          onClick={handleFetchRecords}
-          disabled={isEmpty(query) || loading}
-        />
-      </Container>
+      <QueryContent
+        onClickExpand={setIsDialogOpen}
+        query={query}
+        isDialogOpen={isDialogOpen}
+        loading={loading}
+        handleFetchRecords={handleFetchRecords}
+      />
       <Records
         fetchRecords={handleFetchRecords}
         loading={loading}

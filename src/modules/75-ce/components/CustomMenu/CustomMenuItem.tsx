@@ -25,14 +25,14 @@ const CustomMenuItem: React.FC<CustomMenuItemProps> = ({
   return (
     <Layout.Horizontal
       padding={{
-        left: 'small',
-        right: 'small',
-        top: 'xsmall',
-        bottom: 'xsmall'
+        left: 'medium',
+        right: 'medium',
+        top: 'small',
+        bottom: 'small'
       }}
-      spacing="small"
+      spacing="medium"
       onClick={onClick}
-      className={cx(css.customMenuContainer, { [Classes.POPOVER_DISMISS]: hidePopoverOnClick })}
+      className={cx(css.customMenuContainer, { [Classes.POPOVER_DISMISS]: hidePopoverOnClick }, 'custom-menu-item')}
     >
       {iconName ? <Icon name={iconName as IconName} size={20} /> : null}
       <Text font={fontSize ? fontSize : 'small'}>{text}</Text>

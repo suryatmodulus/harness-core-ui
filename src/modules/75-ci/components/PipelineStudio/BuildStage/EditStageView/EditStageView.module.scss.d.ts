@@ -9,5 +9,6 @@ declare const styles: {
   readonly configureCodebase: string
   readonly repositoryUrl: string
   readonly cloneCodebaseInfo: string
+  readonly connector: string
 }
 export default styles

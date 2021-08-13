@@ -1,0 +1,421 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ServiceDetails should render ServiceDetails 1`] = `
+<div>
+  <div
+    class="Layout--vertical StyledProps--main"
+  >
+    <div
+      class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    >
+      <div
+        class="Layout--vertical StyledProps--main"
+      >
+        <div
+          class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main"
+        >
+          <div
+            class="breadcrumbs"
+          >
+            <div>
+              <a
+                class="breadcrumb"
+                href="/account/dummy/undefined/orgs/dummy/projects/dummy/dashboard"
+              />
+              <span
+                class="bp3-icon StyledProps--main separator"
+                data-icon="main-chevron-right"
+              >
+                <svg
+                  height="11"
+                  viewBox="0 0 8 14"
+                  width="11"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div>
+              <a
+                class="breadcrumb"
+                href="/account/dummy/undefined/orgs/dummy/projects/dummy/services"
+              >
+                services
+              </a>
+              <span
+                class="bp3-icon StyledProps--main separator"
+                data-icon="main-chevron-right"
+              >
+                <svg
+                  height="11"
+                  viewBox="0 0 8 14"
+                  width="11"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M7.7 6.3l-6-6C1.5.1 1.3 0 1 0 .4 0 0 .4 0 1c0 .3.1.5.3.7L5.6 7 .3 12.3c-.2.2-.3.4-.3.7 0 .6.4 1 1 1 .3 0 .5-.1.7-.3l6-6c.2-.2.3-.4.3-.7s-.1-.5-.3-.7z"
+                    fill="#4d5969"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div>
+              <span
+                class="lastBreadcrumb"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps--font StyledProps--main tabsContainer StyledProps--padding-left-medium StyledProps--padding-right-medium"
+    >
+      <div
+        class="bp3-tabs Tabs--main Tabs--horizontal"
+      >
+        <div
+          class="bp3-tab-list"
+          role="tablist"
+        >
+          <div
+            class="bp3-tab-indicator-wrapper"
+            style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+          >
+            <div
+              class="bp3-tab-indicator"
+            />
+          </div>
+          <div
+            aria-controls="bp3-tab-panel_serviceDetailsTab_ServiceDetailsSummaryTab"
+            aria-disabled="false"
+            aria-expanded="true"
+            aria-selected="true"
+            class="bp3-tab"
+            data-tab-id="ServiceDetailsSummaryTab"
+            id="bp3-tab-title_serviceDetailsTab_ServiceDetailsSummaryTab"
+            role="tab"
+            tabindex="0"
+          >
+            summary
+          </div>
+          <div
+            class="StyledProps--font StyledProps--main timeRangeContainer StyledProps--flex StyledProps--margin-right-medium"
+          >
+            <span
+              class="bp3-popover-wrapper timeRangeSelector nonMinimalStyles"
+            >
+              <span
+                class="bp3-popover-target"
+              >
+                <button
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--font StyledProps--font-size-xsmall Button--with-current-color Button--without-shadow"
+                  style="height: 20px;"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    cd.serviceDashboard.month
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-caret-down StyledProps--main"
+                    icon="caret-down"
+                  >
+                    <svg
+                      data-icon="caret-down"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        caret-down
+                      </desc>
+                      <path
+                        d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          aria-hidden="false"
+          aria-labelledby="bp3-tab-title_serviceDetailsTab_ServiceDetailsSummaryTab"
+          class="bp3-tab-panel"
+          id="bp3-tab-panel_serviceDetailsTab_ServiceDetailsSummaryTab"
+          role="tabpanel"
+        >
+          <div
+            class="StyledProps--font StyledProps--main pageBody"
+            data-name="page-body"
+          >
+            <div
+              class="Layout--horizontal StyledProps--main StyledProps--margin-left-xlarge StyledProps--margin-right-xlarge StyledProps--margin-top-large StyledProps--margin-bottom-large"
+            >
+              <div
+                class="Layout--vertical StyledProps--main StyledProps--margin-right-xlarge"
+              >
+                <div
+                  class="Layout--horizontal StyledProps--main StyledProps--margin-bottom-medium"
+                >
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card activeServiceInstances"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main"
+                      style="height: 100%;"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-medium"
+                      >
+                        cd.serviceDashboard.activeServiceInstancesLabel
+                      </p>
+                      <div
+                        class="Layout--horizontal StyledProps--main activeServiceInstancesHeader StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between StyledProps--padding-bottom-small"
+                      >
+                        <div
+                          class="Layout--horizontal StyledProps--main"
+                        >
+                          <p
+                            class="StyledProps--font StyledProps--main instanceCount StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey800 StyledProps--margin-right-large"
+                          >
+                            0
+                          </p>
+                          <div
+                            class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-alignItems-flex-start StyledProps--flex-justifyContent-flex-start"
+                          >
+                            <div
+                              class="tickerContainer"
+                              data-test="ticker"
+                            >
+                              <div
+                                class="ticker"
+                              >
+                                <div
+                                  class="iconContainer"
+                                >
+                                  <span
+                                    class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-red500"
+                                    data-icon="main-caret-up"
+                                  >
+                                    <svg
+                                      height="6"
+                                      viewBox="0 0 14 9"
+                                      width="6"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M13.7 7.2L7.9.4C7.7.2 7.4 0 7 0s-.7.2-.9.4L.3 7.2c-.2.2-.3.4-.3.7C0 8.5.5 9 1.2 9h11.7c.6 0 1.1-.5 1.1-1.1 0-.3-.1-.5-.3-.7z"
+                                        fill="#4d5969"
+                                      />
+                                    </svg>
+                                  </span>
+                                </div>
+                                <div
+                                  class="tickerValue"
+                                  data-test="tickerValue"
+                                >
+                                  <p
+                                    class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall StyledProps--color StyledProps--color-red500"
+                                  >
+                                    0%
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <p
+                              class="StyledProps--font StyledProps--main StyledProps--font-size-xsmall"
+                            >
+                              cd.serviceDashboard.in
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          class="Layout--horizontal StyledProps--main"
+                        />
+                      </div>
+                      <div
+                        class="Layout--vertical StyledProps--main activeServiceInstancesEmpty StyledProps--flex StyledProps--flex-align-center-center"
+                        data-test="ActiveServiceInstancesEmpty"
+                        style="height: 360px;"
+                      >
+                        <div
+                          class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+                        >
+                          <img
+                            height="50"
+                            src="test-file-stub"
+                            style="align-self: center;"
+                            width="50"
+                          />
+                        </div>
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                        >
+                          cd.serviceDashboard.noDeployments
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-card bp3-elevation-0 Card--card instanceCountHistory"
+                >
+                  <p
+                    class="StyledProps--font StyledProps--main StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-bottom-small"
+                  >
+                    cd.serviceDashboard.instanceCountHistory
+                  </p>
+                  <div
+                    class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                    style="height: 100%;"
+                  >
+                    <div
+                      class="StyledProps--font StyledProps--main StyledProps--margin-bottom-medium"
+                    >
+                      <img
+                        height="50"
+                        src="test-file-stub"
+                        style="align-self: center;"
+                        width="50"
+                      />
+                    </div>
+                    <p
+                      class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400"
+                    >
+                      cd.serviceDashboard.noServiceInstances
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--vertical StyledProps--main fullWidth"
+              >
+                <div
+                  class="bp3-card bp3-elevation-0 Card--card card"
+                >
+                  <div
+                    class="bp3-card bp3-elevation-0 Card--card card"
+                  >
+                    <div
+                      class="Layout--vertical StyledProps--main"
+                      style="height: 100%;"
+                    >
+                      <div
+                        class="Layout--vertical StyledProps--main StyledProps--flex StyledProps--flex-align-center-center"
+                        data-test="deploymentsWidgetEmpty"
+                        style="height: 100%;"
+                      >
+                        <img
+                          height="100"
+                          src="test-file-stub"
+                          style="align-self: center;"
+                          width="150"
+                        />
+                        <p
+                          class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--margin-top-medium"
+                        >
+                          cd.serviceDashboard.noDeployments
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps--font StyledProps--main StyledProps--padding-top-medium"
+                  style="height: 100%;"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main"
+                    style="height: 100%;"
+                  >
+                    <div
+                      class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-space-between"
+                    >
+                      <p
+                        class="StyledProps--font StyledProps--main StyledProps--font-weight-bold StyledProps--color StyledProps--color-grey600"
+                      >
+                        cd.serviceDashboard.totalPipelines: 0
+                      </p>
+                      <div
+                        class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip "
+                        data-name=""
+                        style="max-width: 200px;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                          data-icon="thinner-search"
+                        >
+                          <svg
+                            fill="none"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </svg>
+                        </span>
+                        <input
+                          class="bp3-input  ExpandingSearchInput--filter"
+                          dir="auto"
+                          placeholder="search"
+                          style="padding-right: 0px;"
+                          type="search"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                    <div
+                      class="StyledProps--font StyledProps--main executionCardContainer"
+                    >
+                      <div
+                        class="bp3-card bp3-elevation-0 Card--card pipelineExecutionsEmptyStateContainer"
+                      >
+                        <div
+                          class="StyledProps--font StyledProps--main noDataCard dataCard StyledProps--flex StyledProps--flex-align-center-center"
+                        >
+                          <div
+                            class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
+                            style="align-items: center; margin-top: -48px; width: 470px;"
+                          >
+                            <img
+                              class="pipelineExecutionsEmptyStateImage"
+                              src="test-file-stub"
+                            />
+                            <p
+                              class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
+                            >
+                              cd.serviceDashboard.noPipelines
+                            </p>
+                            <div
+                              class="buttonContainer"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

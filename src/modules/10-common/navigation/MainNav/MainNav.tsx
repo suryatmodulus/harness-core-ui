@@ -19,7 +19,7 @@ const commonLinkProps: Partial<NavLinkProps> = {
 
 export default function L1Nav(): React.ReactElement {
   const params = useParams<ProjectPathProps>()
-  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED, NG_DASHBOARDS } = useFeatureFlags()
 
   const { currentUserInfo: user } = useAppStore()
 
@@ -31,9 +31,10 @@ export default function L1Nav(): React.ReactElement {
             <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
               <Icon name="harness" size={30} />
               <Text
-                font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
+                font={{ weight: 'semi-bold', align: 'center' }}
                 padding={{ bottom: 'xsmall' }}
                 color={Color.WHITE}
+                className={css.text}
                 lineClamp={2}
               >
                 <String stringID="common.home" />
@@ -47,9 +48,10 @@ export default function L1Nav(): React.ReactElement {
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
                 <Icon name="cd-main" size={30} />
                 <Text
-                  font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
+                  font={{ weight: 'semi-bold', align: 'center' }}
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
+                  className={css.text}
                   lineClamp={2}
                 >
                   <String stringID="deploymentsText" />
@@ -64,9 +66,10 @@ export default function L1Nav(): React.ReactElement {
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
                 <Icon name="ci-main" size={30} />
                 <Text
-                  font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
+                  font={{ weight: 'semi-bold', align: 'center' }}
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
+                  className={css.text}
                   lineClamp={2}
                 >
                   <String stringID="buildsText" />
@@ -81,9 +84,10 @@ export default function L1Nav(): React.ReactElement {
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
                 <Icon name="cf-main" size={30} />
                 <Text
-                  font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
+                  font={{ weight: 'semi-bold', align: 'center' }}
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
+                  className={css.text}
                   lineClamp={2}
                 >
                   <String stringID="featureFlagsText" />
@@ -94,13 +98,14 @@ export default function L1Nav(): React.ReactElement {
         )}
         {CENG_ENABLED && (
           <li className={css.navItem}>
-            <Link {...commonLinkProps} to={paths.toCE(params)}>
+            <Link {...commonLinkProps} to={paths.toCEOverview(params)}>
               <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
                 <Icon name="ce-main" size={30} />
                 <Text
-                  font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
+                  font={{ weight: 'semi-bold', align: 'center' }}
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
+                  className={css.text}
                   lineClamp={2}
                 >
                   <String stringID="cloudCostsText" />
@@ -112,15 +117,16 @@ export default function L1Nav(): React.ReactElement {
         {CVNG_ENABLED && (
           <li className={css.navItem}>
             <Link {...commonLinkProps} to={paths.toCV(params)}>
-              <Layout.Vertical flex={{ align: 'center-center' }} spacing="small" width={96}>
+              <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
                 <Icon name="cv-main" size={30} />
                 <Text
-                  font={{ size: 'small', weight: 'semi-bold', align: 'center' }}
+                  font={{ weight: 'semi-bold', align: 'center' }}
                   padding={{ bottom: 'xsmall' }}
                   color={Color.WHITE}
+                  className={css.text}
                   lineClamp={2}
                 >
-                  <String stringID="changeVerificationText" />
+                  <String stringID="common.changeIntelligence" />
                 </Text>
               </Layout.Vertical>
             </Link>
@@ -129,9 +135,49 @@ export default function L1Nav(): React.ReactElement {
       </ul>
 
       <ul className={css.navList}>
+        {NG_DASHBOARDS && (
+          <li className={css.navItem}>
+            <Link
+              className={cx(css.navLink, css.settings, css.hoverNavLink)}
+              activeClassName={css.active}
+              to={paths.toCustomDashboard(params)}
+            >
+              <Layout.Vertical flex spacing="xsmall">
+                <Icon name="dashboard" size={20} />
+                <Text font={{ size: 'xsmall', align: 'center' }} color={Color.WHITE} className={css.hiddenText}>
+                  <String stringID="common.dashboards" />
+                </Text>
+              </Layout.Vertical>
+            </Link>
+          </li>
+        )}
+
         <li className={css.navItem}>
-          <Link className={cx(css.navLink, css.userLink)} activeClassName={css.active} to={paths.toUser(params)}>
-            <Avatar name={user.name || user.email} email={user.email} size="small" hoverCard={false} />
+          <Link
+            className={cx(css.navLink, css.settings, css.hoverNavLink)}
+            activeClassName={css.active}
+            to={paths.toAccountSettings(params)}
+          >
+            <Layout.Vertical flex spacing="xsmall">
+              <Icon name="nav-settings" size={20} />
+              <Text font={{ size: 'xsmall', align: 'center' }} color={Color.WHITE} className={css.hiddenText}>
+                <String stringID="common.accountSettings" />
+              </Text>
+            </Layout.Vertical>
+          </Link>
+        </li>
+        <li className={css.navItem}>
+          <Link
+            className={cx(css.navLink, css.userLink, css.hoverNavLink)}
+            activeClassName={css.active}
+            to={paths.toUser(params)}
+          >
+            <Layout.Vertical flex spacing="small">
+              <Avatar name={user.name || user.email} email={user.email} size="xsmall" hoverCard={false} />
+              <Text font={{ size: 'xsmall', align: 'center' }} color={Color.WHITE} className={css.hiddenText}>
+                <String stringID="common.myProfile" />
+              </Text>
+            </Layout.Vertical>
           </Link>
         </li>
       </ul>

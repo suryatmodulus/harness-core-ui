@@ -63,7 +63,9 @@ export const getPipelineEventColor = (option?: Required<PipelineEvent>['type']):
       return Color.BLUE_300
     case PipelineEventType.StageStart:
       return Color.BLUE_300
-    case PipelineEventType.StepFailed:
+    case PipelineEventType.PipelineEnd:
+      return Color.BLUE_300
+    case PipelineEventType.PipelineStart:
       return Color.BLUE_300
   }
   return Color.GREY_200

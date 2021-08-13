@@ -3,12 +3,15 @@
 declare const styles: {
   readonly status: string
   readonly failed: string
-  readonly aborted: string
-  readonly discontinuing: string
   readonly errored: string
   readonly rejected: string
-  readonly expired: string
+  readonly suspended: string
   readonly approvalrejected: string
+  readonly skipped: string
+  readonly queued: string
+  readonly aborted: string
+  readonly discontinuing: string
+  readonly expired: string
   readonly success: string
   readonly ignorefailed: string
   readonly running: string
@@ -20,9 +23,7 @@ declare const styles: {
   readonly interventionwaiting: string
   readonly pausing: string
   readonly paused: string
-  readonly queued: string
-  readonly skipped: string
-  readonly suspended: string
   readonly notstarted: string
+  readonly icon: string
 }
 export default styles

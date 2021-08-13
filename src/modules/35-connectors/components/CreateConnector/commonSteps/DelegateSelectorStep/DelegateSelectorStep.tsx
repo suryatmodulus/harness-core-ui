@@ -38,6 +38,7 @@ import {
   DelegateSelector,
   DelegatesFoundState
 } from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector'
+import { CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import css from '@connectors/components/CreateConnector/commonSteps/DelegateSelectorStep/DelegateSelector/DelegateSelector.module.scss'
 
 interface BuildPayloadProps {
@@ -59,6 +60,7 @@ export interface DelegateSelectorProps {
   setIsEditMode?: (val: boolean) => void
   connectorInfo: ConnectorInfoDTO | void
   gitDetails?: EntityGitDetails
+  disableGitSync?: boolean
   customHandleCreate?: (
     payload: ConnectorConfigDTO,
     prevData: ConnectorConfigDTO,
@@ -109,7 +111,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const projectIdentifier = connectorInfo ? connectorInfo.projectIdentifier : projectIdentifierFromUrl
   const orgIdentifier = connectorInfo ? connectorInfo.orgIdentifier : orgIdentifierFromUrl
   const { getString } = useStrings()
-  const { isGitSyncEnabled } = useAppStore()
+  const isGitSyncEnabled = useAppStore().isGitSyncEnabled && !props.disableGitSync
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector, loading: creating } = useCreateConnector({
     queryParams: { accountIdentifier: accountId }
@@ -117,6 +119,13 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const { mutate: updateConnector, loading: updating } = useUpdateConnector({
     queryParams: { accountIdentifier: accountId }
   })
+  const isDelegateSelectorMandatory = (): boolean => {
+    return (
+      DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType ||
+      CredTypeValues.AssumeIAMRole === prevStepData?.credType ||
+      CredTypeValues.AssumeRoleSTS === prevStepData?.credType
+    )
+  }
   const initialDelegateSelectors = (() => {
     if (!props.isEditMode) {
       return []
@@ -130,7 +139,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   const initialValues = { delegateSelectors: initialDelegateSelectors }
   const [delegateSelectors, setDelegateSelectors] = useState<Array<string>>(initialDelegateSelectors)
   const [mode, setMode] = useState<DelegateOptions>(
-    delegateSelectors.length || DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType
+    delegateSelectors.length || isDelegateSelectorMandatory()
       ? DelegateOptions.DelegateOptionsSelective
       : DelegateOptions.DelegateOptionsAny
   )
@@ -198,7 +207,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
   }
 
   const isSaveButtonDisabled =
-    (DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType && delegateSelectors.length === 0) ||
+    (isDelegateSelectorMandatory() && delegateSelectors.length === 0) ||
     (mode === DelegateOptions.DelegateOptionsSelective && delegateSelectors.length === 0) ||
     creating ||
     updating
@@ -299,7 +308,7 @@ const DelegateSelectorStep: React.FC<StepProps<ConnectorConfigDTO> & DelegateSel
               delegateSelectors={delegateSelectors}
               setDelegateSelectors={setDelegateSelectors}
               setDelegatesFound={setDelegatesFound}
-              delegateSelectorMandatory={DelegateTypes.DELEGATE_IN_CLUSTER === prevStepData?.delegateType}
+              delegateSelectorMandatory={isDelegateSelectorMandatory()}
               accountId={accountId}
               orgIdentifier={orgIdentifier}
               projectIdentifier={projectIdentifier}

@@ -1,4 +1,4 @@
-export const SourceData = {
+export const sourceData = {
   isEdit: true,
   healthSourceList: [
     {
@@ -43,34 +43,10 @@ export const SourceData = {
   healthSourceName: 'AppD 101',
   healthSourceIdentifier: 'AppD_101',
   sourceType: 'AppDynamics',
-  connectorRef: {
-    label: 'AppD Connector 102',
-    value: 'AppD_Connector_102',
-    scope: 'project',
-    live: true,
-    connector: {
-      name: 'AppD Connector 102',
-      identifier: 'AppD_Connector_102',
-      description: '',
-      orgIdentifier: 'default',
-      projectIdentifier: 'Demo',
-      tags: {},
-      type: 'AppDynamics',
-      spec: {
-        username: 'raghu@harness.io',
-        accountname: 'harness-test',
-        controllerUrl: 'https://harness-test.saas.appdynamics.com/controller/',
-        delegateSelectors: [],
-        passwordRef: 'AppDSecret',
-        clientSecretRef: null,
-        clientId: null,
-        authType: 'UsernamePassword'
-      }
-    }
-  }
+  connectorRef: 'AppD_Connector_102'
 }
 
-export const ApplicationName = {
+export const applicationName = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,
@@ -102,7 +78,7 @@ export const ApplicationName = {
   correlationId: 'b23ba1a0-90ba-44b1-9ab0-ac4a193c5809'
 }
 
-export const MetricPack = {
+export const metricPack = {
   metaData: {},
   resource: [
     {
@@ -253,7 +229,7 @@ export const MetricPack = {
   responseMessages: []
 }
 
-export const AppTier = {
+export const appTier = {
   status: 'SUCCESS',
   data: {
     totalPages: 1,
@@ -273,7 +249,7 @@ export const AppTier = {
   correlationId: '7c9c29a7-5bd4-4df4-86d0-2a0bc94249fe'
 }
 
-export const ValidationData = {
+export const validationData = {
   status: 'SUCCESS',
   data: [
     {
@@ -321,4 +297,87 @@ export const ValidationData = {
   ],
   metaData: null,
   correlationId: '4dff5c5b-fa2e-44bc-8eca-2e06485d1cab'
+}
+
+export const expectedAppDynamicData = {
+  applicationName: 'Harness-Dev',
+  connectorRef: 'AppD_Connector_102',
+  identifier: 'AppD_101',
+  isEdit: true,
+  metricPacks: [
+    {
+      identifier: 'Errors'
+    },
+    {
+      identifier: 'Performance'
+    }
+  ],
+  name: 'AppD 101',
+  product: {
+    label: 'Application Monitoring',
+    value: 'Application Monitoring'
+  },
+  tierName: 'manager',
+  type: 'AppDynamics'
+}
+
+export const onPreviousPayload = {
+  applicationName: 'Harness-Dev',
+  connectorRef: 'AppD_Connector_102',
+  environmentIdentifier: 'TestDemo101',
+  environmentName: 'TestDemo101',
+  healthSourceIdentifier: 'AppD_101',
+  healthSourceList: [
+    {
+      environment: 'TestDemo101',
+      identifier: 'AppD_101',
+      name: 'AppD 101',
+      service: 'TestDemo',
+      spec: {
+        applicationName: 'Harness-Dev',
+        connectorRef: 'AppD_Connector_102',
+        feature: 'Application Monitoring',
+        metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }],
+        tierName: 'manager'
+      },
+      type: 'AppDynamics'
+    },
+    {
+      environment: 'TestDemo101',
+      identifier: 'dasdsadasd',
+      name: 'dasdsadasd',
+      service: 'TestDemo',
+      spec: {
+        applicationName: 'Harness-Dev',
+        connectorRef: 'AppD_Connector',
+        feature: 'Application Monitoring',
+        metricPacks: [{ identifier: 'Performance' }],
+        tierName: 'manager'
+      },
+      type: 'AppDynamics'
+    }
+  ],
+  healthSourceName: 'AppD 101',
+  isEdit: true,
+  metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }],
+  monitoredServiceIdentifier: 'AppD_Test',
+  monitoringSourceName: 'AppD Test',
+  product: { label: 'Application Monitoring', value: 'Application Monitoring' },
+  serviceIdentifier: 'TestDemo',
+  serviceName: 'TestDemo',
+  sourceType: 'AppDynamics',
+  tierName: 'manager'
+}
+
+export const onSubmitPayload = {
+  identifier: 'AppD_101',
+  name: 'AppD 101',
+  spec: {
+    applicationName: 'Harness-Dev',
+    tierName: 'manager',
+    connectorRef: 'AppD_Connector_102',
+    feature: 'Application Monitoring',
+    metricPacks: [{ identifier: 'Errors' }, { identifier: 'Performance' }]
+  },
+  type: 'AppDynamics'
 }

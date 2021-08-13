@@ -1,13 +1,13 @@
 import type { UseGetReturnData, UseMutateMockData } from '@common/utils/testUtils'
+import type { ResponseConnectorResponse } from 'services/cd-ng'
 import type {
-  ResponseInputSetTemplateResponse,
-  ResponseConnectorResponse,
   ResponseInputSetResponse,
-  ResponsePageInputSetSummaryResponse,
+  ResponseInputSetTemplateResponse,
   ResponseMergeInputSetResponse,
-  ResponseOverlayInputSetResponse
-} from 'services/cd-ng'
-import type { ResponsePMSPipelineResponseDTO } from 'services/pipeline-ng'
+  ResponseOverlayInputSetResponse,
+  ResponsePageInputSetSummaryResponse,
+  ResponsePMSPipelineResponseDTO
+} from 'services/pipeline-ng'
 
 export const TemplateResponse: UseGetReturnData<ResponseInputSetTemplateResponse> = {
   loading: false,

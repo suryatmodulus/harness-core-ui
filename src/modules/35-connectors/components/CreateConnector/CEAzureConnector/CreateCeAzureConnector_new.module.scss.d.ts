@@ -19,7 +19,7 @@ declare const styles: {
   readonly command: string
   readonly launchTemplateBtn: string
   readonly createNewExportBtn: string
-  readonly connectorExistBox: string
+  readonly connectorErrorBox: string
   readonly main: string
   readonly editOpen: string
   readonly extension: string

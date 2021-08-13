@@ -1,16 +1,18 @@
 import React from 'react'
-import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uicore'
+import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName, Text } from '@wings-software/uicore'
 import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
 import css from './NoDataCard.module.scss'
 export interface NoDataCardProps {
-  icon: IconName
+  icon?: IconName
   iconSize?: number
   noIconColor?: boolean
-  message: string
+  image?: string
+  imageClassName?: string
+  messageTitle?: string
+  message?: string | React.ReactElement
   width?: number
   buttonText?: string
-  buttonWidth?: number
   button?: React.ReactElement
   onClick?: ButtonProps['onClick']
   className?: string
@@ -26,9 +28,9 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
   // as it brokes complex svg gradients and a
   // simple ternary condition doesn't work
   const iconProps: { name: IconName; size: number; color?: string } = {
-    name: props.icon,
+    name: props.icon as IconName,
     size: props.iconSize || 48,
-    color: Color.GREY_400
+    color: Color.GREY_600
   }
   if (props.noIconColor) {
     delete iconProps.color
@@ -42,22 +44,35 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => {
         style={{ alignItems: 'center', marginTop: '-48px' }}
         className={props.className}
       >
-        <Icon {...iconProps} />
-        <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
-          {props.message}
-        </Heading>
-        {props.button ? (
-          props.button
-        ) : props.buttonText ? (
-          <Button
-            intent="primary"
-            text={props.buttonText}
-            width={props.buttonWidth}
-            onClick={props.onClick}
-            tooltip={props.buttonDisabledTooltip || (buttonDisabled ? getString('noPermission') : undefined)}
-            disabled={buttonDisabled}
-          />
+        {props.image ? <img src={props.image} className={props.imageClassName} /> : null}
+        {props.icon ? <Icon {...iconProps} /> : null}
+        {props.messageTitle ? (
+          <Heading level={2} font={{ weight: 'bold', align: 'center' }} color={Color.GREY_600}>
+            {props.messageTitle}
+          </Heading>
         ) : null}
+        {typeof props.message === 'string' ? (
+          <Text font={{ align: 'center' }} color={Color.GREY_600} className={css.message}>
+            {props.message}
+          </Text>
+        ) : (
+          <>{props.message}</>
+        )}
+        <div className={css.buttonContainer}>
+          {props.button ? (
+            props.button
+          ) : props.buttonText ? (
+            <Button
+              large
+              intent="primary"
+              text={props.buttonText}
+              font={{ size: 'medium', weight: 'semi-bold' }}
+              onClick={props.onClick}
+              tooltip={props.buttonDisabledTooltip || (buttonDisabled ? getString('noPermission') : undefined)}
+              disabled={buttonDisabled}
+            />
+          ) : null}
+        </div>
       </Layout.Vertical>
     </Container>
   )

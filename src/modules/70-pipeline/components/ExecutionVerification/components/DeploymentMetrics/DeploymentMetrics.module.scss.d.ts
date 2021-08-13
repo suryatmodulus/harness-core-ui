@@ -9,6 +9,7 @@ declare const styles: {
   readonly loading: string
   readonly noData: string
   readonly error: string
+  readonly noActivityId: string
   readonly analysisRow: string
   readonly maxDropDownWidth: string
 }

@@ -10,11 +10,20 @@
       }
     }
   }
-  font-size: var(--font-size-small);
+  :global(.bp3-popover-target) {
+    padding-bottom: 2px;
+    margin-left: var(--spacing-xsmall) !important;
+    margin-top: 0 !important;
+  }
+
+  [class*='TextInput--main'] {
+    margin-bottom: 0 !important;
+  }
 
   .stepContainer {
     height: 100%;
     position: relative;
+    padding: var(--spacing-medium) !important;
     :global {
       .OverlaySpinner--overlaySpinner {
         height: 100%;
@@ -26,16 +35,36 @@
     color: var(--grey-800) !important;
     font-weight: 600 !important;
     font-size: 20px !important;
-    margin-bottom: var(--spacing-xxxlarge) !important;
+    margin-bottom: var(--spacing-large) !important;
+
+    span {
+      font-weight: lighter;
+      color: var(--grey-700);
+    }
   }
 
   .subHeader {
     padding: var(--spacing-xxxlarge);
   }
 
-  .dataFields {
-    width: 500px;
+  .subHeader,
+  .info,
+  .dataFields,
+  .launchTemplateSection {
     margin-bottom: var(--spacing-large) !important;
+  }
+
+  .dataFields {
+    [class*='InputWithIdentifier--txtIdContainer'] > p {
+      font-size: var(--font-size-small) !important;
+      color: var(--grey-800);
+    }
+    margin-bottom: var(--spacing-large) !important;
+  }
+
+  .dataFields,
+  .launchTemplateSection {
+    width: 65%;
   }
 
   .submitBtn {
@@ -45,47 +74,34 @@
     max-width: 150px;
   }
 
-  .commandsContainer {
-    background: var(--primary-1);
-    padding: var(--spacing-large);
-    margin: var(--spacing-large) auto;
-    width: 90%;
-    pre {
-      white-space: pre-wrap;
-    }
-  }
-
   .main {
     margin-bottom: var(--spacing-medium) !important;
-    width: 500px;
   }
 
   .infobox {
-    padding: 20px;
-    background: var(--primary-1);
+    padding: var(--spacing-medium) var(--spacing-large) !important;
+    background-color: var(--primary-1) !important;
+    color: var(--grey-800) !important;
+    line-height: var(--spacing-large) !important;
   }
 
-  .costcard {
-    height: 40px;
-    width: 50px;
+  .mtbxxlarge {
+    margin: var(--spacing-xxlarge) 0 var(--spacing-large) 0 !important;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: 250px 250px;
-    column-gap: 20px;
-    grid-auto-rows: 200px;
-    grid-auto-columns: 220px;
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--spacing-large);
+    [class*='bp3-card'] {
+      box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), 0px 8px 16px rgba(96, 97, 112, 0.16) !important;
+    }
   }
 
   .launchTemplateBut {
-    padding-left: 10px;
-    background-color: var(--white);
-    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16) !important;
     border-radius: 8px;
-    border: thin solid var(--primary-7) !important;
-    width: 500px;
-    font-size: var(--font-size-small);
+    border: 1px solid var(--primary-7) !important;
   }
 
   .newCurReport {
@@ -100,13 +116,11 @@
   }
 
   .connectorExistBox {
-    height: 200px;
-    border: var(--red-700) solid 2px;
-    border-left: 10px solid var(--red-700);
-    margin: 10px;
-    padding: 20px;
-    background: rgba(255, 230, 230, 0.5);
-    color: black;
+    margin: var(--spacing-xlarge) 0 var(--spacing-medium) 0;
+    border-left: 4px solid var(--red-700);
+    padding: var(--spacing-large);
+    background: var(--red-50);
+    color: var(--grey-1000);
     border-radius: 5px;
   }
 
@@ -119,11 +133,32 @@
 }
 
 .extention {
-  padding: var(--spacing-xlarge) !important;
+  font-size: small;
+  color: var(--grey-700);
+  .header {
+    margin-bottom: var(--spacing-large) !important;
+  }
+  p {
+    font-size: small;
+    color: var(--grey-700);
+  }
 
-  .listPoints {
+  ol {
+    padding-bottom: var(--spacing-small);
+  }
+
+  ul,
+  ol {
+    font-size: small;
+    color: var(--grey-700);
+    padding-left: 15px !important;
+
     li {
-      color: var(--grey-800) !important;
+      line-height: 22px;
+      p {
+        font-size: small;
+        color: var(--grey-700);
+      }
     }
   }
 

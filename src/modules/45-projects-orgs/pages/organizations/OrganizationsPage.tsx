@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-
 import { ExpandingSearchInput, Layout, Container } from '@wings-software/uicore'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { OrganizationAggregateDTO, useGetOrganizationAggregateDTOList, Error } from 'services/cd-ng'
-
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useOrganizationModal } from '@projects-orgs/modals/OrganizationModal/useOrganizationModal'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
@@ -49,21 +48,19 @@ const OrganizationsPage: React.FC = () => {
 
   return (
     <>
-      <Page.Header title={getString('orgsText')} />
+      <Page.Header breadcrumbs={<NGBreadcrumbs />} title={getString('orgsText')} />
       <Page.Header
         title={<Layout.Horizontal padding="small">{newOrgButton()}</Layout.Horizontal>}
         toolbar={
-          <Layout.Horizontal padding={{ right: 'large' }}>
-            <Layout.Horizontal flex>
-              <ExpandingSearchInput
-                placeholder={getString('projectsOrgs.searchPlaceHolder')}
-                onChange={text => {
-                  setSearchParam(text.trim())
-                }}
-                className={css.search}
-              />
-            </Layout.Horizontal>
-          </Layout.Horizontal>
+          <ExpandingSearchInput
+            flip
+            placeholder={getString('projectsOrgs.searchPlaceHolder')}
+            onChange={text => {
+              setSearchParam(text.trim())
+            }}
+            className={css.search}
+            width={350}
+          />
         }
       />
       <Page.Body

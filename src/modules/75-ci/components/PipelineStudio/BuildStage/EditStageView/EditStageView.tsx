@@ -5,20 +5,18 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  Collapse,
   Button,
   Switch,
-  Icon,
+  HarnessDocTooltip,
   TextInput,
   RUNTIME_INPUT_VALUE
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import type { IconName } from '@blueprintjs/core'
 import { isEmpty, set } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { FormikErrors } from 'formik'
 import { produce } from 'immer'
-import type { StageElementWrapper, PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { useStrings } from 'framework/strings'
@@ -26,6 +24,7 @@ import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
 } from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
+import { NameIdDescriptionTags } from '@common/components/NameIdDescriptionTags/NameIdDescriptionTags'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,
@@ -37,18 +36,24 @@ import { isDuplicateStageId } from '@pipeline/components/PipelineStudio/StageBui
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import { useQueryParams } from '@common/hooks'
 import { useGitScope } from '@ci/services/CIUtils'
+import type { BuildStageElementConfig, StageElementWrapper } from '@pipeline/utils/pipelineTypes'
 import css from './EditStageView.module.scss'
 
 export interface EditStageView {
-  data?: StageElementWrapper
-  onSubmit?: (values: StageElementWrapper, identifier: string, pipeline?: PipelineInfoConfig) => void
-  onChange?: (values: StageElementWrapper) => void
+  data?: StageElementWrapper<BuildStageElementConfig>
+  onSubmit?: (
+    values: StageElementWrapper<BuildStageElementConfig>,
+    identifier: string,
+    pipeline?: PipelineInfoConfig
+  ) => void
+  onChange?: (values: Values) => void
 }
 
 interface Values {
   identifier: string
   name: string
   description?: string
+  tags?: { [key: string]: string }
   cloneCodebase?: boolean
   connectorRef?: ConnectorReferenceFieldProps['selected']
   repoName?: string
@@ -73,10 +78,11 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   const { repoIdentifier, branch } = useQueryParams<GitQueryParams>()
 
   const initialValues: Values = {
-    identifier: data?.stage.identifier,
-    name: data?.stage.name,
-    description: data?.stage.description,
-    cloneCodebase: data?.stage.spec?.cloneCodebase ?? true
+    identifier: data?.stage?.identifier || '',
+    name: data?.stage?.name || '',
+    description: data?.stage?.description,
+    tags: data?.stage?.tags,
+    cloneCodebase: data?.stage?.spec?.cloneCodebase ?? true
   }
 
   const codebase = (pipeline as PipelineInfoConfig)?.properties?.ci?.codebase
@@ -150,7 +156,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   }
 
   const handleSubmit = (values: Values): void => {
-    if (data) {
+    if (data?.stage) {
       // TODO: Add Codebase verification
       let pipelineData: PipelineInfoConfig | undefined = undefined
       if (values.cloneCodebase && values.connectorRef) {
@@ -171,23 +177,15 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
       data.stage.name = values.name
 
       if (values.description) data.stage.description = values.description
-      if (!data.stage.spec) data.stage.spec = {}
-      data.stage.spec.cloneCodebase = values.cloneCodebase
+      if (values.tags) data.stage.tags = values.tags
+      if (!data.stage.spec) data.stage.spec = {} as any
+      set(data, 'stage.spec.cloneCodebase', values.cloneCodebase)
       if (pipelineData) {
         onSubmit?.(data, values.identifier, pipelineData)
       } else {
         onSubmit?.(data, values.identifier)
       }
     }
-  }
-
-  const collapseProps = {
-    collapsedIcon: 'small-plus' as IconName,
-    expandedIcon: 'small-minus' as IconName,
-    isOpen: false,
-    isRemovable: false,
-    className: 'collapse',
-    heading: getString('description')
   }
 
   return (
@@ -211,31 +209,25 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               >
                 {getString('pipelineSteps.build.create.aboutYourStage')}
               </Text>
-              <FormInput.InputWithIdentifier
-                inputLabel={getString('stageNameLabel')}
-                inputGroupProps={{
-                  disabled: isReadonly,
-                  placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+              <NameIdDescriptionTags
+                formikProps={formikProps}
+                identifierProps={{
+                  inputGroupProps: {
+                    disabled: isReadonly,
+                    placeholder: getString('pipeline.aboutYourStage.stageNamePlaceholder')
+                  }
                 }}
+                descriptionProps={{ disabled: isReadonly }}
+                tagsProps={{ disabled: isReadonly }}
               />
-              <div className={css.collapseDiv}>
-                <Collapse
-                  {...collapseProps}
-                  isOpen={(formikProps.values.description && formikProps.values.description?.length > 0) || false}
-                >
-                  <FormInput.TextArea name="description" disabled={isReadonly} />
-                </Collapse>
-              </div>
-              <Switch
-                label={getString('cloneCodebaseLabel')}
-                onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
-                defaultChecked={formikProps.values.cloneCodebase}
-                margin={{ bottom: 'small' }}
-                disabled={isReadonly}
-              />
-              <div className={css.cloneCodebaseInfo}>
-                <Icon name="info" size={10} margin={{ right: 'small' }} />
-                <Text font="xsmall">{getString('pipelineSteps.build.create.cloneCodebaseHelperText')}</Text>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: 'var(--spacing-small)' }}>
+                <Switch
+                  label={getString('cloneCodebaseLabel')}
+                  onChange={e => formikProps.setFieldValue('cloneCodebase', e.currentTarget.checked)}
+                  defaultChecked={formikProps.values.cloneCodebase}
+                  disabled={isReadonly}
+                />
+                <HarnessDocTooltip tooltipId="cloneCodebase" useStandAlone={true} />
               </div>
               {/* We don't need to configure CI Codebase if it is already configured or we are skipping Clone Codebase step */}
               {!codebase && formikProps.values.cloneCodebase && (
@@ -252,6 +244,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     {getString('pipelineSteps.build.create.configureCodebaseHelperText')}
                   </Text>
                   <ConnectorReferenceField
+                    className={css.connector}
                     error={
                       formikProps.submitCount && formikProps.errors.connectorRef
                         ? formikProps.errors.connectorRef
@@ -261,6 +254,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     type={['Git', 'Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
                     selected={formikProps.values.connectorRef}
                     label={getString('connector')}
+                    width={382}
                     placeholder={loading ? getString('loading') : getString('connectors.selectConnector')}
                     disabled={loading || isReadonly}
                     accountIdentifier={accountId}

@@ -59,6 +59,8 @@ export function InputOutputTabRow(props: InputOutputTabRowProps): React.ReactEle
         }
 
         if (Array.isArray(value)) {
+          if (isEmpty(value)) return null
+
           if (value.every(e => typeof e === 'string')) {
             return (
               <div className={css.ioRow} key={key}>

@@ -38,5 +38,11 @@ declare const styles: {
   readonly infoSection: string
   readonly text: string
   readonly selectContainer: string
+  readonly titleHelpTextDescription: string
+  readonly yamlEditorContainer: string
+  readonly switchFont: string
+  readonly rowItem: string
+  readonly type: string
+  readonly server: string
 }
 export default styles

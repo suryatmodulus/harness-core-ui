@@ -1,15 +1,15 @@
 import React, { useMemo, useEffect, useState } from 'react'
 import { Text, Container, Icon } from '@wings-software/uicore'
-import type { Column } from 'react-table'
+import type { Column, Row } from 'react-table'
 import { isEqual } from 'lodash-es'
 import type { QlceViewFieldInputInput, QlceViewEntityStatsDataPoint, Maybe } from 'services/ce/services'
 import ColumnSelector from './ColumnSelector'
-import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, PERSPECTIVE_PREVIEW_COLS } from './Columns'
+import { addLegendColorToRow, GridData, getGridColumnsByGroupBy, DEFAULT_COLS } from './Columns'
 import Grid from './Grid'
 import './test.scss' // will find a alternative
 import css from './PerspectiveGrid.module.scss'
 
-interface PerspectiveGridProps {
+export interface PerspectiveGridProps {
   columnSequence?: string[]
   setColumnSequence?: (cols: string[]) => void
   groupBy: QlceViewFieldInputInput
@@ -18,6 +18,8 @@ interface PerspectiveGridProps {
   showPagination?: boolean
   gridData: Maybe<Maybe<QlceViewEntityStatsDataPoint>[]> | undefined
   gridFetching: boolean
+  isClusterOnly?: boolean
+  goToWorkloadDetails?: (clusterName: string, namespace: string, workloadName: string) => void
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -27,10 +29,12 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     groupBy,
     showColumnSelector,
     gridData: response,
-    gridFetching: fetching
+    gridFetching: fetching,
+    isClusterOnly = false,
+    goToWorkloadDetails
   } = props
 
-  const gridColumns = getGridColumnsByGroupBy(groupBy)
+  const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
   const [selectedColumns, setSelectedColumns] = useState(gridColumns)
 
   const gridData = useMemo(() => {
@@ -40,14 +44,16 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     return []
   }, [response, fetching])
 
-  const newColumnSequence = gridData.slice(0, 12).map(row => row['id'])
-  if (!isEqual(columnSequence, newColumnSequence) && setColumnSequence) {
-    setColumnSequence(newColumnSequence as string[])
-  }
+  useEffect(() => {
+    const newColumnSequence = gridData.slice(0, 12).map(row => row['id'])
+    if (!isEqual(columnSequence, newColumnSequence) && setColumnSequence) {
+      setColumnSequence(newColumnSequence as string[])
+    }
+  }, [gridData])
 
   useEffect(() => {
-    setSelectedColumns(getGridColumnsByGroupBy(groupBy))
-  }, [groupBy])
+    setSelectedColumns(getGridColumnsByGroupBy(groupBy, isClusterOnly))
+  }, [groupBy, isClusterOnly])
 
   if (fetching) {
     return (
@@ -65,6 +71,18 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     )
   }
 
+  const onRowClick = (row: Row<GridData>) => {
+    const { fieldName } = groupBy
+    if (fieldName === 'Workload Id' && isClusterOnly) {
+      const { clusterName, namespace, workloadName } = row.original
+      goToWorkloadDetails &&
+        clusterName &&
+        namespace &&
+        workloadName &&
+        goToWorkloadDetails(clusterName, namespace, workloadName)
+    }
+  }
+
   return (
     <Container background="white">
       {showColumnSelector && (
@@ -76,11 +94,8 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
       )}
       <Grid<GridData>
         data={gridData}
-        columns={
-          props.tempGridColumns
-            ? (PERSPECTIVE_PREVIEW_COLS as Column<GridData>[])
-            : (selectedColumns as Column<GridData>[])
-        }
+        onRowClick={onRowClick}
+        columns={props.tempGridColumns ? (DEFAULT_COLS as Column<GridData>[]) : (selectedColumns as Column<GridData>[])}
         showPagination={props.showPagination}
       />
     </Container>

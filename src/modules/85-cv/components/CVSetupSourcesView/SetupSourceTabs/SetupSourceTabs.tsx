@@ -6,7 +6,7 @@ import routes from '@common/RouteDefinitions'
 import type { ActivitySourceDTO, DSConfig } from 'services/cv'
 import { getRoutePathByType } from '@cv/utils/routeUtils'
 import { CVObjectStoreNames, useIndexedDBHook } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
-import { ONBOARDING_ENTITIES } from '@cv/pages/admin/setup/SetupUtils'
+import { OnboardingEntites } from './SetupSourceTabs.constants'
 import css from './SetupSourceTabs.module.scss'
 
 type TabStatus = 'SUCCESS' | 'WARNING' | 'ERROR' | 'NO_STATUS'
@@ -80,9 +80,9 @@ export function typeToSetupSourceType(type: DSConfig['type'] | ActivitySourceDTO
   switch (type) {
     case 'KUBERNETES':
     case 'HARNESS_CD10':
-      return ONBOARDING_ENTITIES.CHANGE_SOURCE
+      return OnboardingEntites.CHANGE_SOURCE
     default:
-      return ONBOARDING_ENTITIES.MONITORING_SOURCE
+      return OnboardingEntites.MONITORING_SOURCE
   }
 }
 
@@ -121,13 +121,13 @@ function getRouteUrlForOnboarding(
   identifier: string,
   params: ProjectPathProps
 ): string {
-  if (sourceType === ONBOARDING_ENTITIES.CHANGE_SOURCE) {
+  if (sourceType === OnboardingEntites.CHANGE_SOURCE) {
     return routes.toCVActivitySourceEditSetup({
       ...params,
       activitySource: getRoutePathByType(type),
       activitySourceId: identifier
     })
-  } else if (sourceType === ONBOARDING_ENTITIES.MONITORING_SOURCE) {
+  } else if (sourceType === OnboardingEntites.MONITORING_SOURCE) {
     return routes.toCVAdminSetupMonitoringSourceEdit({
       ...params,
       monitoringSource: getRoutePathByType(type),
@@ -156,13 +156,13 @@ export function buildObjectToStore(
     setupID: `${params.accountId}-${params.orgIdentifier}-${params.projectIdentifier}`
   }
   switch (sourceType) {
-    case ONBOARDING_ENTITIES.MONITORING_SOURCE:
+    case OnboardingEntites.MONITORING_SOURCE:
       objectToStore.monitoringSources = addItemToCache(objectToStore.monitoringSources || [], dataToSave)
       break
-    case ONBOARDING_ENTITIES.CHANGE_SOURCE:
+    case OnboardingEntites.CHANGE_SOURCE:
       objectToStore.changeSources = addItemToCache(objectToStore.changeSources || [], dataToSave)
       break
-    case ONBOARDING_ENTITIES.VERIFICATION_JOBS:
+    case OnboardingEntites.VERIFICATION_JOBS:
       objectToStore.verificationJobs = addItemToCache(objectToStore.verificationJobs || [], dataToSave)
       break
   }
@@ -183,6 +183,10 @@ export function useSetupSourceTabsHook<T>(data: T, tabsInformation: TabInfo[]): 
   const { isInitializingDB, dbInstance } = useIndexedDBHook({
     clearStroreList: [CVObjectStoreNames.ONBOARDING_SOURCES]
   })
+
+  useEffect(() => {
+    setTabsState(currentTabsState => ({ ...currentTabsState, tabsInfo: tabsInformation }))
+  }, [tabsInfo])
 
   async function onSwitchTab<U>(updatedData: U, newTabIndex: number, updatedTabInfo?: TabInfo): Promise<void> {
     if (!dbInstance) return
@@ -282,10 +286,8 @@ export function SetupSourceTabsProvider<T>(props: SetupSourceTabsProviderProps<T
 
 export function SetupSourceTabs<T>(props: SetupSourceTabsProps<T>): JSX.Element {
   const { data, tabTitles, children, determineMaxTab } = props
-  const { sourceData, activeTabIndex, onSwitchTab, onNext, onPrevious } = useSetupSourceTabsHook(
-    data,
-    initializeTabsInfo(tabTitles)
-  )
+  const tabInfo = useMemo(() => initializeTabsInfo(tabTitles), [tabTitles])
+  const { sourceData, activeTabIndex, onSwitchTab, onNext, onPrevious } = useSetupSourceTabsHook(data, tabInfo)
   const maxEnabledTab = determineMaxTab(sourceData)
   const updatedChildren = useMemo(() => (Array.isArray(children) ? children : [children]), [children])
   return (

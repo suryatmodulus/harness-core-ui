@@ -36,5 +36,7 @@ declare const styles: {
   readonly verticalSpacingInput: string
   readonly listLabel: string
   readonly width400: string
+  readonly artifactsAccordion: string
+  readonly variableBorderBottom: string
 }
 export default styles

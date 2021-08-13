@@ -1,0 +1,21 @@
+.tabsContainer {
+  & > :global(.bp3-tabs > .bp3-tab-list) {
+    border-bottom: 1px solid var(--grey-200);
+  }
+  .timeRangeContainer {
+    flex-grow: 1;
+    align-self: center;
+    justify-content: flex-end !important;
+  }
+
+  .fullWidth {
+    flex-grow: 1;
+    .card {
+      display: flex !important;
+      width: 100%;
+      height: 280px;
+      padding-top: var(--spacing-medium) !important;
+      padding-bottom: var(--spacing-small) !important;
+    }
+  }
+}

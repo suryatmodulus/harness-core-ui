@@ -82,7 +82,7 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
           cf.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cf.homepage.slogan
         </p>
@@ -143,7 +143,7 @@ exports[`CFHomePage should render HomePageTemplate when return success with data
           cf.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cf.homepage.slogan
         </p>
@@ -204,7 +204,7 @@ exports[`CFHomePage should render the home page template when the current user i
           cf.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cf.homepage.slogan
         </p>
@@ -314,7 +314,7 @@ exports[`CFHomePage should update the license store 1`] = `
           cf.continuous
         </h1>
         <p
-          class="StyledProps--font StyledProps--main StyledProps--color"
+          class="StyledProps--font StyledProps--main subTitle StyledProps--color"
         >
           cf.homepage.slogan
         </p>

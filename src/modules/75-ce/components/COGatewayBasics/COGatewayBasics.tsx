@@ -131,6 +131,20 @@ const COGatewayBasics: React.FC<COGatewayBasicsProps> = props => {
           </span>
         </div>
       )}
+      {localStorage.CEGCPCONNECTOR && (
+        <div>
+          <span
+            onClick={() => {
+              openAzureConnectorModal(false, Connectors.CE_GCP, {
+                connectorInfo: { orgIdentifier: '', projectIdentifier: '' } as unknown as ConnectorInfoDTO
+              })
+            }}
+            style={{ fontSize: '13px', color: '#0278D5', lineHeight: '20px', cursor: 'pointer' }}
+          >
+            Try GCP New Connector
+          </span>
+        </div>
+      )}
     </div>
   )
 }

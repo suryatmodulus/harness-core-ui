@@ -1,5 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
+import { Icon } from '@wings-software/uicore'
+import type { IconProps } from '@wings-software/uicore/dist/icons/Icon'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { String } from 'framework/strings'
@@ -31,6 +33,30 @@ export const stringsMap: Record<ExecutionStatus, StringKeys> = {
   ApprovalWaiting: 'pipeline.executionStatus.Waiting'
 }
 
+export const iconMap: Record<ExecutionStatus, IconProps> = {
+  Success: { name: 'tick-circle', size: 9 },
+  IgnoreFailed: { name: 'tick-circle', size: 9 },
+  Paused: { name: 'pause', size: 12 },
+  Pausing: { name: 'pause', size: 12 },
+  Failed: { name: 'warning-sign', size: 9 },
+  Errored: { name: 'warning-sign', size: 9 },
+  InterventionWaiting: { name: 'time', size: 9 },
+  ResourceWaiting: { name: 'time', size: 9 },
+  ApprovalWaiting: { name: 'time', size: 9 },
+  AsyncWaiting: { name: 'loading', size: 10 },
+  TaskWaiting: { name: 'loading', size: 10 },
+  TimedWaiting: { name: 'loading', size: 10 },
+  Running: { name: 'loading', size: 10 },
+  Aborted: { name: 'circle-stop', size: 9 },
+  Discontinuing: { name: 'circle-stop', size: 9 },
+  Expired: { name: 'expired', size: 9 },
+  Suspended: { name: 'banned', size: 9 },
+  ApprovalRejected: { name: 'x', size: 8 },
+  Queued: { name: 'queued', size: 10 },
+  NotStarted: { name: 'play-outline', size: 8 },
+  Skipped: { name: 'skipped', size: 8 }
+}
+
 export interface ExecutionStatusLabelProps {
   status?: ExecutionStatus
   className?: string
@@ -43,10 +69,9 @@ export default function ExecutionStatusLabel({
   if (!status) return null
 
   return (
-    <String
-      tagName="div"
-      stringID={stringsMap[status] || 'pipeline.executionStatus.Unknown'}
-      className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}
-    />
+    <div className={cx(css.status, css[status.toLowerCase() as keyof typeof css], className)}>
+      {iconMap[status] ? <Icon {...iconMap[status]} className={css.icon} /> : null}
+      <String stringID={stringsMap[status] || 'pipeline.executionStatus.Unknown'} />
+    </div>
   )
 }

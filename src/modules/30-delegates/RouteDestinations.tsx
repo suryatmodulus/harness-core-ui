@@ -18,10 +18,10 @@ import DelegateConfigurationResourceModalBody from '@delegates/components/Delega
 import DelegateConfigurationResourceRenderer from '@delegates/components/DelegateConfigurationResourceRenderer/DelegateConfigurationResourceRenderer'
 import DelegateResourceRenderer from '@delegates/components/DelegateResourceRenderer/DelegateResourceRenderer'
 
-import { HomeSideNavProps } from '@common/RouteDestinations'
+import { AccountSideNavProps } from '@common/RouteDestinations'
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
-  icon: 'main-delegates',
+  icon: 'res-delegates',
   label: 'delegate.delegates',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
@@ -36,7 +36,7 @@ RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATE, {
 })
 
 RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATECONFIGURATION, {
-  icon: 'main-delegates',
+  icon: 'res-delegates',
   label: 'delegate.delegateConfigurations',
   category: ResourceCategory.SHARED_RESOURCES,
   permissionLabels: {
@@ -52,18 +52,18 @@ RbacFactory.registerResourceTypeHandler(ResourceType.DELEGATECONFIGURATION, {
 
 export default (
   <>
-    <RouteWithLayout sidebarProps={HomeSideNavProps} path={[routes.toDelegates({ ...accountPathProps })]} exact>
+    <RouteWithLayout sidebarProps={AccountSideNavProps} path={[routes.toDelegates({ ...accountPathProps })]} exact>
       <DelegatesPage />
     </RouteWithLayout>
 
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={[routes.toDelegatesDetails({ ...accountPathProps, ...delegatePathProps })]}
     >
       <DelegateDetails />
     </RouteWithLayout>
     <RouteWithLayout
-      sidebarProps={HomeSideNavProps}
+      sidebarProps={AccountSideNavProps}
       path={[routes.toDelegateConfigsDetails({ ...accountPathProps, ...delegateConfigProps })]}
     >
       <DelegateProfileDetails />

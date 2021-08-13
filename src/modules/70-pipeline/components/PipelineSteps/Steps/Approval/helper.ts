@@ -1,10 +1,6 @@
-import { getMultiTypeFromValue, MultiSelectOption, MultiTypeInputType } from '@wings-software/uicore'
+import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
 import type { ApproverInputsSubmitCallInterface, HarnessApprovalData } from './types'
 
-/*
-Process and convert form data to submit call data
-Flatten the usergroups object, and only send the ids
-*/
 export const processFormData = (data: HarnessApprovalData): HarnessApprovalData => {
   const toReturn: HarnessApprovalData = {
     ...data,
@@ -12,10 +8,6 @@ export const processFormData = (data: HarnessApprovalData): HarnessApprovalData 
       ...data.spec,
       approvers: {
         ...data.spec.approvers,
-        userGroups:
-          getMultiTypeFromValue(data.spec.approvers.userGroups as string) !== MultiTypeInputType.FIXED
-            ? data.spec.approvers.userGroups
-            : (data.spec.approvers.userGroups as MultiSelectOption[])?.map(ug => ug.value?.toString()),
         minimumCount:
           getMultiTypeFromValue(data.spec.approvers.minimumCount as string) === MultiTypeInputType.RUNTIME
             ? data.spec.approvers.minimumCount
@@ -75,6 +67,3 @@ export const processForInitialValues = (data: HarnessApprovalData): HarnessAppro
 
   return toReturn
 }
-
-export const isArrayOfStrings = (array: any): array is string[] =>
-  Array.isArray(array) && array.every(element => typeof element === 'string')

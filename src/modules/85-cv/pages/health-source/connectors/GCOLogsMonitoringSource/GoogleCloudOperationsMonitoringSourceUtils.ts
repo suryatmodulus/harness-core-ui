@@ -1,4 +1,3 @@
-import type { SelectOption } from '@wings-software/uicore'
 import { isEmpty } from 'lodash-es'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import type { MapGCOLogsQueryToService } from './components/MapQueriesToHarnessService/types'
@@ -11,7 +10,7 @@ export const GCOProduct = {
 export interface GCOMonitoringSourceInfo {
   name?: string
   identifier?: string
-  connectorRef?: SelectOption
+  connectorRef?: string
   isEdit?: boolean
   product: string
   type: string

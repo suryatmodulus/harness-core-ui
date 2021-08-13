@@ -4,3 +4,20 @@
   --pipeline-build-stage-color: #89cdff;
   --pipeline-custom-stage-color: #f78f00;
 }
+
+.link {
+  padding: var(--spacing-small);
+  color: var(--grey-700);
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none !important;
+
+  &:hover {
+    color: var(--grey-700);
+  }
+
+  &.active {
+    background: var(--grey-800);
+    color: var(--white);
+  }
+}

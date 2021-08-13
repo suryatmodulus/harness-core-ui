@@ -3,7 +3,6 @@
 declare const styles: {
   readonly card: string
   readonly infoCard: string
-  readonly selected: string
   readonly cd: string
   readonly title: string
   readonly new: string

@@ -5,6 +5,7 @@ import {
   DataTooltipInterface,
   ExpressionAndRuntimeType,
   ExpressionAndRuntimeTypeProps,
+  FormError,
   getMultiTypeFromValue,
   HarnessDocTooltip,
   MultiTypeInputType,
@@ -77,7 +78,7 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
 
   const {
     intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
+    helperText = hasError ? <FormError errorMessage={get(formik?.errors, name)} /> : null,
     disabled,
     tooltipProps,
     ...rest

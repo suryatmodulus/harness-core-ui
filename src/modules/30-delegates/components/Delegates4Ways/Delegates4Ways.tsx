@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Color, CardSelect, Container, Text, Layout, Icon } from '@wings-software/uicore'
 
 import { useStrings } from 'framework/strings'
@@ -48,6 +48,10 @@ const Delegates4Ways: React.FC<Delegates4WaysProps> = props => {
       type: DelegateTypes.LINUX
     }
   ]
+
+  useEffect(() => {
+    onSelect(selectCardData[1])
+  }, [])
 
   const getIcon = (type: string) => {
     switch (type) {

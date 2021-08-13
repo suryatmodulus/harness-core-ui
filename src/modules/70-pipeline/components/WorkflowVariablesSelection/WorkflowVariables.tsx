@@ -1,7 +1,6 @@
 import React from 'react'
 import { Layout, Text } from '@wings-software/uicore'
-import get from 'lodash-es/get'
-import isEmpty from 'lodash-es/isEmpty'
+import { defaultTo, set, get, isEmpty } from 'lodash-es'
 
 import type { AllNGVariables as Variable } from '@pipeline/utils/types'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -14,6 +13,7 @@ import type {
 } from '@pipeline/components/PipelineSteps/Steps/CustomVariables/CustomVariableEditable'
 
 import { useStrings } from 'framework/strings'
+import type { DeploymentStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { AbstractStepFactory } from '../AbstractSteps/AbstractStepFactory'
 import { getFlattenedStages, getStageIndexFromPipeline } from '../PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepViewType } from '../AbstractSteps/Step'
@@ -51,7 +51,7 @@ export default function WorkflowVariables({
   } = React.useContext(PipelineContext)
   const { getString } = useStrings()
 
-  const { stage } = getStageFromPipeline(selectedStageId || '')
+  const { stage } = getStageFromPipeline<DeploymentStageElementConfig>(selectedStageId || '')
   const serviceConfig = stage?.stage?.spec?.serviceConfig || {}
   const parentStage = serviceConfig.useFromStage?.stage
   const { variablesPipeline, metadataMap } = usePipelineVariables()
@@ -66,8 +66,8 @@ export default function WorkflowVariables({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [serviceConfig.useFromStage?.stage, pipeline])
 
-  const stageSpec = serviceConfig.serviceDefinition?.spec
-  const predefinedSetsPath = serviceConfig.stageOverrides
+  const stageSpec = defaultTo(serviceConfig.serviceDefinition?.spec, {})
+  const predefinedSetsPath = defaultTo(serviceConfig.stageOverrides, {})
   const updateVariables = (vars: Variable[]): void => {
     if (stageSpec || predefinedSetsPath) {
       if (isPropagating) {
@@ -82,10 +82,10 @@ export default function WorkflowVariables({
           stageSpec.variables = vars
         }
       } else {
-        const overrideSets = stageSpec.variableOverrideSets
-        overrideSets.map((variableSet: { overrideSet: { identifier: string; variables: any } }) => {
+        const overrideSets = stageSpec.variableOverrideSets || []
+        overrideSets.map(variableSet => {
           if (variableSet?.overrideSet?.identifier === identifierName) {
-            variableSet.overrideSet.variables = vars
+            set(variableSet, 'overrideSet.variables', vars)
           }
         })
       }
@@ -95,54 +95,57 @@ export default function WorkflowVariables({
 
   const getInitialValues = (): Variable[] => {
     if (isPropagating) {
-      return get(predefinedSetsPath, 'variables', [])
+      return get(predefinedSetsPath, 'variables', []) as Variable[]
     }
     if (!isForOverrideSets) {
       if (isForPredefinedSets) {
-        return predefinedSetsPath?.variables || []
+        return (predefinedSetsPath?.variables || []) as Variable[]
       }
-      return stageSpec?.variables || []
+      return (stageSpec?.variables || []) as Variable[]
     }
     if (isForPredefinedSets) {
-      return predefinedSetsPath?.variables || []
+      return (predefinedSetsPath?.variables || []) as Variable[]
     }
     const overrideSets = stageSpec.variableOverrideSets
-    return overrideSets
-      .map((variableSet: { overrideSet: { identifier: string; variables: Variable[] } }) => {
+    return (overrideSets
+      ?.map(variableSet => {
         if (variableSet?.overrideSet?.identifier === identifierName) {
-          return variableSet.overrideSet.variables
+          return variableSet.overrideSet?.variables
         }
       })
-      .filter((x: { overrideSet: { identifier: string; variables: Variable[] } }) => x !== undefined)[0]
+      .filter(x => x !== undefined)[0] || []) as Variable[]
   }
 
   const getYamlPropertiesForVariables = (): Variable[] => {
-    const { stage: variablesStage } = getStageFromPipeline(parentStage || selectedStageId, variablesPipeline)
+    const { stage: variablesStage } = getStageFromPipeline<DeploymentStageElementConfig>(
+      parentStage || selectedStageId || '',
+      variablesPipeline
+    )
     const variablesServiceConfig = variablesStage?.stage?.spec?.serviceConfig || {}
     const variablesStageSpec = variablesServiceConfig.serviceDefinition?.spec
 
     if (isPropagating) {
-      return get(predefinedSetsPath, 'variables', [])
+      return get(predefinedSetsPath, 'variables', []) as Variable[]
     }
     if (!isForOverrideSets) {
       if (isForPredefinedSets) {
-        return predefinedSetsPath?.variables || []
+        return (predefinedSetsPath?.variables || []) as Variable[]
       }
-      return variablesStageSpec?.variables || []
+      return (variablesStageSpec?.variables || []) as Variable[]
     }
     if (isForPredefinedSets) {
-      return variablesServiceConfig?.stageOverrides?.variables || []
+      return (variablesServiceConfig?.stageOverrides?.variables || []) as Variable[]
     }
 
     const overrideSets = variablesStageSpec?.variableOverrideSets
 
-    return overrideSets
-      .map((variableSet: { overrideSet: { identifier: string; variables: Variable[] } }) => {
+    return (overrideSets
+      ?.map(variableSet => {
         if (variableSet?.overrideSet?.identifier === identifierName) {
-          return variableSet.overrideSet.variables
+          return variableSet.overrideSet?.variables
         }
       })
-      .filter((x: { overrideSet: { identifier: string; variables: Variable[] } }) => x !== undefined)[0]
+      .filter(x => x !== undefined)[0] || []) as Variable[]
   }
 
   return (

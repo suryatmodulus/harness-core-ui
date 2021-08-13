@@ -13,7 +13,7 @@ import EditProject from './views/EditProject'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
-  onSuccess?: () => void
+  onSuccess?: (projectData?: Project) => void
   onCloseModal?: () => void
   onWizardComplete?: (projectData?: Project) => void
   module?: ModuleName
@@ -47,7 +47,7 @@ export const useProjectModal = ({
         enforceFocus={false}
         onClose={() => {
           if (refreshProjects) {
-            onSuccess?.()
+            onSuccess?.(projectData)
             setRefreshProjects(false)
           }
           onCloseModal?.()
@@ -79,7 +79,7 @@ export const useProjectModal = ({
             orgIdentifier={projectData?.orgIdentifier}
             closeModal={() => {
               hideModal()
-              onSuccess?.()
+              onSuccess?.(projectData)
             }}
           />
         ) : null}
@@ -90,7 +90,7 @@ export const useProjectModal = ({
           iconProps={{ size: 18 }}
           onClick={() => {
             if (refreshProjects) {
-              onSuccess?.()
+              onSuccess?.(projectData)
               setRefreshProjects(false)
             }
             onCloseModal?.()

@@ -38,14 +38,14 @@ describe('Unit tests for Deployment Nodes', () => {
       </TestWrapper>
     )
     await waitFor(() => expect(container.querySelectorAll('[class~="nodeHealth"]').length).toBe(healthNodes.length))
-    expect(container.querySelectorAll('[class*="hexagon"]').length).toBe(12)
+    expect(container.querySelectorAll('[class~="hexagon"]').length).toBe(6)
     expect(container.querySelectorAll('[data-node-health-color="var(--green-500)"]').length).toBe(1)
     expect(container.querySelectorAll('[data-node-health-color="var(--red-500)"]').length).toBe(1)
     expect(container.querySelectorAll('[data-node-health-color="var(--grey-300)"]').length).toBe(2)
     expect(container.querySelectorAll('[data-node-health-color="var(--yellow-500)"]').length).toBe(1)
 
     // make sure popover has right contents
-    fireEvent.mouseOver(container.querySelector('[data-name="popoverContainer"]')!)
+    fireEvent.mouseOver(container.querySelector('[class*="hexagonContainer"]')!)
     await waitFor(() => expect(document.body.querySelector('[class*="nodeHealthPopoverContent"]')).not.toBeNull())
     getByText('2 pipeline.verification.metricsInViolation')
     expect(document.body.querySelector('[class*="nodeHealthPopoverContent"] [class*="nodeHealth"]')).not.toBeNull()

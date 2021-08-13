@@ -55,6 +55,7 @@ const EntityUsage: React.FC<EntityUsageProps> = props => {
                   setSearchTerm(text.trim())
                 }}
                 className={css.search}
+                width={350}
               />
             </Layout.Horizontal>
           </Container>

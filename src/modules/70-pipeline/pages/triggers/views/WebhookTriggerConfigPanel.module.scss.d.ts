@@ -6,10 +6,7 @@ declare const styles: {
   readonly nameIdDescriptionTags: string
   readonly heading: string
   readonly listenOnNewWebhook: string
-  readonly conditionsRow: string
-  readonly payloadConditions: string
   readonly footer: string
-  readonly fieldWarning: string
   readonly checkbox: string
   readonly secureTokenLoader: string
   readonly checkboxAlignment: string

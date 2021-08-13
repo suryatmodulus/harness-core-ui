@@ -303,7 +303,7 @@ describe('Pipeline Card View Test Cases', () => {
 
   test('should be able to open menu and run pipeline', async () => {
     // click on first row
-    const menu = cardView.querySelector("[data-icon='Options']")
+    const menu = cardView.querySelector("[data-icon='more']")
     fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'runPipelineText'))
@@ -317,7 +317,7 @@ describe('Pipeline Card View Test Cases', () => {
 
   test('should be able to open menu and open pipeline studio ', async () => {
     // click on first row
-    const menu = cardView.querySelector("[data-icon='Options']")
+    const menu = cardView.querySelector("[data-icon='more']")
     fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'launchStudio'))
@@ -331,7 +331,7 @@ describe('Pipeline Card View Test Cases', () => {
 
   test('should be able to open menu and delete pipeline ', async () => {
     // click on first row
-    const menu = cardView.querySelector("[data-icon='Options']")
+    const menu = cardView.querySelector("[data-icon='more']")
     fireEvent.click(menu!)
     const menuContent = findPopoverContainer()
     await waitFor(() => getByText(menuContent as HTMLElement, 'delete'))

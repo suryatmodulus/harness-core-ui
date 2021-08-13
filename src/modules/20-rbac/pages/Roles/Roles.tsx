@@ -84,10 +84,12 @@ const Roles: React.FC = () => {
         toolbar={
           <Layout.Horizontal margin={{ right: 'small' }} height="xxxlarge">
             <ExpandingSearchInput
-              placeholder={getString('rbac.usersPage.search')}
+              alwaysExpanded
+              placeholder={getString('common.searchPlaceholder')}
               onChange={text => {
                 setSearchTerm(text.trim())
               }}
+              width={250}
             />
           </Layout.Horizontal>
         }
@@ -101,7 +103,7 @@ const Roles: React.FC = () => {
             ? {
                 when: () => !data?.data?.content?.length,
                 icon: 'nav-project',
-                message: getString('roleDetails.noDataText'),
+                message: getString('rbac.roleDetails.noDataText'),
                 button: newRoleButton()
               }
             : {

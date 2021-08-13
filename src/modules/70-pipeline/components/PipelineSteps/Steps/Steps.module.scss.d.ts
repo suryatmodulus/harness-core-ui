@@ -14,6 +14,7 @@ declare const styles: {
   readonly code: string
   readonly divider: string
   readonly noLookDivider: string
+  readonly stepSubSectionHeading: string
   readonly fieldsSection: string
   readonly fieldsGroup: string
   readonly withoutSpacing: string
@@ -24,6 +25,5 @@ declare const styles: {
   readonly removeBpPopoverWrapperTopMargin: string
   readonly bottomSpacing: string
   readonly topSpacingLarge: string
-  readonly checkboxField: string
 }
 export default styles

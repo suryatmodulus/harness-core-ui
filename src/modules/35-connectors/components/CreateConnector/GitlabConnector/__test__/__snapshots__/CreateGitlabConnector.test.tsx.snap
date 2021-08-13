@@ -255,7 +255,32 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one 1`] = `
                           <div
                             class="bp3-form-helper-text"
                           >
-                            common.validation.nameIsRequired
+                            <div
+                              class="FormError--errorDiv"
+                            >
+                              <span
+                                class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                                data-icon="circle-cross"
+                              >
+                                <svg
+                                  height="12"
+                                  viewBox="0 0 13 13"
+                                  width="12"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <path
+                                    clip-rule="evenodd"
+                                    d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                    fill-rule="evenodd"
+                                  />
+                                </svg>
+                              </span>
+                              <span
+                                class="FormError--error"
+                              >
+                                common.validation.nameIsRequired
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -564,9 +589,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -580,7 +607,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -607,9 +634,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -623,7 +652,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1011,9 +1040,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1027,7 +1058,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1054,9 +1085,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1070,7 +1103,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1187,7 +1220,32 @@ exports[`Create Gitlab connector Wizard Creating gitlab step one and step two fo
                         <div
                           class="bp3-form-helper-text"
                         >
-                          common.validation.testRepoIsRequired
+                          <div
+                            class="FormError--errorDiv"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                              data-icon="circle-cross"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 13 13"
+                                width="12"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="FormError--error"
+                            >
+                              common.validation.testRepoIsRequired
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -1463,9 +1521,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1479,7 +1539,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1506,9 +1566,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1522,7 +1584,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 1`]
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -1910,9 +1972,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1926,7 +1990,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                           account
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="urlType"
@@ -1953,9 +2017,11 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                     <div
                       class="bp3-form-content"
                     >
-                      <div>
+                      <div
+                        class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                      >
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             checked=""
@@ -1969,7 +2035,7 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                           HTTP
                         </label>
                         <label
-                          class="bp3-control bp3-radio bp3-inline Radio--radio"
+                          class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
                         >
                           <input
                             name="connectionType"
@@ -2086,7 +2152,32 @@ exports[`Create Gitlab connector Wizard Creating gitlab step two for SSH key 2`]
                         <div
                           class="bp3-form-helper-text"
                         >
-                          common.validation.testRepoIsRequired
+                          <div
+                            class="FormError--errorDiv"
+                          >
+                            <span
+                              class="bp3-icon StyledProps--main FormError--errorTextIcon StyledProps--intent-danger"
+                              data-icon="circle-cross"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 13 13"
+                                width="12"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  clip-rule="evenodd"
+                                  d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              class="FormError--error"
+                            >
+                              common.validation.testRepoIsRequired
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -2397,7 +2488,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                                 autocomplete="off"
                                 class="bp3-input"
                                 name="authType"
-                                placeholder="Search..."
+                                placeholder="- Select -"
                                 style="padding-right: 0px;"
                                 type="text"
                                 value="usernamePassword"
@@ -2406,20 +2497,20 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                                 class="bp3-input-action"
                               >
                                 <span
-                                  class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                  icon="caret-down"
+                                  class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                  icon="chevron-down"
                                 >
                                   <svg
-                                    data-icon="caret-down"
+                                    data-icon="chevron-down"
                                     height="14"
                                     viewBox="0 0 16 16"
                                     width="14"
                                   >
                                     <desc>
-                                      caret-down
+                                      chevron-down
                                     </desc>
                                     <path
-                                      d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                      d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                       fill-rule="evenodd"
                                     />
                                   </svg>
@@ -2467,7 +2558,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                                       autocomplete="off"
                                       class="bp3-input"
                                       name="usernamefieldType"
-                                      placeholder="Search..."
+                                      placeholder="- Select -"
                                       style="padding-right: 0px;"
                                       type="text"
                                       value="plaintext"
@@ -2476,20 +2567,20 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                                       class="bp3-input-action"
                                     >
                                       <span
-                                        class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                        icon="caret-down"
+                                        class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                        icon="chevron-down"
                                       >
                                         <svg
-                                          data-icon="caret-down"
+                                          data-icon="chevron-down"
                                           height="14"
                                           viewBox="0 0 16 16"
                                           width="14"
                                         >
                                           <desc>
-                                            caret-down
+                                            chevron-down
                                           </desc>
                                           <path
-                                            d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                             fill-rule="evenodd"
                                           />
                                         </svg>
@@ -2571,7 +2662,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -2590,7 +2681,7 @@ exports[`Create Gitlab connector Wizard should be able to edit  usernamePassword
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -2969,7 +3060,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -2988,7 +3079,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg
@@ -3074,7 +3165,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               autocomplete="off"
                               class="bp3-input"
                               name="apiAuthType"
-                              placeholder="Search..."
+                              placeholder="- Select -"
                               style="padding-right: 0px;"
                               type="text"
                               value="personalAccessToken"
@@ -3083,20 +3174,20 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               class="bp3-input-action"
                             >
                               <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-small"
-                                icon="caret-down"
+                                class="bp3-icon bp3-icon-chevron-down StyledProps--main StyledProps--padding-small"
+                                icon="chevron-down"
                               >
                                 <svg
-                                  data-icon="caret-down"
+                                  data-icon="chevron-down"
                                   height="14"
                                   viewBox="0 0 16 16"
                                   width="14"
                                 >
                                   <desc>
-                                    caret-down
+                                    chevron-down
                                   </desc>
                                   <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
                                     fill-rule="evenodd"
                                   />
                                 </svg>
@@ -3160,7 +3251,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               </svg>
                             </span>
                             <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-blue500 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
                             >
                               <div>
                                 secret.configureSecret
@@ -3179,7 +3270,7 @@ exports[`Create Gitlab connector Wizard should be able to edit ssh with API acce
                               class="bp3-button-text"
                             >
                               <span
-                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-blue500"
+                                class="bp3-icon bp3-icon-edit StyledProps--main StyledProps--color StyledProps--color-primary7"
                                 icon="edit"
                               >
                                 <svg

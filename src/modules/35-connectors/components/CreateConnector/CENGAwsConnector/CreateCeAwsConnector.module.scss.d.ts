@@ -5,19 +5,19 @@ declare const styles: {
   readonly stepContainer: string
   readonly header: string
   readonly subHeader: string
+  readonly info: string
   readonly dataFields: string
+  readonly launchTemplateSection: string
   readonly submitBtn: string
-  readonly commandsContainer: string
   readonly main: string
   readonly infobox: string
-  readonly costcard: string
+  readonly mtbxxlarge: string
   readonly grid: string
   readonly launchTemplateBut: string
   readonly newCurReport: string
   readonly connectorExistBox: string
   readonly buttonPanel: string
   readonly extention: string
-  readonly listPoints: string
   readonly gray: string
   readonly existingCurTable: string
 }

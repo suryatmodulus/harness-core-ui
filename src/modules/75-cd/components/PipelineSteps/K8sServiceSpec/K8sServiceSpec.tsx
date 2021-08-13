@@ -395,6 +395,18 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
           getString?.('fieldRequired', { field: 'connectorRef' })
         )
       }
+
+      if (
+        isEmpty(manifest?.manifest?.spec?.store?.spec?.folderPath) &&
+        isRequired &&
+        getMultiTypeFromValue(currentManifestTemplate?.folderPath) === MultiTypeInputType.RUNTIME
+      ) {
+        set(
+          errors,
+          `manifests[${index}].manifest.spec.store.spec.folderPath`,
+          getString?.('fieldRequired', { field: 'folderPath' })
+        )
+      }
       if (
         isEmpty(manifest?.manifest?.spec?.store?.spec?.branch) &&
         isRequired &&
@@ -430,7 +442,6 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
         )
       }
     })
-
     return errors
   }
 

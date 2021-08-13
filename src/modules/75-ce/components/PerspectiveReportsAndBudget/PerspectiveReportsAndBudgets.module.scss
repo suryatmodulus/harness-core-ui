@@ -19,10 +19,14 @@
     justify-content: center;
     align-items: center;
   }
+
+  .icon:hover {
+    cursor: pointer;
+  }
 }
 
 .tableCtn {
-  max-height: 250px;
+  max-height: 190px;
   overflow-y: auto;
   margin-bottom: var(--spacing-large);
   box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
@@ -57,11 +61,8 @@
     th {
       font-weight: 600;
       color: var(--grey-900);
-      font-size: var(--font-size-normal);
-    }
-
-    .icon:hover {
-      cursor: pointer;
+      font-size: var(--font-size-small);
+      text-transform: uppercase;
     }
   }
 }

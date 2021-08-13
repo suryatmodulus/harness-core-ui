@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent } from '@testing-library/react'
+import { render, fireEvent, waitFor } from '@testing-library/react'
 import type { IconName } from '@blueprintjs/core'
 import { TestWrapper } from '@common/utils/testUtils'
 import type { UseGetReturnData } from '@common/utils/testUtils'
@@ -10,6 +10,7 @@ import { AbstractStepFactory } from '@pipeline/components/AbstractSteps/Abstract
 import { Step, StepProps } from '@pipeline/components/AbstractSteps/Step'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import ExecutionGraph from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
+import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import BuildStageSetupShell from '../BuildStageSetupShell'
 import pipelineContextMock from './pipelineContext.json'
 
@@ -19,6 +20,7 @@ jest.mock('@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph')
 jest.mock('../../BuildAdvancedSpecifications/BuildAdvancedSpecifications', () => ({ children }: any) => (
   <div className="advanced-mock">{children}</div>
 ))
+jest.mock('@pipeline/components/ErrorsStrip/ErrorsStripBinded', () => () => <></>)
 
 class StepFactory extends AbstractStepFactory {
   protected type = 'test-factory'
@@ -144,13 +146,23 @@ describe('BuildStageSetupShell snapshot test', () => {
     const { container, findByTestId, findByText } = render(
       <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
         <PipelineContext.Provider value={contextMock}>
-          <BuildStageSetupShell />
+          <StageErrorContext.Provider
+            value={{
+              state: {} as any,
+              checkErrorsForTab: () => Promise.resolve(),
+              subscribeForm: () => undefined,
+              unSubscribeForm: () => undefined,
+              submitFormsForTab: () => undefined
+            }}
+          >
+            <BuildStageSetupShell />
+          </StageErrorContext.Provider>
         </PipelineContext.Provider>
       </TestWrapper>
     )
     expect(container.querySelector('#stageDetails')).not.toBeNull()
     fireEvent.click(await findByText('ci.next'))
-    expect(findByText('pipelineSteps.build.infraSpecifications.whereToRun')).not.toBeNull()
+    await waitFor(() => expect(findByText('pipelineSteps.build.infraSpecifications.whereToRun')).not.toBeNull())
     fireEvent.click(await findByTestId('ci.advancedLabel'))
     fireEvent.click(await findByText('Done'))
     expect(contextMock.updatePipelineView).toHaveBeenCalled()
@@ -167,7 +179,17 @@ describe('BuildStageSetupShell snapshot test', () => {
     const { findByTestId } = render(
       <TestWrapper pathParams={{ accountId: 'dummy', orgIdentifier: 'dummy', projectIdentifier: 'dummy' }}>
         <PipelineContext.Provider value={contextMock}>
-          <BuildStageSetupShell />
+          <StageErrorContext.Provider
+            value={{
+              state: {} as any,
+              checkErrorsForTab: () => Promise.resolve(),
+              subscribeForm: () => undefined,
+              unSubscribeForm: () => undefined,
+              submitFormsForTab: () => undefined
+            }}
+          >
+            <BuildStageSetupShell />
+          </StageErrorContext.Provider>
         </PipelineContext.Provider>
       </TestWrapper>
     )

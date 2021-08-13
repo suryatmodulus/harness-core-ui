@@ -5,6 +5,7 @@ declare const styles: {
   readonly bottomContainer: string
   readonly titleContainer: string
   readonly title: string
+  readonly subTitle: string
   readonly iconContainer: string
   readonly icon: string
   readonly link: string

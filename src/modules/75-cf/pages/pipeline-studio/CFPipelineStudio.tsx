@@ -1,8 +1,11 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
+import type { UseStringsReturn } from 'framework/strings'
+import { PipelineStages, PipelineStagesProps } from '@pipeline/components/PipelineStages/PipelineStages'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import routes from '@common/RouteDefinitions'
+import { StageType } from '@pipeline/utils/stageHelpers'
 import type {
   AccountPathProps,
   GitQueryParams,
@@ -12,11 +15,10 @@ import type {
 import { useStrings } from 'framework/strings'
 import { PipelineProvider } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PipelineStudio } from '@pipeline/components/PipelineStudio/PipelineStudio'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { useQueryParams } from '@common/hooks'
+import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
 import { LICENSE_STATE_VALUES, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
 import { FeatureFlag } from '@common/featureFlags'
-import { getCFPipelineStages } from '../../components/PipelineStudio/CFPipelineStagesUtils'
 import css from './CFPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = (): JSX.Element => {
@@ -69,6 +71,33 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
         routePipelineList={routes.toPipelines}
       />
     </PipelineProvider>
+  )
+}
+
+export const getCFPipelineStages: (
+  args: Omit<PipelineStagesProps, 'children'>,
+  getString: UseStringsReturn['getString'],
+  isCIEnabled?: boolean,
+  isCDEnabled?: boolean,
+  isCFEnabled?: boolean,
+  isApprovalStageEnabled?: boolean
+) => React.ReactElement<PipelineStagesProps> = (
+  args,
+  getString,
+  _isCIEnabled = false,
+  _isCDEnabled = false,
+  isCFEnabled = false,
+  isApprovalStageEnabled = true
+) => {
+  return (
+    <PipelineStages {...args}>
+      {stagesCollection.getStage(StageType.FEATURE, isCFEnabled, getString)}
+      {/* {stagesCollection.getStage(StageType.DEPLOY, isCDEnabled, getString)}
+      {stagesCollection.getStage(StageType.BUILD, isCIEnabled, getString)}
+      {stagesCollection.getStage(StageType.PIPELINE, false, getString)} */}
+      {stagesCollection.getStage(StageType.APPROVAL, isApprovalStageEnabled, getString)}
+      {/* {stagesCollection.getStage(StageType.CUSTOM, false, getString)} */}
+    </PipelineStages>
   )
 }
 

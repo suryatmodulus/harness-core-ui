@@ -53,9 +53,6 @@ export interface APIStateInterface {
 
 export interface HarnessApprovalFormContentProps {
   formik: FormikProps<HarnessApprovalData>
-  userGroupsResponse: ResponsePageUserGroupDTO | null
-  userGroupsFetchError: GetDataError<Failure | Error> | null
-  fetchingUserGroups: boolean
   isNewStep?: boolean
   readonly?: boolean
 }

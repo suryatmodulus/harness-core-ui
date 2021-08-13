@@ -3,14 +3,18 @@
 exports[`CIGovernancePage snapshot test should render properly 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-large StyledProps--padding-right-large"
+    class="Layout--horizontal StyledProps--main container standard StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
-    <h2
-      class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
-      level="2"
+    <div
+      class="Layout--vertical StyledProps--main"
     >
-      ci.titleGovernance
-    </h2>
+      <h2
+        class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--color StyledProps--color-grey800 StyledProps--font-weight-bold"
+        level="2"
+      >
+        ci.titleGovernance
+      </h2>
+    </div>
     <div
       class="StyledProps--font StyledProps--main"
     >
@@ -38,7 +42,7 @@ exports[`CIGovernancePage snapshot test should render properly 1`] = `
         style="align-items: center; margin-top: -48px; width: 470px;"
       >
         <span
-          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey400"
+          class="bp3-icon StyledProps--main StyledProps--color StyledProps--color-grey600"
           data-icon="nav-dashboard"
         >
           <svg
@@ -91,22 +95,25 @@ exports[`CIGovernancePage snapshot test should render properly 1`] = `
             </g>
           </svg>
         </span>
-        <h2
-          class="StyledProps--font StyledProps--font-h2 StyledProps--main StyledProps--font-align-center StyledProps--color StyledProps--color-grey500"
-          level="2"
+        <p
+          class="StyledProps--font StyledProps--main message StyledProps--font-align-center StyledProps--color StyledProps--color-grey600"
         >
           ci.noData
-        </h2>
-        <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
-          type="button"
+        </p>
+        <div
+          class="buttonContainer"
         >
-          <span
-            class="bp3-button-text"
+          <button
+            class="bp3-button bp3-large Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--font StyledProps--font-size-medium StyledProps--font-weight-semi-bold Button--with-current-color"
+            type="button"
           >
-            ci.newItem
-          </span>
-        </button>
+            <span
+              class="bp3-button-text"
+            >
+              ci.newItem
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>

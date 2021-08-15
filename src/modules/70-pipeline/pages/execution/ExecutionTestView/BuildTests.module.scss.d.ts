@@ -44,6 +44,8 @@ declare const styles: {
   readonly withSeparator: string
   readonly progressBar: string
   readonly testSuiteTable: string
+  readonly clickable: string
+  readonly rowSelected: string
   readonly testCell: string
   readonly text: string
   readonly failed: string
@@ -54,6 +56,26 @@ declare const styles: {
   readonly loadingContainer: string
   readonly progress: string
   readonly viewCallgraph: string
-  readonly callgraphDialog: string
+  readonly graphLabel: string
+  readonly direct: string
+  readonly indirect: string
+  readonly changed: string
+  readonly unchanged: string
+  readonly callgraphModal: string
+  readonly modalTitle: string
+  readonly searchInput: string
+  readonly callgraphContainer: string
+  readonly callgraphHeader: string
+  readonly graphTitle: string
+  readonly expandButton: string
+  readonly callgraphBody: string
+  readonly callgraphLoadingStatus: string
+  readonly callgraphError: string
+  readonly callgraphTooltip: string
+  readonly sourceMethod: string
+  readonly methodName: string
+  readonly listRow: string
+  readonly listName: string
+  readonly listValue: string
 }
 export default styles

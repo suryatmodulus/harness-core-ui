@@ -1,4 +1,5 @@
 import React from 'react'
+import * as Highcharts from 'highcharts'
 import { render } from '@testing-library/react'
 import type { TestReportSummary, SelectionOverview } from 'services/ti-service'
 import { defaultAppStoreValues } from '@common/utils/DefaultAppStoreData'
@@ -10,7 +11,14 @@ import TestCaseMock from './mock/reports-test-cases.json'
 import BuildsMock from './mock/builds.json'
 import TotalTestsZeroMock from './mock/total-tests-zero.json'
 import InfoMock from './mock/info.json'
+import CallGraphMock from './mock/callgraph.json'
 import BuildTests from '../BuildTests'
+import { TestsCallgraph } from '../TestsCallgraph'
+
+if (process.env.NODE_ENV === 'test') {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  Highcharts.useSerialIds(true)
+}
 
 jest.mock('services/ti-service', () => ({
   useReportsInfo: () => ({ data: InfoMock, refetch: jest.fn() }),
@@ -29,6 +37,10 @@ jest.mock('services/ti-service', () => ({
   }),
   useTestCaseSummary: () => ({
     data: TestCaseMock,
+    refetch: jest.fn()
+  }),
+  useVgSearch: () => ({
+    data: CallGraphMock,
     refetch: jest.fn()
   }),
   useGetToken: () => ({
@@ -117,6 +129,41 @@ describe('BuildTests snapshot test', () => {
       >
         <BuildTests reportSummaryMock={TotalTestsZeroMock as TestReportSummary} testOverviewMock={TotalTestsZeroMock} />
       </TestWrapper>
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Call Graph preview should be renderred properly', async () => {
+    const { container } = render(
+      <TestsCallgraph
+        preview
+        selectedClass="io.harness.jhttp.functional.HttpClientTest"
+        graph={CallGraphMock}
+        onNodeClick={jest.fn()}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Call Graph full view should be renderred properly', async () => {
+    const { container } = render(
+      <TestsCallgraph
+        selectedClass="io.harness.jhttp.functional.HttpClientTest"
+        graph={CallGraphMock}
+        onNodeClick={jest.fn()}
+      />
+    )
+    expect(container).toMatchSnapshot()
+  })
+
+  test('Call Graph full view should handle search properly', async () => {
+    const { container } = render(
+      <TestsCallgraph
+        selectedClass="io.harness.jhttp.functional.HttpClientTest"
+        graph={CallGraphMock}
+        onNodeClick={jest.fn()}
+        searchTerm="testStaticFile"
+      />
     )
     expect(container).toMatchSnapshot()
   })

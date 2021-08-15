@@ -538,7 +538,21 @@ gitExperience:
   noPipelineFound: The pipeline does not exist in the selected Branch.
   selectDiffBranch: Please select a different Branch.
 testsReports:
-  callgraphTitle: Test Callgraph
+  callgraphTitle: Call Graph
+  expandGraph: Expand graph
+  codeChanges: Code changes ({{count}})
+  unchangedMethods: Unchanged methods ({{count}})
+  directCall: Direct call
+  indirectCall: Indirect call
+  sourceMethod: Source Class
+  resource: Resource
+  callgraphField:
+    package: Package
+    class: Class
+    method: '{{ $.methodLabel }}'
+    params: Params
+    file: '{{ $.secret.labelFile }}'
+    type: '{{ $.typeLabel }}'
   viewCallgraph: View Callgraph
   testMethods: Test methods
   changedTestMethods: Changed/New Test methods

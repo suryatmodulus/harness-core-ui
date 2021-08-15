@@ -1,0 +1,183 @@
+{
+  "nodes": [
+    {
+      "id": 1,
+      "package": "",
+      "class": "",
+      "file": "index.html",
+      "type": "resource",
+      "important": true
+    },
+    {
+      "id": 2,
+      "package": "",
+      "class": "",
+      "file": "file1.html",
+      "type": "resource",
+      "important": false
+    },
+    {
+      "id": 21,
+      "package": "",
+      "class": "",
+      "file": "file1.html",
+      "type": "resource",
+      "important": false
+    },
+    {
+      "id": 22,
+      "package": "",
+      "class": "",
+      "file": "file1.html",
+      "type": "resource",
+      "important": false
+    },
+    {
+      "id": 221,
+      "package": "",
+      "class": "",
+      "file": "file1.html",
+      "type": "resource",
+      "important": true
+    },
+    {
+      "id": 222,
+      "package": "",
+      "class": "",
+      "file": "file1.html",
+      "type": "resource",
+      "important": false
+    },
+    {
+      "id": 3,
+      "package": "",
+      "class": "",
+      "file": "file2.html",
+      "type": "resource",
+      "important": false
+    },
+    {
+      "id": 4,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test",
+      "important": true,
+      "root": true
+    },
+    {
+      "id": 41,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 42,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 43,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 44,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 45,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 46,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 47,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 48,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test"
+    },
+    {
+      "id": 49,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test",
+      "important": true
+    },
+    {
+      "id": 50,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "test",
+      "important": true
+    },
+    {
+      "id": 5,
+      "package": "io.harness.jhttp.functional",
+      "class": "HttpClientTest",
+      "file": "",
+      "type": "source",
+      "important": true
+    },
+    {
+      "id": 6,
+      "package": "",
+      "class": "",
+      "file": "404.html",
+      "type": "resource",
+      "important": true
+    }
+  ],
+  "edges": [
+    {
+      "from": 4,
+      "to": [1, 2, 3, 41, 42, 43, 44, 45, 46, 47, 48, 49]
+    },
+    {
+      "from": 3,
+      "to": [6]
+    },
+    {
+      "from": 2,
+      "to": [21, 22]
+    },
+    {
+      "from": 22,
+      "to": [221, 222]
+    },
+    {
+      "from": 222,
+      "to": [21]
+    },
+    {
+      "from": 41,
+      "to": [2]
+    }
+  ]
+}

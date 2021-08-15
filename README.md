@@ -161,3 +161,6 @@ Example:-
 2. To run shell script "setup-github-registry": "sh scripts/setup-github-registry.sh", just change it to "setup-github-registry": "cross-env scripts/setup-github-registry.sh"
 
 > Note: Similary you can update the scripts part wherever needed as per above to run in windows environment.
+
+
+test

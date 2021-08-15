@@ -398,6 +398,15 @@
     margin-left: var(--spacing-xxxlarge);
     overflow: hidden;
 
+    &.clickable {
+      [role='row']:not([class*='header']) {
+        &:hover,
+        &.rowSelected {
+          background-color: var(--primary-1);
+        }
+      }
+    }
+
     [role='row'] {
       border-bottom: 1px solid rgba(143, 144, 166, 0.1);
       border-radius: 0;
@@ -468,13 +477,169 @@
   margin-left: auto !important;
 }
 
-.callgraphDialog {
-  width: 1500px;
+.graphLabel {
+  background: var(--grey-50) !important;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+  border-radius: 100px;
+  padding: 2px 7px 2px 20px !important;
+  font-size: var(--font-size-xsmall) !important;
+  color: var(--grey-700) !important;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    border-radius: 100%;
+    content: '';
+    width: 12px;
+    height: 12px;
+    left: 5px;
+    top: 2px;
+    background: transparent;
+  }
+
+  &.direct::before,
+  &.indirect::before {
+    border-top: 1px dashed #00ade4;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    transform: translateY(6px);
+    border-radius: unset;
+  }
+
+  &.direct::before {
+    border-top-style: solid;
+  }
+
+  &.changed::before {
+    background: linear-gradient(147.14deg, #73dfe7 6.95%, #0095f7 93.05%);
+  }
+
+  &.unchanged::before {
+    background: #d9dae5;
+  }
+}
+
+.callgraphModal {
+  padding-top: var(--spacing-4);
+
+  .modalTitle {
+    font-weight: 600 !important;
+    font-size: 20px !important;
+    line-height: 28px !important;
+    color: var(--grey-800) !important;
+    padding-right: var(--spacing-large);
+
+    span:last-of-type {
+      color: var(--grey-500) !important;
+    }
+  }
+
+  .searchInput {
+    width: 250px !important;
+    padding-right: var(--spacing-large);
+
+    :global {
+      .bp3-input {
+        box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16) !important;
+        border-radius: 100px !important;
+      }
+    }
+  }
+
   :global {
-    .bp3-heading {
-      font-size: var(--font-size-medium);
-      font-weight: 600 !important;
+    .bp3-dialog-header {
+      .bp3-heading + button {
+        margin-right: var(--spacing-medium) !important;
+        transform: translateY(-8px);
+      }
+    }
+  }
+}
+
+.callgraphContainer {
+  .callgraphHeader {
+    position: sticky;
+    top: 0;
+
+    .graphTitle {
+      width: 340px;
+      overflow: hidden;
+    }
+
+    .expandButton {
+      padding: 0 !important;
+      transform: scale(0.8) translateX(12px);
+    }
+  }
+
+  .callgraphBody {
+    border-radius: 6px;
+    box-shadow: rgb(40 41 61 / 4%) 0px 0px 2px, rgb(96 97 112 / 16%) 0px 4px 8px;
+    position: sticky;
+    top: 35px;
+  }
+
+  .callgraphLoadingStatus {
+    display: grid !important;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .callgraphError {
+      text-align: center;
+      width: 300px;
+      word-wrap: break-word;
+    }
+  }
+}
+
+.callgraphTooltip {
+  padding: var(--spacing-medium);
+
+  .sourceMethod {
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.3px;
+    color: var(--grey-700);
+    margin: 0;
+  }
+
+  .methodName {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    text-transform: capitalize;
+    color: var(--grey-900);
+    margin-bottom: var(--spacing-small);
+  }
+
+  .listRow {
+    border-bottom: 0.5px solid rgba(0, 0, 0, 5%);
+    margin: 0;
+    padding: 0;
+    padding: var(--spacing-small) 0;
+
+    &:last-of-type {
+      border: none;
+      padding-bottom: 0;
+    }
+
+    .listName {
+      width: 80px;
+      display: inline-block;
+      font-size: 12px;
+      line-height: 13px;
       color: var(--grey-600);
+    }
+
+    .listValue {
+      display: inline-block;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 13px;
+      color: var(--black);
     }
   }
 }

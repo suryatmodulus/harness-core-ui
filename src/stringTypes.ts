@@ -2077,23 +2077,33 @@ export interface StringsMap {
   'pipeline.stepLabel': string
   'pipeline.tagDependencyRequired': string
   'pipeline.targets.title': string
+  'pipeline.testsReports.callgraphField.class': string
+  'pipeline.testsReports.callgraphField.file': string
+  'pipeline.testsReports.callgraphField.method': string
+  'pipeline.testsReports.callgraphField.package': string
+  'pipeline.testsReports.callgraphField.params': string
+  'pipeline.testsReports.callgraphField.type': string
   'pipeline.testsReports.callgraphTitle': string
   'pipeline.testsReports.calls': string
   'pipeline.testsReports.changedSourceMethods': string
   'pipeline.testsReports.changedTestMethods': string
   'pipeline.testsReports.className': string
+  'pipeline.testsReports.codeChanges': string
   'pipeline.testsReports.commitId': string
   'pipeline.testsReports.consoleOutput': string
   'pipeline.testsReports.correlatedWithCodeChanges': string
   'pipeline.testsReports.coverage': string
   'pipeline.testsReports.coverageInfo': string
   'pipeline.testsReports.description': string
+  'pipeline.testsReports.directCall': string
   'pipeline.testsReports.executionOverview': string
+  'pipeline.testsReports.expandGraph': string
   'pipeline.testsReports.failedTests': string
   'pipeline.testsReports.failedWithColon': string
   'pipeline.testsReports.failureMessage': string
   'pipeline.testsReports.filename': string
   'pipeline.testsReports.hangTight': string
+  'pipeline.testsReports.indirectCall': string
   'pipeline.testsReports.learnMore': string
   'pipeline.testsReports.newTests': string
   'pipeline.testsReports.noFailedTestsFound': string
@@ -2101,6 +2111,7 @@ export interface StringsMap {
   'pipeline.testsReports.nothing': string
   'pipeline.testsReports.numberOfSelectedTests': string
   'pipeline.testsReports.onlyUncoveredFiles': string
+  'pipeline.testsReports.resource': string
   'pipeline.testsReports.result': string
   'pipeline.testsReports.resultInfo': string
   'pipeline.testsReports.resultLabel': string
@@ -2111,6 +2122,7 @@ export interface StringsMap {
   'pipeline.testsReports.skipped': string
   'pipeline.testsReports.skippedWithColon': string
   'pipeline.testsReports.sortBy': string
+  'pipeline.testsReports.sourceMethod': string
   'pipeline.testsReports.sourceMethods': string
   'pipeline.testsReports.stackTrace': string
   'pipeline.testsReports.status': string
@@ -2128,6 +2140,7 @@ export interface StringsMap {
   'pipeline.testsReports.totalTests': string
   'pipeline.testsReports.totalWithColon': string
   'pipeline.testsReports.type': string
+  'pipeline.testsReports.unchangedMethods': string
   'pipeline.testsReports.updatedTests': string
   'pipeline.testsReports.viewCallgraph': string
   'pipeline.testsReports.willBeDisplayedIfAvailable': string

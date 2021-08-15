@@ -55,3 +55,7 @@ export const isExecutionComplete = (status: string) => {
     _status === ExecutionStatus.SKIPPED
   )
 }
+
+export const CALL_GRAPH_WIDTH = 360
+export const CALL_GRAPH_HEIGHT = 360
+export const CALL_GRAPH_API_LIMIT = 200

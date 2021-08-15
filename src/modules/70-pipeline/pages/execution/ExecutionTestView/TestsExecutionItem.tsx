@@ -9,7 +9,7 @@ import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } f
 import { useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
 import Table from '@common/components/Table/Table'
-import { renderFailureRate } from './TestsUtils'
+import { CALL_GRAPH_WIDTH, renderFailureRate } from './TestsUtils'
 import { TestsFailedPopover } from './TestsFailedPopover'
 import css from './BuildTests.module.scss'
 
@@ -26,6 +26,7 @@ export interface TestExecutionEntryProps {
   stageId: string
   stepId: string
   splitview?: boolean
+  onShowCallGraphForClass?: (classname: string) => void
 }
 
 export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
@@ -37,7 +38,8 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   onExpand,
   stageId,
   stepId,
-  splitview
+  splitview,
+  onShowCallGraphForClass
 }) => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
@@ -88,6 +90,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     }
   })
   const isMounted = useIsMounted()
+  const [selectedRow, setSelectedRow] = useState<TestCase>()
   const refetchData = useCallback(
     (params: TestCaseSummaryQueryParams) => {
       setTimeout(() => {
@@ -192,6 +195,15 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     }
   }, [expanded, queryParams, refetchData, data])
 
+  useEffect(() => {
+    if (!loading && expanded && data?.content?.length && onShowCallGraphForClass) {
+      setSelectedRow(data.content[0])
+      onShowCallGraphForClass(data.content[0].class_name as string)
+    }
+  }, [loading, expanded, data, onShowCallGraphForClass])
+
+  const titleWidth = window.innerWidth - (onShowCallGraphForClass ? CALL_GRAPH_WIDTH : 0) - 940
+
   return (
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium">
       <Container flex className={css.headingContainer}>
@@ -201,7 +213,11 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >
           <Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} />
-          <Text lineClamp={1} tooltip={<Container padding="small">{executionSummary.name}</Container>}>
+          <Text
+            width={titleWidth}
+            style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
+            tooltip={<Container padding="small">{executionSummary.name}</Container>}
+          >
             {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
           </Text>
         </Text>
@@ -268,9 +284,18 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
           )}
           {!loading && !error && (
             <Table<TestCase>
-              className={css.testSuiteTable}
+              className={cx(css.testSuiteTable, !!onShowCallGraphForClass && css.clickable)}
               columns={columns}
               data={data?.content || []}
+              getRowClassName={row => (row.original === selectedRow ? css.rowSelected : '')}
+              onRowClick={
+                onShowCallGraphForClass
+                  ? row => {
+                      setSelectedRow(row)
+                      onShowCallGraphForClass(row.class_name as string)
+                    }
+                  : undefined
+              }
               pagination={
                 (data?.data?.totalItems || 0) > PAGE_SIZE
                   ? {

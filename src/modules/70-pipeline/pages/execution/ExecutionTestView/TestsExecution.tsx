@@ -13,19 +13,19 @@ import {
   Icon,
   Color,
   Button,
-  useModalHook
+  useModalHook,
+  FlexExpander,
+  TextInput
 } from '@wings-software/uicore'
-import { get } from 'lodash-es'
+import { get, noop, omit } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { TestSuiteSummaryQueryParams, useTestSuiteSummary } from 'services/ti-service'
-import { useFeatureFlag } from '@common/hooks/useFeatureFlag'
-import { FeatureFlag } from '@common/featureFlags'
-import { TestsCallgraph } from './TestsCallgraph/TestsCallgraph'
+import { TestSuiteSummaryQueryParams, useTestSuiteSummary, useVgSearch } from 'services/ti-service'
+import { CallGraphAPIResponse, TestsCallgraph } from './TestsCallgraph'
 import { TestsExecutionItem } from './TestsExecutionItem'
-import { SortByKey } from './TestsUtils'
+import { SortByKey, CALL_GRAPH_WIDTH, CALL_GRAPH_HEIGHT, CALL_GRAPH_API_LIMIT } from './TestsUtils'
 import css from './BuildTests.module.scss'
 
 const PAGE_SIZE = 20
@@ -39,23 +39,9 @@ interface TestsExecutionProps {
 
 export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken, splitview }) => {
   const context = useExecutionContext()
-  const callgraphEnabled = useFeatureFlag(FeatureFlag.TI_CALLGRAPH) || localStorage.TI_CALLGRAPH_ENABLED
+  const callGraphEnabled = /localhost|qa.harness.io/.test(location.hostname) || localStorage.CI_TI_CALL_GRAPH_ENABLED
   const { getString } = useStrings()
   const status = (context?.pipelineExecutionDetail?.pipelineExecutionSummary?.status || '').toUpperCase()
-
-  const [showModal, hideModal] = useModalHook(() => (
-    <Dialog
-      className={css.callgraphDialog}
-      enforceFocus={false}
-      title={getString('pipeline.testsReports.callgraphTitle')}
-      isCloseButtonShown
-      isOpen
-      onClose={() => hideModal()}
-    >
-      <TestsCallgraph />
-    </Dialog>
-  ))
-
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
   const [expandedIndex, setExpandedIndex] = useState<number | undefined>(0)
   const { accountId, orgIdentifier, projectIdentifier } = useParams<{
@@ -132,6 +118,154 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
     },
     [isMounted, fetchExecutionSummary]
   )
+  const [selectedCallGraphClass, setSelectedCallGraphClass] = useState<string>()
+  const {
+    data: callGraphData,
+    loading: callGraphLoading,
+    error: callGraphError,
+    refetch: fetchCallGraph
+  } = useVgSearch({
+    lazy: true,
+    requestOptions: {
+      headers: {
+        'X-Harness-Token': serviceToken
+      }
+    }
+  })
+  const callGraphStats = useMemo(() => {
+    return callGraphData?.nodes?.reduce(
+      (obj, node) => {
+        if (node.important) {
+          obj.changedCount++
+        } else {
+          obj.unchangedCount++
+        }
+        return obj
+      },
+      {
+        changedCount: 0,
+        unchangedCount: 0
+      }
+    )
+  }, [callGraphData])
+  const onClassSelected = useCallback(
+    (selectedClassName: string) => {
+      if (selectedClassName !== selectedCallGraphClass) {
+        setSelectedCallGraphClass(selectedClassName)
+        fetchCallGraph({
+          queryParams: Object.assign({}, omit(queryParams, ['report', 'pageIndex', 'sort', 'pageSize', 'order']), {
+            limit: CALL_GRAPH_API_LIMIT,
+            class: selectedClassName
+          })
+        })
+      }
+    },
+    [selectedCallGraphClass, queryParams, fetchCallGraph]
+  )
+  const [callgraphSearchTerm, setCallgraphSearchTerm] = useState('')
+  const onCallgraphModalSearch = (event: React.FormEvent<HTMLInputElement>): void => {
+    const value = (event.target as HTMLInputElement).value
+    setCallgraphSearchTerm(value)
+  }
+  const renderCallGraphFooter = useCallback(
+    (preview?: boolean) => {
+      const directCall = (
+        <Text className={cx(css.graphLabel, css.direct)}>{getString('pipeline.testsReports.directCall')}</Text>
+      )
+      const indirectCall = (
+        <Text className={cx(css.graphLabel, css.indirect)}>{getString('pipeline.testsReports.indirectCall')}</Text>
+      )
+      const changedMethods = (
+        <Text className={cx(css.graphLabel, css.changed)}>
+          {getString('pipeline.testsReports.codeChanges', {
+            count: new Intl.NumberFormat().format(callGraphStats?.changedCount || 0)
+          })}
+        </Text>
+      )
+      const unchangedMethods = (
+        <Text className={cx(css.graphLabel, css.unchanged)}>
+          {getString('pipeline.testsReports.unchangedMethods', {
+            count: new Intl.NumberFormat().format(callGraphStats?.unchangedCount || 0)
+          })}
+        </Text>
+      )
+      return (
+        <Container padding={{ top: 'xsmall', right: 'medium', bottom: 'medium', left: preview ? 'medium' : 'large' }}>
+          {(preview && (
+            <Layout.Vertical spacing="small">
+              <Container>
+                <Layout.Horizontal spacing="small">
+                  {directCall}
+                  {indirectCall}
+                </Layout.Horizontal>
+              </Container>
+              <Container>
+                <Layout.Horizontal spacing="small">
+                  {changedMethods}
+                  {unchangedMethods}
+                </Layout.Horizontal>
+              </Container>
+            </Layout.Vertical>
+          )) || (
+            <Layout.Horizontal spacing="small">
+              {changedMethods}
+              {unchangedMethods}
+              {directCall}
+              {indirectCall}
+            </Layout.Horizontal>
+          )}
+        </Container>
+      )
+    },
+    [callGraphStats, getString]
+  )
+  const [showCallGraphModal, hideCallGraphModal] = useModalHook(
+    () => (
+      <Dialog
+        enforceFocus={false}
+        className={css.callgraphModal}
+        title={
+          <Layout.Horizontal padding={{ top: 'xsmall' }}>
+            <Text className={css.modalTitle}>
+              {getString('pipeline.testsReports.callgraphTitle')}: <span>{selectedCallGraphClass}</span>
+            </Text>
+            <FlexExpander />
+            <TextInput
+              className={css.searchInput}
+              placeholder={getString('search')}
+              autoFocus
+              leftIcon="search"
+              leftIconProps={{
+                name: 'search',
+                size: 16
+              }}
+              onChange={onCallgraphModalSearch}
+            />
+          </Layout.Horizontal>
+        }
+        isCloseButtonShown
+        isOpen
+        onClose={() => {
+          hideCallGraphModal()
+          setCallgraphSearchTerm('')
+        }}
+        style={{ width: window.innerWidth - 200, height: window.innerHeight - 200 }}
+      >
+        <Layout.Vertical spacing="small">
+          {!callGraphLoading && selectedCallGraphClass && callGraphData && (
+            <TestsCallgraph
+              selectedClass={selectedCallGraphClass}
+              graph={callGraphData as CallGraphAPIResponse}
+              onNodeClick={noop}
+              searchTerm={callgraphSearchTerm}
+            />
+          )}
+          {renderCallGraphFooter()}
+        </Layout.Vertical>
+      </Dialog>
+    ),
+    [selectedCallGraphClass, callGraphLoading, callGraphData, callgraphSearchTerm]
+  )
 
   useEffect(() => {
     if (!executionSummary && !error && !loading) {
@@ -158,123 +292,165 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
           margin={{ left: 'xsmall' }}
         />
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
-        {!loading && callgraphEnabled && (
-          <Button
-            className={css.viewCallgraph}
-            color={Color.PRIMARY_7}
-            icon="graph"
-            iconProps={{
-              margin: {
-                right: 'small'
-              }
-            }}
-            minimal
-            onClick={showModal}
-          >
-            {getString('pipeline.testsReports.viewCallgraph')}
-          </Button>
-        )}
       </Container>
-
-      <Container className={css.widget} padding="medium">
-        <Container flex>
-          <Switch
-            label={getString('pipeline.testsReports.showOnlyFailedTests')}
-            style={{ alignSelf: 'center' }}
-            checked={showFailedTestsOnly}
-            onChange={e => {
-              setShowFailedTestsOnly(e.currentTarget.checked)
-              setPageIndex(0)
-              refetchData({
-                ...queryParams,
-                sort: sortBy,
-                pageIndex: 0,
-                status: e.currentTarget.checked ? 'failed' : undefined
-              })
-            }}
-          />
-
-          <Layout.Horizontal spacing="small">
-            <Text style={{ alignSelf: 'center' }}>{getString('pipeline.testsReports.sortBy')}</Text>
-            <Select
-              className={css.select}
-              items={sortByItems}
-              value={sortBySelectedItem}
-              onChange={item => {
-                setSortBySelectedItem(item as { label: string; value: SortByKey })
-                setSortBy(item.value as SortByKey)
+      <Layout.Horizontal spacing="medium" className={css.widget} padding="xlarge">
+        <Container width={`calc(100% - ${callGraphEnabled ? CALL_GRAPH_WIDTH : 0}px)`}>
+          <Container flex>
+            <Switch
+              label={getString('pipeline.testsReports.showOnlyFailedTests')}
+              style={{ alignSelf: 'center' }}
+              checked={showFailedTestsOnly}
+              onChange={e => {
+                setShowFailedTestsOnly(e.currentTarget.checked)
                 setPageIndex(0)
                 refetchData({
                   ...queryParams,
-                  sort: item.value as SortByKey,
+                  sort: sortBy,
                   pageIndex: 0,
-                  status: showFailedTestsOnly ? 'failed' : undefined
+                  status: e.currentTarget.checked ? 'failed' : undefined
                 })
               }}
             />
-          </Layout.Horizontal>
-        </Container>
 
-        {error && (
-          <Container height={200}>
-            <PageError
-              message={get(error, 'data.error_msg', error?.message)}
-              onClick={() => {
-                fetchExecutionSummary()
+            <Layout.Horizontal spacing="small">
+              <Text style={{ alignSelf: 'center' }}>{getString('pipeline.testsReports.sortBy')}</Text>
+              <Select
+                className={css.select}
+                items={sortByItems}
+                value={sortBySelectedItem}
+                onChange={item => {
+                  setSortBySelectedItem(item as { label: string; value: SortByKey })
+                  setSortBy(item.value as SortByKey)
+                  setPageIndex(0)
+                  refetchData({
+                    ...queryParams,
+                    sort: item.value as SortByKey,
+                    pageIndex: 0,
+                    status: showFailedTestsOnly ? 'failed' : undefined
+                  })
+                }}
+              />
+            </Layout.Horizontal>
+          </Container>
+
+          {error && (
+            <Container height={200}>
+              <PageError
+                message={get(error, 'data.error_msg', error?.message)}
+                onClick={() => {
+                  fetchExecutionSummary()
+                }}
+              />
+            </Container>
+          )}
+
+          {!error && executionSummary?.content && (
+            <>
+              {executionSummary.content.length > 0 && (
+                <Layout.Vertical spacing="small" margin={{ top: 'medium' }}>
+                  {executionSummary?.content?.map((summary, index) => (
+                    <TestsExecutionItem
+                      key={(summary.name || '') + showFailedTestsOnly}
+                      buildIdentifier={String(
+                        context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''
+                      )}
+                      executionSummary={summary}
+                      serviceToken={serviceToken}
+                      status={showFailedTestsOnly ? 'failed' : undefined}
+                      expanded={index === expandedIndex ? true : undefined}
+                      stageId={stageId}
+                      stepId={stepId}
+                      onExpand={() => {
+                        setExpandedIndex(expandedIndex !== index ? index : undefined)
+                      }}
+                      splitview={splitview}
+                      onShowCallGraphForClass={callGraphEnabled ? onClassSelected : undefined}
+                    />
+                  ))}
+                </Layout.Vertical>
+              )}
+              {executionSummary.content.length === 0 && showFailedTestsOnly && (
+                <Text font={{ align: 'center' }} margin={{ top: 'medium' }}>
+                  {getString('pipeline.testsReports.noFailedTestsFound')}
+                </Text>
+              )}
+            </>
+          )}
+
+          {(executionSummary?.data?.totalItems || 0) > 20 && (
+            <Pagination
+              pageSize={executionSummary?.data?.pageSize || 0}
+              pageIndex={pageIndex}
+              pageCount={executionSummary?.data?.totalPages || 0}
+              itemCount={executionSummary?.data?.totalItems || 0}
+              gotoPage={pageIdx => {
+                setPageIndex(pageIdx)
+                refetchData({
+                  ...queryParams,
+                  sort: sortBy,
+                  pageIndex: pageIdx
+                })
               }}
             />
+          )}
+        </Container>
+
+        {/* Callgraph container */}
+        {callGraphEnabled && (
+          <Container width={CALL_GRAPH_WIDTH} className={css.callgraphContainer}>
+            <Layout.Horizontal className={css.callgraphHeader}>
+              <Text color={Color.GREY_800} style={{ fontWeight: 500, fontSize: '14px', lineHeight: '32px' }}>
+                {getString('pipeline.testsReports.callgraphTitle')}
+              </Text>
+              <FlexExpander />
+              <Button
+                minimal
+                intent="primary"
+                icon="canvas-position"
+                className={css.expandButton}
+                onClick={showCallGraphModal}
+                disabled={callGraphLoading || !!callGraphError}
+              >
+                <span style={{ paddingLeft: 'var(--spacing-small)' }}>
+                  {getString('pipeline.testsReports.expandGraph')}
+                </span>
+              </Button>
+            </Layout.Horizontal>
+            <Layout.Vertical spacing="small" className={css.callgraphBody}>
+              <Text
+                color={Color.GREY_400}
+                padding="medium"
+                font={{ size: 'small' }}
+                lineClamp={1}
+                className={css.graphTitle}
+              >
+                {selectedCallGraphClass || ''}
+              </Text>
+              <Container height={CALL_GRAPH_HEIGHT}>
+                {(callGraphLoading || callGraphError) && (
+                  <Container className={css.callgraphLoadingStatus}>
+                    {callGraphLoading && <Icon name="spinner" />}
+                    {callGraphError && (
+                      <Text intent="danger" inline className={css.callgraphError}>
+                        {get(callGraphError, 'data.error_msg', error?.message)}
+                      </Text>
+                    )}
+                  </Container>
+                )}
+                {!callGraphLoading && selectedCallGraphClass && callGraphData && (
+                  <TestsCallgraph
+                    preview
+                    selectedClass={selectedCallGraphClass}
+                    graph={callGraphData as CallGraphAPIResponse}
+                    onNodeClick={showCallGraphModal}
+                  />
+                )}
+              </Container>
+              {renderCallGraphFooter(true)}
+            </Layout.Vertical>
           </Container>
         )}
-
-        {!error && executionSummary?.content && (
-          <>
-            {executionSummary.content.length > 0 && (
-              <Layout.Vertical spacing="small" margin={{ top: 'medium' }}>
-                {executionSummary?.content?.map((summary, index) => (
-                  <TestsExecutionItem
-                    key={summary.name! + showFailedTestsOnly}
-                    buildIdentifier={String(
-                      context?.pipelineExecutionDetail?.pipelineExecutionSummary?.runSequence || ''
-                    )}
-                    executionSummary={summary}
-                    serviceToken={serviceToken}
-                    status={showFailedTestsOnly ? 'failed' : undefined}
-                    expanded={index === expandedIndex ? true : undefined}
-                    stageId={stageId}
-                    stepId={stepId}
-                    onExpand={() => {
-                      setExpandedIndex(expandedIndex !== index ? index : undefined)
-                    }}
-                    splitview={splitview}
-                  />
-                ))}
-              </Layout.Vertical>
-            )}
-            {executionSummary.content.length === 0 && showFailedTestsOnly && (
-              <Text font={{ align: 'center' }} margin={{ top: 'medium' }}>
-                {getString('pipeline.testsReports.noFailedTestsFound')}
-              </Text>
-            )}
-          </>
-        )}
-
-        {(executionSummary?.data?.totalItems || 0) > 20 && (
-          <Pagination
-            pageSize={executionSummary?.data?.pageSize || 0}
-            pageIndex={pageIndex}
-            pageCount={executionSummary?.data?.totalPages || 0}
-            itemCount={executionSummary?.data?.totalItems || 0}
-            gotoPage={pageIdx => {
-              setPageIndex(pageIdx)
-              refetchData({
-                ...queryParams,
-                sort: sortBy,
-                pageIndex: pageIdx
-              })
-            }}
-          />
-        )}
-      </Container>
+      </Layout.Horizontal>
     </div>
   )
 }

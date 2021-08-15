@@ -1,5 +1,5 @@
 import React from 'react'
-import { useTable, Column, useSortBy, usePagination } from 'react-table'
+import { useTable, Column, Row, useSortBy, usePagination } from 'react-table'
 import cx from 'classnames'
 import { Icon, Pagination, PaginationProps } from '@wings-software/uicore'
 import css from './Table.module.scss'
@@ -20,6 +20,7 @@ export interface TableProps<Data extends Record<string, any>> {
   pagination?: PaginationProps
   onRowClick?: (data: Data, index: number) => void
   rowDataTestID?: (data: Data, index: number) => string
+  getRowClassName?: (row: Row<Data>) => string
   /**
    * Removes the "card" UI from rows
    * @default false
@@ -28,7 +29,16 @@ export interface TableProps<Data extends Record<string, any>> {
 }
 
 const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React.ReactElement => {
-  const { columns, data, className, sortable = false, hideHeaders = false, pagination, rowDataTestID } = props
+  const {
+    columns,
+    data,
+    className,
+    sortable = false,
+    hideHeaders = false,
+    pagination,
+    rowDataTestID,
+    getRowClassName
+  } = props
   const { headerGroups, page, prepareRow } = useTable(
     {
       columns,
@@ -89,11 +99,15 @@ const Table = <Data extends Record<string, any>>(props: TableProps<Data>): React
             // eslint-disable-next-line react/jsx-key
             <div
               {...row.getRowProps()}
-              className={cx(css.row, {
-                [css.card]: !props.minimal,
-                [css.clickable]: !!props.onRowClick,
-                [css.minimal]: !!props.minimal
-              })}
+              className={cx(
+                css.row,
+                {
+                  [css.card]: !props.minimal,
+                  [css.clickable]: !!props.onRowClick,
+                  [css.minimal]: !!props.minimal
+                },
+                getRowClassName?.(row)
+              )}
               onClick={() => {
                 props.onRowClick?.(row.original, row.index)
               }}

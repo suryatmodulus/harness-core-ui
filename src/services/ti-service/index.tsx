@@ -106,6 +106,35 @@ export interface TestSuites {
   data?: ResponseMetadata
 }
 
+export interface VisEdge {
+  from?: number
+  to?: number[]
+}
+
+export interface VisGraph {
+  edges?: VisEdge[]
+  nodes?: VisNode[]
+}
+
+export interface VisNode {
+  class?: string
+  /**
+   * Only populated for resource types
+   */
+  file?: string
+  id?: number
+  /**
+   * Whether the node should be specially marked in the UI or not
+   */
+  important?: boolean
+  package?: string
+  root?: boolean
+  /**
+   * Can be test | source | resource
+   */
+  type?: string
+}
+
 export interface ReportsInfoQueryParams {
   /**
    * Account ID
@@ -513,3 +542,63 @@ export type UseGetTokenProps = Omit<UseGetProps<string, Error, GetTokenQueryPara
  */
 export const useGetToken = (props: UseGetTokenProps) =>
   useGet<string, Error, GetTokenQueryParams, void>(`/token`, { base: getConfig('ti-service'), ...props })
+
+export interface VgSearchQueryParams {
+  /**
+   * Account ID
+   */
+  accountId: string
+  /**
+   * Org ID
+   */
+  orgId: string
+  /**
+   * Project ID
+   */
+  projectId: string
+  /**
+   * Pipeline ID
+   */
+  pipelineId: string
+  /**
+   * Build ID
+   */
+  buildId: string
+  /**
+   * Step ID
+   */
+  stepId: string
+  /**
+   * Stage ID
+   */
+  stageId: string
+  /**
+   * Limit on number of nodes to show
+   */
+  limit?: number
+  /**
+   * Fully qualified class name to search for
+   */
+  class?: string
+}
+
+export type VgSearchProps = Omit<GetProps<VisGraph, Error, VgSearchQueryParams, void>, 'path'>
+
+/**
+ * Get visualisation callgraph
+ *
+ * Get visualisation callgraph for the repository
+ */
+export const VgSearch = (props: VgSearchProps) => (
+  <Get<VisGraph, Error, VgSearchQueryParams, void> path={`/vg`} base={getConfig('ti-service')} {...props} />
+)
+
+export type UseVgSearchProps = Omit<UseGetProps<VisGraph, Error, VgSearchQueryParams, void>, 'path'>
+
+/**
+ * Get visualisation callgraph
+ *
+ * Get visualisation callgraph for the repository
+ */
+export const useVgSearch = (props: UseVgSearchProps) =>
+  useGet<VisGraph, Error, VgSearchQueryParams, void>(`/vg`, { base: getConfig('ti-service'), ...props })

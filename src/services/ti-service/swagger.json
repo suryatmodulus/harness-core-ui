@@ -13,6 +13,10 @@
     {
       "name": "auth",
       "description": "Auth related"
+    },
+    {
+      "name": "visualisation",
+      "description": "APIs to view the visualisation callgraphs for test intelligence"
     }
   ],
   "schemes": ["https", "http"],
@@ -495,6 +499,107 @@
         }
       }
     },
+    "/vg": {
+      "get": {
+        "summary": "Get visualisation callgraph",
+        "tags": ["visualisation"],
+        "description": "Get visualisation callgraph for the repository",
+        "operationId": "vgSearch",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "accountId",
+            "description": "Account ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "orgId",
+            "description": "Org ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "projectId",
+            "description": "Project ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "pipelineId",
+            "description": "Pipeline ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "buildId",
+            "description": "Build ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "stepId",
+            "description": "Step ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "stageId",
+            "description": "Stage ID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Limit on number of nodes to show",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "class",
+            "description": "Fully qualified class name to search for",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/VisGraph"
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
     "/token": {
       "get": {
         "summary": "Get an account level token",
@@ -888,6 +993,72 @@
       "type": "string",
       "description": "Status of the test",
       "enum": ["passed", "skipped", "error", "failed"]
+    },
+    "VisGraph": {
+      "type": "object",
+      "properties": {
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VisNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VisEdge"
+          }
+        }
+      }
+    },
+    "VisNode": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "package": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "params": {
+          "type": "string"
+        },
+        "class": {
+          "type": "string"
+        },
+        "file": {
+          "type": "string",
+          "description": "Only populated for resource types"
+        },
+        "type": {
+          "type": "string",
+          "description": "Can be test | source | resource"
+        },
+        "important": {
+          "type": "boolean",
+          "description": "Whether the node should be specially marked in the UI or not"
+        }
+      }
+    },
+    "VisEdge": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "to": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      }
     }
   }
 }

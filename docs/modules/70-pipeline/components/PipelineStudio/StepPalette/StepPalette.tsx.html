@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.03% </span>
+                <span class="strong">77.34% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>98/124</span>
+                <span class='fraction'>99/128</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.54% </span>
+                <span class="strong">66.49% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>129/191</span>
+                <span class='fraction'>129/194</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.69% </span>
+                <span class="strong">76.98% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>96/122</span>
+                <span class='fraction'>97/126</span>
             </div>
         
             
@@ -448,7 +448,15 @@
 <a name='L389'></a><a href='#L389'>389</a>
 <a name='L390'></a><a href='#L390'>390</a>
 <a name='L391'></a><a href='#L391'>391</a>
-<a name='L392'></a><a href='#L392'>392</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
+<a name='L392'></a><a href='#L392'>392</a>
+<a name='L393'></a><a href='#L393'>393</a>
+<a name='L394'></a><a href='#L394'>394</a>
+<a name='L395'></a><a href='#L395'>395</a>
+<a name='L396'></a><a href='#L396'>396</a>
+<a name='L397'></a><a href='#L397'>397</a>
+<a name='L398'></a><a href='#L398'>398</a>
+<a name='L399'></a><a href='#L399'>399</a>
+<a name='L400'></a><a href='#L400'>400</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">6x</span>
@@ -567,6 +575,8 @@
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">8x</span>
@@ -775,6 +785,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -799,6 +813,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -821,6 +836,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -958,6 +974,8 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
   const [stepCategories, setStepsCategories] = useState&lt;StepCategory[]&gt;([])
   const [originalData, setOriginalCategories] = useState&lt;StepCategory[]&gt;([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
+  // Need this when we have same names for category and sub category
+  const [selectedLevel, setSelectedLevel] = useState&lt;string | null&gt;(null)
   const { module, accountId } = useParams&lt;{ module: string; accountId: string }&gt;()
   let categoryForStepPalette
   <span class="missing-if-branch" title="if path not taken" >I</span>if ((selectedStage as any).stage<span class="branch-1 cbranch-no" title="branch not covered" >?.type </span>=== StageType.APPROVAL) {
@@ -1164,8 +1182,12 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                 if (category<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tepCategories &amp;&amp; category.stepCategories.length === 0) {
                   stepRenderer.push(
                     &lt;section
-                      className={cx(css.category, selectedCategory === category.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.active)</span>}
+                      className={cx(
+                        css.category,
+                        selectedCategory === category.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >selectedLevel === 'category' </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >css.active</span>
+                      )}
                       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                        setSelectedLevel('category')</span>
 <span class="cstat-no" title="statement not covered" >                        filterSteps(<span class="branch-0 cbranch-no" title="branch not covered" >category.name </span>|| /* istanbul ignore next */ '')</span>
                       }}
                       key={category.name}
@@ -1185,10 +1207,11 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                     &lt;section
                       className={cx(
                         css.category,
-                        selectedCategory === category.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.active,</span>
+                        selectedCategory === category.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >selectedLevel === 'category' </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >css.active,</span>
                         subCategory.length &amp;&amp; css.hasSubCategories
                       )}
                       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                        setSelectedLevel('category')</span>
 <span class="cstat-no" title="statement not covered" >                        filterSteps(category.name || '')</span>
                       }}
                       key={category.name}
@@ -1208,10 +1231,11 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
                           css.category,
                           css.subCategory,
                           css.offset,
-                          selectedCategory === subCat.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >css.active,</span>
+                          selectedCategory === subCat.name &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >selectedLevel === 'subCategory' </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >css.active,</span>
                           k === subCategory.length - 1 &amp;&amp; css.lastSubCategory
                         )}
                         onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                          setSelectedLevel('subCategory')</span>
 <span class="cstat-no" title="statement not covered" >                          filterSteps(<span class="branch-0 cbranch-no" title="branch not covered" >subCat.name </span>|| /* istanbul ignore next */ '')</span>
                         }}
                         key={`${subCat.name}-${k}`}
@@ -1237,7 +1261,7 @@ export const StepPalette: React.FC&lt;StepPaletteProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 06:20:21 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 16 2021 06:44:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

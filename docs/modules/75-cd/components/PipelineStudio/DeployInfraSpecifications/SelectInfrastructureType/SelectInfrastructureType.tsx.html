@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/75-cd/components/PipelineStudio/DeployInfraSpecifications/SelectInfrastructureType.tsx</title>
+    <title>Code coverage report for modules/75-cd/components/PipelineStudio/DeployInfraSpecifications/SelectInfrastructureType/SelectInfrastructureType.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../../base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="../../../../../favicon.png" />
+    <link rel="stylesheet" href="../../../../../../prettify.css" />
+    <link rel="stylesheet" href="../../../../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../../../../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(../../../../../sort-arrow-sprite.png);
+            background-image: url(../../../../../../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../index.html">All files</a> / <a href="index.html">modules/75-cd/components/PipelineStudio/DeployInfraSpecifications</a> SelectInfrastructureType.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/75-cd/components/PipelineStudio/DeployInfraSpecifications/SelectInfrastructureType</a> SelectInfrastructureType.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">45.83% </span>
+                <span class="strong">43.48% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/24</span>
+                <span class='fraction'>10/23</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.83% </span>
+                <span class="strong">45.45% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/23</span>
+                <span class='fraction'>10/22</span>
             </div>
         
             
@@ -145,12 +145,7 @@
 <a name='L86'></a><a href='#L86'>86</a>
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L89'></a><a href='#L89'>89</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -226,9 +221,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -245,12 +237,11 @@
 import { Formik, FormikProps } from 'formik'
 import { noop } from 'lodash-es'
 import * as Yup from 'yup'
-import { Card, IconName, Text, GroupedThumbnailSelect } from '@wings-software/uicore'
-import cx from 'classnames'
+import { IconName, GroupedThumbnailSelect } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
 import { DeployTabs } from '@cd/components/PipelineStudio/DeployStageSetupShell/DeployStageSetupShellUtils'
-import css from '@cd/components/PipelineStudio/DeployInfraSpecifications/DeployInfraSpecifications.module.scss'
+import css from './SelectInfrastructureType.module.scss'
 &nbsp;
 interface InfrastructureItem {
   label: string
@@ -318,16 +309,13 @@ export default function <span class="fstat-no" title="function not covered" >Sel
 <span class="cstat-no" title="statement not covered" >        window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.INFRASTRUCTURE }))</span>
 <span class="cstat-no" title="statement not covered" >        formikRef.current = formik</span>
 <span class="cstat-no" title="statement not covered" >        return (</span>
-          &lt;Card className={cx(css.sectionCard, css.shadow)}&gt;
-            &lt;Text margin={{ bottom: 'medium' }}&gt;{getString('pipelineSteps.deploy.infrastructure.selectMethod')}&lt;/Text&gt;
-            &lt;GroupedThumbnailSelect
-              className={css.thumbnailSelect}
-              name={'deploymentType'}
-              onChange={onChange}
-              groups={infraGroups}
-              isReadonly={isReadonly}
-            /&gt;
-          &lt;/Card&gt;
+          &lt;GroupedThumbnailSelect
+            className={css.thumbnailSelect}
+            name={'deploymentType'}
+            onChange={onChange}
+            groups={infraGroups}
+            isReadonly={isReadonly}
+          /&gt;
         )
       }}
     &lt;/Formik&gt;
@@ -340,17 +328,17 @@ export default function <span class="fstat-no" title="function not covered" >Sel
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 04:17:29 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 16 2021 06:20:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
-        <script src="../../../../../prettify.js"></script>
+        <script src="../../../../../../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="../../../../../sorter.js"></script>
-        <script src="../../../../../block-navigation.js"></script>
+        <script src="../../../../../../sorter.js"></script>
+        <script src="../../../../../../block-navigation.js"></script>
     </body>
 </html>
     

@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>6/15</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>1/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/13</span>
+                <span class='fraction'>6/15</span>
             </div>
         
             
@@ -85,8 +85,10 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -99,24 +101,26 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class P</span></span>ubSubAction&lt;TTypes, T, TResult&gt; {
-<span class="cstat-no" title="statement not covered" >  subMap = new Map&lt;TTypes, Array&lt;(arg: T) =&gt; TResult&gt;&gt;()</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export class PubSubAction&lt;TTypes, T, TResult&gt; {
+  private subMap = new Map&lt;TTypes, Array&lt;(arg: T) =&gt; Promise&lt;TResult&gt;&gt;&gt;()
 &nbsp;
-<span class="fstat-no" title="function not covered" >  subscribe(</span>type: TTypes, cb: (arg: T) =&gt; TResult): void {
+<span class="fstat-no" title="function not covered" >  subscribe(</span>type: TTypes, cb: (arg: T) =&gt; Promise&lt;TResult&gt;): void {
     const item = <span class="cstat-no" title="statement not covered" >this.subMap.get(type)</span>
 <span class="cstat-no" title="statement not covered" >    if (item) {</span>
 <span class="cstat-no" title="statement not covered" >      item.push(cb)</span>
@@ -126,13 +130,15 @@
     }
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  publish(</span>type: TTypes, arg: T): void {
-    const item = <span class="cstat-no" title="statement not covered" >this.subMap.get(type)</span>
-<span class="cstat-no" title="statement not covered" >    if (item) {</span>
+  publish(type: TTypes, arg: T): Promise&lt;TResult[]&gt; {
+    const item = this.subMap.get(type)
+    const promiseAr: Array&lt;Promise&lt;TResult&gt;&gt; = []
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (item) {
 <span class="cstat-no" title="statement not covered" >      item.forEach(<span class="fstat-no" title="function not covered" >cb </span>=&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        cb(arg)</span>
+<span class="cstat-no" title="statement not covered" >        promiseAr.push(cb(arg))</span>
       })
     }
+    return Promise.all(promiseAr)
   }
 <span class="fstat-no" title="function not covered" >  unsubscribe(</span>type: TTypes): void {
 <span class="cstat-no" title="statement not covered" >    this.subMap.delete(type)</span>
@@ -148,7 +154,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 04:17:29 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 16 2021 06:20:21 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

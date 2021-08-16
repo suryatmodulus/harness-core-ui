@@ -170,7 +170,6 @@ export function PipelineVariablesContextProvider(
     </PipelineVariablesContext.Provider>
   )
 }
-
 export const findMatchedResultsInPipeline = (
   pipelineFqns: PipelineMeta[] = [],
   pipelineValues: PipelineMeta[] = [],
@@ -212,20 +211,43 @@ export function getPathToMetaKeyMap({
   pipelineFqns: PipelineMeta[]
   pipelineValues: PipelineMeta[]
 } {
+  if (!data) {
+    return {
+      pipelineMetaKeys,
+      pipelineFqns,
+      pipelineValues
+    }
+  }
   if (Array.isArray(data)) {
-    data.forEach((item, index) => {
-      if (Array.isArray(item) || typeof item === 'object') {
-        return getPathToMetaKeyMap({
-          path: `${path}[${index}]`,
-          pipelineFqns,
-          pipelineMetaKeys,
-          data: item,
-          metaDataMap,
-          pipeline,
-          pipelineValues
-        })
+    if (path.includes('variables')) {
+      for (let index = data.length - 1; index >= 0; index--) {
+        if (Array.isArray(data[index]) || typeof data[index] === 'object') {
+          getPathToMetaKeyMap({
+            path: `${path}[${index}]`,
+            pipelineFqns,
+            pipelineMetaKeys,
+            data: data[index],
+            metaDataMap,
+            pipeline,
+            pipelineValues
+          })
+        }
       }
-    })
+    } else {
+      data?.forEach((item, index) => {
+        if (Array.isArray(item) || typeof item === 'object') {
+          getPathToMetaKeyMap({
+            path: `${path}[${index}]`,
+            pipelineFqns,
+            pipelineMetaKeys,
+            data: item,
+            metaDataMap,
+            pipeline,
+            pipelineValues
+          })
+        }
+      })
+    }
   } else if (typeof data === 'object') {
     Object.entries(data).forEach(([key, value]) => {
       if (typeof value === 'string' && metaDataMap[value]) {
@@ -236,11 +258,15 @@ export function getPathToMetaKeyMap({
         if (updatedPath.includes('__uuid')) {
           return
         }
-        pipelineFqns.push({ value: yamlProperties?.fqn, metaKeyId })
-        pipelineMetaKeys.push({ metaKeyId, value: updatedPath })
-        const valueAtPath = get(pipeline, updatedPath)
+        if (path.includes('variables')) {
+          //
+        } else {
+          pipelineFqns.push({ value: yamlProperties?.fqn, metaKeyId })
+          pipelineMetaKeys.push({ metaKeyId, value: updatedPath })
+          const valueAtPath = get(pipeline, updatedPath)
 
-        pipelineValues.push({ value: valueAtPath, metaKeyId })
+          pipelineValues.push({ value: valueAtPath, metaKeyId })
+        }
       } else if (typeof value === 'object') {
         const updatedPath = `${path.trim().length === 0 ? '' : `${path}.`}${key}`
         return getPathToMetaKeyMap({
@@ -253,6 +279,10 @@ export function getPathToMetaKeyMap({
           pipelineValues
         })
       }
+
+      if (typeof value === 'string' && metaDataMap[value] && path.includes('variables')) {
+        updateSpecialFields({ value, path, metaDataMap, pipelineFqns, pipelineMetaKeys, pipelineValues, pipeline, key })
+      }
     })
   }
 
@@ -261,6 +291,34 @@ export function getPathToMetaKeyMap({
     pipelineFqns,
     pipelineValues
   }
+}
+export interface UpdateSpecialFieldParams {
+  value: string
+  path: string
+  metaDataMap: unknown
+  pipelineFqns: PipelineMeta[]
+  pipelineMetaKeys: PipelineMeta[]
+  pipelineValues: PipelineMeta[]
+  pipeline: PipelineInfoConfig
+  key: string
+}
+const updateSpecialFields = ({
+  value,
+  path,
+  metaDataMap,
+  pipelineFqns,
+  pipelineMetaKeys,
+  pipelineValues,
+  pipeline,
+  key
+}: UpdateSpecialFieldParams): void => {
+  const metaKeyId = value
+  const { yamlProperties } = (metaDataMap as any)?.[value]
+  const updatedPath = `${path.trim().length === 0 ? '' : `${path}.`}${key}`
+  pipelineFqns.unshift({ value: yamlProperties?.fqn, metaKeyId })
+  pipelineMetaKeys.unshift({ metaKeyId, value: updatedPath })
+  const valueAtPath = get(pipeline, updatedPath)
+  pipelineValues.unshift({ value: valueAtPath, metaKeyId })
 }
 export interface GetTextWithSearchMarkersProps {
   txt?: string

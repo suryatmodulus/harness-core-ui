@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.75% </span>
+                <span class="strong">90.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>89/97</span>
+                <span class='fraction'>90/99</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>19/19</span>
             </div>
         
             
@@ -248,7 +248,14 @@
 <a name='L189'></a><a href='#L189'>189</a>
 <a name='L190'></a><a href='#L190'>190</a>
 <a name='L191'></a><a href='#L191'>191</a>
-<a name='L192'></a><a href='#L192'>192</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a>
+<a name='L195'></a><a href='#L195'>195</a>
+<a name='L196'></a><a href='#L196'>196</a>
+<a name='L197'></a><a href='#L197'>197</a>
+<a name='L198'></a><a href='#L198'>198</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -264,6 +271,11 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -448,13 +460,19 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { MultiTypeSelectField } from '@common/components/MultiTypeSelect/MultiTypeSelect'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/StepCommonFieldsInputSet'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RestoreCacheS3StepProps } from './RestoreCacheS3Step'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
-export const RestoreCacheS3StepInputSet: React.FC&lt;RestoreCacheS3StepProps&gt; = ({ template, path, readonly }) =&gt; {
+export const RestoreCacheS3StepInputSet: React.FC&lt;RestoreCacheS3StepProps&gt; = ({
+  template,
+  path,
+  readonly,
+  stepViewType
+}) =&gt; {
   const { getString } = useStrings()
 &nbsp;
   const { expressions } = useVariablesExpression()
@@ -479,7 +497,7 @@ export const RestoreCacheS3StepInputSet: React.FC&lt;RestoreCacheS3StepProps&gt;
   ]
 &nbsp;
   return (
-    &lt;FormikForm className={css.removeBpPopoverWrapperTopMargin}&gt;
+    &lt;FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}&gt;
       {getMultiTypeFromValue(template?.spec?.connectorRef) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormMultiTypeConnectorField
           label={
@@ -495,7 +513,7 @@ export const RestoreCacheS3StepInputSet: React.FC&lt;RestoreCacheS3StepProps&gt;
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? <span class="branch-0 cbranch-no" title="branch not covered" >391 </span>: 455}
           gitScope={{ branch, repo, getDefaultFromOtherRepo: true }}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.connectorRef`}
           placeholder={getString('select')}
@@ -637,7 +655,7 @@ export const RestoreCacheS3StepInputSet: React.FC&lt;RestoreCacheS3StepProps&gt;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 10:06:07 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 16 2021 14:16:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

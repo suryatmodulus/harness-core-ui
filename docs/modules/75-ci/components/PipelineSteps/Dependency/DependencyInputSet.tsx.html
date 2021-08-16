@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/20</span>
+                <span class='fraction'>21/21</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.25% </span>
+                <span class="strong">90.24% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>73/80</span>
+                <span class='fraction'>74/82</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/19</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -234,7 +234,9 @@
 <a name='L175'></a><a href='#L175'>175</a>
 <a name='L176'></a><a href='#L176'>176</a>
 <a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">15x</span>
@@ -251,17 +253,17 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -420,6 +422,7 @@ import { FormMultiTypeCheckboxField } from '@common/components/MultiTypeCheckbox
 import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea/MultiTypeTextArea'
 import MultiTypeListInputSet from '@common/components/MultiTypeListInputSet/MultiTypeListInputSet'
 import { MultiTypeTextField } from '@common/components/MultiTypeText/MultiTypeText'
+import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import MultiTypeMapInputSet from '@common/components/MultiTypeMapInputSet/MultiTypeMapInputSet'
@@ -427,7 +430,7 @@ import StepCommonFieldsInputSet from '@pipeline/components/StepCommonFields/Step
 import type { DependencyProps } from './Dependency'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
-export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, path, readonly }) =&gt; {
+export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, path, readonly, stepViewType }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;{
@@ -439,7 +442,7 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
   const { expressions } = useVariablesExpression()
 &nbsp;
   return (
-    &lt;FormikForm className={css.removeBpPopoverWrapperTopMargin}&gt;
+    &lt;FormikForm className={css.removeBpPopoverWrapperTopMargin} style={{ width: '50%' }}&gt;
       {getMultiTypeFromValue(template?.description) === MultiTypeInputType.RUNTIME &amp;&amp; (
         &lt;FormMultiTypeTextAreaField
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>description`}
@@ -469,7 +472,7 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
           accountIdentifier={accountId}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
-          width={560}
+          width={stepViewType === StepViewType.DeploymentForm ? <span class="branch-0 cbranch-no" title="branch not covered" >391 </span>: 455}
           name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.connectorRef`}
           placeholder={getString('select')}
           multiTypeProps={{
@@ -595,7 +598,7 @@ export const DependencyInputSet: React.FC&lt;DependencyProps&gt; = ({ template, 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 16 2021 10:06:07 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 16 2021 14:16:06 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

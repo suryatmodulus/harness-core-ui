@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>0/21</span>
             </div>
         
             
@@ -116,20 +116,7 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a>
-<a name='L63'></a><a href='#L63'>63</a>
-<a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a>
-<a name='L66'></a><a href='#L66'>66</a>
-<a name='L67'></a><a href='#L67'>67</a>
-<a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -137,14 +124,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -156,8 +135,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,9 +174,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import React from 'react'</span>
 import type { FormikErrors } from 'formik'
@@ -208,31 +182,21 @@ import type { IconName } from '@wings-software/uicore'
 &nbsp;
 <span class="cstat-no" title="statement not covered" >import { PipelineStep } from '@pipeline/components/PipelineSteps/PipelineStep'</span>
 <span class="cstat-no" title="statement not covered" >import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'</span>
-<span class="cstat-no" title="statement not covered" >import { TemplateStepWidgetWithRef } from './TemplateStepWidget'</span>
-&nbsp;
-export interface TemplateStepData {
-  identifier: string
-  name: string
-  type: StepType
-  'step-template': string
-  inputs: { [key: string]: any }
-}
+<span class="cstat-no" title="statement not covered" >import { TemplateStepWidgetWithRef, TemplateStepData } from './TemplateStepWidget'</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >export class T</span>emplateStep extends PipelineStep&lt;TemplateStepData&gt; {
 <span class="fstat-no" title="function not covered" >  constructor() {</span>
 <span class="cstat-no" title="statement not covered" >    super()</span>
   }
 &nbsp;
-  protected <span class="cstat-no" title="statement not covered" >type = StepType.TemplateStep</span>
+  protected <span class="cstat-no" title="statement not covered" >type = StepType.Template</span>
   protected <span class="cstat-no" title="statement not covered" >stepName = 'Template step'</span>
   protected <span class="cstat-no" title="statement not covered" >stepIcon: IconName = 'library'</span>
 &nbsp;
   protected <span class="cstat-no" title="statement not covered" >defaultValues: TemplateStepData = {</span>
     identifier: '',
     name: '',
-    type: StepType.TemplateStep,
-    'step-template': '',
-    inputs: []
+    template: {} as any
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  validateInputSet(</span>{
@@ -245,12 +209,12 @@ export interface TemplateStepData {
 <span class="cstat-no" title="statement not covered" >    return errors</span>
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  processFormData(</span>values: TemplateStepData) {
+<span class="fstat-no" title="function not covered" >  processFormData(</span>values: TemplateStepData): TemplateStepData {
 <span class="cstat-no" title="statement not covered" >    return values /</span>/processFormData(values)
   }
 &nbsp;
 <span class="fstat-no" title="function not covered" >  renderStep(</span>this: TemplateStep, props: StepProps&lt;TemplateStepData&gt;): JSX.Element {
-    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly } = <span class="cstat-no" title="statement not covered" >props</span>
+    const { initialValues, onUpdate, stepViewType, formikRef, isNewStep, readonly, factory } = <span class="cstat-no" title="statement not covered" >props</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {</span>
 <span class="cstat-no" title="statement not covered" >      return &lt;div /&gt;</span>
@@ -261,17 +225,14 @@ export interface TemplateStepData {
       &lt;TemplateStepWidgetWithRef
         ref={formikRef}
         stepViewType={stepViewType}
-        initialValues={processInitialValues(initialValues)}
+        initialValues={initialValues}
         onUpdate={<span class="fstat-no" title="function not covered" >(v</span>alues: TemplateStepData) =&gt; <span class="cstat-no" title="statement not covered" >onUpdate?.(values)}</span>
         isNewStep={isNewStep}
         readonly={readonly}
+        factory={factory}
       /&gt;
     )
   }
-}
-&nbsp;
-function <span class="fstat-no" title="function not covered" >processInitialValues&lt;</span>T&gt;(initialValues: T): T {
-<span class="cstat-no" title="statement not covered" >  return initialValues</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -280,7 +241,7 @@ function <span class="fstat-no" title="function not covered" >processInitialValu
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 17 2021 06:31:57 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 17 2021 07:21:37 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

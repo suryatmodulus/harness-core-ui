@@ -31,3 +31,11 @@
   justify-content: center;
   align-items: center;
 }
+
+.efficiencyScore {
+  position: relative;
+  .stack {
+    position: absolute;
+    top: -15px;
+  }
+}

@@ -261,8 +261,13 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
       ) as unknown as NGTriggerSourceV2['type'],
       manifestType
     }
+  } else if (triggerType.includes(TriggerTypes.SCHEDULE)) {
+    // if modified for other schedule types, need to account for gitsync appended url params*
+    return {
+      triggerType: TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type']
+    }
   } else {
-    // SCHEDULED | unfound page
+    //  unfound page
     return {
       triggerType: triggerType as unknown as NGTriggerSourceV2['type']
     }

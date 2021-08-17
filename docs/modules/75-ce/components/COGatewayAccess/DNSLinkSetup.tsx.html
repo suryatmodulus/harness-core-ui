@@ -1984,8 +1984,8 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
 &nbsp;
   const [activeConfigTabId, setActiveConfigTabId] = useState&lt;string | undefined&gt;(props.activeStepDetails<span class="branch-1 cbranch-no" title="branch not covered" >?.tabId)</span>
 &nbsp;
-  const accessDetails = props.gatewayDetails.metadata.access_details as ConnectionMetadata // eslint-disable-line
-  const customDomainProviderDetails = props.gatewayDetails.metadata.custom_domain_providers as CustomDomainDetails // eslint-disable-line
+  const accessDetails = props.gatewayDetails.opts.access_details as ConnectionMetadata // eslint-disable-line
+  const customDomainProviderDetails = props.gatewayDetails.routing.custom_domain_providers as CustomDomainDetails // eslint-disable-line
   const {
     data: hostedZones,
     loading: hostedZonesLoading,
@@ -2006,9 +2006,9 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
   const debouncedCustomDomainTextChange = React.useCallback(
     _debounce((value: string, shouldLoadHostedZones: boolean) =&gt; {
       const updatedGatewayDetails = { ...props.gatewayDetails }
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (!updatedGatewayDetails.metadata.custom_domain_providers) {
-        updatedGatewayDetails.metadata = {
-          ...props.gatewayDetails.metadata,
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (!updatedGatewayDetails.routing.custom_domain_providers) {
+        updatedGatewayDetails.routing = {
+          ...props.gatewayDetails.routing,
           custom_domain_providers: { others: {} } // eslint-disable-line
         }
       }
@@ -2737,7 +2737,7 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >                    formik.setFieldValue('publicallyAccessible', cbVal)</span>
 <span class="cstat-no" title="statement not covered" >                    accessDetails.dnsLink.public = cbVal</span>
                     const updatedGatewayDetails = <span class="cstat-no" title="statement not covered" >{ ...props.gatewayDetails }</span>
-<span class="cstat-no" title="statement not covered" >                    updatedGatewayDetails.metadata.access_details = accessDetails /</span>/ eslint-disable-line
+<span class="cstat-no" title="statement not covered" >                    updatedGatewayDetails.opts.access_details = accessDetails /</span>/ eslint-disable-line
 <span class="cstat-no" title="statement not covered" >                    props.setGatewayDetails(updatedGatewayDetails)</span>
                   }}
                   checked={formik.values.publicallyAccessible === 'yes'}
@@ -2764,8 +2764,8 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >                            formik.setFieldValue('dnsProvider', e.currentTarget.value)</span>
 <span class="cstat-no" title="statement not covered" >                            setDNSProvider(e.currentTarget.value)</span>
                             const updatedGatewayDetails = <span class="cstat-no" title="statement not covered" >{ ...props.gatewayDetails }</span>
-<span class="cstat-no" title="statement not covered" >                            updatedGatewayDetails.metadata = {</span>
-                              ...props.gatewayDetails.metadata,
+<span class="cstat-no" title="statement not covered" >                            updatedGatewayDetails.routing = {</span>
+                              ...props.gatewayDetails.routing,
                               custom_domain_providers: { route53: {} } // eslint-disable-line
                             }
 <span class="cstat-no" title="statement not covered" >                            props.setGatewayDetails(updatedGatewayDetails)</span>
@@ -2780,8 +2780,8 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
                           onChange={e =&gt; {
                             formik.setFieldValue('route53Account', e.value)
                             const updatedGatewayDetails = { ...props.gatewayDetails }
-                            updatedGatewayDetails.metadata = {
-                              ...props.gatewayDetails.metadata,
+                            updatedGatewayDetails.routing = {
+                              ...props.gatewayDetails.routing,
                               //eslint-disable-next-line
                               custom_domain_providers: {
                                 route53: { hosted_zone_id: e.value as string } // eslint-disable-line
@@ -2799,8 +2799,8 @@ const DNSLinkSetup: React.FC&lt;DNSLinkSetupProps&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >                          formik.setFieldValue('dnsProvider', e.currentTarget.value)</span>
 <span class="cstat-no" title="statement not covered" >                          setDNSProvider(e.currentTarget.value)</span>
                           const updatedGatewayDetails = <span class="cstat-no" title="statement not covered" >{ ...props.gatewayDetails }</span>
-<span class="cstat-no" title="statement not covered" >                          updatedGatewayDetails.metadata = {</span>
-                            ...props.gatewayDetails.metadata,
+<span class="cstat-no" title="statement not covered" >                          updatedGatewayDetails.routing = {</span>
+                            ...props.gatewayDetails.routing,
                             custom_domain_providers: { others: {} } // eslint-disable-line
                           }
 <span class="cstat-no" title="statement not covered" >                          props.setGatewayDetails(updatedGatewayDetails)</span>
@@ -2827,7 +2827,7 @@ export default DNSLinkSetup
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 17 2021 05:09:04 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 17 2021 05:47:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.75% </span>
+                <span class="strong">69.64% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>33/48</span>
+                <span class='fraction'>39/56</span>
             </div>
         
             
@@ -126,7 +126,11 @@
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
 <a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,15 +164,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -184,7 +190,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">60x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -212,6 +220,8 @@ interface PlanProps {
     buttonText: Maybe&lt;string&gt;
     primaryButton: Maybe&lt;boolean&gt;
     img: Maybe&lt;{ __typename?: 'UploadFile'; url: string; width: Maybe&lt;number&gt;; height: Maybe&lt;number&gt; }&gt;
+    onClick?: () =&gt; Promise&lt;void&gt;
+    btnLoading?: boolean
     featureListZone: Maybe&lt;
       Array&lt;
         Maybe&lt;{
@@ -247,13 +257,15 @@ const Plan: React.FC&lt;PlanProps&gt; = ({ plan, timeType, textColorClassName, c
         &lt;Text font={{ weight: 'bold', size: 'large' }} color={Color.BLACK}&gt;
           {timeType === TIME_TYPE.MONTHLY ? <span class="branch-0 cbranch-no" title="branch not covered" >plan?.price </span>: plan<span class="branch-0 cbranch-no" title="branch not covered" >?.y</span>earlyPrice}
         &lt;/Text&gt;
-        &lt;Button intent="none"&gt;{plan<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uttonText}&lt;/Button&gt;
+        &lt;Button intent="primary" onClick={plan<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>nClick} loading={plan<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>tnLoading}&gt;
+          {plan<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>uttonText}
+        &lt;/Button&gt;
         &lt;Text color={Color.BLACK} padding="large" className={css.desc}&gt;
           {plan<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>esc}
         &lt;/Text&gt;
         &lt;ul className={css.ul}&gt;
           {plan<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>eatureListZone<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(feature =&gt; (
-            &lt;li key={feature<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>d} className={css.li}&gt;
+            &lt;li key={feature<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle} className={css.li}&gt;
               &lt;Text className={textColorClassName}&gt;{feature<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>itle}&lt;/Text&gt;
             &lt;/li&gt;
           ))}
@@ -271,7 +283,7 @@ export default Plan
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 17 2021 15:40:12 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 17 2021 16:24:17 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

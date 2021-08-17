@@ -60,8 +60,11 @@ import { PubSubPipelineActions } from '@pipeline/factories/PubSubPipelineAction'
 import { PipelineActions } from '@pipeline/factories/PubSubPipelineAction/types'
 import CVTrialHomePage from './pages/home/CVTrialHomePage'
 
-PubSubPipelineActions.subscribe(PipelineActions.RunPipeline, ({ template }) => {
-  return Promise.resolve(template)
+PubSubPipelineActions.subscribe(PipelineActions.RunPipeline, props => {
+  // updateTemplate function should update template
+  // const updatesTemplate = updateTemplate(props.pipeline, props?.template)
+  // return Promise.resolve(updatesTemplate)
+  return Promise.resolve(props?.template)
 })
 
 const RedirectToAccessControlHome = (): React.ReactElement => {

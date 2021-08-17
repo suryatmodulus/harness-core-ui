@@ -10,7 +10,7 @@ import type { InputSetPathProps, PipelineType } from '@common/interfaces/RouteIn
 import type { PipelineInfoConfig } from 'services/cd-ng'
 import { useGetPipeline } from 'services/pipeline-ng'
 import type { spec } from '../../types'
-import { checkIfRunTimeInput } from '../../utils'
+import { checkIfRunTimeInput, hasVerifyStepRuntimeInput } from '../../utils'
 import type { ContinousVerificationProps } from './types'
 import {
   baseLineOptions,
@@ -57,7 +57,7 @@ export function ContinousVerificationInputSetStep(
 
   return (
     <FormikForm>
-      {checkIfRunTimeInput(template?.spec?.monitoredServiceRef) && (
+      {hasVerifyStepRuntimeInput(template) && (
         <RunTimeMonitoredService
           serviceIdentifier={serviceIdentifier}
           envIdentifier={envIdentifier}

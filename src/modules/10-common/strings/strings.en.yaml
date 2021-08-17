@@ -512,3 +512,5 @@ plans:
   title: Upgrade to get the most out of Harness
   featureComparison: Show All Feature Comparison
   faq: View Pricing FAQs
+azure: Azure
+aws: AWS

@@ -13,7 +13,7 @@ enablingAuthorization: Enabling Authorization
 enablingAuthorizationDescription: To set up SAML authorization in Harness, you link a Harness User Group to a user group in {{ selectedSAMLProvider }}. When a user from {{ selectedSAMLProvider }} logs into Harness, they are automatically added to the linked Harness User Group, and inherit all the RBAC settings for that User Group.
 testingSSO: Testing SSO
 testingSSODescription: A new browser tab will prompt you to log into your SAML provider when you test. Ensure that you have at least two corresponding user accounts when setting up and testing SAML SSO in Harness. This allows you to set up the account with a Harness Administrator account and test it with a Harness user account.
-azure: Azure
+azure: '{{ $.common.azure }}'
 okta: Okta
 oneLogin: OneLogin
 samlProviderAddedSuccessfully: SAML provider added successfully

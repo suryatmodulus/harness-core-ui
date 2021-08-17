@@ -202,7 +202,7 @@ manifestTypeLabels:
   OpenshiftTemplate: Openshift Template
   OpenshiftParam: Openshift Param
 manifestToConnectorLabelMap:
-  AWSLabel: AWS
+  AWSLabel: '{{ $.common.aws }}'
   GCPLabel: GCP
 failureStrategies:
   performAction: '{{ $.common.performAction }}'

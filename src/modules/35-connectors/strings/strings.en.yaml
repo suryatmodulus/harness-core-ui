@@ -52,6 +52,7 @@ ifReq: if required.
 selectConnector: Select Connector
 showInstructions: Show instructions
 apiKey: '{{$.common.apikey}}'
+costVisibility: Cost Visibility
 delegateInClusterInfo: 'Use the credentials of a specific Harness Delegate (IAM role, service account, etc)'
 title:
   k8sCluster: 'Kubernetes Cluster'
@@ -442,14 +443,20 @@ ceAws:
     subHeading:
       'Harness uses the secure cross-account role to access your AWS account. The role includes a restricted policy to
       access the cost and usage reports and resources for the sole purpose of cost analysis and cost optimization'
-    description:
-      'Select the Cloud Cost Management features you would like to use on the AWS account. Each requires specific
-      permissions to the cross account role (optional)'
+    description: 'Select the Cloud Cost Management features you would like to use on the AWS account.'
+    info: (AWS cost Visibility is available by default. Select the others as per your requirements)
     cost: 'Cost'
     visibility: '{{ $.common.ce.visibility }}'
     optimization: '{{ $.common.ce.optimization }}'
     visibilityDes: '{{ $.connectors.ceAzure.chooseRequirements.visibilityCardDesc }}'
     optimizationDes: '{{ $.connectors.ceAzure.chooseRequirements.optimizationCardDesc }}'
+    visible:
+      feat1: AWS costs by services, accounts, etc.
+      footer: from Cost and Usage Report
+    optimize:
+      feat1: Orchestrate VMs and ASGs based on idleness
+      prefix: AWS OPTIMIZATION BY
+      footer: to IAM role
   crossAccountRoleStep2:
     heading: ' {{$.connectors.ceAws.crossAccountRoleStep1.heading}} '
     createRole: 'Create Role'
@@ -552,9 +559,25 @@ ceAzure:
   chooseRequirements:
     heading: Choose Required Permissions
     subHeading: Harness uses Multitenant app to sync billing export data from source storage account to Harness. Create a service principal for this app in your Azure account and assign read permissions on that particular storage account.
-    featureDesc: Select the Cloud Cost Management features you would like to use on the Azure account.
+    featureDesc: Select the Cloud Cost Management features that you would like to enable.
+    info: (Azure cost Visibility is available by default. Select the other option as per your requirements)
     visibilityCardDesc: Cost insights, anomaly detection, service insights, creating budgets perspectives and alerts, utilised/wasted resources in clusters.
     optimizationCardDesc: Detection of orphaned resources, recommendations to save costs, scaling/tearing down, turning off in non-work hours, reserving instances.
+    visibility:
+      feat1: Azure costs by services, accounts, etc.
+      feat2: Cost perspective by various constructs
+      feat3: Cost anomaly detection
+      feat4: Budgets and forecasts
+      feat5: Email and Slack alerts
+      footer: from Billing export
+    optimization:
+      feat1: Orchestrate VMs based on idleness
+      feat2: Set dependencies between VMs
+      feat3: Granular savings visibility
+      feat4: Simple one-time setup
+      prefix: AZURE OPTIMIZATION BY
+      footer1: by adding
+      footer2: to SP
   servicePrincipal:
     heading: '{{ $.connectors.ceAzure.steps.servicePrincipal }}'
     subHeading: Create service principal and assign permissions by running the following commands in bash terminal or in Azure cloud shell
@@ -615,11 +638,11 @@ ceGcp:
 ceK8S:
   chooseRequirements:
     heading: '{{ $.connectors.ceAzure.steps.requirements }}'
-    subheading: 'Select the Cloud Cost Management features that you would like to enable.'
+    subheading: '{{ $.connectors.ceAzure.chooseRequirements.featureDesc }}'
     description: '(Deep Kubernetes cost Visibility is selected by default. Select the other option to enable Intelligent Cloud AutoStopping for Kubernetes)'
     visibility:
       heading: 'DEEP KUBERNETES'
-      subheading: 'Cost Visibility'
+      subheading: '{{ $.connectors.costVisibility }}'
       description: '<ul><li>Costs by pods, nodes, namespaces, workloads </li><li> Idle and unallocated cluster costs</li><li> Cost anomaly detection</li><li> Workload recommendations</li><li> Node recommendations</li><li> Budgets and alerts</li></ul>'
     optimization:
       heading: 'KUBERNETES OPTIMIZATION BY'

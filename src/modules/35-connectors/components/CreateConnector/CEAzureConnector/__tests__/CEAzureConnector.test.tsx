@@ -294,8 +294,9 @@ describe('Create Azure connector Wizard', () => {
       clickSubmit(container)
     })
 
-    // Choose requirement page is rendered
-    expect(getByText('connectors.ceAzure.chooseRequirements.optimizationCardDesc')).toBeDefined()
+    // Choose requirement page and both feature cards are rendered
+    expect(getByText('connectors.ceAzure.chooseRequirements.visibility.feat1')).toBeDefined()
+    expect(getByText('connectors.ceAzure.chooseRequirements.optimization.feat1')).toBeDefined()
     expect(container).toMatchSnapshot()
 
     const fc = container.querySelector('.bp3-card')

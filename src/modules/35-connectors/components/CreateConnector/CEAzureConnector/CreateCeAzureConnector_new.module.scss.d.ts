@@ -12,7 +12,7 @@ declare const styles: {
   readonly info: string
   readonly launchTemplateSection: string
   readonly infobox: string
-  readonly mtbxxlarge: string
+  readonly mtblarge: string
   readonly grid: string
   readonly submitBtn: string
   readonly commandsContainer: string
@@ -28,5 +28,8 @@ declare const styles: {
   readonly btnCtn: string
   readonly instructionBtn: string
   readonly existingBeTable: string
+  readonly featureCard: string
+  readonly features: string
+  readonly footer: string
 }
 export default styles

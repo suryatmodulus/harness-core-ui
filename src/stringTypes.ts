@@ -30,6 +30,8 @@ export interface StringsMap {
   'common.approve': string
   'common.artifactTag': string
   'common.at': string
+  'common.aws': string
+  'common.azure': string
   'common.banners.email.description': string
   'common.banners.email.resend': string
   'common.banners.email.success': string
@@ -1007,11 +1009,17 @@ export interface StringsMap {
   'connectors.ceAws.crossAccountRoleStep1.cost': string
   'connectors.ceAws.crossAccountRoleStep1.description': string
   'connectors.ceAws.crossAccountRoleStep1.heading': string
+  'connectors.ceAws.crossAccountRoleStep1.info': string
   'connectors.ceAws.crossAccountRoleStep1.optimization': string
   'connectors.ceAws.crossAccountRoleStep1.optimizationDes': string
+  'connectors.ceAws.crossAccountRoleStep1.optimize.feat1': string
+  'connectors.ceAws.crossAccountRoleStep1.optimize.footer': string
+  'connectors.ceAws.crossAccountRoleStep1.optimize.prefix': string
   'connectors.ceAws.crossAccountRoleStep1.subHeading': string
   'connectors.ceAws.crossAccountRoleStep1.visibility': string
   'connectors.ceAws.crossAccountRoleStep1.visibilityDes': string
+  'connectors.ceAws.crossAccountRoleStep1.visible.feat1': string
+  'connectors.ceAws.crossAccountRoleStep1.visible.footer': string
   'connectors.ceAws.crossAccountRoleStep2.createRole': string
   'connectors.ceAws.crossAccountRoleStep2.dontHaveAccess': string
   'connectors.ceAws.crossAccountRoleStep2.extId': string
@@ -1121,8 +1129,22 @@ export interface StringsMap {
   'connectors.ceAzure.billing.tooltipInstruction': string
   'connectors.ceAzure.chooseRequirements.featureDesc': string
   'connectors.ceAzure.chooseRequirements.heading': string
+  'connectors.ceAzure.chooseRequirements.info': string
+  'connectors.ceAzure.chooseRequirements.optimization.feat1': string
+  'connectors.ceAzure.chooseRequirements.optimization.feat2': string
+  'connectors.ceAzure.chooseRequirements.optimization.feat3': string
+  'connectors.ceAzure.chooseRequirements.optimization.feat4': string
+  'connectors.ceAzure.chooseRequirements.optimization.footer1': string
+  'connectors.ceAzure.chooseRequirements.optimization.footer2': string
+  'connectors.ceAzure.chooseRequirements.optimization.prefix': string
   'connectors.ceAzure.chooseRequirements.optimizationCardDesc': string
   'connectors.ceAzure.chooseRequirements.subHeading': string
+  'connectors.ceAzure.chooseRequirements.visibility.feat1': string
+  'connectors.ceAzure.chooseRequirements.visibility.feat2': string
+  'connectors.ceAzure.chooseRequirements.visibility.feat3': string
+  'connectors.ceAzure.chooseRequirements.visibility.feat4': string
+  'connectors.ceAzure.chooseRequirements.visibility.feat5': string
+  'connectors.ceAzure.chooseRequirements.visibility.footer': string
   'connectors.ceAzure.chooseRequirements.visibilityCardDesc': string
   'connectors.ceAzure.existingExports.createNewExportBtn': string
   'connectors.ceAzure.existingExports.instruction': string
@@ -1209,6 +1231,7 @@ export interface StringsMap {
   'connectors.connectorDetails': string
   'connectors.connectorDetailsHeader': string
   'connectors.connectorNotFound': string
+  'connectors.costVisibility': string
   'connectors.createFromYaml': string
   'connectors.createNewConnector': string
   'connectors.createdSuccessfully': string

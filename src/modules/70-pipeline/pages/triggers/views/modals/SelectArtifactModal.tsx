@@ -74,8 +74,6 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
-
-  // const pathId = getPathString(runtimeData, selectedStage)
   return (
     <Dialog
       className={`${css.selectArtifactModal} padded-dialog`}

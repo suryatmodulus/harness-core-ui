@@ -21,7 +21,8 @@ import {
   GetSchemaYaml,
   updateTriggerMockResponseYaml,
   enabledFalseUpdateTriggerMockResponseYaml,
-  GetCustomTriggerWithVariablesResponse
+  GetCustomTriggerWithVariablesResponse,
+  GetManifestTriggerResponse
 } from './webhookMockResponses'
 
 import {
@@ -688,6 +689,70 @@ describe('TriggersWizardPage Triggers tests', () => {
       expect(getByDisplayValue('default')).toBeDefined()
       expect(getByText('var3withDefault')).toBeDefined()
       // Need to ensure var1: 123 and var3withDefault shows var1 as deafult
+    })
+  })
+
+  describe('Manifest Trigger Tests', () => {
+    test('throws validation error when select artifact/manifest is not added', async () => {
+      jest.spyOn(cdng, 'useGetConnector').mockReturnValue(ConnectorResponse as UseGetReturn<any, any, any, any>)
+
+      jest.spyOn(pipelineNg, 'useGetSchemaYaml').mockImplementation(() => {
+        return {
+          data: GetSchemaYaml as any,
+          refetch: jest.fn(),
+          error: null,
+          loading: false,
+          absolutePath: '',
+          cancel: jest.fn(),
+          response: null
+        }
+      })
+
+      jest
+        .spyOn(pipelineNg, 'useGetGitTriggerEventDetails')
+        .mockReturnValue(GetManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+
+      jest
+        .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
+        .mockReturnValue(GetInputSetsResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetPipeline').mockReturnValue(GetPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTemplateFromPipeline')
+        .mockReturnValue(GetTemplateFromPipelineResponse as UseGetReturn<any, any, any, any>)
+      jest
+        .spyOn(pipelineNg, 'useGetTrigger')
+        .mockReturnValue(GetManifestTriggerResponse as UseGetReturn<any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useGetMergeInputSetFromPipelineTemplateWithListInput').mockReturnValue({
+        mutate: jest.fn().mockReturnValue(GetMergeInputSetFromPipelineTemplateWithListInputResponse) as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      jest.spyOn(pipelineNg, 'useUpdateTrigger').mockReturnValue({
+        mutate: mockUpdate as unknown
+      } as UseMutateReturn<any, any, any, any, any>)
+      const { container } = render(<WrapperComponent />)
+      await waitFor(() => expect(() => queryByText(document.body, 'Loading, please wait...')).toBeDefined())
+      await waitFor(() =>
+        expect(() =>
+          queryByText(
+            document.body,
+            result.current.getString('pipeline.triggers.triggerConfigurationPanel.listenOnNewWebhook')
+          )
+        ).not.toBeNull()
+      )
+      const tab3 = container.querySelector('[data-tab-id="Pipeline Input"]')
+
+      if (!tab3) {
+        throw Error('No Pipeline Input tab')
+      }
+
+      expect(container).toMatchSnapshot()
+      await waitFor(() =>
+        expect(() =>
+          queryByText(
+            document.body,
+            result.current.getString('pipeline.triggers.artifactTriggerConfigPanel.noSelectableArtifactsFound')
+          )
+        ).toBeDefined()
+      )
     })
   })
 

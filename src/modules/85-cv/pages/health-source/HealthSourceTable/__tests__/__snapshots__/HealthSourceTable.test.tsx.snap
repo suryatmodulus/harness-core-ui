@@ -208,7 +208,7 @@ exports[`HealthSource table check delete and edit row 1`] = `
     class="drawerlink"
   >
     <a
-      href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/edit/undefined"
+      href="/account/1234_accountId/undefined/orgs/1234_org/projects/1234_project/monitoringservices/edit/undefined"
     >
       + 
       cv.healthSource.addHealthSource

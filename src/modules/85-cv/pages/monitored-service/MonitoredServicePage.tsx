@@ -4,15 +4,12 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-//import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import MonitoredService from './component/MonitoredService'
 import { MonitoringServicesHeader } from './monitoredService.styled'
 
 function MonitoredServicePage(): JSX.Element {
   const { getString } = useStrings()
-  //const { selectedProject } = useAppStore()
-  //const project = selectedProject
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const isEdit = !!params.identifier
   return (

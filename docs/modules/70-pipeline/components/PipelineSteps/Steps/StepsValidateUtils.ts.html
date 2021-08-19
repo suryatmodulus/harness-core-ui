@@ -495,8 +495,7 @@
 <a name='L436'></a><a href='#L436'>436</a>
 <a name='L437'></a><a href='#L437'>437</a>
 <a name='L438'></a><a href='#L438'>438</a>
-<a name='L439'></a><a href='#L439'>439</a>
-<a name='L440'></a><a href='#L440'>440</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">32x</span>
+<a name='L439'></a><a href='#L439'>439</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">32x</span>
@@ -507,10 +506,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
@@ -522,30 +519,31 @@
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -912,7 +910,7 @@
 <span class="cline-any cline-yes">903x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">148x</span>
+<span class="cline-any cline-yes">150x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -944,6 +942,7 @@ import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
+import { regexIdentifier } from '@common/utils/StringUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { IdentifierSchemaWithoutHook, NameSchemaWithoutHook } from '@common/utils/Validation'
 &nbsp;
@@ -983,8 +982,6 @@ type Dependencies = { [key: string]: any }
 interface GenerateSchemaDependencies extends Dependencies {
   getString: UseStringsReturn['getString']
 }
-&nbsp;
-const validIdRegex = /^(?![0-9])[0-9a-zA-Z_]*$/
 &nbsp;
 function generateSchemaForIdentifier({
   initialValues,
@@ -1121,7 +1118,7 @@ function generateSchemaForMap(
     // We can't add validation for key uniqueness and key's value
     return yup.mixed().test('validKeys', getString('validation.validKeyRegex'), map =&gt; {
       <span class="missing-if-branch" title="else path not taken" >E</span>if (!map) return true
-<span class="cstat-no" title="statement not covered" >      return Object.keys(map).every(<span class="fstat-no" title="function not covered" >key </span>=&gt; <span class="cstat-no" title="statement not covered" >validIdRegex.test(key))</span></span>
+<span class="cstat-no" title="statement not covered" >      return Object.keys(map).every(<span class="fstat-no" title="function not covered" >key </span>=&gt; <span class="cstat-no" title="statement not covered" >regexIdentifier.test(key))</span></span>
     })
   } else {
     return yup.lazy(value =&gt; {
@@ -1135,7 +1132,7 @@ function generateSchemaForMap(
                   is: val =&gt; val?.length,
                   then: yup
                     .string()
-                    .matches(validIdRegex, getString('validation.validKeyRegex'))
+                    .matches(regexIdentifier, getString('validation.validKeyRegex'))
                     .required(getString('validation.keyRequired'))
                 }),
                 value: yup.string().when('key', {
@@ -1178,7 +1175,7 @@ function generateSchemaForOutputVariables(
         yup.lazy(<span class="fstat-no" title="function not covered" >val </span>=&gt;
 <span class="cstat-no" title="statement not covered" >          getMultiTypeFromValue(val as string) === MultiTypeInputType.FIXED</span>
             ? yup.object().shape({
-                name: yup.string().matches(validIdRegex, getString('validation.validOutputVariableRegex'))
+                name: yup.string().matches(regexIdentifier, getString('validation.validOutputVariableRegex'))
               })
             : yup.string()
         )
@@ -1197,7 +1194,7 @@ function generateSchemaForOutputVariables(
               yup.object().shape({
                 value: yup.lazy(val =&gt;
                   getMultiTypeFromValue(val as string) === MultiTypeInputType.FIXED
-                    ? yup.string().matches(validIdRegex, getString('validation.validOutputVariableRegex'))
+                    ? yup.string().matches(regexIdentifier, getString('validation.validOutputVariableRegex'))
                     : <span class="branch-1 cbranch-no" title="branch not covered" >yup.string()</span>
                 )
               })
@@ -1381,7 +1378,7 @@ export function validateInputSet(
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 19 2021 07:31:11 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 19 2021 09:14:31 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

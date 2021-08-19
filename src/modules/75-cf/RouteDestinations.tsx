@@ -77,8 +77,10 @@ import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 
-import './pages/pipeline-studio/views/FeatureFlagStage'
-import './components/PipelineSteps/index'
+// temporarily disabled until feature flag ready
+// import './pages/pipeline-studio/views/FeatureFlagStage'
+// import './components/PipelineSteps/index'
+
 import CFTrialHomePage from './pages/home/CFTrialHomePage'
 import CFPipelineDeploymentList from './pages/pipeline-deployment-list/CFPipelineDeploymentList'
 import { CFPipelineContainer } from './pages/pipeline-studio/CFPipelineContainer'

@@ -469,19 +469,6 @@ const routes = {
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps & ModulePathParams>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
-  /*toProjectOverview2: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
-      const path = `/dashboard`
-      return getScopeBasedRoute({
-        scope: {
-          orgIdentifier,
-          projectIdentifier,
-          module
-        },
-        path
-      })
-    }
-  ),*/
   toDeployments: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/deployments`
@@ -932,7 +919,6 @@ const routes = {
 
   toCVMonitoringServices: withAccountId(
     ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
-      console.log('module: ', module)
       return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
     }
   ),

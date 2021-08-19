@@ -43,7 +43,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
   const history = useHistory()
   //const { selectedProject } = useAppStore()
   const { showError, clear } = useToaster()
-  //const project = selectedProject
+  ////const project = selectedProject
   const params = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState<SelectOption>()

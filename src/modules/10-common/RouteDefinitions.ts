@@ -466,9 +466,22 @@ const routes = {
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
   toProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps & ModulePathParams>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
+  /*toProjectOverview2: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: Partial<ProjectPathProps & ModulePathParams>) => {
+      const path = `/dashboard`
+      return getScopeBasedRoute({
+        scope: {
+          orgIdentifier,
+          projectIdentifier,
+          module
+        },
+        path
+      })
+    }
+  ),*/
   toDeployments: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/deployments`
@@ -886,7 +899,7 @@ const routes = {
   ),
   toCVProjectOverview: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
+      `cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCVDeploymentPage: withAccountId(
     ({
@@ -916,18 +929,27 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
   ),
+
   toCVMonitoringServices: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
+    ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
+      console.log('module: ', module)
+      return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
+    }
   ),
   toCVAddMonitoringServicesSetup: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { identifier: string }>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/setup`
   ),
   toCVAddMonitoringServicesEdit: withAccountId(
-    ({ projectIdentifier, orgIdentifier, identifier }: Partial<ProjectPathProps & { identifier: string }>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      identifier,
+      module
+    }: Partial<ProjectPathProps & { identifier: string; module: string }>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
   ),
+
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`

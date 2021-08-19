@@ -156,7 +156,7 @@ export default (
     <RouteWithLayout
       exact
       sidebarProps={CVSideNavProps}
-      path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps })}
+      path={routes.toCVMonitoringServices({ ...accountPathProps, ...projectPathProps, module: ':module(cv)' })}
     >
       <CVMonitoredServiceListingPage />
     </RouteWithLayout>
@@ -165,7 +165,12 @@ export default (
       sidebarProps={CVSideNavProps}
       path={[
         routes.toCVAddMonitoringServicesSetup({ ...accountPathProps, ...projectPathProps }),
-        routes.toCVAddMonitoringServicesEdit({ ...accountPathProps, ...projectPathProps, identifier: ':identifier' })
+        routes.toCVAddMonitoringServicesEdit({
+          ...accountPathProps,
+          ...projectPathProps,
+          identifier: ':identifier',
+          module: ':module(cv)'
+        })
       ]}
     >
       <MonitoredServicePage />

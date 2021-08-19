@@ -14,7 +14,6 @@ const MonitoringServicesHeader = styled.div`
     font-size: 24px;
     line-height: 32px;
     margin-top: 3px;
-    color: var(--black) !important;
     text-transform: capitalize;
   }
 `

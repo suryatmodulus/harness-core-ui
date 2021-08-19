@@ -13,10 +13,15 @@ import DashboardResourceModalBody from '@dashboards/components/DashboardResource
 import DashboardResourceRenderer from '@dashboards/components/DashboardResourceRenderer/DashboardResourceRenderer'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { String } from 'framework/strings'
+import { HomeSideNavProps } from '@common/RouteDestinations'
 
+import LandingDashboardPage from '@dashboards/pages/LandingDashboardPage/LandingDashboardPage'
+import { ModuleName } from 'framework/types/ModuleName'
 import HomePage from './pages/home/HomePage'
 import FoldersPage from './pages/folders/FoldersPage'
 import DashboardViewPage from './pages/dashboardView/DashboardView'
+import LandingDashboardFactory from './factories/LandingDashboardFactory'
+import LandingDashboardSummaryWidget from './components/LandingDashboardSummaryWidget/LandingDashboardSummaryWidget'
 
 const RedirectToHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -44,8 +49,18 @@ RbacFactory.registerResourceTypeHandler(ResourceType.DASHBOARDS, {
   staticResourceRenderer: props => <DashboardResourceRenderer {...props} />
 })
 
+LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.COMMON, {
+  label: 'dashboards.landingDashboard.atAGlance',
+  // eslint-disable-next-line react/display-name
+  moduleDashboardRenderer: () => <LandingDashboardSummaryWidget />
+})
+
 export default (
   <>
+    <RouteWithLayout sidebarProps={HomeSideNavProps} path={routes.toLandingDashboard({ ...accountPathProps })} exact>
+      <LandingDashboardPage />
+    </RouteWithLayout>
+
     <Route path={routes.toCustomDashboard({ ...accountPathProps })} exact>
       <RedirectToHome />
     </Route>

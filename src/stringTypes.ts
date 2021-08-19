@@ -1557,6 +1557,7 @@ export interface StringsMap {
   'dashboards.homePage.noFolderAvailable': string
   'dashboards.homePage.noTags': string
   'dashboards.homePage.searchPlaceholder': string
+  'dashboards.landingDashboard.atAGlance': string
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string

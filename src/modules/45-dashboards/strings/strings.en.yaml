@@ -47,3 +47,5 @@ getStarted:
   subTextVideo2: 'Learn how to specify conditions in your data that, when met or exceeded, trigger a notification to be sent to desired frequency of specific recipients'
   video3Title: 'Share Dashboards'
   subTextVideo3: 'Learn how to send dashboards in a variety of formats to email, FTP and other destinations'
+landingDashboard:
+  atAGlance: At a Glance

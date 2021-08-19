@@ -60,7 +60,6 @@ import GitSyncPage from '@gitsync/pages/GitSyncPage'
 import GitSyncRepoTab from '@gitsync/pages/repos/GitSyncRepoTab'
 import ServiceAccountDetails from '@rbac/pages/ServiceAccountDetails/ServiceAccountDetails'
 import ServiceAccountsPage from '@rbac/pages/ServiceAccounts/ServiceAccounts'
-
 const ProjectDetailsSideNavProps: SidebarContext = {
   navComponent: ProjectDetailsSideNav,
   icon: 'harness',

@@ -20,13 +20,23 @@ import { TriggersListSection, GoToEditWizardInterface } from './TriggersListSect
 
 import { TriggerTypes } from '../utils/TriggersWizardPageUtils'
 import { getCategoryItems, ItemInterface, TriggerDataInterface } from '../utils/TriggersListUtils'
+import { isGeneralStoreAccount, isProduction, isQA, isValidQAAccount } from './TriggerHelper'
+
 import css from './TriggersList.module.scss'
 
 interface TriggersListPropsInterface {
   onNewTriggerClick: (val: TriggerDataInterface) => void
 }
-// This is temporary feature flag for NewArtifact Trigger
-const NG_NEWARTIFACT_TRIGGER = (false && window.location.href.includes('localhost')) || false
+
+const canEnableManifestTrigger = (accountId: string) => {
+  if (isProduction()) {
+    return isGeneralStoreAccount(accountId)
+  } else if (isQA()) {
+    return isValidQAAccount(accountId)
+  }
+  return false
+}
+
 export default function TriggersList(props: TriggersListPropsInterface & GitQueryParams): JSX.Element {
   const { onNewTriggerClick, repoIdentifier, branch } = props
 
@@ -38,6 +48,8 @@ export default function TriggersList(props: TriggersListPropsInterface & GitQuer
       pipelineIdentifier: string
     }>
   >()
+  // This is temporary feature flag for NewArtifact Trigger
+  const NG_NEWARTIFACT_TRIGGER = canEnableManifestTrigger(accountId)
 
   const [searchParam, setSearchParam] = useState('')
   const { getString } = useStrings()

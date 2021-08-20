@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.16% </span>
+                <span class="strong">88.31% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>67/76</span>
+                <span class='fraction'>68/77</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.19% </span>
+                <span class="strong">89.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/74</span>
+                <span class='fraction'>67/75</span>
             </div>
         
             
@@ -335,7 +335,14 @@
 <a name='L276'></a><a href='#L276'>276</a>
 <a name='L277'></a><a href='#L277'>277</a>
 <a name='L278'></a><a href='#L278'>278</a>
-<a name='L279'></a><a href='#L279'>279</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L279'></a><a href='#L279'>279</a>
+<a name='L280'></a><a href='#L280'>280</a>
+<a name='L281'></a><a href='#L281'>281</a>
+<a name='L282'></a><a href='#L282'>282</a>
+<a name='L283'></a><a href='#L283'>283</a>
+<a name='L284'></a><a href='#L284'>284</a>
+<a name='L285'></a><a href='#L285'>285</a>
+<a name='L286'></a><a href='#L286'>286</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -349,6 +356,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -430,6 +438,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -471,6 +483,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -482,6 +498,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -587,10 +605,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -630,6 +644,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { ActiveServiceInstancePopover } from '@cd/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstancePopover'
 import MostActiveServicesEmptyState from '@cd/icons/MostActiveServicesEmptyState.svg'
+import { numberFormatter } from '@cd/components/Services/common'
 import css from '@cd/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstances.module.scss'
 &nbsp;
 const TOTAL_VISIBLE_BUILDS = 5
@@ -699,7 +714,11 @@ const RenderEnvironment: Renderer&lt;CellProps&lt;TableRowData&gt;&gt; = ({
 }) =&gt; {
   return showEnvName ? (
     &lt;Container className={css.paddedContainer}&gt;
-      &lt;Text className={css.environmentRow} font={{ size: 'small', weight: 'bold' }} color={Color.WHITE}&gt;
+      &lt;Text
+        className={cx(css.environmentRow, css.overflow)}
+        font={{ size: 'small', weight: 'bold' }}
+        color={Color.WHITE}
+      &gt;
         {envName}
       &lt;/Text&gt;
     &lt;/Container&gt;
@@ -716,7 +735,7 @@ const RenderBuildName: Renderer&lt;CellProps&lt;TableRowData&gt;&gt; = ({
 }) =&gt; {
   const { getString } = useStrings()
   const component = buildId ? (
-    &lt;Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_800}&gt;
+    &lt;Text font={{ size: 'small', weight: 'semi-bold' }} className={css.overflow} color={Color.GREY_800}&gt;
       {buildId}
     &lt;/Text&gt;
   ) : (
@@ -727,7 +746,7 @@ const RenderBuildName: Renderer&lt;CellProps&lt;TableRowData&gt;&gt; = ({
       className={css.seeMore}
       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >(column as any)?.expandBuilds?.(envId)}</span>
     &gt;
-      {getString('cd.serviceDashboard.seeMore', { count: remainingCount })}
+      {getString('cd.serviceDashboard.seeMore', { count: numberFormatter(remainingCount) })}
     &lt;/Text&gt;
   )
   return &lt;Container className={css.paddedContainer}&gt;{component}&lt;/Container&gt;
@@ -740,8 +759,12 @@ const RenderInstanceCount: Renderer&lt;CellProps&lt;TableRowData&gt;&gt; = ({
 }) =&gt; {
   return instanceCount ? (
     &lt;Container className={css.paddedContainer}&gt;
-      &lt;Text font={{ size: 'xsmall', weight: 'bold' }} background={Color.GREY_100} className={css.instanceCount}&gt;
-        {instanceCount}
+      &lt;Text
+        font={{ size: 'xsmall', weight: 'bold' }}
+        background={Color.GREY_100}
+        className={cx(css.instanceCount, css.overflow)}
+      &gt;
+        {numberFormatter(instanceCount)}
       &lt;/Text&gt;
     &lt;/Container&gt;
   ) : (
@@ -771,9 +794,11 @@ const RenderInstances: Renderer&lt;CellProps&lt;TableRowData&gt;&gt; = ({
           &lt;/Popover&gt;
         ))}
       {instanceCount &gt; TOTAL_VISIBLE_INSTANCES ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_600} margin={{ left: 'xsmall' }}&gt;{`+${</span>
-          instanceCount - TOTAL_VISIBLE_INSTANCES
-        }`}&lt;/Text&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Text</span>
+          font={{ size: 'small', weight: 'semi-bold' }}
+          color={Color.GREY_600}
+          margin={{ left: 'xsmall' }}
+        &gt;{`+${numberFormatter(instanceCount - TOTAL_VISIBLE_INSTANCES)}`}&lt;/Text&gt;
       ) : (
         &lt;&gt;&lt;/&gt;
       )}
@@ -874,11 +899,7 @@ export const ActiveServiceInstancesContent: React.FC = () =&gt; {
           &lt;Container margin={{ bottom: 'medium' }}&gt;
             &lt;img width="50" height="50" src={MostActiveServicesEmptyState} style={{ alignSelf: 'center' }} /&gt;
           &lt;/Container&gt;
-          &lt;Text color={Color.GREY_400}&gt;
-            {getString('cd.serviceDashboard.noDeployments', {
-              timeRange: getString('cd.serviceDashboard.month')
-            })}
-          &lt;/Text&gt;
+          &lt;Text color={Color.GREY_400}&gt;{getString('cd.serviceDashboard.noActiveServiceInstances')}&lt;/Text&gt;
         &lt;/Layout.Vertical&gt;
       )
     })()
@@ -898,7 +919,7 @@ export const ActiveServiceInstancesContent: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 20 2021 08:43:55 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 20 2021 09:46:29 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

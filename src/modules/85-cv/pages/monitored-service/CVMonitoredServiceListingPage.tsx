@@ -11,7 +11,6 @@ import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
-import { ModuleName } from 'framework/types/ModuleName'
 import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import {
   useListMonitoredService,
@@ -108,7 +107,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 projectIdentifier: params.projectIdentifier,
                 orgIdentifier: params.orgIdentifier,
                 identifier: rowdata.identifier,
-                module: ModuleName.CV
+                module: 'cv'
               })
             )
           }}

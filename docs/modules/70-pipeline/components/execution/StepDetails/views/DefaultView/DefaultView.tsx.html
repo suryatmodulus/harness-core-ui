@@ -140,7 +140,8 @@
 <a name='L81'></a><a href='#L81'>81</a>
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
-<a name='L84'></a><a href='#L84'>84</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L84'></a><a href='#L84'>84</a>
+<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,9 +224,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { merge } from 'lodash-es'
-import { Tabs } from '@blueprintjs/core'
+import { Tabs, Tab } from '@wings-software/uicore'
 &nbsp;
 import { useStrings } from 'framework/strings'
 import { isExecutionWaitingForIntervention } from '@pipeline/utils/statusHelpers'
@@ -265,45 +267,46 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
   }, [step.identifier, isManualInterruption])
 &nbsp;
   return (
-    &lt;Tabs
-      id="step-details"
-      className={css.tabs}
-      selectedTabId={activeTab}
-      onChange={<span class="fstat-no" title="function not covered" >newTab </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >        manuallySelected.current = true</span>
-<span class="cstat-no" title="statement not covered" >        setActiveTab(newTab as StepDetailTab)</span>
-      }}
-      renderActiveTabPanelOnly
-    &gt;
-      &lt;Tabs.Tab id={StepDetailTab.STEP_DETAILS} title={getString('details')} panel={&lt;StepDetailsTab step={step} /&gt;} /&gt;
-      {shouldShowInputOutput &amp;&amp; (
-        &lt;Tabs.Tab
-          id={StepDetailTab.INPUT}
-          title={getString('common.input')}
-          panel={&lt;InputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} /&gt;}
-        /&gt;
-      )}
-      {shouldShowInputOutput &amp;&amp; (
-        &lt;Tabs.Tab
-          id={StepDetailTab.OUTPUT}
-          title={getString('outputLabel')}
-          panel={
-            &lt;InputOutputTab
-              baseFqn={step.baseFqn}
-              mode="output"
-              data={Array.isArray(step.outcomes) ? <span class="branch-0 cbranch-no" title="branch not covered" >{ output: merge({}, ...step.outcomes) } </span>: step.outcomes}
-            /&gt;
-          }
-        /&gt;
-      )}
-      {isManualInterruption ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Tabs.Tab</span>
-          id={StepDetailTab.MANUAL_INTERVENTION}
-          title={getString('pipeline.failureStrategies.strategiesLabel.ManualIntervention')}
-          panel={&lt;ManualInterventionTab step={step} allowedStrategies={failureStrategies} /&gt;}
-        /&gt;
-      ) : null}
-    &lt;/Tabs&gt;
+    &lt;div className={css.tabs}&gt;
+      &lt;Tabs
+        id="step-details"
+        selectedTabId={activeTab}
+        onChange={<span class="fstat-no" title="function not covered" >newTab </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >          manuallySelected.current = true</span>
+<span class="cstat-no" title="statement not covered" >          setActiveTab(newTab as StepDetailTab)</span>
+        }}
+        renderAllTabPanels={false}
+      &gt;
+        &lt;Tab id={StepDetailTab.STEP_DETAILS} title={getString('details')} panel={&lt;StepDetailsTab step={step} /&gt;} /&gt;
+        {shouldShowInputOutput &amp;&amp; (
+          &lt;Tab
+            id={StepDetailTab.INPUT}
+            title={getString('common.input')}
+            panel={&lt;InputOutputTab baseFqn={step.baseFqn} mode="input" data={step.stepParameters} /&gt;}
+          /&gt;
+        )}
+        {shouldShowInputOutput &amp;&amp; (
+          &lt;Tab
+            id={StepDetailTab.OUTPUT}
+            title={getString('outputLabel')}
+            panel={
+              &lt;InputOutputTab
+                baseFqn={step.baseFqn}
+                mode="output"
+                data={Array.isArray(step.outcomes) ? <span class="branch-0 cbranch-no" title="branch not covered" >{ output: merge({}, ...step.outcomes) } </span>: step.outcomes}
+              /&gt;
+            }
+          /&gt;
+        )}
+        {isManualInterruption ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Tab</span>
+            id={StepDetailTab.MANUAL_INTERVENTION}
+            title={getString('pipeline.failureStrategies.strategiesLabel.ManualIntervention')}
+            panel={&lt;ManualInterventionTab step={step} allowedStrategies={failureStrategies} /&gt;}
+          /&gt;
+        ) : null}
+      &lt;/Tabs&gt;
+    &lt;/div&gt;
   )
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -313,7 +316,7 @@ export function DefaultView(props: StepDetailProps): React.ReactElement {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 20 2021 06:52:03 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 20 2021 08:02:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../../prettify.js"></script>

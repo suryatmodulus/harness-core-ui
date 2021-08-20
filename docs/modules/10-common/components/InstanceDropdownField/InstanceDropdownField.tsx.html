@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.22% </span>
+                <span class="strong">66.2% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>45/69</span>
+                <span class='fraction'>47/71</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.23% </span>
+                <span class="strong">40.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>51/137</span>
+                <span class='fraction'>59/147</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.71% </span>
+                <span class="strong">65.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>44/68</span>
+                <span class='fraction'>46/70</span>
             </div>
         
             
@@ -294,8 +294,25 @@
 <a name='L235'></a><a href='#L235'>235</a>
 <a name='L236'></a><a href='#L236'>236</a>
 <a name='L237'></a><a href='#L237'>237</a>
-<a name='L238'></a><a href='#L238'>238</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">283x</span>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a>
+<a name='L243'></a><a href='#L243'>243</a>
+<a name='L244'></a><a href='#L244'>244</a>
+<a name='L245'></a><a href='#L245'>245</a>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">283x</span>
 <span class="cline-any cline-yes">283x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">283x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -510,6 +527,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
@@ -532,7 +552,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">283x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Button, getMultiTypeFromValue, MultiTextInput, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  Button,
+  FormikTooltipContext,
+  getMultiTypeFromValue,
+  HarnessDocTooltip,
+  MultiTextInput,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import {
   FormGroup,
   HTMLInputProps,
@@ -635,7 +662,7 @@ export function getInstanceDropdownSchema(
 interface InstanceDropdownFieldProps extends Omit&lt;IFormGroupProps, 'label' | 'placeholder'&gt; {
   onChange?: (value: InstanceFieldValue) =&gt; void
   value: InstanceFieldValue
-  label: string
+  label: string | JSX.Element
   expressions: string[]
   allowableTypes?: MultiTypeInputType[]
   disabledType?: boolean
@@ -749,9 +776,12 @@ const FormInstanceDropdownField: React.FC&lt;FormInstanceDropdownFieldProps&gt; 
 &nbsp;
   const value: InstanceFieldValue = get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues, name, { type: InstanceTypes.Instances, spec: { count: 0 } })
 &nbsp;
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId = tooltipContext<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ormName ? `${tooltipContext<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ormName}_${name}` : ''
+&nbsp;
   return (
     &lt;InstanceDropdownField
-      label={label}
+      label={&lt;HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} /&gt;}
       name={name}
       textProps={{ ...textProps }}
       value={value}
@@ -775,7 +805,7 @@ export const FormInstanceDropdown = connect(FormInstanceDropdownField)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 20 2021 06:52:03 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 20 2021 08:02:12 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

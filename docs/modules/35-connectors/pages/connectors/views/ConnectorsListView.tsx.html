@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.19% </span>
+                <span class="strong">64.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>118/181</span>
+                <span class='fraction'>120/185</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.89% </span>
+                <span class="strong">36.13% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>241/636</span>
+                <span class='fraction'>241/667</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.14% </span>
+                <span class="strong">55.56% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>20/35</span>
+                <span class='fraction'>20/36</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.88% </span>
+                <span class="strong">65.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>112/170</span>
+                <span class='fraction'>114/174</span>
             </div>
         
             
@@ -710,7 +710,18 @@
 <a name='L651'></a><a href='#L651'>651</a>
 <a name='L652'></a><a href='#L652'>652</a>
 <a name='L653'></a><a href='#L653'>653</a>
-<a name='L654'></a><a href='#L654'>654</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L654'></a><a href='#L654'>654</a>
+<a name='L655'></a><a href='#L655'>655</a>
+<a name='L656'></a><a href='#L656'>656</a>
+<a name='L657'></a><a href='#L657'>657</a>
+<a name='L658'></a><a href='#L658'>658</a>
+<a name='L659'></a><a href='#L659'>659</a>
+<a name='L660'></a><a href='#L660'>660</a>
+<a name='L661'></a><a href='#L661'>661</a>
+<a name='L662'></a><a href='#L662'>662</a>
+<a name='L663'></a><a href='#L663'>663</a>
+<a name='L664'></a><a href='#L664'>664</a>
+<a name='L665'></a><a href='#L665'>665</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -735,7 +746,7 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -840,6 +851,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -868,6 +888,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1388,7 +1410,7 @@ import { useConfirmationDialog } from '@common/exports'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
+import { StepDetails, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -1497,6 +1519,15 @@ const getK8DisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string 
     : getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>redential<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>asterUrl))
 }
 &nbsp;
+const getAWSSecretManagerSummary = <span class="fstat-no" title="function not covered" >(c</span>onnector: ConnectorInfoDTO): JSX.Element | string =&gt; {
+<span class="cstat-no" title="statement not covered" >  return connector?.spec?.credential?.type !== CredTypeValues.ManualConfig</span>
+    ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
+    : getConnectorDisplaySummaryLabel(
+        'connectors.aws.accessKey',
+        textRenderer(connector?.spec?.credential?.spec?.accessKey)
+      )
+}
+&nbsp;
 const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string =&gt; {
   switch (connector<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -1527,7 +1558,9 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
 <span class="cstat-no" title="statement not covered" >      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.controllerUrl))</span>
 <span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.SPLUNK:</span>
 <span class="cstat-no" title="statement not covered" >      return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.splunkUrl))</span>
-<span class="branch-16 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.AWS_SECRET_MANAGER:</span>
+<span class="cstat-no" title="statement not covered" >      return getAWSSecretManagerSummary(connector)</span>
+<span class="branch-17 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return ''</span>
   }
 }
@@ -2023,7 +2056,7 @@ export default ConnectorsListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 20 2021 08:02:12 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 20 2021 08:43:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

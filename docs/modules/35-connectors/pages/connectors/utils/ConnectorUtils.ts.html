@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.42% </span>
+                <span class="strong">64.08% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>239/371</span>
+                <span class='fraction'>239/373</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.17% </span>
+                <span class="strong">52.11% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>938/1798</span>
+                <span class='fraction'>938/1800</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.56% </span>
+                <span class="strong">59.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>190/319</span>
+                <span class='fraction'>190/321</span>
             </div>
         
             
@@ -1647,7 +1647,11 @@
 <a name='L1588'></a><a href='#L1588'>1588</a>
 <a name='L1589'></a><a href='#L1589'>1589</a>
 <a name='L1590'></a><a href='#L1590'>1590</a>
-<a name='L1591'></a><a href='#L1591'>1591</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">134x</span>
+<a name='L1591'></a><a href='#L1591'>1591</a>
+<a name='L1592'></a><a href='#L1592'>1592</a>
+<a name='L1593'></a><a href='#L1593'>1593</a>
+<a name='L1594'></a><a href='#L1594'>1594</a>
+<a name='L1595'></a><a href='#L1595'>1595</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">134x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">134x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2979,6 +2983,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">134x</span>
@@ -3100,6 +3106,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -4552,21 +4560,23 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
 <span class="cstat-no" title="statement not covered" >      return 'service-jira'</span>
 <span class="branch-20 cbranch-no" title="branch not covered" >    case Connectors.AWS_KMS:</span>
 <span class="cstat-no" title="statement not covered" >      return 'aws-kms'</span>
-<span class="branch-21 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
+<span class="branch-21 cbranch-no" title="branch not covered" >    case Connectors.AWS_SECRET_MANAGER:</span>
+<span class="cstat-no" title="statement not covered" >      return 'aws-secret-manager'</span>
+<span class="branch-22 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-azure'</span>
-<span class="branch-22 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
+<span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-datadog'</span>
-<span class="branch-23 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
+<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-sumologic'</span>
-<span class="branch-24 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
+<span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return 'azure-key-vault'</span>
-<span class="branch-25 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
+<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.DYNATRACE:</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-dynatrace'</span>
-<span class="branch-26 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
+<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.CE_KUBERNETES:</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-kubernetes'</span>
-<span class="branch-27 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
+<span class="branch-28 cbranch-no" title="branch not covered" >    case Connectors.CE_GCP:</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-gcp'</span>
-<span class="branch-28 cbranch-no" title="branch not covered" >    default:</span>
+<span class="branch-29 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return 'cog'</span>
   }
 }
@@ -4675,7 +4685,7 @@ export const getReferredEntityLabelByType = <span class="fstat-no" title="functi
   }
 }
 &nbsp;
-export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']) {
+export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']): string {
   const { getString } = useStrings()
   switch (type) {
     case Connectors.DOCKER:
@@ -4698,21 +4708,23 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.splunk')</span>
 <span class="branch-9 cbranch-no" title="branch not covered" >    case Connectors.VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.vault')</span>
-<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
+<span class="branch-10 cbranch-no" title="branch not covered" >    case Connectors.AWS_SECRET_MANAGER:</span>
+<span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.awsSecretManager')</span>
+<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.BITBUCKET:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.bitbucket')</span>
-<span class="branch-11 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
+<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GITLAB:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.gitlab')</span>
-<span class="branch-12 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
+<span class="branch-13 cbranch-no" title="branch not covered" >    case Connectors.GITHUB:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.github')</span>
     case Connectors.GIT:
       return getString('connectors.testConnectionStep.validationText.git')
-<span class="branch-14 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
+<span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.azure')</span>
-<span class="branch-15 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
+<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.DATADOG:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.datadog')</span>
-<span class="branch-16 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
+<span class="branch-17 cbranch-no" title="branch not covered" >    case Connectors.SUMOLOGIC:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.sumologic')</span>
-<span class="branch-17 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE_KEY_VAULT:</span>
+<span class="branch-18 cbranch-no" title="branch not covered" >    case Connectors.CE_AZURE_KEY_VAULT:</span>
 <span class="cstat-no" title="statement not covered" >      return getString('connectors.testConnectionStep.validationText.azureKeyVault')</span>
     default:
       return ''
@@ -4834,7 +4846,7 @@ export const isSMConnector = (type?: ConnectorInfoDTO['type']): boolean | undefi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 20 2021 08:02:12 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 20 2021 08:43:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

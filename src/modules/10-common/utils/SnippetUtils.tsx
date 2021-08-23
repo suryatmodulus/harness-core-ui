@@ -49,7 +49,8 @@ const entitySubTypeToTagMap: {
   Datadog: 'datadog',
   SumoLogic: 'sumologic',
   Dynatrace: 'dynatrace',
-  AwsSecretManager: 'awssecretmanager'
+  AwsSecretManager: 'awssecretmanager',
+  ArgoConnector: 'argoconnector'
 }
 
 export const getSnippetTags = (

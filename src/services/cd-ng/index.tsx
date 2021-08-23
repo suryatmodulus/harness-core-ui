@@ -844,6 +844,7 @@ export interface ConnectorCatalogueItem {
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'ArgoConnector'
   )[]
 }
 
@@ -955,6 +956,7 @@ export interface ConnectorInfoDTO {
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'ArgoConnector'
 }
 
 export interface ConnectorResponse {
@@ -23165,6 +23167,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'datadog'
     | 'sumologic'
     | 'dynatrace'
+    | 'argoconnector'
   )[]
 }
 

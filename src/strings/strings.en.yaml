@@ -80,7 +80,7 @@ changeHistory: Change History
 entity: Entity
 entities: Entities
 enableGitExperience: Enable Git Experience
-gitExperienceNewUserText: Git Experience allows you to store the Pipeline and other Harness entities in Git with your code. With this method, Git is the single source of truth for all your code and configurations.
+gitExperienceNewUserText: Store your Pipelines and Harness Configurations in Git.
 selectGitProvider: Select your Git Provider
 selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
 lastTested: Last Tested

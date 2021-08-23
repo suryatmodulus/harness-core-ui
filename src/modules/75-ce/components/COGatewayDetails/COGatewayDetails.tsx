@@ -66,7 +66,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           scale_group: props.gatewayDetails.routing.instance.scale_group // eslint-disable-line
         }
       }
-
+      routing.custom_domain_providers = props.gatewayDetails.routing.custom_domain_providers
       const gateway: Service = {
         name: props.gatewayDetails.name,
         org_id: orgIdentifier, // eslint-disable-line
@@ -82,7 +82,8 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
         routing,
         opts: {
           preserve_private_ip: false, // eslint-disable-line
-          always_use_private_ip: false // eslint-disable-line
+          always_use_private_ip: false, // eslint-disable-line
+          access_details: props.gatewayDetails.opts.access_details // eslint-disable-line
         },
         metadata: props.gatewayDetails.metadata,
         disabled: props.gatewayDetails.disabled,
@@ -254,7 +255,7 @@ const COGatewayDetails: React.FC<COGatewayDetailsProps> = props => {
           onClick={() => {
             if (selectedTabId == tabs[0]) trackEvent('VisitedSetupAccessPage', {})
             if (selectedTabId == tabs[1])
-              trackEvent('CompletedSetupAccess', props.gatewayDetails.metadata.access_details || {})
+              trackEvent('CompletedSetupAccess', props.gatewayDetails.opts.access_details || {})
             if (selectedTabId == tabs[2]) trackEvent('AutoStoppingRuleCompleted', {})
             nextTab()
           }}

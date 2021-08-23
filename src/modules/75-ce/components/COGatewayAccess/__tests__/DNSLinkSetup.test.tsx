@@ -139,7 +139,8 @@ const initialGatewayDetails = {
   opts: {
     preservePrivateIP: false,
     deleteCloudResources: false,
-    alwaysUsePrivateIP: false
+    alwaysUsePrivateIP: false,
+    access_details: accessDetails // eslint-disable-line
   },
   provider: {
     name: 'AWS',
@@ -161,8 +162,7 @@ const initialGatewayDetails = {
   ],
   accessPointID: 'mockalbArn',
   metadata: {
-    security_groups: [], // eslint-disable-line
-    access_details: accessDetails // eslint-disable-line
+    // security_groups: [], // eslint-disable-line
   },
   deps: []
 }

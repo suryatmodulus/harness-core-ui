@@ -37,7 +37,8 @@ const initialGatewayDetails = {
   opts: {
     preservePrivateIP: false,
     deleteCloudResources: false,
-    alwaysUsePrivateIP: false
+    alwaysUsePrivateIP: false,
+    access_details: {}
   },
   provider: {
     name: 'Azure',

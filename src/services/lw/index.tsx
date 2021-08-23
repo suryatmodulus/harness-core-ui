@@ -266,6 +266,7 @@ export interface NetworkSecurityGroupForInstanceArray {
 }
 
 export interface Opts {
+  access_details?: { [key: string]: any }
   always_use_private_ip?: boolean
   delete_cloud_resources?: boolean
   preserve_private_ip?: boolean
@@ -343,8 +344,10 @@ export interface ResourcesResponse {
 }
 
 export interface RoutingData {
+  custom_domain_providers?: { [key: string]: any }
   instance?: InstanceBasedRoutingData
   k8s?: {
+    ConnectorID?: string
     RuleJson?: string
   }
   lb?: string
@@ -442,12 +445,10 @@ export interface ServiceLogsResponse {
 }
 
 export interface ServiceMetadata {
-  access_details?: { [key: string]: any }
   cloud_provider_details?: {
     name?: string
     type?: string
   }
-  custom_domain_providers?: { [key: string]: any }
   kubernetes_connector_id?: string
   service_errors?: ServiceError[]
   target_group_details?: { [key: string]: any }

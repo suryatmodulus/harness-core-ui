@@ -15,10 +15,13 @@ export interface Routing {
   ports: PortConfig[]
   k8s?: {
     RuleJson: string
+    ConnectorID: string
   }
+  custom_domain_providers?: { [key: string]: any }
 }
 
 interface ServiceOpts {
+  access_details?: { [key: string]: any }
   preservePrivateIP: boolean
   deleteCloudResources: boolean
   alwaysUsePrivateIP: boolean

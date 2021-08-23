@@ -27,8 +27,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
   const { getString } = useStrings()
   const { showSuccess } = useToaster()
   const [accessDetails, setAccessDetails] = useState<ConnectionMetadata>(
-    props.gatewayDetails.metadata.access_details // eslint-disable-line
-      ? (props.gatewayDetails.metadata.access_details as ConnectionMetadata) // eslint-disable-line
+    props.gatewayDetails.opts.access_details // eslint-disable-line
+      ? (props.gatewayDetails.opts.access_details as ConnectionMetadata) // eslint-disable-line
       : DEFAULT_ACCESS_DETAILS
   )
   const [selectedTabId, setSelectedTabId] = useState<string>('')
@@ -55,8 +55,8 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
           )
         )
         if (
-          !props.gatewayDetails.metadata.custom_domain_providers?.others &&
-          !props.gatewayDetails.metadata.custom_domain_providers?.route53?.hosted_zone_id
+          !props.gatewayDetails.routing.custom_domain_providers?.others &&
+          !props.gatewayDetails.routing.custom_domain_providers?.route53?.hosted_zone_id
         ) {
           validStatus = false
         }
@@ -86,7 +86,7 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
       ...props.gatewayDetails,
       ...(!accessDetails.dnsLink.selected &&
         !_isEmpty(props.gatewayDetails.accessPointData) && { accessPointData: undefined, accessPointID: '' }), // remove Access point details on deselection of dnslink option
-      metadata: { ...props.gatewayDetails.metadata, access_details: accessDetails },
+      opts: { ...props.gatewayDetails.opts, access_details: accessDetails },
       routing: {
         ...props.gatewayDetails.routing,
         ...(!accessDetails.dnsLink.selected && !_isEmpty(props.gatewayDetails.routing.ports) && { ports: [] }) // empty the ports on deselection of dnslink option & if there were already saved values
@@ -148,7 +148,13 @@ const COGatewayAccess: React.FC<COGatewayAccessProps> = props => {
     const updatedGatewayDetails: GatewayDetails = {
       ...props.gatewayDetails,
       ...(yamlRuleName !== updatedName && { name: Utils.hyphenatedToSpacedString(yamlRuleName) }),
-      routing: { ...props.gatewayDetails.routing, k8s: { RuleJson: JSON.stringify(yamlToSave) } }
+      routing: {
+        ...props.gatewayDetails.routing,
+        k8s: {
+          RuleJson: JSON.stringify(yamlToSave),
+          ConnectorID: props.gatewayDetails.metadata.kubernetes_connector_id as string
+        }
+      }
     }
     props.setGatewayDetails(updatedGatewayDetails)
     showSuccess(getString('ce.savedYamlSuccess'))

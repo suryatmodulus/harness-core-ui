@@ -49,7 +49,8 @@ const initialGatewayDetails = {
   opts: {
     preservePrivateIP: false,
     deleteCloudResources: false,
-    alwaysUsePrivateIP: false
+    alwaysUsePrivateIP: false,
+    access_details: accessDetails // eslint-disable-line
   },
   provider: {
     name: 'AWS',
@@ -71,8 +72,7 @@ const initialGatewayDetails = {
   ],
   accessPointID: '',
   metadata: {
-    security_groups: [], // eslint-disable-line
-    access_details: accessDetails // eslint-disable-line
+    // security_groups: [], // eslint-disable-line
   },
   deps: []
 }
@@ -248,7 +248,10 @@ describe('Testing COGatewayAccess', () => {
             kind: 'k8s',
             routing: {
               ...initialGatewayDetails.routing,
-              k8s: { RuleJson: JSON.stringify(mockedYamlData) }
+              k8s: {
+                RuleJson: JSON.stringify(mockedYamlData),
+                ConnectorID: 't1'
+              }
             }
           }}
           setGatewayDetails={jest.fn()}

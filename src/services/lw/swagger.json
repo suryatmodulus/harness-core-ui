@@ -1784,12 +1784,6 @@
         "target_group_details": {
           "type": "object"
         },
-        "access_details": {
-          "type": "object"
-        },
-        "custom_domain_providers": {
-          "type": "object"
-        },
         "service_errors": {
           "type": "array",
           "required": false,
@@ -2249,6 +2243,9 @@
         },
         "always_use_private_ip": {
           "type": "boolean"
+        },
+        "access_details": {
+          "type": "object"
         }
       }
     },
@@ -2342,8 +2339,14 @@
           "properties": {
             "RuleJson": {
               "type": "string"
+            },
+            "ConnectorID": {
+              "type": "string"
             }
           }
+        },
+        "custom_domain_providers": {
+          "type": "object"
         }
       }
     },

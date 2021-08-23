@@ -72,7 +72,8 @@ const initialGatewayDetails = {
   opts: {
     preservePrivateIP: false,
     deleteCloudResources: false,
-    alwaysUsePrivateIP: false
+    alwaysUsePrivateIP: false,
+    access_details: accessDetails // eslint-disable-line
   },
   provider: {
     name: 'AWS',
@@ -95,7 +96,6 @@ const initialGatewayDetails = {
   accessPointID: 'mock.com',
   metadata: {
     security_groups: [], // eslint-disable-line
-    access_details: accessDetails, // eslint-disable-line
     cloud_provider_details: { name: 'cpName' },
     target_group_details: {
       '80': 'tg',

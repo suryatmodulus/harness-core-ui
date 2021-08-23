@@ -2,7 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { isEmpty as _isEmpty } from 'lodash-es'
 import COGatewayDetails from '@ce/components/COGatewayDetails/COGatewayDetails'
-import type { GatewayDetails, Routing, InstanceDetails, Provider } from '@ce/components/COCreateGateway/models'
+import type {
+  GatewayDetails,
+  Routing,
+  InstanceDetails,
+  Provider,
+  ConnectionMetadata
+} from '@ce/components/COCreateGateway/models'
 import {
   HealthCheck,
   PortConfig,
@@ -64,7 +70,10 @@ export const CECOEditGatewayPage: React.FC = () => {
     if (hasAsg) {
       routing.instance.scale_group = service.routing?.instance?.scale_group // eslint-disable-line
     } else if (isK8sRule) {
-      routing.k8s = { RuleJson: service.routing?.k8s?.RuleJson as string }
+      routing.k8s = {
+        RuleJson: service.routing?.k8s?.RuleJson as string,
+        ConnectorID: service.metadata?.kubernetes_connector_id as string
+      }
     } else {
       providerType = resources?.response?.[0]?.provider_type || providerType
       const selectedResources = resources?.response ? resources?.response : []
@@ -96,7 +105,8 @@ export const CECOEditGatewayPage: React.FC = () => {
       opts: {
         preservePrivateIP: service.opts?.preserve_private_ip as boolean,
         deleteCloudResources: service.opts?.delete_cloud_resources as boolean,
-        alwaysUsePrivateIP: service.opts?.always_use_private_ip as boolean
+        alwaysUsePrivateIP: service.opts?.always_use_private_ip as boolean,
+        access_details: service.opts?.access_details as ConnectionMetadata
       },
       provider: allProviders.find(provider => provider.value === providerType) as Provider,
       selectedInstances: selectedInstances,

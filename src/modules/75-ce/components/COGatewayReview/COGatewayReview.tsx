@@ -276,48 +276,47 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
               )}
             </ReviewDetailsSection>
           )}
-          {props.gatewayDetails.metadata.access_details?.dnsLink?.selected &&
-            !_isEmpty(props.gatewayDetails.healthCheck) && (
-              <ReviewDetailsSection
-                isEditable
-                onEdit={() => props.onEdit({ id: 'setupAccess', metaData: { activeStepTabId: 'healthcheck' } })}
-              >
-                <Heading level={2}>Health Check</Heading>
-                <Table<HealthCheck>
-                  data={[props.gatewayDetails.healthCheck as HealthCheck]}
-                  className={css.instanceTable}
-                  bpTableProps={{}}
-                  columns={[
-                    {
-                      accessor: 'protocol',
-                      Header: 'PROTOCOL',
-                      width: '25%',
-                      Cell: TableCell
-                    },
-                    {
-                      accessor: 'path',
-                      Header: 'PATH',
-                      width: '25%',
-                      Cell: TableCell
-                    },
-                    {
-                      accessor: 'port',
-                      Header: 'PORT',
-                      width: '25%',
-                      Cell: TableCell,
-                      disableSortBy: true
-                    },
-                    {
-                      accessor: 'timeout',
-                      Header: 'TIMEOUT(SECS)',
-                      width: '25%',
-                      Cell: TableCell,
-                      disableSortBy: true
-                    }
-                  ]}
-                />
-              </ReviewDetailsSection>
-            )}
+          {props.gatewayDetails.opts.access_details?.dnsLink?.selected && !_isEmpty(props.gatewayDetails.healthCheck) && (
+            <ReviewDetailsSection
+              isEditable
+              onEdit={() => props.onEdit({ id: 'setupAccess', metaData: { activeStepTabId: 'healthcheck' } })}
+            >
+              <Heading level={2}>Health Check</Heading>
+              <Table<HealthCheck>
+                data={[props.gatewayDetails.healthCheck as HealthCheck]}
+                className={css.instanceTable}
+                bpTableProps={{}}
+                columns={[
+                  {
+                    accessor: 'protocol',
+                    Header: 'PROTOCOL',
+                    width: '25%',
+                    Cell: TableCell
+                  },
+                  {
+                    accessor: 'path',
+                    Header: 'PATH',
+                    width: '25%',
+                    Cell: TableCell
+                  },
+                  {
+                    accessor: 'port',
+                    Header: 'PORT',
+                    width: '25%',
+                    Cell: TableCell,
+                    disableSortBy: true
+                  },
+                  {
+                    accessor: 'timeout',
+                    Header: 'TIMEOUT(SECS)',
+                    width: '25%',
+                    Cell: TableCell,
+                    disableSortBy: true
+                  }
+                ]}
+              />
+            </ReviewDetailsSection>
+          )}
           <ReviewDetailsSection isEditable onEdit={() => props.onEdit({ id: 'setupAccess' })}>
             <Heading level={2}>DNS Link mapping</Heading>
             <Layout.Vertical style={{ marginTop: 'var(--spacing-large)' }}>
@@ -337,9 +336,7 @@ const COGatewayReview: React.FC<COGatewayReviewProps> = props => {
                 className={cx(css.equalSpacing, css.borderSpacing)}
               >
                 <Text>Is it publicly accessible?</Text>
-                <Text>
-                  {(props.gatewayDetails.metadata.access_details as ConnectionMetadata).dnsLink.public || 'Yes'}
-                </Text>
+                <Text>{(props.gatewayDetails.opts.access_details as ConnectionMetadata).dnsLink.public || 'Yes'}</Text>
               </Layout.Horizontal>
               {_isEmpty(props.gatewayDetails.customDomains) && props.gatewayDetails.hostName && (
                 <Layout.Horizontal

@@ -37,7 +37,8 @@ const initialGatewayDetails = {
   opts: {
     preservePrivateIP: false,
     deleteCloudResources: false,
-    alwaysUsePrivateIP: false
+    alwaysUsePrivateIP: false,
+    access_details: {}
   },
   provider: {
     name: 'AWS',
@@ -317,7 +318,10 @@ describe('Auto stopping Rule creation Tests', () => {
             },
             routing: {
               ...initialGatewayDetails.routing,
-              k8s: { RuleJson: '{"apiVersion":"lightwing.lightwing.io/v1","kind":"AutoStoppingRule"}' }
+              k8s: {
+                RuleJson: '{"apiVersion":"lightwing.lightwing.io/v1","kind":"AutoStoppingRule"}',
+                ConnectorID: 't2'
+              }
             }
           }}
         />

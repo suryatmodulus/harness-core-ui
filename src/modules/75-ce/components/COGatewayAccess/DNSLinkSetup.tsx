@@ -83,8 +83,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
 
   const [activeConfigTabId, setActiveConfigTabId] = useState<string | undefined>(props.activeStepDetails?.tabId)
 
-  const accessDetails = props.gatewayDetails.metadata.access_details as ConnectionMetadata // eslint-disable-line
-  const customDomainProviderDetails = props.gatewayDetails.metadata.custom_domain_providers as CustomDomainDetails // eslint-disable-line
+  const accessDetails = props.gatewayDetails.opts.access_details as ConnectionMetadata // eslint-disable-line
+  const customDomainProviderDetails = props.gatewayDetails.routing.custom_domain_providers as CustomDomainDetails // eslint-disable-line
   const {
     data: hostedZones,
     loading: hostedZonesLoading,
@@ -105,9 +105,9 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
   const debouncedCustomDomainTextChange = React.useCallback(
     _debounce((value: string, shouldLoadHostedZones: boolean) => {
       const updatedGatewayDetails = { ...props.gatewayDetails }
-      if (!updatedGatewayDetails.metadata.custom_domain_providers) {
-        updatedGatewayDetails.metadata = {
-          ...props.gatewayDetails.metadata,
+      if (!updatedGatewayDetails.routing.custom_domain_providers) {
+        updatedGatewayDetails.routing = {
+          ...props.gatewayDetails.routing,
           custom_domain_providers: { others: {} } // eslint-disable-line
         }
       }
@@ -836,7 +836,7 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                     formik.setFieldValue('publicallyAccessible', cbVal)
                     accessDetails.dnsLink.public = cbVal
                     const updatedGatewayDetails = { ...props.gatewayDetails }
-                    updatedGatewayDetails.metadata.access_details = accessDetails // eslint-disable-line
+                    updatedGatewayDetails.opts.access_details = accessDetails // eslint-disable-line
                     props.setGatewayDetails(updatedGatewayDetails)
                   }}
                   checked={formik.values.publicallyAccessible === 'yes'}
@@ -863,8 +863,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                             formik.setFieldValue('dnsProvider', e.currentTarget.value)
                             setDNSProvider(e.currentTarget.value)
                             const updatedGatewayDetails = { ...props.gatewayDetails }
-                            updatedGatewayDetails.metadata = {
-                              ...props.gatewayDetails.metadata,
+                            updatedGatewayDetails.routing = {
+                              ...props.gatewayDetails.routing,
                               custom_domain_providers: { route53: {} } // eslint-disable-line
                             }
                             props.setGatewayDetails(updatedGatewayDetails)
@@ -879,8 +879,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                           onChange={e => {
                             formik.setFieldValue('route53Account', e.value)
                             const updatedGatewayDetails = { ...props.gatewayDetails }
-                            updatedGatewayDetails.metadata = {
-                              ...props.gatewayDetails.metadata,
+                            updatedGatewayDetails.routing = {
+                              ...props.gatewayDetails.routing,
                               //eslint-disable-next-line
                               custom_domain_providers: {
                                 route53: { hosted_zone_id: e.value as string } // eslint-disable-line
@@ -898,8 +898,8 @@ const DNSLinkSetup: React.FC<DNSLinkSetupProps> = props => {
                           formik.setFieldValue('dnsProvider', e.currentTarget.value)
                           setDNSProvider(e.currentTarget.value)
                           const updatedGatewayDetails = { ...props.gatewayDetails }
-                          updatedGatewayDetails.metadata = {
-                            ...props.gatewayDetails.metadata,
+                          updatedGatewayDetails.routing = {
+                            ...props.gatewayDetails.routing,
                             custom_domain_providers: { others: {} } // eslint-disable-line
                           }
                           props.setGatewayDetails(updatedGatewayDetails)

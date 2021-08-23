@@ -14,6 +14,303 @@ export type AbortFailureActionConfig = FailureStrategyActionConfig & {
   type: 'Abort'
 }
 
+export interface AccessControlCheckError {
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'REVOKED_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'NG_ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_CREDENTIALS_THIRD_PARTY'
+    | 'INVALID_KEY'
+    | 'INVALID_CONNECTOR_TYPE'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'SCHEMA_VALIDATION_FAILED'
+    | 'FILTER_CREATION_ERROR'
+    | 'INVALID_YAML_ERROR'
+    | 'PLAN_CREATION_ERROR'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'IMAGE_NOT_FOUND'
+    | 'ILLEGAL_ARGUMENT'
+    | 'IMAGE_TAG_NOT_FOUND'
+    | 'DELEGATE_NOT_AVAILABLE'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'AUTHENTICATION_ERROR'
+    | 'AUTHORIZATION_ERROR'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'SECRET_NOT_FOUND'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'FILE_NOT_FOUND_ERROR'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'TERRAFORM_EXECUTION_ERROR'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'DATA_COLLECTION_ERROR'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+    | 'TEMPLATE_NOT_FOUND'
+    | 'AZURE_SERVICE_EXCEPTION'
+    | 'AZURE_CLIENT_EXCEPTION'
+    | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
+    | 'NO_AVAILABLE_DELEGATES'
+    | 'NO_INSTALLED_DELEGATES'
+    | 'DUPLICATE_DELEGATE_EXCEPTION'
+    | 'GCP_MARKETPLACE_EXCEPTION'
+    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'NG_PIPELINE_EXECUTION_EXCEPTION'
+    | 'NG_PIPELINE_CREATE_EXCEPTION'
+    | 'RESOURCE_NOT_FOUND_EXCEPTION'
+    | 'PMS_INITIALIZE_SDK_EXCEPTION'
+    | 'UNEXPECTED_SNIPPET_EXCEPTION'
+    | 'UNEXPECTED_SCHEMA_EXCEPTION'
+    | 'CONNECTOR_VALIDATION_EXCEPTION'
+    | 'TIMESCALE_NOT_AVAILABLE'
+    | 'MIGRATION_EXCEPTION'
+    | 'REQUEST_PROCESSING_INTERRUPTED'
+    | 'GCP_SECRET_MANAGER_OPERATION_ERROR'
+    | 'GCP_SECRET_OPERATION_ERROR'
+    | 'GIT_OPERATION_ERROR'
+    | 'TASK_FAILURE_ERROR'
+    | 'INSTANCE_STATS_PROCESS_ERROR'
+    | 'INSTANCE_STATS_MIGRATION_ERROR'
+    | 'DEPLOYMENT_MIGRATION_ERROR'
+    | 'INSTANCE_STATS_AGGREGATION_ERROR'
+    | 'UNRESOLVED_EXPRESSIONS_ERROR'
+    | 'KRYO_HANDLER_NOT_FOUND_ERROR'
+    | 'DELEGATE_ERROR_HANDLER_EXCEPTION'
+    | 'UNEXPECTED_TYPE_ERROR'
+    | 'EXCEPTION_HANDLER_NOT_FOUND'
+    | 'CONNECTOR_NOT_FOUND_EXCEPTION'
+    | 'GCP_SERVER_ERROR'
+    | 'HTTP_RESPONSE_EXCEPTION'
+    | 'SCM_NOT_FOUND_ERROR'
+    | 'SCM_CONFLICT_ERROR'
+    | 'SCM_UNPROCESSABLE_ENTITY'
+    | 'PROCESS_EXECUTION_EXCEPTION'
+    | 'SCM_UNAUTHORIZED'
+    | 'DATA'
+    | 'CONTEXT'
+    | 'PR_CREATION_ERROR'
+    | 'URL_NOT_REACHABLE'
+    | 'URL_NOT_PROVIDED'
+    | 'ENGINE_EXPRESSION_EVALUATION_ERROR'
+    | 'ENGINE_FUNCTOR_ERROR'
+    | 'JIRA_CLIENT_ERROR'
+    | 'SCM_NOT_MODIFIED'
+    | 'JIRA_STEP_ERROR'
+    | 'BUCKET_SERVER_ERROR'
+  correlationId?: string
+  detailedMessage?: string
+  failedPermissionChecks?: PermissionCheck[]
+  message?: string
+  responseMessages?: ResponseMessage[]
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
 export interface Account {
   accountEvents?: AccountEvent[]
   accountName: string
@@ -140,6 +437,7 @@ export interface AccountPermissions {
     | 'MANAGE_IP_WHITELIST'
     | 'MANAGE_IP_WHITELISTING'
     | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'ALLOW_DEPLOYMENTS_DURING_FREEZE'
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
@@ -303,6 +601,7 @@ export interface AppPermission {
     | 'MANAGE_IP_WHITELIST'
     | 'MANAGE_IP_WHITELISTING'
     | 'MANAGE_DEPLOYMENT_FREEZES'
+    | 'ALLOW_DEPLOYMENTS_DURING_FREEZE'
     | 'MANAGE_PIPELINE_GOVERNANCE_STANDARDS'
     | 'MANAGE_API_KEYS'
     | 'MANAGE_TAGS'
@@ -324,6 +623,10 @@ export interface Approvers {
   disallowPipelineExecutor: boolean
   minimumCount: number
   userGroups: string[]
+}
+
+export type ArgoConnector = ConnectorConfigDTO & {
+  adapterUrl?: string
 }
 
 export interface ArtifactConfig {
@@ -841,10 +1144,11 @@ export interface ConnectorCatalogueItem {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
-    | 'ArgoConnector'
+    | 'PagerDuty'
   )[]
 }
 
@@ -909,9 +1213,11 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'PagerDuty'
   )[]
 }
 
@@ -953,10 +1259,11 @@ export interface ConnectorInfoDTO {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
-    | 'ArgoConnector'
+    | 'PagerDuty'
 }
 
 export interface ConnectorResponse {
@@ -1009,9 +1316,11 @@ export interface ConnectorTypeStatistics {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'PagerDuty'
 }
 
 export interface ConnectorValidationResult {
@@ -1463,7 +1772,9 @@ export interface EntityDetail {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export interface EntityGitDetails {
@@ -2414,7 +2725,9 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -2441,7 +2754,9 @@ export interface GitEntityFilterProperties {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -2544,7 +2859,9 @@ export interface GitSyncEntityDTO {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -2573,7 +2890,9 @@ export interface GitSyncEntityListDTO {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -3946,6 +4265,11 @@ export type PagerDutyConfigDTO = NotificationSettingConfigDTO & {
   pagerDutyKey: string
 }
 
+export type PagerDutyConnectorDTO = ConnectorConfigDTO & {
+  apiTokenRef: string
+  delegateSelectors?: string[]
+}
+
 export type ParallelStageElementConfig = StageElementWrapperConfig[]
 
 export type ParallelStepElementConfig = ExecutionWrapperConfig[]
@@ -4019,6 +4343,13 @@ export interface PatchInstruction {
 
 export type PercentageInstanceSelection = InstanceSelectionBase & {
   percentage?: ParameterFieldString
+}
+
+export interface PermissionCheck {
+  permission?: string
+  resourceIdentifier?: string
+  resourceScope?: ResourceScope
+  resourceType?: string
 }
 
 export interface PipelineConfig {
@@ -4187,6 +4518,12 @@ export interface ResourceDTO {
   type: string
 }
 
+export interface ResourceScope {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
 export interface ResourceScopeDTO {
   accountIdentifier: string
   labels?: {
@@ -4255,6 +4592,13 @@ export interface ResponseApiKeyDTO {
 export interface ResponseBoolean {
   correlationId?: string
   data?: boolean
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseByteArray {
+  correlationId?: string
+  data?: string[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -5793,6 +6137,21 @@ export interface SecretRequestWrapper {
   secret: SecretDTOV2
 }
 
+export interface SecretResourceFilterDTO {
+  identifiers?: string[]
+  includeSecretsFromEverySubScope?: boolean
+  searchTerm?: string
+  secretTypes?: ('SecretFile' | 'SecretText' | 'SSHKey')[]
+  sourceCategory?:
+    | 'CLOUD_PROVIDER'
+    | 'SECRET_MANAGER'
+    | 'CLOUD_COST'
+    | 'ARTIFACTORY'
+    | 'CODE_REPO'
+    | 'MONITORING'
+    | 'TICKETING'
+}
+
 export interface SecretResponseWrapper {
   createdAt?: number
   draft?: boolean
@@ -6139,9 +6498,9 @@ export interface StepCategory {
 export interface StepData {
   name?: string
   type?:
-    | 'Placeholder'
-    | 'Placeholder'
-    | 'Placeholder'
+    | 'APPLY'
+    | 'SCALE'
+    | 'STAGE_DEPLOYMENT'
     | 'K8sRollingDeploy'
     | 'K8sRollingRollback'
     | 'K8sBGSwapServices'
@@ -6152,16 +6511,16 @@ export interface StepData {
     | 'TerraformPlan'
     | 'TerraformDestroy'
     | 'TerraformRollback'
-    | 'Placeholder'
-    | 'Placeholder'
-    | 'Placeholder'
-    | 'Placeholder'
-    | 'Placeholder'
-    | 'Placeholder'
-    | 'Placeholder'
+    | 'CREATE_STACK'
+    | 'DELETE_STACK'
+    | 'SHELL_SCRIPT_PROVISIONER'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'EMAIL'
+    | 'BARRIERS'
     | 'ShellScript'
-    | 'Placeholder'
-    | 'Placeholder'
+    | 'NEW_RELIC_DEPLOYMENT_MAKER'
+    | 'TEMPLATIZED_SECRET_MANAGER'
 }
 
 export interface StepElementConfig {
@@ -6170,7 +6529,7 @@ export interface StepElementConfig {
   identifier: string
   name: string
   spec?: StepSpecType
-  timeout?: string
+  timeout: string
   type: string
   when?: StepWhenCondition
 }
@@ -6976,7 +7335,9 @@ export interface ListActivitiesQueryParams {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -6997,7 +7358,9 @@ export interface ListActivitiesQueryParams {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -7165,7 +7528,9 @@ export interface GetActivitiesSummaryQueryParams {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -7186,7 +7551,9 @@ export interface GetActivitiesSummaryQueryParams {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -8414,15 +8781,22 @@ export interface ValidateArtifactForDockerQueryParams {
 }
 
 export type ValidateArtifactForDockerProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>,
-  'path'
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Validate docker artifact with tag/tagregx if given
  */
 export const ValidateArtifactForDocker = (props: ValidateArtifactForDockerProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>
+  <Mutate<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, DockerRequestDTORequestBody, void>
+    verb="POST"
     path={`/artifacts/docker/validateArtifact`}
     base={getConfig('ng/api')}
     {...props}
@@ -8430,15 +8804,22 @@ export const ValidateArtifactForDocker = (props: ValidateArtifactForDockerProps)
 )
 
 export type UseValidateArtifactForDockerProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>,
-  'path'
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
 >
 
 /**
  * Validate docker artifact with tag/tagregx if given
  */
 export const useValidateArtifactForDocker = (props: UseValidateArtifactForDockerProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>(
+  useMutate<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, DockerRequestDTORequestBody, void>(
+    'POST',
     `/artifacts/docker/validateArtifact`,
     { base: getConfig('ng/api'), ...props }
   )
@@ -8447,15 +8828,22 @@ export const useValidateArtifactForDocker = (props: UseValidateArtifactForDocker
  * Validate docker artifact with tag/tagregx if given
  */
 export const validateArtifactForDockerPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForDockerQueryParams, void>(
-    getConfig('ng/api'),
-    `/artifacts/docker/validateArtifact`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForDockerQueryParams,
+    DockerRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/artifacts/docker/validateArtifact`, props, signal)
 
 export interface ValidateArtifactServerForDockerQueryParams {
   connectorRef?: string
@@ -8846,15 +9234,16 @@ export interface ValidateArtifactForEcrQueryParams {
 }
 
 export type ValidateArtifactForEcrProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>,
-  'path'
+  MutateProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, EcrRequestDTORequestBody, void>,
+  'path' | 'verb'
 >
 
 /**
  * Validate Ecr Artifact
  */
 export const ValidateArtifactForEcr = (props: ValidateArtifactForEcrProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>
+  <Mutate<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, EcrRequestDTORequestBody, void>
+    verb="POST"
     path={`/artifacts/ecr/validateArtifact`}
     base={getConfig('ng/api')}
     {...props}
@@ -8862,27 +9251,35 @@ export const ValidateArtifactForEcr = (props: ValidateArtifactForEcrProps) => (
 )
 
 export type UseValidateArtifactForEcrProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>,
-  'path'
+  UseMutateProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, EcrRequestDTORequestBody, void>,
+  'path' | 'verb'
 >
 
 /**
  * Validate Ecr Artifact
  */
 export const useValidateArtifactForEcr = (props: UseValidateArtifactForEcrProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>(`/artifacts/ecr/validateArtifact`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, EcrRequestDTORequestBody, void>(
+    'POST',
+    `/artifacts/ecr/validateArtifact`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Validate Ecr Artifact
  */
 export const validateArtifactForEcrPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForEcrQueryParams,
+    EcrRequestDTORequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, void>(
+  mutateUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForEcrQueryParams, EcrRequestDTORequestBody, void>(
+    'POST',
     getConfig('ng/api'),
     `/artifacts/ecr/validateArtifact`,
     props,
@@ -9229,15 +9626,16 @@ export interface ValidateArtifactForGcrQueryParams {
 }
 
 export type ValidateArtifactForGcrProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>,
-  'path'
+  MutateProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, GcrRequestDTORequestBody, void>,
+  'path' | 'verb'
 >
 
 /**
  * Validate Gcr Artifact
  */
 export const ValidateArtifactForGcr = (props: ValidateArtifactForGcrProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>
+  <Mutate<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, GcrRequestDTORequestBody, void>
+    verb="POST"
     path={`/artifacts/gcr/validateArtifact`}
     base={getConfig('ng/api')}
     {...props}
@@ -9245,27 +9643,35 @@ export const ValidateArtifactForGcr = (props: ValidateArtifactForGcrProps) => (
 )
 
 export type UseValidateArtifactForGcrProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>,
-  'path'
+  UseMutateProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, GcrRequestDTORequestBody, void>,
+  'path' | 'verb'
 >
 
 /**
  * Validate Gcr Artifact
  */
 export const useValidateArtifactForGcr = (props: UseValidateArtifactForGcrProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>(`/artifacts/gcr/validateArtifact`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, GcrRequestDTORequestBody, void>(
+    'POST',
+    `/artifacts/gcr/validateArtifact`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Validate Gcr Artifact
  */
 export const validateArtifactForGcrPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>,
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    ValidateArtifactForGcrQueryParams,
+    GcrRequestDTORequestBody,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, void>(
+  mutateUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactForGcrQueryParams, GcrRequestDTORequestBody, void>(
+    'POST',
     getConfig('ng/api'),
     `/artifacts/gcr/validateArtifact`,
     props,
@@ -10211,9 +10617,11 @@ export interface GetConnectorListQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'PagerDuty'
   category?:
     | 'CLOUD_PROVIDER'
     | 'SECRET_MANAGER'
@@ -10488,9 +10896,11 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'PagerDuty'
 }
 
 export type GetAllAllowedFieldValuesProps = Omit<
@@ -12585,7 +12995,9 @@ export interface ListReferredByEntitiesQueryParams {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -14510,7 +14922,9 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -14599,7 +15013,9 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'DeploymentStage'
       | 'ApprovalStage'
       | 'FeatureFlagStage'
+      | 'Template'
       | 'Triggers'
+      | 'MonitoredService'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -14964,6 +15380,78 @@ export const getNGManagerHealthStatusPromise = (
   props: GetUsingFetchProps<ResponseString, unknown, void, void>,
   signal?: RequestInit['signal']
 ) => getUsingFetch<ResponseString, unknown, void, void>(getConfig('ng/api'), `/health`, props, signal)
+
+export interface GetInstanceSyncPerpetualTaskResponseQueryParams {
+  accountIdentifier: string
+  perpetualTaskId: string
+}
+
+export type GetInstanceSyncPerpetualTaskResponseProps = Omit<
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get instance sync perpetual task response
+ */
+export const GetInstanceSyncPerpetualTaskResponse = (props: GetInstanceSyncPerpetualTaskResponseProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, GetInstanceSyncPerpetualTaskResponseQueryParams, DelegateResponseData, void>
+    verb="POST"
+    path={`/instancesync/response`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInstanceSyncPerpetualTaskResponseProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get instance sync perpetual task response
+ */
+export const useGetInstanceSyncPerpetualTaskResponse = (props: UseGetInstanceSyncPerpetualTaskResponseProps) =>
+  useMutate<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >('POST', `/instancesync/response`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get instance sync perpetual task response
+ */
+export const getInstanceSyncPerpetualTaskResponsePromise = (
+  props: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    GetInstanceSyncPerpetualTaskResponseQueryParams,
+    DelegateResponseData,
+    void
+  >('POST', getConfig('ng/api'), `/instancesync/response`, props, signal)
 
 export interface GetInvitesQueryParams {
   accountIdentifier: string
@@ -16780,12 +17268,12 @@ export const processPollingResultNgPromise = (
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
 export type SubscribeProps = Omit<
-  MutateProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  MutateProps<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>
+  <Mutate<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -16794,21 +17282,21 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  UseMutateProps<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/subscribe`, {
+  useMutate<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/subscribe`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>(
+  mutateUsingFetch<ResponseByteArray, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -19925,7 +20413,7 @@ export interface GetUserGroupListQueryParams {
 }
 
 export type GetUserGroupListProps = Omit<
-  GetProps<ResponsePageUserGroupDTO, Failure | Error, GetUserGroupListQueryParams, void>,
+  GetProps<ResponsePageUserGroupDTO, Failure | AccessControlCheckError | Error, GetUserGroupListQueryParams, void>,
   'path'
 >
 
@@ -19933,7 +20421,7 @@ export type GetUserGroupListProps = Omit<
  * Get User Group List
  */
 export const GetUserGroupList = (props: GetUserGroupListProps) => (
-  <Get<ResponsePageUserGroupDTO, Failure | Error, GetUserGroupListQueryParams, void>
+  <Get<ResponsePageUserGroupDTO, Failure | AccessControlCheckError | Error, GetUserGroupListQueryParams, void>
     path={`/user-groups`}
     base={getConfig('ng/api')}
     {...props}
@@ -19941,7 +20429,7 @@ export const GetUserGroupList = (props: GetUserGroupListProps) => (
 )
 
 export type UseGetUserGroupListProps = Omit<
-  UseGetProps<ResponsePageUserGroupDTO, Failure | Error, GetUserGroupListQueryParams, void>,
+  UseGetProps<ResponsePageUserGroupDTO, Failure | AccessControlCheckError | Error, GetUserGroupListQueryParams, void>,
   'path'
 >
 
@@ -19949,19 +20437,24 @@ export type UseGetUserGroupListProps = Omit<
  * Get User Group List
  */
 export const useGetUserGroupList = (props: UseGetUserGroupListProps) =>
-  useGet<ResponsePageUserGroupDTO, Failure | Error, GetUserGroupListQueryParams, void>(`/user-groups`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useGet<ResponsePageUserGroupDTO, Failure | AccessControlCheckError | Error, GetUserGroupListQueryParams, void>(
+    `/user-groups`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Get User Group List
  */
 export const getUserGroupListPromise = (
-  props: GetUsingFetchProps<ResponsePageUserGroupDTO, Failure | Error, GetUserGroupListQueryParams, void>,
+  props: GetUsingFetchProps<
+    ResponsePageUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    GetUserGroupListQueryParams,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePageUserGroupDTO, Failure | Error, GetUserGroupListQueryParams, void>(
+  getUsingFetch<ResponsePageUserGroupDTO, Failure | AccessControlCheckError | Error, GetUserGroupListQueryParams, void>(
     getConfig('ng/api'),
     `/user-groups`,
     props,
@@ -19975,7 +20468,13 @@ export interface PostUserGroupQueryParams {
 }
 
 export type PostUserGroupProps = Omit<
-  MutateProps<ResponseUserGroupDTO, Failure | Error, PostUserGroupQueryParams, UserGroupDTORequestBody, void>,
+  MutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PostUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -19983,7 +20482,13 @@ export type PostUserGroupProps = Omit<
  * Create a User Group
  */
 export const PostUserGroup = (props: PostUserGroupProps) => (
-  <Mutate<ResponseUserGroupDTO, Failure | Error, PostUserGroupQueryParams, UserGroupDTORequestBody, void>
+  <Mutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PostUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >
     verb="POST"
     path={`/user-groups`}
     base={getConfig('ng/api')}
@@ -19992,7 +20497,13 @@ export const PostUserGroup = (props: PostUserGroupProps) => (
 )
 
 export type UsePostUserGroupProps = Omit<
-  UseMutateProps<ResponseUserGroupDTO, Failure | Error, PostUserGroupQueryParams, UserGroupDTORequestBody, void>,
+  UseMutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PostUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -20000,11 +20511,13 @@ export type UsePostUserGroupProps = Omit<
  * Create a User Group
  */
 export const usePostUserGroup = (props: UsePostUserGroupProps) =>
-  useMutate<ResponseUserGroupDTO, Failure | Error, PostUserGroupQueryParams, UserGroupDTORequestBody, void>(
-    'POST',
-    `/user-groups`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PostUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >('POST', `/user-groups`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Create a User Group
@@ -20012,20 +20525,20 @@ export const usePostUserGroup = (props: UsePostUserGroupProps) =>
 export const postUserGroupPromise = (
   props: MutateUsingFetchProps<
     ResponseUserGroupDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     PostUserGroupQueryParams,
     UserGroupDTORequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserGroupDTO, Failure | Error, PostUserGroupQueryParams, UserGroupDTORequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/user-groups`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PostUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/user-groups`, props, signal)
 
 export interface PutUserGroupQueryParams {
   accountIdentifier?: string
@@ -20034,7 +20547,13 @@ export interface PutUserGroupQueryParams {
 }
 
 export type PutUserGroupProps = Omit<
-  MutateProps<ResponseUserGroupDTO, Failure | Error, PutUserGroupQueryParams, UserGroupDTORequestBody, void>,
+  MutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PutUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -20042,7 +20561,13 @@ export type PutUserGroupProps = Omit<
  * Update a User Group
  */
 export const PutUserGroup = (props: PutUserGroupProps) => (
-  <Mutate<ResponseUserGroupDTO, Failure | Error, PutUserGroupQueryParams, UserGroupDTORequestBody, void>
+  <Mutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PutUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >
     verb="PUT"
     path={`/user-groups`}
     base={getConfig('ng/api')}
@@ -20051,7 +20576,13 @@ export const PutUserGroup = (props: PutUserGroupProps) => (
 )
 
 export type UsePutUserGroupProps = Omit<
-  UseMutateProps<ResponseUserGroupDTO, Failure | Error, PutUserGroupQueryParams, UserGroupDTORequestBody, void>,
+  UseMutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PutUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -20059,11 +20590,13 @@ export type UsePutUserGroupProps = Omit<
  * Update a User Group
  */
 export const usePutUserGroup = (props: UsePutUserGroupProps) =>
-  useMutate<ResponseUserGroupDTO, Failure | Error, PutUserGroupQueryParams, UserGroupDTORequestBody, void>(
-    'PUT',
-    `/user-groups`,
-    { base: getConfig('ng/api'), ...props }
-  )
+  useMutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PutUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >('PUT', `/user-groups`, { base: getConfig('ng/api'), ...props })
 
 /**
  * Update a User Group
@@ -20071,23 +20604,23 @@ export const usePutUserGroup = (props: UsePutUserGroupProps) =>
 export const putUserGroupPromise = (
   props: MutateUsingFetchProps<
     ResponseUserGroupDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     PutUserGroupQueryParams,
     UserGroupDTORequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserGroupDTO, Failure | Error, PutUserGroupQueryParams, UserGroupDTORequestBody, void>(
-    'PUT',
-    getConfig('ng/api'),
-    `/user-groups`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    PutUserGroupQueryParams,
+    UserGroupDTORequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/user-groups`, props, signal)
 
 export type GetBatchUserGroupListProps = Omit<
-  MutateProps<ResponseListUserGroupDTO, Failure | Error, void, UserGroupFilterDTO, void>,
+  MutateProps<ResponseListUserGroupDTO, Failure | AccessControlCheckError | Error, void, UserGroupFilterDTO, void>,
   'path' | 'verb'
 >
 
@@ -20095,7 +20628,7 @@ export type GetBatchUserGroupListProps = Omit<
  * Get Batch User Group List
  */
 export const GetBatchUserGroupList = (props: GetBatchUserGroupListProps) => (
-  <Mutate<ResponseListUserGroupDTO, Failure | Error, void, UserGroupFilterDTO, void>
+  <Mutate<ResponseListUserGroupDTO, Failure | AccessControlCheckError | Error, void, UserGroupFilterDTO, void>
     verb="POST"
     path={`/user-groups/batch`}
     base={getConfig('ng/api')}
@@ -20104,7 +20637,7 @@ export const GetBatchUserGroupList = (props: GetBatchUserGroupListProps) => (
 )
 
 export type UseGetBatchUserGroupListProps = Omit<
-  UseMutateProps<ResponseListUserGroupDTO, Failure | Error, void, UserGroupFilterDTO, void>,
+  UseMutateProps<ResponseListUserGroupDTO, Failure | AccessControlCheckError | Error, void, UserGroupFilterDTO, void>,
   'path' | 'verb'
 >
 
@@ -20112,19 +20645,26 @@ export type UseGetBatchUserGroupListProps = Omit<
  * Get Batch User Group List
  */
 export const useGetBatchUserGroupList = (props: UseGetBatchUserGroupListProps) =>
-  useMutate<ResponseListUserGroupDTO, Failure | Error, void, UserGroupFilterDTO, void>('POST', `/user-groups/batch`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseListUserGroupDTO, Failure | AccessControlCheckError | Error, void, UserGroupFilterDTO, void>(
+    'POST',
+    `/user-groups/batch`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Get Batch User Group List
  */
 export const getBatchUserGroupListPromise = (
-  props: MutateUsingFetchProps<ResponseListUserGroupDTO, Failure | Error, void, UserGroupFilterDTO, void>,
+  props: MutateUsingFetchProps<
+    ResponseListUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    void,
+    UserGroupFilterDTO,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseListUserGroupDTO, Failure | Error, void, UserGroupFilterDTO, void>(
+  mutateUsingFetch<ResponseListUserGroupDTO, Failure | AccessControlCheckError | Error, void, UserGroupFilterDTO, void>(
     'POST',
     getConfig('ng/api'),
     `/user-groups/batch`,
@@ -20139,7 +20679,13 @@ export interface DeleteUserGroupQueryParams {
 }
 
 export type DeleteUserGroupProps = Omit<
-  MutateProps<ResponseUserGroupDTO, Failure | Error, DeleteUserGroupQueryParams, string, void>,
+  MutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    DeleteUserGroupQueryParams,
+    string,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -20147,7 +20693,7 @@ export type DeleteUserGroupProps = Omit<
  * Delete a User Group
  */
 export const DeleteUserGroup = (props: DeleteUserGroupProps) => (
-  <Mutate<ResponseUserGroupDTO, Failure | Error, DeleteUserGroupQueryParams, string, void>
+  <Mutate<ResponseUserGroupDTO, Failure | AccessControlCheckError | Error, DeleteUserGroupQueryParams, string, void>
     verb="DELETE"
     path={`/user-groups`}
     base={getConfig('ng/api')}
@@ -20156,7 +20702,13 @@ export const DeleteUserGroup = (props: DeleteUserGroupProps) => (
 )
 
 export type UseDeleteUserGroupProps = Omit<
-  UseMutateProps<ResponseUserGroupDTO, Failure | Error, DeleteUserGroupQueryParams, string, void>,
+  UseMutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    DeleteUserGroupQueryParams,
+    string,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -20164,25 +20716,32 @@ export type UseDeleteUserGroupProps = Omit<
  * Delete a User Group
  */
 export const useDeleteUserGroup = (props: UseDeleteUserGroupProps) =>
-  useMutate<ResponseUserGroupDTO, Failure | Error, DeleteUserGroupQueryParams, string, void>('DELETE', `/user-groups`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
+  useMutate<ResponseUserGroupDTO, Failure | AccessControlCheckError | Error, DeleteUserGroupQueryParams, string, void>(
+    'DELETE',
+    `/user-groups`,
+    { base: getConfig('ng/api'), ...props }
+  )
 
 /**
  * Delete a User Group
  */
 export const deleteUserGroupPromise = (
-  props: MutateUsingFetchProps<ResponseUserGroupDTO, Failure | Error, DeleteUserGroupQueryParams, string, void>,
+  props: MutateUsingFetchProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    DeleteUserGroupQueryParams,
+    string,
+    void
+  >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserGroupDTO, Failure | Error, DeleteUserGroupQueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/user-groups`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    DeleteUserGroupQueryParams,
+    string,
+    void
+  >('DELETE', getConfig('ng/api'), `/user-groups`, props, signal)
 
 export interface GetUserGroupQueryParams {
   accountIdentifier?: string
@@ -20195,7 +20754,12 @@ export interface GetUserGroupPathParams {
 }
 
 export type GetUserGroupProps = Omit<
-  GetProps<ResponseUserGroupDTO, Failure | Error, GetUserGroupQueryParams, GetUserGroupPathParams>,
+  GetProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    GetUserGroupQueryParams,
+    GetUserGroupPathParams
+  >,
   'path'
 > &
   GetUserGroupPathParams
@@ -20204,7 +20768,7 @@ export type GetUserGroupProps = Omit<
  * Get a User Group
  */
 export const GetUserGroup = ({ identifier, ...props }: GetUserGroupProps) => (
-  <Get<ResponseUserGroupDTO, Failure | Error, GetUserGroupQueryParams, GetUserGroupPathParams>
+  <Get<ResponseUserGroupDTO, Failure | AccessControlCheckError | Error, GetUserGroupQueryParams, GetUserGroupPathParams>
     path={`/user-groups/${identifier}`}
     base={getConfig('ng/api')}
     {...props}
@@ -20212,7 +20776,12 @@ export const GetUserGroup = ({ identifier, ...props }: GetUserGroupProps) => (
 )
 
 export type UseGetUserGroupProps = Omit<
-  UseGetProps<ResponseUserGroupDTO, Failure | Error, GetUserGroupQueryParams, GetUserGroupPathParams>,
+  UseGetProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    GetUserGroupQueryParams,
+    GetUserGroupPathParams
+  >,
   'path'
 > &
   GetUserGroupPathParams
@@ -20221,10 +20790,16 @@ export type UseGetUserGroupProps = Omit<
  * Get a User Group
  */
 export const useGetUserGroup = ({ identifier, ...props }: UseGetUserGroupProps) =>
-  useGet<ResponseUserGroupDTO, Failure | Error, GetUserGroupQueryParams, GetUserGroupPathParams>(
-    (paramsInPath: GetUserGroupPathParams) => `/user-groups/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
+  useGet<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    GetUserGroupQueryParams,
+    GetUserGroupPathParams
+  >((paramsInPath: GetUserGroupPathParams) => `/user-groups/${paramsInPath.identifier}`, {
+    base: getConfig('ng/api'),
+    pathParams: { identifier },
+    ...props
+  })
 
 /**
  * Get a User Group
@@ -20233,17 +20808,20 @@ export const getUserGroupPromise = (
   {
     identifier,
     ...props
-  }: GetUsingFetchProps<ResponseUserGroupDTO, Failure | Error, GetUserGroupQueryParams, GetUserGroupPathParams> & {
-    identifier: string
-  },
+  }: GetUsingFetchProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    GetUserGroupQueryParams,
+    GetUserGroupPathParams
+  > & { identifier: string },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseUserGroupDTO, Failure | Error, GetUserGroupQueryParams, GetUserGroupPathParams>(
-    getConfig('ng/api'),
-    `/user-groups/${identifier}`,
-    props,
-    signal
-  )
+  getUsingFetch<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    GetUserGroupQueryParams,
+    GetUserGroupPathParams
+  >(getConfig('ng/api'), `/user-groups/${identifier}`, props, signal)
 
 export interface RemoveMemberQueryParams {
   accountIdentifier: string
@@ -20256,7 +20834,13 @@ export interface RemoveMemberPathParams {
 }
 
 export type RemoveMemberProps = Omit<
-  MutateProps<ResponseUserGroupDTO, Failure | Error, RemoveMemberQueryParams, string, RemoveMemberPathParams>,
+  MutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    RemoveMemberQueryParams,
+    string,
+    RemoveMemberPathParams
+  >,
   'path' | 'verb'
 > &
   RemoveMemberPathParams
@@ -20265,7 +20849,13 @@ export type RemoveMemberProps = Omit<
  * Remove a user from the user group
  */
 export const RemoveMember = ({ identifier, ...props }: RemoveMemberProps) => (
-  <Mutate<ResponseUserGroupDTO, Failure | Error, RemoveMemberQueryParams, string, RemoveMemberPathParams>
+  <Mutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    RemoveMemberQueryParams,
+    string,
+    RemoveMemberPathParams
+  >
     verb="DELETE"
     path={`/user-groups/${identifier}/member`}
     base={getConfig('ng/api')}
@@ -20274,7 +20864,13 @@ export const RemoveMember = ({ identifier, ...props }: RemoveMemberProps) => (
 )
 
 export type UseRemoveMemberProps = Omit<
-  UseMutateProps<ResponseUserGroupDTO, Failure | Error, RemoveMemberQueryParams, string, RemoveMemberPathParams>,
+  UseMutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    RemoveMemberQueryParams,
+    string,
+    RemoveMemberPathParams
+  >,
   'path' | 'verb'
 > &
   RemoveMemberPathParams
@@ -20283,11 +20879,17 @@ export type UseRemoveMemberProps = Omit<
  * Remove a user from the user group
  */
 export const useRemoveMember = ({ identifier, ...props }: UseRemoveMemberProps) =>
-  useMutate<ResponseUserGroupDTO, Failure | Error, RemoveMemberQueryParams, string, RemoveMemberPathParams>(
-    'DELETE',
-    (paramsInPath: RemoveMemberPathParams) => `/user-groups/${paramsInPath.identifier}/member`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
+  useMutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    RemoveMemberQueryParams,
+    string,
+    RemoveMemberPathParams
+  >('DELETE', (paramsInPath: RemoveMemberPathParams) => `/user-groups/${paramsInPath.identifier}/member`, {
+    base: getConfig('ng/api'),
+    pathParams: { identifier },
+    ...props
+  })
 
 /**
  * Remove a user from the user group
@@ -20298,20 +20900,20 @@ export const removeMemberPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponseUserGroupDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     RemoveMemberQueryParams,
     string,
     RemoveMemberPathParams
   > & { identifier: string },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserGroupDTO, Failure | Error, RemoveMemberQueryParams, string, RemoveMemberPathParams>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/user-groups/${identifier}/member`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    RemoveMemberQueryParams,
+    string,
+    RemoveMemberPathParams
+  >('DELETE', getConfig('ng/api'), `/user-groups/${identifier}/member`, props, signal)
 
 export interface CheckMemberQueryParams {
   accountIdentifier: string
@@ -20325,7 +20927,7 @@ export interface CheckMemberPathParams {
 }
 
 export type CheckMemberProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, CheckMemberQueryParams, CheckMemberPathParams>,
+  GetProps<ResponseBoolean, Failure | AccessControlCheckError | Error, CheckMemberQueryParams, CheckMemberPathParams>,
   'path'
 > &
   CheckMemberPathParams
@@ -20334,7 +20936,7 @@ export type CheckMemberProps = Omit<
  * Check if the user is part of the user group
  */
 export const CheckMember = ({ identifier, userIdentifier, ...props }: CheckMemberProps) => (
-  <Get<ResponseBoolean, Failure | Error, CheckMemberQueryParams, CheckMemberPathParams>
+  <Get<ResponseBoolean, Failure | AccessControlCheckError | Error, CheckMemberQueryParams, CheckMemberPathParams>
     path={`/user-groups/${identifier}/member/${userIdentifier}`}
     base={getConfig('ng/api')}
     {...props}
@@ -20342,7 +20944,12 @@ export const CheckMember = ({ identifier, userIdentifier, ...props }: CheckMembe
 )
 
 export type UseCheckMemberProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, CheckMemberQueryParams, CheckMemberPathParams>,
+  UseGetProps<
+    ResponseBoolean,
+    Failure | AccessControlCheckError | Error,
+    CheckMemberQueryParams,
+    CheckMemberPathParams
+  >,
   'path'
 > &
   CheckMemberPathParams
@@ -20351,7 +20958,7 @@ export type UseCheckMemberProps = Omit<
  * Check if the user is part of the user group
  */
 export const useCheckMember = ({ identifier, userIdentifier, ...props }: UseCheckMemberProps) =>
-  useGet<ResponseBoolean, Failure | Error, CheckMemberQueryParams, CheckMemberPathParams>(
+  useGet<ResponseBoolean, Failure | AccessControlCheckError | Error, CheckMemberQueryParams, CheckMemberPathParams>(
     (paramsInPath: CheckMemberPathParams) =>
       `/user-groups/${paramsInPath.identifier}/member/${paramsInPath.userIdentifier}`,
     { base: getConfig('ng/api'), pathParams: { identifier, userIdentifier }, ...props }
@@ -20365,18 +20972,20 @@ export const checkMemberPromise = (
     identifier,
     userIdentifier,
     ...props
-  }: GetUsingFetchProps<ResponseBoolean, Failure | Error, CheckMemberQueryParams, CheckMemberPathParams> & {
-    identifier: string
-    userIdentifier: string
-  },
+  }: GetUsingFetchProps<
+    ResponseBoolean,
+    Failure | AccessControlCheckError | Error,
+    CheckMemberQueryParams,
+    CheckMemberPathParams
+  > & { identifier: string; userIdentifier: string },
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, CheckMemberQueryParams, CheckMemberPathParams>(
-    getConfig('ng/api'),
-    `/user-groups/${identifier}/member/${userIdentifier}`,
-    props,
-    signal
-  )
+  getUsingFetch<
+    ResponseBoolean,
+    Failure | AccessControlCheckError | Error,
+    CheckMemberQueryParams,
+    CheckMemberPathParams
+  >(getConfig('ng/api'), `/user-groups/${identifier}/member/${userIdentifier}`, props, signal)
 
 export interface AddMemberQueryParams {
   accountIdentifier: string
@@ -20390,7 +20999,13 @@ export interface AddMemberPathParams {
 }
 
 export type AddMemberProps = Omit<
-  MutateProps<ResponseUserGroupDTO, Failure | Error, AddMemberQueryParams, void, AddMemberPathParams>,
+  MutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    AddMemberQueryParams,
+    void,
+    AddMemberPathParams
+  >,
   'path' | 'verb'
 > &
   AddMemberPathParams
@@ -20399,7 +21014,13 @@ export type AddMemberProps = Omit<
  * Add a user to the user group
  */
 export const AddMember = ({ identifier, userIdentifier, ...props }: AddMemberProps) => (
-  <Mutate<ResponseUserGroupDTO, Failure | Error, AddMemberQueryParams, void, AddMemberPathParams>
+  <Mutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    AddMemberQueryParams,
+    void,
+    AddMemberPathParams
+  >
     verb="PUT"
     path={`/user-groups/${identifier}/member/${userIdentifier}`}
     base={getConfig('ng/api')}
@@ -20408,7 +21029,13 @@ export const AddMember = ({ identifier, userIdentifier, ...props }: AddMemberPro
 )
 
 export type UseAddMemberProps = Omit<
-  UseMutateProps<ResponseUserGroupDTO, Failure | Error, AddMemberQueryParams, void, AddMemberPathParams>,
+  UseMutateProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    AddMemberQueryParams,
+    void,
+    AddMemberPathParams
+  >,
   'path' | 'verb'
 > &
   AddMemberPathParams
@@ -20417,7 +21044,13 @@ export type UseAddMemberProps = Omit<
  * Add a user to the user group
  */
 export const useAddMember = ({ identifier, userIdentifier, ...props }: UseAddMemberProps) =>
-  useMutate<ResponseUserGroupDTO, Failure | Error, AddMemberQueryParams, void, AddMemberPathParams>(
+  useMutate<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    AddMemberQueryParams,
+    void,
+    AddMemberPathParams
+  >(
     'PUT',
     (paramsInPath: AddMemberPathParams) =>
       `/user-groups/${paramsInPath.identifier}/member/${paramsInPath.userIdentifier}`,
@@ -20432,19 +21065,22 @@ export const addMemberPromise = (
     identifier,
     userIdentifier,
     ...props
-  }: MutateUsingFetchProps<ResponseUserGroupDTO, Failure | Error, AddMemberQueryParams, void, AddMemberPathParams> & {
-    identifier: string
-    userIdentifier: string
-  },
+  }: MutateUsingFetchProps<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    AddMemberQueryParams,
+    void,
+    AddMemberPathParams
+  > & { identifier: string; userIdentifier: string },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseUserGroupDTO, Failure | Error, AddMemberQueryParams, void, AddMemberPathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/user-groups/${identifier}/member/${userIdentifier}`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseUserGroupDTO,
+    Failure | AccessControlCheckError | Error,
+    AddMemberQueryParams,
+    void,
+    AddMemberPathParams
+  >('PUT', getConfig('ng/api'), `/user-groups/${identifier}/member/${userIdentifier}`, props, signal)
 
 export interface GetUsersInUserGroupQueryParams {
   accountIdentifier: string
@@ -20462,7 +21098,7 @@ export interface GetUsersInUserGroupPathParams {
 export type GetUsersInUserGroupProps = Omit<
   MutateProps<
     ResponsePageUserMetadataDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     GetUsersInUserGroupQueryParams,
     UserFilterRequestBody,
     GetUsersInUserGroupPathParams
@@ -20477,7 +21113,7 @@ export type GetUsersInUserGroupProps = Omit<
 export const GetUsersInUserGroup = ({ identifier, ...props }: GetUsersInUserGroupProps) => (
   <Mutate<
     ResponsePageUserMetadataDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     GetUsersInUserGroupQueryParams,
     UserFilterRequestBody,
     GetUsersInUserGroupPathParams
@@ -20492,7 +21128,7 @@ export const GetUsersInUserGroup = ({ identifier, ...props }: GetUsersInUserGrou
 export type UseGetUsersInUserGroupProps = Omit<
   UseMutateProps<
     ResponsePageUserMetadataDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     GetUsersInUserGroupQueryParams,
     UserFilterRequestBody,
     GetUsersInUserGroupPathParams
@@ -20507,7 +21143,7 @@ export type UseGetUsersInUserGroupProps = Omit<
 export const useGetUsersInUserGroup = ({ identifier, ...props }: UseGetUsersInUserGroupProps) =>
   useMutate<
     ResponsePageUserMetadataDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     GetUsersInUserGroupQueryParams,
     UserFilterRequestBody,
     GetUsersInUserGroupPathParams
@@ -20526,7 +21162,7 @@ export const getUsersInUserGroupPromise = (
     ...props
   }: MutateUsingFetchProps<
     ResponsePageUserMetadataDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     GetUsersInUserGroupQueryParams,
     UserFilterRequestBody,
     GetUsersInUserGroupPathParams
@@ -20535,7 +21171,7 @@ export const getUsersInUserGroupPromise = (
 ) =>
   mutateUsingFetch<
     ResponsePageUserMetadataDTO,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     GetUsersInUserGroupQueryParams,
     UserFilterRequestBody,
     GetUsersInUserGroupPathParams
@@ -20555,7 +21191,7 @@ export interface LinkToSamlGroupPathParams {
 export type LinkToSamlGroupProps = Omit<
   MutateProps<
     RestResponseUserGroup,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     LinkToSamlGroupQueryParams,
     SamlLinkGroupRequest,
     LinkToSamlGroupPathParams
@@ -20570,7 +21206,7 @@ export type LinkToSamlGroupProps = Omit<
 export const LinkToSamlGroup = ({ userGroupId, samlId, ...props }: LinkToSamlGroupProps) => (
   <Mutate<
     RestResponseUserGroup,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     LinkToSamlGroupQueryParams,
     SamlLinkGroupRequest,
     LinkToSamlGroupPathParams
@@ -20585,7 +21221,7 @@ export const LinkToSamlGroup = ({ userGroupId, samlId, ...props }: LinkToSamlGro
 export type UseLinkToSamlGroupProps = Omit<
   UseMutateProps<
     RestResponseUserGroup,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     LinkToSamlGroupQueryParams,
     SamlLinkGroupRequest,
     LinkToSamlGroupPathParams
@@ -20600,7 +21236,7 @@ export type UseLinkToSamlGroupProps = Omit<
 export const useLinkToSamlGroup = ({ userGroupId, samlId, ...props }: UseLinkToSamlGroupProps) =>
   useMutate<
     RestResponseUserGroup,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     LinkToSamlGroupQueryParams,
     SamlLinkGroupRequest,
     LinkToSamlGroupPathParams
@@ -20621,7 +21257,7 @@ export const linkToSamlGroupPromise = (
     ...props
   }: MutateUsingFetchProps<
     RestResponseUserGroup,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     LinkToSamlGroupQueryParams,
     SamlLinkGroupRequest,
     LinkToSamlGroupPathParams
@@ -20630,7 +21266,7 @@ export const linkToSamlGroupPromise = (
 ) =>
   mutateUsingFetch<
     RestResponseUserGroup,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     LinkToSamlGroupQueryParams,
     SamlLinkGroupRequest,
     LinkToSamlGroupPathParams
@@ -20648,7 +21284,13 @@ export interface UnlinkSsoGroupPathParams {
 }
 
 export type UnlinkSsoGroupProps = Omit<
-  MutateProps<RestResponseUserGroup, Failure | Error, UnlinkSsoGroupQueryParams, void, UnlinkSsoGroupPathParams>,
+  MutateProps<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    UnlinkSsoGroupQueryParams,
+    void,
+    UnlinkSsoGroupPathParams
+  >,
   'path' | 'verb'
 > &
   UnlinkSsoGroupPathParams
@@ -20657,7 +21299,13 @@ export type UnlinkSsoGroupProps = Omit<
  * API to unlink the harness user group from SSO group
  */
 export const UnlinkSsoGroup = ({ userGroupId, ...props }: UnlinkSsoGroupProps) => (
-  <Mutate<RestResponseUserGroup, Failure | Error, UnlinkSsoGroupQueryParams, void, UnlinkSsoGroupPathParams>
+  <Mutate<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    UnlinkSsoGroupQueryParams,
+    void,
+    UnlinkSsoGroupPathParams
+  >
     verb="PUT"
     path={`/user-groups/${userGroupId}/unlink`}
     base={getConfig('ng/api')}
@@ -20666,7 +21314,13 @@ export const UnlinkSsoGroup = ({ userGroupId, ...props }: UnlinkSsoGroupProps) =
 )
 
 export type UseUnlinkSsoGroupProps = Omit<
-  UseMutateProps<RestResponseUserGroup, Failure | Error, UnlinkSsoGroupQueryParams, void, UnlinkSsoGroupPathParams>,
+  UseMutateProps<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    UnlinkSsoGroupQueryParams,
+    void,
+    UnlinkSsoGroupPathParams
+  >,
   'path' | 'verb'
 > &
   UnlinkSsoGroupPathParams
@@ -20675,11 +21329,17 @@ export type UseUnlinkSsoGroupProps = Omit<
  * API to unlink the harness user group from SSO group
  */
 export const useUnlinkSsoGroup = ({ userGroupId, ...props }: UseUnlinkSsoGroupProps) =>
-  useMutate<RestResponseUserGroup, Failure | Error, UnlinkSsoGroupQueryParams, void, UnlinkSsoGroupPathParams>(
-    'PUT',
-    (paramsInPath: UnlinkSsoGroupPathParams) => `/user-groups/${paramsInPath.userGroupId}/unlink`,
-    { base: getConfig('ng/api'), pathParams: { userGroupId }, ...props }
-  )
+  useMutate<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    UnlinkSsoGroupQueryParams,
+    void,
+    UnlinkSsoGroupPathParams
+  >('PUT', (paramsInPath: UnlinkSsoGroupPathParams) => `/user-groups/${paramsInPath.userGroupId}/unlink`, {
+    base: getConfig('ng/api'),
+    pathParams: { userGroupId },
+    ...props
+  })
 
 /**
  * API to unlink the harness user group from SSO group
@@ -20690,20 +21350,20 @@ export const unlinkSsoGroupPromise = (
     ...props
   }: MutateUsingFetchProps<
     RestResponseUserGroup,
-    Failure | Error,
+    Failure | AccessControlCheckError | Error,
     UnlinkSsoGroupQueryParams,
     void,
     UnlinkSsoGroupPathParams
   > & { userGroupId: string },
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<RestResponseUserGroup, Failure | Error, UnlinkSsoGroupQueryParams, void, UnlinkSsoGroupPathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/user-groups/${userGroupId}/unlink`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    RestResponseUserGroup,
+    Failure | AccessControlCheckError | Error,
+    UnlinkSsoGroupQueryParams,
+    void,
+    UnlinkSsoGroupPathParams
+  >('PUT', getConfig('ng/api'), `/user-groups/${userGroupId}/unlink`, props, signal)
 
 export interface GetAggregatedUsersQueryParams {
   accountIdentifier: string
@@ -22429,6 +23089,81 @@ export const putSecretFileV2Promise = (
     PutSecretFileV2PathParams
   >('PUT', getConfig('ng/api'), `/v2/secrets/files/${identifier}`, props, signal)
 
+export interface ListSecretsV3QueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  pageIndex?: number
+  pageSize?: number
+}
+
+export type ListSecretsV3Props = Omit<
+  MutateProps<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * List secrets
+ */
+export const ListSecretsV3 = (props: ListSecretsV3Props) => (
+  <Mutate<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV3QueryParams, SecretResourceFilterDTO, void>
+    verb="POST"
+    path={`/v2/secrets/list`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListSecretsV3Props = Omit<
+  UseMutateProps<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * List secrets
+ */
+export const useListSecretsV3 = (props: UseListSecretsV3Props) =>
+  useMutate<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >('POST', `/v2/secrets/list`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * List secrets
+ */
+export const listSecretsV3Promise = (
+  props: MutateUsingFetchProps<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePageSecretResponseWrapper,
+    Failure | Error,
+    ListSecretsV3QueryParams,
+    SecretResourceFilterDTO,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets/list`, props, signal)
+
 export interface ValidateSecretQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -23042,7 +23777,9 @@ export interface GetYamlSchemaQueryParams {
     | 'DeploymentStage'
     | 'ApprovalStage'
     | 'FeatureFlagStage'
+    | 'Template'
     | 'Triggers'
+    | 'MonitoredService'
   subtype?:
     | 'K8sCluster'
     | 'Git'
@@ -23071,9 +23808,11 @@ export interface GetYamlSchemaQueryParams {
     | 'GcpCloudCost'
     | 'CEK8sCluster'
     | 'HttpHelmRepo'
+    | 'ArgoConnector'
     | 'NewRelic'
     | 'Datadog'
     | 'SumoLogic'
+    | 'PagerDuty'
   projectIdentifier?: string
   orgIdentifier?: string
   scope?: 'account' | 'org' | 'project' | 'unknown'
@@ -23167,7 +23906,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'datadog'
     | 'sumologic'
     | 'dynatrace'
-    | 'argoconnector'
+    | 'pagerduty'
   )[]
 }
 

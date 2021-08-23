@@ -87,11 +87,6 @@ export function getInitialValuesInCorrectFormat<T, U>(
               value: value[key]
             }))
 
-      // Adding a default value
-      if (Array.isArray(map) && map.length === 0) {
-        map.push({ id: uuid('', nameSpace()), key: '', value: '' })
-      }
-
       set(values, name, map)
     }
 
@@ -104,11 +99,6 @@ export function getInitialValuesInCorrectFormat<T, U>(
               value: _value
             })) || []
 
-      // Adding a default value
-      if (Array.isArray(list) && list.length === 0) {
-        list.push({ id: uuid('', nameSpace()), value: '' })
-      }
-
       set(values, name, list)
     }
 
@@ -120,11 +110,6 @@ export function getInitialValuesInCorrectFormat<T, U>(
               id: uuid('', nameSpace()),
               value: _value.name
             })) || []
-
-      // Adding a default value
-      if (Array.isArray(list) && list.length === 0) {
-        list.push({ id: uuid('', nameSpace()), value: '' })
-      }
 
       set(values, name, list)
     }
@@ -198,11 +183,6 @@ export function getInitialValuesInCorrectFormat<T, U>(
               id: uuid('', nameSpace()),
               value: val
             })) || []
-
-      // Adding a default value
-      if (Array.isArray(list) && list.length === 0) {
-        list.push({ id: uuid('', nameSpace()), value: '' })
-      }
 
       set(values, 'spec.reportPaths', list)
     }

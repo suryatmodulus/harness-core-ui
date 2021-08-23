@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.1% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>27/29</span>
+                <span class='fraction'>26/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75.76% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>50/66</span>
+                <span class='fraction'>48/64</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/27</span>
+                <span class='fraction'>26/26</span>
             </div>
         
             
@@ -202,19 +202,9 @@
 <a name='L143'></a><a href='#L143'>143</a>
 <a name='L144'></a><a href='#L144'>144</a>
 <a name='L145'></a><a href='#L145'>145</a>
-<a name='L146'></a><a href='#L146'>146</a>
-<a name='L147'></a><a href='#L147'>147</a>
-<a name='L148'></a><a href='#L148'>148</a>
-<a name='L149'></a><a href='#L149'>149</a>
-<a name='L150'></a><a href='#L150'>150</a>
-<a name='L151'></a><a href='#L151'>151</a>
-<a name='L152'></a><a href='#L152'>152</a>
-<a name='L153'></a><a href='#L153'>153</a>
-<a name='L154'></a><a href='#L154'>154</a>
-<a name='L155'></a><a href='#L155'>155</a>
-<a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">64x</span>
+<a name='L146'></a><a href='#L146'>146</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-yes">64x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -232,9 +222,6 @@
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">64x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
@@ -268,10 +255,6 @@
 <span class="cline-any cline-yes">312x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">312x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -363,11 +346,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">64x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { CSSProperties, ReactChild } from 'react'
 import {
@@ -382,15 +360,13 @@ import {
   FormError,
   FormikTooltipContext,
   DataTooltipInterface,
-  HarnessDocTooltip
+  HarnessDocTooltip,
+  FormInput
 } from '@wings-software/uicore'
 import { Popover, IFormGroupProps, Intent, FormGroup } from '@blueprintjs/core'
 import cx from 'classnames'
 import { FormikContext, connect } from 'formik'
 import { get } from 'lodash-es'
-&nbsp;
-import { String } from 'framework/strings'
-import type { StringKeys } from 'framework/strings'
 import { errorCheck } from '@common/utils/formikHelpers'
 &nbsp;
 import css from './MultiTypeFieldSelctor.module.scss'
@@ -434,15 +410,11 @@ function TypeSelector(props: TypeSelectorProps): React.ReactElement {
       targetClassName={css.typeSelector}
       popoverClassName={css.popover}
     &gt;
-      &lt;Button minimal className={css.btn} withoutBoxShadow&gt;
+      &lt;Button minimal className={css.btn} withoutBoxShadow withoutCurrentColor&gt;
         &lt;Icon
           className={cx(css.icon, (css as any)[type.toLowerCase()])}
           size={TypeIconSize[type]}
           name={TypeIcon[type]}
-        /&gt;
-        &lt;String
-          className={css.btnText}
-          stringID={`inputTypes.${type}` as StringKeys /* TODO: fix this properly using a map */}
         /&gt;
       &lt;/Button&gt;
       &lt;MultiTypeInputMenu allowedTypes={allowedTypes} onTypeSelect={onChange} /&gt;
@@ -501,25 +473,20 @@ export function MultiTypeFieldSelector(props: ConnectedMultiTypeFieldSelectorPro
       disabled={disabled}
       label={
         &lt;div className={css.formLabel}&gt;
-          {type === MultiTypeInputType.FIXED ? (
-            &lt;HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} /&gt;
-          ) : (
-            &lt;span&gt;
-              &lt;HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} /&gt;
-              {skipRenderValueInExpressionLabel &amp;&amp; type === MultiTypeInputType.EXPRESSION ? <span class="branch-0 cbranch-no" title="branch not covered" >null </span>: &lt;b&gt;{value}&lt;/b&gt;}
-            &lt;/span&gt;
-          )}
+          &lt;HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} /&gt;
           {disableTypeSelection ? null : (
             &lt;TypeSelector allowedTypes={allowedTypes} type={type} onChange={handleChange} /&gt;
           )}
         &lt;/div&gt;
       }
     &gt;
-      {disableTypeSelection || type === MultiTypeInputType.FIXED
-        ? children
-        : type === MultiTypeInputType.EXPRESSION &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >typeof expressionRender === 'function'</span>
-        ? <span class="branch-0 cbranch-no" title="branch not covered" >expressionRender()</span>
-        : null}
+      {disableTypeSelection || type === MultiTypeInputType.FIXED ? (
+        children
+      ) : type === MultiTypeInputType.EXPRESSION &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >typeof expressionRender === 'function' </span>? (
+<span class="branch-0 cbranch-no" title="branch not covered" >        expressionRender()</span>
+      ) : type === MultiTypeInputType.RUNTIME &amp;&amp; typeof value === 'string' ? (
+        &lt;FormInput.Text className={css.runtimeDisabled} name={name} disabled label="" /&gt;
+      ) : <span class="branch-1 cbranch-no" title="branch not covered" >null}</span>
     &lt;/FormGroup&gt;
   )
 }
@@ -532,7 +499,7 @@ export default connect&lt;MultiTypeFieldSelectorProps&gt;(MultiTypeFieldSelector
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 23 2021 07:47:31 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 23 2021 09:54:58 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

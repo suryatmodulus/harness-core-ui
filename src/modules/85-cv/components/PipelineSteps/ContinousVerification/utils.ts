@@ -170,13 +170,12 @@ export function setFieldData(validspec: spec | undefined, field: string, fieldOp
  * @returns boolean
  */
 export const hasVerifyStepRuntimeInput = (template: ContinousVerificationData | undefined): boolean => {
-  if (!template) return false
   if (template?.spec?.spec) {
-    // moniotredService shoud be coming in template
+    // monitoredService shoud be coming in template
     // once backend updates
     // TODO: remove next line once BE change is done
-    template.spec.spec['moniotredService'] = '<+input>'
-    return checkIfRunTimeInput(template?.spec?.spec?.['moniotredService'])
+    template.spec.spec['monitoredService'] = '<+input>'
+    return checkIfRunTimeInput(template?.spec?.spec?.['monitoredService'])
   }
   return false
 }

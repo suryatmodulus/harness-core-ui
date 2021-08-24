@@ -5,7 +5,7 @@ import type { StringsMap } from 'framework/strings/StringsContext'
 import { useStrings } from 'framework/strings'
 
 interface LandingDashboardWidgetWrapperProps {
-  title: keyof StringsMap
+  title?: keyof StringsMap
   icon?: IconName
 }
 
@@ -14,12 +14,14 @@ const LandingDashboardWidgetWrapper: React.FC<LandingDashboardWidgetWrapperProps
 
   return (
     <Layout.Vertical spacing="large">
-      <Container>
-        {props.icon ? <Icon name={props.icon} /> : null}
-        <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
-          {getString(props.title)}
-        </Text>
-      </Container>
+      {props.title ? (
+        <Container>
+          {props.icon ? <Icon name={props.icon} /> : null}
+          <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK}>
+            {getString(props.title)}
+          </Text>
+        </Container>
+      ) : null}
       {props.children}
     </Layout.Vertical>
   )

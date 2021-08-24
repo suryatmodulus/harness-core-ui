@@ -5,7 +5,7 @@ import type { ModuleName } from 'framework/types/ModuleName'
 
 export interface ModuleDashboardHandler {
   icon?: IconName
-  label: keyof StringsMap
+  label?: keyof StringsMap
   moduleDashboardRenderer?: () => React.ReactElement
 }
 

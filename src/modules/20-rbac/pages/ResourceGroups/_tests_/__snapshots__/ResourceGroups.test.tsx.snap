@@ -12,7 +12,7 @@ exports[`Resource Groups Page render data 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-left-large"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           data-testid="addNewResourceGroup"
           type="button"
         >
@@ -47,12 +47,12 @@ exports[`Resource Groups Page render data 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--margin-right-small"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
         style="width: 250px; max-width: 250px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
           data-icon="thinner-search"
         >
           <svg
@@ -74,7 +74,7 @@ exports[`Resource Groups Page render data 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="common.searchPlaceholder"
-          style="padding-right: 36px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -188,7 +188,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenuss33"
                   type="button"
                 >
@@ -276,7 +276,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenustarte"
                   type="button"
                 >
@@ -364,7 +364,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenuswarfdfds34343"
                   type="button"
                 >
@@ -452,7 +452,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenutestttttte34343"
                   type="button"
                 >
@@ -540,7 +540,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenutterer"
                   type="button"
                 >
@@ -628,7 +628,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenutestvery1"
                   type="button"
                 >
@@ -716,7 +716,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenutest create 3"
                   type="button"
                 >
@@ -804,7 +804,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenutest_554"
                   type="button"
                 >
@@ -949,7 +949,7 @@ exports[`Resource Groups Page render data 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="resourceGroupDetailsEditMenutest_with_desc"
                   type="button"
                 >

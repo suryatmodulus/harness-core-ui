@@ -28,6 +28,7 @@ import { KubernetesServiceSpecInputForm } from './K8sServiceSpecForms/Kubernetes
 import type { K8SDirectServiceStep } from './K8sServiceSpecInterface'
 import { ArtifactConnectorTypes } from './K8sServiceSpecHelper'
 import KubernetesServiceSpecEditable from './K8sServiceSpecForms/KubernetesServiceSpecEditable'
+import { KubernetesServiceSpecInputSetMode } from './KubernetesServiceSpecInputSetMode'
 
 const logger = loggerFor(ModuleName.CD)
 const tagExists = (value: unknown): boolean => typeof value === 'number' || !isEmpty(value)
@@ -460,9 +461,30 @@ export class KubernetesServiceSpec extends Step<ServiceSpec> {
       )
     }
 
-    if (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) {
+    if (
+      (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) &&
+      !localStorage.getItem('k8refactor')
+    ) {
       return (
         <KubernetesServiceSpecInputForm
+          {...(customStepProps as K8sServiceSpecVariablesFormProps)}
+          initialValues={initialValues}
+          onUpdate={onUpdate}
+          stepViewType={stepViewType}
+          template={inputSetData?.template}
+          path={inputSetData?.path}
+          readonly={inputSetData?.readonly || readonly}
+          factory={factory}
+        />
+      )
+    }
+
+    if (
+      (stepViewType === StepViewType.InputSet || stepViewType === StepViewType.DeploymentForm) &&
+      localStorage.getItem('k8refactor')
+    ) {
+      return (
+        <KubernetesServiceSpecInputSetMode
           {...(customStepProps as K8sServiceSpecVariablesFormProps)}
           initialValues={initialValues}
           onUpdate={onUpdate}

@@ -80,7 +80,7 @@ changeHistory: Change History
 entity: Entity
 entities: Entities
 enableGitExperience: Enable Git Experience
-gitExperienceNewUserText: Git Experience allows you to store the Pipeline and other Harness entities in Git with your code. With this method, Git is the single source of truth for all your code and configurations.
+gitExperienceNewUserText: Store your Pipelines and Harness Configurations in Git.
 selectGitProvider: Select your Git Provider
 selectGitConnectorTypeLabel: 'Select the connector to your {{type}}'
 lastTested: Last Tested
@@ -576,8 +576,6 @@ generalSettings: 'General Settings'
 accessControl: 'Access Control'
 noPermission: You don't have permission to perform this action
 templateLibrary: 'Template Library'
-generic_errors:
-  INVITE_EXPIRED: This invite link has expired
 cdDashboard:
   welcome: Welcome to Continuous Delivery
   description: Deploy your services with blazing fast pipelines.
@@ -964,7 +962,7 @@ pipelineSteps:
       confirmDeleteTitle: 'Are you sure you want to remove this stage '
       deleteStageText: 'You are removing a stage that is dependency for other stages. Removing this stage will clear configuration for following stages:'
     create:
-      aboutYourStage: 'About Your Stage'
+      aboutYourStage: 'About your stage'
       stageNameRequiredError: 'Stage Name is required'
       stageNameRegExpError: 'Stage Name can only contain alphanumerics, _ and $'
       stageDescriptionRegExpError: 'Stage Description can only contain alphanumerics, _ and $'

@@ -9,7 +9,7 @@ exports[`Delegates Configurations Page delete delegate configuration 1`] = `
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         data-test="newDelegateConfigurationButton"
         id="newDelegateConfigurationBtn"
         type="button"
@@ -46,7 +46,7 @@ exports[`Delegates Configurations Page delete delegate configuration 1`] = `
         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       >
         <button
-          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           disabled=""
           tabindex="-1"
           type="button"
@@ -69,7 +69,7 @@ exports[`Delegates Configurations Page delete delegate configuration 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           disabled=""
           tabindex="-1"
           type="button"
@@ -134,7 +134,7 @@ exports[`Delegates Configurations Page delete delegate configuration 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       style="transform: rotate(90deg);"
                       type="button"
                     >
@@ -248,7 +248,7 @@ exports[`Delegates Configurations Page delete delegate configuration 1`] = `
                     class="bp3-popover-target bp3-popover-open"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow bp3-active"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon bp3-active"
                       style="transform: rotate(90deg);"
                       type="button"
                     >
@@ -346,7 +346,7 @@ exports[`Delegates Configurations Page render data 1`] = `
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         data-test="newDelegateConfigurationButton"
         id="newDelegateConfigurationBtn"
         type="button"
@@ -383,7 +383,7 @@ exports[`Delegates Configurations Page render data 1`] = `
         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       >
         <button
-          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           disabled=""
           tabindex="-1"
           type="button"
@@ -406,7 +406,7 @@ exports[`Delegates Configurations Page render data 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           disabled=""
           tabindex="-1"
           type="button"
@@ -471,7 +471,7 @@ exports[`Delegates Configurations Page render data 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       style="transform: rotate(90deg);"
                       type="button"
                     >
@@ -585,7 +585,7 @@ exports[`Delegates Configurations Page render data 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       style="transform: rotate(90deg);"
                       type="button"
                     >
@@ -683,7 +683,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
       class="Layout--horizontal StyledProps--main header StyledProps--background-white"
     >
       <button
-        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         data-test="newDelegateConfigurationButton"
         disabled=""
         id="newDelegateConfigurationBtn"
@@ -748,7 +748,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
         class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
       >
         <button
-          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           disabled=""
           tabindex="-1"
           type="button"
@@ -771,7 +771,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           disabled=""
           tabindex="-1"
           type="button"
@@ -836,7 +836,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       style="transform: rotate(90deg);"
                       type="button"
                     >
@@ -950,7 +950,7 @@ exports[`Delegates Configurations Page render data and add new 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       style="transform: rotate(90deg);"
                       type="button"
                     >

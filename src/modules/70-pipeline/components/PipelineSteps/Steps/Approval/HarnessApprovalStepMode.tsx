@@ -10,7 +10,8 @@ import {
   FormInput,
   Button,
   getMultiTypeFromValue,
-  FormikForm
+  FormikForm,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { setFormikRef, StepFormikFowardRef } from '@pipeline/components/AbstractSteps/Step'
 import { String, useStrings } from 'framework/strings'
@@ -158,7 +159,10 @@ const FormContent = ({ formik, isNewStep, readonly }: HarnessApprovalFormContent
                 render={({ push, remove }) => {
                   return (
                     <div>
-                      <div className={stepCss.stepSubSectionHeading}>Approver Inputs</div>
+                      <div className={stepCss.stepSubSectionHeading} data-tooltip-id="approverInputs">
+                        <>Approver Inputs</>
+                        <HarnessDocTooltip tooltipId="approverInputs" useStandAlone={true} />
+                      </div>
                       {isEmpty(formik.values.spec.approverInputs) ? null : (
                         <>
                           <div className={css.headerRow}>

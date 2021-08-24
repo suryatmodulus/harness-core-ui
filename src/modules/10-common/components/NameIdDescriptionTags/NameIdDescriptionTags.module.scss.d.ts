@@ -3,5 +3,6 @@
 declare const styles: {
   readonly main: string
   readonly editOpen: string
+  readonly descriptionLabel: string
 }
 export default styles

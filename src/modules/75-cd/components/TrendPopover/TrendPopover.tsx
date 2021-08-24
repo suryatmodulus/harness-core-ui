@@ -2,19 +2,17 @@ import React from 'react'
 import cx from 'classnames'
 import { Classes, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import { Color, Icon, Layout, Popover, Text } from '@wings-software/uicore'
-import { useStrings } from 'framework/strings'
 import { SparklineChart, SparklineChartProps } from '@common/components/SparklineChart/SparklineChart'
 import { numberFormatter } from '@cd/components/Services/common'
 import css from '@cd/components/TrendPopover/TrendPopover.module.scss'
 
 export interface TrendPopoverProps {
+  title?: string
   data: SparklineChartProps['data']
 }
 
 const Trend: React.FC<TrendPopoverProps> = props => {
-  const { data } = props
-  const { getString } = useStrings()
-  const title = `${getString('cd.serviceDashboard.servicesInLast')} ${getString('cd.serviceDashboard.6months')}`
+  const { title, data } = props
   return (
     <Layout.Vertical padding={{ left: 'medium', right: 'medium', top: 'xsmall', bottom: 0 }} width={676} height={200}>
       <Layout.Horizontal flex={{ distribution: 'space-between', align: 'center-center' }} margin={{ bottom: 'xsmall' }}>
@@ -49,11 +47,11 @@ const Trend: React.FC<TrendPopoverProps> = props => {
 }
 
 export const TrendPopover: React.FC<TrendPopoverProps> = props => {
-  const { data, children } = props
+  const { title, data, children } = props
   return (
     <Popover interactionKind={PopoverInteractionKind.CLICK} position={Position.RIGHT}>
       {children}
-      <Trend data={data} />
+      <Trend title={title} data={data} />
     </Popover>
   )
 }

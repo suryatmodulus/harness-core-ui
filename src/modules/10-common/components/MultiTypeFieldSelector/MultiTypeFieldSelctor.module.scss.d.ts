@@ -12,5 +12,6 @@ declare const styles: {
   readonly formGroup: string
   readonly formLabel: string
   readonly popover: string
+  readonly runtimeDisabled: string
 }
 export default styles

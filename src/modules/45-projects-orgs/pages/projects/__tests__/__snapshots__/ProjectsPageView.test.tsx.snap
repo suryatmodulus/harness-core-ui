@@ -138,7 +138,7 @@ exports[`Project Page List Create Project and Close 1`] = `
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -176,7 +176,7 @@ exports[`Project Page List Create Project and Close 1`] = `
             class=""
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round"
+              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round Button--withRightIcon"
               type="button"
             >
               <span
@@ -224,12 +224,12 @@ exports[`Project Page List Create Project and Close 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
           data-icon="thinner-search"
         >
           <svg
@@ -251,7 +251,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -260,7 +260,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -286,7 +286,7 @@ exports[`Project Page List Create Project and Close 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -349,7 +349,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -783,7 +783,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1217,7 +1217,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1651,7 +1651,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2050,7 +2050,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2484,7 +2484,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2918,7 +2918,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -3475,7 +3475,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -3513,7 +3513,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
             class=""
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round"
+              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round Button--withRightIcon"
               type="button"
             >
               <span
@@ -3561,12 +3561,12 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
           data-icon="thinner-search"
         >
           <svg
@@ -3588,7 +3588,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -3597,7 +3597,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -3623,7 +3623,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -3686,7 +3686,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -4120,7 +4120,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -4554,7 +4554,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -4988,7 +4988,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -5387,7 +5387,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -5821,7 +5821,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -6255,7 +6255,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -6812,7 +6812,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -6850,7 +6850,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
             class=""
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round"
+              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round Button--withRightIcon"
               type="button"
             >
               <span
@@ -6898,12 +6898,12 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
           data-icon="thinner-search"
         >
           <svg
@@ -6925,7 +6925,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -6934,7 +6934,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -6960,7 +6960,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -7023,7 +7023,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -7457,7 +7457,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -7891,7 +7891,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -8325,7 +8325,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -8724,7 +8724,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -9158,7 +9158,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -9592,7 +9592,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -10149,7 +10149,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
       class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -10187,7 +10187,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
             class=""
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round"
+              class="bp3-button Button--button StyledProps--font StyledProps--main orgSelect StyledProps--inline Button--with-current-color Button--round Button--withRightIcon"
               type="button"
             >
               <span
@@ -10235,12 +10235,12 @@ exports[`Project Page List Whole Modal Test 1`] = `
         style="flex: 1;"
       />
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
-        style="max-width: 350px;"
+        style="width: 300px; max-width: 300px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
           data-icon="thinner-search"
         >
           <svg
@@ -10262,7 +10262,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="projectsOrgs.search"
-          style="padding-right: 0px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -10271,7 +10271,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--flex"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--gridButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           data-testid="grid-view"
           data-tooltip-id="grid-view"
           type="button"
@@ -10297,7 +10297,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
           </span>
         </button>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main GridListToggle--listUnselected GridListToggle--listButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           data-testid="list-view"
           data-tooltip-id="list-view"
           type="button"
@@ -10360,7 +10360,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -10794,7 +10794,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -11228,7 +11228,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -11662,7 +11662,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -12061,7 +12061,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -12495,7 +12495,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -12929,7 +12929,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span

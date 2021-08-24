@@ -72,7 +72,7 @@ exports[`LockoutPolicy Disable lockout policy 1`] = `
               class="editIcon"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                 data-testid="update-lockout-policy"
                 type="button"
               >

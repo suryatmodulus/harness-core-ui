@@ -63,7 +63,6 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
 
   const formDetails = TriggerFactory.getTriggerFormDetails(TriggerFormType.Manifest)
   const ManifestFormDetails = formDetails.component
-
   const filteredArtifact = filterArtifact({
     runtimeData,
     stageId: selectedStageId,
@@ -74,8 +73,6 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
   const artifactOrManifestText = isManifest
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
-
-  // const pathId = getPathString(runtimeData, selectedStage)
   return (
     <Dialog
       className={`${css.selectArtifactModal} padded-dialog`}

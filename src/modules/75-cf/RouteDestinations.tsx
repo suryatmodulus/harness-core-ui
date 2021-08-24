@@ -77,8 +77,10 @@ import { SegmentDetailPage } from './pages/segment-details/SegmentDetailPage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 import { OnboardingDetailPage } from './pages/onboarding/OnboardingDetailPage'
 
+// register FF pipelines with pipeline studio
 import './pages/pipeline-studio/views/FeatureFlagStage'
 import './components/PipelineSteps/index'
+
 import CFTrialHomePage from './pages/home/CFTrialHomePage'
 import CFPipelineDeploymentList from './pages/pipeline-deployment-list/CFPipelineDeploymentList'
 import { CFPipelineContainer } from './pages/pipeline-studio/CFPipelineContainer'
@@ -187,17 +189,17 @@ RbacFactory.registerResourceTypeHandler(ResourceType.TARGETGROUP, {
 
 export default (
   <>
-    <Route licenseRedirectData={licenseRedirectData} path={routes.toCF({ ...accountPathProps })} exact>
+    <RouteWithLayout licenseRedirectData={licenseRedirectData} path={routes.toCF({ ...accountPathProps })} exact>
       <RedirectToCFHome />
-    </Route>
+    </RouteWithLayout>
 
-    <Route
+    <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       path={routes.toCFProject({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <RedirectToCFProject />
-    </Route>
+    </RouteWithLayout>
 
     <RouteWithLayout
       layout={MinimalLayout}
@@ -264,13 +266,13 @@ export default (
       <TargetDetailPage />
     </RouteWithLayout>
 
-    <Route
+    <RouteWithLayout
       licenseRedirectData={licenseRedirectData}
       path={routes.toCFTargetManagement({ ...accountPathProps, ...projectPathProps })}
       exact
     >
       <RedirectToTargets />
-    </Route>
+    </RouteWithLayout>
 
     <RouteWithLayout
       licenseRedirectData={licenseRedirectData}

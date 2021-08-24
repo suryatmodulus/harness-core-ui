@@ -68,6 +68,12 @@ export function StageSelector(props: { layoutNodeMap?: PipelineExecutionSummary[
     label: props.layoutNodeMap![value].name!
   }))
   const selectedOption = options.find(option => option.value === query.stage)
+
+  // Need to have a selected change by default when we are opening a page
+  if (!selectedOption && options.length > 0) {
+    history.push(routes.toExecutionArtifactsView(params) + '?' + qs.stringify({ ...query, stage: options[0].value }))
+  }
+
   return (
     <Select
       className={css.stageSelector}

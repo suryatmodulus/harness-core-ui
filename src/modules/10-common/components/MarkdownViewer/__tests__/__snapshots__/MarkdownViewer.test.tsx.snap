@@ -20,7 +20,7 @@ exports[`MarkdownViewer MarkdownViewer should be rendered properly 1`] = `
             go get github.com/wings-software/ff-client-sdk-go
       </pre>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -89,7 +89,7 @@ exports[`MarkdownViewer MarkdownViewer should be rendered properly 1`] = `
     Build()
       </pre>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span

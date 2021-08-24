@@ -111,6 +111,9 @@ export const getConnectorTitleIdByType = (type: string): StringKeys => {
       return 'connectors.GCR.fullName'
     case Connectors.AWS_KMS:
       return 'connectors.title.awsKms'
+    case Connectors.AWS_SECRET_MANAGER:
+      return 'connectors.title.awsSecretManager'
+
     case Connectors.CE_AZURE:
       return 'connectors.title.ceAzureConnector'
     case Connectors.DATADOG:
@@ -183,6 +186,8 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-sumologic'
     case Connectors.CEAWS:
       return 'service-aws'
+    case Connectors.AWS_SECRET_MANAGER:
+      return 'aws-secret-manager'
     default:
       return 'placeholder'
   }

@@ -48,6 +48,9 @@ const GetChart: React.FC<GetChartProps> = ({
           case QlceViewTimeGroupType.Month:
             return moment(this.value).utc().format('MMM')
 
+          case QlceViewTimeGroupType.Hour:
+            return moment(this.value).utc().format('MMM DD HH:00')
+
           default:
             return moment(this.value).utc().format('MMM DD')
         }

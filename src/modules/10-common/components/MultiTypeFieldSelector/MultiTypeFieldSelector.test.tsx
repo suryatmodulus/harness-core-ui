@@ -50,17 +50,14 @@ describe('<MultiTypeFieldSelector /> tests', () => {
 
   test('Change from "Fixed value" to "Runtime input" updates value', async () => {
     const onSubmit = jest.fn()
-    const { container, getByTestId } = render(
+    const { container, getByTestId, getByText } = render(
       <TestComponent onSubmit={onSubmit} initialValues={{ test: 'Some Value' }} />
     )
 
-    const fil = await findByText(container, 'inputTypes.FIXED')
+    const fixedInputIcon = container.querySelector('span[data-icon="fixed-input"]')
+    fireEvent.click(fixedInputIcon!)
 
-    fireEvent.click(fil.closest('button')!)
-
-    const ri = await findByText(document.body, 'Runtime input')
-
-    fireEvent.click(ri)
+    fireEvent.click(getByText('Runtime input'))
 
     expect(container).toMatchSnapshot('Runtime input')
     expect(() => getByTestId('children')).toThrow()
@@ -100,15 +97,14 @@ describe('<MultiTypeFieldSelector /> tests', () => {
 
   test('Change from "Runtime input" to "Fixed value" updates value', async () => {
     const onSubmit = jest.fn()
-    const { container, getByTestId } = render(
+    const { container, getByTestId, getByText } = render(
       <TestComponent onSubmit={onSubmit} initialValues={{ test: RUNTIME_INPUT_VALUE }} />
     )
-    const ri = await findByText(document.body, 'inputTypes.RUNTIME')
-    fireEvent.click(ri)
 
-    const fil = await findByText(document.body, 'Fixed value')
-    fireEvent.click(fil)
+    const runtimeInputIcon = container.querySelector('span[data-icon="runtime-input"]')
+    fireEvent.click(runtimeInputIcon!)
 
+    fireEvent.click(getByText('Fixed value'))
     expect(container).toMatchSnapshot('inputTypes.FIXED')
     expect(getByTestId('children')).toMatchInlineSnapshot(`
       <div

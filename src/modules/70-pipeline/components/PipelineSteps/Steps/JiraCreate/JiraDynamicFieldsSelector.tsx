@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { FieldArray, FormikProps } from 'formik'
 import { useParams } from 'react-router'
-import { Button, Formik, FormInput, MultiTypeInputType, Radio, Select, Text } from '@wings-software/uicore'
+import {
+  Button,
+  Formik,
+  FormInput,
+  HarnessDocTooltip,
+  MultiTypeInputType,
+  Radio,
+  Select,
+  Text
+} from '@wings-software/uicore'
 import { String, useStrings } from 'framework/strings'
 
 import type { AccountPathProps, PipelinePathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
@@ -240,13 +249,19 @@ const Content = (props: JiraDynamicFieldsSelectorContentInterface) => {
           checked={type === JiraCreateFormFieldSelector.FIXED}
           disabled={!connectorRef}
         >
-          {getString('pipeline.jiraCreateStep.selectFromFieldList')}{' '}
+          <span data-tooltip-id="jiraSelectFromFieldList">
+            {getString('pipeline.jiraCreateStep.selectFromFieldList')}{' '}
+            <HarnessDocTooltip useStandAlone={true} tooltipId="jiraSelectFromFieldList" />
+          </span>
         </Radio>
         <Radio
           onClick={() => setType(JiraCreateFormFieldSelector.EXPRESSION)}
           checked={type === JiraCreateFormFieldSelector.EXPRESSION}
         >
-          {getString('pipeline.jiraCreateStep.provideFieldList')}{' '}
+          <span data-tooltip-id="jiraProvideFromFieldList">
+            {getString('pipeline.jiraCreateStep.provideFieldList')}{' '}
+            <HarnessDocTooltip useStandAlone={true} tooltipId="jiraProvideFromFieldList" />
+          </span>
         </Radio>
       </div>
       {type === JiraCreateFormFieldSelector.FIXED ? <SelectFieldList {...props} /> : <ProvideFieldList {...props} />}

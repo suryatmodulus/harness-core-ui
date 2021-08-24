@@ -1,0 +1,21 @@
+/* eslint-disable */
+// this is an auto-generated file
+declare const styles: {
+  readonly card: string
+  readonly projectName: string
+  readonly id: string
+  readonly description: string
+  readonly urls: string
+  readonly serverUrl: string
+  readonly uiUrl: string
+  readonly status: string
+  readonly label: string
+  readonly serverStatus: string
+  readonly success: string
+  readonly failure: string
+  readonly mainTitle: string
+  readonly layout: string
+  readonly argoLogo: string
+  readonly launch: string
+}
+export default styles

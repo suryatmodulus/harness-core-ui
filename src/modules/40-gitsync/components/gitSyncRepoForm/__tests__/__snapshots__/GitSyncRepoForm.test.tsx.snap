@@ -27,7 +27,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeButton Button--with-current-color Button--iconOnly Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeButton Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -277,7 +277,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -384,7 +384,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: connectorSelectorDialog 
                     class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -712,7 +712,7 @@ exports[`Git Sync - repo tab Filling gitSync repo form: gitSync repo form 1`] = 
                       class="bp3-form-content"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                         data-testid="cr-field-gitConnector"
                         style="width: 350px;"
                         type="button"
@@ -1388,7 +1388,7 @@ exports[`Git Sync - repo tab Repo type card should be enabled only for Github 1`
                       class="bp3-form-content"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                         data-testid="cr-field-gitConnector"
                         style="width: 350px;"
                         type="button"
@@ -1975,7 +1975,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 1`] = `
                       class="bp3-form-content"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                         data-testid="cr-field-gitConnector"
                         style="width: 350px;"
                         type="button"
@@ -2592,7 +2592,7 @@ exports[`Git Sync - repo tab rendering form to create gitSync repo 2`] = `
                       class="bp3-form-content"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                         data-testid="cr-field-gitConnector"
                         style="width: 350px;"
                         type="button"

@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 
 import { TestWrapper } from '@common/utils/testUtils'
-import services from '@cd/components/PipelineStudio/DeployServiceSpecifications/__test__/servicesMock.json'
+import services from '@cd/components/PipelineStudio/DeployServiceSpecifications/__test__/servicesMock'
 import DeployStageSetupShell from '../DeployStageSetupShell'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder')

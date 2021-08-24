@@ -29,7 +29,7 @@ const WelcomePage: React.FC = () => {
   const [step, setStep] = useState<STEPS>(STEPS.SELECT_MODULE)
   const [module, setModule] = useState<Module>()
 
-  const { CVNG_ENABLED, CING_ENABLED, CFNG_ENABLED } = useFeatureFlags()
+  const { CVNG_ENABLED, CING_ENABLED, CFNG_ENABLED, CENG_ENABLED } = useFeatureFlags()
   const CDNG_OPTIONS: ModuleProps = {
     enabled: true, // Continous delivery is enabled in CG
     titleIcon: 'cd-with-text',
@@ -51,7 +51,7 @@ const WelcomePage: React.FC = () => {
   }
 
   const CENG_OPTIONS: ModuleProps = {
-    enabled: true, // Continous efficiency is enabled in CG
+    enabled: !!CENG_ENABLED, // Continous efficiency is enabled in CG
     titleIcon: 'ccm-with-text',
     bodyIcon: 'ccm-sketch',
     module: 'ce'

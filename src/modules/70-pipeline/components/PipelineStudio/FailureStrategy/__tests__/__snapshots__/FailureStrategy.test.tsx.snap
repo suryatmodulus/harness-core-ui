@@ -41,7 +41,7 @@ exports[`<Failure Strategy/> tests renders ok with data 1`] = `
             </li>
           </ul>
           <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
             data-testid="add-failure-strategy"
             type="button"
           >
@@ -74,7 +74,7 @@ exports[`<Failure Strategy/> tests renders ok with data 1`] = `
           </button>
         </div>
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           data-testid="remove-failure-strategy"
           type="button"
         >
@@ -265,7 +265,7 @@ exports[`<Failure Strategy/> tests renders ok with data 1`] = `
                     </span>
                   </div>
                   <p
-                    class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                    class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                   >
                     pipeline.failureStrategies.strategiesLabel.Ignore
                   </p>
@@ -277,7 +277,7 @@ exports[`<Failure Strategy/> tests renders ok with data 1`] = `
                   />
                 </label>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
                   data-testid="thumbnail-select-change"
                   type="button"
                 >
@@ -366,7 +366,7 @@ exports[`<Failure Strategy/> tests renders ok with no data 1`] = `
             </li>
           </ul>
           <button
-            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
             data-testid="add-failure-strategy"
             type="button"
           >
@@ -568,7 +568,7 @@ exports[`<Failure Strategy/> tests renders ok with no data 1`] = `
                     </span>
                   </div>
                   <p
-                    class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                    class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                   >
                     pipeline.failureStrategies.strategiesLabel.StageRollback
                   </p>
@@ -580,7 +580,7 @@ exports[`<Failure Strategy/> tests renders ok with no data 1`] = `
                   />
                 </label>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
                   data-testid="thumbnail-select-change"
                   type="button"
                 >

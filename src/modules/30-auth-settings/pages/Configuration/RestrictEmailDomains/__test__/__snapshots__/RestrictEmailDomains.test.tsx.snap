@@ -48,7 +48,7 @@ exports[`RestrictEmailDomains Disable email restrictions 1`] = `
           />
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           data-testid="update-restrict-email-domains"
           type="button"
         >
@@ -126,7 +126,7 @@ exports[`RestrictEmailDomains Update email restrictions 1`] = `
           />
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           data-testid="update-restrict-email-domains"
           type="button"
         >

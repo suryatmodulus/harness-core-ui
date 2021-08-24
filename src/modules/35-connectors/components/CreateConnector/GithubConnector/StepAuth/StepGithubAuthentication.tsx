@@ -9,7 +9,8 @@ import {
   StepProps,
   Color,
   Container,
-  SelectOption
+  SelectOption,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
@@ -122,7 +123,8 @@ const RenderAPIAccessForm: React.FC<FormikProps<GithubFormInterface>> = props =>
       )
     case GitAPIAuthTypes.TOKEN:
       return (
-        <Container width={'52%'}>
+        <Container width={'52%'} data-tooltip-id="gitHubPersonalAccessTooltip">
+          <HarnessDocTooltip tooltipId="gitHubPersonalAccessTooltip" useStandAlone={true} />
           <SecretInput name="apiAccessToken" label={getString('personalAccessToken')} />
         </Container>
       )
@@ -148,7 +150,7 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<GithubFormInterface>> = f
   return (
     <>
       <Container className={css.authHeaderRow} width={'52%'}>
-        <Text className={css.authTitle} inline>
+        <Text className={css.authTitle} inline tooltipProps={{ dataTooltipId: 'githubApiAuthentication' }}>
           {getString('common.git.APIAuthentication')}
         </Text>
         <FormInput.Select name="apiAuthType" items={apiAuthOptions} className={commonStyles.authTypeSelect} />
@@ -273,7 +275,11 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
                 <Container className={css.stepFormWrapper}>
                   {formikProps.values.connectionType === GitConnectionType.SSH ? (
                     <Container width={'52%'}>
-                      <Text font={{ weight: 'bold' }} className={css.authTitle}>
+                      <Text
+                        tooltipProps={{ dataTooltipId: 'githubAuthentication' }}
+                        font={{ weight: 'bold' }}
+                        className={css.authTitle}
+                      >
                         {getString('authentication')}
                       </Text>
                       <SecretInput name="sshKey" type="SSHKey" label={getString('SSH_KEY')} />
@@ -281,7 +287,7 @@ const StepGithubAuthentication: React.FC<StepProps<StepGithubAuthenticationProps
                   ) : (
                     <Container width={'52%'}>
                       <Container className={css.authHeaderRow}>
-                        <Text className={css.authTitle} inline>
+                        <Text className={css.authTitle} inline tooltipProps={{ dataTooltipId: 'githubAuthentication' }}>
                           {getString('authentication')}
                         </Text>
                         <FormInput.Select

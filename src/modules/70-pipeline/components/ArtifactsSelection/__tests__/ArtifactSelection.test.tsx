@@ -167,7 +167,7 @@ describe('ArtifactsSelection tests', () => {
     )
     const primaryArtifactContainer = await findByText(container, 'primary')
     expect(primaryArtifactContainer).toBeDefined()
-    const editButton = container.querySelector('[data-icon="edit"]')
+    const editButton = container.querySelector('[data-icon="Edit"]')
     expect(editButton).toBeDefined()
     fireEvent.click(editButton as HTMLElement)
     const artifactEditModalTitle = await waitFor(() => findByText(container, 'artifactRepository'))
@@ -332,7 +332,7 @@ describe('ArtifactsSelection tests', () => {
       </TestWrapper>
     )
 
-    const editArtifactBtn = container.querySelector('[data-icon="edit"]') as Element
+    const editArtifactBtn = container.querySelector('[data-icon="Edit"]') as Element
     expect(editArtifactBtn).toBeDefined()
     fireEvent.click(editArtifactBtn)
 

@@ -65,7 +65,6 @@ export const TemplateCard: React.FC<TemplateCardProps> = (props): JSX.Element =>
                     </Tag>
                   )
                 })}
-              + 4
             </div>
           </div>
         </Layout.Horizontal>
@@ -74,7 +73,7 @@ export const TemplateCard: React.FC<TemplateCardProps> = (props): JSX.Element =>
       <div className={cx(css.sectionMargin)}>
         <Container padding={{ right: 'small', top: 'medium', bottom: 'small' }}>
           <div className={css.version}>
-            Version: <strong>2.2</strong>
+            Label: <strong>{template.label}</strong>
           </div>
           <div className={css.userLabel}>
             <UserLabel name={'4 minutes ago'} />

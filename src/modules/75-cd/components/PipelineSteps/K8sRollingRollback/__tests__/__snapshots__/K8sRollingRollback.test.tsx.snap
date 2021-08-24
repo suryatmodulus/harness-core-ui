@@ -115,7 +115,12 @@ exports[`Test K8sRollingRollback Step should render edit view 1`] = `
                 class="bp3-label"
                 for="timeout"
               >
-                pipelineSteps.timeoutLabel
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="k8RollingRB_timeout"
+                >
+                  pipelineSteps.timeoutLabel
+                </span>
                  
                 <span
                   class="bp3-text-muted"
@@ -306,7 +311,7 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                   tabindex="0"
                   type="button"
                 >
@@ -366,7 +371,7 @@ exports[`Test K8sRollingRollback Step should render variable view 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                   tabindex="0"
                   type="button"
                 >

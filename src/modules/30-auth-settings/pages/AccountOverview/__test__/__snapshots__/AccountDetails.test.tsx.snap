@@ -24,7 +24,7 @@ exports[`AccountDetails should render AccountDetails page with values 1`] = `
         account name
       </p>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span

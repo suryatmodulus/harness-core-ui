@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Layout, ExpandingSearchInput } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -21,23 +21,18 @@ const ResourceGroups: React.FC = () => {
   useDocumentTitle(getString('resourceGroups'))
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
-  const defaultQueryParams = {
-    pageIndex: page,
-    pageSize: 10,
-    projectIdentifier,
-    orgIdentifier,
-    searchTerm,
-    accountIdentifier: accountId
-  }
+
   const { data, loading, error, refetch } = useGetResourceGroupList({
     queryParams: {
-      ...defaultQueryParams
-    }
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pageIndex: page,
+      pageSize: 10,
+      searchTerm: encodeURIComponent(searchTerm)
+    },
+    debounce: 300
   })
-
-  useEffect(() => {
-    if (searchTerm) setPage(0)
-  }, [searchTerm])
 
   const { openResourceGroupModal } = useResourceGroupModal({
     onSuccess: resourceGroup => {
@@ -85,6 +80,7 @@ const ResourceGroups: React.FC = () => {
               placeholder={getString('common.searchPlaceholder')}
               onChange={e => {
                 setSearchTerm(e.trim())
+                setPage(0)
               }}
               width={250}
             />

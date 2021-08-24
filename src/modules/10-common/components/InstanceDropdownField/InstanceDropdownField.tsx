@@ -1,5 +1,12 @@
 import React from 'react'
-import { Button, getMultiTypeFromValue, MultiTextInput, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  Button,
+  FormikTooltipContext,
+  getMultiTypeFromValue,
+  HarnessDocTooltip,
+  MultiTextInput,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import {
   FormGroup,
   HTMLInputProps,
@@ -102,7 +109,7 @@ export function getInstanceDropdownSchema(
 interface InstanceDropdownFieldProps extends Omit<IFormGroupProps, 'label' | 'placeholder'> {
   onChange?: (value: InstanceFieldValue) => void
   value: InstanceFieldValue
-  label: string
+  label: string | JSX.Element
   expressions: string[]
   allowableTypes?: MultiTypeInputType[]
   disabledType?: boolean
@@ -216,9 +223,12 @@ const FormInstanceDropdownField: React.FC<FormInstanceDropdownFieldProps> = (pro
 
   const value: InstanceFieldValue = get(formik?.values, name, { type: InstanceTypes.Instances, spec: { count: 0 } })
 
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId = tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : ''
+
   return (
     <InstanceDropdownField
-      label={label}
+      label={<HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} />}
       name={name}
       textProps={{ ...textProps }}
       value={value}

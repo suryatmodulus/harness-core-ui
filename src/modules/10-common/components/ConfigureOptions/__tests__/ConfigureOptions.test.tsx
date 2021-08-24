@@ -37,7 +37,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps(RUNTIME_INPUT_VALUE, 'test', 'var-test')} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -50,7 +50,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps('', 'test', 'var-test')} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     await waitFor(() => getByTextBody(document.body, 'common.configureOptions.notValidExpression'))
     expect(getByTextBody(document.body, 'common.configureOptions.notValidExpression')).toBeTruthy()
@@ -62,7 +62,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^a$)`, 'test', 'var-test', false, 'abc', true)} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -79,7 +79,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^abc$)`, 'test', 'var-test', true, 'abc')} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -96,7 +96,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^abc$)`, 'test', 'var-test', true, '')} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -114,7 +114,7 @@ describe('Test ConfigureOptions', () => {
         />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -133,7 +133,7 @@ describe('Test ConfigureOptions', () => {
         />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -152,7 +152,7 @@ describe('Test ConfigureOptions', () => {
         />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -169,7 +169,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps(`${RUNTIME_INPUT_VALUE}.regex(^a$)`, 'test', 'var-test')} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -190,7 +190,7 @@ describe('Test ConfigureOptions', () => {
         />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -216,7 +216,7 @@ describe('Test ConfigureOptions', () => {
         />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -238,7 +238,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps(RUNTIME_INPUT_VALUE, 'test', 'var-test')} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
@@ -255,7 +255,7 @@ describe('Test ConfigureOptions', () => {
         <ConfigureOptions {...getProps(RUNTIME_INPUT_VALUE, 'test', 'var-test')} fetchValues={undefined} />
       </TestWrapper>
     )
-    const btn = container.querySelector('#configureOptions')
+    const btn = container.querySelector('#configureOptions_var-test')
     fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))

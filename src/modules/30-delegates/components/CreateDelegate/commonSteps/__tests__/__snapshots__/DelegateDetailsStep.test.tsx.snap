@@ -344,7 +344,7 @@ exports[`Delgate Details StepWizard Click continue button 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main continueBtn StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main continueBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
           id="step1ContinueButton"
           style="font-size: 14px;"
           type="button"
@@ -724,7 +724,7 @@ exports[`Delgate Details StepWizard render DelegateDetailsStep 1`] = `
         class="StyledProps--font StyledProps--main"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main continueBtn StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main continueBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
           id="step1ContinueButton"
           style="font-size: 14px;"
           type="button"

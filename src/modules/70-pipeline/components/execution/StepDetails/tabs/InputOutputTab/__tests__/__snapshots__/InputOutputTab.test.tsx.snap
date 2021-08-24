@@ -115,7 +115,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -161,7 +161,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -251,7 +251,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -297,7 +297,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -348,7 +348,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -394,7 +394,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -445,7 +445,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -491,7 +491,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -542,7 +542,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -588,7 +588,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -639,7 +639,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -685,7 +685,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                                 class="bp3-popover-target"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   tabindex="0"
                                   type="button"
                                 >
@@ -781,7 +781,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -827,7 +827,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -878,7 +878,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -924,7 +924,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -975,7 +975,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -1021,7 +1021,7 @@ exports[`<ExecutionStepInputOutputTab /> tests input snapshot test 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             tabindex="0"
                             type="button"
                           >
@@ -1136,7 +1136,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1182,7 +1182,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1233,7 +1233,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1279,7 +1279,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1330,7 +1330,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1376,7 +1376,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1427,7 +1427,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1473,7 +1473,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1566,7 +1566,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1612,7 +1612,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1663,7 +1663,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1709,7 +1709,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1760,7 +1760,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1806,7 +1806,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1857,7 +1857,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1903,7 +1903,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -1954,7 +1954,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -2000,7 +2000,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -2050,7 +2050,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >
@@ -2096,7 +2096,7 @@ exports[`<ExecutionStepInputOutputTab /> tests output snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                       tabindex="0"
                       type="button"
                     >

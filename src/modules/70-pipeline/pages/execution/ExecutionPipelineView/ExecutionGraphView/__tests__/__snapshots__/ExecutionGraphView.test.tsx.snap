@@ -579,169 +579,173 @@ exports[`<ExecutionGraphView /> tests step details are shown when step is select
                   </div>
                 </div>
                 <div
-                  class="bp3-tabs tabs"
+                  class="tabs"
                 >
                   <div
-                    class="bp3-tab-list"
-                    role="tablist"
+                    class="bp3-tabs Tabs--main Tabs--horizontal"
                   >
                     <div
-                      class="bp3-tab-indicator-wrapper"
-                      style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                      class="bp3-tab-list"
+                      role="tablist"
                     >
                       <div
-                        class="bp3-tab-indicator"
-                      />
-                    </div>
-                    <div
-                      aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
-                      aria-disabled="false"
-                      aria-expanded="true"
-                      aria-selected="true"
-                      class="bp3-tab"
-                      data-tab-id="STEP_DETAILS"
-                      id="bp3-tab-title_step-details_STEP_DETAILS"
-                      role="tab"
-                      tabindex="0"
-                    >
-                      details
-                    </div>
-                    <div
-                      aria-controls="bp3-tab-panel_step-details_INPUT"
-                      aria-disabled="false"
-                      aria-expanded="false"
-                      aria-selected="false"
-                      class="bp3-tab"
-                      data-tab-id="INPUT"
-                      id="bp3-tab-title_step-details_INPUT"
-                      role="tab"
-                      tabindex="0"
-                    >
-                      common.input
-                    </div>
-                    <div
-                      aria-controls="bp3-tab-panel_step-details_OUTPUT"
-                      aria-disabled="false"
-                      aria-expanded="false"
-                      aria-selected="false"
-                      class="bp3-tab"
-                      data-tab-id="OUTPUT"
-                      id="bp3-tab-title_step-details_OUTPUT"
-                      role="tab"
-                      tabindex="0"
-                    >
-                      outputLabel
-                    </div>
-                  </div>
-                  <div
-                    aria-hidden="false"
-                    aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
-                    class="bp3-tab-panel"
-                    id="bp3-tab-panel_step-details_STEP_DETAILS"
-                    role="tabpanel"
-                  >
-                    <div
-                      class="detailsTab"
-                    >
-                      <table
-                        class="detailsTable"
-                      >
-                        <tbody>
-                          <tr>
-                            <th>
-                              startedAt
-                            </th>
-                            <td>
-                              DUMMY DATE
-                            </td>
-                          </tr>
-                          <tr>
-                            <th>
-                              endedAt
-                            </th>
-                            <td>
-                              DUMMY DATE
-                            </td>
-                          </tr>
-                          <tr>
-                            <th>
-                              pipeline.duration
-                            </th>
-                            <td>
-                              <span
-                                class="StyledProps--font StyledProps--main timer StyledProps--inline"
-                              >
-                                
-                                
-                              </span>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                      <div
-                        class="main"
-                        data-mode="step-details"
+                        class="bp3-tab-indicator-wrapper"
+                        style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
                       >
                         <div
-                          class="header"
+                          class="bp3-tab-indicator"
+                        />
+                      </div>
+                      <div
+                        aria-controls="bp3-tab-panel_step-details_STEP_DETAILS"
+                        aria-disabled="false"
+                        aria-expanded="true"
+                        aria-selected="true"
+                        class="bp3-tab"
+                        data-tab-id="STEP_DETAILS"
+                        id="bp3-tab-title_step-details_STEP_DETAILS"
+                        role="tab"
+                        tabindex="0"
+                      >
+                        details
+                      </div>
+                      <div
+                        aria-controls="bp3-tab-panel_step-details_INPUT"
+                        aria-disabled="false"
+                        aria-expanded="false"
+                        aria-selected="false"
+                        class="bp3-tab"
+                        data-tab-id="INPUT"
+                        id="bp3-tab-title_step-details_INPUT"
+                        role="tab"
+                        tabindex="0"
+                      >
+                        common.input
+                      </div>
+                      <div
+                        aria-controls="bp3-tab-panel_step-details_OUTPUT"
+                        aria-disabled="false"
+                        aria-expanded="false"
+                        aria-selected="false"
+                        class="bp3-tab"
+                        data-tab-id="OUTPUT"
+                        id="bp3-tab-title_step-details_OUTPUT"
+                        role="tab"
+                        tabindex="0"
+                      >
+                        outputLabel
+                      </div>
+                    </div>
+                    <div
+                      aria-hidden="false"
+                      aria-labelledby="bp3-tab-title_step-details_STEP_DETAILS"
+                      class="bp3-tab-panel"
+                      id="bp3-tab-panel_step-details_STEP_DETAILS"
+                      role="tabpanel"
+                    >
+                      <div
+                        class="detailsTab"
+                      >
+                        <table
+                          class="detailsTable"
                         >
-                          <div>
-                            execution.stepLogs
-                          </div>
+                          <tbody>
+                            <tr>
+                              <th>
+                                startedAt
+                              </th>
+                              <td>
+                                DUMMY DATE
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>
+                                endedAt
+                              </th>
+                              <td>
+                                DUMMY DATE
+                              </td>
+                            </tr>
+                            <tr>
+                              <th>
+                                pipeline.duration
+                              </th>
+                              <td>
+                                <span
+                                  class="StyledProps--font StyledProps--main timer StyledProps--inline"
+                                >
+                                  
+                                  
+                                </span>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div
+                          class="main"
+                          data-mode="step-details"
+                        >
                           <div
-                            class="rhs"
+                            class="header"
+                          >
+                            <div>
+                              execution.stepLogs
+                            </div>
+                            <div
+                              class="rhs"
+                            >
+                              <div
+                                class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+                                data-name=""
+                              >
+                                <span
+                                  class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+                                  data-icon="thinner-search"
+                                >
+                                  <svg
+                                    fill="none"
+                                    height="14"
+                                    viewBox="0 0 16 16"
+                                    width="14"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                    />
+                                  </svg>
+                                </span>
+                                <input
+                                  class="bp3-input  ExpandingSearchInput--find"
+                                  dir="auto"
+                                  placeholder="Search"
+                                  style="padding-right: 0px;"
+                                  type="search"
+                                  value=""
+                                />
+                              </div>
+                              <a
+                                class="toConsoleView"
+                                href="/?view=log"
+                              >
+                                <span>
+                                  consoleView
+                                </span>
+                              </a>
+                            </div>
+                          </div>
+                          <pre
+                            class="container"
                           >
                             <div
-                              class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
-                              data-name=""
+                              class="noLogs"
                             >
-                              <span
-                                class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
-                                data-icon="thinner-search"
-                              >
-                                <svg
-                                  fill="none"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
-                                    stroke="currentColor"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                  />
-                                </svg>
-                              </span>
-                              <input
-                                class="bp3-input  ExpandingSearchInput--find"
-                                dir="auto"
-                                placeholder="Search"
-                                style="padding-right: 98px;"
-                                type="search"
-                                value=""
-                              />
+                              common.logs.noLogsText
                             </div>
-                            <a
-                              class="toConsoleView"
-                              href="/?view=log"
-                            >
-                              <span>
-                                consoleView
-                              </span>
-                            </a>
-                          </div>
+                          </pre>
                         </div>
-                        <pre
-                          class="container"
-                        >
-                          <div
-                            class="noLogs"
-                          >
-                            common.logs.noLogsText
-                          </div>
-                        </pre>
                       </div>
                     </div>
                   </div>

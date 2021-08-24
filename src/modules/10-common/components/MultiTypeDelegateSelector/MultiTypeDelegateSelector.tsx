@@ -1,6 +1,13 @@
 import React from 'react'
 import { connect, FormikContext } from 'formik'
-import { ExpressionAndRuntimeType, ExpressionAndRuntimeTypeProps, MultiTypeInputType } from '@wings-software/uicore'
+import {
+  DataTooltipInterface,
+  ExpressionAndRuntimeType,
+  ExpressionAndRuntimeTypeProps,
+  FormikTooltipContext,
+  HarnessDocTooltip,
+  MultiTypeInputType
+} from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
 
@@ -14,6 +21,7 @@ export interface MultiTypeDelegateSelectorProps extends IFormGroupProps {
   label?: string
   expressions?: string[]
   allowableTypes?: MultiTypeInputType[]
+  tooltipProps?: DataTooltipInterface
   inputProps: Omit<DelegateSelectorsProps, 'onChange'>
 }
 
@@ -38,9 +46,18 @@ export function MultiTypeDelegateSelector(props: ConnectedMultiTypeDelegateSelec
   const handleChange: ExpressionAndRuntimeTypeProps['onChange'] = val => {
     formik.setFieldValue(name, val)
   }
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
 
   return (
-    <FormGroup {...rest} labelFor={name} label={label} intent={intent} helperText={helperText}>
+    <FormGroup
+      {...rest}
+      labelFor={name}
+      label={label ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} /> : label}
+      intent={intent}
+      helperText={helperText}
+    >
       <ExpressionAndRuntimeType
         name={name}
         value={value}

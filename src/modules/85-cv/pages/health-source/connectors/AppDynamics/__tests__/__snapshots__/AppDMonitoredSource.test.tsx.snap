@@ -101,7 +101,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                   class="bp3-input-left-container"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
+                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                     type="button"
                                   >
                                     <span
@@ -138,7 +138,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                   class="bp3-input-action"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
+                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                     type="button"
                                   >
                                     <span
@@ -207,7 +207,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                   class="bp3-input-left-container"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
+                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                     type="button"
                                   >
                                     <span
@@ -244,7 +244,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                                   class="bp3-input-action"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
+                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                     type="button"
                                   >
                                     <span
@@ -402,7 +402,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                 class="StyledProps--font StyledProps--main footerCta footer"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -431,7 +431,7 @@ exports[`Unit tests for createAppd monitoring source Component renders in edit m
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -570,7 +570,7 @@ exports[`Unit tests for createAppd monitoring source Validation in create mode 1
                                   class="bp3-input-left-container"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
+                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                     type="button"
                                   >
                                     <span
@@ -607,7 +607,7 @@ exports[`Unit tests for createAppd monitoring source Validation in create mode 1
                                   class="bp3-input-action"
                                 >
                                   <button
-                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow"
+                                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main iconButton StyledProps--margin-right-xsmall Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                     type="button"
                                   >
                                     <span
@@ -769,7 +769,7 @@ exports[`Unit tests for createAppd monitoring source Validation in create mode 1
                 class="StyledProps--font StyledProps--main footerCta footer"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -798,7 +798,7 @@ exports[`Unit tests for createAppd monitoring source Validation in create mode 1
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
                   type="button"
                 >
                   <span

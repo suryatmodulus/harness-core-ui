@@ -86,7 +86,7 @@ exports[`test cases for Workload details Page should be able to render the detai
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow Button--withLeftIcon Button--withRightIcon"
             type="button"
           >
             <span
@@ -112,48 +112,6 @@ exports[`test cases for Workload details Page should be able to render the detai
               class="bp3-button-text"
             >
               ce.perspectives.timeRangeConstants.last7Days
-            </span>
-            <span
-              class="bp3-icon bp3-icon-caret-down StyledProps--main"
-              icon="caret-down"
-            >
-              <svg
-                data-icon="caret-down"
-                height="16"
-                viewBox="0 0 16 16"
-                width="16"
-              >
-                <desc>
-                  caret-down
-                </desc>
-                <path
-                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-      <p
-        class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-primary7"
-      >
-        |
-      </p>
-      <span
-        class="bp3-popover-wrapper"
-      >
-        <span
-          class="bp3-popover-target"
-        >
-          <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
-            type="button"
-          >
-            <span
-              class="bp3-button-text"
-            >
-              ce.perspectives.timeAggregation.daily
             </span>
             <span
               class="bp3-icon bp3-icon-caret-down StyledProps--main"

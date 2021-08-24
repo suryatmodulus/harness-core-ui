@@ -663,7 +663,7 @@ const ManifestListView = ({
                       <span>
                         <Layout.Horizontal>
                           <Button
-                            icon="edit"
+                            icon="Edit"
                             onClick={() =>
                               editManifest(
                                 manifest?.type as ManifestTypes,

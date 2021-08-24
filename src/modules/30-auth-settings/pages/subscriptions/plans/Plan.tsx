@@ -15,6 +15,8 @@ interface PlanProps {
     buttonText: Maybe<string>
     primaryButton: Maybe<boolean>
     img: Maybe<{ __typename?: 'UploadFile'; url: string; width: Maybe<number>; height: Maybe<number> }>
+    onClick?: () => Promise<void>
+    btnLoading?: boolean
     featureListZone: Maybe<
       Array<
         Maybe<{
@@ -50,13 +52,15 @@ const Plan: React.FC<PlanProps> = ({ plan, timeType, textColorClassName, cardCol
         <Text font={{ weight: 'bold', size: 'large' }} color={Color.BLACK}>
           {timeType === TIME_TYPE.MONTHLY ? plan?.price : plan?.yearlyPrice}
         </Text>
-        <Button intent="none">{plan?.buttonText}</Button>
+        <Button intent="primary" onClick={plan?.onClick} loading={plan?.btnLoading}>
+          {plan?.buttonText}
+        </Button>
         <Text color={Color.BLACK} padding="large" className={css.desc}>
           {plan?.desc}
         </Text>
         <ul className={css.ul}>
           {plan?.featureListZone?.map(feature => (
-            <li key={feature?.id} className={css.li}>
+            <li key={feature?.title} className={css.li}>
               <Text className={textColorClassName}>{feature?.title}</Text>
             </li>
           ))}

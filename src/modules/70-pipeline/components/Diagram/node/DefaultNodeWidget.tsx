@@ -271,6 +271,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             icon="cross"
             iconProps={{ size: 10 }}
             onMouseDown={e => onRemoveClick(e, props.node)}
+            withoutCurrentColor={true}
           />
         )}
       </div>

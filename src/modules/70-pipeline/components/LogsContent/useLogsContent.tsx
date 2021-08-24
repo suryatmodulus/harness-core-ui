@@ -1,5 +1,6 @@
 import React, { Reducer } from 'react'
 import { useParams } from 'react-router-dom'
+import { defaultTo } from 'lodash-es'
 
 import type { ExecutionPathProps } from '@common/interfaces/RouteInterfaces'
 import { PQueue } from '@common/utils/PQueue'
@@ -37,7 +38,7 @@ export function useLogsContent(): UseLogsContentReturn {
   function getBlobData(id: string): void {
     requestQueue.current.add(async (signal: AbortSignal) => {
       if (logsCache.has(id)) {
-        actions.updateSectionData({ data: logsCache.get(id) || '', id })
+        actions.updateSectionData({ data: defaultTo(logsCache.get(id), ''), id })
         return
       }
 
@@ -106,6 +107,7 @@ export function useLogsContent(): UseLogsContentReturn {
 
     // if `logsToken` is not present, `tokenData` is fetched
     // as we set the lazy flag based on it's presence
+    /* istanbul ignore else */
     if (tokenData) {
       setLogsToken(tokenData)
       logsTokenRef.current = tokenData
@@ -117,7 +119,9 @@ export function useLogsContent(): UseLogsContentReturn {
   useDeepCompareEffect(() => {
     state.logKeys.forEach(logKey => {
       const section = state.dataMap[logKey]
+      /* istanbul ignore else */
       if (section && section.status === 'LOADING') {
+        /* istanbul ignore else */
         if (section.dataSource === 'blob') {
           getBlobData(logKey)
         } else if (section.dataSource === 'stream') {

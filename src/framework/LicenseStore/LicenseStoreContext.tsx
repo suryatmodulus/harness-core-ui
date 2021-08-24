@@ -10,6 +10,8 @@ import type { Module } from '@common/interfaces/RouteInterfaces'
 import { AccountLicenseDTO, ModuleLicenseDTO, useGetAccountLicenses } from 'services/cd-ng'
 import { ModuleName } from 'framework/types/ModuleName'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
+import GenericErrorPage, { GENERIC_ERROR_CODES } from '@common/pages/GenericError/GenericErrorPage'
+import { useStrings } from 'framework/strings'
 
 export enum LICENSE_STATE_VALUES {
   ACTIVE = 'ACTIVE',
@@ -63,6 +65,7 @@ const POLL_INTERVAL = 1000 * 60 * 60 * 2
 export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): React.ReactElement {
   const { currentUserInfo } = useAppStore()
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
+  const { getString } = useStrings()
   const { accountId } = useParams<{
     accountId: string
   }>()
@@ -86,6 +89,7 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
   const {
     data,
     refetch,
+    error,
     loading: getAccountLicensesLoading
   } = useGetAccountLicenses({
     queryParams: {
@@ -188,6 +192,20 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
     }))
   }
 
+  let childComponent
+
+  if (error) {
+    if ((error.data as any)?.code === 'NG_ACCESS_DENIED') {
+      childComponent = <GenericErrorPage code={GENERIC_ERROR_CODES.UNAUTHORIZED} />
+    } else {
+      childComponent = <GenericErrorPage message={getString('common.genericErrors.licenseCallFailed')} />
+    }
+  } else if (isLoading) {
+    childComponent = <PageSpinner />
+  } else {
+    childComponent = props.children
+  }
+
   return (
     <LicenseStoreContext.Provider
       value={{
@@ -195,7 +213,7 @@ export function LicenseStoreProvider(props: React.PropsWithChildren<unknown>): R
         updateLicenseStore
       }}
     >
-      {isLoading ? <PageSpinner /> : props.children}
+      {childComponent}
     </LicenseStoreContext.Provider>
   )
 }

@@ -5,10 +5,10 @@
 .mainContainer {
   display: flex;
   align-items: center;
+}
 
-  .timeGranularityButton {
-    padding: var(--spacing-xsmall) !important;
-  }
+.timeGranularityButton {
+  padding: var(--spacing-small) !important;
 }
 
 .aggregationMenuItems {
@@ -20,5 +20,10 @@
   &:active {
     background: var(--primary-7) !important;
     color: var(--white) !important;
+  }
+  &.disabled {
+    background: var(--grey-100) !important;
+    color: var(--black) !important;
+    cursor: not-allowed;
   }
 }

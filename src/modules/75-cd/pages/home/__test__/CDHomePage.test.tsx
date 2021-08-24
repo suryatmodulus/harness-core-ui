@@ -73,7 +73,6 @@ jest.mock('services/pipeline-ng', () => ({
   useGetPipelineList: jest.fn().mockImplementation(() => {
     return {
       cancel: jest.fn(),
-      loading: false,
       mutate: jest.fn().mockImplementationOnce(() => {
         return {
           data: {
@@ -84,7 +83,8 @@ jest.mock('services/pipeline-ng', () => ({
               {
                 identifier: 'item 2'
               }
-            ]
+            ],
+            empty: false
           }
         }
       })
@@ -181,35 +181,6 @@ describe('CDHomePage snapshot test', () => {
       </TestWrapper>
     )
     expect(getByText('common.trialInProgress')).toBeDefined()
-    expect(container).toMatchSnapshot()
-  })
-
-  test('should pop up select pipeline CD Trial modal if query param modal is true and there is selected project', () => {
-    useGetModuleLicenseInfoMock.mockImplementation(() => {
-      return {
-        data: {
-          data: {},
-          status: 'SUCCESS'
-        },
-        error: null,
-        refetch: jest.fn()
-      }
-    })
-    const { container, getByText } = render(
-      <TestWrapper
-        queryParams={{ modal: true }}
-        defaultAppStoreValues={{
-          selectedProject: {
-            identifier: 'project1',
-            name: 'project1',
-            modules: ['CD']
-          }
-        }}
-      >
-        <CDHomePage />
-      </TestWrapper>
-    )
-    expect(getByText('pipeline.selectOrCreatePipeline.selectAPipeline')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 

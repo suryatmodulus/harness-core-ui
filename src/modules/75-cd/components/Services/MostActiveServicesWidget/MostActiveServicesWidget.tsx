@@ -122,8 +122,8 @@ export const MostActiveServicesWidget: React.FC<MostActiveServicesWidget> = prop
   const queryParams: GetWorkloadsQueryParams = useMemo(() => {
     return {
       accountIdentifier: accountId,
-      projectIdentifier,
       orgIdentifier,
+      projectIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
       endTime: timeRange?.range[1]?.getTime() || 0,
       environmentType: environmentTypes[selectedEnvironmentType]

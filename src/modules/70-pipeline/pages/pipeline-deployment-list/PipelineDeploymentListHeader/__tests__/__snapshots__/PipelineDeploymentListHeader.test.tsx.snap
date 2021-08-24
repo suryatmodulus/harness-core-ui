@@ -132,12 +132,12 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
       class="rhs"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
         style="width: 200px; max-width: 200px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
           data-icon="thinner-search"
         >
           <svg
@@ -159,7 +159,7 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="Search"
-          style="padding-right: 36px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -216,7 +216,7 @@ exports[`<PipelineDeploymentListHeader /> test snapshot testing 1`] = `
         class="filterButtonContainer"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ngFilter StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ngFilter StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           id="ngfilterbtn"
           type="button"
         >

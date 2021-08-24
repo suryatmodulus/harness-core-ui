@@ -10,13 +10,13 @@ import {
 import type { ContainerProps } from '@wings-software/uicore/dist/components/Container/Container'
 import { useStrings } from 'framework/strings'
 
-export interface AuditLogsToolbar extends ContainerProps {
+export interface AuditLogsToolbarProps extends ContainerProps {
   startDate: Date
   endDate: Date
   onSelectedDateRangeChange: DateRangePickerButtonProps['onChange']
 }
 
-export const AuditLogsToolbar: React.FC<AuditLogsToolbar> = ({
+export const AuditLogsToolbar: React.FC<AuditLogsToolbarProps> = ({
   startDate,
   endDate,
   onSelectedDateRangeChange,

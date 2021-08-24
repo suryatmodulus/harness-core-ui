@@ -1,4 +1,4 @@
-import { pick } from 'lodash-es'
+import { pick, isString } from 'lodash-es'
 import type { IconName, StepProps } from '@wings-software/uicore'
 import { Connectors, EntityTypes } from '@connectors/constants'
 import type {
@@ -10,9 +10,13 @@ import type {
   Connector,
   AppDynamicsConnectorDTO,
   AwsKmsConnectorDTO,
-  ConnectorRequestBody
+  ConnectorRequestBody,
+  AwsSecretManagerDTO,
+  AwsSecretManagerCredential,
+  AwsSMCredentialSpecManualConfig,
+  AwsSMCredentialSpecAssumeSTS
 } from 'services/cd-ng'
-import { CredTypeValues, FormData } from '@connectors/interfaces/ConnectorInterface'
+import { FormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -619,7 +623,32 @@ export const setupAwsKmsFormData = async (connectorInfo: ConnectorInfoDTO, accou
     default: (connectorInfoSpec as AwsKmsConnectorDTO)?.default || false
   }
 }
+export const setupAwsSecretManagerFormData = async (
+  connectorInfo: ConnectorInfoDTO,
+  accountId: string
+): Promise<FormData> => {
+  const connectorInfoSpec = connectorInfo?.spec
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+  const accessKey = await setSecretField(connectorInfoSpec?.credential?.spec?.accessKey, scopeQueryParams)
+  const secretKey = await setSecretField(connectorInfoSpec?.credential?.spec?.secretKey, scopeQueryParams)
 
+  return {
+    accessKey: accessKey || undefined,
+    secretKey: secretKey || undefined,
+    secretNamePrefix: connectorInfoSpec?.secretNamePrefix,
+    region: connectorInfoSpec?.region || undefined,
+    credType: connectorInfoSpec?.credential?.type,
+    delegate: connectorInfoSpec?.credential?.spec?.delegateSelectors || undefined,
+    roleArn: connectorInfoSpec?.credential?.spec?.roleArn || undefined,
+    externalId: connectorInfoSpec?.credential?.spec?.externalId || undefined,
+    assumeStsRoleDuration: connectorInfoSpec?.credential?.spec?.assumeStsRoleDuration || undefined,
+    default: (connectorInfoSpec as AwsKmsConnectorDTO)?.default || false
+  }
+}
 export const buildAWSPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -858,6 +887,58 @@ export const buildGcpPayload = (formData: FormData) => {
                 secretKeyRef: formData.password.referenceString
               }
             : null
+      }
+    }
+  }
+
+  return { connector: savedData }
+}
+
+interface BuildAWSSecretManagerPayloadReturnType {
+  connector: Omit<ConnectorInfoDTO, 'spec'> & {
+    spec: Omit<AwsSecretManagerDTO, 'credential'> & {
+      credential: Omit<AwsSecretManagerCredential, 'spec'> & {
+        spec?: AwsSMCredentialSpecManualConfig | AwsSMCredentialSpecAssumeSTS
+      }
+    }
+  }
+}
+
+export const buildAWSSecretManagerPayload = (formData: FormData): BuildAWSSecretManagerPayloadReturnType => {
+  const credTypeValue = formData?.credType
+
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: Connectors.AWS_SECRET_MANAGER,
+    spec: {
+      ...(formData?.delegateSelectors ? { delegateSelectors: formData.delegateSelectors } : {}),
+      region: formData.region,
+      secretNamePrefix: formData.secretNamePrefix,
+      default: formData.default,
+      credential: {
+        type: credTypeValue,
+        spec:
+          credTypeValue === CredTypeValues.ManualConfig
+            ? {
+                accessKey: formData?.accessKey?.referenceString,
+                secretKey: formData?.secretKey?.referenceString
+              }
+            : credTypeValue === CredTypeValues.AssumeRoleSTS
+            ? {
+                roleArn: formData.roleArn.trim(),
+                externalId: formData.externalId?.trim(),
+                assumeStsRoleDuration: formData.assumeStsRoleDuration
+                  ? isString(formData.assumeStsRoleDuration)
+                    ? parseInt(formData.assumeStsRoleDuration.trim())
+                    : formData.assumeStsRoleDuration
+                  : undefined
+              }
+            : undefined
       }
     }
   }
@@ -1232,6 +1313,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-jira'
     case Connectors.AWS_KMS:
       return 'aws-kms'
+    case Connectors.AWS_SECRET_MANAGER:
+      return 'aws-secret-manager'
     case Connectors.CE_AZURE:
       return 'service-azure'
     case Connectors.DATADOG:
@@ -1303,6 +1386,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Dynatrace'
     case Connectors.CEAWS:
       return 'AWS'
+    case Connectors.AWS_SECRET_MANAGER:
+      return 'AWS Secret Manager'
     case Connectors.CE_AZURE:
       return 'Azure'
     case Connectors.CE_KUBERNETES:
@@ -1353,7 +1438,7 @@ export const getReferredEntityLabelByType = (type: string) => {
   }
 }
 
-export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']) {
+export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['type']): string {
   const { getString } = useStrings()
   switch (type) {
     case Connectors.DOCKER:
@@ -1376,6 +1461,8 @@ export function GetTestConnectionValidationTextByType(type: ConnectorConfigDTO['
       return getString('connectors.testConnectionStep.validationText.splunk')
     case Connectors.VAULT:
       return getString('connectors.testConnectionStep.validationText.vault')
+    case Connectors.AWS_SECRET_MANAGER:
+      return getString('connectors.testConnectionStep.validationText.awsSecretManager')
     case Connectors.BITBUCKET:
       return getString('connectors.testConnectionStep.validationText.bitbucket')
     case Connectors.GITLAB:
@@ -1503,5 +1590,5 @@ export const saveCurrentStepData = <T>(getCurrentStepData: StepProps<T>['getCurr
 
 export const isSMConnector = (type?: ConnectorInfoDTO['type']): boolean | undefined => {
   if (!type) return
-  return (['AwsKms', 'AzureKeyVault', 'Vault'] as ConnectorInfoDTO['type'][]).includes(type)
+  return (['AwsKms', 'AzureKeyVault', 'Vault', 'AwsSecretManager'] as ConnectorInfoDTO['type'][]).includes(type)
 }

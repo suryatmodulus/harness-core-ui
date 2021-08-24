@@ -7,6 +7,7 @@ import type { UseStringsReturn } from 'framework/strings'
 import { getDurationValidationSchema } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import type { ExecutionWrapperConfig, StepElementConfig } from 'services/cd-ng'
 import type { StringKeys } from 'framework/strings'
+import { regexIdentifier } from '@common/utils/StringUtils'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import { IdentifierSchemaWithoutHook, NameSchemaWithoutHook } from '@common/utils/Validation'
 
@@ -46,8 +47,6 @@ type Dependencies = { [key: string]: any }
 interface GenerateSchemaDependencies extends Dependencies {
   getString: UseStringsReturn['getString']
 }
-
-const validIdRegex = /^(?![0-9])[0-9a-zA-Z_]*$/
 
 function generateSchemaForIdentifier({
   initialValues,
@@ -184,7 +183,7 @@ function generateSchemaForMap(
     // We can't add validation for key uniqueness and key's value
     return yup.mixed().test('validKeys', getString('validation.validKeyRegex'), map => {
       if (!map) return true
-      return Object.keys(map).every(key => validIdRegex.test(key))
+      return Object.keys(map).every(key => regexIdentifier.test(key))
     })
   } else {
     return yup.lazy(value => {
@@ -198,7 +197,7 @@ function generateSchemaForMap(
                   is: val => val?.length,
                   then: yup
                     .string()
-                    .matches(validIdRegex, getString('validation.validKeyRegex'))
+                    .matches(regexIdentifier, getString('validation.validKeyRegex'))
                     .required(getString('validation.keyRequired'))
                 }),
                 value: yup.string().when('key', {
@@ -241,7 +240,7 @@ function generateSchemaForOutputVariables(
         yup.lazy(val =>
           getMultiTypeFromValue(val as string) === MultiTypeInputType.FIXED
             ? yup.object().shape({
-                name: yup.string().matches(validIdRegex, getString('validation.validOutputVariableRegex'))
+                name: yup.string().matches(regexIdentifier, getString('validation.validOutputVariableRegex'))
               })
             : yup.string()
         )
@@ -260,7 +259,7 @@ function generateSchemaForOutputVariables(
               yup.object().shape({
                 value: yup.lazy(val =>
                   getMultiTypeFromValue(val as string) === MultiTypeInputType.FIXED
-                    ? yup.string().matches(validIdRegex, getString('validation.validOutputVariableRegex'))
+                    ? yup.string().matches(regexIdentifier, getString('validation.validOutputVariableRegex'))
                     : yup.string()
                 )
               })

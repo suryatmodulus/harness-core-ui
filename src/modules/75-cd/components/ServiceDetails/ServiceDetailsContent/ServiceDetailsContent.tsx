@@ -52,7 +52,7 @@ const ServiceDetailsSummary: React.FC<ServiceDetailsSummaryProps> = props => {
 export const ServiceDetailsContent: React.FC = () => {
   const { getString } = useStrings()
   const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
-    range: [startOfDay(moment().subtract(30, 'days')), startOfDay(moment())],
+    range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
     label: getString('cd.serviceDashboard.month')
   })
 

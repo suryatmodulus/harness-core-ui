@@ -20,7 +20,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
     class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
       type="button"
     >
       <span
@@ -52,11 +52,11 @@ exports[`test cases for Perspective details Page should be able to render and sw
       style="flex-grow: 1;"
     />
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
       data-name=""
     >
       <span
-        class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
         data-icon="thinner-search"
       >
         <svg
@@ -87,7 +87,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
       class="Layout--horizontal StyledProps--main"
     >
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -111,7 +111,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -378,7 +378,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -479,7 +479,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -632,7 +632,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -733,7 +733,7 @@ exports[`test cases for Perspective details Page should be able to render and sw
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -788,7 +788,7 @@ exports[`test cases for Perspective details Page should be able to render the de
     class="Layout--horizontal Layout--layout-spacing-large StyledProps--main header"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
       type="button"
     >
       <span
@@ -820,11 +820,11 @@ exports[`test cases for Perspective details Page should be able to render the de
       style="flex-grow: 1;"
     />
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
       data-name=""
     >
       <span
-        class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
         data-icon="thinner-search"
       >
         <svg
@@ -855,7 +855,7 @@ exports[`test cases for Perspective details Page should be able to render the de
       class="Layout--horizontal StyledProps--main"
     >
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -879,7 +879,7 @@ exports[`test cases for Perspective details Page should be able to render the de
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -931,7 +931,7 @@ exports[`test cases for Perspective details Page should be able to render the de
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -1091,7 +1091,7 @@ exports[`test cases for Perspective details Page should be able to render the de
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -1163,7 +1163,7 @@ exports[`test cases for Perspective details Page should be able to render the de
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -1300,7 +1300,7 @@ exports[`test cases for Perspective details Page should be able to render the de
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span

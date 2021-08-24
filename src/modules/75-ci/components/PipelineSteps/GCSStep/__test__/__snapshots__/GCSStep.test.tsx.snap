@@ -104,17 +104,22 @@ exports[`GCS Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -132,7 +137,7 @@ exports[`GCS Step Edit View edit mode works 1`] = `
                   style="width: 560px;"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     style="width: 560px;"
                     type="button"
@@ -532,17 +537,22 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -608,8 +618,8 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_spec.connectorRef"
               type="button"
             >
               <span
@@ -709,8 +719,8 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_spec.bucket"
               type="button"
             >
               <span
@@ -809,8 +819,8 @@ exports[`GCS Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_spec.sourcePath"
               type="button"
             >
               <span
@@ -975,17 +985,22 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="ciGcsStep_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1003,7 +1018,7 @@ exports[`GCS Step Edit View should render edit view as new step 1`] = `
                   style="width: 560px;"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     style="width: 560px;"
                     type="button"
@@ -1349,17 +1364,22 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcsConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcsConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1377,7 +1397,7 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
                   style="width: 455px;"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     style="width: 455px;"
                     type="button"
@@ -1824,17 +1844,22 @@ exports[`GCS Step InputSet View InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="timeout"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_timeout"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="timeout"
               >
-                pipelineSteps.timeoutLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.timeoutLabel
+                </p>
+              </div>
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -1977,7 +2002,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2037,7 +2062,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2097,7 +2122,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2157,7 +2182,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2217,7 +2242,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2277,7 +2302,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2337,7 +2362,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2397,7 +2422,7 @@ exports[`GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >

@@ -1428,6 +1428,24 @@ exports[`Saved Connector Details render for Vault schema 1`] = `
       >
         credentials
       </p>
+      <div
+        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main detailsSectionRowWrapper StyledProps--padding-top-medium StyledProps--padding-bottom-medium"
+      >
+        <p
+          class="StyledProps--font StyledProps--main StyledProps--font-size-small"
+        >
+          connectors.hashiCorpVault.default
+        </p>
+        <div
+          class="Layout--horizontal Layout--layout-spacing-small StyledProps--main detailsSectionRow"
+        >
+          <span
+            class="StyledProps--font StyledProps--main detailsValue StyledProps--inline StyledProps--color StyledProps--color-black"
+          >
+            No
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>

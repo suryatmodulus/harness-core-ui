@@ -61,7 +61,7 @@ exports[`ActiveServiceInstancesContent should render ActiveServiceInstancesConte
               class="StyledProps--font StyledProps--main paddedContainer"
             >
               <p
-                class="StyledProps--font StyledProps--main environmentRow StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-white"
+                class="StyledProps--font StyledProps--main environmentRow overflow StyledProps--font-size-small StyledProps--font-weight-bold StyledProps--color StyledProps--color-white"
               >
                 envName
               </p>
@@ -76,7 +76,7 @@ exports[`ActiveServiceInstancesContent should render ActiveServiceInstancesConte
               class="StyledProps--font StyledProps--main paddedContainer"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
+                class="StyledProps--font StyledProps--main overflow StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800"
               >
                 build1
               </p>
@@ -91,7 +91,7 @@ exports[`ActiveServiceInstancesContent should render ActiveServiceInstancesConte
               class="StyledProps--font StyledProps--main paddedContainer"
             >
               <p
-                class="StyledProps--font StyledProps--main instanceCount StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--background-grey100"
+                class="StyledProps--font StyledProps--main instanceCount overflow StyledProps--font-size-xsmall StyledProps--font-weight-bold StyledProps--background-grey100"
               >
                 1
               </p>

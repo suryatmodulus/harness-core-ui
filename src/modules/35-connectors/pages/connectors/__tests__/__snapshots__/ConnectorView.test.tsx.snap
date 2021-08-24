@@ -584,7 +584,7 @@ exports[`Connector Details Page Edit and save connector via YAML for a git-sync 
     </div>
   </div>
   <button
-    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow"
+    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main crossIcon Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
     type="button"
   >
     <span
@@ -741,7 +741,7 @@ exports[`Connector Details Page Rendering connector details with DockerRegistry:
           </div>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
           id="editDetailsBtn"
           type="button"
         >
@@ -917,7 +917,7 @@ exports[`Connector Details Page Rendering connector details with K8sCluster: K8s
           </div>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
           id="editDetailsBtn"
           type="button"
         >
@@ -1093,7 +1093,7 @@ exports[`Connector Details Page Rendering connector details: view text 1`] = `
           </div>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
           id="editDetailsBtn"
           type="button"
         >

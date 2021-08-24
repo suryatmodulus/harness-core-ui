@@ -140,7 +140,12 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -148,7 +153,7 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -169,11 +174,6 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                                 fill="currentColor"
                               />
                             </svg>
-                          </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -277,7 +277,7 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-0"
                         type="button"
                       >
@@ -301,7 +301,7 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     data-testid="add-header"
                     type="button"
                   >
@@ -339,7 +339,7 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             data-name="tf-remote-back-btn"
             type="button"
           >
@@ -369,7 +369,7 @@ exports[`Terraform Remote Form tests initial rendering 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -605,8 +605,8 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_varFile.spec.store.spec.branch"
               style="align-self: center;"
               type="button"
             >
@@ -645,12 +645,11 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 <div
                   class="formLabel"
                 >
-                  <span>
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
                     filePaths
-                     
-                    <b>
-                      &lt;+input&gt;
-                    </b>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -659,7 +658,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -681,11 +680,6 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                               />
                             </svg>
                           </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.RUNTIME
-                          </span>
                         </span>
                       </button>
                     </div>
@@ -698,11 +692,33 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
               </label>
               <div
                 class="bp3-form-content"
-              />
+              >
+                <div
+                  class="bp3-form-group bp3-disabled runtimeDisabled"
+                >
+                  
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-disabled"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        disabled=""
+                        name="varFile.spec.store.spec.paths"
+                        type="text"
+                        value="<+input>"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_varFile.spec.store.spec.paths"
               type="button"
             >
               <span
@@ -731,7 +747,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             data-name="tf-remote-back-btn"
             type="button"
           >
@@ -761,7 +777,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -1007,7 +1023,12 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -1015,7 +1036,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -1036,11 +1057,6 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                                 fill="currentColor"
                               />
                             </svg>
-                          </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -1144,7 +1160,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-0"
                         type="button"
                       >
@@ -1255,7 +1271,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-1"
                         type="button"
                       >
@@ -1279,7 +1295,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     data-testid="add-header"
                     type="button"
                   >
@@ -1317,7 +1333,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             data-name="tf-remote-back-btn"
             type="button"
           >
@@ -1347,7 +1363,7 @@ exports[`Terraform Remote Form tests should be able to load edit mode correctly 
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -1593,7 +1609,12 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -1601,7 +1622,7 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -1622,11 +1643,6 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                                 fill="currentColor"
                               />
                             </svg>
-                          </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -1730,7 +1746,7 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-0"
                         type="button"
                       >
@@ -1841,7 +1857,7 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-1"
                         type="button"
                       >
@@ -1865,7 +1881,7 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     data-testid="add-header"
                     type="button"
                   >
@@ -1903,7 +1919,7 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             data-name="tf-remote-back-btn"
             type="button"
           >
@@ -1933,7 +1949,7 @@ exports[`Terraform Remote Form tests should be able to load with commitId edit m
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -2179,7 +2195,12 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                 <div
                   class="formLabel"
                 >
-                  filePaths
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="tfRemoteWizardForm_varFile.spec.store.spec.paths"
+                  >
+                    filePaths
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -2187,7 +2208,7 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -2208,11 +2229,6 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                                 fill="currentColor"
                               />
                             </svg>
-                          </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
                           </span>
                         </span>
                       </button>
@@ -2316,7 +2332,7 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-0"
                         type="button"
                       >
@@ -2427,7 +2443,7 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-1"
                         type="button"
                       >
@@ -2538,7 +2554,7 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                         </div>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-header-2"
                         type="button"
                       >
@@ -2562,7 +2578,7 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     data-testid="add-header"
                     disabled=""
                     tabindex="-1"
@@ -2628,7 +2644,7 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             data-name="tf-remote-back-btn"
             type="button"
           >
@@ -2658,7 +2674,7 @@ exports[`Terraform Remote Form tests should be able to remove and add paths 1`] 
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { Intent, ProgressBar } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { get } from 'lodash-es'
@@ -9,7 +9,7 @@ import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } f
 import { useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
 import Table from '@common/components/Table/Table'
-import { CALL_GRAPH_WIDTH, renderFailureRate } from './TestsUtils'
+import { renderFailureRate } from './TestsUtils'
 import { TestsFailedPopover } from './TestsFailedPopover'
 import css from './BuildTests.module.scss'
 
@@ -41,6 +41,10 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   splitview,
   onShowCallGraphForClass
 }) => {
+  const containerRef = useRef<HTMLElement>(null)
+  const rightSideContainerRef = useRef<HTMLElement>(null)
+  const [titleWidth, setTitleWidth] = useState<number>()
+
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
@@ -202,10 +206,29 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     }
   }, [loading, expanded, data, onShowCallGraphForClass])
 
-  const titleWidth = window.innerWidth - (onShowCallGraphForClass ? CALL_GRAPH_WIDTH : 0) - 940
+  useEffect(() => {
+    if (containerRef.current && rightSideContainerRef.current) {
+      const container = containerRef.current
+      const containerWidth = container.offsetWidth
+      const containerHorizontalPaddings =
+        parseFloat(getComputedStyle(container).paddingLeft) + parseFloat(getComputedStyle(container).paddingRight)
+      const containerWidthWithoutPaddings = containerWidth - containerHorizontalPaddings
+
+      const rightSideContainer = rightSideContainerRef.current
+      const rightSideContainerWidth = rightSideContainer.offsetWidth
+
+      const CHEVRON_BUTTON_WIDTH = 40
+      const SIDES_SPACING = 20
+
+      const newTitleWidth =
+        containerWidthWithoutPaddings - rightSideContainerWidth - CHEVRON_BUTTON_WIDTH - SIDES_SPACING
+
+      setTitleWidth(newTitleWidth)
+    }
+  }, [])
 
   return (
-    <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium">
+    <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium" ref={containerRef}>
       <Container flex className={css.headingContainer}>
         <Text
           className={`${css.testSuiteHeading} ${splitview ? css.splitview : ''}`}
@@ -221,52 +244,54 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
             {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
           </Text>
         </Text>
-        <Text
-          className={cx(css.testSuiteHeading, css.withSeparator)}
-          color={Color.GREY_500}
-          font={{ size: 'small' }}
-          padding={{ left: 'small', right: 'small' }}
-        >
-          <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.totalTests')}</span>
-          <span>{executionSummary.total_tests}</span>
-        </Text>
-        <Text
-          className={cx(css.testSuiteHeading, css.withSeparator)}
-          color={Color.GREY_500}
-          font={{ size: 'small' }}
-          padding={{ left: 'small', right: 'small' }}
-        >
-          <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.failedTests')}</span>
-          <span>{executionSummary.failed_tests}</span>
-        </Text>
-        <Text
-          className={cx(css.testSuiteHeading, css.withSeparator)}
-          color={Color.GREY_500}
-          font={{ size: 'small' }}
-          padding={{ left: 'small', right: 'small' }}
-        >
-          <span style={{ whiteSpace: 'nowrap' }}>{getString('common.failureRate')}</span>
-          <span>{renderFailureRate(failureRate)}%</span>
-        </Text>
-        <Layout.Vertical spacing="xsmall" style={{ marginRight: 'var(--spacing-large)' }} flex>
-          <Duration
-            icon="time"
-            durationText=" "
-            startTime={NOW}
-            endTime={NOW + (executionSummary.duration_ms || 0)}
-            font={{ size: 'small' }}
+        <Container flex ref={rightSideContainerRef}>
+          <Text
+            className={cx(css.testSuiteHeading, css.withSeparator)}
             color={Color.GREY_500}
-            iconProps={{ color: Color.GREY_500, size: 12 }}
-            showZeroSecondsResult
-          />
-          <ProgressBar
-            className={css.progressBar}
-            animate={false}
-            intent={failureRate > 0 ? Intent.DANGER : Intent.SUCCESS}
-            stripes={false}
-            value={failureRate || 1}
-          />
-        </Layout.Vertical>
+            font={{ size: 'small' }}
+            padding={{ left: 'small', right: 'small' }}
+          >
+            <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.totalTests')}</span>
+            <span>{executionSummary.total_tests}</span>
+          </Text>
+          <Text
+            className={cx(css.testSuiteHeading, css.withSeparator)}
+            color={Color.GREY_500}
+            font={{ size: 'small' }}
+            padding={{ left: 'small', right: 'small' }}
+          >
+            <span style={{ whiteSpace: 'nowrap' }}>{getString('pipeline.testsReports.failedTests')}</span>
+            <span>{executionSummary.failed_tests}</span>
+          </Text>
+          <Text
+            className={cx(css.testSuiteHeading, css.withSeparator)}
+            color={Color.GREY_500}
+            font={{ size: 'small' }}
+            padding={{ left: 'small', right: 'small' }}
+          >
+            <span style={{ whiteSpace: 'nowrap' }}>{getString('common.failureRate')}</span>
+            <span>{renderFailureRate(failureRate)}%</span>
+          </Text>
+          <Layout.Vertical spacing="xsmall" style={{ marginRight: 'var(--spacing-large)' }} flex>
+            <Duration
+              icon="time"
+              durationText=" "
+              startTime={NOW}
+              endTime={NOW + (executionSummary.duration_ms || 0)}
+              font={{ size: 'small' }}
+              color={Color.GREY_500}
+              iconProps={{ color: Color.GREY_500, size: 12 }}
+              showZeroSecondsResult
+            />
+            <ProgressBar
+              className={css.progressBar}
+              animate={false}
+              intent={failureRate > 0 ? Intent.DANGER : Intent.SUCCESS}
+              stripes={false}
+              value={failureRate || 1}
+            />
+          </Layout.Vertical>
+        </Container>
       </Container>
       {expanded && (
         <>
@@ -288,6 +313,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
               columns={columns}
               data={data?.content || []}
               getRowClassName={row => (row.original === selectedRow ? css.rowSelected : '')}
+              sortable
               onRowClick={
                 onShowCallGraphForClass
                   ? row => {

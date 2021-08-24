@@ -106,11 +106,16 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
               class="bp3-label"
               for="description"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_description"
               >
-                description
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                >
+                  description
+                </p>
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -172,17 +177,22 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -200,7 +210,7 @@ exports[`Dependency Edit view edit mode fails when cpu present but memory is not
                     style="width: 560px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-spec.connectorRef"
                       style="width: 560px;"
                       type="button"
@@ -533,11 +543,16 @@ exports[`Dependency Edit view edit mode works 1`] = `
               class="bp3-label"
               for="description"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_description"
               >
-                description
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                >
+                  description
+                </p>
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -599,17 +614,22 @@ exports[`Dependency Edit view edit mode works 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -627,7 +647,7 @@ exports[`Dependency Edit view edit mode works 1`] = `
                     style="width: 560px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-spec.connectorRef"
                       style="width: 560px;"
                       type="button"
@@ -960,11 +980,16 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
               class="bp3-label"
               for="description"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_description"
               >
-                description
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                >
+                  description
+                </p>
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1026,17 +1051,22 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1054,7 +1084,7 @@ exports[`Dependency Edit view edit mode works when memory present but cpu is not
                     style="width: 560px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-spec.connectorRef"
                       style="width: 560px;"
                       type="button"
@@ -1387,11 +1417,16 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               class="bp3-label"
               for="description"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_description"
               >
-                description
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                >
+                  description
+                </p>
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1453,8 +1488,8 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                   </span>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                  id="configureOptions"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+                  id="configureOptions_description"
                   type="button"
                 >
                   <span
@@ -1488,17 +1523,22 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1564,8 +1604,8 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                id="configureOptions"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+                id="configureOptions_spec.connectorRef"
                 type="button"
               >
                 <span
@@ -1664,8 +1704,8 @@ exports[`Dependency Edit view renders runtime inputs 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                id="configureOptions"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+                id="configureOptions_spec.image"
                 type="button"
               >
                 <span
@@ -1833,11 +1873,16 @@ exports[`Dependency Edit view should render properly 1`] = `
               class="bp3-label"
               for="description"
             >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_description"
               >
-                description
-              </p>
+                <p
+                  class="StyledProps--font StyledProps--main StyledProps--margin-bottom-xsmall"
+                >
+                  description
+                </p>
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1897,17 +1942,22 @@ exports[`Dependency Edit view should render properly 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              <div
-                class="Text--withDocsTooltip"
-                data-tooltip-id="dependencyConnector"
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="dependencyBase_spec.connectorRef"
               >
-                <p
-                  class="StyledProps--font StyledProps--main"
-                  style="display: flex; align-items: center;"
+                <div
+                  class="Text--withDocsTooltip"
+                  data-tooltip-id="dependencyConnector"
                 >
-                  pipelineSteps.connectorLabel
-                </p>
-              </div>
+                  <p
+                    class="StyledProps--font StyledProps--main"
+                    style="display: flex; align-items: center;"
+                  >
+                    pipelineSteps.connectorLabel
+                  </p>
+                </div>
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -1925,7 +1975,7 @@ exports[`Dependency Edit view should render properly 1`] = `
                     style="width: 560px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-spec.connectorRef"
                       style="width: 560px;"
                       type="button"
@@ -2203,7 +2253,12 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="description"
           >
-            description
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_description"
+            >
+              description
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2262,17 +2317,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="dependencyConnectorInfo"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="dependencyConnectorInfo"
               >
-                pipelineSteps.connectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.connectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -2290,7 +2350,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                   style="width: 455px;"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     style="width: 455px;"
                     type="button"
@@ -2482,6 +2542,10 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="privileged"
+            />
           </div>
         </div>
         <div
@@ -2499,17 +2563,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="dependencyEnvironmentVariables"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.envVariables"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dependencyEnvironmentVariables"
                   >
-                    environmentVariables
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      environmentVariables
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2517,7 +2586,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2538,11 +2607,6 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2644,7 +2708,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                         </span>
                       </div>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="remove-spec.envVariables-[0]"
                         style="margin-top: 4px;"
                         type="button"
@@ -2699,17 +2763,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="dependencyEntryPoint"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.entrypoint"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dependencyEntryPoint"
                   >
-                    entryPointLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      entryPointLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2717,7 +2786,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2738,11 +2807,6 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2812,7 +2876,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     data-testid="remove-spec.entrypoint-[0]"
                     type="button"
                   >
@@ -2864,17 +2928,22 @@ exports[`Dependency InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="dependencyArgs"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.args"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="dependencyArgs"
                   >
-                    argsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      argsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2882,7 +2951,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2903,11 +2972,6 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2977,7 +3041,7 @@ exports[`Dependency InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     data-testid="remove-spec.args-[0]"
                     type="button"
                   >
@@ -3250,7 +3314,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3310,7 +3374,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3370,7 +3434,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3430,7 +3494,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3490,7 +3554,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3550,7 +3614,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3614,7 +3678,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3674,7 +3738,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3734,7 +3798,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3794,7 +3858,7 @@ exports[`Dependency InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >

@@ -231,7 +231,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
               class="bp3-form-content"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                 data-testid="cr-field-cloudAccount"
                 style="width: 400px;"
                 type="button"
@@ -315,7 +315,7 @@ exports[`COProviderSelector Rendering should render COProviderSelector 1`] = `
       </div>
     </div>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
       type="button"
     >
       <span
@@ -578,7 +578,7 @@ exports[`COProviderSelector passing a provider property shows the gateway basics
               class="bp3-form-content"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                 data-testid="cr-field-cloudAccount"
                 style="width: 400px;"
                 type="button"
@@ -623,7 +623,7 @@ exports[`COProviderSelector passing a provider property shows the gateway basics
       </div>
     </div>
     <button
-      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
       disabled=""
       tabindex="-1"
       type="button"
@@ -888,7 +888,7 @@ exports[`COProviderSelector selecting AWS provider shows option to select connec
               class="bp3-form-content"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                 data-testid="cr-field-cloudAccount"
                 style="width: 400px;"
                 type="button"
@@ -933,7 +933,7 @@ exports[`COProviderSelector selecting AWS provider shows option to select connec
       </div>
     </div>
     <button
-      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
       disabled=""
       tabindex="-1"
       type="button"
@@ -1198,7 +1198,7 @@ exports[`COProviderSelector selecting Azure provider shows option to select conn
               class="bp3-form-content"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                 data-testid="cr-field-cloudAccount"
                 style="width: 400px;"
                 type="button"
@@ -1243,7 +1243,7 @@ exports[`COProviderSelector selecting Azure provider shows option to select conn
       </div>
     </div>
     <button
-      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color"
+      class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main footer StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
       disabled=""
       tabindex="-1"
       type="button"

@@ -73,34 +73,34 @@ exports[`Access Control Page render data 1`] = `
       </h2>
     </div>
     <div
-      class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main TabNavigation--container"
+      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main TabNavigation--container"
     >
       <a
-        class="TabNavigation--tags"
+        class="TabNavigation--tags TabNavigation--small"
         href="/account/testAcc/settings/access-control/users"
       >
         users
       </a>
       <a
-        class="TabNavigation--tags"
+        class="TabNavigation--tags TabNavigation--small"
         href="/account/testAcc/settings/access-control/user-groups"
       >
         common.userGroups
       </a>
       <a
-        class="TabNavigation--tags"
+        class="TabNavigation--tags TabNavigation--small"
         href="/account/testAcc/settings/access-control/service-accounts"
       >
         rbac.serviceAccounts.label
       </a>
       <a
-        class="TabNavigation--tags"
+        class="TabNavigation--tags TabNavigation--small"
         href="/account/testAcc/settings/access-control/resource-groups"
       >
         resourceGroups
       </a>
       <a
-        class="TabNavigation--tags"
+        class="TabNavigation--tags TabNavigation--small"
         href="/account/testAcc/settings/access-control/roles"
       >
         roles

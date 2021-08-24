@@ -43,7 +43,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
           class="bp3-popover-target"
         >
           <a
-            class="bp3-button bp3-disabled bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-disabled bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
             data-testid="add-failure-strategy"
             disabled=""
             role="button"
@@ -80,7 +80,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
       </span>
     </div>
     <button
-      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
       data-testid="remove-failure-strategy"
       type="button"
     >
@@ -238,7 +238,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                 </span>
               </div>
               <p
-                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
               >
                 pipeline.failureStrategies.strategiesLabel.Retry
               </p>
@@ -249,7 +249,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
               />
             </label>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
               data-testid="thumbnail-select-change"
               type="button"
             >
@@ -434,7 +434,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                   </div>
                 </div>
                 <button
-                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main removeBtn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main removeBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                   data-testid="remove-retry-interval-0"
                   type="button"
                 >
@@ -457,7 +457,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                 </button>
               </div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                 data-testid="add-retry-interval"
                 type="button"
               >
@@ -564,7 +564,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                       </span>
                     </div>
                     <p
-                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                      class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                     >
                       pipeline.failureStrategies.strategiesLabel.Abort
                     </p>
@@ -575,7 +575,7 @@ exports[`Failure Strategy: Retry strategy works with simple fallback 1`] = `
                     />
                   </label>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
                     data-testid="thumbnail-select-change"
                     type="button"
                   >

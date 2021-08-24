@@ -202,7 +202,7 @@ manifestTypeLabels:
   OpenshiftTemplate: Openshift Template
   OpenshiftParam: Openshift Param
 manifestToConnectorLabelMap:
-  AWSLabel: AWS
+  AWSLabel: '{{ $.common.aws }}'
   GCPLabel: GCP
 failureStrategies:
   performAction: '{{ $.common.performAction }}'
@@ -344,6 +344,8 @@ executionFilters:
     Waiting: Waiting for resources
 logs:
   sectionName: 'Section {{index}}'
+  errorText: Something has gone wrong while fetching logs
+  retry: '{{ $.retry }}'
 conditionalExecution:
   title: Conditional Execution
   subTitle: Use conditions to determine when this {{entity}} is executed.
@@ -410,6 +412,7 @@ triggers:
     payloadConditions: 'Each payload condition requires values for Attribute, Operator, and Matches Value.'
     headerConditions: 'Each header condition requires values for Attribute, Operator, and Matches Value.'
     selectedArtifact: '{{artifact}} is required.'
+    eventConditions: 'Each event condition requires values for Attribute, Operator, and Matches Value.'
     cronExpression: 'Valid cron expression is required.'
   toast:
     successfulCreate: 'Successfully created {{name}}.'
@@ -431,6 +434,7 @@ triggers:
     eventPlaceholder: Select Event
   conditionsPanel:
     subtitle: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your artifact build or tag or label matches a certain value or pattern.'
+    subtitleManifest: 'Specify the conditions for executing the pipeline - you can choose to trigger the pipeline only when your manifest version matches a certain value or pattern.'
     sourceBranch: Source Branch
     sourceBranchPlaceholder: Enter Source Branch
     targetBranch: Target Branch
@@ -446,6 +450,8 @@ triggers:
     jexlCondition: 'JEXL Condition'
     jexlConditionPlaceholder: Enter JEXL Condition
     matchesValuePlaceholder: Enter Matches Value
+    manifestVersion: Manifest version
+    artifactBuild: Artifact Build
   pipelineInputPanel:
     noRuntimeInputs: 'No Runtime Inputs'
     automaticallyExtractedFromText: Automatically extracted from event payload
@@ -458,8 +464,8 @@ triggers:
   schedulePanel:
     title: 'Schedule'
     minutesLabel: 'Minutes'
-    hourlyTabTitle: 'Hourly'
-    dailyTabTitle: 'Daily'
+    hourlyTabTitle: '{{$.common.hourly}}'
+    dailyTabTitle: '{{$.common.daily}}'
     weeklyTabTitle: 'Weekly'
     monthlyTabTitle: '{{$.common.monthly}}'
     yearlyTabTitle: '{{$.common.yearly}}'
@@ -500,7 +506,7 @@ triggers:
     selectAnArtifact: 'Select an Artifact Reference'
     selectAManifest: 'Select a Manifest Reference'
     configureArtifactRuntimeInputs: 'Configure {{artifact}} Runtime Inputs'
-    noSelectableArtifactsFound: 'No selectable {{artifact}}s found. Please add in the pipeline.'
+    noSelectableArtifactsFound: 'No selectable {{artifact}}s found. Please add one in the pipeline.'
     noArtifacts: No artifacts for selected stage.
     configureInputs: Configure inputs
     hasRuntimeInputs: 'Has Runtime Inputs'

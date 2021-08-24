@@ -15,6 +15,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { ActiveServiceInstancePopover } from '@cd/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstancePopover'
 import MostActiveServicesEmptyState from '@cd/icons/MostActiveServicesEmptyState.svg'
+import { numberFormatter } from '@cd/components/Services/common'
 import css from '@cd/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstances.module.scss'
 
 const TOTAL_VISIBLE_BUILDS = 5
@@ -84,7 +85,11 @@ const RenderEnvironment: Renderer<CellProps<TableRowData>> = ({
 }) => {
   return showEnvName ? (
     <Container className={css.paddedContainer}>
-      <Text className={css.environmentRow} font={{ size: 'small', weight: 'bold' }} color={Color.WHITE}>
+      <Text
+        className={cx(css.environmentRow, css.overflow)}
+        font={{ size: 'small', weight: 'bold' }}
+        color={Color.WHITE}
+      >
         {envName}
       </Text>
     </Container>
@@ -101,7 +106,7 @@ const RenderBuildName: Renderer<CellProps<TableRowData>> = ({
 }) => {
   const { getString } = useStrings()
   const component = buildId ? (
-    <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_800}>
+    <Text font={{ size: 'small', weight: 'semi-bold' }} className={css.overflow} color={Color.GREY_800}>
       {buildId}
     </Text>
   ) : (
@@ -112,7 +117,7 @@ const RenderBuildName: Renderer<CellProps<TableRowData>> = ({
       className={css.seeMore}
       onClick={() => (column as any)?.expandBuilds?.(envId)}
     >
-      {getString('cd.serviceDashboard.seeMore', { count: remainingCount })}
+      {getString('cd.serviceDashboard.seeMore', { count: numberFormatter(remainingCount) })}
     </Text>
   )
   return <Container className={css.paddedContainer}>{component}</Container>
@@ -125,8 +130,12 @@ const RenderInstanceCount: Renderer<CellProps<TableRowData>> = ({
 }) => {
   return instanceCount ? (
     <Container className={css.paddedContainer}>
-      <Text font={{ size: 'xsmall', weight: 'bold' }} background={Color.GREY_100} className={css.instanceCount}>
-        {instanceCount}
+      <Text
+        font={{ size: 'xsmall', weight: 'bold' }}
+        background={Color.GREY_100}
+        className={cx(css.instanceCount, css.overflow)}
+      >
+        {numberFormatter(instanceCount)}
       </Text>
     </Container>
   ) : (
@@ -156,9 +165,11 @@ const RenderInstances: Renderer<CellProps<TableRowData>> = ({
           </Popover>
         ))}
       {instanceCount > TOTAL_VISIBLE_INSTANCES ? (
-        <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.GREY_600} margin={{ left: 'xsmall' }}>{`+${
-          instanceCount - TOTAL_VISIBLE_INSTANCES
-        }`}</Text>
+        <Text
+          font={{ size: 'small', weight: 'semi-bold' }}
+          color={Color.GREY_600}
+          margin={{ left: 'xsmall' }}
+        >{`+${numberFormatter(instanceCount - TOTAL_VISIBLE_INSTANCES)}`}</Text>
       ) : (
         <></>
       )}
@@ -259,11 +270,7 @@ export const ActiveServiceInstancesContent: React.FC = () => {
           <Container margin={{ bottom: 'medium' }}>
             <img width="50" height="50" src={MostActiveServicesEmptyState} style={{ alignSelf: 'center' }} />
           </Container>
-          <Text color={Color.GREY_400}>
-            {getString('cd.serviceDashboard.noDeployments', {
-              timeRange: getString('cd.serviceDashboard.month')
-            })}
-          </Text>
+          <Text color={Color.GREY_400}>{getString('cd.serviceDashboard.noActiveServiceInstances')}</Text>
         </Layout.Vertical>
       )
     })()

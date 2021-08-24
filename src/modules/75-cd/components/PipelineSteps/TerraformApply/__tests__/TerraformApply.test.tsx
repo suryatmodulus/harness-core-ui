@@ -168,10 +168,12 @@ describe('Test TerraformApply', () => {
                 configFiles: {
                   store: {
                     spec: {
+                      folderPath: 'test',
                       connectorRef: {
                         label: 'test',
                         value: 'test',
                         scope: 'account',
+
                         connector: { type: 'Git' }
                       }
                     }

@@ -21,8 +21,8 @@ export const PipelineExecutions: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier, serviceId } = useParams<ProjectPathProps & ServicePathProps>()
   const queryParams: GetDeploymentsByServiceIdQueryParams = {
     accountIdentifier: accountId,
-    projectIdentifier,
     orgIdentifier,
+    projectIdentifier,
     serviceId,
     startTime: timeRange?.range[0]?.getTime() || 0,
     endTime: timeRange?.range[1]?.getTime() || 0

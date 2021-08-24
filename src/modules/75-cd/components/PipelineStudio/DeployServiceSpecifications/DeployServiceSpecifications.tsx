@@ -1,13 +1,15 @@
 import React from 'react'
+import { useParams } from 'react-router'
 import { Layout, Card, SelectOption, Checkbox, FormikForm, Container, Color, Text } from '@wings-software/uicore'
 
 import produce from 'immer'
-import { get, set, debounce } from 'lodash-es'
+import { get, set, debounce, isEmpty } from 'lodash-es'
 import { StepViewType } from '@pipeline/components/AbstractSteps/Step'
 import { useStrings } from 'framework/strings'
 
+import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
-import type { ServiceConfig, StageElementConfig } from 'services/cd-ng'
+import { ServiceConfig, StageElementConfig, useGetServiceList } from 'services/cd-ng'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
@@ -30,11 +32,13 @@ import stageCss from '../DeployStageSetupShell/DeployStage.module.scss'
 
 export default function DeployServiceSpecifications(props: React.PropsWithChildren<unknown>): JSX.Element {
   const { getString } = useStrings()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams<ProjectPathProps>()
   const [setupModeType, setSetupMode] = React.useState('')
   const [checkedItems, setCheckedItems] = React.useState({
     overrideSetCheckbox: false
   })
   const [selectedPropagatedState, setSelectedPropagatedState] = React.useState<SelectOption>()
+  const [serviceIdNameMap, setServiceIdNameMap] = React.useState<{ [key: string]: string }>()
   const scrollRef = React.useRef<HTMLDivElement | null>(null)
 
   const {
@@ -75,6 +79,20 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
     }
   }, [errorMap])
 
+  const { data: serviceResponse } = useGetServiceList({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
+
+  React.useEffect(() => {
+    const serviceIdNameMapping: { [key: string]: string } = {}
+    serviceResponse?.data?.content?.forEach(service => {
+      if (service.service?.identifier) {
+        serviceIdNameMapping[service.service?.identifier] = service.service?.name || ''
+      }
+    })
+    setServiceIdNameMap(serviceIdNameMapping)
+  }, [serviceResponse])
+
   useDeepCompareEffect(() => {
     if (stages && stages.length > 0) {
       const newPreviousStageList: SelectOption[] = []
@@ -85,9 +103,14 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
           currentStageType === item?.stage?.type &&
           !get(item.stage, `spec.serviceConfig.useFromStage.stage`)
         ) {
-          const serviceName =
-            (item.stage as DeploymentStageElementConfig)?.spec?.serviceConfig.service?.name ||
-            (item.stage as DeploymentStageElementConfig)?.spec?.serviceConfig.serviceRef
+          let serviceName = (item.stage as DeploymentStageElementConfig)?.spec?.serviceConfig.service?.name
+          if (isEmpty(serviceName) && serviceIdNameMap) {
+            serviceName =
+              serviceIdNameMap[(item.stage as DeploymentStageElementConfig)?.spec?.serviceConfig.serviceRef as string]
+          }
+          if (isEmpty(serviceName)) {
+            serviceName = (item.stage as DeploymentStageElementConfig)?.spec?.serviceConfig.serviceRef || ''
+          }
           newPreviousStageList.push({
             label: `Stage [${item.stage?.name}] - Service [${serviceName}]`,
             value: item.stage?.identifier || ''
@@ -96,7 +119,7 @@ export default function DeployServiceSpecifications(props: React.PropsWithChildr
       })
       setPreviousStageList(newPreviousStageList)
     }
-  }, [stages])
+  }, [stages, serviceIdNameMap])
 
   React.useEffect(() => {
     if (stageIndex === 0) {

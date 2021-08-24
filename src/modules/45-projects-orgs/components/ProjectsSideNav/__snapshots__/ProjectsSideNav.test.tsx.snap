@@ -23,7 +23,7 @@ exports[`Projects Side Nav render 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton Button--with-current-color Button--without-shadow Button--withRightIcon"
               data-testid="project-select-button"
               type="button"
             >

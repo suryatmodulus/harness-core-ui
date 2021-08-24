@@ -23,7 +23,7 @@ import { useConfirmationDialog } from '@common/exports'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import type { StepDetails } from '@connectors/interfaces/ConnectorInterface'
+import { StepDetails, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
 import { ConnectorStatus, Connectors } from '@connectors/constants'
 import { useStrings } from 'framework/strings'
 import type { UseCreateConnectorModalReturn } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -132,6 +132,15 @@ const getK8DisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string 
     : getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.credential?.spec?.masterUrl))
 }
 
+const getAWSSecretManagerSummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
+  return connector?.spec?.credential?.type !== CredTypeValues.ManualConfig
+    ? displayDelegatesTagsSummary(connector.spec.delegateSelectors)
+    : getConnectorDisplaySummaryLabel(
+        'connectors.aws.accessKey',
+        textRenderer(connector?.spec?.credential?.spec?.accessKey)
+      )
+}
+
 const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | string => {
   switch (connector?.type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -162,6 +171,8 @@ const getConnectorDisplaySummary = (connector: ConnectorInfoDTO): JSX.Element | 
       return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.controllerUrl))
     case Connectors.SPLUNK:
       return getConnectorDisplaySummaryLabel('UrlLabel', linkRenderer(connector?.spec?.splunkUrl))
+    case Connectors.AWS_SECRET_MANAGER:
+      return getAWSSecretManagerSummary(connector)
     default:
       return ''
   }

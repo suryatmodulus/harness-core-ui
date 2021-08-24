@@ -8,5 +8,6 @@ declare const styles: {
   readonly medium: string
   readonly large: string
   readonly xlarge: string
+  readonly xxlarge: string
 }
 export default styles

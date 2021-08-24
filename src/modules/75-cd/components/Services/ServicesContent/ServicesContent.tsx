@@ -22,7 +22,7 @@ export const ServicesContent: React.FC = () => {
   const { getString } = useStrings()
 
   const [timeRange, setTimeRange] = useState<TimeRangeSelectorProps>({
-    range: [startOfDay(moment().subtract(30, 'days')), startOfDay(moment())],
+    range: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
     label: getString('cd.serviceDashboard.month')
   })
 
@@ -30,8 +30,8 @@ export const ServicesContent: React.FC = () => {
 
   const queryParams: GetServiceDetailsQueryParams = {
     accountIdentifier: accountId,
-    projectIdentifier,
     orgIdentifier,
+    projectIdentifier,
     startTime: timeRange?.range[0]?.getTime() || 0,
     endTime: timeRange?.range[1]?.getTime() || 0
   }

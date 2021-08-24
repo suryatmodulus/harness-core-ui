@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Text, Color } from '@wings-software/uicore'
 import cx from 'classnames'
-import CVProgressBar from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
+import CVProgressBar from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
 import type { ActivityVerificationSummary } from 'services/cv'
 import { useStrings } from 'framework/strings'
 import css from './ActivityProgressIndicator.module.scss'

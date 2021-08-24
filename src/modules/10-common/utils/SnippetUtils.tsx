@@ -48,7 +48,8 @@ const entitySubTypeToTagMap: {
   Prometheus: 'prometheus',
   Datadog: 'datadog',
   SumoLogic: 'sumologic',
-  Dynatrace: 'dynatrace'
+  Dynatrace: 'dynatrace',
+  AwsSecretManager: 'awssecretmanager'
 }
 
 export const getSnippetTags = (

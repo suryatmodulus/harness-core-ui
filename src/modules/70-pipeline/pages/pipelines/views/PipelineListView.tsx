@@ -176,14 +176,14 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
             }}
           />
           <Menu.Divider />
-          <Menu.Item
+          {/* <Menu.Item
             icon="duplicate"
             text={getString('projectCard.clone')}
             disabled
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
             }}
-          />
+          /> */}
           <Menu.Item
             icon="trash"
             text={getString('delete')}

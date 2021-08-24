@@ -229,7 +229,7 @@ exports[`AWS Access Point Configuration screen first Import access point flow na
           class="Layout--horizontal StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             disabled=""
             tabindex="-1"
             type="button"
@@ -504,7 +504,7 @@ exports[`AWS Access Point Configuration screen first render and fill form 1`] = 
           class="Layout--horizontal StyledProps--main"
         >
           <button
-            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             disabled=""
             tabindex="-1"
             type="button"

@@ -567,7 +567,12 @@ exports[`Test ContinousVerificationStep Step should render editView when a new s
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="cvData_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1001,7 +1006,12 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="cvData_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1855,7 +1865,12 @@ exports[`Test ContinousVerificationStep Step should render editView when current
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="cvData_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1916,8 +1931,8 @@ exports[`Test ContinousVerificationStep Step should render editView when current
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-            id="configureOptions"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+            id="configureOptions_timeout"
             type="button"
           >
             <span

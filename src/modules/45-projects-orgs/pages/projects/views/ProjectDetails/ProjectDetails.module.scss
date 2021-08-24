@@ -12,10 +12,27 @@
 
 .title {
   max-width: 500px;
+
+  .colorBar {
+    width: 64px;
+    height: 6px;
+    border-radius: 8px;
+    transform: matrix(-1, 0, 0, 1, 0, 0);
+  }
+
+  .tags {
+    color: var(--primary-9);
+    font-weight: 500;
+    border-radius: 5px !important;
+    background-color: var(--primary-3) !important ;
+  }
 }
 
 .header {
+  padding-bottom: var(--spacing-xlarge) !important;
   background-color: var(--primary-1) !important;
+  border-bottom: none;
+  align-items: stretch !important ;
 }
 
 .enabledModules {
@@ -31,4 +48,9 @@
 }
 .projectDetailsAvatarGroup {
   justify-content: flex-end;
+}
+
+.divider {
+  height: 16px;
+  border: 1px solid var(--grey-400);
 }

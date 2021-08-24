@@ -28,7 +28,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
         style="width: 55%;"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -65,11 +65,11 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex"
         >
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
             data-name=""
           >
             <span
-              class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
               data-icon="thinner-search"
             >
               <svg
@@ -633,7 +633,7 @@ exports[`Test COGatewayList clicking on a row should open info drawer 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="menu-282"
                         type="button"
                       >
@@ -698,7 +698,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
         style="width: 55%;"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -735,11 +735,11 @@ exports[`Test COGatewayList renders without crashing 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex"
         >
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
             data-name=""
           >
             <span
-              class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
               data-icon="thinner-search"
             >
               <svg
@@ -1303,7 +1303,7 @@ exports[`Test COGatewayList renders without crashing 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         data-testid="menu-282"
                         type="button"
                       >

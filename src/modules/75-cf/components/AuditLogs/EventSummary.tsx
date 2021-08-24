@@ -80,6 +80,9 @@ export const EventSummary: React.FC<EventSummaryProps> = ({ data, flagData, onCl
     case AuditLogAction.FeatureActivationPatched:
       text = getString('cf.auditLogs.createdMessageFFUpdate')
       break
+    case AuditLogAction.SegmentPatched:
+      text = getString('cf.auditLogs.updateMessageSegment')
+      break
   }
   const date = `${formatDate(data.executedOn)}, ${formatTime(data.executedOn)} PST`
   const [valueBefore, setValueBefore] = useState<string | undefined>()

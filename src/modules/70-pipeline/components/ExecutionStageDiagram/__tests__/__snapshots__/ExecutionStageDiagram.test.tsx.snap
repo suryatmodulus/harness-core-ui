@@ -87,7 +87,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Step-Group-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -126,7 +126,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Step-Group-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -175,7 +175,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Step-Group-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -214,7 +214,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Step-Group-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -296,7 +296,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                         data-nodeid="start-new"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -351,7 +351,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$-$node$parallel1-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -390,7 +390,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$-$node$parallel1-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -439,7 +439,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$parallel1$node$-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -478,7 +478,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="$node$parallel1$node$-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -553,7 +553,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                         data-nodeid="stop-node"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -655,7 +655,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Service-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -694,7 +694,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Service-Start"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -743,7 +743,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Service-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -782,7 +782,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                   data-nodeid="Service-End"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main portBtn StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -838,7 +838,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
                 tabindex="0"
                 type="button"
               >
@@ -871,7 +871,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
                 tabindex="0"
                 type="button"
               >
@@ -907,7 +907,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
                   tabindex="0"
                   type="button"
                 >
@@ -936,7 +936,7 @@ exports[`Test Execution StageDiagram should render the default snapshot 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
                   tabindex="0"
                   type="button"
                 >

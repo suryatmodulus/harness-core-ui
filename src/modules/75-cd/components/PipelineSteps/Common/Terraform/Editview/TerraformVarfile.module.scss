@@ -23,6 +23,13 @@
   cursor: move;
 }
 
+.editBtn {
+  min-width: 24px !important;
+  width: 24px !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
 .dragging {
   background-color: var(--yellow-450) !important;
 }

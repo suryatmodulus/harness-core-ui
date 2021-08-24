@@ -142,7 +142,7 @@ exports[`Test Step 1 renders without crashing 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span

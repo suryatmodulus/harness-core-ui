@@ -33,6 +33,10 @@
       border-radius: 4px;
       background: var(--lime-400);
     }
+    .overflow {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .seeMore {
       text-align: center;
       cursor: pointer;

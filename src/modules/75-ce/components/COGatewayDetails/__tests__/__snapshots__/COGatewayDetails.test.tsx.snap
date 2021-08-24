@@ -843,7 +843,7 @@ exports[`Test GatewayDetails renders review screen 1`] = `
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -872,7 +872,7 @@ exports[`Test GatewayDetails renders review screen 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -1549,7 +1549,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                               role="cell"
                             >
                               <button
-                                class="bp3-button Button--button StyledProps--font StyledProps--main clearBtn Button--with-current-color Button--iconOnly"
+                                class="bp3-button Button--button StyledProps--font StyledProps--main clearBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                                 type="button"
                               >
                                 <span
@@ -1731,7 +1731,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
                       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                         style="max-width: 180px;"
                         type="button"
                       >
@@ -1773,7 +1773,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1802,7 +1802,7 @@ exports[`Test GatewayDetails renders review screen 2`] = `
         </span>
       </button>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -2137,7 +2137,7 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -2166,7 +2166,7 @@ exports[`Test GatewayDetails renders setup access screen 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -2529,7 +2529,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -2558,7 +2558,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -3261,7 +3261,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                               role="cell"
                             >
                               <button
-                                class="bp3-button Button--button StyledProps--font StyledProps--main clearBtn Button--with-current-color Button--iconOnly"
+                                class="bp3-button Button--button StyledProps--font StyledProps--main clearBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                                 type="button"
                               >
                                 <span
@@ -3443,7 +3443,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
                       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                         style="max-width: 180px;"
                         type="button"
                       >
@@ -3485,7 +3485,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
     >
       <button
-        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -3542,7 +3542,7 @@ exports[`Test GatewayDetails renders setup access screen and move to previous st
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -4245,7 +4245,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                               role="cell"
                             >
                               <button
-                                class="bp3-button Button--button StyledProps--font StyledProps--main clearBtn Button--with-current-color Button--iconOnly"
+                                class="bp3-button Button--button StyledProps--font StyledProps--main clearBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                                 type="button"
                               >
                                 <span
@@ -4427,7 +4427,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
                       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                         style="max-width: 180px;"
                         type="button"
                       >
@@ -4469,7 +4469,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -4498,7 +4498,7 @@ exports[`Test GatewayDetails renders without crashing 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span

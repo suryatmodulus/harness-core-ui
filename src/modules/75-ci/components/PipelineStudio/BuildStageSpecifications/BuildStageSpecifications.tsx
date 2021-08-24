@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import * as yup from 'yup'
 import { Formik, FormikForm, Switch, Text, Card, Accordion, HarnessDocTooltip } from '@wings-software/uicore'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
-import { isEqual, debounce, cloneDeep, defaultTo } from 'lodash-es'
+import { isEqual, debounce, cloneDeep, defaultTo, uniqBy } from 'lodash-es'
 import cx from 'classnames'
 import { produce } from 'immer'
 import type { FormikProps } from 'formik'
@@ -103,7 +103,18 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
   }, [])
 
   const validationSchema = yup.object().shape({
-    name: NameSchema()
+    name: NameSchema(),
+    sharedPaths: yup.lazy(value => {
+      if (Array.isArray(value)) {
+        return yup.array().test('valuesShouldBeUnique', getString('validation.uniqueValues'), list => {
+          if (!list) return true
+
+          return uniqBy(list, 'value').length === list.length
+        })
+      } else {
+        return yup.string()
+      }
+    })
   })
 
   const handleValidate = (values: any): void => {
@@ -257,8 +268,15 @@ export default function BuildStageSpecifications({ children }: React.PropsWithCh
                       </div>
                     }
                     details={
-                      <Card className={(css.sectionCard, css.sectionCardVariables)} id="variables">
+                      <Card
+                        className={(css.sectionCard, css.sectionCardVariables)}
+                        id="variables"
+                        style={{ width: '100%' }}
+                      >
                         <div className={css.tabSubHeading}>Stage Variables</div>
+                        <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>
+                          {getString('workflowVariableInfo')}
+                        </Text>
                         <div className={css.stageSection}>
                           <div className={css.stageDetails}>
                             <StepWidget<CustomVariablesData>

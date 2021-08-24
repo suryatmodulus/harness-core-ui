@@ -459,7 +459,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                             </span>
                           </div>
                           <p
-                            class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--margin-top-small"
+                            class="StyledProps--font StyledProps--main Thumbnail--label StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey600 StyledProps--margin-top-small"
                           >
                             serviceDeploymentTypes.kubernetes
                           </p>
@@ -471,7 +471,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                           />
                         </label>
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main ThumbnailSelect--changeButton StyledProps--intent-primary Button--without-shadow Button--withLeftIcon"
                           data-testid="thumbnail-select-change"
                           type="button"
                         >
@@ -662,7 +662,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                     class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
                   >
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -691,7 +691,7 @@ exports[`DeployStageSetupShell tests opens services tab by default 1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                       type="button"
                     >
                       <span

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from '@wings-software/uicore'
+import { HarnessDocTooltip, Icon } from '@wings-software/uicore'
 import { Switch } from '@blueprintjs/core'
 import { NavLink, useParams, useLocation, matchPath } from 'react-router-dom'
 
@@ -10,7 +10,7 @@ import type { ExecutionPathProps, PipelineType } from '@common/interfaces/RouteI
 import type { CIWebhookInfoDTO } from 'services/ci'
 import type { ExecutionQueryParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '@pipeline/context/ExecutionContext'
-import { String, useStrings } from 'framework/strings'
+import { useStrings } from 'framework/strings'
 
 import css from './ExecutionTabs.module.scss'
 
@@ -121,8 +121,9 @@ export default function ExecutionTabs(props: React.PropsWithChildren<unknown>): 
       <div className={css.children}>{children}</div>
       {isPipeLineView ? (
         <div className={css.viewToggle}>
-          <String stringID="consoleView" />
+          <span data-tooltip-id="consoleViewToggle">{getString('consoleView')}</span>
           <Switch checked={isLogView} name="console-view-toggle" onChange={handleLogViewChange} />
+          <HarnessDocTooltip tooltipId="consoleViewToggle" useStandAlone={true} />
         </div>
       ) : null}
     </div>

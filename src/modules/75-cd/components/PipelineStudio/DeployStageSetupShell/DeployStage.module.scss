@@ -16,11 +16,12 @@
       font-size: var(--font-size-normal);
       color: var(--grey-700);
       margin-bottom: var(--spacing-5);
-      font-weight: 500;
+      font-weight: 600;
     }
     .section-card {
       width: 1024px;
       margin-top: var(--spacing-3);
+      display: block;
       .thumbnailSelect {
         &:global(.bp3-form-group) {
           margin-bottom: 0px;

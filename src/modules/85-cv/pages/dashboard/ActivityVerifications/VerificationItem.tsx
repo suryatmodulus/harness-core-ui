@@ -10,7 +10,7 @@ import {
   DeploymentPopoverSummary,
   VerificationResult
 } from 'services/cv'
-import CVProgressBar from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
+import CVProgressBar from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/CVProgressBar/CVProgressBar'
 import { useStrings } from 'framework/strings'
 import type { UseStringsReturn } from 'framework/strings'
 import ActivityType from '../ActivityType/ActivityType'

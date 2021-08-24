@@ -1,58 +1,49 @@
-import React from 'react'
-import { Menu, Position } from '@blueprintjs/core'
-import { Button, Popover } from '@wings-software/uicore'
-import { String } from 'framework/strings'
-
+import React, { useState } from 'react'
+import { Menu, Position, Dialog } from '@blueprintjs/core'
+import { Button, Popover, useModalHook } from '@wings-software/uicore'
+import { String, useStrings } from 'framework/strings'
+import { getAllowedTemplateTypes } from '@templates-library/utils/templatesUtils'
+import { CreateTemplateModal } from '../CreateTemplateModal/CreateTemplateModal'
 import css from './TemplatesListHeader.module.scss'
 
 export function TemplatesListHeader(): React.ReactElement {
   const handleAddTemplate = () => undefined
+  const { getString } = useStrings()
+  const [createTemplateType, setCreateTemplateType] = useState('')
+  const allowedTemplateTypes = getAllowedTemplateTypes(getString)
+
+  const [showModal, hideModal] = useModalHook(
+    () => (
+      <Dialog
+        enforceFocus={false}
+        isOpen={true}
+        className={css.createTemplateDialog}
+        onClose={() => {
+          hideModal()
+        }}
+      >
+        <CreateTemplateModal initialValues={{ templateEntityType: createTemplateType }} onClose={hideModal} />
+      </Dialog>
+    ),
+    [createTemplateType]
+  )
 
   const renderMenu = () => {
     return (
-      <Menu style={{ width: '120px' }} onClick={e => e.stopPropagation()}>
-        <Menu.Item
-          text={'Pipeline'}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
-        <Menu.Item
-          text={'Stage'}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
-        <Menu.Item
-          text={'Service'}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
-        <Menu.Item
-          text={'Infrastructure'}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
-        <Menu.Item
-          text={'Step'}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
-        <Menu.Item
-          text={'Step group'}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
-        <Menu.Item
-          text={'Execution'}
-          onClick={(e: React.MouseEvent) => {
-            e.stopPropagation()
-          }}
-        />
+      <Menu style={{ width: '120px' }} className={css.templateTypeMenu} onClick={e => e.stopPropagation()}>
+        {allowedTemplateTypes.map(templateType => (
+          <Menu.Item
+            text={templateType.label}
+            key={templateType.value}
+            className={css.templateTypeMenuItem}
+            disabled={templateType.disabled}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              setCreateTemplateType(templateType.value as string)
+              showModal()
+            }}
+          />
+        ))}
       </Menu>
     )
   }
@@ -66,7 +57,7 @@ export function TemplatesListHeader(): React.ReactElement {
           content={renderMenu()}
           position={Position.BOTTOM}
         >
-          <Button rightIcon={'caret-down'} intent={'primary'} onClick={handleAddTemplate} withoutBoxShadow>
+          <Button rightIcon={'chevron-down'} intent={'primary'} onClick={handleAddTemplate} withoutBoxShadow>
             {<String stringID="templatesLibrary.addNewTemplate" />}
           </Button>
         </Popover>

@@ -14,6 +14,7 @@ import { useStrings } from 'framework/strings'
 import { INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import { TrendPopover } from '@cd/components/TrendPopover/TrendPopover'
 import { SparklineChart } from '@common/components/SparklineChart/SparklineChart'
+import { startOfDay } from '@cd/components/TimeRangeSelector/TimeRangeSelector'
 import { Ticker } from '@common/components/Ticker/Ticker'
 import css from '@cd/components/ServiceDetails/ActiveServiceInstances/ActiveServiceInstances.module.scss'
 
@@ -27,7 +28,7 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
       orgIdentifier,
       projectIdentifier,
       serviceId,
-      timestamp: moment().subtract(30, 'days').toDate().getTime()
+      timestamp: startOfDay(moment().subtract(1, 'month').add(1, 'day')).getTime()
     }),
     [accountId, orgIdentifier, projectIdentifier, serviceId]
   )
@@ -132,7 +133,12 @@ export const ActiveServiceInstancesHeader: React.FC = () => {
       <Layout.Horizontal>
         {trendData.length ? (
           <Container margin={{ right: 'medium' }}>
-            <TrendPopover data={trendData}>
+            <TrendPopover
+              title={getString('cd.serviceDashboard.serviceInstancesInLast', {
+                period: getString('cd.serviceDashboard.6months')
+              })}
+              data={trendData}
+            >
               <SparklineChart
                 title={getString('cd.serviceDashboard.6monthTrend')}
                 data={trendData}

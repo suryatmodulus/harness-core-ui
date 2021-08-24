@@ -45,7 +45,12 @@ export default function AWSCCDetailsStep(props: AWSCCDetailsStepProps) {
     >
       <FormikForm>
         <Layout.Vertical spacing="large" padding="small" width="60%" style={{ minHeight: 440 }}>
-          <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+          <Text
+            font="medium"
+            margin={{ top: 'small' }}
+            color={Color.BLACK}
+            tooltipProps={{ dataTooltipId: 'awsCCDetailsTooltip' }}
+          >
             {getString('details')}
           </Text>
           <FormInput.RadioGroup

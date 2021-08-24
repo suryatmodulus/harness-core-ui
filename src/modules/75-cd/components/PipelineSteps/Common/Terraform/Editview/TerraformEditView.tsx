@@ -7,10 +7,11 @@ import {
   getMultiTypeFromValue,
   MultiTypeInputType,
   SelectOption,
-  Icon,
   Layout,
   Color,
-  Label
+  Label,
+  Button,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import cx from 'classnames'
@@ -122,7 +123,6 @@ export default function TerraformEditView(
         {(formik: FormikProps<TFFormData>) => {
           const { values, setFieldValue } = formik
           setFormikRef(formikRef, formik)
-
           return (
             <>
               <div className={cx(stepCss.formGroup, stepCss.lg)}>
@@ -144,6 +144,7 @@ export default function TerraformEditView(
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => {
+                      /* istanbul ignore next */
                       setFieldValue('timeout', value)
                     }}
                     isReadonly={props.readonly}
@@ -187,8 +188,13 @@ export default function TerraformEditView(
               {formik.values?.spec?.configuration?.type === ConfigurationTypes.Inline && (
                 <>
                   <Layout.Vertical className={cx(css.addMarginBottom)}>
-                    <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
+                    <Label
+                      style={{ color: Color.GREY_900 }}
+                      className={css.configLabel}
+                      data-tooltip-id="tfConfigurationFile"
+                    >
                       {getString('cd.configurationFile')}
+                      <HarnessDocTooltip useStandAlone={true} tooltipId="tfConfigurationFile" />
                     </Label>
                     <div className={cx(css.configFile, css.addMarginBottom)}>
                       <div className={css.configField}>
@@ -200,7 +206,16 @@ export default function TerraformEditView(
                             /{formik.values?.spec?.configuration?.spec?.configFiles?.store?.spec?.folderPath}
                           </Text>
                         )}
-                        <Icon name="edit" onClick={() => setShowModal(true)} data-name="config-edit" />
+                        <Button
+                          minimal
+                          icon="Edit"
+                          withoutBoxShadow
+                          iconProps={{ size: 16 }}
+                          onClick={() => setShowModal(true)}
+                          data-name="config-edit"
+                          withoutCurrentColor={true}
+                          className={css.editBtn}
+                        />
                       </div>
                     </div>
                   </Layout.Vertical>

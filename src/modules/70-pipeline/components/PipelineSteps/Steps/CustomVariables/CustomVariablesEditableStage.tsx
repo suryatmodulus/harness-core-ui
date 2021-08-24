@@ -182,7 +182,7 @@ export function CustomVariablesEditableStage(props: CustomVariableEditableProps)
                             {initialValues.canAddVariable ? (
                               <React.Fragment>
                                 <Button
-                                  icon="edit"
+                                  icon="Edit"
                                   disabled={readonly}
                                   tooltip={<String className={css.tooltip} stringID="common.editVariableType" />}
                                   data-testid={`edit-variable-${index}`}

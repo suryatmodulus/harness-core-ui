@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import { SEVEN_DAYS_IN_MILLIS } from '@cf/utils/CFUtils'
 import type { Feature } from 'services/cf'
 import { MetricsToolbar } from './MetricsToolbar'
 import { TabEvaluations } from './TabEvaluations'
@@ -10,9 +9,19 @@ import css from './MetricsView.module.scss'
 
 export const MetricsView: React.FC<{ flagData: Feature }> = ({ flagData }) => {
   const { getString } = useStrings()
-  const now = Date.now()
-  const [startDate, setStartDate] = useState<Date>(new Date(now - SEVEN_DAYS_IN_MILLIS))
-  const [endDate, setEndDate] = useState<Date>(new Date(now))
+
+  const [startDate, setStartDate] = useState<Date>(() => {
+    const start = new Date()
+    start.setDate(start.getDate() - 7)
+    start.setHours(0, 0, 0, 0)
+    return start
+  })
+
+  const [endDate, setEndDate] = useState<Date>(() => {
+    const end = new Date()
+    end.setHours(23, 59, 59, 999)
+    return end
+  })
 
   return (
     <Container

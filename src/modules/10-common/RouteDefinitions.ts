@@ -466,7 +466,7 @@ const routes = {
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}`
   ),
   toProjectOverview: withAccountId(
-    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps & ModulePathParams>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toDeployments: withAccountId(
@@ -493,6 +493,10 @@ const routes = {
   toPipelines: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
       `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines`
+  ),
+  toGitOps: withAccountId(
+    ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/gitops`
   ),
   toServices: withAccountId(
     ({ orgIdentifier, projectIdentifier, module }: PipelineType<ProjectPathProps>) =>
@@ -886,7 +890,7 @@ const routes = {
   ),
   toCVProjectOverview: withAccountId(
     ({ orgIdentifier, projectIdentifier }: ProjectPathProps) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
+      `cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/dashboard`
   ),
   toCVDeploymentPage: withAccountId(
     ({
@@ -916,18 +920,26 @@ const routes = {
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/services`
   ),
+
   toCVMonitoringServices: withAccountId(
-    ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
+    ({ orgIdentifier, projectIdentifier, module = 'cv' }: Partial<ProjectPathProps & { module?: string }>) => {
+      return `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices`
+    }
   ),
   toCVAddMonitoringServicesSetup: withAccountId(
     ({ projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & { identifier: string }>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/setup`
   ),
   toCVAddMonitoringServicesEdit: withAccountId(
-    ({ projectIdentifier, orgIdentifier, identifier }: Partial<ProjectPathProps & { identifier: string }>) =>
-      `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
+    ({
+      projectIdentifier,
+      orgIdentifier,
+      identifier,
+      module
+    }: Partial<ProjectPathProps & { identifier: string; module: string }>) =>
+      `/${module}/orgs/${orgIdentifier}/projects/${projectIdentifier}/monitoringservices/edit/${identifier}`
   ),
+
   toCVOnBoardingSetup: withAccountId(
     ({ dataSourceType, projectIdentifier, orgIdentifier }: Partial<ProjectPathProps & CVDataSourceTypePathProps>) =>
       `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/${dataSourceType}/setup`
@@ -1040,6 +1052,10 @@ const routes = {
   toCERecommendationDetails: withAccountId(
     ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
       `/ce/recommendations/${recommendation}/name/${recommendationName}/details`
+  ),
+  toCENodeRecommendationDetails: withAccountId(
+    ({ recommendation, recommendationName }: { recommendation: string; recommendationName: string }) =>
+      `/ce/node-recommendations/${recommendation}/name/${recommendationName}/details`
   ),
   toCERecommendationWorkloadDetails: withAccountId(
     ({

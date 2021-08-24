@@ -32,9 +32,14 @@ import css from './COAcessPointList.module.scss'
 
 function NameCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   return (
-    <Text lineClamp={3} color={Color.BLACK} style={{ fontWeight: 600 }}>
-      {tableProps.value}
-    </Text>
+    <div style={{ overflowWrap: 'anywhere' }}>
+      <Text lineClamp={1} color={Color.BLACK} style={{ fontWeight: 600 }}>
+        {tableProps.value}
+      </Text>
+      <Text lineClamp={2} color={Color.GREY_400}>
+        {tableProps.row.original.host_name}
+      </Text>
+    </div>
   )
 }
 
@@ -43,12 +48,20 @@ function DNSCell(tableProps: CellProps<AccessPoint>): JSX.Element {
 }
 function CloudAccountCell(tableProps: CellProps<AccessPoint>): JSX.Element {
   return (
-    <Layout.Horizontal spacing="medium">
+    <Layout.Horizontal spacing="medium" style={{ overflowWrap: 'anywhere' }}>
       <Icon name={`service-${tableProps.row.original.type || 'aws'}` as IconName} size={24} />
-      <Text lineClamp={3} color={Color.GREY_500}>
+      <Text lineClamp={1} color={Color.GREY_500}>
         {tableProps.value}
       </Text>
     </Layout.Horizontal>
+  )
+}
+
+const TableCell: React.FC<CellProps<AccessPoint>> = tableProps => {
+  return (
+    <div style={{ overflowWrap: 'anywhere', paddingRight: 10 }}>
+      <Text lineClamp={2}>{tableProps.value}</Text>
+    </div>
   )
 }
 
@@ -66,14 +79,17 @@ const COLoadBalancerList: React.FC = () => {
     setAllAccessPoints(newAccessPoints)
   }
 
-  const { openCreateAccessPointModal } = useCreateAccessPointDialog({
-    onAccessPointSave: savedLb => {
-      // if (isCreateMode) {
-      //   setAccessPointsList([{ label: savedLb.name as string, value: savedLb.id as string }, ...accessPointsList])
-      // }
-      setAccessPoint(savedLb)
-    }
-  })
+  const { openCreateAccessPointModal } = useCreateAccessPointDialog(
+    {
+      onAccessPointSave: savedLb => {
+        // if (isCreateMode) {
+        //   setAccessPointsList([{ label: savedLb.name as string, value: savedLb.id as string }, ...accessPointsList])
+        // }
+        setAccessPoint(savedLb)
+      }
+    },
+    [allAccessPoints]
+  )
 
   const [selectedAccessPoints, setSelectedAccessPoints] = useState<AccessPoint[]>([])
   function CheckBoxCell(tableProps: CellProps<AccessPoint>): JSX.Element {
@@ -320,33 +336,45 @@ const COLoadBalancerList: React.FC = () => {
                     {
                       accessor: 'cloud_account_id',
                       Header: getString('ce.co.accessPoint.cloudAccount').toUpperCase(),
-                      width: '20%',
+                      width: '15%',
                       Cell: CloudAccountCell
                     },
                     {
                       accessor: 'id',
                       Header: getString('ce.co.accessPoint.dnsProvider').toUpperCase(),
-                      width: '10%',
+                      width: '8%',
                       Cell: DNSCell,
                       disableSortBy: true
                     },
                     {
                       accessor: 'host_name',
                       Header: getString('ce.co.accessPoint.asssociatedRules').toUpperCase(),
-                      width: '15%',
+                      width: '10%',
                       Cell: RulesCell
+                    },
+                    {
+                      accessor: 'region',
+                      Header: 'Region',
+                      width: '10%',
+                      Cell: TableCell
+                    },
+                    {
+                      accessor: 'vpc',
+                      Header: 'VPC',
+                      width: '12%',
+                      Cell: TableCell
                     },
                     {
                       accessor: 'status',
                       Header: getString('ce.co.accessPoint.lastActivity').toUpperCase(),
-                      width: '15%',
+                      width: '10%',
                       Cell: ActivityCell
                     },
                     {
                       accessor: row => row.status,
                       Header: getString('ce.co.accessPoint.status').toUpperCase(),
                       Cell: StatusCell,
-                      width: '15%'
+                      width: '10%'
                     }
                     // {
                     //   id: 'menu',

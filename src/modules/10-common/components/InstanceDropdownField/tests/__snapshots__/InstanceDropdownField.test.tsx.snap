@@ -69,7 +69,7 @@ exports[`Unit tests for InstanceDropdownField Component render the Formik compon
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
               type="button"
             >
               <span
@@ -173,7 +173,7 @@ exports[`Unit tests for InstanceDropdownField Component render the component 1`]
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
             type="button"
           >
             <span

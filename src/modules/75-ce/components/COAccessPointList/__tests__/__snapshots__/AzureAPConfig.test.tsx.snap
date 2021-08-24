@@ -148,7 +148,7 @@ exports[`Azure Access Point Configuration Name field should be disabled and shou
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                 data-testid="saveAzureDetails"
                 disabled=""
                 tabindex="-1"
@@ -345,7 +345,7 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                 data-testid="saveAzureDetails"
                 disabled=""
                 tabindex="-1"
@@ -532,7 +532,7 @@ exports[`Azure Access Point Configuration render configuration dialog and fill d
               class="Layout--horizontal StyledProps--main"
             >
               <button
-                class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color"
+                class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main saveBtn StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                 data-testid="saveAzureDetails"
                 disabled=""
                 tabindex="-1"

@@ -111,7 +111,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                       </span>
                     </div>
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -140,7 +140,7 @@ exports[`Test Filter component Initial render should match snapshot: Filter 1`] 
                   class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
                     type="button"
                   >
                     <span

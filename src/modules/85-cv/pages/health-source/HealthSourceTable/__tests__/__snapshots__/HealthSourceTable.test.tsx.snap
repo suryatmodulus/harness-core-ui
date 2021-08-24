@@ -208,14 +208,14 @@ exports[`HealthSource table check delete and edit row 1`] = `
     class="drawerlink"
   >
     <a
-      href="/account/1234_accountId/cv/orgs/1234_org/projects/1234_project/monitoringservices/edit/undefined"
+      href="/account/1234_accountId/undefined/orgs/1234_org/projects/1234_project/monitoringservices/edit/undefined"
     >
       + 
       cv.healthSource.addHealthSource
     </a>
   </div>
   <button
-    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main almostFullScreenCloseBtn Button--with-current-color Button--iconOnly Button--without-shadow"
+    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main almostFullScreenCloseBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
     type="button"
   >
     <span

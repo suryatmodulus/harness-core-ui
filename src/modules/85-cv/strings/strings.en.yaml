@@ -398,6 +398,10 @@ monitoringSources:
       groupName: Group Name is required.
       uniqueName: '{{existingName}} already exists. Provide a unique name.'
       recordCount: Current query yields too many records. Please change query to yield one record.
+  splunk:
+    splunkLogsQuery: SPLUNK Logs Query
+    savedSearchQuery: Select saved query
+    submitQueryToSeeRecords: Submit query to see records from Splunk
   gcoLogs:
     query: QUERY
     gcoLogsServiceInstance: Add service instance
@@ -516,7 +520,7 @@ verificationJobs:
     preDepText: Create a new pre-deployment test verification job
     prodDepText: Create a new production deployment verification job
     postDepText: Create a new post-deployment test verification job
-learnMore: Learn more about Continuous Verification
+learnMore: Learn more about Change Intelligence
 cvTrialHomePage:
   startTrial:
     description: Take your software build processes to the next level using our Harness Continuous Verification.

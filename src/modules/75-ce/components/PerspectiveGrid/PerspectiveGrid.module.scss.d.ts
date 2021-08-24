@@ -6,5 +6,7 @@ declare const styles: {
   readonly legendColorCtn: string
   readonly legendColor: string
   readonly gridLoadingContainer: string
+  readonly efficiencyScore: string
+  readonly stack: string
 }
 export default styles

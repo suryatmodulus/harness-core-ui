@@ -227,7 +227,12 @@ const BuildTests: React.FC<BuildTestsProps> = ({ reportSummaryMock, testOverview
     return null
   }
 
-  const error = reportSummaryError || serviceTokenError || testOverviewError || reportInfoError || testInfoError
+  const error =
+    (reportInfoData && reportInfoData?.length > 0 && reportSummaryError) ||
+    serviceTokenError ||
+    (testInfoData && testInfoData?.length > 0 && testOverviewError) ||
+    reportInfoError ||
+    testInfoError
 
   if (error) {
     return (

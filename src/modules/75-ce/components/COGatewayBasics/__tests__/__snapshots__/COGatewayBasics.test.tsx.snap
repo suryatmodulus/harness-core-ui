@@ -22,7 +22,7 @@ exports[`Test GatewayBasic renders without crashing 1`] = `
           class="bp3-form-content"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
             data-testid="cr-field-cloudAccount"
             style="width: 400px;"
             type="button"

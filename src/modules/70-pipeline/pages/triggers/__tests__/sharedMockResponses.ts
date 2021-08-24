@@ -30,6 +30,29 @@ export const GetPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDT
     correlationId: '26a25fc1-882a-4499-9059-d1ed08ae12fb'
   }
 }
+
+export const GetManifestPipelineResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      yamlPipeline:
+        'pipeline:\n    name: TestPipeline-ABC\n    identifier: TestPipelineABC\n    projectIdentifier: project1\n    orgIdentifier: default\n    timeout: 10m\n    tags: {}\n    stages:\n        - stage:\n              name: stagea\n              identifier: stagea\n              description: ""\n              type: Deployment\n              spec:\n                  serviceConfig:\n                      serviceRef: seveice\n                      serviceDefinition:\n                          type: Kubernetes\n                          spec:\n                              variables: []\n                              manifests:\n                                  - manifest:\n                                        identifier: sdfds\n                                        type: HelmChart\n                                        spec:\n                                            store:\n                                                type: S3\n                                                spec:\n                                                    connectorRef: testecr2\n                                                    bucketName: <+input>\n                                                    folderPath: <+input>\n                                                    region: us-east-1\n                                            chartName: <+input>\n                                            chartVersion: <+input>\n                                            helmVersion: V2\n                                            skipResourceVersioning: false\n                                  - manifest:\n                                        identifier: testhelmmanifest\n                                        type: HelmChart\n                                        spec:\n                                            store:\n                                                type: S3\n                                                spec:\n                                                    connectorRef: testecr2\n                                                    bucketName: <+input>\n                                                    folderPath: <+input>\n                                                    region: <+input>\n                                            chartName: <+input>\n                                            chartVersion: <+input>\n                                            helmVersion: V2\n                                            skipResourceVersioning: false\n                  infrastructure:\n                      environmentRef: TestEnv\n                      infrastructureDefinition:\n                          type: KubernetesDirect\n                          spec:\n                              connectorRef: testk8s\n                              namespace: sdfds\n                              releaseName: release-<+INFRA_KEY>\n                          provisioner:\n                              steps:\n                                  - step:\n                                        type: TerraformDestroy\n                                        name: xzcxcx\n                                        identifier: xzcxcx\n                                        spec:\n                                            provisionerIdentifier: xcxzcx\n                                            configuration:\n                                                type: InheritFromApply\n                                        timeout: 10m\n                              rollbackSteps: []\n                      allowSimultaneousDeployments: false\n                  execution:\n                      steps:\n                          - step:\n                                name: Rollout Deployment\n                                identifier: rolloutDeployment\n                                type: K8sRollingDeploy\n                                timeout: 10m\n                                spec:\n                                    skipDryRun: false\n                      rollbackSteps:\n                          - step:\n                                name: Rollback Rollout Deployment\n                                identifier: rollbackRolloutDeployment\n                                type: K8sRollingRollback\n                                timeout: 10m\n                                spec: {}\n              tags: {}\n              failureStrategies:\n                  - onFailure:\n                        errors:\n                            - AllErrors\n                        action:\n                            type: StageRollback\n',
+      version: 15,
+      gitDetails: {
+        objectId: null,
+        branch: null,
+        repoIdentifier: null,
+        rootFolder: null,
+        filePath: null
+      }
+    } as unknown as PMSPipelineResponseDTO,
+    metaData: null as unknown as undefined,
+    correlationId: '26a25fc1-882a-4499-9059-d1ed08ae12fb'
+  }
+}
 export const GetUpdatedPipelineWithVariablesResponse: UseGetReturnData<ResponsePMSPipelineResponseDTO> = {
   loading: false,
   refetch: jest.fn(),
@@ -62,6 +85,21 @@ export const GetTemplateFromPipelineResponse: UseGetReturnData<ResponseInputSetT
     data: {
       inputSetTemplateYaml:
         'pipeline:\n  identifier: "noinputspipeline1"\n  variables:\n  - name: "newVar"\n    type: "String"\n    value: "<+input>"\n'
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '4e057505-dbd4-4de7-9a9d-43a0364e5825'
+  }
+}
+
+export const GetManifestTemplateFromPipelineResponse: UseGetReturnData<any> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      inputSetTemplateYaml:
+        'pipeline:\n  identifier: "TestPipelineABC"\n  stages:\n  - stage:\n      identifier: "stagea"\n      type: "Deployment"\n      spec:\n        serviceConfig:\n          serviceDefinition:\n            type: "Kubernetes"\n            spec:\n              manifests:\n              - manifest:\n                  identifier: "sdfds"\n                  type: "HelmChart"\n                  spec:\n                    store:\n                      type: "S3"\n                      spec:\n                        bucketName: "<+input>"\n                        folderPath: "<+input>"\n                    chartName: "<+input>"\n                    chartVersion: "<+input>"\n              - manifest:\n                  identifier: "testhelmmanifest"\n                  type: "HelmChart"\n                  spec:\n                    store:\n                      type: "S3"\n                      spec:\n                        bucketName: "<+input>"\n                        folderPath: "<+input>"\n                        region: "<+input>"\n                    chartName: "<+input>"\n                    chartVersion: "<+input>"\n'
     },
     metaData: null as unknown as undefined,
     correlationId: '4e057505-dbd4-4de7-9a9d-43a0364e5825'
@@ -123,6 +161,22 @@ export const GetMergeInputSetFromPipelineTemplateWithListInputResponse: UseGetRe
       data: {
         inputSetTemplateYaml:
           'pipeline:\n  identifier: "p1"\n  stages:\n  - stage:\n      identifier: "stage1"\n      type: "Deployment"\n      spec:\n        infrastructure:\n          infrastructureDefinition:\n            type: "KubernetesDirect"\n            spec:\n              namespace: "<+input>"\n              releaseName: "<+input>"\n'
+      },
+      metaData: null,
+      correlationId: '2197e87f-64d4-44a4-91c7-607337cf4394'
+    } as unknown as ResponseMergeInputSetResponse
+  }
+
+export const GetMergeManifestInputSetFromPipelineTemplateWithListInputResponse: UseGetReturnData<ResponseMergeInputSetResponse> =
+  {
+    loading: false,
+    refetch: jest.fn(),
+    error: null,
+    data: {
+      status: 'SUCCESS',
+      data: {
+        inputSetTemplateYaml:
+          'pipeline:\n  identifier: "TestPipelineABC"\n  stages:\n  - stage:\n      identifier: "stagea"\n      type: "Deployment"\n      spec:\n        serviceConfig:\n          serviceDefinition:\n            type: "Kubernetes"\n            spec:\n              manifests:\n              - manifest:\n                  identifier: "sdfds"\n                  type: "HelmChart"\n                  spec:\n                    store:\n                      type: "S3"\n                      spec:\n                        bucketName: "<+input>"\n                        folderPath: "<+input>"\n                    chartName: "<+input>"\n                    chartVersion: "<+input>"\n              - manifest:\n                  identifier: "testhelmmanifest"\n                  type: "HelmChart"\n                  spec:\n                    store:\n                      type: "S3"\n                      spec:\n                        bucketName: "<+input>"\n                        folderPath: "<+input>"\n                        region: "<+input>"\n                    chartName: "<+input>"\n                    chartVersion: "<+input>"\n'
       },
       metaData: null,
       correlationId: '2197e87f-64d4-44a4-91c7-607337cf4394'
@@ -268,6 +322,41 @@ export const GetInputSetsResponse: UseGetReturnData<ResponsePageInputSetSummaryR
   }
 }
 
+export const GetManifestInputSetsResponse: UseGetReturnData<ResponsePageInputSetSummaryResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      totalPages: 1,
+      totalItems: 1,
+      pageItemCount: 1,
+      pageSize: 100,
+      content: [
+        {
+          identifier: 'test',
+          name: 'test',
+          pipelineIdentifier: ' TestPipeline-ABC',
+          inputSetType: 'INPUT_SET',
+          tags: {},
+          version: 0,
+          gitDetails: {
+            objectId: null as unknown as undefined,
+            branch: null as unknown as undefined,
+            repoIdentifier: null as unknown as undefined,
+            rootFolder: null as unknown as undefined,
+            filePath: null as unknown as undefined
+          }
+        }
+      ],
+      pageIndex: 0,
+      empty: false
+    },
+    correlationId: 'dbc7238c-380f-4fe0-b160-a29510cfe0c8'
+  }
+}
+
 export const GetEnvironmentList: UseGetReturnData<ResponseListEnvironmentResponse> = {
   loading: false,
   refetch: jest.fn(),
@@ -352,6 +441,13 @@ export const GetTriggerListForTargetResponse: UseGetReturnData<ResponsePageNGTri
           executions: [0, 0, 0, 0, 0, 0, 0],
           yaml: '',
           enabled: false
+        },
+        {
+          name: 'sdfsdfdsfdfd',
+          identifier: 'sdfsdfdsfdfd',
+          type: 'Manifest',
+          enabled: false,
+          yaml: 'trigger:\n    name: sdfsdfdsfdfd\n    identifier: sdfsdfdsfdfd\n    enabled: true\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: test\n    pipelineIdentifier: TestPipelineABC\n    source:\n        type: Manifest\n        spec:\n            stageIdentifier: stagea\n            manifestRef: testhelmmanifest\n            type: HelmChart\n            spec:\n                store:\n                    type: S3\n                    spec:\n                        connectorRef: testecr2\n                        bucketName: ""\n                        folderPath: sdfds\n                        region: ""\n                chartName: sdfds\n                chartVersion: <+trigger.manifest.version>\n                helmVersion: V2\n                skipResourceVersioning: false\n                eventConditions: []\n    inputYaml: |\n        pipeline:\n            identifier: TestPipelineABC\n            stages:\n                - stage:\n                      identifier: stagea\n                      type: Deployment\n                      spec:\n                          serviceConfig:\n                              serviceDefinition:\n                                  type: Kubernetes\n                                  spec:\n                                      manifests:\n                                          - manifest:\n                                                identifier: sdfds\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            bucketName: ""\n                                                            folderPath: ""\n                                                    chartName: ""\n                                                    chartVersion: ""\n                                          - manifest:\n                                                identifier: testhelmmanifest\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            connectorRef: testecr2\n                                                            bucketName: ""\n                                                            folderPath: sdfds\n                                                            region: ""\n                                                    chartName: sdfds\n                                                    chartVersion: <+trigger.manifest.version>\n                                                    helmVersion: V2\n                                                    skipResourceVersioning: false\n'
         }
       ],
       pageIndex: 0,

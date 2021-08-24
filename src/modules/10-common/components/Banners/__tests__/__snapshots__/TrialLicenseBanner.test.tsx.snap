@@ -68,7 +68,7 @@ exports[`TrialLicenseBanner should render banner and provide feedback button if 
     </div>
     <button
       aria-label="close banner"
-      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
       type="button"
     >
       <span
@@ -151,7 +151,7 @@ exports[`TrialLicenseBanner should render expired banner BUT NO extend trial but
     </div>
     <button
       aria-label="close banner"
-      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
       type="button"
     >
       <span
@@ -244,7 +244,7 @@ exports[`TrialLicenseBanner should render expired banner and extend trial button
     </div>
     <button
       aria-label="close banner"
-      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
       type="button"
     >
       <span

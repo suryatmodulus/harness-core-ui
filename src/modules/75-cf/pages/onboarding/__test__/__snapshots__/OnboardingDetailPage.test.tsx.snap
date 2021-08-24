@@ -369,7 +369,7 @@ exports[`OnboardingDetailPage OnboardingDetailPage empty state should be rendere
       style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 288px; bottom: 0px; right: 0px; height: 60px;"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -398,7 +398,7 @@ exports[`OnboardingDetailPage OnboardingDetailPage empty state should be rendere
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -1069,7 +1069,7 @@ exports[`OnboardingDetailPage Should be able to create a flag 1`] = `
       style="box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.1); align-items: center; position: fixed; left: 288px; bottom: 0px; right: 0px; height: 60px;"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1098,7 +1098,7 @@ exports[`OnboardingDetailPage Should be able to create a flag 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
         disabled=""
         tabindex="-1"
         type="button"

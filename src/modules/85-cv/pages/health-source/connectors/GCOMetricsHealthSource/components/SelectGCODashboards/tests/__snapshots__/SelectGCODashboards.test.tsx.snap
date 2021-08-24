@@ -752,7 +752,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
             class="StyledProps--font StyledProps--main footerCta footer"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span
@@ -781,7 +781,7 @@ exports[`SelectGCODashboards unit tests When api returns data, ensure data is re
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main nextButton StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
               type="button"
             >
               <span

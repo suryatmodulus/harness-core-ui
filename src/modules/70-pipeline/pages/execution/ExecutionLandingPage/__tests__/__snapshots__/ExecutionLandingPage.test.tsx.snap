@@ -262,7 +262,7 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
                     class="bp3-popover-target"
                   >
                     <button
-                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span

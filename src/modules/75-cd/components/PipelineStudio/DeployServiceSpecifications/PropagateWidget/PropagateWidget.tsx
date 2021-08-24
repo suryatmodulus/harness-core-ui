@@ -1,5 +1,13 @@
 import React from 'react'
-import { FormInput, SelectOption, Layout, RadioButton, Container, Color } from '@wings-software/uicore'
+import {
+  FormInput,
+  SelectOption,
+  Layout,
+  RadioButton,
+  Container,
+  Color,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import { noop } from 'lodash-es'
 import { Formik, FormikProps } from 'formik'
 import * as Yup from 'yup'
@@ -93,6 +101,8 @@ export default function PropagateWidget(props: PropagateWidgetProps): JSX.Elemen
                     value={values.selectedPropagatedState}
                     items={previousStageList}
                   />
+                  <span data-tooltip-id="selectPropagatedState" />
+                  <HarnessDocTooltip useStandAlone={true} tooltipId="selectPropagatedState" />
                 </Layout.Horizontal>
               </section>
 

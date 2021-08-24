@@ -17,7 +17,7 @@ exports[`CI <FailureStrategyPanel /> tests initial render with no data with CI d
       class="tabs"
     >
       <button
-        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
         data-testid="add-failure-strategy"
         type="button"
       >

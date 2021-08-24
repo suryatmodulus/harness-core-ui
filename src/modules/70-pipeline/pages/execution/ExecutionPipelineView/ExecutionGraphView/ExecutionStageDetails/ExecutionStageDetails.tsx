@@ -146,11 +146,11 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
             startTs={stepInfo?.data?.startTs}
           />
         )}
-        {stepInfo?.data?.stepType === StepType.ResourceConstraint && stepInfo?.data?.status === 'Waiting' && (
+        {stepInfo?.data?.stepType === StepType.ResourceConstraint && stepInfo?.data?.status === 'ResourceWaiting' && (
           <ResourceConstraintTooltip
             loading={resourceConstraintsLoading}
             data={{
-              executionList: resourceConstraintsData?.data,
+              executionList: resourceConstraintsData?.data?.resourceConstraints,
               ...stepInfo,
               executionId: executionIdentifier
             }}

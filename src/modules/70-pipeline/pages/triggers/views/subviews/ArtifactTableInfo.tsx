@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction } from 'react'
-import { Button, Color, Layout, Text } from '@wings-software/uicore'
+import { Button, Layout, Text } from '@wings-software/uicore'
 import { RadioGroup, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import Table from '@common/components/Table/Table'
@@ -93,7 +93,7 @@ const RenderColumnArtifactLabel = ({
   const data = row.original
   return (
     <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
-      <Text width={appliedArtifact ? '296px' : '176px'} color={Color.BLACK} lineClamp={1}>
+      <Text width={appliedArtifact ? '296px' : '176px'} lineClamp={1}>
         {data.artifactLabel}
       </Text>
     </Layout.Horizontal>
@@ -103,7 +103,7 @@ const RenderColumnArtifactRepository = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
-      <Text color={Color.BLACK} width="159px" lineClamp={1}>
+      <Text width="159px" lineClamp={1}>
         {data.artifactRepository}
       </Text>
     </Layout.Horizontal>
@@ -114,7 +114,7 @@ const RenderColumnLocation = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal className={data.disabled ? css.disabledRow : ''}>
-      <Text style={{ minHeight: '18px' }} width="110px" color={Color.BLACK} lineClamp={1}>
+      <Text style={{ minHeight: '18px' }} width="110px" lineClamp={1}>
         {data.location}
       </Text>
     </Layout.Horizontal>
@@ -125,7 +125,7 @@ const RenderColumnBuildTag = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
-      <Text style={{ minHeight: '18px' }} width="100px" color={Color.BLACK} lineClamp={1}>
+      <Text style={{ minHeight: '18px' }} width="100px" lineClamp={1}>
         {data.buildTag}
       </Text>
     </Layout.Horizontal>
@@ -136,7 +136,7 @@ const RenderColumnVersion = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
-      <Text style={{ minHeight: '18px' }} color={Color.BLACK} lineClamp={1}>
+      <Text style={{ minHeight: '18px' }} lineClamp={1}>
         {data.version}
       </Text>
     </Layout.Horizontal>
@@ -147,7 +147,7 @@ const RenderColumnHasRuntimeInputs = ({ row }: { row: RenderColumnRow }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small" className={data.disabled ? css.disabledRow : ''}>
-      <Text color={Color.BLACK}>{data.hasRuntimeInputs ? 'Yes' : 'No'}</Text>
+      <Text>{data.hasRuntimeInputs ? 'Yes' : 'No'}</Text>
     </Layout.Horizontal>
   )
 }
@@ -157,7 +157,7 @@ const RenderColumnEdit = ({ column }: { column: RenderColumnEditColumn }) => {
     <>
       <Layout.Horizontal spacing="small" style={{ justifyContent: 'center' }}>
         <Button
-          style={{ color: 'var(--primary-7)' }}
+          // style={{ color: 'var(--primary-7)' }}
           minimal
           // className={css.actionButton}
           icon="edit"
@@ -233,7 +233,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
     columns.unshift({
       Header: '',
       accessor: 'select',
-      width: '4%',
+      width: '5%',
       disableSortBy: true,
       selectedArtifactLabel,
       formikProps,
@@ -281,7 +281,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
   return (
     <>
       <Table
-        className={`${css.table} ${appliedArtifact && css.appliedArtifact}`}
+        className={`${appliedArtifact ? css.appliedArtifact : css.selectArtifactTable}`}
         columns={columns}
         data={Array.isArray(newData) ? newData : [newData]}
         onRowClick={item => {

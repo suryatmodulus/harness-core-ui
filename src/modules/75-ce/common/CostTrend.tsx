@@ -6,18 +6,19 @@ interface TrendProps {
   downIcon?: string
   upIcon?: string
   iconSize?: number
+  flipColors?: boolean
 }
 
 const CostTrend = (props: TrendProps) => {
-  const { iconSize = 16, value = 0, downIcon = 'caret-down', upIcon = 'caret-up' } = props
+  const { iconSize = 16, value = 0, downIcon = 'caret-down', upIcon = 'caret-up', flipColors } = props
 
   const v = +value
   let icon: Record<string, string | undefined> = { name: undefined, color: undefined } // when v = 0
 
   if (v < 0) {
-    icon = { name: downIcon, color: Color.GREEN_500 }
+    icon = { name: downIcon, color: flipColors ? Color.RED_500 : Color.GREEN_500 }
   } else if (v > 0) {
-    icon = { name: upIcon, color: Color.RED_500 }
+    icon = { name: upIcon, color: flipColors ? Color.GREEN_500 : Color.RED_500 }
   }
 
   return (

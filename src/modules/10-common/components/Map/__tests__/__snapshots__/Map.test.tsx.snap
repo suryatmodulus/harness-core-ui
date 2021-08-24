@@ -144,7 +144,7 @@ exports[`<Map /> tests Should render properly 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     data-testid="remove-test-[0]"
                     style="margin-top: 4px;"
                     type="button"

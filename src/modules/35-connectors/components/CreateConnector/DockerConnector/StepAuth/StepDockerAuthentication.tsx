@@ -150,7 +150,9 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                   placeholder={getString('UrlLabel')}
                   label={getString('connectors.docker.dockerRegistryURL')}
                 />
-                <Text>{getString('connectors.docker.dockerProvideType')}</Text>
+                <Text tooltipProps={{ dataTooltipId: 'dockerConnectorProviderType' }}>
+                  {getString('connectors.docker.dockerProvideType')}
+                </Text>
                 <FormInput.RadioGroup
                   className={css.dockerProviderType}
                   inline
@@ -160,7 +162,11 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                   disabled={false}
                 ></FormInput.RadioGroup>
                 <Container className={css.authHeaderRow}>
-                  <Text className={css.authTitle} inline>
+                  <Text
+                    className={css.authTitle}
+                    inline
+                    tooltipProps={{ dataTooltipId: 'dockerConnectorAuthentication' }}
+                  >
                     {getString('authentication')}
                   </Text>
                   <FormInput.Select

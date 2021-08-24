@@ -1,4 +1,4 @@
-import React, { useState, useMemo, ReactNode, useEffect, useRef } from 'react'
+import React, { useState, useMemo, ReactNode } from 'react'
 import cronstrue from 'cronstrue'
 import { isEmpty } from 'lodash-es'
 import { useHistory, useParams } from 'react-router-dom'
@@ -21,6 +21,7 @@ import {
 } from 'services/ce'
 import { useStrings } from 'framework/strings'
 import formatCost from '@ce/utils/formatCost'
+import useDidMountEffect from '@ce/common/useDidMountEffect'
 
 import Table from './Table'
 import PerspectiveBuilderPreview from '../PerspectiveBuilderPreview/PerspectiveBuilderPreview'
@@ -460,15 +461,6 @@ const RenderEditDeleteActions = (props: TableActionsProps): JSX.Element => {
 const RenderAlertThresholds: Renderer<CellProps<AlertThreshold>> = ({ row }) => {
   const percentage = row.original.percentage
   return <span>{percentage}%</span>
-}
-
-const useDidMountEffect = (func: () => void, deps: any[]) => {
-  const didMount = useRef(false)
-
-  useEffect(() => {
-    if (didMount.current) func()
-    else didMount.current = true
-  }, deps)
 }
 
 export default ReportsAndBudgets

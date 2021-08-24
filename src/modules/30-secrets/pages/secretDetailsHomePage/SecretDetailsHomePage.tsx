@@ -96,6 +96,7 @@ const SecretDetaislHomePage: React.FC<SecretDetailsProps> = ({ children }, props
         }
         toolbar={
           <TabNavigation
+            size={'small'}
             links={[
               {
                 label: getString('overview'),

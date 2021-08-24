@@ -43,7 +43,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
           class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
             icon="small-tick"
           >
             <svg
@@ -64,13 +64,13 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           
         </p>
@@ -85,7 +85,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           details
         </p>
@@ -100,7 +100,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           delegate.DelegateselectionLabel
         </p>
@@ -115,7 +115,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           connectors.stepThreeName
         </p>
@@ -129,11 +129,16 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="artifactRepositoryDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -187,11 +192,16 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="artifactRepositoryAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
@@ -261,6 +271,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                       >
                         <div
                           class="label"
+                          data-tooltip-id="stepArtifactoryAuthForm_username"
                         >
                           <label>
                             username
@@ -388,16 +399,21 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="stepArtifactoryAuthForm_password"
                             >
-                              <div>
-                                secret.configureSecret
-                              </div>
-                              <div>
-                                &lt;connectorPass&gt;
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  secret.configureSecret
+                                </div>
+                                <div>
+                                  &lt;connectorPass&gt;
+                                </div>
+                              </p>
+                            </div>
                           </a>
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -438,7 +454,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="artifactoryBackButton"
                   type="button"
                 >
@@ -468,7 +484,7 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -502,6 +518,23 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
         </div>
       </div>
     </div>
+    <span
+      class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+      data-icon="harness-with-color"
+    >
+      <svg
+        height="346"
+        viewBox="0 0 25 25"
+        width="346"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
   </div>
 </div>
 `;
@@ -552,13 +585,13 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           
         </p>
@@ -573,7 +606,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           details
         </p>
@@ -588,7 +621,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           delegate.DelegateselectionLabel
         </p>
@@ -603,7 +636,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           connectors.stepThreeName
         </p>
@@ -731,29 +764,37 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main"
-                        style="font-size: 13px; font-weight: normal;"
+                        class="Label--main descriptionLabel"
                       >
                         optionalField
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon StyledProps--main editOpen"
+                          data-icon="Edit"
                           data-name="edit"
                           data-testid="description-edit"
-                          icon="edit"
                         >
                           <svg
-                            data-icon="edit"
                             height="12"
-                            viewBox="0 0 16 16"
+                            viewBox="0 0 12 12"
                             width="12"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <desc>
-                              edit
-                            </desc>
-                            <path
-                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            <g
+                              fill="none"
                               fill-rule="evenodd"
-                            />
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
                           </svg>
                         </span>
                       </label>
@@ -762,29 +803,37 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                       class="StyledProps--font StyledProps--main"
                     >
                       <label
-                        class="Label--main"
-                        style="font-size: 13px; font-weight: normal;"
+                        class="Label--main descriptionLabel"
                       >
                         optionalField
                         <span
-                          class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                          class="bp3-icon StyledProps--main editOpen"
+                          data-icon="Edit"
                           data-name="edit"
                           data-testid="tags-edit"
-                          icon="edit"
                         >
                           <svg
-                            data-icon="edit"
                             height="12"
-                            viewBox="0 0 16 16"
+                            viewBox="0 0 12 12"
                             width="12"
+                            xmlns="http://www.w3.org/2000/svg"
                           >
-                            <desc>
-                              edit
-                            </desc>
-                            <path
-                              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                            <g
+                              fill="none"
                               fill-rule="evenodd"
-                            />
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            >
+                              <path
+                                d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                stroke="#555770"
+                              />
+                              <path
+                                d="M6.583 5.146l2.063-2.063"
+                                opacity="0.3"
+                                stroke="#606170"
+                              />
+                            </g>
                           </svg>
                         </span>
                       </label>
@@ -795,7 +844,7 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
                   class="Layout--horizontal StyledProps--main"
                 >
                   <button
-                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                    class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                     type="submit"
                   >
                     <span
@@ -832,6 +881,23 @@ exports[`Create Artifactory connector Wizard Should render form 1`] = `
         </div>
       </div>
     </div>
+    <span
+      class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+      data-icon="harness-with-color"
+    >
+      <svg
+        height="346"
+        viewBox="0 0 25 25"
+        width="346"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
   </div>
 </div>
 `;
@@ -879,7 +945,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
           class="StepWizard--completedIcon"
         >
           <span
-            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-grey200"
+            class="bp3-icon bp3-icon-small-tick StyledProps--main StyledProps--color StyledProps--color-primary7"
             icon="small-tick"
           >
             <svg
@@ -900,13 +966,13 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           overview
         </p>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           
         </p>
@@ -921,7 +987,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           details
         </p>
@@ -936,7 +1002,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           delegate.DelegateselectionLabel
         </p>
@@ -951,7 +1017,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         </span>
         <p
           class="StyledProps--font Text--lineclamp StyledProps--main StepWizard--stepName"
-          style="--text-line-clamp: 2; width: 240px;"
+          style="--text-line-clamp: 2; width: 200px;"
         >
           connectors.stepThreeName
         </p>
@@ -965,11 +1031,16 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         class="Layout--vertical StyledProps--main StyledProps--margin-small"
         style="height: inherit;"
       >
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+        <div
+          class="Text--withDocsTooltip"
+          data-tooltip-id="artifactRepositoryDetails"
         >
-          details
-        </p>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+          >
+            details
+          </p>
+        </div>
         <div
           class="OverlaySpinner--overlaySpinner"
         >
@@ -1053,11 +1124,16 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                 <div
                   class="StyledProps--font StyledProps--main authHeaderRow"
                 >
-                  <span
-                    class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="artifactRepositoryAuthentication"
                   >
-                    authentication
-                  </span>
+                    <span
+                      class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                    >
+                      authentication
+                    </span>
+                  </div>
                   <div
                     class="bp3-form-group authTypeSelectLarge"
                     data-id="authType-1"
@@ -1127,6 +1203,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                       >
                         <div
                           class="label"
+                          data-tooltip-id="stepArtifactoryAuthForm_username"
                         >
                           <label>
                             username
@@ -1259,13 +1336,18 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                                 </g>
                               </svg>
                             </span>
-                            <p
-                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="stepArtifactoryAuthForm_password"
                             >
-                              <div>
-                                createOrSelectSecret
-                              </div>
-                            </p>
+                              <p
+                                class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                              >
+                                <div>
+                                  createOrSelectSecret
+                                </div>
+                              </p>
+                            </div>
                           </a>
                         </div>
                       </div>
@@ -1282,7 +1364,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                   data-name="artifactoryBackButton"
                   type="button"
                 >
@@ -1312,7 +1394,7 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -1346,6 +1428,23 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
         </div>
       </div>
     </div>
+    <span
+      class="bp3-icon StyledProps--main StepWizard--harnessWatermark StyledProps--color StyledProps--color-grey50"
+      data-icon="harness-with-color"
+    >
+      <svg
+        height="346"
+        viewBox="0 0 25 25"
+        width="346"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M22.974 8.186L16.708 1.88a7.023 7.023 0 00-2.59-1.572C11.98-.409 9.858.154 8.135 1.88L1.868 8.186a7.081 7.081 0 00-1.562 2.606c-.713 2.153-.153 4.289 1.562 6.023l6.266 6.306a7.113 7.113 0 002.589 1.58 5.663 5.663 0 001.808.308c1.503 0 2.946-.64 4.177-1.88l6.266-6.305a7.08 7.08 0 001.562-2.606c.713-2.162.153-4.298-1.562-6.032zm-10.07-4.477c.706.213 1.232.7 1.274.735l1.851 1.862-3.608 3.631-3.608-3.63 1.859-1.872c.5-.496 1.197-1.034 2.233-.726zm-9.219 8.305c.212-.71.696-1.24.73-1.282l1.85-1.863 3.609 3.632-3.608 3.63-1.86-1.87c-.492-.504-1.027-1.214-.721-2.247zm8.252 9.279c-.705-.214-1.231-.701-1.273-.735l-1.851-1.863 3.608-3.631 3.608 3.631-1.86 1.871c-.5.496-1.205 1.034-2.232.726zm9.22-8.305c-.212.709-.696 1.239-.73 1.281l-1.851 1.863-3.608-3.631 3.608-3.632 1.86 1.872c.492.504 1.027 1.204.72 2.247z"
+          fill="currentColor"
+          fill-rule="evenodd"
+        />
+      </svg>
+    </span>
   </div>
 </div>
 `;

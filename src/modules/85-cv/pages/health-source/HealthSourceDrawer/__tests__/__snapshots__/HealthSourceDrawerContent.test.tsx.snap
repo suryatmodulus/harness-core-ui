@@ -3,7 +3,7 @@
 exports[`HealthSource table should matchsnapshot 1`] = `
 <div>
   <button
-    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main almostFullScreenCloseBtn Button--with-current-color Button--iconOnly Button--without-shadow"
+    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main almostFullScreenCloseBtn Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
     type="button"
   >
     <span

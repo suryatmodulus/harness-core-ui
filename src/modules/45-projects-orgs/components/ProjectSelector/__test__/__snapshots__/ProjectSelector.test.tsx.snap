@@ -20,7 +20,7 @@ exports[`ProjectSelector render with projects 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton Button--with-current-color Button--without-shadow Button--withRightIcon"
             data-testid="project-select-button"
             type="button"
           >
@@ -90,7 +90,7 @@ exports[`ProjectSelector render with projects 2`] = `
           class="bp3-popover-target bp3-popover-open"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton bp3-active Button--with-current-color Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main popoverTarget selectButton bp3-active Button--with-current-color Button--without-shadow Button--withRightIcon"
             data-testid="project-select-button"
             type="button"
           >

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Accordion, Layout, Text, Button, Color, Icon, Container } from '@wings-software/uicore'
+import React, { useMemo } from 'react'
+import { Accordion, Text, Color, Icon, Container } from '@wings-software/uicore'
 import type { CellProps, Column, Renderer } from 'react-table'
 import Table from '@common/components/Table/Table'
 import type { FetchPlansQuery } from 'services/common/services'
@@ -13,17 +13,23 @@ interface FeatureComparisonProps {
 
 interface PlanInfo {
   title: string
-  freeText: string
-  freeValue: string
-  teamText: string
-  teamValue: string
-  enterpriseText: string
-  enterpriseValue: string
+  freeText?: string
+  freeValue?: string
+  teamText?: string
+  teamValue?: string
+  enterpriseText?: string
+  enterpriseValue?: string
+  className?: string
 }
 
 const RenderColumnPlans: Renderer<CellProps<PlanInfo>> = ({ row }) => {
   const data = row.original
-  return <Text color={Color.PRIMARY_6}>{data.title}</Text>
+  const className = data.className
+  return (
+    <Text className={className} color={Color.PRIMARY_6}>
+      {data.title}
+    </Text>
+  )
 }
 
 const RenderColumnFree: Renderer<CellProps<PlanInfo>> = ({ row }) => {
@@ -74,12 +80,9 @@ function getHeader(
 ): React.ReactElement {
   if (featureCaptions && featureCaptions[index]) {
     return (
-      <Layout.Vertical flex={{ align: 'center-center' }} spacing="small">
-        <Text color={Color.PRIMARY_6} font={{ weight: 'semi-bold' }}>
-          {(featureCaptions as any[])[index].title}
-        </Text>
-        <Button text={(featureCaptions as any[])[index].btnText} />
-      </Layout.Vertical>
+      <Text flex={{ align: 'center-center' }} color={Color.BLACK} font={{ weight: 'semi-bold' }}>
+        {(featureCaptions as any[])[index].title}
+      </Text>
     )
   }
   return <div></div>
@@ -87,47 +90,61 @@ function getHeader(
 
 const FeatureTable: React.FC<FeatureComparisonProps> = ({ featureCaption = [], featureGroup = [] }) => {
   const { getString } = useStrings()
-  const columns: Column<PlanInfo>[] = [
-    {
-      Header: (
-        <Text font={{ size: 'small', weight: 'semi-bold' }} color={Color.BLACK}>
-          {getString('common.subscriptions.tabs.plans')}
-        </Text>
-      ),
-      accessor: row => row.title,
-      id: 'plans',
-      width: '25%',
-      Cell: RenderColumnPlans
-    },
-    {
-      Header: getHeader(0, featureCaption),
-      accessor: row => row.freeText,
-      id: 'free',
-      width: '25%',
-      Cell: RenderColumnFree
-    },
-    {
-      Header: getHeader(1, featureCaption),
-      accessor: row => row.teamText,
-      id: 'team',
-      width: '25%',
-      Cell: RenderColumnTeam
-    },
-    {
-      Header: getHeader(2, featureCaption),
-      accessor: row => row.enterpriseText,
-      id: 'enterprise',
-      width: '25%',
-      Cell: RenderColumnEnterprise
-    }
-  ]
+  const columns: Column<PlanInfo>[] = useMemo(
+    () => [
+      {
+        Header: (
+          <Text font={{ weight: 'semi-bold' }} color={Color.BLACK}>
+            {getString('common.subscriptions.tabs.plans')}
+          </Text>
+        ),
+        accessor: row => row.title,
+        id: 'plans',
+        width: '25%',
+        Cell: RenderColumnPlans
+      },
+      {
+        Header: getHeader(0, featureCaption),
+        accessor: row => row.freeText,
+        id: 'free',
+        width: '25%',
+        Cell: RenderColumnFree
+      },
+      {
+        Header: getHeader(1, featureCaption),
+        accessor: row => row.teamText,
+        id: 'team',
+        width: '25%',
+        Cell: RenderColumnTeam
+      },
+      {
+        Header: getHeader(2, featureCaption),
+        accessor: row => row.enterpriseText,
+        id: 'enterprise',
+        width: '25%',
+        Cell: RenderColumnEnterprise
+      }
+    ],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [featureCaption]
+  )
 
-  const data: PlanInfo[] = (featureGroup as any[]).reduce((acc, curr) => {
-    curr?.detailedFeature?.forEach((feature: any) => {
-      acc?.push(feature)
-    })
-    return acc
-  }, [] as PlanInfo[])
+  const data: PlanInfo[] = useMemo(
+    () =>
+      (featureGroup as any[]).reduce((acc, curr) => {
+        if (curr?.title) {
+          acc?.push({
+            title: curr?.title,
+            className: css.subCaption
+          })
+        }
+        curr?.detailedFeature?.forEach((feature: any) => {
+          acc?.push(feature)
+        })
+        return acc
+      }, [] as PlanInfo[]),
+    [featureGroup]
+  )
 
   return <Table<PlanInfo> columns={columns} data={data} />
 }

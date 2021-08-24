@@ -24,6 +24,7 @@ export interface QueryViewerProps {
   isQueryExecuted?: boolean
   postFetchingRecords?: () => void
   fetchRecords: () => void
+  queryNotExecutedMessage?: string
 }
 
 export interface QueryViewDialogProps extends RecordsProps {

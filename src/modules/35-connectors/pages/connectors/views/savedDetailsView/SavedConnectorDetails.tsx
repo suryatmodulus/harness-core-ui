@@ -2,7 +2,13 @@ import React from 'react'
 import { Layout, Tag, Text, Color, Container, Icon, IconName } from '@wings-software/uicore'
 import moment from 'moment'
 import { Connectors } from '@connectors/constants'
-import type { ConnectorInfoDTO, VaultConnectorDTO, AwsKmsConnectorDTO, AzureKeyVaultConnectorDTO } from 'services/cd-ng'
+import type {
+  ConnectorInfoDTO,
+  VaultConnectorDTO,
+  AwsKmsConnectorDTO,
+  AwsSecretManagerDTO,
+  AzureKeyVaultConnectorDTO
+} from 'services/cd-ng'
 import { StringUtils } from '@common/exports'
 import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import { useStrings } from 'framework/strings'
@@ -35,6 +41,11 @@ interface ActivityDetailsData {
   lastUpdated: number
   lastConnectionSuccess?: number
   status: string | null
+}
+
+enum YesOrNo {
+  YES = 'Yes',
+  NO = 'No'
 }
 
 const getLabelByType = (type: string): string => {
@@ -325,7 +336,7 @@ const getVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowIn
     },
     {
       label: 'connectors.hashiCorpVault.default',
-      value: data.default
+      value: data.default ? YesOrNo.YES : YesOrNo.NO
     }
   ]
 }
@@ -355,7 +366,49 @@ const getAwsKmsSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowI
     },
     {
       label: 'connectors.hashiCorpVault.default',
-      value: data.default
+      value: data.default ? YesOrNo.YES : YesOrNo.NO
+    }
+  ]
+}
+
+const getAwsSecretManagerSchema = (connector: ConnectorInfoDTO): Array<ActivityDetailsRowInterface> => {
+  const data = connector.spec as AwsSecretManagerDTO
+  return [
+    {
+      label: 'credType',
+      value: data.credential.type
+    },
+    {
+      label: 'connectors.awsKms.accessKeyLabel',
+      value: data.credential.spec?.accessKey
+    },
+    {
+      label: 'connectors.awsKms.secretKeyLabel',
+      value: data.credential.spec?.secretKey
+    },
+    {
+      label: 'connectors.awsSecretManager.secretNamePrefix',
+      value: data.secretNamePrefix
+    },
+    {
+      label: 'regionLabel',
+      value: data.region
+    },
+    {
+      label: 'connectors.awsKms.roleArnLabel',
+      value: data.credential?.spec?.roleArn
+    },
+    {
+      label: 'connectors.aws.externalId',
+      value: data.credential?.spec?.externalId
+    },
+    {
+      label: 'connectors.awsKms.assumedRoleDuration',
+      value: data.credential?.spec?.assumeStsRoleDuration
+    },
+    {
+      label: 'connectors.hashiCorpVault.default',
+      value: data.default ? YesOrNo.YES : YesOrNo.NO
     }
   ]
 }
@@ -381,7 +434,7 @@ const getAzureKeyVaultSchema = (connector: ConnectorInfoDTO): Array<ActivityDeta
     },
     {
       label: 'connectors.hashiCorpVault.default',
-      value: data.default
+      value: data.default ? YesOrNo.YES : YesOrNo.NO
     }
   ]
 }
@@ -534,6 +587,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string): Array<Activ
       return getVaultSchema(connector)
     case Connectors.AWS_KMS:
       return getAwsKmsSchema(connector)
+    case Connectors.AWS_SECRET_MANAGER:
+      return getAwsSecretManagerSchema(connector)
     case Connectors.DATADOG:
       return getDataDogSchema(connector)
     case Connectors.AZURE_KEY_VAULT:

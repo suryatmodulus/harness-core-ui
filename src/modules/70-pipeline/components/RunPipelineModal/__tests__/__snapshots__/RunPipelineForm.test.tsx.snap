@@ -250,7 +250,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         draggable="true"
                       >
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main selectedInputSetCard StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--margin-right-small StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--round"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main selectedInputSetCard StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--margin-right-small StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--round Button--withRightIcon"
                           type="button"
                         >
                           <span
@@ -327,7 +327,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         draggable="true"
                       >
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main selectedInputSetCard StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--margin-right-small StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--round"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main selectedInputSetCard StyledProps--margin-top-small StyledProps--margin-bottom-small StyledProps--margin-right-small StyledProps--color StyledProps--color-primary7 Button--with-current-color Button--round Button--withRightIcon"
                           type="button"
                         >
                           <span
@@ -400,7 +400,7 @@ exports[`STUDIO MODE should accept values from input sets and submit the form: a
                         </button>
                       </li>
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                         type="button"
                       >
                         <span

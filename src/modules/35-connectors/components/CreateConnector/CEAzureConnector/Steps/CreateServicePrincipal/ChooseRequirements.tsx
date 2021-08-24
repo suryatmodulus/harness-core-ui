@@ -25,35 +25,66 @@ interface CloudFeatures {
 
 interface ICard {
   icon: IconName
-  desc: string
   value: 'VISIBILITY' | 'BILLING' | 'OPTIMIZATION'
+  prefix: string
   title: string
+  features: string[]
+  footer: React.ReactNode
 }
 
 const useSelectedCards = (featuresEnabled: ICard['value'][]) => {
   const { getString } = useStrings()
   const FeatureCards = useRef<ICard[]>([
-    // Keeping it for future.
-    //
-    // {
-    //   title: getString('common.ce.visibility'),
-    //   desc: getString('connectors.ceAzure.chooseRequirements.visibilityCardDesc'),
-    //   value: 'VISIBILITY',
-    //   icon: 'ce-visibility'
-    // },
     {
-      title: getString('common.ce.optimization'),
-      desc: getString('connectors.ceAzure.chooseRequirements.optimizationCardDesc'),
+      prefix: getString('common.azure'),
+      title: getString('connectors.costVisibility'),
+      value: 'VISIBILITY',
+      icon: 'ce-visibility',
+      features: [
+        getString('connectors.ceAzure.chooseRequirements.visibility.feat1'),
+        getString('connectors.ceAzure.chooseRequirements.visibility.feat2'),
+        getString('connectors.ceAzure.chooseRequirements.visibility.feat3'),
+        getString('connectors.ceAzure.chooseRequirements.visibility.feat4'),
+        getString('connectors.ceAzure.chooseRequirements.visibility.feat5')
+      ],
+      footer: getString('connectors.ceAzure.chooseRequirements.visibility.footer')
+    },
+    {
+      prefix: getString('connectors.ceAzure.chooseRequirements.optimization.prefix'),
+      title: getString('common.ce.autostopping'),
       value: 'OPTIMIZATION',
-      icon: 'nav-settings'
+      icon: 'nav-settings',
+      features: [
+        getString('connectors.ceAzure.chooseRequirements.optimization.feat1'),
+        getString('connectors.ceAzure.chooseRequirements.optimization.feat2'),
+        getString('connectors.ceAzure.chooseRequirements.optimization.feat3'),
+        getString('connectors.ceAzure.chooseRequirements.optimization.feat4')
+      ],
+      footer: (
+        <>
+          {getString('connectors.ceAzure.chooseRequirements.optimization.footer1')}{' '}
+          <a
+            href="https://ngdocs.harness.io/article/v682mz6qfd-set-up-cost-visibility-for-azure#step_4_create_service_principal_and_assign_permissions"
+            target="_blank"
+            rel="noreferrer"
+            onClick={e => e.stopPropagation()}
+          >
+            {getString('permissions').toLowerCase()}
+          </a>{' '}
+          {getString('connectors.ceAzure.chooseRequirements.optimization.footer2')}
+        </>
+      )
     }
   ]).current
 
   const [selectedCards, setSelectedCards] = useState<ICard[]>(() => {
-    const initialSelectedCards = []
+    const initialSelectedCards = [FeatureCards[0]]
     for (const fe of featuresEnabled) {
       const card = FeatureCards.find(c => c.value === fe)
-      if (card) initialSelectedCards.push(card)
+      // VISIBILITY is selected by default and added above already
+      if (card && card.value !== 'VISIBILITY') {
+        initialSelectedCards.push(card)
+      }
     }
     return initialSelectedCards
   })
@@ -86,6 +117,9 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
   }
 
   const handleCardSelection = (item: ICard) => {
+    // VISIBILITY is provided by default, and user cannot un-select it
+    if (item.value === 'VISIBILITY') return
+
     const sc = [...selectedCards]
     const index = sc.indexOf(item)
     if (index > -1) {
@@ -102,11 +136,11 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
       <Heading level={2} className={css.header}>
         {getString('connectors.ceAzure.chooseRequirements.heading')}
       </Heading>
-      <Text className={css.infobox}>{getString('connectors.ceAzure.chooseRequirements.subHeading')}</Text>
+      <Text color="grey800">{getString('connectors.ceAzure.chooseRequirements.featureDesc')}</Text>
       <Container>
-        <Heading level={3} className={css.mtbxxlarge}>
-          {getString('connectors.ceAzure.chooseRequirements.featureDesc')}
-        </Heading>
+        <Text font={{ italic: true }} className={css.mtblarge}>
+          {getString('connectors.ceAzure.chooseRequirements.info')}
+        </Text>
         <Formik<CloudFeatures>
           initialValues={{
             VISIBILITY: false,
@@ -146,24 +180,44 @@ const ChooseRequirements: React.FC<StepProps<CEAzureDTO>> = props => {
 }
 
 const Card = (props: ICard) => {
-  const { icon, title, desc } = props
+  const { prefix, icon, title, features, footer } = props
   return (
-    <Layout.Vertical spacing="medium">
-      <Layout.Horizontal spacing="small">
-        <Icon name={icon} size={32} />
-        <Container>
-          <Text color="grey900" style={{ fontSize: 9, fontWeight: 600 }}>
-            COST
-          </Text>
-          <Text color="grey900" style={{ fontSize: 16, fontWeight: 500 }}>
-            {title}
-          </Text>
-        </Container>
-      </Layout.Horizontal>
-      <Text font={'small'} style={{ lineHeight: '20px' }}>
-        {desc}
-      </Text>
-    </Layout.Vertical>
+    <Container className={css.featureCard}>
+      <Layout.Vertical spacing="medium" padding={{ left: 'large', right: 'large' }}>
+        <Layout.Horizontal spacing="small">
+          <Icon name={icon} size={32} />
+          <Container>
+            <Text color="grey900" style={{ fontSize: 9, fontWeight: 500 }}>
+              {prefix.toUpperCase()}
+            </Text>
+            <Text color="grey900" style={{ fontSize: 16, fontWeight: 500 }}>
+              {title}
+            </Text>
+          </Container>
+        </Layout.Horizontal>
+        <ul className={css.features}>
+          {features.map((feat, idx) => {
+            return (
+              <li key={idx}>
+                <Text
+                  icon="main-tick"
+                  iconProps={{ color: 'green600', size: 12, padding: { right: 'small' } }}
+                  font="small"
+                  style={{ lineHeight: '20px' }}
+                >
+                  {feat}
+                </Text>
+              </li>
+            )
+          })}
+        </ul>
+      </Layout.Vertical>
+      <Container className={css.footer}>
+        <Text font={{ size: 'small', italic: true }} color="grey400">
+          {footer}
+        </Text>
+      </Container>
+    </Container>
   )
 }
 

@@ -211,6 +211,7 @@ function ExecutionWrapperInputSetForm(props: {
                   allValues={originalStep}
                   values={initialValues}
                   readonly={readonly}
+                  viewType={viewType}
                   path={`${path}[${index}].parallel[${indexp}].step`}
                   onUpdate={data => {
                     if (initialValues) {

@@ -1,5 +1,6 @@
+import { get } from 'lodash-es'
 import { getMultiTypeFromValue, MultiTypeInputType } from '@wings-software/uicore'
-import type { PipelineInfoConfig } from 'services/cd-ng'
+import type { PipelineInfoConfig, ServiceSpec } from 'services/cd-ng'
 import { ENABLED_ARTIFACT_TYPES } from '@pipeline/components/ArtifactsSelection/ArtifactHelper'
 
 export const getNonRuntimeFields = (spec: { [key: string]: any } = {}, template: { [key: string]: any }): string => {
@@ -29,3 +30,6 @@ export const setupMode = {
   PROPAGATE: 'PROPAGATE',
   DIFFERENT: 'DIFFERENT'
 }
+
+export const isFieldRuntime = (fieldPath: string, template?: ServiceSpec): boolean =>
+  getMultiTypeFromValue(get(template, fieldPath)) === MultiTypeInputType.RUNTIME

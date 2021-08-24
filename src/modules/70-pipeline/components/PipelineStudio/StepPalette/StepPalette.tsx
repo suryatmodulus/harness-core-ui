@@ -226,7 +226,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
 
               <ExpandingSearchInput
                 flip
-                width={200}
+                width={232}
                 throttle={200}
                 onChange={(text: string) => filterSteps(text, FilterContext.SEARCH)}
               />
@@ -327,7 +327,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     <section
                       className={cx(
                         css.category,
-                        selectedCategory === category.name && selectedLevel === 'category' && css.active
+                        selectedCategory === category.name && selectedLevel === 'category' && css.active,
+                        !iconMapByName[category.name || '']?.keepOriginal && css.fillWhite
                       )}
                       onClick={() => {
                         setSelectedLevel('category')
@@ -337,7 +338,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     >
                       <Icon
                         size={14}
-                        name={iconMapByName[category.name || /* istanbul ignore next */ '']}
+                        name={iconMapByName[category.name || /* istanbul ignore next */ '']?.icon}
                         className={css.paletteIcon}
                       />
                       {category.name} ({category.stepsData?.length})
@@ -351,7 +352,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       className={cx(
                         css.category,
                         selectedCategory === category.name && selectedLevel === 'category' && css.active,
-                        subCategory.length && css.hasSubCategories
+                        subCategory.length && css.hasSubCategories,
+                        !iconMapByName[category.name || '']?.keepOriginal && css.fillWhite
                       )}
                       onClick={() => {
                         setSelectedLevel('category')
@@ -361,7 +363,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     >
                       <Icon
                         size={14}
-                        name={iconMapByName[category.name || /* istanbul ignore next */ '']}
+                        name={iconMapByName[category.name || /* istanbul ignore next */ '']?.icon}
                         className={css.paletteIcon}
                       />
                       {category.name}({subCategory.length})

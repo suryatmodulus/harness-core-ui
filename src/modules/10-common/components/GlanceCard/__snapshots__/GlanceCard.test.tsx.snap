@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GlanceCard Projects 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-interactive bp3-elevation-0 Card--card card styledCard Card--interactive"
+    tabindex="0"
+  >
+    <span
+      class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-primary7"
+      data-icon="nav-project"
+    >
+      <svg
+        height="16"
+        viewBox="0 0 22 22"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+          fill="#56778d"
+        />
+      </svg>
+    </span>
+    <p
+      class="StyledProps--font StyledProps--main lineClamp lineHeight title StyledProps--color StyledProps--color-primary9 StyledProps--font-size-large StyledProps--font-weight-bold"
+    >
+      48
+    </p>
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-black StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+      style="--text-line-clamp: 1;"
+    >
+      Projects
+    </p>
+    <span
+      class="Tag--main"
+    >
+      <span
+        class="bp3-tag tagClassName whiteTag"
+      >
+        <span
+          class="bp3-text-overflow-ellipsis bp3-fill"
+        >
+          +1
+        </span>
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`GlanceCard Services 1`] = `
+<div>
+  <div
+    class="bp3-card bp3-elevation-0 Card--card card"
+  >
+    <span
+      class="bp3-icon StyledProps--main icon StyledProps--color StyledProps--color-grey600"
+      data-icon="services"
+    >
+      <svg
+        fill="currentColor"
+        height="24"
+        viewBox="0 0 24 24"
+        width="24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M13.369 3.24l5.77 3.445c.534.32.861.903.861 1.534v7.31c0 .638-.335 1.228-.88 1.544l-5.769 3.344a1.693 1.693 0 01-1.703 0l-5.77-3.344A1.782 1.782 0 015 15.529v-7.31c0-.63.326-1.214.86-1.534l5.766-3.444a1.696 1.696 0 011.743 0zm5.184 12.804a.594.594 0 00.293-.515v-7.31a.593.593 0 00-.287-.511l-5.771-3.445a.565.565 0 00-.58 0L6.44 7.707a.594.594 0 00-.287.512v7.31c0 .213.112.41.293.515l5.77 3.344a.563.563 0 00.567 0l5.77-3.344zM12.5 8.294c-1.912 0-3.462 1.58-3.462 3.53 0 1.949 1.55 3.529 3.462 3.529 1.912 0 3.461-1.58 3.461-3.53 0-1.949-1.55-3.53-3.461-3.53zm-2.308 3.53c0 1.299 1.034 2.353 2.308 2.353 1.274 0 2.308-1.054 2.308-2.354S13.774 9.47 12.5 9.47c-1.274 0-2.308 1.054-2.308 2.353z"
+          fill-rule="evenodd"
+          opacity="0.8"
+        />
+      </svg>
+    </span>
+    <p
+      class="StyledProps--font StyledProps--main lineClamp lineHeight StyledProps--color StyledProps--color-black StyledProps--font-size-large StyledProps--font-weight-bold"
+    >
+      48
+    </p>
+    <p
+      class="StyledProps--font Text--lineclamp StyledProps--main lineClamp StyledProps--color StyledProps--color-grey600 StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--margin-top-small"
+      style="--text-line-clamp: 1;"
+    >
+      Services
+    </p>
+    <span
+      class="Tag--main"
+    >
+      <span
+        class="bp3-tag tagClassName"
+      >
+        <span
+          class="bp3-text-overflow-ellipsis bp3-fill"
+        >
+          +6
+        </span>
+      </span>
+    </span>
+  </div>
+</div>
+`;

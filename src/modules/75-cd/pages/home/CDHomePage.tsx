@@ -18,6 +18,7 @@ import { TrialType, useCDTrialModal, UseCDTrialModalProps } from '@cd/modals/CDT
 import routes from '@common/RouteDefinitions'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
 import { handleUpdateLicenseStore, useLicenseStore } from 'framework/LicenseStore/LicenseStoreContext'
+import { useToaster } from '@common/components'
 import CDTrialHomePage from './CDTrialHomePage'
 import bgImageURL from './images/cd.svg'
 
@@ -25,10 +26,16 @@ export const CDHomePage: React.FC = () => {
   const { getString } = useStrings()
   const { NG_LICENSES_ENABLED } = useFeatureFlags()
   const { licenseInformation, updateLicenseStore } = useLicenseStore()
+  const { showError } = useToaster()
 
   const { accountId } = useParams<AccountPathProps>()
 
-  const { data, error, refetch, loading } = useGetLicensesAndSummary({
+  const {
+    data,
+    error: licenseErr,
+    refetch: refetchLicense,
+    loading: gettingLicense
+  } = useGetLicensesAndSummary({
     queryParams: { moduleType: ModuleName.CD as any },
     accountIdentifier: accountId
   })
@@ -54,7 +61,7 @@ export const CDHomePage: React.FC = () => {
     expiryTime: data?.data?.maxExpiryTime,
     licenseType: data?.data?.licenseType,
     module: ModuleName.CD,
-    refetch
+    refetch: refetchLicense
   }
 
   const pushToPipelineStudio = (pipelinId: string, projectData?: Project, search?: string): void => {
@@ -93,9 +100,13 @@ export const CDHomePage: React.FC = () => {
   const createdFromNG = accounts?.find(account => account.uuid === defaultAccountId)?.createdFromNG
   const history = useHistory()
 
-  const [pipelineData, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>()
+  const [pipelineData, setData] = React.useState<PagePMSPipelineSummaryResponse | undefined>(undefined)
 
-  const { mutate: reloadPipelines, cancel } = useGetPipelineList({
+  const {
+    mutate: reloadPipelines,
+    cancel,
+    loading: gettingPipelines
+  } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier: selectedProject?.identifier || '',
@@ -107,27 +118,35 @@ export const CDHomePage: React.FC = () => {
 
   const fetchPipelines = React.useCallback(
     async () => {
-      cancel()
-      setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data)
+      try {
+        cancel()
+        setData(await (await reloadPipelines({ filterType: 'PipelineSetup' })).data)
+      } catch (err) {
+        showError(err.data?.message || getString('somethingWentWrong'))
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [cancel]
   )
 
   React.useEffect(() => {
-    cancel()
     fetchPipelines()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedProject?.identifier, selectedProject?.orgIdentifier])
 
   // get project lists via accountId
-  const { data: projectListData } = useGetProjectList({
+  const {
+    data: projectListData,
+    loading: gettingProjects,
+    error: projectsErr,
+    refetch: refetchProject
+  } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId
     }
   })
-  const projectsExist = projectListData?.data?.content?.length !== 0
-  const pipelinesExist = pipelineData?.content?.length !== 0
+  const projectsExist = !!projectListData?.data?.content?.length
+  const pipelinesExist = !!pipelineData?.content?.length
 
   const getCDTrialModalProps = (): UseCDTrialModalProps => {
     const props = selectedProject
@@ -152,7 +171,7 @@ export const CDHomePage: React.FC = () => {
 
   useEffect(
     () => {
-      refetch()
+      refetchLicense()
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [trial]
@@ -160,7 +179,7 @@ export const CDHomePage: React.FC = () => {
 
   useEffect(
     () => {
-      if (modal) {
+      if (modal && !gettingProjects && !gettingPipelines) {
         // selectedProject exists and no pipelines, forward to create pipeline
         if (selectedProject && !pipelinesExist) {
           pushToPipelineStudio('-1', selectedProject)
@@ -174,15 +193,21 @@ export const CDHomePage: React.FC = () => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [modal, selectedProject, projectsExist, pipelinesExist]
+    [modal, selectedProject, gettingProjects, gettingPipelines]
   )
 
-  if (loading) {
+  if (gettingLicense || gettingProjects || gettingPipelines) {
     return <PageSpinner />
   }
 
-  if (error) {
-    return <PageError message={(error.data as Error)?.message || error.message} onClick={() => refetch()} />
+  if (licenseErr) {
+    const message = (licenseErr?.data as Error)?.message || licenseErr?.message
+    return <PageError message={message} onClick={() => refetchLicense()} />
+  }
+
+  if (projectsErr) {
+    const message = (projectsErr?.data as Error)?.message || projectsErr?.message
+    return <PageError message={message} onClick={() => refetchProject()} />
   }
 
   const showTrialPages = createdFromNG || NG_LICENSES_ENABLED

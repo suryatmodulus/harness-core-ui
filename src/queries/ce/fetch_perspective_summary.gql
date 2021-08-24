@@ -11,25 +11,14 @@ query FetchPerspectiveDetailsSummary(
       statsValue
       value
     }
-    idleCost {
-      statsLabel
-      statsValue
-      value
-    }
-    unallocatedCost {
-      statsLabel
-      statsValue
-      value
-    }
-    utilizedCost {
-      statsLabel
-      statsValue
-      value
-    }
-    efficiencyScoreStats {
+  }
+
+  perspectiveForecastCost(filters: $filters, aggregateFunction: $aggregateFunction, isClusterQuery: $isClusterQuery) {
+    cost {
       statsLabel
       statsTrend
       statsValue
+      statsDescription
     }
   }
 }

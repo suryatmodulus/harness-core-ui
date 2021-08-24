@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Button, Color, Container, Icon, Layout, Popover, Text } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import { Classes, Position } from '@blueprintjs/core'
+import ReactTimeago from 'react-timeago'
+import { isEmpty } from 'lodash-es'
 import { Page } from '@common/exports'
 import routes from '@common/RouteDefinitions'
 import { Project, useGetProjectAggregateDTO } from 'services/cd-ng'
@@ -123,7 +125,7 @@ const ProjectDetails: React.FC = () => {
   return (
     <>
       <Page.Header
-        size="xlarge"
+        size={projectData.description || !isEmpty(projectData.tags) ? 'xxlarge' : 'xlarge'}
         breadcrumbs={
           <NGBreadcrumbs
             links={[
@@ -135,54 +137,64 @@ const ProjectDetails: React.FC = () => {
           />
         }
         title={
-          <Layout.Vertical spacing="small" className={css.title}>
-            <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK} lineClamp={1}>
-              {projectData.name}
-            </Text>
-            {projectData.description && (
-              <Text font="small" lineClamp={2}>
+          <Layout.Vertical spacing="small" padding={{ top: 'small' }} className={css.title}>
+            <Layout.Horizontal
+              spacing="medium"
+              margin={{ bottom: 'medium' }}
+              flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
+            >
+              <div className={css.colorBar} style={{ backgroundColor: projectData.color }} />
+              {data?.data?.projectResponse.lastModifiedAt ? (
+                <Text color={Color.GREY_500} font={{ size: 'small' }}>
+                  {`${getString('common.modified')} `}
+                  <ReactTimeago date={data?.data?.projectResponse.lastModifiedAt} />
+                </Text>
+              ) : null}
+            </Layout.Horizontal>
+            <Layout.Horizontal flex={{ alignItems: 'center', justifyContent: 'flex-start' }}>
+              <Text
+                font={{ size: 'medium', weight: 'semi-bold' }}
+                color={Color.GREY_800}
+                lineClamp={1}
+                padding={{ right: 'xlarge' }}
+              >
+                {projectData.name}
+              </Text>
+              <Text
+                font={{ size: 'small', weight: 'semi-bold' }}
+                color={Color.GREY_500}
+                lineClamp={1}
+                padding={{ right: 'medium' }}
+              >
+                {getString('idLabel', { id: projectData.identifier })}
+              </Text>
+              <div className={css.divider} />
+              <Text
+                font={{ size: 'small', weight: 'semi-bold' }}
+                color={Color.GREY_500}
+                lineClamp={1}
+                padding={{ left: 'medium' }}
+              >
+                {`${getString('orgLabel')}: ${projectData.orgIdentifier}`}
+              </Text>
+            </Layout.Horizontal>
+            {projectData.description ? (
+              <Text font="small" color={Color.BLACK} lineClamp={2}>
                 {projectData.description}
               </Text>
-            )}
-            {projectData.tags && (
-              <Layout.Horizontal padding={{ top: 'small' }}>
-                <TagsRenderer tags={projectData.tags || {}} length={6} />
+            ) : null}
+            {projectData.tags && !isEmpty(projectData.tags) ? (
+              <Layout.Horizontal padding={{ top: 'medium' }}>
+                <TagsRenderer tags={projectData.tags} length={6} tagClassName={css.tags} />
               </Layout.Horizontal>
-            )}
+            ) : null}
           </Layout.Vertical>
         }
         toolbar={
-          <Layout.Horizontal padding="xxlarge">
-            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <RbacAvatarGroup
-                className={css.projectDetailsAvatarGroup}
-                avatars={data?.data?.admins?.length ? data?.data?.admins : [{}]}
-                onAdd={event => {
-                  event.stopPropagation()
-                  showCollaborators(projectData as Project)
-                }}
-                restrictLengthTo={6}
-                permission={invitePermission}
-              />
-              <Text font="xsmall" padding={{ left: 'xsmall' }}>
-                {`${getString('adminLabel')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
-              </Text>
-            </Layout.Vertical>
-            <Layout.Vertical padding={{ right: 'large' }} spacing="xsmall">
-              <RbacAvatarGroup
-                className={css.projectDetailsAvatarGroup}
-                avatars={data?.data?.collaborators?.length ? data?.data?.collaborators : [{}]}
-                onAdd={event => {
-                  event.stopPropagation()
-                  showCollaborators(projectData as Project)
-                }}
-                restrictLengthTo={6}
-                permission={invitePermission}
-              />
-              <Text font="xsmall" padding={{ left: 'xsmall' }}>{`${getString('collaboratorsLabel')} ${
-                data?.data?.collaborators?.length ? `(${data?.data?.collaborators?.length})` : ``
-              }`}</Text>
-            </Layout.Vertical>
+          <Layout.Vertical
+            padding={{ top: 'small' }}
+            flex={{ justifyContent: 'space-between', alignItems: 'flex-end' }}
+          >
             <Popover
               isOpen={menuOpen}
               onInteraction={nextOpenState => {
@@ -208,7 +220,39 @@ const ProjectDetails: React.FC = () => {
                 openDialog={openDialog}
               />
             </Popover>
-          </Layout.Horizontal>
+            <Layout.Horizontal padding={{ right: 'huge' }} margin={{ right: 'huge' }}>
+              <Layout.Vertical padding={{ right: 'xlarge' }}>
+                <Text font="xsmall" color={Color.GREY_400} padding={{ left: 'xsmall', bottom: 'small' }}>
+                  {`${getString('adminLabel')} ${data?.data?.admins?.length ? `(${data?.data?.admins?.length})` : ``}`}
+                </Text>
+                <RbacAvatarGroup
+                  className={css.projectDetailsAvatarGroup}
+                  avatars={data?.data?.admins?.length ? data?.data?.admins : [{}]}
+                  onAdd={event => {
+                    event.stopPropagation()
+                    showCollaborators(projectData as Project)
+                  }}
+                  restrictLengthTo={6}
+                  permission={invitePermission}
+                />
+              </Layout.Vertical>
+              <Layout.Vertical>
+                <Text font="xsmall" color={Color.GREY_400} padding={{ left: 'xsmall', bottom: 'small' }}>{`${getString(
+                  'collaboratorsLabel'
+                )} ${data?.data?.collaborators?.length ? `(${data?.data?.collaborators?.length})` : ``}`}</Text>
+                <RbacAvatarGroup
+                  className={css.projectDetailsAvatarGroup}
+                  avatars={data?.data?.collaborators?.length ? data?.data?.collaborators : [{}]}
+                  onAdd={event => {
+                    event.stopPropagation()
+                    showCollaborators(projectData as Project)
+                  }}
+                  restrictLengthTo={6}
+                  permission={invitePermission}
+                />
+              </Layout.Vertical>
+            </Layout.Horizontal>
+          </Layout.Vertical>
         }
         className={css.header}
       />

@@ -49,7 +49,7 @@ const CETrialHomePage: React.FC = () => {
     const expiryTime = data?.data?.expiryTime
 
     const updatedLicenseInfo = data?.data && {
-      ...licenseInformation?.['CI'],
+      ...licenseInformation?.['CE'],
       ...pick(data?.data, ['licenseType', 'edition']),
       expiryTime
     }

@@ -2,17 +2,14 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
 import MonitoredService from './component/MonitoredService'
 import { MonitoringServicesHeader } from './monitoredService.styled'
 
 function MonitoredServicePage(): JSX.Element {
   const { getString } = useStrings()
-  const { selectedProject } = useAppStore()
-  const project = selectedProject
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const isEdit = !!params.identifier
   return (
@@ -20,16 +17,8 @@ function MonitoredServicePage(): JSX.Element {
       <MonitoringServicesHeader height={'80px'}>
         <HorizontalLayout alignItem={'flex-end'}>
           <div>
-            <Breadcrumbs
+            <NGBreadcrumbs
               links={[
-                {
-                  url: routes.toCVProjectOverview({
-                    orgIdentifier: params.orgIdentifier,
-                    projectIdentifier: params.projectIdentifier,
-                    accountId: params.accountId
-                  }),
-                  label: project?.name as string
-                },
                 {
                   url: routes.toCVMonitoringServices({
                     orgIdentifier: params.orgIdentifier,
@@ -37,10 +26,6 @@ function MonitoredServicePage(): JSX.Element {
                     accountId: params.accountId
                   }),
                   label: getString('cv.monitoredServices.title')
-                },
-                {
-                  url: '#',
-                  label: ''
                 }
               ]}
             />

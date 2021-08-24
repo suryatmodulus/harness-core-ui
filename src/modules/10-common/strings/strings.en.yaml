@@ -121,6 +121,10 @@ role: Role
 projectViewer: Project Viewer
 orgViewer: Organization Viewer
 accViewer: Account Viewer
+genericErrors:
+  inviteExpired: This invite link has expired
+  unauthorized: You are not authorized to access Next Gen
+  licenseCallFailed: Failed to retrieve license information
 plusNumber: + {{number}}
 plusNumberNoSpace: '+{{number}}'
 userGroup: User Group
@@ -461,6 +465,7 @@ apikey: API Key
 apiKeys: API Keys
 tokens: Tokens
 lastModifiedTime: Last modified
+modified: Modified
 expiryDate: Expiration Date
 extendTrial:
   heading: Congrats, your trial is extended
@@ -506,6 +511,8 @@ discard: Discard
 default: Default
 searchPlaceholder: Search by name or ID
 monthly: Monthly
+hourly: Hourly
+daily: Daily
 yearly: Yearly
 billed: Billed
 plans:
@@ -513,3 +520,8 @@ plans:
   featureComparison: Show All Feature Comparison
   faq: View Pricing FAQs
 useTemplate: Use template
+comingSoon: Coming Soon
+deactivate: Deactivate
+recommended: 'Recommended'
+azure: Azure
+aws: AWS

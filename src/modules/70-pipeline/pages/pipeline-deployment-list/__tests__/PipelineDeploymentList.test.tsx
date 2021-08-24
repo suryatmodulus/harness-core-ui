@@ -358,4 +358,38 @@ describe('Test Pipeline Deployment list', () => {
       }
     })
   })
+
+  test('Polling works', async () => {
+    const { getByTestId } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ComponentWrapper />
+      </TestWrapper>
+    )
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/cd/orgs/testOrg/projects/testProject/deployments
+      </div>
+    `)
+
+    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
+      body: {
+        filterType: 'PipelineExecution'
+      },
+      queryParamStringifyOptions: { arrayFormat: 'repeat' },
+      queryParams: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        page: 0,
+        pipelineIdentifier: undefined,
+        projectIdentifier: 'testProject',
+        status: undefined,
+        filterIdentifier: undefined,
+        module: 'cd',
+        myDeployments: false
+      }
+    })
+  })
 })

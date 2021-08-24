@@ -1,6 +1,13 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps, Intent, IOptionProps, IRadioGroupProps, RadioGroup } from '@blueprintjs/core'
-import { ExpressionAndRuntimeType, ExpressionAndRuntimeTypeProps, MultiTypeInputValue } from '@wings-software/uicore'
+import {
+  DataTooltipInterface,
+  ExpressionAndRuntimeType,
+  ExpressionAndRuntimeTypeProps,
+  FormikTooltipContext,
+  HarnessDocTooltip,
+  MultiTypeInputValue
+} from '@wings-software/uicore'
 import { connect } from 'formik'
 import cx from 'classnames'
 import { get } from 'lodash-es'
@@ -50,6 +57,7 @@ export interface FormMultiTypeRadioGroupProps extends Omit<IFormGroupProps, 'lab
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
   multiTypeRadioGroup?: Omit<MultiTypeRadioGroupProps, 'onChange'>
+  tooltipProps?: DataTooltipInterface
   onChange?: MultiTypeRadioGroupProps['onChange']
 }
 
@@ -66,8 +74,18 @@ export const FormMultiTypeRadioGroup: React.FC<FormMultiTypeRadioGroupProps> = p
 
   const { radioGroupProps, ...restMultiProps } = multiTypeRadioGroup || {}
   const value: string = get(formik?.values, name, '')
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
   return (
-    <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
+    <FormGroup
+      {...rest}
+      labelFor={name}
+      helperText={helperText}
+      intent={intent}
+      disabled={disabled}
+      label={label ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} /> : label}
+    >
       <MultiTypeRadioGroup
         radioGroupProps={radioGroupProps}
         name={name}

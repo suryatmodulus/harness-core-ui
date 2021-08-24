@@ -94,7 +94,12 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
     <PageSpinner />
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+      <Text
+        font="medium"
+        margin={{ top: 'small' }}
+        color={Color.BLACK}
+        tooltipProps={{ dataTooltipId: 'gcpAuthenticationDetails' }}
+      >
         {getString('details')}
       </Text>
       <Formik
@@ -141,6 +146,7 @@ const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticat
                   name={'password'}
                   label={getString('connectors.k8.serviceAccountKey')}
                   type={'SecretFile'}
+                  tooltipProps={{ dataTooltipId: 'gcpConnectorSecretKeyTooltip' }}
                 />
               ) : (
                 <></>

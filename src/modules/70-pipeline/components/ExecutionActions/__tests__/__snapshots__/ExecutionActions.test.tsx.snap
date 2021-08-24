@@ -94,7 +94,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -127,7 +127,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -250,7 +250,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -283,7 +283,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -406,7 +406,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -439,7 +439,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -561,7 +561,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: containe
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -594,7 +594,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: containe
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -627,7 +627,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: containe
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -749,7 +749,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -782,7 +782,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -815,7 +815,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -937,7 +937,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -970,7 +970,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -1003,7 +1003,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: container 1`
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1125,7 +1125,7 @@ exports[`<ExecutionActions /> tests snapshot tests "ResourceWaiting" status: con
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -1158,7 +1158,7 @@ exports[`<ExecutionActions /> tests snapshot tests "ResourceWaiting" status: con
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -1191,7 +1191,7 @@ exports[`<ExecutionActions /> tests snapshot tests "ResourceWaiting" status: con
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1313,7 +1313,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -1346,7 +1346,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -1379,7 +1379,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1502,7 +1502,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -1535,7 +1535,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: container 1
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1658,7 +1658,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: container
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           tabindex="0"
           type="button"
         >
@@ -1691,7 +1691,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: container
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main more Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span

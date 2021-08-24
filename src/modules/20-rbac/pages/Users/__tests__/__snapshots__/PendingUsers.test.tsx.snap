@@ -13,7 +13,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
         style="width: 350px;"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -73,12 +73,12 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
       style="width: 350px;"
     >
       <div
-        class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded"
+        class="bp3-input-group ui-search-box ExpandingSearchInput--main   ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
         data-name=""
         style="width: 250px; max-width: 250px;"
       >
         <span
-          class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+          class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
           data-icon="thinner-search"
         >
           <svg
@@ -100,7 +100,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
           class="bp3-input  ExpandingSearchInput--filter"
           dir="auto"
           placeholder="rbac.usersPage.search"
-          style="padding-right: 36px;"
+          style="padding-right: 38px;"
           type="search"
           value=""
         />
@@ -277,7 +277,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     data-testid="menu-id1"
                     type="button"
                   >
@@ -421,7 +421,7 @@ exports[`UsersPage Test Switch to Pending Users 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     data-testid="menu-id2"
                     type="button"
                   >

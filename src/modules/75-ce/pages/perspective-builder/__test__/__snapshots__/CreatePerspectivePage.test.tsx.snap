@@ -215,7 +215,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                               type="button"
                             >
                               <span
@@ -635,7 +635,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                                 class="addFilters"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addRuleButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addRuleButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   type="button"
                                 >
                                   <span
@@ -675,7 +675,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                         class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--padding-top-medium"
                       >
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -704,7 +704,7 @@ exports[`test cases for Create Perspective Page should be able to render the Per
                           </span>
                         </button>
                         <button
-                          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
                           type="button"
                         >
                           <span

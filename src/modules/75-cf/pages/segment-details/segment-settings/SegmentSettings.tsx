@@ -1,5 +1,4 @@
 import React from 'react'
-import { noop } from 'lodash-es'
 import { Container, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
 import type { Feature, Segment } from 'services/cf'
@@ -8,7 +7,12 @@ import { AuditLogObjectType } from '@cf/utils/CFUtils'
 import { SegmentRules } from '../SegmentRules'
 import css from './SegmentSettings.module.scss'
 
-export const SegmentSettings: React.FC<{ segment?: Segment | undefined | null }> = ({ segment }) => {
+interface SegmentSettingsProps {
+  segment?: Segment | undefined | null
+  onUpdate: () => void
+}
+
+export const SegmentSettings: React.FC<SegmentSettingsProps> = ({ segment, onUpdate }) => {
   const { getString } = useStrings()
 
   return (
@@ -22,7 +26,7 @@ export const SegmentSettings: React.FC<{ segment?: Segment | undefined | null }>
                 {getString('cf.shared.rules')}
               </Text>
             }
-            panel={segment ? <SegmentRules segment={segment} onUpdate={noop} /> : undefined}
+            panel={segment ? <SegmentRules segment={segment} onUpdate={onUpdate} /> : undefined}
           />
           <Tab
             id="segments"

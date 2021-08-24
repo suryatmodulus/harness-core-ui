@@ -1,3 +1,4 @@
+stageTemplate: Stage
 addNewTemplate: '+ New Template'
 previewTemplate: Preview template
 openEditTemplate: Open/Edit Template
@@ -8,3 +9,10 @@ templateInputs: Template Inputs
 referencedBy: Referenced By
 versionLog: Version Log
 selectTemplateToPreview: Select a template to preview
+createNewModal:
+  headingPrefix: Create New
+  headingSuffix: Template
+  defaultLabel: Default Label
+  label: Label
+  validation:
+    name: Template name is required

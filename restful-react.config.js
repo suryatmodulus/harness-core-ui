@@ -38,6 +38,16 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('pipeline/api')")
   },
+  'template-ng': {
+    output: 'src/services/template-ng/index.tsx',
+    url: 'http://localhost:15001/api/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customProps: {
+      base: `{getConfig("template/api")}`
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('template/api')")
+  },
   logs: {
     output: 'src/services/logs/index.tsx',
     file: 'src/services/logs/swagger.json',
@@ -132,6 +142,15 @@ module.exports = {
     customImport: `import { getConfig } from "../config";`,
     customProps: {
       base: `{getConfig("ccm/api")}`
+    }
+  },
+  'ccm-recommender': {
+    output: 'src/services/ce/recommenderService.tsx',
+    file: 'src/services/ce/recommender-service.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("ccm/recommendations/api/v1")}`
     }
   }
 }

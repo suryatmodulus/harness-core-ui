@@ -1,0 +1,9 @@
+.masonry {
+  min-height: calc(100vh - var(--page-header-height) - 64px);
+  width: 1155px;
+  margin: 0 auto !important;
+}
+
+.pagination {
+  padding: 0 var(--spacing-xxxlarge) !important ;
+}

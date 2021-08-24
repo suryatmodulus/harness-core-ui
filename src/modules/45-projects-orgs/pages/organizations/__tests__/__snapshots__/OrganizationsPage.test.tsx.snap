@@ -83,7 +83,7 @@ exports[`Org Page List Create New Org 1`] = `
         class="Layout--horizontal StyledProps--main StyledProps--padding-small"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -114,12 +114,12 @@ exports[`Org Page List Create New Org 1`] = `
       </div>
     </div>
     <div
-      class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip "
+      class="bp3-input-group ui-search-box ExpandingSearchInput--main search  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
       data-name=""
-      style="max-width: 350px;"
+      style="width: 320px; max-width: 320px;"
     >
       <span
-        class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+        class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
         data-icon="thinner-search"
       >
         <svg
@@ -141,7 +141,7 @@ exports[`Org Page List Create New Org 1`] = `
         class="bp3-input  ExpandingSearchInput--filter"
         dir="auto"
         placeholder="projectsOrgs.searchPlaceHolder"
-        style="padding-right: 0px;"
+        style="padding-right: 38px;"
         type="search"
         value=""
       />
@@ -183,7 +183,7 @@ exports[`Org Page List Create New Org 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         type="button"
                       >
                         <span
@@ -369,7 +369,7 @@ exports[`Org Page List Create New Org 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         type="button"
                       >
                         <span
@@ -599,7 +599,7 @@ exports[`Org Page List Create New Org 1`] = `
                       class="bp3-popover-target"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Card--menu Button--with-current-color Button--round Button--iconOnly Button--without-shadow Button--withLeftIcon"
                         type="button"
                       >
                         <span

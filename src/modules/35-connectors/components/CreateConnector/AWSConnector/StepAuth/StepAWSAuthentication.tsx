@@ -108,7 +108,11 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
               />
               {formikProps.values.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
                 <Layout.Vertical width={'56%'}>
-                  <Text color={Color.BLACK} padding={{ top: 'small', bottom: 'large' }}>
+                  <Text
+                    color={Color.BLACK}
+                    padding={{ top: 'small', bottom: 'large' }}
+                    tooltipProps={{ dataTooltipId: 'awsAuthentication' }}
+                  >
                     {getString('authentication')}
                   </Text>
                   <TextReference
@@ -116,6 +120,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
                     label={getString('connectors.aws.accessKey')}
                     type={formikProps.values.accessKey ? formikProps.values.accessKey?.type : ValueType.TEXT}
                   />
+
                   <SecretInput name="secretKeyRef" label={getString('connectors.aws.secretKey')} />
                 </Layout.Vertical>
               ) : (

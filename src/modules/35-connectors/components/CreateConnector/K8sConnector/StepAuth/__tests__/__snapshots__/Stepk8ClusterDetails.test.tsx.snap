@@ -6,11 +6,16 @@ exports[`Stepk8ClusterDetails render  1`] = `
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+    <div
+      class="Text--withDocsTooltip"
+      data-tooltip-id="K8sConnectorDetails"
     >
-      details
-    </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      >
+        details
+      </p>
+    </div>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -114,11 +119,16 @@ exports[`Stepk8ClusterDetails render  1`] = `
             <div
               class="StyledProps--font StyledProps--main authHeaderRow"
             >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="K8sAuthenticationTooltip"
               >
-                authentication
-              </span>
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
               <div
                 class="bp3-form-group authTypeSelect"
                 data-id="authType-1"
@@ -189,6 +199,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
                   >
                     <div
                       class="label"
+                      data-tooltip-id="k8ClusterForm_username"
                     >
                       <label>
                         username
@@ -316,13 +327,18 @@ exports[`Stepk8ClusterDetails render  1`] = `
                             </g>
                           </svg>
                         </span>
-                        <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="k8ClusterForm_password"
                         >
-                          <div>
-                            createOrSelectSecret
-                          </div>
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          >
+                            <div>
+                              createOrSelectSecret
+                            </div>
+                          </p>
+                        </div>
                       </a>
                     </div>
                   </div>
@@ -334,7 +350,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="k8sBackButton"
               type="button"
             >
@@ -364,7 +380,7 @@ exports[`Stepk8ClusterDetails render  1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
               type="submit"
             >
               <span
@@ -406,11 +422,16 @@ exports[`Stepk8ClusterDetails render  2`] = `
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+    <div
+      class="Text--withDocsTooltip"
+      data-tooltip-id="K8sConnectorDetails"
     >
-      details
-    </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      >
+        details
+      </p>
+    </div>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -544,11 +565,16 @@ exports[`Stepk8ClusterDetails render  2`] = `
             <div
               class="StyledProps--font StyledProps--main authHeaderRow"
             >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="K8sAuthenticationTooltip"
               >
-                authentication
-              </span>
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
               <div
                 class="bp3-form-group authTypeSelect"
                 data-id="authType-1"
@@ -619,6 +645,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
                   >
                     <div
                       class="label"
+                      data-tooltip-id="k8ClusterForm_username"
                     >
                       <label>
                         username
@@ -751,13 +778,18 @@ exports[`Stepk8ClusterDetails render  2`] = `
                             </g>
                           </svg>
                         </span>
-                        <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="k8ClusterForm_password"
                         >
-                          <div>
-                            createOrSelectSecret
-                          </div>
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          >
+                            <div>
+                              createOrSelectSecret
+                            </div>
+                          </p>
+                        </div>
                       </a>
                     </div>
                   </div>
@@ -774,7 +806,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="k8sBackButton"
               type="button"
             >
@@ -804,7 +836,7 @@ exports[`Stepk8ClusterDetails render  2`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
               type="submit"
             >
               <span
@@ -846,11 +878,16 @@ exports[`Stepk8ClusterDetails render  3`] = `
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+    <div
+      class="Text--withDocsTooltip"
+      data-tooltip-id="K8sConnectorDetails"
     >
-      details
-    </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      >
+        details
+      </p>
+    </div>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -984,11 +1021,16 @@ exports[`Stepk8ClusterDetails render  3`] = `
             <div
               class="StyledProps--font StyledProps--main authHeaderRow"
             >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="K8sAuthenticationTooltip"
               >
-                authentication
-              </span>
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
               <div
                 class="bp3-form-group authTypeSelect"
                 data-id="authType-1"
@@ -1059,6 +1101,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
                   >
                     <div
                       class="label"
+                      data-tooltip-id="k8ClusterForm_username"
                     >
                       <label>
                         username
@@ -1191,13 +1234,18 @@ exports[`Stepk8ClusterDetails render  3`] = `
                             </g>
                           </svg>
                         </span>
-                        <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="k8ClusterForm_password"
                         >
-                          <div>
-                            createOrSelectSecret
-                          </div>
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          >
+                            <div>
+                              createOrSelectSecret
+                            </div>
+                          </p>
+                        </div>
                       </a>
                     </div>
                   </div>
@@ -1214,7 +1262,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="k8sBackButton"
               type="button"
             >
@@ -1244,7 +1292,7 @@ exports[`Stepk8ClusterDetails render  3`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
               type="submit"
             >
               <span
@@ -1286,11 +1334,16 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+    <div
+      class="Text--withDocsTooltip"
+      data-tooltip-id="K8sConnectorDetails"
     >
-      details
-    </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      >
+        details
+      </p>
+    </div>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -1394,11 +1447,16 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
             <div
               class="StyledProps--font StyledProps--main authHeaderRow"
             >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="K8sAuthenticationTooltip"
               >
-                authentication
-              </span>
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
               <div
                 class="bp3-form-group authTypeSelect"
                 data-id="authType-1"
@@ -1469,6 +1527,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                   >
                     <div
                       class="label"
+                      data-tooltip-id="k8ClusterForm_username"
                     >
                       <label>
                         username
@@ -1596,16 +1655,21 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                             </g>
                           </svg>
                         </span>
-                        <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="k8ClusterForm_password"
                         >
-                          <div>
-                            secret.configureSecret
-                          </div>
-                          <div>
-                            &lt;k8serviceToken&gt;
-                          </div>
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          >
+                            <div>
+                              secret.configureSecret
+                            </div>
+                            <div>
+                              &lt;k8serviceToken&gt;
+                            </div>
+                          </p>
+                        </div>
                       </a>
                       <button
                         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1646,7 +1710,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="k8sBackButton"
               type="button"
             >
@@ -1676,7 +1740,7 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
               type="submit"
             >
               <span
@@ -1718,11 +1782,16 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+    <div
+      class="Text--withDocsTooltip"
+      data-tooltip-id="K8sConnectorDetails"
     >
-      details
-    </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      >
+        details
+      </p>
+    </div>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -1826,11 +1895,16 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
             <div
               class="StyledProps--font StyledProps--main authHeaderRow"
             >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="K8sAuthenticationTooltip"
               >
-                authentication
-              </span>
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
               <div
                 class="bp3-form-group authTypeSelect"
                 data-id="authType-1"
@@ -1936,16 +2010,21 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
                             </g>
                           </svg>
                         </span>
-                        <p
-                          class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="k8ClusterForm_serviceAccountToken"
                         >
-                          <div>
-                            secret.configureSecret
-                          </div>
-                          <div>
-                            &lt;k8serviceToken&gt;
-                          </div>
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          >
+                            <div>
+                              secret.configureSecret
+                            </div>
+                            <div>
+                              &lt;k8serviceToken&gt;
+                            </div>
+                          </p>
+                        </div>
                       </a>
                       <button
                         class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -1986,7 +2065,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="k8sBackButton"
               type="button"
             >
@@ -2016,7 +2095,7 @@ exports[`Stepk8ClusterDetails render edit mode  service token 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
               type="submit"
             >
               <span
@@ -2058,11 +2137,16 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+    <div
+      class="Text--withDocsTooltip"
+      data-tooltip-id="K8sConnectorDetails"
     >
-      details
-    </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      >
+        details
+      </p>
+    </div>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -2166,11 +2250,16 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
             <div
               class="StyledProps--font StyledProps--main authHeaderRow"
             >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="K8sAuthenticationTooltip"
               >
-                authentication
-              </span>
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
               <div
                 class="bp3-form-group authTypeSelect"
                 data-id="authType-1"
@@ -2230,7 +2319,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="k8sBackButton"
               type="button"
             >
@@ -2260,7 +2349,7 @@ exports[`Stepk8ClusterDetails render edit mode if correct auth type is not given
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
               type="submit"
             >
               <span
@@ -2302,11 +2391,16 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
     class="Layout--vertical Layout--layout-spacing-medium StyledProps--main secondStep"
     style="height: inherit;"
   >
-    <p
-      class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+    <div
+      class="Text--withDocsTooltip"
+      data-tooltip-id="K8sConnectorDetails"
     >
-      details
-    </p>
+      <p
+        class="StyledProps--font StyledProps--main StyledProps--font-medium StyledProps--margin-top-small StyledProps--color StyledProps--color-black"
+      >
+        details
+      </p>
+    </div>
     <div
       class="OverlaySpinner--overlaySpinner"
     >
@@ -2410,11 +2504,16 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
             <div
               class="StyledProps--font StyledProps--main authHeaderRow"
             >
-              <span
-                class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="K8sAuthenticationTooltip"
               >
-                authentication
-              </span>
+                <span
+                  class="StyledProps--font StyledProps--main authTitle StyledProps--inline"
+                >
+                  authentication
+                </span>
+              </div>
               <div
                 class="bp3-form-group authTypeSelect"
                 data-id="authType-1"
@@ -2523,6 +2622,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                     >
                       <div
                         class="label"
+                        data-tooltip-id="k8ClusterForm_oidcUsername"
                       >
                         <label>
                           connectors.k8.OIDCUsername
@@ -2650,16 +2750,21 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="k8ClusterForm_oidcPassword"
                           >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;k8serviceToken&gt;
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;k8serviceToken&gt;
+                              </div>
+                            </p>
+                          </div>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2746,16 +2851,21 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="k8ClusterForm_oidcCleintId"
                           >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;k8serviceToken&gt;
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;k8serviceToken&gt;
+                              </div>
+                            </p>
+                          </div>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2837,16 +2947,21 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                               </g>
                             </svg>
                           </span>
-                          <p
-                            class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                          <div
+                            class="Text--withDocsTooltip"
+                            data-tooltip-id="k8ClusterForm_oidcCleintSecret"
                           >
-                            <div>
-                              secret.configureSecret
-                            </div>
-                            <div>
-                              &lt;k8serviceToken&gt;
-                            </div>
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main containerLinkText StyledProps--color StyledProps--color-primary7 StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start StyledProps--flex-inline StyledProps--padding-small"
+                            >
+                              <div>
+                                secret.configureSecret
+                              </div>
+                              <div>
+                                &lt;k8serviceToken&gt;
+                              </div>
+                            </p>
+                          </div>
                         </a>
                         <button
                           class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main containerEditBtn Button--with-current-color Button--without-shadow"
@@ -2923,7 +3038,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
             class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--padding-top-small"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
               data-name="k8sBackButton"
               type="button"
             >
@@ -2953,7 +3068,7 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color"
+              class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-medium Button--with-current-color Button--withRightIcon"
               type="submit"
             >
               <span

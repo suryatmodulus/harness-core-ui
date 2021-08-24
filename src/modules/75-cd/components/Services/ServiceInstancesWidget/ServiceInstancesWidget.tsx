@@ -63,6 +63,9 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [prodCount, nonProdCount]
   )
+  const title = getString('cd.serviceDashboard.servicesInLast', {
+    period: getString('cd.serviceDashboard.6months')
+  })
   return (
     <Card className={css.card}>
       <Layout.Vertical width={248}>
@@ -76,7 +79,7 @@ export const ServiceInstancesWidget: React.FC<ServiceInstanceWidgetProps> = prop
                 {numberFormatter(serviceCount)}
               </Text>
               {trendData.length ? (
-                <TrendPopover data={trendData}>
+                <TrendPopover title={title} data={trendData}>
                   <SparklineChart
                     title={getString('cd.serviceDashboard.6monthTrend')}
                     data={trendData}

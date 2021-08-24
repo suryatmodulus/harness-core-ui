@@ -19,7 +19,7 @@ interface ModuleCardProps {
 }
 
 const MODULE_PROPS: {
-  [key in 'CD' | 'CI' | 'CV' | 'CE' | 'CF']: {
+  [key in ModuleLicenseDTO['moduleType'] as string]: {
     icon: string
     title: string
   }

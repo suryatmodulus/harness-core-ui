@@ -8,7 +8,7 @@ import type { GetActionsListQueryParams, NGTriggerConfigV2, NGTriggerSourceV2 } 
 import { connectorUrlType } from '@connectors/constants'
 import type { PanelInterface } from '@common/components/Wizard/Wizard'
 import { illegalIdentifiers, regexIdentifier } from '@common/utils/StringUtils'
-import { ManifestStoreMap } from '@pipeline/components/ManifestSelection/Manifesthelper'
+import { ManifestStoreMap, ManifestDataType } from '@pipeline/components/ManifestSelection/Manifesthelper'
 import type { StringKeys, UseStringsReturn } from 'framework/strings'
 import { isCronValid } from '../views/subviews/ScheduleUtils'
 import type { AddConditionInterface } from '../views/AddConditionsSection'
@@ -90,6 +90,10 @@ export interface FlatOnEditValuesInterface {
     pipeline: PipelineInfoConfig | Record<string, never>
   }
   eventConditions?: AddConditionInterface[]
+  versionValue?: string
+  versionOperator?: string
+  buildValue?: string
+  buildOperator?: string
 }
 
 export interface FlatValidWebhookFormikValuesInterface {
@@ -174,6 +178,12 @@ export const PayloadConditionTypes = {
   CHANGED_FILES: 'changedFiles',
   TAG: 'tag'
 }
+
+export const EventConditionTypes = {
+  VERSION: 'version',
+  BUILD: 'build'
+}
+
 export const ResponseStatus = {
   SUCCESS: 'SUCCESS',
   FAILURE: 'FAILURE',
@@ -261,8 +271,13 @@ export const getQueryParamsOnNew = (searchStr: string): TriggerTypeSourceInterfa
       ) as unknown as NGTriggerSourceV2['type'],
       manifestType
     }
+  } else if (triggerType.includes(TriggerTypes.SCHEDULE)) {
+    // if modified for other schedule types, need to account for gitsync appended url params*
+    return {
+      triggerType: TriggerTypes.SCHEDULE as unknown as NGTriggerSourceV2['type']
+    }
   } else {
-    // SCHEDULED | unfound page
+    //  unfound page
     return {
       triggerType: triggerType as unknown as NGTriggerSourceV2['type']
     }
@@ -334,11 +349,21 @@ const checkValidPayloadConditions = (formikValues: FlatValidWebhookFormikValuesI
   return true
 }
 
-const checkValidPayloadConditionsForNewArtifact = (formikValues: FlatValidWebhookFormikValuesInterface): boolean => {
-  const headerConditions = formikValues['headerConditions']
+const checkValidEventConditionsForNewArtifact = (formikValues: {
+  eventConditions?: AddConditionInterface[]
+  versionOperator?: string
+  versionValue?: string
+  buildOperator?: string
+  buildValue?: string
+}): boolean => {
+  const eventConditions = formikValues['eventConditions']
   if (
-    headerConditions?.length &&
-    headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))
+    (formikValues['versionOperator'] && !formikValues['versionValue']) ||
+    (!formikValues['versionOperator'] && formikValues['versionValue']?.trim()) ||
+    (formikValues['buildOperator'] && !formikValues['buildValue']) ||
+    (!formikValues['buildOperator'] && formikValues['buildValue']?.trim()) ||
+    (eventConditions?.length &&
+      eventConditions.some((eventCondition: AddConditionInterface) => isRowUnfilled(eventCondition)))
   ) {
     return false
   }
@@ -408,7 +433,7 @@ const getPanels = ({
   } else if (isArtifactOrManifestTrigger(triggerType)) {
     return [
       {
-        id: 'Trigger Overview',
+        id: 'Trigger Configuration',
         tabTitle: getString('pipeline.triggers.triggerConfigurationLabel'),
         checkValidPanel: checkValidArtifactTrigger,
         requiredFields: ['name', 'identifier'] // conditional required validations checkValidTriggerConfiguration
@@ -416,7 +441,7 @@ const getPanels = ({
       {
         id: 'Conditions',
         tabTitle: getString('conditions'),
-        checkValidPanel: checkValidPayloadConditionsForNewArtifact
+        checkValidPanel: checkValidEventConditionsForNewArtifact
       },
       {
         id: 'Pipeline Input',
@@ -627,11 +652,55 @@ export const getValidationSchema = (
           return true
         }
       ),
-      headerConditions: array().test(
-        getString('pipeline.triggers.validation.headerConditions'),
-        getString('pipeline.triggers.validation.headerConditions'),
-        function (headerConditions = []) {
-          if (headerConditions.some((headerCondition: AddConditionInterface) => isRowUnfilled(headerCondition))) {
+      versionOperator: string().test(
+        getString('pipeline.triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
+        function (operator) {
+          return (
+            (operator && !this.parent.versionValue) ||
+            (operator && this.parent.versionValue) ||
+            (!this.parent.versionValue?.trim() && !operator)
+          )
+        }
+      ),
+      versionValue: string().test(
+        getString('pipeline.triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
+        function (matchesValue) {
+          return (
+            (matchesValue && !this.parent.versionOperator) ||
+            (matchesValue && this.parent.versionOperator) ||
+            (!matchesValue?.trim() && !this.parent.versionOperator)
+          )
+        }
+      ),
+      buildOperator: string().test(
+        getString('pipeline.triggers.validation.operator'),
+        getString('pipeline.triggers.validation.operator'),
+        function (operator) {
+          return (
+            (operator && !this.parent.buildValue) ||
+            (operator && this.parent.buildValue) ||
+            (!this.parent.buildValue?.trim() && !operator)
+          )
+        }
+      ),
+      buildValue: string().test(
+        getString('pipeline.triggers.validation.matchesValue'),
+        getString('pipeline.triggers.validation.matchesValue'),
+        function (matchesValue) {
+          return (
+            (matchesValue && !this.parent.buildOperator) ||
+            (matchesValue && this.parent.buildOperator) ||
+            (!matchesValue?.trim() && !this.parent.buildOperator)
+          )
+        }
+      ),
+      eventConditions: array().test(
+        getString('pipeline.triggers.validation.eventConditions'),
+        getString('pipeline.triggers.validation.eventConditions'),
+        function (eventConditions = []) {
+          if (eventConditions.some((eventCondition: AddConditionInterface) => isRowUnfilled(eventCondition))) {
             return false
           }
           return true
@@ -926,7 +995,7 @@ export const getDetailsFromPipeline = ({
   manifestType: string
 }): artifactTableDetails => {
   const details: artifactTableDetails = {}
-  if (manifestType === 'HelmChart') {
+  if (manifestType === ManifestDataType.HelmChart) {
     const matchedManifest = manifests?.find(
       (manifestObj: any) => manifestObj?.manifest.identifier === manifestIdentifier
     )

@@ -3,20 +3,20 @@ import { useParams, Link } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
 import { Color, Container, Layout, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import type { ResourceConstraintExecutionInfo } from 'services/pipeline-ng'
+import type { ResourceConstraintDetail } from 'services/pipeline-ng'
 import routes from '@common/RouteDefinitions'
 import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 export interface ResourceConstraintTooltipProps {
   loading: boolean
   data?: {
-    executionList?: ResourceConstraintExecutionInfo[]
+    executionList?: ResourceConstraintDetail[]
     executionId: string
   }
 }
 
 const getnoOfExecutionsBeforePipeline = (
-  executionList: ResourceConstraintExecutionInfo[] = [],
+  executionList: ResourceConstraintDetail[] = [],
   executionId?: string
 ): number => {
   let noOfExecutionsBeforePipeline = 0
@@ -35,6 +35,7 @@ export default function ResourceConstraintTooltip(props: ResourceConstraintToolt
     props?.data?.executionList,
     props.data?.executionId
   )
+
   return props.loading ? (
     <Container border={{ top: true, width: 1, color: Color.GREY_100 }} padding={'medium'}>
       <Spinner size={24} />
@@ -46,8 +47,8 @@ export default function ResourceConstraintTooltip(props: ResourceConstraintToolt
           <Text font={{ size: 'small' }}>
             {getString('pipeline.resourceConstraints.infoText', { executioncount: noOfExecutionsBeforePipeline })}
           </Text>
-          {props?.data?.executionList?.map((pipeline: ResourceConstraintExecutionInfo) => (
-            <Container key={pipeline.pipelineIdentifier}>
+          {props?.data?.executionList?.map((pipeline: ResourceConstraintDetail, index: number) => (
+            <Container key={`${pipeline.pipelineIdentifier}-${index}`}>
               <Link
                 to={routes.toExecutionPipelineView({
                   pipelineIdentifier: pipeline.pipelineIdentifier || '',

@@ -33,27 +33,27 @@ export const TimeRangeSelector: React.FC<{
   const { getString } = useStrings()
   const dateRangeShortcuts = [
     {
-      dateRange: [startOfDay(moment().subtract(7, 'days')), startOfDay(moment())],
+      dateRange: [startOfDay(moment().subtract(7, 'days').add(1, 'day')), startOfDay(moment())],
       label: getString('common.last7days'),
       includeTime: true
     },
     {
-      dateRange: [startOfDay(moment().subtract(30, 'days')), startOfDay(moment())],
+      dateRange: [startOfDay(moment().subtract(1, 'month').add(1, 'day')), startOfDay(moment())],
       label: getString('cd.serviceDashboard.month'),
       includeTime: true
     },
     {
-      dateRange: [startOfDay(moment().subtract(3, 'month')), startOfDay(moment())],
+      dateRange: [startOfDay(moment().subtract(3, 'month').add(1, 'day')), startOfDay(moment())],
       label: getString('cd.serviceDashboard.3months'),
       includeTime: true
     },
     {
-      dateRange: [startOfDay(moment().subtract(6, 'month')), startOfDay(moment())],
+      dateRange: [startOfDay(moment().subtract(6, 'month').add(1, 'day')), startOfDay(moment())],
       label: getString('cd.serviceDashboard.6months'),
       includeTime: true
     },
     {
-      dateRange: [startOfDay(moment().subtract(1, 'year')), startOfDay(moment())],
+      dateRange: [startOfDay(moment().subtract(1, 'year').add(1, 'day')), startOfDay(moment())],
       label: getString('cd.serviceDashboard.year'),
       includeTime: true
     }

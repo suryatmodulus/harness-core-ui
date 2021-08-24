@@ -239,7 +239,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                       class="bp3-form-content"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                         data-testid="cr-field-gitConnector"
                         style="width: 350px;"
                         type="button"
@@ -856,7 +856,7 @@ exports[`Test GitSyncRepoFormStep Should not allow saving form if folder name is
                       class="bp3-form-content"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                         data-testid="cr-field-gitConnector"
                         style="width: 350px;"
                         type="button"

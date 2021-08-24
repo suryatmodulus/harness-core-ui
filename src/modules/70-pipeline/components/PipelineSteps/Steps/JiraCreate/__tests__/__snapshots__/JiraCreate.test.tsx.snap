@@ -21,7 +21,7 @@ exports[`Jira Create tests Basic snapshot - deploymentform mode: jira-create-dep
         class="bp3-form-content"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
           data-testid="cr-field-spec.conectorRef"
           style="width: 360px;"
           type="button"
@@ -355,7 +355,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -413,7 +413,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -473,7 +473,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -531,7 +531,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -589,7 +589,7 @@ exports[`Jira Create tests Basic snapshot - input variable view: jira-create-inp
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -677,7 +677,7 @@ exports[`Jira Create tests Basic snapshot - inputset mode: input set with errors
         class="bp3-form-content"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
           data-testid="cr-field-spec.conectorRef"
           style="width: 360px;"
           type="button"
@@ -1102,7 +1102,7 @@ exports[`Jira Create tests Deploymentform readonly mode: jira-create-deploymentf
         class="bp3-form-content"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
           data-testid="cr-field-spec.conectorRef"
           style="width: 360px;"
           type="button"
@@ -1520,7 +1520,12 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="jiraCreate_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1583,7 +1588,12 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              pipeline.jiraApprovalStep.connectorRef
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="jiraCreate_spec.connectorRef"
+              >
+                pipeline.jiraApprovalStep.connectorRef
+              </span>
             </div>
             <div
               class="bp3-form-group connector"
@@ -1598,7 +1608,7 @@ exports[`Jira Create tests Edit Stage - readonly view: edit-stage-readonly 1`] =
                   style="width: 390px;"
                 >
                   <button
-                    class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     disabled=""
                     style="width: 390px;"

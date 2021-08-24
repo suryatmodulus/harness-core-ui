@@ -30,14 +30,7 @@ const HeaderFilterComponent: React.FC<{ onChange: (val: string) => void }> = pro
   const { onChange = noop } = props
   return (
     <Layout.Horizontal margin={{ left: 'small' }}>
-      <ExpandingSearchInput
-        flip
-        width={200}
-        placeholder={getString('search')}
-        throttle={200}
-        className={css.expandSearch}
-        onChange={onChange}
-      />
+      <ExpandingSearchInput flip width={232} placeholder={getString('search')} throttle={200} onChange={onChange} />
       {/* <FilterSelector<any>
         onFilterBtnClick={noop}
         onFilterSelect={noop}

@@ -19,6 +19,7 @@ export interface UseLogsStreamReturn {
   key: string
   startStream(props: StartStreamProps): void
   closeStream(): void
+  getEventSource(): null | EventSource
 }
 
 export function useLogsStream(): UseLogsStreamReturn {
@@ -55,6 +56,7 @@ export function useLogsStream(): UseLogsStreamReturn {
           currentEventSource.close()
         }
 
+        /* istanbul ignore else */
         if (e.data) {
           cache += `\n${e.data}`
           throttledSetLog(cache.trim())
@@ -62,6 +64,7 @@ export function useLogsStream(): UseLogsStreamReturn {
       }
 
       currentEventSource.onerror = (e: Event) => {
+        /* istanbul ignore else */
         if (e.type === 'error') {
           currentEventSource.close()
         }
@@ -70,5 +73,13 @@ export function useLogsStream(): UseLogsStreamReturn {
     [throttledSetLog, closeStream]
   )
 
-  return { log, startStream, closeStream, key }
+  return {
+    log,
+    startStream,
+    closeStream,
+    key,
+    getEventSource(): null | EventSource {
+      return eventSource.current
+    }
+  }
 }

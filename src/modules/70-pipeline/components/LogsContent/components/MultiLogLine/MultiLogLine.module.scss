@@ -16,6 +16,15 @@
   .lineNumber {
     display: inline-block;
     text-align: right;
+    user-select: none;
+  }
+
+  .level {
+    user-select: none;
+  }
+
+  .time {
+    user-select: none;
   }
 
   mark[data-current-search-result='true'] {

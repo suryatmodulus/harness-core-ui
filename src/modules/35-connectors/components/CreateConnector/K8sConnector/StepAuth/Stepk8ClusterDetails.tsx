@@ -336,7 +336,12 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     <PageSpinner />
   ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
-      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+      <Text
+        font="medium"
+        margin={{ top: 'small' }}
+        color={Color.BLACK}
+        tooltipProps={{ dataTooltipId: 'K8sConnectorDetails' }}
+      >
         {getString('details')}
       </Text>
       <Formik
@@ -388,7 +393,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                   />
 
                   <Container className={css.authHeaderRow}>
-                    <Text className={css.authTitle} inline>
+                    <Text className={css.authTitle} inline tooltipProps={{ dataTooltipId: 'K8sAuthenticationTooltip' }}>
                       {getString('authentication')}
                     </Text>
                     <FormInput.Select

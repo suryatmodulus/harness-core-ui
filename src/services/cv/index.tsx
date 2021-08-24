@@ -34,6 +34,7 @@ export interface ActivityDashboardDTO {
     | 'VERIFICATION_PASSED'
     | 'VERIFICATION_FAILED'
     | 'ERROR'
+    | 'ABORTED'
     | 'IN_PROGRESS'
 }
 
@@ -63,11 +64,26 @@ export interface ActivityVerificationResultDTO {
   progressPercentage?: number
   remainingTimeMs?: number
   serviceIdentifier?: string
-  status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  status?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'ABORTED'
+    | 'IN_PROGRESS'
 }
 
 export interface ActivityVerificationSummary {
-  aggregatedStatus?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  aborted?: number
+  aggregatedStatus?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'ABORTED'
+    | 'IN_PROGRESS'
   durationMs?: number
   errors?: number
   failed?: number
@@ -292,11 +308,6 @@ export type AzureKeyVaultConnectorDTO = ConnectorConfigDTO & {
   vaultName: string
 }
 
-export interface Bar {
-  count?: number
-  timestamp?: number
-}
-
 export interface BillingExportSpec {
   containerName: string
   directoryName: string
@@ -382,7 +393,6 @@ export interface CVConfig {
   connectorIdentifier: string
   createNextTaskIteration?: number
   createdAt?: number
-  dataCollectionTaskIteration?: number
   enabled?: boolean
   envIdentifier: string
   firstTimeDataCollectionTimeRange?: TimeRange
@@ -390,7 +400,6 @@ export interface CVConfig {
   lastUpdatedAt?: number
   monitoringSourceName: string
   orgIdentifier: string
-  perpetualTaskId?: string
   productName?: string
   projectIdentifier: string
   serviceIdentifier: string
@@ -537,6 +546,8 @@ export interface DataCollectionRequest {
   tracingId?: string
   type?:
     | 'SPLUNK_SAVED_SEARCHES'
+    | 'SPLUNK_SAMPLE_DATA'
+    | 'SPLUNK_LATEST_HISTOGRAM'
     | 'STACKDRIVER_DASHBOARD_LIST'
     | 'STACKDRIVER_DASHBOARD_GET'
     | 'STACKDRIVER_SAMPLE_DATA'
@@ -565,7 +576,7 @@ export interface DataCollectionTaskResult {
   dataCollectionTaskId?: string
   exception?: string
   stacktrace?: string
-  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS' | 'ABORTED'
 }
 
 export interface DataPoint {
@@ -668,7 +679,14 @@ export interface DeploymentVerificationJobInstanceSummary {
   remainingTimeMs?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   startTime?: number
-  status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  status?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'ABORTED'
+    | 'IN_PROGRESS'
   timeSeriesAnalysisSummary?: TimeSeriesAnalysisSummary
   verificationJobInstanceId?: string
 }
@@ -699,6 +717,11 @@ export type DynatraceConnectorDTO = ConnectorConfigDTO & {
   apiTokenRef: string
   delegateSelectors?: string[]
   url: string
+}
+
+export interface Edge {
+  from?: string
+  to?: string
 }
 
 export interface EnvServiceRiskDTO {
@@ -828,6 +851,7 @@ export interface Error {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1123,6 +1147,7 @@ export interface Failure {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -1352,6 +1377,7 @@ export type GcpCloudCostConnector = ConnectorConfigDTO & {
   billingExportSpec?: GcpBillingExportSpec
   featuresEnabled?: ('BILLING' | 'OPTIMIZATION' | 'VISIBILITY')[]
   projectId: string
+  serviceAccountEmail: string
 }
 
 export type GcpConnector = ConnectorConfigDTO & {
@@ -1551,15 +1577,6 @@ export interface HeatMapDTO {
   endTime?: number
   riskScore?: number
   startTime?: number
-}
-
-export interface Histogram {
-  bars?: Bar[]
-  count?: number
-  errorMessage?: string
-  intervalMs?: number
-  query?: string
-  splunkQuery?: string
 }
 
 export interface HistoricalTrend {
@@ -1977,6 +1994,7 @@ export interface MetricValidationResponse {
 }
 
 export interface MonitoredServiceDTO {
+  dependencies?: ServiceRef[]
   description?: string
   environmentRef: string
   identifier: string
@@ -2243,7 +2261,7 @@ export interface PageVerificationJobDTO {
 }
 
 export interface PartialSchemaDTO {
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   namespace?: string
   nodeName?: string
   nodeType?: string
@@ -2310,6 +2328,13 @@ export interface ResponseActivitySourceDTO {
 export interface ResponseBoolean {
   correlationId?: string
   data?: boolean
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseHistoricalTrend {
+  correlationId?: string
+  data?: HistoricalTrend
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -2456,6 +2481,7 @@ export interface ResponseMessage {
     | 'RESUME_ALL_ALREADY'
     | 'ROLLBACK_ALREADY'
     | 'ABORT_ALL_ALREADY'
+    | 'EXPIRE_ALL_ALREADY'
     | 'RETRY_FAILED'
     | 'UNKNOWN_ARTIFACT_TYPE'
     | 'UNKNOWN_STAGE_ELEMENT_WRAPPER_TYPE'
@@ -3002,6 +3028,16 @@ export interface RestResponseListEnvToServicesDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListLinkedHashMap {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: { [key: string]: any }
+  }[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseListLogAnalysisCluster {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3192,6 +3228,14 @@ export interface RestResponseRiskSummaryPopoverDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseServiceDependencyGraphDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ServiceDependencyGraphDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseSetDatasourceTypeDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -3205,14 +3249,6 @@ export interface RestResponseSortedSetLogDataByTag {
     [key: string]: { [key: string]: any }
   }
   resource?: LogDataByTag[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseSplunkValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SplunkValidationResponse
   responseMessages?: ResponseMessage[]
 }
 
@@ -3267,7 +3303,6 @@ export interface ResultSummary {
 export interface RiskData {
   healthScore?: number
   riskStatus?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
-  riskValue?: number
 }
 
 export interface RiskNotify {
@@ -3285,9 +3320,9 @@ export interface RiskSummaryPopoverDTO {
   envSummaries?: EnvSummary[]
 }
 
-export interface SampleLog {
-  raw?: string
-  timestamp?: number
+export interface ServiceDependencyGraphDTO {
+  edges?: Edge[]
+  nodes?: ServiceSummaryDetails[]
 }
 
 export interface ServiceGuardTimeSeriesAnalysisDTO {
@@ -3314,6 +3349,10 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   score?: number
   shortTermHistory?: number[]
+}
+
+export interface ServiceRef {
+  serviceRef?: string
 }
 
 export interface ServiceResponseDTO {
@@ -3343,6 +3382,16 @@ export interface ServiceSummary {
   serviceName?: string
 }
 
+export interface ServiceSummaryDetails {
+  anomalousLogsCount?: number
+  anomalousMetricsCount?: number
+  changeCount?: number
+  environmentRef?: string
+  riskLevel?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
+  riskScore?: number
+  serviceRef?: string
+}
+
 export interface Sources {
   healthSources?: HealthSource[]
 }
@@ -3360,25 +3409,9 @@ export type SplunkHealthSourceSpec = HealthSourceSpec & {
   queries: QueryDTO[]
 }
 
-export interface SplunkSampleResponse {
-  errorMessage?: string
-  rawSampleLogs?: SampleLog[]
-  sample?: {
-    [key: string]: string
-  }
-  splunkQuery?: string
-}
-
 export interface SplunkSavedSearch {
   searchQuery?: string
   title?: string
-}
-
-export interface SplunkValidationResponse {
-  errorMessage?: string
-  histogram?: Histogram
-  queryDurationMillis?: number
-  samples?: SplunkSampleResponse
 }
 
 export interface StackTraceElement {
@@ -3678,7 +3711,14 @@ export interface VerificationResult {
   remainingTimeMs?: number
   risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW' | 'MEDIUM' | 'HIGH'
   startTime?: number
-  status?: 'IGNORED' | 'NOT_STARTED' | 'VERIFICATION_PASSED' | 'VERIFICATION_FAILED' | 'ERROR' | 'IN_PROGRESS'
+  status?:
+    | 'IGNORED'
+    | 'NOT_STARTED'
+    | 'VERIFICATION_PASSED'
+    | 'VERIFICATION_FAILED'
+    | 'ERROR'
+    | 'ABORTED'
+    | 'IN_PROGRESS'
 }
 
 export interface VerificationsNotify {
@@ -4704,6 +4744,7 @@ export interface GetDeploymentLogAnalysisResultQueryParams {
   pageNumber: number
   pageSize: number
   hostName?: string
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
 }
 
 export interface GetDeploymentLogAnalysisResultPathParams {
@@ -5538,6 +5579,7 @@ export interface GetDeploymentLogAnalysesQueryParams {
   label?: number
   pageNumber?: number
   hostName?: string
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
 }
 
 export interface GetDeploymentLogAnalysesPathParams {
@@ -8136,11 +8178,64 @@ export const listAllSupportedDataSourcePromise = (
     signal
   )
 
-export interface GetSplunkSavedSearchesQueryParams {
-  accountId?: string
-  connectorIdentifier?: string
+export interface GetSplunkSampleDataQueryParams {
+  accountId: string
   orgIdentifier: string
   projectIdentifier: string
+  connectorIdentifier: string
+  query: string
+  requestGuid: string
+}
+
+export type GetSplunkSampleDataProps = Omit<
+  GetProps<RestResponseListLinkedHashMap, unknown, GetSplunkSampleDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * validates given setting for splunk data source
+ */
+export const GetSplunkSampleData = (props: GetSplunkSampleDataProps) => (
+  <Get<RestResponseListLinkedHashMap, unknown, GetSplunkSampleDataQueryParams, void>
+    path={`/splunk/sample-data`}
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseGetSplunkSampleDataProps = Omit<
+  UseGetProps<RestResponseListLinkedHashMap, unknown, GetSplunkSampleDataQueryParams, void>,
+  'path'
+>
+
+/**
+ * validates given setting for splunk data source
+ */
+export const useGetSplunkSampleData = (props: UseGetSplunkSampleDataProps) =>
+  useGet<RestResponseListLinkedHashMap, unknown, GetSplunkSampleDataQueryParams, void>(`/splunk/sample-data`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+/**
+ * validates given setting for splunk data source
+ */
+export const getSplunkSampleDataPromise = (
+  props: GetUsingFetchProps<RestResponseListLinkedHashMap, unknown, GetSplunkSampleDataQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseListLinkedHashMap, unknown, GetSplunkSampleDataQueryParams, void>(
+    getConfig('cv/api'),
+    `/splunk/sample-data`,
+    props,
+    signal
+  )
+
+export interface GetSplunkSavedSearchesQueryParams {
+  accountId?: string
+  orgIdentifier: string
+  projectIdentifier: string
+  connectorIdentifier?: string
   requestGuid: string
 }
 
@@ -8184,59 +8279,6 @@ export const getSplunkSavedSearchesPromise = (
   getUsingFetch<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>(
     getConfig('cv/api'),
     `/splunk/saved-searches`,
-    props,
-    signal
-  )
-
-export interface GetSplunkValidationQueryParams {
-  accountId: string
-  connectorIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  query: string
-  requestGuid: string
-}
-
-export type GetSplunkValidationProps = Omit<
-  GetProps<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>,
-  'path'
->
-
-/**
- * validates given setting for splunk data source
- */
-export const GetSplunkValidation = (props: GetSplunkValidationProps) => (
-  <Get<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>
-    path={`/splunk/validation`}
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseGetSplunkValidationProps = Omit<
-  UseGetProps<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>,
-  'path'
->
-
-/**
- * validates given setting for splunk data source
- */
-export const useGetSplunkValidation = (props: UseGetSplunkValidationProps) =>
-  useGet<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>(`/splunk/validation`, {
-    base: getConfig('cv/api'),
-    ...props
-  })
-
-/**
- * validates given setting for splunk data source
- */
-export const getSplunkValidationPromise = (
-  props: GetUsingFetchProps<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>(
-    getConfig('cv/api'),
-    `/splunk/validation`,
     props,
     signal
   )

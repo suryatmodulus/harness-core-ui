@@ -21,6 +21,7 @@ exports[`Text Reference render create mode 1`] = `
             >
               <div
                 class="label"
+                data-tooltip-id="testWrapper_username"
               >
                 <label />
                 <div
@@ -126,6 +127,7 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
             >
               <div
                 class="label"
+                data-tooltip-id="testWrapper_username"
               >
                 <label />
                 <div
@@ -231,6 +233,7 @@ exports[`Text Reference render edit mode with text value 1`] = `
             >
               <div
                 class="label"
+                data-tooltip-id="testWrapper_username"
               >
                 <label />
                 <div

@@ -29,7 +29,7 @@ export interface ExecutionContextParams {
   setSelectedStageId: (stage: string) => void
 }
 
-const ExecutionContext = createContext<ExecutionContextParams>({
+export const ExecutionContext = createContext<ExecutionContextParams>({
   pipelineExecutionDetail: null,
   allNodeMap: {},
   pipelineStagesMap: new Map(),

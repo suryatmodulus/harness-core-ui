@@ -13,6 +13,35 @@
           }
         ],
         "stepCategories": []
+      },
+      {
+        "name": "Utilities",
+        "stepsData": [],
+        "stepCategories": [
+          {
+            "name": "Scripted",
+            "stepsData": [{ "name": "Shell Script", "type": "ShellScript" }],
+            "stepCategories": []
+          },
+          {
+            "name": "Non-Scripted",
+            "stepsData": [{ "name": "Http", "type": "Http" }],
+            "stepCategories": []
+          }
+        ]
+      },
+      {
+        "name": "Approval",
+        "stepsData": [{ "name": "Harness Approval", "type": "HarnessApproval" }],
+        "stepCategories": []
+      },
+      {
+        "name": "Jira",
+        "stepsData": [
+          { "name": "Jira Create", "type": "JiraCreate" },
+          { "name": "Jira Update", "type": "JiraUpdate" }
+        ],
+        "stepCategories": []
       }
     ]
   },

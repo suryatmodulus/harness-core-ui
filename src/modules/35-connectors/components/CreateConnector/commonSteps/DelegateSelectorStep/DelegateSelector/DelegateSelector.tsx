@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Container, Layout, Text } from '@wings-software/uicore'
+import { Color, Container, HarnessDocTooltip, Layout, Text } from '@wings-software/uicore'
 import { IOptionProps, Radio } from '@blueprintjs/core'
 import { useStrings } from 'framework/strings'
 import { DelegateSelectors, useToaster } from '@common/components'
@@ -86,6 +86,7 @@ const CustomRadioGroup: React.FC<CustomRadioGroupProps> = props => {
             margin={index === items.length - 1 ? { bottom: 'small' } : { bottom: 'medium' }}
             flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
             key={index}
+            data-tooltip-id={`${item.label?.split(' ').join('')}`}
           >
             <Radio
               label={item.label}
@@ -96,6 +97,7 @@ const CustomRadioGroup: React.FC<CustomRadioGroupProps> = props => {
               disabled={item.disabled}
               onClick={() => onClick(item.value as DelegateOptions)}
             />
+            <HarnessDocTooltip tooltipId={`${item.label?.split(' ').join('')}`} useStandAlone={true} />
             {CustomComponent}
           </Layout.Horizontal>
         )

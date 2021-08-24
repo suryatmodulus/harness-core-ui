@@ -1,6 +1,7 @@
 import React, { ReactNode } from 'react'
 import type { CellProps } from 'react-table'
 import moment from 'moment'
+import { CircularPercentageChart, Color } from '@wings-software/uicore'
 import formatCost from '@ce/utils/formatCost'
 import {
   QlceViewFieldInputInput,
@@ -131,6 +132,15 @@ export const AGGREGATE_FUNCTION: Record<string, AggregationFunction[]> = {
   DEFAULT: AGGREGATE_FUNCTION_DEFAULT
 }
 
+const GRID_EFFICIENCY_SCORE = {
+  CRICLE_SIZE: 30,
+  THRESHOLD: {
+    RED: 0,
+    ORANGE: 50,
+    GREEN: 80
+  }
+}
+
 // Cell Renderers
 const RenderNameCell = ({ row }: CellProps<GridData>): ReactNode => {
   const { legendColor, name } = row.original
@@ -154,6 +164,28 @@ const RenderCostTrendCell = (props: CellProps<GridData>): JSX.Element => {
 
 export const RenderDateCell = (item: Record<string, any>) => {
   return item.value ? <div>{moment.utc(item.value).format(`MMM DD, YYYY hh:mm a`)}</div> : '-'
+}
+
+const RenderEfficiencyScoreCell = (props: CellProps<GridData>) => {
+  const score = props.value
+  if (score <= 0) {
+    return '—'
+  }
+
+  let color = Color.GREEN_600
+  if (score > GRID_EFFICIENCY_SCORE.THRESHOLD.RED && score < GRID_EFFICIENCY_SCORE.THRESHOLD.ORANGE) {
+    color = Color.RED_900
+  } else if (score >= GRID_EFFICIENCY_SCORE.THRESHOLD.ORANGE && score < GRID_EFFICIENCY_SCORE.THRESHOLD.GREEN) {
+    color = Color.ORANGE_500
+  }
+
+  return (
+    <div className={css.efficiencyScore}>
+      <div className={css.stack}>
+        <CircularPercentageChart size={GRID_EFFICIENCY_SCORE.CRICLE_SIZE} value={score} color={color} font="small" />
+      </div>
+    </div>
+  )
 }
 
 export type Column = {
@@ -520,8 +552,8 @@ const COLUMNS: Record<string, Column> = {
     Header: 'Efficiency Score',
     accessor: 'efficiencyScore',
     width: 200,
-    className: 'cost-column efficiency-score'
-    // renderer: efficiencyScoreRenderer
+    className: 'cost-column efficiency-score',
+    Cell: RenderEfficiencyScoreCell
   },
   INSTANCE_NAME: {
     Header: 'Instance Name',
@@ -624,6 +656,7 @@ export const CLUSTER_COLS = [
   COLUMNS.COST,
   COLUMNS.COST_TREND,
   COLUMNS.IDLE_COST,
+  COLUMNS.EFFICIENCY_SCORE,
   COLUMNS.UNALLOCATED_COST,
   COLUMNS.STORAGE_COST,
   COLUMNS.STORAGE_ACTUAL_IDLE_COST,
@@ -716,6 +749,7 @@ export const APPLICATION_COLS = [
   COLUMNS.NAME,
   COLUMNS.COST,
   COLUMNS.COST_TREND,
+  COLUMNS.EFFICIENCY_SCORE,
   COLUMNS.APPLICATION_NAME,
   COLUMNS.IDLE_COST
 ]

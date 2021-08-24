@@ -204,7 +204,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               <Text
                 font={{ size: 'medium', weight: 'semi-bold' }}
                 icon="ci-main"
-                iconProps={{ size: 16 }}
+                iconProps={{ size: 24, margin: { right: 'xsmall' } }}
                 margin={{ bottom: 'medium' }}
                 className={css.addStageHeading}
               >
@@ -235,10 +235,11 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
               {!codebase && formikProps.values.cloneCodebase && (
                 <div className={css.configureCodebase}>
                   <Text
-                    font={{ size: 'medium', weight: 'semi-bold' }}
+                    font={{ size: 'normal', weight: 'semi-bold' }}
                     icon="cog"
-                    iconProps={{ size: 18 }}
+                    iconProps={{ size: 16 }}
                     margin={{ bottom: 'medium' }}
+                    style={{ color: 'var(--grey-700)' }}
                   >
                     {getString('pipelineSteps.build.create.configureCodebase')}
                   </Text>
@@ -256,7 +257,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
                     type={['Git', 'Github', 'Gitlab', 'Bitbucket', 'Codecommit']}
                     selected={formikProps.values.connectorRef}
                     label={getString('connector')}
-                    width={382}
+                    width={366}
                     placeholder={loading ? getString('loading') : getString('connectors.selectConnector')}
                     disabled={loading || isReadonly}
                     accountIdentifier={accountId}

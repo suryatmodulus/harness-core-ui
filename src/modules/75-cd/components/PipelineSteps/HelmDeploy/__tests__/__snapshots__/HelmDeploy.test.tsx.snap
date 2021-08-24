@@ -109,7 +109,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view  1`] = `
             class="bp3-label"
             for="timeout"
           >
-            pipelineSteps.timeoutLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="helmDeploy_timeout"
+            >
+              pipelineSteps.timeoutLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -170,8 +175,8 @@ exports[`Test K8sBlueGreenDeployStep should render edit view  1`] = `
           </div>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-          id="configureOptions"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+          id="configureOptions_step.timeout"
           type="button"
         >
           <span
@@ -307,7 +312,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view as new step 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            pipelineSteps.timeoutLabel
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="helmDeploy_timeout"
+            >
+              pipelineSteps.timeoutLabel
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -383,7 +393,12 @@ exports[`Test K8sBlueGreenDeployStep should render edit view for inputset 1`] = 
           class="bp3-label"
           for=".timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_.timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"

@@ -9,7 +9,8 @@ import {
   MultiTypeInputType,
   DataTooltipInterface,
   HarnessDocTooltip,
-  FormError
+  FormError,
+  FormikTooltipContext
 } from '@wings-software/uicore'
 import { connect } from 'formik'
 import { get } from 'lodash-es'
@@ -136,6 +137,9 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
       onBlur: () => formik?.setFieldTouched(name)
     }
   }
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
 
   const labelToPass = isOptional ? `${label} (Optional)` : label
   return (
@@ -145,13 +149,7 @@ export const FormMultiTypeTextArea: React.FC<FormMultiTypeTextAreaProps> = props
       helperText={helperText}
       intent={intent}
       disabled={disabled}
-      label={
-        labelToPass ? (
-          <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={labelToPass} />
-        ) : (
-          labelToPass
-        )
-      }
+      label={labelToPass ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelToPass} /> : labelToPass}
     >
       <MultiTypeTextArea
         value={value}

@@ -13,7 +13,8 @@ import {
   MultiTypeInputType,
   DataTooltipInterface,
   HarnessDocTooltip,
-  FormError
+  FormError,
+  FormikTooltipContext
 } from '@wings-software/uicore'
 import { get } from 'lodash-es'
 import * as Yup from 'yup'
@@ -182,7 +183,9 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
       onBlur: handleBlur
     }
   }
-
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
   return (
     <FormGroup
       {...rest}
@@ -190,9 +193,7 @@ export function FormMultiTypeDuration(props: FormMultiTypeDurationProps): React.
       helperText={helperText}
       intent={intent}
       disabled={disabled}
-      label={
-        labelText ? <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={labelText} /> : labelText
-      }
+      label={labelText ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelText} /> : labelText}
     >
       <MultiTypeDuration {...customProps} value={value} onChange={handleChange} disabled={disabled} />
     </FormGroup>

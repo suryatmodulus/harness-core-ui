@@ -1,0 +1,79 @@
+.card {
+  width: 300px;
+  min-height: 300px;
+  border-radius: 1px;
+
+  margin: 20px;
+}
+
+.argoLogo {
+  height: 70px;
+}
+
+.launch {
+  margin: 20px 0;
+}
+
+.footer {
+  margin-top: 20px;
+  position: absolute;
+  bottom: 1.25rem;
+}
+
+.title {
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.main {
+  max-height: 100vh;
+
+  $header-height: 80px;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: $header-height;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-200);
+    padding: var(--spacing-medium) var(--spacing-large);
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .addProviderHeader {
+    padding: var(--spacing-large) !important;
+    border-bottom: 1px solid var(--grey-300);
+    background: var(--white) !important;
+
+    .expandSearch {
+      width: 200px;
+      display: flex;
+      justify-content: flex-end;
+
+      :global {
+        input[type='search'] {
+          border: 0;
+        }
+        input[type='search']:focus {
+          border: 1px solid var(--grey-200);
+          border-radius: 5px !important;
+        }
+      }
+    }
+  }
+
+  .providerContainer {
+    display: flex;
+    justify-content: space-between;
+
+    margin: 20px 0;
+  }
+
+  .content {
+    height: calc(100vh - #{$header-height});
+  }
+}

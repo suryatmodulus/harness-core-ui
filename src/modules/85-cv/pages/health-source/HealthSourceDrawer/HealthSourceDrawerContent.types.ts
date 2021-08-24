@@ -5,7 +5,8 @@ import type {
   MonitoredServiceResponse,
   PrometheusHealthSourceSpec,
   NewRelicHealthSourceSpec,
-  StackdriverMetricHealthSourceSpec
+  StackdriverMetricHealthSourceSpec,
+  SplunkHealthSourceSpec
 } from 'services/cv'
 import type { GCOLogsHealthSourceSpec } from '../connectors/GCOLogsMonitoringSource/components/MapQueriesToHarnessService/types'
 
@@ -16,6 +17,7 @@ export interface UpdatedHealthSource extends Omit<HealthSource, 'spec'> {
     | PrometheusHealthSourceSpec
     | NewRelicHealthSourceSpec
     | StackdriverMetricHealthSourceSpec
+    | SplunkHealthSourceSpec
 }
 
 export interface RowData extends HealthSource {

@@ -436,6 +436,10 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                                 </span>
                               </span>
                             </div>
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="helmWithGit_skipResourceVersioning"
+                            />
                           </div>
                         </div>
                         <span
@@ -480,13 +484,18 @@ exports[`helm with GIT tests expand advanced section 1`] = `
                             <div
                               class="formLabel"
                             >
-                              <div
-                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="helmWithGit_commandFlags"
                               >
-                                <div>
-                                  pipeline.manifestType.helmCommandFlagLabel
+                                <div
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+                                >
+                                  <div>
+                                    pipeline.manifestType.helmCommandFlagLabel
+                                  </div>
                                 </div>
-                              </div>
+                              </span>
                             </div>
                              
                             <span
@@ -696,7 +705,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -725,7 +734,7 @@ exports[`helm with GIT tests expand advanced section 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -1142,7 +1151,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -1171,7 +1180,7 @@ exports[`helm with GIT tests renders correctly in edit case 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -1588,7 +1597,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -1617,7 +1626,7 @@ exports[`helm with GIT tests renders while adding step first time 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -2034,7 +2043,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -2063,7 +2072,7 @@ exports[`helm with GIT tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span

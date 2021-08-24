@@ -12,7 +12,7 @@ exports[`Test PipelineNotifications should test render 1`] = `
         class="Layout--horizontal StyledProps--main headerActions StyledProps--flex"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           id="newNotificationBtn"
           type="button"
         >

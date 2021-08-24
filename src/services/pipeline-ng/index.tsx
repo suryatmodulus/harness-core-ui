@@ -143,7 +143,7 @@ export type AuditFilterProperties = FilterProperties & {
   )[]
   endTime?: number
   environments?: Environment[]
-  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS')[]
+  modules?: ('CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE')[]
   principals?: Principal[]
   resources?: ResourceDTO[]
   scopes?: ResourceScopeDTO[]
@@ -213,6 +213,10 @@ export type BitbucketPushSpec = BitbucketEventSpec & {
 export type BitbucketSpec = WebhookTriggerSpecV2 & {
   spec?: BitbucketEventSpec
   type?: 'PullRequest' | 'Push'
+}
+
+export interface BuildDetails {
+  buildType?: string
 }
 
 export interface BuildStoreTypeSpec {
@@ -1601,7 +1605,14 @@ export interface FilterDTO {
 }
 
 export interface FilterProperties {
-  filterType?: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  filterType?:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
   tags?: {
     [key: string]: string
   }
@@ -1758,9 +1769,9 @@ export type HarnessApprovalInstanceDetails = ApprovalInstanceDetailsDTO & {
 export type HelmManifestSpec = ManifestTypeSpec & {
   chartName?: string
   chartVersion?: string
-  eventDataConditions?: TriggerEventDataCondition[]
+  eventConditions?: TriggerEventDataCondition[]
   spec?: BuildStoreTypeSpec
-  type?: 'HTTP'
+  type?: 'HTTP' | 'S3' | 'GCS'
 }
 
 export type HttpBuildStoreTypeSpec = BuildStoreTypeSpec & { [key: string]: any }
@@ -2126,6 +2137,7 @@ export interface NGTriggerConfigV2 {
 }
 
 export interface NGTriggerDetailsResponse {
+  buildDetails?: BuildDetails
   description?: string
   enabled?: boolean
   executions?: number[]
@@ -2851,10 +2863,16 @@ export interface RerunInfoOrBuilder {
   unknownFields?: UnknownFieldSet
 }
 
-export interface ResourceConstraintExecutionInfo {
+export interface ResourceConstraintDetail {
   pipelineIdentifier?: string
   planExecutionId?: string
   state?: 'BLOCKED' | 'ACTIVE' | 'FINISHED' | 'REJECTED'
+}
+
+export interface ResourceConstraintExecutionInfo {
+  capacity?: number
+  name?: string
+  resourceConstraints?: ResourceConstraintDetail[]
 }
 
 export interface ResourceDTO {
@@ -3017,13 +3035,6 @@ export interface ResponseListGitlabPRAction {
 export interface ResponseListGitlabTriggerEvent {
   correlationId?: string
   data?: ('MergeRequest' | 'Push')[]
-  metaData?: { [key: string]: any }
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-}
-
-export interface ResponseListResourceConstraintExecutionInfo {
-  correlationId?: string
-  data?: ResourceConstraintExecutionInfo[]
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -3508,6 +3519,13 @@ export interface ResponsePlanExecutionResponseDto {
 export interface ResponsePreFlightDTO {
   correlationId?: string
   data?: PreFlightDTO
+  metaData?: { [key: string]: any }
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+}
+
+export interface ResponseResourceConstraintExecutionInfo {
+  correlationId?: string
+  data?: ResourceConstraintExecutionInfo
   metaData?: { [key: string]: any }
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
 }
@@ -4194,7 +4212,7 @@ export type MergeInputSetRequestRequestBody = MergeInputSetRequest
 
 export type NGTriggerConfigV2RequestBody = NGTriggerConfigV2
 
-export type WebhookEndpointBodyRequestBody = string
+export type CustomWebhookEndpointBodyRequestBody = string
 
 export interface GetInitialStageYamlSnippetQueryParams {
   approvalType: 'HarnessApproval' | 'JiraApproval'
@@ -4626,7 +4644,7 @@ export interface GetFilterListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
 }
 
 export type GetFilterListProps = Omit<
@@ -4778,7 +4796,7 @@ export interface DeleteFilterQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
 }
 
 export type DeleteFilterProps = Omit<
@@ -4831,7 +4849,7 @@ export interface GetFilterQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
 }
 
 export interface GetFilterPathParams {
@@ -7769,7 +7787,7 @@ export interface GetResourceConstraintsExecutionInfoQueryParams {
 
 export type GetResourceConstraintsExecutionInfoProps = Omit<
   GetProps<
-    ResponseListResourceConstraintExecutionInfo,
+    ResponseResourceConstraintExecutionInfo,
     Failure | Error,
     GetResourceConstraintsExecutionInfoQueryParams,
     void
@@ -7778,15 +7796,10 @@ export type GetResourceConstraintsExecutionInfoProps = Omit<
 >
 
 /**
- * Gets resource constraints execution info list
+ * Gets resource constraints execution info
  */
 export const GetResourceConstraintsExecutionInfo = (props: GetResourceConstraintsExecutionInfoProps) => (
-  <Get<
-    ResponseListResourceConstraintExecutionInfo,
-    Failure | Error,
-    GetResourceConstraintsExecutionInfoQueryParams,
-    void
-  >
+  <Get<ResponseResourceConstraintExecutionInfo, Failure | Error, GetResourceConstraintsExecutionInfoQueryParams, void>
     path={`/resource-constraints/executionInfo`}
     base={getConfig('pipeline/api')}
     {...props}
@@ -7795,7 +7808,7 @@ export const GetResourceConstraintsExecutionInfo = (props: GetResourceConstraint
 
 export type UseGetResourceConstraintsExecutionInfoProps = Omit<
   UseGetProps<
-    ResponseListResourceConstraintExecutionInfo,
+    ResponseResourceConstraintExecutionInfo,
     Failure | Error,
     GetResourceConstraintsExecutionInfoQueryParams,
     void
@@ -7804,22 +7817,22 @@ export type UseGetResourceConstraintsExecutionInfoProps = Omit<
 >
 
 /**
- * Gets resource constraints execution info list
+ * Gets resource constraints execution info
  */
 export const useGetResourceConstraintsExecutionInfo = (props: UseGetResourceConstraintsExecutionInfoProps) =>
   useGet<
-    ResponseListResourceConstraintExecutionInfo,
+    ResponseResourceConstraintExecutionInfo,
     Failure | Error,
     GetResourceConstraintsExecutionInfoQueryParams,
     void
   >(`/resource-constraints/executionInfo`, { base: getConfig('pipeline/api'), ...props })
 
 /**
- * Gets resource constraints execution info list
+ * Gets resource constraints execution info
  */
 export const getResourceConstraintsExecutionInfoPromise = (
   props: GetUsingFetchProps<
-    ResponseListResourceConstraintExecutionInfo,
+    ResponseResourceConstraintExecutionInfo,
     Failure | Error,
     GetResourceConstraintsExecutionInfoQueryParams,
     void
@@ -7827,7 +7840,7 @@ export const getResourceConstraintsExecutionInfoPromise = (
   signal?: RequestInit['signal']
 ) =>
   getUsingFetch<
-    ResponseListResourceConstraintExecutionInfo,
+    ResponseResourceConstraintExecutionInfo,
     Failure | Error,
     GetResourceConstraintsExecutionInfoQueryParams,
     void
@@ -8497,7 +8510,13 @@ export interface CustomWebhookEndpointQueryParams {
 }
 
 export type CustomWebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  MutateProps<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -8505,7 +8524,7 @@ export type CustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const CustomWebhookEndpoint = (props: CustomWebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/custom`}
     base={getConfig('pipeline/api')}
@@ -8518,7 +8537,7 @@ export type UseCustomWebhookEndpointProps = Omit<
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   'path' | 'verb'
@@ -8528,11 +8547,13 @@ export type UseCustomWebhookEndpointProps = Omit<
  * accept custom webhook event
  */
 export const useCustomWebhookEndpoint = (props: UseCustomWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, CustomWebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
-    'POST',
-    `/webhook/custom`,
-    { base: getConfig('pipeline/api'), ...props }
-  )
+  useMutate<
+    ResponseString,
+    Failure | Error,
+    CustomWebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >('POST', `/webhook/custom`, { base: getConfig('pipeline/api'), ...props })
 
 /**
  * accept custom webhook event
@@ -8542,7 +8563,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
@@ -8551,7 +8572,7 @@ export const customWebhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     CustomWebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >('POST', getConfig('pipeline/api'), `/webhook/custom`, props, signal)
 
@@ -8864,7 +8885,7 @@ export interface WebhookEndpointQueryParams {
 }
 
 export type WebhookEndpointProps = Omit<
-  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  MutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>,
   'path' | 'verb'
 >
 
@@ -8872,7 +8893,7 @@ export type WebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const WebhookEndpoint = (props: WebhookEndpointProps) => (
-  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>
+  <Mutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>
     verb="POST"
     path={`/webhook/trigger`}
     base={getConfig('pipeline/api')}
@@ -8881,7 +8902,13 @@ export const WebhookEndpoint = (props: WebhookEndpointProps) => (
 )
 
 export type UseWebhookEndpointProps = Omit<
-  UseMutateProps<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>,
+  UseMutateProps<
+    ResponseString,
+    Failure | Error,
+    WebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >,
   'path' | 'verb'
 >
 
@@ -8889,7 +8916,7 @@ export type UseWebhookEndpointProps = Omit<
  * accept webhook event
  */
 export const useWebhookEndpoint = (props: UseWebhookEndpointProps) =>
-  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
+  useMutate<ResponseString, Failure | Error, WebhookEndpointQueryParams, CustomWebhookEndpointBodyRequestBody, void>(
     'POST',
     `/webhook/trigger`,
     { base: getConfig('pipeline/api'), ...props }
@@ -8903,18 +8930,18 @@ export const webhookEndpointPromise = (
     ResponseString,
     Failure | Error,
     WebhookEndpointQueryParams,
-    WebhookEndpointBodyRequestBody,
+    CustomWebhookEndpointBodyRequestBody,
     void
   >,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<ResponseString, Failure | Error, WebhookEndpointQueryParams, WebhookEndpointBodyRequestBody, void>(
-    'POST',
-    getConfig('pipeline/api'),
-    `/webhook/trigger`,
-    props,
-    signal
-  )
+  mutateUsingFetch<
+    ResponseString,
+    Failure | Error,
+    WebhookEndpointQueryParams,
+    CustomWebhookEndpointBodyRequestBody,
+    void
+  >('POST', getConfig('pipeline/api'), `/webhook/trigger`, props, signal)
 
 export interface TriggerProcessingDetailsQueryParams {
   accountIdentifier: string

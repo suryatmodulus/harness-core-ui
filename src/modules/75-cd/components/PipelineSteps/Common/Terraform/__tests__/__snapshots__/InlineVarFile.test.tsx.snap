@@ -101,7 +101,12 @@ exports[`Inline var file testing click submit for inline var file 1`] = `
                 <div
                   class="formLabel"
                 >
-                  pipelineSteps.content
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="inlineVarFileForm_varFile.spec.content"
+                  >
+                    pipelineSteps.content
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -109,7 +114,7 @@ exports[`Inline var file testing click submit for inline var file 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -131,11 +136,6 @@ exports[`Inline var file testing click submit for inline var file 1`] = `
                               />
                             </svg>
                           </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
-                          </span>
                         </span>
                       </button>
                     </div>
@@ -153,7 +153,7 @@ exports[`Inline var file testing click submit for inline var file 1`] = `
                   class="monacoWrapper"
                 >
                   <button
-                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -312,7 +312,12 @@ exports[`Inline var file testing edit view for inline vars 1`] = `
                 <div
                   class="formLabel"
                 >
-                  pipelineSteps.content
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="inlineVarFileForm_varFile.spec.content"
+                  >
+                    pipelineSteps.content
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -320,7 +325,7 @@ exports[`Inline var file testing edit view for inline vars 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -342,11 +347,6 @@ exports[`Inline var file testing edit view for inline vars 1`] = `
                               />
                             </svg>
                           </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
-                          </span>
                         </span>
                       </button>
                     </div>
@@ -364,7 +364,7 @@ exports[`Inline var file testing edit view for inline vars 1`] = `
                   class="monacoWrapper"
                 >
                   <button
-                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -523,7 +523,12 @@ exports[`Inline var file testing initial render 1`] = `
                 <div
                   class="formLabel"
                 >
-                  pipelineSteps.content
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="inlineVarFileForm_varFile.spec.content"
+                  >
+                    pipelineSteps.content
+                  </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
                   >
@@ -531,7 +536,7 @@ exports[`Inline var file testing initial render 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -553,11 +558,6 @@ exports[`Inline var file testing initial render 1`] = `
                               />
                             </svg>
                           </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.FIXED
-                          </span>
                         </span>
                       </button>
                     </div>
@@ -575,7 +575,7 @@ exports[`Inline var file testing initial render 1`] = `
                   class="monacoWrapper"
                 >
                   <button
-                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -732,12 +732,11 @@ exports[`Inline var file testing when content is runtime input 1`] = `
                 <div
                   class="formLabel"
                 >
-                  <span>
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="inlineVarFileForm_varFile.spec.content"
+                  >
                     pipelineSteps.content
-                     
-                    <b>
-                      &lt;+input&gt;
-                    </b>
                   </span>
                   <div
                     class="bp3-popover-wrapper typeSelectorWrapper"
@@ -746,7 +745,7 @@ exports[`Inline var file testing when content is runtime input 1`] = `
                       class="bp3-popover-target typeSelector"
                     >
                       <button
-                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                         type="button"
                       >
                         <span
@@ -768,11 +767,6 @@ exports[`Inline var file testing when content is runtime input 1`] = `
                               />
                             </svg>
                           </span>
-                          <span
-                            class="btnText"
-                          >
-                            inputTypes.RUNTIME
-                          </span>
                         </span>
                       </button>
                     </div>
@@ -785,11 +779,34 @@ exports[`Inline var file testing when content is runtime input 1`] = `
               </label>
               <div
                 class="bp3-form-content"
-              />
+              >
+                <div
+                  class="bp3-form-group bp3-disabled runtimeDisabled"
+                  data-id="varFile.spec.content-2"
+                >
+                  
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group bp3-disabled"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        disabled=""
+                        name="varFile.spec.content"
+                        type="text"
+                        value="<+input>"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_varFile.spec.content"
               type="button"
             >
               <span

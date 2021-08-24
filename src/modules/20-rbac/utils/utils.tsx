@@ -29,6 +29,8 @@ export const getRoleIcon = (roleIdentifier: string): IconName => {
     case '_organization_admin':
     case '_project_admin':
       return 'adminRole'
+    case '_pipeline_executor':
+      return 'pipeline-executor'
     default:
       return 'customRole'
   }

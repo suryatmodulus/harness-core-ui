@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Formik, FormikForm, Button } from '@wings-software/uicore'
+import { Container, Formik, FormikForm, Button, Accordion } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
@@ -21,6 +21,7 @@ import {
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import { useVariablesExpression } from '../PiplineHooks/useVariablesExpression'
+import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -83,17 +84,26 @@ export default function CreatePipelines({
               isIdentifierEditable: pipelineIdentifier === DefaultNewPipelineId
             }}
           />
-          <FormMultiTypeDurationField
-            name="timeout"
-            isOptional
-            label={getString('pipelineSteps.timeoutLabel')}
-            multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
-          />
           {isGitSyncEnabled && (
             <GitSyncStoreProvider>
               <GitContextForm formikProps={formikProps} gitDetails={gitDetails} />
             </GitSyncStoreProvider>
           )}
+          <Accordion className={css.optionalConfiguration}>
+            <Accordion.Panel
+              id="optional-config"
+              summary={getString('common.optionalConfig')}
+              details={
+                <FormMultiTypeDurationField
+                  name="timeout"
+                  isOptional
+                  label={getString('pipelineSteps.timeoutLabel')}
+                  multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
+                />
+              }
+            />
+          </Accordion>
+
           <Container padding={{ top: 'xlarge' }}>
             <Button intent="primary" type="submit" text={isEdit ? getString('save') : getString('start')} />
             &nbsp; &nbsp;

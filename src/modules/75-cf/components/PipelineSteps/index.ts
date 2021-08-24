@@ -1,4 +1,7 @@
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
+import { isFFPipelinesEnabled } from '@cf/utils/pipelinesEnabled'
 import { FlagConfigurationStep } from './FlagConfigurationStep/FlagConfigurationStep'
 
-factory.registerStep(new FlagConfigurationStep())
+if (isFFPipelinesEnabled()) {
+  factory.registerStep(new FlagConfigurationStep())
+}

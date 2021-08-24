@@ -73,7 +73,7 @@ exports[`SUCCESS show tabs when data is present and authorized: jira approval ex
         class="bp3-flex-expander"
       />
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
         style="transform: translateY(-5px);"
         type="button"
       >

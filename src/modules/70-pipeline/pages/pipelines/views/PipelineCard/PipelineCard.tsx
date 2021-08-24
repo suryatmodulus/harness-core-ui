@@ -192,7 +192,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
         }}
       />
       <Menu.Divider />
-      <Menu.Item
+      {/* <Menu.Item
         icon="duplicate"
         text={getString('projectCard.clone')}
         disabled
@@ -200,7 +200,7 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
           e.stopPropagation()
           return false
         }}
-      />
+      /> */}
       <Menu.Item
         icon="trash"
         text={getString('delete')}

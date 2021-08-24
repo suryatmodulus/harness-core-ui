@@ -95,7 +95,12 @@ exports[`Test terraform input set should render edit view as new step 1`] = `
                   class="bp3-label"
                   for="timeout"
                 >
-                  pipelineSteps.timeoutLabel
+                  <span
+                    class="Tooltip--acenter"
+                    data-tooltip-id="wrapperComponentTestForm_timeout"
+                  >
+                    pipelineSteps.timeoutLabel
+                  </span>
                    
                   <span
                     class="bp3-text-muted"

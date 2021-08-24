@@ -203,11 +203,11 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
         </div>
         <div>
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--alwaysExpanded"
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main searchInput  ExpandingSearchInput--alwaysExpanded ExpandingSearchInput--light"
             data-name=""
           >
             <span
-              class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
               data-icon="thinner-search"
             >
               <svg
@@ -229,7 +229,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
               class="bp3-input  ExpandingSearchInput--find"
               dir="auto"
               placeholder="Find..."
-              style="padding-right: 134px;"
+              style="padding-right: 130px;"
               type="search"
               value=""
             />
@@ -377,7 +377,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                               tabindex="0"
                               type="button"
                             >
@@ -437,7 +437,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             class="bp3-popover-target"
                           >
                             <button
-                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                               tabindex="0"
                               type="button"
                             >
@@ -579,7 +579,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                             >
                               <div />
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                 type="button"
                               >
                                 <span
@@ -632,7 +632,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -728,7 +728,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                           data-testid="edit-variable-0"
                                           tabindex="0"
                                           type="button"
@@ -764,7 +764,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                           data-testid="delete-variable-0"
                                           tabindex="0"
                                           type="button"
@@ -814,7 +814,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -910,7 +910,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                           data-testid="edit-variable-1"
                                           tabindex="0"
                                           type="button"
@@ -946,7 +946,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                         class="bp3-popover-target"
                                       >
                                         <button
-                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                           data-testid="delete-variable-1"
                                           tabindex="0"
                                           type="button"
@@ -1108,7 +1108,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -1168,7 +1168,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -1314,7 +1314,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                         type="button"
                                       >
                                         <span
@@ -1367,7 +1367,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="bp3-popover-target"
                                           >
                                             <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -1463,7 +1463,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                                   data-testid="edit-variable-0"
                                                   tabindex="0"
                                                   type="button"
@@ -1499,7 +1499,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                                   data-testid="delete-variable-0"
                                                   tabindex="0"
                                                   type="button"
@@ -1549,7 +1549,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="bp3-popover-target"
                                           >
                                             <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -1645,7 +1645,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                                   data-testid="edit-variable-1"
                                                   tabindex="0"
                                                   type="button"
@@ -1681,7 +1681,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                 class="bp3-popover-target"
                                               >
                                                 <button
-                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                                   data-testid="delete-variable-1"
                                                   tabindex="0"
                                                   type="button"
@@ -1835,7 +1835,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="bp3-popover-target"
                                           >
                                             <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -2296,7 +2296,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -2356,7 +2356,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -2520,7 +2520,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -2680,7 +2680,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                             class="bp3-popover-target"
                                                           >
                                                             <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -2740,7 +2740,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                             class="bp3-popover-target"
                                                           >
                                                             <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -2904,7 +2904,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                             class="bp3-popover-target"
                                                           >
                                                             <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -2964,7 +2964,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                             class="bp3-popover-target"
                                                           >
                                                             <button
-                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                               tabindex="0"
                                                               type="button"
                                                             >
@@ -3148,7 +3148,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -3208,7 +3208,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -3354,7 +3354,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                         type="button"
                                       >
                                         <span
@@ -3511,7 +3511,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                             class="bp3-popover-target"
                                           >
                                             <button
-                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                               tabindex="0"
                                               type="button"
                                             >
@@ -3972,7 +3972,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -4032,7 +4032,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -4212,7 +4212,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -4272,7 +4272,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -4418,7 +4418,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                         type="button"
                                       >
                                         <span
@@ -4971,7 +4971,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -5031,7 +5031,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -5211,7 +5211,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -5271,7 +5271,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     class="bp3-popover-target"
                                   >
                                     <button
-                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                       tabindex="0"
                                       type="button"
                                     >
@@ -5417,7 +5417,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                     >
                                       <div />
                                       <button
-                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                         type="button"
                                       >
                                         <span
@@ -5970,7 +5970,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >
@@ -6030,7 +6030,7 @@ exports[`<PipelineVariables /> tests snapshot test 1`] = `
                                                     class="bp3-popover-target"
                                                   >
                                                     <button
-                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                                      class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                                       tabindex="0"
                                                       type="button"
                                                     >

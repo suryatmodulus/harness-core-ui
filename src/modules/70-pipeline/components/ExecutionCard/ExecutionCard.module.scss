@@ -123,12 +123,13 @@ $actions-translate: 10px;
 
     & span {
       font-size: var(--font-size-small) !important;
+      color: var(--grey-600) !important;
     }
 
     .triggerInfo {
       display: flex;
       align-items: center;
-      color: var(--grey-900);
+      color: var(--grey-600);
       flex: 1 1 auto;
       overflow: hidden;
     }
@@ -153,11 +154,11 @@ $actions-translate: 10px;
 
       .timerIcon {
         margin-right: var(--spacing-2);
-        color: var(--grey-500) !important;
+        color: var(--grey-600) !important;
       }
 
       & .duration {
-        color: var(--grey-900);
+        color: var(--grey-600);
         white-space: nowrap;
       }
 
@@ -167,7 +168,7 @@ $actions-translate: 10px;
 
         & time {
           font-size: var(--font-size-small);
-          color: var(--grey-900);
+          color: var(--grey-600);
           white-space: nowrap;
         }
       }

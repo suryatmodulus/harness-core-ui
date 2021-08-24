@@ -37,7 +37,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view for inputse
                 style="width: 400px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-.connectorRef"
                   style="width: 400px;"
                   type="button"
@@ -414,7 +414,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with empty 
                     style="width: 450px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-connectorRef"
                       style="width: 450px;"
                       type="button"
@@ -869,8 +869,8 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_connectorRef"
               type="button"
             >
               <span
@@ -970,8 +970,8 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_cluster"
               type="button"
             >
               <span
@@ -1071,8 +1071,8 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with runtim
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_namespace"
               type="button"
             >
               <span
@@ -1209,7 +1209,7 @@ exports[`Test GcpInfrastructureSpec snapshot should render edit view with values
                     style="width: 450px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-connectorRef"
                       style="width: 450px;"
                       type="button"

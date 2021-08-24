@@ -31,6 +31,7 @@ import CreatePerspectivePage from './pages/perspective-builder/CreatePerspective
 import PerspectiveListPage from './pages/perspective-list/PerspectiveListPage'
 import WorkloadDetailsPage from './pages/workload-details/WorkloadDetailsPage'
 import OverviewPage from './pages/overview/OverviewPage'
+import NodeRecommendationDetailsPage from './pages/node-recommendation-details/NodeRecommendationDetailsPage'
 
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
@@ -205,6 +206,18 @@ const CERoutes: React.FC = () => {
         </RouteWithLayout>
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCENodeRecommendationDetails({
+            ...accountPathProps,
+            ...projectPathProps,
+            recommendationName: ':recommendationName',
+            recommendation: ':recommendation'
+          })}
+          exact
+        >
+          <NodeRecommendationDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
           sidebarProps={CESideNavProps}
           path={routes.toPerspectiveDetails({
             ...accountPathProps,

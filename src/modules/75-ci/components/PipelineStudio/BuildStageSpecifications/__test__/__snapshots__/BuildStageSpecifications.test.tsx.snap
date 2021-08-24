@@ -98,29 +98,37 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main"
-                    style="font-size: 13px; font-weight: normal;"
+                    class="Label--main descriptionLabel"
                   >
                     optionalField
                     <span
-                      class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                      class="bp3-icon StyledProps--main editOpen"
+                      data-icon="Edit"
                       data-name="edit"
                       data-testid="description-edit"
-                      icon="edit"
                     >
                       <svg
-                        data-icon="edit"
                         height="12"
-                        viewBox="0 0 16 16"
+                        viewBox="0 0 12 12"
                         width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <desc>
-                          edit
-                        </desc>
-                        <path
-                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                        <g
+                          fill="none"
                           fill-rule="evenodd"
-                        />
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
                       </svg>
                     </span>
                   </label>
@@ -129,29 +137,37 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   class="StyledProps--font StyledProps--main"
                 >
                   <label
-                    class="Label--main"
-                    style="font-size: 13px; font-weight: normal;"
+                    class="Label--main descriptionLabel"
                   >
                     optionalField
                     <span
-                      class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                      class="bp3-icon StyledProps--main editOpen"
+                      data-icon="Edit"
                       data-name="edit"
                       data-testid="tags-edit"
-                      icon="edit"
                     >
                       <svg
-                        data-icon="edit"
                         height="12"
-                        viewBox="0 0 16 16"
+                        viewBox="0 0 12 12"
                         width="12"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <desc>
-                          edit
-                        </desc>
-                        <path
-                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                        <g
+                          fill="none"
                           fill-rule="evenodd"
-                        />
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path
+                            d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                            stroke="#555770"
+                          />
+                          <path
+                            d="M6.583 5.146l2.063-2.063"
+                            opacity="0.3"
+                            stroke="#606170"
+                          />
+                        </g>
                       </svg>
                     </span>
                   </label>
@@ -203,16 +219,21 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                     <div
                       class="formLabel"
                     >
-                      <div
-                        class="Text--withDocsTooltip"
-                        data-tooltip-id="stageSpecificationsSharedPaths"
+                      <span
+                        class="Tooltip--acenter"
+                        data-tooltip-id="ciBuildStage_sharedPaths"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
+                        <div
+                          class="Text--withDocsTooltip"
+                          data-tooltip-id="stageSpecificationsSharedPaths"
                         >
-                          pipelineSteps.build.stageSpecifications.sharedPaths
-                        </p>
-                      </div>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                          >
+                            pipelineSteps.build.stageSpecifications.sharedPaths
+                          </p>
+                        </div>
+                      </span>
                       <div
                         class="bp3-popover-wrapper typeSelectorWrapper"
                       >
@@ -220,7 +241,7 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                           class="bp3-popover-target typeSelector"
                         >
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                             type="button"
                           >
                             <span
@@ -241,11 +262,6 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                                     fill="currentColor"
                                   />
                                 </svg>
-                              </span>
-                              <span
-                                class="btnText"
-                              >
-                                inputTypes.FIXED
                               </span>
                             </span>
                           </button>
@@ -326,12 +342,19 @@ exports[`BuildStageSpecifications tests renders correctly 1`] = `
                   <div
                     class="bp3-card bp3-elevation-0 Card--card sectionCardVariables"
                     id="variables"
+                    style="width: 100%;"
                   >
                     <div
                       class="tabSubHeading"
                     >
                       Stage Variables
                     </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="line-height: 24px;"
+                    >
+                      workflowVariableInfo
+                    </p>
                     <div
                       class="stageSection"
                     >

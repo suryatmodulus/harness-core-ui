@@ -1,1 +1,3 @@
 node_modules
+# ignore sourcemap files
+dist/*/*.map

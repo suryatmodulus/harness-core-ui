@@ -6,8 +6,17 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
 
+export enum GENERIC_ERROR_CODES {
+  INVITE_EXPIRED = 'INVITE_EXPIRED',
+  UNAUTHORIZED = 'UNAUTHORIZED'
+}
 interface GenericErrorPageQueryParams {
-  code: string
+  code?: GENERIC_ERROR_CODES
+  message?: string
+}
+
+interface GenericErrorPageProps {
+  code?: GENERIC_ERROR_CODES
   message?: string
 }
 
@@ -18,11 +27,18 @@ const Error: React.FC<ErrorProps> = ({ code, message }) => {
   const { getString } = useStrings()
 
   switch (code) {
-    case 'INVITE_EXPIRED':
+    case GENERIC_ERROR_CODES.INVITE_EXPIRED:
       return (
         <>
-          <Text>{getString('generic_errors.INVITE_EXPIRED')}</Text>
+          <Text>{getString('common.genericErrors.inviteExpired')}</Text>
           <Link to={routes.toHome({ accountId })}>{getString('goToHome')}</Link>
+          <Icon name="harness-logo-black" size={200} />
+        </>
+      )
+    case GENERIC_ERROR_CODES.UNAUTHORIZED:
+      return (
+        <>
+          <Text>{getString('common.genericErrors.unauthorized')}</Text>
           <Icon name="harness-logo-black" size={200} />
         </>
       )
@@ -31,8 +47,13 @@ const Error: React.FC<ErrorProps> = ({ code, message }) => {
   }
 }
 
-const GenericErrorPage: React.FC = () => {
-  const { code, message } = useQueryParams<GenericErrorPageQueryParams>()
+const GenericErrorPage: React.FC<GenericErrorPageProps> = (props: GenericErrorPageProps) => {
+  let { code, message } = useQueryParams<GenericErrorPageQueryParams>()
+
+  if (!code && !message) {
+    code = props.code
+    message = props.message
+  }
 
   return (
     <Container height="100%" flex={{ align: 'center-center' }}>

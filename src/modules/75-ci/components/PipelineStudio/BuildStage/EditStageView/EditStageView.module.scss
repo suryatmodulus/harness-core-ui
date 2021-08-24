@@ -43,8 +43,8 @@
 
 .configureCodebase {
   border-top: 1px solid rgba(#000, 0.1);
-  padding-top: var(--spacing-medium);
-  margin-top: var(--spacing-medium);
+  padding-top: var(--spacing-xlarge);
+  margin-top: var(--spacing-xlarge);
 }
 
 .repositoryUrl {
@@ -65,7 +65,8 @@
 }
 
 .addStageHeading {
-  color: var(--grey-800);
+  letter-spacing: 0.5px;
+  color: var(--grey-800) !important;
   font-weight: 600 !important;
   line-height: 24px;
 }

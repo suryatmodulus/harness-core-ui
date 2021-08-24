@@ -15,9 +15,13 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-generator-plugin').default
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
+const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
 
 const DEV = process.env.NODE_ENV === 'development'
 const ON_PREM = `${process.env.ON_PREM}` === 'true'
+// this BUGSNAG_TOKEN needs to be same which is passed in the docker file
+const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
+const BUGSNAG_SOURCEMAPS_UPLOAD = `${process.env.BUGSNAG_SOURCEMAPS_UPLOAD}` === 'true'
 const CONTEXT = process.cwd()
 const config = {
   context: CONTEXT,
@@ -31,7 +35,7 @@ const config = {
     chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
     pathinfo: false
   },
-  devtool: DEV ? 'cheap-module-source-map' : false,
+  devtool: DEV ? 'cheap-module-source-map' : 'hidden-source-map',
   devServer: {
     contentBase: false,
     port: 8181,
@@ -244,9 +248,23 @@ const prodOnlyPlugins = [
     inject: false
   })
 ]
-
+if (BUGSNAG_SOURCEMAPS_UPLOAD && BUGSNAG_TOKEN) {
+  prodOnlyPlugins.push(
+    new BugsnagSourceMapUploaderPlugin({
+      apiKey: BUGSNAG_TOKEN,
+      appVersion: require('./package.json').version,
+      publicPath: '*',
+      overwrite: true
+    })
+  )
+}
 config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
 
-console.log({ DEV, FsEvents: process.env.TSC_WATCHFILE === 'UseFsEvents' })
+console.log({
+  DEV,
+  FsEvents: process.env.TSC_WATCHFILE === 'UseFsEvents',
+  BUGSNAG_SOURCEMAPS_UPLOAD,
+  BugsnagTokenPresent: !!BUGSNAG_TOKEN
+})
 
 module.exports = config

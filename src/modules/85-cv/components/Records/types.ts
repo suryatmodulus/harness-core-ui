@@ -6,4 +6,5 @@ export interface RecordsProps {
   data?: any
   loading?: boolean
   error?: any
+  queryNotExecutedMessage?: string
 }

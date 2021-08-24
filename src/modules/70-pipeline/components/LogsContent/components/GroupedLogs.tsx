@@ -43,7 +43,7 @@ export function GroupedLogs(
 
   return (
     <GroupedVirtuoso
-      overscan={5}
+      overscan={50}
       ref={ref}
       groupCounts={groupedCounts}
       followOutput="auto"

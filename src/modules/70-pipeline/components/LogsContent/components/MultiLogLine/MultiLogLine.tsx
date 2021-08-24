@@ -1,6 +1,8 @@
 import React from 'react'
+import { defaultTo } from 'lodash-es'
+
 import { LogLine } from '@common/components/LogViewer/LogLine'
-import { formatDatetoLocale } from '@common/utils/dateUtils'
+import { breakOnLinks } from '@common/components/LinkifyText/LinkifyText'
 
 import { getRegexForSearch } from '../../LogsState/utils'
 import type { LogLineData } from '../../LogsState/types'
@@ -16,7 +18,7 @@ export interface GetTextWithSearchMarkersProps {
 export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): string {
   const { searchText, txt, searchIndices, currentSearchIndex } = props
   if (!searchText) {
-    return txt || ''
+    return defaultTo(txt, '')
   }
 
   if (!txt) {
@@ -29,6 +31,7 @@ export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): 
   const chunks: Array<{ start: number; end: number }> = []
 
   while ((match = searchRegex.exec(txt)) !== null) {
+    /* istanbul ignore else */
     if (searchRegex.lastIndex > match.index) {
       chunks.push({
         start: match.index,
@@ -45,7 +48,7 @@ export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): 
 
   chunks.forEach((chunk, i) => {
     const startShift = highlightedString.length - txt.length
-    const searchIndex = searchIndices?.[i] ?? -1
+    const searchIndex = defaultTo(searchIndices?.[i], -1)
     const openMarkTags = `${highlightedString.slice(
       0,
       chunk.start + startShift
@@ -62,6 +65,37 @@ export function getTextWithSearchMarkers(props: GetTextWithSearchMarkersProps): 
   })
 
   return highlightedString
+}
+
+export function getTextWithSearchMarkersAndLinks(props: GetTextWithSearchMarkersProps): string {
+  const { txt, searchText } = props
+
+  if (!txt) {
+    return ''
+  }
+
+  const searchRegex = getRegexForSearch(defaultTo(searchText, ''))
+
+  let offset = 0
+  return breakOnLinks(txt)
+    .map(textItem => {
+      const matches = searchText ? defaultTo(textItem.content.match(searchRegex), []) : []
+
+      const highligtedText = getTextWithSearchMarkers({
+        ...props,
+        txt: textItem.content,
+        searchIndices: props.searchIndices?.slice(offset)
+      })
+
+      offset += matches.length
+
+      if (textItem.type === 'URL') {
+        return `<a href="${textItem.content}" class="ansi-decoration-link" target="_blank" rel="noreferrer">${highligtedText}</a>`
+      }
+
+      return highligtedText
+    })
+    .join('')
 }
 
 export interface MultiLogLineProps extends LogLineData {
@@ -81,6 +115,8 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
     <div className={css.logLine} style={{ '--char-size': `${limit.toString().length}ch` } as any}>
       <span className={css.lineNumber}>{lineNumber + 1}</span>
       <LogLine
+        skipLinkify
+        className={css.level}
         data={getTextWithSearchMarkers({
           txt: text.level,
           searchText,
@@ -89,9 +125,10 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
         })}
       />
       <span
+        className={css.time}
         dangerouslySetInnerHTML={{
           __html: getTextWithSearchMarkers({
-            txt: formatDatetoLocale(text.time as string),
+            txt: text.time,
             searchText,
             searchIndices: searchIndices?.time,
             currentSearchIndex
@@ -99,7 +136,8 @@ export function MultiLogLine(props: MultiLogLineProps): React.ReactElement {
         }}
       />
       <LogLine
-        data={getTextWithSearchMarkers({
+        skipLinkify
+        data={getTextWithSearchMarkersAndLinks({
           txt: text.out,
           searchText,
           searchIndices: searchIndices?.out,

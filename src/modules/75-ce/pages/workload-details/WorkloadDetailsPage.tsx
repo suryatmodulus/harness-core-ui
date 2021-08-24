@@ -16,7 +16,7 @@ import {
 import { useStrings } from 'framework/strings'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import routes from '@common/RouteDefinitions'
-import { getViewFilterForId, getTimeFilters, GROUP_BY_POD } from '@ce/utils/perspectiveUtils'
+import { getViewFilterForId, getTimeFilters, GROUP_BY_POD, getTimeRangeFilter } from '@ce/utils/perspectiveUtils'
 import CloudCostInsightChart from '@ce/components/CloudCostInsightChart/CloudCostInsightChart'
 import { CCM_CHART_TYPES } from '@ce/constants'
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
@@ -30,7 +30,6 @@ import {
 import { CCM_PAGE_TYPE } from '@ce/types'
 import PerspectiveGrid from '@ce/components/PerspectiveGrid/PerspectiveGrid'
 import { Page } from '@common/exports'
-import { TimeGranularityDropDown } from '@ce/components/PersepectiveExplorerFilters/PerspectiveExplorerFilters'
 import WorkloadSummary from '@ce/components/WorkloadSummary/WorkloadSummary'
 import EmptyView from '@ce/images/empty-state.svg'
 import { Aggregation, AggregationFunctionMapping } from './constants'
@@ -61,12 +60,18 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
 
   const [chartDataAggregation, setChartDataAggregation] = useState<Aggregation>(Aggregation.TimeWeighted)
 
-  const [aggregation, setAggregation] = useState<QlceViewTimeGroupType>(QlceViewTimeGroupType.Day)
-
   const [timeRange, setTimeRange] = useState<{ to: string; from: string }>({
     to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
     from: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[0].format(CE_DATE_FORMAT_INTERNAL)
   })
+
+  const isDateRangeInLast7Days = useMemo(() => {
+    const last7DaysRange = DATE_RANGE_SHORTCUTS['LAST_7_DAYS']
+    return (
+      getGMTStartDateTime(timeRange.from) >= getGMTStartDateTime(last7DaysRange[0].format(CE_DATE_FORMAT_INTERNAL)) &&
+      getGMTEndDateTime(timeRange.to) <= getGMTEndDateTime(last7DaysRange[1].format(CE_DATE_FORMAT_INTERNAL))
+    )
+  }, [timeRange])
 
   const filters = useMemo(() => {
     const commonFilters = [
@@ -126,6 +131,15 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
   const [chartResult] = useFetchWorkloadTimeSeriesQuery({
     variables: {
       filters: filters,
+      groupBy: [
+        getTimeRangeFilter(isDateRangeInLast7Days ? QlceViewTimeGroupType.Hour : QlceViewTimeGroupType.Day),
+        {
+          entityGroupBy: { fieldId: 'workloadName', fieldName: 'Workload', identifier: ViewFieldIdentifier.Cluster }
+        } as any,
+        {
+          entityGroupBy: { fieldId: 'clusterName', fieldName: 'Cluster Name', identifier: ViewFieldIdentifier.Cluster }
+        } as any
+      ],
       isClusterQuery,
       aggregateFunction: AggregationFunctionMapping[chartDataAggregation]
     }
@@ -196,8 +210,6 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
         <Container flex background="white" padding="small">
           <FlexExpander />
           <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />
-          <Text color="primary7">|</Text>
-          <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />
         </Container>
         <Container padding="large">
           <WorkloadSummary
@@ -248,7 +260,7 @@ const WorkloadDetailsPage: () => JSX.Element = () => {
                 columnSequence={[]}
                 fetching={chartFetching}
                 data={chartData?.perspectiveTimeSeriesStats as any}
-                aggregation={aggregation}
+                aggregation={isDateRangeInLast7Days ? QlceViewTimeGroupType.Hour : QlceViewTimeGroupType.Day}
                 xAxisPointCount={DAYS_FOR_TICK_INTERVAL + 1}
               />
             </Container>

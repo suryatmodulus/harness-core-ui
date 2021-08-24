@@ -508,6 +508,36 @@ export type AwsManualConfigSpec = AwsCredentialSpec & {
   secretKeyRef: string
 }
 
+export type AwsSMCredentialSpecAssumeIAM = AwsSecretManagerCredentialSpec & { [key: string]: any }
+
+export type AwsSMCredentialSpecAssumeSTS = AwsSecretManagerCredentialSpec & {
+  assumeStsRoleDuration?: number
+  externalId?: string
+  roleArn: string
+}
+
+export type AwsSMCredentialSpecManualConfig = AwsSecretManagerCredentialSpec & {
+  accessKey: string
+  secretKey: string
+}
+
+export interface AwsSecretManagerCredential {
+  spec?: AwsSecretManagerCredentialSpec
+  type: 'AssumeIAMRole' | 'AssumeSTSRole' | 'ManualConfig'
+}
+
+export interface AwsSecretManagerCredentialSpec {
+  [key: string]: any
+}
+
+export type AwsSecretManagerDTO = ConnectorConfigDTO & {
+  credential: AwsSecretManagerCredential
+  default?: boolean
+  delegateSelectors?: string[]
+  region: string
+  secretNamePrefix?: string
+}
+
 export type AzureDevOpsSCMDTO = SourceCodeManagerDTO & {
   authentication?: GithubAuthentication
 }
@@ -647,11 +677,13 @@ export interface BuildSpec {
 }
 
 export type CDLicenseSummaryDTO = LicensesWithSummaryDTO & {
+  totalServiceInstances?: number
   totalWorkload?: number
 }
 
 export type CDModuleLicenseDTO = ModuleLicenseDTO & {
-  deploymentsPerDay?: number
+  cdLicenseType?: 'SERVICES' | 'SERVICE_INSTANCES'
+  serviceInstances?: number
   workloads?: number
 }
 
@@ -794,6 +826,7 @@ export interface ConnectorCatalogueItem {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -860,6 +893,7 @@ export type ConnectorFilterProperties = FilterProperties & {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -903,6 +937,7 @@ export interface ConnectorInfoDTO {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -957,6 +992,7 @@ export interface ConnectorTypeStatistics {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -1096,6 +1132,15 @@ export interface DelegateConfiguration {
   delegateVersions?: string[]
 }
 
+export type DelegateFilterProperties = FilterProperties & {
+  delegateGroupIdentifier?: string
+  delegateName?: string
+  delegateType?: string
+  description?: string
+  hostName?: string
+  status?: 'ENABLED' | 'WAITING_FOR_APPROVAL' | 'DISABLED' | 'DELETED'
+}
+
 export interface DelegateMetaInfo {
   hostName?: string
   id?: string
@@ -1119,6 +1164,25 @@ export interface DelegateProfileDetailsNg {
   selectors?: string[]
   startupScript?: string
   uuid?: string
+}
+
+export interface DelegateProfileFilterProperties {
+  approvalRequired?: boolean
+  description?: string
+  filterType?:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
+  identifier?: string
+  name?: string
+  selectors?: string[]
+  tags?: {
+    [key: string]: string
+  }
 }
 
 export interface DelegateResponseData {
@@ -2180,7 +2244,14 @@ export interface FilterDTO {
 }
 
 export interface FilterProperties {
-  filterType?: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  filterType?:
+    | 'Connector'
+    | 'DelegateProfile'
+    | 'Delegate'
+    | 'PipelineSetup'
+    | 'PipelineExecution'
+    | 'Deployment'
+    | 'Audit'
   tags?: {
     [key: string]: string
   }
@@ -2200,6 +2271,7 @@ export interface GatewayAccountRequestDTO {
   accountName?: string
   companyName?: string
   createdFromNG?: boolean
+  defaultExperience?: 'NG' | 'CG'
   nextGenEnabled?: boolean
   uuid?: string
 }
@@ -3274,6 +3346,7 @@ export interface LicensesWithSummaryDTO {
   edition?: 'FREE' | 'TEAM' | 'ENTERPRISE'
   licenseType?: 'TRIAL' | 'PAID'
   maxExpiryTime?: number
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
 export interface Limits {
@@ -3356,7 +3429,7 @@ export interface ModuleLicenseDTO {
   id?: string
   lastModifiedAt?: number
   licenseType?: 'TRIAL' | 'PAID'
-  moduleType?: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   startTime?: number
   status?: 'ACTIVE' | 'DELETED' | 'EXPIRED'
 }
@@ -6052,7 +6125,7 @@ export interface StageWhenCondition {
 }
 
 export interface StartTrialDTO {
-  moduleType: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
 export interface StepCategory {
@@ -6659,7 +6732,7 @@ export type UserFilterRequestBody = UserFilter
 
 export type UserGroupDTORequestBody = UserGroupDTO
 
-export type SubscribeBodyRequestBody = string[]
+export type UnsubscribeBodyRequestBody = string[]
 
 export type UpdateWhitelistedDomainsBodyRequestBody = string[]
 
@@ -10121,6 +10194,7 @@ export interface GetConnectorListQueryParams {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -10397,6 +10471,7 @@ export interface GetAllAllowedFieldValuesQueryParams {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -13659,7 +13734,7 @@ export interface GetFilterListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
 }
 
 export type GetFilterListProps = Omit<
@@ -13811,7 +13886,7 @@ export interface DeleteFilterQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
 }
 
 export type DeleteFilterProps = Omit<
@@ -13864,7 +13939,7 @@ export interface GetFilterQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
-  type: 'Connector' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
+  type: 'Connector' | 'DelegateProfile' | 'Delegate' | 'PipelineSetup' | 'PipelineExecution' | 'Deployment' | 'Audit'
 }
 
 export interface GetFilterPathParams {
@@ -15505,7 +15580,7 @@ export const validateJiraCredentialsPromise = (
 
 export interface GetModuleLicenseByAccountAndModuleTypeQueryParams {
   accountIdentifier: string
-  moduleType: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
 export type GetModuleLicenseByAccountAndModuleTypeProps = Omit<
@@ -15669,7 +15744,7 @@ export const extendTrialLicensePromise = (
   >('POST', getConfig('ng/api'), `/licenses/extend-trial`, props, signal)
 
 export interface GetModuleLicensesByAccountAndModuleTypeQueryParams {
-  moduleType: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
 export interface GetModuleLicensesByAccountAndModuleTypePathParams {
@@ -15821,7 +15896,7 @@ export const startTrialLicensePromise = (
   >('POST', getConfig('ng/api'), `/licenses/trial`, props, signal)
 
 export interface GetLicensesAndSummaryQueryParams {
-  moduleType: 'CD' | 'CI' | 'CV' | 'CE' | 'CF'
+  moduleType: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
 }
 
 export interface GetLicensesAndSummaryPathParams {
@@ -16632,9 +16707,9 @@ export interface ProcessPollingResultNgPathParams {
 export type ProcessPollingResultNgProps = Omit<
   MutateProps<
     void,
-    void,
+    Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -16642,7 +16717,13 @@ export type ProcessPollingResultNgProps = Omit<
   ProcessPollingResultNgPathParams
 
 export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPollingResultNgProps) => (
-  <Mutate<void, void, ProcessPollingResultNgQueryParams, SubscribeBodyRequestBody, ProcessPollingResultNgPathParams>
+  <Mutate<
+    void,
+    Failure | Error,
+    ProcessPollingResultNgQueryParams,
+    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgPathParams
+  >
     verb="POST"
     path={`/polling/delegate-response/${perpetualTaskId}`}
     base={getConfig('ng/api')}
@@ -16653,9 +16734,9 @@ export const ProcessPollingResultNg = ({ perpetualTaskId, ...props }: ProcessPol
 export type UseProcessPollingResultNgProps = Omit<
   UseMutateProps<
     void,
-    void,
+    Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >,
   'path' | 'verb'
@@ -16663,7 +16744,13 @@ export type UseProcessPollingResultNgProps = Omit<
   ProcessPollingResultNgPathParams
 
 export const useProcessPollingResultNg = ({ perpetualTaskId, ...props }: UseProcessPollingResultNgProps) =>
-  useMutate<void, void, ProcessPollingResultNgQueryParams, SubscribeBodyRequestBody, ProcessPollingResultNgPathParams>(
+  useMutate<
+    void,
+    Failure | Error,
+    ProcessPollingResultNgQueryParams,
+    UnsubscribeBodyRequestBody,
+    ProcessPollingResultNgPathParams
+  >(
     'POST',
     (paramsInPath: ProcessPollingResultNgPathParams) => `/polling/delegate-response/${paramsInPath.perpetualTaskId}`,
     { base: getConfig('ng/api'), pathParams: { perpetualTaskId }, ...props }
@@ -16675,25 +16762,28 @@ export const processPollingResultNgPromise = (
     ...props
   }: MutateUsingFetchProps<
     void,
-    void,
+    Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   > & { perpetualTaskId: string },
   signal?: RequestInit['signal']
 ) =>
   mutateUsingFetch<
     void,
-    void,
+    Failure | Error,
     ProcessPollingResultNgQueryParams,
-    SubscribeBodyRequestBody,
+    UnsubscribeBodyRequestBody,
     ProcessPollingResultNgPathParams
   >('POST', getConfig('ng/api'), `/polling/delegate-response/${perpetualTaskId}`, props, signal)
 
-export type SubscribeProps = Omit<MutateProps<string[], unknown, void, SubscribeBodyRequestBody, void>, 'path' | 'verb'>
+export type SubscribeProps = Omit<
+  MutateProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
+  'path' | 'verb'
+>
 
 export const Subscribe = (props: SubscribeProps) => (
-  <Mutate<string[], unknown, void, SubscribeBodyRequestBody, void>
+  <Mutate<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/subscribe`}
     base={getConfig('ng/api')}
@@ -16702,21 +16792,21 @@ export const Subscribe = (props: SubscribeProps) => (
 )
 
 export type UseSubscribeProps = Omit<
-  UseMutateProps<string[], unknown, void, SubscribeBodyRequestBody, void>,
+  UseMutateProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useSubscribe = (props: UseSubscribeProps) =>
-  useMutate<string[], unknown, void, SubscribeBodyRequestBody, void>('POST', `/polling/subscribe`, {
+  useMutate<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/subscribe`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const subscribePromise = (
-  props: MutateUsingFetchProps<string[], unknown, void, SubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<string[], unknown, void, SubscribeBodyRequestBody, void>(
+  mutateUsingFetch<string[], Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/subscribe`,
@@ -16725,12 +16815,12 @@ export const subscribePromise = (
   )
 
 export type UnsubscribeProps = Omit<
-  MutateProps<boolean, unknown, void, SubscribeBodyRequestBody, void>,
+  MutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const Unsubscribe = (props: UnsubscribeProps) => (
-  <Mutate<boolean, unknown, void, SubscribeBodyRequestBody, void>
+  <Mutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>
     verb="POST"
     path={`/polling/unsubscribe`}
     base={getConfig('ng/api')}
@@ -16739,21 +16829,21 @@ export const Unsubscribe = (props: UnsubscribeProps) => (
 )
 
 export type UseUnsubscribeProps = Omit<
-  UseMutateProps<boolean, unknown, void, SubscribeBodyRequestBody, void>,
+  UseMutateProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 export const useUnsubscribe = (props: UseUnsubscribeProps) =>
-  useMutate<boolean, unknown, void, SubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
+  useMutate<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>('POST', `/polling/unsubscribe`, {
     base: getConfig('ng/api'),
     ...props
   })
 
 export const unsubscribePromise = (
-  props: MutateUsingFetchProps<boolean, unknown, void, SubscribeBodyRequestBody, void>,
+  props: MutateUsingFetchProps<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>,
   signal?: RequestInit['signal']
 ) =>
-  mutateUsingFetch<boolean, unknown, void, SubscribeBodyRequestBody, void>(
+  mutateUsingFetch<boolean, Failure | Error, void, UnsubscribeBodyRequestBody, void>(
     'POST',
     getConfig('ng/api'),
     `/polling/unsubscribe`,
@@ -21422,6 +21512,107 @@ export const addDelegateProfileNgV2Promise = (
     AddDelegateProfileNgV2PathParams
   >('POST', getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs`, props, signal)
 
+export interface ListDelegateConfigsNgV2WithFilterQueryParams {
+  orgId?: string
+  projectId?: string
+  filterIdentifier?: string
+  searchTerm?: string
+  offset?: string
+  limit?: string
+  fieldsIncluded?: string[]
+  fieldsExcluded?: string[]
+}
+
+export interface ListDelegateConfigsNgV2WithFilterPathParams {
+  accountId: string
+}
+
+export type ListDelegateConfigsNgV2WithFilterProps = Omit<
+  MutateProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >,
+  'path' | 'verb'
+> &
+  ListDelegateConfigsNgV2WithFilterPathParams
+
+/**
+ * Lists the delegate configs with filter
+ */
+export const ListDelegateConfigsNgV2WithFilter = ({ accountId, ...props }: ListDelegateConfigsNgV2WithFilterProps) => (
+  <Mutate<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >
+    verb="POST"
+    path={`/v2/accounts/${accountId}/delegate-configs/listV2`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListDelegateConfigsNgV2WithFilterProps = Omit<
+  UseMutateProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >,
+  'path' | 'verb'
+> &
+  ListDelegateConfigsNgV2WithFilterPathParams
+
+/**
+ * Lists the delegate configs with filter
+ */
+export const useListDelegateConfigsNgV2WithFilter = ({
+  accountId,
+  ...props
+}: UseListDelegateConfigsNgV2WithFilterProps) =>
+  useMutate<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >(
+    'POST',
+    (paramsInPath: ListDelegateConfigsNgV2WithFilterPathParams) =>
+      `/v2/accounts/${paramsInPath.accountId}/delegate-configs/listV2`,
+    { base: getConfig('ng/api'), pathParams: { accountId }, ...props }
+  )
+
+/**
+ * Lists the delegate configs with filter
+ */
+export const listDelegateConfigsNgV2WithFilterPromise = (
+  {
+    accountId,
+    ...props
+  }: MutateUsingFetchProps<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  > & { accountId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    RestResponsePageResponseDelegateProfileDetailsNg,
+    unknown,
+    ListDelegateConfigsNgV2WithFilterQueryParams,
+    DelegateProfileFilterProperties,
+    ListDelegateConfigsNgV2WithFilterPathParams
+  >('POST', getConfig('ng/api'), `/v2/accounts/${accountId}/delegate-configs/listV2`, props, signal)
+
 export interface DeleteDelegateConfigNgV2QueryParams {
   orgId?: string
   projectId?: string
@@ -22863,6 +23054,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Local'
     | 'AwsKms'
     | 'GcpKms'
+    | 'AwsSecretManager'
     | 'Gcp'
     | 'Aws'
     | 'Artifactory'
@@ -22955,6 +23147,7 @@ export interface GetYamlSnippetMetadataQueryParams {
     | 'gcp'
     | 'aws'
     | 'awskms'
+    | 'awssecretmanager'
     | 'artifactory'
     | 'jira'
     | 'nexus'

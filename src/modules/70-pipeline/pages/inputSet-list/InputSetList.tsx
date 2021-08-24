@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { isEmpty } from 'lodash-es'
-import { Popover, Layout, TextInput, useModalHook, Text } from '@wings-software/uicore'
+import { Popover, Layout, TextInput, useModalHook, Text, Color } from '@wings-software/uicore'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
@@ -186,9 +186,10 @@ const InputSetList: React.FC = (): JSX.Element => {
 
         <Layout.Horizontal spacing="small">
           <TextInput
-            leftIcon="search"
+            leftIcon={'thinner-search'}
+            leftIconProps={{ name: 'thinner-search', size: 14, color: Color.GREY_700 }}
             placeholder={getString('inputSets.searchInputSet')}
-            className={css.search}
+            wrapperClassName={css.searchWrapper}
             value={searchParam}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setSearchParam(e.target.value.trim())

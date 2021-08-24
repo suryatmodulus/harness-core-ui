@@ -5,6 +5,7 @@ declare const styles: {
   readonly path: string
   readonly branch: string
   readonly drag: string
+  readonly editBtn: string
   readonly dragging: string
   readonly dragOver: string
   readonly dialog: string

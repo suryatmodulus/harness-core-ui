@@ -122,7 +122,7 @@ export const ActiveServiceInstancePopover: React.FC<ActiveServiceInstancePopover
       values: [
         {
           label: getString('cd.serviceDashboard.deployedAt'),
-          value: getReadableDateTime(instanceData.deployedAt)
+          value: getReadableDateTime(instanceData.deployedAt, 'MMM DD, YYYY hh:mm a')
         },
         {
           label: getString('cd.serviceDashboard.deployedBy'),

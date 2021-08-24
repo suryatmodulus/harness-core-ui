@@ -500,6 +500,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       pipeline.timeout = data.timeout
       pipeline.identifier = data.identifier
       pipeline.tags = data.tags ?? {}
+      if (isEmpty(pipeline.timeout)) {
+        delete pipeline.timeout
+      }
       delete (pipeline as PipelineWithGitContextFormProps).repo
       delete (pipeline as PipelineWithGitContextFormProps).branch
       updatePipeline(pipeline)

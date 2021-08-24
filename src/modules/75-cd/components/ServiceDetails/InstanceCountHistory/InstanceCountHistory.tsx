@@ -17,7 +17,7 @@ const instanceCountHistoryChartColors = ['#9CCC65', '#47D5DF', '#AE82FC', '#FFA8
 
 const InstanceCountHistoryTooltip: React.FC<any> = props => {
   const { timestamp, labels, envData } = props
-  const currentDate = getReadableDateTime(timestamp, 'MMM DD, YYYY hh:mm a')
+  const currentDate = getReadableDateTime(timestamp)
   return (
     <Card className={css.tooltipCard}>
       <Layout.Vertical>
@@ -54,7 +54,7 @@ const InstanceCountHistoryTooltip: React.FC<any> = props => {
               className={css.tooltipEnvName}
               padding={{ right: 'small' }}
             >
-              {`${env.name}${env.name}`}
+              {env.name}
             </Text>
             <Text color={Color.GREY_600} font={{ size: 'small', weight: 'semi-bold' }}>
               {numberFormatter(env.value)}

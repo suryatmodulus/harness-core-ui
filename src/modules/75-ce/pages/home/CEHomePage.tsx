@@ -31,7 +31,7 @@ const CEHomePage: React.FC = () => {
 
   const expiryTime = data?.data?.maxExpiryTime
   const updatedLicenseInfo = data?.data && {
-    ...licenseInformation?.['CF'],
+    ...licenseInformation?.['CE'],
     ...pick(data?.data, ['licenseType', 'edition']),
     expiryTime
   }
@@ -40,7 +40,7 @@ const CEHomePage: React.FC = () => {
     handleUpdateLicenseStore(
       { ...licenseInformation },
       updateLicenseStore,
-      ModuleName.CF.toString() as Module,
+      ModuleName.CE.toString() as Module,
       updatedLicenseInfo
     )
     // eslint-disable-next-line react-hooks/exhaustive-deps

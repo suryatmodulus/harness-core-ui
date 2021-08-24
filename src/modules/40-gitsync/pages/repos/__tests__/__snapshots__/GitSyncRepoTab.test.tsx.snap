@@ -9,7 +9,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--margin-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color Button--withLeftIcon"
         id="newRepoBtn"
         type="button"
       >
@@ -297,7 +297,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -408,7 +408,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -651,7 +651,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -762,7 +762,7 @@ exports[`Git Sync - repo tab rendering landing list view 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -831,7 +831,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--margin-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color Button--withLeftIcon"
         id="newRepoBtn"
         type="button"
       >
@@ -1119,7 +1119,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1230,7 +1230,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1450,7 +1450,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1561,7 +1561,7 @@ exports[`Git Sync - repo tab test for adding new root folder 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1630,7 +1630,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
       class="Layout--horizontal StyledProps--main StyledProps--margin-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color Button--withLeftIcon"
         id="newRepoBtn"
         type="button"
       >
@@ -1899,7 +1899,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                         class="bp3-popover-target bp3-popover-open"
                       >
                         <button
-                          class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           disabled=""
                           tabindex="-1"
                           type="button"
@@ -2038,7 +2038,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2281,7 +2281,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2392,7 +2392,7 @@ exports[`Git Sync - repo tab test for making a rootfolder default from leftmenu 
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2461,7 +2461,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
       class="Layout--horizontal StyledProps--main StyledProps--margin-right-xlarge StyledProps--flex StyledProps--flex-distribution-space-between"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary StyledProps--margin-left-xlarge StyledProps--margin-bottom-small StyledProps--margin-top-large Button--with-current-color Button--withLeftIcon"
         id="newRepoBtn"
         type="button"
       >
@@ -2749,7 +2749,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -2860,7 +2860,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -3103,7 +3103,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -3214,7 +3214,7 @@ exports[`Git Sync - repo tab test for opening add repo modal in list view 1`] = 
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span

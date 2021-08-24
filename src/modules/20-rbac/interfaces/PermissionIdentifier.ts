@@ -63,5 +63,8 @@ export enum PermissionIdentifier {
 
   // Dashboard Permissions
   VIEW_DASHBOARD = 'core_dashboards_view',
-  EDIT_DASHBOARD = 'core_dashboards_edit'
+  EDIT_DASHBOARD = 'core_dashboards_edit',
+
+  // GITOPS
+  ADD_NEW_PROVIDER = 'ff_add_new_provider'
 }

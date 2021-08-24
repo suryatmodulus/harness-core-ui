@@ -18,6 +18,7 @@ const AccessControlPage: React.FC = ({ children }) => {
         title={getString('accessControl')}
         toolbar={
           <TabNavigation
+            size={'small'}
             links={[
               {
                 label: getString('users'),

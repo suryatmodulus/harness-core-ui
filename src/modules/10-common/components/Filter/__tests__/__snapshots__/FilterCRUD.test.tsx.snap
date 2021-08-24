@@ -39,7 +39,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -68,7 +68,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -132,7 +132,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -200,7 +200,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -289,7 +289,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 1`]
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
@@ -392,7 +392,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -421,7 +421,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -485,7 +485,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -553,7 +553,7 @@ exports[`Test FilterCRUD component Add a new filter with visibke to Everyone 2`]
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -628,7 +628,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -657,7 +657,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -721,7 +721,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -789,7 +789,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -878,7 +878,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 1`] =
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
@@ -981,7 +981,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1010,7 +1010,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1074,7 +1074,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -1142,7 +1142,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 2`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -1217,7 +1217,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1246,7 +1246,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1310,7 +1310,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -1378,7 +1378,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -1467,7 +1467,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 3`] =
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
@@ -1570,7 +1570,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1599,7 +1599,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1663,7 +1663,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -1731,7 +1731,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 4`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -1806,7 +1806,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -1835,7 +1835,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -1899,7 +1899,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -1967,7 +1967,7 @@ exports[`Test FilterCRUD component Add a new filter with visible to OnlyMe 5`] =
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -2042,7 +2042,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -2071,7 +2071,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -2135,7 +2135,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -2203,7 +2203,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"
@@ -2292,7 +2292,7 @@ exports[`Test FilterCRUD component Enable edit mode 1`] = `
                   class="bp3-form-content"
                 >
                   <div
-                    class="StyledProps--font RadioButton--radioGroup StyledProps--main"
+                    class="StyledProps--font RadioButton--radioGroup FormikForm--inlineRadioGroup StyledProps--main"
                   >
                     <label
                       class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
@@ -2395,7 +2395,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
           </span>
         </div>
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main closeFilter Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -2424,7 +2424,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
       class="Layout--vertical StyledProps--main StyledProps--padding-top-xlarge"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main addNewFilterBtn isActive StyledProps--intent-primary StyledProps--padding-left-large StyledProps--border StyledProps--border-false Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -2488,7 +2488,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-DockerOnly"
                     tabindex="0"
                     type="button"
@@ -2556,7 +2556,7 @@ exports[`Test FilterCRUD component Initial render should match snapshot 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     id="filtermenu-AWSOnly"
                     tabindex="0"
                     type="button"

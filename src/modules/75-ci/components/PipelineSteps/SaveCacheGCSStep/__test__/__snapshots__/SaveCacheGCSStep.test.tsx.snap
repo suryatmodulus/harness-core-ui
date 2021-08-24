@@ -104,17 +104,22 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcpConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="savedCacheGcs_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcpConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -132,7 +137,7 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                   style="width: 560px;"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     style="width: 560px;"
                     type="button"
@@ -404,17 +409,22 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="saveCacheSourcePaths"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="savedCacheGcs_spec.sourcePaths"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="saveCacheSourcePaths"
                   >
-                    pipelineSteps.sourcePathsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.sourcePathsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -422,7 +432,7 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -443,11 +453,6 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -524,7 +529,7 @@ exports[`Save Cache GCS Step Edit View edit mode works 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     data-testid="remove-spec.sourcePaths-[0]"
                     type="button"
                   >
@@ -703,17 +708,22 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcpConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="savedCacheGcs_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcpConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -779,8 +789,8 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_spec.connectorRef"
               type="button"
             >
               <span
@@ -879,8 +889,8 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_spec.bucket"
               type="button"
             >
               <span
@@ -979,8 +989,8 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-              id="configureOptions"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+              id="configureOptions_spec.key"
               type="button"
             >
               <span
@@ -1092,8 +1102,8 @@ exports[`Save Cache GCS Step Edit View renders runtime inputs 1`] = `
             </div>
           </div>
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-            id="configureOptions"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+            id="configureOptions_spec.sourcePaths"
             type="button"
           >
             <span
@@ -1257,17 +1267,22 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcpConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="savedCacheGcs_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcpConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1285,7 +1300,7 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                   style="width: 560px;"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     style="width: 560px;"
                     type="button"
@@ -1547,7 +1562,7 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
         >
           <div
             class="bp3-form-group"
-            data-id="spec.sourcePaths[0].value-4"
+            data-id="spec.sourcePaths-4"
             style="flex-grow: 1; margin-bottom: 0px;"
           >
             <label
@@ -1557,17 +1572,22 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="saveCacheSourcePaths"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="savedCacheGcs_spec.sourcePaths"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="saveCacheSourcePaths"
                   >
-                    pipelineSteps.sourcePathsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.sourcePathsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -1575,7 +1595,7 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -1597,11 +1617,6 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                             />
                           </svg>
                         </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
-                        </span>
                       </span>
                     </button>
                   </div>
@@ -1619,86 +1634,6 @@ exports[`Save Cache GCS Step Edit View should render properly 1`] = `
                 class="bp3-card bp3-elevation-0 Card--card"
                 style="width: 100%;"
               >
-                <div
-                  class="group withoutAligning"
-                >
-                  <div
-                    class="bp3-form-group"
-                    data-id="spec.sourcePaths[0].value-5"
-                    style="flex-grow: 1;"
-                  >
-                    
-                    <div
-                      class="bp3-form-content"
-                    >
-                      <div
-                        class="Layout--horizontal StyledProps--main MultiTypeInput--main"
-                      >
-                        <div
-                          class="bp3-input-group MultiTypeInput--input"
-                        >
-                          <input
-                            autocomplete="off"
-                            class="bp3-input"
-                            name="spec.sourcePaths[0].value"
-                            type="text"
-                            value=""
-                          />
-                        </div>
-                        <span
-                          class="bp3-popover-wrapper MultiTypeInput--wrapper"
-                        >
-                          <span
-                            class="bp3-popover-target"
-                          >
-                            <button
-                              class="MultiTypeInput--btn MultiTypeInput--FIXED"
-                            >
-                              <span
-                                class="bp3-icon StyledProps--main"
-                                data-icon="fixed-input"
-                              >
-                                <svg
-                                  height="12"
-                                  viewBox="0 0 9 9"
-                                  width="12"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </span>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-                    data-testid="remove-spec.sourcePaths-[0]"
-                    type="button"
-                  >
-                    <span
-                      class="bp3-icon StyledProps--main"
-                      data-icon="main-trash"
-                    >
-                      <svg
-                        height="20"
-                        viewBox="0 0 11 14"
-                        width="20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10.3.7H6.9c0-.4-.3-.7-.7-.7H4.8c-.4 0-.7.3-.7.7H.7C.3.7 0 1 0 1.4v.7h11v-.7c0-.4-.3-.7-.7-.7zm.4 2.1H.3c-.1 0-.3.2-.3.4s.2.3.3.3h.3v9.8c.1.4.4.7.8.7h8.2c.4 0 .7-.3.7-.7V3.5h.3c.2 0 .3-.2.3-.3.1-.2-.1-.4-.2-.4zm-7.3 8.4c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.8 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7zm2.7 0c0 .4-.3.7-.7.7s-.7-.3-.7-.7V5.6c0-.4.3-.7.7-.7s.7.3.7.7z"
-                          fill="#4d5969"
-                        />
-                      </svg>
-                    </span>
-                  </button>
-                </div>
                 <button
                   class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
                   data-testid="add-spec.sourcePaths"
@@ -1802,17 +1737,22 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
             class="StyledProps--font StyledProps--main"
             style="margin-bottom: 5px;"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="gcpConnector"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.connectorRef"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="gcpConnector"
               >
-                pipelineSteps.gcpConnectorLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.gcpConnectorLabel
+                </p>
+              </div>
+            </span>
           </div>
           <div
             style="display: flex; align-items: center;"
@@ -1830,7 +1770,7 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                   style="width: 455px;"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-spec.connectorRef"
                     style="width: 455px;"
                     type="button"
@@ -2058,17 +1998,22 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
               <div
                 class="formLabel"
               >
-                <div
-                  class="Text--withDocsTooltip"
-                  data-tooltip-id="saveCacheSourcePaths"
+                <span
+                  class="Tooltip--acenter"
+                  data-tooltip-id="stepTestUtilForm_spec.sourcePaths"
                 >
-                  <p
-                    class="StyledProps--font StyledProps--main"
-                    style="display: flex; align-items: center;"
+                  <div
+                    class="Text--withDocsTooltip"
+                    data-tooltip-id="saveCacheSourcePaths"
                   >
-                    pipelineSteps.sourcePathsLabel
-                  </p>
-                </div>
+                    <p
+                      class="StyledProps--font StyledProps--main"
+                      style="display: flex; align-items: center;"
+                    >
+                      pipelineSteps.sourcePathsLabel
+                    </p>
+                  </div>
+                </span>
                 <div
                   class="bp3-popover-wrapper typeSelectorWrapper"
                 >
@@ -2076,7 +2021,7 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                     class="bp3-popover-target typeSelector"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                       type="button"
                     >
                       <span
@@ -2097,11 +2042,6 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                               fill="currentColor"
                             />
                           </svg>
-                        </span>
-                        <span
-                          class="btnText"
-                        >
-                          inputTypes.FIXED
                         </span>
                       </span>
                     </button>
@@ -2171,7 +2111,7 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     data-testid="remove-spec.sourcePaths-[0]"
                     type="button"
                   >
@@ -2365,6 +2305,10 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_spec.override"
+            />
           </div>
         </div>
         <div
@@ -2527,17 +2471,22 @@ exports[`Save Cache GCS Step InputSet View should render all fields 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="timeout"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepTestUtilForm_timeout"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="timeout"
               >
-                pipelineSteps.timeoutLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.timeoutLabel
+                </p>
+              </div>
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -2680,7 +2629,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2740,7 +2689,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2800,7 +2749,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2860,7 +2809,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2920,7 +2869,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -2980,7 +2929,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3040,7 +2989,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3100,7 +3049,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3160,7 +3109,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3220,7 +3169,7 @@ exports[`Save Cache GCS Step InputVariable View should render properly 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >

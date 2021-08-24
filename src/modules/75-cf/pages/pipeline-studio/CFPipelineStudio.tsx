@@ -44,7 +44,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
   const isCDEnabled = useFeatureFlag(FeatureFlag.CDNG_ENABLED)
   const isCFEnabled = useFeatureFlag(FeatureFlag.CFNG_ENABLED)
   const isCIEnabled = useFeatureFlag(FeatureFlag.CING_ENABLED)
-  const { CI_LICENSE_STATE, FF_LICENSE_STATE } = useLicenseStore()
+  const { CI_LICENSE_STATE, FF_LICENSE_STATE, CD_LICENSE_STATE } = useLicenseStore()
   return (
     <PipelineProvider
       stagesMap={stagesCollection.getAllStagesAttributes(getString)}
@@ -55,7 +55,7 @@ const CIPipelineStudio: React.FC = (): JSX.Element => {
           args,
           getString,
           CI_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCIEnabled,
-          isCDEnabled,
+          CD_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCDEnabled,
           FF_LICENSE_STATE === LICENSE_STATE_VALUES.ACTIVE && isCFEnabled,
           true
         )

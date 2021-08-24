@@ -11,7 +11,8 @@ declare const styles: {
   readonly submitBtn: string
   readonly main: string
   readonly infobox: string
-  readonly mtbxxlarge: string
+  readonly mtblarge: string
+  readonly cards: string
   readonly grid: string
   readonly launchTemplateBut: string
   readonly newCurReport: string
@@ -20,5 +21,8 @@ declare const styles: {
   readonly extention: string
   readonly gray: string
   readonly existingCurTable: string
+  readonly featureCard: string
+  readonly features: string
+  readonly footer: string
 }
 export default styles

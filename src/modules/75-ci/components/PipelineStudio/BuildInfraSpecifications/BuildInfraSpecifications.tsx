@@ -2,7 +2,7 @@ import React, { useMemo } from 'react'
 import * as yup from 'yup'
 import { v4 as nameSpace, v5 as uuid } from 'uuid'
 import { Layout, Formik, FormikForm, FormInput, Text, Card, Accordion } from '@wings-software/uicore'
-import { isEmpty, isUndefined, set } from 'lodash-es'
+import { isEmpty, isUndefined, set, uniqBy } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { produce } from 'immer'
@@ -26,6 +26,7 @@ import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorRef
 import type { BuildStageElementConfig } from '@pipeline/utils/pipelineTypes'
 import type { K8sDirectInfraYaml, UseFromStageInfraYaml } from 'services/ci'
 import { StageErrorContext } from '@pipeline/context/StageErrorContext'
+import { regexIdentifier } from '@common/utils/StringUtils'
 import ErrorsStripBinded from '@pipeline/components/ErrorsStrip/ErrorsStripBinded'
 import { BuildTabs } from '../CIPipelineStagesUtils'
 import css from './BuildInfraSpecifications.module.scss'
@@ -96,7 +97,69 @@ const getValidationSchema = (getString?: UseStringsReturn['getString']): yup.Sch
         }
         return !isNaN(runAsUser)
       }
-    )
+    ),
+    annotations: yup.lazy(value => {
+      if (Array.isArray(value)) {
+        return yup
+          .array()
+          .of(
+            yup.object().shape(
+              {
+                key: yup.string().when('value', {
+                  is: val => val?.length,
+                  then: yup
+                    .string()
+                    .matches(regexIdentifier, getString?.('validation.validKeyRegex'))
+                    .required(getString?.('validation.keyRequired'))
+                }),
+                value: yup.string().when('key', {
+                  is: val => val?.length,
+                  then: yup.string().required(getString?.('validation.valueRequired'))
+                })
+              },
+              [['key', 'value']]
+            )
+          )
+          .test('keysShouldBeUnique', getString?.('validation.uniqueKeys') || '', map => {
+            if (!map) return true
+
+            return uniqBy(map, 'key').length === map.length
+          })
+      } else {
+        return yup.string()
+      }
+    }),
+    labels: yup.lazy(value => {
+      if (Array.isArray(value)) {
+        return yup
+          .array()
+          .of(
+            yup.object().shape(
+              {
+                key: yup.string().when('value', {
+                  is: val => val?.length,
+                  then: yup
+                    .string()
+                    .matches(regexIdentifier, getString?.('validation.validKeyRegex'))
+                    .required(getString?.('validation.keyRequired'))
+                }),
+                value: yup.string().when('key', {
+                  is: val => val?.length,
+                  then: yup.string().required(getString?.('validation.valueRequired'))
+                })
+              },
+              [['key', 'value']]
+            )
+          )
+          .test('keysShouldBeUnique', getString?.('validation.uniqueKeys') || '', map => {
+            if (!map) return true
+
+            return uniqBy(map, 'key').length === map.length
+          })
+      } else {
+        return yup.string()
+      }
+    })
   })
 
 interface Values {

@@ -12,7 +12,7 @@ exports[`INPUT SET SELECTOR Input sets API has data: reorder after selecting an 
         class="renderSelectedValue"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -317,7 +317,7 @@ exports[`INPUT SET SELECTOR Input sets API has data: snapshot afteropening the i
         class="renderSelectedValue"
       >
         <button
-          class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-disabled bp3-loading bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           disabled=""
           tabindex="-1"
           type="button"
@@ -624,7 +624,7 @@ exports[`INPUT SET SELECTOR Input sets API has data: snapshot afteropening the i
         class="renderSelectedValue"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span
@@ -904,7 +904,7 @@ exports[`INPUT SET SELECTOR Input sets API has data: snapshot afteropening the i
         class="renderSelectedValue"
       >
         <button
-          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
           type="button"
         >
           <span

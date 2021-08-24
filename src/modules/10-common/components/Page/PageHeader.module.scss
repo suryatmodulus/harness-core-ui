@@ -55,4 +55,12 @@
       --page-header-height: 144px;
     }
   }
+
+  &.xxlarge {
+    height: 192px;
+
+    & + div[data-name='page-body'] {
+      --page-header-height: 192px;
+    }
+  }
 }

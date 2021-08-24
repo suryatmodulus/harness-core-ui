@@ -132,7 +132,7 @@ describe('About Project test', () => {
     expect(container).toMatchSnapshot()
 
     setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name' })
-    fireEvent.click(container.querySelectorAll('[icon="edit"]')[1]!)
+    fireEvent.click(container.querySelectorAll('[data-icon="Edit"]')[0]!)
 
     setFieldValue({
       type: InputTypes.TEXTAREA,

@@ -4,7 +4,45 @@
       "name": "pip",
       "identifier": "pip",
       "stages": [
-        { "stage": { "name": "st2", "identifier": "st2", "description": "", "type": "Deployment", "spec": {} } }
+        {
+          "stage": {
+            "name": "Stage 1",
+            "identifier": "st1",
+            "description": "",
+            "type": "Deployment",
+            "spec": {
+              "serviceConfig": {
+                "service": {
+                  "identifier": "selected_service",
+                  "name": "Service 1",
+                  "description": ""
+                }
+              }
+            }
+          }
+        },
+        {
+          "stage": {
+            "name": "Stage 2",
+            "identifier": "s2",
+            "description": "",
+            "type": "Deployment",
+            "spec": {
+              "serviceConfig": {
+                "serviceRef": "other_service"
+              }
+            }
+          }
+        },
+        {
+          "stage": {
+            "name": "Stage 3",
+            "identifier": "s3",
+            "description": "",
+            "type": "Deployment",
+            "spec": {}
+          }
+        }
       ]
     },
     "originalPipeline": {
@@ -171,7 +209,7 @@
       "splitViewData": { "type": "StageView" },
       "drawerData": { "type": "AddCommand" }
     },
-    "selectionState": { "selectedStageId": "st2" },
+    "selectionState": { "selectedStageId": "s3" },
     "isLoading": false,
     "isBEPipelineUpdated": false,
     "isDBInitialized": true,

@@ -5,7 +5,9 @@ declare const styles: {
   readonly filePath: string
   readonly gitBranch: string
   readonly tags: string
+  readonly small: string
   readonly active: string
+  readonly disabled: string
   readonly breadCrumb: string
 }
 export default styles

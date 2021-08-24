@@ -2,11 +2,11 @@
   text-align: center;
 }
 
-.table {
-  [class*='body'] {
+.selectArtifactTable {
+  > div:not(first-child) {
     [role*='row'] {
       padding: 0;
-      box-shadow: none;
+      box-shadow: none !important;
       &:hover {
         background: rgba(220, 238, 255, 0.5) !important;
         border-color: transparent !important;
@@ -26,15 +26,18 @@
 .appliedArtifact {
   width: 690px;
   display: inline-block;
-  // border: 1px solid var(--grey-200);
-  // border-radius: var(--spacing-2);
-  [class*='body'] {
-    [class*='clickable'] {
+  > div:not(first-child) {
+    > div {
       cursor: auto !important;
     }
+
     [role*='row'] {
+      box-shadow: none !important;
+
       &:hover {
         background: transparent !important;
+        border-color: transparent !important;
+        box-shadow: none !important;
       }
     }
   }

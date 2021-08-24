@@ -1,0 +1,50 @@
+.card {
+  width: 116px;
+  height: 116px;
+
+  .icon {
+    position: absolute;
+    right: 8px;
+    top: 0;
+    height: 40px;
+    display: flex;
+    align-items: center;
+  }
+
+  .lineClamp {
+    word-break: break-all;
+  }
+
+  .lineHeight {
+    line-height: 30px !important ;
+  }
+
+  .tagClassName {
+    background-color: var(--green-50) !important;
+    color: var(--green-700);
+    border-radius: 4px !important;
+    margin-top: 4px;
+    font-size: var(--font-size-xsmall);
+    font-weight: 600;
+    letter-spacing: 0.2px;
+  }
+
+  .redTag {
+    background-color: var(--red-50) !important;
+    color: var(--red-700);
+  }
+}
+
+.styledCard {
+  background-color: var(--primary-2) !important;
+
+  .title {
+    font-size: 40px !important;
+    max-height: 43px;
+    line-height: 32px !important;
+  }
+
+  .whiteTag {
+    background-color: white !important;
+  }
+}

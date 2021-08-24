@@ -19,7 +19,7 @@ const UserGroupsPage: React.FC = () => {
   const { getString } = useStrings()
   useDocumentTitle(getString('common.userGroups'))
   const [page, setPage] = useState(0)
-  const [searchTerm, setsearchTerm] = useState<string>()
+  const [searchTerm, setsearchTerm] = useState<string>('')
   const { data, loading, error, refetch } = useGetUserGroupAggregateList({
     queryParams: {
       accountIdentifier: accountId,
@@ -27,8 +27,9 @@ const UserGroupsPage: React.FC = () => {
       projectIdentifier,
       pageIndex: page,
       pageSize: 10,
-      searchTerm
-    }
+      searchTerm: encodeURIComponent(searchTerm)
+    },
+    debounce: 300
   })
 
   const { openUserGroupModal } = useUserGroupModal({

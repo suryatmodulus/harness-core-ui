@@ -123,3 +123,17 @@
   display: flex;
   background-color: #09090b;
 }
+
+.errorContainer {
+  padding: var(--spacing-6);
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  width: 100%;
+
+  .txt {
+    color: var(--grey-400);
+    font-size: var(--font-size-small);
+    margin-bottom: var(--spacing-3);
+  }
+}

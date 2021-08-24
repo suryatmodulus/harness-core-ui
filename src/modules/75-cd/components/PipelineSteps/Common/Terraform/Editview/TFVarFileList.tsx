@@ -2,7 +2,17 @@ import React from 'react'
 
 import cx from 'classnames'
 
-import { Layout, Text, Button, Icon, StepWizard, Color, Label } from '@wings-software/uicore'
+import {
+  Layout,
+  Text,
+  Button,
+  Icon,
+  StepWizard,
+  Color,
+  Label,
+  FormikTooltipContext,
+  HarnessDocTooltip
+} from '@wings-software/uicore'
 import { Classes, MenuItem, Popover, PopoverInteractionKind, Menu, Dialog, IDialogProps } from '@blueprintjs/core'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import type { FormikProps } from 'formik'
@@ -159,10 +169,13 @@ export default function TfVarFileList(props: TfVarFileProps): React.ReactElement
     setIsEditMode(false)
     setSelectedVar(inlineInitValues)
   }
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId = tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : ''
   return (
     <Layout.Vertical>
-      <Label style={{ color: Color.GREY_900 }} className={css.tfVarLabel}>
+      <Label style={{ color: Color.GREY_900 }} className={css.tfVarLabel} data-tooltip-id={dataTooltipId}>
         {getString('optionalField', { name: getString('cd.terraformVarFiles') })}
+        <HarnessDocTooltip useStandAlone={true} tooltipId={dataTooltipId} />
       </Label>
       <div className={cx(stepCss.formGroup, css.tfVarMargin)}>
         <FieldArray

@@ -8,7 +8,6 @@ import {
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  Text,
   Button,
   SelectOption,
   Container
@@ -85,17 +84,7 @@ export default function ConfigForm(props: ConfigFormProps): React.ReactElement {
             <Layout.Vertical>
               <Form>
                 <FormMultiTypeConnectorField
-                  label={
-                    <Text style={{ display: 'flex', alignItems: 'center' }}>
-                      {getString('connector')}
-                      <Button
-                        icon="question"
-                        minimal
-                        tooltip={getString('connectors.title.gitConnector')}
-                        iconProps={{ size: 14 }}
-                      />
-                    </Text>
-                  }
+                  label={getString('connector')}
                   type={['Git', 'Github', 'Gitlab', 'Bitbucket']}
                   width={260}
                   name="spec.configuration.configFiles.store.spec.connectorRef"

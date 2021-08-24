@@ -251,8 +251,9 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
       projectIdentifier,
       pageIndex: page,
       pageSize: 10,
-      searchTerm
-    }
+      searchTerm: encodeURIComponent(searchTerm || '')
+    },
+    debounce: 300
   })
 
   const { openRoleAssignmentModal: addRole } = useRoleAssignmentModal({

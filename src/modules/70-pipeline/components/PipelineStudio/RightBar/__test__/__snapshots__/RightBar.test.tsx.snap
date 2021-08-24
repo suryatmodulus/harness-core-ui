@@ -12,7 +12,7 @@ exports[`RightBar renders correctly 1`] = `
         class="bp3-popover-target"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main iconButton enableGitExpIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall"
+          class="bp3-button Button--button StyledProps--font StyledProps--main iconButton enableGitExpIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon"
           type="button"
         >
           <span
@@ -40,7 +40,7 @@ exports[`RightBar renders correctly 1`] = `
       </span>
     </span>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton notificationsIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton notificationsIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--withLeftIcon"
       type="button"
     >
       <span
@@ -76,7 +76,7 @@ exports[`RightBar renders correctly 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton flowControlIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton flowControlIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--with-current-color Button--withLeftIcon"
       type="button"
     >
       <span
@@ -105,7 +105,7 @@ exports[`RightBar renders correctly 1`] = `
       </span>
     </button>
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton variablesIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main iconButton variablesIcon StyledProps--font StyledProps--font-weight-semi-bold StyledProps--font-size-xsmall Button--with-current-color Button--withLeftIcon"
       data-testid="input-variable"
       type="button"
     >

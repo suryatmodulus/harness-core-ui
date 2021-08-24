@@ -102,6 +102,7 @@ import { CDExecutionCardSummary } from './components/CDExecutionCardSummary/CDEx
 import { CDExecutionSummary } from './components/CDExecutionSummary/CDExecutionSummary'
 import { CDStageDetails } from './components/CDStageDetails/CDStageDetails'
 import { ManifestInputForm } from './components/ManifestInputForm/ManifestInputForm'
+import GitOpsModalContainer from './pages/git-ops-modal-container/GitOpsModalContainer'
 
 executionFactory.registerCardInfo(StageType.DEPLOY, {
   icon: 'cd-main',
@@ -720,6 +721,14 @@ export default (
       path={routes.toTemplatesListing({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
     >
       <TemplatesList />
+    </RouteWithLayout>
+
+    <RouteWithLayout
+      exact
+      sidebarProps={CDSideNavProps}
+      path={routes.toGitOps({ ...accountPathProps, ...projectPathProps, ...pipelineModuleParams })}
+    >
+      <GitOpsModalContainer />
     </RouteWithLayout>
   </>
 )

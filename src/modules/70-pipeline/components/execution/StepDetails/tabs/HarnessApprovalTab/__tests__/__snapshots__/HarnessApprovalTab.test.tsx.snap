@@ -781,7 +781,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status shows form if user is autho
         class="actions"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -812,7 +812,7 @@ exports[`<HarnessApprovalTab /> tests Waiting Status shows form if user is autho
           </span>
         </button>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+          class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
           type="button"
         >
           <span

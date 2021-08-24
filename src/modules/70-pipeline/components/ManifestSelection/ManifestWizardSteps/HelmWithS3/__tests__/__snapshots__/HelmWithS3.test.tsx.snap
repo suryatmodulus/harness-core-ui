@@ -654,6 +654,10 @@ exports[`helm with S3 tests expand advanced section 1`] = `
                                 </span>
                               </span>
                             </div>
+                            <span
+                              class="Tooltip--acenter"
+                              data-tooltip-id="helmWithS3_skipResourceVersioning"
+                            />
                           </div>
                         </div>
                         <span
@@ -698,13 +702,18 @@ exports[`helm with S3 tests expand advanced section 1`] = `
                             <div
                               class="formLabel"
                             >
-                              <div
-                                class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="helmWithS3_commandFlags"
                               >
-                                <div>
-                                  pipeline.manifestType.helmCommandFlagLabel
+                                <div
+                                  class="Layout--horizontal Layout--layout-spacing-small StyledProps--main StyledProps--flex"
+                                >
+                                  <div>
+                                    pipeline.manifestType.helmCommandFlagLabel
+                                  </div>
                                 </div>
-                              </div>
+                              </span>
                             </div>
                              
                             <span
@@ -926,7 +935,7 @@ exports[`helm with S3 tests expand advanced section 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -955,7 +964,7 @@ exports[`helm with S3 tests expand advanced section 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -1590,7 +1599,7 @@ exports[`helm with S3 tests load form correctly in edit mode and fill region 1`]
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -1619,7 +1628,7 @@ exports[`helm with S3 tests load form correctly in edit mode and fill region 1`]
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span
@@ -2254,7 +2263,7 @@ exports[`helm with S3 tests renders without crashing 1`] = `
           class="Layout--horizontal Layout--layout-spacing-xxlarge StyledProps--main saveBtn"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span
@@ -2283,7 +2292,7 @@ exports[`helm with S3 tests renders without crashing 1`] = `
             </span>
           </button>
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
             type="submit"
           >
             <span

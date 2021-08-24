@@ -16,11 +16,15 @@ const SvgInline: React.FC<SvgInlineProps> = ({ url, className }) => {
 
   useEffect(() => {
     setLoading(true)
+    let isMounted = true
     fetch(url)
       .then(res => res.text())
       .then(setSvg)
-      .catch(err => setError(err))
-      .then(() => setLoading(false))
+      .catch(err => isMounted && setError(err))
+      .finally(() => isMounted && setLoading(false))
+    return () => {
+      isMounted = false
+    }
   }, [url])
 
   if (loading) {

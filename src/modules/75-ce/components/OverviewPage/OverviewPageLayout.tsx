@@ -181,7 +181,7 @@ export const EfficiencyScore = (props: EfficiencyScoreProps) => {
           <Text color="grey800" font={{ weight: 'bold' }} style={{ fontSize: 24 }}>
             {score}
           </Text>
-          <CostTrend value={trend} />
+          <CostTrend value={trend} flipColors />
         </Layout.Horizontal>
       </Layout.Vertical>
     </div>

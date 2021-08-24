@@ -155,6 +155,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                     stageId: undefined,
                     stages: undefined // clears all artifact runtime inputs
                   })
+                  formikProps.setFieldTouched('selectedArtifact')
                 }}
               />
             </Container>
@@ -182,6 +183,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                 onClick={() => {
                   if (allowSelectArtifact) {
                     setModalOpen(true)
+                    formikProps.setFieldTouched('selectedArtifact')
                   }
                 }}
               >
@@ -199,11 +201,13 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                   runtimeData={data}
                 />
               )}
-              {errors['selectedArtifact'] && (
-                <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
-                  {errors['selectedArtifact']}
-                </Text>
-              )}
+              {(formikProps.touched['selectedArtifact'] || formikProps.submitCount > 0) &&
+                !modalOpen &&
+                errors['selectedArtifact'] && (
+                  <Text color={Color.RED_500} style={{ marginBottom: 'var(--spacing-medium)' }}>
+                    {errors['selectedArtifact']}
+                  </Text>
+                )}
             </>
           )}
           {inputSetTemplateYamlObj && !appliedArtifact && !allowSelectArtifact && (

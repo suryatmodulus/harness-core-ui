@@ -277,7 +277,7 @@ exports[`Create Step Verification Script Delegate Click Verify button 1`] = `
     class="Layout--horizontal StyledProps--main StyledProps--padding-xxxlarge"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color Button--withLeftIcon"
       id="stepReviewScriptBackButton"
       type="button"
     >
@@ -427,7 +427,7 @@ exports[`Create Step Verification Script Delegate Click back button 1`] = `
     class="Layout--horizontal StyledProps--main StyledProps--padding-xxxlarge"
   >
     <button
-      class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color"
+      class="bp3-button bp3-disabled bp3-loading Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color Button--withLeftIcon"
       disabled=""
       id="stepReviewScriptBackButton"
       tabindex="-1"
@@ -605,7 +605,7 @@ exports[`Create Step Verification Script Delegate Click back button 2`] = `
     class="Layout--horizontal StyledProps--main StyledProps--padding-xxxlarge"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color Button--withLeftIcon"
       id="stepReviewScriptBackButton"
       type="button"
     >
@@ -755,7 +755,7 @@ exports[`Create Step Verification Script Delegate render data 1`] = `
     class="Layout--horizontal StyledProps--main StyledProps--padding-xxxlarge"
   >
     <button
-      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color"
+      class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--margin-right-small Button--with-current-color Button--withLeftIcon"
       id="stepReviewScriptBackButton"
       type="button"
     >

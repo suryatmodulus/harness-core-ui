@@ -72,7 +72,7 @@ exports[`VerificationStatusBar matches snapshot 1`] = `
         risk
       </p>
       <button
-        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+        class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span

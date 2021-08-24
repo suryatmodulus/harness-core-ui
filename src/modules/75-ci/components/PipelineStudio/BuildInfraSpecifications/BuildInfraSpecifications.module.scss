@@ -11,15 +11,15 @@
 }
 
 .tabHeading {
-  font-size: var(--font-size-medium);
-  color: var(--grey-700);
-  margin-bottom: 14px;
+  font-size: 16px;
+  color: var(--black);
+  margin-bottom: var(--spacing-3);
   font-weight: 600;
 }
 .tabSubHeading {
   font-size: var(--font-size-normal);
   color: var(--grey-700);
-  margin-bottom: 14px;
+  margin-bottom: var(--spacing-5);
   font-weight: 600;
 }
 .sectionCard {

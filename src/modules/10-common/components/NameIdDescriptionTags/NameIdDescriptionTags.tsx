@@ -1,13 +1,5 @@
 import React, { useState } from 'react'
-import {
-  Container,
-  FormInput,
-  Icon,
-  Label,
-  Color,
-  DataTooltipInterface,
-  HarnessDocTooltip
-} from '@wings-software/uicore'
+import { Container, FormInput, Icon, Label, DataTooltipInterface, HarnessDocTooltip } from '@wings-software/uicore'
 import type { InputWithIdentifierProps } from '@wings-software/uicore/dist/components/InputWithIdentifier/InputWithIdentifier'
 import { isEmpty } from 'lodash-es'
 import type { IInputGroupProps, ITagInputProps } from '@blueprintjs/core'
@@ -62,10 +54,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
 
   return (
     <Container style={{ marginBottom: isDescriptionOpen ? '0' : 'var(--spacing-medium)' }}>
-      <Label
-        style={{ fontSize: 13, fontWeight: 'normal', marginBottom: 'var(--spacing-xsmall)' }}
-        data-tooltip-id={props.dataTooltipId}
-      >
+      <Label className={css.descriptionLabel} data-tooltip-id={props.dataTooltipId}>
         {isOptional ? getString('optionalField', { name: getString('description') }) : getString('description')}
         {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isDescriptionOpen && (
@@ -74,8 +63,7 @@ export const Description = (props: DescriptionComponentProps): JSX.Element => {
             data-name="edit"
             data-testid="description-edit"
             size={12}
-            name="edit"
-            color={Color.GREY_500}
+            name="Edit"
             onClick={() => {
               setDescriptionOpen(true)
               setDescriptionFocus(true)
@@ -104,10 +92,7 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
 
   return (
     <Container>
-      <Label
-        style={{ fontSize: 13, fontWeight: 'normal', marginBottom: 'var(--spacing-xsmall)' }}
-        data-tooltip-id={props.dataTooltipId}
-      >
+      <Label className={css.descriptionLabel} data-tooltip-id={props.dataTooltipId}>
         {isOptional ? getString('optionalField', { name: getString('tagsLabel') }) : getString('tagsLabel')}
         {props.dataTooltipId ? <HarnessDocTooltip useStandAlone={true} tooltipId={props.dataTooltipId} /> : null}
         {!isTagsOpen && (
@@ -116,8 +101,7 @@ export const Tags = (props: TagsComponentProps): JSX.Element => {
             data-name="edit"
             data-testid="tags-edit"
             size={12}
-            color={Color.GREY_500}
-            name="edit"
+            name="Edit"
             onClick={() => {
               setTagsOpen(true)
             }}
@@ -136,14 +120,13 @@ function TagsDeprecated(props: TagsDeprecatedComponentProps): JSX.Element {
 
   return (
     <Container>
-      <Label style={{ fontSize: 13, marginBottom: 'var(--spacing-xsmall)' }}>
+      <Label className={css.descriptionLabel}>
         {getString('tagsLabel')}
         {!isTagsOpen && (
           <Icon
             className={css.editOpen}
-            data-name="edit"
+            data-name="Edit"
             size={12}
-            color={Color.GREY_500}
             name="edit"
             onClick={() => {
               setTagsOpen(true)

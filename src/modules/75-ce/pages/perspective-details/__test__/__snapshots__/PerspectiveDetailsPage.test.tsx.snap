@@ -58,7 +58,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
           </h2>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -145,7 +145,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow Button--withLeftIcon Button--withRightIcon"
               type="button"
             >
               <span
@@ -206,7 +206,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withRightIcon"
               type="button"
             >
               <span
@@ -239,7 +239,7 @@ exports[`test cases for Perspective details Page should be able to render no dat
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--margin-xlarge"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--margin-xlarge"
     >
       <div
         class="bp3-card bp3-elevation-1 Card--card"
@@ -287,7 +287,63 @@ exports[`test cases for Perspective details Page should be able to render no dat
                   />
                 </svg>
               </span>
-              28.63
+              28.63%
+            </p>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-xsmall"
+          >
+            of Jun 25 - Jun 29
+          </p>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-1 Card--card"
+      >
+        <div
+          class="StyledProps--font StyledProps--main mainCard"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
+          >
+            Forecasted Cost
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+            style="align-items: center;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+            >
+              $3,611.54
+            </p>
+            <span
+              style="flex-grow: 1;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500"
+              style="display: flex; align-items: center;"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              76%
             </p>
           </div>
           <p
@@ -382,7 +438,7 @@ exports[`test cases for Perspective details Page should be able to render the de
           </h2>
         </div>
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -469,7 +525,7 @@ exports[`test cases for Perspective details Page should be able to render the de
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--intent-primary StyledProps--padding-small Button--with-current-color Button--without-shadow Button--withLeftIcon Button--withRightIcon"
               type="button"
             >
               <span
@@ -530,7 +586,7 @@ exports[`test cases for Perspective details Page should be able to render the de
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeGranularityButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withRightIcon"
               type="button"
             >
               <span
@@ -563,7 +619,7 @@ exports[`test cases for Perspective details Page should be able to render the de
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--margin-xlarge"
+      class="Layout--horizontal Layout--layout-spacing-large StyledProps--main StyledProps--margin-xlarge"
     >
       <div
         class="bp3-card bp3-elevation-1 Card--card"
@@ -611,7 +667,63 @@ exports[`test cases for Perspective details Page should be able to render the de
                   />
                 </svg>
               </span>
-              28.63
+              28.63%
+            </p>
+          </div>
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey400 StyledProps--font-xsmall"
+          >
+            of Jun 25 - Jun 29
+          </p>
+        </div>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-1 Card--card"
+      >
+        <div
+          class="StyledProps--font StyledProps--main mainCard"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey500 StyledProps--font-small"
+          >
+            Forecasted Cost
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--margin-top-small StyledProps--margin-bottom-small"
+            style="align-items: center;"
+          >
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-medium"
+            >
+              $3,611.54
+            </p>
+            <span
+              style="flex-grow: 1;"
+            />
+            <p
+              class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-green500"
+              style="display: flex; align-items: center;"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps--main StyledProps--padding-right-xsmall StyledProps--color StyledProps--color-green500"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              76%
             </p>
           </div>
           <p

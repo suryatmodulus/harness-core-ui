@@ -44,7 +44,17 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
 }
 
 export function QueryViewer(props: QueryViewerProps): JSX.Element {
-  const { className, records, fetchRecords, loading, error, query, isQueryExecuted, postFetchingRecords } = props
+  const {
+    className,
+    records,
+    fetchRecords,
+    loading,
+    error,
+    query,
+    isQueryExecuted,
+    postFetchingRecords,
+    queryNotExecutedMessage
+  } = props
   const { getString } = useStrings()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
@@ -81,6 +91,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
         error={error}
         query={query}
         isQueryExecuted={isQueryExecuted}
+        queryNotExecutedMessage={queryNotExecutedMessage}
       />
       <QueryViewDialog
         isOpen={isDialogOpen}

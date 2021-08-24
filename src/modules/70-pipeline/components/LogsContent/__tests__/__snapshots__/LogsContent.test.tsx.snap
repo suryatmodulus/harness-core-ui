@@ -1,0 +1,517 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LogsContent /> tests DefaultConsoleViewStepDetails snapshot test 1`] = `
+<div>
+  <div
+    class="logViewer"
+  >
+    <div
+      class="main"
+      data-mode="console-view"
+    >
+      <div
+        class="header"
+      >
+        <div>
+          execution.consoleLogs
+        </div>
+        <div
+          class="rhs"
+        >
+          <div
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+            data-name=""
+          >
+            <span
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+              data-icon="thinner-search"
+            >
+              <svg
+                fill="none"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+            <input
+              class="bp3-input  ExpandingSearchInput--find"
+              dir="auto"
+              placeholder="Search"
+              style="padding-right: 0px;"
+              type="search"
+              value=""
+            />
+          </div>
+        </div>
+      </div>
+      <pre
+        class="container"
+      >
+        <div
+          class="noLogs"
+        >
+          common.logs.noLogsText
+        </div>
+      </pre>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<LogsContent /> tests Logs test GroupedLogs 1`] = `
+<div>
+  <div
+    class="main"
+    data-mode="console-view"
+  >
+    <div
+      class="header"
+    >
+      <div>
+        execution.consoleLogs
+      </div>
+      <div
+        class="rhs"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+          data-name=""
+        >
+          <span
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+            data-icon="thinner-search"
+          >
+            <svg
+              fill="none"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input  ExpandingSearchInput--find"
+            dir="auto"
+            placeholder="Search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <pre
+      class="container"
+    >
+      <div>
+        Grouped logs
+      </div>
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`<LogsContent /> tests Logs test SingleSectionLogs 1`] = `
+<div>
+  <div
+    class="main"
+    data-mode="console-view"
+  >
+    <div
+      class="header"
+    >
+      <div>
+        execution.consoleLogs
+      </div>
+      <div
+        class="rhs"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+          data-name=""
+        >
+          <span
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+            data-icon="thinner-search"
+          >
+            <svg
+              fill="none"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input  ExpandingSearchInput--find"
+            dir="auto"
+            placeholder="Search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <pre
+      class="container"
+    >
+      <div>
+        Single section logs
+      </div>
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`<LogsContent /> tests console-view error message test 1`] = `
+<div>
+  <div
+    class="main hasErrorMessage"
+    data-mode="console-view"
+  >
+    <div
+      class="header"
+    >
+      <div>
+        execution.consoleLogs
+      </div>
+      <div
+        class="rhs"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+          data-name=""
+        >
+          <span
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+            data-icon="thinner-search"
+          >
+            <svg
+              fill="none"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input  ExpandingSearchInput--find"
+            dir="auto"
+            placeholder="Search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <pre
+      class="container"
+    >
+      <div
+        class="noLogs"
+      >
+        common.logs.noLogsText
+      </div>
+    </pre>
+    <div
+      class="errorMessage"
+    >
+      <div
+        class="summary"
+      >
+        summary
+      </div>
+      <div
+        class="error"
+      >
+        <span
+          class="bp3-icon StyledProps--main"
+          data-icon="circle-cross"
+        >
+          <svg
+            height="16"
+            viewBox="0 0 13 13"
+            width="16"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M.167 6.501a6.333 6.333 0 1012.666 0 6.333 6.333 0 00-12.666 0zm4.071-3.003l2.26 2.263 2.264-2.263c.495-.495 1.236.248.741.743L7.24 6.504l2.254 2.258c.495.495-.247 1.238-.742.743L6.497 7.246 4.238 9.505c-.495.495-1.236-.249-.741-.744l2.258-2.258-2.259-2.262c-.494-.495.248-1.238.742-.743z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main"
+          style="--text-line-clamp: 1;"
+        >
+          This is an error message
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<LogsContent /> tests console-view snapshot test 1`] = `
+<div>
+  <div
+    class="main"
+    data-mode="console-view"
+  >
+    <div
+      class="header"
+    >
+      <div>
+        execution.consoleLogs
+      </div>
+      <div
+        class="rhs"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+          data-name=""
+        >
+          <span
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+            data-icon="thinner-search"
+          >
+            <svg
+              fill="none"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input  ExpandingSearchInput--find"
+            dir="auto"
+            placeholder="Search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <pre
+      class="container"
+    >
+      <div
+        class="noLogs"
+      >
+        common.logs.noLogsText
+      </div>
+    </pre>
+  </div>
+</div>
+`;
+
+exports[`<LogsContent /> tests console-view warning message test 1`] = `
+<div>
+  <div
+    class="main hasErrorMessage"
+    data-mode="console-view"
+  >
+    <div
+      class="header"
+    >
+      <div>
+        execution.consoleLogs
+      </div>
+      <div
+        class="rhs"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+          data-name=""
+        >
+          <span
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+            data-icon="thinner-search"
+          >
+            <svg
+              fill="none"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input  ExpandingSearchInput--find"
+            dir="auto"
+            placeholder="Search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
+    </div>
+    <pre
+      class="container"
+    >
+      <div
+        class="noLogs"
+      >
+        common.logs.noLogsText
+      </div>
+    </pre>
+    <div
+      class="errorMessage isWarning"
+    >
+      <div
+        class="summary"
+      >
+        summary
+      </div>
+      <div
+        class="error"
+      >
+        <span
+          class="bp3-icon bp3-icon-warning-sign StyledProps--main"
+          icon="warning-sign"
+        >
+          <svg
+            data-icon="warning-sign"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              warning-sign
+            </desc>
+            <path
+              d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps--font Text--lineclamp StyledProps--main"
+          style="--text-line-clamp: 1;"
+        >
+          This is a warning message
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<LogsContent /> tests step-details snapshot test 1`] = `
+<div>
+  <div
+    class="main"
+    data-mode="step-details"
+  >
+    <div
+      class="header"
+    >
+      <div>
+        execution.stepLogs
+      </div>
+      <div
+        class="rhs"
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main search ExpandingSearchInput--flip  ExpandingSearchInput--dark"
+          data-name=""
+        >
+          <span
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey200"
+            data-icon="thinner-search"
+          >
+            <svg
+              fill="none"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M7.125 13.25c1.617 0 3.32-.695 4.375-1.75L15 15l-3.5-3.5c1.021-1.005 1.75-2.894 1.75-4.375a6.125 6.125 0 10-6.125 6.125z"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input  ExpandingSearchInput--find"
+            dir="auto"
+            placeholder="Search"
+            style="padding-right: 0px;"
+            type="search"
+            value=""
+          />
+        </div>
+        <a
+          class="toConsoleView"
+          href="/"
+        >
+          <span>
+            consoleView
+          </span>
+        </a>
+      </div>
+    </div>
+    <pre
+      class="container"
+    >
+      <div
+        class="noLogs"
+      >
+        common.logs.noLogsText
+      </div>
+    </pre>
+  </div>
+</div>
+`;

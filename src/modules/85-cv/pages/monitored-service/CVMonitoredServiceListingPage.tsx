@@ -7,9 +7,8 @@ import { Page, useToaster } from '@common/exports'
 import { PageSpinner, Table } from '@common/components'
 import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getErrorMessage } from '@cv/utils/CommonUtils'
 import { BGColorWrapper, HorizontalLayout } from '@cv/pages/health-source/common/StyledComponents'
@@ -41,9 +40,8 @@ const PageBody = styled(Page.Body)`
 function CVMonitoredServiceListingPage(): JSX.Element {
   const { getString } = useStrings()
   const history = useHistory()
-  const { selectedProject } = useAppStore()
+  //const { selectedProject } = useAppStore()
   const { showError, clear } = useToaster()
-  const project = selectedProject
   const params = useParams<ProjectPathProps>()
   const [page, setPage] = useState(0)
   const [environment, setEnvironment] = useState<SelectOption>()
@@ -108,7 +106,8 @@ function CVMonitoredServiceListingPage(): JSX.Element {
                 accountId: params.accountId,
                 projectIdentifier: params.projectIdentifier,
                 orgIdentifier: params.orgIdentifier,
-                identifier: rowdata.identifier
+                identifier: rowdata.identifier,
+                module: 'cv'
               })
             )
           }}
@@ -141,22 +140,7 @@ function CVMonitoredServiceListingPage(): JSX.Element {
       <MonitoringServicesHeader height={'80px'}>
         <HorizontalLayout alignItem={'flex-end'}>
           <div>
-            <Breadcrumbs
-              links={[
-                {
-                  url: routes.toCVProjectOverview({
-                    orgIdentifier: params.orgIdentifier,
-                    projectIdentifier: params.projectIdentifier,
-                    accountId: params.accountId
-                  }),
-                  label: project?.name as string
-                },
-                {
-                  url: '#',
-                  label: ''
-                }
-              ]}
-            />
+            <NGBreadcrumbs />
             <p>{getString('cv.monitoredServices.title')}</p>
           </div>
         </HorizontalLayout>

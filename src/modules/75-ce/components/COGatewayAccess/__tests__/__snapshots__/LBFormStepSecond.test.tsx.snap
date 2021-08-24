@@ -278,7 +278,7 @@ exports[`AWS Access Point Configuration screen first render and fill form 1`] = 
           style="margin-top: 220px;"
         >
           <button
-            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+            class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
             type="button"
           >
             <span

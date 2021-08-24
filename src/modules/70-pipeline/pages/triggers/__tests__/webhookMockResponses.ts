@@ -53,6 +53,31 @@ export const GetTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
     correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
   }
 }
+
+export const GetManifestTriggerResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
+  loading: false,
+  refetch: jest.fn(),
+  error: null,
+  data: {
+    status: 'SUCCESS',
+    data: {
+      name: 'triggertest2',
+      identifier: 'triggertest2',
+      description: 'desc',
+      type: 'Manifest',
+      accountIdentifier: 'accountId',
+      orgIdentifier: 'default',
+      projectIdentifier: 'project1',
+      targetIdentifier: 'TestPipelineABC',
+
+      yaml: 'trigger:\n    name: sdfsdfdsfdfd\n    identifier: sdfsdfdsfdfd\n    enabled: true\n    tags: {}\n    orgIdentifier: default\n    projectIdentifier: test\n    pipelineIdentifier: TestPipelineABC\n    source:\n        type: Manifest\n        spec:\n            stageIdentifier: stagea\n            manifestRef: testhelmmanifest\n            type: HelmChart\n            spec:\n                store:\n                    type: S3\n                    spec:\n                        connectorRef: testecr2\n                        bucketName: ""\n                        folderPath: sdfds\n                        region: ""\n                chartName: sdfds\n                chartVersion: <+trigger.manifest.version>\n                helmVersion: V2\n                skipResourceVersioning: false\n                eventConditions: []\n    inputYaml: |\n        pipeline:\n            identifier: TestPipelineABC\n            stages:\n                - stage:\n                      identifier: stagea\n                      type: Deployment\n                      spec:\n                          serviceConfig:\n                              serviceDefinition:\n                                  type: Kubernetes\n                                  spec:\n                                      manifests:\n                                          - manifest:\n                                                identifier: sdfds\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            bucketName: ""\n                                                            folderPath: ""\n                                                    chartName: ""\n                                                    chartVersion: ""\n                                          - manifest:\n                                                identifier: testhelmmanifest\n                                                type: HelmChart\n                                                spec:\n                                                    store:\n                                                        type: S3\n                                                        spec:\n                                                            connectorRef: testecr2\n                                                            bucketName: ""\n                                                            folderPath: sdfds\n                                                            region: ""\n                                                    chartName: sdfds\n                                                    chartVersion: <+trigger.manifest.version>\n                                                    helmVersion: V2\n                                                    skipResourceVersioning: false\n',
+      version: 1,
+      enabled: true
+    },
+    metaData: null as unknown as undefined,
+    correlationId: '25df5700-e9a4-49c4-98eb-dea4c371fd6e'
+  }
+}
 export const GetTriggerRepoOrgConnectorResponse: UseGetReturnData<ResponseNGTriggerResponse> = {
   loading: false,
   refetch: jest.fn(),
@@ -344,6 +369,8 @@ export const updateTriggerMockResponseYaml =
 export const enabledFalseUpdateTriggerMockResponseYaml =
   'trigger:\n  name: All Values\n  identifier: All_Values\n  enabled: false\n  description: desc\n  tags:\n    tag1: value1\n  source:\n    type: Webhook\n    spec:\n      type: Github\n      spec:\n        type: IssueComment\n        spec:\n          connectorRef: test\n          autoAbortPreviousExecutions: true\n          payloadConditions:\n            - key: changedFiles\n              operator: NotEquals\n              value: x\n            - key: sourceBranch\n              operator: Equals\n              value: sourceBranch\n            - key: targetBranch\n              operator: In\n              value: val1, val2\n            - key: <+trigger.payload.path>\n              operator: StartsWith\n              value: "1"\n          headerConditions:\n            - key: <+trigger.header["key-name"]>\n              operator: EndsWith\n              value: release\n          jexlCondition: jexlCondition\n          repoName: reponame\n          actions:\n            - Create\n            - Edit\n            - Delete\n  inputYaml: |\n    pipeline:\n      identifier: noinputspipeline1\n      variables:\n        - name: newVar\n          type: String\n          value: ""\n'
 
+export const updateManifestTriggerMockResponseYaml =
+  'trigger:\n  name: sdfsdfdsfdfd\n  identifier: sdfsdfdsfdfd\n  enabled: true\n  tags: {}\n  source:\n    type: Manifest\n    spec:\n      stageIdentifier: stagea\n      manifestRef: testhelmmanifest\n      type: HelmChart\n      spec:\n        store:\n          type: S3\n          spec:\n            connectorRef: testecr2\n            bucketName: ""\n            folderPath: sdfds\n            region: ""\n        chartName: sdfds\n        chartVersion: <+trigger.manifest.version>\n        helmVersion: V2\n        skipResourceVersioning: false\n        eventConditions: []\n  inputYaml: |\n    pipeline:\n      identifier: TestPipelineABC\n      stages:\n        - stage:\n            identifier: stagea\n            type: Deployment\n            spec:\n              serviceConfig:\n                serviceDefinition:\n                  type: Kubernetes\n                  spec:\n                    manifests:\n                      - manifest:\n                          identifier: sdfds\n                          type: HelmChart\n                          spec:\n                            store:\n                              type: S3\n                              spec:\n                                bucketName: ""\n                                folderPath: ""\n                            chartName: ""\n                            chartVersion: ""\n                      - manifest:\n                          identifier: testhelmmanifest\n                          type: HelmChart\n                          spec:\n                            store:\n                              type: S3\n                              spec:\n                                connectorRef: testecr2\n                                bucketName: ""\n                                folderPath: sdfds\n                                region: ""\n                            chartName: sdfds\n                            chartVersion: <+trigger.manifest.version>\n                            helmVersion: V2\n                            skipResourceVersioning: false\n'
 export const GetSchemaYaml = {
   status: 'SUCCESS',
   data: {

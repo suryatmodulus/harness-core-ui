@@ -348,6 +348,7 @@ recommendation:
       details: 'DETAILS'
     recommendationTypes:
       resizing: 'Resizing'
+      rightSizing: 'Rightsizing'
     recommendationDetails:
       resize: 'resize CPU and memory'
   detailsPage:
@@ -418,11 +419,12 @@ perspectives:
   timeRange:
     relativeDates: 'Relative dates'
     calendarMonths: 'Calendar months'
-    recommended: 'Recommended'
+    recommended: '{{$.common.recommended}}'
     selectCustomRange: 'Select custom range'
   timeAggregation:
-    daily: '{{$.pipeline.triggers.schedulePanel.dailyTabTitle}}'
-    monthly: '{{$.pipeline.triggers.schedulePanel.monthlyTabTitle}}'
+    daily: '{{$.common.daily}}'
+    monthly: '{{$.common.monthly}}'
+    hourly: '{{$.common.hourly}}'
   createPerspective:
     title: 'Perspective Builder'
     nameLabel: 'Enter a name for the view*'
@@ -519,3 +521,32 @@ overview:
     ngDocs: Learn what CCM has to offer
 sideNav:
   perspective: 'Perspective'
+nodeRecommendation:
+  gke: 'GCP - GKE'
+  aks: 'Azure - AKS'
+  eks: 'AWS - EKS'
+  distribution: DISTRIBUTION
+  nodepool: Nodepool
+  poolDetails: NODEPOOL DETAILS
+  howItWorks: How it works
+  rightSize: '{{ $.ce.recommendation.listPage.recommendationTypes.rightSizing }}'
+  text1: The recommendations are computed by analyzing the customer environment and usage.
+  text2: Cluster node level recommendations on node instance family and node count to maintain performance while optimizing for cost.
+  resourceNeed: Resource needs
+  cpus: 'CPU(vCPU):'
+  mem: 'RAM(GiB):'
+  nodeCount: Node count
+  minNode: 'Min Nodes:'
+  maxNode: 'Max Nodes:'
+  onDemand: 'On-demand'
+  spot: Spot
+  memory: 'Memory(GiB)'
+  instanceFam: Instance family
+  costPerHour: Cost per node per hour
+  monthlyCost: Potential montly cost
+  estimatedSavings: Estimated savings
+  compare: CURRENT RESOURCES V/S RECOMMENDED
+  recommended: '{{$.common.recommended}}'
+  suitable:
+    prod: well suited for prod
+    qa: well suited for non-prod/QA

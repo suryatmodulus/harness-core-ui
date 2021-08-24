@@ -68,7 +68,7 @@ exports[`Test K8sApplyStep should render edit view 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
               data-testid="remove-spec.filePaths-[0]"
               type="button"
             >
@@ -140,7 +140,7 @@ exports[`Test K8sApplyStep should render edit view 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
               data-testid="remove-spec.filePaths-[1]"
               type="button"
             >
@@ -186,7 +186,12 @@ exports[`Test K8sApplyStep should render edit view 1`] = `
           class="bp3-label"
           for="spec.skipDryRun"
         >
-          pipelineSteps.skipDryRun
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.skipDryRun"
+          >
+            pipelineSteps.skipDryRun
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -374,7 +379,12 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -446,7 +456,12 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
           <div
             class="formLabel"
           >
-            common.git.filePath
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Apply_spec.filePaths"
+            >
+              common.git.filePath
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -454,7 +469,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -475,11 +490,6 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -556,7 +566,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -636,7 +646,7 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -683,7 +693,12 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
           class="bp3-label"
           for="spec.skipDryRun"
         >
-          pipelineSteps.skipDryRun
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_spec.skipDryRun"
+          >
+            pipelineSteps.skipDryRun
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -743,8 +758,8 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-        id="configureOptions"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+        id="configureOptions_spec.skipDryRun"
         type="button"
       >
         <span
@@ -821,6 +836,10 @@ exports[`Test K8sApplyStep should render edit view as edit step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>
@@ -932,7 +951,12 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1004,7 +1028,12 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
           <div
             class="formLabel"
           >
-            common.git.filePath
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="k8Apply_spec.filePaths"
+            >
+              common.git.filePath
+            </span>
             <div
               class="bp3-popover-wrapper typeSelectorWrapper"
             >
@@ -1012,7 +1041,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                 class="bp3-popover-target typeSelector"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                   type="button"
                 >
                   <span
@@ -1033,11 +1062,6 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                           fill="currentColor"
                         />
                       </svg>
-                    </span>
-                    <span
-                      class="btnText"
-                    >
-                      inputTypes.FIXED
                     </span>
                   </span>
                 </button>
@@ -1114,7 +1138,7 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -1204,6 +1228,10 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -1260,6 +1288,10 @@ exports[`Test K8sApplyStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8Apply_spec.skipSteadyStateCheck"
+          />
         </div>
       </div>
     </div>
@@ -1294,7 +1326,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -1354,7 +1386,7 @@ exports[`Test K8sApplyStep should render variable view 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >

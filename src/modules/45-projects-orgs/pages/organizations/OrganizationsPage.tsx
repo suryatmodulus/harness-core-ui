@@ -53,13 +53,13 @@ const OrganizationsPage: React.FC = () => {
         title={<Layout.Horizontal padding="small">{newOrgButton()}</Layout.Horizontal>}
         toolbar={
           <ExpandingSearchInput
-            flip
+            alwaysExpanded
             placeholder={getString('projectsOrgs.searchPlaceHolder')}
             onChange={text => {
               setSearchParam(text.trim())
             }}
             className={css.search}
-            width={350}
+            width={320}
           />
         }
       />

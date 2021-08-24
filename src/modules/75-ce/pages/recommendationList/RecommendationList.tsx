@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Card, Text, Layout, Container, Color, Icon } from '@wings-software/uicore'
 import { useHistory, useParams } from 'react-router-dom'
 import type { CellProps, Renderer } from 'react-table'
@@ -21,6 +21,15 @@ import EmptyView from '@ce/images/empty-state.svg'
 import RecommendationSavingsCard from '../../components/RecommendationSavingsCard/RecommendationSavingsCard'
 import RecommendationFilters from '../../components/RecommendationFilters'
 import css from './RecommendationList.module.scss'
+
+type RouteFn = (
+  params: {
+    recommendation: string
+    recommendationName: string
+  } & {
+    accountId: string
+  }
+) => string
 
 interface RecommendationListProps {
   data: Array<RecommendationItemDto>
@@ -50,6 +59,12 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
   const history = useHistory()
   const { accountId } = useParams<{ accountId: string }>()
   const { getString } = useStrings()
+  const resourceTypeToRoute: Record<ResourceType, RouteFn> = useMemo(() => {
+    return {
+      [ResourceType.Workload]: routes.toCERecommendationDetails,
+      [ResourceType.NodePool]: routes.toCENodeRecommendationDetails
+    }
+  }, [])
 
   if (fetching) {
     return (
@@ -79,18 +94,18 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
 
   const NameCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
     const originalRowData = cell.row.original
-    const { resourceType, clusterName, namespace } = originalRowData
-    return resourceType === ResourceType.Workload ? (
+    const { clusterName, namespace } = originalRowData
+    return (
       <Layout.Vertical
         margin={{
           right: 'medium'
         }}
       >
         <Text>{clusterName}</Text>
-        <Text>{`/ ${namespace}`}</Text>
+        {namespace && <Text>{`/ ${namespace}`}</Text>}
         <Text>{`/ ${cell.value}`}</Text>
       </Layout.Vertical>
-    ) : null
+    )
   }
 
   const RecommendationTypeCell: Renderer<CellProps<RecommendationItemDto>> = ({ row }) => {
@@ -98,23 +113,25 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
     const { resourceType } = rowData
     return (
       <Text>
-        {resourceType === 'WORKLOAD' ? getString('ce.recommendation.listPage.recommendationTypes.resizing') : ''}
+        {resourceType === 'WORKLOAD'
+          ? getString('ce.recommendation.listPage.recommendationTypes.resizing')
+          : getString('ce.recommendation.listPage.recommendationTypes.rightSizing')}
       </Text>
     )
   }
 
-  const RecommendationDetailsCell: Renderer<CellProps<RecommendationItemDto>> = ({ row }) => {
-    const rowData = row.original
-    const { resourceType } = rowData
-    return (
-      <Text>
-        {resourceType === 'WORKLOAD' ? getString('ce.recommendation.listPage.recommendationDetails.resize') : ''}
-      </Text>
-    )
-  }
+  // const RecommendationDetailsCell: Renderer<CellProps<RecommendationItemDto>> = ({ row }) => {
+  //   const rowData = row.original
+  //   const { resourceType } = rowData
+  //   return (
+  //     <Text>
+  //       {resourceType === 'WORKLOAD' ? getString('ce.recommendation.listPage.recommendationDetails.resize') : ''}
+  //     </Text>
+  //   )
+  // }
 
   const ResourceTypeCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
-    return <Text>{cell.value === 'WORKLOAD' ? getString('pipelineSteps.workload') : ''}</Text>
+    return <Text>{cell.value === 'WORKLOAD' ? getString('pipelineSteps.workload') : 'Nodepool'}</Text>
   }
 
   const CostCell: Renderer<CellProps<RecommendationItemDto>> = cell => {
@@ -145,12 +162,12 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
         </Layout.Horizontal>
 
         <Table<RecommendationItemDto>
-          onRowClick={row => {
+          onRowClick={({ id, resourceType, resourceName }) => {
             history.push(
-              routes.toCERecommendationDetails({
+              resourceTypeToRoute[resourceType]({
                 accountId,
-                recommendation: row.id,
-                recommendationName: row.resourceName || row.id
+                recommendation: id,
+                recommendationName: resourceName || id
               })
             )
           }}
@@ -160,36 +177,36 @@ const RecommendationsList: React.FC<RecommendationListProps> = ({
               accessor: 'monthlySaving',
               Header: getString('ce.recommendation.listPage.listTableHeaders.monthlySavings'),
               Cell: SavingCell,
-              width: '15%'
+              width: '18%'
             },
             {
               accessor: 'resourceName',
               Header: getString('ce.recommendation.listPage.listTableHeaders.resourceName'),
               Cell: NameCell,
-              width: '20%'
+              width: '23%'
             },
             {
               accessor: 'resourceType',
               Header: getString('ce.recommendation.listPage.listTableHeaders.resourceType'),
               Cell: ResourceTypeCell,
-              width: '15%'
+              width: '18%'
             },
             {
               accessor: 'monthlyCost',
               Header: getString('ce.recommendation.listPage.listTableHeaders.monthlyCost'),
               Cell: CostCell,
-              width: '15%'
+              width: '18%'
             },
             {
               Header: getString('ce.recommendation.listPage.listTableHeaders.recommendationType'),
               Cell: RecommendationTypeCell,
-              width: '15%'
-            },
-            {
-              Header: getString('ce.recommendation.listPage.listTableHeaders.details'),
-              Cell: RecommendationDetailsCell,
-              width: '15%'
+              width: '18%'
             }
+            // {
+            //   Header: getString('ce.recommendation.listPage.listTableHeaders.details'),
+            //   Cell: RecommendationDetailsCell,
+            //   width: '15%'
+            // }
           ]}
           pagination={pagination}
         ></Table>
@@ -211,8 +228,7 @@ const RecommendationList: React.FC = () => {
         ...filters,
         ...modifiedCostFilters,
         offset: page * 10,
-        limit: 10,
-        resourceTypes: ['WORKLOAD']
+        limit: 10
       } as K8sRecommendationFilterDtoInput
     }
   })
@@ -221,8 +237,7 @@ const RecommendationList: React.FC = () => {
     variables: {
       filter: {
         ...filters,
-        ...modifiedCostFilters,
-        resourceTypes: ['WORKLOAD']
+        ...modifiedCostFilters
       } as K8sRecommendationFilterDtoInput
     }
   })

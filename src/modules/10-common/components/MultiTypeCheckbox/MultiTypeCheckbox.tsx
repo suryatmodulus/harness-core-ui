@@ -9,7 +9,8 @@ import {
   getMultiTypeFromValue,
   HarnessDocTooltip,
   MultiTypeInputType,
-  MultiTypeInputValue
+  MultiTypeInputValue,
+  FormikTooltipContext
 } from '@wings-software/uicore'
 import cx from 'classnames'
 import { get, isNil } from 'lodash-es'
@@ -96,15 +97,14 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
 
   const isFixedValue = type === MultiTypeInputType.FIXED
   const labelToBePassed = !isFixedValue ? label : undefined
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
   return (
     <FormGroup
       {...rest}
       label={
-        labelToBePassed ? (
-          <HarnessDocTooltip tooltipId={tooltipProps?.dataTooltipId} labelText={labelToBePassed} />
-        ) : (
-          labelToBePassed
-        )
+        labelToBePassed ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelToBePassed} /> : labelToBePassed
       }
       labelFor={name}
       helperText={helperText}
@@ -127,6 +127,7 @@ export const FormMultiTypeCheckbox: React.FC<FormMultiTypeTextboxProps> = props 
           onChange?.(val, valueType, type)
         }}
       />
+      {!labelToBePassed ? <HarnessDocTooltip tooltipId={dataTooltipId} labelText={labelToBePassed} /> : null}
     </FormGroup>
   )
 }

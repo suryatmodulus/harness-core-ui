@@ -39,7 +39,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
         style="width: 55%;"
       >
         <button
-          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+          class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
           type="button"
         >
           <span
@@ -76,11 +76,11 @@ exports[`Test Access Point List Renders without errors 1`] = `
           class="Layout--horizontal StyledProps--main StyledProps--flex"
         >
           <div
-            class="bp3-input-group ui-search-box ExpandingSearchInput--main search  "
+            class="bp3-input-group ui-search-box ExpandingSearchInput--main search   ExpandingSearchInput--light"
             data-name=""
           >
             <span
-              class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+              class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
               data-icon="thinner-search"
             >
               <svg
@@ -143,7 +143,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 20%;"
+            style="width: 15%;"
           >
             CE.CO.ACCESSPOINT.CLOUDACCOUNT
           </div>
@@ -151,7 +151,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 10%;"
+            style="width: 8%;"
           >
             CE.CO.ACCESSPOINT.DNSPROVIDER
           </div>
@@ -159,7 +159,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 15%;"
+            style="width: 10%;"
           >
             CE.CO.ACCESSPOINT.ASSSOCIATEDRULES
           </div>
@@ -167,7 +167,23 @@ exports[`Test Access Point List Renders without errors 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 15%;"
+            style="width: 10%;"
+          >
+            Region
+          </div>
+          <div
+            class="cell"
+            colspan="1"
+            role="columnheader"
+            style="width: 12%;"
+          >
+            VPC
+          </div>
+          <div
+            class="cell"
+            colspan="1"
+            role="columnheader"
+            style="width: 10%;"
           >
             CE.CO.ACCESSPOINT.LASTACTIVITY
           </div>
@@ -175,7 +191,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
             class="cell"
             colspan="1"
             role="columnheader"
-            style="width: 15%;"
+            style="width: 10%;"
           >
             CE.CO.ACCESSPOINT.STATUS
           </div>
@@ -201,20 +217,31 @@ exports[`Test Access Point List Renders without errors 1`] = `
               role="cell"
               style="width: 20%;"
             >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
-                style="font-weight: 600; --text-line-clamp: 3;"
+              <div
+                style="overflow-wrap: anywhere;"
               >
-                mockname
-              </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black"
+                  style="font-weight: 600; --text-line-clamp: 1;"
+                >
+                  mockname
+                </p>
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey400"
+                  style="--text-line-clamp: 2;"
+                >
+                  mock.com
+                </p>
+              </div>
             </div>
             <div
               class="cell"
               role="cell"
-              style="width: 20%;"
+              style="width: 15%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+                style="overflow-wrap: anywhere;"
               >
                 <span
                   class="bp3-icon StyledProps--main"
@@ -244,7 +271,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
                 </span>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-grey500"
-                  style="--text-line-clamp: 3;"
+                  style="--text-line-clamp: 1;"
                 >
                   mockCloudAccId
                 </p>
@@ -253,7 +280,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
             <div
               class="cell"
               role="cell"
-              style="width: 10%;"
+              style="width: 8%;"
             >
               <p
                 class="StyledProps--font Text--lineclamp StyledProps--main"
@@ -265,7 +292,7 @@ exports[`Test Access Point List Renders without errors 1`] = `
             <div
               class="cell"
               role="cell"
-              style="width: 15%;"
+              style="width: 10%;"
             >
               <div
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
@@ -282,14 +309,46 @@ exports[`Test Access Point List Renders without errors 1`] = `
             <div
               class="cell"
               role="cell"
-              style="width: 15%;"
+              style="width: 10%;"
+            >
+              <div
+                style="overflow-wrap: anywhere; padding-right: 10px;"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main"
+                  style="--text-line-clamp: 2;"
+                >
+                  ap-south-1
+                </p>
+              </div>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 12%;"
+            >
+              <div
+                style="overflow-wrap: anywhere; padding-right: 10px;"
+              >
+                <p
+                  class="StyledProps--font Text--lineclamp StyledProps--main"
+                  style="--text-line-clamp: 2;"
+                >
+                  mockVPC
+                </p>
+              </div>
+            </div>
+            <div
+              class="cell"
+              role="cell"
+              style="width: 10%;"
             >
               -
             </div>
             <div
               class="cell"
               role="cell"
-              style="width: 15%;"
+              style="width: 10%;"
             >
               <span
                 class="bp3-popover-wrapper"

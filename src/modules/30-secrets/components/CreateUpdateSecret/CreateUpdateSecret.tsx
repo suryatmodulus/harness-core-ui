@@ -97,7 +97,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
     }
   }, [propsSecret?.identifier])
 
-  const secretManagerTypes: ConnectorInfoDTO['type'][] = ['AwsKms', 'AzureKeyVault', 'Vault']
+  const secretManagerTypes: ConnectorInfoDTO['type'][] = ['AwsKms', 'AzureKeyVault', 'Vault', 'AwsSecretManager']
   let sourceCategory: ListSecretsV2QueryParams['source_category'] | undefined
   if (connectorTypeContext && secretManagerTypes.includes(connectorTypeContext)) {
     sourceCategory = 'SECRET_MANAGER'
@@ -354,7 +354,9 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               {LocalFormFieldsSMList.findIndex(val => val === typeOfSelectedSecretManager) !== -1 ? (
                 <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
-              {typeOfSelectedSecretManager === 'Vault' || typeOfSelectedSecretManager === 'AzureKeyVault' ? (
+              {typeOfSelectedSecretManager === 'Vault' ||
+              typeOfSelectedSecretManager === 'AzureKeyVault' ||
+              typeOfSelectedSecretManager === 'AwsSecretManager' ? (
                 <VaultFormFields formik={formikProps} type={type} editing={editing} readonly={readOnlySecretManager} />
               ) : null}
               <Button

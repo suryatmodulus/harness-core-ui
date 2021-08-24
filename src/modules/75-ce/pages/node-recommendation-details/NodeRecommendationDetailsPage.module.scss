@@ -1,0 +1,16 @@
+.header {
+  background: var(--grey-0) !important;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+
+  .breadCrumb {
+    box-sizing: border-box;
+    padding: 8px var(--spacing-large) !important;
+  }
+}
+
+.body {
+  padding: var(--spacing-xlarge) var(--spacing-xlarge) var(--spacing-xlarge) 0 !important;
+  display: grid;
+  grid-template-columns: minmax(875px, 2fr) minmax(350px, 1fr);
+  column-gap: 10px;
+}

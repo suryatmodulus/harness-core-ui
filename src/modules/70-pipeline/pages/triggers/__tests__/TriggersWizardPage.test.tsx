@@ -76,6 +76,14 @@ const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactEle
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
+jest.mock('@pipeline/factories/ArtifactTriggerInputFactory', () => ({
+  getTriggerFormDetails: jest.fn().mockImplementation(() => () => {
+    return {
+      component: <div>ABC</div>
+    }
+  })
+}))
+
 function WrapperComponent(): JSX.Element {
   return (
     <TestWrapper pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>

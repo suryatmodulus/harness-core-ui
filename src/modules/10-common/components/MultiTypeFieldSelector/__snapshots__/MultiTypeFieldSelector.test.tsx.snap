@@ -21,7 +21,7 @@ exports[`<MultiTypeFieldSelector /> tests "Fixed value" renders children: Fixed 
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                 type="button"
               >
                 <span
@@ -42,11 +42,6 @@ exports[`<MultiTypeFieldSelector /> tests "Fixed value" renders children: Fixed 
                         fill="currentColor"
                       />
                     </svg>
-                  </span>
-                  <span
-                    class="btnText"
-                  >
-                    inputTypes.FIXED
                   </span>
                 </span>
               </button>
@@ -92,13 +87,7 @@ exports[`<MultiTypeFieldSelector /> tests "disableTypeSelection" does not render
         <div
           class="formLabel"
         >
-          <span>
-            Test Label
-             
-            <b>
-              &lt;+input&gt;
-            </b>
-          </span>
+          Test Label
         </div>
          
         <span
@@ -139,13 +128,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
         <div
           class="formLabel"
         >
-          <span>
-            Test Label
-             
-            <b>
-              &lt;+input&gt;
-            </b>
-          </span>
+          Test Label
           <div
             class="bp3-popover-wrapper typeSelectorWrapper"
           >
@@ -153,7 +136,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                 type="button"
               >
                 <span
@@ -175,11 +158,6 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
                       />
                     </svg>
                   </span>
-                  <span
-                    class="btnText"
-                  >
-                    inputTypes.RUNTIME
-                  </span>
                 </span>
               </button>
             </div>
@@ -192,7 +170,29 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Fixed value" to "Runtime 
       </label>
       <div
         class="bp3-form-content"
-      />
+      >
+        <div
+          class="bp3-form-group bp3-disabled runtimeDisabled"
+        >
+          
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group bp3-disabled"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                disabled=""
+                name="test"
+                type="text"
+                value="<+input>"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <button
       type="submit"
@@ -224,7 +224,7 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed 
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                 type="button"
               >
                 <span
@@ -245,11 +245,6 @@ exports[`<MultiTypeFieldSelector /> tests Change from "Runtime input" to "Fixed 
                         fill="currentColor"
                       />
                     </svg>
-                  </span>
-                  <span
-                    class="btnText"
-                  >
-                    inputTypes.FIXED
                   </span>
                 </span>
               </button>
@@ -295,13 +290,7 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: inp
         <div
           class="formLabel"
         >
-          <span>
-            Test Label
-             
-            <b>
-              &lt;+input&gt;
-            </b>
-          </span>
+          Test Label
           <div
             class="bp3-popover-wrapper typeSelectorWrapper"
           >
@@ -309,7 +298,7 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: inp
               class="bp3-popover-target typeSelector"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                 type="button"
               >
                 <span
@@ -331,11 +320,6 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: inp
                       />
                     </svg>
                   </span>
-                  <span
-                    class="btnText"
-                  >
-                    inputTypes.RUNTIME
-                  </span>
                 </span>
               </button>
             </div>
@@ -348,7 +332,29 @@ exports[`<MultiTypeFieldSelector /> tests Detects "Runtime input" correctly: inp
       </label>
       <div
         class="bp3-form-content"
-      />
+      >
+        <div
+          class="bp3-form-group bp3-disabled runtimeDisabled"
+        >
+          
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group bp3-disabled"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                disabled=""
+                name="test"
+                type="text"
+                value="<+input>"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <button
       type="submit"

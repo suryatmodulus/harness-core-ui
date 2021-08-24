@@ -1,5 +1,28 @@
-.search {
-  width: 320px;
+.searchWrapper {
+  margin-bottom: 0px !important;
+  width: 300px;
+  :global {
+    .bp3-icon {
+      position: absolute;
+      width: 32px;
+      height: 100%;
+      display: flex !important;
+      justify-content: center;
+      align-items: center;
+      margin: 0 !important;
+      pointer-events: none;
+    }
+    .bp3-input {
+      background-color: var(--primary-1);
+      border: 1px solid var(--primary-7);
+      box-shadow: none !important;
+      padding: 0px 8px 0px 32px !important;
+      &:placeholder-shown:not(:focus) {
+        background-color: var(--white);
+        border-color: var(--grey-200);
+      }
+    }
+  }
 }
 .table {
   margin: var(--spacing-xlarge);

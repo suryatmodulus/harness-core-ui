@@ -1,7 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly search: string
+  readonly searchWrapper: string
   readonly table: string
   readonly gitFilter: string
   readonly actionButton: string

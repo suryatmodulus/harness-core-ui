@@ -1,0 +1,24 @@
+.basicDetails {
+  background-color: var(--form-bg);
+  width: 55%;
+  padding: var(--spacing-xlarge) var(--spacing-xxlarge);
+  border-radius: var(--spacing-2);
+}
+
+.preview {
+  padding: var(--spacing-10) var(--spacing-12);
+}
+
+.lg {
+  width: 75%;
+}
+
+.buttonGroup {
+  margin-top: var(--spacing-large);
+}
+
+.closeIcon {
+  text-align: right;
+  padding: var(--spacing-6) var(--spacing-4);
+  cursor: pointer;
+}

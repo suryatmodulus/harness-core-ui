@@ -1,10 +1,17 @@
 import type { IconName } from '@wings-software/uicore'
 
 type iconMapOptions = {
+  [key: string]: {
+    icon: IconName
+    keepOriginal?: boolean
+  }
+}
+
+type stepTileIconMap = {
   [key: string]: IconName
 }
 
-export const iconMap: iconMapOptions = {
+export const iconMap: stepTileIconMap = {
   Apply: 'main-code-yaml',
   Scale: 'swap-vertical',
   'Stage Deployment': 'pipeline-deploy',
@@ -40,12 +47,18 @@ export const iconMap: iconMapOptions = {
 
 // This is temporary, need to get types as above for icons
 export const iconMapByName: iconMapOptions = {
-  Kubernetes: 'step-kubernetes',
-  'Infrastructure Provisioners': 'yaml-builder-env',
-  'Issue Tracking': 'error',
-  Notification: 'notifications',
-  FlowControl: 'settings',
-  Utilities: 'utility',
-  'Continuous Integration': 'ci-solid-current-color',
-  'Continuous Verification': 'cv-solid-current-color'
+  Kubernetes: {
+    icon: 'step-kubernetes',
+    keepOriginal: true
+  },
+  'Infrastructure Provisioners': { icon: 'yaml-builder-env' },
+  'Issue Tracking': { icon: 'error' },
+  Notification: { icon: 'notifications' },
+  FlowControl: { icon: 'settings' },
+  Utilities: { icon: 'utility' },
+  'Continuous Integration': { icon: 'ci-solid-current-color' },
+  'Continuous Verification': { icon: 'cv-solid-current-color' },
+  Jira: { icon: 'step-jira', keepOriginal: true },
+  Approval: { icon: 'approval-stage-icon' },
+  Terraform: { icon: 'service-terraform' }
 }

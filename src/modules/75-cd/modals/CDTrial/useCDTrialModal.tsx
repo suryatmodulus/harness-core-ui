@@ -120,7 +120,6 @@ const CDTrial: React.FC<CDTrialProps> = ({ trialType, actionProps }) => {
           moduleDescription={getString('cd.continuous')}
         />
       )
-      description = getString('cd.createOrSelectProject')
       rightWidth = '40%'
     }
   }

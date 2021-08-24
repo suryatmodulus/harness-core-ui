@@ -11,7 +11,7 @@ import type { RecordsProps } from './types'
 import css from './Records.module.scss'
 
 export function Records(props: RecordsProps): JSX.Element {
-  const { data, loading, error, fetchRecords, isQueryExecuted, query } = props
+  const { data, loading, error, fetchRecords, isQueryExecuted, query, queryNotExecutedMessage } = props
   const { getString } = useStrings()
   let content: JSX.Element = <></>
 
@@ -39,7 +39,7 @@ export function Records(props: RecordsProps): JSX.Element {
         className={cx(css.noQueryChart, css.centerElement)}
         iconProps={{ size: 50, intent: 'success' }}
       >
-        {getString('cv.monitoringSources.gcoLogs.submitQueryToSeeRecords')}
+        {queryNotExecutedMessage || getString('cv.monitoringSources.gcoLogs.submitQueryToSeeRecords')}
       </Text>
     )
   } else if (!records?.length) {

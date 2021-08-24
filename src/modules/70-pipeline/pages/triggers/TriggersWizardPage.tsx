@@ -81,6 +81,7 @@ import {
   getQueryParamsOnNew,
   getWizardMap,
   PayloadConditionTypes,
+  EventConditionTypes,
   ResponseStatus,
   TriggerTypes,
   scheduledTypes,
@@ -345,7 +346,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       if (
         ((sourceBranchOperator && sourceBranchValue?.trim()) ||
           (persistIncomplete && (sourceBranchOperator || sourceBranchValue?.trim()))) &&
-        !payloadConditions.some(pc => pc.key === PayloadConditionTypes.SOURCE_BRANCH) &&
+        !payloadConditions.some((pc: AddConditionInterface) => pc.key === PayloadConditionTypes.SOURCE_BRANCH) &&
         event !== eventTypes.PUSH &&
         event !== eventTypes.TAG
       ) {
@@ -358,7 +359,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       if (
         ((changedFilesOperator && changedFilesValue?.trim()) ||
           (persistIncomplete && (changedFilesOperator || changedFilesValue?.trim()))) &&
-        !payloadConditions.some(pc => pc.key === PayloadConditionTypes.CHANGED_FILES) &&
+        !payloadConditions.some((pc: AddConditionInterface) => pc.key === PayloadConditionTypes.CHANGED_FILES) &&
         event !== eventTypes.TAG
       ) {
         payloadConditions.unshift({
@@ -370,7 +371,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       if (
         ((tagConditionOperator && tagConditionValue?.trim()) ||
           (persistIncomplete && (tagConditionOperator || tagConditionValue?.trim()))) &&
-        !payloadConditions.some(pc => pc.key === PayloadConditionTypes.TAG) &&
+        !payloadConditions.some((pc: AddConditionInterface) => pc.key === PayloadConditionTypes.TAG) &&
         event === eventTypes.TAG
       ) {
         payloadConditions.unshift({
@@ -743,6 +744,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
           source
         }
       } = triggerResponseJson
+
       let selectedArtifact
 
       if (type === TriggerTypes.MANIFEST) {
@@ -765,6 +767,16 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         setGetTriggerErrorMessage(getString('pipeline.triggers.cannotParseInputValues'))
       }
 
+      const eventConditions = source?.spec?.spec?.eventConditions || []
+      const { value: versionValue, operator: versionOperator } =
+        eventConditions?.find(
+          (eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.VERSION
+        ) || {}
+      const { value: buildValue, operator: buildOperator } =
+        eventConditions?.find(
+          (eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.BUILD
+        ) || {}
+
       newOnEditInitialValues = {
         name,
         identifier,
@@ -776,7 +788,14 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         stageId: source?.spec?.stageIdentifier,
         inputSetTemplateYamlObj: parse(template?.data?.inputSetTemplateYaml || ''),
         selectedArtifact,
-        eventConditions: source?.spec?.spec?.eventConditions || []
+        versionValue,
+        versionOperator,
+        buildValue,
+        buildOperator,
+        eventConditions: eventConditions?.filter(
+          (eventCondition: AddConditionInterface) =>
+            eventCondition.key !== EventConditionTypes.BUILD && eventCondition.key !== EventConditionTypes.VERSION
+        )
       }
       return newOnEditInitialValues
     } catch (e) {
@@ -839,6 +858,10 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       triggerType: formikValueTriggerType,
       selectedArtifact,
       stageId,
+      versionOperator,
+      versionValue,
+      buildOperator,
+      buildValue,
       eventConditions = [],
       manifestType: onEditManifestType
     } = val
@@ -887,10 +910,37 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
       inputYaml: stringifyPipelineRuntimeInput
     }
 
-    if (triggerYaml.source?.spec?.spec) {
-      triggerYaml.source.spec.spec.eventConditions = persistIncomplete
+    if (
+      ((versionOperator && versionValue?.trim()) || (persistIncomplete && (versionOperator || versionValue?.trim()))) &&
+      !eventConditions.some(
+        (eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.VERSION
+      )
+    ) {
+      eventConditions.unshift({
+        key: EventConditionTypes.VERSION,
+        operator: versionOperator || '',
+        value: versionValue || ''
+      })
+    } else if (
+      ((buildOperator && buildValue?.trim()) || (persistIncomplete && (buildOperator || buildValue?.trim()))) &&
+      !eventConditions.some((eventCondition: AddConditionInterface) => eventCondition.key === EventConditionTypes.BUILD)
+    ) {
+      eventConditions.unshift({
+        key: EventConditionTypes.BUILD,
+        operator: buildOperator || '',
+        value: buildValue || ''
+      })
+    }
+
+    if (triggerYaml.source?.spec) {
+      const sourceSpecSpec = { ...triggerYaml.source?.spec.spec }
+      sourceSpecSpec.eventConditions = persistIncomplete
         ? eventConditions
         : eventConditions.filter((eventCondition: AddConditionInterface) => isRowFilled(eventCondition))
+      // triggerYaml.source.spec.spec.eventConditions = persistIncomplete
+      //   ? eventConditions
+      //   : eventConditions.filter((eventCondition: AddConditionInterface) => isRowFilled(eventCondition))
+      triggerYaml.source.spec.spec = sourceSpecSpec
     }
 
     return clearNullUndefined(triggerYaml)
@@ -1281,6 +1331,7 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
   const renderArtifactWizard = (): JSX.Element | undefined => {
     const isEdit = !!onEditInitialValues?.identifier
     if (!wizardMap) return undefined
+
     return (
       <Wizard
         key={wizardKey} // re-renders with yaml to visual initialValues

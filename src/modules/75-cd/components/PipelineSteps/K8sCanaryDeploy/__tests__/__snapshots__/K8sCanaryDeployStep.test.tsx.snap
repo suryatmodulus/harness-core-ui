@@ -106,7 +106,12 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -175,7 +180,12 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -234,7 +244,7 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                 type="button"
               >
                 <span
@@ -320,6 +330,10 @@ exports[`Test K8sCanaryDeployStep should render edit view 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -433,7 +447,12 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -502,7 +521,12 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -566,7 +590,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                 type="button"
               >
                 <span
@@ -599,8 +623,8 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
         </div>
       </div>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
-        id="configureOptions"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withRightIcon"
+        id="configureOptions_instanceFieldOptions.instances"
         type="button"
       >
         <span
@@ -634,7 +658,12 @@ exports[`Test K8sCanaryDeployStep should render edit view as edit step with all 
           class="bp3-label"
           for="spec.skipDryRun"
         >
-          pipelineSteps.skipDryRun
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
+          >
+            pipelineSteps.skipDryRun
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -802,7 +831,12 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -871,7 +905,12 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -930,7 +969,7 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                 type="button"
               >
                 <span
@@ -1016,6 +1055,10 @@ exports[`Test K8sCanaryDeployStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -1081,6 +1124,10 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -1094,7 +1141,12 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1153,7 +1205,7 @@ exports[`Test K8sCanaryDeployStep should render input set view 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-disabled bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                 disabled=""
                 tabindex="-1"
                 type="button"
@@ -1237,7 +1289,7 @@ exports[`Test K8sCanaryDeployStep should render variable view 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -1385,7 +1437,12 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1454,7 +1511,12 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1513,7 +1575,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                 type="button"
               >
                 <span
@@ -1599,6 +1661,10 @@ exports[`Test K8sCanaryDeployStep should submit with valid payload for instance 
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -1712,7 +1778,12 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1781,7 +1852,12 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1840,7 +1916,7 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                 type="button"
               >
                 <span
@@ -1926,6 +2002,10 @@ exports[`Test K8sCanaryDeployStep should submit with valid paylod for instace ty
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -2069,7 +2149,12 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2138,7 +2223,12 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
           class="bp3-label"
           for="spec.instanceSelection"
         >
-          common.instanceLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.instanceSelection"
+          >
+            common.instanceLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2197,7 +2287,7 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withRightIcon"
                 type="button"
               >
                 <span
@@ -2283,6 +2373,10 @@ exports[`Test K8sCanaryDeployStep should throw validation error without instance
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8CanaryDeploy_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>

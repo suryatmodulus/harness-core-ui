@@ -8,5 +8,6 @@ declare const styles: {
   readonly li: string
   readonly centerText: string
   readonly accordion: string
+  readonly subCaption: string
 }
 export default styles

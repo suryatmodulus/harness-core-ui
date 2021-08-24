@@ -22,6 +22,7 @@ export function SingleSectionLogs(
 
   return (
     <Virtuoso
+      overscan={50}
       totalCount={length}
       ref={ref}
       followOutput="auto"

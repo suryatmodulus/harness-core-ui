@@ -42,7 +42,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                   class="bp3-input-action"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main clone StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main clone StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                     type="button"
                   >
                     <span
@@ -101,7 +101,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     class=""
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main toEnd roleButton StyledProps--inline StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main toEnd roleButton StyledProps--inline StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withRightIcon"
                       type="button"
                     >
                       <span
@@ -277,7 +277,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -301,7 +301,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -414,7 +414,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -438,7 +438,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -551,7 +551,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                     style="width: 40%;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span
@@ -575,7 +575,7 @@ exports[`Collaborators test Render Collaborators  1`] = `
                       </span>
                     </button>
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--inline Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                       type="button"
                     >
                       <span

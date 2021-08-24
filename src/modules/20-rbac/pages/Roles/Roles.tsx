@@ -22,7 +22,7 @@ const Roles: React.FC = () => {
   const history = useHistory()
   useDocumentTitle(getString('roles'))
   const [page, setPage] = useState(0)
-  const [searchTerm, setSearchTerm] = useState<string>()
+  const [searchTerm, setSearchTerm] = useState<string>('')
   const { data, loading, error, refetch } = useGetRoleList({
     queryParams: {
       accountIdentifier: accountId,
@@ -30,8 +30,9 @@ const Roles: React.FC = () => {
       orgIdentifier,
       pageIndex: page,
       pageSize: 12,
-      searchTerm
-    }
+      searchTerm: encodeURIComponent(searchTerm)
+    },
+    debounce: 300
   })
 
   useEffect(() => {

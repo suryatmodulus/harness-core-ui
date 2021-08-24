@@ -183,8 +183,9 @@ const PendingUserListView: React.FC<PendingUserListViewProps> = ({ searchTerm, r
       projectIdentifier,
       pageIndex: page,
       pageSize: 10,
-      searchTerm
-    }
+      searchTerm: encodeURIComponent(searchTerm || '')
+    },
+    debounce: 300
   })
 
   useEffect(() => {

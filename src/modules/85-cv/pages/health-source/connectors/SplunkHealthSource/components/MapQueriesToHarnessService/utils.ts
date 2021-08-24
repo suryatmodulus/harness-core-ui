@@ -1,0 +1,72 @@
+import type { FormikProps } from 'formik'
+import type { UseStringsReturn } from 'framework/strings'
+import { initialFormData, MapSplunkToServiceFieldNames } from './constants'
+import type { MapSplunkQueryToService } from './types'
+
+type UpdateSelectedQueriesMap = {
+  updatedMetric: string
+  oldMetric: string
+  mappedMetrics: Map<string, MapSplunkQueryToService>
+  formikProps: FormikProps<MapSplunkQueryToService | undefined>
+}
+
+export function updateSelectedMetricsMap({
+  updatedMetric,
+  oldMetric,
+  mappedMetrics,
+  formikProps
+}: UpdateSelectedQueriesMap): any {
+  const updatedMap = new Map(mappedMetrics)
+
+  // in the case where user updates query name, update the key for current value
+  if (oldMetric !== formikProps.values?.metricName) {
+    updatedMap.delete(oldMetric)
+  }
+
+  // if newly created query create form object
+  if (!updatedMap.has(updatedMetric)) {
+    updatedMap.set(updatedMetric, { ...initialFormData, metricName: updatedMetric })
+  }
+
+  // update map with current form data
+  if (formikProps.values?.metricName) {
+    updatedMap.set(formikProps.values.metricName, formikProps.values as MapSplunkQueryToService)
+  }
+  return { selectedMetric: updatedMetric, mappedMetrics: updatedMap }
+}
+
+export function validateMappings(
+  getString: UseStringsReturn['getString'],
+  createdMetrics: string[],
+  selectedMetricIndex: number,
+  values?: MapSplunkQueryToService
+): { [fieldName: string]: string } {
+  const requiredFieldErrors = {
+    ...(!values?.metricName && {
+      [MapSplunkToServiceFieldNames.METRIC_NAME]: getString('cv.monitoringSources.queryNameValidation')
+    }),
+    ...(!values?.query && {
+      [MapSplunkToServiceFieldNames.QUERY]: getString('cv.monitoringSources.gco.manualInputQueryModal.validation.query')
+    }),
+    ...(!values?.serviceInstance && {
+      [MapSplunkToServiceFieldNames.SERVICE_INSTANCE]: getString(
+        'cv.monitoringSources.gcoLogs.validation.serviceInstance'
+      )
+    })
+  }
+
+  const duplicateNames = createdMetrics?.filter((metricName, index) => {
+    if (index === selectedMetricIndex) {
+      return false
+    }
+    return metricName === values?.metricName
+  })
+
+  if (values?.metricName && duplicateNames.length) {
+    requiredFieldErrors[MapSplunkToServiceFieldNames.METRIC_NAME] = getString(
+      'cv.monitoringSources.gcoLogs.validation.queryNameUnique'
+    )
+  }
+
+  return requiredFieldErrors
+}

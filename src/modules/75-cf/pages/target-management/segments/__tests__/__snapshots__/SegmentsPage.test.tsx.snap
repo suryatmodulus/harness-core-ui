@@ -91,11 +91,11 @@ exports[`SegmentsPage No data view should be rendered 1`] = `
           style="flex-grow: 1;"
         />
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main   "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main    ExpandingSearchInput--light"
           data-name="findFlag"
         >
           <span
-            class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
             data-icon="thinner-search"
           >
             <svg
@@ -479,11 +479,11 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
           style="flex-grow: 1;"
         />
         <div
-          class="bp3-input-group ui-search-box ExpandingSearchInput--main   "
+          class="bp3-input-group ui-search-box ExpandingSearchInput--main    ExpandingSearchInput--light"
           data-name="findFlag"
         >
           <span
-            class="bp3-icon StyledProps--main ExpandingSearchInput--icon "
+            class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
             data-icon="thinner-search"
           >
             <svg
@@ -634,7 +634,7 @@ exports[`SegmentsPage SegmentsPage should render data correctly 1`] = `
                         class="bp3-popover-target"
                       >
                         <button
-                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                          class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                           type="button"
                         >
                           <span

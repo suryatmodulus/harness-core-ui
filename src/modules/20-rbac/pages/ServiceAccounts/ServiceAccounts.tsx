@@ -17,7 +17,7 @@ const ServiceAccountsPage: React.FC = () => {
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier } = useParams<PipelineType<ProjectPathProps>>()
   useDocumentTitle(getString('rbac.serviceAccounts.label'))
-  const [searchTerm, setsearchTerm] = useState<string>()
+  const [searchTerm, setsearchTerm] = useState<string>('')
   const [page, setPage] = useState(0)
 
   const { data, loading, error, refetch } = useListAggregatedServiceAccounts({
@@ -25,10 +25,11 @@ const ServiceAccountsPage: React.FC = () => {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      searchTerm,
+      searchTerm: encodeURIComponent(searchTerm),
       pageIndex: page,
       pageSize: 10
-    }
+    },
+    debounce: 300
   })
 
   const { openServiceAccountModal } = useServiceAccountModal({ onSuccess: () => refetch() })

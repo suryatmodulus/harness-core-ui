@@ -31,7 +31,6 @@ cdTrialHomePage:
     description: Take your software build processes to the next level using our Harness Continuous Delivery.
     startBtn:
       description: Start 14 day CD Enterprise trial
-createOrSelectProject: CD Create Or Select Project Placeholder
 chooseProvisionerText: What type of provisioner do you want to use?
 setUpProvisionerBtnText: Set Up Provisioner
 
@@ -67,7 +66,8 @@ cdLaunchText: Launch CD First Generation
 serviceDashboard:
   activeServiceInstancesLabel: '{{$.common.subscriptions.usage.srvcInst}}'
   servicesInLast: 'Services added in {{period}}'
-  month: 'Last 30 days'
+  serviceInstancesInLast: 'Active service instance trend in {{period}}'
+  month: 'Last month'
   3months: 'Last 3 months'
   6months: 'Last 6 months'
   year: 'Last 1 year'
@@ -96,3 +96,6 @@ serviceDashboard:
   totalPipelines: Total Pipelines
   noPipelines: No pipeline execution in {{timeRange}} matches the given criteria
   envName: Env Name
+  noActiveServiceInstances: No Active Service Instances
+gitOps: GitOps
+newProvider: New Provider

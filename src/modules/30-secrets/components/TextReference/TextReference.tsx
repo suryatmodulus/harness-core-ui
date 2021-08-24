@@ -2,7 +2,14 @@ import React, { useEffect } from 'react'
 
 import { get, isPlainObject } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
-import { FormInput, Layout, Container } from '@wings-software/uicore'
+import {
+  FormInput,
+  Layout,
+  Container,
+  FormikTooltipContext,
+  HarnessDocTooltip,
+  DataTooltipInterface
+} from '@wings-software/uicore'
 import { FormikContext, connect } from 'formik'
 import { useParams } from 'react-router-dom'
 import { useStrings } from 'framework/strings'
@@ -33,6 +40,7 @@ interface TextReferenceProps {
 
 interface FormikTextReference extends TextReferenceProps {
   formik: FormikContext<any>
+  tooltipProps?: DataTooltipInterface
 }
 
 const errorCheck = (name: string, formik?: FormikContext<any>) =>
@@ -100,10 +108,16 @@ const TextReference: React.FC<FormikTextReference> = props => {
       })
     }
   }, [])
+
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
+
   return (
     <FormGroup helperText={hasError ? get(formik?.errors, name) : null} intent={hasError ? Intent.DANGER : Intent.NONE}>
       <Layout.Vertical className={props.className}>
-        <div className={css.label}>
+        <div className={css.label} data-tooltip-id={dataTooltipId}>
+          <HarnessDocTooltip tooltipId={dataTooltipId} useStandAlone={true} />
           <label>{props.label}</label>
           <FormInput.Select
             name={`${name}fieldType`}

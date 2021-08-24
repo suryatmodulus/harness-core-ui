@@ -234,7 +234,7 @@ exports[`Azure Access Point Form form in edit mode 1`] = `
                 </div>
               </div>
               <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
                 type="button"
               >
                 <span
@@ -642,7 +642,7 @@ exports[`Azure Access Point Form form in edit mode 1`] = `
             style="margin-top: 100px;"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span
@@ -846,7 +846,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span
@@ -966,7 +966,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span
@@ -1068,7 +1068,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span
@@ -1170,7 +1170,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
               </div>
             </div>
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span
@@ -1348,7 +1348,7 @@ exports[`Azure Access Point Form render and fill azure ap form 1`] = `
             style="margin-top: 100px;"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
               type="button"
             >
               <span

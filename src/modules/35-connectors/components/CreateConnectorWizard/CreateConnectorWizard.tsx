@@ -20,6 +20,8 @@ import CreateGcpConnector from '../CreateConnector/GcpConnector/CreateGcpConnect
 import HelmRepoConnector from '../CreateConnector/HelmRepoConnector/HemRepoConnector'
 import JiraConnector from '../CreateConnector/JiraConnector/JiraConnector'
 import CreateAwsKmsConnector from '../CreateConnector/AWSKmsConnector/CreateAwsKmsConnector'
+
+import CreateAwsSecretManagerConnector from '../CreateConnector/AWSSecretManager/CreateAwsSecretManagerConnector'
 import CreateNewRelicConnector from '../CreateConnector/NewRelicConnector/CreateNewRelicConnector'
 import CreatePrometheusConnector from '../CreateConnector/PrometheusConnector/CreatePrometheusConnector'
 import CreateDataDogConnector from '../CreateConnector/DataDogConnector/CreateDataDogConnector'
@@ -97,6 +99,8 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return <CreateGcpConnector {...commonProps} />
     case Connectors.AWS_KMS:
       return <CreateAwsKmsConnector {...commonProps} />
+    case Connectors.AWS_SECRET_MANAGER:
+      return <CreateAwsSecretManagerConnector {...commonProps} />
     case Connectors.CE_AZURE:
       return <CreateCeAzureConnector {...commonProps} />
     case Connectors.CE_KUBERNETES:

@@ -194,7 +194,7 @@ export const catalogueData = {
           'CustomSecretManager',
           'Vault',
           'Azurevault',
-          'Awssecretsmanager',
+          'AwsSecretManager',
           'Local',
           'AwsKms'
         ]

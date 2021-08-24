@@ -1,4 +1,9 @@
-query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: OffsetDateTime!) {
+query FetchRecommendation(
+  $id: String!
+  $resourceType: ResourceType!
+  $startTime: OffsetDateTime!
+  $endTime: OffsetDateTime!
+) {
   recommendationStatsV2(filter: { ids: [$id] }) {
     totalMonthlyCost
     totalMonthlySaving
@@ -11,7 +16,7 @@ query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: O
       resourceName
     }
   }
-  recommendationDetails(id: $id, resourceType: WORKLOAD, startTime: $startTime, endTime: $endTime) {
+  recommendationDetails(id: $id, resourceType: $resourceType, startTime: $startTime, endTime: $endTime) {
     ... on WorkloadRecommendationDTO {
       containerRecommendations
       items {
@@ -47,6 +52,68 @@ query FetchRecommendation($id: String!, $startTime: OffsetDateTime!, $endTime: O
           precomputed
           totalWeight
         }
+      }
+    }
+
+    ... on NodeRecommendationDTO {
+      current {
+        instanceCategory
+        nodePools {
+          sumNodes
+          vm {
+            avgPrice
+            cpusPerVm
+            memPerVm
+            onDemandPrice
+            type
+          }
+        }
+        provider
+        region
+        service
+      }
+      id
+      nodePoolId {
+        clusterid
+        nodepoolname
+      }
+      recommended {
+        accuracy {
+          cpu
+          masterPrice
+          memory
+          nodes
+          spotNodes
+          spotPrice
+          totalPrice
+          workerPrice
+        }
+        instanceCategory
+        nodePools {
+          role
+          sumNodes
+          vmClass
+          vm {
+            avgPrice
+            cpusPerVm
+            memPerVm
+            onDemandPrice
+            type
+          }
+        }
+        provider
+        region
+        service
+      }
+      resourceRequirement {
+        allowBurst
+        maxNodes
+        minNodes
+        onDemandPct
+        sameSize
+        sumCpu
+        sumGpu
+        sumMem
       }
     }
   }

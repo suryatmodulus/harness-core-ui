@@ -3,7 +3,7 @@ import { Button, Color, Container, Icon, Text } from '@wings-software/uicore'
 import {
   DeploymentProgressAndNodes,
   DeploymentProgressAndNodesProps
-} from '@pipeline/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
+} from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { Activity } from '../../ActivityTimeline/ActivityTrack/ActivityTrackUtils'
 import { ACTIVITY_SELECTION_EVENT } from '../../ActivityTimeline/ActivityTrack/ActivityTrackUtils'
 import css from './DeploymentSummaryCardView.module.scss'

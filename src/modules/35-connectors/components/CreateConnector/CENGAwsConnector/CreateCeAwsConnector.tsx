@@ -14,7 +14,7 @@ import css from './CreateCeAwsConnector.module.scss'
 const CreateCeAwsConnector: React.FC<CreateConnectorModalProps> = props => {
   const { getString } = useStrings()
   return (
-    <DialogExtention>
+    <DialogExtention dialogStyles={{ width: 1190 }}>
       <StepWizard
         icon={getConnectorIconByType(Connectors.CEAWS)}
         iconProps={{ size: 40 }}

@@ -65,7 +65,8 @@ export const AuditLogObjectType = {
 export const AuditLogAction = {
   FeatureActivationCreated: 'FeatureActivationCreated',
   SegmentCreated: 'SegmentCreated',
-  FeatureActivationPatched: 'FeatureActivationPatched'
+  FeatureActivationPatched: 'FeatureActivationPatched',
+  SegmentPatched: 'SegmentPatched'
 }
 
 export const isFeatureFlagOn = (featureFlag: Feature) => {

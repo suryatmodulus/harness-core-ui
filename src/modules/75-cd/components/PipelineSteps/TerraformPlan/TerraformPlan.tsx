@@ -10,7 +10,8 @@ import {
   Layout,
   Formik,
   Label,
-  Color
+  Color,
+  HarnessDocTooltip
 } from '@wings-software/uicore'
 import { Classes, Dialog, IOptionProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -211,8 +212,13 @@ function TerraformPlanWidget(
               </div>
 
               <Layout.Vertical className={cx(css.addMarginBottom, css.addMarginTop)}>
-                <Label style={{ color: Color.GREY_900 }} className={css.configLabel}>
+                <Label
+                  style={{ color: Color.GREY_900 }}
+                  className={css.configLabel}
+                  data-tooltip-id="tfConfigurationFile"
+                >
                   {getString('cd.configurationFile')}
+                  <HarnessDocTooltip useStandAlone={true} tooltipId="tfConfigurationFile" />
                 </Label>
                 <div className={cx(css.configFile, css.addMarginBottom)}>
                   <div className={css.configField}>
@@ -260,9 +266,7 @@ function TerraformPlanWidget(
                           )}
                         </div>
                         <TfVarFileList formik={formik} isReadonly={props.readonly} />
-                        <div
-                          className={cx(stepCss.formGroup, stepCss.alignStart, css.addMarginTop, css.addMarginBottom)}
-                        >
+                        <div className={cx(stepCss.formGroup, css.addMarginTop, css.addMarginBottom)}>
                           <MultiTypeFieldSelector
                             name="spec.configuration.backendConfig.spec.content"
                             label={

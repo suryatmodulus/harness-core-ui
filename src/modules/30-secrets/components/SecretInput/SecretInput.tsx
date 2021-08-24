@@ -1,7 +1,15 @@
 import React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { connect, FormikContext } from 'formik'
-import { Layout, Icon, Container, Text, Color } from '@wings-software/uicore'
+import {
+  Layout,
+  Icon,
+  Container,
+  Text,
+  Color,
+  DataTooltipInterface,
+  FormikTooltipContext
+} from '@wings-software/uicore'
 
 import { get, isPlainObject, pick } from 'lodash-es'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -33,6 +41,7 @@ export interface SecretInputProps {
   connectorTypeContext?: ConnectorInfoDTO['type']
   allowSelection?: boolean
   privateSecret?: boolean
+  tooltipProps?: DataTooltipInterface
 }
 
 interface FormikSecretInput extends SecretInputProps {
@@ -90,7 +99,9 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
   const getPlaceHolder = (): string => {
     return placeholder || getString(type === 'SSHKey' ? 'secrets.selectSecret' : 'createOrSelectSecret')
   }
-
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
   return (
     <FormGroup
       helperText={errorCheck() ? get(formik?.errors, name) : null}
@@ -118,6 +129,7 @@ const SecretInput: React.FC<FormikSecretInput> = props => {
               flex={{ alignItems: 'center', justifyContent: 'flex-start', inline: false }}
               padding="small"
               className={css.containerLinkText}
+              tooltipProps={{ dataTooltipId: dataTooltipId }}
             >
               <div>{secretReference ? getString('secret.configureSecret') : getPlaceHolder()}</div>
               {secretReference ? <div>{`<${secretReference['name']}>`}</div> : null}

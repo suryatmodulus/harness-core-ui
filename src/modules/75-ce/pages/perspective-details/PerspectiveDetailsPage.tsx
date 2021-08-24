@@ -269,8 +269,13 @@ const PerspectiveDetailsPage: React.FC = () => {
           aggregation={aggregation}
           setTimeRange={setTimeRange}
           timeRange={timeRange}
+          showHourlyAggr={isClusterOnly}
         />
-        <PerspectiveSummary data={summaryData?.perspectiveTrendStats as any} fetching={summaryFetching} />
+        <PerspectiveSummary
+          data={summaryData?.perspectiveTrendStats as any}
+          fetching={summaryFetching}
+          forecastedCostData={summaryData?.perspectiveForecastCost as any}
+        />
         <Container margin="xlarge" background="white" className={css.chartGridContainer}>
           {!isChartGridEmpty && (
             <Container padding="small">

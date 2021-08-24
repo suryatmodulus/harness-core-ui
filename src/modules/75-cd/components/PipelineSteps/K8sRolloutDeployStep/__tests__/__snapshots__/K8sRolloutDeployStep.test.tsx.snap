@@ -58,6 +58,10 @@ exports[`Test K8sRolloutDeployStep should render edit view 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="stepTestUtilForm_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -189,7 +193,12 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8RolloutDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -258,7 +267,12 @@ exports[`Test K8sRolloutDeployStep should render edit view as edit step 1`] = `
           class="bp3-label"
           for="spec.skipDryRun"
         >
-          pipelineSteps.skipDryRun
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8RolloutDeploy_spec.skipDryRun"
+          >
+            pipelineSteps.skipDryRun
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -426,7 +440,12 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8RolloutDeploy_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -538,6 +557,10 @@ exports[`Test K8sRolloutDeployStep should render edit view as new step 1`] = `
               </span>
             </span>
           </div>
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="k8RolloutDeploy_spec.skipDryRun"
+          />
         </div>
       </div>
     </div>
@@ -572,7 +595,7 @@ exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -632,7 +655,7 @@ exports[`Test K8sRolloutDeployStep should render variable view 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >

@@ -19,7 +19,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -52,7 +52,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+              class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -88,7 +88,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
                 tabindex="0"
                 type="button"
               >
@@ -117,7 +117,7 @@ exports[`Canvas Button Tests should render canvas buttons 1`] = `
               class="bp3-popover-target"
             >
               <button
-                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly"
+                class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--withLeftIcon"
                 tabindex="0"
                 type="button"
               >

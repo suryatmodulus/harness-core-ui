@@ -20,14 +20,14 @@ exports[`EditStageView snapshot test should render properly 1`] = `
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
                 data-icon="ci-main"
               >
                 <svg
                   fill="none"
-                  height="16"
+                  height="24"
                   viewBox="0 0 27 26"
-                  width="16"
+                  width="24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -155,8 +155,7 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 style="margin-bottom: 0px;"
               >
                 <label
-                  class="Label--main"
-                  style="font-size: 13px; font-weight: normal;"
+                  class="Label--main descriptionLabel"
                 >
                   optionalField
                 </label>
@@ -183,29 +182,37 @@ exports[`EditStageView snapshot test should render properly 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main"
-                  style="font-size: 13px; font-weight: normal;"
+                  class="Label--main descriptionLabel"
                 >
                   optionalField
                   <span
-                    class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                    class="bp3-icon StyledProps--main editOpen"
+                    data-icon="Edit"
                     data-name="edit"
                     data-testid="tags-edit"
-                    icon="edit"
                   >
                     <svg
-                      data-icon="edit"
                       height="12"
-                      viewBox="0 0 16 16"
+                      viewBox="0 0 12 12"
                       width="12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        edit
-                      </desc>
-                      <path
-                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                      <g
+                        fill="none"
                         fill-rule="evenodd"
-                      />
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                          stroke="#555770"
+                        />
+                        <path
+                          d="M6.583 5.146l2.063-2.063"
+                          opacity="0.3"
+                          stroke="#606170"
+                        />
+                      </g>
                     </svg>
                   </span>
                 </label>
@@ -264,14 +271,14 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               style="display: flex; align-items: center;"
             >
               <span
-                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall"
+                class="bp3-icon StyledProps--main StyledProps--padding-right-xsmall StyledProps--margin-right-xsmall"
                 data-icon="ci-main"
               >
                 <svg
                   fill="none"
-                  height="16"
+                  height="24"
                   viewBox="0 0 27 26"
-                  width="16"
+                  width="24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
@@ -396,29 +403,37 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main"
-                  style="font-size: 13px; font-weight: normal;"
+                  class="Label--main descriptionLabel"
                 >
                   optionalField
                   <span
-                    class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                    class="bp3-icon StyledProps--main editOpen"
+                    data-icon="Edit"
                     data-name="edit"
                     data-testid="description-edit"
-                    icon="edit"
                   >
                     <svg
-                      data-icon="edit"
                       height="12"
-                      viewBox="0 0 16 16"
+                      viewBox="0 0 12 12"
                       width="12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        edit
-                      </desc>
-                      <path
-                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                      <g
+                        fill="none"
                         fill-rule="evenodd"
-                      />
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                          stroke="#555770"
+                        />
+                        <path
+                          d="M6.583 5.146l2.063-2.063"
+                          opacity="0.3"
+                          stroke="#606170"
+                        />
+                      </g>
                     </svg>
                   </span>
                 </label>
@@ -427,29 +442,37 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 class="StyledProps--font StyledProps--main"
               >
                 <label
-                  class="Label--main"
-                  style="font-size: 13px; font-weight: normal;"
+                  class="Label--main descriptionLabel"
                 >
                   optionalField
                   <span
-                    class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                    class="bp3-icon StyledProps--main editOpen"
+                    data-icon="Edit"
                     data-name="edit"
                     data-testid="tags-edit"
-                    icon="edit"
                   >
                     <svg
-                      data-icon="edit"
                       height="12"
-                      viewBox="0 0 16 16"
+                      viewBox="0 0 12 12"
                       width="12"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <desc>
-                        edit
-                      </desc>
-                      <path
-                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                      <g
+                        fill="none"
                         fill-rule="evenodd"
-                      />
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                          stroke="#555770"
+                        />
+                        <path
+                          d="M6.583 5.146l2.063-2.063"
+                          opacity="0.3"
+                          stroke="#606170"
+                        />
+                      </g>
                     </svg>
                   </span>
                 </label>
@@ -475,7 +498,7 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
               class="configureCodebase"
             >
               <p
-                class="StyledProps--font StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
+                class="StyledProps--font StyledProps--main StyledProps--font-size-normal StyledProps--font-weight-semi-bold StyledProps--margin-bottom-medium"
                 style="display: flex; align-items: center;"
               >
                 <span
@@ -484,9 +507,9 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                 >
                   <svg
                     data-icon="cog"
-                    height="18"
+                    height="16"
                     viewBox="0 0 16 16"
-                    width="18"
+                    width="16"
                   >
                     <desc>
                       cog
@@ -521,9 +544,9 @@ exports[`EditStageView snapshot test should render properly without data 1`] = `
                   class="bp3-form-content"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                     data-testid="cr-field-connectorRef"
-                    style="width: 382px;"
+                    style="width: 366px;"
                     type="button"
                   >
                     <span

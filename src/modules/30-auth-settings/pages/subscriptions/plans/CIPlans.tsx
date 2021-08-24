@@ -20,7 +20,7 @@ const CIPlans: React.FC<CIPlansProps> = ({ ciSaasPlans, ciSaasFeatureCaption, ci
       <CIFeatureComparison featureCaption={ciSaasFeatureCaption} featureGroup={ciSaasFeatureGroup} />
       <a
         target="_blank"
-        href="http://harness-next.herokuapp.com/pricing"
+        href="http://harness-next.herokuapp.com/pricing?module=ci"
         rel="noreferrer"
         className={planCss.centerText}
       >

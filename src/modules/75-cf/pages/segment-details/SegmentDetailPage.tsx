@@ -193,7 +193,7 @@ export const SegmentDetailPage: React.FC = () => {
       <Layout.Vertical height="100%" style={{ flexGrow: 1, background: 'var(--white)' }}>
         <Layout.Horizontal height="100%">
           <FlagsUseSegment segment={segment} />
-          <SegmentSettings segment={segment} />
+          <SegmentSettings onUpdate={refetch} segment={segment} />
         </Layout.Horizontal>
       </Layout.Vertical>
     </DetailPageTemplate>

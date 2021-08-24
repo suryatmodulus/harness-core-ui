@@ -7,7 +7,7 @@ export interface PageHeaderProps {
   title: React.ReactNode
   toolbar?: React.ReactNode
   content?: React.ReactNode
-  size?: 'small' | 'standard' | 'medium' | 'large' | 'xlarge'
+  size?: 'small' | 'standard' | 'medium' | 'large' | 'xlarge' | 'xxlarge'
   className?: string
   breadcrumbs?: React.ReactNode
   testId?: string

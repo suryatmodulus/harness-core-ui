@@ -59,7 +59,7 @@ exports[`Services should render Services 1`] = `
       class="Layout--horizontal StyledProps--main"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         data-testid="add-service"
         type="button"
       >
@@ -93,7 +93,7 @@ exports[`Services should render Services 1`] = `
       class="Layout--horizontal StyledProps--main StyledProps--flex"
     >
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -131,7 +131,7 @@ exports[`Services should render Services 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
         type="button"
       >
         <span
@@ -367,12 +367,12 @@ exports[`Services should render Services 1`] = `
             class="Layout--horizontal StyledProps--main StyledProps--margin-left-small"
           >
             <div
-              class="bp3-input-group ui-search-box ExpandingSearchInput--main expandSearch ExpandingSearchInput--flip "
+              class="bp3-input-group ui-search-box ExpandingSearchInput--main  ExpandingSearchInput--flip  ExpandingSearchInput--light"
               data-name=""
-              style="max-width: 200px;"
+              style="max-width: 232px;"
             >
               <span
-                class="bp3-icon StyledProps--main ExpandingSearchInput--icon ExpandingSearchInput--flipicon"
+                class="bp3-icon StyledProps--main ExpandingSearchInput--icon StyledProps--color StyledProps--color-grey700"
                 data-icon="thinner-search"
               >
                 <svg
@@ -417,7 +417,7 @@ exports[`Services should render Services 1`] = `
                   class="bp3-popover-target"
                 >
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--font StyledProps--font-size-xsmall Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main timeRangeButton StyledProps--font StyledProps--font-size-xsmall Button--with-current-color Button--without-shadow Button--withRightIcon"
                     style="height: 20px;"
                     type="button"
                   >

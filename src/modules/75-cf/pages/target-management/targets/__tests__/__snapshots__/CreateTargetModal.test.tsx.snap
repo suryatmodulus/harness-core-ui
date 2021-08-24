@@ -132,7 +132,7 @@ exports[`CreateTargetModal CreateTargetModal should render initial state correct
                     </div>
                   </div>
                   <button
-                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                    class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                     style="transform: translateX(0px);"
                     type="button"
                   >

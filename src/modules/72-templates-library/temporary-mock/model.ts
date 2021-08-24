@@ -20,6 +20,8 @@ export interface TemplateSummaryResponse {
     [key: string]: string
   }
   version?: number
+  label?: string
+  stableTemplate?: boolean
 }
 
 export interface TemplatesPageSummaryResponse {

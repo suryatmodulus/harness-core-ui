@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
-import { useQuery } from 'urql'
 
 import { Color, Container, Layout, Text, Button } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
@@ -11,8 +10,7 @@ import formatCost from '@ce/utils/formatCost'
 import { GET_DATE_RANGE } from '@ce/utils/momentUtils'
 import type { RecommendationItem, TimeRangeValue } from '@ce/types'
 import { TimeRange, TimeRangeType } from '@ce/types'
-import FETCH_RECOMMENDATIONS from 'queries/ce/fetch_recommendation.gql'
-import type { FetchRecommendationQuery, RecommendationOverviewStats } from 'services/ce/services'
+import { RecommendationOverviewStats, ResourceType, useFetchRecommendationQuery } from 'services/ce/services'
 import CustomizeRecommendationsImg from './images/custom-recommendations.gif'
 
 import RecommendationDetails from '../../components/RecommendationDetails/RecommendationDetails'
@@ -236,9 +234,13 @@ const RecommendationDetailsPage: React.FC = () => {
 
   const timeRangeFilter = GET_DATE_RANGE[timeRange.value]
 
-  const [result] = useQuery<FetchRecommendationQuery>({
-    query: FETCH_RECOMMENDATIONS,
-    variables: { id: recommendation, startTime: timeRangeFilter[0], endTime: timeRangeFilter[1] }
+  const [result] = useFetchRecommendationQuery({
+    variables: {
+      id: recommendation,
+      resourceType: ResourceType.Workload,
+      startTime: timeRangeFilter[0],
+      endTime: timeRangeFilter[1]
+    }
   })
 
   const { data, fetching } = result

@@ -2,7 +2,6 @@ import cx from 'classnames'
 import React, { useState } from 'react'
 import { Container } from '@wings-software/uicore'
 import type { Feature } from 'services/cf'
-import { SEVEN_DAYS_IN_MILLIS } from '@cf/utils/CFUtils'
 import { AuditLogsToolbar } from './AuditLogsToolbar'
 import { AuditLogsList } from './AuditLogsList'
 
@@ -13,9 +12,18 @@ export interface AuditLogsProps {
 }
 
 export const AuditLogs: React.FC<AuditLogsProps> = ({ className, flagData, objectType }) => {
-  const now = Date.now()
-  const [startDate, setStartDate] = useState<Date>(new Date(now - SEVEN_DAYS_IN_MILLIS))
-  const [endDate, setEndDate] = useState<Date>(new Date(now))
+  const [startDate, setStartDate] = useState<Date>(() => {
+    const start = new Date()
+    start.setDate(start.getDate() - 7)
+    start.setHours(0, 0, 0, 0)
+    return start
+  })
+
+  const [endDate, setEndDate] = useState<Date>(() => {
+    const end = new Date()
+    end.setHours(23, 59, 59, 999)
+    return end
+  })
 
   return (
     <Container className={cx(className)}>

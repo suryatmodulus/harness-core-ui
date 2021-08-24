@@ -19,7 +19,7 @@ const modalPropsLight: IDialogProps = {
   }
 }
 
-const useCreateAccessPointDialog = (props: UseCreateAccessPointDialogProps) => {
+const useCreateAccessPointDialog = (props: UseCreateAccessPointDialogProps, deps?: any[]) => {
   const onAccessPointSave = (savedLb: AccessPoint) => {
     props.onAccessPointSave(savedLb)
   }
@@ -39,7 +39,7 @@ const useCreateAccessPointDialog = (props: UseCreateAccessPointDialogProps) => {
         />
       </Dialog>
     ),
-    []
+    [deps]
   )
   return {
     openCreateAccessPointModal: createAccessPointModal

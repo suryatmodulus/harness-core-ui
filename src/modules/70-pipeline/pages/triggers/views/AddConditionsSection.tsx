@@ -31,6 +31,54 @@ interface AddConditionRowInterface {
   getString: UseStringsReturn['getString']
 }
 
+// Has first class support with predefined attribute
+export const ConditionRow = ({
+  formikProps,
+  name,
+  label
+}: {
+  formikProps: any
+  name: string
+  label: string
+}): JSX.Element => {
+  const { getString } = useStrings()
+  const operatorKey = `${name}Operator`
+  const valueKey = `${name}Value`
+  const operatorError = formikProps?.errors?.[operatorKey]
+  const valueError = formikProps?.errors?.[valueKey]
+  const operatorValue = formikProps?.values?.[operatorKey]
+  return (
+    <div className={css.conditionsRow}>
+      <div>
+        <Text style={{ fontSize: 16 }}>{label}</Text>
+      </div>
+      <FormInput.Select
+        style={{ alignSelf: valueError ? 'baseline' : 'center' }}
+        items={mockOperators}
+        name={operatorKey}
+        label={getString('pipeline.triggers.conditionsPanel.operator')}
+        placeholder={getString('pipeline.operatorPlaceholder')}
+        onChange={() => {
+          formikProps.setFieldTouched(valueKey, true)
+        }}
+      />
+      <FormInput.Text
+        name={valueKey}
+        style={{ alignSelf: operatorError ? 'baseline' : 'center' }}
+        label={getString('pipeline.triggers.conditionsPanel.matchesValue')}
+        onChange={() => {
+          formikProps.setFieldTouched(operatorKey, true)
+        }}
+        placeholder={
+          inNotInArr.includes(operatorValue)
+            ? inNotInPlaceholder
+            : getString('pipeline.triggers.conditionsPanel.matchesValuePlaceholder')
+        }
+      />
+    </div>
+  )
+}
+
 const AddConditionRow: React.FC<AddConditionRowInterface> = ({
   fieldId,
   index,

@@ -166,7 +166,7 @@ export const plansData = {
               __typename: 'ComponentPageFeatureListZone'
             }
           ],
-          buttonText: 'Try For Free',
+          buttonText: 'Try Enterprise',
           primaryButton: false,
           __typename: 'ComponentPagePlansZone'
         }

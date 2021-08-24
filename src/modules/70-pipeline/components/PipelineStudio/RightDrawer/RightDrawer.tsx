@@ -159,7 +159,11 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       <div className={css.stepConfig}>
         <div className={css.title}>
           <Icon name={stepsFactory.getStepIcon(stepData?.type || /* istanbul ignore next */ '')} />
-          <Text lineClamp={1} color={Color.BLACK}>
+          <Text
+            lineClamp={1}
+            color={Color.BLACK}
+            tooltipProps={{ dataTooltipId: `${stepData.type}_stepName${type ? `_${type}` : ''}` }}
+          >
             {stepData?.name}
           </Text>
         </div>

@@ -9,6 +9,7 @@ declare const styles: {
   readonly instanceTable: string
   readonly paddedContainer: string
   readonly environmentRow: string
+  readonly overflow: string
   readonly seeMore: string
   readonly hexContainer: string
   readonly hex: string

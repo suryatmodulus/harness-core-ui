@@ -1,8 +1,15 @@
 import React from 'react'
 import { Container, Text, Button, Icon, FlexExpander } from '@wings-software/uicore'
+import cx from 'classnames'
 import { Menu, MenuItem, Popover, Position } from '@blueprintjs/core'
 import { QlceViewTimeGroupType, QlceViewFilterInput } from 'services/ce/services'
 import PerspectiveTimeRangePicker from '@ce/components/PerspectiveTimeRangePicker/PerspectiveTimeRangePicker'
+import {
+  CE_DATE_FORMAT_INTERNAL,
+  DATE_RANGE_SHORTCUTS,
+  getGMTEndDateTime,
+  getGMTStartDateTime
+} from '@ce/utils/momentUtils'
 import { useStrings, UseStringsReturn } from 'framework/strings'
 import ExplorerFilters from './ExplorerFilters'
 import css from './PerspectiveExplorerFilters.module.scss'
@@ -10,16 +17,24 @@ import css from './PerspectiveExplorerFilters.module.scss'
 const getAggregationText: (getString: UseStringsReturn['getString']) => Record<string, string> = getString => {
   return {
     [QlceViewTimeGroupType.Day]: getString('ce.perspectives.timeAggregation.daily'),
-    [QlceViewTimeGroupType.Month]: getString('ce.perspectives.timeAggregation.monthly')
+    [QlceViewTimeGroupType.Month]: getString('ce.perspectives.timeAggregation.monthly'),
+    [QlceViewTimeGroupType.Hour]: getString('ce.perspectives.timeAggregation.hourly')
   }
 }
 
 interface TimeGranularityDropDownProps {
   aggregation: QlceViewTimeGroupType
   setAggregation: React.Dispatch<React.SetStateAction<QlceViewTimeGroupType>>
+  showHourlyAggr?: boolean
+  isHourlyEnabled?: boolean
 }
 
-export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({ aggregation, setAggregation }) => {
+export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = ({
+  aggregation,
+  setAggregation,
+  showHourlyAggr,
+  isHourlyEnabled
+}) => {
   const { getString } = useStrings()
   const aggregationTextMap = getAggregationText(getString)
   return (
@@ -52,6 +67,17 @@ export const TimeGranularityDropDown: React.FC<TimeGranularityDropDownProps> = (
             }}
             text={aggregationTextMap[QlceViewTimeGroupType.Month]}
           />
+          {showHourlyAggr ? (
+            <MenuItem
+              disabled={!isHourlyEnabled}
+              active={aggregation === QlceViewTimeGroupType.Hour}
+              className={cx(css.aggregationMenuItems, { [css.disabled]: !isHourlyEnabled })}
+              onClick={() => {
+                setAggregation(QlceViewTimeGroupType.Hour)
+              }}
+              text={'Hourly'}
+            />
+          ) : null}
         </Menu>
       }
     >
@@ -84,6 +110,7 @@ interface PersepectiveExplorerFiltersProps {
   }
   setFilters: React.Dispatch<React.SetStateAction<QlceViewFilterInput[]>>
   filters: QlceViewFilterInput[]
+  showHourlyAggr?: boolean
 }
 
 const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = ({
@@ -92,8 +119,10 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
   setTimeRange,
   setFilters,
   timeRange,
-  filters
+  filters,
+  showHourlyAggr
 }) => {
+  const last7DaysRange = DATE_RANGE_SHORTCUTS['LAST_7_DAYS']
   return (
     <Container background="white" padding="small">
       <Container className={css.mainContainer}>
@@ -102,7 +131,16 @@ const PersepectiveExplorerFilters: React.FC<PersepectiveExplorerFiltersProps> = 
         <FlexExpander />
         <PerspectiveTimeRangePicker timeRange={timeRange} setTimeRange={setTimeRange} />
         <Text color="primary7">|</Text>
-        <TimeGranularityDropDown aggregation={aggregation} setAggregation={setAggregation} />
+        <TimeGranularityDropDown
+          aggregation={aggregation}
+          setAggregation={setAggregation}
+          showHourlyAggr={showHourlyAggr}
+          isHourlyEnabled={
+            getGMTStartDateTime(timeRange.from) >=
+              getGMTStartDateTime(last7DaysRange[0].format(CE_DATE_FORMAT_INTERNAL)) &&
+            getGMTEndDateTime(timeRange.to) <= getGMTEndDateTime(last7DaysRange[1].format(CE_DATE_FORMAT_INTERNAL))
+          }
+        />
       </Container>
     </Container>
   )

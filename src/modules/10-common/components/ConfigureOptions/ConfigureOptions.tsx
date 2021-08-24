@@ -374,7 +374,8 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
       className={className}
       minimal
       rightIcon="cog"
-      id="configureOptions"
+      // To avoid non unique IDs ina  asingle form
+      id={`configureOptions_${variableName}`}
       onClick={showModal}
     />
   )

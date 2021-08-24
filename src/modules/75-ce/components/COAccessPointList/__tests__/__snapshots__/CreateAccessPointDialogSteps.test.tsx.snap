@@ -148,7 +148,7 @@ exports[`Creation of Access Point Selection of provider and connector 1`] = `
             class="bp3-form-content"
           >
             <button
-              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
               data-testid="cr-field-cloudConnector"
               style="width: 400px;"
               type="button"
@@ -186,7 +186,7 @@ exports[`Creation of Access Point Selection of provider and connector 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main continueCta StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main continueCta StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span
@@ -331,7 +331,7 @@ exports[`Creation of Access Point render access point creation dialog 1`] = `
         </div>
       </div>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main continueCta StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button Button--button StyledProps--font StyledProps--main continueCta StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         type="button"
       >
         <span

@@ -1,12 +1,80 @@
 import React from 'react'
-import { act, fireEvent, getByText, queryAllByText, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, getByText, render } from '@testing-library/react'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 
 import { SelectArtifactModal } from '../views/modals'
 
 const defaultProps = {
   isModalOpen: true,
-  formikProps: {},
+  formikProps: {
+    values: {
+      originalPipeline: {
+        identifier: 'stagea',
+        name: 'stagea',
+        orgIdentifier: 'default',
+        stages: [
+          {
+            stage: {
+              name: 'stagea',
+              identifier: 'stagea',
+              spec: {
+                execution: {
+                  steps: [],
+                  rollbackSteps: []
+                },
+                infrastructure: {
+                  allowSimultaneousDeployments: false,
+                  environmentRef: 'TestEnv',
+                  infrastructureDefinition: {
+                    provisioner: {
+                      steps: [],
+                      rollbackSteps: []
+                    },
+                    spec: {
+                      connectorRef: 'test',
+                      namespace: 'test',
+                      releaseName: 'test-name'
+                    },
+                    type: 'KubernetesDirect'
+                  },
+                  serviceConfig: {
+                    serviceRef: 'seveice',
+                    serviceDefinition: {
+                      spec: {
+                        manifests: [
+                          {
+                            manifest: {
+                              identifier: 'testhelmmanifest',
+                              spec: {
+                                chartName: '<+input>',
+                                chartVersion: '<+input>',
+                                helmVersion: 'V2',
+                                skipResourceVersioning: false
+                              },
+                              store: {
+                                type: 's3',
+                                spec: {
+                                  bucketName: '<+input>',
+                                  connectorRef: 'testecr2',
+                                  folderPath: '<+input>',
+                                  region: '<+input>'
+                                }
+                              }
+                            }
+                          }
+                        ],
+                        variables: []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
   artifactTableData: [
     {
       artifactId: 'dsfds',
@@ -26,7 +94,28 @@ const defaultProps = {
           serviceConfig: {
             serviceDefinition: {
               spec: {
-                manifests: []
+                manifests: [
+                  {
+                    manifest: {
+                      identifier: 'testhelmmanifest',
+                      spec: {
+                        chartName: '<+input>',
+                        chartVersion: '<+input>',
+                        helmVersion: 'V2',
+                        skipResourceVersioning: false
+                      },
+                      store: {
+                        type: 's3',
+                        spec: {
+                          bucketName: '<+input>',
+                          connectorRef: 'testecr2',
+                          folderPath: '<+input>',
+                          region: '<+input>'
+                        }
+                      }
+                    }
+                  }
+                ]
               }
             }
           }
@@ -84,17 +173,13 @@ describe('Select Artifact Modal tests', () => {
     await act(async () => {
       const firstRow = dialog.querySelector('.table .body .row:first-child')
       const radioBtn = firstRow?.querySelector('input[name=artifactLabel]')
-      fireEvent.change(radioBtn!, { target: { value: true } })
+      fireEvent.click(radioBtn!)
+    })
 
+    await act(async () => {
       const selectBtn = getByText(dialog, 'select')
 
       expect(selectBtn).not.toBeDisabled()
-
-      fireEvent.click(selectBtn!)
     })
-    await waitFor(() =>
-      queryAllByText(dialog, 'pipeline.triggers.artifactTriggerConfigPanel.configureArtifactRuntimeInputs')
-    )
-    expect(dialog).toMatchSnapshot()
   })
 })

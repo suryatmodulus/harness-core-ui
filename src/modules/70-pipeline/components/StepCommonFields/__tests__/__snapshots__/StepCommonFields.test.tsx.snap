@@ -234,17 +234,22 @@ exports[`<StepCommonFields /> tests Should render properly with no data 1`] = `
             class="bp3-label"
             for="timeout"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="timeout"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepCommonFieldsForm_timeout"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="timeout"
               >
-                pipelineSteps.timeoutLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.timeoutLabel
+                </p>
+              </div>
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -543,17 +548,22 @@ exports[`<StepCommonFields /> tests Should render properly with passed initial v
             class="bp3-label"
             for="timeout"
           >
-            <div
-              class="Text--withDocsTooltip"
-              data-tooltip-id="timeout"
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="stepCommonFieldsForm_timeout"
             >
-              <p
-                class="StyledProps--font StyledProps--main"
-                style="display: flex; align-items: center;"
+              <div
+                class="Text--withDocsTooltip"
+                data-tooltip-id="timeout"
               >
-                pipelineSteps.timeoutLabel
-              </p>
-            </div>
+                <p
+                  class="StyledProps--font StyledProps--main"
+                  style="display: flex; align-items: center;"
+                >
+                  pipelineSteps.timeoutLabel
+                </p>
+              </div>
+            </span>
              
             <span
               class="bp3-text-muted"

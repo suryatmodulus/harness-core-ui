@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Container, Layout } from '@wings-software/uicore'
+import { Card, Container, HarnessDocTooltip, Layout } from '@wings-software/uicore'
 import { produce } from 'immer'
 import { set } from 'lodash-es'
 import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
@@ -44,7 +44,13 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
     <div className={stageCss.serviceOverrides}>
       <DeployServiceErrors />
       <div className={stageCss.contentSection} ref={scrollRef}>
-        <div className={stageCss.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
+        <div className={stageCss.tabHeading}>
+          <span data-tooltip-id="conditionalExecutionDeployStage">
+            {getString('pipeline.conditionalExecution.title')}
+            <HarnessDocTooltip tooltipId="conditionalExecutionDeployStage" useStandAlone={true} />
+          </span>
+        </div>
+
         {!!stage && (
           <Card className={stageCss.sectionCard} id="conditionalExecution">
             <Layout.Horizontal>
@@ -64,7 +70,12 @@ const DeployAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childr
             </Layout.Horizontal>
           </Card>
         )}
-        <div className={stageCss.tabHeading}>Failure Strategy</div>
+        <div className={stageCss.tabHeading}>
+          <span data-tooltip-id="failureStrategyDeployStage">
+            {getString('pipeline.failureStrategies.title')}
+            <HarnessDocTooltip tooltipId="failureStrategyDeployStage" useStandAlone={true} />
+          </span>
+        </div>
         <Card className={stageCss.sectionCard} id="failureStrategy">
           <Layout.Horizontal>
             <div>

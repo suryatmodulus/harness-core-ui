@@ -7,7 +7,8 @@ import {
   DataTooltipInterface,
   HarnessDocTooltip,
   Container,
-  FormError
+  FormError,
+  FormikTooltipContext
 } from '@wings-software/uicore'
 import { connect, FormikContext } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
@@ -106,6 +107,10 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
       : selectedValue?.scope
   const selectedRef =
     typeof selected === 'string' ? getIdentifierFromValue(selected || '') : selectedValue?.connector?.identifier
+
+  const tooltipContext = React.useContext(FormikTooltipContext)
+  const dataTooltipId =
+    props.tooltipProps?.dataTooltipId || (tooltipContext?.formName ? `${tooltipContext?.formName}_${name}` : '')
 
   const [multiType, setMultiType] = React.useState<MultiTypeInputType>(MultiTypeInputType.FIXED)
   const {
@@ -331,7 +336,7 @@ export const MultiTypeConnectorField = (props: MultiTypeConnectorFieldProps): Re
   return (
     <div style={style} className={css.connectorLabel}>
       <Container style={{ marginBottom: 5 }}>
-        <HarnessDocTooltip tooltipId={props.tooltipProps?.dataTooltipId} labelText={label} />
+        <HarnessDocTooltip tooltipId={dataTooltipId} labelText={label} />
       </Container>
       {enableConfigureOptions ? (
         <div style={{ display: 'flex', alignItems: 'center' }}>

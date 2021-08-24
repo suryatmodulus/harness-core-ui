@@ -71,7 +71,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                 {overrideSetIdentifier?.length === 0 && !isReadonly && (
                   <Layout.Horizontal>
                     <Button
-                      icon="edit"
+                      icon="Edit"
                       minimal
                       onClick={() => editArtifact(ModalViewFor.PRIMARY, primaryArtifact.type)}
                     />
@@ -128,7 +128,7 @@ const ArtifactListView: React.FC<ArtifactListViewProps> = ({
                       <span>
                         <Layout.Horizontal>
                           <Button
-                            icon="edit"
+                            icon="Edit"
                             minimal
                             onClick={() => {
                               editArtifact(ModalViewFor.SIDECAR, sidecar?.type as ArtifactType, index)

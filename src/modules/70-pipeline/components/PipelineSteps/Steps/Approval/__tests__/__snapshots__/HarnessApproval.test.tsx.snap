@@ -271,7 +271,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -329,7 +329,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -389,7 +389,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -449,7 +449,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -509,7 +509,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -567,7 +567,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -627,7 +627,7 @@ exports[`Harness Approval tests Basic snapshot - input variable view: harness-ap
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -1030,7 +1030,12 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="harnessApproval_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1096,7 +1101,12 @@ exports[`Harness Approval tests Edit stage - readonly: edit stage readonly 1`] =
               class="bp3-label"
               for="spec.approvalMessage"
             >
-              message
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="harnessApproval_spec.approvalMessage"
+              >
+                message
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1494,7 +1504,12 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="harnessApproval_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1566,7 +1581,12 @@ exports[`Harness Approval tests On submit call: values populating on edit 1`] = 
               class="bp3-label"
               for="spec.approvalMessage"
             >
-              message
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="harnessApproval_spec.approvalMessage"
+              >
+                message
+              </span>
                
               <span
                 class="bp3-text-muted"

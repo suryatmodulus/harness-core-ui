@@ -1,8 +1,8 @@
 import React from 'react'
-import { useParams, useHistory, matchPath, useLocation } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Layout } from '@wings-software/uicore'
 import routes from '@common/RouteDefinitions'
-import { ProjectSelector } from '@projects-orgs/components/ProjectSelector/ProjectSelector'
+import { ProjectSelector, ProjectSelectorProps } from '@projects-orgs/components/ProjectSelector/ProjectSelector'
 import type { PipelinePathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { ModuleName } from 'framework/types/ModuleName'
@@ -10,8 +10,8 @@ import { useStrings } from 'framework/strings'
 import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
+import { isFFPipelinesEnabled } from '@cf/utils/pipelinesEnabled'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
-import navCSS from '@common/navigation/SideNav/SideNav.module.scss'
 
 export default function CFSideNav(): React.ReactElement {
   const { getString } = useStrings()
@@ -20,42 +20,35 @@ export default function CFSideNav(): React.ReactElement {
   const history = useHistory()
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
-  const location = useLocation()
-  const isDev = localStorage.ENABLED_FF_EXPERIMENTS
-  const toDeployments = routes.toDeployments({ ...params, module: 'cf' })
-  const toPipelines = routes.toPipelines({ ...params, module: 'cf' })
-  const isCFPipelines = !!(
-    matchPath(location.pathname, { path: toDeployments }) || matchPath(location.pathname, { path: toPipelines })
-  )
   const { trial } = useQueryParams<{ trial?: boolean }>()
+
+  /* istanbul ignore next */
+  const projectSelectHandler: ProjectSelectorProps['onSelect'] = data => {
+    updateAppStore({ selectedProject: data })
+
+    if (trial) {
+      // if select from trial page, forward user to get started page
+      history.push({
+        pathname: routes.toCFOnboarding({
+          orgIdentifier: data?.orgIdentifier || '',
+          projectIdentifier: data?.identifier || '',
+          accountId
+        })
+      })
+    } else {
+      history.push(
+        routes.toCFFeatureFlags({
+          projectIdentifier: data.identifier,
+          orgIdentifier: data.orgIdentifier || '',
+          accountId
+        })
+      )
+    }
+  }
 
   return (
     <Layout.Vertical spacing="small">
-      <ProjectSelector
-        moduleFilter={ModuleName.CF}
-        onSelect={data => {
-          updateAppStore({ selectedProject: data })
-
-          if (trial) {
-            // if select from trial page, forward user to get started page
-            history.push({
-              pathname: routes.toCFOnboarding({
-                orgIdentifier: data?.orgIdentifier || '',
-                projectIdentifier: data?.identifier || '',
-                accountId
-              })
-            })
-          } else {
-            history.push(
-              routes.toCFFeatureFlags({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier || '',
-                accountId
-              })
-            )
-          }
-        }}
-      />
+      <ProjectSelector moduleFilter={ModuleName.CF} onSelect={projectSelectHandler} />
       {projectIdentifier && orgIdentifier && (
         <>
           <SidebarLink
@@ -67,13 +60,14 @@ export default function CFSideNav(): React.ReactElement {
             to={withActiveEnvironment(routes.toCFTargetManagement(params))}
           />
           <SidebarLink label={getString('environments')} to={withActiveEnvironment(routes.toCFEnvironments(params))} />
-          {isDev && (
+
+          {isFFPipelinesEnabled() && (
             <SidebarLink
               label={getString('pipelines')}
-              to={withActiveEnvironment(toDeployments)}
-              className={isCFPipelines ? navCSS.selected : undefined}
+              to={withActiveEnvironment(routes.toPipelines({ ...params, module: 'cf' }))}
             />
           )}
+
           <SidebarLink
             label={getString('cf.shared.getStarted')}
             to={withActiveEnvironment(routes.toCFOnboarding(params))}

@@ -69,7 +69,8 @@ export const Connectors: ConnectorType = {
   AZURE_KEY_VAULT: 'AzureKeyVault',
   DYNATRACE: 'Dynatrace',
   SUMOLOGIC: 'SumoLogic',
-  CE_GCP: 'GcpCloudCost'
+  CE_GCP: 'GcpCloudCost',
+  AWS_SECRET_MANAGER: 'AwsSecretManager'
 }
 
 export const ConnectorInfoText = {

@@ -61,6 +61,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_checkboxValue"
+            />
           </div>
         </div>
         <div
@@ -71,7 +75,12 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-label"
             for="radioValue"
           >
-            RadioGroup
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_radioValue"
+            >
+              RadioGroup
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -153,7 +162,12 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-label"
             for="textAreaValue"
           >
-            TextArea
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_textAreaValue"
+            >
+              TextArea
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -226,7 +240,12 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-label"
             for="checkboxValue"
           >
-            CheckBox
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_checkboxValue"
+            >
+              CheckBox
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -293,7 +312,12 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-label"
             for="radioValue"
           >
-            RadioGroup
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_radioValue"
+            >
+              RadioGroup
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -360,7 +384,12 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-label"
             for="textAreaValue"
           >
-            TextArea
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_textAreaValue"
+            >
+              TextArea
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -486,6 +515,10 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
                 </span>
               </span>
             </div>
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_checkboxValue"
+            />
           </div>
         </div>
         <div
@@ -496,7 +529,12 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-label"
             for="radioValue"
           >
-            RadioGroup
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_radioValue"
+            >
+              RadioGroup
+            </span>
              
             <span
               class="bp3-text-muted"
@@ -577,7 +615,12 @@ exports[`RuntimeInput Tests for checkbox, RadioGroup and Text Area should render
             class="bp3-label"
             for="textAreaValue"
           >
-            TextArea
+            <span
+              class="Tooltip--acenter"
+              data-tooltip-id="runtimeInputsTest_textAreaValue"
+            >
+              TextArea
+            </span>
              
             <span
               class="bp3-text-muted"

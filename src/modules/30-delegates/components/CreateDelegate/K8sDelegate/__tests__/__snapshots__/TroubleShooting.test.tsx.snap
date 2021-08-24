@@ -285,7 +285,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
       class="StyledProps--font StyledProps--main btnContainer"
     >
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main error Button--with-current-color Button--iconOnly"
+        class="bp3-button Button--button StyledProps--font StyledProps--main error Button--with-current-color Button--iconOnly Button--withRightIcon"
         type="button"
       >
         <span
@@ -314,7 +314,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main error addSpacing Button--with-current-color Button--iconOnly"
+        class="bp3-button Button--button StyledProps--font StyledProps--main error addSpacing Button--with-current-color Button--iconOnly Button--withRightIcon"
         type="button"
       >
         <span
@@ -343,7 +343,7 @@ exports[`Create Common Problems Tab show event error btn 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button Button--button StyledProps--font StyledProps--main error addSpacing Button--with-current-color Button--iconOnly"
+        class="bp3-button Button--button StyledProps--font StyledProps--main error addSpacing Button--with-current-color Button--iconOnly Button--withRightIcon"
         type="button"
       >
         <span

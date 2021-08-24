@@ -67,3 +67,16 @@ export interface ConnectorDetailsProps {
   orgIdentifier: string
   projectIdentifier: string
 }
+
+export interface AwsSecretManagerConfigFormData {
+  accessKey?: SecretReference
+  secretKey?: SecretReference
+  secretNamePrefix?: string
+  region?: string | SelectOption
+  credType?: string | SelectOption
+  delegate?: string[]
+  roleArn?: string
+  externalId?: string
+  assumeStsRoleDuration?: string
+  default: boolean
+}

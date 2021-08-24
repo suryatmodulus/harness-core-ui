@@ -1,22 +1,35 @@
 /* eslint-disable jest/no-disabled-tests */
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+
+import { TestWrapper } from '@common/utils/testUtils'
 import {
   PipelineContextInterface,
   PipelineContext
 } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
-
-import { TestWrapper } from '@common/utils/testUtils'
+import { StageType } from '@pipeline/utils/stageHelpers'
 
 import overridePipelineContext from './overrideSetPipeline.json'
 import DeployServiceSpecifications from '../DeployServiceSpecifications'
 import connectorListJSON from './connectorList.json'
 import mockListSecrets from './mockListSecret.json'
-import services from './servicesMock.json'
+import services, { servicesV2Mock } from './servicesMock'
+
 const getOverrideContextValue = (): PipelineContextInterface => {
   return {
     ...overridePipelineContext,
-    getStageFromPipeline: jest.fn().mockReturnValue({ stage: {} }),
+    getStageFromPipeline: jest.fn().mockReturnValue({
+      stage: {
+        stage: {
+          name: 'Stage 3',
+          identifier: 's3',
+          type: StageType.DEPLOY,
+          description: '',
+          spec: {}
+        }
+      }
+    }),
     updateStage: jest.fn(),
     updatePipeline: jest.fn()
   } as any
@@ -35,7 +48,7 @@ jest.mock('services/cd-ng', () => ({
     mutate: jest.fn().mockImplementation(() => ({ loading: false, data: connectorListJSON })),
     refetch: jest.fn()
   })),
-  useGetServiceList: jest.fn().mockImplementation(() => ({ loading: false, data: services, refetch: jest.fn() })),
+  useGetServiceList: jest.fn().mockImplementation(() => ({ loading: false, data: servicesV2Mock, refetch: jest.fn() })),
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockListSecrets)),
   useGetServiceListForProject: jest
     .fn()
@@ -67,6 +80,41 @@ const intersectionObserverMock = () => ({
 window.IntersectionObserver = jest.fn().mockImplementation(intersectionObserverMock)
 
 describe('Deploy service stage specifications', () => {
+  test(`Propagate from option and dropdown to select previous stage and service should be present`, async () => {
+    const { getByPlaceholderText, getByText } = render(
+      <TestWrapper>
+        <PipelineContext.Provider value={getOverrideContextValue()}>
+          <DeployServiceSpecifications />
+        </PipelineContext.Provider>
+      </TestWrapper>
+    )
+
+    const propagateFromDropdownDiv = document.getElementsByClassName('stageSelectDropDown')[0]
+    act(() => {
+      fireEvent.click(propagateFromDropdownDiv)
+    })
+    const propagateFromDropdown = getByPlaceholderText('- pipeline.selectStagePlaceholder -')
+    act(() => {
+      userEvent.selectOptions(propagateFromDropdown, 'st1')
+    })
+
+    //  Service 1 Option
+    const service1Option = getByText('Stage [Stage 1] - Service [Service 1]')
+    expect(service1Option).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(service1Option)
+    })
+    expect((propagateFromDropdown as HTMLInputElement).value).toBe('Stage [Stage 1] - Service [Service 1]')
+
+    //  Other Service Option
+    const service2Option = getByText('Stage [Stage 2] - Service [Other Service]')
+    expect(service2Option).toBeInTheDocument()
+    act(() => {
+      fireEvent.click(service2Option)
+    })
+    expect((propagateFromDropdown as HTMLInputElement).value).toBe('Stage [Stage 2] - Service [Other Service]')
+  })
+
   test(`Variables section is present`, async () => {
     const { queryByText } = render(
       <TestWrapper>

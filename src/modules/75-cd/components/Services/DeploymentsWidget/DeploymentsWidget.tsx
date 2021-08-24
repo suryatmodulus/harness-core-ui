@@ -135,8 +135,8 @@ export const DeploymentsWidget: React.FC<DeploymentWidgetProps> = props => {
   const queryParams: GetServiceDeploymentsInfoQueryParams = useMemo(() => {
     return {
       accountIdentifier: accountId,
-      projectIdentifier,
       orgIdentifier,
+      projectIdentifier,
       serviceId: serviceIdentifier,
       startTime: timeRange?.range[0]?.getTime() || 0,
       endTime: timeRange?.range[1]?.getTime() || 0,

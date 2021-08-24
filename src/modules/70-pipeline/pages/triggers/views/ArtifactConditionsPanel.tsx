@@ -3,7 +3,7 @@ import { Layout, Text } from '@wings-software/uicore'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 
-import AddConditionsSection from './AddConditionsSection'
+import { ConditionRow } from './AddConditionsSection'
 import css from './WebhookConditionsPanel.module.scss'
 
 interface WebhookConditionsPanelPropsInterface {
@@ -11,8 +11,11 @@ interface WebhookConditionsPanelPropsInterface {
 }
 
 const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = ({ formikProps }): JSX.Element => {
-  const { values: formikValues, setFieldValue, errors } = formikProps
+  const {
+    values: { manifestType }
+  } = formikProps
   const { getString } = useStrings()
+  const isManifest = !!manifestType
   return (
     <Layout.Vertical className={cx(css.webhookConditionsContainer)} spacing="large" padding="xxlarge">
       <h2 className={css.heading}>
@@ -21,17 +24,24 @@ const ArtifactConditionsPanel: React.FC<WebhookConditionsPanelPropsInterface> = 
           {getString('titleOptional')}
         </Text>
       </h2>
-      <Text>{getString('pipeline.triggers.conditionsPanel.subtitle')}</Text>
-
-      <AddConditionsSection
-        title=""
-        key="eventConditions"
-        fieldId="eventConditions"
-        attributePlaceholder="<+trigger.event.pathInJson>"
-        formikValues={formikValues}
-        setFieldValue={setFieldValue}
-        errors={errors}
-      />
+      <Text>
+        {isManifest
+          ? getString('pipeline.triggers.conditionsPanel.subtitle')
+          : getString('pipeline.triggers.conditionsPanel.subtitle')}
+      </Text>
+      {isManifest ? (
+        <ConditionRow
+          formikProps={formikProps}
+          name="version"
+          label={getString('pipeline.triggers.conditionsPanel.manifestVersion')}
+        />
+      ) : (
+        <ConditionRow
+          formikProps={formikProps}
+          name="build"
+          label={getString('pipeline.triggers.conditionsPanel.artifactBuild')}
+        />
+      )}
     </Layout.Vertical>
   )
 }

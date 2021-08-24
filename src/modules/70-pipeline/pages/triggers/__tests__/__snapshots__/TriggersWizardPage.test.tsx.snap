@@ -248,7 +248,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                 class="renderSelectedValue inputSetSelectedValue"
                               >
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addInputSetButton StyledProps--color StyledProps--color-primary7 StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                                   type="button"
                                 >
                                   <span
@@ -563,10 +563,10 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                     class="bp3-form-content"
                                   >
                                     <div
-                                      class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+                                      class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
                                     >
                                       <label
-                                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                                       >
                                         <input
                                           checked=""
@@ -580,7 +580,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                         gitBranch
                                       </label>
                                       <label
-                                        class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+                                        class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
                                       >
                                         <input
                                           name="pipeline.properties.ci.codebase.build.type"
@@ -829,7 +829,12 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                 class="bp3-label"
                                                 for="pipeline.stages[0].stage.spec.execution.steps[0].step.description"
                                               >
-                                                description
+                                                <span
+                                                  class="Tooltip--acenter"
+                                                  data-tooltip-id="wizardForm_webhook_pipeline.stages[0].stage.spec.execution.steps[0].step.description"
+                                                >
+                                                  description
+                                                </span>
                                                  
                                                 <span
                                                   class="bp3-text-muted"
@@ -892,17 +897,22 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                 <div
                                                   class="formLabel"
                                                 >
-                                                  <div
-                                                    class="Text--withDocsTooltip"
-                                                    data-tooltip-id="runCommand"
+                                                  <span
+                                                    class="Tooltip--acenter"
+                                                    data-tooltip-id="wizardForm_webhook_pipeline.stages[0].stage.spec.execution.steps[0].step.spec.command"
                                                   >
-                                                    <p
-                                                      class="StyledProps--font StyledProps--main"
-                                                      style="display: flex; align-items: center;"
+                                                    <div
+                                                      class="Text--withDocsTooltip"
+                                                      data-tooltip-id="runCommand"
                                                     >
-                                                      commandLabel
-                                                    </p>
-                                                  </div>
+                                                      <p
+                                                        class="StyledProps--font StyledProps--main"
+                                                        style="display: flex; align-items: center;"
+                                                      >
+                                                        commandLabel
+                                                      </p>
+                                                    </div>
+                                                  </span>
                                                   <div
                                                     class="bp3-popover-wrapper typeSelectorWrapper"
                                                   >
@@ -910,7 +920,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                       class="bp3-popover-target typeSelector"
                                                     >
                                                       <button
-                                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                                                        class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                                                         type="button"
                                                       >
                                                         <span
@@ -931,11 +941,6 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                                 fill="currentColor"
                                                               />
                                                             </svg>
-                                                          </span>
-                                                          <span
-                                                            class="btnText"
-                                                          >
-                                                            inputTypes.FIXED
                                                           </span>
                                                         </span>
                                                       </button>
@@ -959,7 +964,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                                                     echo 'from trigger'
                                                   </textarea>
                                                   <button
-                                                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                                                    class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                                                     type="button"
                                                   >
                                                     <span
@@ -1004,7 +1009,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -1033,7 +1038,7 @@ exports[`TriggersWizardPage Triggers tests Missed Tests Existing Trigger has pip
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="submit"
                 >
                   <span
@@ -1384,9 +1389,8 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           style="margin-bottom: 0px;"
                         >
                           <label
-                            class="Label--main"
+                            class="Label--main descriptionLabel"
                             data-tooltip-id="webhookTrigger_description"
-                            style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
                           </label>
@@ -1413,9 +1417,8 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main"
+                            class="Label--main descriptionLabel"
                             data-tooltip-id="webhookTrigger_tags"
-                            style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
                           </label>
@@ -1574,7 +1577,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-form-content"
                             >
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                                 data-testid="cr-field-connectorRef"
                                 style="width: 324px;"
                                 type="button"
@@ -1993,7 +1996,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="button"
                 >
                   <span
@@ -2343,30 +2346,38 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main"
+                            class="Label--main descriptionLabel"
                             data-tooltip-id="webhookTrigger_description"
-                            style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                              class="bp3-icon StyledProps--main editOpen"
+                              data-icon="Edit"
                               data-name="edit"
                               data-testid="description-edit"
-                              icon="edit"
                             >
                               <svg
-                                data-icon="edit"
                                 height="12"
-                                viewBox="0 0 16 16"
+                                viewBox="0 0 12 12"
                                 width="12"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <desc>
-                                  edit
-                                </desc>
-                                <path
-                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                <g
+                                  fill="none"
                                   fill-rule="evenodd"
-                                />
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
                               </svg>
                             </span>
                           </label>
@@ -2375,30 +2386,38 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                           class="StyledProps--font StyledProps--main"
                         >
                           <label
-                            class="Label--main"
+                            class="Label--main descriptionLabel"
                             data-tooltip-id="webhookTrigger_tags"
-                            style="font-size: 13px; font-weight: normal;"
                           >
                             optionalField
                             <span
-                              class="bp3-icon bp3-icon-edit StyledProps--main editOpen StyledProps--color StyledProps--color-grey500"
+                              class="bp3-icon StyledProps--main editOpen"
+                              data-icon="Edit"
                               data-name="edit"
                               data-testid="tags-edit"
-                              icon="edit"
                             >
                               <svg
-                                data-icon="edit"
                                 height="12"
-                                viewBox="0 0 16 16"
+                                viewBox="0 0 12 12"
                                 width="12"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <desc>
-                                  edit
-                                </desc>
-                                <path
-                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                <g
+                                  fill="none"
                                   fill-rule="evenodd"
-                                />
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
                               </svg>
                             </span>
                           </label>
@@ -2501,7 +2520,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                               class="bp3-form-content"
                             >
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                                 data-testid="cr-field-connectorRef"
                                 style="width: 324px;"
                                 type="button"
@@ -2899,7 +2918,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Git
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="button"
                 >
                   <span
@@ -3247,9 +3266,8 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         style="margin-bottom: 0px;"
                       >
                         <label
-                          class="Label--main"
+                          class="Label--main descriptionLabel"
                           data-tooltip-id="triggerOverview_description"
-                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                         </label>
@@ -3276,9 +3294,8 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                         class="StyledProps--font StyledProps--main"
                       >
                         <label
-                          class="Label--main"
+                          class="Label--main descriptionLabel"
                           data-tooltip-id="triggerOverview_tags"
-                          style="font-size: 13px; font-weight: normal;"
                         >
                           optionalField
                         </label>
@@ -3347,7 +3364,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="button"
                 >
                   <span
@@ -3870,7 +3887,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                 class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--without-shadow Button--withLeftIcon"
                   type="button"
                 >
                   <span
@@ -3899,7 +3916,7 @@ exports[`TriggersWizardPage Triggers tests Renders/snapshots OnEdit Render - Sch
                   </span>
                 </button>
                 <button
-                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
                   type="button"
                 >
                   <span

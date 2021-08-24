@@ -106,7 +106,12 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -190,10 +195,10 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -207,7 +212,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -304,7 +309,12 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -321,7 +331,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -394,6 +404,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -614,7 +625,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                             </span>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-testid="remove-tfvar-file-0"
                             type="button"
                           >
@@ -702,7 +713,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                             </span>
                           </div>
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-testid="remove-tfvar-file-1"
                             type="button"
                           >
@@ -732,7 +743,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                           class="bp3-popover-target"
                         >
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             data-testid="add-tfvar-file"
                             type="button"
                           >
@@ -767,7 +778,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                   </div>
                 </div>
                 <div
-                  class="formGroup alignStart addMarginTop addMarginBottom"
+                  class="formGroup addMarginTop addMarginBottom"
                 >
                   <div
                     class="bp3-form-group"
@@ -779,13 +790,18 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                       <div
                         class="formLabel"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="color: rgb(11, 11, 13);"
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.backendConfig.spec.content"
                         >
-                           
-                          optionalField
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="color: rgb(11, 11, 13);"
+                          >
+                             
+                            optionalField
+                          </p>
+                        </span>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
                         >
@@ -793,7 +809,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                             class="bp3-popover-target typeSelector"
                           >
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                               type="button"
                             >
                               <span
@@ -815,11 +831,6 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                                     />
                                   </svg>
                                 </span>
-                                <span
-                                  class="btnText"
-                                >
-                                  inputTypes.FIXED
-                                </span>
                               </span>
                             </button>
                           </div>
@@ -837,7 +848,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         class="monacoWrapper"
                       >
                         <button
-                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -888,12 +899,17 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         <div
                           class="formLabel"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.targets"
                           >
-                            optionalField
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            >
+                              optionalField
+                            </p>
+                          </span>
                           <div
                             class="bp3-popover-wrapper typeSelectorWrapper"
                           >
@@ -901,7 +917,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                               class="bp3-popover-target typeSelector"
                             >
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                                 type="button"
                               >
                                 <span
@@ -922,11 +938,6 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                                         fill="currentColor"
                                       />
                                     </svg>
-                                  </span>
-                                  <span
-                                    class="btnText"
-                                  >
-                                    inputTypes.FIXED
                                   </span>
                                 </span>
                               </button>
@@ -1002,7 +1013,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                               </div>
                             </div>
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                               data-testid="remove-spec.configuration.targets-[0]"
                               type="button"
                             >
@@ -1057,17 +1068,22 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                         <div
                           class="formLabel"
                         >
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="dependencyEnvironmentVariables"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.environmentVariables"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="dependencyEnvironmentVariables"
                             >
-                              optionalField
-                            </p>
-                          </div>
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                              >
+                                optionalField
+                              </p>
+                            </div>
+                          </span>
                         </div>
                          
                         <span
@@ -1178,7 +1194,7 @@ exports[`Test TerraformPlan renders more than one var file 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                   data-testid="remove-spec.configuration.environmentVariables-[0]"
                                   type="button"
                                 >
@@ -1324,7 +1340,12 @@ exports[`Test TerraformPlan should render edit view 1`] = `
               class="bp3-label"
               for="timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -1510,7 +1531,12 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1594,10 +1620,10 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -1611,7 +1637,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -1708,7 +1734,12 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -1725,7 +1756,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -1798,6 +1829,7 @@ exports[`Test TerraformPlan should render edit view as edit step 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -1978,7 +2010,12 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2062,10 +2099,10 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -2079,7 +2116,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -2176,7 +2213,12 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -2193,7 +2235,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -2266,6 +2308,7 @@ exports[`Test TerraformPlan should render edit view as new step 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -2446,7 +2489,12 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2530,10 +2578,10 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -2547,7 +2595,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -2644,7 +2692,12 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -2661,7 +2714,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -2734,6 +2787,7 @@ exports[`Test TerraformPlan should render edit view as new step 2`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -2916,7 +2970,12 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -3000,10 +3059,10 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -3016,7 +3075,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -3114,7 +3173,12 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -3131,7 +3195,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -3204,6 +3268,7 @@ exports[`Test TerraformPlan should render edit view with command Destroy 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -3446,7 +3511,12 @@ exports[`Test TerraformPlan should render input set view 1`] = `
               class="StyledProps--font StyledProps--main"
               style="margin-bottom: 5px;"
             >
-              connector
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_test.spec.configuration.configFiles.store.spec.connectorRef"
+              >
+                connector
+              </span>
             </div>
             <div
               style="display: flex; align-items: center;"
@@ -3464,7 +3534,7 @@ exports[`Test TerraformPlan should render input set view 1`] = `
                     style="width: 400px;"
                   >
                     <button
-                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                      class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                       data-testid="cr-field-test.spec.configuration.configFiles.store.spec.connectorRef"
                       style="width: 400px;"
                       type="button"
@@ -3838,7 +3908,12 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -3922,10 +3997,10 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           class="bp3-form-content"
         >
           <div
-            class="StyledProps--font RadioButton--radioGroup StyledProps--main StyledProps--inline"
+            class="StyledProps--font RadioButton--radioGroup RadioButton--inline StyledProps--main"
           >
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 checked=""
@@ -3939,7 +4014,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
               filters.apply
             </label>
             <label
-              class="bp3-control bp3-radio RadioButton--radio StyledProps--main"
+              class="bp3-control bp3-radio bp3-inline RadioButton--radio StyledProps--main"
             >
               <input
                 name="spec.configuration.command"
@@ -4036,7 +4111,12 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
           class="StyledProps--font StyledProps--main"
           style="margin-bottom: 5px;"
         >
-          connectors.title.secretManager
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformPlanEditView-tfPlan-_spec.configuration.secretManagerRef"
+          >
+            connectors.title.secretManager
+          </span>
         </div>
         <div
           style="display: flex; align-items: center;"
@@ -4053,7 +4133,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
                 style="width: 280px;"
               >
                 <button
-                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow"
+                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main container Button--iconOnly Button--without-shadow Button--withRightIcon"
                   data-testid="cr-field-spec.configuration.secretManagerRef"
                   style="width: 280px;"
                   type="button"
@@ -4176,6 +4256,7 @@ exports[`Test TerraformPlan should submit form for terraform plan 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout, Formik, FormikForm as Form, Button, Color, Icon } from '@wings-software/uicore'
+import { Text, Layout, Formik, FormikForm as Form, Button, Color, Icon, Accordion } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { omit } from 'lodash-es'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
@@ -16,6 +16,7 @@ import {
   getDurationValidationSchema
 } from '@common/components/MultiTypeDuration/MultiTypeDuration'
 import { useVariablesExpression } from '../PipelineStudio/PiplineHooks/useVariablesExpression'
+import css from './CreatePipelineForm.module.scss'
 
 interface CreatePipelineFormProps {
   handleSubmit: (value: PipelineInfoConfig, gitDetail: EntityGitDetails) => void
@@ -69,12 +70,6 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
               {getString('pipeline.createPipeline.setupSubtitle')}
             </Text>
             <NameIdDescriptionTags formikProps={formikProps} />
-            <FormMultiTypeDurationField
-              name="timeout"
-              isOptional
-              label={getString('pipelineSteps.timeoutLabel')}
-              multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
-            />
             {isGitSyncEnabled && (
               <GitSyncStoreProvider>
                 <GitContextForm
@@ -87,6 +82,20 @@ export const CreatePipelineForm: React.FC<CreatePipelineFormProps> = props => {
                 />
               </GitSyncStoreProvider>
             )}
+            <Accordion className={css.optionalConfiguration}>
+              <Accordion.Panel
+                id="optional-config"
+                summary={getString('common.optionalConfig')}
+                details={
+                  <FormMultiTypeDurationField
+                    name="timeout"
+                    isOptional
+                    label={getString('pipelineSteps.timeoutLabel')}
+                    multiTypeDurationProps={{ enableConfigureOptions: true, expressions }}
+                  />
+                }
+              />
+            </Accordion>
             <Layout.Horizontal padding={{ top: 'large' }} spacing="medium">
               <Button intent="primary" text={getString('start')} type="submit" />
               <Button

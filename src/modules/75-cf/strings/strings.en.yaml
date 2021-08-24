@@ -337,6 +337,7 @@ auditLogs:
   createdMessageFF: 'created feature flag'
   createdMessageFFUpdate: 'updated feature flag'
   createdMessageSegment: 'created target group'
+  updateMessageSegment: 'updated target group'
   yamlDifference: YAML Difference
   changeDetails: Change details
   events:

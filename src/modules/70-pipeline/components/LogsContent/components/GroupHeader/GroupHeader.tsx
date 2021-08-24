@@ -2,7 +2,7 @@ import React from 'react'
 import { Icon, IconName } from '@wings-software/uicore'
 import { defaultTo } from 'lodash-es'
 
-import { Duration } from '@common/components'
+import { Duration } from '@common/components/Duration/Duration'
 
 import css from './GroupHeader.module.scss'
 

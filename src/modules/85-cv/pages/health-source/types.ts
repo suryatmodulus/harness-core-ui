@@ -4,5 +4,6 @@ export enum HealthSourceTypes {
   StackdriverLog = 'StackdriverLog',
   Prometheus = 'Prometheus',
   StackdriverMetrics = 'Stackdriver',
-  GoogleCloudOperations = 'Google Cloud Operations'
+  GoogleCloudOperations = 'Google Cloud Operations',
+  Splunk = 'Splunk'
 }

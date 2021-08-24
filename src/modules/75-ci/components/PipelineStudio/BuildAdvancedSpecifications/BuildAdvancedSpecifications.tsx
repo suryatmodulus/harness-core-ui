@@ -1,4 +1,4 @@
-import { Card, Layout } from '@wings-software/uicore'
+import { Card, HarnessDocTooltip, Layout } from '@wings-software/uicore'
 import React from 'react'
 import cx from 'classnames'
 import { produce } from 'immer'
@@ -33,7 +33,12 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
   return (
     <div className={cx(css.stageSection, css.editStageGrid)}>
       <div className={css.contentSection} ref={scrollRef}>
-        <div className={css.tabHeading}>{getString('pipeline.conditionalExecution.title')}</div>
+        <div className={css.tabHeading}>
+          <span data-tooltip-id="conditionalExecutionBuildStage">
+            {getString('pipeline.conditionalExecution.title')}
+            <HarnessDocTooltip tooltipId="conditionalExecutionBuildStage" useStandAlone={true} />
+          </span>
+        </div>
         {!!stage && (
           <Card className={css.sectionCard} id="conditionalExecution">
             <Layout.Horizontal>
@@ -60,7 +65,12 @@ const BuildAdvancedSpecifications: React.FC<AdvancedSpecifications> = ({ childre
             </Layout.Horizontal>
           </Card>
         )}
-        <div className={css.tabHeading}>Failure Strategy</div>
+        <div className={css.tabHeading}>
+          <span data-tooltip-id="failureStrategyBuildStage">
+            {getString('pipeline.failureStrategies.title')}
+            <HarnessDocTooltip tooltipId="failureStrategyBuildStage" useStandAlone={true} />
+          </span>
+        </div>
         <Card className={css.sectionCard} id="failureStrategy">
           <Layout.Horizontal>
             <div className={css.stageSection}>

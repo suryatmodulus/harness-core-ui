@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import type { UseStringsReturn } from 'framework/strings'
 import { StageType } from '@pipeline/utils/stageHelpers'
 import { stagesCollection } from '@pipeline/components/PipelineStudio/Stages/StagesCollection'
 import type { StageAttributes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import { isFFPipelinesEnabled } from '@cf/utils/pipelinesEnabled'
 import { FeatureFlagStage } from './FeatureFlagStage'
 
 const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttributes => ({
@@ -14,7 +15,7 @@ const getStageAttributes = (getString: UseStringsReturn['getString']): StageAttr
   openExecutionStrategy: false
 })
 
-const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsReturn['getString']) => (
+const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsReturn['getString']): ReactElement => (
   <FeatureFlagStage
     icon={'cf-main'}
     hoverIcon={'feature-flag-stage'}
@@ -29,4 +30,6 @@ const getStageEditorImplementation = (isEnabled: boolean, getString: UseStringsR
   />
 )
 
-stagesCollection.registerStageFactory(StageType.FEATURE, getStageAttributes, getStageEditorImplementation)
+if (isFFPipelinesEnabled()) {
+  stagesCollection.registerStageFactory(StageType.FEATURE, getStageAttributes, getStageEditorImplementation)
+}

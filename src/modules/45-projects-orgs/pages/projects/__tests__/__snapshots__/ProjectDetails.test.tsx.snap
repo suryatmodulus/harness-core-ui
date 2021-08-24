@@ -3,7 +3,7 @@
 exports[`Project Details render with modules and edit menu 1`] = `
 <div>
   <div
-    class="Layout--horizontal StyledProps--main container xlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
+    class="Layout--horizontal StyledProps--main container xxlarge header StyledProps--flex StyledProps--padding-left-xlarge StyledProps--padding-right-xlarge"
   >
     <div
       class="Layout--vertical StyledProps--main"
@@ -93,17 +93,43 @@ exports[`Project Details render with modules and edit menu 1`] = `
         </div>
       </div>
       <div
-        class="Layout--vertical Layout--layout-spacing-small StyledProps--main title"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-top-small"
       >
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-          style="--text-line-clamp: 1;"
-        >
-          dummy name
-        </p>
-        
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <div
+            class="colorBar"
+            style="background-color: rgb(0, 99, 247);"
+          />
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800 StyledProps--padding-right-xlarge"
+            style="--text-line-clamp: 1;"
+          >
+            dummy name
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-medium"
+            style="--text-line-clamp: 1;"
+          >
+            idLabel
+          </p>
+          <div
+            class="divider"
+          />
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--padding-left-medium"
+            style="--text-line-clamp: 1;"
+          >
+            orgLabel: testOrg
+          </p>
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--padding-top-medium"
         >
           <div
             class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
@@ -112,7 +138,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag"
+                class="bp3-tag tags"
                 style="max-width: 80px;"
               >
                 <span
@@ -126,7 +152,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag"
+                class="bp3-tag tags"
                 style="max-width: 80px;"
               >
                 <span
@@ -140,7 +166,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag"
+                class="bp3-tag tags"
                 style="max-width: 80px;"
               >
                 <span
@@ -154,7 +180,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag"
+                class="bp3-tag tags"
                 style="max-width: 80px;"
               >
                 <span
@@ -168,7 +194,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
               class="Tag--main"
             >
               <span
-                class="bp3-tag"
+                class="bp3-tag tags"
                 style="max-width: 80px;"
               >
                 <span
@@ -183,202 +209,8 @@ exports[`Project Details render with modules and edit menu 1`] = `
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--padding-xxlarge"
+      class="Layout--vertical StyledProps--main StyledProps--padding-top-small StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-end"
     >
-      <div
-        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-        >
-          <div
-            class="AvatarGroup--stack projectDetailsAvatarGroup"
-            style="--avatar-over-lap: -13px;"
-          >
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    +
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="19bYA-ooQZOTZQxf2N-VPA"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
-        >
-          adminLabel (1)
-        </p>
-      </div>
-      <div
-        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-        >
-          <div
-            class="AvatarGroup--stack projectDetailsAvatarGroup"
-            style="--avatar-over-lap: -13px;"
-          >
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    +
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="lv0euRhKRCyiXWzS7pOg6g"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="0osgWsTZRsSZ8RWfjLRkEg"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="ZqXNvYmURnO46PX7HwgEtQ"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="nhLgdGgxS_iqa0KP5edC-w"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="BnTbQTIJS4SkadzYv0BcbA"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
-        >
-          collaboratorsLabel (5)
-        </p>
-      </div>
       <span
         class="bp3-popover-wrapper bp3-dark"
       >
@@ -386,7 +218,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
             type="button"
           >
             <span
@@ -411,6 +243,204 @@ exports[`Project Details render with modules and edit menu 1`] = `
           </button>
         </span>
       </span>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-right-huge StyledProps--margin-right-huge"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--padding-right-xlarge"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey400 StyledProps--padding-left-xsmall StyledProps--padding-bottom-small"
+          >
+            adminLabel (1)
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack projectDetailsAvatarGroup"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="19bYA-ooQZOTZQxf2N-VPA"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey400 StyledProps--padding-left-xsmall StyledProps--padding-bottom-small"
+          >
+            collaboratorsLabel (5)
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack projectDetailsAvatarGroup"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="lv0euRhKRCyiXWzS7pOg6g"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="0osgWsTZRsSZ8RWfjLRkEg"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="ZqXNvYmURnO46PX7HwgEtQ"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="nhLgdGgxS_iqa0KP5edC-w"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="BnTbQTIJS4SkadzYv0BcbA"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div
@@ -1183,221 +1213,46 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
         </div>
       </div>
       <div
-        class="Layout--vertical Layout--layout-spacing-small StyledProps--main title"
+        class="Layout--vertical Layout--layout-spacing-small StyledProps--main title StyledProps--padding-top-small"
       >
-        <p
-          class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-bold StyledProps--color StyledProps--color-black"
-          style="--text-line-clamp: 1;"
-        >
-          dummy name
-        </p>
-        
         <div
-          class="Layout--horizontal StyledProps--main StyledProps--padding-top-small"
+          class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main StyledProps--margin-bottom-medium StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
         >
           <div
-            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main"
+            class="colorBar"
+            style="background-color: rgb(0, 99, 247);"
           />
+        </div>
+        <div
+          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+        >
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-medium StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey800 StyledProps--padding-right-xlarge"
+            style="--text-line-clamp: 1;"
+          >
+            dummy name
+          </p>
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--padding-right-medium"
+            style="--text-line-clamp: 1;"
+          >
+            idLabel
+          </p>
+          <div
+            class="divider"
+          />
+          <p
+            class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small StyledProps--font-weight-semi-bold StyledProps--color StyledProps--color-grey500 StyledProps--padding-left-medium"
+            style="--text-line-clamp: 1;"
+          >
+            orgLabel: testOrg
+          </p>
         </div>
       </div>
     </div>
     <div
-      class="Layout--horizontal StyledProps--main StyledProps--padding-xxlarge"
+      class="Layout--vertical StyledProps--main StyledProps--padding-top-small StyledProps--flex StyledProps--flex-justifyContent-space-between StyledProps--flex-alignItems-flex-end"
     >
-      <div
-        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-        >
-          <div
-            class="AvatarGroup--stack projectDetailsAvatarGroup"
-            style="--avatar-over-lap: -13px;"
-          >
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    +
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="19bYA-ooQZOTZQxf2N-VPA"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
-        >
-          adminLabel (1)
-        </p>
-      </div>
-      <div
-        class="Layout--vertical Layout--layout-spacing-xsmall StyledProps--main StyledProps--padding-right-large"
-      >
-        <div
-          class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-        >
-          <div
-            class="AvatarGroup--stack projectDetailsAvatarGroup"
-            style="--avatar-over-lap: -13px;"
-          >
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    +
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="lv0euRhKRCyiXWzS7pOg6g"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="0osgWsTZRsSZ8RWfjLRkEg"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="ZqXNvYmURnO46PX7HwgEtQ"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="nhLgdGgxS_iqa0KP5edC-w"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-            <div
-              class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
-              uuid="BnTbQTIJS4SkadzYv0BcbA"
-            >
-              <span
-                class="bp3-popover-wrapper Avatar--avatarPopOver"
-              >
-                <span
-                  class="bp3-popover-target"
-                >
-                  <div
-                    class="Avatar--AvatarInner"
-                    style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
-                    tabindex="0"
-                  >
-                    E
-                  </div>
-                </span>
-              </span>
-            </div>
-          </div>
-        </div>
-        <p
-          class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--padding-left-xsmall"
-        >
-          collaboratorsLabel (5)
-        </p>
-      </div>
       <span
         class="bp3-popover-wrapper bp3-dark"
       >
@@ -1405,7 +1260,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           class="bp3-popover-target"
         >
           <button
-            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
             type="button"
           >
             <span
@@ -1430,6 +1285,204 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
           </button>
         </span>
       </span>
+      <div
+        class="Layout--horizontal StyledProps--main StyledProps--padding-right-huge StyledProps--margin-right-huge"
+      >
+        <div
+          class="Layout--vertical StyledProps--main StyledProps--padding-right-xlarge"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey400 StyledProps--padding-left-xsmall StyledProps--padding-bottom-small"
+          >
+            adminLabel (1)
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack projectDetailsAvatarGroup"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="19bYA-ooQZOTZQxf2N-VPA"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout--vertical StyledProps--main"
+        >
+          <p
+            class="StyledProps--font StyledProps--main StyledProps--font-xsmall StyledProps--color StyledProps--color-grey400 StyledProps--padding-left-xsmall StyledProps--padding-bottom-small"
+          >
+            collaboratorsLabel (5)
+          </p>
+          <div
+            class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
+          >
+            <div
+              class="AvatarGroup--stack projectDetailsAvatarGroup"
+              style="--avatar-over-lap: -13px;"
+            >
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      +
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="lv0euRhKRCyiXWzS7pOg6g"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="0osgWsTZRsSZ8RWfjLRkEg"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="ZqXNvYmURnO46PX7HwgEtQ"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="nhLgdGgxS_iqa0KP5edC-w"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+              <div
+                class="AvatarGroup--stackAvatar Avatar--Avatar Avatar--contentStyle"
+                uuid="BnTbQTIJS4SkadzYv0BcbA"
+              >
+                <span
+                  class="bp3-popover-wrapper Avatar--avatarPopOver"
+                >
+                  <span
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="Avatar--AvatarInner"
+                      style="border-radius: 100%; line-height: 26px; width: 32px; height: 32px; font-size: 10px;"
+                      tabindex="0"
+                    >
+                      E
+                    </div>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div

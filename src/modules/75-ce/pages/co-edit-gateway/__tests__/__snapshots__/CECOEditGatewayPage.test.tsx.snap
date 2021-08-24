@@ -528,7 +528,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
                       class="Layout--vertical Layout--layout-spacing-medium StyledProps--main"
                     >
                       <button
-                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color"
+                        class="bp3-button Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
                         style="max-width: 180px;"
                         type="button"
                       >
@@ -570,7 +570,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
       class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
     >
       <button
-        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color"
+        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main Button--with-current-color Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"
@@ -601,7 +601,7 @@ exports[`Edit rule page render edit rule page successfully 1`] = `
         </span>
       </button>
       <button
-        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color"
+        class="bp3-button bp3-disabled Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withLeftIcon"
         disabled=""
         tabindex="-1"
         type="button"

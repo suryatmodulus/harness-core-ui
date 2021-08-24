@@ -106,7 +106,12 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -311,6 +316,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -325,26 +331,40 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
           >
             cd.configFilePlaceHolder
           </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--iconOnly Button--without-shadow Button--withLeftIcon"
             data-name="config-edit"
-            icon="edit"
+            type="button"
           >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="Edit"
             >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                    stroke="#555770"
+                  />
+                  <path
+                    d="M6.583 5.146l2.063-2.063"
+                    opacity="0.3"
+                    stroke="#606170"
+                  />
+                </g>
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -460,6 +480,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                 >
                   <label
                     class="Label--main tfVarLabel"
+                    data-tooltip-id="terraformEdit-TerraformDestroy-_"
                   >
                     optionalField
                   </label>
@@ -496,7 +517,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                             </svg>
                           </span>
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-testid="remove-tfvar-file-0"
                             type="button"
                           >
@@ -526,7 +547,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                           class="bp3-popover-target bp3-popover-open"
                         >
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             data-testid="add-tfvar-file"
                             type="button"
                           >
@@ -573,12 +594,17 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                       <div
                         class="formLabel"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="color: rgb(11, 11, 13);"
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.backendConfig.spec.content"
                         >
-                          optionalField
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="color: rgb(11, 11, 13);"
+                          >
+                            optionalField
+                          </p>
+                        </span>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
                         >
@@ -586,7 +612,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                             class="bp3-popover-target typeSelector"
                           >
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                               type="button"
                             >
                               <span
@@ -608,11 +634,6 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                                     />
                                   </svg>
                                 </span>
-                                <span
-                                  class="btnText"
-                                >
-                                  inputTypes.FIXED
-                                </span>
                               </span>
                             </button>
                           </div>
@@ -630,7 +651,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                         class="monacoWrapper"
                       >
                         <button
-                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -681,12 +702,17 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                         <div
                           class="formLabel"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.targets"
                           >
-                            optionalField
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            >
+                              optionalField
+                            </p>
+                          </span>
                           <div
                             class="bp3-popover-wrapper typeSelectorWrapper"
                           >
@@ -694,7 +720,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                               class="bp3-popover-target typeSelector"
                             >
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                                 type="button"
                               >
                                 <span
@@ -715,11 +741,6 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                                         fill="currentColor"
                                       />
                                     </svg>
-                                  </span>
-                                  <span
-                                    class="btnText"
-                                  >
-                                    inputTypes.FIXED
                                   </span>
                                 </span>
                               </button>
@@ -795,7 +816,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                               </div>
                             </div>
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                               data-testid="remove-spec.configuration.spec.targets-[0]"
                               type="button"
                             >
@@ -850,17 +871,22 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                         <div
                           class="formLabel"
                         >
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="dependencyEnvironmentVariables"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.environmentVariables"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="dependencyEnvironmentVariables"
                             >
-                              optionalField
-                            </p>
-                          </div>
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                              >
+                                optionalField
+                              </p>
+                            </div>
+                          </span>
                         </div>
                          
                         <span
@@ -971,7 +997,7 @@ exports[`Test TerraformDestroy add new terraform var file 1`] = `
                                   </div>
                                 </div>
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                   data-testid="remove-spec.configuration.spec.environmentVariables-[0]"
                                   type="button"
                                 >
@@ -1127,7 +1153,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -1332,6 +1363,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
     >
       <label
         class="Label--main configLabel"
+        data-tooltip-id="tfConfigurationFile"
       >
         cd.configurationFile
       </label>
@@ -1346,26 +1378,40 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
           >
             cd.configFilePlaceHolder
           </p>
-          <span
-            class="bp3-icon bp3-icon-edit StyledProps--main"
+          <button
+            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main editBtn Button--iconOnly Button--without-shadow Button--withLeftIcon"
             data-name="config-edit"
-            icon="edit"
+            type="button"
           >
-            <svg
-              data-icon="edit"
-              height="16"
-              viewBox="0 0 16 16"
-              width="16"
+            <span
+              class="bp3-icon StyledProps--main"
+              data-icon="Edit"
             >
-              <desc>
-                edit
-              </desc>
-              <path
-                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                fill-rule="evenodd"
-              />
-            </svg>
-          </span>
+              <svg
+                height="16"
+                viewBox="0 0 12 12"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  fill="none"
+                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                    stroke="#555770"
+                  />
+                  <path
+                    d="M6.583 5.146l2.063-2.063"
+                    opacity="0.3"
+                    stroke="#606170"
+                  />
+                </g>
+              </svg>
+            </span>
+          </button>
         </div>
       </div>
     </div>
@@ -1481,6 +1527,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                 >
                   <label
                     class="Label--main tfVarLabel"
+                    data-tooltip-id="terraformEdit-TerraformDestroy-_"
                   >
                     optionalField
                   </label>
@@ -1517,7 +1564,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                             </svg>
                           </span>
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                             data-testid="remove-tfvar-file-0"
                             type="button"
                           >
@@ -1547,7 +1594,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                           class="bp3-popover-target bp3-popover-open"
                         >
                           <button
-                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+                            class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main addTfVarFile bp3-active StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
                             data-testid="add-tfvar-file"
                             type="button"
                           >
@@ -1594,12 +1641,17 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                       <div
                         class="formLabel"
                       >
-                        <p
-                          class="StyledProps--font StyledProps--main"
-                          style="color: rgb(11, 11, 13);"
+                        <span
+                          class="Tooltip--acenter"
+                          data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.backendConfig.spec.content"
                         >
-                          optionalField
-                        </p>
+                          <p
+                            class="StyledProps--font StyledProps--main"
+                            style="color: rgb(11, 11, 13);"
+                          >
+                            optionalField
+                          </p>
+                        </span>
                         <div
                           class="bp3-popover-wrapper typeSelectorWrapper"
                         >
@@ -1607,7 +1659,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                             class="bp3-popover-target typeSelector"
                           >
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                               type="button"
                             >
                               <span
@@ -1629,11 +1681,6 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                                     />
                                   </svg>
                                 </span>
-                                <span
-                                  class="btnText"
-                                >
-                                  inputTypes.FIXED
-                                </span>
                               </span>
                             </button>
                           </div>
@@ -1651,7 +1698,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                         class="monacoWrapper"
                       >
                         <button
-                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly"
+                          class="bp3-button bp3-small Button--button StyledProps--font StyledProps--main expandBtn Button--with-current-color Button--iconOnly Button--withLeftIcon"
                           type="button"
                         >
                           <span
@@ -1702,12 +1749,17 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                         <div
                           class="formLabel"
                         >
-                          <p
-                            class="StyledProps--font StyledProps--main"
-                            style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.targets"
                           >
-                            optionalField
-                          </p>
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            >
+                              optionalField
+                            </p>
+                          </span>
                           <div
                             class="bp3-popover-wrapper typeSelectorWrapper"
                           >
@@ -1715,7 +1767,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                               class="bp3-popover-target typeSelector"
                             >
                               <button
-                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--with-current-color Button--iconOnly Button--without-shadow"
+                                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main btn Button--iconOnly Button--without-shadow"
                                 type="button"
                               >
                                 <span
@@ -1736,11 +1788,6 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                                         fill="currentColor"
                                       />
                                     </svg>
-                                  </span>
-                                  <span
-                                    class="btnText"
-                                  >
-                                    inputTypes.FIXED
                                   </span>
                                 </span>
                               </button>
@@ -1816,7 +1863,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                               </div>
                             </div>
                             <button
-                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                              class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                               data-testid="remove-spec.configuration.spec.targets-[0]"
                               type="button"
                             >
@@ -1871,17 +1918,22 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                         <div
                           class="formLabel"
                         >
-                          <div
-                            class="Text--withDocsTooltip"
-                            data-tooltip-id="dependencyEnvironmentVariables"
+                          <span
+                            class="Tooltip--acenter"
+                            data-tooltip-id="terraformEdit-TerraformDestroy-_spec.configuration.spec.environmentVariables"
                           >
-                            <p
-                              class="StyledProps--font StyledProps--main"
-                              style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                            <div
+                              class="Text--withDocsTooltip"
+                              data-tooltip-id="dependencyEnvironmentVariables"
                             >
-                              optionalField
-                            </p>
-                          </div>
+                              <p
+                                class="StyledProps--font StyledProps--main"
+                                style="display: flex; align-items: center; color: rgb(11, 11, 13);"
+                              >
+                                optionalField
+                              </p>
+                            </div>
+                          </span>
                         </div>
                          
                         <span
@@ -1992,7 +2044,7 @@ exports[`Test TerraformDestroy should render edit view as edit step - Inline 1`]
                                   </div>
                                 </div>
                                 <button
-                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow"
+                                  class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
                                   data-testid="remove-spec.configuration.spec.environmentVariables-[0]"
                                   type="button"
                                 >
@@ -2148,7 +2200,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2458,7 +2515,12 @@ exports[`Test TerraformDestroy should render edit view as edit step - inheritfro
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -2766,7 +2828,12 @@ exports[`Test TerraformDestroy should render edit view as new step 1`] = `
           class="bp3-label"
           for="timeout"
         >
-          pipelineSteps.timeoutLabel
+          <span
+            class="Tooltip--acenter"
+            data-tooltip-id="terraformEdit-TerraformDestroy-_timeout"
+          >
+            pipelineSteps.timeoutLabel
+          </span>
            
           <span
             class="bp3-text-muted"
@@ -3061,7 +3128,12 @@ exports[`Test TerraformDestroy should render inputSet View 1`] = `
               class="bp3-label"
               for="test.timeout"
             >
-              pipelineSteps.timeoutLabel
+              <span
+                class="Tooltip--acenter"
+                data-tooltip-id="stepTestUtilForm_test.timeout"
+              >
+                pipelineSteps.timeoutLabel
+              </span>
                
               <span
                 class="bp3-text-muted"
@@ -3171,7 +3243,7 @@ exports[`Test TerraformDestroy should render variable view 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >
@@ -3235,7 +3307,7 @@ exports[`Test TerraformDestroy should render variable view 1`] = `
             class="bp3-popover-target"
           >
             <button
-              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow"
+              class="bp3-button bp3-minimal bp3-small Button--button StyledProps--font StyledProps--main copyIcon StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
               tabindex="0"
               type="button"
             >

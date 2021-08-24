@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">87.5% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/8</span>
+                <span class='fraction'>26/28</span>
             </div>
         
             
@@ -97,9 +97,31 @@
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
 <a name='L40'></a><a href='#L40'>40</a>
-<a name='L41'></a><a href='#L41'>41</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a>
+<a name='L45'></a><a href='#L45'>45</a>
+<a name='L46'></a><a href='#L46'>46</a>
+<a name='L47'></a><a href='#L47'>47</a>
+<a name='L48'></a><a href='#L48'>48</a>
+<a name='L49'></a><a href='#L49'>49</a>
+<a name='L50'></a><a href='#L50'>50</a>
+<a name='L51'></a><a href='#L51'>51</a>
+<a name='L52'></a><a href='#L52'>52</a>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a>
+<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,6 +142,16 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">180x</span>
 <span class="cline-any cline-yes">180x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -138,8 +170,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Icon, Layout, Text } from '@wings-software/uicore'
+import { HarnessDocTooltip, Icon, Layout, Text } from '@wings-software/uicore'
 import css from './COGatewayConfig.module.scss'
+&nbsp;
+interface DataTooltip {
+  titleId?: string
+  subTitleId?: string
+}
 &nbsp;
 interface COGatewayConfigStepProps {
   count: number
@@ -148,6 +185,7 @@ interface COGatewayConfigStepProps {
   totalStepsCount?: number
   id?: string
   onInfoIconClick?: () =&gt; void
+  dataTooltip?: DataTooltip
 }
 &nbsp;
 const stepInfoColorMap: { [key: string]: { main: string; secondary: string } } = {
@@ -166,11 +204,21 @@ const COGatewayConfigStep: React.FC&lt;COGatewayConfigStepProps&gt; = props =&gt
           props.totalStepsCount || <span class="branch-1 cbranch-no" title="branch not covered" >props.count</span>
         }`}&lt;/span&gt;
       &lt;/Layout.Horizontal&gt;
-      &lt;Text className={css.title}&gt;
+      &lt;Text className={css.title} data-tooltip-id={props.dataTooltip?.titleId}&gt;
         {props.title}
+        {props.dataTooltip?.titleId &amp;&amp; (
+          &lt;HarnessDocTooltip tooltipId={props.dataTooltip.titleId} useStandAlone={true}&gt;&lt;/HarnessDocTooltip&gt;
+        )}
         {props.onInfoIconClick &amp;&amp; &lt;Icon name="info" onClick={props.onInfoIconClick}&gt;&lt;/Icon&gt;}
       &lt;/Text&gt;
-      {props.subTitle &amp;&amp; &lt;Text className={css.subTitle}&gt;{props.subTitle}&lt;/Text&gt;}
+      {props.subTitle &amp;&amp; (
+        &lt;Text className={css.subTitle} data-tooltip-id={props.dataTooltip?.subTitleId}&gt;
+          {props.subTitle}
+          {props.dataTooltip?.subTitleId &amp;&amp; (
+<span class="branch-1 cbranch-no" title="branch not covered" >            &lt;HarnessDocTooltip tooltipId={props.dataTooltip.subTitleId} useStandAlone={true} /&gt;</span>
+          )}
+        &lt;/Text&gt;
+      )}
       {props.children &amp;&amp; &lt;div className={css.childrenContainer}&gt;{props.children}&lt;/div&gt;}
     &lt;/Layout.Vertical&gt;
   )
@@ -184,7 +232,7 @@ export default COGatewayConfigStep
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 24 2021 08:20:52 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 24 2021 09:15:01 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for modules/85-cv/pages/monitored-service/component/monitoredServiceDetails/MonitoredServiceDetails.tsx</title>
+    <title>Code coverage report for modules/85-cv/pages/monitored-service/components/EditHeader/EditHeader.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../../../base.css" />
@@ -19,20 +19,20 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/component/monitoredServiceDetails</a> MonitoredServiceDetails.tsx</h1>
+        <h1><a href="../../../../../../index.html">All files</a> / <a href="index.html">modules/85-cv/pages/monitored-service/components/EditHeader</a> EditHeader.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>8/8</span>
+                <span class='fraction'>7/7</span>
             </div>
         
             
@@ -80,16 +80,28 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">15x</span>
-<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -104,26 +116,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import type { FormikProps } from 'formik'
-import { Color, Container } from '@wings-software/uicore'
-import { NameIdDescriptionTags } from '@common/components'
-import { useStrings } from 'framework/strings'
-import CardWithOuterTitle from '@cv/pages/health-source/common/CardWithOuterTitle/CardWithOuterTitle'
+import { Container, Text } from '@wings-software/uicore'
+import moment from 'moment'
+import type { EditHeaderProps } from './EditHeader.types'
+import css from './EditHeader.module.scss'
 &nbsp;
-export default function MonitoredServiceDetails({ formik }: { formik: FormikProps&lt;any&gt; }) {
-  const { getString } = useStrings()
+export default function EditHeader(props: EditHeaderProps): JSX.Element {
+  const { monitoredServiceData, lastModifiedAt } = props
   return (
-    &lt;CardWithOuterTitle title={getString('cv.monitoredServices.monitoredServiceDetails')}&gt;
-      &lt;Container width={'400px'} color={Color.BLACK}&gt;
-        &lt;NameIdDescriptionTags
-          formikProps={formik}
-          identifierProps={{
-            isIdentifierEditable: !formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>sEdit,
-            inputLabel: getString('cv.monitoredServices.monitoredServiceName')
-          }}
-        /&gt;
+    &lt;Container className={css.container}&gt;
+      &lt;Container className={css.leftContainer}&gt;
+        &lt;Text font={{ size: 'medium', weight: 'bold' }}&gt;{monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}&lt;/Text&gt;
+        &lt;Text
+          font={{ size: 'small' }}
+          padding={{ left: 'medium', top: 'xsmall' }}
+        &gt;{`ID: ${monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier}`}&lt;/Text&gt;
       &lt;/Container&gt;
-    &lt;/CardWithOuterTitle&gt;
+      &lt;Container className={css.rightContainer}&gt;
+        &lt;Text font={{ size: 'small' }}&gt;{`Last updated: ${moment(lastModifiedAt).format(
+          'MM/DD/YYYY hh:mm:ss a'
+        )}`}&lt;/Text&gt;
+        &lt;Text
+          font={{ size: 'small' }}
+          padding={{ top: 'small' }}
+        &gt;{`Environment: ${monitoredServiceData<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>nvironmentRef}`}&lt;/Text&gt;
+      &lt;/Container&gt;
+    &lt;/Container&gt;
   )
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -133,7 +151,7 @@ export default function MonitoredServiceDetails({ formik }: { formik: FormikProp
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 23 2021 16:30:37 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 24 2021 05:59:22 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

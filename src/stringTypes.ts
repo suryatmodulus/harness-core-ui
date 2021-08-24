@@ -1558,6 +1558,11 @@ export interface StringsMap {
   'dashboards.homePage.noTags': string
   'dashboards.homePage.searchPlaceholder': string
   'dashboards.landingDashboard.atAGlance': string
+  'dashboards.landingDashboard.last1Year': string
+  'dashboards.landingDashboard.last30Days': string
+  'dashboards.landingDashboard.last60Days': string
+  'dashboards.landingDashboard.last90Days': string
+  'dashboards.landingDashboard.welcomeMessage': string
   'dashboards.modules.harness': string
   'dashboards.resourceModal.folderDetail': string
   'dashboards.resourceModal.folders': string
@@ -2813,7 +2818,6 @@ export interface StringsMap {
   'ce.perspectives.timeRange.relativeDates': string
   'ce.perspectives.timeRange.selectCustomRange': string
   'ce.perspectives.timeRangeConstants.last12Months': string
-  'ce.perspectives.timeRangeConstants.last30Days': string
   'ce.perspectives.timeRangeConstants.last3Months': string
   'ce.perspectives.timeRangeConstants.last6Months': string
   'ce.perspectives.timeRangeConstants.last7Days': string

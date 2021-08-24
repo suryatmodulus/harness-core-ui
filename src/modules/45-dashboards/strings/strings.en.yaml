@@ -49,3 +49,8 @@ getStarted:
   subTextVideo3: 'Learn how to send dashboards in a variety of formats to email, FTP and other destinations'
 landingDashboard:
   atAGlance: At a Glance
+  last30Days: Last 30 Days
+  last60Days: Last 60 Days
+  last90Days: Last 90 Days
+  last1Year: Last 1 Year
+  welcomeMessage: 'Good Morning, {{name}}'

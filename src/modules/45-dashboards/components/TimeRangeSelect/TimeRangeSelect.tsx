@@ -4,6 +4,7 @@ import {
   DashboardTimeRange,
   useLandingDashboardContext
 } from '@dashboards/pages/LandingDashboardPage/LandingDashboardContext'
+import { useStrings } from 'framework/strings'
 
 interface TimeRangeSelectProps {
   className?: string
@@ -11,12 +12,13 @@ interface TimeRangeSelectProps {
 
 const TimeRangeSelect: React.FC<TimeRangeSelectProps> = props => {
   const { selectTimeRange } = useLandingDashboardContext()
+  const { getString } = useStrings()
 
   const options: SelectOption[] = [
-    { label: 'Last 30 Days', value: DashboardTimeRange['30Days'] },
-    { label: 'Last 60 Days', value: DashboardTimeRange['60Days'] },
-    { label: 'Last 90 Days', value: DashboardTimeRange['90Days'] },
-    { label: 'Last Year', value: DashboardTimeRange['1Year'] }
+    { label: getString('dashboards.landingDashboard.last30Days'), value: DashboardTimeRange['30Days'] },
+    { label: getString('dashboards.landingDashboard.last60Days'), value: DashboardTimeRange['60Days'] },
+    { label: getString('dashboards.landingDashboard.last90Days'), value: DashboardTimeRange['90Days'] },
+    { label: getString('dashboards.landingDashboard.last1Year'), value: DashboardTimeRange['1Year'] }
   ]
   return (
     <Select

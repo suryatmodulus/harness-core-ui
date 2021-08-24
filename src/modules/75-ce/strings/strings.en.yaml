@@ -407,7 +407,6 @@ perspectives:
   timeRangeConstants:
     last7Days: 'Last 7 Days'
     thisMonth: 'This Month'
-    last30Days: 'Last 30 Days'
     thisQuarter: 'This Quarter'
     thisYear: 'This Year'
     lastMonth: '{{$.common.datePickerShortcuts.LastMonth}}'

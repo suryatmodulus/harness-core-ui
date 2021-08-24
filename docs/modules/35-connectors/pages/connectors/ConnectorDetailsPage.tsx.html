@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">78.21% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/84</span>
+                <span class='fraction'>61/78</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">48.73% </span>
+                <span class="strong">49.42% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>134/275</span>
+                <span class='fraction'>127/257</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">78.57% </span>
+                <span class="strong">78.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>66/84</span>
+                <span class='fraction'>61/78</span>
             </div>
         
             
@@ -338,28 +338,7 @@
 <a name='L279'></a><a href='#L279'>279</a>
 <a name='L280'></a><a href='#L280'>280</a>
 <a name='L281'></a><a href='#L281'>281</a>
-<a name='L282'></a><a href='#L282'>282</a>
-<a name='L283'></a><a href='#L283'>283</a>
-<a name='L284'></a><a href='#L284'>284</a>
-<a name='L285'></a><a href='#L285'>285</a>
-<a name='L286'></a><a href='#L286'>286</a>
-<a name='L287'></a><a href='#L287'>287</a>
-<a name='L288'></a><a href='#L288'>288</a>
-<a name='L289'></a><a href='#L289'>289</a>
-<a name='L290'></a><a href='#L290'>290</a>
-<a name='L291'></a><a href='#L291'>291</a>
-<a name='L292'></a><a href='#L292'>292</a>
-<a name='L293'></a><a href='#L293'>293</a>
-<a name='L294'></a><a href='#L294'>294</a>
-<a name='L295'></a><a href='#L295'>295</a>
-<a name='L296'></a><a href='#L296'>296</a>
-<a name='L297'></a><a href='#L297'>297</a>
-<a name='L298'></a><a href='#L298'>298</a>
-<a name='L299'></a><a href='#L299'>299</a>
-<a name='L300'></a><a href='#L300'>300</a>
-<a name='L301'></a><a href='#L301'>301</a>
-<a name='L302'></a><a href='#L302'>302</a>
-<a name='L303'></a><a href='#L303'>303</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L282'></a><a href='#L282'>282</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -367,7 +346,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -402,13 +380,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -499,19 +470,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
@@ -671,7 +629,6 @@ import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   useGetConnector,
   ConnectorResponse,
-  useGetOrganizationAggregateDTO,
   EntityGitDetails,
   useGetListOfBranchesWithStatus,
   GitBranchDTO
@@ -679,7 +636,7 @@ import {
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/strings'
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useDocumentTitle } from '@common/hooks/useDocumentTitle'
 import type { ProjectPathProps, ConnectorPathProps, PipelineType } from '@common/interfaces/RouteInterfaces'
 import { PageError } from '@common/components/Page/PageError'
@@ -704,13 +661,6 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
   const { connectorId, accountId, orgIdentifier, projectIdentifier, module } =
     useParams&lt;PipelineType&lt;ProjectPathProps &amp; ConnectorPathProps&gt;&gt;()
   const { repoIdentifier, branch } = useQueryParams&lt;EntityGitDetails&gt;()
-&nbsp;
-  const { data: orgData } = useGetOrganizationAggregateDTO({
-    identifier: orgIdentifier,
-    queryParams: {
-      accountIdentifier: accountId
-    }
-  })
 &nbsp;
   const defaultQueryParam = {
     accountIdentifier: accountId,
@@ -791,29 +741,16 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
   }
 &nbsp;
   const RenderBreadCrumb: React.FC = () =&gt; {
-    let links = [
-      {
-        url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
-        label: getString('resources')
-      },
-      {
-        label: getString('connectorsLabel'),
-        url: ''
-      }
-    ]
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (projectIdentifier) {
-<span class="cstat-no" title="statement not covered" >      return &lt;Breadcrumbs links={links} /&gt;</span>
-    }
-    if (orgIdentifier) {
-      links = [
-        {
-          url: routes.toOrganizationDetails({ accountId, orgIdentifier }),
-          label: orgData<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata ? <span class="branch-0 cbranch-no" title="branch not covered" >orgData?.data?.organizationResponse.organization.name </span>: ''
-        },
-        ...links
-      ]
-    }
-    return &lt;Breadcrumbs links={links} /&gt;
+    return (
+      &lt;NGBreadcrumbs
+        links={[
+          {
+            url: routes.toConnectors({ accountId, orgIdentifier, projectIdentifier, module }),
+            label: getString('connectorsLabel')
+          }
+        ]}
+      /&gt;
+    )
   }
 &nbsp;
   const handleBranchClick = <span class="fstat-no" title="function not covered" >(s</span>elected: string): void =&gt; {
@@ -888,7 +825,7 @@ const ConnectorDetailsPage: React.FC&lt;{ mockData?: any }&gt; = props =&gt; {
       &lt;/Layout.Vertical&gt;
     ),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [orgData, connectorData, branchSelectOptions, activeCategory, selectedBranch, loadingBranchList]
+    [connectorData, branchSelectOptions, activeCategory, selectedBranch, loadingBranchList]
   )
 &nbsp;
   const getPageBody = (): React.ReactElement =&gt; {
@@ -970,7 +907,7 @@ export default ConnectorDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 24 2021 11:56:44 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 24 2021 12:52:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

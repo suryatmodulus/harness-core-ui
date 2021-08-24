@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">86.21% </span>
+                <span class="strong">84.62% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>25/29</span>
+                <span class='fraction'>22/26</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/10</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">88.46% </span>
+                <span class="strong">86.96% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>23/26</span>
+                <span class='fraction'>20/23</span>
             </div>
         
             
@@ -143,29 +143,7 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a>
-<a name='L87'></a><a href='#L87'>87</a>
-<a name='L88'></a><a href='#L88'>88</a>
-<a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a>
-<a name='L100'></a><a href='#L100'>100</a>
-<a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a>
-<a name='L103'></a><a href='#L103'>103</a>
-<a name='L104'></a><a href='#L104'>104</a>
-<a name='L105'></a><a href='#L105'>105</a>
-<a name='L106'></a><a href='#L106'>106</a>
-<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<a name='L87'></a><a href='#L87'>87</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -185,7 +163,6 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -215,23 +192,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -271,12 +231,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Color, Layout, Text, useModalHook } from '@wings-software/uicore'
+import { Button, Layout, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
-import routes from '@common/RouteDefinitions'
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { NGBreadcrumbs } from '@common/components/NGBreadcrumbs/NGBreadcrumbs'
 import { useStrings } from 'framework/strings'
-import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { Page } from '@common/exports'
 import { ParamsType, useServiceStore, Views } from '@cd/components/Services/common'
 import { NewEditServiceModal } from '@cd/components/PipelineSteps/DeployServiceStep/DeployServiceStep'
@@ -288,8 +246,7 @@ import css from '@cd/components/Services/ServicesHeader/ServicesHeader.module.sc
 const useSetView = (fn: (arg: Views) =&gt; void, arg: Views): (() =&gt; void) =&gt; useCallback(<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >fn(arg),</span> [arg, fn])
 &nbsp;
 export const ServicesHeader: React.FC = () =&gt; {
-  const { orgIdentifier, projectIdentifier, accountId, module } = useParams&lt;ParamsType&gt;()
-  const { selectedProject: { name: selectedProjectName = '' } = {} } = useAppStore()
+  const { orgIdentifier, projectIdentifier } = useParams&lt;ParamsType&gt;()
   const { getString } = useStrings()
   const { view, setView, fetchDeploymentList } = useServiceStore()
 &nbsp;
@@ -322,24 +279,7 @@ export const ServicesHeader: React.FC = () =&gt; {
 &nbsp;
   return (
     &lt;&gt;
-      &lt;Page.Header
-        title={
-          &lt;Layout.Vertical spacing="xsmall"&gt;
-            &lt;Breadcrumbs
-              links={[
-                {
-                  url: routes.toServices({ orgIdentifier, projectIdentifier, accountId, module }),
-                  label: selectedProjectName
-                },
-                { url: '#', label: getString('services') }
-              ]}
-            /&gt;
-            &lt;Text font={{ size: 'medium' }} color={Color.GREY_700}&gt;
-              {getString('services')}
-            &lt;/Text&gt;
-          &lt;/Layout.Vertical&gt;
-        }
-      /&gt;
+      &lt;Page.Header title={getString('services')} breadcrumbs={&lt;NGBreadcrumbs /&gt;} /&gt;
       &lt;Layout.Horizontal className={css.header} flex={{ distribution: 'space-between' }}&gt;
         &lt;Layout.Horizontal&gt;
           &lt;RbacButton
@@ -382,7 +322,7 @@ export const ServicesHeader: React.FC = () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Aug 24 2021 11:56:44 GMT+0000 (Greenwich Mean Time)
+                at Tue Aug 24 2021 12:52:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

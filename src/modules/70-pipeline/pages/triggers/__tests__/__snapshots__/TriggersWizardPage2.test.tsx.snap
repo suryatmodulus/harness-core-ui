@@ -1674,6 +1674,7 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                                   >
                                     <button
                                       class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                                      data-name="edit-select-artifact"
                                       type="button"
                                     >
                                       <span
@@ -1725,6 +1726,460 @@ exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select
                             </span>
                           </button>
                         </div>
+                      </section>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main footer"
+              >
+                <button
+                  class="bp3-button Button--button StyledProps--font StyledProps--main StyledProps--intent-primary Button--with-current-color Button--withRightIcon"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    continue
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-right StyledProps--main"
+                    icon="chevron-right"
+                  >
+                    <svg
+                      data-icon="chevron-right"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-right
+                      </desc>
+                      <path
+                        d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+                <p
+                  class="StyledProps--font StyledProps--main cancel"
+                >
+                  cancel
+                </p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div
+        class="footerLine"
+      />
+    </section>
+  </div>
+</div>
+`;
+
+exports[`Manifest Trigger Tests function getArtifactSpecObj by displaying select artifact 2`] = `
+<div>
+  <div
+    class="StyledProps--font StyledProps--main pageBody"
+    data-name="page-body"
+  >
+    <section
+      class="wizardShell tabs"
+    >
+      <section
+        class="extendedNav"
+      >
+        <div
+          class="sideItems"
+        >
+          <div
+            class="Layout--horizontal Layout--layout-spacing-medium StyledProps--main"
+            style="align-items: baseline;"
+          >
+            <h2
+              class="StyledProps--font StyledProps--font-h2 StyledProps--main"
+              level="2"
+            >
+              Trigger: test-helm-chart
+            </h2>
+            <p
+              class="StyledProps--font StyledProps--main"
+            >
+              enabledLabel
+            </p>
+            <label
+              class="bp3-control bp3-switch StyledProps--font Switch--switch StyledProps--main"
+            >
+              <input
+                data-name="enabled-switch"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              
+            </label>
+          </div>
+        </div>
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+            data-name="visual-btn"
+            role="button"
+            tabindex="0"
+          >
+            visual
+          </div>
+          <div
+            class="item"
+            data-name="yaml-btn"
+            role="button"
+            tabindex="0"
+          >
+            yaml
+          </div>
+        </div>
+        <div
+          class="sideItems"
+        />
+      </section>
+      <div
+        class="headerLine"
+      />
+      <div
+        class="Layout--horizontal Layout--layout-spacing-large StyledProps--main tabsContainer"
+      >
+        <div
+          class="OverlaySpinner--overlaySpinner"
+        >
+          <form
+            class="FormikForm--main"
+          >
+            <div>
+              <div
+                class="bp3-tabs Tabs--main Tabs--horizontal"
+              >
+                <div
+                  class="bp3-tab-list"
+                  role="tablist"
+                >
+                  <div
+                    class="bp3-tab-indicator-wrapper"
+                    style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                  >
+                    <div
+                      class="bp3-tab-indicator"
+                    />
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Trigger Configuration"
+                    aria-disabled="false"
+                    aria-expanded="true"
+                    aria-selected="true"
+                    class="bp3-tab"
+                    data-tab-id="Trigger Configuration"
+                    id="bp3-tab-title_Wizard_Trigger Configuration"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-warning-sign StyledProps--main StyledProps--color StyledProps--color-red500"
+                        icon="warning-sign"
+                      >
+                        <svg
+                          data-icon="warning-sign"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            warning-sign
+                          </desc>
+                          <path
+                            d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      1. 
+                      pipeline.triggers.triggerConfigurationLabel
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Conditions"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Conditions"
+                    id="bp3-tab-title_Wizard_Conditions"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      2. 
+                      conditions
+                    </span>
+                  </div>
+                  <div
+                    aria-controls="bp3-tab-panel_Wizard_Pipeline Input"
+                    aria-disabled="false"
+                    aria-expanded="false"
+                    aria-selected="false"
+                    class="bp3-tab"
+                    data-tab-id="Pipeline Input"
+                    id="bp3-tab-title_Wizard_Pipeline Input"
+                    role="tab"
+                    style="width: 218px;"
+                    tabindex="0"
+                  >
+                    <span
+                      class="tab"
+                    >
+                      <span
+                        class="bp3-icon bp3-icon-tick-circle StyledProps--main StyledProps--color StyledProps--color-green500"
+                        icon="tick-circle"
+                      >
+                        <svg
+                          data-icon="tick-circle"
+                          height="14"
+                          viewBox="0 0 16 16"
+                          width="14"
+                        >
+                          <desc>
+                            tick-circle
+                          </desc>
+                          <path
+                            d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                      3. 
+                      pipeline.triggers.pipelineInputLabel
+                    </span>
+                  </div>
+                </div>
+                <div
+                  aria-hidden="false"
+                  aria-labelledby="bp3-tab-title_Wizard_Trigger Configuration"
+                  class="bp3-tab-panel"
+                  id="bp3-tab-panel_Wizard_Trigger Configuration"
+                  role="tabpanel"
+                >
+                  <div
+                    class="Layout--vertical StyledProps--main artifactTriggerConfigContainer StyledProps--padding-xxlarge"
+                  >
+                    <h2
+                      class="heading"
+                    >
+                      pipeline.triggers.triggerConfigurationLabel
+                    </h2>
+                    <div>
+                      <div
+                        class="StyledProps--font StyledProps--main main nameIdDescriptionTags"
+                      >
+                        <div
+                          class="InputWithIdentifier--txtNameContainer TextInput--main"
+                        >
+                          <div
+                            class="Layout--horizontal Layout--layout-spacing-xsmall StyledProps--main InputWithIdentifier--txtIdContainer"
+                          >
+                            <p
+                              class="StyledProps--font StyledProps--main"
+                            >
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-editable-text bp3-disabled InputWithIdentifier--idValue"
+                                >
+                                  <span
+                                    class="bp3-editable-text-content"
+                                    style="height: 1px; line-height: 1px; min-width: 0;"
+                                  >
+                                    newManifest
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              <span
+                                class="Tooltip--acenter"
+                                data-tooltip-id="wizardForm_artifacts_name"
+                              >
+                                name
+                              </span>
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  placeholder="common.namePlaceholder"
+                                  type="text"
+                                  value="test-helm-chart"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          <label
+                            class="Label--main descriptionLabel"
+                            data-tooltip-id="artifactTrigger_description"
+                          >
+                            optionalField
+                            <span
+                              class="bp3-icon StyledProps--main editOpen"
+                              data-icon="Edit"
+                              data-name="edit"
+                              data-testid="description-edit"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 12 12"
+                                width="12"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </label>
+                        </div>
+                        <div
+                          class="StyledProps--font StyledProps--main"
+                        >
+                          <label
+                            class="Label--main descriptionLabel"
+                            data-tooltip-id="artifactTrigger_tags"
+                          >
+                            optionalField
+                            <span
+                              class="bp3-icon StyledProps--main editOpen"
+                              data-icon="Edit"
+                              data-name="edit"
+                              data-testid="tags-edit"
+                            >
+                              <svg
+                                height="12"
+                                viewBox="0 0 12 12"
+                                width="12"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <g
+                                  fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <path
+                                    d="M8.66 1.823h0L2.244 8.239v1.75h1.75l6.416-6.416a1.75 1.75 0 00-1.75-1.75z"
+                                    stroke="#555770"
+                                  />
+                                  <path
+                                    d="M6.583 5.146l2.063-2.063"
+                                    opacity="0.3"
+                                    stroke="#606170"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <h2
+                        class="StyledProps--font StyledProps--font-h2 StyledProps--main listenOnNewWebhook"
+                        level="2"
+                      >
+                        pipeline.triggers.artifactTriggerConfigPanel.listenOnNewArtifact
+                      </h2>
+                      <section>
+                        <label
+                          class="Label--main"
+                          style="font-size: 13px; font-weight: normal;"
+                        >
+                          manifestsText
+                        </label>
+                        <p
+                          class="StyledProps--font StyledProps--main"
+                          data-name="plusAdd"
+                          style="cursor: pointer; width: 130px;"
+                        >
+                          pipeline.triggers.artifactTriggerConfigPanel.plusSelect
+                        </p>
                       </section>
                     </div>
                   </div>

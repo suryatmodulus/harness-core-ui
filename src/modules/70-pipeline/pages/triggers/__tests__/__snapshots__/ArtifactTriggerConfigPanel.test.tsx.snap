@@ -285,6 +285,7 @@ exports[`Artifact Trigger Config Panel  tests Renders/snapshots edit render 1`] 
                         >
                           <button
                             class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main Button--with-current-color Button--iconOnly Button--without-shadow Button--withLeftIcon"
+                            data-name="edit-select-artifact"
                             type="button"
                           >
                             <span

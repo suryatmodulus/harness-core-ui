@@ -63,14 +63,6 @@ const wrapper = ({ children }: React.PropsWithChildren<unknown>): React.ReactEle
 )
 const { result } = renderHook(() => useStrings(), { wrapper })
 
-jest.mock('@pipeline/factories/ArtifactTriggerInputFactory', () => ({
-  getTriggerFormDetails: jest.fn().mockImplementation(() => () => {
-    return {
-      component: <div>ABC</div>
-    }
-  })
-}))
-
 function WrapperComponent(): JSX.Element {
   return (
     <TestWrapper pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
@@ -287,6 +279,15 @@ describe('Manifest Trigger Tests', () => {
       error: null,
       mutate: jest.fn().mockImplementation(() => PostCreateVariables)
     }))
+
+    jest.mock('@pipeline/factories/ArtifactTriggerInputFactory', () => ({
+      getTriggerFormDetails: jest.fn().mockImplementation(() => () => {
+        return {
+          component: <div>ABC</div>
+        }
+      })
+    }))
+
     jest
       .spyOn(pipelineNg, 'useGetInputSetsListForPipeline')
       .mockReturnValue(GetManifestInputSetsResponse as UseGetReturn<any, any, any, any>)
@@ -328,10 +329,13 @@ describe('Manifest Trigger Tests', () => {
 
     expect(container).toMatchSnapshot()
     const deleteIcon = container.querySelector('[data-name="main-delete"]')
+    const editIcon = container.querySelector('[data-name="edit-select-artifact"]')
     if (!deleteIcon) {
       throw Error('No delete icon')
     }
-    fireEvent.click(deleteIcon)
+
+    fireEvent.click(editIcon!)
+    expect(container).toMatchSnapshot()
 
     const selectManifest = container.querySelector('[data-name="plusAdd"]')
     if (!selectManifest) {

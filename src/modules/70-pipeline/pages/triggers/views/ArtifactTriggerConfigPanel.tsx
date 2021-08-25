@@ -152,7 +152,6 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                   formikProps.setValues({
                     ...formikProps.values,
                     selectedArtifact: undefined,
-                    stageId: undefined,
                     stages: undefined // clears all artifact runtime inputs
                   })
                   formikProps.setFieldTouched('selectedArtifact')

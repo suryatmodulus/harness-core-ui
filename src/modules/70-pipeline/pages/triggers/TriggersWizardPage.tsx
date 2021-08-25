@@ -1044,7 +1044,8 @@ const TriggersWizardPage: React.FC = (): JSX.Element => {
         pipeline: currentPipeline?.pipeline,
         originalPipeline,
         inputSetTemplateYamlObj,
-        selectedArtifact: {}
+        selectedArtifact: {},
+        artifactIdentifier: ''
       }
     }
     return {}

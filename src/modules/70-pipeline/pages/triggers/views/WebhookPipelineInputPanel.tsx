@@ -30,6 +30,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
     values: { inputSetSelected, pipeline, originalPipeline },
     values
   } = formikProps
+
   const { orgIdentifier, accountId, projectIdentifier, pipelineIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -60,6 +61,7 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
       pipelineIdentifier
     }
   })
+
   // This is to apply the selected artifact values
   // to the applied input sets pipeline stage values
   const applySelectedArtifactToPipelineObject = (pipelineObj: any) => {
@@ -101,6 +103,13 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
 
   useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
+      if (!formikProps.values?.selectedArtifact) {
+        formikProps.setValues({
+          ...formikProps.values,
+          pipeline: clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')?.pipeline)
+        })
+        // resetSelectedArtifactObject(originalPipeline, pipeline, formikProps?.values?.artifactIdentifier)
+      }
       if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
         const fetchData = async (): Promise<void> => {
           const data = await mergeInputSet({
@@ -113,6 +122,8 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
             if (isPipelineWithCiCodebase(pipelineObject?.pipeline)) {
               pipelineObject.pipeline.properties.ci.codebase.build = ciCodebaseBuild
             }
+
+            // resetSelectedArtifactObject(orgPipeline, pipelneObj, formikProps.values.artifactIdentifier)
             const newPipelineObject = applySelectedArtifactToPipelineObject(pipelineObject.pipeline)
             formikProps.setValues({
               ...values,

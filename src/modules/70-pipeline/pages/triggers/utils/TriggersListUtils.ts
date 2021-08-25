@@ -139,3 +139,5 @@ export const getEnabledStatusTriggerValues = ({
     return { error: getString('pipeline.triggers.cannotParseTriggersData') }
   }
 }
+
+export const errorStatusList = ['FAILED', 'UNKNOWN', 'ERROR', 'TIMEOUT', 'UNAVAILABLE']

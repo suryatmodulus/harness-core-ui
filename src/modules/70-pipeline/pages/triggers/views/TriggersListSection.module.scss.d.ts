@@ -8,5 +8,6 @@ declare const styles: {
   readonly activityStatement: string
   readonly webhookUrl: string
   readonly disabledOption: string
+  readonly tooltip: string
 }
 export default styles

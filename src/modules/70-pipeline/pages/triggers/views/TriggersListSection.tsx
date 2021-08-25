@@ -17,7 +17,12 @@ import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
 import { yamlStringify } from '@common/utils/YamlHelperMethods'
-import { getTriggerIcon, GitSourceProviders, getEnabledStatusTriggerValues } from '../utils/TriggersListUtils'
+import {
+  getTriggerIcon,
+  GitSourceProviders,
+  getEnabledStatusTriggerValues,
+  errorStatusList
+} from '../utils/TriggersListUtils'
 import { TriggerTypes, clearNullUndefined, ResponseStatus } from '../utils/TriggersWizardPageUtils'
 
 import css from './TriggersListSection.module.scss'
@@ -189,11 +194,47 @@ const RenderColumnTrigger: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ ro
   )
 }
 
-const RenderColumnStatus: Renderer<CellProps<NGTriggerDetailsResponse>> = ({ row }) => {
+const RenderColumnStatus: Renderer<CellProps<NGTriggerDetailsResponse>> = ({
+  row,
+  column
+}: {
+  row: RenderColumnRow
+  column: { getString: (str: string) => string }
+}) => {
   const data = row.original
+  const { validationStatus, pollingSubscriptionStatus, webhookAutoRegistrationStatus } = data?.triggerStatus || {}
+  const statusResult =
+    validationStatus?.statusResult ||
+    pollingSubscriptionStatus?.statusResult ||
+    webhookAutoRegistrationStatus?.registrationResult
+  const isStatusFailed = statusResult && errorStatusList.includes(statusResult)
+  const statusMessage = isStatusFailed
+    ? validationStatus?.detailedMessage ||
+      pollingSubscriptionStatus?.detailedMessage ||
+      webhookAutoRegistrationStatus?.detailedMessage
+    : undefined
   return (
     <Layout.Horizontal spacing="small" data-testid={data.identifier}>
-      <Text color={Color.GREY_400}></Text>
+      {statusMessage && (
+        <Text
+          inline
+          icon="warning-sign"
+          iconProps={{
+            size: 12,
+            color: Color.RED_500
+          }}
+          tooltip={
+            <Layout.Vertical font={{ size: 'small' }} spacing="small" padding="small">
+              <Text font={{ size: 'small' }} color={Color.WHITE}>
+                {statusMessage}
+              </Text>
+            </Layout.Vertical>
+          }
+          tooltipProps={{ isDark: true, position: 'bottom', popoverClassName: css.tooltip }}
+        >
+          {column.getString('failed').toLowerCase()}
+        </Text>
+      )}
     </Layout.Horizontal>
   )
 }
@@ -489,8 +530,8 @@ export const TriggersListSection: React.FC<TriggersListSectionProps> = ({
         accessor: 'status',
         width: '16%',
         disableSortBy: true,
-
-        Cell: RenderColumnStatus
+        Cell: RenderColumnStatus,
+        getString
       },
       {
         Header: RenderCenteredColumnHeader(getString('activity').toUpperCase()),

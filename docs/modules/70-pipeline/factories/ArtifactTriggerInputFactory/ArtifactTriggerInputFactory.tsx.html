@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>3/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/7</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -84,8 +84,8 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -94,42 +94,42 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import type { TriggerFormType, FormDetailsRegister } from './types'
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export class A</span></span>rtifactTriggerInputFactory {
-  private <span class="cstat-no" title="statement not covered" >triggerFormDetailsMap = new Map&lt;TriggerFormType, FormDetailsRegister&gt;()</span>
+export class ArtifactTriggerInputFactory {
+  private triggerFormDetailsMap = new Map&lt;TriggerFormType, FormDetailsRegister&gt;()
   private defaultTriggerFormDetails!: FormDetailsRegister
 &nbsp;
 <span class="fstat-no" title="function not covered" >  registerDefaultTriggerFormDetails(</span>defaultRegister: FormDetailsRegister): void {
 <span class="cstat-no" title="statement not covered" >    this.defaultTriggerFormDetails = defaultRegister</span>
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  getTriggerFormDetails(</span>formType?: TriggerFormType): FormDetailsRegister {
+  getTriggerFormDetails(formType?: TriggerFormType): FormDetailsRegister {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-<span class="cstat-no" title="statement not covered" >    return formType &amp;&amp; this.triggerFormDetailsMap.has(formType)</span>
+    return formType &amp;&amp; this.triggerFormDetailsMap.has(formType)
       ? this.triggerFormDetailsMap.get(formType)!
-      : this.defaultTriggerFormDetails
+      : <span class="branch-1 cbranch-no" title="branch not covered" >this.defaultTriggerFormDetails</span>
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  registerTriggerForm(</span>formType: TriggerFormType, stepDetails: FormDetailsRegister): void {
-<span class="cstat-no" title="statement not covered" >    if (this.triggerFormDetailsMap.has(formType)) {</span>
+  registerTriggerForm(formType: TriggerFormType, stepDetails: FormDetailsRegister): void {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.triggerFormDetailsMap.has(formType)) {
 <span class="cstat-no" title="statement not covered" >      throw new Error(`Form of type "${formType}" is already registred`)</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.triggerFormDetailsMap.set(formType, stepDetails)</span>
+    this.triggerFormDetailsMap.set(formType, stepDetails)
   }
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -139,7 +139,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 06:46:02 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 25 2021 07:14:55 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

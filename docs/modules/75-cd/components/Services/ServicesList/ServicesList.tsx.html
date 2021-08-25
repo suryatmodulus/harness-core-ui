@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.06% </span>
+                <span class="strong">93.15% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>67/72</span>
+                <span class='fraction'>68/73</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.28% </span>
+                <span class="strong">65.91% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>57/86</span>
+                <span class='fraction'>58/88</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.86% </span>
+                <span class="strong">92.96% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/70</span>
+                <span class='fraction'>66/71</span>
             </div>
         
             
@@ -407,7 +407,14 @@
 <a name='L348'></a><a href='#L348'>348</a>
 <a name='L349'></a><a href='#L349'>349</a>
 <a name='L350'></a><a href='#L350'>350</a>
-<a name='L351'></a><a href='#L351'>351</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L351'></a><a href='#L351'>351</a>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a>
+<a name='L355'></a><a href='#L355'>355</a>
+<a name='L356'></a><a href='#L356'>356</a>
+<a name='L357'></a><a href='#L357'>357</a>
+<a name='L358'></a><a href='#L358'>358</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -515,12 +522,19 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -771,7 +785,7 @@ import { useStrings } from 'framework/strings'
 import type { TableProps } from '@common/components/Table/Table'
 import { Ticker } from '@common/components/Ticker/Ticker'
 import { PieChart, PieChartProps } from '@cd/components/PieChart/PieChart'
-import { INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
+import { getFixed, INVALID_CHANGE_RATE, numberFormatter } from '@cd/components/Services/common'
 import type { ServiceDetailsDTO } from 'services/cd-ng'
 import { DeploymentTypeIcons } from '@cd/components/DeploymentTypeIcons/DeploymentTypeIcons'
 import css from '@cd/components/Services/ServicesList/ServiceList.module.scss'
@@ -862,6 +876,7 @@ const RenderType: Renderer&lt;CellProps&lt;ServiceListItem&gt;&gt; = ({ row }) =
 &nbsp;
 const TickerCard: React.FC&lt;{ item: ChangeValue &amp; { name: string } }&gt; = props =&gt; {
   const { item } = props
+  const value = Number(item.value)
   const isBoostMode = item.change === INVALID_CHANGE_RATE
   const color = (() =&gt; {
     if (item.name !== 'failureRate') {
@@ -873,7 +888,13 @@ const TickerCard: React.FC&lt;{ item: ChangeValue &amp; { name: string } }&gt; =
   return (
     &lt;Layout.Vertical padding={'small'} key={item.name} width={'fit-content'} className={css.tickerContainer}&gt;
       &lt;Ticker
-        value={isBoostMode ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;&gt;&lt;/&gt; </span>: &lt;Text color={color} font={{ size: 'small' }}&gt;{`${Math.abs(item.change)}%`}&lt;/Text&gt;}
+        value={
+          isBoostMode ? (
+<span class="branch-0 cbranch-no" title="branch not covered" >            &lt;&gt;&lt;/&gt;</span>
+          ) : (
+            &lt;Text color={color} font={{ size: 'small' }}&gt;{`${Math.abs(getFixed(item.change))}%`}&lt;/Text&gt;
+          )
+        }
         decreaseMode={!isBoostMode &amp;&amp; item.change &lt; 0}
         boost={isBoostMode}
         color={color}
@@ -881,7 +902,7 @@ const TickerCard: React.FC&lt;{ item: ChangeValue &amp; { name: string } }&gt; =
         size={isBoostMode ? <span class="branch-0 cbranch-no" title="branch not covered" >10 </span>: 6}
       &gt;
         &lt;Text color={Color.BLACK} font={{ weight: 'semi-bold', size: 'medium' }} margin={{ right: 'xsmall' }}&gt;
-          {item.value}
+          {isNaN(value) ? <span class="branch-0 cbranch-no" title="branch not covered" >item.value </span>: numberFormatter(value)}
         &lt;/Text&gt;
       &lt;/Ticker&gt;
     &lt;/Layout.Vertical&gt;
@@ -1114,7 +1135,7 @@ export const ServicesList: React.FC&lt;ServicesListProps&gt; = props =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 07:59:00 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 25 2021 09:23:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

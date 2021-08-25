@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">78.57% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>10/12</span>
+                <span class='fraction'>11/14</span>
             </div>
         
             
@@ -165,7 +165,23 @@
 <a name='L106'></a><a href='#L106'>106</a>
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
-<a name='L109'></a><a href='#L109'>109</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
+<a name='L109'></a><a href='#L109'>109</a>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a>
+<a name='L120'></a><a href='#L120'>120</a>
+<a name='L121'></a><a href='#L121'>121</a>
+<a name='L122'></a><a href='#L122'>122</a>
+<a name='L123'></a><a href='#L123'>123</a>
+<a name='L124'></a><a href='#L124'>124</a>
+<a name='L125'></a><a href='#L125'>125</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">12x</span>
@@ -177,6 +193,15 @@
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">11x</span>
@@ -210,7 +235,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -262,6 +292,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,8 +317,17 @@ import { QueryViewDialog } from './components/QueryViewDialog'
 import css from './QueryViewer.module.scss'
 &nbsp;
 export function QueryContent(props: QueryContentProps): JSX.Element {
-  const { handleFetchRecords, query, loading, onClickExpand, onEditQuery, isDialogOpen, textAreaProps, textAreaName } =
-    props
+  const {
+    handleFetchRecords,
+    query,
+    loading,
+    onClickExpand,
+    onEditQuery,
+    isDialogOpen,
+    textAreaProps,
+    textAreaName,
+    staleRecordsWarning
+  } = props
   const { getString } = useStrings()
   return (
     &lt;Container className={css.queryContainer}&gt;
@@ -308,12 +349,15 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
         textArea={textAreaProps}
         className={cx(css.formQueryBox)}
       /&gt;
-      &lt;Button
-        intent="primary"
-        text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
-        onClick={handleFetchRecords}
-        disabled={isEmpty(query) || loading}
-      /&gt;
+      &lt;Layout.Horizontal spacing={'large'}&gt;
+        &lt;Button
+          intent="primary"
+          text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
+          onClick={handleFetchRecords}
+          disabled={isEmpty(query) || loading}
+        /&gt;
+        {staleRecordsWarning &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Text className={css.warningText}&gt;{staleRecordsWarning}&lt;/Text&gt;}</span>
+      &lt;/Layout.Horizontal&gt;
     &lt;/Container&gt;
   )
 }
@@ -328,7 +372,9 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
     query,
     isQueryExecuted,
     postFetchingRecords,
-    queryNotExecutedMessage
+    queryNotExecutedMessage,
+    queryTextAreaProps,
+    staleRecordsWarning
   } = props
   const { getString } = useStrings()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -358,6 +404,8 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
         isDialogOpen={isDialogOpen}
         loading={loading}
         handleFetchRecords={handleFetchRecords}
+        textAreaProps={queryTextAreaProps}
+        staleRecordsWarning={staleRecordsWarning}
       /&gt;
       &lt;Records
         fetchRecords={handleFetchRecords}
@@ -388,7 +436,7 @@ export function QueryViewer(props: QueryViewerProps): JSX.Element {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Aug 25 2021 12:25:14 GMT+0000 (Greenwich Mean Time)
+                at Wed Aug 25 2021 13:20:59 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

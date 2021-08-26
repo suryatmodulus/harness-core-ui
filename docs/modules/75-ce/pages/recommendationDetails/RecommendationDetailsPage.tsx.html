@@ -23,23 +23,23 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">83.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/42</span>
+                <span class='fraction'>36/43</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.81% </span>
+                <span class="strong">54.84% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>37/64</span>
+                <span class='fraction'>34/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>4/7</span>
             </div>
         
             
@@ -362,7 +362,22 @@
 <a name='L303'></a><a href='#L303'>303</a>
 <a name='L304'></a><a href='#L304'>304</a>
 <a name='L305'></a><a href='#L305'>305</a>
-<a name='L306'></a><a href='#L306'>306</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L306'></a><a href='#L306'>306</a>
+<a name='L307'></a><a href='#L307'>307</a>
+<a name='L308'></a><a href='#L308'>308</a>
+<a name='L309'></a><a href='#L309'>309</a>
+<a name='L310'></a><a href='#L310'>310</a>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a>
+<a name='L317'></a><a href='#L317'>317</a>
+<a name='L318'></a><a href='#L318'>318</a>
+<a name='L319'></a><a href='#L319'>319</a>
+<a name='L320'></a><a href='#L320'>320</a>
+<a name='L321'></a><a href='#L321'>321</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
@@ -646,7 +661,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -914,7 +944,7 @@ const RecommendationDetailsPage: React.FC = () =&gt; {
 &nbsp;
   const { data, fetching } = result
 &nbsp;
-  const recommendationDetails = (data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendationDetails as RecommendationDetails) || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
+  const recommendationDetails = (data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendationDetails as RecommendationDetails) || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
   const recommendationStats = data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendationStatsV2 as RecommendationOverviewStats
   const recommendationItems = recommendationDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tems || <span class="branch-1 cbranch-no" title="branch not covered" >[]</span>
   const workloadData = data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendationsV2<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tems<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength &amp;&amp; data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>ecommendationsV2<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>tems[0]
@@ -948,9 +978,10 @@ const RecommendationDetailsPage: React.FC = () =&gt; {
           {recommendationItems.length ? (
             &lt;Container className={css.detailsContainer}&gt;
               &lt;Layout.Vertical spacing="huge"&gt;
-                {recommendationItems.map((item, index) =&gt; {
-                  const { containerName } = item
-                  const currentResources = recommendationDetails<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontainerRecommendations[containerName]<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>urrent
+                {Object.keys(recommendationDetails.containerRecommendations || <span class="branch-1 cbranch-no" title="branch not covered" >{})</span>.map((cRKey, index) =&gt; {
+                  const item = recommendationItems.find(rI =&gt; rI.containerName === cRKey) || (<span class="branch-1 cbranch-no" title="branch not covered" >{} as RecommendationItem)</span>
+                  const currentResources = recommendationDetails.containerRecommendations[cRKey].current || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+&nbsp;
                   return (
                     &lt;RecommendationDetails
                       key={`${item.containerName}-${index}-${timeRange.label}`}
@@ -961,6 +992,20 @@ const RecommendationDetailsPage: React.FC = () =&gt; {
                     /&gt;
                   )
                 })}
+&nbsp;
+                {/* {recommendationItems.map((item, index) =&gt; {
+                  const { containerName } = item
+                  const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
+                  return (
+                    &lt;RecommendationDetails
+                      key={`${item.containerName}-${index}-${timeRange.label}`}
+                      histogramData={item}
+                      currentResources={currentResources}
+                      timeRange={timeRange}
+                      setTimeRange={setTimeRange}
+                    /&gt;
+                  )
+                })} */}
               &lt;/Layout.Vertical&gt;
               &lt;RecommendationHelperText /&gt;
             &lt;/Container&gt;
@@ -979,7 +1024,7 @@ export default RecommendationDetailsPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 26 2021 10:38:33 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 26 2021 11:46:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

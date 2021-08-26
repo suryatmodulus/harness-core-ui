@@ -21,6 +21,7 @@ import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,
@@ -46,7 +47,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
 
-      {...RoutesTemp.props.children}
+      <RoutesTemp contextObj={AppStoreContext} />
       <Route path="/account/:accountId/settingsfd">
         <AuthSettingsRoutes />
       </Route>

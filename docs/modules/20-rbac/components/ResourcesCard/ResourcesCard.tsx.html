@@ -158,7 +158,8 @@
 <a name='L99'></a><a href='#L99'>99</a>
 <a name='L100'></a><a href='#L100'>100</a>
 <a name='L101'></a><a href='#L101'>101</a>
-<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -209,10 +210,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -223,6 +224,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -260,7 +262,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
-import { Layout, Text, Card, Color, Button, Radio, ButtonVariation } from '@wings-software/uicore'
+import { Layout, Text, Card, Color, Button, Radio, Container, ButtonVariation } from '@wings-software/uicore'
 import { useParams } from 'react-router'
 import RbacFactory from '@rbac/factories/RbacFactory'
 import { useStrings } from 'framework/strings'
@@ -297,39 +299,40 @@ const ResourcesCard: React.FC&lt;ResourcesCardProps&gt; = ({
   return (
     &lt;Card className={css.selectedResourceGroupCardDetails} key={resourceType}&gt;
       &lt;Layout.Vertical&gt;
-        &lt;Layout.Horizontal className={css.resourceFields}&gt;
-          &lt;Text
-            color={Color.BLACK}
-            font={{ weight: 'semi-bold' }}
-            icon={icon}
-            iconProps={{ size: 30, padding: { right: 'medium' } }}
-          &gt;
-            {getString(label)}
-          &lt;/Text&gt;
-          &lt;Radio
-            label={getString('rbac.resourceGroup.all', { name: getString(label) })}
-            checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
-            className={css.radioBtn}
-            onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >onResourceSelectionChange(resourceType, e.currentTarget.checked)}</span>
-          /&gt;
-          {addResourceModalBody &amp;&amp; (
-            &lt;&gt;
-              &lt;Text color={Color.GREY_400} className={css.limitAccessCell}&gt;
-                {getString('rbac.resourceGroup.limitAccess', { name: getString(label) })}
-              &lt;/Text&gt;
-              &lt;Button
-                variation={ButtonVariation.LINK}
-                data-testid={`addResources-${resourceType}`}
-                disabled={disableAddingResources}
-                className={css.addResourceBtn}
-                onClick={() =&gt; {
-                  openAddResourceModal(resourceType, Array.isArray(resourceValues) ? <span class="branch-0 cbranch-no" title="branch not covered" >resourceValues </span>: [])
-                }}
-              &gt;
-                {getString('rbac.resourceGroup.add', { name: getString(label) })}
-              &lt;/Button&gt;
-            &lt;/&gt;
-          )}
+        &lt;Layout.Horizontal flex={{ justifyContent: 'space-between', alignItems: 'center' }}&gt;
+          &lt;Container&gt;
+            &lt;Text
+              color={Color.BLACK}
+              font={{ weight: 'semi-bold' }}
+              icon={icon}
+              iconProps={{ size: 30, padding: { right: 'medium' } }}
+            &gt;
+              {getString(label)}
+            &lt;/Text&gt;
+          &lt;/Container&gt;
+          &lt;Layout.Horizontal flex&gt;
+            &lt;Radio
+              label={getString('rbac.resourceGroup.all')}
+              checked={resourceValues === RbacResourceGroupTypes.DYNAMIC_RESOURCE_SELECTOR}
+              className={css.radioBtn}
+              onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >onResourceSelectionChange(resourceType, e.currentTarget.checked)}</span>
+            /&gt;
+            {addResourceModalBody &amp;&amp; (
+              &lt;&gt;
+                &lt;Button
+                  variation={ButtonVariation.LINK}
+                  data-testid={`addResources-${resourceType}`}
+                  disabled={disableAddingResources}
+                  className={css.addResourceBtn}
+                  onClick={() =&gt; {
+                    openAddResourceModal(resourceType, Array.isArray(resourceValues) ? <span class="branch-0 cbranch-no" title="branch not covered" >resourceValues </span>: [])
+                  }}
+                &gt;
+                  {getString('rbac.resourceGroup.add')}
+                &lt;/Button&gt;
+              &lt;/&gt;
+            )}
+          &lt;/Layout.Horizontal&gt;
         &lt;/Layout.Horizontal&gt;
 &nbsp;
         {Array.isArray(resourceValues) &amp;&amp; (
@@ -367,7 +370,7 @@ export default ResourcesCard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 26 2021 04:15:03 GMT+0000 (Greenwich Mean Time)
+                at Thu Aug 26 2021 06:27:26 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

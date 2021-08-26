@@ -22,6 +22,7 @@ import DASHBOARDRoutes from '@dashboards/RouteDestinations'
 import AccountSideNav from '@common/components/AccountSideNav/AccountSideNav'
 import type { SidebarContext } from '@common/navigation/SidebarProvider'
 import NotFoundPage from '@common/pages/404/NotFoundPage'
+import { AppStoreContext } from 'framework/AppStore/AppStoreContext'
 
 export const AccountSideNavProps: SidebarContext = {
   navComponent: AccountSideNav,

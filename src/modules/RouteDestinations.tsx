@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-
+import { RoutesTemp } from '@wings-software/test-app-publish-'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -33,6 +33,7 @@ export default function RouteDestinations(): React.ReactElement {
 
   return (
     <Switch>
+      {RoutesTemp}
       {...commonRoutes.props.children}
       {...secretsRoutes.props.children}
       {...rbacRoutes.props.children}
@@ -44,7 +45,7 @@ export default function RouteDestinations(): React.ReactElement {
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
-      <Route path="/account/:accountId/settings">
+      <Route path="/account/:accountId/settingsfd">
         <AuthSettingsRoutes />
       </Route>
       {CENG_ENABLED ? (

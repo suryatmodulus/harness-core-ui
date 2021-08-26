@@ -3997,6 +3997,11 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/ng-tooltip/1.30.15/075fed79da5abc3a457c278394d5bd07351832ba714622a3768595633f4ed560#539db52d3d29bbfa7f3fa193660e493f32637ccb"
   integrity sha512-ONXGgSCqBf5nFBp6kKU6Td8SQihHsfVjp7eunDuv0SuOJqX2VYhLFu5g7upK5EANwTUiQS9DNvVb+6qD90JGIA==
 
+"@wings-software/swaraj-test-app@2.1.8":
+  version "2.1.8"
+  resolved "https://npm.pkg.github.com/download/@wings-software/swaraj-test-app/2.1.8/ba4e7885c6197c76cdcdd378228746d373776f56523c7bafa41b54ea8fe60d86#a0063e58add2d9d034b3bbb5f519ba1d55812097"
+  integrity sha512-L87stNJwiNj8ZDb7ZF9tikcivezizbWrdGB3+KAOmxmk3s8E8mlvkiAZoUQcWfXuYd7vFNEubq9/eKFQFHQJ/A==
+
 "@wings-software/telemetry@^1.0.36":
   version "1.0.36"
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
@@ -4006,6 +4011,10 @@
   version "0.1.364"
   resolved "https://npm.pkg.github.com/download/@wings-software/uicore/0.1.364/d2b762922324b1b9ee546c01f717e3a57a2cc9571c24c89e1cc98dcd11b4143f#563e32879a62ca4a61278f2427ac7538af1bbb6d"
   integrity sha512-7zl2ov6FeE8OBb8b298GxggRDQJgg8jyyOsea/X8soQWaVoZYqAOsHOizWmFohd2gxjwrs77Zxcc6k0IO0T7+Q==
+"@wings-software/test-app-publish-@^3.0.1":
+  version "3.0.1"
+  resolved "https://npm.pkg.github.com/download/@wings-software/test-app-publish-/3.0.1/5ec2ea13d96e0679537c129afd661a4c0df9436cb0e7054040d6c2185043555a#dc8c119c29a857614dbe604c07b7f8e826c6a7b7"
+  integrity sha512-QhaMRcsc4Uk3eRmE8aDr/KFEHv/YYqnqGy4KBPojrraO+fZLyY98nJYdj5e0BPkDAiKSa8ifogoY4BRft7r9AA==
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"

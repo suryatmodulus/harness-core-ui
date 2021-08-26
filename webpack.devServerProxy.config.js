@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const baseUrl = process.env.BASE_URL ?? 'https://qa.harness.io/gateway'
-const targetLocalHost = (process.env.TARGET_LOCALHOST && JSON.parse(process.env.TARGET_LOCALHOST)) ?? true // set to false to target baseUrl environment instead of localhost
+const targetLocalHost = (process.env.TARGET_LOCALHOST && JSON.parse(process.env.TARGET_LOCALHOST)) ?? false // set to false to target baseUrl environment instead of localhost
 console.table({ baseUrl, targetLocalHost })
 
 module.exports = {

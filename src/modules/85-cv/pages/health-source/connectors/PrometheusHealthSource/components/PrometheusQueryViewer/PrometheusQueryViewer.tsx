@@ -106,7 +106,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     values?.prometheusMetric
   ])
 
-  const { data, refetch, error, loading } = useGetSampleData({ lazy: true })
+  const { data, refetch, cancel, error, loading } = useGetSampleData({ lazy: true })
 
   useEffect(() => {
     if (!isManualQuery) {
@@ -130,6 +130,7 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
     <>
       <QueryContent
         handleFetchRecords={async () => {
+          cancel()
           await refetch({
             queryParams: {
               accountId,
@@ -151,6 +152,8 @@ export function PrometheusQueryViewer(props: PrometheusQueryViewerProps): JSX.El
         onEditQuery={!isManualQuery ? openDialog : undefined}
         isDialogOpen={isDrawerOpen}
         textAreaProps={{ readOnly: !isManualQuery }}
+        mandatoryFields={[values?.prometheusMetric]}
+        isAutoFetch={!isManualQuery}
       />
       <ChartAndRecords
         fetchData={async () =>

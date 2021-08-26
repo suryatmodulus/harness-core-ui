@@ -10,9 +10,25 @@ import { QueryViewDialog } from './components/QueryViewDialog'
 import css from './QueryViewer.module.scss'
 
 export function QueryContent(props: QueryContentProps): JSX.Element {
-  const { handleFetchRecords, query, loading, onClickExpand, onEditQuery, isDialogOpen, textAreaProps, textAreaName } =
-    props
+  const {
+    handleFetchRecords,
+    query,
+    loading,
+    onClickExpand,
+    onEditQuery,
+    isDialogOpen,
+    textAreaProps,
+    textAreaName,
+    isAutoFetch = false,
+    mandatoryFields = []
+  } = props
   const { getString } = useStrings()
+
+  useEffect(() => {
+    if (!isEmpty(query) && mandatoryFields.every(v => v) && isAutoFetch) {
+      handleFetchRecords()
+    }
+  }, [query, isAutoFetch])
   return (
     <Container className={css.queryContainer}>
       <Layout.Horizontal className={css.queryIcons} spacing="small">
@@ -33,12 +49,14 @@ export function QueryContent(props: QueryContentProps): JSX.Element {
         textArea={textAreaProps}
         className={cx(css.formQueryBox)}
       />
-      <Button
-        intent="primary"
-        text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
-        onClick={handleFetchRecords}
-        disabled={isEmpty(query) || loading}
-      />
+      {!isAutoFetch && (
+        <Button
+          intent="primary"
+          text={getString('cv.monitoringSources.gcoLogs.fetchRecords')}
+          onClick={handleFetchRecords}
+          disabled={isEmpty(query) || loading}
+        />
+      )}
     </Container>
   )
 }

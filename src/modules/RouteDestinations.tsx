@@ -33,7 +33,6 @@ export default function RouteDestinations(): React.ReactElement {
 
   return (
     <Switch>
-      {RoutesTemp}
       {...commonRoutes.props.children}
       {...secretsRoutes.props.children}
       {...rbacRoutes.props.children}
@@ -42,9 +41,12 @@ export default function RouteDestinations(): React.ReactElement {
       {...DASHBOARDRoutes.props.children}
       {...connectorRoutes.props.children}
       {...userProfileRoutes.props.children}
+
       {...CING_ENABLED ? CIRoutes.props.children : []}
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
+
+      {...RoutesTemp.props.children}
       <Route path="/account/:accountId/settingsfd">
         <AuthSettingsRoutes />
       </Route>

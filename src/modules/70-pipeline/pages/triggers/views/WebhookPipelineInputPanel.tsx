@@ -104,13 +104,16 @@ const WebhookPipelineInputPanelForm: React.FC<WebhookPipelineInputPanelPropsInte
   useEffect(() => {
     if (template?.data?.inputSetTemplateYaml) {
       if (!formikProps.values?.selectedArtifact) {
+        const pipe = clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')?.pipeline)
         formikProps.setValues({
           ...formikProps.values,
-          pipeline: clearRuntimeInput(parse(template?.data?.inputSetTemplateYaml || '')?.pipeline)
+          pipeline: pipe
         })
         // resetSelectedArtifactObject(originalPipeline, pipeline, formikProps?.values?.artifactIdentifier)
-      }
-      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET') {
+      } else if (
+        (selectedInputSets && selectedInputSets.length > 1) ||
+        selectedInputSets?.[0]?.type === 'OVERLAY_INPUT_SET'
+      ) {
         const fetchData = async (): Promise<void> => {
           const data = await mergeInputSet({
             inputSetReferences: selectedInputSets.map(item => item.value as string)

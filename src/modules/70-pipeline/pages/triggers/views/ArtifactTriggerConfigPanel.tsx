@@ -155,6 +155,7 @@ const ArtifactTriggerConfigPanel: React.FC<ArtifactTriggerConfigPanelPropsInterf
                     stages: undefined // clears all artifact runtime inputs
                   })
                   formikProps.setFieldTouched('selectedArtifact')
+                  // make a call for template and reset pipeline object
                 }}
               />
             </Container>

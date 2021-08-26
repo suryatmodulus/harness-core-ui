@@ -2197,6 +2197,7 @@ export interface StringsMap {
   'pipeline.triggers.activityDays': string
   'pipeline.triggers.addNewTrigger': string
   'pipeline.triggers.artifactTriggerConfigPanel.artifact': string
+  'pipeline.triggers.artifactTriggerConfigPanel.artifactReferenceUnique': string
   'pipeline.triggers.artifactTriggerConfigPanel.artifactRepository': string
   'pipeline.triggers.artifactTriggerConfigPanel.buildTag': string
   'pipeline.triggers.artifactTriggerConfigPanel.chartVersionRuntimeInput': string

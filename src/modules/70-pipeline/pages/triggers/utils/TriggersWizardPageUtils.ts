@@ -891,6 +891,7 @@ const getFilteredManifestsWithOverrides = ({
         )
       if (matchedManifest) {
         // Found matching manifestIdentifier and need to merge
+        // This will be hidden in SelectArtifactModal and shown a warning message to use unique manifestId
         return { ...matchedManifest, ...manifest }
       } else {
         return manifest
@@ -1116,6 +1117,7 @@ export interface artifactTableItem {
   buildTag?: string // for artifact
   disabled: boolean
   hasRuntimeInputs: boolean
+  isStageOverrideManifest: boolean // to hide in SelectArtifactModal if not unique
 }
 
 export const TriggerDefaultFieldList = {
@@ -1143,6 +1145,7 @@ const getManifestTableItem = ({
   artifactRepository,
   chartVersion,
   location,
+  isStageOverrideManifest,
   getString
 }: {
   stageId: string
@@ -1150,6 +1153,7 @@ const getManifestTableItem = ({
   artifactRepository?: string
   location?: string
   chartVersion?: string // chartVersion will always be fixed concrete value if exists
+  isStageOverrideManifest: boolean
   getString?: (key: StringKeys) => string
 }): artifactTableItem => {
   const { identifier: artifactId } = manifest
@@ -1172,7 +1176,8 @@ const getManifestTableItem = ({
       !manifest?.spec?.chartVersion ||
       getRuntimeInputLabel({ str: manifest?.spec?.chartVersion, getString }) !==
         getString?.('pipeline.triggers.artifactTriggerConfigPanel.runtimeInput'),
-    hasRuntimeInputs
+    hasRuntimeInputs,
+    isStageOverrideManifest
   }
 }
 // data is already filtered w/ correct manifest
@@ -1199,13 +1204,6 @@ export const getArtifactTableDataFromData = ({
     // applied artifact is a manifest override
     const stageOverridesManifests = pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === stageId)
       ?.stage?.spec?.serviceConfig?.stageOverrides?.manifests
-    // may not need both below
-    // const useFromStageReference = pipeline.stages.find((stageObj: any) => stageObj.stage.identifier === stageId)?.stage
-    //   ?.spec?.serviceConfig?.useFromStage?.stage
-    // const propagatedStageManifests = useFromStageReference
-    //   ? pipeline?.stages?.find((stageObj: any) => stageObj?.stage?.identifier === useFromStageReference)?.stage?.spec
-    //       ?.serviceConfig?.serviceDefinition?.spec?.manifests
-    //   : undefined
 
     const { location } = getDetailsFromPipeline({
       manifests: pipelineManifests,
@@ -1227,7 +1225,8 @@ export const getArtifactTableDataFromData = ({
         manifest: appliedArtifact,
         artifactRepository,
         location,
-        getString
+        getString,
+        isStageOverrideManifest: false
       })
     )
     return { appliedTableArtifact: artifactTableData }
@@ -1265,7 +1264,8 @@ export const getArtifactTableDataFromData = ({
               artifactRepository,
               location,
               chartVersion,
-              getString
+              getString,
+              isStageOverrideManifest: !!stageOverridesManifests
             })
           )
         }

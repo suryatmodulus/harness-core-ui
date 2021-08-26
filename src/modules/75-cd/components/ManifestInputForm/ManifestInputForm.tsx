@@ -122,6 +122,8 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
     value: item
   }))
 
+  const isSelectedStage = stageIdentifier === formik?.values?.stageId
+
   const fromPipelineInputTriggerTab = () => {
     return (
       formik?.values?.triggerType === TriggerTypes.MANIFEST && formik?.values?.selectedArtifact !== null && !fromTrigger
@@ -221,8 +223,9 @@ const ManifestInputSetForm: React.FC<KubernetesServiceInputFormProps> = ({
 
               const disableField = (fieldName: string) => {
                 if (fromTrigger) {
+                  // Trigger Configuration Tab
                   return get(TriggerDefaultFieldList, fieldName) ? true : false
-                } else if (isPipelineInputTab && isSelectedManifest) {
+                } else if (isPipelineInputTab && isSelectedManifest && isSelectedStage) {
                   return true
                 }
                 return readonly

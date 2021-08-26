@@ -187,7 +187,27 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
     ? getString('manifestsText')
     : getString('pipeline.triggers.artifactTriggerConfigPanel.artifact')
 
-  const newData = appliedArtifact || artifactTableData
+  let newData = appliedArtifact || artifactTableData
+  let showUniqueReferenceWarning = ''
+  if (artifactTableData) {
+    // hide all manifest overrides that are not unique
+    const newFilteredData: artifactTableItem[] = []
+    artifactTableData.forEach((data: artifactTableItem) => {
+      if (
+        newFilteredData.some(
+          (nfd: artifactTableItem) => data.isStageOverrideManifest && nfd.artifactId === data.artifactId
+        )
+      ) {
+        showUniqueReferenceWarning = getString('pipeline.triggers.artifactTriggerConfigPanel.artifactReferenceUnique', {
+          artifact: artifactOrManifestText
+        })
+      } else {
+        newFilteredData.push(data)
+      }
+    })
+
+    newData = newFilteredData
+  }
 
   const showWarning = artifactTableData?.some((data: any) => data.disabled)
   // should render differently for applied or data table
@@ -300,6 +320,7 @@ const ArtifactTableInfo = (props: ArtifactTableInfoInterface): JSX.Element => {
           })}
         </Text>
       )}
+      {showUniqueReferenceWarning && <Text style={{ color: '#FF7B26' }}>{showUniqueReferenceWarning}</Text>}
     </>
   )
 }

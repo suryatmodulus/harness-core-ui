@@ -245,7 +245,7 @@ const RecommendationDetailsPage: React.FC = () => {
 
   const { data, fetching } = result
 
-  const recommendationDetails = (data?.recommendationDetails as RecommendationDetails) || []
+  const recommendationDetails = (data?.recommendationDetails as RecommendationDetails) || {}
   const recommendationStats = data?.recommendationStatsV2 as RecommendationOverviewStats
   const recommendationItems = recommendationDetails?.items || []
   const workloadData = data?.recommendationsV2?.items?.length && data?.recommendationsV2?.items[0]
@@ -279,7 +279,22 @@ const RecommendationDetailsPage: React.FC = () => {
           {recommendationItems.length ? (
             <Container className={css.detailsContainer}>
               <Layout.Vertical spacing="huge">
-                {recommendationItems.map((item, index) => {
+                {Object.keys(recommendationDetails.containerRecommendations || {}).map((cRKey, index) => {
+                  const item = recommendationItems.find(rI => rI.containerName === cRKey) || ({} as RecommendationItem)
+                  const currentResources = recommendationDetails.containerRecommendations[cRKey].current || {}
+
+                  return (
+                    <RecommendationDetails
+                      key={`${item.containerName}-${index}-${timeRange.label}`}
+                      histogramData={item}
+                      currentResources={currentResources}
+                      timeRange={timeRange}
+                      setTimeRange={setTimeRange}
+                    />
+                  )
+                })}
+
+                {/* {recommendationItems.map((item, index) => {
                   const { containerName } = item
                   const currentResources = recommendationDetails?.containerRecommendations[containerName]?.current
                   return (
@@ -291,7 +306,7 @@ const RecommendationDetailsPage: React.FC = () => {
                       setTimeRange={setTimeRange}
                     />
                   )
-                })}
+                })} */}
               </Layout.Vertical>
               <RecommendationHelperText />
             </Container>

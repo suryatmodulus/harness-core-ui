@@ -380,7 +380,7 @@ recommendation:
     resizeText: 'Resize from a to b'
     howItWorks: 'How it works / Options you have'
     recommendationComputation: 'The recommendations are computed by analyzing the past utilization of CPU and memory of your workload.'
-    costOptimizedDetails: 'The lower bound is based on the 80th percentiles of CPU samples and memory peaks. There is no upper bound for CPU samples and memory peaks are based on the 95th percentile.'
+    costOptimizedDetails: 'The lower bound is based on the 50th percentiles of CPU samples and memory peaks. There is no upper bound for CPU samples and memory peaks are based on the 50th percentile.'
     performanceOptimizedDetails: 'The performance-optimized recommendations are computed using the 95th percentile of CPU samples and memory peaks.'
     customDetails: 'The recommendations are computed by analyzing the past utilization of CPU and memory of your workload. The recommendations are computed by analyzing the past utilization of CPU and memory of your workload.'
     totalCost: 'TOTAL COST'

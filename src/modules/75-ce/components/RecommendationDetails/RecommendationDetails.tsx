@@ -187,6 +187,9 @@ const RecommendationDetails: React.FC<RecommendationDetailsProps> = ({
 
   return (
     <Container className={css.mainContainer} background="white" padding="large">
+      <Text color="grey800" font="medium">
+        {histogramData.containerName}:
+      </Text>
       <RecommendationTabs
         costOptimizedSavings={costOptimizedSavings}
         performanceOptimizedSavings={performanceOptimizedSavings}

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.29% </span>
+                <span class="strong">69.05% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/41</span>
+                <span class='fraction'>29/42</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">67.5% </span>
+                <span class="strong">68.29% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>27/40</span>
+                <span class='fraction'>28/41</span>
             </div>
         
             
@@ -249,8 +249,7 @@
 <a name='L190'></a><a href='#L190'>190</a>
 <a name='L191'></a><a href='#L191'>191</a>
 <a name='L192'></a><a href='#L192'>192</a>
-<a name='L193'></a><a href='#L193'>193</a>
-<a name='L194'></a><a href='#L194'>194</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L193'></a><a href='#L193'>193</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -261,6 +260,7 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -293,15 +293,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -312,6 +303,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -364,14 +364,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -449,6 +447,7 @@ import { Container, FlexExpander, Layout, Text } from '@wings-software/uicore'
 import { SelectSegmentsModalButton } from '@cf/components/SelectSegmentsModalButton/SelectSegmentsModalButton'
 import { PageError } from '@common/components/Page/PageError'
 import { ContainerSpinner } from '@common/components/ContainerSpinner/ContainerSpinner'
+import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
 import { getErrorMessage } from '@cf/utils/CFUtils'
 import { NoDataFoundRow } from '@cf/components/NoDataFoundRow/NoDataFoundRow'
 import { useStrings } from 'framework/strings'
@@ -533,12 +532,11 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
       {/* MANUALLY ADDED / INCLUDE LIST */}
       &lt;Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}&gt;
         &lt;Layout.Horizontal style={{ alignItems: 'center' }}&gt;
-          &lt;Text
-            style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
-            padding={{ left: 'small' }}
-            data-tooltip-id="ff_targetTargetGroups_manuallyAdded"
-          &gt;
-            {getString('cf.targetDetail.manuallyAdded')}
+          &lt;Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }} padding={{ left: 'small' }}&gt;
+            &lt;StringWithTooltip
+              stringId="cf.targetDetail.manuallyAdded"
+              tooltipId="ff_targetTargetGroups_manuallyAdded"
+            /&gt;
           &lt;/Text&gt;
           &lt;FlexExpander /&gt;
           &lt;SelectSegmentsModalButton
@@ -596,12 +594,11 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
       {/* EXCLUSION LIST */}
       &lt;Container padding={{ top: 'xsmall', right: 'xxlarge', left: 'xxlarge', bottom: 'xxlarge' }}&gt;
         &lt;Layout.Horizontal style={{ alignItems: 'center' }}&gt;
-          &lt;Text
-            style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }}
-            padding={{ left: 'small' }}
-            data-tooltip-id="ff_targetTargetGroups_exclusionList"
-          &gt;
-            {getString('cf.targetDetail.exclusionList')}
+          &lt;Text style={{ color: '#4F5162', fontSize: '10px', fontWeight: 'bold' }} padding={{ left: 'small' }}&gt;
+            &lt;StringWithTooltip
+              stringId="cf.targetDetail.exclusionList"
+              tooltipId="ff_targetTargetGroups_exclusionList"
+            /&gt;
           &lt;/Text&gt;
           &lt;FlexExpander /&gt;
           &lt;SelectSegmentsModalButton
@@ -643,7 +640,7 @@ export const TabSegments: React.FC&lt;{ target?: Target | null }&gt; = ({ target
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 09:38:43 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 27 2021 13:52:57 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

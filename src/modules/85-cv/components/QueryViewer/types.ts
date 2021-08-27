@@ -12,6 +12,8 @@ export interface QueryContentProps {
   textAreaProps?: TextAreaProps['textArea']
   textAreaName?: string
   onClickExpand: (isOpen: boolean) => void
+  isAutoFetch?: boolean
+  mandatoryFields?: any[]
   staleRecordsWarning?: string
 }
 

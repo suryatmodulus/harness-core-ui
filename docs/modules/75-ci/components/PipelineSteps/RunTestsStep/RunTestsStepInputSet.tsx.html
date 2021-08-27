@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.86% </span>
+                <span class="strong">93.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>26/28</span>
+                <span class='fraction'>27/29</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">92.59% </span>
+                <span class="strong">92.86% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>25/27</span>
+                <span class='fraction'>26/28</span>
             </div>
         
             
@@ -428,7 +428,9 @@
 <a name='L369'></a><a href='#L369'>369</a>
 <a name='L370'></a><a href='#L370'>370</a>
 <a name='L371'></a><a href='#L371'>371</a>
-<a name='L372'></a><a href='#L372'>372</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L372'></a><a href='#L372'>372</a>
+<a name='L373'></a><a href='#L373'>373</a>
+<a name='L374'></a><a href='#L374'>374</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -447,6 +449,7 @@
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
@@ -475,6 +478,7 @@
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -818,6 +822,7 @@ import { FormMultiTypeTextAreaField } from '@common/components/MultiTypeTextArea
 import { useVariablesExpression } from '@pipeline/components/PipelineStudio/PiplineHooks/useVariablesExpression'
 import type { GitQueryParams } from '@common/interfaces/RouteInterfaces'
 import type { RunTestsStepProps } from './RunTestsStep'
+import RunTestsStepInputSetMavenSetup from './RunTestsStepInputSetMavenSetup'
 import css from '@pipeline/components/PipelineSteps/Steps/Steps.module.scss'
 &nbsp;
 export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ template, path, readonly, stepViewType }) =&gt; {
@@ -907,17 +912,21 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           style={{ marginBottom: 'var(--spacing-small)' }}
         /&gt;
       )}
-      {getMultiTypeFromValue(template?.spec?.args) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;MultiTypeTextField
+      {getMultiTypeFromValue(template?.spec?.language) === MultiTypeInputType.RUNTIME &amp;&amp; (
+        &lt;MultiTypeSelectField
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.args`}
+          name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.language`}
           label={
-            &lt;Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}&gt;
-              {getString('argsLabel')}
+            &lt;Text
+              style={{ display: 'flex', alignItems: 'center' }}
+              tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
+            &gt;
+              {getString('languageLabel')}
             &lt;/Text&gt;
           }
-          multiTextInputProps={{
-            multiTextInputProps: {
+          multiTypeInputProps={{
+            selectItems: languageOptions,
+            multiTypeInputProps: {
               expressions,
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
             },
@@ -949,21 +958,18 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
           style={{ marginBottom: 'var(--spacing-small)' }}
         /&gt;
       )}
-      {getMultiTypeFromValue(template?.spec?.language) === MultiTypeInputType.RUNTIME &amp;&amp; (
-        &lt;MultiTypeSelectField
+      &lt;RunTestsStepInputSetMavenSetup path={path} /&gt;
+      {getMultiTypeFromValue(template?.spec?.args) === MultiTypeInputType.RUNTIME &amp;&amp; (
+        &lt;MultiTypeTextField
           className={css.removeBpLabelMargin}
-          name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.language`}
+          name={`${isEmpty(path) ? '' : <span class="branch-1 cbranch-no" title="branch not covered" >`${path}.`}</span>spec.args`}
           label={
-            &lt;Text
-              style={{ display: 'flex', alignItems: 'center' }}
-              tooltipProps={{ dataTooltipId: 'runTestsLanguage' }}
-            &gt;
-              {getString('languageLabel')}
+            &lt;Text style={{ display: 'flex', alignItems: 'center' }} tooltipProps={{ dataTooltipId: 'runTestsArgs' }}&gt;
+              {getString('argsLabel')}
             &lt;/Text&gt;
           }
-          multiTypeInputProps={{
-            selectItems: languageOptions,
-            multiTypeInputProps: {
+          multiTextInputProps={{
+            multiTextInputProps: {
               expressions,
               allowableTypes: [MultiTypeInputType.EXPRESSION, MultiTypeInputType.FIXED]
             },
@@ -1177,7 +1183,7 @@ export const RunTestsStepInputSet: React.FC&lt;RunTestsStepProps&gt; = ({ templa
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 05:04:53 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 27 2021 07:30:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

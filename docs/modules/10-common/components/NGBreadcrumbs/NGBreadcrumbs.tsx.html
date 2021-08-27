@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.74% </span>
+                <span class="strong">74.51% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/46</span>
+                <span class='fraction'>38/51</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.07% </span>
+                <span class="strong">68.89% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>20/27</span>
+                <span class='fraction'>31/45</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.11% </span>
+                <span class="strong">74% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>32/45</span>
+                <span class='fraction'>37/50</span>
             </div>
         
             
@@ -141,7 +141,22 @@
 <a name='L82'></a><a href='#L82'>82</a>
 <a name='L83'></a><a href='#L83'>83</a>
 <a name='L84'></a><a href='#L84'>84</a>
-<a name='L85'></a><a href='#L85'>85</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">33x</span>
+<a name='L85'></a><a href='#L85'>85</a>
+<a name='L86'></a><a href='#L86'>86</a>
+<a name='L87'></a><a href='#L87'>87</a>
+<a name='L88'></a><a href='#L88'>88</a>
+<a name='L89'></a><a href='#L89'>89</a>
+<a name='L90'></a><a href='#L90'>90</a>
+<a name='L91'></a><a href='#L91'>91</a>
+<a name='L92'></a><a href='#L92'>92</a>
+<a name='L93'></a><a href='#L93'>93</a>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">33x</span>
@@ -154,13 +169,19 @@
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-yes">33x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">33x</span>
-<span class="cline-any cline-yes">271x</span>
-<span class="cline-any cline-yes">271x</span>
-<span class="cline-any cline-yes">271x</span>
-<span class="cline-any cline-yes">271x</span>
-<span class="cline-any cline-yes">271x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">33x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">271x</span>
+<span class="cline-any cline-yes">271x</span>
+<span class="cline-any cline-yes">271x</span>
+<span class="cline-any cline-yes">271x</span>
+<span class="cline-any cline-yes">271x</span>
 <span class="cline-any cline-yes">271x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,7 +243,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">271x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">271x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">271x</span>
 <span class="cline-any cline-yes">271x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
@@ -238,14 +268,20 @@ import paths from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import routes from '@common/RouteDefinitions'
 &nbsp;
-export const NGBreadcrumbs: React.FC&lt;Partial&lt;BreadcrumbsProps&gt;&gt; = ({ links = [], className = '' }) =&gt; {
+export interface NGBreadcrumbsProps extends BreadcrumbsProps {
+  orgBreadCrumbOptional: boolean
+}
+export const NGBreadcrumbs: React.FC&lt;Partial&lt;NGBreadcrumbsProps&gt;&gt; = ({
+  links = [],
+  className = '',
+  orgBreadCrumbOptional = false
+}) =&gt; {
   const { getString } = useStrings()
   const params = useParams&lt;ProjectPathProps &amp; SecretsPathProps &amp; ModulePathParams&gt;()
-  const { module, projectIdentifier } = params
-  const { selectedProject } = useAppStore()
+  const { module, projectIdentifier, orgIdentifier } = params
+  const { selectedProject, selectedOrg } = useAppStore()
   const { pathname } = useLocation()
-&nbsp;
-  let primaryBreadCrumb: Breadcrumb = {
+  let moduleBreadCrumb: Breadcrumb = {
     label: getString('common.accountSettings'),
     iconProps: { name: 'cog', color: 'primary7' },
     url: paths.toAccountSettings(params)
@@ -255,13 +291,13 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;BreadcrumbsProps&gt;&gt; = ({
   const isDashBoards = pathname.indexOf(routes.toCustomDashboard({ accountId: params.accountId })) !== -1
 &nbsp;
   if (isHome) {
-    primaryBreadCrumb = {
+    moduleBreadCrumb = {
       label: getString('common.home'),
       iconProps: { name: 'harness', color: 'primary7' },
       url: paths.toHome(params)
     }
   } else <span class="missing-if-branch" title="if path not taken" >I</span>if (isDashBoards) {
-<span class="cstat-no" title="statement not covered" >    primaryBreadCrumb = {</span>
+<span class="cstat-no" title="statement not covered" >    moduleBreadCrumb = {</span>
       label: getString('common.dashboards'),
       iconProps: { name: 'dashboard', color: 'primary7' },
       url: paths.toCustomDashboard(params)
@@ -300,14 +336,23 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;BreadcrumbsProps&gt;&gt; = ({
           ? selectedProject.name
           : projectIdentifier
     }
-    primaryBreadCrumb = {
+    moduleBreadCrumb = {
       label,
       iconProps: { name: getModuleIcon(module.toUpperCase() as ModuleName) },
       url
     }
   }
-&nbsp;
-  return &lt;UiCoreBreadcrumbs links={[primaryBreadCrumb, ...links]} className={className} /&gt;
+  const breadCrumbsList = [moduleBreadCrumb]
+  // display org breadcrumb only in org scope and not in project scope (project scope will also have org scope nested in it)
+  if (orgIdentifier &amp;&amp; !projectIdentifier &amp;&amp; !orgBreadCrumbOptional) {
+    const orgBreadCrumb = {
+      label: <span class="branch-1 cbranch-no" title="branch not covered" >selectedOrg?.name </span>&amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >orgIdentifier === selectedOrg?.identifier ?</span> <span class="branch-0 cbranch-no" title="branch not covered" >selectedOrg.name </span>: orgIdentifier,
+      url: paths.toOrganizationDetails(params)
+    }
+    breadCrumbsList.push(orgBreadCrumb)
+  }
+  breadCrumbsList.push(...links)
+  return &lt;UiCoreBreadcrumbs links={breadCrumbsList} className={className} /&gt;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -316,7 +361,7 @@ export const NGBreadcrumbs: React.FC&lt;Partial&lt;BreadcrumbsProps&gt;&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 05:04:53 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 27 2021 07:30:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

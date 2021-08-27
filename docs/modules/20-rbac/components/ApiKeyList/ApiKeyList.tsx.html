@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>28/30</span>
+                <span class='fraction'>30/32</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">70.97% </span>
+                <span class="strong">70.73% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>22/31</span>
+                <span class='fraction'>29/41</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.33% </span>
+                <span class="strong">93.75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/30</span>
+                <span class='fraction'>30/32</span>
             </div>
         
             
@@ -152,7 +152,19 @@
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a>
+<a name='L103'></a><a href='#L103'>103</a>
+<a name='L104'></a><a href='#L104'>104</a>
+<a name='L105'></a><a href='#L105'>105</a>
+<a name='L106'></a><a href='#L106'>106</a>
+<a name='L107'></a><a href='#L107'>107</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -165,6 +177,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -216,7 +230,15 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">22x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,7 +271,8 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Color, Text, Container, ButtonVariation } from '@wings-software/uicore'
+import isEmpty from 'lodash/isEmpty'
+import { Color, Text, Container, ButtonVariation, Card } from '@wings-software/uicore'
 import { TokenDTO, useListAggregatedApiKeys } from 'services/cd-ng'
 import type { ProjectPathProps, ServiceAccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { useStrings } from 'framework/strings'
@@ -261,6 +284,8 @@ import ApiKeyCard from '@rbac/components/ApiKeyList/views/ApiKeyCard'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import RbacButton from '@rbac/components/Button/Button'
+&nbsp;
+import css from './ApiKeyList.module.scss'
 &nbsp;
 interface ApiKeyListProps {
   apiKeyType?: TokenDTO['apiKeyType']
@@ -310,16 +335,24 @@ const ApiKeyList: React.FC&lt;ApiKeyListProps&gt; = ({ apiKeyType = 'SERVICE_ACC
       &lt;Container padding={{ top: 'medium', bottom: 'medium' }}&gt;
         {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageSpinner /&gt;}</span>
         {error &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;PageError message={(error.data as Error)?.message || error.message} onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; <span class="cstat-no" title="statement not covered" >refetch()}</span> /&gt;}</span>
-        {data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.content?.map(apiKey =&gt; (
-          &lt;ApiKeyCard
-            key={apiKey.apiKey.identifier}
-            data={apiKey}
-            refetchApiKeys={refetch}
-            openTokenModal={openTokenModal}
-            refetchTokens={refetchTokens}
-            onRefetchComplete={onRefetchComplete}
-          /&gt;
-        ))}
+        {isEmpty(data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.content) ? (
+          &lt;Card className={css.fullWidth}&gt;
+            &lt;Text color={Color.GREY_500} flex={{ justifyContent: 'center' }} padding={{ top: 'xsmall' }}&gt;
+              {getString('common.noAPIKeysFound')}
+            &lt;/Text&gt;
+          &lt;/Card&gt;
+        ) : (
+          data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>ap(apiKey =&gt; (
+            &lt;ApiKeyCard
+              key={apiKey.apiKey.identifier}
+              data={apiKey}
+              refetchApiKeys={refetch}
+              openTokenModal={openTokenModal}
+              refetchTokens={refetchTokens}
+              onRefetchComplete={onRefetchComplete}
+            /&gt;
+          ))
+        )}
       &lt;/Container&gt;
       &lt;RbacButton
         text={getString('plusNumber', { number: getString('common.apikey') })}
@@ -349,7 +382,7 @@ export default ApiKeyList
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 05:04:53 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 27 2021 07:30:51 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

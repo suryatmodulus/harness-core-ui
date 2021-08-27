@@ -3,84 +3,94 @@
 exports[`TestsFailedPopover snapshot test should render properly 1`] = `
 <div>
   <div
-    class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main testPopoverBody StyledProps--padding-xlarge"
+    class="Layout--vertical StyledProps--main"
   >
     <div
-      class="StyledProps--font StyledProps--main"
+      class="Layout--vertical Layout--layout-spacing-xlarge StyledProps--main testPopoverBody StyledProps--padding-xlarge"
     >
-      <h3
-        class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
-        level="3"
+      <div
+        class="StyledProps--font StyledProps--main"
       >
-        pipeline.testsReports.status
-      </h3>
-      <p
-        class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
+        <h3
+          class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
+          level="3"
+        >
+          pipeline.testsReports.status
+        </h3>
+        <p
+          class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
+        >
+          <code>
+            <span>
+              failed
+            </span>
+          </code>
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
       >
-        <code>
-          <span>
-            failed
-          </span>
-        </code>
-      </p>
+        <h3
+          class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
+          level="3"
+        >
+          pipeline.testsReports.failureMessage
+        </h3>
+        <p
+          class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
+        >
+          <code>
+            <span>
+              some error
+            </span>
+          </code>
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <h3
+          class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
+          level="3"
+        >
+          pipeline.testsReports.stackTrace
+        </h3>
+        <p
+          class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
+        >
+          <code>
+            <span>
+              echo error
+            </span>
+          </code>
+        </p>
+      </div>
+      <div
+        class="StyledProps--font StyledProps--main"
+      >
+        <h3
+          class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
+          level="3"
+        >
+          pipeline.testsReports.consoleOutput
+        </h3>
+        <p
+          class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
+        >
+          <code>
+            <span>
+              echo 123
+            </span>
+          </code>
+        </p>
+      </div>
     </div>
-    <div
-      class="StyledProps--font StyledProps--main"
+    <p
+      class="StyledProps--font StyledProps--main StyledProps--padding-xlarge StyledProps--color StyledProps--color-primary7"
+      style="cursor: pointer;"
     >
-      <h3
-        class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
-        level="3"
-      >
-        pipeline.testsReports.failureMessage
-      </h3>
-      <p
-        class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
-      >
-        <code>
-          <span>
-            some error
-          </span>
-        </code>
-      </p>
-    </div>
-    <div
-      class="StyledProps--font StyledProps--main"
-    >
-      <h3
-        class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
-        level="3"
-      >
-        pipeline.testsReports.stackTrace
-      </h3>
-      <p
-        class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
-      >
-        <code>
-          <span>
-            echo error
-          </span>
-        </code>
-      </p>
-    </div>
-    <div
-      class="StyledProps--font StyledProps--main"
-    >
-      <h3
-        class="StyledProps--font StyledProps--font-h3 StyledProps--main testPopoverHeading StyledProps--font-weight-bold"
-        level="3"
-      >
-        pipeline.testsReports.consoleOutput
-      </h3>
-      <p
-        class="StyledProps--font StyledProps--main testPopoverDetail StyledProps--font-mono"
-      >
-        <code>
-          <span>
-            echo 123
-          </span>
-        </code>
-      </p>
-    </div>
+      pipeline.clickToExpandErrorDetails
+    </p>
   </div>
 </div>
 `;

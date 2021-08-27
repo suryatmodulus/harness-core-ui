@@ -13,6 +13,7 @@ import {
   Icon,
   Color,
   Button,
+  ButtonVariation,
   useModalHook,
   FlexExpander,
   TextInput
@@ -405,7 +406,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
               <FlexExpander />
               <Button
                 minimal
-                intent="primary"
+                variation={ButtonVariation.PRIMARY}
                 icon="canvas-position"
                 className={css.expandButton}
                 onClick={showCallGraphModal}

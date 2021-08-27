@@ -29,6 +29,7 @@ neverRan: This pipeline never ran
 startedOn: Started On
 poweredByHarness: powered by Harness
 outOf: Out Of
+clickToExpandErrorDetails: Click to expand error details
 approvalStage:
   settingUpStage: Getting stage data
 filters:

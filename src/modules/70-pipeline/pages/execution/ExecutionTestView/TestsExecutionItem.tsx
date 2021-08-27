@@ -9,6 +9,7 @@ import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } f
 import { useStrings } from 'framework/strings'
 import { Duration } from '@common/exports'
 import Table from '@common/components/Table/Table'
+import useExpandErrorModal from '@pipeline/components/ExpandErrorModal/useExpandErrorModal'
 import { renderFailureRate } from './TestsUtils'
 import { TestsFailedPopover } from './TestsFailedPopover'
 import css from './BuildTests.module.scss'
@@ -53,6 +54,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     pipelineIdentifier: string
   }>()
   const [pageIndex, setPageIndex] = useState(0)
+  const { openErrorModal } = useExpandErrorModal({})
   const queryParams = useMemo(
     () => ({
       accountId,
@@ -106,47 +108,57 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     [isMounted, refetch]
   )
   const renderColumn = useMemo(
-    () => (col: keyof TestCase | 'order') => {
-      let itemOrderNumber = 0
-      return (props => {
-        const { row, rows } = props
-        const failed = ['error', 'failed'].includes(row.original?.result?.status || '')
-        const tooltip = failed && col === 'name' ? <TestsFailedPopover testCase={row.original} /> : undefined
+    () =>
+      ({
+        col,
+        openTestsFailedModal
+      }: {
+        col: keyof TestCase | 'order'
+        openTestsFailedModal?: (errorContent: JSX.Element) => void
+      }) => {
+        let itemOrderNumber = 0
+        return (props => {
+          const { row, rows } = props
+          const failed = ['error', 'failed'].includes(row.original?.result?.status || '')
+          const tooltip =
+            failed && col === 'name' ? (
+              <TestsFailedPopover testCase={row.original} openTestsFailedModal={openTestsFailedModal} />
+            ) : undefined
 
-        itemOrderNumber++
+          itemOrderNumber++
 
-        if (itemOrderNumber > rows.length) {
-          itemOrderNumber = 1
-        }
+          if (itemOrderNumber > rows.length) {
+            itemOrderNumber = 1
+          }
 
-        return (
-          <Container width="90%" className={css.testCell}>
-            <Text
-              className={cx(css.text, tooltip && css.failed)}
-              color={failed && col !== 'order' ? Color.RED_700 : Color.GREY_700}
-              lineClamp={!tooltip ? 1 : undefined}
-              tooltip={tooltip}
-            >
-              {col === 'order' ? (
-                PAGE_SIZE * pageIndex + itemOrderNumber + '.'
-              ) : col === 'result' ? (
-                row.original[col]?.status
-              ) : col === 'duration_ms' ? (
-                <Duration
-                  icon={undefined}
-                  durationText=" "
-                  startTime={NOW}
-                  endTime={NOW + (row.original[col] || 0)}
-                  showZeroSecondsResult
-                />
-              ) : (
-                row.original[col]
-              )}
-            </Text>
-          </Container>
-        )
-      }) as Renderer<CellProps<TestCase>>
-    },
+          return (
+            <Container width="90%" className={css.testCell}>
+              <Text
+                className={cx(css.text, tooltip && css.failed)}
+                color={failed && col !== 'order' ? Color.RED_700 : Color.GREY_700}
+                lineClamp={!tooltip ? 1 : undefined}
+                tooltip={tooltip}
+              >
+                {col === 'order' ? (
+                  PAGE_SIZE * pageIndex + itemOrderNumber + '.'
+                ) : col === 'result' ? (
+                  row.original[col]?.status
+                ) : col === 'duration_ms' ? (
+                  <Duration
+                    icon={undefined}
+                    durationText=" "
+                    startTime={NOW}
+                    endTime={NOW + (row.original[col] || 0)}
+                    showZeroSecondsResult
+                  />
+                ) : (
+                  row.original[col]
+                )}
+              </Text>
+            </Container>
+          )
+        }) as Renderer<CellProps<TestCase>>
+      },
     [pageIndex]
   )
   const columns: Column<TestCase>[] = useMemo(
@@ -155,35 +167,36 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
         Header: '#',
         accessor: 'order' as 'name',
         width: '50px',
-        Cell: renderColumn('order'),
+        Cell: renderColumn({ col: 'order' }),
         disableSortBy: true
       },
       {
         Header: getString('pipeline.testsReports.testCaseName'),
         accessor: 'name',
         width: 'calc(50% - 185px)',
-        Cell: renderColumn('name'),
-        disableSortBy: (data?.content?.length || 0) === 1
+        Cell: renderColumn({ col: 'name', openTestsFailedModal: openErrorModal }),
+        disableSortBy: (data?.content?.length || 0) === 1,
+        openErrorModal
       },
       {
         Header: getString('pipeline.testsReports.className'),
         accessor: 'class_name',
         width: 'calc(50% - 65px)',
-        Cell: renderColumn('class_name'),
+        Cell: renderColumn({ col: 'class_name' }),
         disableSortBy: (data?.content?.length || 0) === 1
       },
       {
         Header: getString('pipeline.testsReports.result'),
         accessor: 'result',
         width: '100px',
-        Cell: renderColumn('result'),
+        Cell: renderColumn({ col: 'result' }),
         disableSortBy: (data?.content?.length || 0) === 1
       },
       {
         Header: getString('pipeline.duration').toUpperCase(),
         accessor: 'duration_ms',
         width: '100px',
-        Cell: renderColumn('duration_ms'),
+        Cell: renderColumn({ col: 'duration_ms' }),
         disableSortBy: (data?.content?.length || 0) === 1
       }
     ],

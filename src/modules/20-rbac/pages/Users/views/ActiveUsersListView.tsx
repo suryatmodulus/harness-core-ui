@@ -252,7 +252,7 @@ const ActiveUserListView: React.FC<ActiveUserListViewProps> = ({ searchTerm, ope
       projectIdentifier,
       pageIndex: page,
       pageSize: 10,
-      searchTerm: encodeURIComponent(searchTerm || '')
+      searchTerm: searchTerm
     },
     debounce: 300
   })

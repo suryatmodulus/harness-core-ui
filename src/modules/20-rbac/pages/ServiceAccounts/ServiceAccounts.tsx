@@ -25,7 +25,7 @@ const ServiceAccountsPage: React.FC = () => {
       accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      searchTerm: encodeURIComponent(searchTerm),
+      searchTerm: searchTerm,
       pageIndex: page,
       pageSize: 10
     },

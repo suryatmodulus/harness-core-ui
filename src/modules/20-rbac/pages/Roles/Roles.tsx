@@ -31,7 +31,7 @@ const Roles: React.FC = () => {
       orgIdentifier,
       pageIndex: page,
       pageSize: 12,
-      searchTerm: encodeURIComponent(searchTerm)
+      searchTerm: searchTerm
     },
     debounce: 300
   })

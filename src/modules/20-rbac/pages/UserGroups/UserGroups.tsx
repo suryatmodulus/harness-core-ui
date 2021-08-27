@@ -28,7 +28,7 @@ const UserGroupsPage: React.FC = () => {
       projectIdentifier,
       pageIndex: page,
       pageSize: 10,
-      searchTerm: encodeURIComponent(searchTerm)
+      searchTerm: searchTerm
     },
     debounce: 300
   })

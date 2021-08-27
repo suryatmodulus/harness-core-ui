@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.55% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>52/55</span>
+                <span class='fraction'>51/54</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">94.55% </span>
+                <span class="strong">94.44% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>52/55</span>
+                <span class='fraction'>51/54</span>
             </div>
         
             
@@ -399,9 +399,7 @@
 <a name='L340'></a><a href='#L340'>340</a>
 <a name='L341'></a><a href='#L341'>341</a>
 <a name='L342'></a><a href='#L342'>342</a>
-<a name='L343'></a><a href='#L343'>343</a>
-<a name='L344'></a><a href='#L344'>344</a>
-<a name='L345'></a><a href='#L345'>345</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L343'></a><a href='#L343'>343</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -422,7 +420,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -612,10 +611,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -672,7 +669,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -764,9 +760,10 @@ import {
   Card,
   Checkbox,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  TextInput,
+  ButtonVariation
 } from '@wings-software/uicore'
-import { InputGroup } from '@blueprintjs/core'
 import copy from 'copy-to-clipboard'
 import { useStrings } from 'framework/strings'
 import { useToaster } from '@common/components'
@@ -895,9 +892,9 @@ const SAMLProviderForm: React.FC&lt;Props&gt; = ({ onSubmit, onCancel, samlProvi
   return (
     &lt;Layout.Vertical padding={{ left: 'huge', right: 'huge' }}&gt;
       &lt;ModalErrorHandler bind={setModalErrorHandler} /&gt;
-      &lt;Heading level={1} color={Color.BLACK} font={{ weight: 'bold' }} margin={{ bottom: 'xxlarge' }}&gt;
+      &lt;Text color={Color.GREY_900} font={{ size: 'medium', weight: 'semi-bold' }} margin={{ bottom: 'xxlarge' }}&gt;
         {samlProvider ? getString('authSettings.editSAMLProvider') : getString('authSettings.addSAMLProvider')}
-      &lt;/Heading&gt;
+      &lt;/Text&gt;
       &lt;Layout.Horizontal&gt;
         &lt;Layout.Vertical width={660} padding={{ right: 'xxxlarge' }}&gt;
           &lt;Formik
@@ -954,8 +951,7 @@ const SAMLProviderForm: React.FC&lt;Props&gt; = ({ onSubmit, onCancel, samlProvi
                       {selected ? (
                         &lt;Button
                           text={getString('change')}
-                          minimal
-                          intent="primary"
+                          variation={ButtonVariation.LINK}
                           onClick={() =&gt; {
                             setFieldValue('files', [])
                             setSelected(undefined)
@@ -972,23 +968,23 @@ const SAMLProviderForm: React.FC&lt;Props&gt; = ({ onSubmit, onCancel, samlProvi
                         selectedSAMLProvider
                       })}
                     &lt;/Text&gt;
-                    &lt;InputGroup
-                      name="endPoint"
+                    &lt;TextInput
                       value={getSamlEndpoint(accountId)}
                       rightElement={
-                        &lt;Button
-                          icon="duplicate"
-                          inline
-                          minimal
-                          className={css.copyToClipboardButton}
-                          onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >                            copy(getSamlEndpoint(accountId))</span>
-                              ? showSuccess(getString('clipboardCopySuccess'))
-                              : showError(getString('clipboardCopyFail'))
-                          }}
-                        /&gt;
+                        (
+                          &lt;Button
+                            icon="duplicate"
+                            inline
+                            variation={ButtonVariation.ICON}
+                            onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+<span class="cstat-no" title="statement not covered" >                              copy(getSamlEndpoint(accountId))</span>
+                                ? showSuccess(getString('clipboardCopySuccess'))
+                                : showError(getString('clipboardCopyFail'))
+                            }}
+                          /&gt;
+                        ) as any
                       }
-                      disabled
+                      readOnly
                     /&gt;
                     &lt;Text color={Color.GREY_500} margin={{ bottom: 'xsmall' }} padding={{ top: 'huge' }}&gt;
                       {getString(
@@ -1008,16 +1004,14 @@ const SAMLProviderForm: React.FC&lt;Props&gt; = ({ onSubmit, onCancel, samlProvi
                       /&gt;
                     &lt;/Container&gt;
                     &lt;Card className={css.authorizationCard}&gt;
-                      &lt;Container margin={{ left: 'xlarge' }}&gt;
-                        &lt;Checkbox
-                          name="authorization"
-                          label={getString('authSettings.enableAuthorization')}
-                          font={{ weight: 'semi-bold' }}
-                          color={Color.GREY_600}
-                          checked={values.authorizationEnabled}
-                          onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >setFieldValue('authorizationEnabled', e.currentTarget.checked)}</span>
-                        /&gt;
-                      &lt;/Container&gt;
+                      &lt;Checkbox
+                        name="authorization"
+                        label={getString('authSettings.enableAuthorization')}
+                        font={{ weight: 'semi-bold' }}
+                        color={Color.GREY_600}
+                        checked={values.authorizationEnabled}
+                        onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >setFieldValue('authorizationEnabled', e.currentTarget.checked)}</span>
+                      /&gt;
                       {values.authorizationEnabled &amp;&amp; (
                         &lt;Container width={300} margin={{ top: 'large' }}&gt;
                           &lt;FormInput.Text
@@ -1031,12 +1025,12 @@ const SAMLProviderForm: React.FC&lt;Props&gt; = ({ onSubmit, onCancel, samlProvi
                 )}
                 &lt;Layout.Horizontal spacing="small" padding={{ top: 'huge', bottom: 'xlarge' }}&gt;
                   &lt;Button
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     text={getString(samlProvider ? 'save' : 'add')}
                     type="submit"
                     disabled={uploadingSamlSettings || updatingSamlSettings}
                   /&gt;
-                  &lt;Button text={getString('cancel')} onClick={onCancel} /&gt;
+                  &lt;Button text={getString('cancel')} onClick={onCancel} variation={ButtonVariation.TERTIARY} /&gt;
                 &lt;/Layout.Horizontal&gt;
               &lt;/FormikForm&gt;
             )}
@@ -1096,7 +1090,7 @@ export default SAMLProviderForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Aug 26 2021 20:12:50 GMT+0000 (Greenwich Mean Time)
+                at Fri Aug 27 2021 05:04:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

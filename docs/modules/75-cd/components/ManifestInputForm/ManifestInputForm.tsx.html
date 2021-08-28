@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.28% </span>
+                <span class="strong">82.72% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>65/79</span>
+                <span class='fraction'>67/81</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">54.46% </span>
+                <span class="strong">55.7% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>281/516</span>
+                <span class='fraction'>303/544</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84% </span>
+                <span class="strong">84.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>63/75</span>
+                <span class='fraction'>65/77</span>
             </div>
         
             
@@ -617,7 +617,14 @@
 <a name='L558'></a><a href='#L558'>558</a>
 <a name='L559'></a><a href='#L559'>559</a>
 <a name='L560'></a><a href='#L560'>560</a>
-<a name='L561'></a><a href='#L561'>561</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L561'></a><a href='#L561'>561</a>
+<a name='L562'></a><a href='#L562'>562</a>
+<a name='L563'></a><a href='#L563'>563</a>
+<a name='L564'></a><a href='#L564'>564</a>
+<a name='L565'></a><a href='#L565'>565</a>
+<a name='L566'></a><a href='#L566'>566</a>
+<a name='L567'></a><a href='#L567'>567</a>
+<a name='L568'></a><a href='#L568'>568</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">18x</span>
@@ -740,6 +747,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">37x</span>
@@ -809,6 +818,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">40x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -832,14 +843,17 @@
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">157x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-yes">142x</span>
 <span class="cline-any cline-yes">50x</span>
@@ -1301,6 +1315,8 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
     value: item
   }))
 &nbsp;
+  const isSelectedStage = stageIdentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues?.stageId
+&nbsp;
   const fromPipelineInputTriggerTab = () =&gt; {
     return (
       formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues?.triggerType === TriggerTypes.MANIFEST &amp;&amp; formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact !== null &amp;&amp; !fromTrigger
@@ -1369,39 +1385,44 @@ const ManifestInputSetForm: React.FC&lt;KubernetesServiceInputFormProps&gt; = ({
                     (item: ManifestConfigWrapper) =&gt;
                       item<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifest<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
                   ) || <span class="branch-1 cbranch-no" title="branch not covered" >0</span>
-                <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedManifest &amp;&amp; initialValues &amp;&amp; initialValues.manifests &amp;&amp; selectedIndex &gt;= 0) {
-                  const artifactSpec = formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
-                  /*
-                   backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
-                  */
-                  if (artifactSpec.eventConditions) {
-                    delete artifactSpec.eventConditions
-                  }
 &nbsp;
-                  selectedManifest = {
-                    manifest: {
-                      identifier: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
-                      type: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype,
-                      spec: {
-                        ...artifactSpec
+                <span class="missing-if-branch" title="else path not taken" >E</span>if (stageIdentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tageId) {
+                  <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedManifest &amp;&amp; initialValues &amp;&amp; initialValues.manifests &amp;&amp; selectedIndex &gt;= 0) {
+                    const artifactSpec = formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
+                    /*
+                     backend requires eventConditions inside selectedArtifact but should not be added to inputYaml
+                    */
+                    if (artifactSpec.eventConditions) {
+                      delete artifactSpec.eventConditions
+                    }
+&nbsp;
+                    selectedManifest = {
+                      manifest: {
+                        identifier: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier,
+                        type: formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>ype,
+                        spec: {
+                          ...artifactSpec
+                        }
                       }
                     }
                   }
-                }
-                <span class="missing-if-branch" title="else path not taken" >E</span>if (initialValues.manifests &amp;&amp; selectedIndex &gt;= 0 &amp;&amp; initialValues.manifests[selectedIndex]) {
-                  initialValues.manifests[selectedIndex] = selectedManifest
+                  <span class="missing-if-branch" title="else path not taken" >E</span>if (initialValues.manifests &amp;&amp; selectedIndex &gt;= 0 &amp;&amp; initialValues.manifests[selectedIndex]) {
+                    initialValues.manifests[selectedIndex] = selectedManifest
+                  }
                 }
               }
               const filteredManifest = allValues?.manifests?.find(item =&gt; item.manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === identifier)
               const isSelectedManifest: boolean =
                 isPipelineInputTab &amp;&amp;
+                stageIdentifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tageId &amp;&amp;
                 formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact &amp;&amp;
                 identifier === formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>electedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
 &nbsp;
               const disableField = (fieldName: string) =&gt; {
                 if (fromTrigger) {
+                  // Trigger Configuration Tab
                   return get(TriggerDefaultFieldList, fieldName) ? true : false
-                } else if (isPipelineInputTab &amp;&amp; isSelectedManifest) {
+                } else if (isPipelineInputTab &amp;&amp; isSelectedManifest &amp;&amp; isSelectedStage) {
                   return true
                 }
                 return readonly
@@ -1744,7 +1765,7 @@ export const ManifestInputForm = connect(ManifestInputSetForm)
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 23:59:33 GMT+0000 (Greenwich Mean Time)
+                at Sat Aug 28 2021 01:26:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

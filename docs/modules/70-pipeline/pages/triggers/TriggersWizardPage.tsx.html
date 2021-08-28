@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76.62% </span>
+                <span class="strong">77.1% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>295/385</span>
+                <span class='fraction'>303/393</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.74% </span>
+                <span class="strong">58.69% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>664/1150</span>
+                <span class='fraction'>716/1220</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.41% </span>
+                <span class="strong">73.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>42/58</span>
+                <span class='fraction'>44/60</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">77.37% </span>
+                <span class="strong">77.78% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>294/380</span>
+                <span class='fraction'>301/387</span>
             </div>
         
             
@@ -1503,7 +1503,18 @@
 <a name='L1444'></a><a href='#L1444'>1444</a>
 <a name='L1445'></a><a href='#L1445'>1445</a>
 <a name='L1446'></a><a href='#L1446'>1446</a>
-<a name='L1447'></a><a href='#L1447'>1447</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L1447'></a><a href='#L1447'>1447</a>
+<a name='L1448'></a><a href='#L1448'>1448</a>
+<a name='L1449'></a><a href='#L1449'>1449</a>
+<a name='L1450'></a><a href='#L1450'>1450</a>
+<a name='L1451'></a><a href='#L1451'>1451</a>
+<a name='L1452'></a><a href='#L1452'>1452</a>
+<a name='L1453'></a><a href='#L1453'>1453</a>
+<a name='L1454'></a><a href='#L1454'>1454</a>
+<a name='L1455'></a><a href='#L1455'>1455</a>
+<a name='L1456'></a><a href='#L1456'>1456</a>
+<a name='L1457'></a><a href='#L1457'>1457</a>
+<a name='L1458'></a><a href='#L1458'>1458</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -2368,9 +2379,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -2379,6 +2387,20 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -3814,9 +3836,6 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
       manifestType: onEditManifestType
     } = val
 &nbsp;
-    // actions will be required thru validation
-    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(pipelineRuntimeInput) })
-&nbsp;
     <span class="missing-if-branch" title="else path not taken" >E</span>if (selectedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>hartVersion) {
       // hardcode manifest chart version to default
       selectedArtifact.spec.chartVersion = replaceTriggerDefaultBuild({
@@ -3825,6 +3844,20 @@ const TriggersWizardPage: React.FC = (): JSX.Element =&gt; {
     } else <span class="cstat-no" title="statement not covered" >if (!isEmpty(selectedArtifact) &amp;&amp; selectedArtifact?.spec?.chartVersion === '') {</span>
 <span class="cstat-no" title="statement not covered" >      selectedArtifact.spec.chartVersion = TriggerDefaultFieldList.chartVersion</span>
     }
+&nbsp;
+    const newPipelineObj = { ...pipelineRuntimeInput }
+    const filteredStage = newPipelineObj.stages<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>ind((item: any) =&gt; item.stage<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === stageId)
+    const stageArtifacts = filteredStage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests
+    const stageArtifactIdx = filteredStage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tage<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceConfig<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>erviceDefinition<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec<span class="branch-0 cbranch-no" title="branch not covered" >?.m</span>anifests<span class="branch-0 cbranch-no" title="branch not covered" >?.f</span>indIndex(
+      (item: any) =&gt; item.manifest<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier === selectedArtifact<span class="branch-0 cbranch-no" title="branch not covered" >?.i</span>dentifier
+    )
+&nbsp;
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (stageArtifactIdx &gt;= 0) {
+      stageArtifacts[stageArtifactIdx].manifest = selectedArtifact
+    }
+&nbsp;
+    // actions will be required thru validation
+    const stringifyPipelineRuntimeInput = yamlStringify({ pipeline: clearNullUndefined(newPipelineObj) })
 &nbsp;
     // clears any runtime inputs
     const artifactSourceSpec = clearRuntimeInputValue(
@@ -4402,7 +4435,7 @@ export default TriggersWizardPage
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Aug 27 2021 23:59:33 GMT+0000 (Greenwich Mean Time)
+                at Sat Aug 28 2021 01:26:19 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

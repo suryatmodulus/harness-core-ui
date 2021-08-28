@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">91.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>33/36</span>
+                <span class='fraction'>34/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.06% </span>
+                <span class="strong">60% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/31</span>
+                <span class='fraction'>21/35</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">91.67% </span>
+                <span class="strong">91.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>33/36</span>
+                <span class='fraction'>34/37</span>
             </div>
         
             
@@ -227,7 +227,17 @@
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -252,7 +262,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -285,6 +301,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -420,28 +440,34 @@ interface ModuleCardProps {
 const MODULE_PROPS: {
   [key in ModuleLicenseDTO['moduleType'] as string]: {
     icon: string
-    title: string
+    title1: string
+    title2: string
   }
 } = {
   CD: {
     icon: 'cd-main',
-    title: 'common.purpose.cd.delivery'
+    title1: 'common.purpose.continuous',
+    title2: 'common.purpose.cd.delivery'
   },
   CE: {
     icon: 'ce-main',
-    title: 'common.purpose.ce.efficiency'
+    title1: 'common.purpose.ce.cloudCost',
+    title2: 'common.purpose.ce.management'
   },
   CV: {
     icon: 'cv-main',
-    title: 'common.purpose.cv.verification'
+    title1: 'common.purpose.continuous',
+    title2: 'common.purpose.cv.verification'
   },
   CF: {
     icon: 'cf-main',
-    title: 'common.purpose.cf.features'
+    title1: 'common.purpose.cf.feature',
+    title2: 'common.purpose.cf.flags'
   },
   CI: {
     icon: 'ci-main',
-    title: 'common.purpose.ci.integration'
+    title1: 'common.purpose.continuous',
+    title2: 'common.purpose.ci.integration'
   }
 }
 &nbsp;
@@ -457,10 +483,14 @@ const ModuleCard: React.FC&lt;ModuleCardProps&gt; = ({ module }) =&gt; {
       .concat(capitalize(module.licenseType))
       .concat(')')
   }
-&nbsp;
-  const moduleTypeStr =
+  const title1 =
     module.moduleType &amp;&amp; MODULE_PROPS[module.moduleType]
-      ? getString(MODULE_PROPS[module.moduleType].title as keyof StringsMap)
+      ? getString(MODULE_PROPS[module.moduleType].title1 as keyof StringsMap)
+      : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+&nbsp;
+  const title2 =
+    module.moduleType &amp;&amp; MODULE_PROPS[module.moduleType]
+      ? getString(MODULE_PROPS[module.moduleType].title2 as keyof StringsMap)
       : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
 &nbsp;
   return (
@@ -472,9 +502,9 @@ const ModuleCard: React.FC&lt;ModuleCardProps&gt; = ({ module }) =&gt; {
               &lt;Icon name={MODULE_PROPS[module.moduleType].icon as IconName} size={25} margin={{ right: 'small' }} /&gt;
             )}
             &lt;Layout.Vertical&gt;
-              &lt;Text font={{ size: 'xsmall' }}&gt;{getString('common.purpose.continuous')}&lt;/Text&gt;
+              &lt;Text font={{ size: 'xsmall' }}&gt;{title1}&lt;/Text&gt;
               &lt;Text font={{ size: 'small', weight: 'semi-bold' }} padding={{ bottom: 'large' }} color={Color.BLACK}&gt;
-                {moduleTypeStr}
+                {title2}
               &lt;/Text&gt;
             &lt;/Layout.Vertical&gt;
           &lt;/Layout.Horizontal&gt;
@@ -574,7 +604,7 @@ export default SubscribedModules
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Aug 28 2021 01:26:19 GMT+0000 (Greenwich Mean Time)
+                at Sat Aug 28 2021 03:32:53 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

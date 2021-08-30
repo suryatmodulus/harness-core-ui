@@ -17,7 +17,7 @@ import {
   FlexExpander,
   TextInput
 } from '@wings-software/uicore'
-import { get, noop, omit } from 'lodash-es'
+import { get, noop, omit, debounce } from 'lodash-es'
 import cx from 'classnames'
 import { useStrings } from 'framework/strings'
 import { PageError } from '@common/components/Page/PageError'
@@ -26,6 +26,7 @@ import { TestSuiteSummaryQueryParams, useTestSuiteSummary, useVgSearch } from 's
 import { CallGraphAPIResponse, TestsCallgraph } from './TestsCallgraph'
 import { TestsExecutionItem } from './TestsExecutionItem'
 import { SortByKey, CALL_GRAPH_WIDTH, CALL_GRAPH_HEIGHT, CALL_GRAPH_API_LIMIT } from './TestsUtils'
+import testsCallgraphErrorIllustration from './TestsCallgraphErrorIllustration.svg'
 import css from './BuildTests.module.scss'
 
 const PAGE_SIZE = 20
@@ -34,10 +35,10 @@ interface TestsExecutionProps {
   stageId: string
   stepId: string
   serviceToken: string
-  splitview?: boolean
+  showCallGraph?: boolean
 }
 
-export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken, splitview }) => {
+export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId, serviceToken, showCallGraph }) => {
   const context = useExecutionContext()
   const callGraphEnabled = /localhost|qa.harness.io/.test(location.hostname) || localStorage.CI_TI_CALL_GRAPH_ENABLED
   const { getString } = useStrings()
@@ -167,6 +168,9 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
     const value = (event.target as HTMLInputElement).value
     setCallgraphSearchTerm(value)
   }
+
+  const debouncedOnCallgraphModalSearch = useCallback(debounce(onCallgraphModalSearch, 300), [onCallgraphModalSearch])
+
   const renderCallGraphFooter = useCallback(
     (preview?: boolean) => {
       const directCall = (
@@ -189,6 +193,9 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
           })}
         </Text>
       )
+
+      if (callGraphError) return null
+
       return (
         <Container padding={{ top: 'xsmall', right: 'medium', bottom: 'medium', left: preview ? 'medium' : 'large' }}>
           {(preview && (
@@ -239,7 +246,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                 name: 'search',
                 size: 16
               }}
-              onChange={onCallgraphModalSearch}
+              onChange={debouncedOnCallgraphModalSearch}
             />
           </Layout.Horizontal>
         }
@@ -294,7 +301,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
         {loading && <Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} />}
       </Container>
       <Layout.Horizontal spacing="medium" className={css.widget} padding="xlarge">
-        <Container width={`calc(100% - ${callGraphEnabled ? CALL_GRAPH_WIDTH : 0}px)`}>
+        <Container width={`calc(100% - ${callGraphEnabled && showCallGraph ? CALL_GRAPH_WIDTH : 0}px)`}>
           <Container flex>
             <Switch
               label={getString('pipeline.testsReports.showOnlyFailedTests')}
@@ -363,8 +370,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                       onExpand={() => {
                         setExpandedIndex(expandedIndex !== index ? index : undefined)
                       }}
-                      splitview={splitview}
-                      onShowCallGraphForClass={callGraphEnabled ? onClassSelected : undefined}
+                      onShowCallGraphForClass={callGraphEnabled && showCallGraph ? onClassSelected : undefined}
                     />
                   ))}
                 </Layout.Vertical>
@@ -396,7 +402,7 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
         </Container>
 
         {/* Callgraph container */}
-        {callGraphEnabled && (
+        {callGraphEnabled && showCallGraph && (
           <Container width={CALL_GRAPH_WIDTH} className={css.callgraphContainer}>
             <Layout.Horizontal className={css.callgraphHeader}>
               <Text color={Color.GREY_800} style={{ fontWeight: 500, fontSize: '14px', lineHeight: '32px' }}>
@@ -421,8 +427,9 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                 color={Color.GREY_400}
                 padding="medium"
                 font={{ size: 'small' }}
-                lineClamp={1}
                 className={css.graphTitle}
+                width={CALL_GRAPH_WIDTH}
+                style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
               >
                 {selectedCallGraphClass || ''}
               </Text>
@@ -431,9 +438,12 @@ export const TestsExecution: React.FC<TestsExecutionProps> = ({ stageId, stepId,
                   <Container className={css.callgraphLoadingStatus}>
                     {callGraphLoading && <Icon name="spinner" />}
                     {callGraphError && (
-                      <Text intent="danger" inline className={css.callgraphError}>
-                        {get(callGraphError, 'data.error_msg', error?.message)}
-                      </Text>
+                      <>
+                        <img src={testsCallgraphErrorIllustration} alt="" />
+                        <Text color="black" margin={{ top: 'xlarge' }}>
+                          {get(callGraphError, 'data.error_msg', error?.message)}
+                        </Text>
+                      </>
                     )}
                   </Container>
                 )}

@@ -30,7 +30,18 @@ export const TestsOverview: React.FC<TestsOverviewProps> = ({
     if (!timeSavedMS) {
       return '0'
     }
-    return timeToDisplayText(timeSavedMS).replace(/(\d+ms)$/, '')
+
+    const timeToDisplay = timeToDisplayText(timeSavedMS)
+
+    // Checking if the value contains hours, if yes, then we need to remove ms and s. If no, then only ms
+    if (/(\d+h)/.test(timeToDisplay)) {
+      return timeToDisplay
+        .replace(/(\d+ms)$/, '')
+        .trim()
+        .replace(/(\d+s)$/, '')
+    } else {
+      return timeToDisplay.replace(/(\d+ms)$/, '')
+    }
   }, [timeSavedMS])
 
   return (

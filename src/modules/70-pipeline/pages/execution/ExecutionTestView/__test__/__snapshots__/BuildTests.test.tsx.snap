@@ -3,13 +3,13 @@
 exports[`BuildTests snapshot test Call Graph full view should be renderred properly 1`] = `
 <div>
   <div
-    data-highcharts-chart="3"
+    data-highcharts-chart="2"
     style="overflow: hidden;"
   >
     <div
       class="highcharts-container "
       dir="ltr"
-      id="highcharts-30"
+      id="highcharts-20"
       style="position: relative; overflow: hidden; width: 824px; height: 453px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
     >
       <svg
@@ -26,7 +26,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
         </desc>
         <defs>
           <clippath
-            id="highcharts-31-"
+            id="highcharts-21-"
           >
             <rect
               fill="none"
@@ -37,7 +37,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
             />
           </clippath>
           <lineargradient
-            id="highcharts-53"
+            id="highcharts-43"
             x1="0"
             x2="0"
             y1="0"
@@ -55,7 +55,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
             />
           </lineargradient>
           <lineargradient
-            id="highcharts-54"
+            id="highcharts-44"
             x1="0"
             x2="0"
             y1="0"
@@ -106,7 +106,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
         >
           <g
             class="highcharts-series highcharts-series-0 highcharts-networkgraph-series highcharts-color-0 highcharts-tracker"
-            clip-path="url(#highcharts-31-)"
+            clip-path="url(#highcharts-21-)"
             data-z-index="0.1"
             opacity="1"
             transform="translate(10,10) scale(1 1)"
@@ -116,7 +116,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
               d="M 407.2220065327325 212.52532687094254 L 407.4151846497376 213.9602971033652 L 406.0810031557743 204.0496987490192 L 402.57415105188517 200.4857138554698 L 406.0810031557743 204.0496987490192 L 408.5205100644927 199.6852049590918"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -204,7 +204,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
               d="M 407.2220065327325 212.52532687094254 L 404.63895558421217 209.21806447137132 L 410.79428936006224 217.09917264902498 L 410.8920904171062 222.09821605284145 L 410.79428936006224 217.09917264902498 L 415.62075532369835 218.40501578733142"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -212,7 +212,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
               d="M 399.4211352992164 218.82561143717683 L 398.0663184619033 217.80362751404232 L 406.0496812310651 223.8257466506886 L 407.4363905977359 228.62960313609562 L 406.0496812310651 223.8257466506886 L 411.0496620797237 223.83958547459855"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -236,7 +236,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
               d="M 404.43048761157183 218.89763181706152 L 402.75684893395055 219.41701305637105 L 412.3075288570625 216.45314514327725 L 415.2386404523791 212.40239400110616 L 412.3075288570625 216.45314514327725 L 417.01696120023536 218.1328019549733"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -268,7 +268,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
               d="M 407.2220065327325 212.52532687094254 L 406.16092372647415 210.48201040276962 L 410.7695212409766 219.35674019861816 L 409.950541308023 224.2892113713083 L 410.7695212409766 219.35674019861816 L 415.27537918553213 221.52405286260685"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -277,7 +277,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
               d="M 407.2220065327325 212.52532687094254 L 407.2397616630773 212.7150043150928 L 406.3077662777953 202.75852980843067 L 402.94802577168383 199.05553862135042 L 406.3077662777953 202.75852980843067 L 408.92191047568116 198.49634139018121"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -290,7 +290,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
           >
             <image
               class="highcharts-point highcharts-color-0 highcharts-node"
-              fill="url(#highcharts-53)"
+              fill="url(#highcharts-43)"
               height="80"
               href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgNDUgNDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxmaWx0ZXIgaWQ9ImEiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBoZWlnaHQ9IjQzLjA2MTYiIHdpZHRoPSI0My44MzciIHg9Ii45OTQxNDEiIHk9Ii4yNDE2OTkiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQ29sb3JNYXRyaXggaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9ImhhcmRBbHBoYSIgdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDEyNyAwIi8+PGZlT2Zmc2V0IGR5PSIyIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNiIvPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAuNzU1MTU1IDAgMCAwIDAgMC41MzQ4NzUgMCAwIDAgMCAwLjgyNSAwIDAgMCAwLjE2IDAiLz48ZmVCbGVuZCBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDFfZHJvcFNoYWRvdyIvPjxmZUNvbG9yTWF0cml4IGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJoYXJkQWxwaGEiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIvPjxmZU9mZnNldC8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iLjUiLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwLjYyMzUyOSAwIDAgMCAwIDAuMzAxOTYxIDAgMCAwIDAgMC43MjU0OSAwIDAgMCAwLjA0IDAiLz48ZmVCbGVuZCBpbjI9ImVmZmVjdDFfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDJfZHJvcFNoYWRvdyIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9ImVmZmVjdDJfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9InNoYXBlIi8+PC9maWx0ZXI+PGxpbmVhckdyYWRpZW50IGlkPSJiIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjE2LjE5OCIgeDI9IjI2LjAwNjciIHkxPSI5Ljc2OTUzIiB5Mj0iMjkuNzA4NiI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmVhMWZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOGEzNmZmIi8+PC9saW5lYXJHcmFkaWVudD48ZyBmaWx0ZXI9InVybCgjYSkiPjxwYXRoIGQ9Im0yMS43MzcgMTAuNjIzNmMuNzAxLS41MDkzIDEuNjUwMi0uNTA5MyAyLjM1MTIgMGw3LjkxODMgNS43NTNjLjcwMS41MDkzLjk5NDMgMS40MTIxLjcyNjYgMi4yMzYxbC0zLjAyNDYgOS4zMDg2Yy0uMjY3Ny44MjQtMS4wMzU2IDEuMzgyLTEuOTAyMSAxLjM4MmgtOS43ODc2Yy0uODY2NCAwLTEuNjM0NC0uNTU4LTEuOTAyMS0xLjM4MmwtMy4wMjQ1LTkuMzA4NmMtLjI2NzgtLjgyNC4wMjU1LTEuNzI2OC43MjY1LTIuMjM2MXoiIGZpbGw9InVybCgjYikiLz48L2c+PC9zdmc+"
               opacity="1"
@@ -303,7 +303,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 407.4151846497376 223.9602971033652 A 10 10 0 1 1 407.42518464807097 223.96029210336562 Z"
-              fill="url(#highcharts-54)"
+              fill="url(#highcharts-44)"
               opacity="1"
             />
             <path
@@ -369,13 +369,13 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 404.63895558421217 219.21806447137132 A 10 10 0 1 1 404.6489555825455 219.21805947137173 Z"
-              fill="url(#highcharts-54)"
+              fill="url(#highcharts-44)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 398.0663184619033 227.80362751404232 A 10 10 0 1 1 398.0763184602366 227.80362251404273 Z"
-              fill="url(#highcharts-54)"
+              fill="url(#highcharts-44)"
               opacity="1"
             />
             <path
@@ -393,7 +393,7 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 402.75684893395055 229.41701305637105 A 10 10 0 1 1 402.7668489322839 229.41700805637146 Z"
-              fill="url(#highcharts-54)"
+              fill="url(#highcharts-44)"
               opacity="1"
             />
             <path
@@ -405,13 +405,13 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 406.16092372647415 220.48201040276962 A 10 10 0 1 1 406.1709237248075 220.48200540277003 Z"
-              fill="url(#highcharts-54)"
+              fill="url(#highcharts-44)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 407.2397616630773 222.7150043150928 A 10 10 0 1 1 407.2497616614106 222.71499931509322 Z"
-              fill="url(#highcharts-54)"
+              fill="url(#highcharts-44)"
               opacity="1"
             />
           </g>
@@ -470,13 +470,13 @@ exports[`BuildTests snapshot test Call Graph full view should be renderred prope
 exports[`BuildTests snapshot test Call Graph full view should handle search properly 1`] = `
 <div>
   <div
-    data-highcharts-chart="4"
+    data-highcharts-chart="3"
     style="overflow: hidden;"
   >
     <div
       class="highcharts-container "
       dir="ltr"
-      id="highcharts-55"
+      id="highcharts-45"
       style="position: relative; overflow: hidden; width: 824px; height: 453px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
     >
       <svg
@@ -493,7 +493,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
         </desc>
         <defs>
           <clippath
-            id="highcharts-56-"
+            id="highcharts-46-"
           >
             <rect
               fill="none"
@@ -504,7 +504,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
             />
           </clippath>
           <lineargradient
-            id="highcharts-78"
+            id="highcharts-68"
             x1="0"
             x2="0"
             y1="0"
@@ -522,7 +522,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
             />
           </lineargradient>
           <lineargradient
-            id="highcharts-79"
+            id="highcharts-69"
             x1="0"
             x2="0"
             y1="0"
@@ -573,7 +573,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
         >
           <g
             class="highcharts-series highcharts-series-0 highcharts-networkgraph-series highcharts-color-0 highcharts-tracker"
-            clip-path="url(#highcharts-56-)"
+            clip-path="url(#highcharts-46-)"
             data-z-index="0.1"
             opacity="1"
             transform="translate(10,10) scale(1 1)"
@@ -583,7 +583,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
               d="M 385.78071348732607 119.52825762165145 L 474.5541062848157 159.39940618718072 L 465.4319373171965 155.30232999479605 L 460.5539468724334 156.40015020812794 L 465.4319373171965 155.30232999479605 L 463.01219258786426 150.92684882755643"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -671,7 +671,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
               d="M 385.78071348732607 119.52825762165145 L 456.8447264726991 53.46301297150255 L 449.52076175319445 60.271797061738575 L 444.54854063832175 60.79812128198159 L 449.52076175319445 60.271797061738575 L 448.6338110924634 65.19250011368437"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -679,7 +679,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
               d="M 283.4493778137477 237.06193617529172 L 229.31371759992675 308.574087466863 L 235.34944557801157 300.6010085274216 L 235.37181308741307 295.60105855821956 L 235.34944557801157 300.6010085274216 L 240.15566045107792 299.2224953450705"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -703,7 +703,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
               d="M 437.469921237176 359.3107105222309 L 479.77945505148017 418 L 473.9315620139147 409.88814774412197 L 469.15884912212505 408.3977747530404 L 473.9315620139147 409.88814774412197 L 474.0259604756519 404.8890389305011"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -735,7 +735,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
               d="M 385.78071348732607 119.52825762165145 L 507.4130644596592 58.356449454996635 L 498.47926533516375 62.849469953855305 L 493.55783953570796 61.96653841605013 L 498.47926533516375 62.849469953855305 L 496.25365183502316 67.3268178907474"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -744,7 +744,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
               d="M 385.78071348732607 119.52825762165145 L 509.81821335034726 117.88769809775727 L 499.8190879131579 118.01994971911942 L 495.7797622518735 115.07311273650748 L 499.8190879131579 118.01994971911942 L 495.8591132246908 121.07258799882109"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -757,7 +757,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
           >
             <image
               class="highcharts-point highcharts-color-0 highcharts-node"
-              fill="url(#highcharts-78)"
+              fill="url(#highcharts-68)"
               height="80"
               href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgNDUgNDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxmaWx0ZXIgaWQ9ImEiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBoZWlnaHQ9IjQzLjA2MTYiIHdpZHRoPSI0My44MzciIHg9Ii45OTQxNDEiIHk9Ii4yNDE2OTkiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQ29sb3JNYXRyaXggaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9ImhhcmRBbHBoYSIgdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDEyNyAwIi8+PGZlT2Zmc2V0IGR5PSIyIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNiIvPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAuNzU1MTU1IDAgMCAwIDAgMC41MzQ4NzUgMCAwIDAgMCAwLjgyNSAwIDAgMCAwLjE2IDAiLz48ZmVCbGVuZCBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDFfZHJvcFNoYWRvdyIvPjxmZUNvbG9yTWF0cml4IGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJoYXJkQWxwaGEiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIvPjxmZU9mZnNldC8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iLjUiLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwLjYyMzUyOSAwIDAgMCAwIDAuMzAxOTYxIDAgMCAwIDAgMC43MjU0OSAwIDAgMCAwLjA0IDAiLz48ZmVCbGVuZCBpbjI9ImVmZmVjdDFfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDJfZHJvcFNoYWRvdyIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9ImVmZmVjdDJfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9InNoYXBlIi8+PC9maWx0ZXI+PGxpbmVhckdyYWRpZW50IGlkPSJiIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjE2LjE5OCIgeDI9IjI2LjAwNjciIHkxPSI5Ljc2OTUzIiB5Mj0iMjkuNzA4NiI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmVhMWZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOGEzNmZmIi8+PC9saW5lYXJHcmFkaWVudD48ZyBmaWx0ZXI9InVybCgjYSkiPjxwYXRoIGQ9Im0yMS43MzcgMTAuNjIzNmMuNzAxLS41MDkzIDEuNjUwMi0uNTA5MyAyLjM1MTIgMGw3LjkxODMgNS43NTNjLjcwMS41MDkzLjk5NDMgMS40MTIxLjcyNjYgMi4yMzYxbC0zLjAyNDYgOS4zMDg2Yy0uMjY3Ny44MjQtMS4wMzU2IDEuMzgyLTEuOTAyMSAxLjM4MmgtOS43ODc2Yy0uODY2NCAwLTEuNjM0NC0uNTU4LTEuOTAyMS0xLjM4MmwtMy4wMjQ1LTkuMzA4NmMtLjI2NzgtLjgyNC4wMjU1LTEuNzI2OC43MjY1LTIuMjM2MXoiIGZpbGw9InVybCgjYikiLz48L2c+PC9zdmc+"
               opacity="1"
@@ -770,7 +770,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 474.5541062848157 169.39940618718072 A 10 10 0 1 1 474.56410628314904 169.39940118718113 Z"
-              fill="url(#highcharts-79)"
+              fill="url(#highcharts-69)"
               opacity="1"
             />
             <path
@@ -836,13 +836,13 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 456.8447264726991 63.46301297150255 A 10 10 0 1 1 456.85472647103245 63.46300797150297 Z"
-              fill="url(#highcharts-79)"
+              fill="url(#highcharts-69)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 229.31371759992675 318.574087466863 A 10 10 0 1 1 229.3237175982601 318.5740824668634 Z"
-              fill="url(#highcharts-79)"
+              fill="url(#highcharts-69)"
               opacity="1"
             />
             <path
@@ -860,7 +860,7 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 479.77945505148017 428 A 10 10 0 1 1 479.7894550498135 427.9999950000004 Z"
-              fill="url(#highcharts-79)"
+              fill="url(#highcharts-69)"
               opacity="1"
             />
             <path
@@ -872,13 +872,13 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 507.4130644596592 68.35644945499664 A 10 10 0 1 1 507.42306445799255 68.35644445499705 Z"
-              fill="url(#highcharts-79)"
+              fill="url(#highcharts-69)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 509.81821335034726 127.88769809775727 A 10 10 0 1 1 509.8282133486806 127.88769309775768 Z"
-              fill="url(#highcharts-79)"
+              fill="url(#highcharts-69)"
               opacity="1"
             />
           </g>
@@ -937,13 +937,13 @@ exports[`BuildTests snapshot test Call Graph full view should handle search prop
 exports[`BuildTests snapshot test Call Graph preview should be renderred properly 1`] = `
 <div>
   <div
-    data-highcharts-chart="2"
+    data-highcharts-chart="1"
     style="overflow: hidden;"
   >
     <div
       class="highcharts-container "
       dir="ltr"
-      id="highcharts-20"
+      id="highcharts-10"
       style="position: relative; overflow: hidden; width: 600px; height: 600px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
     >
       <svg
@@ -960,7 +960,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
         </desc>
         <defs>
           <clippath
-            id="highcharts-21-"
+            id="highcharts-11-"
           >
             <rect
               fill="none"
@@ -971,7 +971,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
             />
           </clippath>
           <lineargradient
-            id="highcharts-28"
+            id="highcharts-18"
             x1="0"
             x2="0"
             y1="0"
@@ -989,7 +989,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
             />
           </lineargradient>
           <lineargradient
-            id="highcharts-29"
+            id="highcharts-19"
             x1="0"
             x2="0"
             y1="0"
@@ -1040,7 +1040,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
         >
           <g
             class="highcharts-series highcharts-series-0 highcharts-networkgraph-series highcharts-color-0 highcharts-tracker"
-            clip-path="url(#highcharts-21-)"
+            clip-path="url(#highcharts-11-)"
             data-z-index="0.1"
             opacity="1"
             transform="translate(10,10) scale(1 1)"
@@ -1050,7 +1050,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
               d="M 293.4544660961315 286.51227727426124 L 293.10618214769306 289.3226503194771 L 293.96709243592346 282.3757925063634 L 291.48181639500643 278.03719791819964 L 293.96709243592346 282.3757925063634 L 297.43626594910387 278.7751210223972"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -1058,7 +1058,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
               d="M 293.4544660961315 286.51227727426124 L 290.3957226064137 291.11598998827844 L 294.26950217649244 285.28556703257095 L 293.9843378069485 280.29370552784724 L 294.26950217649244 285.28556703257095 L 298.9818431975549 283.6140880164861"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-width="1"
             />
             <path
@@ -1066,7 +1066,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
               d="M 293.4544660961315 286.51227727426124 L 287.4825954744877 290.13656838404086 L 293.466769212206 286.5048105896935 L 295.3298294361818 281.86487453390146 L 293.466769212206 286.5048105896935 L 298.4427646884796 286.99416630908854"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -1075,7 +1075,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
               d="M 293.4544660961315 286.51227727426124 L 286.3615304873198 287.3038402929826 L 293.318343455737 286.5274683959758 L 296.96093433897255 283.1023360397931 L 293.318343455737 286.5274683959758 L 297.62639596497837 289.0653185841507"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -1084,7 +1084,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
               d="M 293.4544660961315 286.51227727426124 L 287.84935694505316 284.5756419866933 L 294.46557003151497 286.8616263249012 L 297.2665556502612 291.0034229837893 L 294.46557003151497 286.8616263249012 L 299.2259707972965 285.3323831953935"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -1093,7 +1093,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
               d="M 293.4544660961315 286.51227727426124 L 291.2024992297023 284.143308335279 L 296.02537338590616 289.21675734689046 L 296.60696618447486 294.1828171347558 L 296.02537338590616 289.21675734689046 L 300.9556367658561 290.04892500086675"
               fill="none"
               opacity="1"
-              stroke="#3DC7F6"
+              stroke="#D9DAE6"
               stroke-dasharray="4,3"
               stroke-width="1"
             />
@@ -1106,7 +1106,7 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
           >
             <image
               class="highcharts-point highcharts-color-0 highcharts-node"
-              fill="url(#highcharts-28)"
+              fill="url(#highcharts-18)"
               height="40"
               href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgNDUgNDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxmaWx0ZXIgaWQ9ImEiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBoZWlnaHQ9IjQzLjA2MTYiIHdpZHRoPSI0My44MzciIHg9Ii45OTQxNDEiIHk9Ii4yNDE2OTkiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQ29sb3JNYXRyaXggaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9ImhhcmRBbHBoYSIgdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDEyNyAwIi8+PGZlT2Zmc2V0IGR5PSIyIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNiIvPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAuNzU1MTU1IDAgMCAwIDAgMC41MzQ4NzUgMCAwIDAgMCAwLjgyNSAwIDAgMCAwLjE2IDAiLz48ZmVCbGVuZCBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDFfZHJvcFNoYWRvdyIvPjxmZUNvbG9yTWF0cml4IGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJoYXJkQWxwaGEiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIvPjxmZU9mZnNldC8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iLjUiLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwLjYyMzUyOSAwIDAgMCAwIDAuMzAxOTYxIDAgMCAwIDAgMC43MjU0OSAwIDAgMCAwLjA0IDAiLz48ZmVCbGVuZCBpbjI9ImVmZmVjdDFfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDJfZHJvcFNoYWRvdyIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9ImVmZmVjdDJfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9InNoYXBlIi8+PC9maWx0ZXI+PGxpbmVhckdyYWRpZW50IGlkPSJiIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjE2LjE5OCIgeDI9IjI2LjAwNjciIHkxPSI5Ljc2OTUzIiB5Mj0iMjkuNzA4NiI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmVhMWZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOGEzNmZmIi8+PC9saW5lYXJHcmFkaWVudD48ZyBmaWx0ZXI9InVybCgjYSkiPjxwYXRoIGQ9Im0yMS43MzcgMTAuNjIzNmMuNzAxLS41MDkzIDEuNjUwMi0uNTA5MyAyLjM1MTIgMGw3LjkxODMgNS43NTNjLjcwMS41MDkzLjk5NDMgMS40MTIxLjcyNjYgMi4yMzYxbC0zLjAyNDYgOS4zMDg2Yy0uMjY3Ny44MjQtMS4wMzU2IDEuMzgyLTEuOTAyMSAxLjM4MmgtOS43ODc2Yy0uODY2NCAwLTEuNjM0NC0uNTU4LTEuOTAyMS0xLjM4MmwtMy4wMjQ1LTkuMzA4NmMtLjI2NzgtLjgyNC4wMjU1LTEuNzI2OC43MjY1LTIuMjM2MXoiIGZpbGw9InVybCgjYikiLz48L2c+PC9zdmc+"
               opacity="1"
@@ -1119,37 +1119,37 @@ exports[`BuildTests snapshot test Call Graph preview should be renderred properl
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 293.10618214769306 296.3226503194771 A 7 7 0 1 1 293.1131821465264 296.32264681947737 Z"
-              fill="url(#highcharts-29)"
+              fill="url(#highcharts-19)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 290.3957226064137 298.11598998827844 A 7 7 0 1 1 290.40272260524705 298.11598648827874 Z"
-              fill="url(#highcharts-29)"
+              fill="url(#highcharts-19)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 287.4825954744877 297.13656838404086 A 7 7 0 1 1 287.48959547332106 297.13656488404115 Z"
-              fill="url(#highcharts-29)"
+              fill="url(#highcharts-19)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 286.3615304873198 294.3038402929826 A 7 7 0 1 1 286.36853048615313 294.3038367929829 Z"
-              fill="url(#highcharts-29)"
+              fill="url(#highcharts-19)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 287.84935694505316 291.5756419866933 A 7 7 0 1 1 287.8563569438865 291.5756384866936 Z"
-              fill="url(#highcharts-29)"
+              fill="url(#highcharts-19)"
               opacity="1"
             />
             <path
               class="highcharts-point highcharts-color-0 highcharts-node"
               d="M 291.2024992297023 291.143308335279 A 7 7 0 1 1 291.20949922853566 291.1433048352793 Z"
-              fill="url(#highcharts-29)"
+              fill="url(#highcharts-19)"
               opacity="1"
             />
           </g>
@@ -35539,7 +35539,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
         >
           <div
             class="StyledProps--font StyledProps--main"
-            style="width: calc(100% - 360px);"
+            style="width: calc(100% - 0px);"
           >
             <div
               class="StyledProps--font StyledProps--main StyledProps--flex"
@@ -35620,7 +35620,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -35746,7 +35746,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   </div>
                 </div>
                 <div
-                  class="table testSuiteTable clickable"
+                  class="table testSuiteTable"
                 >
                   <div
                     class="header"
@@ -35877,7 +35877,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     class="body"
                   >
                     <div
-                      class="row card clickable rowSelected"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -35980,7 +35980,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36075,7 +36075,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36170,7 +36170,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36265,7 +36265,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36360,7 +36360,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36455,7 +36455,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36550,7 +36550,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36645,7 +36645,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36740,7 +36740,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36835,7 +36835,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -36930,7 +36930,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37025,7 +37025,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37120,7 +37120,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37215,7 +37215,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37310,7 +37310,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37405,7 +37405,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37500,7 +37500,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37595,7 +37595,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37690,7 +37690,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                       </div>
                     </div>
                     <div
-                      class="row card clickable"
+                      class="row card"
                       role="row"
                     >
                       <div
@@ -37928,7 +37928,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38061,7 +38061,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38194,7 +38194,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38327,7 +38327,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38460,7 +38460,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38593,7 +38593,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38726,7 +38726,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38859,7 +38859,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38992,7 +38992,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39125,7 +39125,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39258,7 +39258,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39391,7 +39391,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39524,7 +39524,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39657,7 +39657,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading splitview StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39916,376 +39916,6 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                     42
                   </span>
                 </button>
-              </div>
-            </div>
-          </div>
-          <div
-            class="StyledProps--font StyledProps--main callgraphContainer"
-            style="width: 360px;"
-          >
-            <div
-              class="Layout--horizontal StyledProps--main callgraphHeader"
-            >
-              <p
-                class="StyledProps--font StyledProps--main StyledProps--color StyledProps--color-grey800"
-                style="font-weight: 500; font-size: 14px; line-height: 32px;"
-              >
-                pipeline.testsReports.callgraphTitle
-              </p>
-              <span
-                style="flex-grow: 1;"
-              />
-              <button
-                class="bp3-button bp3-minimal Button--button StyledProps--font StyledProps--main expandButton StyledProps--intent-primary Button--with-current-color Button--without-shadow Button--withLeftIcon"
-                type="button"
-              >
-                <span
-                  class="bp3-icon StyledProps--main"
-                  data-icon="canvas-position"
-                >
-                  <svg
-                    height="16"
-                    viewBox="0 0 12 12"
-                    width="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M8 0h4v3.333h-1.333v-2H8V0zM4 0v1.333H1.333v2H0V0h4zm4 12v-1.333h2.667v-2H12V12H8zm-4 0H0V8.667h1.333v2H4V12z"
-                    />
-                  </svg>
-                </span>
-                <span
-                  class="bp3-button-text"
-                >
-                  <span>
-                    pipeline.testsReports.expandGraph
-                  </span>
-                </span>
-              </button>
-            </div>
-            <div
-              class="Layout--vertical Layout--layout-spacing-small StyledProps--main callgraphBody"
-            >
-              <p
-                class="StyledProps--font Text--lineclamp StyledProps--main graphTitle StyledProps--color StyledProps--color-grey400 StyledProps--padding-medium StyledProps--font-size-small"
-                style="--text-line-clamp: 1;"
-              >
-                io.harness.service.ContinuousVerificationServiceTest
-              </p>
-              <div
-                class="StyledProps--font StyledProps--main"
-                style="height: 360px;"
-              >
-                <div
-                  data-highcharts-chart="1"
-                  style="overflow: hidden;"
-                >
-                  <div
-                    class="highcharts-container "
-                    dir="ltr"
-                    id="highcharts-10"
-                    style="position: relative; overflow: hidden; width: 600px; height: 600px; text-align: left; line-height: normal; z-index: 0; user-select: none; outline: none;"
-                  >
-                    <svg
-                      class="highcharts-root"
-                      height="600"
-                      style="font-family:\\"Lucida Grande\\", \\"Lucida Sans Unicode\\", Arial, Helvetica, sans-serif;font-size:12px;"
-                      version="1.1"
-                      viewBox="0 0 600 600"
-                      width="600"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <desc>
-                        Created with Highcharts 9.1.0
-                      </desc>
-                      <defs>
-                        <clippath
-                          id="highcharts-11-"
-                        >
-                          <rect
-                            fill="none"
-                            height="575"
-                            width="580"
-                            x="0"
-                            y="0"
-                          />
-                        </clippath>
-                        <lineargradient
-                          id="highcharts-18"
-                          x1="0"
-                          x2="0"
-                          y1="0"
-                          y2="1"
-                        >
-                          <stop
-                            offset="0"
-                            stop-color="#bea1ff"
-                            stop-opacity="1"
-                          />
-                          <stop
-                            offset="1"
-                            stop-color="#8a36ff"
-                            stop-opacity="1"
-                          />
-                        </lineargradient>
-                        <lineargradient
-                          id="highcharts-19"
-                          x1="0"
-                          x2="0"
-                          y1="0"
-                          y2="1"
-                        >
-                          <stop
-                            offset="0"
-                            stop-color="#73dfe7"
-                            stop-opacity="1"
-                          />
-                          <stop
-                            offset="1"
-                            stop-color="#0095f7"
-                            stop-opacity="1"
-                          />
-                        </lineargradient>
-                      </defs>
-                      <rect
-                        class="highcharts-background"
-                        fill="#ffffff"
-                        height="600"
-                        rx="0"
-                        ry="0"
-                        width="600"
-                        x="0"
-                        y="0"
-                      />
-                      <rect
-                        class="highcharts-plot-background"
-                        fill="none"
-                        height="575"
-                        width="580"
-                        x="10"
-                        y="10"
-                      />
-                      <rect
-                        class="highcharts-plot-border"
-                        data-z-index="1"
-                        fill="none"
-                        height="575"
-                        width="580"
-                        x="10"
-                        y="10"
-                      />
-                      <g
-                        class="highcharts-series-group"
-                        data-z-index="3"
-                      >
-                        <g
-                          class="highcharts-series highcharts-series-0 highcharts-networkgraph-series highcharts-color-0 highcharts-tracker"
-                          clip-path="url(#highcharts-11-)"
-                          data-z-index="0.1"
-                          opacity="1"
-                          transform="translate(10,10) scale(1 1)"
-                        >
-                          <path
-                            class="highcharts-point highcharts-color-0"
-                            d="M 293.4544660961315 286.51227727426124 L 293.10618214769306 289.3226503194771 L 293.96709243592346 282.3757925063634 L 291.48181639500643 278.03719791819964 L 293.96709243592346 282.3757925063634 L 297.43626594910387 278.7751210223972"
-                            fill="none"
-                            opacity="1"
-                            stroke="#3DC7F6"
-                            stroke-width="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0"
-                            d="M 293.4544660961315 286.51227727426124 L 290.3957226064137 291.11598998827844 L 294.26950217649244 285.28556703257095 L 293.9843378069485 280.29370552784724 L 294.26950217649244 285.28556703257095 L 298.9818431975549 283.6140880164861"
-                            fill="none"
-                            opacity="1"
-                            stroke="#3DC7F6"
-                            stroke-width="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0"
-                            d="M 293.4544660961315 286.51227727426124 L 287.4825954744877 290.13656838404086 L 293.466769212206 286.5048105896935 L 295.3298294361818 281.86487453390146 L 293.466769212206 286.5048105896935 L 298.4427646884796 286.99416630908854"
-                            fill="none"
-                            opacity="1"
-                            stroke="#3DC7F6"
-                            stroke-dasharray="4,3"
-                            stroke-width="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0"
-                            d="M 293.4544660961315 286.51227727426124 L 286.3615304873198 287.3038402929826 L 293.318343455737 286.5274683959758 L 296.96093433897255 283.1023360397931 L 293.318343455737 286.5274683959758 L 297.62639596497837 289.0653185841507"
-                            fill="none"
-                            opacity="1"
-                            stroke="#3DC7F6"
-                            stroke-dasharray="4,3"
-                            stroke-width="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0"
-                            d="M 293.4544660961315 286.51227727426124 L 287.84935694505316 284.5756419866933 L 294.46557003151497 286.8616263249012 L 297.2665556502612 291.0034229837893 L 294.46557003151497 286.8616263249012 L 299.2259707972965 285.3323831953935"
-                            fill="none"
-                            opacity="1"
-                            stroke="#3DC7F6"
-                            stroke-dasharray="4,3"
-                            stroke-width="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0"
-                            d="M 293.4544660961315 286.51227727426124 L 291.2024992297023 284.143308335279 L 296.02537338590616 289.21675734689046 L 296.60696618447486 294.1828171347558 L 296.02537338590616 289.21675734689046 L 300.9556367658561 290.04892500086675"
-                            fill="none"
-                            opacity="1"
-                            stroke="#3DC7F6"
-                            stroke-dasharray="4,3"
-                            stroke-width="1"
-                          />
-                        </g>
-                        <g
-                          class="highcharts-markers highcharts-series-0 highcharts-networkgraph-series highcharts-color-0 highcharts-tracker"
-                          data-z-index="0.1"
-                          opacity="1"
-                          transform="translate(10,10) scale(1 1)"
-                        >
-                          <image
-                            class="highcharts-point highcharts-color-0 highcharts-node"
-                            fill="url(#highcharts-18)"
-                            height="40"
-                            href="data:image/svg+xml;base64,PHN2ZyBmaWxsPSJub25lIiB2aWV3Qm94PSIwIDAgNDUgNDQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxmaWx0ZXIgaWQ9ImEiIGNvbG9yLWludGVycG9sYXRpb24tZmlsdGVycz0ic1JHQiIgZmlsdGVyVW5pdHM9InVzZXJTcGFjZU9uVXNlIiBoZWlnaHQ9IjQzLjA2MTYiIHdpZHRoPSI0My44MzciIHg9Ii45OTQxNDEiIHk9Ii4yNDE2OTkiPjxmZUZsb29kIGZsb29kLW9wYWNpdHk9IjAiIHJlc3VsdD0iQmFja2dyb3VuZEltYWdlRml4Ii8+PGZlQ29sb3JNYXRyaXggaW49IlNvdXJjZUFscGhhIiByZXN1bHQ9ImhhcmRBbHBoYSIgdHlwZT0ibWF0cml4IiB2YWx1ZXM9IjAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDEyNyAwIi8+PGZlT2Zmc2V0IGR5PSIyIi8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iNiIvPjxmZUNvbG9yTWF0cml4IHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAuNzU1MTU1IDAgMCAwIDAgMC41MzQ4NzUgMCAwIDAgMCAwLjgyNSAwIDAgMCAwLjE2IDAiLz48ZmVCbGVuZCBpbjI9IkJhY2tncm91bmRJbWFnZUZpeCIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDFfZHJvcFNoYWRvdyIvPjxmZUNvbG9yTWF0cml4IGluPSJTb3VyY2VBbHBoYSIgcmVzdWx0PSJoYXJkQWxwaGEiIHR5cGU9Im1hdHJpeCIgdmFsdWVzPSIwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAwIDAgMCAxMjcgMCIvPjxmZU9mZnNldC8+PGZlR2F1c3NpYW5CbHVyIHN0ZERldmlhdGlvbj0iLjUiLz48ZmVDb2xvck1hdHJpeCB0eXBlPSJtYXRyaXgiIHZhbHVlcz0iMCAwIDAgMCAwLjYyMzUyOSAwIDAgMCAwIDAuMzAxOTYxIDAgMCAwIDAgMC43MjU0OSAwIDAgMCAwLjA0IDAiLz48ZmVCbGVuZCBpbjI9ImVmZmVjdDFfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9ImVmZmVjdDJfZHJvcFNoYWRvdyIvPjxmZUJsZW5kIGluPSJTb3VyY2VHcmFwaGljIiBpbjI9ImVmZmVjdDJfZHJvcFNoYWRvdyIgbW9kZT0ibm9ybWFsIiByZXN1bHQ9InNoYXBlIi8+PC9maWx0ZXI+PGxpbmVhckdyYWRpZW50IGlkPSJiIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjE2LjE5OCIgeDI9IjI2LjAwNjciIHkxPSI5Ljc2OTUzIiB5Mj0iMjkuNzA4NiI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjYmVhMWZmIi8+PHN0b3Agb2Zmc2V0PSIxIiBzdG9wLWNvbG9yPSIjOGEzNmZmIi8+PC9saW5lYXJHcmFkaWVudD48ZyBmaWx0ZXI9InVybCgjYSkiPjxwYXRoIGQ9Im0yMS43MzcgMTAuNjIzNmMuNzAxLS41MDkzIDEuNjUwMi0uNTA5MyAyLjM1MTIgMGw3LjkxODMgNS43NTNjLjcwMS41MDkzLjk5NDMgMS40MTIxLjcyNjYgMi4yMzYxbC0zLjAyNDYgOS4zMDg2Yy0uMjY3Ny44MjQtMS4wMzU2IDEuMzgyLTEuOTAyMSAxLjM4MmgtOS43ODc2Yy0uODY2NCAwLTEuNjM0NC0uNTU4LTEuOTAyMS0xLjM4MmwtMy4wMjQ1LTkuMzA4NmMtLjI2NzgtLjgyNC4wMjU1LTEuNzI2OC43MjY1LTIuMjM2MXoiIGZpbGw9InVybCgjYikiLz48L2c+PC9zdmc+"
-                            opacity="1"
-                            preserveAspectRatio="none"
-                            transform="translate(-20,-20)"
-                            width="40"
-                            x="293.4544660961315"
-                            y="286.51227727426124"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0 highcharts-node"
-                            d="M 293.10618214769306 296.3226503194771 A 7 7 0 1 1 293.1131821465264 296.32264681947737 Z"
-                            fill="url(#highcharts-19)"
-                            opacity="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0 highcharts-node"
-                            d="M 290.3957226064137 298.11598998827844 A 7 7 0 1 1 290.40272260524705 298.11598648827874 Z"
-                            fill="url(#highcharts-19)"
-                            opacity="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0 highcharts-node"
-                            d="M 287.4825954744877 297.13656838404086 A 7 7 0 1 1 287.48959547332106 297.13656488404115 Z"
-                            fill="url(#highcharts-19)"
-                            opacity="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0 highcharts-node"
-                            d="M 286.3615304873198 294.3038402929826 A 7 7 0 1 1 286.36853048615313 294.3038367929829 Z"
-                            fill="url(#highcharts-19)"
-                            opacity="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0 highcharts-node"
-                            d="M 287.84935694505316 291.5756419866933 A 7 7 0 1 1 287.8563569438865 291.5756384866936 Z"
-                            fill="url(#highcharts-19)"
-                            opacity="1"
-                          />
-                          <path
-                            class="highcharts-point highcharts-color-0 highcharts-node"
-                            d="M 291.2024992297023 291.143308335279 A 7 7 0 1 1 291.20949922853566 291.1433048352793 Z"
-                            fill="url(#highcharts-19)"
-                            opacity="1"
-                          />
-                        </g>
-                      </g>
-                      <text
-                        class="highcharts-title"
-                        data-z-index="4"
-                        style="color:#333333;font-size:18px;fill:#333333;"
-                        text-anchor="middle"
-                        x="300"
-                        y="24"
-                      />
-                      <text
-                        class="highcharts-subtitle"
-                        data-z-index="4"
-                        style="color:#666666;fill:#666666;"
-                        text-anchor="middle"
-                        x="300"
-                        y="10"
-                      />
-                      <text
-                        class="highcharts-caption"
-                        data-z-index="4"
-                        style="color:#666666;fill:#666666;"
-                        text-anchor="start"
-                        x="10"
-                        y="597"
-                      />
-                      <g
-                        class="highcharts-legend"
-                        data-z-index="7"
-                      >
-                        <rect
-                          class="highcharts-legend-box"
-                          fill="none"
-                          height="8"
-                          rx="0"
-                          ry="0"
-                          visibility="hidden"
-                          width="8"
-                          x="0"
-                          y="0"
-                        />
-                        <g
-                          data-z-index="1"
-                        >
-                          <g />
-                        </g>
-                      </g>
-                    </svg>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="StyledProps--font StyledProps--main StyledProps--padding-top-xsmall StyledProps--padding-right-medium StyledProps--padding-bottom-medium StyledProps--padding-left-medium"
-              >
-                <div
-                  class="Layout--vertical Layout--layout-spacing-small StyledProps--main"
-                >
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main graphLabel direct"
-                      >
-                        pipeline.testsReports.directCall
-                      </p>
-                      <p
-                        class="StyledProps--font StyledProps--main graphLabel indirect"
-                      >
-                        pipeline.testsReports.indirectCall
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    class="StyledProps--font StyledProps--main"
-                  >
-                    <div
-                      class="Layout--horizontal Layout--layout-spacing-small StyledProps--main"
-                    >
-                      <p
-                        class="StyledProps--font StyledProps--main graphLabel changed"
-                      >
-                        pipeline.testsReports.codeChanges
-                      </p>
-                      <p
-                        class="StyledProps--font StyledProps--main graphLabel unchanged"
-                      >
-                        pipeline.testsReports.unchangedMethods
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
@@ -75240,7 +74870,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -77548,7 +77178,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -77681,7 +77311,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -77814,7 +77444,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -77947,7 +77577,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -78080,7 +77710,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -78213,7 +77843,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -78346,7 +77976,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -78479,7 +78109,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -78612,7 +78242,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -78745,7 +78375,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -78878,7 +78508,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -79011,7 +78641,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -79144,7 +78774,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -79277,7 +78907,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading  StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -79587,8 +79217,8 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
               class="Layout--vertical Layout--layout-spacing-small StyledProps--main callgraphBody"
             >
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main graphTitle StyledProps--color StyledProps--color-grey400 StyledProps--padding-medium StyledProps--font-size-small"
-                style="--text-line-clamp: 1;"
+                class="StyledProps--font StyledProps--main graphTitle StyledProps--color StyledProps--color-grey400 StyledProps--padding-medium StyledProps--font-size-small"
+                style="white-space: nowrap; text-overflow: ellipsis; overflow: hidden; width: 360px;"
               >
                 io.harness.service.ContinuousVerificationServiceTest
               </p>
@@ -79710,7 +79340,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                             d="M 293.4544660961315 286.51227727426124 L 293.10618214769306 289.3226503194771 L 293.96709243592346 282.3757925063634 L 291.48181639500643 278.03719791819964 L 293.96709243592346 282.3757925063634 L 297.43626594910387 278.7751210223972"
                             fill="none"
                             opacity="1"
-                            stroke="#3DC7F6"
+                            stroke="#D9DAE6"
                             stroke-width="1"
                           />
                           <path
@@ -79718,7 +79348,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                             d="M 293.4544660961315 286.51227727426124 L 290.3957226064137 291.11598998827844 L 294.26950217649244 285.28556703257095 L 293.9843378069485 280.29370552784724 L 294.26950217649244 285.28556703257095 L 298.9818431975549 283.6140880164861"
                             fill="none"
                             opacity="1"
-                            stroke="#3DC7F6"
+                            stroke="#D9DAE6"
                             stroke-width="1"
                           />
                           <path
@@ -79726,7 +79356,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                             d="M 293.4544660961315 286.51227727426124 L 287.4825954744877 290.13656838404086 L 293.466769212206 286.5048105896935 L 295.3298294361818 281.86487453390146 L 293.466769212206 286.5048105896935 L 298.4427646884796 286.99416630908854"
                             fill="none"
                             opacity="1"
-                            stroke="#3DC7F6"
+                            stroke="#D9DAE6"
                             stroke-dasharray="4,3"
                             stroke-width="1"
                           />
@@ -79735,7 +79365,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                             d="M 293.4544660961315 286.51227727426124 L 286.3615304873198 287.3038402929826 L 293.318343455737 286.5274683959758 L 296.96093433897255 283.1023360397931 L 293.318343455737 286.5274683959758 L 297.62639596497837 289.0653185841507"
                             fill="none"
                             opacity="1"
-                            stroke="#3DC7F6"
+                            stroke="#D9DAE6"
                             stroke-dasharray="4,3"
                             stroke-width="1"
                           />
@@ -79744,7 +79374,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                             d="M 293.4544660961315 286.51227727426124 L 287.84935694505316 284.5756419866933 L 294.46557003151497 286.8616263249012 L 297.2665556502612 291.0034229837893 L 294.46557003151497 286.8616263249012 L 299.2259707972965 285.3323831953935"
                             fill="none"
                             opacity="1"
-                            stroke="#3DC7F6"
+                            stroke="#D9DAE6"
                             stroke-dasharray="4,3"
                             stroke-width="1"
                           />
@@ -79753,7 +79383,7 @@ exports[`BuildTests snapshot test should render TI+Reports UI 1`] = `
                             d="M 293.4544660961315 286.51227727426124 L 291.2024992297023 284.143308335279 L 296.02537338590616 289.21675734689046 L 296.60696618447486 294.1828171347558 L 296.02537338590616 289.21675734689046 L 300.9556367658561 290.04892500086675"
                             fill="none"
                             opacity="1"
-                            stroke="#3DC7F6"
+                            stroke="#D9DAE6"
                             stroke-dasharray="4,3"
                             stroke-width="1"
                           />

@@ -58,4 +58,4 @@ export const isExecutionComplete = (status: string) => {
 
 export const CALL_GRAPH_WIDTH = 360
 export const CALL_GRAPH_HEIGHT = 360
-export const CALL_GRAPH_API_LIMIT = 200
+export const CALL_GRAPH_API_LIMIT = 75

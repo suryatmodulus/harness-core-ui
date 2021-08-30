@@ -242,7 +242,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium" ref={containerRef}>
       <Container flex className={css.headingContainer}>
         <Text
-          className={cx(css.testSuiteHeading, css.main)}
+          className={cx(css.testSuiteHeading, css.main, !onShowCallGraphForClass && css.splitScreenWithOverview)}
           color={Color.GREY_500}
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >

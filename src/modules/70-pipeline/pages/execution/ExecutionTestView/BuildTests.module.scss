@@ -342,6 +342,7 @@
   }
 
   .headingContainer {
+    max-width: 964px;
     margin-left: -15px !important;
     padding-left: 15px !important;
     margin-right: -15px !important;
@@ -358,6 +359,9 @@
         display: inline-block;
         padding-left: var(--spacing-xxsmall);
       }
+    }
+    &.splitScreenWithOverview {
+      max-width: 535px;
     }
     span {
       color: var(--black);

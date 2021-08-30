@@ -35620,7 +35620,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -37928,7 +37928,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38061,7 +38061,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38194,7 +38194,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38327,7 +38327,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38460,7 +38460,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38593,7 +38593,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38726,7 +38726,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38859,7 +38859,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -38992,7 +38992,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39125,7 +39125,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39258,7 +39258,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39391,7 +39391,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39524,7 +39524,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button
@@ -39657,7 +39657,7 @@ exports[`BuildTests snapshot test should render Reports UI 1`] = `
                   class="StyledProps--font StyledProps--main headingContainer StyledProps--flex"
                 >
                   <p
-                    class="StyledProps--font StyledProps--main testSuiteHeading main StyledProps--color StyledProps--color-grey500"
+                    class="StyledProps--font StyledProps--main testSuiteHeading main splitScreenWithOverview StyledProps--color StyledProps--color-grey500"
                     style="flex-grow: 1; text-align: left; justify-content: flex-start;"
                   >
                     <button

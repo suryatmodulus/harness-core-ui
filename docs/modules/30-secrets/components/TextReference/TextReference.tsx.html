@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.2% </span>
+                <span class="strong">90.57% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>46/51</span>
+                <span class='fraction'>48/53</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.2% </span>
+                <span class="strong">90.57% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>46/51</span>
+                <span class='fraction'>48/53</span>
             </div>
         
             
@@ -220,18 +220,14 @@
 <a name='L161'></a><a href='#L161'>161</a>
 <a name='L162'></a><a href='#L162'>162</a>
 <a name='L163'></a><a href='#L163'>163</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">137x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
@@ -244,6 +240,7 @@
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-yes">137x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -348,6 +345,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -382,20 +382,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">137x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect } from 'react'
-&nbsp;
-import { get, isPlainObject } from 'lodash-es'
-import { FormGroup, Intent } from '@blueprintjs/core'
-import {
-  FormInput,
-  Layout,
-  Container,
-  FormikTooltipContext,
-  HarnessDocTooltip,
-  DataTooltipInterface
-} from '@wings-software/uicore'
-import { FormikContext, connect } from 'formik'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
+import { get, isPlainObject } from 'lodash-es'
+import { FormikContext, connect } from 'formik'
+import { Classes, FormGroup, Intent } from '@blueprintjs/core'
+import { FormInput, Layout, Container, FormikTooltipContext, DataTooltipInterface } from '@wings-software/uicore'
+import type { StringsMap } from 'stringTypes'
+&nbsp;
 import { useStrings } from 'framework/strings'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { useToaster } from '@common/exports'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -419,6 +415,7 @@ interface TextReferenceProps {
   type?: string
   allowSelection?: boolean
   privateSecret?: boolean
+  stringId: keyof StringsMap
 }
 &nbsp;
 interface FormikTextReference extends TextReferenceProps {
@@ -499,9 +496,12 @@ const TextReference: React.FC&lt;FormikTextReference&gt; = props =&gt; {
   return (
     &lt;FormGroup helperText={hasError ? get(formik<span class="branch-0 cbranch-no" title="branch not covered" >?.e</span>rrors, name) : null} intent={hasError ? Intent.DANGER : Intent.NONE}&gt;
       &lt;Layout.Vertical className={props.className}&gt;
-        &lt;div className={css.label} data-tooltip-id={dataTooltipId}&gt;
-          &lt;HarnessDocTooltip tooltipId={dataTooltipId} useStandAlone={true} /&gt;
-          &lt;label&gt;{props.label}&lt;/label&gt;
+        &lt;div className={css.label}&gt;
+          &lt;StringWithTooltip
+            tooltipId={dataTooltipId}
+            stringId={props.stringId}
+            className={cx(Classes.LABEL, css.stringWithTooltipLabel)}
+          /&gt;
           &lt;FormInput.Select
             name={`${name}fieldType`}
             items={[
@@ -550,7 +550,7 @@ export default connect&lt;Omit&lt;FormikTextReference, 'formik'&gt;&gt;(TextRefe
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 08:17:04 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 30 2021 10:08:48 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

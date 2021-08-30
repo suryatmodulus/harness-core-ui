@@ -151,14 +151,14 @@ exports[`test cases for Workload details Page should be able to render the detai
             ce.perspectives.workloadDetails.workloadDetailsText
           </p>
           <div
-            class="StyledProps--font StyledProps--main"
+            class="Layout--horizontal StyledProps--main"
           >
             <div>
               <div
                 class="Layout--horizontal StyledProps--main keyValueTable"
               >
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main key"
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
                   style="--text-line-clamp: 1; width: 132px;"
                 >
                   <span>
@@ -166,7 +166,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                   </span>
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main value"
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                   style="--text-line-clamp: 1; width: 160px;"
                 >
                   aks-cd-ddbksb
@@ -176,7 +176,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                 class="Layout--horizontal StyledProps--main keyValueTable"
               >
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main key"
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
                   style="--text-line-clamp: 1; width: 132px;"
                 >
                   <span>
@@ -184,7 +184,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                   </span>
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main value"
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                   style="--text-line-clamp: 1; width: 160px;"
                 >
                   harness-delegate
@@ -194,7 +194,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                 class="Layout--horizontal StyledProps--main keyValueTable"
               >
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main key"
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
                   style="--text-line-clamp: 1; width: 132px;"
                 >
                   <span>
@@ -202,7 +202,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                   </span>
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main value"
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                   style="--text-line-clamp: 1; width: 160px;"
                 >
                   StatefulSet
@@ -212,7 +212,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                 class="Layout--horizontal StyledProps--main keyValueTable"
               >
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main key"
+                  class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
                   style="--text-line-clamp: 1; width: 132px;"
                 >
                   <span>
@@ -220,7 +220,7 @@ exports[`test cases for Workload details Page should be able to render the detai
                   </span>
                 </p>
                 <p
-                  class="StyledProps--font Text--lineclamp StyledProps--main value"
+                  class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                   style="--text-line-clamp: 1; width: 160px;"
                 >
                   ce-test-dontdelete
@@ -244,13 +244,13 @@ exports[`test cases for Workload details Page should be able to render the detai
               class="Layout--horizontal StyledProps--main keyValueTable"
             >
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main key"
+                class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
                 style="--text-line-clamp: 1; width: 132px;"
               >
                 Total Cost
               </p>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main value"
+                class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                 style="--text-line-clamp: 1; width: 160px;"
               >
                 $3.12
@@ -260,13 +260,13 @@ exports[`test cases for Workload details Page should be able to render the detai
               class="Layout--horizontal StyledProps--main keyValueTable"
             >
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main key"
+                class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
                 style="--text-line-clamp: 1; width: 132px;"
               >
                 Idle Cost
               </p>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main value"
+                class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                 style="--text-line-clamp: 1; width: 160px;"
               >
                 $2.09 (66.99% of total)
@@ -276,13 +276,13 @@ exports[`test cases for Workload details Page should be able to render the detai
               class="Layout--horizontal StyledProps--main keyValueTable"
             >
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main key"
+                class="StyledProps--font Text--lineclamp StyledProps--main key StyledProps--color StyledProps--color-grey400"
                 style="--text-line-clamp: 1; width: 132px;"
               >
                 Utilized Cost
               </p>
               <p
-                class="StyledProps--font Text--lineclamp StyledProps--main value"
+                class="StyledProps--font Text--lineclamp StyledProps--main value StyledProps--color StyledProps--color-primary9"
                 style="--text-line-clamp: 1; width: 160px;"
               >
                 $1.03 (33.01% of total)

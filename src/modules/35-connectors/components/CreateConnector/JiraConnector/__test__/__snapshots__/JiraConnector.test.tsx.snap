@@ -641,11 +641,13 @@ exports[`Create Jira Connector  Wizard Should render form 2`] = `
                     >
                       <div
                         class="label"
-                        data-tooltip-id="jiraDetailsForm_username"
                       >
-                        <label>
+                        <span
+                          class="align bp3-label stringWithTooltipLabel"
+                          data-tooltip-id="jiraDetailsForm_username"
+                        >
                           username
-                        </label>
+                        </span>
                         <div
                           class="bp3-form-group labelSelect"
                           data-id="usernamefieldType-2"

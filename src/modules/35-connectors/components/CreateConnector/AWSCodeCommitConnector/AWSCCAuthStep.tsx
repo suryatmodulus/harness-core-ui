@@ -124,7 +124,7 @@ export default function AWSCCAuthStep(props: AWSCCAuthStepProps) {
             <Text margin={{ top: 'medium', bottom: 'medium' }}>{getString('authentication')}</Text>
             <TextReference
               name="accessKey"
-              label={getString('connectors.aws.accessKey')}
+              stringId="connectors.aws.accessKey"
               type={(formikPros.values as any)?.accessKey?.type}
             />
             <SecretInput name="secretKey" label={getString('connectors.aws.secretKey')} />

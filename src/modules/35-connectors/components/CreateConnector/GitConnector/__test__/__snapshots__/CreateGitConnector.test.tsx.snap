@@ -1891,11 +1891,13 @@ exports[`Create Git connector Wizard should be able to edit form for http and au
                     >
                       <div
                         class="label"
-                        data-tooltip-id="stepGitAuthForm_username"
                       >
-                        <label>
+                        <span
+                          class="align bp3-label stringWithTooltipLabel"
+                          data-tooltip-id="stepGitAuthForm_username"
+                        >
                           username
-                        </label>
+                        </span>
                         <div
                           class="bp3-form-group labelSelect"
                           data-id="usernamefieldType-1"

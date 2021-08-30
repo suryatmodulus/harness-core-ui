@@ -199,11 +199,13 @@ exports[`Stepk8ClusterDetails render  1`] = `
                   >
                     <div
                       class="label"
-                      data-tooltip-id="k8ClusterForm_username"
                     >
-                      <label>
+                      <span
+                        class="align bp3-label stringWithTooltipLabel"
+                        data-tooltip-id="k8ClusterForm_username"
+                      >
                         username
-                      </label>
+                      </span>
                       <div
                         class="bp3-form-group labelSelect"
                         data-id="usernamefieldType-3"
@@ -645,11 +647,13 @@ exports[`Stepk8ClusterDetails render  2`] = `
                   >
                     <div
                       class="label"
-                      data-tooltip-id="k8ClusterForm_username"
                     >
-                      <label>
+                      <span
+                        class="align bp3-label stringWithTooltipLabel"
+                        data-tooltip-id="k8ClusterForm_username"
+                      >
                         username
-                      </label>
+                      </span>
                       <div
                         class="bp3-form-group labelSelect"
                         data-id="usernamefieldType-3"
@@ -1101,11 +1105,13 @@ exports[`Stepk8ClusterDetails render  3`] = `
                   >
                     <div
                       class="label"
-                      data-tooltip-id="k8ClusterForm_username"
                     >
-                      <label>
+                      <span
+                        class="align bp3-label stringWithTooltipLabel"
+                        data-tooltip-id="k8ClusterForm_username"
+                      >
                         username
-                      </label>
+                      </span>
                       <div
                         class="bp3-form-group labelSelect"
                         data-id="usernamefieldType-3"
@@ -1527,11 +1533,13 @@ exports[`Stepk8ClusterDetails render edit mode  1`] = `
                   >
                     <div
                       class="label"
-                      data-tooltip-id="k8ClusterForm_username"
                     >
-                      <label>
+                      <span
+                        class="align bp3-label stringWithTooltipLabel"
+                        data-tooltip-id="k8ClusterForm_username"
+                      >
                         username
-                      </label>
+                      </span>
                       <div
                         class="bp3-form-group labelSelect"
                         data-id="usernamefieldType-3"
@@ -2622,11 +2630,13 @@ exports[`Stepk8ClusterDetails render edit mode oidc update 1`] = `
                     >
                       <div
                         class="label"
-                        data-tooltip-id="k8ClusterForm_oidcUsername"
                       >
-                        <label>
+                        <span
+                          class="align bp3-label stringWithTooltipLabel"
+                          data-tooltip-id="k8ClusterForm_oidcUsername"
+                        >
                           connectors.k8.OIDCUsername
-                        </label>
+                        </span>
                         <div
                           class="bp3-form-group labelSelect"
                           data-id="oidcUsernamefieldType-4"

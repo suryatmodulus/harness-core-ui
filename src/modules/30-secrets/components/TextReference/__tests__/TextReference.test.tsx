@@ -18,7 +18,7 @@ describe('Text Reference', () => {
           {() => {
             return (
               <FormikForm>
-                <TextReference name="username" />
+                <TextReference name="username" stringId="username" />
               </FormikForm>
             )
           }}
@@ -44,7 +44,7 @@ describe('Text Reference', () => {
           {() => {
             return (
               <FormikForm>
-                <TextReference name="username" />
+                <TextReference name="username" stringId="username" />
               </FormikForm>
             )
           }}
@@ -70,7 +70,7 @@ describe('Text Reference', () => {
           {() => {
             return (
               <FormikForm>
-                <TextReference name="username" />
+                <TextReference name="username" stringId="username" />
               </FormikForm>
             )
           }}

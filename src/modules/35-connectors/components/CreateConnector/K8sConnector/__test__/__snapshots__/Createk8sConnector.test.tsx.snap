@@ -708,11 +708,13 @@ exports[`Create k8 connector Wizard should form for authtype username 2`] = `
                       >
                         <div
                           class="label"
-                          data-tooltip-id="k8ClusterForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="k8ClusterForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-3"
@@ -1311,11 +1313,13 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                         >
                           <div
                             class="label"
-                            data-tooltip-id="k8ClusterForm_oidcUsername"
                           >
-                            <label>
+                            <span
+                              class="align bp3-label stringWithTooltipLabel"
+                              data-tooltip-id="k8ClusterForm_oidcUsername"
+                            >
                               connectors.k8.OIDCUsername
-                            </label>
+                            </span>
                             <div
                               class="bp3-form-group labelSelect"
                               data-id="oidcUsernamefieldType-4"
@@ -3009,11 +3013,13 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                       >
                         <div
                           class="label"
-                          data-tooltip-id="k8ClusterForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="k8ClusterForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-3"

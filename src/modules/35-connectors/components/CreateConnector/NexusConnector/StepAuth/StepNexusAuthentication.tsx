@@ -164,7 +164,7 @@ const StepNexusAuthentication: React.FC<StepProps<StepNexusAuthenticationProps> 
                 <Container className={css.formWrapper}>
                   <TextReference
                     name="username"
-                    label={getString('username')}
+                    stringId="username"
                     type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
                   />
                   <SecretInput name={'password'} label={getString('password')} />

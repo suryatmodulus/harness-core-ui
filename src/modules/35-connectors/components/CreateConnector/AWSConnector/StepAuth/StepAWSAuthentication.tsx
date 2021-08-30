@@ -117,7 +117,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps> & Co
                   </Text>
                   <TextReference
                     name="accessKey"
-                    label={getString('connectors.aws.accessKey')}
+                    stringId="connectors.aws.accessKey"
                     type={formikProps.values.accessKey ? formikProps.values.accessKey?.type : ValueType.TEXT}
                   />
 

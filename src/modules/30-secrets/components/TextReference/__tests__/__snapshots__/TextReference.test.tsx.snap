@@ -21,9 +21,13 @@ exports[`Text Reference render create mode 1`] = `
             >
               <div
                 class="label"
-                data-tooltip-id="testWrapper_username"
               >
-                <label />
+                <span
+                  class="align bp3-label stringWithTooltipLabel"
+                  data-tooltip-id="testWrapper_username"
+                >
+                  username
+                </span>
                 <div
                   class="bp3-form-group labelSelect"
                   data-id="usernamefieldType-1"
@@ -127,9 +131,13 @@ exports[`Text Reference render edit mode with encrypted value 1`] = `
             >
               <div
                 class="label"
-                data-tooltip-id="testWrapper_username"
               >
-                <label />
+                <span
+                  class="align bp3-label stringWithTooltipLabel"
+                  data-tooltip-id="testWrapper_username"
+                >
+                  username
+                </span>
                 <div
                   class="bp3-form-group labelSelect"
                   data-id="usernamefieldType-1"
@@ -233,9 +241,13 @@ exports[`Text Reference render edit mode with text value 1`] = `
             >
               <div
                 class="label"
-                data-tooltip-id="testWrapper_username"
               >
-                <label />
+                <span
+                  class="align bp3-label stringWithTooltipLabel"
+                  data-tooltip-id="testWrapper_username"
+                >
+                  username
+                </span>
                 <div
                   class="bp3-form-group labelSelect"
                   data-id="usernamefieldType-1"

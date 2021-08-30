@@ -32,7 +32,7 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
           <>
             <TextReference
               name="username"
-              label={getString('username')}
+              stringId="username"
               type={formikProps.values.username ? formikProps.values.username.type : ValueType.TEXT}
               allowSelection={allowSelection}
               privateSecret={privateSecret}
@@ -49,7 +49,7 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
           <>
             <TextReference
               name="username"
-              label={getString('username')}
+              stringId="username"
               type={formikProps.values.username ? formikProps.values.username.type : ValueType.TEXT}
               allowSelection={allowSelection}
               privateSecret={privateSecret}
@@ -72,7 +72,7 @@ const Authentication: React.FC<AuthenticationData> = ({ formikProps, authOptions
           <>
             <TextReference
               name="accessKey"
-              label={getString('common.accessKey')}
+              stringId="common.accessKey"
               type={formikProps.values.authType || ValueType.TEXT}
               allowSelection={allowSelection}
               privateSecret={privateSecret}

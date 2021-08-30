@@ -71,7 +71,7 @@ const RenderBitbucketAuthForm: React.FC<FormikProps<BitbucketFormInterface>> = p
     <>
       <TextReference
         name="username"
-        label={getString('username')}
+        stringId="username"
         type={props.values.username ? props.values.username?.type : ValueType.TEXT}
       />
       <SecretInput name="password" label={getString('password')} />
@@ -99,7 +99,7 @@ const RenderAPIAccessFormWrapper: React.FC<FormikProps<BitbucketFormInterface>> 
       </Container>
       <TextReference
         name="apiAccessUsername"
-        label={getString('username')}
+        stringId="username"
         type={props.values.apiAccessUsername ? props.values.apiAccessUsername?.type : ValueType.TEXT}
       />
       <SecretInput name="accessToken" label={getString('personalAccessToken')} />

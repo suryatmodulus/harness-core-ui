@@ -22,7 +22,7 @@ import routes from '@common/RouteDefinitions'
 import { useStrings } from 'framework/strings'
 import type { StringKeys } from 'framework/strings'
 import { TagsViewer } from '@common/components/TagsViewer/TagsViewer'
-import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import {
   DeleteFeatureFlagQueryParams,
   Feature,

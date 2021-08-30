@@ -2546,11 +2546,13 @@ exports[`Create Bitbucketconnector Wizard should be able to edit  usernamePasswo
                       >
                         <div
                           class="label"
-                          data-tooltip-id="bitbAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="bitbAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-2"
@@ -3098,11 +3100,13 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       >
                         <div
                           class="label"
-                          data-tooltip-id="bitbAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="bitbAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-2"
@@ -3386,11 +3390,13 @@ exports[`Create Bitbucketconnector Wizard should form for edit http and authtype
                       >
                         <div
                           class="label"
-                          data-tooltip-id="bitbAuthForm_apiAccessUsername"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="bitbAuthForm_apiAccessUsername"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="apiAccessUsernamefieldType-8"

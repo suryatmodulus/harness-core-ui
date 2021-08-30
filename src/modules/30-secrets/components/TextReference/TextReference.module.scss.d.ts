@@ -5,5 +5,6 @@ declare const styles: {
   readonly labelSelect: string
   readonly textCss: string
   readonly secretField: string
+  readonly stringWithTooltipLabel: string
 }
 export default styles

@@ -3,7 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TooltipContextProvider } from '@wings-software/uicore'
 import { TestWrapper } from '@common/utils/testUtils'
-import StringWithTooltip, { StringWithTooltipProps } from '@cf/components/StringWithTooltip/StringWithTooltip'
+import StringWithTooltip, { StringWithTooltipProps } from '@common/components/StringWithTooltip/StringWithTooltip'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const renderComponent = (

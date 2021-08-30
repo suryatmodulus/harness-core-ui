@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react'
-
-import { get, isPlainObject } from 'lodash-es'
-import { FormGroup, Intent } from '@blueprintjs/core'
-import {
-  FormInput,
-  Layout,
-  Container,
-  FormikTooltipContext,
-  HarnessDocTooltip,
-  DataTooltipInterface
-} from '@wings-software/uicore'
-import { FormikContext, connect } from 'formik'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
+import { get, isPlainObject } from 'lodash-es'
+import { FormikContext, connect } from 'formik'
+import { Classes, FormGroup, Intent } from '@blueprintjs/core'
+import { FormInput, Layout, Container, FormikTooltipContext, DataTooltipInterface } from '@wings-software/uicore'
+import type { StringsMap } from 'stringTypes'
+
 import { useStrings } from 'framework/strings'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { useToaster } from '@common/exports'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
@@ -36,6 +32,7 @@ interface TextReferenceProps {
   type?: string
   allowSelection?: boolean
   privateSecret?: boolean
+  stringId: keyof StringsMap
 }
 
 interface FormikTextReference extends TextReferenceProps {
@@ -116,9 +113,12 @@ const TextReference: React.FC<FormikTextReference> = props => {
   return (
     <FormGroup helperText={hasError ? get(formik?.errors, name) : null} intent={hasError ? Intent.DANGER : Intent.NONE}>
       <Layout.Vertical className={props.className}>
-        <div className={css.label} data-tooltip-id={dataTooltipId}>
-          <HarnessDocTooltip tooltipId={dataTooltipId} useStandAlone={true} />
-          <label>{props.label}</label>
+        <div className={css.label}>
+          <StringWithTooltip
+            tooltipId={dataTooltipId}
+            stringId={props.stringId}
+            className={cx(Classes.LABEL, css.stringWithTooltipLabel)}
+          />
           <FormInput.Select
             name={`${name}fieldType`}
             items={[

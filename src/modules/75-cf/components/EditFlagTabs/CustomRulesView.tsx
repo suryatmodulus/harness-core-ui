@@ -42,7 +42,7 @@ import {
   // useGetTargetsAndSegments
 } from 'services/cf'
 import { useStrings } from 'framework/strings'
-import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { unescapeI18nSupportedTags, useBucketByItems } from '@cf/utils/CFUtils'
 import { extraOperators, extraOperatorReference, useOperatorsFromYaml, CFVariationColors } from '@cf/constants'
 import { useTargetAttributes } from '@cf/hooks/useTargetAttributes'

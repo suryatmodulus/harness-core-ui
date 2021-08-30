@@ -627,11 +627,13 @@ exports[`Create Helm Connector  Wizard Should render form 2`] = `
                     >
                       <div
                         class="label"
-                        data-tooltip-id="helmRepoAuthForm_username"
                       >
-                        <label>
+                        <span
+                          class="align bp3-label stringWithTooltipLabel"
+                          data-tooltip-id="helmRepoAuthForm_username"
+                        >
                           username
-                        </label>
+                        </span>
                         <div
                           class="bp3-form-group labelSelect"
                           data-id="usernamefieldType-3"

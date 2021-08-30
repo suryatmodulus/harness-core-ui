@@ -945,11 +945,13 @@ exports[`Create AWS connector Wizard Should render form 2`] = `
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepAwsAuthForm_accessKey"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepAwsAuthForm_accessKey"
+                          >
                             connectors.aws.accessKey
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="accessKeyfieldType-2"
@@ -1766,11 +1768,13 @@ exports[`Create AWS connector Wizard Should render form for edit  2`] = `
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepAwsAuthForm_accessKey"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepAwsAuthForm_accessKey"
+                          >
                             connectors.aws.accessKey
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="accessKeyfieldType-2"

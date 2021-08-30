@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Container, FormInput, Layout, SelectOption, Text } from '@wings-software/uicore'
 import cx from 'classnames'
-import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import { useStrings } from 'framework/strings'
 import type { Distribution, Variation, WeightedVariation } from 'services/cf'
 import { CFVariationColors } from '@cf/constants'

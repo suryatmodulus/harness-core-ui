@@ -48,7 +48,7 @@ const RenderGitAuthForm: React.FC<FormikProps<GitFormInterface>> = props => {
     <>
       <TextReference
         name="username"
-        label={getString('username')}
+        stringId="username"
         type={props.values.username ? props.values.username?.type : ValueType.TEXT}
       />
       <SecretInput name="password" label={getString('password')} />

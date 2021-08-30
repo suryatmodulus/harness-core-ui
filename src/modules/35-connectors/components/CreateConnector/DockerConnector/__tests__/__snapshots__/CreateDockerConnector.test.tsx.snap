@@ -742,11 +742,13 @@ exports[`Create Docker Connector  Wizard Should render form 2`] = `
                     >
                       <div
                         class="label"
-                        data-tooltip-id="dockerAuthForm_username"
                       >
-                        <label>
+                        <span
+                          class="align bp3-label stringWithTooltipLabel"
+                          data-tooltip-id="dockerAuthForm_username"
+                        >
                           username
-                        </label>
+                        </span>
                         <div
                           class="bp3-form-group labelSelect"
                           data-id="usernamefieldType-4"
@@ -1658,11 +1660,13 @@ exports[`Create Docker Connector  Wizard Should render form for editing provider
                     >
                       <div
                         class="label"
-                        data-tooltip-id="dockerAuthForm_username"
                       >
-                        <label>
+                        <span
+                          class="align bp3-label stringWithTooltipLabel"
+                          data-tooltip-id="dockerAuthForm_username"
+                        >
                           username
-                        </label>
+                        </span>
                         <div
                           class="bp3-form-group labelSelect"
                           data-id="usernamefieldType-4"

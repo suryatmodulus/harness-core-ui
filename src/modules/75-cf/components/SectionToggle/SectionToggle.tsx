@@ -5,7 +5,7 @@ import type { StringKeys } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import routes from '@common/RouteDefinitions'
 import { useQueryParams } from '@common/hooks'
-import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import css from './SectionToggle.module.scss'
 
 const SectionToggle = (): ReactElement => {

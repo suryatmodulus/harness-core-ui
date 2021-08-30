@@ -109,7 +109,7 @@ const JiraDetailsForm: React.FC<StepProps<JiraFormProps> & AuthenticationProps> 
               <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} className={css.secondStep} width={'56%'}>
                 <FormInput.Text name="jiraUrl" placeholder={getString('UrlLabel')} label={getString('UrlLabel')} />
 
-                <TextReference name="username" label={getString('username')} type={formik.values?.usernamefieldType} />
+                <TextReference name="username" stringId="username" type={formik.values?.usernamefieldType} />
                 <SecretInput name={'passwordRef'} label={getString('connectors.apiKey')} />
               </Layout.Vertical>
 

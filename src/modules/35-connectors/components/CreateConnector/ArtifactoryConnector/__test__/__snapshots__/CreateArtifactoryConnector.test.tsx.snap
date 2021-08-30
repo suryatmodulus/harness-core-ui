@@ -271,11 +271,13 @@ exports[`Create Artifactory connector Wizard Should be able to edit connector 1`
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepArtifactoryAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepArtifactoryAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-3"
@@ -1212,11 +1214,13 @@ exports[`Create Artifactory connector Wizard Should render form 2`] = `
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepArtifactoryAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepArtifactoryAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-3"

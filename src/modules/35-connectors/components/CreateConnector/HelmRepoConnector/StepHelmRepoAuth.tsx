@@ -161,7 +161,7 @@ const StepHelmAuthentication: React.FC<StepProps<StepHelmRepoAuthenticationProps
                 <>
                   <TextReference
                     name="username"
-                    label={getString('username')}
+                    stringId="username"
                     type={formikProps.values.username ? formikProps.values.username?.type : ValueType.TEXT}
                   />
                   <SecretInput name={'password'} label={getString('password')} />

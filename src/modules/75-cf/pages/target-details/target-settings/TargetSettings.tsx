@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Tab, Tabs, Text } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
-import StringWithTooltip from '@cf/components/StringWithTooltip/StringWithTooltip'
+import StringWithTooltip from '@common/components/StringWithTooltip/StringWithTooltip'
 import type { Target } from 'services/cf'
 import { DetailHeading } from '../DetailHeading'
 import { TabAttributes } from '../attributes/TabAtrributes'

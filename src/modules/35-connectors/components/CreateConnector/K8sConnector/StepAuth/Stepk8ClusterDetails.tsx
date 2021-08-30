@@ -119,7 +119,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
         <Container width={'42%'}>
           <TextReference
             name="username"
-            label={getString('username')}
+            stringId="username"
             type={props.values.username ? props.values.username?.type : ValueType.TEXT}
           />
           <SecretInput name={'password'} label={getString('password')} />
@@ -143,7 +143,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface> & { isEditMode: 
             <Container width={'42%'}>
               <TextReference
                 name="oidcUsername"
-                label={getString('connectors.k8.OIDCUsername')}
+                stringId="connectors.k8.OIDCUsername"
                 type={props.values.oidcUsername ? props.values.oidcUsername.type : ValueType.TEXT}
               />
 

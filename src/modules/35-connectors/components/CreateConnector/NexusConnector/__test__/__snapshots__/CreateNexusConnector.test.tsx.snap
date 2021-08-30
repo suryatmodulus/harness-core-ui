@@ -797,11 +797,13 @@ exports[`Create Nexus connector Wizard Should render form 2`] = `
                       >
                         <div
                           class="label"
-                          data-tooltip-id="nexusAuth_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="nexusAuth_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-4"
@@ -1739,11 +1741,13 @@ exports[`Create Nexus connector Wizard Should render form for edit  2`] = `
                       >
                         <div
                           class="label"
-                          data-tooltip-id="nexusAuth_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="nexusAuth_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-4"

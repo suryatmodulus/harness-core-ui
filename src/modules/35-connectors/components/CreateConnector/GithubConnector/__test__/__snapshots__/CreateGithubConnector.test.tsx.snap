@@ -2881,11 +2881,13 @@ exports[`Create Github connector Wizard should edit form for  http and authtype 
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepGithubAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepGithubAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-2"
@@ -3436,11 +3438,13 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepGithubAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepGithubAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-2"
@@ -4163,11 +4167,13 @@ exports[`Create Github connector Wizard should form for edit http and authtype u
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepGithubAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepGithubAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-2"
@@ -4890,11 +4896,13 @@ exports[`Create Github connector Wizard should render form for edit http and aut
                       >
                         <div
                           class="label"
-                          data-tooltip-id="stepGithubAuthForm_username"
                         >
-                          <label>
+                          <span
+                            class="align bp3-label stringWithTooltipLabel"
+                            data-tooltip-id="stepGithubAuthForm_username"
+                          >
                             username
-                          </label>
+                          </span>
                           <div
                             class="bp3-form-group labelSelect"
                             data-id="usernamefieldType-2"

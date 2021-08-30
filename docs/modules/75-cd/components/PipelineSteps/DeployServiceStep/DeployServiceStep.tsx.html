@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.16% </span>
+                <span class="strong">81.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>168/207</span>
+                <span class='fraction'>167/204</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.38% </span>
+                <span class="strong">58.67% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>230/394</span>
+                <span class='fraction'>230/392</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.09% </span>
+                <span class="strong">73.17% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>31/43</span>
+                <span class='fraction'>30/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.09% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>163/201</span>
+                <span class='fraction'>162/198</span>
             </div>
         
             
@@ -756,8 +756,11 @@
 <a name='L697'></a><a href='#L697'>697</a>
 <a name='L698'></a><a href='#L698'>698</a>
 <a name='L699'></a><a href='#L699'>699</a>
-<a name='L700'></a><a href='#L700'>700</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L700'></a><a href='#L700'>700</a>
+<a name='L701'></a><a href='#L701'>701</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
 <span class="cline-any cline-yes">18x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -905,12 +908,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">32x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -925,7 +922,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1143,9 +1140,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1457,17 +1459,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
-  IconName,
-  Formik,
-  FormInput,
   Button,
-  Layout,
+  ButtonSize,
+  ButtonVariation,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
   getMultiTypeFromValue,
+  IconName,
+  Layout,
   MultiTypeInputType,
   SelectOption,
-  useModalHook,
-  Container,
-  ButtonVariation
+  useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
@@ -1477,12 +1481,12 @@ import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
 import {
-  ServiceConfig,
-  useCreateServicesV2,
-  ServiceRequestDTO,
-  useGetServiceList,
-  useGetServiceAccessList,
   getServiceListPromise,
+  ServiceConfig,
+  ServiceRequestDTO,
+  useCreateServicesV2,
+  useGetServiceAccessList,
+  useGetServiceList,
   useUpsertServiceV2
 } from 'services/cd-ng'
 import { useStrings } from 'framework/strings'
@@ -1602,13 +1606,7 @@ export const NewEditServiceModal: React.FC&lt;NewEditServiceModalProps&gt; = ({
       })}
     &gt;
       {formikProps =&gt; (
-        &lt;Layout.Vertical
-          onKeyDown={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >            if (e.key === 'Enter') {</span>
-<span class="cstat-no" title="statement not covered" >              formikProps.handleSubmit()</span>
-            }
-          }}
-        &gt;
+        &lt;FormikForm&gt;
           &lt;NameIdDescriptionTags
             formikProps={formikProps}
             identifierProps={{
@@ -1623,15 +1621,15 @@ export const NewEditServiceModal: React.FC&lt;NewEditServiceModalProps&gt; = ({
           /&gt;
           &lt;Container padding={{ top: 'xlarge' }}&gt;
             &lt;Button
-              data-id="service-save"
-              onClick={() =&gt; formikProps.submitForm()}
               variation={ButtonVariation.PRIMARY}
+              type={'submit'}
               text={getString('save')}
+              data-id="service-save"
             /&gt;
             &amp;nbsp; &amp;nbsp;
             &lt;Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} /&gt;
           &lt;/Container&gt;
-        &lt;/Layout.Vertical&gt;
+        &lt;/FormikForm&gt;
       )}
     &lt;/Formik&gt;
   )
@@ -1829,7 +1827,11 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
           const { values, setFieldValue } = formik
           formikRef.current = formik
           return (
-            &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
+            &lt;Layout.Horizontal
+              className={css.formRow}
+              spacing="medium"
+              flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+            &gt;
               &lt;FormInput.MultiTypeInput
                 tooltipProps={{ dataTooltipId: 'specifyYourService' }}
                 label={getString('pipelineSteps.serviceTab.specifyYourService')}
@@ -1856,6 +1858,7 @@ const DeployServiceWidget: React.FC&lt;DeployServiceProps&gt; = ({ initialValues
               /&gt;
               {type === MultiTypeInputType.FIXED ? (
                 &lt;Button
+                  size={ButtonSize.SMALL}
                   variation={ButtonVariation.LINK}
                   disabled={readonly || (isEditService(values) ? !canEdit : !canCreate)}
                   onClick={() =&gt; {
@@ -2161,7 +2164,7 @@ export class DeployServiceStep extends Step&lt;DeployServiceData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 10:08:48 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 30 2021 11:02:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

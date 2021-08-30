@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.67% </span>
+                <span class="strong">83.5% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>167/202</span>
+                <span class='fraction'>167/200</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">56% </span>
+                <span class="strong">56.28% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>224/400</span>
+                <span class='fraction'>224/398</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">72.09% </span>
+                <span class="strong">73.17% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>31/43</span>
+                <span class='fraction'>30/41</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.65% </span>
+                <span class="strong">83.51% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>162/196</span>
+                <span class='fraction'>162/194</span>
             </div>
         
             
@@ -787,7 +787,8 @@
 <a name='L728'></a><a href='#L728'>728</a>
 <a name='L729'></a><a href='#L729'>729</a>
 <a name='L730'></a><a href='#L730'>730</a>
-<a name='L731'></a><a href='#L731'>731</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L731'></a><a href='#L731'>731</a>
+<a name='L732'></a><a href='#L732'>732</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -804,6 +805,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -950,12 +953,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">27x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -974,7 +971,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1196,12 +1193,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1519,35 +1521,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import {
-  IconName,
-  Formik,
-  FormInput,
   Button,
-  Layout,
+  ButtonSize,
+  ButtonVariation,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
   getMultiTypeFromValue,
+  IconName,
+  Label,
+  Layout,
   MultiTypeInputType,
   SelectOption,
-  useModalHook,
-  Container,
   ThumbnailSelect,
-  Label,
-  FormikForm,
-  ButtonVariation
+  useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
 import { get, isEmpty, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { Dialog } from '@blueprintjs/core'
+import { Classes, Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
+import cx from 'classnames'
 import {
-  PipelineInfrastructure,
   EnvironmentResponseDTO,
-  useGetEnvironmentList,
-  useGetEnvironmentAccessList,
   getEnvironmentListPromise,
+  PipelineInfrastructure,
   useCreateEnvironmentV2,
+  useGetEnvironmentAccessList,
+  useGetEnvironmentList,
   useUpsertEnvironmentV2
 } from 'services/cd-ng'
 import { IdentifierSchema, NameSchema } from '@common/utils/Validation'
@@ -1678,13 +1682,7 @@ export const NewEditEnvironmentModal: React.FC&lt;NewEditEnvironmentModalProps&g
         })}
       &gt;
         {formikProps =&gt; (
-          &lt;Layout.Vertical
-            onKeyDown={<span class="fstat-no" title="function not covered" >e </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >              if (e.key === 'Enter') {</span>
-<span class="cstat-no" title="statement not covered" >                formikProps.handleSubmit()</span>
-              }
-            }}
-          &gt;
+          &lt;FormikForm&gt;
             &lt;NameIdDescriptionTags
               formikProps={formikProps}
               identifierProps={{
@@ -1698,20 +1696,20 @@ export const NewEditEnvironmentModal: React.FC&lt;NewEditEnvironmentModalProps&g
               }}
             /&gt;
             &lt;Layout.Vertical spacing={'small'} style={{ marginBottom: 'var(--spacing-medium)' }}&gt;
-              &lt;Label style={{ fontSize: 13, fontWeight: 'normal' }}&gt;{getString('envType')}&lt;/Label&gt;
+              &lt;Label className={cx(Classes.LABEL, css.label)}&gt;{getString('envType')}&lt;/Label&gt;
               &lt;ThumbnailSelect className={css.thumbnailSelect} name={'type'} items={typeList} /&gt;
             &lt;/Layout.Vertical&gt;
             &lt;Container padding={{ top: 'xlarge' }}&gt;
               &lt;Button
-                data-id="environment-save"
-                onClick={() =&gt; formikProps.submitForm()}
                 variation={ButtonVariation.PRIMARY}
+                type={'submit'}
                 text={getString('save')}
+                data-id="environment-save"
               /&gt;
               &amp;nbsp; &amp;nbsp;
               &lt;Button variation={ButtonVariation.SECONDARY} text={getString('cancel')} onClick={closeModal} /&gt;
             &lt;/Container&gt;
-          &lt;/Layout.Vertical&gt;
+          &lt;/FormikForm&gt;
         )}
       &lt;/Formik&gt;
     &lt;/Layout.Vertical&gt;
@@ -1914,7 +1912,11 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
           const { values, setFieldValue } = formik
           return (
             &lt;FormikForm&gt;
-              &lt;Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}&gt;
+              &lt;Layout.Horizontal
+                className={css.formRow}
+                spacing="medium"
+                flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+              &gt;
                 &lt;FormInput.MultiTypeInput
                   label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
                   tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
@@ -1944,6 +1946,7 @@ const DeployEnvironmentWidget: React.FC&lt;DeployEnvironmentProps&gt; = ({
                 /&gt;
                 {type === MultiTypeInputType.FIXED &amp;&amp; (
                   &lt;Button
+                    size={ButtonSize.SMALL}
                     variation={ButtonVariation.LINK}
                     disabled={readonly || (isEditEnvironment(values) ? !canEdit : !canCreate)}
                     onClick={() =&gt; {
@@ -2254,7 +2257,7 @@ export class DeployEnvironmentStep extends Step&lt;DeployEnvData&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 10:08:48 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 30 2021 11:02:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -2862,7 +2862,18 @@ export interface StringsMap {
   'ce.perspectives.workloadDetails.aggregation.timeWeighted': string
   'ce.perspectives.workloadDetails.costDetailsText': string
   'ce.perspectives.workloadDetails.fieldNames.clusterName': string
+  'ce.perspectives.workloadDetails.fieldNames.cpuAllocatable': string
+  'ce.perspectives.workloadDetails.fieldNames.cpuUnitPrice': string
+  'ce.perspectives.workloadDetails.fieldNames.createTime': string
+  'ce.perspectives.workloadDetails.fieldNames.deleteTime': string
+  'ce.perspectives.workloadDetails.fieldNames.instanceCategory': string
+  'ce.perspectives.workloadDetails.fieldNames.machineType': string
+  'ce.perspectives.workloadDetails.fieldNames.memoryAllocatable': string
+  'ce.perspectives.workloadDetails.fieldNames.memoryUnitPrice': string
   'ce.perspectives.workloadDetails.fieldNames.namespace': string
+  'ce.perspectives.workloadDetails.fieldNames.node': string
+  'ce.perspectives.workloadDetails.fieldNames.nodepoolName': string
+  'ce.perspectives.workloadDetails.fieldNames.podCapacity': string
   'ce.perspectives.workloadDetails.fieldNames.workload': string
   'ce.perspectives.workloadDetails.fieldNames.workloadType': string
   'ce.perspectives.workloadDetails.workloadDetailsText': string

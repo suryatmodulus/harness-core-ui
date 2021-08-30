@@ -41,7 +41,7 @@ function getChartList({
   if (!data) {
     return []
   }
-  if (pageType === CCM_PAGE_TYPE.Workload) {
+  if (pageType === CCM_PAGE_TYPE.Workload || pageType === CCM_PAGE_TYPE.Node) {
     const cpuChart: any[] = []
     const memoryChart: any[] = []
 

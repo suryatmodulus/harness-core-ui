@@ -20,6 +20,7 @@ export interface PerspectiveGridProps {
   gridFetching: boolean
   isClusterOnly?: boolean
   goToWorkloadDetails?: (clusterName: string, namespace: string, workloadName: string) => void
+  goToNodeDetails?: (clusterName: string, nodeId: string) => void
 }
 
 const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
@@ -31,7 +32,8 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
     gridData: response,
     gridFetching: fetching,
     isClusterOnly = false,
-    goToWorkloadDetails
+    goToWorkloadDetails,
+    goToNodeDetails
   } = props
 
   const gridColumns = getGridColumnsByGroupBy(groupBy, isClusterOnly)
@@ -80,6 +82,10 @@ const PerspectiveGrid: React.FC<PerspectiveGridProps> = props => {
         namespace &&
         workloadName &&
         goToWorkloadDetails(clusterName, namespace, workloadName)
+    }
+    if (fieldName === 'Node' && isClusterOnly) {
+      const { clusterName, nodeId } = row.original as any
+      goToNodeDetails && clusterName && nodeId && goToNodeDetails(clusterName, nodeId)
     }
   }
 

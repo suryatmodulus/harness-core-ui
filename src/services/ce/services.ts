@@ -127,6 +127,106 @@ export function useFetchCcmMetaDataQuery(
 ) {
   return Urql.useQuery<FetchCcmMetaDataQuery>({ query: FetchCcmMetaDataDocument, ...options })
 }
+export const FetchNodeSummaryDocument = gql`
+  query FetchNodeSummary(
+    $filters: [QLCEViewFilterWrapperInput]
+    $gridFilters: [QLCEViewFilterWrapperInput]
+    $isClusterQuery: Boolean
+  ) {
+    perspectiveTrendStats(
+      filters: $filters
+      isClusterQuery: $isClusterQuery
+      aggregateFunction: [
+        { operationType: SUM, columnName: "billingamount" }
+        { operationType: SUM, columnName: "actualidlecost" }
+        { operationType: SUM, columnName: "unallocatedcost" }
+        { operationType: SUM, columnName: "systemcost" }
+        { operationType: MAX, columnName: "startTime" }
+        { operationType: MIN, columnName: "startTime" }
+      ]
+    ) {
+      cost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      idleCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      unallocatedCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      utilizedCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+      systemCost {
+        statsLabel
+        statsTrend
+        statsValue
+        statsDescription
+      }
+    }
+    perspectiveGrid(
+      filters: $gridFilters
+      aggregateFunction: [
+        { operationType: SUM, columnName: "cost" }
+        { operationType: SUM, columnName: "memoryBillingAmount" }
+        { operationType: SUM, columnName: "cpuBillingAmount" }
+        { operationType: SUM, columnName: "unallocatedcost" }
+        { operationType: SUM, columnName: "memoryUnallocatedCost" }
+        { operationType: SUM, columnName: "cpuUnallocatedCost" }
+        { operationType: SUM, columnName: "actualidlecost" }
+        { operationType: SUM, columnName: "memoryActualIdleCost" }
+        { operationType: SUM, columnName: "cpuActualIdleCost" }
+        { operationType: SUM, columnName: "systemcost" }
+        { operationType: SUM, columnName: "networkcost" }
+        { operationType: SUM, columnName: "storageUnallocatedCost" }
+      ]
+      sortCriteria: []
+      groupBy: { entityGroupBy: { fieldId: "instanceName", fieldName: "Node", identifier: CLUSTER } }
+      limit: 100
+      offset: 0
+    ) {
+      data {
+        id
+        name
+        cost
+        costTrend
+        instanceDetails {
+          name
+          id
+          nodeId
+          clusterName
+          nodePoolName
+          cloudProviderInstanceId
+          podCapacity
+          cpuAllocatable
+          memoryAllocatable
+          instanceCategory
+          machineType
+          createTime
+          deleteTime
+        }
+      }
+    }
+  }
+`
+
+export function useFetchNodeSummaryQuery(
+  options: Omit<Urql.UseQueryArgs<FetchNodeSummaryQueryVariables>, 'query'> = {}
+) {
+  return Urql.useQuery<FetchNodeSummaryQuery>({ query: FetchNodeSummaryDocument, ...options })
+}
 export const FetchOverviewTimeSeriesDocument = gql`
   query FetchOverviewTimeSeries(
     $filters: [QLCEViewFilterWrapperInput]
@@ -916,6 +1016,84 @@ export type FetchCcmMetaDataQuery = {
     defaultAwsPerspectiveId: Maybe<string>
     defaultGcpPerspectiveId: Maybe<string>
     defaultClusterPerspectiveId: Maybe<string>
+  }>
+}
+
+export type FetchNodeSummaryQueryVariables = Exact<{
+  filters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  gridFilters: Maybe<Array<Maybe<QlceViewFilterWrapperInput>> | Maybe<QlceViewFilterWrapperInput>>
+  isClusterQuery: Maybe<Scalars['Boolean']>
+}>
+
+export type FetchNodeSummaryQuery = {
+  __typename?: 'Query'
+  perspectiveTrendStats: Maybe<{
+    __typename?: 'PerspectiveTrendStats'
+    cost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+    idleCost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+    unallocatedCost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+    utilizedCost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+    systemCost: Maybe<{
+      __typename?: 'StatsInfo'
+      statsLabel: string
+      statsTrend: Maybe<any>
+      statsValue: string
+      statsDescription: string
+    }>
+  }>
+  perspectiveGrid: Maybe<{
+    __typename?: 'PerspectiveEntityStatsData'
+    data: Maybe<
+      Array<
+        Maybe<{
+          __typename?: 'QLCEViewEntityStatsDataPoint'
+          id: Maybe<string>
+          name: Maybe<string>
+          cost: Maybe<any>
+          costTrend: Maybe<any>
+          instanceDetails: Maybe<{
+            __typename?: 'InstanceDetails'
+            name: Maybe<string>
+            id: Maybe<string>
+            nodeId: Maybe<string>
+            clusterName: Maybe<string>
+            nodePoolName: Maybe<string>
+            cloudProviderInstanceId: Maybe<string>
+            podCapacity: Maybe<string>
+            cpuAllocatable: number
+            memoryAllocatable: number
+            instanceCategory: Maybe<string>
+            machineType: Maybe<string>
+            createTime: any
+            deleteTime: any
+          }>
+        }>
+      >
+    >
   }>
 }
 

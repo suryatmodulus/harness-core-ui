@@ -412,6 +412,17 @@ perspectives:
       namespace: '{{ $.common.namespace }}'
       workloadType: Workload Type
       clusterName: '{{ $.common.cluster }}'
+      node: 'Node'
+      createTime: 'Create Time'
+      deleteTime: 'Delete Time'
+      machineType: 'Machine Type'
+      nodepoolName: 'Node Pool'
+      cpuAllocatable: 'CPU Allocatable'
+      memoryAllocatable: 'Memory Allocatable'
+      instanceCategory: 'Preemptible/Spot'
+      cpuUnitPrice: 'CPU Unit Price'
+      memoryUnitPrice: 'Memory Unit Price'
+      podCapacity: 'Pod Capacity'
   save: Save Perspective
   validations:
     invalidEmails: Invalid email address(es)

@@ -32,6 +32,7 @@ import PerspectiveListPage from './pages/perspective-list/PerspectiveListPage'
 import WorkloadDetailsPage from './pages/workload-details/WorkloadDetailsPage'
 import OverviewPage from './pages/overview/OverviewPage'
 import NodeRecommendationDetailsPage from './pages/node-recommendation-details/NodeRecommendationDetailsPage'
+import NodeDetailsPage from './pages/node-details/NodeDetailsPage'
 
 const CESideNavProps: SidebarContext = {
   navComponent: CESideNav,
@@ -279,6 +280,20 @@ const CERoutes: React.FC = () => {
           exact
         >
           <WorkloadDetailsPage />
+        </RouteWithLayout>
+        <RouteWithLayout
+          licenseRedirectData={licenseRedirectData}
+          sidebarProps={CESideNavProps}
+          path={routes.toCEPerspectiveNodeDetails({
+            ...accountPathProps,
+            perspectiveId: ':perspectiveId',
+            perspectiveName: ':perspectiveName',
+            clusterName: ':clusterName',
+            nodeId: ':nodeId'
+          })}
+          exact
+        >
+          <NodeDetailsPage />
         </RouteWithLayout>
         <RouteWithLayout
           licenseRedirectData={licenseRedirectData}

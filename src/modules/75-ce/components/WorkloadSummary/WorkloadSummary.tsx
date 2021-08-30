@@ -1,8 +1,8 @@
 import React from 'react'
-import { Container, Layout, Text, Icon } from '@wings-software/uicore'
-import type { Maybe, PerspectiveTrendStats, ClusterData } from 'services/ce/services'
+import { Container, Layout, Text, Icon, Color } from '@wings-software/uicore'
+import type { Maybe, PerspectiveTrendStats, ClusterData, InstanceDetails } from 'services/ce/services'
 import { useStrings } from 'framework/strings'
-import type { CCM_PAGE_TYPE } from '@ce/types'
+import { CCM_PAGE_TYPE } from '@ce/types'
 import { OVERVIEW_FIELD_MAPPER } from './constants'
 import css from './WorkloadSummary.module.scss'
 
@@ -14,18 +14,24 @@ interface KeyValuePairRendererProps {
 const KeyValuePairRenderer: (props: KeyValuePairRendererProps) => JSX.Element = ({ keyVal, value }) => {
   return (
     <Layout.Horizontal className={css.keyValueTable}>
-      <Text lineClamp={1} className={css.key} width={132}>
+      <Text color={Color.GREY_400} lineClamp={1} className={css.key} width={132}>
         {keyVal}
       </Text>
-      <Text lineClamp={1} className={css.value} width={160}>
+      <Text color={Color.PRIMARY_9} lineClamp={1} className={css.value} width={160}>
         {value}
       </Text>
     </Layout.Horizontal>
   )
 }
 
-const CostDetails: ({ summaryData }: { summaryData: PerspectiveTrendStats }) => JSX.Element = ({ summaryData }) => {
-  const { cost, idleCost, utilizedCost } = summaryData
+const CostDetails: ({
+  summaryData,
+  pageType
+}: {
+  summaryData: PerspectiveTrendStats
+  pageType: CCM_PAGE_TYPE
+}) => JSX.Element = ({ summaryData, pageType }) => {
+  const { cost, idleCost, utilizedCost, unallocatedCost, systemCost } = summaryData
 
   return (
     <Container>
@@ -42,36 +48,51 @@ const CostDetails: ({ summaryData }: { summaryData: PerspectiveTrendStats }) => 
           value={`${utilizedCost.statsValue} (${utilizedCost.statsDescription})`}
         />
       )}
+      {pageType === CCM_PAGE_TYPE.Node ? (
+        <>
+          {unallocatedCost && (
+            <KeyValuePairRenderer
+              keyVal={unallocatedCost.statsLabel}
+              value={`${unallocatedCost.statsValue} (${unallocatedCost.statsDescription})`}
+            />
+          )}
+          {systemCost && (
+            <KeyValuePairRenderer
+              keyVal={systemCost.statsLabel}
+              value={`${systemCost.statsValue} (${systemCost.statsDescription})`}
+            />
+          )}
+        </>
+      ) : null}
     </Container>
   )
 }
 
-const NodeDetails: ({ infoData, pageType }: { infoData: ClusterData; pageType: CCM_PAGE_TYPE }) => JSX.Element = ({
-  infoData,
-  pageType
-}) => {
-  const fieldTables = OVERVIEW_FIELD_MAPPER[pageType]
-  return (
-    <Container>
-      {fieldTables?.length
-        ? fieldTables.map((table, idx) => (
-            <div key={`overview-field-${idx}`}>
-              {table.map(({ name, key }) => {
-                const accessor = key as keyof ClusterData
-                const value = (infoData && infoData[accessor]) || ''
-                return <KeyValuePairRenderer key={accessor} keyVal={name} value={value} />
-              })}
-            </div>
-          ))
-        : null}
-    </Container>
-  )
-}
+const NodeDetails: ({ infoData, pageType }: { infoData: Record<string, any>; pageType: CCM_PAGE_TYPE }) => JSX.Element =
+  ({ infoData, pageType }) => {
+    const fieldTables = OVERVIEW_FIELD_MAPPER[pageType]
+    return (
+      <Layout.Horizontal>
+        {fieldTables?.length
+          ? fieldTables.map((table, idx) => (
+              <div key={`overview-field-${idx}`}>
+                {table.map(({ name, key, formatter }) => {
+                  const accessor = key as string
+                  const value = (infoData && infoData[accessor]) || ''
+                  const formattedVal = formatter ? formatter(value) : value
+                  return <KeyValuePairRenderer key={accessor} keyVal={name} value={formattedVal} />
+                })}
+              </div>
+            ))
+          : null}
+      </Layout.Horizontal>
+    )
+  }
 
 interface WorkloadSummaryProps {
   fetching: boolean
   summaryData: Maybe<PerspectiveTrendStats> | undefined
-  infoData: ClusterData
+  infoData: ClusterData | InstanceDetails
   pageType: CCM_PAGE_TYPE
 }
 
@@ -106,7 +127,7 @@ const WorkloadSummary: (props: WorkloadSummaryProps) => JSX.Element = ({
       </Container>
       <Container className={css.container}>
         <Text className={css.headingText}>{getString('ce.perspectives.workloadDetails.costDetailsText')}</Text>
-        <CostDetails summaryData={summaryData} />
+        <CostDetails pageType={pageType} summaryData={summaryData} />
       </Container>
     </Layout.Horizontal>
   )

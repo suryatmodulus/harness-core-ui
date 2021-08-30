@@ -1103,6 +1103,19 @@ const routes = {
     }) =>
       `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/namespace/${namespace}/workload/${workloadName}/details`
   ),
+  toCEPerspectiveNodeDetails: withAccountId(
+    ({
+      perspectiveId,
+      perspectiveName,
+      clusterName,
+      nodeId
+    }: AccountPathProps & {
+      perspectiveId: string
+      perspectiveName: string
+      clusterName: string
+      nodeId: string
+    }) => `/ce/perspectives/${perspectiveId}/name/${perspectiveName}/cluster/${clusterName}/node/${nodeId}/details`
+  ),
   toCEOverview: withAccountId(() => '/ce/overview'),
   toCEPerspectiveDashboard: withAccountId(() => `/ce/perspective`),
   /********************************************************************************************************************/

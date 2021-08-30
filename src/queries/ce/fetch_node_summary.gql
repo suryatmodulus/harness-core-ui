@@ -1,0 +1,93 @@
+query FetchNodeSummary(
+  $filters: [QLCEViewFilterWrapperInput]
+  $gridFilters: [QLCEViewFilterWrapperInput]
+  $isClusterQuery: Boolean
+) {
+  perspectiveTrendStats(
+    filters: $filters
+    isClusterQuery: $isClusterQuery
+    aggregateFunction: [
+      { operationType: SUM, columnName: "billingamount" }
+      { operationType: SUM, columnName: "actualidlecost" }
+      { operationType: SUM, columnName: "unallocatedcost" }
+      { operationType: SUM, columnName: "systemcost" }
+      { operationType: MAX, columnName: "startTime" }
+      { operationType: MIN, columnName: "startTime" }
+    ]
+  ) {
+    cost {
+      statsLabel
+      statsTrend
+      statsValue
+      statsDescription
+    }
+    idleCost {
+      statsLabel
+      statsTrend
+      statsValue
+      statsDescription
+    }
+    unallocatedCost {
+      statsLabel
+      statsTrend
+      statsValue
+      statsDescription
+    }
+    utilizedCost {
+      statsLabel
+      statsTrend
+      statsValue
+      statsDescription
+    }
+    systemCost {
+      statsLabel
+      statsTrend
+      statsValue
+      statsDescription
+    }
+  }
+
+  perspectiveGrid(
+    filters: $gridFilters
+    aggregateFunction: [
+      { operationType: SUM, columnName: "cost" }
+      { operationType: SUM, columnName: "memoryBillingAmount" }
+      { operationType: SUM, columnName: "cpuBillingAmount" }
+      { operationType: SUM, columnName: "unallocatedcost" }
+      { operationType: SUM, columnName: "memoryUnallocatedCost" }
+      { operationType: SUM, columnName: "cpuUnallocatedCost" }
+      { operationType: SUM, columnName: "actualidlecost" }
+      { operationType: SUM, columnName: "memoryActualIdleCost" }
+      { operationType: SUM, columnName: "cpuActualIdleCost" }
+      { operationType: SUM, columnName: "systemcost" }
+      { operationType: SUM, columnName: "networkcost" }
+      { operationType: SUM, columnName: "storageUnallocatedCost" }
+    ]
+    sortCriteria: []
+    groupBy: { entityGroupBy: { fieldId: "instanceName", fieldName: "Node", identifier: CLUSTER } }
+    limit: 100
+    offset: 0
+  ) {
+    data {
+      id
+      name
+      cost
+      costTrend
+      instanceDetails {
+        name
+        id
+        nodeId
+        clusterName
+        nodePoolName
+        cloudProviderInstanceId
+        podCapacity
+        cpuAllocatable
+        memoryAllocatable
+        instanceCategory
+        machineType
+        createTime
+        deleteTime
+      }
+    }
+  }
+}

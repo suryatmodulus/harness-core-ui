@@ -434,7 +434,14 @@
 <a name='L375'></a><a href='#L375'>375</a>
 <a name='L376'></a><a href='#L376'>376</a>
 <a name='L377'></a><a href='#L377'>377</a>
-<a name='L378'></a><a href='#L378'>378</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
+<a name='L378'></a><a href='#L378'>378</a>
+<a name='L379'></a><a href='#L379'>379</a>
+<a name='L380'></a><a href='#L380'>380</a>
+<a name='L381'></a><a href='#L381'>381</a>
+<a name='L382'></a><a href='#L382'>382</a>
+<a name='L383'></a><a href='#L383'>383</a>
+<a name='L384'></a><a href='#L384'>384</a>
+<a name='L385'></a><a href='#L385'>385</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -717,6 +724,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -771,26 +779,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -812,7 +826,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useRef, createRef, RefObject } from 'react'
-import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, Text } from '@wings-software/uicore'
+import { Layout, Tabs, Tab, Button, Formik, FormikForm, Heading, ButtonVariation } from '@wings-software/uicore'
 import type { IconName } from '@wings-software/uicore'
 import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
@@ -1090,6 +1104,7 @@ const Wizard: React.FC&lt;WizardProps&gt; = ({
               &lt;Layout.Horizontal spacing="medium" className={css.footer}&gt;
                 {!isYamlView &amp;&amp; selectedTabIndex !== 0 &amp;&amp; (
                   &lt;Button
+                    variation={ButtonVariation.SECONDARY}
                     text={getString('back')}
                     icon="chevron-left"
                     minimal
@@ -1105,7 +1120,7 @@ const Wizard: React.FC&lt;WizardProps&gt; = ({
                 {!isYamlView &amp;&amp; !lastTab &amp;&amp; (
                   &lt;Button
                     text={getString('continue')}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     rightIcon="chevron-right"
                     onClick={() =&gt; {
                       const upcomingTabIndex = selectedTabIndex + 1
@@ -1119,7 +1134,7 @@ const Wizard: React.FC&lt;WizardProps&gt; = ({
                 {!isYamlView &amp;&amp; lastTab &amp;&amp; (
                   &lt;Button
                     text={submitLabel || getString('submit')}
-                    intent="primary"
+                    variation={ButtonVariation.PRIMARY}
                     rightIcon="chevron-right"
                     type="submit"
                     disabled={disableSubmit}
@@ -1137,15 +1152,18 @@ const Wizard: React.FC&lt;WizardProps&gt; = ({
                   /&gt;
                 )}
                 {!isYamlView &amp;&amp; (
-                  &lt;Text className={css.cancel} onClick={onHide}&gt;
-                    {getString('cancel')}
-                  &lt;/Text&gt;
+                  &lt;Button
+                    className={css.cancel}
+                    variation={ButtonVariation.SECONDARY}
+                    onClick={onHide}
+                    text={getString('cancel')}
+                  /&gt;
                 )}
                 {isYamlView &amp;&amp; yamlBuilderReadOnlyModeProps &amp;&amp; !loadingYamlView &amp;&amp; (
                   &lt;&gt;
                     &lt;Button
                       text={submitLabel || <span class="branch-1 cbranch-no" title="branch not covered" >getString('submit')}</span>
-                      intent="primary"
+                      variation={ButtonVariation.PRIMARY}
                       rightIcon="chevron-right"
                       onClick={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
                         const latestYaml = <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >yamlHandler?.getLatestYaml() </span>|| /* istanbul ignore next */ ''</span>
@@ -1172,9 +1190,12 @@ const Wizard: React.FC&lt;WizardProps&gt; = ({
                       }}
                       disabled={disableSubmit}
                     /&gt;
-                    &lt;Text className={css.cancel} onClick={onHide}&gt;
-                      {getString('cancel')}
-                    &lt;/Text&gt;
+                    &lt;Button
+                      className={css.cancel}
+                      variation={ButtonVariation.SECONDARY}
+                      onClick={onHide}
+                      text={getString('cancel')}
+                    /&gt;
                   &lt;/&gt;
                 )}
               &lt;/Layout.Horizontal&gt;
@@ -1195,7 +1216,7 @@ export default Wizard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 04:15:35 GMT+0000 (Greenwich Mean Time)
+                at Mon Aug 30 2021 05:29:28 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

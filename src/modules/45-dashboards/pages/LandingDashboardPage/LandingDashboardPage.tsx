@@ -10,7 +10,7 @@ import { useAppStore } from 'framework/AppStore/AppStoreContext'
 import { useStrings } from 'framework/strings'
 import { LandingDashboardContextProvider } from './LandingDashboardContext'
 
-const modules: Array<ModuleName> = [ModuleName.COMMON]
+const modules: Array<ModuleName> = [ModuleName.COMMON, ModuleName.CD]
 
 const LandingDashboardPage: React.FC = () => {
   const { currentUserInfo } = useAppStore()

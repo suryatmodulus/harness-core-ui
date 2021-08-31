@@ -8,6 +8,8 @@ import ExecFactory from '@pipeline/factories/ExecutionFactory'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { String } from 'framework/strings'
+import LandingDashboardFactory from '@dashboards/factories/LandingDashboardFactory'
+import LandingDashboardDeploymentsWidget from '@pipeline/components/LandingDashboardDeploymentsWidget/LandingDashboardDeploymentsWidget'
 
 import PipelineResourceModal from '@pipeline/components/RbacResourceModals/PipelineResourceModal/PipelineResourceModal'
 import ServiceResourceModal from '@pipeline/components/RbacResourceModals/ServiceResourceModal/ServiceResourceModal'
@@ -16,6 +18,7 @@ import { HarnessApprovalView } from '@pipeline/components/execution/StepDetails/
 import { JiraApprovalView } from '@pipeline/components/execution/StepDetails/views/JiraApprovalView/JiraApprovalView'
 import { StepType } from '@pipeline/components/PipelineSteps/PipelineStepInterface'
 import PipelineResourceRenderer from './components/RbacResourceModals/PipelineResourceRenderer/PipelineResourceRenderer'
+import { ModuleName } from '../../framework/types/ModuleName'
 
 /**
  * Register RBAC resources
@@ -70,4 +73,14 @@ ExecFactory.registerStepDetails(StepType.HarnessApproval, {
 
 ExecFactory.registerStepDetails(StepType.JiraApproval, {
   component: JiraApprovalView
+})
+
+/**
+ * Register for Landing Page
+ * */
+LandingDashboardFactory.registerModuleDashboardHandler(ModuleName.CD, {
+  label: 'common.dashboards',
+  icon: 'cd-main',
+  // eslint-disable-next-line react/display-name
+  moduleDashboardRenderer: () => <LandingDashboardDeploymentsWidget />
 })

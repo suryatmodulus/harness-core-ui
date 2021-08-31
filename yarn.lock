@@ -4007,10 +4007,14 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/telemetry/1.0.36/5f59a357aff1dceaa0f724acb8620985f6b3334233231838eea82ea25b3de4ce#cac20fc86f51e0bf91688d35664ad1a3cf84c124"
   integrity "sha1-ysIPyG9R4L+RaI01ZkrRo8+EwSQ= sha512-PrWLYNubOjFDlMO2DJlH1PljfeVgJ6zih6gHOmp2B/2+fdUhjOABSnEKduNSZwrTGqCFmHKmqF1gZ1ksQMEJLA=="
 
-"@wings-software/test-app-publish-@^3.0.10":
-  version "3.0.10"
-  resolved "https://npm.pkg.github.com/download/@wings-software/test-app-publish-/3.0.10/c33c2e0fe54b32da3ee1f881f5b948b4e94f2c485154802e65b85af36440e42e#13280dfc2c564546b6fb437a7d17c47a70bdb6c8"
-  integrity sha512-Kkenzdu/P5qIX3MGvwYtkM/c5K75NOBNB9+NI93ZDPGkvAcWpiyXl2TI+2H0UI2bET6gepTB2GORDPPpjM6czQ==
+"@wings-software/test-app-publish-@^3.0.22":
+  version "3.0.22"
+  resolved "https://npm.pkg.github.com/download/@wings-software/test-app-publish-/3.0.22/21351f1e4ea75416ab56dbaa0b50982f3d270e2fef893d5377cd1adfa6baa875#78112cf35706d3157d2949f36deae1a07f05935d"
+  integrity sha512-Kbq4GbIWkVEi0Vl2qZA82QarWmymHwOkNGjb8FrA19n5gYdpmaaSgFlkqC2uy8U0cXNYEQHbRGLRj1umI834yA==
+  dependencies:
+    "@wings-software/uicore" "0.1.364"
+    react "^17.0.2"
+    react-dom "^17.0.2"
 
 "@wings-software/uicore@0.1.364":
   version "0.1.364"

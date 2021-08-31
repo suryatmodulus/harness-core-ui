@@ -10,7 +10,7 @@ import { useErrorHandler } from '@pipeline/components/Dashboards/shared'
 // import GlanceCard from '@common/components/GlanceCard/GlanceCard'
 // import TimeRangeSelect from '../TimeRangeSelect/TimeRangeSelect'
 
-// import css from './LandingDashboardDeploymentsWidget.module.scss'
+import css from './LandingDashboardDeploymentsWidget.module.scss'
 
 const LandingDashboardDeploymentsWidget: React.FC = () => {
   const { getString } = useStrings()
@@ -48,7 +48,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
   }, [data])
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className={css.main}>
       <Card style={{ width: '100%' }}>
         <Text font={{ variation: FontVariation.CARD_TITLE }}>
           Deployments, Failure Rate and Deployment Frequency will come here.
@@ -60,7 +60,7 @@ const LandingDashboardDeploymentsWidget: React.FC = () => {
           range={range}
           onRangeChange={setRange}
           yAxisTitle="# of Deployments"
-          successColor="#00ade4" // "var(--ci-color-blue-400)"
+          successColor="var(--ci-color-blue-400)"
         />
       </Card>
     </div>

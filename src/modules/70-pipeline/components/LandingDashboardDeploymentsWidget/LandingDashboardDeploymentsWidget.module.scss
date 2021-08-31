@@ -1,0 +1,6 @@
+@import '../Dashboards/sharedStyles.module.scss';
+
+.main {
+  @include dashboardVariables();
+  //position: relative;
+}

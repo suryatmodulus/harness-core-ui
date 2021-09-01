@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">64.58% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>112/192</span>
+                <span class='fraction'>124/192</span>
             </div>
         
             
@@ -665,14 +665,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -683,20 +681,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -732,7 +732,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -740,7 +740,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1052,7 +1052,7 @@ const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({ searchTer
   })
 &nbsp;
   useEffect(() =&gt; {
-    setPageNumber({ setPage, page, pageItemsCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ageItemCount })
+    setPageNumber({ setPage, page, pageItemsCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.pageItemCount })
   }, [data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata])
 &nbsp;
   const { openRoleAssignmentModal: addRole } = useRoleAssignmentModal({
@@ -1108,7 +1108,7 @@ const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({ searchTer
       noData={
         !searchTerm
           ? {
-              when: () =&gt; !data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent<span class="branch-0 cbranch-no" title="branch not covered" >?.l</span>ength,
+              when: () =&gt; !data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.content?.length,
               icon: 'nav-project',
               message: getString('rbac.usersPage.noDataDescription'),
               button: (
@@ -1136,12 +1136,12 @@ const ActiveUserListView: React.FC&lt;ActiveUserListViewProps&gt; = ({ searchTer
       &lt;Table&lt;UserAggregate&gt;
         className={css.table}
         columns={columns}
-        data={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>ontent || <span class="branch-1 cbranch-no" title="branch not covered" >[]}</span>
+        data={data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.content || []}
         pagination={{
-          itemCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalItems || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-          pageSize: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ageSize || <span class="branch-1 cbranch-no" title="branch not covered" >10,</span>
-          pageCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.t</span>otalPages || <span class="branch-1 cbranch-no" title="branch not covered" >0,</span>
-          pageIndex: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ageIndex || 0,
+          itemCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.totalItems || 0,
+          pageSize: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.pageSize || 10,
+          pageCount: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.totalPages || 0,
+          pageIndex: data<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>ata?.pageIndex || 0,
           gotoPage: <span class="fstat-no" title="function not covered" >(p</span>ageNumber: number) =&gt; <span class="cstat-no" title="statement not covered" >setPage(pageNumber)</span>
         }}
         onRowClick={<span class="fstat-no" title="function not covered" >user </span>=&gt; {
@@ -1168,7 +1168,7 @@ export default ActiveUserListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 17:39:35 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 04:39:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

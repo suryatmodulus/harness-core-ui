@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.74% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>35/39</span>
+                <span class='fraction'>34/38</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">89.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>34/38</span>
+                <span class='fraction'>33/37</span>
             </div>
         
             
@@ -227,7 +227,10 @@
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
 <a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,7 +241,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -352,7 +355,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -399,16 +405,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useCallback } from 'react'
 import {
-  Text,
+  Button,
+  ButtonSize,
+  ButtonVariation,
   Formik,
+  FormikForm,
   getMultiTypeFromValue,
   Layout,
   MultiTypeInputType,
-  Button,
-  StepProps,
-  ButtonVariation
+  StepProps
 } from '@wings-software/uicore'
-import { Form } from 'formik'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { set } from 'lodash-es'
@@ -492,19 +498,21 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
         }}
       &gt;
         {formik =&gt; (
-          &lt;Form&gt;
+          &lt;FormikForm&gt;
             &lt;div className={css.connectorForm}&gt;
-              &lt;div className={css.connectorContainer}&gt;
+              &lt;Layout.Horizontal
+                spacing={'medium'}
+                flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+                className={css.connectorContainer}
+              &gt;
                 &lt;FormMultiTypeConnectorField
                   name="connectorId"
-                  label={
-                    &lt;Text style={{ marginBottom: 8 }}&gt;{`${selectedConnectorLabel} ${getString('connector')}`}&lt;/Text&gt;
-                  }
+                  label={`${selectedConnectorLabel} ${getString('connector')}`}
                   placeholder={`${getString('select')} ${selectedConnectorLabel} ${getString('connector')}`}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
-                  width={410}
+                  width={400}
                   multiTypeProps={{ expressions }}
                   isNewConnectorLabelVisible={false}
                   type={connectorType}
@@ -513,26 +521,27 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                   gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                 /&gt;
                 {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                  &lt;div className={css.configureOptions}&gt;</span>
-                    &lt;ConfigureOptions
-                      value={formik.values.connectorId as unknown as string}
-                      type={connectorType}
-                      variableName="connectorRef"
-                      showRequiredField={false}
-                      showDefaultField={false}
-                      showAdvanced={true}
-                      onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                        formik.setFieldValue('connectorId', value)</span>
-                      }}
-                      isReadonly={isReadonly}
-                    /&gt;
-                  &lt;/div&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >                  &lt;ConfigureOptions</span>
+                    className={css.configureOptions}
+                    value={formik.values.connectorId as unknown as string}
+                    type={connectorType}
+                    variableName="connectorRef"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                      formik.setFieldValue('connectorId', value)</span>
+                    }}
+                    isReadonly={isReadonly}
+                  /&gt;
                 ) : (
                   &lt;Button
                     variation={ButtonVariation.LINK}
+                    size={ButtonSize.SMALL}
                     id="new-artifact-connector"
                     text={newConnectorLabel}
                     icon="plus"
+                    iconProps={{ size: 12 }}
                     disabled={isReadonly || !canCreate}
                     onClick={() =&gt; {
                       handleViewChange()
@@ -541,7 +550,7 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                     className={css.addNewArtifact}
                   /&gt;
                 )}
-              &lt;/div&gt;
+              &lt;/Layout.Horizontal&gt;
             &lt;/div&gt;
             &lt;Layout.Horizontal spacing="xxlarge"&gt;
               &lt;Button
@@ -561,7 +570,7 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
                 }
               /&gt;
             &lt;/Layout.Horizontal&gt;
-          &lt;/Form&gt;
+          &lt;/FormikForm&gt;
         )}
       &lt;/Formik&gt;
     &lt;/Layout.Vertical&gt;
@@ -574,7 +583,7 @@ export const ArtifactConnector: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; 
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 17:39:35 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 04:39:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

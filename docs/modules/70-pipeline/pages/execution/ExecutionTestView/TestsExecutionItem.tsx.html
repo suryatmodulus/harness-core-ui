@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.19% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>66/74</span>
+                <span class='fraction'>68/76</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.74% </span>
+                <span class="strong">74.48% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>142/190</span>
+                <span class='fraction'>143/192</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.04% </span>
+                <span class="strong">89.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>65/73</span>
+                <span class='fraction'>67/75</span>
             </div>
         
             
@@ -416,7 +416,16 @@
 <a name='L357'></a><a href='#L357'>357</a>
 <a name='L358'></a><a href='#L358'>358</a>
 <a name='L359'></a><a href='#L359'>359</a>
-<a name='L360'></a><a href='#L360'>360</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L360'></a><a href='#L360'>360</a>
+<a name='L361'></a><a href='#L361'>361</a>
+<a name='L362'></a><a href='#L362'>362</a>
+<a name='L363'></a><a href='#L363'>363</a>
+<a name='L364'></a><a href='#L364'>364</a>
+<a name='L365'></a><a href='#L365'>365</a>
+<a name='L366'></a><a href='#L366'>366</a>
+<a name='L367'></a><a href='#L367'>367</a>
+<a name='L368'></a><a href='#L368'>368</a>
+<a name='L369'></a><a href='#L369'>369</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -431,7 +440,9 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -461,7 +472,6 @@
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">61x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -471,6 +481,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -649,14 +660,21 @@
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">30x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">61x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -784,6 +802,7 @@ import cx from 'classnames'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { TestSuite, useTestCaseSummary, TestCase, TestCaseSummaryQueryParams } from 'services/ti-service'
 import { useStrings } from 'framework/strings'
+import { CopyText } from '@common/components/CopyText/CopyText'
 import { Duration } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import useExpandErrorModal from '@pipeline/components/ExpandErrorModal/useExpandErrorModal'
@@ -793,6 +812,7 @@ import css from './BuildTests.module.scss'
 &nbsp;
 const NOW = Date.now()
 const PAGE_SIZE = 10
+const COPY_CLIPBOARD_ICON_WIDTH = 16
 &nbsp;
 export interface TestExecutionEntryProps {
   buildIdentifier: string
@@ -820,7 +840,6 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
   const containerRef = useRef&lt;HTMLElement&gt;(null)
   const rightSideContainerRef = useRef&lt;HTMLElement&gt;(null)
   const [titleWidth, setTitleWidth] = useState&lt;number&gt;()
-&nbsp;
   const { getString } = useStrings()
   const { accountId, orgIdentifier, projectIdentifier, pipelineIdentifier } = useParams&lt;{
     projectIdentifier: string
@@ -830,6 +849,7 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
   }&gt;()
   const [pageIndex, setPageIndex] = useState(0)
   const { openErrorModal } = useExpandErrorModal({})
+&nbsp;
   const queryParams = useMemo(
     () =&gt; ({
       accountId,
@@ -1007,9 +1027,12 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
 &nbsp;
       const CHEVRON_BUTTON_WIDTH = 40
       const SIDES_SPACING = 25
-&nbsp;
       const newTitleWidth =
-        containerWidthWithoutPaddings - rightSideContainerWidth - CHEVRON_BUTTON_WIDTH - SIDES_SPACING
+        containerWidthWithoutPaddings -
+        rightSideContainerWidth -
+        CHEVRON_BUTTON_WIDTH -
+        SIDES_SPACING -
+        COPY_CLIPBOARD_ICON_WIDTH
 &nbsp;
       setTitleWidth(newTitleWidth)
     }
@@ -1024,13 +1047,17 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         &gt;
           &lt;Button minimal large icon={expanded ? 'chevron-down' : 'chevron-right'} onClick={onExpand} /&gt;
-          &lt;Text
-            width={titleWidth}
-            style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}
-            tooltip={&lt;Container padding="small"&gt;{executionSummary.name}&lt;/Container&gt;}
-          &gt;
-            {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
-          &lt;/Text&gt;
+          &lt;Layout.Horizontal&gt;
+            &lt;Text width={titleWidth} style={{ whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}&gt;
+              &lt;CopyText iconName="clipboard-alt" textToCopy={executionSummary.name || <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>&gt;
+                &lt;Text tooltip={&lt;Container padding="small"&gt;{executionSummary.name}&lt;/Container&gt;}&gt;
+                  &lt;span className={css.testSuiteName}&gt;
+                    {getString('pipeline.testsReports.testSuite')} {executionSummary.name}
+                  &lt;/span&gt;
+                &lt;/Text&gt;
+              &lt;/CopyText&gt;
+            &lt;/Text&gt;
+          &lt;/Layout.Horizontal&gt;
         &lt;/Text&gt;
         &lt;Container flex ref={rightSideContainerRef}&gt;
           &lt;Text
@@ -1141,7 +1168,7 @@ export const TestsExecutionItem: React.FC&lt;TestExecutionEntryProps&gt; = ({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 17:39:35 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 04:39:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

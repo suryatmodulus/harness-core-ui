@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">64.71% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>11/17</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>22/22</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
@@ -146,21 +146,11 @@
 <a name='L87'></a><a href='#L87'>87</a>
 <a name='L88'></a><a href='#L88'>88</a>
 <a name='L89'></a><a href='#L89'>89</a>
-<a name='L90'></a><a href='#L90'>90</a>
-<a name='L91'></a><a href='#L91'>91</a>
-<a name='L92'></a><a href='#L92'>92</a>
-<a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a>
-<a name='L98'></a><a href='#L98'>98</a>
-<a name='L99'></a><a href='#L99'>99</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L90'></a><a href='#L90'>90</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
@@ -172,18 +162,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -196,14 +186,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -254,12 +236,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useEffect, useMemo, useState } from 'react'
-import { Color, Container, Layout, Select, SelectOption, Text } from '@wings-software/uicore'
+import { Container, Select, SelectOption } from '@wings-software/uicore'
 import Card from '@cv/components/Card/Card'
 import { useStrings } from 'framework/strings'
 // import { Ticker, TickerVerticalAlignment } from '@common/components/Ticker/Ticker'
 import ChangeTimeline from '@cv/components/ChangeTimeline/ChangeTimeline'
-import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import { getTimeFormat, getTimePeriods, getTimestampsForPeriod } from './ServiceHealth.utils'
 import {
   // tickerData,
@@ -269,11 +250,13 @@ import {
 // import TickerValue from './components/TickerValue/TickerValue'
 import type { ServiceHealthProps } from './ServiceHealth.types'
 import HealthScoreChart from './components/HealthScoreChart/HealthScoreChart'
+import HealthScoreCard from './components/HealthScoreCard/HealthScoreCard'
 import css from './ServiceHealth.module.scss'
 &nbsp;
 export default function ServiceHealth({
-  currentHealthScore,
-  monitoredServiceIdentifier
+  monitoredServiceIdentifier,
+  serviceIdentifier,
+  environmentIdentifier
 }: ServiceHealthProps): JSX.Element {
   const { getString } = useStrings()
   const [selectedTimePeriod, setSelectedTimePeriod] = useState&lt;SelectOption&gt;({
@@ -281,8 +264,6 @@ export default function ServiceHealth({
     label: getString('cv.monitoredServices.serviceHealth.last24Hrs')
   })
   const [timestamps, setTimestamps] = useState&lt;number[]&gt;([])
-  const { riskStatus, healthScore = <span class="branch-0 cbranch-no" title="branch not covered" >-2 </span>} = currentHealthScore || <span class="branch-1 cbranch-no" title="branch not covered" >{}</span>
-  const color = getRiskColorValue(riskStatus)
 &nbsp;
   useEffect(() =&gt; {
     const timestampsForPeriod = getTimestampsForPeriod(selectedTimePeriod.value as string)
@@ -302,16 +283,8 @@ export default function ServiceHealth({
           className={css.timePeriods}
           onChange={setSelectedTimePeriod}
         /&gt;
-        &lt;Layout.Horizontal className={css.healthScoreCardContainer}&gt;
-          &lt;div className={css.healthScoreCard} style={{ background: color }}&gt;
-            {healthScore &gt; -1 ? healthScore : <span class="branch-1 cbranch-no" title="branch not covered" >''}</span>
-          &lt;/div&gt;
-          &lt;Text color={Color.BLACK} font={{ size: 'small' }}&gt;
-            {getString('cv.monitoredServices.monitoredServiceTabs.serviceHealth')}
-          &lt;/Text&gt;
-        &lt;/Layout.Horizontal&gt;
+        &lt;HealthScoreCard serviceIdentifier={serviceIdentifier} environmentIdentifier={environmentIdentifier} /&gt;
       &lt;/Container&gt;
-&nbsp;
       &lt;Container className={css.serviceHealthCard}&gt;
         &lt;Card&gt;
           &lt;&gt;
@@ -358,7 +331,7 @@ export default function ServiceHealth({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 17:39:35 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 04:39:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.31% </span>
+                <span class="strong">84% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>43/51</span>
+                <span class='fraction'>42/50</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84% </span>
+                <span class="strong">83.67% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>42/50</span>
+                <span class='fraction'>41/49</span>
             </div>
         
             
@@ -302,7 +302,9 @@
 <a name='L243'></a><a href='#L243'>243</a>
 <a name='L244'></a><a href='#L244'>244</a>
 <a name='L245'></a><a href='#L245'>245</a>
-<a name='L246'></a><a href='#L246'>246</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
+<a name='L246'></a><a href='#L246'>246</a>
+<a name='L247'></a><a href='#L247'>247</a>
+<a name='L248'></a><a href='#L248'>248</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -317,7 +319,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">20x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
 <span class="cline-any cline-yes">20x</span>
@@ -497,6 +500,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -560,9 +564,10 @@ import {
   MultiTypeInputType,
   ThumbnailSelect,
   IconName,
-  ButtonVariation
+  ButtonVariation,
+  FormikForm,
+  ButtonSize
 } from '@wings-software/uicore'
-import { Form } from 'formik'
 import * as Yup from 'yup'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { useStrings } from 'framework/strings'
@@ -687,7 +692,7 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
         enableReinitialize={true}
       &gt;
         {formik =&gt; (
-          &lt;Form&gt;
+          &lt;FormikForm&gt;
             &lt;Layout.Vertical
               flex={{ justifyContent: 'space-between', alignItems: 'flex-start' }}
               className={css.manifestForm}
@@ -706,17 +711,17 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
                 &lt;/Layout.Horizontal&gt;
 &nbsp;
                 {formik.values.store !== '' ? (
-                  &lt;div className={css.connectorContainer}&gt;
+                  &lt;Layout.Horizontal
+                    spacing={'medium'}
+                    flex={{ alignItems: 'flex-start', justifyContent: 'flex-start' }}
+                    className={css.connectorContainer}
+                  &gt;
                     &lt;FormMultiTypeConnectorField
                       key={formik.values.store}
                       name="connectorRef"
-                      label={
-                        &lt;Text style={{ marginBottom: '5px' }}&gt;
-                          {`${getString(
-                            ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
-                          )} ${getString('connector')}`}
-                        &lt;/Text&gt;
-                      }
+                      label={`${getString(
+                        ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
+                      )} ${getString('connector')}`}
                       placeholder={`${getString('select')} ${getString(
                         ManifestToConnectorLabelMap[formik.values.store as ManifestStores]
                       )} ${getString('connector')}`}
@@ -732,35 +737,36 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
                       gitScope={{ repo: repoIdentifier || '', branch, getDefaultFromOtherRepo: true }}
                     /&gt;
                     {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >                      &lt;div className={css.configureOptions}&gt;</span>
-                        &lt;ConfigureOptions
-                          value={formik.values.connectorRef as unknown as string}
-                          type={ManifestToConnectorMap[formik.values.store]}
-                          variableName="connectorRef"
-                          showRequiredField={false}
-                          showDefaultField={false}
-                          showAdvanced={true}
-                          onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
-<span class="cstat-no" title="statement not covered" >                            formik.setFieldValue('connectorRef', value)</span>
-                          }}
-                          isReadonly={isReadonly}
-                        /&gt;
-                      &lt;/div&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >                      &lt;ConfigureOptions</span>
+                        className={css.configureOptions}
+                        value={formik.values.connectorRef as unknown as string}
+                        type={ManifestToConnectorMap[formik.values.store]}
+                        variableName="connectorRef"
+                        showRequiredField={false}
+                        showDefaultField={false}
+                        showAdvanced={true}
+                        onChange={<span class="fstat-no" title="function not covered" >value </span>=&gt; {
+<span class="cstat-no" title="statement not covered" >                          formik.setFieldValue('connectorRef', value)</span>
+                        }}
+                        isReadonly={isReadonly}
+                      /&gt;
                     ) : (
                       &lt;Button
                         variation={ButtonVariation.LINK}
+                        size={ButtonSize.SMALL}
                         disabled={isReadonly || !canCreate}
                         id="new-manifest-connector"
                         text={newConnectorLabel}
                         className={css.addNewManifest}
                         icon="plus"
+                        iconProps={{ size: 12 }}
                         onClick={() =&gt; {
                           handleConnectorViewChange()
                           nextStep<span class="branch-0 cbranch-no" title="branch not covered" >?.({</span> ...prevStepData, store: selectedStore })
                         }}
                       /&gt;
                     )}
-                  &lt;/div&gt;
+                  &lt;/Layout.Horizontal&gt;
                 ) : null}
               &lt;/Layout.Vertical&gt;
 &nbsp;
@@ -784,7 +790,7 @@ const ManifestStore: React.FC&lt;StepProps&lt;ConnectorConfigDTO&gt; &amp; Manif
                 /&gt;
               &lt;/Layout.Horizontal&gt;
             &lt;/Layout.Vertical&gt;
-          &lt;/Form&gt;
+          &lt;/FormikForm&gt;
         )}
       &lt;/Formik&gt;
     &lt;/Layout.Vertical&gt;
@@ -799,7 +805,7 @@ export default ManifestStore
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Aug 30 2021 17:39:35 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 04:39:54 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

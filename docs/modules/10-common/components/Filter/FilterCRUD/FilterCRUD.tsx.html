@@ -556,7 +556,15 @@
 <a name='L497'></a><a href='#L497'>497</a>
 <a name='L498'></a><a href='#L498'>498</a>
 <a name='L499'></a><a href='#L499'>499</a>
-<a name='L500'></a><a href='#L500'>500</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L500'></a><a href='#L500'>500</a>
+<a name='L501'></a><a href='#L501'>501</a>
+<a name='L502'></a><a href='#L502'>502</a>
+<a name='L503'></a><a href='#L503'>503</a>
+<a name='L504'></a><a href='#L504'>504</a>
+<a name='L505'></a><a href='#L505'>505</a>
+<a name='L506'></a><a href='#L506'>506</a>
+<a name='L507'></a><a href='#L507'>507</a>
+<a name='L508'></a><a href='#L508'>508</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-yes">10x</span>
@@ -954,6 +962,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1023,6 +1038,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1427,7 +1443,14 @@ const FilterCRUDRef = &lt;T extends FilterInterface&gt;(props: FilterCRUDProps&l
             &lt;Icon name="ng-filter" size={25} color={Color.WHITE} /&gt;
             &lt;span className={css.title}&gt;Filter&lt;/span&gt;
           &lt;/Layout.Horizontal&gt;
-          &lt;Button icon="cross" onClick={onClose} className={css.closeFilter} withoutBoxShadow /&gt;
+          &lt;Button
+            icon="cross"
+            variation={ButtonVariation.ICON}
+            iconProps={{ color: Color.WHITE }}
+            onClick={onClose}
+            className={css.closeFilter}
+            withoutBoxShadow
+          /&gt;
         &lt;/Layout.Horizontal&gt;
       &lt;/Layout.Vertical&gt;
       {isRefreshingFilters || isLoading ? (
@@ -1438,7 +1461,7 @@ const FilterCRUDRef = &lt;T extends FilterInterface&gt;(props: FilterCRUDProps&l
         &lt;&gt;
           &lt;Layout.Vertical padding={{ top: 'xlarge' }}&gt;
             &lt;Button
-              variation={ButtonVariation.PRIMARY}
+              minimal
               icon="plus"
               text={
                 unsavedFilter &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >isNewFilter</span>
@@ -1496,7 +1519,7 @@ const FilterCRUDRef = &lt;T extends FilterInterface&gt;(props: FilterCRUDProps&l
                         placeholder={getString('filters.typeFilterName')}
                       /&gt;
                       &lt;Layout.Vertical spacing={'medium'} margin={{ top: 'large' }}&gt;
-                        &lt;Label style={{ fontSize: 'small', color: Color.WHITE }}&gt;
+                        &lt;Label className={cx(Classes.LABEL, css.filterVisibilityText)}&gt;
                           {getString('filters.filterVisibility')}
                         &lt;/Label&gt;
                         &lt;FormInput.RadioGroup
@@ -1515,7 +1538,7 @@ const FilterCRUDRef = &lt;T extends FilterInterface&gt;(props: FilterCRUDProps&l
                       &lt;/Layout.Vertical&gt;
                       &lt;Layout.Horizontal spacing={'medium'} margin={{ top: 'large' }}&gt;
                         &lt;Button
-                          variation={ButtonVariation.PRIMARY}
+                          variation={ButtonVariation.SECONDARY}
                           text={getCRUDOperationLabel()}
                           className={css.saveFilterBtn}
                           type="submit"
@@ -1527,7 +1550,8 @@ const FilterCRUDRef = &lt;T extends FilterInterface&gt;(props: FilterCRUDProps&l
                         /&gt;
                         &lt;Button
                           type="reset"
-                          variation={ButtonVariation.SECONDARY}
+                          variation={ButtonVariation.LINK}
+                          color={Color.WHITE}
                           text={getString('cancel')}
                           className={css.cancelBtn}
                           onClick={(event: React.MouseEvent&lt;Element, MouseEvent&gt;) =&gt; {
@@ -1561,7 +1585,7 @@ export const FilterCRUD = React.forwardRef(FilterCRUDRef) as &lt;T extends Filte
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 01 2021 07:08:17 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 08:12:25 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

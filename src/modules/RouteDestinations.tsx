@@ -1,6 +1,10 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import { RoutesTemp } from '@wings-software/test-app-publish-'
+
+// import RoutesTemp from 'nav/Routes1'
+
+import TextInput from 'nav/TextBox1'
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -31,7 +35,7 @@ export const AccountSideNavProps: SidebarContext = {
 
 export default function RouteDestinations(): React.ReactElement {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
-
+  console.log('RoutesTemp', { RoutesTemp })
   return (
     <Switch>
       {...commonRoutes.props.children}
@@ -47,10 +51,13 @@ export default function RouteDestinations(): React.ReactElement {
       {...CDNG_ENABLED ? CDRoutes.props.children : []}
       {...CVNG_ENABLED ? CVRoutes.props.children : []}
 
-      <RoutesTemp contextObj={AppStoreContext} />
       <Route path="/account/:accountId/settingsfd">
-        <AuthSettingsRoutes />
+        <TextInput label="Email Addresss" placeholder="name@example.com" />
       </Route>
+      <React.Fragment>
+        <RoutesTemp contextObj={AppStoreContext} />
+      </React.Fragment>
+
       {CENG_ENABLED ? (
         <Route path="/account/:accountId/:module(ce)">
           <CERoutes />

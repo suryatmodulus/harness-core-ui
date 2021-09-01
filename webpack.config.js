@@ -6,6 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const devServerProxyConfig = require('./webpack.devServerProxy.config')
 
+const deps = require('./package.json').dependencies
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
@@ -23,6 +24,7 @@ const ON_PREM = `${process.env.ON_PREM}` === 'true'
 const BUGSNAG_TOKEN = process.env.BUGSNAG_TOKEN
 const BUGSNAG_SOURCEMAPS_UPLOAD = `${process.env.BUGSNAG_SOURCEMAPS_UPLOAD}` === 'true'
 const CONTEXT = process.cwd()
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const config = {
   context: CONTEXT,
   entry: './src/framework/app/App.tsx',
@@ -221,6 +223,13 @@ const commonPlugins = [
 ]
 
 const devOnlyPlugins = [
+  new ModuleFederationPlugin({
+    name: 'home',
+    filename: 'remoteEntry.js',
+    remotes: {
+      nav: 'nav@http://localhost:3003/remoteEntry.js'
+    }
+  }),
   new webpack.WatchIgnorePlugin({
     paths: [/node_modules(?!\/@wings-software)/, /\.d\.ts$/, /stringTypes\.ts/]
   }),

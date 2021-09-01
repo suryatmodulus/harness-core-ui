@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.75% </span>
+                <span class="strong">85.48% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>50/59</span>
+                <span class='fraction'>53/62</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.63% </span>
+                <span class="strong">64.15% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>84/128</span>
+                <span class='fraction'>68/106</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.96% </span>
+                <span class="strong">86.21% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>49/57</span>
+                <span class='fraction'>50/58</span>
             </div>
         
             
@@ -234,7 +234,13 @@
 <a name='L175'></a><a href='#L175'>175</a>
 <a name='L176'></a><a href='#L176'>176</a>
 <a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -268,6 +274,12 @@
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">80x</span>
 <span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-yes">80x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -442,19 +454,25 @@ interface ResourceGroupListViewProps {
   goToPage: (pageNumber: number) =&gt; void
 }
 &nbsp;
-const RenderColumnDetails: Renderer&lt;CellProps&lt;ResourceGroupResponse&gt;&gt; = ({ row }) =&gt; {
-  const data = row.original
-  return data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esourceGroup ? (
-    &lt;Layout.Horizontal spacing="small"&gt;
-      &lt;div style={{ backgroundColor: data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esourceGroup<span class="branch-0 cbranch-no" title="branch not covered" >?.c</span>olor }} className={cx(css.resourceGroupColor)}&gt;&lt;/div&gt;
-      &lt;Text color={Color.BLACK} lineClamp={1}&gt;
-        {data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esourceGroup<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>ame}
-      &lt;/Text&gt;
+export const RenderColumnDetails: Renderer&lt;CellProps&lt;ResourceGroupResponse&gt;&gt; = ({ row }) =&gt; {
+  const data = row.original.resourceGroup
+  const { getString } = useStrings()
+  return (
+    &lt;Layout.Horizontal spacing="small" flex={{ alignItems: 'center', justifyContent: 'flex-start' }}&gt;
+      &lt;div style={{ backgroundColor: data.color }} className={cx(css.resourceGroupColor)}&gt;&lt;/div&gt;
+      &lt;Layout.Vertical spacing="xsmall" padding={{ left: 'small' }}&gt;
+        &lt;Text color={Color.BLACK} lineClamp={1}&gt;
+          {data.name}
+        &lt;/Text&gt;
+        &lt;Text color={Color.GREY_600} lineClamp={1} font="small"&gt;
+          {getString('idLabel', { id: data.identifier })}
+        &lt;/Text&gt;
+      &lt;/Layout.Vertical&gt;
     &lt;/Layout.Horizontal&gt;
-  ) : <span class="branch-1 cbranch-no" title="branch not covered" >null</span>
+  )
 }
 &nbsp;
-const RenderColumnLastUpdated: Renderer&lt;CellProps&lt;ResourceGroupResponse&gt;&gt; = ({ row }) =&gt; {
+export const RenderColumnLastUpdated: Renderer&lt;CellProps&lt;ResourceGroupResponse&gt;&gt; = ({ row }) =&gt; {
   const { getString } = useStrings()
   const data = row<span class="branch-0 cbranch-no" title="branch not covered" >?.o</span>riginal
   if (data.harnessManaged) {
@@ -595,7 +613,7 @@ export default ResourceGroupListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 01 2021 13:50:34 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 15:23:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

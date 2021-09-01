@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">93.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>75/80</span>
+                <span class='fraction'>77/82</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">89.47% </span>
+                <span class="strong">90% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>17/19</span>
+                <span class='fraction'>18/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">93.75% </span>
+                <span class="strong">93.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>75/80</span>
+                <span class='fraction'>76/81</span>
             </div>
         
             
@@ -367,7 +367,12 @@
 <a name='L308'></a><a href='#L308'>308</a>
 <a name='L309'></a><a href='#L309'>309</a>
 <a name='L310'></a><a href='#L310'>310</a>
-<a name='L311'></a><a href='#L311'>311</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<a name='L311'></a><a href='#L311'>311</a>
+<a name='L312'></a><a href='#L312'>312</a>
+<a name='L313'></a><a href='#L313'>313</a>
+<a name='L314'></a><a href='#L314'>314</a>
+<a name='L315'></a><a href='#L315'>315</a>
+<a name='L316'></a><a href='#L316'>316</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -408,30 +413,35 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">44x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">44x</span>
 <span class="cline-any cline-yes">44x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
@@ -691,7 +701,7 @@ import {
   RoleAssignmentMetadataDTO
 } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
-import { useStrings } from 'framework/strings'
+import { useStrings, String } from 'framework/strings'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import RoleBindingsList from '@rbac/components/RoleBindingsList/RoleBindingsList'
 import { PrincipalType } from '@rbac/modals/RoleAssignmentModal/useRoleAssignmentModal'
@@ -716,12 +726,10 @@ interface UserGroupsListViewProps {
   openUserGroupModal: (userGroup?: UserGroupDTO, _isAddMember?: boolean) =&gt; void
 }
 &nbsp;
-const RenderColumnUserGroup: Renderer&lt;CellProps&lt;UserGroupAggregateDTO&gt;&gt; = ({ row }) =&gt; {
-  const { getString } = useStrings()
-  const data = row.original.userGroupDTO
+export const UserGroupColumn = (data: UserGroupDTO): React.ReactElement =&gt; {
   return (
     &lt;Layout.Vertical&gt;
-      &lt;Text&gt;{data.name}&lt;/Text&gt;
+      &lt;Text color={Color.BLACK}&gt;{data.name}&lt;/Text&gt;
       {data.ssoLinked ? (
         &lt;Layout.Horizontal
           flex={{ alignItems: 'center', justifyContent: 'flex-start' }}
@@ -729,12 +737,14 @@ const RenderColumnUserGroup: Renderer&lt;CellProps&lt;UserGroupAggregateDTO&gt;&
           className={css.truncatedText}
         &gt;
           &lt;Text icon={'link'} iconProps={{ color: Color.BLUE_500, size: 10 }} color={Color.BLACK}&gt;
-            {getString('rbac.userDetails.linkToSSOProviderModal.saml')}
+            &lt;String stringID="rbac.userDetails.linkToSSOProviderModal.saml" /&gt;
           &lt;/Text&gt;
           &lt;Text lineClamp={1} width={110}&gt;
             {data.linkedSsoDisplayName}
           &lt;/Text&gt;
-          &lt;Text color={Color.BLACK}&gt;{getString('rbac.userDetails.linkToSSOProviderModal.group')}&lt;/Text&gt;
+          &lt;Text color={Color.BLACK}&gt;
+            &lt;String stringID="rbac.userDetails.linkToSSOProviderModal.group" /&gt;
+          &lt;/Text&gt;
           &lt;Text lineClamp={1} width={110}&gt;
             {data.ssoGroupName}
           &lt;/Text&gt;
@@ -742,6 +752,11 @@ const RenderColumnUserGroup: Renderer&lt;CellProps&lt;UserGroupAggregateDTO&gt;&
       ) : null}
     &lt;/Layout.Vertical&gt;
   )
+}
+&nbsp;
+const RenderColumnUserGroup: Renderer&lt;CellProps&lt;UserGroupAggregateDTO&gt;&gt; = ({ row }) =&gt; {
+  const data = row.original.userGroupDTO
+  return UserGroupColumn(data)
 }
 &nbsp;
 const RenderColumnMembers: Renderer&lt;CellProps&lt;UserGroupAggregateDTO&gt;&gt; = ({ row, column }) =&gt; {
@@ -994,7 +1009,7 @@ export default UserGroupsListView
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 01 2021 13:50:34 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 15:23:27 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

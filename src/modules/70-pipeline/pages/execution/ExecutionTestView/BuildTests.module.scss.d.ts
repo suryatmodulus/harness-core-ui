@@ -40,7 +40,7 @@ declare const styles: {
   readonly expanded: string
   readonly headingContainer: string
   readonly testSuiteHeading: string
-  readonly splitview: string
+  readonly main: string
   readonly withSeparator: string
   readonly progressBar: string
   readonly testSuiteTable: string
@@ -70,7 +70,6 @@ declare const styles: {
   readonly expandButton: string
   readonly callgraphBody: string
   readonly callgraphLoadingStatus: string
-  readonly callgraphError: string
   readonly callgraphTooltip: string
   readonly sourceMethod: string
   readonly methodName: string

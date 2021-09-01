@@ -25,7 +25,6 @@ export interface TestExecutionEntryProps {
   onExpand: () => void
   stageId: string
   stepId: string
-  splitview?: boolean
   onShowCallGraphForClass?: (classname: string) => void
 }
 
@@ -38,7 +37,6 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
   onExpand,
   stageId,
   stepId,
-  splitview,
   onShowCallGraphForClass
 }) => {
   const containerRef = useRef<HTMLElement>(null)
@@ -218,7 +216,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
       const rightSideContainerWidth = rightSideContainer.offsetWidth
 
       const CHEVRON_BUTTON_WIDTH = 40
-      const SIDES_SPACING = 20
+      const SIDES_SPACING = 25
 
       const newTitleWidth =
         containerWidthWithoutPaddings - rightSideContainerWidth - CHEVRON_BUTTON_WIDTH - SIDES_SPACING
@@ -231,7 +229,7 @@ export const TestsExecutionItem: React.FC<TestExecutionEntryProps> = ({
     <Container className={cx(css.widget, css.testSuite, expanded && css.expanded)} padding="medium" ref={containerRef}>
       <Container flex className={css.headingContainer}>
         <Text
-          className={`${css.testSuiteHeading} ${splitview ? css.splitview : ''}`}
+          className={cx(css.testSuiteHeading, css.main)}
           color={Color.GREY_500}
           style={{ flexGrow: 1, textAlign: 'left', justifyContent: 'flex-start' }}
         >

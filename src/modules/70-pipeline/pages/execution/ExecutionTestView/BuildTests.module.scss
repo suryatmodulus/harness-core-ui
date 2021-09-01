@@ -349,7 +349,7 @@
   }
 
   .testSuiteHeading {
-    &:first-of-type {
+    &.main {
       justify-content: center;
       align-items: center;
       display: flex;
@@ -359,7 +359,6 @@
         padding-left: var(--spacing-xxsmall);
       }
     }
-
     span {
       color: var(--black);
       display: block;
@@ -368,14 +367,10 @@
     }
   }
 
-  .splitview {
-    max-width: 455px !important;
-  }
-
   .withSeparator {
     border-right: 0.5px solid #d9dae6;
-    padding-right: var(--spacing-large) !important;
-    padding-left: var(--spacing-large) !important;
+    padding-right: var(--spacing-medium) !important;
+    padding-left: var(--spacing-medium) !important;
 
     &:first-of-type {
       padding-left: 0 !important;
@@ -581,16 +576,11 @@
   }
 
   .callgraphLoadingStatus {
-    display: grid !important;
+    display: flex !important;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100%;
-
-    .callgraphError {
-      text-align: center;
-      width: 300px;
-      word-wrap: break-word;
-    }
   }
 }
 

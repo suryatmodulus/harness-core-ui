@@ -198,6 +198,9 @@ const TestsCallgraphComponent: (props: TestsCallgraphProps) => React.ReactElemen
           pointerEvents: 'auto'
         },
         formatter: function () {
+          // Required for showing a tooltip on click instead of hover
+          if (!(this.point.series.chart.tooltip as any).customEnabled) return false
+
           const node: UnknownHighChartType = (this as UnknownHighChartType).point?.node
           return preview || node?.noEdges
             ? node?.isRoot
@@ -228,7 +231,7 @@ const TestsCallgraphComponent: (props: TestsCallgraphProps) => React.ReactElemen
       series: [
         {
           link: {
-            color: '#3DC7F6'
+            color: NOT_IMPORTANT_NODE_COLOR
           },
           dataLabels: {
             enabled: false,
@@ -237,8 +240,21 @@ const TestsCallgraphComponent: (props: TestsCallgraphProps) => React.ReactElemen
           id: CALL_GRAPH_CHART_ID,
           data: buildNetworkChartLinksFromResponse({ graph, preview, searchTerm }),
           events: {
-            click: () => {
+            click: function () {
+              // Required for showing a tooltip on click instead of hover
+              const chart = this.chart as any
+              chart.tooltip.customEnabled = true
+              chart.tooltip.refresh(chart.hoverPoint)
+
               onNodeClick()
+            },
+            mouseOut: function () {
+              // Required for showing a tooltip on click instead of hover
+              const tooltip = this.chart.tooltip as any
+              if (!tooltip.isHidden) {
+                tooltip.customEnabled = false
+                tooltip.hide()
+              }
             }
           }
         }

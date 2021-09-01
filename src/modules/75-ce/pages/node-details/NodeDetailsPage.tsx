@@ -46,7 +46,7 @@ const NodeDetailsPage: () => JSX.Element = () => {
 
   const { getString } = useStrings()
 
-  const [chartDataAggregation, setChartDataAggregation] = useState<Aggregation>(Aggregation.TimeWeighted)
+  const [chartDataAggregation, setChartDataAggregation] = useState<Aggregation>(Aggregation.Average)
 
   const [timeRange, setTimeRange] = useState<{ to: string; from: string }>({
     to: DATE_RANGE_SHORTCUTS.LAST_7_DAYS[1].format(CE_DATE_FORMAT_INTERNAL),
@@ -115,8 +115,8 @@ const NodeDetailsPage: () => JSX.Element = () => {
             values: [nodeId],
             operator: QlceViewFilterOperator.In,
             field: {
-              fieldId: 'parentInstanceId',
-              fieldName: 'Parent instance id',
+              fieldId: 'instanceId',
+              fieldName: 'Instance Id',
               identifierName: ViewFieldIdentifier.Cluster,
               identifier: ViewFieldIdentifier.Cluster
             }
@@ -127,9 +127,6 @@ const NodeDetailsPage: () => JSX.Element = () => {
         getTimeRangeFilter(isDateRangeInLast7Days ? QlceViewTimeGroupType.Hour : QlceViewTimeGroupType.Day),
         {
           entityGroupBy: { fieldId: 'instanceName', fieldName: 'Node', identifier: ViewFieldIdentifier.Cluster }
-        } as any,
-        {
-          entityGroupBy: { fieldId: 'clusterName', fieldName: 'Cluster Name', identifier: ViewFieldIdentifier.Cluster }
         } as any
       ],
       isClusterQuery,
@@ -237,23 +234,23 @@ const NodeDetailsPage: () => JSX.Element = () => {
                   </Text>
                   <div
                     className={cx(css.aggregationTags, {
-                      [css.active]: chartDataAggregation === Aggregation.TimeWeighted
+                      [css.active]: chartDataAggregation === Aggregation.Maximum
                     })}
                     onClick={() => {
-                      setChartDataAggregation(Aggregation.TimeWeighted)
+                      setChartDataAggregation(Aggregation.Maximum)
                     }}
                   >
-                    {getString('ce.perspectives.workloadDetails.aggregation.timeWeighted')}
+                    {getString('ce.perspectives.nodeDetails.aggregation.maximum')}
                   </div>
                   <div
                     className={cx(css.aggregationTags, {
-                      [css.active]: chartDataAggregation === Aggregation.Absolute
+                      [css.active]: chartDataAggregation === Aggregation.Average
                     })}
                     onClick={() => {
-                      setChartDataAggregation(Aggregation.Absolute)
+                      setChartDataAggregation(Aggregation.Average)
                     }}
                   >
-                    {getString('ce.perspectives.workloadDetails.aggregation.absolute')}
+                    {getString('ce.perspectives.nodeDetails.aggregation.average')}
                   </div>
                 </Layout.Horizontal>
               </Container>

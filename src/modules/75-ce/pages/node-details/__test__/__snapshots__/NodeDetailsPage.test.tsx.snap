@@ -148,7 +148,7 @@ exports[`test cases for Node details Page should be able to render the details p
           <p
             class="StyledProps--font StyledProps--main headingText"
           >
-            ce.perspectives.workloadDetails.workloadDetailsText
+            ce.perspectives.nodeDetails.nodeDetailsText
           </p>
           <div
             class="Layout--horizontal StyledProps--main"
@@ -452,28 +452,42 @@ exports[`test cases for Node details Page should be able to render the details p
               ce.perspectives.workloadDetails.aggregation.text
             </p>
             <div
-              class="aggregationTags active"
-            >
-              ce.perspectives.workloadDetails.aggregation.timeWeighted
-            </div>
-            <div
               class="aggregationTags"
             >
-              ce.perspectives.workloadDetails.aggregation.absolute
+              ce.perspectives.nodeDetails.aggregation.maximum
+            </div>
+            <div
+              class="aggregationTags active"
+            >
+              ce.perspectives.nodeDetails.aggregation.average
             </div>
           </div>
         </div>
-        <div>
-          <article>
-            <mock
-              options="[object Object]"
-            />
-          </article>
-          <article>
-            <mock
-              options="[object Object]"
-            />
-          </article>
+        <div
+          class="StyledProps--font StyledProps--main chartMainContainer"
+        >
+          <div
+            class="Layout--horizontal StyledProps--main horizontalCharts"
+          >
+            <div
+              class="horizontalChart"
+            >
+              <article>
+                <mock
+                  options="[object Object]"
+                />
+              </article>
+            </div>
+            <div
+              class="horizontalChart"
+            >
+              <article>
+                <mock
+                  options="[object Object]"
+                />
+              </article>
+            </div>
+          </div>
         </div>
       </div>
       <div

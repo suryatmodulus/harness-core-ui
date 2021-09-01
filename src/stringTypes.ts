@@ -2822,6 +2822,9 @@ export interface StringsMap {
   'ce.perspectives.createPerspective.title': string
   'ce.perspectives.createPerspective.validationErrors.nameError': string
   'ce.perspectives.createPerspective.validationErrors.ruleError': string
+  'ce.perspectives.nodeDetails.aggregation.average': string
+  'ce.perspectives.nodeDetails.aggregation.maximum': string
+  'ce.perspectives.nodeDetails.nodeDetailsText': string
   'ce.perspectives.reports.createNew': string
   'ce.perspectives.reports.cronLabel': string
   'ce.perspectives.reports.desc': string

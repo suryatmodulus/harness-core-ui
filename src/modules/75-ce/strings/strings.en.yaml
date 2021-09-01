@@ -423,6 +423,11 @@ perspectives:
       cpuUnitPrice: 'CPU Unit Price'
       memoryUnitPrice: 'Memory Unit Price'
       podCapacity: 'Pod Capacity'
+  nodeDetails:
+    nodeDetailsText: 'NODE DETAILS'
+    aggregation:
+      average: Average
+      maximum: Maximum
   save: Save Perspective
   validations:
     invalidEmails: Invalid email address(es)

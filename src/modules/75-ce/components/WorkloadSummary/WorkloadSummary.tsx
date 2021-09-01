@@ -119,10 +119,15 @@ const WorkloadSummary: (props: WorkloadSummaryProps) => JSX.Element = ({
     )
   }
 
+  const detailsText = {
+    [CCM_PAGE_TYPE.Workload]: getString('ce.perspectives.workloadDetails.workloadDetailsText'),
+    [CCM_PAGE_TYPE.Node]: getString('ce.perspectives.nodeDetails.nodeDetailsText')
+  }
+
   return (
     <Layout.Horizontal className={css.summaryDetailsContainer}>
       <Container className={css.container}>
-        <Text className={css.headingText}>{getString('ce.perspectives.workloadDetails.workloadDetailsText')}</Text>
+        <Text className={css.headingText}>{detailsText[pageType]}</Text>
         <NodeDetails infoData={infoData} pageType={pageType} />
       </Container>
       <Container className={css.container}>

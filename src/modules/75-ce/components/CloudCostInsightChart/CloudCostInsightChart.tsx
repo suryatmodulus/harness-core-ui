@@ -111,7 +111,7 @@ const CloudCostInsightChart = forwardRef((props: CloudCostInsightChartProps, ref
     )
   }
 
-  if (pageType === CCM_PAGE_TYPE.Workload) {
+  if (pageType === CCM_PAGE_TYPE.Workload || pageType === CCM_PAGE_TYPE.Node) {
     return (
       <Container className={css.chartMainContainer}>
         <WorkloadDetailsChart

@@ -6,6 +6,7 @@ const path = require('path')
 const fs = require('fs')
 const devServerProxyConfig = require('./webpack.devServerProxy.config')
 
+const deps = require('./package.json').dependencies
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
@@ -15,6 +16,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-generator-plugin').default
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin')
 const GenerateStringTypesPlugin = require('./scripts/webpack/GenerateStringTypesPlugin').GenerateStringTypesPlugin
+const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin')
 const { BugsnagSourceMapUploaderPlugin } = require('webpack-bugsnag-plugins')
 
 const DEV = process.env.NODE_ENV === 'development'
@@ -41,6 +43,7 @@ if (isCypress && isCypressCoverage) {
 } else {
   tsLoaders.push(tsLoaderConfig)
 }
+
 const config = {
   context: CONTEXT,
   entry: './src/framework/app/App.tsx',
@@ -232,6 +235,13 @@ const commonPlugins = [
 ]
 
 const devOnlyPlugins = [
+  new ModuleFederationPlugin({
+    name: 'home',
+    filename: 'remoteEntry.js',
+    remotes: {
+      nav: 'nav@http://localhost:3003/remoteEntry.js'
+    }
+  }),
   new webpack.WatchIgnorePlugin({
     paths: [/node_modules(?!\/@wings-software)/, /\.d\.ts$/, /stringTypes\.ts/]
   }),

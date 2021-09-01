@@ -1,6 +1,5 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-
 import delegatesRoutes from '@delegates/RouteDestinations'
 import commonRoutes from '@common/RouteDestinations'
 import { useFeatureFlags } from '@common/hooks/useFeatureFlag'
@@ -32,7 +31,7 @@ export const AccountSideNavProps: SidebarContext = {
 
 export default function RouteDestinations(): React.ReactElement {
   const { CDNG_ENABLED, CVNG_ENABLED, CING_ENABLED, CENG_ENABLED, CFNG_ENABLED } = useFeatureFlags()
-
+  console.log('RoutesTemp', { RoutesTemp })
   return (
     <Switch>
       {...commonRoutes.props.children}
@@ -51,6 +50,10 @@ export default function RouteDestinations(): React.ReactElement {
       <Route path="/account/:accountId/settings">
         <AuthSettingsRoutes />
       </Route>
+      <React.Fragment>
+        <RoutesTemp contextObj={AppStoreContext} />
+      </React.Fragment>
+
       {CENG_ENABLED ? (
         <Route path="/account/:accountId/:module(ce)">
           <CERoutes />

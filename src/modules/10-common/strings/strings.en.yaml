@@ -299,8 +299,7 @@ references: 'References'
 labelTestConnection: 'Test Connection'
 path: 'Path'
 enableGitSyncPipeline:
-  Git Experience allows you to store Harness projects, pipelines, and resources in Git alongside your
-  code. Git acts as the single source of truth for all your Harness work.
+  Store your Pipelines and Harness Configurations in Git.
 saveAndClose: Save and Close
 pendingInvitation: Pending Invitation
 capsAll: ALL

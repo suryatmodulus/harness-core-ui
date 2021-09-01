@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.12% </span>
+                <span class="strong">73.81% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>63/85</span>
+                <span class='fraction'>62/84</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">65.55% </span>
+                <span class="strong">64.94% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>156/238</span>
+                <span class='fraction'>150/231</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">74.7% </span>
+                <span class="strong">74.39% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>62/83</span>
+                <span class='fraction'>61/82</span>
             </div>
         
             
@@ -522,8 +522,7 @@
 <a name='L463'></a><a href='#L463'>463</a>
 <a name='L464'></a><a href='#L464'>464</a>
 <a name='L465'></a><a href='#L465'>465</a>
-<a name='L466'></a><a href='#L466'>466</a>
-<a name='L467'></a><a href='#L467'>467</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L466'></a><a href='#L466'>466</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -564,7 +563,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
@@ -1031,7 +1029,6 @@ interface TestsExecutionProps {
 &nbsp;
 export const TestsExecution: React.FC&lt;TestsExecutionProps&gt; = ({ stageId, stepId, serviceToken, showCallGraph }) =&gt; {
   const context = useExecutionContext()
-  const callGraphEnabled = /localhost|qa.harness.io/.test(location.hostname) || <span class="branch-1 cbranch-no" title="branch not covered" >localStorage.CI_TI_CALL_GRAPH_ENABLED</span>
   const { getString } = useStrings()
   const status = (context<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionDetail<span class="branch-0 cbranch-no" title="branch not covered" >?.p</span>ipelineExecutionSummary<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>tatus || <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>.toUpperCase()
   const [showFailedTestsOnly, setShowFailedTestsOnly] = useState(false)
@@ -1292,7 +1289,7 @@ export const TestsExecution: React.FC&lt;TestsExecutionProps&gt; = ({ stageId, s
         {loading &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Icon name="steps-spinner" size={16} color="blue500" margin={{ left: 'xsmall' }} /&gt;}</span>
       &lt;/Container&gt;
       &lt;Layout.Horizontal spacing="medium" className={css.widget} padding="xlarge"&gt;
-        &lt;Container width={`calc(100% - ${callGraphEnabled &amp;&amp; showCallGraph ? CALL_GRAPH_WIDTH : 0}px)`}&gt;
+        &lt;Container width={`calc(100% - ${showCallGraph ? CALL_GRAPH_WIDTH : 0}px)`}&gt;
           &lt;Container flex&gt;
             &lt;Switch
               label={getString('pipeline.testsReports.showOnlyFailedTests')}
@@ -1361,7 +1358,7 @@ export const TestsExecution: React.FC&lt;TestsExecutionProps&gt; = ({ stageId, s
                       onExpand={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
 <span class="cstat-no" title="statement not covered" >                        setExpandedIndex(expandedIndex !== index ? index : undefined)</span>
                       }}
-                      onShowCallGraphForClass={callGraphEnabled &amp;&amp; showCallGraph ? onClassSelected : undefined}
+                      onShowCallGraphForClass={showCallGraph ? onClassSelected : undefined}
                     /&gt;
                   ))}
                 &lt;/Layout.Vertical&gt;
@@ -1393,7 +1390,7 @@ export const TestsExecution: React.FC&lt;TestsExecutionProps&gt; = ({ stageId, s
         &lt;/Container&gt;
 &nbsp;
         {/* Callgraph container */}
-        {callGraphEnabled &amp;&amp; showCallGraph &amp;&amp; (
+        {showCallGraph &amp;&amp; (
           &lt;Container width={CALL_GRAPH_WIDTH} className={css.callgraphContainer}&gt;
             &lt;Layout.Horizontal className={css.callgraphHeader}&gt;
               &lt;Text color={Color.GREY_800} style={{ fontWeight: 500, fontSize: '14px', lineHeight: '32px' }}&gt;
@@ -1462,7 +1459,7 @@ export const TestsExecution: React.FC&lt;TestsExecutionProps&gt; = ({ stageId, s
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Wed Sep 01 2021 08:12:25 GMT+0000 (Greenwich Mean Time)
+                at Wed Sep 01 2021 08:45:20 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

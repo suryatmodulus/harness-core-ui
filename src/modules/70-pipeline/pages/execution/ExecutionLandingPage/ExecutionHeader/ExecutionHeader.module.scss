@@ -58,7 +58,6 @@
     & .duration {
       font-size: var(--font-size-small);
       color: var(--grey-800);
-      min-width: 100px;
       display: inline-flex;
       align-items: center;
 
@@ -66,9 +65,5 @@
         color: var(--grey-600);
       }
     }
-  }
-
-  & .statusLabel {
-    margin-left: var(--spacing-5);
   }
 }

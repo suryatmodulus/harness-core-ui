@@ -3369,6 +3369,7 @@ export interface StringsMap {
   'ci.ciTrialHomePage.startTrial.startBtn.description': string
   'ci.clipboardCopyFail': string
   'ci.clipboardCopySuccess': string
+  'ci.commitMessage': string
   'ci.commitsOn': string
   'ci.committed': string
   'ci.connectors': string
@@ -3390,6 +3391,7 @@ export interface StringsMap {
   'ci.noData': string
   'ci.optimize': string
   'ci.prSymbol': string
+  'ci.prTitle': string
   'ci.previous': string
   'ci.privileged': string
   'ci.remoteCacheImage.dockerInfo': string

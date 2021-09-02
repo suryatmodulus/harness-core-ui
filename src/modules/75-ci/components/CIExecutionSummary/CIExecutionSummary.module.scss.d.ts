@@ -3,5 +3,9 @@
 declare const styles: {
   readonly main: string
   readonly icon: string
+  readonly label: string
+  readonly multiple: string
+  readonly commit: string
+  readonly state: string
 }
 export default styles

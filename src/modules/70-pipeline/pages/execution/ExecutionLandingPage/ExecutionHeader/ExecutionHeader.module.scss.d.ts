@@ -12,6 +12,5 @@ declare const styles: {
   readonly startTime: string
   readonly startTimeText: string
   readonly duration: string
-  readonly statusLabel: string
 }
 export default styles

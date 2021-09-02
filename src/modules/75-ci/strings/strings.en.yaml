@@ -50,3 +50,5 @@ runTestsMavenSetupText2: Update pom.xml by adding HARNESS_JAVA_AGENT env variabl
 runTestsMavenSetupSample: |
   Sample:
   <argLine> existing ${env.HARNESS_JAVA_AGENT} </argLine>
+commitMessage: Commit Message
+prTitle: PR Title

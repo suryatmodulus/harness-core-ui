@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
@@ -73,7 +73,22 @@
 <a name='L14'></a><a href='#L14'>14</a>
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
-<a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L17'></a><a href='#L17'>17</a>
+<a name='L18'></a><a href='#L18'>18</a>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
@@ -86,25 +101,55 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Connectors } from '@connectors/constants'
 import type { CardSelectOption } from './ChangeSourceDrawer.types'
 &nbsp;
-export const HarnessCD = 'HarnessCD'
+export const HARNESS_CD = 'HarnessCD'
 &nbsp;
-export const CHANGESOURCE_OPTIONS = [
-  { label: 'deploymentText', value: 'Deployment' },
-  { label: 'infrastructureText', value: 'Infrastructure' },
-  { label: 'cv.changeSource.alertText', value: 'Alert' }
+export const ChangeSourceCategoryName = {
+  DEPLOYMENT: 'Deployment',
+  INFRASTRUCTURE: 'Infrastructure',
+  ALERT: 'Alert'
+}
+&nbsp;
+export const ChangeSourceCategoryOptions = [
+  { label: 'deploymentText', value: ChangeSourceCategoryName.DEPLOYMENT },
+  { label: 'infrastructureText', value: ChangeSourceCategoryName.INFRASTRUCTURE },
+  { label: 'cv.changeSource.alertText', value: ChangeSourceCategoryName.ALERT }
 ]
 &nbsp;
-export const CARD_OPTIONS: CardSelectOption[] = [
-  { label: 'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name', value: HarnessCD, category: 'Deployment' },
-  { label: 'kubernetesText', value: Connectors.KUBERNETES_CLUSTER, category: 'Infrastructure' },
-  { label: 'common.pagerDuty', value: Connectors.PAGER_DUTY, category: 'Alert' }
+export const ChangeSourceConnectorOptions: CardSelectOption[] = [
+  {
+    label: 'cv.onboarding.changeSourceTypes.HarnessCDNextGen.name',
+    value: HARNESS_CD,
+    category: ChangeSourceCategoryName.DEPLOYMENT
+  },
+  { label: 'kubernetesText', value: Connectors.KUBERNETES_CLUSTER, category: ChangeSourceCategoryName.INFRASTRUCTURE },
+  { label: 'common.pagerDuty', value: Connectors.PAGER_DUTY, category: ChangeSourceCategoryName.ALERT }
 ]
+&nbsp;
+export const ChangeSourceFieldNames = {
+  CATEGORY: 'category',
+  TYPE: 'type'
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -112,7 +157,7 @@ export const CARD_OPTIONS: CardSelectOption[] = [
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Sep 02 2021 16:12:48 GMT+0000 (Greenwich Mean Time)
+                at Thu Sep 02 2021 17:55:07 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

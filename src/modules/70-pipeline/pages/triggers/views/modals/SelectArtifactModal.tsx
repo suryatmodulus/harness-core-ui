@@ -156,10 +156,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                 })
 
                 /*
-                              when we have multiple stages - need to filter undefined values
-                              in this case formikprops.values.stages will be [undefined, [stage obj]]
-                              when chartVersion alone is runtime input, stages array could be empty
-                    */
+                                when we have multiple stages - need to filter undefined values
+                                in this case formikprops.values.stages will be [undefined, [stage obj]]
+                                when chartVersion alone is runtime input, stages array could be empty
+                      */
                 const filterFormStages = formikProps.values?.stages?.filter((item: any) => item)
                 // when stages is empty array, filteredArtifact will be empty object
                 const formFilteredArtifact =
@@ -176,10 +176,10 @@ const SelectArtifactModal: React.FC<SelectArtifactModalPropsInterface> = ({
                     chartVersion: finalArtifact.spec.chartVersion
                   })
                 }
-                const { pipeline, stageId, selectedArtifact } = formikProps.values
+                const { pipeline, selectedArtifact } = formikProps.values
                 const newPipelineObj = updatePipelineManifest({
                   pipeline,
-                  stageIdentifier: stageId,
+                  stageIdentifier: selectedStageId,
                   selectedArtifact,
                   newArtifact: clearRuntimeInputValue(finalArtifact)
                 })

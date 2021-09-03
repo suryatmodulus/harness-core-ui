@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.71% </span>
+                <span class="strong">51.86% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>952/1841</span>
+                <span class='fraction'>961/1853</span>
             </div>
         
             
@@ -1774,7 +1774,21 @@
 <a name='L1715'></a><a href='#L1715'>1715</a>
 <a name='L1716'></a><a href='#L1716'>1716</a>
 <a name='L1717'></a><a href='#L1717'>1717</a>
-<a name='L1718'></a><a href='#L1718'>1718</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">138x</span>
+<a name='L1718'></a><a href='#L1718'>1718</a>
+<a name='L1719'></a><a href='#L1719'>1719</a>
+<a name='L1720'></a><a href='#L1720'>1720</a>
+<a name='L1721'></a><a href='#L1721'>1721</a>
+<a name='L1722'></a><a href='#L1722'>1722</a>
+<a name='L1723'></a><a href='#L1723'>1723</a>
+<a name='L1724'></a><a href='#L1724'>1724</a>
+<a name='L1725'></a><a href='#L1725'>1725</a>
+<a name='L1726'></a><a href='#L1726'>1726</a>
+<a name='L1727'></a><a href='#L1727'>1727</a>
+<a name='L1728'></a><a href='#L1728'>1728</a>
+<a name='L1729'></a><a href='#L1729'>1729</a>
+<a name='L1730'></a><a href='#L1730'>1730</a>
+<a name='L1731'></a><a href='#L1731'>1731</a>
+<a name='L1732'></a><a href='#L1732'>1732</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">138x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -2538,6 +2552,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3140,6 +3166,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -3511,7 +3539,7 @@ import type {
   VaultConnectorDTO,
   AzureKeyVaultConnectorDTO
 } from 'services/cd-ng'
-import { FormData, CredTypeValues } from '@connectors/interfaces/ConnectorInterface'
+import { FormData, CredTypeValues, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 import type { SecretReferenceInterface } from '@secrets/utils/SecretField'
 import { ValueType } from '@secrets/components/TextReference/TextReference'
 import { useStrings } from 'framework/strings'
@@ -4243,10 +4271,22 @@ export const buildVaultPayload = (formData: FormData): BuildVaultPayloadReturnTy
     tags: formData.tags,
     type: Connectors.VAULT,
     spec: {
-      ...pick(formData, ['basePath', 'vaultUrl', 'readOnly', 'default', 'renewalIntervalMinutes', 'delegateSelectors']),
-      authToken: formData.accessType === 'TOKEN' ? formData.authToken<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eferenceString : undefined,
-      appRoleId: formData.accessType === 'APP_ROLE' ? formData.appRoleId : undefined,
-      secretId: formData.accessType === 'APP_ROLE' ? formData.secretId<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eferenceString : undefined,
+      ...pick(formData, [
+        'basePath',
+        'vaultUrl',
+        'namespace',
+        'readOnly',
+        'default',
+        'renewalIntervalMinutes',
+        'delegateSelectors'
+      ]),
+      authToken:
+        formData.accessType === HashiCorpVaultAccessTypes.TOKEN ? formData.authToken<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eferenceString : undefined,
+      appRoleId: formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.appRoleId : undefined,
+      secretId:
+        formData.accessType === HashiCorpVaultAccessTypes.APP_ROLE ? formData.secretId<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eferenceString : undefined,
+      useVaultAgent: formData.accessType === HashiCorpVaultAccessTypes.VAULT_AGENT,
+      sinkPath: formData.accessType === HashiCorpVaultAccessTypes.VAULT_AGENT ? <span class="branch-0 cbranch-no" title="branch not covered" >formData.sinkPath </span>: undefined,
       secretEngineManuallyConfigured: formData.engineType === 'manual',
       secretEngineName:
         formData.engineType === 'manual' ? formData.secretEngineName : <span class="branch-1 cbranch-no" title="branch not covered" >formData.secretEngine?.split('@@@')[0],</span>
@@ -4859,12 +4899,14 @@ export const setupVaultFormData = async (connectorInfo: ConnectorInfoDTO, accoun
   return {
     vaultUrl: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>aultUrl || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
     basePath: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.b</span>asePath || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
+    namespace: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.n</span>amespace,
     readOnly: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>eadOnly || false,
     default: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.d</span>efault || false,
-    accessType: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ccessType || <span class="branch-1 cbranch-no" title="branch not covered" >'APP_ROLE',</span>
+    accessType: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ccessType || <span class="branch-1 cbranch-no" title="branch not covered" >HashiCorpVaultAccessTypes.APP_ROLE,</span>
     appRoleId: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ppRoleId || <span class="branch-1 cbranch-no" title="branch not covered" >'',</span>
     secretId: secretId || <span class="branch-1 cbranch-no" title="branch not covered" >undefined,</span>
     authToken: authToken || undefined,
+    sinkPath: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>inkPath || '',
     renewalIntervalMinutes: connectorInfoSpec<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>enewalIntervalMinutes || <span class="branch-1 cbranch-no" title="branch not covered" >10</span>
   }
 }
@@ -5215,7 +5257,7 @@ export const isSMConnector = (type?: ConnectorInfoDTO['type']): boolean | undefi
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 03 2021 10:32:25 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 03 2021 11:16:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

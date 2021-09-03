@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>5/6</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -121,24 +121,24 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">104x</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a>
+<a name='L73'></a><a href='#L73'>73</a>
+<a name='L74'></a><a href='#L74'>74</a>
+<a name='L75'></a><a href='#L75'>75</a>
+<a name='L76'></a><a href='#L76'>76</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">104x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">104x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -148,6 +148,28 @@
 <span class="cline-any cline-yes">15x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,18 +213,7 @@ import type { IOptionProps } from '@blueprintjs/core'
 import type { FormikContext } from 'formik'
 import { useStrings } from 'framework/strings'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import type { VaultConfigFormData } from '@connectors/interfaces/ConnectorInterface'
-&nbsp;
-const accessTypeOptions: IOptionProps[] = [
-  {
-    label: 'App Role',
-    value: 'APP_ROLE'
-  },
-  {
-    label: 'Token',
-    value: 'TOKEN'
-  }
-]
+import { VaultConfigFormData, HashiCorpVaultAccessTypes } from '@connectors/interfaces/ConnectorInterface'
 &nbsp;
 interface VaultConnectorFormFieldsProps {
   formik: FormikContext&lt;VaultConfigFormData&gt;
@@ -211,17 +222,37 @@ interface VaultConnectorFormFieldsProps {
 const VaultConnectorFormFields: React.FC&lt;VaultConnectorFormFieldsProps&gt; = ({ formik }) =&gt; {
   const { getString } = useStrings()
 &nbsp;
+  const accessTypeOptions: IOptionProps[] = [
+    {
+      label: getString('connectors.hashiCorpVault.appRole'),
+      value: HashiCorpVaultAccessTypes.APP_ROLE
+    },
+    {
+      label: getString('token'),
+      value: HashiCorpVaultAccessTypes.TOKEN
+    },
+    {
+      label: getString('connectors.hashiCorpVault.vaultAgent'),
+      value: HashiCorpVaultAccessTypes.VAULT_AGENT
+    }
+  ]
+&nbsp;
   return (
     &lt;&gt;
       &lt;FormInput.Text name="vaultUrl" label={getString('connectors.hashiCorpVault.vaultUrl')} /&gt;
       &lt;FormInput.Text name="basePath" label={getString('connectors.hashiCorpVault.baseSecretPath')} /&gt;
+      &lt;FormInput.Text
+        name="namespace"
+        label={getString('common.namespace')}
+        placeholder={getString('connectors.hashiCorpVault.root')}
+      /&gt;
       &lt;FormInput.RadioGroup
         name="accessType"
         label={getString('authentication')}
         radioGroup={{ inline: true }}
         items={accessTypeOptions}
       /&gt;
-      {formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues['accessType'] === 'APP_ROLE' ? (
+      {formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues['accessType'] === HashiCorpVaultAccessTypes.APP_ROLE ? (
         &lt;&gt;
           &lt;FormInput.Text name="appRoleId" label={getString('connectors.hashiCorpVault.appRoleId')} /&gt;
           &lt;SecretInput
@@ -230,8 +261,10 @@ const VaultConnectorFormFields: React.FC&lt;VaultConnectorFormFieldsProps&gt; = 
             connectorTypeContext={'Vault'}
           /&gt;
         &lt;/&gt;
-      ) : (
+      ) : formik<span class="branch-0 cbranch-no" title="branch not covered" >?.v</span>alues['accessType'] === HashiCorpVaultAccessTypes.TOKEN ? (
         &lt;SecretInput name="authToken" label={getString('token')} connectorTypeContext={'Vault'} /&gt;
+      ) : (
+<span class="branch-1 cbranch-no" title="branch not covered" >        &lt;FormInput.Text name="sinkPath" label={getString('connectors.hashiCorpVault.sinkPath')} /&gt;</span>
       )}
       &lt;FormInput.Text name="renewalIntervalMinutes" label={getString('connectors.hashiCorpVault.renewal')} /&gt;
       &lt;FormInput.CheckBox
@@ -256,7 +289,7 @@ export default VaultConnectorFormFields
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 03 2021 10:32:25 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 03 2021 11:16:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

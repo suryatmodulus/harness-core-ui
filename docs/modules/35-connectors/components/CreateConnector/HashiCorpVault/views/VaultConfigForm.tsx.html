@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">90.91% </span>
+                <span class="strong">91.18% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/33</span>
+                <span class='fraction'>31/34</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">96.55% </span>
+                <span class="strong">90.63% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/29</span>
+                <span class='fraction'>29/32</span>
             </div>
         
             
@@ -166,10 +166,20 @@
 <a name='L107'></a><a href='#L107'>107</a>
 <a name='L108'></a><a href='#L108'>108</a>
 <a name='L109'></a><a href='#L109'>109</a>
-<a name='L110'></a><a href='#L110'>110</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">104x</span>
+<a name='L110'></a><a href='#L110'>110</a>
+<a name='L111'></a><a href='#L111'>111</a>
+<a name='L112'></a><a href='#L112'>112</a>
+<a name='L113'></a><a href='#L113'>113</a>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a>
+<a name='L116'></a><a href='#L116'>116</a>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">104x</span>
 <span class="cline-any cline-yes">104x</span>
@@ -192,6 +202,8 @@
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -237,6 +249,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,8 +262,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -283,10 +301,11 @@ import { useStrings } from 'framework/strings'
 import { URLValidationSchema } from '@common/utils/Validation'
 import { PageSpinner } from '@common/components'
 import { setupVaultFormData } from '@connectors/pages/connectors/utils/ConnectorUtils'
-import type {
+import {
   StepDetailsProps,
   ConnectorDetailsProps,
-  VaultConfigFormData
+  VaultConfigFormData,
+  HashiCorpVaultAccessTypes
 } from '@connectors/interfaces/ConnectorInterface'
 import VaultConnectorFormFields from './VaultConnectorFormFields'
 &nbsp;
@@ -303,12 +322,14 @@ const VaultConfigForm: React.FC&lt;StepProps&lt;StepDetailsProps&gt; &amp; Conne
   const defaultInitialFormData: VaultConfigFormData = {
     vaultUrl: '',
     basePath: '',
+    namespace: undefined,
     readOnly: false,
     default: false,
-    accessType: 'APP_ROLE',
+    accessType: HashiCorpVaultAccessTypes.APP_ROLE,
     appRoleId: '',
     secretId: undefined,
     authToken: undefined,
+    sinkPath: undefined,
     renewalIntervalMinutes: 10
   }
 &nbsp;
@@ -343,24 +364,30 @@ const VaultConfigForm: React.FC&lt;StepProps&lt;StepDetailsProps&gt; &amp; Conne
           authToken: Yup.object()
             .nullable()
             .when('accessType', {
-              is: 'TOKEN',
+              is: HashiCorpVaultAccessTypes.TOKEN,
               then: Yup.object().test('authToken', getString('validation.authToken'), function (value) {
-                <span class="missing-if-branch" title="if path not taken" >I</span>if ((prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as VaultConnectorDTO)<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ccessType === 'TOKEN') <span class="cstat-no" title="statement not covered" >return true</span>
+                <span class="missing-if-branch" title="if path not taken" >I</span>if ((prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as VaultConnectorDTO)<span class="branch-0 cbranch-no" title="branch not covered" >?.a</span>ccessType === HashiCorpVaultAccessTypes.TOKEN)
+<span class="cstat-no" title="statement not covered" >                  return true</span>
                 else if (value?.name?.length &gt; 0) return true
                 return false
               })
             }),
           appRoleId: Yup.string().when('accessType', {
-            is: 'APP_ROLE',
+            is: HashiCorpVaultAccessTypes.APP_ROLE,
             then: Yup.string().trim().required(getString('validation.appRole'))
           }),
           secretId: Yup.object().when('accessType', {
-            is: 'APP_ROLE',
+            is: HashiCorpVaultAccessTypes.APP_ROLE,
             then: Yup.object().test('secretId', getString('validation.secretId'), function (value) {
-              <span class="missing-if-branch" title="if path not taken" >I</span>if ((prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as VaultConnectorDTO)<span class="branch-1 cbranch-no" title="branch not covered" >?.accessType </span>=== 'APP_ROLE') <span class="cstat-no" title="statement not covered" >return true</span>
+              <span class="missing-if-branch" title="if path not taken" >I</span>if ((prevStepData<span class="branch-0 cbranch-no" title="branch not covered" >?.s</span>pec as VaultConnectorDTO)<span class="branch-1 cbranch-no" title="branch not covered" >?.accessType </span>=== HashiCorpVaultAccessTypes.APP_ROLE)
+<span class="cstat-no" title="statement not covered" >                return true</span>
               else if (value?.name?.length &gt; 0) return true
               return false
             })
+          }),
+          sinkPath: Yup.string().when('accessType', {
+            is: HashiCorpVaultAccessTypes.VAULT_AGENT,
+            then: Yup.string().trim().required(getString('connectors.hashiCorpVault.sinkPathIsRequired'))
           })
         })}
         onSubmit={formData =&gt; {
@@ -391,7 +418,7 @@ export default VaultConfigForm
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 03 2021 10:32:25 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 03 2021 11:16:23 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../../prettify.js"></script>

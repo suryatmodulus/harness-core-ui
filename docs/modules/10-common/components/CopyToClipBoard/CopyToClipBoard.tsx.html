@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">73.68% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/19</span>
+                <span class='fraction'>14/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">31.82% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>7/22</span>
+                <span class='fraction'>4/18</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/4</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">68.42% </span>
+                <span class="strong">73.68% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>13/19</span>
+                <span class='fraction'>14/19</span>
             </div>
         
             
@@ -111,13 +111,8 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a>
-<a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a>
-<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">300x</span>
+<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">300x</span>
+<span class="cline-any cline-yes">300x</span>
 <span class="cline-any cline-yes">300x</span>
 <span class="cline-any cline-yes">300x</span>
 <span class="cline-any cline-yes">300x</span>
@@ -141,10 +136,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">49x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -153,11 +144,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,6 +153,8 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -177,11 +165,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">300x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from 'react'
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react'
 import { Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { Popover } from '@blueprintjs/core'
-import { Color, Icon } from '@wings-software/uicore'
+import { Icon } from '@wings-software/uicore'
 import { useStrings } from 'framework/strings'
+import { useToaster } from '@common/exports'
 &nbsp;
 import css from './CopyToClipBoard.module.scss'
 &nbsp;
@@ -192,16 +181,12 @@ interface CopyToClipboardProps {
 }
 &nbsp;
 const CopyToClipboard: React.FC&lt;CopyToClipboardProps&gt; = props =&gt; {
-  const [isCopied, setIsCopied] = useState&lt;boolean&gt;(false)
+  const { showSuccess } = useToaster()
   const { getString } = useStrings()
   const getPopoverContent = (): JSX.Element =&gt; {
     return (
       &lt;div className={css.popoverContent}&gt;
-        {props.showFeedback &amp;&amp; isCopied ? (
-<span class="branch-0 cbranch-no" title="branch not covered" >          &lt;Icon name="command-artifact-check" color={Color.GREEN_450} /&gt;</span>
-        ) : (
-          &lt;span className={css.tooltipLabel}&gt;{getString('snippets.copyToClipboard')} &lt;/span&gt;
-        )}
+        &lt;span className={css.tooltipLabel}&gt;{getString('snippets.copyToClipboard')} &lt;/span&gt;
       &lt;/div&gt;
     )
   }
@@ -212,11 +197,6 @@ const CopyToClipboard: React.FC&lt;CopyToClipboardProps&gt; = props =&gt; {
         position={Position.BOTTOM}
         interactionKind={PopoverInteractionKind.HOVER}
         content={getPopoverContent()}
-        onOpening={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-<span class="cstat-no" title="statement not covered" >          if (props.showFeedback) {</span>
-<span class="cstat-no" title="statement not covered" >            setIsCopied(false)</span>
-          }
-        }}
       &gt;
         &lt;div&gt;
           &lt;Icon
@@ -226,7 +206,9 @@ const CopyToClipboard: React.FC&lt;CopyToClipboardProps&gt; = props =&gt; {
 <span class="cstat-no" title="statement not covered" >              event.preventDefault()</span>
 <span class="cstat-no" title="statement not covered" >              event.stopPropagation()</span>
 <span class="cstat-no" title="statement not covered" >              navigator?.clipboard?.writeText(props?.content)</span>
-<span class="cstat-no" title="statement not covered" >              setIsCopied(true)</span>
+<span class="cstat-no" title="statement not covered" >              if (props.showFeedback) {</span>
+<span class="cstat-no" title="statement not covered" >                showSuccess(getString('clipboardCopySuccess'))</span>
+              }
             }}
             className={css.copyIcon}
           /&gt;
@@ -244,7 +226,7 @@ export default CopyToClipboard
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Sep 03 2021 11:16:23 GMT+0000 (Greenwich Mean Time)
+                at Fri Sep 03 2021 14:26:52 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

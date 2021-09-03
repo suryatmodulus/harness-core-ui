@@ -14,6 +14,7 @@
     padding: var(--spacing-4) var(--spacing-6);
     display: grid;
     grid-template-columns: 400px minmax(10px, 1fr);
+    max-height: var(--execution-stage-details-height);
   }
 
   .lhs {
@@ -77,6 +78,8 @@
     display: flex;
     align-items: center;
     padding: 0 var(--spacing-5);
+    max-height: var(--execution-stage-details-height);
+    overflow-y: auto;
   }
 
   .errorMsg {

@@ -902,56 +902,6 @@ const getFilteredManifestsWithOverrides = ({
   return [...filteredManifests, ...stageOverridesManifests]
 }
 
-export const getFilteredStageObj = ({
-  inputSetTemplateYamlObj,
-  manifestType,
-  artifactRef,
-  stageId,
-  stageObj
-}: {
-  inputSetTemplateYamlObj: {
-    pipeline: PipelineInfoConfig | Record<string, never>
-  }
-  artifactRef?: string
-  stageId?: string
-  isManifest: boolean
-  artifactType?: string
-  manifestType: string
-  stageObj?: any
-}): any => {
-  let appliedArtifact
-  const filteredManifests = getFilteredManifestsWithOverrides({
-    stageObj,
-    manifestType,
-    stages: inputSetTemplateYamlObj.pipeline.stages
-  })
-
-  if (stageId && artifactRef) {
-    const newAppliedArtifact = filteredManifests?.find(
-      (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
-    )?.manifest
-    if (newAppliedArtifact) {
-      appliedArtifact = newAppliedArtifact
-    }
-  }
-
-  if (filteredManifests?.length) {
-    const filteredStageObj = { ...stageObj }
-    // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
-    if (filteredStageObj.stage.spec.serviceConfig?.serviceDefinition?.spec?.manifests) {
-      filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
-    } else {
-      filteredStageObj.stage.spec.serviceConfig.serviceDefinition = {
-        spec: {
-          manifests: filteredManifests
-        }
-      }
-    }
-    return { filteredStageObj, artifact: appliedArtifact }
-  }
-  //return { artifact: appliedArtifact }
-}
-
 export const parseArtifactsManifests = ({
   inputSetTemplateYamlObj,
   manifestType,
@@ -1004,19 +954,35 @@ export const parseArtifactsManifests = ({
         })
       } else {
         // shows manifests matching manifest type + manifest overrides from their references
-        const resultObj = getFilteredStageObj({
-          inputSetTemplateYamlObj,
-          manifestType,
-          isManifest,
-          stageId,
+        const filteredManifests = getFilteredManifestsWithOverrides({
           stageObj,
-          artifactRef
+          manifestType,
+          stages: inputSetTemplateYamlObj.pipeline.stages
         })
-        appliedArtifact = resultObj.artifact
-        return resultObj.filteredStageObj
+        if (stageId && artifactRef) {
+          const newAppliedArtifact = filteredManifests?.find(
+            (manifestObj: any) => manifestObj?.manifest?.identifier === artifactRef
+          )?.manifest
+          if (newAppliedArtifact) {
+            appliedArtifact = newAppliedArtifact
+          }
+        }
+        if (filteredManifests?.length) {
+          const filteredStageObj = { ...stageObj }
+          // adding all manifests to serviceDefinition for UI to render in SelectArtifactModal
+          if (filteredStageObj.stage.spec.serviceConfig?.serviceDefinition?.spec?.manifests) {
+            filteredStageObj.stage.spec.serviceConfig.serviceDefinition.spec.manifests = filteredManifests
+          } else {
+            filteredStageObj.stage.spec.serviceConfig.serviceDefinition = {
+              spec: {
+                manifests: filteredManifests
+              }
+            }
+          }
+          return filteredStageObj
+        }
       }
     })
-    console.log(stagesManifests, 'sm')
     const stageManifests = flatten(stagesManifests)
     return {
       appliedArtifact,

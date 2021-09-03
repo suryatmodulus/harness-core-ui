@@ -1257,7 +1257,6 @@ export const getArtifactTableDataFromData = ({
   getString?: (key: StringKeys) => string
   pipeline: PipelineInfoConfig | Record<string, never> | any
 }): { appliedTableArtifact?: artifactTableItem[]; artifactTableData?: artifactTableItem[] } => {
-  debugger
   const artifactTableData: artifactTableItem[] = []
 
   if (appliedArtifact && stageId && isManifest) {
@@ -1394,7 +1393,6 @@ export function updatePipelineManifest({
 }): any {
   const newPipelineObj = { ...pipeline }
   const pipelineStages = getPipelineStage(newPipelineObj?.stages, stageIdentifier)
-  console.log(pipelineStages, 'ps')
   // const pipelineStages = newPipelineObj?.stages.find((item: any) => item.stage.identifier === stageIdentifier)
   const stageArtifacts = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests
   const stageArtifactIdx = pipelineStages?.stage?.spec?.serviceConfig?.serviceDefinition?.spec?.manifests?.findIndex(

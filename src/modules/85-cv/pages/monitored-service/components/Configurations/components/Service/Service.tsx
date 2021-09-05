@@ -35,8 +35,8 @@ import ServiceEnvironment from '../../../serviceEnvironment/MonitoredServiceEnvi
 import css from './Service.module.scss'
 
 function Service(): JSX.Element {
-  const { getString } = useStrings()
   const history = useHistory()
+  const { getString } = useStrings()
   const { showWarning, showError, showSuccess } = useToaster()
   const [validMonitoredSource, setValidMonitoredSource] = useState(false)
   const [defaultMonitoredService, setDefaultMonitoredService] = useState<MonitoredServiceDTO>()
@@ -45,7 +45,6 @@ function Service(): JSX.Element {
   >()
   const [cachedInitialValues, setCachedInitialValue] = useState<MonitoredServiceForm | null>(null)
   const [overrideBlockNavigation, setOverrideBlockNavigation] = useState<boolean>(false)
-
   const isEdit = !!identifier
   const {
     data: dataMonitoredServiceById,
@@ -103,7 +102,7 @@ function Service(): JSX.Element {
     if (isEdit) {
       fetchMonitoredService()
     } else {
-      fetchMonitoredServiceYAML && fetchMonitoredServiceYAML()
+      fetchMonitoredServiceYAML()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEdit])

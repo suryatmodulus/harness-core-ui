@@ -164,7 +164,7 @@ export default function HealthSourceTable({
           <Text className={css.tableTitle}>{getString('connectors.cdng.healthSources.label')}</Text>
           {tableData?.length ? (
             <Table
-              className={css.tableWrapper}
+              className={css.healthSourceTableWrapper}
               sortable={true}
               onRowClick={data => {
                 const rowFilteredData =

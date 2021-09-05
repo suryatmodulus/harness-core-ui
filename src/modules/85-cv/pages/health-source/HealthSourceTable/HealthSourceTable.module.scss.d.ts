@@ -4,7 +4,7 @@ declare const styles: {
   readonly sectionCard: string
   readonly shadow: string
   readonly drawerlink: string
-  readonly tableWrapper: string
+  readonly healthSourceTableWrapper: string
   readonly noData: string
   readonly tableTitle: string
   readonly disabled: string

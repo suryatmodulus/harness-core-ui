@@ -62,7 +62,7 @@ export default function ChangeSourceTable({ value, onSuccess, onEdit }: ChangeSo
       <Text className={css.tableTitle}>{getString('cv.navLinks.adminSideNavLinks.activitySources')}</Text>
       {tableData?.length ? (
         <Table
-          className={css.tableWrapper}
+          className={css.changeSourceTableWrapper}
           sortable={true}
           onRowClick={rowdata => {
             onEdit({ isEdit: true, tableData, rowdata, onSuccess })

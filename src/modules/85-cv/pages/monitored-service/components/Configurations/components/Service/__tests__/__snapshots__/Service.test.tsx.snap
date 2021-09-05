@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test service Edit mode 1`] = `
+exports[`Verify Service Monitored service is poplulated in Edit mode 1`] = `
 <div>
   <div>
     <div

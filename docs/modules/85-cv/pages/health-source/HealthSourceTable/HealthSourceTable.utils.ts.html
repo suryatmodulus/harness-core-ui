@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.46% </span>
+                <span class="strong">64.86% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/37</span>
+                <span class='fraction'>24/37</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.09% </span>
+                <span class="strong">28.99% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/69</span>
+                <span class='fraction'>20/69</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.88% </span>
+                <span class="strong">61.76% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/34</span>
+                <span class='fraction'>21/34</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -143,30 +143,30 @@
 <a name='L84'></a><a href='#L84'>84</a>
 <a name='L85'></a><a href='#L85'>85</a>
 <a name='L86'></a><a href='#L86'>86</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">46x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">51x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -197,7 +197,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -205,7 +205,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -243,8 +243,8 @@ export const getTypeByFeature = (feature: string, getString: UseStringsReturn['g
     case HealthSourceTypes.StackdriverMetrics:
       return getString('pipeline.verification.analysisTab.metrics')
 <span class="branch-5 cbranch-no" title="branch not covered" >    case HealthSourceTypes.StackdriverLog:</span>
-<span class="branch-6 cbranch-no" title="branch not covered" >    case HealthSourceTypes.Splunk:</span>
-<span class="cstat-no" title="statement not covered" >      return getString('pipeline.verification.analysisTab.logs')</span>
+    case HealthSourceTypes.Splunk:
+      return getString('pipeline.verification.analysisTab.logs')
 <span class="branch-7 cbranch-no" title="branch not covered" >    default:</span>
 <span class="cstat-no" title="statement not covered" >      return ''</span>
   }
@@ -281,8 +281,8 @@ export const getIconBySourceType = (type: string): IconName =&gt; {
 <span class="branch-15 cbranch-no" title="branch not covered" >    case 'Stackdriver':</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-stackdriver'</span>
 <span class="branch-16 cbranch-no" title="branch not covered" >    case 'SPLUNK':</span>
-<span class="branch-17 cbranch-no" title="branch not covered" >    case 'Splunk':</span>
-<span class="cstat-no" title="statement not covered" >      return 'service-splunk'</span>
+    case 'Splunk':
+      return 'service-splunk'
 <span class="branch-18 cbranch-no" title="branch not covered" >    case 'PagerDuty':</span>
 <span class="cstat-no" title="statement not covered" >      return 'service-pagerduty'</span>
     default:
@@ -319,7 +319,7 @@ export const createHealthsourceList = <span class="fstat-no" title="function not
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 06 2021 14:27:05 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 06 2021 15:57:50 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../../prettify.js"></script>

@@ -34,7 +34,7 @@ describe('Verification step for out of cluster delegate', () => {
       </MemoryRouter>
     )
 
-    await waitFor(() => expect(findByText('connectors.testConnectionStep.placeholderErrors')).not.toBeNull())
+    await waitFor(() => expect(findByText('connectors.testConnectionStep.placeholderError')).not.toBeNull())
 
     expect(container).toMatchSnapshot()
   }),

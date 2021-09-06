@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76% </span>
+                <span class="strong">74.55% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>38/50</span>
+                <span class='fraction'>41/55</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.13% </span>
+                <span class="strong">52.94% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>17/32</span>
+                <span class='fraction'>18/34</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/9</span>
+                <span class='fraction'>4/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">76% </span>
+                <span class="strong">74.55% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>38/50</span>
+                <span class='fraction'>41/55</span>
             </div>
         
             
@@ -234,6 +234,8 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -242,9 +244,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -259,6 +258,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -273,6 +273,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">3x</span>
@@ -379,15 +387,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -401,8 +401,10 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Container, HarnessDocTooltip, Layout, ExpandingSearchInput, useModalHook } from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
+import { useGetConnectorListV2, GetConnectorListV2QueryParams } from 'services/cd-ng'
+&nbsp;
 import { useMutateAsGet } from '@common/hooks'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
 import { useStrings } from 'framework/strings'
@@ -412,11 +414,8 @@ import type { PipelineType, ProjectPathProps } from '@common/interfaces/RouteInt
 import routes from '@common/RouteDefinitions'
 import RbacButton from '@rbac/components/Button/Button'
 import { PermissionIdentifier } from '@rbac/interfaces/PermissionIdentifier'
-&nbsp;
-import { useGetConnectorListV2, GetConnectorListV2QueryParams } from 'services/cd-ng'
-&nbsp;
-import ProvidersGridView from './ProvidersGridView'
 import NewProviderModal from './NewProviderModal/NewProviderModal'
+import ProvidersGridView from './ProvidersGridView'
 &nbsp;
 import css from './GitOpsModalContainer.module.scss'
 &nbsp;
@@ -428,6 +427,7 @@ const GitOpsModalContainer: React.FC = () =&gt; {
   const textIdentifier = 'gitOps'
 &nbsp;
   const [providers, setProviders] = useState([])
+  const [activeProvider, setActiveProvider] = useState(null)
   const [loadingConnectors, setLoadingConnectors] = useState(false)
 &nbsp;
   const defaultQueryParams: GetConnectorListV2QueryParams = {
@@ -442,7 +442,15 @@ const GitOpsModalContainer: React.FC = () =&gt; {
     queryParams: defaultQueryParams
   })
 &nbsp;
-  const searchProvider = <span class="fstat-no" title="function not covered" >() =</span>&gt; {}
+  const handleEdit = <span class="fstat-no" title="function not covered" >(p</span>rovider: any) =&gt; {
+<span class="cstat-no" title="statement not covered" >    setActiveProvider(provider)</span>
+  }
+&nbsp;
+  React.useEffect(() =&gt; {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (activeProvider) {
+<span class="cstat-no" title="statement not covered" >      addNewProviderModal()</span>
+    }
+  }, [activeProvider])
 &nbsp;
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const processConnectorsResponse = (connectors: any) =&gt; {
@@ -458,12 +466,12 @@ const GitOpsModalContainer: React.FC = () =&gt; {
   const refetchConnectorList = <span class="fstat-no" title="function not covered" >async </span>(): Promise&lt;void&gt; =&gt; {
 <span class="cstat-no" title="statement not covered" >    setLoadingConnectors(true)</span>
 &nbsp;
-    const { data: connectorResponse } = <span class="cstat-no" title="statement not covered" >await fetchConnectors({</span>
+    const { data: connectorData } = <span class="cstat-no" title="statement not covered" >await fetchConnectors({</span>
       filterType: 'Connector',
       types: ['ArgoConnector']
     })
 &nbsp;
-    const data = <span class="cstat-no" title="statement not covered" >connectorResponse?.content</span>
+    const data = <span class="cstat-no" title="statement not covered" >connectorData?.content</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    processConnectorsResponse(data)</span>
 <span class="cstat-no" title="statement not covered" >    setLoadingConnectors(false)</span>
@@ -479,7 +487,7 @@ const GitOpsModalContainer: React.FC = () =&gt; {
     processConnectorsResponse(data)
   }, [connectorData])
 &nbsp;
-  const [addNewProdiverModal, closeNewProviderModal] = useModalHook(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
+  const [addNewProviderModal, closeNewProviderModal] = useModalHook(<span class="fstat-no" title="function not covered" >() =</span>&gt; {
     const handleClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
 <span class="cstat-no" title="statement not covered" >      closeNewProviderModal()</span>
 <span class="cstat-no" title="statement not covered" >      refetchConnectorList()</span>
@@ -500,10 +508,10 @@ const GitOpsModalContainer: React.FC = () =&gt; {
         }}
         enforceFocus={false}
       &gt;
-        &lt;NewProviderModal onClose={handleClose} /&gt;
+        &lt;NewProviderModal provider={activeProvider} onClose={handleClose} /&gt;
       &lt;/Dialog&gt;
     )
-  })
+  }, [activeProvider])
 &nbsp;
   return (
     &lt;div className={css.main}&gt;
@@ -539,29 +547,21 @@ const GitOpsModalContainer: React.FC = () =&gt; {
                 resourceIdentifier: projectIdentifier
               }
             }}
-            onClick={addNewProdiverModal}
+            onClick={addNewProviderModal}
             id="newProviderBtn"
             data-test="newProviderButton"
             withoutBoxShadow
           /&gt;
         &lt;/Layout.Horizontal&gt;
-&nbsp;
-        &lt;Layout.Horizontal margin={{ left: 'small' }}&gt;
-          &lt;Container className={css.expandSearch} margin={{ right: 'small' }} data-name="providerSeachContainer"&gt;
-            &lt;ExpandingSearchInput
-              placeholder={getString('search')}
-              throttle={200}
-              onChange={<span class="fstat-no" title="function not covered" >() =</span>&gt; {
-                // Need to pass the changed text to the function
-                // Will update once the changes are ready
-<span class="cstat-no" title="statement not covered" >                searchProvider()</span>
-              }}
-            /&gt;
-          &lt;/Container&gt;
-        &lt;/Layout.Horizontal&gt;
       &lt;/Layout.Horizontal&gt;
 &nbsp;
-      &lt;ProvidersGridView onDelete={refetchConnectorList} providers={providers} loading={loading || loadingConnectors} /&gt;
+      &lt;ProvidersGridView
+        onDelete={refetchConnectorList}
+        onEdit={<span class="fstat-no" title="function not covered" >async </span>provider =&gt; <span class="cstat-no" title="statement not covered" >handleEdit(provider)}</span>
+        data={connectorData}
+        providers={providers}
+        loading={loading || loadingConnectors}
+      /&gt;
     &lt;/div&gt;
   )
 }
@@ -574,7 +574,7 @@ export default GitOpsModalContainer
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 06 2021 15:57:50 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 06 2021 17:52:33 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>

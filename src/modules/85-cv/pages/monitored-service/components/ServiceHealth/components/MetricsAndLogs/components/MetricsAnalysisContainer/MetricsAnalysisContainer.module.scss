@@ -56,8 +56,13 @@
   .analysisRow {
     margin-bottom: var(--spacing-xsmall) !important;
   }
-}
 
-.maxDropDownWidth {
-  max-width: 250px;
+  .timeline {
+    padding-left: 25%;
+    padding-top: var(--spacing-medium);
+  }
+
+  .maxDropDownWidth {
+    max-width: 250px;
+  }
 }

@@ -1,19 +1,20 @@
 import React, { useMemo } from 'react'
-import { Select, SelectOption } from '@wings-software/uicore'
+import { IconName, Select, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetDataSourcetypes } from 'services/cv'
+import { useGetAllHealthSourcesForServiceAndEnvironment } from 'services/cv'
+import { getIconBySourceType } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import type { HealthSourceDropDownProps } from './HealthSourceDropDown.types'
-import { dataSourceTypeToLabel } from './HealthSourceDropDown.utils'
 import css from './HealthSourceDropDown.module.scss'
 
 export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Element {
-  const { onChange, serviceIdentifier, environmentIdentifier, className, verificationType = 'TIME_SERIES' } = props
+  const { onChange, serviceIdentifier, environmentIdentifier, className } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams<ProjectPathProps>()
-  const { data, error, loading } = useGetDataSourcetypes({
+
+  const { data, error, loading } = useGetAllHealthSourcesForServiceAndEnvironment({
     queryParams: { accountId, projectIdentifier, orgIdentifier, serviceIdentifier, environmentIdentifier }
   })
 
@@ -27,10 +28,11 @@ export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Elem
 
     const options = []
     for (const source of data?.resource || []) {
-      if (source.dataSourceType && source.verificationType === verificationType) {
+      if (source.identifier && source.name) {
         options.push({
-          label: dataSourceTypeToLabel(source.dataSourceType, getString),
-          value: source.dataSourceType as string
+          label: source.name,
+          value: source.identifier as string,
+          icon: { name: getIconBySourceType(source?.type as string) as IconName }
         })
       }
     }

@@ -16,19 +16,19 @@
       flex: 1;
     }
   }
-}
 
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 150px;
-}
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+  }
 
-.noData {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 150px;
-  padding-top: var(--spacing-13) !important;
+  .noData {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px !important;
+    padding-top: var(--spacing-13) !important;
+  }
 }

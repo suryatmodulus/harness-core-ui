@@ -15,7 +15,7 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, noop, omit } from 'lodash-es'
+import { get, isEmpty, isNil, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -25,6 +25,8 @@ import {
   getServiceListPromise,
   ServiceConfig,
   ServiceRequestDTO,
+  ServiceResponseDTO,
+  ServiceYaml,
   useCreateServicesV2,
   useGetServiceAccessList,
   useGetServiceList,
@@ -57,8 +59,7 @@ export interface DeployServiceData extends Omit<ServiceConfig, 'serviceRef'> {
 interface NewEditServiceModalProps {
   isEdit: boolean
   isService: boolean
-  formik?: FormikProps<DeployServiceData>
-  data: ServiceRequestDTO
+  data: ServiceResponseDTO
   serviceIdentifier?: string
   onCreateOrUpdate(data: ServiceRequestDTO): void
   closeModal?: () => void
@@ -68,7 +69,6 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   isEdit,
   data,
   isService,
-  formik,
   onCreateOrUpdate,
   closeModal
 }): JSX.Element => {
@@ -109,7 +109,6 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.serviceUpdated'))
-            formik?.setFieldValue('serviceRef', values.identifier)
             onCreateOrUpdate(values)
           }
         } else {
@@ -117,7 +116,6 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.serviceCreated'))
-            formik?.setFieldValue('serviceRef', values.identifier)
             onCreateOrUpdate(values)
           }
         }
@@ -126,7 +124,7 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isService, formik]
+    [onCreateOrUpdate, orgIdentifier, projectIdentifier, isEdit, isService]
   )
 
   if (createLoading || updateLoading) {
@@ -134,8 +132,8 @@ export const NewEditServiceModal: React.FC<NewEditServiceModalProps> = ({
   }
 
   return (
-    <Formik<ServiceRequestDTO>
-      initialValues={data}
+    <Formik<Required<ServiceResponseDTO>>
+      initialValues={data as Required<ServiceResponseDTO>}
       formName="deployService"
       enableReinitialize={false}
       onSubmit={values => {
@@ -190,7 +188,7 @@ interface DeployServiceProps {
 
 interface DeployServiceState {
   isEdit: boolean
-  data?: ServiceRequestDTO
+  data?: ServiceResponseDTO
   isService: boolean
   formik?: FormikProps<DeployServiceData>
 }
@@ -226,7 +224,6 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   const {
     data: serviceResponse,
     error,
-    refetch,
     loading
   } = useGetServiceList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
@@ -234,8 +231,30 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
 
   const { expressions } = useVariablesExpression()
 
-  const [services, setService] = React.useState<SelectOption[]>([])
+  const [services, setService] = React.useState<ServiceYaml[]>()
+  const [selectOptions, setSelectOptions] = React.useState<SelectOption[]>()
+
   const [state, setState] = React.useState<DeployServiceState>({ isEdit: false, isService: false })
+
+  const updateServicesList = (value: ServiceRequestDTO) => {
+    formikRef.current?.setValues({ serviceRef: value.identifier, ...(state.isService && { service: {} }) })
+    if (!isNil(services)) {
+      const newService = {
+        description: value.description,
+        identifier: value.identifier,
+        name: value.name || '',
+        tags: value.tags
+      }
+      const newServicesList = [...services]
+      const existingIndex = newServicesList.findIndex(item => item.identifier === value.identifier)
+      if (existingIndex >= 0) {
+        newServicesList.splice(existingIndex, 1, newService)
+      } else {
+        newServicesList.unshift(newService)
+      }
+      setService(newServicesList)
+    }
+  }
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -250,13 +269,11 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
         className={'padded-dialog'}
       >
         <NewEditServiceModal
-          data={state.data || { name: '', identifier: '', orgIdentifier, projectIdentifier }}
+          data={state.data || { name: '', identifier: '' }}
           isEdit={state.isEdit}
-          formik={state.formik}
           isService={state.isService}
-          onCreateOrUpdate={values => {
-            refetch()
-            onUpdate?.({ ...omit(initialValues, 'service'), serviceRef: values.identifier })
+          onCreateOrUpdate={value => {
+            updateServicesList(value)
             onClose.call(null)
           }}
           closeModal={onClose}
@@ -272,40 +289,54 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   }, [hideModal])
 
   React.useEffect(() => {
+    if (!isNil(selectOptions) && initialValues.serviceRef) {
+      if (getMultiTypeFromValue(initialValues.serviceRef) === MultiTypeInputType.FIXED) {
+        const doesExist = selectOptions.filter(service => service.value === initialValues.serviceRef).length > 0
+        if (!doesExist) {
+          formikRef.current?.setFieldValue('serviceRef', '')
+        }
+      }
+    }
+  }, [selectOptions])
+
+  React.useEffect(() => {
+    if (!isNil(services)) {
+      setSelectOptions(
+        services.map(service => {
+          return { label: service.name, value: service.identifier }
+        })
+      )
+    }
+  }, [services])
+
+  React.useEffect(() => {
     if (!loading) {
-      const serviceList: SelectOption[] = []
+      const serviceList: ServiceYaml[] = []
       if (serviceResponse?.data?.content?.length) {
         serviceResponse.data.content.forEach(service => {
           serviceList.push({
-            label: service.service?.name || '',
-            value: service.service?.identifier || ''
+            description: service.service?.description,
+            identifier: service.service?.identifier || '',
+            name: service.service?.name || '',
+            tags: service.service?.tags
           })
         })
       }
-      if (initialValues.serviceRef) {
-        if (getMultiTypeFromValue(initialValues.serviceRef) === MultiTypeInputType.FIXED) {
-          const doesExist = serviceList.filter(service => service.value === initialValues.serviceRef).length > 0
-          if (!doesExist) {
-            formikRef.current?.setFieldValue('serviceRef', '')
-          }
-        }
-      } else {
-        const identifier = initialValues.service?.identifier
-        const isExist = serviceList.filter(service => service.value === identifier).length > 0
+      if (initialValues.service) {
+        const identifier = initialValues.service.identifier
+        const isExist = serviceList.filter(service => service.identifier === identifier).length > 0
         if (initialValues.service && identifier && !isExist) {
-          const value = { label: initialValues.service.name || '', value: initialValues.service.identifier || '' }
-          serviceList.push(value)
+          serviceList.push({
+            description: initialValues.service?.description,
+            identifier: initialValues.service?.identifier || '',
+            name: initialValues.service?.name || '',
+            tags: initialValues.service?.tags
+          })
         }
       }
       setService(serviceList)
     }
-  }, [
-    loading,
-    serviceResponse,
-    serviceResponse?.data?.content?.length,
-    initialValues.service,
-    initialValues.serviceRef
-  ])
+  }, [loading, serviceResponse, serviceResponse?.data?.content?.length])
 
   if (error?.message) {
     showError(error.message, undefined, 'cd.svc.list.error')
@@ -314,7 +345,7 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
   const [canEdit] = usePermission({
     resource: {
       resourceType: ResourceType.SERVICE,
-      resourceIdentifier: services[0]?.value as string
+      resourceIdentifier: services ? (services[0]?.identifier as string) : ''
     },
     permissions: [PermissionIdentifier.EDIT_SERVICE],
     options: {
@@ -365,8 +396,8 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
       >
         {formik => {
           window.dispatchEvent(new CustomEvent('UPDATE_ERRORS_STRIP', { detail: DeployTabs.SERVICE }))
-          const { values, setFieldValue } = formik
           formikRef.current = formik
+          const { values, setFieldValue } = formik
           return (
             <Layout.Horizontal
               className={css.formRow}
@@ -378,24 +409,25 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                 label={getString('pipelineSteps.serviceTab.specifyYourService')}
                 name="serviceRef"
                 useValue
-                disabled={readonly}
-                placeholder={getString('pipelineSteps.serviceTab.selectService')}
+                disabled={readonly || (type === MultiTypeInputType.FIXED && loading)}
+                placeholder={loading ? getString('loading') : getString('pipelineSteps.serviceTab.selectService')}
                 multiTypeInputProps={{
                   onTypeChange: setType,
                   width: 300,
                   expressions,
                   onChange: val => {
                     if (values.service?.identifier && (val as SelectOption).value !== values.service.identifier) {
-                      setService(services.filter(service => service.value !== values.service?.identifier))
+                      setService(services?.filter(service => service.identifier !== values.service?.identifier))
                       setFieldValue('service', undefined)
                     }
                   },
                   selectProps: {
+                    disabled: loading,
                     addClearBtn: true && !readonly,
-                    items: services
+                    items: selectOptions || []
                   }
                 }}
-                selectItems={services}
+                selectItems={selectOptions || []}
               />
               {type === MultiTypeInputType.FIXED ? (
                 <Button
@@ -410,16 +442,14 @@ const DeployServiceWidget: React.FC<DeployServiceProps> = ({ initialValues, onUp
                           isEdit,
                           formik,
                           isService: true,
-                          data: { ...values.service, projectIdentifier, orgIdentifier } as ServiceRequestDTO
+                          data: values.service
                         })
                       } else {
                         setState({
                           isEdit,
                           formik,
                           isService: false,
-                          data: serviceResponse?.data?.content?.filter(
-                            service => service.service?.identifier === values.serviceRef
-                          )?.[0]?.service as ServiceRequestDTO
+                          data: services?.find(service => service.identifier === values.serviceRef)
                         })
                       }
                     } else {

@@ -12,6 +12,7 @@ import { useQueryParams } from '@common/hooks'
 import useActiveEnvironment from '@cf/hooks/useActiveEnvironment'
 import { isFFPipelinesEnabled } from '@cf/utils/pipelinesEnabled'
 import NavExpandable from '@common/navigation/NavExpandable/NavExpandable'
+import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 
 export default function CFSideNav(): React.ReactElement {
   const { getString } = useStrings()
@@ -21,6 +22,7 @@ export default function CFSideNav(): React.ReactElement {
   const { updateAppStore } = useAppStore()
   const { withActiveEnvironment } = useActiveEnvironment()
   const { trial } = useQueryParams<{ trial?: boolean }>()
+  const events = useFeatureFlagTelemetry()
 
   /* istanbul ignore next */
   const projectSelectHandler: ProjectSelectorProps['onSelect'] = data => {
@@ -52,6 +54,7 @@ export default function CFSideNav(): React.ReactElement {
       {projectIdentifier && orgIdentifier && (
         <>
           <SidebarLink
+            onClick={() => events.visitedPage()}
             label={getString('featureFlagsText')}
             to={withActiveEnvironment(routes.toCFFeatureFlags(params))}
           />

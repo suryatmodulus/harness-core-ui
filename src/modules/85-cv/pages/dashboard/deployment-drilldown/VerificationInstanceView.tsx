@@ -1,12 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Container, Tabs, Tab } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
-import {
-  useGetDeploymentTimeSeries,
-  useGetDeploymentLogAnalyses,
-  useGetClusterChartAnalyses,
-  DeploymentVerificationJobInstanceSummary
-} from 'services/cv'
+import { useGetDeploymentTimeSeries, DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useToaster } from '@common/exports'
 import type { AccountPathProps } from '@common/interfaces/RouteInterfaces'
@@ -14,7 +9,6 @@ import { useStrings } from 'framework/strings'
 import { DeploymentProgressAndNodes } from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { DeploymentNodeAnalysisResult } from '@cv/components/ExecutionVerification/components/DeploymentProgressAndNodes/components/DeploymentNodes/DeploymentNodes.constants'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
-import DeploymentLogsTab from './DeploymentLogsTab'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export enum TabIdentifier {
@@ -58,32 +52,6 @@ export default function VerificationInstanceView({
     lazy: true
   })
 
-  const {
-    data: logsData,
-    loading: logsLoading,
-    error: logsError,
-    refetch: fetchLogAnalyses
-  } = useGetDeploymentLogAnalyses({
-    verificationJobInstanceId: verificationInstance.verificationJobInstanceId!,
-    queryParams: {
-      accountId
-    },
-    lazy: true
-  })
-
-  const {
-    data: clusterChartData,
-    loading: clusterChartLoading,
-    error: clusterChartError,
-    refetch: fetchClusterChartData
-  } = useGetClusterChartAnalyses({
-    verificationJobInstanceId: verificationInstance.verificationJobInstanceId!,
-    queryParams: {
-      accountId
-    },
-    lazy: true
-  })
-
   const goToTimeseriesPage = (page: number) => {
     fetchTimeseries({
       queryParams: {
@@ -95,37 +63,14 @@ export default function VerificationInstanceView({
     })
   }
 
-  const goToLogsPage = (page: number) => {
-    fetchLogAnalyses({
-      queryParams: {
-        accountId,
-        pageNumber: page
-      }
-    })
-  }
-
   useEffect(() => {
     if (prevProps.current.verificationInstance !== verificationInstance) {
       if (selectedTab === TabIdentifier.METRICS_TAB) {
         goToTimeseriesPage(0)
-      } else if (selectedTab === TabIdentifier.LOGS_TAB) {
-        goToLogsPage(0)
-        fetchClusterChartData({
-          queryParams: { accountId }
-        })
       }
     } else if (prevProps.current.selectedTab !== selectedTab) {
       if (selectedTab === TabIdentifier.METRICS_TAB && !timeseriesData) {
         goToTimeseriesPage(0)
-      } else if (selectedTab === TabIdentifier.LOGS_TAB) {
-        if (!logsData) {
-          goToLogsPage(0)
-        }
-        if (!clusterChartData) {
-          fetchClusterChartData({
-            queryParams: { accountId }
-          })
-        }
       }
     } else {
       goToTimeseriesPage(0)
@@ -139,14 +84,10 @@ export default function VerificationInstanceView({
   useEffect(() => {
     if (timeseriesError) {
       showError(timeseriesError.message)
-    } else if (logsError) {
-      showError(logsError.message)
-    } else if (clusterChartError) {
-      showError(clusterChartError.message)
     }
-  }, [timeseriesError, logsError, clusterChartError])
+  }, [timeseriesError])
 
-  const isLoading = timeseriesLoading || logsLoading || clusterChartLoading
+  const isLoading = timeseriesLoading
 
   return (
     <Container>
@@ -176,14 +117,6 @@ export default function VerificationInstanceView({
           isLoading={timeseriesLoading}
           anomalousMetricsOnly={anomalousMetricsOnly}
           onAnomalousMetricsOnly={onAnomalousMetricsOnly}
-        />
-      )}
-      {selectedTab === TabIdentifier.LOGS_TAB && (
-        <DeploymentLogsTab
-          data={logsData}
-          clusterChartData={clusterChartData}
-          isLoading={logsLoading}
-          goToPage={goToLogsPage}
         />
       )}
       {isLoading && <PageSpinner />}

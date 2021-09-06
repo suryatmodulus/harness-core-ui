@@ -86,6 +86,7 @@ allowpaths:
   - /timeseries-dashboard/metrics
   - /verify-step/input-set-template
   - /monitored-service/scores
+  - /monitored-service/health-sources
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

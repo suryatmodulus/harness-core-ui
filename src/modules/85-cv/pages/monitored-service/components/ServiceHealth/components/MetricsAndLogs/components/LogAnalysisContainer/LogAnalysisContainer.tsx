@@ -11,7 +11,7 @@ import { getRiskColorValue } from '@common/components/HeatMap/ColorUtils'
 import LogAnalysis from '@cv/components/LogsAnalysis/LogAnalysis'
 import { LogEvents, pageSize } from '@cv/components/LogsAnalysis/LogAnalysis.constants'
 import type { LogAnalysisRowData } from '@cv/components/LogsAnalysis/LogAnalysis.types'
-import type { DatasourceTypeEnum, MetricsAndLogsProps } from '../../MetricsAndLogs.types'
+import type { MetricsAndLogsProps } from '../../MetricsAndLogs.types'
 
 export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.Element {
   const { serviceIdentifier, environmentIdentifier, startTime, endTime } = props
@@ -19,7 +19,7 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
 
   const { orgIdentifier, projectIdentifier, accountId } = useParams<ProjectPathProps>()
   const [selectedClusterType, setSelectedClusterType] = useState<SelectOption>()
-  const [selectedHealthSource, setSelectedHealthSource] = useState<DatasourceTypeEnum>()
+  const [selectedHealthSource, setSelectedHealthSource] = useState<string>()
 
   const logsAnalysisQueryParams = useMemo(() => {
     return {
@@ -34,7 +34,7 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
         selectedClusterType?.value !== LogEvents.ALL_EVENTS && {
           clusterTypes: (selectedClusterType.value as string).split('_')[0] as any
         }),
-      ...(selectedHealthSource && { datasourceType: selectedHealthSource })
+      ...(selectedHealthSource && { healthSources: selectedHealthSource as any })
     }
   }, [
     accountId,
@@ -112,7 +112,7 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
 
   const onChangeHealthSource = useCallback(
     currentHealthSource => {
-      fetchLogAnalysis({ queryParams: { ...logsAnalysisQueryParams, datasourceType: currentHealthSource } })
+      fetchLogAnalysis({ queryParams: { ...logsAnalysisQueryParams, healthSources: currentHealthSource } })
       setSelectedHealthSource(currentHealthSource)
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -125,17 +125,16 @@ export default function LogAnalysisContainer(props: MetricsAndLogsProps): JSX.El
         clusterType: log?.logData?.tag,
         count: log?.logData?.count as number,
         message: log?.logData?.text as string,
-        // TODO this has to come from backend api
         messageFrequency: [
           {
             name: 'trendData',
             type: 'line',
-            color: getRiskColorValue('LOW'),
+            color: getRiskColorValue(log?.logData?.riskStatus),
             data: log?.logData?.trend?.map(trend => trend.count) as number[]
           }
         ],
-        riskScore: 0,
-        riskStatus: 'LOW'
+        riskScore: log?.logData?.riskScore as number,
+        riskStatus: log?.logData?.riskStatus as string
       })) ?? []
     )
   }, [logsData])

@@ -12,6 +12,7 @@ import {
 } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { HealthSourceDropDown } from '@cv/components/HealthSourceDropDown/HealthSourceDropDown'
+import { TimelineBar } from '@cv/components/TimelineView/TimelineBar'
 import {
   MetricTypeOptions,
   PAGE_SIZE,
@@ -58,9 +59,9 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
   useEffect(() => {
     if (metricsData && metricsData?.resource?.content?.length) {
       const timeSeriesInfo = generatePointsForTimeSeries(
-        metricsData as RestResponsePageTimeSeriesMetricDataDTO
-        // startTime,
-        // endTime
+        metricsData as RestResponsePageTimeSeriesMetricDataDTO,
+        startTime,
+        endTime
       )
       setTimeseriesData(timeSeriesInfo?.resource?.content as TimeSeriesMetricDataDTO[])
     }
@@ -108,6 +109,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
             />
           ) : null
         })}
+        <TimelineBar startDate={startTime} className={css.timeline} endDate={endTime} columnWidth={70} />
       </>
     )
   }
@@ -138,7 +140,7 @@ export default function MetricsAnalysisContainer(props: MetricsAndLogsProps): JS
 
   const handleHealthSourceChange = useCallback(
     selectedHealthSource => {
-      fetchMetricsData({ queryParams: { ...queryParams, datasourceType: selectedHealthSource } })
+      fetchMetricsData({ queryParams: { ...queryParams, healthSources: selectedHealthSource } })
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [queryParams]

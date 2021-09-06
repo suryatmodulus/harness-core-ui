@@ -1,22 +1,37 @@
 import { get } from 'lodash-es'
-import type { MetricData, RestResponsePageTimeSeriesMetricDataDTO } from 'services/cv'
+import type { MetricData, RestResponsePageTimeSeriesMetricDataDTO, TimeSeriesMetricDataDTO } from 'services/cv'
 
 export function generatePointsForTimeSeries(
-  data: RestResponsePageTimeSeriesMetricDataDTO
-  // startTime: number,
-  // endTime: number
-): RestResponsePageTimeSeriesMetricDataDTO {
-  if (!data?.resource?.content?.length) {
+  data: RestResponsePageTimeSeriesMetricDataDTO,
+  startTime: number,
+  endTime: number
+): RestResponsePageTimeSeriesMetricDataDTO | undefined {
+  const content = data?.resource?.content
+
+  if (content && content.length) {
+    for (const analysis of content) {
+      if (!analysis?.metricDataList?.length) {
+        continue
+      }
+      sortAnalysisData(analysis)
+      const filledMetricData: MetricData[] = [...analysis.metricDataList]
+      const analysisStartTime = analysis?.metricDataList[0]?.timestamp
+      const analysisEndTime = analysis?.metricDataList[analysis?.metricDataList?.length - 1]?.timestamp
+
+      updateStartTime(analysisStartTime, startTime, filledMetricData)
+      updateEndTime(analysisEndTime, endTime, filledMetricData)
+
+      analysis.metricDataList = filledMetricData
+
+      return data
+    }
+  } else {
     return data
   }
+}
 
-  const content = data.resource.content
-  // const timeRange = Math.floor((endTime - startTime) / 60000)
-  for (const analysis of content) {
-    if (!analysis?.metricDataList?.length) {
-      continue
-    }
-
+function sortAnalysisData(analysis: TimeSeriesMetricDataDTO): void {
+  if (analysis?.metricDataList) {
     analysis.metricDataList.sort((a: MetricData, b: MetricData) => {
       if (!a?.timestamp) {
         return b?.timestamp ? -1 : 0
@@ -26,26 +41,23 @@ export function generatePointsForTimeSeries(
       }
       return a.timestamp - b.timestamp
     })
-
-    // TODO verify if its required.
-    // const filledMetricData: MetricData[] = []
-    // let metricDataIndex = 0
-
-    // for (let i = 0; i < timeRange; i++) {
-    //   const currTime = startTime + 60000 * i
-    //   const instantData = analysis.metricDataList[metricDataIndex]
-    //   if (instantData?.timestamp && instantData.timestamp === currTime) {
-    //     filledMetricData.push(analysis.metricDataList[metricDataIndex])
-    //     metricDataIndex++
-    //   } else {
-    //     filledMetricData.push({ timestamp: currTime, value: undefined })
-    //   }
-    // }
-
-    // analysis.metricDataList = filledMetricData
   }
+}
 
-  return data
+function updateEndTime(analysisEndTime: number | undefined, endTime: number, filledMetricData: MetricData[]): void {
+  if (analysisEndTime && analysisEndTime < endTime) {
+    filledMetricData.push({ timestamp: endTime, value: undefined })
+  }
+}
+
+function updateStartTime(
+  analysisStartTime: number | undefined,
+  startTime: number,
+  filledMetricData: MetricData[]
+): void {
+  if (analysisStartTime && analysisStartTime > startTime) {
+    filledMetricData.unshift({ timestamp: startTime, value: undefined })
+  }
 }
 
 export function getErrorMessage(errorObj?: any): string | undefined {

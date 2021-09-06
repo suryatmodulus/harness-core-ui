@@ -1,13 +1,36 @@
 import React, { useEffect } from 'react'
-import { render, waitFor } from '@testing-library/react'
-
+import { findByTestId, findByText, fireEvent, render, waitFor } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import { TestWrapper, findDialogContainer } from '@common/utils/testUtils'
 
 import mocks from './mocks.json'
 import useSwitchAccountModal from './useSwitchAccountModal'
 
+const setDefaultAccountMock = jest.fn(() => mocks.switchAccount)
+const switchAccountMock = jest.fn(() => mocks.switchAccount)
+
+jest.mock('services/portal', () => ({
+  ...(jest.requireActual('services/portal') as any),
+  useGetUser: () => {
+    return {
+      ...mocks.user,
+      refetch: jest.fn()
+    }
+  },
+  useSetDefaultAccountForCurrentUser: () => {
+    return {
+      mutate: setDefaultAccountMock
+    }
+  },
+  useNewSwitchAccount: () => {
+    return {
+      mutate: switchAccountMock
+    }
+  }
+}))
+
 const TestComponent = (): null => {
-  const { openSwitchAccountModal } = useSwitchAccountModal({ mock: mocks.user as any })
+  const { openSwitchAccountModal } = useSwitchAccountModal({})
   useEffect(() => {
     openSwitchAccountModal()
   }, [openSwitchAccountModal])
@@ -25,5 +48,51 @@ describe('Switch Account', () => {
     await waitFor(() => expect(getByText('common.switchAccount')).toBeDefined())
     const container = findDialogContainer()
     expect(container).toMatchSnapshot()
+  })
+
+  test('set as default', async () => {
+    const { getByText } = render(
+      <TestWrapper>
+        <TestComponent />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('common.switchAccount')).toBeDefined())
+    const container = findDialogContainer()
+    const setAsDefaultBtn = await findByTestId(container!, 'set-default-account-AutomationOne')
+    expect(setAsDefaultBtn).toBeDefined()
+
+    act(() => {
+      fireEvent.click(setAsDefaultBtn)
+    })
+    const confirmDialog = document.querySelectorAll('.bp3-dialog')[1] as HTMLElement
+    expect(confirmDialog).toMatchSnapshot()
+
+    const continueBtn = await findByText(confirmDialog, 'continue')
+    act(() => {
+      fireEvent.click(continueBtn)
+    })
+    expect(setDefaultAccountMock).toHaveBeenCalledWith(undefined, {
+      pathParams: { accountId: 'XICOBc_qRa2PJmVaWOx-cQ' }
+    })
+  })
+
+  test('switch account', async () => {
+    const { getByText } = render(
+      <TestWrapper>
+        <TestComponent />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(getByText('common.switchAccount')).toBeDefined())
+    const container = findDialogContainer()
+    const switchAccountBtn = await findByText(container!, 'AutomationOne')
+    expect(switchAccountBtn).toBeDefined()
+
+    act(() => {
+      fireEvent.click(switchAccountBtn)
+    })
+
+    expect(switchAccountMock).toHaveBeenCalledWith({ accountId: 'XICOBc_qRa2PJmVaWOx-cQ' })
   })
 })

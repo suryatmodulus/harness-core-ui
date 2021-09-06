@@ -11,6 +11,7 @@ declare const styles: {
   readonly error: string
   readonly noActivityId: string
   readonly analysisRow: string
+  readonly timeline: string
   readonly maxDropDownWidth: string
 }
 export default styles

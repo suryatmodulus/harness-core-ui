@@ -148,23 +148,7 @@ exports[`Unit tests for LogAnalysisContainer Verify if LogAnalysisContainer rend
             </div>
             <div
               class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn risk"
-            >
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-                style="flex-direction: column;"
-              >
-                <div
-                  class="healthScoreCard"
-                >
-                  0
-                </div>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--font-xsmall"
-                >
-                  LOW
-                </p>
-              </div>
-            </div>
+            />
             <div
               class="StyledProps--font StyledProps--main logText dataColumn openModalColumn message"
             >
@@ -202,23 +186,7 @@ exports[`Unit tests for LogAnalysisContainer Verify if LogAnalysisContainer rend
             </div>
             <div
               class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn risk"
-            >
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-                style="flex-direction: column;"
-              >
-                <div
-                  class="healthScoreCard"
-                >
-                  0
-                </div>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--font-xsmall"
-                >
-                  LOW
-                </p>
-              </div>
-            </div>
+            />
             <div
               class="StyledProps--font StyledProps--main logText dataColumn openModalColumn message"
             >
@@ -256,23 +224,7 @@ exports[`Unit tests for LogAnalysisContainer Verify if LogAnalysisContainer rend
             </div>
             <div
               class="StyledProps--font StyledProps--main logRowText dataColumn openModalColumn risk"
-            >
-              <div
-                class="Layout--horizontal StyledProps--main StyledProps--flex StyledProps--flex-alignItems-center StyledProps--flex-justifyContent-flex-start"
-                style="flex-direction: column;"
-              >
-                <div
-                  class="healthScoreCard"
-                >
-                  0
-                </div>
-                <p
-                  class="StyledProps--font StyledProps--main StyledProps--padding-right-small StyledProps--padding-top-small StyledProps--font-xsmall"
-                >
-                  LOW
-                </p>
-              </div>
-            </div>
+            />
             <div
               class="StyledProps--font StyledProps--main logText dataColumn openModalColumn message"
             >

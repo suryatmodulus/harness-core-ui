@@ -38,7 +38,7 @@ export default function HealthSourceTable({
   const { showError } = useToaster()
   const params = useParams<ProjectPathProps & { identifier: string }>()
   const { getString } = useStrings()
-  const { routeTitle } = breadCrumbRoute || {}
+  const { routeTitle } = breadCrumbRoute || { routeTitle: getString('cv.healthSource.backtoMonitoredService') }
   const [rowData, setrowData] = useState<RowData | null>(null)
 
   useEffect(() => {
@@ -55,18 +55,20 @@ export default function HealthSourceTable({
           iconProps={{ color: Color.PRIMARY_7, margin: { right: 'small' } }}
           color={Color.PRIMARY_7}
           onClick={() => {
-            shouldRenderAtVerifyStep
-              ? setModalOpen(false)
-              : history.push(
-                  routes.toCVMonitoringServices({
-                    orgIdentifier: params.orgIdentifier,
-                    projectIdentifier: params.projectIdentifier,
-                    accountId: params.accountId
-                  })
-                )
+            if (shouldRenderAtVerifyStep) {
+              setModalOpen(false)
+              return
+            }
+            history.push(
+              routes.toCVMonitoringServices({
+                orgIdentifier: params.orgIdentifier,
+                projectIdentifier: params.projectIdentifier,
+                accountId: params.accountId
+              })
+            )
           }}
         >
-          {routeTitle || getString('cv.healthSource.backtoMonitoredService')}
+          {routeTitle}
         </Text>
         <div className="ng-tooltip-native">
           <p>
@@ -141,68 +143,86 @@ export default function HealthSourceTable({
     if (rowToEdit) {
       setrowData(rowToEdit)
       setModalOpen(true)
-    } else {
-      showError(getString('cv.healthSource.noDataPresentHealthSource'))
+      return
     }
+    showError(getString('cv.healthSource.noDataPresentHealthSource'))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
-    <>
-      {shouldRenderAtVerifyStep ? (
-        <HealthSources
-          healthSources={tableData}
-          editHealthSource={editRow}
-          addHealthSource={() => {
-            setModalOpen(true)
-            setrowData(null)
-          }}
-          isRunTimeInput={isRunTimeInput}
-        />
-      ) : (
+  const renderHealthSourceTable = useCallback(
+    (renderAtVerifyStep: boolean, healthSourceTableData: RowData[]) => {
+      if (renderAtVerifyStep) {
+        return (
+          <HealthSources
+            healthSources={healthSourceTableData}
+            editHealthSource={editRow}
+            addHealthSource={() => {
+              setModalOpen(true)
+              setrowData(null)
+            }}
+            isRunTimeInput={isRunTimeInput}
+          />
+        )
+      }
+      return (
         <>
           <Text className={css.tableTitle}>{getString('connectors.cdng.healthSources.label')}</Text>
-          {tableData?.length ? (
-            <Table
-              className={css.tableWrapper}
-              sortable={true}
-              onRowClick={data => {
-                const rowFilteredData =
-                  tableData?.find((healthSource: RowData) => healthSource.identifier === data.identifier) || null
-                editRow(rowFilteredData)
-              }}
-              columns={[
-                {
-                  Header: getString('name'),
-                  accessor: 'name',
-                  width: '30%'
-                },
-                {
-                  Header: getString('typeLabel'),
-                  width: '35%',
-                  Cell: renderTypeByFeature
-                },
-                {
-                  Header: getString('source'),
-                  accessor: 'type',
-                  width: '35%',
-                  Cell: renderTypeWithIcon
-                }
-              ]}
-              data={tableData}
-            />
-          ) : (
-            <Container className={css.noData}>
-              <NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} />
-            </Container>
-          )}
+          {renderHealthSourceTableInCV(healthSourceTableData)}
           <div className={cx(css.drawerlink)}>
             <Link to={'#'} onClick={validateMonitoredSource}>
               + {getString('cv.healthSource.addHealthSource')}
             </Link>
           </div>
         </>
-      )}
+      )
+    },
+    [isRunTimeInput]
+  )
+
+  const renderHealthSourceTableInCV = useCallback((healthSourceTableData: RowData[]) => {
+    if (healthSourceTableData?.length) {
+      return (
+        <Table
+          className={css.healthSourceTableWrapper}
+          sortable={true}
+          onRowClick={data => {
+            const rowFilteredData = healthSourceTableData?.find(
+              (healthSource: RowData) => healthSource.identifier === data.identifier
+            )
+            editRow(rowFilteredData)
+          }}
+          columns={[
+            {
+              Header: getString('name'),
+              accessor: 'name',
+              width: '30%'
+            },
+            {
+              Header: getString('typeLabel'),
+              width: '35%',
+              Cell: renderTypeByFeature
+            },
+            {
+              Header: getString('source'),
+              accessor: 'type',
+              width: '35%',
+              Cell: renderTypeWithIcon
+            }
+          ]}
+          data={healthSourceTableData}
+        />
+      )
+    }
+    return (
+      <Container className={css.noData}>
+        <NoDataCard icon={'join-table'} message={getString('cv.healthSource.noData')} />
+      </Container>
+    )
+  }, [])
+
+  return (
+    <>
+      {renderHealthSourceTable(!!shouldRenderAtVerifyStep, tableData)}
       <HealthSourceDrawerContent
         isEdit={!!isEdit && !!rowData}
         onClose={onCloseHealthSourceTableWrapper}

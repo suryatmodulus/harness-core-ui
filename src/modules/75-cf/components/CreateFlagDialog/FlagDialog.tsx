@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Dialog } from '@blueprintjs/core'
 import { Color, useModalHook, Button, Container, Text, Icon } from '@wings-software/uicore'
+import { useFeatureFlagTelemetry } from '@cf/hooks/useFeatureFlagTelemetry'
 import { useStrings } from 'framework/strings'
 import RbacButton from '@rbac/components/Button/Button'
 import { ResourceType } from '@rbac/interfaces/ResourceType'
@@ -19,6 +20,7 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
   const { getString } = useStrings()
   const [flagTypeClicked, setFlagTypeClicked] = useState(false)
   const [flagTypeView, setFlagTypeView] = useState('')
+  const events = useFeatureFlagTelemetry()
 
   const booleanFlagBtn = (typeOfFlag: boolean, type: string): void => {
     setFlagTypeClicked(typeOfFlag)
@@ -109,7 +111,10 @@ const FlagModal: React.FC<FlagModalProps> = ({ disabled, environment }) => {
       disabled={disabled}
       text={getString('cf.featureFlags.newFlag')}
       intent="primary"
-      onClick={showModal}
+      onClick={() => {
+        events.createFeatureFlagStart()
+        showModal()
+      }}
       className={css.openModalBtn}
       permission={{
         permission: PermissionIdentifier.EDIT_FF_FEATUREFLAG,

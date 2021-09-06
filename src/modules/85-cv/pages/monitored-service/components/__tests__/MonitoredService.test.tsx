@@ -62,10 +62,12 @@ jest.mock('services/cv', () => ({
     jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
   useUpdateMonitoredService: () =>
     jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
-  useGetMonitoredService: () =>
-    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
-  useGetMonitoredServiceYamlTemplate: () =>
-    jest.fn().mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: fetchMonitoredServiceYAML }))
+  useGetMonitoredService: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: jest.fn() })),
+  useGetMonitoredServiceYamlTemplate: jest
+    .fn()
+    .mockImplementation(() => ({ loading: false, error: null, data: {}, refetch: fetchMonitoredServiceYAML }))
 }))
 
 describe('Unit tests for createting monitored source', () => {

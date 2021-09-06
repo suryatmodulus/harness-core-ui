@@ -472,7 +472,7 @@ exports[`Unit tests for createting monitored source Health source table and envi
                   cv.navLinks.adminSideNavLinks.activitySources
                 </p>
                 <div
-                  class="table tableWrapper"
+                  class="table changeSourceTableWrapper"
                 >
                   <div
                     class="header"

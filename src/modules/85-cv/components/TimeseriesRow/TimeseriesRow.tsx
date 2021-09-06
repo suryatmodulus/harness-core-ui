@@ -60,10 +60,10 @@ export default function TimeseriesRow({
       <Container className={styles.labels}>
         <div>
           <div>
-            <Text color={Color.BLACK} font={FONT_SIZE_SMALL} width={130} lineClamp={1}>
+            <Text color={Color.BLACK} font={FONT_SIZE_SMALL} lineClamp={1}>
               {transactionName}
             </Text>
-            <Text font={FONT_SIZE_SMALL} width={130} lineClamp={1}>
+            <Text font={FONT_SIZE_SMALL} lineClamp={1}>
               {metricName}
             </Text>
           </div>

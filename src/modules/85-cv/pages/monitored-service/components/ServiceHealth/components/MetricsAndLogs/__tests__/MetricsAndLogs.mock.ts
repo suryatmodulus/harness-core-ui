@@ -1,25 +1,15 @@
-export const mockedDatasourceTypesData = {
+export const mockedHealthSourcesData = {
   data: {
     resource: [
       {
-        dataSourceType: 'APP_DYNAMICS',
-        verificationType: 'TIME_SERIES'
+        identifier: 'GCO_Health_source',
+        name: 'GCO Health source',
+        type: 'STACKDRIVER_LOG'
       },
       {
-        dataSourceType: 'SPLUNK',
-        verificationType: 'LOG'
-      },
-      {
-        dataSourceType: 'STACKDRIVER',
-        verificationType: 'TIME_SERIES'
-      },
-      {
-        dataSourceType: 'STACKDRIVER',
-        verificationType: 'LOG'
-      },
-      {
-        dataSourceType: 'NEW_RELIC',
-        verificationType: 'TIME_SERIES'
+        identifier: 'Appd_Health_source',
+        name: 'Appd Health source',
+        type: 'APP_DYNAMICS'
       }
     ]
   }

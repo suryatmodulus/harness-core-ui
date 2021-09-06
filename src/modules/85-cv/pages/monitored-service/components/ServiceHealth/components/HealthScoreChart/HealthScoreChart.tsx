@@ -55,12 +55,11 @@ export default function HealthScoreChart(props: HealthScoreChartProps): JSX.Elem
       )
     } else if (!seriesData[0]?.data?.length || seriesData[0].data.every(el => (el as SeriesDataPoint)?.y === 0)) {
       return (
-        <Container className={css.noData}>
-          <NoDataCard
-            message={getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore')}
-            icon="warning-sign"
-          />
-        </Container>
+        <NoDataCard
+          message={getString('cv.monitoredServices.serviceHealth.noDataAvailableForHealthScore')}
+          icon="warning-sign"
+          containerClassName={css.noData}
+        />
       )
     } else {
       return <ColumnChart data={seriesData} />

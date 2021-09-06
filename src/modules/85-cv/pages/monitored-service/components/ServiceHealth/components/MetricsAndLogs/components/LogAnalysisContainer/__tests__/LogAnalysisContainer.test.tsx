@@ -4,7 +4,7 @@ import { TestWrapper } from '@common/utils/testUtils'
 import LogAnalysisContainer from '../LogAnalysisContainer'
 import type { MetricsAndLogsProps } from '../../../MetricsAndLogs.types'
 import { mockedLogAnalysisData } from './LogAnalysisContainer.mocks'
-import { mockedDatasourceTypesData } from '../../../__tests__/MetricsAndLogs.mock'
+import { mockedHealthSourcesData } from '../../../__tests__/MetricsAndLogs.mock'
 
 const WrapperComponent = (props: MetricsAndLogsProps): JSX.Element => {
   return (
@@ -24,8 +24,8 @@ jest.mock('services/cv', () => ({
     error: null,
     refetch: fetchLogAnalysis
   })),
-  useGetDataSourcetypes: jest.fn().mockImplementation(() => {
-    return { data: mockedDatasourceTypesData, error: null, loading: false }
+  useGetAllHealthSourcesForServiceAndEnvironment: jest.fn().mockImplementation(() => {
+    return { data: mockedHealthSourcesData, error: null, loading: false }
   })
 }))
 

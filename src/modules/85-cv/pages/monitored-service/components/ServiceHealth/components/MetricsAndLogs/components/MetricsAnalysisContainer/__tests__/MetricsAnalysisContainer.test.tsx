@@ -3,7 +3,7 @@ import { render, waitFor, screen } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import MetricsAnalysisContainer from '../MetricsAnalysisContainer'
 import type { MetricsAndLogsProps } from '../../../MetricsAndLogs.types'
-import { mockedDatasourceTypesData } from '../../../__tests__/MetricsAndLogs.mock'
+import { mockedHealthSourcesData } from '../../../__tests__/MetricsAndLogs.mock'
 import { mockedMetricsData } from './MetricsAnalysisContainer.mock'
 
 const WrapperComponent = (props: MetricsAndLogsProps): JSX.Element => {
@@ -21,8 +21,8 @@ jest.mock('services/cv', () => ({
   useGetTimeSeriesMetricData: jest.fn().mockImplementation(() => {
     return { data: mockedMetricsData, refetch: fetchMetricsData, error: null, loading: false }
   }),
-  useGetDataSourcetypes: jest.fn().mockImplementation(() => {
-    return { data: mockedDatasourceTypesData, error: null, loading: false }
+  useGetAllHealthSourcesForServiceAndEnvironment: jest.fn().mockImplementation(() => {
+    return { data: mockedHealthSourcesData, error: null, loading: false }
   })
 }))
 

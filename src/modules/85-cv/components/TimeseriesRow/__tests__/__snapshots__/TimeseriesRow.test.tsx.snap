@@ -12,13 +12,13 @@ exports[`TimeseriesRow matches snapshot 1`] = `
         <div>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-            style="--text-line-clamp: 1; width: 130px;"
+            style="--text-line-clamp: 1;"
           >
             transaction1
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
-            style="--text-line-clamp: 1; width: 130px;"
+            style="--text-line-clamp: 1;"
           >
             metric1
           </p>
@@ -109,13 +109,13 @@ exports[`TimeseriesRow matches snapshot when config is passed 1`] = `
         <div>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-            style="--text-line-clamp: 1; width: 130px;"
+            style="--text-line-clamp: 1;"
           >
             transaction1
           </p>
           <p
             class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
-            style="--text-line-clamp: 1; width: 130px;"
+            style="--text-line-clamp: 1;"
           >
             metric1
           </p>

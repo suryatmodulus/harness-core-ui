@@ -17,7 +17,7 @@ import {
   useModalHook
 } from '@wings-software/uicore'
 import * as Yup from 'yup'
-import { get, isEmpty, noop, omit } from 'lodash-es'
+import { get, isEmpty, isNil, noop, omit } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { Classes, Dialog } from '@blueprintjs/core'
 import { parse } from 'yaml'
@@ -25,7 +25,9 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import { connect, FormikErrors, FormikProps } from 'formik'
 import cx from 'classnames'
 import {
+  EnvironmentRequestDTO,
   EnvironmentResponseDTO,
+  EnvironmentYaml,
   getEnvironmentListPromise,
   PipelineInfrastructure,
   useCreateEnvironmentV2,
@@ -63,8 +65,7 @@ interface NewEditEnvironmentModalProps {
   isEnvironment: boolean
   data: EnvironmentResponseDTO
   envIdentifier?: string
-  formik?: FormikProps<DeployEnvData>
-  onCreateOrUpdate(data: EnvironmentResponseDTO): void
+  onCreateOrUpdate(data: EnvironmentRequestDTO): void
   closeModal?: () => void
 }
 
@@ -72,7 +73,6 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   isEdit,
   data,
   isEnvironment,
-  formik,
   onCreateOrUpdate,
   closeModal
 }): JSX.Element => {
@@ -98,7 +98,7 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
   const { showSuccess, showError, clear } = useToaster()
 
   const onSubmit = React.useCallback(
-    async (values: Required<EnvironmentResponseDTO>) => {
+    async (values: Required<EnvironmentRequestDTO>) => {
       try {
         if (isEdit && !isEnvironment) {
           const response = await updateEnvironment({
@@ -109,7 +109,6 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.environmentUpdated'))
-            formik?.setFieldValue('environmentRef', values.identifier)
             onCreateOrUpdate(values)
           }
         } else {
@@ -117,7 +116,6 @@ export const NewEditEnvironmentModal: React.FC<NewEditEnvironmentModalProps> = (
           if (response.status === 'SUCCESS') {
             clear()
             showSuccess(getString('cd.environmentCreated'))
-            formik?.setFieldValue('environmentRef', values.identifier)
             onCreateOrUpdate(values)
           }
         }
@@ -242,18 +240,40 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   const {
     data: environmentsResponse,
     loading,
-    error,
-    refetch
+    error
   } = useGetEnvironmentList({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
-  const [environments, setEnvironments] = React.useState<SelectOption[]>([])
+  const [environments, setEnvironments] = React.useState<EnvironmentYaml[]>()
+  const [selectOptions, setSelectOptions] = React.useState<SelectOption[]>()
+
   const [state, setState] = React.useState<DeployEnvironmentState>({
     isEdit: false,
     isEnvironment: false,
     data: { name: '', identifier: '' }
   })
+
+  const updateEnvironmentsList = (value: EnvironmentRequestDTO) => {
+    formikRef.current?.setValues({ environmentRef: value.identifier, ...(state.isEnvironment && { environment: {} }) })
+    if (!isNil(environments)) {
+      const newEnvironment = {
+        description: value.description,
+        identifier: value.identifier,
+        name: value.name || '',
+        tags: value.tags,
+        type: value.type
+      }
+      const newEnvironmentsList = [...environments]
+      const existingIndex = newEnvironmentsList.findIndex(item => item.identifier === value.identifier)
+      if (existingIndex >= 0) {
+        newEnvironmentsList.splice(existingIndex, 1, newEnvironment)
+      } else {
+        newEnvironmentsList.unshift(newEnvironment)
+      }
+      setEnvironments(newEnvironmentsList)
+    }
+  }
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -271,10 +291,8 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
           data={state.data || { name: '', identifier: '' }}
           isEnvironment={state.isEnvironment}
           isEdit={state.isEdit}
-          formik={state.formik}
-          onCreateOrUpdate={values => {
-            refetch()
-            onUpdate?.({ ...omit(initialValues, 'environment'), environmentRef: values.identifier })
+          onCreateOrUpdate={value => {
+            updateEnvironmentsList(value)
             onClose.call(null)
           }}
           closeModal={onClose}
@@ -290,43 +308,56 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   }, [hideModal])
 
   React.useEffect(() => {
+    if (!isNil(selectOptions) && initialValues.environmentRef) {
+      if (getMultiTypeFromValue(initialValues.environmentRef) === MultiTypeInputType.FIXED) {
+        const doesExist = selectOptions.filter(env => env.value === initialValues.environmentRef).length > 0
+        if (!doesExist) {
+          formikRef.current?.setFieldValue('environmentRef', '')
+        }
+      }
+    }
+  }, [selectOptions])
+
+  React.useEffect(() => {
+    if (!isNil(environments)) {
+      setSelectOptions(
+        environments.map(environment => {
+          return { label: environment.name, value: environment.identifier }
+        })
+      )
+    }
+  }, [environments])
+
+  React.useEffect(() => {
     if (!loading) {
-      const envList: SelectOption[] = []
+      const envList: EnvironmentYaml[] = []
       if (environmentsResponse?.data?.content?.length) {
         environmentsResponse.data.content.forEach(env => {
           envList.push({
-            label: env.environment?.name || env.environment?.identifier || '',
-            value: env.environment?.identifier || ''
+            description: env.environment?.description,
+            identifier: env.environment?.identifier || '',
+            name: env.environment?.name || '',
+            tags: env.environment?.tags,
+            type: env.environment?.type || 'PreProduction'
           })
         })
       }
-      if (initialValues.environmentRef) {
-        if (getMultiTypeFromValue(initialValues.environmentRef) === MultiTypeInputType.FIXED) {
-          const doesExist = envList.filter(env => env.value === initialValues.environmentRef).length > 0
-          if (!doesExist) {
-            formikRef.current?.setFieldValue('environmentRef', '')
-          }
-        }
-      } else {
-        const identifier = initialValues.environment?.identifier
-        const isExist = envList.filter(env => env.value === identifier).length > 0
+      if (initialValues.environment) {
+        const identifier = initialValues.environment.identifier
+        const isExist = envList.filter(env => env.identifier === identifier).length > 0
         if (initialValues.environment && identifier && !isExist) {
-          const value = {
-            label: initialValues.environment.name || '',
-            value: initialValues.environment.identifier || ''
-          }
-          envList.push(value)
+          envList.push({
+            description: initialValues.environment.description,
+            identifier: initialValues.environment.identifier || '',
+            name: initialValues.environment.name || '',
+            tags: initialValues.environment.tags,
+            type: initialValues.environment.type || 'PreProduction'
+          })
         }
       }
       setEnvironments(envList)
     }
-  }, [
-    loading,
-    environmentsResponse,
-    environmentsResponse?.data?.content?.length,
-    initialValues.environment,
-    initialValues.environmentRef
-  ])
+  }, [loading, environmentsResponse, environmentsResponse?.data?.content?.length])
 
   if (error?.message) {
     showError(error.message, undefined, 'cd.env.list.error')
@@ -337,7 +368,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
   const [canEdit] = usePermission({
     resource: {
       resourceType: ResourceType.ENVIRONMENT,
-      resourceIdentifier: environments[0]?.value as string
+      resourceIdentifier: environments ? (environments[0]?.identifier as string) : ''
     },
     permissions: [PermissionIdentifier.EDIT_ENVIRONMENT],
     options: {
@@ -400,9 +431,11 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                   label={getString('pipelineSteps.environmentTab.specifyYourEnvironment')}
                   tooltipProps={{ dataTooltipId: 'specifyYourEnvironment' }}
                   name="environmentRef"
-                  disabled={readonly}
                   useValue
-                  placeholder={getString('pipelineSteps.environmentTab.selectEnvironment')}
+                  disabled={readonly || (type === MultiTypeInputType.FIXED && loading)}
+                  placeholder={
+                    loading ? getString('loading') : getString('pipelineSteps.environmentTab.selectEnvironment')
+                  }
                   multiTypeInputProps={{
                     onTypeChange: setType,
                     width: 300,
@@ -411,17 +444,17 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                         values.environment?.identifier &&
                         (val as SelectOption).value !== values.environment.identifier
                       ) {
-                        setEnvironments(environments.filter(env => env.value !== values.environment?.identifier))
+                        setEnvironments(environments?.filter(env => env.identifier !== values.environment?.identifier))
                         setFieldValue('environment', undefined)
                       }
                     },
                     selectProps: {
                       addClearBtn: !readonly,
-                      items: environments
+                      items: selectOptions || []
                     },
                     expressions
                   }}
-                  selectItems={environments}
+                  selectItems={selectOptions || []}
                 />
                 {type === MultiTypeInputType.FIXED && (
                   <Button
@@ -443,9 +476,7 @@ const DeployEnvironmentWidget: React.FC<DeployEnvironmentProps> = ({
                             isEdit,
                             formik,
                             isEnvironment: false,
-                            data: environmentsResponse?.data?.content?.filter(
-                              env => env.environment?.identifier === values.environmentRef
-                            )?.[0]?.environment as EnvironmentResponseDTO
+                            data: environments?.find(env => env.identifier === values.environmentRef)
                           })
                         }
                       } else {

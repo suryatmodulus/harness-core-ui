@@ -151,13 +151,13 @@ exports[`Unit tests for MetricsAnalysisContainer Verify if MetricsAnalysisContai
               <div>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--color StyledProps--color-black StyledProps--font-size-small"
-                  style="--text-line-clamp: 1; width: 130px;"
+                  style="--text-line-clamp: 1;"
                 >
                   /api/account
                 </p>
                 <p
                   class="StyledProps--font Text--lineclamp StyledProps--main StyledProps--font-size-small"
-                  style="--text-line-clamp: 1; width: 130px;"
+                  style="--text-line-clamp: 1;"
                 >
                   Average Response Time (ms)
                 </p>
@@ -227,6 +227,9 @@ exports[`Unit tests for MetricsAnalysisContainer Verify if MetricsAnalysisContai
           </div>
         </div>
       </div>
+      <div
+        class="timelineBar timeline"
+      />
     </div>
     <div
       class="Layout--horizontal StyledProps--main Pagination--container StyledProps--padding-top-medium StyledProps--padding-bottom-medium StyledProps--flex StyledProps--flex-align-center-center StyledProps--flex-distribution-space-between"

@@ -81,8 +81,8 @@ const ProviderOverviewStep = (props: any) => {
     ? (prevStepData as ConnectorConfigDTO)?.name
     : (connectorInfo as ConnectorInfoDTO)?.name
 
-  const afterSuccessHandler = (): void => {
-    nextStep?.({ ...props.connectorInfo, ...prevStepData })
+  const afterSuccessHandler = (response: any): void => {
+    nextStep?.({ ...props.connectorInfo, ...response?.data?.connector, ...prevStepData })
   }
 
   return (

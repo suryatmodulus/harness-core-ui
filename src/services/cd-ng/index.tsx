@@ -1179,6 +1179,40 @@ export type ConnectorFilterProperties = FilterProperties & {
   connectorIdentifiers?: string[]
   connectorNames?: string[]
   description?: string
+  excludeTypes?: (
+    | 'K8sCluster'
+    | 'Git'
+    | 'Splunk'
+    | 'AppDynamics'
+    | 'Prometheus'
+    | 'Dynatrace'
+    | 'Vault'
+    | 'AzureKeyVault'
+    | 'DockerRegistry'
+    | 'Local'
+    | 'AwsKms'
+    | 'GcpKms'
+    | 'AwsSecretManager'
+    | 'Gcp'
+    | 'Aws'
+    | 'Artifactory'
+    | 'Jira'
+    | 'Nexus'
+    | 'Github'
+    | 'Gitlab'
+    | 'Bitbucket'
+    | 'Codecommit'
+    | 'CEAws'
+    | 'CEAzure'
+    | 'GcpCloudCost'
+    | 'CEK8sCluster'
+    | 'HttpHelmRepo'
+    | 'ArgoConnector'
+    | 'NewRelic'
+    | 'Datadog'
+    | 'SumoLogic'
+    | 'PagerDuty'
+  )[]
   inheritingCredentialsFromDelegate?: boolean
   types?: (
     | 'K8sCluster'
@@ -1772,6 +1806,7 @@ export interface EntityDetail {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export interface EntityGitDetails {
@@ -2726,6 +2761,7 @@ export interface GitEntityBranchFilterSummaryProperties {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   )[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
   searchTerm?: string
@@ -2755,6 +2791,7 @@ export interface GitEntityFilterProperties {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   )[]
   gitSyncConfigIdentifiers?: string[]
   moduleType?: 'CD' | 'CI' | 'CV' | 'CF' | 'CE' | 'CORE' | 'PMS' | 'TEMPLATESERVICE'
@@ -2860,6 +2897,7 @@ export interface GitSyncEntityDTO {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   folderPath?: string
   gitConnectorId?: string
   repoProviderType?: 'github' | 'gitlab' | 'bitbucket' | 'unknown'
@@ -2891,6 +2929,7 @@ export interface GitSyncEntityListDTO {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   gitSyncEntities?: GitSyncEntityDTO[]
 }
 
@@ -7369,6 +7408,7 @@ export interface ListActivitiesQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -7392,6 +7432,7 @@ export interface ListActivitiesQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export type ListActivitiesProps = Omit<GetProps<ResponsePageActivity, unknown, ListActivitiesQueryParams, void>, 'path'>
@@ -7562,6 +7603,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   referredByEntityType?:
     | 'Projects'
     | 'Pipelines'
@@ -7585,6 +7627,7 @@ export interface GetActivitiesSummaryQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export type GetActivitiesSummaryProps = Omit<
@@ -13080,6 +13123,7 @@ export interface ListReferredByEntitiesQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   searchTerm?: string
   branch?: string
   repoIdentifier?: string
@@ -15031,6 +15075,7 @@ export interface ListGitSyncEntitiesByTypePathParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
 }
 
 export type ListGitSyncEntitiesByTypeProps = Omit<
@@ -15122,6 +15167,7 @@ export const listGitSyncEntitiesByTypePromise = (
       | 'Template'
       | 'Triggers'
       | 'MonitoredService'
+      | 'GitRepositories'
   },
   signal?: RequestInit['signal']
 ) =>
@@ -23899,6 +23945,7 @@ export interface GetYamlSchemaQueryParams {
     | 'Template'
     | 'Triggers'
     | 'MonitoredService'
+    | 'GitRepositories'
   subtype?:
     | 'K8sCluster'
     | 'Git'

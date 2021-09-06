@@ -99,10 +99,10 @@ const ProviderOverviewStep = (props: any) => {
 
       <Formik
         initialValues={{
-          adapterURL: props?.provider?.spec?.adapterUrl || ''
+          adapterUrl: props?.provider?.spec?.adapterUrl || ''
         }}
         validationSchema={Yup.object().shape({
-          adapterURL: Yup.string()
+          adapterUrl: Yup.string()
             .trim()
             .url('Please enter a valid Adapter URL')
             .required('Please enter a valid Adapter URL')
@@ -157,7 +157,7 @@ const ProviderOverviewStep = (props: any) => {
               </Heading>
 
               <Layout.Vertical spacing="large" className={css.stepFormContainer}>
-                <FormInput.Text name="adapterURL" label={'Adapter URL'} style={{ width: '60%' }} />
+                <FormInput.Text name="adapterUrl" label={'Adapter URL'} style={{ width: '60%' }} />
 
                 <Layout.Horizontal className={css.layoutFooter} padding={{ top: 'small' }} spacing="medium">
                   <Button

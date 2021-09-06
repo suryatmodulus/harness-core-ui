@@ -1059,7 +1059,7 @@ export const buildArgoConnectorPayload = (formData: FormData) => {
     tags: formData.tags,
     type: 'ArgoConnector',
     spec: {
-      adapterUrl: formData.adapterURL
+      adapterUrl: formData.adapterUrl
     }
   }
   return { connector: savedData }

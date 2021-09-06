@@ -1,15 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useMemo, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-  Container,
-  HarnessDocTooltip,
-  Layout,
-  ExpandingSearchInput,
-  useModalHook,
-  SelectOption
-} from '@wings-software/uicore'
+import { HarnessDocTooltip, Layout, useModalHook } from '@wings-software/uicore'
 import { Dialog } from '@blueprintjs/core'
 import { useGetConnectorListV2, GetConnectorListV2QueryParams } from 'services/cd-ng'
 
@@ -30,24 +23,11 @@ import css from './GitOpsModalContainer.module.scss'
 const GitOpsModalContainer: React.FC = () => {
   const { projectIdentifier, orgIdentifier, accountId, module } = useParams<PipelineType<ProjectPathProps>>()
   const { getString } = useStrings()
-  const [page, setPage] = useState(0)
-  const [searchParam, setSearchParam] = useState<string>()
   const { selectedProject } = useAppStore()
   const project = selectedProject
   const textIdentifier = 'gitOps'
 
-  const allOrgsSelectOption: SelectOption = useMemo(
-    () => ({
-      label: getString('all'),
-      value: getString('projectsOrgs.capsAllValue')
-    }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
-  )
-
   const [providers, setProviders] = useState([])
-  const [connectorResponseData, setConnectorResponseData] = useState()
-  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const [activeProvider, setActiveProvider] = useState(null)
   const [loadingConnectors, setLoadingConnectors] = useState(false)
 
@@ -62,12 +42,6 @@ const GitOpsModalContainer: React.FC = () => {
   const { mutate: fetchConnectors } = useGetConnectorListV2({
     queryParams: defaultQueryParams
   })
-
-  const searchProvider = () => {}
-
-  React.useEffect(() => {
-    setPage(0)
-  }, [searchParam, orgFilter])
 
   const handleEdit = (provider: any) => {
     setActiveProvider(provider)
@@ -180,20 +154,6 @@ const GitOpsModalContainer: React.FC = () => {
             withoutBoxShadow
           />
         </Layout.Horizontal>
-        {/* 
-        <Layout.Horizontal margin={{ left: 'small' }}>
-          <Container className={css.expandSearch} margin={{ right: 'small' }} data-name="providerSeachContainer">
-            <ExpandingSearchInput
-              placeholder={getString('search')}
-              throttle={200}
-              onChange={() => {
-                // Need to pass the changed text to the function
-                // Will update once the changes are ready
-                searchProvider()
-              }}
-            />
-          </Container>
-        </Layout.Horizontal> */}
       </Layout.Horizontal>
 
       <ProvidersGridView
@@ -201,9 +161,6 @@ const GitOpsModalContainer: React.FC = () => {
         onEdit={async provider => handleEdit(provider)}
         data={connectorData}
         providers={providers}
-        gotoPage={(pageNumber: number) => {
-          setPage(pageNumber)
-        }}
         loading={loading || loadingConnectors}
       />
     </div>

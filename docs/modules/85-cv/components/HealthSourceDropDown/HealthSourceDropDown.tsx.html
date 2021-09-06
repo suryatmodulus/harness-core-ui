@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">53.85% </span>
+                <span class="strong">47.62% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>21/39</span>
+                <span class='fraction'>20/42</span>
             </div>
         
             
@@ -115,21 +115,24 @@
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
-<a name='L59'></a><a href='#L59'>59</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -146,6 +149,7 @@
 <span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -174,21 +178,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useMemo } from 'react'
-import { Select, SelectOption } from '@wings-software/uicore'
+import { IconName, Select, SelectOption } from '@wings-software/uicore'
 import { useParams } from 'react-router-dom'
 import classNames from 'classnames'
 import { useStrings } from 'framework/strings'
 import type { ProjectPathProps } from '@common/interfaces/RouteInterfaces'
-import { useGetDataSourcetypes } from 'services/cv'
+import { useGetAllHealthSourcesForServiceAndEnvironment } from 'services/cv'
+import { getIconBySourceType } from '@cv/pages/health-source/HealthSourceTable/HealthSourceTable.utils'
 import type { HealthSourceDropDownProps } from './HealthSourceDropDown.types'
-import { dataSourceTypeToLabel } from './HealthSourceDropDown.utils'
 import css from './HealthSourceDropDown.module.scss'
 &nbsp;
 export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Element {
-  const { onChange, serviceIdentifier, environmentIdentifier, className, verificationType = 'TIME_SERIES' } = props
+  const { onChange, serviceIdentifier, environmentIdentifier, className } = props
   const { getString } = useStrings()
   const { accountId, projectIdentifier, orgIdentifier } = useParams&lt;ProjectPathProps&gt;()
-  const { data, error, loading } = useGetDataSourcetypes({
+&nbsp;
+  const { data, error, loading } = useGetAllHealthSourcesForServiceAndEnvironment({
     queryParams: { accountId, projectIdentifier, orgIdentifier, serviceIdentifier, environmentIdentifier }
   })
 &nbsp;
@@ -202,10 +207,11 @@ export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Elem
 &nbsp;
     const options = []
     for (const source of data<span class="branch-0 cbranch-no" title="branch not covered" >?.r</span>esource || []) {
-<span class="cstat-no" title="statement not covered" >      if (source.dataSourceType &amp;&amp; source.verificationType === verificationType) {</span>
+<span class="cstat-no" title="statement not covered" >      if (source.identifier &amp;&amp; source.name) {</span>
 <span class="cstat-no" title="statement not covered" >        options.push({</span>
-          label: dataSourceTypeToLabel(source.dataSourceType, getString),
-          value: source.dataSourceType as string
+          label: source.name,
+          value: source.identifier as string,
+          icon: { name: getIconBySourceType(source?.type as string) as IconName }
         })
       }
     }
@@ -238,7 +244,7 @@ export function HealthSourceDropDown(props: HealthSourceDropDownProps): JSX.Elem
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Sep 06 2021 10:07:20 GMT+0000 (Greenwich Mean Time)
+                at Mon Sep 06 2021 11:50:49 GMT+0000 (Greenwich Mean Time)
             </div>
         </div>
         <script src="../../../../prettify.js"></script>
